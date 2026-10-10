@@ -1,21 +1,8 @@
 # Déploiement Coolify : router le domaine vers le service `proxy`, port 80.
+# PostgreSQL n'est pas dans cette pile : DATABASE_URL pointe vers une base existante.
 name: become-top-dev
 
 services:
-  db:
-    image: postgres:17-alpine
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-btd}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?définir POSTGRES_PASSWORD}
-      POSTGRES_DB: btd
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\""]
-      interval: 5s
-      retries: 10
-    restart: unless-stopped
-
   # Construit seulement l'image d'exécution Go utilisée par le runner, puis s'arrête.
   sandbox-go:
     build: ./sandbox/images/go
@@ -40,15 +27,14 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     environment:
-      BTD_DATABASE_URL: postgres://${POSTGRES_USER:-btd}:${POSTGRES_PASSWORD}@db:5432/btd
+      # Base PostgreSQL externe (instance Coolify existante), ex. postgres://btd:…@hôte:5432/btd?sslmode=require
+      BTD_DATABASE_URL: ${DATABASE_URL:?définir DATABASE_URL}
       BTD_SESSION_SECRET: ${SESSION_SECRET:?définir SESSION_SECRET}
       BTD_APP_PASSWORD: ${APP_PASSWORD:?définir APP_PASSWORD}
       BTD_SECURE_COOKIES: ${SECURE_COOKIES:-true}
       BTD_RUNNER_URL: http://runner:8001
       BTD_RUNNER_TOKEN: ${RUNNER_TOKEN}
     depends_on:
-      db:
-        condition: service_healthy
       runner:
         condition: service_started
     restart: unless-stopped
@@ -70,6 +56,3 @@ services:
       - backend
       - frontend
     restart: unless-stopped
-
-volumes:
-  db-data:

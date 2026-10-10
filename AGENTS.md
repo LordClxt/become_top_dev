@@ -85,4 +85,4 @@ design-system/             tokens partagés UI + visuels (couleurs, typo, motion
 - `python3 .claude/skills/lab-authoring/scripts/verify_quiz.py <chapitre>` — valider les quiz d'un chapitre
 
 ## Déploiement (Coolify)
-`docker-compose.yaml` à la racine. Pointer le domaine vers le service `proxy` (port 80) ; Caddy envoie `/api/*` au backend et le reste au frontend. Le port hôte local est publié uniquement via `docker-compose.override.yaml`. Variables : voir `.env.example`. Le `runner` monte le socket Docker de l'hôte : ne jamais l'exposer.
+`docker-compose.yaml` à la racine. Pointer le domaine vers le service `proxy` (port 80) ; Caddy envoie `/api/*` au backend et le reste au frontend. Le port hôte local est publié uniquement via `docker-compose.override.yaml`. PostgreSQL est externe à la pile : le backend s'y connecte via `DATABASE_URL`. Variables : voir `.env.example`. Le `runner` monte le socket Docker de l'hôte : ne jamais l'exposer.
