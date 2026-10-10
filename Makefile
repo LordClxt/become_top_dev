@@ -5,12 +5,12 @@ dev: ## Tout lancer en local (http://localhost:3000)
 
 test: ## Tests backend + runner + contrôle de types du frontend
 	cd backend && uv run pytest -q
-	cd runner && uv run pytest -q
+	cd runner && go test ./...
 	cd frontend && pnpm typecheck
 
 lint:
 	cd backend && uv run ruff check . && uv run ruff format --check .
-	cd runner && uv run ruff check . && uv run ruff format --check .
+	cd runner && test -z "$$(gofmt -l .)" && go vet ./...
 
 validate-content: ## Rejouer tous les TP et quiz du contenu
 	./scripts/validate_content.sh

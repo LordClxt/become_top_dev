@@ -12,7 +12,7 @@ fi
 (cd backend && uv run alembic upgrade head)
 
 trap 'kill 0' EXIT
-(cd runner && uv run uvicorn app.main:app --port 8001) &
+(cd runner && RUNNER_ADDR=127.0.0.1:8001 go run .) &
 (cd backend && uv run uvicorn app.main:app --port 8000 --reload) &
 (cd frontend && pnpm dev) &
 echo "→ http://localhost:3000  (mot de passe de dev : dev)"

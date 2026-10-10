@@ -1,0 +1,542 @@
+[
+ {
+  "name": "health",
+  "method": "GET",
+  "path": "/api/health"
+ },
+ {
+  "name": "me-anonymous",
+  "method": "GET",
+  "path": "/api/auth/me"
+ },
+ {
+  "name": "courses-anonymous",
+  "method": "GET",
+  "path": "/api/courses"
+ },
+ {
+  "name": "avatar-put-anonymous",
+  "method": "PUT",
+  "path": "/api/profile/avatar",
+  "body_b64": "iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+ },
+ {
+  "name": "login-wrong",
+  "method": "POST",
+  "path": "/api/auth/login",
+  "json": {
+   "password": "faux"
+  }
+ },
+ {
+  "name": "catalog",
+  "method": "GET",
+  "path": "/api/catalog"
+ },
+ {
+  "name": "login",
+  "method": "POST",
+  "path": "/api/auth/login",
+  "json": {
+   "password": "secret-test"
+  }
+ },
+ {
+  "name": "me",
+  "method": "GET",
+  "path": "/api/auth/me"
+ },
+ {
+  "name": "courses-fresh",
+  "method": "GET",
+  "path": "/api/courses"
+ },
+ {
+  "name": "progress-fresh",
+  "method": "GET",
+  "path": "/api/progress?tz=Europe/Paris"
+ },
+ {
+  "name": "chapter-unknown",
+  "method": "GET",
+  "path": "/api/chapters/nope"
+ },
+ {
+  "name": "lesson-unknown",
+  "method": "GET",
+  "path": "/api/lessons/nope"
+ },
+ {
+  "name": "quiz-unknown",
+  "method": "GET",
+  "path": "/api/quizzes/nope"
+ },
+ {
+  "name": "exercise-unknown",
+  "method": "GET",
+  "path": "/api/exercises/nope"
+ },
+ {
+  "name": "sandbox",
+  "method": "GET",
+  "path": "/api/exercises"
+ },
+ {
+  "name": "chapter:go-ch00",
+  "method": "GET",
+  "path": "/api/chapters/go-ch00"
+ },
+ {
+  "name": "chapter:go-ch02",
+  "method": "GET",
+  "path": "/api/chapters/go-ch02"
+ },
+ {
+  "name": "lesson:go-ch00-l01",
+  "method": "GET",
+  "path": "/api/lessons/go-ch00-l01"
+ },
+ {
+  "name": "lesson:go-ch00-l02",
+  "method": "GET",
+  "path": "/api/lessons/go-ch00-l02"
+ },
+ {
+  "name": "lesson:go-ch00-l03",
+  "method": "GET",
+  "path": "/api/lessons/go-ch00-l03"
+ },
+ {
+  "name": "lesson:go-ch02-l01",
+  "method": "GET",
+  "path": "/api/lessons/go-ch02-l01"
+ },
+ {
+  "name": "lesson:go-ch02-l02",
+  "method": "GET",
+  "path": "/api/lessons/go-ch02-l02"
+ },
+ {
+  "name": "lesson:go-ch02-l03",
+  "method": "GET",
+  "path": "/api/lessons/go-ch02-l03"
+ },
+ {
+  "name": "lesson:go-ch02-l04",
+  "method": "GET",
+  "path": "/api/lessons/go-ch02-l04"
+ },
+ {
+  "name": "lesson:go-ch02-l05",
+  "method": "GET",
+  "path": "/api/lessons/go-ch02-l05"
+ },
+ {
+  "name": "lesson:go-ch02-l06",
+  "method": "GET",
+  "path": "/api/lessons/go-ch02-l06"
+ },
+ {
+  "name": "quiz:go-ch00-l01-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch00-l01-quiz"
+ },
+ {
+  "name": "quiz:go-ch00-l02-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch00-l02-quiz"
+ },
+ {
+  "name": "quiz:go-ch00-l03-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch00-l03-quiz"
+ },
+ {
+  "name": "quiz:go-ch02-l01-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch02-l01-quiz"
+ },
+ {
+  "name": "quiz:go-ch02-l02-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch02-l02-quiz"
+ },
+ {
+  "name": "quiz:go-ch02-l03-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch02-l03-quiz"
+ },
+ {
+  "name": "quiz:go-ch02-l04-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch02-l04-quiz"
+ },
+ {
+  "name": "quiz:go-ch02-l05-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch02-l05-quiz"
+ },
+ {
+  "name": "quiz:go-ch02-l06-quiz",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch02-l06-quiz"
+ },
+ {
+  "name": "exercise:arch-sandbox-ggg-bid-flow",
+  "method": "GET",
+  "path": "/api/exercises/arch-sandbox-ggg-bid-flow"
+ },
+ {
+  "name": "exercise:go-ch00-assignment",
+  "method": "GET",
+  "path": "/api/exercises/go-ch00-assignment"
+ },
+ {
+  "name": "exercise:go-ch00-boss",
+  "method": "GET",
+  "path": "/api/exercises/go-ch00-boss"
+ },
+ {
+  "name": "exercise:go-ch00-l01-lab-gomod",
+  "method": "GET",
+  "path": "/api/exercises/go-ch00-l01-lab-gomod"
+ },
+ {
+  "name": "exercise:go-ch00-l02-lab-semicolons",
+  "method": "GET",
+  "path": "/api/exercises/go-ch00-l02-lab-semicolons"
+ },
+ {
+  "name": "exercise:go-ch00-l03-lab-vet-fix",
+  "method": "GET",
+  "path": "/api/exercises/go-ch00-l03-lab-vet-fix"
+ },
+ {
+  "name": "exercise:go-ch00-project",
+  "method": "GET",
+  "path": "/api/exercises/go-ch00-project"
+ },
+ {
+  "name": "exercise:go-ch02-assignment",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-assignment"
+ },
+ {
+  "name": "exercise:go-ch02-boss",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-boss"
+ },
+ {
+  "name": "exercise:go-ch02-l01-lab-rotate",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l01-lab-rotate"
+ },
+ {
+  "name": "exercise:go-ch02-l02-lab-squares",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l02-lab-squares"
+ },
+ {
+  "name": "exercise:go-ch02-l03-lab-chunk",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+ },
+ {
+  "name": "exercise:go-ch02-l04-lab-truncate",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l04-lab-truncate"
+ },
+ {
+  "name": "exercise:go-ch02-l05-lab-common-tags",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l05-lab-common-tags"
+ },
+ {
+  "name": "exercise:go-ch02-l06-lab-payroll",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l06-lab-payroll"
+ },
+ {
+  "name": "exercise:go-ch02-project",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-project"
+ },
+ {
+  "name": "lesson-complete",
+  "method": "POST",
+  "path": "/api/lessons/go-ch02-l03/complete"
+ },
+ {
+  "name": "lesson-complete-again",
+  "method": "POST",
+  "path": "/api/lessons/go-ch02-l03/complete"
+ },
+ {
+  "name": "lesson-complete-l01",
+  "method": "POST",
+  "path": "/api/lessons/go-ch02-l01/complete"
+ },
+ {
+  "name": "quiz-q2-wrong",
+  "method": "POST",
+  "path": "/api/quizzes/go-ch02-l03-quiz/questions/q2",
+  "json": {
+   "answer": "?"
+  }
+ },
+ {
+  "name": "quiz-q2-right",
+  "method": "POST",
+  "path": "/api/quizzes/go-ch02-l03-quiz/questions/q2",
+  "json": {
+   "answer": "[a b z d]"
+  }
+ },
+ {
+  "name": "quiz-q1-right",
+  "method": "POST",
+  "path": "/api/quizzes/go-ch02-l03-quiz/questions/q1",
+  "json": {
+   "answer": "[1 20 3 4]"
+  }
+ },
+ {
+  "name": "quiz-question-unknown",
+  "method": "POST",
+  "path": "/api/quizzes/go-ch02-l03-quiz/questions/nope",
+  "json": {
+   "answer": "x"
+  }
+ },
+ {
+  "name": "quiz-after-answers",
+  "method": "GET",
+  "path": "/api/quizzes/go-ch02-l03-quiz"
+ },
+ {
+  "name": "draft-save",
+  "method": "PUT",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/draft",
+  "json": {
+   "files": {
+    "chunk.go": "brouillon"
+   }
+  }
+ },
+ {
+  "name": "draft-forbidden-file",
+  "method": "PUT",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/draft",
+  "json": {
+   "files": {
+    "tests/chunk_test.go": "x"
+   }
+  }
+ },
+ {
+  "name": "exercise-with-draft",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+ },
+ {
+  "name": "hint-1",
+  "method": "POST",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/hints"
+ },
+ {
+  "name": "run-fail",
+  "method": "POST",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "json": {
+   "files": {
+    "chunk.go": "mon code"
+   }
+  },
+  "runner": {
+   "exit_code": 1,
+   "output": "{\"Action\":\"run\",\"Test\":\"TestChunkValues\"}\n{\"Action\":\"output\",\"Test\":\"TestChunkValues\",\"Output\":\"    x_test.go:9: mauvais résultat\\n\"}\n{\"Action\":\"fail\",\"Test\":\"TestChunkValues\"}"
+  }
+ },
+ {
+  "name": "exercise-after-fail",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+ },
+ {
+  "name": "run-pass",
+  "method": "POST",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "json": {
+   "files": {
+    "chunk.go": "package lab"
+   }
+  },
+  "runner": {
+   "exit_code": 0,
+   "output": "{\"Action\":\"run\",\"Test\":\"TestChunkValues\"}\n{\"Action\":\"pass\",\"Test\":\"TestChunkValues\"}\n{\"Action\":\"run\",\"Test\":\"TestOther\"}\n{\"Action\":\"skip\",\"Test\":\"TestOther\"}"
+  }
+ },
+ {
+  "name": "run-pass-again",
+  "method": "POST",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "json": {
+   "files": {
+    "chunk.go": "x"
+   }
+  },
+  "runner": {
+   "exit_code": 0,
+   "output": "{\"Action\":\"run\",\"Test\":\"TestChunkValues\"}\n{\"Action\":\"pass\",\"Test\":\"TestChunkValues\"}"
+  }
+ },
+ {
+  "name": "run-build-error",
+  "method": "POST",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "json": {
+   "files": {
+    "chunk.go": "x"
+   }
+  },
+  "runner": {
+   "exit_code": 1,
+   "output": "# lab\n./chunk.go:1:1: expected 'package'\nFAIL\tlab [build failed]"
+  }
+ },
+ {
+  "name": "run-overwrite-tests",
+  "method": "POST",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "json": {
+   "files": {
+    "tests/chunk_test.go": "x"
+   }
+  }
+ },
+ {
+  "name": "exercise-after-pass",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+ },
+ {
+  "name": "reset",
+  "method": "POST",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk/reset"
+ },
+ {
+  "name": "exercise-after-reset",
+  "method": "GET",
+  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+ },
+ {
+  "name": "courses-after",
+  "method": "GET",
+  "path": "/api/courses"
+ },
+ {
+  "name": "chapter-after",
+  "method": "GET",
+  "path": "/api/chapters/go-ch02"
+ },
+ {
+  "name": "lesson-after",
+  "method": "GET",
+  "path": "/api/lessons/go-ch02-l03"
+ },
+ {
+  "name": "progress-after",
+  "method": "GET",
+  "path": "/api/progress?tz=Europe/Paris"
+ },
+ {
+  "name": "activity-today",
+  "method": "GET",
+  "path": "/api/activity?weeks=1&tz=Europe/Paris",
+  "select": "last"
+ },
+ {
+  "name": "activity-26-weeks",
+  "method": "GET",
+  "path": "/api/activity?tz=Europe/Paris",
+  "select": "status"
+ },
+ {
+  "name": "activity-bad-tz",
+  "method": "GET",
+  "path": "/api/activity?tz=Mars/Olympus"
+ },
+ {
+  "name": "activity-bad-weeks",
+  "method": "GET",
+  "path": "/api/activity?weeks=0"
+ },
+ {
+  "name": "feed",
+  "method": "GET",
+  "path": "/api/activity/feed?tz=Europe/Paris"
+ },
+ {
+  "name": "feed-other-day",
+  "method": "GET",
+  "path": "/api/activity/feed?day=2020-01-01"
+ },
+ {
+  "name": "profile-empty",
+  "method": "GET",
+  "path": "/api/profile"
+ },
+ {
+  "name": "avatar-missing",
+  "method": "GET",
+  "path": "/api/profile/avatar"
+ },
+ {
+  "name": "avatar-put",
+  "method": "PUT",
+  "path": "/api/profile/avatar",
+  "body_b64": "iVBORw0KGgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+ },
+ {
+  "name": "profile-with-avatar",
+  "method": "GET",
+  "path": "/api/profile"
+ },
+ {
+  "name": "avatar-get",
+  "method": "GET",
+  "path": "/api/profile/avatar"
+ },
+ {
+  "name": "avatar-delete",
+  "method": "DELETE",
+  "path": "/api/profile/avatar"
+ },
+ {
+  "name": "profile-after-delete",
+  "method": "GET",
+  "path": "/api/profile"
+ },
+ {
+  "name": "avatar-svg",
+  "method": "PUT",
+  "path": "/api/profile/avatar",
+  "body_b64": "PHN2ZyBvbmxvYWQ9eD4="
+ },
+ {
+  "name": "avatar-empty",
+  "method": "PUT",
+  "path": "/api/profile/avatar",
+  "body_b64": ""
+ },
+ {
+  "name": "logout",
+  "method": "POST",
+  "path": "/api/auth/logout"
+ },
+ {
+  "name": "me-after-logout",
+  "method": "GET",
+  "path": "/api/auth/me"
+ }
+]

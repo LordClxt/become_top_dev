@@ -76,7 +76,7 @@ design-system/             tokens partagés UI + visuels (couleurs, typo, motion
 ## Commandes
 - `make dev` — tout lancer en local : Postgres (Docker, port 5433), runner :8001, backend :8000, frontend http://localhost:3000 (mot de passe de dev : `dev`)
 - `make test` — tests backend + runner + contrôle de types du frontend
-- `make lint` — ruff (backend, runner)
+- `make lint` — ruff (backend), gofmt + go vet (runner)
 - `make validate-content` — rejoue tous les TP (solution passe, starter échoue) et tous les quiz « code-output »
 - `make up` / `make down` — pile complète via Docker Compose (`.env` à créer depuis `.env.example`)
 - `make reset-progress` — remet la progression locale à zéro

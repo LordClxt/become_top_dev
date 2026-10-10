@@ -15,7 +15,7 @@ Le contenu est généré à l'avance par l'agent à partir des livres de `books/
 ## Stack
 
 - **Backend** : Python 3.12+, FastAPI, PostgreSQL, SQLAlchemy 2, Alembic. Monolithe en couches `api/ → services/ → repositories/ → models/`.
-- **Runner** : service séparé, seul à parler à Docker. Un conteneur jetable par exécution (`--network none`, limites CPU, mémoire, pids et temps).
+- **Runner** : service Go séparé (bibliothèque standard uniquement), seul à parler à Docker. Un conteneur jetable par exécution (`--network none`, limites CPU, mémoire, pids et temps).
 - **Frontend** : TanStack Start (React), shadcn/ui, Tailwind, CodeMirror 6, React Flow (exercices de diagramme), `@remotion/player` et HyperFrames pour les visuels.
 - **Déploiement** : Docker Compose sur Coolify, Caddy en reverse proxy.
 
@@ -45,7 +45,7 @@ Lance Postgres (Docker, port 5433), le runner (:8001), le backend (:8000) et le 
 |---|---|
 | `make dev` | Tout lancer en local |
 | `make test` | Tests backend + runner + contrôle de types du frontend |
-| `make lint` | ruff (backend, runner) |
+| `make lint` | ruff (backend), gofmt + go vet (runner) |
 | `make validate-content` | Rejouer tous les TP (solution passe, starter échoue) et les quiz « code-output » |
 | `make up` / `make down` | Pile complète via Docker Compose |
 | `make reset-progress` | Remettre la progression locale à zéro |
