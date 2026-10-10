@@ -1,0 +1,89 @@
+id: go-ch00-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Que fait `go mod init example.com/shop` ?"
+    choices:
+      - "Télécharge toutes les dépendances du projet"
+      - "Crée un fichier go.mod qui déclare le module example.com/shop"
+      - "Crée un dossier example.com/shop dans GOPATH"
+      - "Compile le projet en un binaire nommé shop"
+    answer: 1
+    explanation: "go mod init marque le dossier courant comme module en écrivant go.mod. Il ne télécharge ni ne compile rien."
+    concept: go-module-gomod
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Que peut contenir un fichier go.mod ?"
+    choices:
+      - "Le chemin du module"
+      - "La version minimale de Go"
+      - "Les dépendances et leur version exacte"
+      - "Le code source du package main"
+    answer: [0, 1, 2]
+    explanation: "go.mod décrit le module (chemin, version de Go, dépendances). Le code vit dans les fichiers .go."
+    concept: go-module-gomod
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Un fichier commence par `package stats` et contient `func main()`. Que produit `go build` ?"
+    choices:
+      - "Un exécutable nommé stats"
+      - "Aucun exécutable : seul le package main produit un programme"
+      - "Une erreur : main est un mot réservé"
+      - "Un exécutable nommé main"
+    answer: 1
+    explanation: "Seul le package main devient un exécutable. Ailleurs, func main est une fonction ordinaire, et go build vérifie juste que le package compile."
+    concept: go-program-structure
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Que se passe-t-il si un fichier importe \"strings\" sans l'utiliser ?"
+    choices:
+      - "Un avertissement, le programme compile"
+      - "Rien : l'import est ignoré"
+      - "Une erreur de compilation"
+      - "Une panic au démarrage"
+    answer: 2
+    explanation: "En Go, un import inutilisé est une erreur de compilation. Le langage refuse le code mort."
+    concept: go-program-structure
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Println("Relay", 2, true)
+    answer: "Relay 2 true"
+    explanation: "Println sépare toujours ses arguments par un espace et termine par un retour à la ligne."
+    concept: go-program-structure
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ? (attention, c'est Print, pas Println)"
+    code: |
+      fmt.Print("a", "b", 1, 2, "c")
+      fmt.Print("\n")
+    answer: "ab1 2c"
+    explanation: "Print n'ajoute un espace qu'entre deux arguments qui ne sont pas des strings : seulement entre 1 et 2."
+    concept: go-program-structure
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "Pourquoi un programme Go se déploie-t-il facilement ?"
+    choices:
+      - "Il tourne dans une machine virtuelle installée partout"
+      - "go build produit un seul binaire natif qui n'a besoin d'aucun runtime installé"
+      - "Le code source est envoyé et interprété sur le serveur"
+      - "Il faut installer Go sur chaque serveur, mais c'est rapide"
+    answer: 1
+    explanation: "Le binaire embarque tout ce qu'il faut. On copie un fichier, sans JVM ni interpréteur."
+    concept: go-build-binary
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Quelle commande produit un exécutable nommé `relay` dans le dossier bin ?"
+    choices: ["go run -o bin/relay", "go build -o bin/relay", "go install bin/relay", "go mod build relay"]
+    answer: 1
+    explanation: "Le drapeau -o de go build choisit le nom et l'emplacement du binaire."
+    concept: go-build-binary
+    difficulty: 1

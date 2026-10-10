@@ -1,0 +1,61 @@
+id: go-ch02-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Println(len("café"), utf8.RuneCountInString("café"))
+    answer: "5 4"
+    explanation: "é occupe 2 bytes en UTF-8 : len compte 5 bytes, RuneCountInString compte 4 caractères."
+    concept: go-string-utf8
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel est le type de s[0] si s est une string ?"
+    choices: ["rune", "string", "byte", "int"]
+    answer: 2
+    explanation: "Indexer une string renvoie un byte (uint8), pas un caractère."
+    concept: go-string-bytes
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      x := 66
+      fmt.Println(string(rune(x)), strconv.Itoa(x))
+    answer: "B 66"
+    explanation: "string(rune(66)) interprète 66 comme un point de code (B). strconv.Itoa écrit le nombre en texte."
+    concept: go-string-conversions
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      for i, r := range "aé!" {
+          fmt.Print(i, string(r), " ")
+      }
+    answer: "0a 1é 3! "
+    explanation: "for range avance rune par rune, mais l'index est une position en bytes. é occupe les bytes 1 et 2."
+    concept: go-string-utf8
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Un pseudo doit faire au plus 12 caractères. Quel test est correct ?"
+    choices:
+      - "len(pseudo) <= 12"
+      - "utf8.RuneCountInString(pseudo) <= 12"
+      - "len([]byte(pseudo)) <= 12"
+      - "cap(pseudo) <= 12"
+    answer: 1
+    explanation: "len compte des bytes : un pseudo accentué serait refusé à tort. Il faut compter les runes."
+    concept: go-string-utf8
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Println([]byte("é"), []rune("é"))
+    answer: "[195 169] [233]"
+    explanation: "En UTF-8, é s'écrit avec 2 bytes (195 169). Son point de code Unicode est 233 (U+00E9)."
+    concept: go-string-conversions
+    difficulty: 3

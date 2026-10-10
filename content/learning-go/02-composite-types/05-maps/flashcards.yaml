@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Que se passe-t-il quand on écrit dans une map nil ?"
+    back: "Une panic. La lecture, elle, renvoie la valeur zéro."
+    concept: go-map-nil
+  - id: fc2
+    front: "Comment savoir si une clé existe dans une map ?"
+    back: "v, ok := m[k]. ok vaut false si la clé est absente."
+    concept: go-map-comma-ok
+  - id: fc3
+    front: "Comment représenter un set en Go ?"
+    back: "map[T]bool (lisible) ou map[T]struct{} (0 octet par valeur)."
+    concept: go-map-as-set
+  - id: fc4
+    front: "Quels types peuvent servir de clé de map ?"
+    back: "Les types comparables avec == : nombres, strings, bools, arrays, structs de champs comparables. Pas les slices ni les maps."
+    concept: go-map-keys
+  - id: fc5
+    front: "L'ordre de range sur une map est-il stable ?"
+    back: "Non, il est volontairement aléatoire. Trie les clés si l'ordre compte."
+    concept: go-map-keys
+  - id: fc6
+    front: "Comment comparer deux maps ?"
+    back: "maps.Equal(a, b). L'opérateur == ne fonctionne qu'avec nil."
+    concept: go-map-comma-ok

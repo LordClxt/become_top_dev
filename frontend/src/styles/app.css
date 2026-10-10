@@ -1,0 +1,465 @@
+@import 'tailwindcss';
+@source '../../../content';
+
+/* Le thème sombre est le défaut ; .light sur <html> bascule en clair. */
+@custom-variant light (&:where(.light, .light *));
+
+:root {
+  /* Encre marine, reliée à la couleur officielle de Go, plutôt qu'un quasi-noir neutre. */
+  --ink: #0e1b26;
+  --surface: #15283a;
+  --surface-2: #1c3349;
+  --line: #2a4560;
+  --text: #e6edf2;
+  --text-muted: #9fb3c4;
+  --accent: #00add8; /* cyan Go */
+  --accent-ink: #062330;
+  --pass: #6fbf8e;
+  --fail: #e3a93c; /* ambre : échec, débordement de capacité */
+  --cell-empty: #22394f;
+  --glow-opacity: 0.2;
+  --grid-opacity: 0.55;
+  /* Mouvement : courtes pour l'UI, lentes seulement pour ce qui raconte un changement d'état. */
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 560ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  color-scheme: dark;
+}
+
+:root.light {
+  --ink: #f4f7f9;
+  --surface: #ffffff;
+  --surface-2: #e9eff3;
+  --line: #cfdbe4;
+  --text: #0e1b26;
+  --text-muted: #4d6273;
+  --accent: #007d9c;
+  --accent-ink: #ffffff;
+  --pass: #2f8a55;
+  --fail: #a86b00;
+  --cell-empty: #dbe5ec;
+  --glow-opacity: 0.1;
+  --grid-opacity: 0.7;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-pass: var(--pass);
+  --color-fail: var(--fail);
+  --color-cell-empty: var(--cell-empty);
+
+  --font-read: 'Literata', Georgia, serif;
+  --font-ui: 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', ui-monospace, monospace;
+
+}
+
+html,
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Carte du cours : zones de grille, lueur, étape en cours ------------------ */
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: var(--grid-opacity);
+  mask-image: radial-gradient(closest-side, black 30%, transparent);
+}
+
+.glow-cyan {
+  background: var(--accent);
+  filter: blur(120px);
+  opacity: var(--glow-opacity);
+}
+
+@keyframes node-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  70%,
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+.node-pulse {
+  animation: node-pulse 2.4s ease-out infinite;
+}
+
+/* --- Lecture éditoriale ----------------------------------------------------- */
+
+.prose-read {
+  font-family: var(--font-read);
+  font-size: 1.125rem;
+  line-height: 1.75;
+  max-width: 68ch;
+}
+.prose-read h2 {
+  font-size: 1.6rem;
+  line-height: 1.25;
+  font-weight: 600;
+  margin: 2.6rem 0 0.9rem;
+  letter-spacing: -0.01em;
+}
+.prose-read h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 2rem 0 0.6rem;
+}
+.prose-read p,
+.prose-read ul,
+.prose-read ol,
+.prose-read table {
+  margin: 0 0 1.1rem;
+}
+.prose-read ul {
+  list-style: disc;
+  padding-left: 1.4rem;
+}
+.prose-read ol {
+  list-style: decimal;
+  padding-left: 1.4rem;
+}
+.prose-read li {
+  margin: 0.3rem 0;
+}
+.prose-read strong {
+  font-weight: 650;
+}
+.prose-read a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-read :not(pre) > code {
+  font-family: var(--font-code);
+  font-size: 0.86em;
+  background: var(--surface-2);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+.prose-read table {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  border-collapse: collapse;
+  width: 100%;
+}
+.prose-read th,
+.prose-read td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.5rem 0.75rem 0.5rem 0;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-read th {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* --- Code ------------------------------------------------------------------ */
+
+.code-block {
+  font-family: var(--font-code);
+  font-size: 0.86rem;
+  line-height: 1.65;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  margin: 0 0 1.25rem;
+  tab-size: 4;
+}
+
+/* Classes émises par @lezer/highlight (classHighlighter), partagées avec l'éditeur. */
+.tok-keyword { color: #7cc7e8; }
+.tok-typeName, .tok-className { color: #8fd3c0; }
+.tok-string, .tok-string2 { color: #d8b980; }
+.tok-number, .tok-bool, .tok-atom { color: #e0a0c8; }
+.tok-comment { color: var(--text-muted); font-style: italic; }
+.tok-variableName.tok-definition, .tok-function { color: #b9d6ff; }
+.tok-operator, .tok-punctuation { color: var(--text-muted); }
+:root.light .tok-keyword { color: #00607a; }
+:root.light .tok-typeName, :root.light .tok-className { color: #0b6e5a; }
+:root.light .tok-string, :root.light .tok-string2 { color: #8a5a00; }
+:root.light .tok-number, :root.light .tok-bool, :root.light .tok-atom { color: #a0306d; }
+:root.light .tok-variableName.tok-definition, :root.light .tok-function { color: #1d4f9a; }
+
+/* Alias des tokens shadcn/ui vers les nôtres : les composants générés héritent du thème. */
+@theme inline {
+  --color-background: var(--ink);
+  --color-foreground: var(--text);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--text);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-ink);
+  --color-secondary: var(--surface-2);
+  --color-secondary-foreground: var(--text);
+  --color-muted-foreground: var(--text-muted);
+  --color-accent-foreground: var(--text);
+  --color-destructive: var(--fail);
+  --color-border: var(--line);
+  --color-input: var(--line);
+  --color-ring: var(--accent);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+/* Pour apprendre un langage, on montre les vrais caractères : pas de ligatures (<= reste <=). */
+code,
+pre,
+.font-code,
+.cm-editor {
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0, 'calt' 0;
+}
+
+/* Les visuels interactifs sont dans le flux de la leçon mais gardent la typographie d'interface. */
+.prose-read figure {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.prose-read figure ol,
+.prose-read figure ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.prose-read figure li {
+  margin: 0;
+}
+
+/* --- Accueil : exécution de tests du hero --------------------------------------
+   Une seule séquence ; chaque élément reçoit son instant de départ dans --d (et --v pour disparaître). */
+
+@keyframes run-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes run-vanish {
+  to { opacity: 0; }
+}
+@keyframes run-cell {
+  from { background: var(--cell-empty); transform: scale(0.6); }
+  60% { transform: scale(1.15); }
+  to { background: var(--accent); transform: scale(1); }
+}
+.run-appear {
+  animation: run-appear 220ms ease-out var(--d, 0s) both;
+}
+.run-appear.run-vanish {
+  animation:
+    run-appear 220ms ease-out var(--d, 0s) both,
+    run-vanish 140ms ease-in var(--v, 0s) forwards;
+}
+.run-cell {
+  background: var(--cell-empty);
+  animation: run-cell 260ms cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Pas de séquence : l'état final s'affiche directement. */
+  .run-appear,
+  .run-cell {
+    animation-delay: 0s !important;
+  }
+  .run-appear.run-vanish {
+    animation: run-vanish 0.01ms forwards;
+  }
+}
+
+/* --- Gamification ------------------------------------------------------------ */
+
+/* Flashcard : deux faces dans la même cellule de grille, la plus haute fixe la taille. */
+.flip-scene {
+  perspective: 1400px;
+}
+.flip-card {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.flip-card[data-flipped='true'] {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-face-back {
+  transform: rotateY(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Pas de rotation : la face cachée disparaît simplement. */
+  .flip-card,
+  .flip-card[data-flipped='true'] {
+    transform: none;
+  }
+  .flip-card[data-flipped='true'] .flip-face-front,
+  .flip-card:not([data-flipped='true']) .flip-face-back {
+    visibility: hidden;
+  }
+  .flip-face-back {
+    transform: none;
+  }
+}
+
+/* Gain d'XP : la pastille monte puis s'efface. */
+@keyframes xp-rise {
+  0% { opacity: 0; transform: translateY(10px) scale(0.92); }
+  14% { opacity: 1; transform: translateY(0) scale(1); }
+  80% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-8px) scale(1); }
+}
+.xp-rise {
+  animation: xp-rise 2.6s var(--ease-out) both;
+}
+
+/* --- Reveals au défilement ------------------------------------------------------
+   Seuls les éléments décoratifs ou de mesure s'animent ; le texte est toujours visible.
+   [data-shown] est posé par useReveal() ; sans JS, l'état final s'affiche. */
+
+[data-shown='false'] .reveal-cell {
+  background: var(--cell-empty);
+}
+[data-shown='true'] .reveal-cell {
+  animation: run-cell 300ms var(--ease-out) var(--d, 0s) both;
+}
+[data-shown='false'] .reveal-fade {
+  opacity: 0;
+}
+[data-shown='true'] .reveal-fade {
+  animation: run-appear 360ms var(--ease-out) var(--d, 0s) both;
+}
+[data-shown='false'] .reveal-draw {
+  stroke-dashoffset: 1;
+}
+.reveal-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.6s var(--ease-out) var(--d, 0s);
+}
+[data-shown='false'] .reveal-grow {
+  transform: scaleX(0);
+}
+.reveal-grow {
+  transform-origin: left;
+  transition: transform 1.2s var(--ease-out) var(--d, 0s);
+}
+
+/* La boucle d'un module : un jeton parcourt les quatre étapes, chacune s'allume à son passage. */
+@keyframes loop-token {
+  0% { left: 0%; opacity: 0; animation-timing-function: var(--ease-out); }
+  5% { left: 0%; opacity: 1; animation-timing-function: var(--ease-out); }
+  27% { left: 33.333%; }
+  35% { left: 33.333%; animation-timing-function: var(--ease-out); }
+  57% { left: 66.667%; }
+  65% { left: 66.667%; animation-timing-function: var(--ease-out); }
+  87% { left: 100%; opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+[data-shown='true'] .loop-token {
+  animation: loop-token 3.6s linear 0.2s both;
+}
+[data-shown='false'] .loop-token {
+  opacity: 0;
+}
+@keyframes station-on {
+  from { border-color: var(--line); color: var(--text-muted); background: var(--ink); }
+  to { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+}
+[data-shown='false'] .loop-station {
+  border-color: var(--line);
+  color: var(--text-muted);
+  background: var(--ink);
+}
+[data-shown='true'] .loop-station {
+  animation: station-on var(--dur-base) var(--ease-out) var(--d, 0s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-shown] .reveal-cell,
+  [data-shown] .reveal-fade,
+  [data-shown] .loop-station {
+    animation-delay: 0s !important;
+  }
+  [data-shown] .reveal-draw {
+    stroke-dashoffset: 0;
+  }
+  [data-shown] .reveal-grow {
+    transform: none;
+  }
+  [data-shown] .loop-token {
+    display: none;
+  }
+}
+
+/* --- Éditeur de diagrammes (React Flow) : thème aligné sur les tokens --------------- */
+
+.diagram-canvas .react-flow {
+  --xy-background-color: var(--ink);
+  --xy-background-pattern-color: var(--line);
+  --xy-edge-stroke: var(--text-muted);
+  --xy-edge-stroke-width: 2;
+  --xy-edge-stroke-selected: var(--text);
+  --xy-connectionline-stroke: var(--accent);
+  --xy-connectionline-stroke-width: 2;
+  --xy-handle-background-color: var(--accent);
+  --xy-handle-border-color: var(--ink);
+  --xy-selection-background-color: color-mix(in oklab, var(--accent) 10%, transparent);
+  --xy-selection-border: 1px dashed var(--accent);
+  --xy-controls-button-background-color: var(--surface);
+  --xy-controls-button-background-color-hover: var(--surface-2);
+  --xy-controls-button-color: var(--text);
+  --xy-controls-button-color-hover: var(--text);
+  --xy-controls-button-border-color: var(--line);
+  --xy-controls-box-shadow: none;
+}
+.diagram-canvas .react-flow__handle {
+  width: 10px;
+  height: 10px;
+  border-width: 2px;
+}
+.diagram-canvas .react-flow__edge.edge-async .react-flow__edge-path {
+  stroke: var(--accent);
+}
+.diagram-canvas .react-flow__controls {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}

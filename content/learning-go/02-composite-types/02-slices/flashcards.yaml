@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Quelles sont les trois informations qui décrivent une slice ?"
+    back: "Un pointeur vers l'array sous-jacent, une longueur (len) et une capacité (cap)."
+    concept: go-slice-len-cap
+  - id: fc2
+    front: "Que fait append quand len == cap ?"
+    back: "Il réserve un nouvel array plus grand, copie tout le contenu, puis ajoute l'élément."
+    concept: go-slice-append
+  - id: fc3
+    front: "make([]int, 5) ou make([]int, 0, 5) : lequel pour remplir avec append ?"
+    back: "make([]int, 0, 5). L'autre contient déjà 5 zéros, et append ajouterait après eux."
+    concept: go-slice-make
+  - id: fc4
+    front: "Comment comparer le contenu de deux slices ?"
+    back: "slices.Equal(a, b). L'opérateur == ne fonctionne qu'avec nil."
+    concept: go-slice-nil-vs-empty
+  - id: fc5
+    front: "Slice nil ou slice vide : laquelle préférer par défaut ?"
+    back: "La slice nil (var s []T). Elle ne diffère d'une slice vide qu'en JSON (null au lieu de [])."
+    concept: go-slice-nil-vs-empty
+  - id: fc6
+    front: "Comment évolue la capacité quand une petite slice grandit ?"
+    back: "Elle double tant qu'elle est sous 256 éléments, puis grandit d'environ 25 % à chaque fois."
+    concept: go-slice-append

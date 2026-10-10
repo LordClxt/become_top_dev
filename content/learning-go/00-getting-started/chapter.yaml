@@ -1,0 +1,21 @@
+id: go-ch00
+title: "Bien démarrer avec Go"
+subtitle: "Modules, binaires natifs, go fmt, go vet et builds reproductibles : l'outillage avant le code"
+source: { chapter: 1, pages: "25-40" }
+objectives:
+  - "Créer un module avec go mod init et expliquer le rôle de chaque ligne de go.mod"
+  - "Décrire la structure minimale d'un programme Go : package main, import, func main"
+  - "Construire un binaire natif avec go build et -o, et savoir ce qu'il embarque"
+  - "Expliquer la règle d'insertion des points-virgules et pourquoi l'accolade reste sur la même ligne"
+  - "Utiliser go vet pour attraper un bug de format que le compilateur laisse passer"
+  - "Automatiser fmt → vet → build avec un Makefile, et situer la promesse de compatibilité Go 1"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-modules-first-program"
+  - "02-fmt-semicolons"
+  - "03-vet-build-automation"
+xp: { assignment: 120, project: 200, boss: 220 }
+boss: boss
+assignment: assignment
+project: project

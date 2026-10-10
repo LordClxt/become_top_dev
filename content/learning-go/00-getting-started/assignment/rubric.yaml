@@ -1,0 +1,29 @@
+criteria:
+  - id: correctness
+    label: "Correction"
+    weight: 0.55
+    source: tests
+  - id: parsing
+    label: "Analyse en un seul passage"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Une seule boucle sur le format, petites fonctions d'aide (largeur, précision), aucun retour en arrière"
+      2: "Correct mais plusieurs passes, ou une grosse fonction avec beaucoup d'indices manipulés à la main"
+      0: "Expressions régulières empilées ou découpages successifs difficiles à vérifier"
+  - id: readability
+    label: "Lisibilité et style Go"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Constantes nommées pour les flags et les verbes, noms clairs, commentaires sur les cas subtils (%%, *)"
+      2: "Lisible mais valeurs magiques ou noms vagues"
+      0: "Difficile à suivre"
+  - id: idioms
+    label: "Outils du langage"
+    weight: 0.1
+    source: ai
+    levels:
+      4: "Utilise strings.IndexByte / ContainsRune, max, append sur slices nil, sans allocation inutile"
+      2: "Réimplémente à la main ce que la bibliothèque standard fournit"
+      0: "Conversions inutiles et copies répétées du format"

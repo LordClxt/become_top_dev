@@ -1,0 +1,78 @@
+id: go-ch02-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      x := make([]int, 3)
+      x = append(x, 7)
+      fmt.Println(x, len(x))
+    answer: "[0 0 0 7] 4"
+    explanation: "make([]int, 3) crée déjà 3 éléments à zéro. append ajoute après eux."
+    concept: go-slice-make
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      s := make([]int, 0, 2)
+      s = append(s, 1, 2, 3)
+      fmt.Println(len(s), cap(s))
+    answer: "3 4"
+    explanation: "La capacité 2 ne suffit pas pour 3 éléments : Go réalloue en doublant (2 → 4)."
+    concept: go-slice-len-cap
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Pourquoi faut-il écrire `s = append(s, v)` et pas seulement `append(s, v)` ?"
+    choices:
+      - "Par convention, mais ce n'est pas obligatoire"
+      - "Parce que append reçoit une copie de la slice et renvoie la nouvelle description (longueur, peut-être nouvel array)"
+      - "Parce que append trie la slice"
+      - "Parce que append modifie toujours l'array d'origine"
+    answer: 1
+    explanation: "Go passe tout par valeur. append renvoie une slice mise à jour qu'il faut récupérer. Oublier l'assignation ne compile pas."
+    concept: go-slice-append
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var a []int
+      b := []int{}
+      fmt.Println(a == nil, b == nil, len(a) == len(b))
+    answer: "true false true"
+    explanation: "a est nil, b est vide mais non nil. Les deux ont une longueur 0."
+    concept: go-slice-nil-vs-empty
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Tu sais que tu vas ajouter exactement 1 000 éléments avec append. Quelle déclaration choisir ?"
+    choices:
+      - "var s []int"
+      - "s := make([]int, 1000)"
+      - "s := make([]int, 0, 1000)"
+      - "s := []int{}"
+    answer: 2
+    explanation: "Longueur 0 pour qu'append commence au début, capacité 1000 pour ne jamais réallouer."
+    concept: go-slice-make
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Que se passe-t-il avec `fmt.Println([]int{1} == []int{1})` ?"
+    choices: ["true", "false", "Erreur de compilation", "Panic"]
+    answer: 2
+    explanation: "Les slices ne sont comparables qu'à nil. Utilise slices.Equal pour comparer le contenu."
+    concept: go-slice-nil-vs-empty
+    difficulty: 1
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      s := []string{"a", "b", "c"}
+      clear(s)
+      fmt.Println(len(s))
+    answer: "3"
+    explanation: "clear remet chaque élément à sa valeur zéro (\"\"), mais ne change pas la longueur."
+    concept: go-slice-len-cap
+    difficulty: 2

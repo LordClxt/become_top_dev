@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Quelle est la valeur zéro d'une struct ?"
+    back: "Une struct dont chaque champ vaut la valeur zéro de son type."
+    concept: go-struct-literals
+  - id: fc2
+    front: "Littéral positionnel ou nommé : lequel préférer ?"
+    back: "Nommé. Lisible, ordre libre, et il ne casse pas quand on ajoute un champ."
+    concept: go-struct-literals
+  - id: fc3
+    front: "Quand une struct est-elle comparable avec == ?"
+    back: "Quand tous ses champs sont comparables (pas de slice, map ni fonction)."
+    concept: go-struct-comparable
+  - id: fc4
+    front: "Deux usages courants des structs anonymes ?"
+    back: "Les données JSON ponctuelles et les cas de test en table."
+    concept: go-struct-anonymous
+  - id: fc5
+    front: "Pourquoi m[k].Total += 1 ne compile pas avec une map[string]Struct ?"
+    back: "Une valeur de map n'est pas adressable. Lis-la dans une variable, modifie-la, puis réécris-la dans la map."
+    concept: go-struct-literals

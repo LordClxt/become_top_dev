@@ -1,0 +1,12 @@
+id: go-ch00-l01-lab-gomod
+title: "Lire un fichier go.mod"
+kind: code
+language: go
+difficulty: 2
+xp: 40
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["gomod.go"]
+concepts: [go-module-gomod, go-program-structure]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

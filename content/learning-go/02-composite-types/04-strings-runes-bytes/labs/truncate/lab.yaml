@@ -1,0 +1,12 @@
+id: go-ch02-l04-lab-truncate
+title: "Tronquer un aperçu sans casser les caractères"
+kind: code
+language: go
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["truncate.go"]
+concepts: [go-string-utf8, go-string-bytes, go-string-conversions]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

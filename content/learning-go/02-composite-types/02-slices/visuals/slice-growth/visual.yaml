@@ -1,0 +1,8 @@
+id: go-ch02-slice-growth
+concept: go-slice-append
+format: interactive
+justification: "Il faut appuyer soi-même sur append pour sentir le moment où la capacité est pleine et où tout est recopié ailleurs."
+entry: SliceGrowth.tsx
+params:
+  - { name: initialCap, type: int, min: 0, max: 8, default: 0 }
+status: built

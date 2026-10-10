@@ -1,0 +1,6 @@
+id: go-ch02-struct-literals
+concept: go-struct-literals
+format: interactive
+justification: "Ajouter soi-même un champ à la struct montre en direct pourquoi le littéral nommé résiste et quand == cesse de compiler."
+entry: StructLiterals.tsx
+status: built

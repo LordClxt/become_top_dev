@@ -1,0 +1,12 @@
+id: go-ch02-l06-lab-payroll
+title: "Masse salariale par service"
+kind: code
+language: go
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["payroll.go"]
+concepts: [go-struct-literals, go-map-comma-ok, go-slice-make]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

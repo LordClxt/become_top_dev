@@ -1,0 +1,13 @@
+id: go-ch02-boss
+title: "Boss : l'entrepôt du Black Friday"
+kind: code
+language: go
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 45
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["warehouse.go"]
+concepts: [go-map-comma-ok, go-slice-copy, go-slice-shared-memory, go-struct-literals, go-map-keys, go-slice-make]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

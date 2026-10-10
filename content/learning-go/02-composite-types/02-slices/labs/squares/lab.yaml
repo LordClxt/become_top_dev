@@ -1,0 +1,12 @@
+id: go-ch02-l02-lab-squares
+title: "Carrés sans gaspillage"
+kind: code
+language: go
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["squares.go"]
+concepts: [go-slice-make, go-slice-append, go-slice-len-cap]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

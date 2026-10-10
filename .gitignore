@@ -1,0 +1,30 @@
+# Livres sources et extractions (droits d'auteur)
+books/
+.cache/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+.output/
+.vinxi/
+.tanstack/
+
+# Remotion renders
+out/
+
+# Env / OS
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Local editor and agent state
+.idea/
+.agents/
+.aider-desk/

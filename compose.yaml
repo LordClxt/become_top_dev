@@ -1,0 +1,77 @@
+# Déploiement (Coolify) : pointer le domaine vers le service `proxy`, port 80.
+name: become-top-dev
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: btd
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?définir POSTGRES_PASSWORD}
+      POSTGRES_DB: btd
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U btd"]
+      interval: 5s
+      retries: 10
+    restart: unless-stopped
+
+  # Construit seulement l'image d'exécution Go utilisée par le runner, puis s'arrête.
+  sandbox-go:
+    build: ./sandbox/images/go
+    image: btd-runner-go
+    command: ["true"]
+    restart: "no"
+
+  runner:
+    build: ./runner
+    environment:
+      RUNNER_TOKEN: ${RUNNER_TOKEN:?définir RUNNER_TOKEN}
+      RUNNER_IMAGES: '{"go": "btd-runner-go"}'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      sandbox-go:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      BTD_DATABASE_URL: postgresql+asyncpg://btd:${POSTGRES_PASSWORD}@db:5432/btd
+      BTD_SESSION_SECRET: ${SESSION_SECRET:?définir SESSION_SECRET}
+      BTD_APP_PASSWORD: ${APP_PASSWORD:?définir APP_PASSWORD}
+      BTD_SECURE_COOKIES: ${SECURE_COOKIES:-true}
+      BTD_RUNNER_URL: http://runner:8001
+      BTD_RUNNER_TOKEN: ${RUNNER_TOKEN}
+    depends_on:
+      db:
+        condition: service_healthy
+      runner:
+        condition: service_started
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      # Rendu serveur : le frontend interroge le backend en direct, en relayant le cookie de session.
+      BTD_API_URL: http://backend:8000
+    restart: unless-stopped
+
+  proxy:
+    image: caddy:2.10-alpine
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+
+volumes:
+  db-data:

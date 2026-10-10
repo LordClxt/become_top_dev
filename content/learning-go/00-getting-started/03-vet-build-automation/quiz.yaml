@@ -1,0 +1,86 @@
+id: go-ch00-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Ce programme compile. Qu'affiche-t-il ?"
+    code: |
+      name := "Ada"
+      fmt.Printf("%s a %d messages\n", name)
+    answer: "Ada a %!d(MISSING) messages"
+    explanation: "fmt ne plante pas : il remplace le verbe sans valeur par %!d(MISSING). C'est exactement le genre de bug que go vet signale avant l'exécution."
+    concept: go-vet-printf
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Println("total : %d", 3)
+    answer: "total : %d 3"
+    explanation: "Println n'interprète pas les verbes : il affiche ses arguments séparés par un espace. go vet le signale (« possible Printf formatting directive »)."
+    concept: go-vet-printf
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Printf("%d%%\n", 75)
+    answer: "75%"
+    explanation: "%% produit un % littéral. Un % seul en fin de format est une erreur que vet détecte."
+    concept: go-vet-printf
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Avec `.DEFAULT_GOAL := build`, `vet: fmt` et `build: vet`, dans quel ordre `make` exécute-t-il les commandes ?"
+    choices: ["build, vet, fmt", "fmt, vet, build", "build seulement", "fmt, build, vet"]
+    answer: 1
+    explanation: "make part de la cible demandée (build), remonte ses dépendances, puis exécute de la plus profonde à la cible : fmt, vet, build."
+    concept: go-makefile-targets
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "`go vet` échoue pendant `make`. Que se passe-t-il pour la cible build ?"
+    choices:
+      - "Elle s'exécute quand même, vet n'est qu'un avertissement"
+      - "Elle ne s'exécute pas : make s'arrête à la première commande en échec"
+      - "Elle s'exécute après avoir relancé fmt"
+      - "make demande une confirmation"
+    answer: 1
+    explanation: "Une commande qui renvoie un code d'erreur arrête make. C'est tout l'intérêt : un code qui ne passe pas vet n'est jamais compilé."
+    concept: go-makefile-targets
+    difficulty: 1
+  - id: q6
+    type: multiple
+    prompt: "Quelles affirmations sur ce Makefile sont vraies ?"
+    choices:
+      - "Les commandes d'une cible doivent être indentées avec une tabulation"
+      - ".PHONY évite qu'un fichier nommé comme une cible bloque son exécution"
+      - "Les cibles s'exécutent dans l'ordre où elles sont écrites dans le fichier"
+      - "Un simple `make` lance la cible indiquée par .DEFAULT_GOAL"
+    answer: [0, 1, 3]
+    explanation: "L'ordre vient des dépendances, pas de la position dans le fichier. Le reste est vrai : tabulations obligatoires, .PHONY, cible par défaut."
+    concept: go-makefile-targets
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Que garantit la promesse de compatibilité Go 1 ?"
+    choices:
+      - "Que les options de la commande go ne changeront jamais"
+      - "Qu'un code valide en Go 1.x continuera de compiler et de fonctionner dans les versions 1.x suivantes, sauf correctif de bug ou de sécurité"
+      - "Que les binaires sont compatibles entre tous les systèmes d'exploitation"
+      - "Que les dépendances tierces restent compatibles"
+    answer: 1
+    explanation: "La promesse couvre le langage et la bibliothèque standard. Elle exclut explicitement l'outil go, et ne dit rien des bibliothèques tierces."
+    concept: go-compat-promise
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Tu mets à jour Go sur un serveur où tourne un binaire compilé avec une ancienne version. Que se passe-t-il pour ce binaire ?"
+    choices:
+      - "Rien : il est autonome et n'utilise pas l'installation de Go"
+      - "Il faut le recompiler avant de le relancer"
+      - "Il plante au prochain redémarrage"
+      - "Il utilise automatiquement le nouveau runtime"
+    answer: 0
+    explanation: "Le runtime est inclus dans le binaire. L'installation de Go ne sert qu'à compiler."
+    concept: go-compat-promise
+    difficulty: 1

@@ -1,0 +1,29 @@
+criteria:
+  - id: correctness
+    label: "Correction"
+    weight: 0.5
+    source: tests
+  - id: utf8
+    label: "Gestion correcte de l'UTF-8"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Compte et compare en runes partout, aucune manipulation d'index en bytes risquée"
+      2: "Résultats justes mais mélange bytes et runes à certains endroits"
+      0: "Utilise len ou des index en bytes pour des longueurs de mots"
+  - id: data-structures
+    label: "Choix des structures de données"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Une map pour compter, une slice pré-allouée pour trier, pas de travail redondant"
+      2: "Correct mais avec des allocations ou des parcours inutiles"
+      0: "Recherches linéaires répétées ou structures inadaptées"
+  - id: readability
+    label: "Lisibilité et style Go"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes, noms clairs, littéraux nommés, pas de duplication"
+      2: "Lisible mais une seule grosse fonction ou des noms vagues"
+      0: "Difficile à suivre"

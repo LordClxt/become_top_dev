@@ -1,0 +1,41 @@
+checks:
+  - id: bidder-path
+    label: "Les offres en ligne passent par Bid Capture avant d'atteindre Bid Tracker"
+    rule: path
+    source: bidder
+    target: bid-tracker
+    via: bid-capture
+  - id: auctioneer-path
+    label: "Les offres du commissaire-priseur ont leur propre entrée : Auctioneer Capture"
+    rule: path
+    source: auctioneer
+    target: bid-tracker
+    via: auctioneer-capture
+  - id: tracker-buffered
+    label: "Tout ce qui entre dans Bid Tracker passe par une file"
+    rule: inbound_via
+    target: bid-tracker
+    via: queue
+  - id: capture-stateless
+    label: "Bid Capture ne stocke rien : c'est un simple conduit"
+    rule: no_edge
+    source: bid-capture
+    target: database
+  - id: tracker-persists
+    label: "Bid Tracker enregistre les offres qu'il ordonne"
+    rule: path
+    source: bid-tracker
+    target: database
+  - id: payment-buffered
+    label: "Les paiements passent par une file : Payment n'en traite qu'un toutes les 500 ms"
+    rule: path
+    source: auction-session
+    target: payment
+    via: queue
+  - id: single-owner
+    label: "Chaque base de données n'a qu'un seul service qui y écrit"
+    rule: single_owner
+    target: database
+  - id: connected
+    label: "Chaque bloc posé est relié au reste"
+    rule: connected

@@ -1,0 +1,133 @@
+{
+  "nodes": [
+    {
+      "id": "bidder",
+      "type": "bidder",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "auctioneer",
+      "type": "auctioneer",
+      "x": 0,
+      "y": 220
+    },
+    {
+      "id": "capture",
+      "type": "bid-capture",
+      "x": 200,
+      "y": 0
+    },
+    {
+      "id": "auct-capture",
+      "type": "auctioneer-capture",
+      "x": 200,
+      "y": 220
+    },
+    {
+      "id": "q-bids",
+      "type": "queue",
+      "x": 400,
+      "y": 0
+    },
+    {
+      "id": "q-auct",
+      "type": "queue",
+      "x": 400,
+      "y": 220
+    },
+    {
+      "id": "tracker",
+      "type": "bid-tracker",
+      "x": 600,
+      "y": 110
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "x": 800,
+      "y": 110
+    },
+    {
+      "id": "streamer",
+      "type": "bid-streamer",
+      "x": 600,
+      "y": -110
+    },
+    {
+      "id": "session",
+      "type": "auction-session",
+      "x": 200,
+      "y": 330
+    },
+    {
+      "id": "q-pay",
+      "type": "queue",
+      "x": 400,
+      "y": 330
+    },
+    {
+      "id": "payment",
+      "type": "payment",
+      "x": 600,
+      "y": 330
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "bidder",
+      "target": "capture"
+    },
+    {
+      "id": "e2",
+      "source": "capture",
+      "target": "q-bids"
+    },
+    {
+      "id": "e3",
+      "source": "q-bids",
+      "target": "tracker"
+    },
+    {
+      "id": "e4",
+      "source": "auctioneer",
+      "target": "auct-capture"
+    },
+    {
+      "id": "e5",
+      "source": "auct-capture",
+      "target": "q-auct"
+    },
+    {
+      "id": "e6",
+      "source": "q-auct",
+      "target": "tracker"
+    },
+    {
+      "id": "e7",
+      "source": "tracker",
+      "target": "db"
+    },
+    {
+      "id": "e8",
+      "source": "tracker",
+      "target": "streamer"
+    },
+    {
+      "id": "e9",
+      "source": "streamer",
+      "target": "bidder"
+    },
+    {
+      "id": "e10",
+      "source": "session",
+      "target": "q-pay"
+    },
+    {
+      "id": "e11",
+      "source": "q-pay",
+      "target": "payment"
+    }
+  ]
+}

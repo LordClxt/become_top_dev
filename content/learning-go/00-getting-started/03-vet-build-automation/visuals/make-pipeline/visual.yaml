@@ -1,0 +1,7 @@
+id: go-ch00-make-pipeline
+concept: go-makefile-targets
+format: hyperframes
+justification: "make remonte la chaîne des dépendances avant de l'exécuter, et un échec coupe la suite : c'est une propagation dans le temps, qu'une courte animation montre mieux qu'un schéma figé."
+entry: scene.html
+duration_s: 12
+status: built

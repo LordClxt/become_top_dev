@@ -1,0 +1,12 @@
+id: go-ch00-l03-lab-vet-fix
+title: "Quatre bugs que seul go vet voit"
+kind: code
+language: go
+difficulty: 1
+xp: 40
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["report.go"]
+concepts: [go-vet-printf]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

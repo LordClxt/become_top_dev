@@ -1,0 +1,82 @@
+id: arch
+title: "Architecte logiciel"
+book:
+  title: "Fundamentals of Software Architecture"
+  authors: ["Mark Richards", "Neal Ford"]
+  slug: software-architecture
+summary: "Raisonner en trade-offs : caractéristiques, styles, décisions et risques. Des katas et des ADR notés par rubrique, et des outils Go qui mesurent l'architecture."
+order: 3
+kind: conceptual
+language: go                # pour les TP archkit (métriques, fitness functions)
+pilot: "02-characteristics"
+running_project:
+  id: going-going-gone
+  title: "Going, Going, Gone — le dossier d'architecture"
+  pitch: "Un site d'enchères en ligne, conçu de bout en bout : caractéristiques, quanta, style, ADR, risques et diagrammes, plus la boîte à outils Go archkit."
+requires:
+  - course: go
+    through: "06-types-methods-interfaces"
+    reason: "Les outils archkit s'écrivent en Go : packages, interfaces et tests."
+
+tracks:
+  - id: arch-thinking
+    title: "Penser en architecte"
+    chapters:
+      - "00-architectural-thinking"    # ch1-2
+      - "01-modularity"                # ch3
+  - id: arch-characteristics
+    title: "Caractéristiques"
+    chapters:
+      - "02-characteristics"           # ch4-5 — pilote
+      - "03-measuring-governing"       # ch6
+      - "04-quanta"                    # ch7
+      - "05-components"                # ch8
+  - id: arch-monolithic
+    title: "Styles monolithiques"
+    chapters:
+      - "06-style-foundations"         # ch9
+      - "07-layered-pipeline"          # ch10-11
+      - "08-microkernel"               # ch12
+  - id: arch-distributed
+    title: "Styles distribués"
+    chapters:
+      - "09-service-based"             # ch13
+      - "10-event-driven"              # ch14
+      - "11-space-based"               # ch15
+      - "12-soa-microservices"         # ch16-17
+  - id: arch-decide
+    title: "Décider et communiquer"
+    chapters:
+      - "13-choosing-a-style"          # ch18
+      - "14-decisions-adr"             # ch19
+      - "15-risk"                      # ch20
+      - "16-diagrams"                  # ch21
+  - id: arch-leadership
+    title: "Leadership"
+    optional: true
+    chapters:
+      - "17-teams"                     # ch22
+      - "18-negotiation"               # ch23
+      - "19-career"                    # ch24
+
+planned_titles:
+  "00-architectural-thinking": "Penser en architecte"
+  "01-modularity": "Modularité et connascence"
+  "02-characteristics": "Caractéristiques d'architecture"
+  "03-measuring-governing": "Mesurer et gouverner"
+  "04-quanta": "Quanta et granularité"
+  "05-components": "Penser en composants"
+  "06-style-foundations": "Fondations des styles"
+  "07-layered-pipeline": "Couches et pipeline"
+  "08-microkernel": "Microkernel"
+  "09-service-based": "Service-based"
+  "10-event-driven": "Event-driven"
+  "11-space-based": "Space-based"
+  "12-soa-microservices": "De SOA aux microservices"
+  "13-choosing-a-style": "Choisir un style"
+  "14-decisions-adr": "Décisions et ADR"
+  "15-risk": "Analyser le risque"
+  "16-diagrams": "Diagrammes et présentation"
+  "17-teams": "Rendre les équipes efficaces"
+  "18-negotiation": "Négocier et diriger"
+  "19-career": "Construire sa carrière"

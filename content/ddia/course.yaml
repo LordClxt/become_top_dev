@@ -1,0 +1,68 @@
+id: ddia
+title: "Systèmes de données"
+book:
+  title: "Designing Data-Intensive Applications"
+  authors: ["Martin Kleppmann"]
+  slug: ddia
+summary: "Comment une base stocke, réplique, partitionne et garde ses données cohérentes. Chaque mécanisme du livre est reconstruit en petit, en Go."
+order: 2
+kind: practical
+language: go
+pilot: "02-storage-indexes"
+running_project:
+  id: tinybase
+  title: "Tinybase — un mini-système de données"
+  pitch: "Un moteur clé-valeur en Go qui grandit module après module : log, index, réplication, partitions, transactions, consensus, flux."
+requires:
+  - course: go
+    through: "10-concurrency"
+    reason: "Les TP manipulent goroutines, channels et verrous dès la réplication."
+
+tracks:
+  - id: ddia-single-node
+    title: "Fondations sur un nœud"
+    chapters:
+      - "00-reliability-scalability"   # ch1
+      - "01-data-models"               # ch2
+      - "02-storage-indexes"           # ch3 (1re moitié) — pilote
+      - "03-analytics-columns"         # ch3 (2e moitié)
+      - "04-encoding-evolution"        # ch4
+  - id: ddia-distributed
+    title: "Données distribuées"
+    chapters:
+      - "05-leader-replication"        # ch5 (1re moitié)
+      - "06-multi-leader-leaderless"   # ch5 (2e moitié)
+      - "07-partitioning"              # ch6
+      - "08-weak-isolation"            # ch7 (1re moitié)
+      - "09-serializability"           # ch7 (2e moitié)
+      - "10-distributed-trouble"       # ch8
+      - "11-linearizability-ordering"  # ch9 (1re moitié)
+      - "12-consensus"                 # ch9 (2e moitié)
+  - id: ddia-derived
+    title: "Données dérivées"
+    chapters:
+      - "13-batch-processing"          # ch10
+      - "14-event-logs"                # ch11 (1re moitié)
+      - "15-stream-processing"         # ch11 (2e moitié)
+      - "16-unbundling-databases"      # ch12 (1re moitié)
+      - "17-correctness-ethics"        # ch12 (2e moitié)
+
+planned_titles:
+  "00-reliability-scalability": "Fiabilité, charge et percentiles"
+  "01-data-models": "Modèles de données et requêtes"
+  "02-storage-indexes": "Stockage et index"
+  "03-analytics-columns": "Analytique et stockage en colonnes"
+  "04-encoding-evolution": "Encodage et évolution des schémas"
+  "05-leader-replication": "Réplication avec leader"
+  "06-multi-leader-leaderless": "Multi-leader et sans leader"
+  "07-partitioning": "Partitionnement"
+  "08-weak-isolation": "Isolation faible et MVCC"
+  "09-serializability": "Sérialisabilité"
+  "10-distributed-trouble": "Quand le réseau ment"
+  "11-linearizability-ordering": "Linéarisabilité et ordre"
+  "12-consensus": "Consensus"
+  "13-batch-processing": "Traitement par lots"
+  "14-event-logs": "Logs et flux d'événements"
+  "15-stream-processing": "Traitement de flux"
+  "16-unbundling-databases": "Dégrouper la base de données"
+  "17-correctness-ethics": "Correction et éthique"

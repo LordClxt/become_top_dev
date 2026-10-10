@@ -1,0 +1,35 @@
+{
+  "nodes": [
+    {
+      "id": "bidder",
+      "type": "bidder",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "auctioneer",
+      "type": "auctioneer",
+      "x": 0,
+      "y": 220
+    },
+    {
+      "id": "tracker",
+      "type": "bid-tracker",
+      "x": 600,
+      "y": 110
+    },
+    {
+      "id": "session",
+      "type": "auction-session",
+      "x": 200,
+      "y": 330
+    },
+    {
+      "id": "payment",
+      "type": "payment",
+      "x": 600,
+      "y": 330
+    }
+  ],
+  "edges": []
+}

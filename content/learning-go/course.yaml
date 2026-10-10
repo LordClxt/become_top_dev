@@ -1,0 +1,64 @@
+id: go
+title: "Go idiomatique"
+book:
+  title: "Learning Go, 2nd Edition"
+  authors: ["Jon Bodner"]
+  slug: learning-go
+summary: "Le langage, de la première variable à la concurrence et aux tests, en écrivant du Go qui compile et qui passe ses tests."
+order: 1
+kind: practical
+language: go
+runtime: "go1.27"          # version de la sandbox ; nouveautés post-livre en `extra`
+pilot: "02-composite-types"
+running_project:
+  id: go-relay
+  title: "Relay — un mini-service de jobs"
+  pitch: "Un service HTTP construit module après module : types, erreurs, concurrence, API, tests."
+
+tracks:
+  - id: go-foundations
+    title: "Les bases"
+    chapters:
+      - "00-getting-started"        # ch1, p.25-40
+      - "01-types-declarations"     # ch2, p.41-60
+      - "02-composite-types"        # ch3, p.61-90 — pilote
+      - "03-blocks-control"         # ch4, p.91-116
+      - "04-functions"              # ch5, p.117-142
+      - "05-pointers-memory"        # ch6, p.143-166
+  - id: go-idiomatic
+    title: "Écrire du Go propre"
+    chapters:
+      - "06-types-methods-interfaces"  # ch7, p.167-204
+      - "07-generics"                  # ch8, p.205-226 + itérateurs (extra)
+      - "08-errors"                    # ch9, p.227-246
+      - "09-modules-tooling"           # ch10-11, p.247-310
+  - id: go-production
+    title: "Go en conditions réelles"
+    chapters:
+      - "10-concurrency"     # ch12, p.311-342
+      - "11-standard-library" # ch13, p.343-372
+      - "12-context"         # ch14, p.373-394
+      - "13-testing"         # ch15, p.395-432 + pprof (extra)
+  - id: go-advanced
+    title: "Avancé (facultatif)"
+    optional: true
+    chapters:
+      - "14-reflect-unsafe-cgo"  # ch16, p.433-464
+
+# Titres des modules prévus, affichés sur la carte avant leur génération.
+planned_titles:
+  "00-getting-started": "Bien démarrer avec Go"
+  "01-types-declarations": "Types et déclarations"
+  "02-composite-types": "Types composites"
+  "03-blocks-control": "Blocs, portée et contrôle"
+  "04-functions": "Fonctions"
+  "05-pointers-memory": "Pointeurs et mémoire"
+  "06-types-methods-interfaces": "Types, méthodes et interfaces"
+  "07-generics": "Generics"
+  "08-errors": "Erreurs"
+  "09-modules-tooling": "Modules et outillage"
+  "10-concurrency": "Concurrence"
+  "11-standard-library": "La bibliothèque standard"
+  "12-context": "Le context"
+  "13-testing": "Écrire des tests"
+  "14-reflect-unsafe-cgo": "reflect, unsafe et cgo"

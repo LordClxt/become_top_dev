@@ -1,0 +1,21 @@
+id: arch-sandbox-ggg-bid-flow
+title: "Going, Going, Gone : le soir de clôture"
+kind: diagram
+difficulty: 3
+xp: 120
+entrypoint: starter/
+files_editable: ["diagram.json"]
+concepts: []
+source: { chapter: 18, pages: "295-297" }
+palette:
+  - { type: bidder, label: "Enchérisseurs", shape: client, hint: "Des milliers de navigateurs qui enchérissent en ligne." }
+  - { type: auctioneer, label: "Commissaire-priseur", shape: client, hint: "Un seul par vente, en salle." }
+  - { type: bid-capture, label: "Bid Capture", shape: service, hint: "Reçoit les offres en ligne." }
+  - { type: auctioneer-capture, label: "Auctioneer Capture", shape: service, hint: "Reçoit les offres du commissaire-priseur." }
+  - { type: bid-tracker, label: "Bid Tracker", shape: service, hint: "Ordonne toutes les offres : la référence." }
+  - { type: bid-streamer, label: "Bid Streamer", shape: service, hint: "Renvoie le fil des offres aux enchérisseurs, en lecture seule." }
+  - { type: auction-session, label: "Auction Session", shape: service, hint: "Pilote le déroulé d'une vente." }
+  - { type: payment, label: "Payment", shape: external, hint: "Prestataire externe : un paiement toutes les 500 ms." }
+  - { type: queue, label: "File de messages", shape: queue, hint: "Tampon asynchrone entre deux rythmes différents." }
+  - { type: database, label: "Base de données", shape: database, hint: "Stockage durable." }
+verified: { at: 2026-10-10, solution: pass, starter: fail }
