@@ -1,7 +1,7 @@
 package api
 
-// Rejoue le contrat enregistré sur le backend Python (testdata/contract) et compare chaque réponse.
-// Régénérer la référence : cd backend && uv run python -m tests.record_contract
+// Rejoue le contrat enregistré sur l'ancien backend Python (testdata/contract) et compare chaque réponse.
+// Le script d'enregistrement (tests/record_contract.py) est conservé au tag git python-backend-last.
 
 import (
 	"bytes"
@@ -147,7 +147,7 @@ func TestContract(t *testing.T) {
 	}
 }
 
-// record reproduit tests/record_contract.py : ce qui est comparé pour chaque étape.
+// record reproduit l'ancien tests/record_contract.py : ce qui est comparé pour chaque étape.
 func record(t *testing.T, s step, resp *http.Response, runner *fakeRunner) map[string]any {
 	t.Helper()
 	raw, _ := io.ReadAll(resp.Body)
@@ -206,7 +206,7 @@ var (
 	masked     = map[string]bool{"avatar_version": true, "duration_ms": true}
 )
 
-// normalize masque ce qui dépend de l'heure ou de la machine. Même règle que record_contract.py.
+// normalize masque ce qui dépend de l'heure ou de la machine. Même règle que l'ancien record_contract.py.
 func normalize(v any) any {
 	switch t := v.(type) {
 	case map[string]any:

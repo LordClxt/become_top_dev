@@ -21,7 +21,7 @@ Le contenu est généré à l'avance par l'agent à partir des livres de `books/
 
 ```
 content/<livre>/     cours générés (source de vérité du contenu)
-backend/             API FastAPI (état utilisateur : XP, tentatives, progression)
+backend/             API Go (état utilisateur : XP, tentatives, progression)
 runner/              exécution du code en sandbox
 frontend/            app TanStack Start
 sandbox/images/      images Docker des runners (go…)

@@ -20,8 +20,8 @@ Un seul utilisateur. Objectif : devenir un développeur top 1 %.
 - Réponses concises : décisions → trade-offs → code.
 
 ## Stack (modifiable, mais justifier tout changement)
-- Backend : Python 3.12+, FastAPI, PostgreSQL, SQLAlchemy 2 + Alembic. Monolithe en couches :
-  `api/ → services/ → repositories/ → models/`. Pas d'accès DB depuis `api/`.
+- Backend : Go (net/http), PostgreSQL via pgx (SQL écrit à la main), migrations goose. Monolithe en couches :
+  `internal/api → service → repository → model`. Pas d'accès DB depuis `api`.
 - Front : TanStack Start (React) + shadcn/ui + Tailwind. Sombre par défaut + thème clair. Desktop-first.
 - Sandbox : conteneurs Docker éphémères (`--network none`, CPU/mémoire/timeout limités, FS en lecture seule sauf `/work`).
 - Déploiement : Docker Compose sur Coolify.
@@ -41,7 +41,7 @@ Un seul utilisateur. Objectif : devenir un développeur top 1 %.
 books/                     PDF sources (jamais committés)
 .cache/books/<slug>/       texte extrait (jamais committé)
 content/<book>/            cours générés (voir skill content-format)
-backend/                   FastAPI
+backend/                   API Go (cmd/btd, internal/)
 runner/                    service d'exécution (seul accès à Docker)
 frontend/                  TanStack Start
 sandbox/images/<lang>/     Dockerfiles des runners (go, python…)
