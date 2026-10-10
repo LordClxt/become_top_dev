@@ -1,0 +1,14 @@
+id: go-ch05-project
+title: "Relay : un cache LRU"
+pitch: "Relay recalcule sans cesse les mêmes résultats de jobs. Un cache à capacité fixe qui oublie l'entrée la moins récemment utilisée ramène ces calculs à zéro, avec une map et une liste doublement chaînée."
+running_project: go-relay
+kind: code
+language: go
+difficulty: 4
+xp: 230
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["cache.go"]
+concepts: [go-pointer-basics, go-nil-pointer, go-new-and-literal, go-pointer-mutable-param, go-pointer-last-resort, go-map-pointer]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

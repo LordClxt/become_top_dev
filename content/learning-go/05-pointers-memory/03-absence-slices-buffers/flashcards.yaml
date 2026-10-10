@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Comment distinguer « pas de valeur » de « valeur zéro » ?"
+    back: "Avec un pointeur : nil = absent, non nil = présent (même si la valeur pointée est 0). Utile surtout pour JSON."
+    concept: go-pointer-optional
+  - id: fc2
+    front: "Pour une valeur de retour optionnelle, pointeur ou comma ok ?"
+    back: "Comma ok : (valeur, bool). Un pointeur en retour suggère que l'appelant peut le modifier."
+    concept: go-pointer-optional
+  - id: fc3
+    front: "Qu'est-ce qu'une map en interne ?"
+    back: "Un pointeur vers une structure. La passer à une fonction copie ce pointeur : le contenu est partagé."
+    concept: go-map-pointer
+  - id: fc4
+    front: "Quand utiliser une map plutôt qu'une struct ?"
+    back: "Quand les clés ne sont pas connues à la compilation. Sinon, une struct est plus explicite."
+    concept: go-map-pointer
+  - id: fc5
+    front: "Quels sont les trois champs d'une slice ?"
+    back: "Un pointeur vers le tableau, la longueur et la capacité."
+    concept: go-slice-header
+  - id: fc6
+    front: "Que partage la copie d'une slice ?"
+    back: "Le tableau d'éléments. La longueur et la capacité sont propres à chaque copie."
+    concept: go-slice-header
+  - id: fc7
+    front: "append est-il visible par l'appelant si la capacité suffit ?"
+    back: "La valeur est écrite dans le tableau partagé, mais la longueur de la slice de l'appelant ne change pas : il ne la voit pas."
+    concept: go-slice-header
+  - id: fc8
+    front: "Pourquoi réutiliser un tampon pour lire un fichier ?"
+    back: "Pour éviter une allocation par lecture : moins de travail pour le ramasse-miettes."
+    concept: go-buffer-reuse
+  - id: fc9
+    front: "Que signifie io.EOF ?"
+    back: "« Plus de données » : un signal normal de fin de lecture, pas un échec."
+    concept: go-buffer-reuse
+  - id: fc10
+    front: "Que faire des octets de data[:count] si on en a besoin après la lecture suivante ?"
+    back: "Les copier : le tampon sera écrasé."
+    concept: go-buffer-reuse

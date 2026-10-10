@@ -1,0 +1,6 @@
+id: go-ch05-stack-heap
+concept: go-escape-analysis
+format: interactive
+justification: "Choisir un extrait et voir si sa variable reste sur la pile ou s'échappe vers le tas, avec la raison, rend la règle de l'analyse d'échappement concrète."
+entry: StackHeap.tsx
+status: built

@@ -1,0 +1,12 @@
+id: go-ch05-l01-lab-primer
+title: "Premiers pas avec & et *"
+kind: code
+language: go
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["primer.go"]
+concepts: [go-pointer-basics, go-nil-pointer, go-new-and-literal, go-pointer-to-constant]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

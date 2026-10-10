@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Go est-il passé par valeur ou par référence ?"
+    back: "Toujours par valeur. Avec un pointeur, c'est l'adresse qui est copiée : elle désigne la même donnée."
+    concept: go-pointer-vs-class
+  - id: fc2
+    front: "Que garantit le passage d'une valeur (struct, int, array) à une fonction ?"
+    back: "Que l'original ne sera pas modifié : la fonction travaille sur une copie."
+    concept: go-pointer-mutable-param
+  - id: fc3
+    front: "Que signifie un paramètre pointeur ?"
+    back: "La fonction peut modifier la donnée de l'appelant."
+    concept: go-pointer-mutable-param
+  - id: fc4
+    front: "Une fonction peut-elle rendre non nil un pointeur nil de l'appelant ?"
+    back: "Non : elle ne modifie que sa copie. Il faut renvoyer le pointeur."
+    concept: go-pointer-copy-semantics
+  - id: fc5
+    front: "px = &autre ou *px = 20 : lequel modifie la variable de l'appelant ?"
+    back: "*px = 20. Réaffecter px ne change que la copie locale de l'adresse."
+    concept: go-pointer-copy-semantics
+  - id: fc6
+    front: "Faut-il remplir une struct reçue par pointeur ou la renvoyer ?"
+    back: "La renvoyer (valeur + erreur). Le pointeur en sortie est un dernier recours."
+    concept: go-pointer-last-resort
+  - id: fc7
+    front: "Quelle est l'exception classique au « renvoie une valeur » ?"
+    back: "Les API qui reçoivent une interface ou un any, comme json.Unmarshal(data, &v)."
+    concept: go-pointer-last-resort
+  - id: fc8
+    front: "Quand renvoyer un pointeur plutôt qu'une valeur ?"
+    back: "Quand le type porte un état à modifier (tampons, types de concurrence) ou une structure très grande."
+    concept: go-pointer-last-resort
+  - id: fc9
+    front: "Passer un pointeur est-il plus rapide que passer une valeur ?"
+    back: "Pour de très grosses données (mégaoctets) oui. Pour les petites structs, souvent non, surtout en retour. Mesure avant d'optimiser."
+    concept: go-pointer-last-resort

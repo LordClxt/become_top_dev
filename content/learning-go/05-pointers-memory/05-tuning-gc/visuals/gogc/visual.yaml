@@ -1,0 +1,6 @@
+id: go-ch05-gogc
+concept: go-gogc
+format: interactive
+justification: "Déplacer les curseurs GOGC et GOMEMLIMIT et voir la dent de scie du tas, le nombre de cycles et le pic mémoire change rend le compromis mémoire/CPU tangible."
+entry: Gogc.tsx
+status: built

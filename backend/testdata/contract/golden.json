@@ -93,8 +93,11 @@
         "title": "Fonctions"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "go-ch05",
+        "lesson_count": 5,
         "slug": "05-pointers-memory",
+        "subtitle": "Adresses, valeur ou pointeur, pile et tas, ramasse-miettes : comprendre où vivent vos données",
         "title": "Pointeurs et mémoire"
        }
       ],
@@ -627,8 +630,23 @@
         "title": "Fonctions"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "go-ch05",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "go-ch05",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 48,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "05-pointers-memory",
+        "subtitle": "Adresses, valeur ou pointeur, pile et tas, ramasse-miettes : comprendre où vivent vos données",
         "title": "Pointeurs et mémoire"
        }
       ],
@@ -1083,6 +1101,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 45,
+     "score": 0,
+     "unlocked": false
+    },
+    "go-ch05": {
+     "chapter_id": "go-ch05",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 48,
      "score": 0,
      "unlocked": false
     }
@@ -1849,6 +1879,155 @@
    "title": "Fonctions"
   },
   "name": "chapter:go-ch04",
+  "status": 200
+ },
+ {
+  "body": {
+   "assignment": {
+    "difficulty": 3,
+    "id": "go-ch05-assignment",
+    "passed": false,
+    "role": "assignment",
+    "title": "Une liste chaînée à la main",
+    "xp": 130
+   },
+   "boss": {
+    "difficulty": 5,
+    "id": "go-ch05-boss",
+    "passed": false,
+    "role": "boss",
+    "title": "Boss : l'arbre de recherche",
+    "xp": 270
+   },
+   "course": {
+    "id": "go",
+    "title": "Go idiomatique"
+   },
+   "id": "go-ch05",
+   "lessons": [
+    {
+     "completed": false,
+     "duration_min": 25,
+     "id": "go-ch05-l01",
+     "labs": [
+      {
+       "difficulty": 2,
+       "id": "go-ch05-l01-lab-primer",
+       "passed": false,
+       "role": "lab",
+       "title": "Premiers pas avec & et *",
+       "xp": 55
+      }
+     ],
+     "title": "Les pointeurs : adresses, & et *",
+     "xp": 25
+    },
+    {
+     "completed": false,
+     "duration_min": 30,
+     "id": "go-ch05-l02",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "go-ch05-l02-lab-accounts",
+       "passed": false,
+       "role": "lab",
+       "title": "Comptes bancaires : qui peut modifier quoi ?",
+       "xp": 60
+      }
+     ],
+     "title": "Pointeurs et paramètres modifiables",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 25,
+     "id": "go-ch05-l03",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "go-ch05-l03-lab-optional",
+       "passed": false,
+       "role": "lab",
+       "title": "Champs facultatifs et tampon réutilisable",
+       "xp": 60
+      }
+     ],
+     "title": "Absence de valeur, maps, slices et tampons",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 30,
+     "id": "go-ch05-l04",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "go-ch05-l04-lab-allocs",
+       "passed": false,
+       "role": "lab",
+       "title": "Zéro allocation : le ramasse-miettes n'a rien à faire",
+       "xp": 60
+      }
+     ],
+     "title": "Pile, tas et ramasse-miettes",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 20,
+     "id": "go-ch05-l05",
+     "labs": [
+      {
+       "difficulty": 4,
+       "id": "go-ch05-l05-lab-gctune",
+       "passed": false,
+       "role": "lab",
+       "title": "GOGC et GOMEMLIMIT : lire et calculer sans déborder",
+       "xp": 65
+      }
+     ],
+     "title": "Régler le ramasse-miettes : GOGC et GOMEMLIMIT",
+     "xp": 25
+    }
+   ],
+   "mastery": {
+    "chapter_id": "go-ch05",
+    "labs_passed": 0,
+    "labs_total": 5,
+    "lessons_done": 0,
+    "lessons_total": 5,
+    "mastered": false,
+    "quiz_correct": 0,
+    "quiz_total": 48,
+    "score": 0,
+    "unlocked": false
+   },
+   "mastery_threshold": 0.8,
+   "objectives": [
+    "Utiliser & et *, créer des pointeurs (&T{}, new) et éviter le déréférencement de nil",
+    "Expliquer pourquoi réaffecter un pointeur reçu est sans effet alors qu'écrire à travers lui modifie l'appelant",
+    "Choisir entre valeur et pointeur pour un paramètre ou un retour, et préférer renvoyer des valeurs",
+    "Représenter une valeur absente avec un pointeur nil, et raisonner sur l'en-tête d'une slice pour manipuler des tampons",
+    "Décrire pile, tas et analyse d'échappement, et écrire du code qui limite les allocations",
+    "Lire et calculer les réglages GOGC et GOMEMLIMIT du ramasse-miettes"
+   ],
+   "project": {
+    "difficulty": 4,
+    "id": "go-ch05-project",
+    "passed": false,
+    "role": "project",
+    "title": "Relay : un cache LRU",
+    "xp": 230
+   },
+   "source": {
+    "chapter": 6,
+    "pages": "143-166"
+   },
+   "subtitle": "Adresses, valeur ou pointeur, pile et tas, ramasse-miettes : comprendre où vivent vos données",
+   "title": "Pointeurs et mémoire"
+  },
+  "name": "chapter:go-ch05",
   "status": 200
  },
  {
@@ -4789,6 +4968,694 @@
  },
  {
   "body": {
+   "body": "\n## Pourquoi c'est important\n\nJusqu'ici, chaque variable que tu as manipulée contenait directement sa valeur, et chaque appel de fonction en faisait une copie. Les pointeurs ajoutent l'idée inverse : une variable qui **désigne** une autre. Ils servent à partager une donnée, à la modifier depuis une autre fonction, à représenter l'absence de valeur. Beaucoup de développeurs les redoutent ; en Go, ils sont bien plus simples qu'en C.\n\n## Variables et adresses\n\nChaque variable occupe un ou plusieurs octets consécutifs en mémoire, repérés par une **adresse**. Un `int32` occupe quatre octets, un booléen un seul. Un **pointeur** est une variable dont la valeur est l'adresse d'une autre variable.\n\n```go\nvar x int32 = 10\nvar y bool = true\npointerX := &x      // l'adresse de x\npointerY := &y      // l'adresse de y\nvar pointerZ *string  // pointe sur rien\n```\n\nQuel que soit le type visé, un pointeur occupe toujours la même taille (4 octets sur un système 32 bits, 8 sur un 64 bits). Sa **valeur zéro** est `nil`.\n\n## Les deux opérateurs\n\n- **`&`** (adresse de) précède une variable et renvoie son adresse.\n- **`*`** (déréférencement) précède un pointeur et renvoie la valeur pointée.\n\n```go\nx := 10\npointerToX := &x\nfmt.Println(pointerToX)   // une adresse, par exemple 0xc000012345\nfmt.Println(*pointerToX)  // 10\n\n*pointerToX = 20          // écrit dans x\nfmt.Println(x)            // 20\nz := 5 + *pointerToX      // 25\n```\n\nLe **type** d'un pointeur s'écrit avec une étoile devant le type visé : `*int` est « pointeur vers un `int` », `*Person` « pointeur vers une `Person` ». Copier un pointeur copie l'adresse : les deux variables désignent alors **la même valeur**.\n\n```go\nx := 1\np := &x\nq := p       // q pointe aussi sur x\n*q = 5\nfmt.Println(x, *p)   // 5 5\n```\n\n### Pas d'arithmétique sur les pointeurs\n\nContrairement au C, Go interdit `p + 1`. Le ramasse-miettes gère la mémoire à ta place, et le paquet `unsafe` (réservé à des cas très rares) est le seul moyen de contourner cette règle.\n\n## `nil` : le pointeur qui ne mène nulle part\n\n```go\nvar x *int\nfmt.Println(x == nil)  // true\nfmt.Println(*x)        // panic : invalid memory address or nil pointer dereference\n```\n\n**Avant de déréférencer un pointeur dont tu n'es pas sûr, vérifie qu'il n'est pas `nil`.** Un déréférencement de `nil` fait paniquer le programme : c'est l'erreur d'exécution la plus courante en Go.\n\nContrairement à `NULL` en C, `nil` n'est **pas** un autre nom pour `0` : on ne peut pas les convertir l'un en l'autre. Et comme `nil` est un identifiant du bloc univers, il peut être masqué : ne nomme jamais une variable `nil`.\n\n## Créer un pointeur\n\nTrois manières :\n\n```go\nx := 10\np := &x                   // pointeur vers une variable existante\n\nq := &Person{Name: \"Ada\"} // pointeur vers une struct créée à la volée : la forme habituelle\n\nr := new(int)             // pointeur vers un int à sa valeur zéro (0)\nfmt.Println(*r)           // 0\n```\n\n`new` est rarement utilisé : pour une struct on écrit `&Person{…}`, pour une valeur simple on déclare une variable et on prend son adresse.\n\n### Accéder aux champs d'une struct pointée\n\nGo déréférence automatiquement pour les champs :\n\n```go\nt := &T{N: 1}\nt.N++               // identique à (*t).N++\nfmt.Println(t.N)    // 2\n```\n\n## On ne peut pas prendre l'adresse d'un littéral\n\nLes nombres, booléens et strings écrits dans le code n'ont pas d'adresse : ils n'existent qu'à la compilation.\n\n```go\ntype person struct {\n\tFirstName  string\n\tMiddleName *string\n\tLastName   string\n}\n\np := person{\n\tFirstName:  \"Pat\",\n\tMiddleName: \"Perry\",    // erreur : cannot use \"Perry\" as *string\n\tLastName:   \"Peterson\",\n}\n// MiddleName: &\"Perry\"     // erreur aussi : cannot take the address of \"Perry\"\n```\n\nDeux solutions. La première : déclarer une variable.\n\n```go\nmiddle := \"Perry\"\np := person{FirstName: \"Pat\", MiddleName: &middle, LastName: \"Peterson\"}\n```\n\nLa seconde : une petite fonction **générique** qui renvoie un pointeur vers une copie de n'importe quelle valeur.\n\n```go\nfunc makePointer[T any](t T) *T {\n\treturn &t\n}\n\np := person{FirstName: \"Pat\", MiddleName: makePointer(\"Perry\"), LastName: \"Peterson\"}\n```\n\nÇa marche parce qu'un paramètre est une variable : elle a une adresse, que la fonction renvoie. (Les génériques seront détaillés dans un prochain module ; ici, retiens simplement le modèle.) C'est ce que tu écris dans le TP, sous le nom `Ptr`.\n\n## Pièges fréquents\n\n- **Déréférencer un pointeur `nil`.** Teste `if p != nil` quand le pointeur peut être absent.\n- **Confondre `p` et `*p`** : `p == q` compare des adresses, `*p == *q` compare des valeurs.\n- **Écrire `&` devant un littéral** : impossible, passe par une variable ou une fonction aide.\n- **Croire que `nil` vaut 0.**\n- **Oublier que copier un pointeur partage la donnée** : modifier via l'un se voit via l'autre.\n\n## À retenir\n\n- Un pointeur est une variable qui contient l'adresse d'une autre ; son type s'écrit `*T`, sa valeur zéro est `nil`.\n- `&x` donne l'adresse de `x`, `*p` donne la valeur pointée (et permet de l'écrire).\n- Déréférencer `nil` fait paniquer.\n- On crée un pointeur avec `&x`, `&T{…}` ou `new(T)` ; on ne peut pas prendre l'adresse d'un littéral.\n- Pas d'arithmétique de pointeurs en Go.\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch05",
+    "title": "Pointeurs et mémoire"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-pointer-basics",
+     "label": "Adresse (&) et déréférencement (*)"
+    },
+    {
+     "id": "go-nil-pointer",
+     "label": "nil, la valeur zéro d'un pointeur, et le panic de son déréférencement"
+    },
+    {
+     "id": "go-new-and-literal",
+     "label": "Créer un pointeur : &T{} et new"
+    },
+    {
+     "id": "go-pointer-to-constant",
+     "label": "Pas d'adresse pour un littéral : variable ou fonction aide"
+    }
+   ],
+   "duration_min": 25,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Une variable qui contient l'adresse d'une autre variable. Son type s'écrit *T.",
+     "concept": "go-pointer-basics",
+     "front": "Qu'est-ce qu'un pointeur ?",
+     "id": "fc1"
+    },
+    {
+     "back": "&x donne l'adresse de x ; *p donne (et permet d'écrire) la valeur pointée par p.",
+     "concept": "go-pointer-basics",
+     "front": "Que font & et * ?",
+     "id": "fc2"
+    },
+    {
+     "back": "p == q compare deux adresses ; *p == *q compare les valeurs pointées.",
+     "concept": "go-pointer-basics",
+     "front": "Que compare p == q ? Et *p == *q ?",
+     "id": "fc3"
+    },
+    {
+     "back": "nil. Ce n'est pas 0 : on ne peut pas les convertir l'un en l'autre.",
+     "concept": "go-nil-pointer",
+     "front": "Valeur zéro d'un pointeur ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Un panic : invalid memory address or nil pointer dereference.",
+     "concept": "go-nil-pointer",
+     "front": "Que provoque *p quand p vaut nil ?",
+     "id": "fc5"
+    },
+    {
+     "back": "&Person{…} (forme habituelle). new(Person) donne un pointeur vers une Person à sa valeur zéro.",
+     "concept": "go-new-and-literal",
+     "front": "Comment créer un pointeur vers une struct ?",
+     "id": "fc6"
+    },
+    {
+     "back": "Non : Go déréférence automatiquement. t.N suffit.",
+     "concept": "go-new-and-literal",
+     "front": "Faut-il écrire (*t).N pour lire un champ à travers un pointeur de struct ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Un littéral n'a pas d'adresse. On le met dans une variable, ou on passe par une fonction générique comme makePointer.",
+     "concept": "go-pointer-to-constant",
+     "front": "Pourquoi &\"hello\" ne compile-t-il pas ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Non (seul le paquet unsafe permet de le contourner).",
+     "concept": "go-pointer-basics",
+     "front": "Go a-t-il de l'arithmétique de pointeurs ?",
+     "id": "fc9"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Variable qui contient l'adresse mémoire d'une autre valeur au lieu de la valeur elle-même.",
+     "term": "pointeur"
+    },
+    {
+     "definition": "Numéro de l'emplacement mémoire où une valeur est stockée.",
+     "term": "adresse"
+    },
+    {
+     "definition": "Suivre un pointeur pour lire ou écrire la valeur à laquelle il mène. Se note *p.",
+     "term": "déréférencer"
+    },
+    {
+     "definition": "Valeur zéro d'un pointeur (et d'une slice, d'une map, d'une fonction…) : il ne désigne rien. Ce n'est pas un synonyme de 0.",
+     "term": "nil"
+    }
+   ],
+   "id": "go-ch05-l01",
+   "labs": [
+    {
+     "difficulty": 2,
+     "id": "go-ch05-l01-lab-primer",
+     "passed": false,
+     "role": "lab",
+     "title": "Premiers pas avec & et *",
+     "xp": 55
+    }
+   ],
+   "next_id": "go-ch05-l02",
+   "previous_id": null,
+   "quiz_id": "go-ch05-l01-quiz",
+   "source": {
+    "chapter": 6,
+    "pages": "143-147"
+   },
+   "title": "Les pointeurs : adresses, & et *",
+   "visuals": {},
+   "xp": 25
+  },
+  "name": "lesson:go-ch05-l01",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\n« Quand dois-je passer un pointeur ? » est la question n°1 des développeurs Go débutants. La réponse tient en une ligne : **un paramètre pointeur dit que la fonction peut modifier la donnée de l'appelant**. Le reste de cette leçon explique pourquoi, ce que ça implique (notamment le piège du pointeur `nil`) et pourquoi, la plupart du temps, il vaut mieux **renvoyer une valeur**.\n\n## Rien de nouveau si tu connais Java ou Python\n\nEn Java, JavaScript, Python ou Ruby, il existe deux comportements selon qu'on manipule un type primitif ou un objet :\n\n```python\nclass Foo:\n    def __init__(self, x): self.x = x\n\ndef outer():\n    f = Foo(10)\n    inner1(f); print(f.x)    # 20 : le champ modifié se voit\n    inner2(f); print(f.x)    # 20 : réaffecter le paramètre ne se voit pas\n    g = None\n    inner2(g); print(g is None)  # True : passer None puis réaffecter ne se voit pas\n\ndef inner1(f): f.x = 20\ndef inner2(f): f = Foo(30)\n```\n\nOn dit parfois que les objets y sont « passés par référence ». C'est faux : si c'était le cas, les cas 2 et 3 changeraient la variable de l'appelant. Ces langages sont **tous passés par valeur**, comme Go. Ce qui se passe : chaque objet est en réalité un **pointeur**. Passer un objet copie le pointeur ; modifier un champ agit sur la donnée partagée, réaffecter le paramètre ne change que la copie.\n\nQuand tu utilises un pointeur en Go, tu retrouves **exactement** ces trois comportements. La différence : Go te laisse **choisir** entre valeur et pointeur, y compris pour les structs et les types primitifs. Dans le doute, choisis une **valeur** : elle rend plus lisible quand et comment les données changent.\n\n## Un pointeur dit « mutable »\n\nGo n'a pas de mot-clé `final`, `readonly` ou `const` pour les variables ordinaires. Le choix valeur / pointeur joue ce rôle :\n\n- Passer une **valeur** (primitif, struct, array) garantit que la fonction ne peut pas modifier l'original : elle travaille sur une copie.\n- Passer un **pointeur** déclare que la fonction **peut** modifier la donnée d'origine.\n\nUn lecteur qui voit `func Deposit(a *Account, amount int)` comprend sans lire le corps que l'`Account` de l'appelant sera modifié.\n\n## Les deux conséquences de la copie\n\nLe pointeur est lui-même passé par valeur : la fonction reçoit **une copie de l'adresse**. D'où deux règles.\n\n### 1. On ne peut pas rendre non nil un pointeur nil reçu en paramètre\n\n```go\nfunc failedUpdate(g *int) {\n\tx := 10\n\tg = &x          // on change la copie de l'adresse, pas la variable de l'appelant\n}\n\nfunc main() {\n\tvar f *int      // nil\n\tfailedUpdate(f)\n\tfmt.Println(f)  // <nil>\n}\n```\n\n`f` est copié dans `g` (tous deux `nil`). Faire pointer `g` ailleurs ne change pas `f`. Pour que l'appelant récupère un pointeur non nil, la fonction doit le **renvoyer**.\n\n### 2. Pour changer la valeur, il faut écrire à travers le pointeur\n\n```go\nfunc failedUpdate(px *int) {\n\tx2 := 20\n\tpx = &x2         // modifie la copie du pointeur : sans effet pour l'appelant\n}\n\nfunc update(px *int) {\n\t*px = 20         // écrit dans la case mémoire partagée\n}\n\nfunc main() {\n\tx := 10\n\tfailedUpdate(&x)\n\tfmt.Println(x)   // 10\n\tupdate(&x)\n\tfmt.Println(x)   // 20\n}\n```\n\nDans `update`, `px` est une copie de l'adresse de `x`, mais *les deux désignent la même case*. `*px = 20` y écrit : `x` vaut 20 en revenant. Dans `failedUpdate`, on a seulement fait pointer la copie ailleurs.\n\n::visual{id=\"go-ch05-pointer-update\"}\n\n## Les pointeurs : un dernier recours\n\nLes pointeurs rendent le flux des données plus difficile à suivre et ajoutent du travail pour le ramasse-miettes. **Plutôt que de remplir une struct reçue par pointeur, fabrique-la et renvoie-la.**\n\n```go\n// À éviter\nfunc MakeFoo(f *Foo) error {\n\tf.Field1 = \"val\"\n\tf.Field2 = 20\n\treturn nil\n}\n\n// À préférer\nfunc MakeFoo() (Foo, error) {\n\tf := Foo{Field1: \"val\", Field2: 20}\n\treturn f, nil\n}\n```\n\n### L'exception : quand l'API attend une interface\n\nOn passe un pointeur pour **remplir** une donnée quand la fonction reçoit une `any` ou une interface. Cas typique : `json.Unmarshal`.\n\n```go\nvar f struct {\n\tName string `json:\"name\"`\n\tAge  int    `json:\"age\"`\n}\nerr := json.Unmarshal([]byte(`{\"name\": \"Bob\", \"age\": 30}`), &f)\n```\n\n`Unmarshal` ne peut pas renvoyer une valeur du bon type (elle date d'avant les génériques) et ce style permet de réutiliser une même variable dans une boucle sans réallouer. Ne prends pas cette exception pour la règle.\n\n### Renvoyer un pointeur ou une valeur ?\n\nRenvoie une **valeur** par défaut. Renvoie un **pointeur** seulement quand le type a un **état à modifier** (des tampons d'entrée-sortie, certains types de concurrence) ou quand la structure est très grande.\n\n## Et les performances ?\n\nPasser un pointeur coûte à peu près 1 nanoseconde quelle que soit la taille de la donnée. Passer une valeur coûte de plus en plus cher quand elle grossit (de l'ordre de 0,7 ms vers 10 Mo). Mais pour **renvoyer**, c'est étonnamment le contraire sous ~10 Mo : renvoyer une petite structure par valeur est plus rapide que renvoyer un pointeur (qui peut forcer une allocation sur le tas). Ces temps sont minuscules ; ne choisis un pointeur pour la performance que sur des données de plusieurs mégaoctets et après avoir mesuré.\n\n## Pièges fréquents\n\n- **Réaffecter le paramètre** (`g = &x`) en croyant changer l'appelant.\n- **Passer un pointeur nil** à une fonction qui doit le remplir : elle ne peut rien y écrire. Valide d'abord (`if a == nil { return err }`).\n- **Utiliser un pointeur « pour aller plus vite »** sur une petite struct : c'est souvent plus lent et moins lisible.\n- **Remplir une struct par pointeur** quand on pourrait la renvoyer.\n- **Modifier un pointeur reçu sans le documenter** : l'appelant ne s'y attend pas.\n\n## À retenir\n\n- Go est toujours passé par valeur ; un pointeur copié désigne la même donnée.\n- Un paramètre pointeur signifie « cette fonction peut modifier la donnée » ; une valeur garantit le contraire.\n- Réaffecter le pointeur reçu est sans effet ; écrire à travers (`*p = …` ou `p.Champ = …`) agit sur l'original.\n- On ne rend pas non nil un pointeur nil de l'appelant : on renvoie le pointeur.\n- Préfère renvoyer des valeurs ; le pointeur en sortie est une exception (JSON, interfaces).\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch05",
+    "title": "Pointeurs et mémoire"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-pointer-vs-class",
+     "label": "Un pointeur Go se comporte comme les objets de Java ou Python"
+    },
+    {
+     "id": "go-pointer-mutable-param",
+     "label": "Un pointeur en paramètre signale que la fonction peut modifier la donnée"
+    },
+    {
+     "id": "go-pointer-copy-semantics",
+     "label": "On copie le pointeur : réaffecter ne se voit pas, écrire à travers se voit"
+    },
+    {
+     "id": "go-pointer-last-resort",
+     "label": "Préférer renvoyer des valeurs ; le pointeur est un dernier recours"
+    }
+   ],
+   "duration_min": 30,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Toujours par valeur. Avec un pointeur, c'est l'adresse qui est copiée : elle désigne la même donnée.",
+     "concept": "go-pointer-vs-class",
+     "front": "Go est-il passé par valeur ou par référence ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Que l'original ne sera pas modifié : la fonction travaille sur une copie.",
+     "concept": "go-pointer-mutable-param",
+     "front": "Que garantit le passage d'une valeur (struct, int, array) à une fonction ?",
+     "id": "fc2"
+    },
+    {
+     "back": "La fonction peut modifier la donnée de l'appelant.",
+     "concept": "go-pointer-mutable-param",
+     "front": "Que signifie un paramètre pointeur ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Non : elle ne modifie que sa copie. Il faut renvoyer le pointeur.",
+     "concept": "go-pointer-copy-semantics",
+     "front": "Une fonction peut-elle rendre non nil un pointeur nil de l'appelant ?",
+     "id": "fc4"
+    },
+    {
+     "back": "*px = 20. Réaffecter px ne change que la copie locale de l'adresse.",
+     "concept": "go-pointer-copy-semantics",
+     "front": "px = &autre ou *px = 20 : lequel modifie la variable de l'appelant ?",
+     "id": "fc5"
+    },
+    {
+     "back": "La renvoyer (valeur + erreur). Le pointeur en sortie est un dernier recours.",
+     "concept": "go-pointer-last-resort",
+     "front": "Faut-il remplir une struct reçue par pointeur ou la renvoyer ?",
+     "id": "fc6"
+    },
+    {
+     "back": "Les API qui reçoivent une interface ou un any, comme json.Unmarshal(data, &v).",
+     "concept": "go-pointer-last-resort",
+     "front": "Quelle est l'exception classique au « renvoie une valeur » ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Quand le type porte un état à modifier (tampons, types de concurrence) ou une structure très grande.",
+     "concept": "go-pointer-last-resort",
+     "front": "Quand renvoyer un pointeur plutôt qu'une valeur ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Pour de très grosses données (mégaoctets) oui. Pour les petites structs, souvent non, surtout en retour. Mesure avant d'optimiser.",
+     "concept": "go-pointer-last-resort",
+     "front": "Passer un pointeur est-il plus rapide que passer une valeur ?",
+     "id": "fc9"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Se dit d'une donnée qu'on peut modifier après sa création. Go n'a pas de déclaration d'immuabilité : on choisit entre valeur et pointeur.",
+     "term": "mutable"
+    },
+    {
+     "definition": "Plusieurs variables qui désignent la même donnée en mémoire.",
+     "term": "aliasing"
+    },
+    {
+     "definition": "Pointeur passé à une fonction pour qu'elle le remplisse, au lieu de renvoyer une valeur. À réserver à quelques cas (json.Unmarshal).",
+     "term": "paramètre de sortie"
+    },
+    {
+     "definition": "Modification d'un état extérieur à la fonction (ici, la donnée vers laquelle pointe un paramètre).",
+     "term": "effet de bord"
+    }
+   ],
+   "id": "go-ch05-l02",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "go-ch05-l02-lab-accounts",
+     "passed": false,
+     "role": "lab",
+     "title": "Comptes bancaires : qui peut modifier quoi ?",
+     "xp": 60
+    }
+   ],
+   "next_id": "go-ch05-l03",
+   "previous_id": "go-ch05-l01",
+   "quiz_id": "go-ch05-l02-quiz",
+   "source": {
+    "chapter": 6,
+    "pages": "147-154"
+   },
+   "title": "Pointeurs et paramètres modifiables",
+   "visuals": {
+    "go-ch05-pointer-update": {
+     "concept": "go-pointer-copy-semantics",
+     "entry": "PointerUpdate.tsx",
+     "format": "interactive",
+     "id": "go-ch05-pointer-update",
+     "justification": "Voir chaque case mémoire et chaque flèche changer pendant l'appel explique pourquoi réaffecter le pointeur reçu ne change rien, alors qu'écrire à travers lui oui.",
+     "params": [],
+     "status": "built"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:go-ch05-l02",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nDeux questions de conception reviennent sans cesse : comment dire « cette valeur n'est pas renseignée » ? et comment lire des gigaoctets de données sans saturer la mémoire ? Les pointeurs et les slices répondent aux deux. Et comprendre qu'une map ou une slice contient *déjà* un pointeur éclaire tout ce que tu as vu sur leur comportement en paramètre.\n\n## Valeur zéro ou absence de valeur ?\n\nUn `int` à `0` est-il « zéro » ou « non renseigné » ? Un entier ne peut pas le dire. Quand la distinction compte (un port facultatif, un champ de configuration, une valeur JSON qui peut être `null`), on utilise un **pointeur** :\n\n```go\ntype Settings struct {\n\tPort  *int    // nil = non renseigné ; &0 = renseigné à zéro\n\tDebug *bool   // nil = on garde la valeur par défaut\n\tName  *string\n}\n```\n\n`nil` signifie « absent », un pointeur non nil signifie « présent », **même si la valeur pointée est le zéro**. C'est pourquoi les champs d'une struct qui sert à lire du JSON sont souvent des pointeurs : le décodeur distingue un champ absent d'un champ à `0` ou `\"\"`.\n\n### Mais pas partout\n\nUn pointeur indique aussi la **mutabilité** : n'en mets pas partout pour dire « optionnel ».\n\n- Pour une valeur de retour, préfère l'idiome *comma ok* : `value, ok := lookup(key)`. Pas de pointeur qui pourrait être modifié par l'appelant.\n- Un pointeur reçu et non nil ne doit pas être modifié sans que ce soit documenté.\n- Hors JSON (ou autre protocole externe), une valeur accompagnée d'un booléen est presque toujours plus claire.\n\n```go\n// Préfère\nfunc parsePort(s string) (port int, ok bool)\n// à\nfunc parsePort(s string) *int\n```\n\n## Les maps : un pointeur déguisé\n\nUne map est, dans le runtime, un pointeur vers une structure interne. Passer une map à une fonction copie ce pointeur : toute modification se voit chez l'appelant (tu l'as constaté dans le module précédent).\n\nPour les **API publiques**, cela rend les maps peu recommandées en entrée ou en sortie :\n\n- Elles ne disent rien de leur contenu : quelles clés ? quels types de valeurs ? Il faut lire le code.\n- Elles sont modifiables par n'importe qui, ce qui rend l'effet d'un appel difficile à suivre.\n\nGo est un langage typé. Plutôt que de passer une `map[string]any` « fourre-tout », utilise une **struct**, dont les champs sont déclarés. Une map est le bon choix quand les clés **ne sont pas connues à la compilation** (un compteur par mot, un index).\n\n## Les slices : trois champs\n\nUne slice est une petite structure de trois champs :\n\n```\nslice  ─ pointeur ─▶  [ 10 | 20 | 30 | 40 | ?  | ?  ]   ← tableau d'éléments\n       ─ longueur : 4\n       ─ capacité : 6\n```\n\nQuand tu **copies** une slice (affectation ou passage de paramètre), on copie ces trois champs : la copie pointe vers le **même tableau**.\n\n- **Modifier un élément** de la copie change le tableau partagé : visible dans l'original.\n- **`append` avec de la capacité disponible** écrit dans le tableau partagé et change la longueur **de la copie seulement**. L'original ne voit pas les nouvelles valeurs : elles sont au-delà de sa longueur.\n- **`append` sans capacité disponible** alloue un nouveau tableau, y copie les éléments, et met à jour le pointeur, la longueur et la capacité **de la copie**. Les deux slices pointent alors vers des tableaux différents.\n\n```go\ns := make([]int, 2, 5)\nt := append(s, 9)          // il y a de la place : même tableau\nfmt.Println(len(s), len(t)) // 2 3\n```\n\nConséquence : une fonction qui reçoit une slice peut changer son **contenu**, jamais sa **taille**. Par défaut, suppose qu'une fonction ne modifie pas la slice qu'on lui passe, et documente celles qui le font.\n\n> **Pourquoi une slice de n'importe quelle taille passe à une fonction, et pas un array ?** Une slice est toujours la même petite structure (deux entiers et un pointeur). Un array de taille N est passé entier, et sa taille fait partie de son type.\n\n## Les slices comme tampons\n\nBeaucoup de langages lisent une ressource ainsi : à chaque tour de boucle, ils allouent un nouveau morceau de données, le traitent, puis l'abandonnent. Chaque morceau est de la mémoire que le ramasse-miettes devra nettoyer.\n\nEn Go idiomatique, on alloue **une seule fois** un tampon et on le réutilise :\n\n```go\nfile, err := os.Open(fileName)\nif err != nil {\n\treturn err\n}\ndefer file.Close()\n\ndata := make([]byte, 100)         // un seul tampon\nfor {\n\tcount, err := file.Read(data)  // remplit les `count` premiers octets de data\n\tprocess(data[:count])          // on ne traite que la partie remplie\n\tif err != nil {\n\t\tif errors.Is(err, io.EOF) {\n\t\t\treturn nil\n\t\t}\n\t\treturn err\n\t}\n}\n```\n\nC'est justement la propriété qu'on vient de voir : la fonction `Read` ne peut pas changer la longueur de `data`, mais elle peut **écrire dans son contenu**. `io.EOF` n'est pas un échec : c'est le signal normal « plus de données ».\n\nAttention : `process` reçoit une vue sur le tampon, qui sera **écrasée** à la lecture suivante. Si elle doit conserver les données, elle doit les copier.\n\n## Pièges fréquents\n\n- **Utiliser `0` ou `\"\"` comme « absent »** quand ces valeurs sont aussi valides.\n- **Pointeur en retour pour dire « optionnel »** : préfère `(valeur, ok)`.\n- **Passer des maps dans une API publique** : l'appelant ne sait pas ce qu'elle contient.\n- **Garder une sous-slice d'un gros tampon** : elle retient tout le tableau en mémoire.\n- **Stocker `data[:count]` d'un tampon réutilisé** sans le copier : les données seront écrasées.\n\n## À retenir\n\n- Pour distinguer « pas de valeur » de « zéro », utilise un pointeur nil (surtout pour JSON) ; sinon `(valeur, ok)`.\n- Une map est un pointeur : passer une map partage son contenu. Dans une API, préfère une struct.\n- Une slice = (pointeur, longueur, capacité). La copie partage le tableau mais a sa propre longueur.\n- Une fonction modifie le contenu d'une slice reçue, jamais sa taille.\n- Pour lire par morceaux, alloue un tampon une fois et réutilise-le.\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch05",
+    "title": "Pointeurs et mémoire"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-pointer-optional",
+     "label": "Un pointeur nil distingue « pas de valeur » de « valeur zéro »"
+    },
+    {
+     "id": "go-map-pointer",
+     "label": "Une map est un pointeur : préférer une struct dans une API"
+    },
+    {
+     "id": "go-slice-header",
+     "label": "Une slice est un en-tête (pointeur, longueur, capacité)"
+    },
+    {
+     "id": "go-buffer-reuse",
+     "label": "Réutiliser un tampon au lieu d'allouer à chaque lecture"
+    }
+   ],
+   "duration_min": 25,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Avec un pointeur : nil = absent, non nil = présent (même si la valeur pointée est 0). Utile surtout pour JSON.",
+     "concept": "go-pointer-optional",
+     "front": "Comment distinguer « pas de valeur » de « valeur zéro » ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Comma ok : (valeur, bool). Un pointeur en retour suggère que l'appelant peut le modifier.",
+     "concept": "go-pointer-optional",
+     "front": "Pour une valeur de retour optionnelle, pointeur ou comma ok ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Un pointeur vers une structure. La passer à une fonction copie ce pointeur : le contenu est partagé.",
+     "concept": "go-map-pointer",
+     "front": "Qu'est-ce qu'une map en interne ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Quand les clés ne sont pas connues à la compilation. Sinon, une struct est plus explicite.",
+     "concept": "go-map-pointer",
+     "front": "Quand utiliser une map plutôt qu'une struct ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Un pointeur vers le tableau, la longueur et la capacité.",
+     "concept": "go-slice-header",
+     "front": "Quels sont les trois champs d'une slice ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Le tableau d'éléments. La longueur et la capacité sont propres à chaque copie.",
+     "concept": "go-slice-header",
+     "front": "Que partage la copie d'une slice ?",
+     "id": "fc6"
+    },
+    {
+     "back": "La valeur est écrite dans le tableau partagé, mais la longueur de la slice de l'appelant ne change pas : il ne la voit pas.",
+     "concept": "go-slice-header",
+     "front": "append est-il visible par l'appelant si la capacité suffit ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Pour éviter une allocation par lecture : moins de travail pour le ramasse-miettes.",
+     "concept": "go-buffer-reuse",
+     "front": "Pourquoi réutiliser un tampon pour lire un fichier ?",
+     "id": "fc8"
+    },
+    {
+     "back": "« Plus de données » : un signal normal de fin de lecture, pas un échec.",
+     "concept": "go-buffer-reuse",
+     "front": "Que signifie io.EOF ?",
+     "id": "fc9"
+    },
+    {
+     "back": "Les copier : le tampon sera écrasé.",
+     "concept": "go-buffer-reuse",
+     "front": "Que faire des octets de data[:count] si on en a besoin après la lecture suivante ?",
+     "id": "fc10"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Le port 0 est une valeur ; « pas de port défini » est une absence. Un entier ne sait pas les distinguer, un *int oui (nil = absent).",
+     "term": "valeur zéro vs absence"
+    },
+    {
+     "definition": "Structure de trois champs : un pointeur vers le tableau d'éléments, la longueur et la capacité.",
+     "term": "en-tête de slice"
+    },
+    {
+     "definition": "Zone mémoire réutilisée pour lire des données par morceaux, afin de ne pas allouer un nouveau tableau à chaque lecture.",
+     "term": "tampon (buffer)"
+    },
+    {
+     "definition": "Réservation d'un bloc de mémoire. Sur le tas, elle sollicite ensuite le ramasse-miettes.",
+     "term": "allocation"
+    }
+   ],
+   "id": "go-ch05-l03",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "go-ch05-l03-lab-optional",
+     "passed": false,
+     "role": "lab",
+     "title": "Champs facultatifs et tampon réutilisable",
+     "xp": 60
+    }
+   ],
+   "next_id": "go-ch05-l04",
+   "previous_id": "go-ch05-l02",
+   "quiz_id": "go-ch05-l03-quiz",
+   "source": {
+    "chapter": 6,
+    "pages": "155-160"
+   },
+   "title": "Absence de valeur, maps, slices et tampons",
+   "visuals": {},
+   "xp": 30
+  },
+  "name": "lesson:go-ch05-l03",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\n« Go est garbage-collecté, donc je n'ai pas à penser à la mémoire. » C'est vrai pour la correction du programme, faux pour sa vitesse. Un ramasse-miettes (GC) est précieux, mais plus tu lui fournis de déchets, plus il prend de temps à ton programme. Comprendre où vivent tes données explique pourquoi Go te conseille d'utiliser les pointeurs avec parcimonie.\n\n## La pile\n\nLa **pile** est un bloc de mémoire contigu. Chaque appel de fonction y réserve un **cadre** pour ses paramètres et ses variables locales. Un pointeur de pile mémorise la dernière position utilisée :\n\n- **allouer** = avancer ce pointeur de la taille de la variable ;\n- **libérer** = le ramener au début du cadre quand la fonction se termine.\n\nC'est extrêmement rapide, et il n'y a **rien** à nettoyer ensuite : la mémoire d'un cadre disparaît avec lui.\n\nPour stocker une valeur sur la pile, sa taille doit être **connue à la compilation**. C'est le cas des types valeur de Go : les nombres, les booléens, les arrays (c'est pour ça que la taille fait partie du type d'un array) et les structs. Un pointeur a aussi une taille connue.\n\n> Go peut même faire **grandir** la pile pendant l'exécution, parce que chaque goroutine a la sienne et que le runtime les gère. Les piles démarrent petites, au prix d'une copie quand elles grossissent.\n\n## Le tas\n\nLe **tas** est la mémoire gérée par le ramasse-miettes. Une donnée y vit tant qu'on peut y accéder par une chaîne de pointeurs depuis une variable de la pile. Quand plus rien ne pointe vers elle, c'est un **déchet**, et le GC la libère.\n\nPourquoi ne pas tout mettre sur le tas ? Parce que le tas coûte plus cher, de deux façons.\n\n## Quand une valeur « s'échappe » vers le tas\n\nUne donnée pointée peut rester sur la pile si **toutes** ces conditions sont vraies :\n\n1. c'est une variable locale dont la taille est connue à la compilation ;\n2. le pointeur n'est pas renvoyé par la fonction ;\n3. si le pointeur est transmis à une autre fonction, le compilateur peut garantir que (1) et (2) restent vraies.\n\nSinon, la donnée **s'échappe** vers le tas. Par exemple : une fonction qui renvoie un pointeur vers une de ses variables locales.\n\n```go\nfunc makePerson() *Person {\n\tp := Person{Name: \"Ada\"}\n\treturn &p                // p doit survivre à la fonction : elle s'échappe vers le tas\n}\n```\n\nEn C, renvoyer l'adresse d'une variable locale produit un pointeur vers de la mémoire invalide. **En Go, le compilateur voit le cas et place la variable sur le tas** : le programme est correct, au prix d'une allocation.\n\n::visual{id=\"go-ch05-stack-heap\"}\n\nTu peux demander au compilateur ce qu'il a décidé :\n\n```bash\ngo build -gcflags=-m ./...\n# ./main.go:8:2: moved to heap: p\n```\n\nL'analyse n'est pas parfaite : des données qui pourraient rester sur la pile s'échappent parfois. Elle est **prudente** (elle n'ose pas laisser une référence invalide) et progresse à chaque version de Go.\n\n## Pourquoi le tas coûte cher\n\n### 1. Le ramasse-miettes travaille\n\nRetrouver la mémoire libre et les blocs encore référencés n'est pas gratuit : c'est du temps pris sur le travail de ton programme. Le GC de Go est conçu pour la **faible latence** : chaque cycle ne met le programme en pause que moins de 500 microsecondes. Mais si ton programme produit énormément de déchets, le GC n'arrive pas à tout traiter en un cycle : il ralentit et la consommation mémoire grimpe.\n\n### 2. Le matériel aime la mémoire contiguë\n\nLa RAM se lit beaucoup plus vite **séquentiellement**. Une slice de structs range toutes ses données les unes à la suite des autres : rapide à charger et à parcourir. Une slice de **pointeurs** vers des structs (ou des structs dont les champs sont des pointeurs) éparpille les données dans la mémoire : l'accès via des pointeurs placés au hasard est de l'ordre de **cent fois plus lent**.\n\n```go\ntype Point struct{ X, Y int }\n\ncompact := make([]Point, 1_000_000)     // 1 bloc contigu : rapide à parcourir\nscattered := make([]*Point, 1_000_000)  // un million d'adresses vers des blocs dispersés\n```\n\nÉcrire du code qui tient compte du matériel s'appelle la **mechanical sympathy** (le terme vient du sport automobile : le pilote qui comprend sa voiture en tire le meilleur). En suivant les bonnes pratiques de Go, tu l'obtiens presque gratuitement.\n\n## Comparaison avec Java\n\nEn Java, les variables locales sont sur la pile, mais **chaque objet est un pointeur** vers des données sur le tas. Seules les valeurs primitives restent sur la pile. Résultat : le GC fait beaucoup de travail, et une `List` est un pointeur vers un tableau de pointeurs : parcourir une liste revient à sauter dans la mémoire. La JVM compense avec des ramasse-miettes très sophistiqués et très réglables. Python, Ruby et JavaScript ont des machines virtuelles encore moins optimisées, d'où de moins bonnes performances.\n\nGo prend le chemin inverse : **créer moins de déchets** dès le départ. Garder les données sur la pile autant que possible, utiliser des slices de valeurs, réutiliser des tampons. Les bonnes pratiques de Go sont aussi les plus efficaces.\n\n## En pratique\n\n- Préfère les **valeurs** aux pointeurs quand rien n'exige le partage (c'est le conseil de la leçon précédente, avec sa raison).\n- Préfère `[]T` à `[]*T` sauf besoin réel.\n- Réutilise les tampons (`buf[:0]`, `strconv.AppendInt`) dans le code chaud.\n- **Mesure avant d'optimiser** : `go test -bench . -benchmem` et `testing.AllocsPerRun` te disent combien d'allocations fait réellement ton code.\n\n## Pièges fréquents\n\n- **Croire que `&` veut toujours dire « tas »** : un pointeur qui ne quitte pas la fonction peut rester sur la pile.\n- **Renvoyer un pointeur « pour éviter une copie »** sur une petite struct : tu forces probablement une allocation.\n- **Une slice de pointeurs par habitude** quand une slice de valeurs ferait l'affaire.\n- **Optimiser sans mesurer** : le compilateur fait souvent déjà mieux que ton intuition.\n\n## À retenir\n\n- Pile : rapide, sans nettoyage, pour les données de taille connue qui ne survivent pas à l'appel. Tas : géré par le GC.\n- Une valeur dont le pointeur est renvoyé (ou dont la taille est inconnue) s'échappe vers le tas ; `go build -gcflags=-m` le montre.\n- Le GC de Go vise la faible latence, mais moins il y a de déchets, mieux c'est.\n- Les valeurs contiguës (slices de structs) sont bien plus rapides à parcourir que des pointeurs éparpillés.\n- Moins de pointeurs, c'est à la fois plus clair et plus rapide.\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch05",
+    "title": "Pointeurs et mémoire"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-stack-heap",
+     "label": "La pile (rapide, sans ramasse-miettes) et le tas (géré par le GC)"
+    },
+    {
+     "id": "go-escape-analysis",
+     "label": "L'analyse d'échappement : quand une valeur passe de la pile au tas"
+    },
+    {
+     "id": "go-gc-cost",
+     "label": "Le coût du ramasse-miettes et l'avantage de produire peu de déchets"
+    },
+    {
+     "id": "go-mechanical-sympathy",
+     "label": "Les valeurs contiguës sont plus rapides que les pointeurs dispersés"
+    }
+   ],
+   "duration_min": 30,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "On déplace un pointeur de pile de la taille de la variable ; à la sortie de la fonction on le ramène en arrière. Rien à nettoyer.",
+     "concept": "go-stack-heap",
+     "front": "Comment fonctionne l'allocation sur la pile ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Qu'elle soit connue à la compilation. C'est pourquoi la taille d'un array fait partie de son type.",
+     "concept": "go-stack-heap",
+     "front": "Qu'exige la pile de la taille des données ?",
+     "id": "fc2"
+    },
+    {
+     "back": "La mémoire gérée par le ramasse-miettes : une donnée y reste valide tant qu'une chaîne de pointeurs la relie à la pile.",
+     "concept": "go-stack-heap",
+     "front": "Qu'est-ce que le tas ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Quand son pointeur est renvoyé, que sa taille est inconnue à la compilation, ou que le compilateur ne peut pas prouver qu'elle reste locale.",
+     "concept": "go-escape-analysis",
+     "front": "Quand une donnée s'échappe-t-elle vers le tas ?",
+     "id": "fc4"
+    },
+    {
+     "back": "go build -gcflags=-m : il affiche par exemple « moved to heap: p ».",
+     "concept": "go-escape-analysis",
+     "front": "Comment voir les décisions d'échappement du compilateur ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Non : le compilateur place alors la variable sur le tas. C'est correct, mais cela coûte une allocation.",
+     "concept": "go-escape-analysis",
+     "front": "Renvoyer l'adresse d'une variable locale est-il dangereux en Go ?",
+     "id": "fc6"
+    },
+    {
+     "back": "Le travail du ramasse-miettes, et la lenteur de l'accès à des données dispersées en mémoire.",
+     "concept": "go-gc-cost",
+     "front": "Quels sont les deux coûts du tas ?",
+     "id": "fc7"
+    },
+    {
+     "back": "La faible latence : des pauses de moins de 500 µs par cycle. Trop de déchets le ralentissent quand même.",
+     "concept": "go-gc-cost",
+     "front": "Pour quoi le GC de Go est-il optimisé ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Les valeurs sont contiguës en mémoire (lecture séquentielle, rapide). Les pointeurs mènent à des blocs éparpillés (de l'ordre de 100 fois plus lent).",
+     "concept": "go-mechanical-sympathy",
+     "front": "Pourquoi []Point est-il plus rapide à parcourir que []*Point ?",
+     "id": "fc9"
+    },
+    {
+     "back": "Écrire du logiciel en tenant compte du matériel : par exemple lire la mémoire dans l'ordre.",
+     "concept": "go-mechanical-sympathy",
+     "front": "Qu'est-ce que la mechanical sympathy ?",
+     "id": "fc10"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Zone mémoire contiguë où vivent les variables locales d'un appel de fonction. On l'alloue et la libère en déplaçant un seul pointeur.",
+     "term": "pile (stack)"
+    },
+    {
+     "definition": "Zone mémoire gérée par le ramasse-miettes, pour les données dont la durée de vie dépasse l'appel ou dont la taille est inconnue.",
+     "term": "tas (heap)"
+    },
+    {
+     "definition": "Étude faite par le compilateur pour décider si une valeur peut rester sur la pile ou doit « s'échapper » vers le tas.",
+     "term": "analyse d'échappement"
+    },
+    {
+     "definition": "Mécanisme qui retrouve les données du tas qui n'ont plus de pointeur vers elles, et libère leur mémoire.",
+     "term": "ramasse-miettes (GC)"
+    },
+    {
+     "definition": "Écrire du logiciel en tenant compte du fonctionnement du matériel : lire la mémoire dans l'ordre est bien plus rapide que sauter d'une adresse à l'autre.",
+     "term": "mechanical sympathy"
+    }
+   ],
+   "id": "go-ch05-l04",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "go-ch05-l04-lab-allocs",
+     "passed": false,
+     "role": "lab",
+     "title": "Zéro allocation : le ramasse-miettes n'a rien à faire",
+     "xp": 60
+    }
+   ],
+   "next_id": "go-ch05-l05",
+   "previous_id": "go-ch05-l03",
+   "quiz_id": "go-ch05-l04-quiz",
+   "source": {
+    "chapter": 6,
+    "pages": "160-163"
+   },
+   "title": "Pile, tas et ramasse-miettes",
+   "visuals": {
+    "go-ch05-stack-heap": {
+     "concept": "go-escape-analysis",
+     "entry": "StackHeap.tsx",
+     "format": "interactive",
+     "id": "go-ch05-stack-heap",
+     "justification": "Choisir un extrait et voir si sa variable reste sur la pile ou s'échappe vers le tas, avec la raison, rend la règle de l'analyse d'échappement concrète.",
+     "params": [],
+     "status": "built"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:go-ch05-l04",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nDans la plupart des programmes, tu n'as jamais besoin de toucher au ramasse-miettes. Mais le jour où un service tourne dans un conteneur limité à 512 Mo, ou où ses temps de réponse deviennent irréguliers, ces deux variables d'environnement sont les premiers boutons à connaître. Elles montrent aussi un compromis universel : **mémoire contre temps de calcul**.\n\n## Le GC ne libère pas immédiatement\n\nLibérer la mémoire dès qu'une donnée n'est plus référencée serait trop coûteux. Le GC laisse donc les déchets s'accumuler un peu : le tas contient presque toujours des données vivantes et de la mémoire inutile. Deux réglages contrôlent sa taille.\n\n## `GOGC` : quand lancer le prochain cycle ?\n\nÀ la fin d'un cycle, le GC mesure le tas et calcule la taille qui déclenchera le suivant :\n\n```\nprochain déclenchement = TAS_ACTUEL + TAS_ACTUEL × GOGC / 100\n```\n\nAvec la valeur par défaut `GOGC=100`, le prochain cycle démarre quand le tas atteint **le double** de sa taille après le cycle précédent. Un tas vivant de 200 Mo déclenche le suivant à 400 Mo.\n\n::visual{id=\"go-ch05-gogc\"}\n\n- **Réduire** `GOGC` (50) : le GC passe plus souvent, la mémoire reste plus basse, le processeur travaille plus.\n- **Augmenter** `GOGC` (200) : le GC passe moins souvent, la mémoire monte plus haut. En gros, **doubler `GOGC` divise par deux le temps de processeur passé en GC**.\n- **`GOGC=off`** désactive le GC. Le programme tourne plus vite, mais sur un processus long il finira par consommer toute la mémoire de la machine. Peu recommandé tel quel.\n\n(Le calcul réel tient aussi compte des piles des goroutines et des variables de package ; le plus souvent, le tas domine.)\n\n## `GOMEMLIMIT` : un plafond de mémoire\n\n`GOMEMLIMIT` fixe la mémoire totale que le programme est autorisé à utiliser, comme `-Xmx` en Java. Désactivée par défaut, elle se donne en octets, avec éventuellement les suffixes `B`, `KiB`, `MiB`, `GiB` ou `TiB` :\n\n```bash\nGOMEMLIMIT=3GiB ./relay    # 3 gibioctets = 3 221 225 472 octets\n```\n\n> **KiB, MiB, GiB** sont les unités en puissances de deux (1 KiB = 2¹⁰ octets). Pour la mémoire, ce sont les noms corrects ; KB, MB et GB désignent en toute rigueur des puissances de dix.\n\nPourquoi limiter la mémoire améliorerait-il les performances ? Parce qu'une machine, une VM ou un conteneur n'a pas de RAM infinie. Avec seulement `GOGC`, un pic de mémoire temporaire peut faire dépasser le tas de la RAM disponible : le système bascule alors sur le disque (swap, très lent) ou tue le processus. Une limite empêche le tas de grandir au-delà.\n\n### C'est une limite souple\n\n`GOMEMLIMIT` peut être dépassée dans certaines circonstances. Si le programme frôle sans cesse la limite, le GC se déclenche en boucle sans pouvoir libérer assez : c'est le **thrashing**. Le programme ne fait alors plus que du ramasse-miettes. Quand le runtime détecte ce début, il préfère terminer le cycle en cours et **dépasser** la limite.\n\nConséquence : fixe `GOMEMLIMIT` **en dessous** de la mémoire réellement disponible, pour garder de la marge (par exemple 90 % de celle du conteneur).\n\n## Les combiner\n\nTechniquement, tu peux mettre `GOGC=off` et compter sur `GOMEMLIMIT` seul pour ne pas manquer de mémoire. Mais tu échanges alors des pauses **fréquentes et très courtes** contre des pauses **rares et longues**. Pour un service web, c'est des temps de réponse irréguliers : exactement ce que le GC de Go cherche à éviter.\n\nLa meilleure option : **les deux ensemble**. `GOGC` donne un rythme raisonnable au GC ; `GOMEMLIMIT` impose un maximum qui sera respecté. Le Guide officiel du ramasse-miettes de Go (« A Guide to the Go Garbage Collector ») détaille tout cela.\n\n## Pièges fréquents\n\n- **Désactiver le GC** sur un processus qui tourne longtemps.\n- **Fixer `GOMEMLIMIT` à 100 % de la mémoire du conteneur** : aucune marge, risque de thrashing.\n- **Régler avant de mesurer** : `GODEBUG=gctrace=1` affiche chaque cycle du GC, et les profils (`pprof`) montrent où part la mémoire.\n- **Confondre KB et KiB** quand tu écris `GOMEMLIMIT`.\n\n## À retenir\n\n- `GOGC` (100 par défaut) fixe le prochain déclenchement à `tas + tas × GOGC/100`. Plus haut = moins de GC, plus de mémoire.\n- `GOMEMLIMIT` plafonne la mémoire totale ; elle est souple, et se règle sous la limite réelle de la machine.\n- Thrashing : le GC ne fait plus que tourner. Il est évité en gardant de la marge.\n- Le meilleur réglage combine les deux : un rythme raisonnable et un maximum respecté.\n- Mesure d'abord (`gctrace`, profils), règle ensuite.\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch05",
+    "title": "Pointeurs et mémoire"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-gogc",
+     "label": "GOGC : la taille du tas qui déclenche le prochain cycle de GC"
+    },
+    {
+     "id": "go-gomemlimit",
+     "label": "GOMEMLIMIT : un plafond mémoire souple"
+    },
+    {
+     "id": "go-gc-thrashing",
+     "label": "Le thrashing du GC et l'intérêt de combiner les deux réglages"
+    }
+   ],
+   "duration_min": 20,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "TAS_ACTUEL + TAS_ACTUEL × GOGC / 100.",
+     "concept": "go-gogc",
+     "front": "Quelle formule donne le prochain déclenchement du GC ?",
+     "id": "fc1"
+    },
+    {
+     "back": "100 : le prochain cycle démarre quand le tas a doublé depuis la fin du précédent.",
+     "concept": "go-gogc",
+     "front": "Valeur par défaut de GOGC ? Que signifie-t-elle ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Le GC passe plus souvent : tas plus petit, mais plus de temps de processeur.",
+     "concept": "go-gogc",
+     "front": "Que fait diminuer GOGC ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Environ moitié moins de temps de GC, mais un tas qui monte plus haut.",
+     "concept": "go-gogc",
+     "front": "Que fait doubler GOGC ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Désactive le GC : plus rapide, mais la mémoire n'est jamais récupérée.",
+     "concept": "go-gogc",
+     "front": "Que fait GOGC=off ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Fixer un plafond souple de mémoire totale, comme -Xmx en Java. Désactivé par défaut.",
+     "concept": "go-gomemlimit",
+     "front": "À quoi sert GOMEMLIMIT ?",
+     "id": "fc6"
+    },
+    {
+     "back": "B, KiB, MiB, GiB et TiB (puissances de deux).",
+     "concept": "go-gomemlimit",
+     "front": "Quels suffixes accepte GOMEMLIMIT ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Non, souple : le runtime peut la dépasser pour éviter le thrashing. Fixe-la sous la mémoire réelle.",
+     "concept": "go-gomemlimit",
+     "front": "GOMEMLIMIT est-elle une limite stricte ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Le GC se déclenche en continu parce que le programme frôle sa limite : il ne fait plus que du ramasse-miettes.",
+     "concept": "go-gc-thrashing",
+     "front": "Qu'est-ce que le thrashing du GC ?",
+     "id": "fc9"
+    },
+    {
+     "back": "Pour garder un rythme de GC régulier et un maximum de mémoire respecté, sans pauses rares et longues.",
+     "concept": "go-gc-thrashing",
+     "front": "Pourquoi combiner GOGC et GOMEMLIMIT ?",
+     "id": "fc10"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Variable d'environnement (100 par défaut) qui règle de combien le tas peut grandir avant le prochain cycle de GC, en pourcentage du tas vivant.",
+     "term": "GOGC"
+    },
+    {
+     "definition": "Variable d'environnement qui fixe une limite souple de mémoire totale pour le programme, en octets ou avec un suffixe (KiB, MiB, GiB, TiB).",
+     "term": "GOMEMLIMIT"
+    },
+    {
+     "definition": "Situation où le GC tourne presque en permanence parce que le programme frôle sa limite mémoire, et ne fait plus rien d'autre.",
+     "term": "thrashing"
+    },
+    {
+     "definition": "Partie du tas encore référencée, donc non récupérable.",
+     "term": "tas vivant"
+    }
+   ],
+   "id": "go-ch05-l05",
+   "labs": [
+    {
+     "difficulty": 4,
+     "id": "go-ch05-l05-lab-gctune",
+     "passed": false,
+     "role": "lab",
+     "title": "GOGC et GOMEMLIMIT : lire et calculer sans déborder",
+     "xp": 65
+    }
+   ],
+   "next_id": null,
+   "previous_id": "go-ch05-l04",
+   "quiz_id": "go-ch05-l05-quiz",
+   "source": {
+    "chapter": 6,
+    "pages": "163-165"
+   },
+   "title": "Régler le ramasse-miettes : GOGC et GOMEMLIMIT",
+   "visuals": {
+    "go-ch05-gogc": {
+     "concept": "go-gogc",
+     "entry": "Gogc.tsx",
+     "format": "interactive",
+     "id": "go-ch05-gogc",
+     "justification": "Déplacer les curseurs GOGC et GOMEMLIMIT et voir la dent de scie du tas, le nombre de cycles et le pic mémoire change rend le compromis mémoire/CPU tangible.",
+     "params": [],
+     "status": "built"
+    }
+   },
+   "xp": 25
+  },
+  "name": "lesson:go-ch05-l05",
+  "status": 200
+ },
+ {
+  "body": {
    "id": "go-ch00-l01-quiz",
    "lesson_id": "go-ch00-l01",
    "questions": [
@@ -7173,6 +8040,653 @@
  },
  {
   "body": {
+   "id": "go-ch05-l01-quiz",
+   "lesson_id": "go-ch05-l01",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "x := 10\np := &x\n*p = 20\nfmt.Println(x, *p)\n",
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "x := 1\np := &x\nq := p\n*q = 5\nfmt.Println(x, *p)\n",
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "a, b := 1, 1\npa, pb := &a, &b\nfmt.Println(pa == pb, *pa == *pb)\n",
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "var p *int\nfmt.Println(p == nil)\n",
+     "difficulty": 1,
+     "id": "q4",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Elle affiche 0",
+      "Le programme panique (nil pointer dereference)",
+      "Elle affiche nil",
+      "Erreur de compilation"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q5",
+     "prompt": "Que se passe-t-il à l'exécution de `var p *int; fmt.Println(*p)` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "p := new(int)\n*p += 3\nfmt.Println(*p, p == nil)\n",
+     "difficulty": 1,
+     "id": "q6",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "type T struct{ N int }\nt := &T{N: 1}\nt.N++\nfmt.Println(t.N, (*t).N)\n",
+     "difficulty": 2,
+     "id": "q7",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "&\"Perry\"",
+      "middle := \"Perry\"; &middle",
+      "new(\"Perry\")",
+      "*\"Perry\""
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q8",
+     "prompt": "Comment obtenir un *string qui pointe vers \"Perry\" ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Oui, comme en C",
+      "Non, Go n'a pas d'arithmétique de pointeurs",
+      "Oui, mais seulement pour *byte",
+      "Oui, avec le mot-clé unsafe obligatoire"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q9",
+     "prompt": "Peut-on écrire p + 1 pour passer à l'octet suivant d'un pointeur p en Go ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "0",
+      "nil",
+      "false",
+      "\"\""
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q10",
+     "prompt": "Quelle est la valeur zéro d'un pointeur ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch05-l01-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "go-ch05-l02-quiz",
+   "lesson_id": "go-ch05-l02",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "failedUpdate := func(px *int) {\n\tx2 := 20\n\tpx = &x2\n}\nupdate := func(px *int) {\n\t*px = 20\n}\nx := 10\nfailedUpdate(&x)\nfmt.Println(x)\nupdate(&x)\nfmt.Println(x)\n",
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "var f *int\nset := func(g *int) {\n\tx := 10\n\tg = &x\n}\nset(f)\nfmt.Println(f == nil)\n",
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "type counter struct{ n int }\ninc := func(c *counter) {\n\tc.n++\n}\nc := counter{}\ninc(&c)\ninc(&c)\nfmt.Println(c.n)\n",
+     "difficulty": 1,
+     "id": "q3",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "type counter struct{ n int }\ninc := func(c counter) {\n\tc.n++\n}\nc := counter{}\ninc(c)\ninc(c)\nfmt.Println(c.n)\n",
+     "difficulty": 1,
+     "id": "q4",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que les objets y sont copiés en entier à chaque appel",
+      "Parce que, même quand un objet est partagé, ce qu'on copie est le pointeur vers lui, pas l'objet",
+      "Parce que ces langages n'ont pas de pointeurs",
+      "Parce qu'ils interdisent la modification des paramètres"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Pourquoi dit-on que Go, comme Java ou Python, est toujours « passé par valeur » ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Que l'Account est trop gros pour être copié",
+      "Que la fonction peut modifier l'Account de l'appelant",
+      "Que l'Account est immuable",
+      "Que l'Account vient de la base de données"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q6",
+     "prompt": "Que signifie, pour le lecteur, un paramètre de type *Account dans func Deposit(a *Account, amount int) ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "func MakeFoo(f *Foo) error qui remplit f",
+      "func MakeFoo() (Foo, error) qui construit et renvoie la valeur",
+      "func MakeFoo(f Foo) qui modifie f",
+      "func MakeFoo() *Foo qui renvoie toujours un pointeur"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q7",
+     "prompt": "Quelle version de MakeFoo est la plus idiomatique ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que c'est plus rapide à chaque appel",
+      "Parce qu'elle date d'avant les génériques (elle ne peut pas connaître le type à renvoyer) et permet de réutiliser une variable",
+      "Parce que les structs ne peuvent pas être renvoyées",
+      "Parce que JSON est un format binaire"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q8",
+     "prompt": "Pourquoi json.Unmarshal prend-elle un pointeur plutôt que de renvoyer une valeur ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "La renvoyer par valeur",
+      "Renvoyer un pointeur vers elle",
+      "Les deux sont identiques",
+      "Cela dépend de la couleur du terminal"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q9",
+     "prompt": "Pour une petite struct (quelques octets), qu'est-ce qui est généralement le plus rapide ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch05-l02-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "go-ch05-l03-quiz",
+   "lesson_id": "go-ch05-l03",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "var absent *int\nzero := 0\npresent := &zero\nfmt.Println(absent == nil, present == nil, *present)\n",
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "f := func(s []int) {\n\ts[0] = 100\n}\ns := []int{1, 2}\nf(s)\nfmt.Println(s)\n",
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "s := make([]int, 2, 5)\nt := append(s, 9)\nfmt.Println(len(s), len(t), cap(s) == cap(t))\n",
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "s := []int{1, 2}\nt := append(s, 3)\nt[0] = 100\nfmt.Println(s[0], t[0])\n",
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "s := make([]int, 2, 5)\nt := append(s, 9)\nu := s[:3]\nfmt.Println(t[2], u[2])\n",
+     "difficulty": 3,
+     "id": "q5",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "D'un tableau et d'un nom",
+      "D'un pointeur vers un tableau, d'une longueur et d'une capacité",
+      "D'une liste chaînée d'éléments",
+      "D'une adresse mémoire seulement"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q6",
+     "prompt": "De quoi se compose une slice en interne ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que les maps sont lentes",
+      "Parce qu'elle ne dit rien de ses clés ni de ses valeurs, et peut être modifiée par n'importe qui : une struct est plus explicite",
+      "Parce que les maps ne peuvent pas être passées à une fonction",
+      "Parce que les maps ne sont pas triées"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q7",
+     "prompt": "Pourquoi éviter de passer une map comme paramètre ou valeur de retour d'une API publique ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "func find(key string) *int",
+      "func find(key string) (int, bool)",
+      "func find(key string) int avec -1 pour « non trouvé »",
+      "func find(key string) map[string]int"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q8",
+     "prompt": "Pour une fonction qui peut ne pas trouver de valeur, quelle signature est la plus idiomatique ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il évite d'allouer un nouveau tableau à chaque lecture, donc du travail pour le ramasse-miettes",
+      "Il accélère le disque dur",
+      "Il garantit que le fichier est fermé",
+      "Il trie les données"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q9",
+     "prompt": "Quel est l'intérêt d'un tampon réutilisé pour lire un fichier par morceaux ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Rien de particulier",
+      "Si process garde ces octets après la lecture suivante, ils auront été écrasés : il doit les copier",
+      "process ne peut pas lire les données",
+      "Le tampon grandit tout seul"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q10",
+     "prompt": "Qu'implique ceci : `process(data[:count])` reçoit une vue sur un tampon réutilisé ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch05-l03-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "go-ch05-l04-quiz",
+   "lesson_id": "go-ch05-l04",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [
+      "Parce que la mémoire de la pile est plus rapide physiquement",
+      "Parce qu'il suffit de déplacer un pointeur de pile, et que rien n'est à nettoyer à la sortie de la fonction",
+      "Parce que le ramasse-miettes s'en occupe en arrière-plan",
+      "Parce que la pile est compressée"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Pourquoi allouer sur la pile est-il si rapide ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Le fait qu'elle soit de type int",
+      "Le fait qu'un pointeur vers elle soit renvoyé par la fonction (elle doit survivre à l'appel)",
+      "Le fait qu'elle soit utilisée dans une boucle",
+      "Le fait qu'elle soit déclarée avec :="
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Qu'est-ce qui oblige une variable locale à « s'échapper » vers le tas ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il renvoie un pointeur invalide comme en C",
+      "Il refuse de compiler",
+      "Il place la variable sur le tas : le programme reste correct, au prix d'une allocation",
+      "Il copie la variable dans une variable globale"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q3",
+     "prompt": "Que fait Go quand une fonction renvoie l'adresse d'une de ses variables locales ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "go vet",
+      "go build -gcflags=-m",
+      "go fmt",
+      "go mod tidy"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q4",
+     "prompt": "Quelle commande indique ce que le compilateur a décidé de mettre sur le tas ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que Point est plus petit que *Point",
+      "Parce que les valeurs sont rangées les unes à la suite des autres en mémoire, alors que les pointeurs mènent à des blocs dispersés",
+      "Parce que les pointeurs sont interdits dans les boucles",
+      "Parce que []*Point ne peut pas être trié"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Pourquoi parcourir un []Point est-il bien plus rapide que parcourir un []*Point ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Une variable inutilisée dans le code",
+      "Une donnée du tas vers laquelle plus aucun pointeur ne mène",
+      "Un fichier temporaire",
+      "Une erreur ignorée"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q6",
+     "prompt": "Qu'appelle-t-on « déchet » (garbage) ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Le débit maximal, quitte à geler le programme longtemps",
+      "La faible latence : des pauses de l'ordre de la demi-milliseconde au plus",
+      "Ne jamais libérer de mémoire",
+      "Compacter la mémoire à chaque appel de fonction"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q7",
+     "prompt": "Pour quel objectif le ramasse-miettes de Go est-il conçu ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Java n'a pas de GC",
+      "Chaque objet y est un pointeur vers des données sur le tas, alors que Go garde beaucoup de valeurs sur la pile",
+      "Java utilise toujours la pile",
+      "Java interdit les objets"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q8",
+     "prompt": "En quoi Java crée-t-il plus de travail de GC que Go ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Désactiver le GC",
+      "Produire moins de déchets dès le départ : valeurs plutôt que pointeurs, slices de valeurs, tampons réutilisés",
+      "Utiliser plus de pointeurs",
+      "Appeler runtime.GC() dans chaque boucle"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q9",
+     "prompt": "Quelle est la meilleure stratégie de Go pour limiter le coût du GC ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Oui, toujours",
+      "Non : si le pointeur ne quitte pas la fonction et que le compilateur peut le prouver, la variable reste sur la pile",
+      "Non, jamais",
+      "Seulement pour les structs"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q10",
+     "prompt": "Un & devant une variable signifie-t-il forcément qu'elle sera allouée sur le tas ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch05-l04-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "go-ch05-l05-quiz",
+   "lesson_id": "go-ch05-l05",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [
+      "0",
+      "50",
+      "100",
+      "off"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Quelle est la valeur par défaut de GOGC ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "200 Mo",
+      "300 Mo",
+      "400 Mo",
+      "800 Mo"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Avec GOGC=100, le tas fait 200 Mo à la fin d'un cycle. À quelle taille le cycle suivant se déclenche-t-il environ ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "250 Mo",
+      "300 Mo",
+      "350 Mo",
+      "400 Mo"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Avec GOGC=50 et un tas de 200 Mo à la fin d'un cycle, à quelle taille le suivant se déclenche-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il le double",
+      "Il le divise par deux",
+      "Aucun effet",
+      "Il le supprime"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "En première approximation, quel effet a le doublement de GOGC sur le temps de processeur consacré au GC ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que le programme devient plus lent",
+      "Parce que la mémoire n'est plus jamais récupérée et finira par saturer la machine",
+      "Parce que GOGC=off est une erreur de syntaxe",
+      "Parce que cela active le mode debug"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q5",
+     "prompt": "Pourquoi déconseille-t-on GOGC=off sur un service qui tourne longtemps ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "3 000 000 000 octets",
+      "3 221 225 472 octets",
+      "3 072 octets",
+      "3 millions d'objets"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q6",
+     "prompt": "Que représente GOMEMLIMIT=3GiB ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Un GC qui déclenche en boucle sans libérer assez, jusqu'à ne plus faire que cela",
+      "Un GC qui ne se déclenche jamais",
+      "Une fuite de goroutines",
+      "Une erreur de compilation"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q7",
+     "prompt": "Qu'est-ce que le thrashing du ramasse-miettes ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que c'est une limite souple que le runtime peut dépasser pour éviter le thrashing : il faut garder de la marge",
+      "Parce que GOMEMLIMIT ne peut pas valoir la mémoire totale",
+      "Parce que Go réserve la moitié de la RAM",
+      "Parce que le noyau l'exige"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q8",
+     "prompt": "Pourquoi fixer GOMEMLIMIT en dessous de la mémoire réellement disponible ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "GOGC=off seul",
+      "GOMEMLIMIT seul",
+      "GOGC et GOMEMLIMIT ensemble : un rythme raisonnable et un maximum respecté",
+      "Ne jamais rien régler, même sous contrainte"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q9",
+     "prompt": "Quel est le meilleur réglage pour un service web ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch05-l05-quiz",
+  "status": 200
+ },
+ {
+  "body": {
    "chapter_id": "",
    "checks": [
     {
@@ -9114,6 +10628,390 @@
  },
  {
   "body": {
+   "chapter_id": "go-ch05",
+   "checks": [],
+   "concepts": [
+    "go-pointer-basics",
+    "go-nil-pointer",
+    "go-new-and-literal",
+    "go-pointer-mutable-param",
+    "go-pointer-copy-semantics"
+   ],
+   "difficulty": 3,
+   "id": "go-ch05-assignment",
+   "instructions": "## Contexte\n\nLa liste chaînée est l'exercice classique des pointeurs : chaque maillon connaît le suivant, et rien d'autre. Aucun tableau, aucun indice, que des adresses. Tu en construis une, avec toutes les opérations de base, en gérant proprement `nil`.\n\n```go\ntype Node struct {\n\tValue int\n\tNext  *Node\n}\n\ntype List struct {\n\tHead *Node\n\tLen  int\n}\n```\n\nLa liste vide a `Head == nil` et `Len == 0`.\n\n## Ta mission\n\nDans `list.go`, implémente neuf fonctions. **Toutes acceptent une liste `nil`** et la traitent comme une liste vide, sans paniquer.\n\n| Fonction | Rôle |\n|---|---|\n| `NewList(values ...int) *List` | crée une liste ; le premier argument est en tête |\n| `Push(l, v)` | ajoute `v` en tête (temps constant) |\n| `Append(l, v)` | ajoute `v` en queue |\n| `Pop(l) (int, bool)` | retire et renvoie la tête ; `false` si vide |\n| `Contains(l, v) bool` | présence de `v` |\n| `Remove(l, v) bool` | retire la **première** occurrence de `v` ; `false` si absent |\n| `Reverse(l)` | inverse **sur place** : relie les maillons existants, n'en crée aucun |\n| `ToSlice(l) []int` | les valeurs, de la tête à la queue (slice vide non nil si vide) |\n| `InsertSorted(l, v)` | dans une liste triée croissante, insère `v` en gardant l'ordre (après les valeurs égales) |\n\n`Len` doit toujours refléter le nombre de maillons.\n\n## Pièges à anticiper\n\n- **Supprimer la tête** n'est pas la même chose que supprimer un maillon du milieu, sauf si tu raisonnes avec « l'adresse du pointeur qui désigne ce maillon » : `Head` pour le premier, le champ `Next` du précédent pour les autres.\n- **Une liste vide** : `Head` vaut `nil`. Ne déréférence jamais sans tester.\n- **`Reverse` en place** : tu as besoin de trois pointeurs (précédent, courant, suivant) et de ne pas perdre le suivant avant de changer `Next`.\n- Garde `Len` cohérent à chaque modification.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "assignment",
+   "rubric": [
+    {
+     "id": "correctness",
+     "label": "Correction (tests)",
+     "source": "tests",
+     "weight": 0.5
+    },
+    {
+     "id": "pointers",
+     "label": "Maniement des pointeurs",
+     "levels": {
+      "0": "Panique sur nil, copie les maillons ou perd des maillons",
+      "2": "Correct mais avec des cas particuliers dupliqués pour la tête, ou des gardes nil incohérentes",
+      "4": "Relie les maillons existants sans copie, gère tête, milieu et queue de façon uniforme (par exemple avec l'adresse du pointeur à modifier), jamais de déréférencement d'un nil"
+     },
+     "source": "ai",
+     "weight": 0.25
+    },
+    {
+     "id": "invariants",
+     "label": "Invariants",
+     "levels": {
+      "0": "Len incohérent ou liste corrompue",
+      "2": "Len cohérent mais des cas limites oubliés",
+      "4": "Len toujours cohérent, Head nil sur liste vide, aucun maillon retenu inutilement après suppression"
+     },
+     "source": "ai",
+     "weight": 0.1
+    },
+    {
+     "id": "readability",
+     "label": "Lisibilité",
+     "levels": {
+      "0": "Difficile à suivre",
+      "2": "Lisible mais noms peu clairs ou duplication",
+      "4": "Noms parlants (current, previous, link), fonctions courtes, commentaires utiles"
+     },
+     "source": "ai",
+     "weight": 0.15
+    }
+   ],
+   "source": null,
+   "title": "Une liste chaînée à la main",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "list.go": "package lab\n\n// Node est un maillon d'une liste simplement chaînée.\ntype Node struct {\n\tValue int\n\tNext  *Node\n}\n\n// List est une liste simplement chaînée. La liste vide a Head == nil et Len == 0.\n// Toutes les fonctions acceptent une liste nil et la traitent comme une liste vide (sans paniquer).\ntype List struct {\n\tHead *Node\n\tLen  int\n}\n\n// NewList crée une liste contenant values dans cet ordre (le premier est en tête).\nfunc NewList(values ...int) *List {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Push ajoute v en tête, en temps constant.\nfunc Push(l *List, v int) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Append ajoute v en queue.\nfunc Append(l *List, v int) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Pop retire et renvoie la valeur de tête. ok vaut false si la liste est vide.\nfunc Pop(l *List) (value int, ok bool) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Contains indique si v est dans la liste.\nfunc Contains(l *List, v int) bool {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Remove retire la première occurrence de v. Il renvoie false si v est absent.\nfunc Remove(l *List, v int) bool {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Reverse inverse la liste sur place, en changeant les liens : aucun maillon n'est créé ni copié.\nfunc Reverse(l *List) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// ToSlice renvoie les valeurs de la liste, de la tête à la queue.\nfunc ToSlice(l *List) []int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// InsertSorted insère v dans une liste triée par ordre croissant, en gardant l'ordre.\n// Avec des valeurs égales, v est placé après elles.\nfunc InsertSorted(l *List, v int) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 0,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/list_test.go": "package lab\n\nimport (\n\t\"slices\"\n\t\"testing\"\n)\n\n// check vérifie le contenu, la longueur mémorisée et l'absence de cycle.\nfunc check(t *testing.T, name string, l *List, want []int) {\n\tt.Helper()\n\tgot := make([]int, 0, len(want))\n\tseen := 0\n\tfor n := l.Head; n != nil; n = n.Next {\n\t\tgot = append(got, n.Value)\n\t\tif seen++; seen > len(want)+5 {\n\t\t\tt.Fatalf(\"%s : la liste ne se termine pas (cycle ?) après %d maillons\", name, seen)\n\t\t}\n\t}\n\tif !slices.Equal(got, want) {\n\t\tt.Errorf(\"%s : contenu %v, attendu %v\", name, got, want)\n\t}\n\tif l.Len != len(want) {\n\t\tt.Errorf(\"%s : Len = %d, attendu %d\", name, l.Len, len(want))\n\t}\n}\n\nfunc TestNewListAndToSlice(t *testing.T) {\n\tcheck(t, \"NewList(1,2,3)\", NewList(1, 2, 3), []int{1, 2, 3})\n\tcheck(t, \"NewList()\", NewList(), []int{})\n\tif got := ToSlice(NewList(4, 5, 6)); !slices.Equal(got, []int{4, 5, 6}) {\n\t\tt.Errorf(\"ToSlice = %v\", got)\n\t}\n\tif got := ToSlice(NewList()); got == nil || len(got) != 0 {\n\t\tt.Errorf(\"ToSlice d'une liste vide doit renvoyer une slice vide non nil : %#v\", got)\n\t}\n}\n\nfunc TestPushPop(t *testing.T) {\n\tl := NewList()\n\tPush(l, 1)\n\tPush(l, 2)\n\tPush(l, 3)\n\tcheck(t, \"après trois Push\", l, []int{3, 2, 1})\n\n\tfor _, want := range []int{3, 2, 1} {\n\t\tv, ok := Pop(l)\n\t\tif !ok || v != want {\n\t\t\tt.Fatalf(\"Pop = (%d, %v), attendu (%d, true)\", v, ok, want)\n\t\t}\n\t}\n\tcheck(t, \"après avoir tout dépilé\", l, []int{})\n\tif l.Head != nil {\n\t\tt.Errorf(\"une liste vide doit avoir Head == nil\")\n\t}\n\tif v, ok := Pop(l); ok || v != 0 {\n\t\tt.Errorf(\"Pop d'une liste vide = (%d, %v)\", v, ok)\n\t}\n}\n\nfunc TestAppend(t *testing.T) {\n\tl := NewList()\n\tAppend(l, 1)\n\tcheck(t, \"Append sur liste vide\", l, []int{1})\n\tAppend(l, 2)\n\tAppend(l, 3)\n\tcheck(t, \"après trois Append\", l, []int{1, 2, 3})\n\tPush(l, 0)\n\tAppend(l, 4)\n\tcheck(t, \"mélange Push et Append\", l, []int{0, 1, 2, 3, 4})\n}\n\nfunc TestContains(t *testing.T) {\n\tl := NewList(5, 6, 7)\n\tfor v, want := range map[int]bool{5: true, 6: true, 7: true, 8: false, 0: false} {\n\t\tif got := Contains(l, v); got != want {\n\t\t\tt.Errorf(\"Contains(%d) = %v\", v, got)\n\t\t}\n\t}\n\tif Contains(NewList(), 1) {\n\t\tt.Errorf(\"une liste vide ne contient rien\")\n\t}\n}\n\nfunc TestRemove(t *testing.T) {\n\tcases := []struct {\n\t\tname  string\n\t\tstart []int\n\t\tv     int\n\t\tok    bool\n\t\twant  []int\n\t}{\n\t\t{\"tête\", []int{1, 2, 3}, 1, true, []int{2, 3}},\n\t\t{\"milieu\", []int{1, 2, 3}, 2, true, []int{1, 3}},\n\t\t{\"queue\", []int{1, 2, 3}, 3, true, []int{1, 2}},\n\t\t{\"seul élément\", []int{9}, 9, true, []int{}},\n\t\t{\"absent\", []int{1, 2, 3}, 4, false, []int{1, 2, 3}},\n\t\t{\"première occurrence seulement\", []int{1, 2, 1, 2}, 2, true, []int{1, 1, 2}},\n\t\t{\"liste vide\", []int{}, 1, false, []int{}},\n\t}\n\tfor _, c := range cases {\n\t\tl := NewList(c.start...)\n\t\tif ok := Remove(l, c.v); ok != c.ok {\n\t\t\tt.Errorf(\"%s : Remove = %v, attendu %v\", c.name, ok, c.ok)\n\t\t}\n\t\tcheck(t, c.name, l, c.want)\n\t}\n}\n\nfunc TestReverse(t *testing.T) {\n\tcases := [][]int{{}, {1}, {1, 2}, {1, 2, 3}, {1, 2, 3, 4, 5, 6}}\n\tfor _, values := range cases {\n\t\tl := NewList(values...)\n\t\tReverse(l)\n\t\twant := slices.Clone(values)\n\t\tslices.Reverse(want)\n\t\tcheck(t, \"Reverse\", l, want)\n\t}\n}\n\nfunc TestReverseRelinksTheSameNodes(t *testing.T) {\n\tl := NewList(1, 2, 3)\n\tfirst, last := l.Head, l.Head.Next.Next\n\tReverse(l)\n\tif l.Head != last || last.Next == nil || last.Next.Next != first || first.Next != nil {\n\t\tt.Errorf(\"Reverse doit relier les maillons existants (la queue devient la tête), pas en recréer\")\n\t}\n\tbig := NewList(make([]int, 1000)...)\n\tif a := testing.AllocsPerRun(20, func() { Reverse(big) }); a != 0 {\n\t\tt.Errorf(\"Reverse a alloué %.0f fois : elle ne doit créer aucun maillon\", a)\n\t}\n}\n\nfunc TestInsertSorted(t *testing.T) {\n\tl := NewList()\n\tfor _, v := range []int{5, 1, 9, 3, 7, 3, 0, 10} {\n\t\tInsertSorted(l, v)\n\t}\n\tcheck(t, \"insertions successives\", l, []int{0, 1, 3, 3, 5, 7, 9, 10})\n\n\tstable := NewList(1, 2, 2, 3)\n\tInsertSorted(stable, 2)\n\tcheck(t, \"égal à des valeurs existantes\", stable, []int{1, 2, 2, 2, 3})\n\t// Le nouveau 2 se place APRÈS les 2 existants : le maillon d'origine reste le premier.\n\toriginal := stable.Head.Next\n\tif original.Value != 2 || original.Next.Value != 2 {\n\t\tt.Errorf(\"structure inattendue\")\n\t}\n}\n\nfunc TestNilListsDoNotPanic(t *testing.T) {\n\tvar l *List\n\tPush(l, 1)\n\tAppend(l, 1)\n\tReverse(l)\n\tInsertSorted(l, 1)\n\tif v, ok := Pop(l); ok || v != 0 {\n\t\tt.Errorf(\"Pop(nil) = (%d, %v)\", v, ok)\n\t}\n\tif Contains(l, 1) || Remove(l, 1) {\n\t\tt.Errorf(\"une liste nil est vide\")\n\t}\n\tif got := ToSlice(l); len(got) != 0 {\n\t\tt.Errorf(\"ToSlice(nil) = %v\", got)\n\t}\n}\n\nfunc TestLongListsStayConsistent(t *testing.T) {\n\tl := NewList()\n\tvar want []int\n\tfor i := 0; i < 500; i++ {\n\t\tswitch i % 4 {\n\t\tcase 0:\n\t\t\tPush(l, i)\n\t\t\twant = slices.Insert(want, 0, i)\n\t\tcase 1:\n\t\t\tAppend(l, i)\n\t\t\twant = append(want, i)\n\t\tcase 2:\n\t\t\tif i%3 == 0 && len(want) > 0 {\n\t\t\t\tRemove(l, want[len(want)/2])\n\t\t\t\twant = slices.Delete(want, len(want)/2, len(want)/2+1)\n\t\t\t}\n\t\tcase 3:\n\t\t\tif v, ok := Pop(l); ok {\n\t\t\t\tif v != want[0] {\n\t\t\t\t\tt.Fatalf(\"Pop = %d, attendu %d\", v, want[0])\n\t\t\t\t}\n\t\t\t\twant = want[1:]\n\t\t\t}\n\t\t}\n\t}\n\tcheck(t, \"après 500 opérations mélangées\", l, want)\n}\n"
+    }
+   },
+   "xp": 130
+  },
+  "name": "exercise:go-ch05-assignment",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch05",
+   "checks": [],
+   "concepts": [
+    "go-pointer-basics",
+    "go-nil-pointer",
+    "go-pointer-copy-semantics",
+    "go-pointer-mutable-param",
+    "go-new-and-literal"
+   ],
+   "difficulty": 5,
+   "id": "go-ch05-boss",
+   "instructions": "## Contexte\n\nUn **arbre binaire de recherche** (ABR) range des valeurs de façon à retrouver, insérer et supprimer en temps logarithmique quand il est équilibré. Chaque nœud a au plus deux enfants : à gauche les valeurs plus petites, à droite les plus grandes. C'est la structure qui fait le mieux sentir les pointeurs : une racine, des liens, et le piège de l'arbre vide.\n\n```go\ntype Tree struct {\n\tValue       int\n\tLeft, Right *Tree\n}\n```\n\nUn arbre vide est un pointeur `nil`. Il n'y a pas de doublon.\n\n## Ta mission\n\nDans `tree.go`, implémente douze fonctions.\n\n| Fonction | Rôle |\n|---|---|\n| `Insert(root, v) *Tree` | ajoute `v` ; **renvoie la racine** (qui change si l'arbre était vide) ; ignore un doublon |\n| `Contains(root, v) bool` | présence de `v` |\n| `Min(root)`, `Max(root)` `(int, bool)` | extrêmes ; `false` si vide |\n| `Delete(root, v) *Tree` | supprime `v` ; **renvoie la racine** ; absent = inchangé |\n| `Size(root) int` | nombre de nœuds |\n| `Height(root) int` | 0 pour vide, 1 pour un seul nœud |\n| `Walk(root, visit)` | parcours en ordre croissant, **s'arrête** quand `visit` renvoie `false` |\n| `InOrder(root) []int` | les valeurs triées (slice vide non nil si vide) |\n| `FromSorted(values) *Tree` | arbre **équilibré** (hauteur minimale) depuis des valeurs strictement croissantes |\n| `Clone(root) *Tree` | copie **profonde** : aucun nœud partagé |\n| `Equal(a, b) bool` | même **forme** et mêmes valeurs |\n\n## Le cœur du problème : `Delete`\n\nTrois cas :\n\n1. **Nœud sans enfant** : on le retire (le parent pointe vers `nil`).\n2. **Un seul enfant** : l'enfant prend la place du nœud.\n3. **Deux enfants** : on remplace sa valeur par celle de son **successeur** (la plus petite valeur de son sous-arbre droit), puis on supprime ce successeur du sous-arbre droit.\n\nLes fonctions `Insert` et `Delete` **renvoient la racine** : pourquoi ? Parce qu'une fonction ne peut pas rendre non nil le pointeur de l'appelant (leçon 2), et qu'un `Delete` peut faire disparaître la racine. L'appelant écrit `root = Insert(root, 5)`.\n\n## Contraintes\n\n- Tout doit fonctionner sur l'arbre vide (`nil`) sans paniquer.\n- `FromSorted` ne modifie pas sa slice d'entrée, et choisit l'élément du milieu comme racine, récursivement.\n- Un test compare tes opérations à celles d'un ensemble de référence sur des milliers d'opérations aléatoires.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "boss",
+   "rubric": [],
+   "source": null,
+   "title": "Boss : l'arbre de recherche",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "tree.go": "package lab\n\n// Tree est un nœud d'arbre binaire de recherche d'entiers, sans doublon :\n// toutes les valeurs de Left sont plus petites que Value, toutes celles de Right plus grandes.\n// Un arbre vide est un pointeur nil.\ntype Tree struct {\n\tValue       int\n\tLeft, Right *Tree\n}\n\n// Insert ajoute v à l'arbre de racine root et renvoie la racine, qui change quand l'arbre était vide\n// (une fonction ne peut pas rendre non nil le pointeur de l'appelant : elle le renvoie).\n// Une valeur déjà présente est ignorée.\nfunc Insert(root *Tree, v int) *Tree {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Contains indique si v est dans l'arbre.\nfunc Contains(root *Tree, v int) bool {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Min renvoie la plus petite valeur. ok vaut false pour un arbre vide.\nfunc Min(root *Tree) (v int, ok bool) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Max renvoie la plus grande valeur. ok vaut false pour un arbre vide.\nfunc Max(root *Tree) (v int, ok bool) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Delete supprime v et renvoie la nouvelle racine. Un nœud à deux enfants est remplacé par son successeur\n// (la plus petite valeur de son sous-arbre droit). Si v est absent, l'arbre est inchangé.\nfunc Delete(root *Tree, v int) *Tree {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Size renvoie le nombre de nœuds.\nfunc Size(root *Tree) int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Height renvoie la hauteur : 0 pour un arbre vide, 1 pour un seul nœud.\nfunc Height(root *Tree) int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Walk visite les valeurs en ordre croissant et s'arrête dès que visit renvoie false.\nfunc Walk(root *Tree, visit func(v int) bool) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// InOrder renvoie les valeurs en ordre croissant.\nfunc InOrder(root *Tree) []int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// FromSorted construit un arbre équilibré (hauteur minimale) à partir de valeurs triées par ordre\n// strictement croissant. Les valeurs de la slice ne sont pas modifiées.\nfunc FromSorted(values []int) *Tree {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Clone renvoie une copie profonde : aucun nœud n'est partagé avec l'original.\nfunc Clone(root *Tree) *Tree {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Equal indique si deux arbres ont exactement la même forme et les mêmes valeurs.\nfunc Equal(a, b *Tree) bool {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/tree_test.go": "package lab\n\nimport (\n\t\"math\"\n\t\"slices\"\n\t\"testing\"\n)\n\n// build insère les valeurs dans l'ordre donné.\nfunc build(values ...int) *Tree {\n\tvar root *Tree\n\tfor _, v := range values {\n\t\troot = Insert(root, v)\n\t}\n\treturn root\n}\n\n// valid vérifie l'invariant d'un arbre de recherche (valeurs strictement dans les bornes) et l'absence de cycle.\nfunc valid(t *testing.T, root *Tree) {\n\tt.Helper()\n\tcount := 0\n\tvar check func(n *Tree, lo, hi int64)\n\tcheck = func(n *Tree, lo, hi int64) {\n\t\tif n == nil {\n\t\t\treturn\n\t\t}\n\t\tif count++; count > 100000 {\n\t\t\tt.Fatalf(\"l'arbre semble contenir un cycle\")\n\t\t}\n\t\tif int64(n.Value) <= lo || int64(n.Value) >= hi {\n\t\t\tt.Fatalf(\"invariant violé : %d n'est pas dans (%d, %d)\", n.Value, lo, hi)\n\t\t}\n\t\tcheck(n.Left, lo, int64(n.Value))\n\t\tcheck(n.Right, int64(n.Value), hi)\n\t}\n\tcheck(root, math.MinInt64, math.MaxInt64)\n}\n\nfunc TestInsertAndInOrder(t *testing.T) {\n\troot := build(50, 30, 70, 20, 40, 60, 80)\n\tif got := InOrder(root); !slices.Equal(got, []int{20, 30, 40, 50, 60, 70, 80}) {\n\t\tt.Errorf(\"InOrder = %v\", got)\n\t}\n\tif root.Value != 50 || root.Left.Value != 30 || root.Right.Value != 70 {\n\t\tt.Errorf(\"la racine doit rester le premier élément inséré\")\n\t}\n\tvalid(t, root)\n}\n\nfunc TestInsertReturnsTheRoot(t *testing.T) {\n\tvar empty *Tree\n\troot := Insert(empty, 5)\n\tif root == nil || root.Value != 5 {\n\t\tt.Fatalf(\"Insert dans un arbre vide doit renvoyer le nouveau nœud : %v\", root)\n\t}\n\tif again := Insert(root, 3); again != root {\n\t\tt.Errorf(\"la racine d'un arbre non vide ne change pas à l'insertion\")\n\t}\n\tif InOrder(nil) == nil || len(InOrder(nil)) != 0 {\n\t\tt.Errorf(\"InOrder(nil) doit renvoyer une slice vide non nil\")\n\t}\n}\n\nfunc TestInsertIgnoresDuplicates(t *testing.T) {\n\troot := build(5, 3, 8, 5, 3, 8, 5)\n\tif Size(root) != 3 || !slices.Equal(InOrder(root), []int{3, 5, 8}) {\n\t\tt.Errorf(\"les doublons doivent être ignorés : %v\", InOrder(root))\n\t}\n}\n\nfunc TestContainsMinMax(t *testing.T) {\n\troot := build(50, 30, 70, 20, 40, 60, 80)\n\tfor _, v := range []int{20, 30, 40, 50, 60, 70, 80} {\n\t\tif !Contains(root, v) {\n\t\t\tt.Errorf(\"Contains(%d) = false\", v)\n\t\t}\n\t}\n\tfor _, v := range []int{0, 25, 55, 100, -1} {\n\t\tif Contains(root, v) {\n\t\t\tt.Errorf(\"Contains(%d) = true\", v)\n\t\t}\n\t}\n\tif lo, ok := Min(root); !ok || lo != 20 {\n\t\tt.Errorf(\"Min = (%d, %v)\", lo, ok)\n\t}\n\tif hi, ok := Max(root); !ok || hi != 80 {\n\t\tt.Errorf(\"Max = (%d, %v)\", hi, ok)\n\t}\n\tif _, ok := Min(nil); ok {\n\t\tt.Errorf(\"Min(nil) doit renvoyer ok = false\")\n\t}\n\tif _, ok := Max(nil); ok {\n\t\tt.Errorf(\"Max(nil) doit renvoyer ok = false\")\n\t}\n\tif Contains(nil, 1) {\n\t\tt.Errorf(\"Contains(nil) doit être faux\")\n\t}\n}\n\nfunc TestSizeAndHeight(t *testing.T) {\n\tif Size(nil) != 0 || Height(nil) != 0 {\n\t\tt.Errorf(\"arbre vide : Size %d, Height %d\", Size(nil), Height(nil))\n\t}\n\tif root := build(7); Size(root) != 1 || Height(root) != 1 {\n\t\tt.Errorf(\"un seul nœud : Size %d, Height %d\", Size(root), Height(root))\n\t}\n\tbalanced := build(50, 30, 70, 20, 40, 60, 80)\n\tif Size(balanced) != 7 || Height(balanced) != 3 {\n\t\tt.Errorf(\"arbre équilibré : Size %d, Height %d\", Size(balanced), Height(balanced))\n\t}\n\tdegenerate := build(1, 2, 3, 4, 5)\n\tif Size(degenerate) != 5 || Height(degenerate) != 5 {\n\t\tt.Errorf(\"insertion triée = liste : Size %d, Height %d\", Size(degenerate), Height(degenerate))\n\t}\n}\n\nfunc TestDelete(t *testing.T) {\n\tcases := []struct {\n\t\tname   string\n\t\tvalues []int\n\t\tremove int\n\t\twant   []int\n\t}{\n\t\t{\"feuille\", []int{50, 30, 70, 20}, 20, []int{30, 50, 70}},\n\t\t{\"un enfant à gauche\", []int{50, 30, 20}, 30, []int{20, 50}},\n\t\t{\"un enfant à droite\", []int{50, 70, 80}, 70, []int{50, 80}},\n\t\t{\"deux enfants\", []int{50, 30, 70, 20, 40, 60, 80}, 30, []int{20, 40, 50, 60, 70, 80}},\n\t\t{\"racine à deux enfants\", []int{50, 30, 70, 20, 40, 60, 80}, 50, []int{20, 30, 40, 60, 70, 80}},\n\t\t{\"racine sans enfant\", []int{50}, 50, []int{}},\n\t\t{\"racine à un enfant\", []int{50, 30}, 50, []int{30}},\n\t\t{\"absent\", []int{50, 30, 70}, 99, []int{30, 50, 70}},\n\t\t{\"successeur profond\", []int{50, 30, 80, 70, 60, 65}, 50, []int{30, 60, 65, 70, 80}},\n\t}\n\tfor _, c := range cases {\n\t\troot := Delete(build(c.values...), c.remove)\n\t\tif got := InOrder(root); !slices.Equal(got, c.want) {\n\t\t\tt.Errorf(\"%s : %v, attendu %v\", c.name, got, c.want)\n\t\t}\n\t\tvalid(t, root)\n\t}\n\tif Delete(nil, 1) != nil {\n\t\tt.Errorf(\"Delete(nil) doit renvoyer nil\")\n\t}\n}\n\nfunc TestDeleteCanChangeTheRoot(t *testing.T) {\n\troot := build(10, 5)\n\tnewRoot := Delete(root, 10)\n\tif newRoot == nil || newRoot.Value != 5 {\n\t\tt.Errorf(\"supprimer la racine d'un arbre à un enfant renvoie l'enfant : %v\", newRoot)\n\t}\n\tif Delete(build(1), 1) != nil {\n\t\tt.Errorf(\"supprimer l'unique nœud renvoie nil\")\n\t}\n}\n\nfunc TestRandomOperationsMatchAReferenceSet(t *testing.T) {\n\tseed := uint32(2024)\n\tnext := func(n int) int { seed = seed*1664525 + 1013904223; return int(seed>>16) % n }\n\tvar root *Tree\n\treference := map[int]bool{}\n\tfor i := 0; i < 4000; i++ {\n\t\tv := next(200)\n\t\tif next(3) == 0 {\n\t\t\troot = Delete(root, v)\n\t\t\tdelete(reference, v)\n\t\t} else {\n\t\t\troot = Insert(root, v)\n\t\t\treference[v] = true\n\t\t}\n\t\tif Contains(root, v) != reference[v] {\n\t\t\tt.Fatalf(\"étape %d : Contains(%d) = %v, référence %v\", i, v, Contains(root, v), reference[v])\n\t\t}\n\t\tif i%250 == 0 {\n\t\t\tvalid(t, root)\n\t\t}\n\t}\n\twant := make([]int, 0, len(reference))\n\tfor v := range reference {\n\t\twant = append(want, v)\n\t}\n\tslices.Sort(want)\n\tif got := InOrder(root); !slices.Equal(got, want) {\n\t\tt.Errorf(\"contenu final différent de la référence (%d valeurs attendues, %d obtenues)\", len(want), len(got))\n\t}\n\tif Size(root) != len(reference) {\n\t\tt.Errorf(\"Size = %d, attendu %d\", Size(root), len(reference))\n\t}\n\tvalid(t, root)\n}\n\nfunc TestWalkStopsEarly(t *testing.T) {\n\troot := build(50, 30, 70, 20, 40, 60, 80)\n\tvar seen []int\n\tWalk(root, func(v int) bool {\n\t\tseen = append(seen, v)\n\t\treturn v < 50\n\t})\n\tif !slices.Equal(seen, []int{20, 30, 40, 50}) {\n\t\tt.Errorf(\"Walk doit s'arrêter dès que visit renvoie false : %v\", seen)\n\t}\n\tcount := 0\n\tWalk(root, func(int) bool { count++; return true })\n\tif count != 7 {\n\t\tt.Errorf(\"Walk complet : %d visites\", count)\n\t}\n\tWalk(nil, func(int) bool { t.Error(\"aucune visite sur un arbre vide\"); return true })\n}\n\nfunc TestFromSortedIsBalanced(t *testing.T) {\n\tfor n, wantHeight := range map[int]int{0: 0, 1: 1, 2: 2, 3: 2, 7: 3, 8: 4, 15: 4, 16: 5, 100: 7, 1000: 10} {\n\t\tvalues := make([]int, n)\n\t\tfor i := range values {\n\t\t\tvalues[i] = i * 3\n\t\t}\n\t\toriginal := slices.Clone(values)\n\t\troot := FromSorted(values)\n\t\tif got := Height(root); got != wantHeight {\n\t\t\tt.Errorf(\"FromSorted(%d valeurs) : hauteur %d, attendu %d\", n, got, wantHeight)\n\t\t}\n\t\tif got := InOrder(root); !slices.Equal(got, original) && n > 0 {\n\t\t\tt.Errorf(\"FromSorted(%d valeurs) : contenu inattendu\", n)\n\t\t}\n\t\tif !slices.Equal(values, original) {\n\t\t\tt.Errorf(\"FromSorted a modifié sa slice d'entrée\")\n\t\t}\n\t\tvalid(t, root)\n\t}\n}\n\nfunc TestCloneIsDeep(t *testing.T) {\n\toriginal := build(50, 30, 70, 20, 40)\n\tcopyOfTree := Clone(original)\n\tif copyOfTree == original || !Equal(original, copyOfTree) {\n\t\tt.Fatalf(\"la copie doit être un autre arbre, égal à l'original\")\n\t}\n\tcopyOfTree.Left.Value = 999\n\tcopyOfTree.Right = Insert(copyOfTree.Right, 75)\n\tif original.Left.Value != 30 || Contains(original, 75) {\n\t\tt.Errorf(\"modifier la copie a modifié l'original : copie profonde attendue\")\n\t}\n\tif Clone(nil) != nil {\n\t\tt.Errorf(\"Clone(nil) doit renvoyer nil\")\n\t}\n}\n\nfunc TestEqual(t *testing.T) {\n\ta := build(2, 1, 3)\n\tif !Equal(a, build(2, 1, 3)) || !Equal(nil, nil) {\n\t\tt.Errorf(\"arbres identiques\")\n\t}\n\tif Equal(a, build(2, 1)) || Equal(a, nil) || Equal(nil, a) {\n\t\tt.Errorf(\"tailles différentes\")\n\t}\n\t// Mêmes valeurs, formes différentes : pas égaux.\n\tif Equal(build(1, 2, 3), build(2, 1, 3)) {\n\t\tt.Errorf(\"Equal compare la forme, pas seulement l'ensemble de valeurs\")\n\t}\n\tif Equal(build(2, 1, 3), build(2, 1, 4)) {\n\t\tt.Errorf(\"valeurs différentes\")\n\t}\n}\n"
+    }
+   },
+   "xp": 270
+  },
+  "name": "exercise:go-ch05-boss",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch05",
+   "checks": [],
+   "concepts": [
+    "go-pointer-basics",
+    "go-nil-pointer",
+    "go-new-and-literal",
+    "go-pointer-to-constant"
+   ],
+   "difficulty": 2,
+   "id": "go-ch05-l01-lab-primer",
+   "instructions": "## Contexte\n\nTu écris le petit kit de pointeurs de Relay : un helper pour pointer vers un littéral, des échanges de valeurs, un champ optionnel. Chaque fonction exerce un aspect du modèle : adresse, déréférencement, `nil`.\n\n## Ta mission\n\nDans `primer.go`, implémente six fonctions.\n\n### `Ptr[T any](v T) *T`\nRenvoie un pointeur vers une **copie** de `v`. C'est le helper `makePointer` du cours : il permet d'écrire `MiddleName: Ptr(\"Perry\")`. Deux appels renvoient deux pointeurs **distincts**. *(La syntaxe `[T any]` est celle des fonctions génériques, qu'on étudiera plus tard : elle est déjà dans la signature, seul le corps t'intéresse.)*\n\n### `Deref[T any](p *T, fallback T) T`\nLa valeur pointée par `p`, ou `fallback` si `p` est `nil`. Attention : un pointeur vers `0` ou `\"\"` n'est **pas** absent.\n\n### `Swap(a, b *int)`\nÉchange les valeurs pointées. Si l'un des pointeurs est `nil`, ne fait rien. `Swap(&c, &c)` ne change rien non plus.\n\n### `IncrementAll(counters ...*int)`\nAjoute 1 à chaque entier pointé ; ignore les `nil`.\n\n### `Largest(xs []int) *int`\nUn pointeur vers le plus grand élément de `xs`, **dans la slice elle-même** : écrire à travers ce pointeur modifie `xs`. En cas d'égalité, la première case. `nil` si `xs` est vide.\n\n### `FullName(p Person) string`\nPrénom, deuxième prénom, nom, séparés par un espace. Le deuxième prénom est un `*string` optionnel : on l'ignore s'il est `nil`, vide ou fait uniquement d'espaces.\n\n## Contrainte\n\nNe déréférence jamais un pointeur sans t'être assuré qu'il n'est pas `nil`.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch05-l01",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Premiers pas avec & et *",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "primer.go": "package lab\n\n// Ptr renvoie un pointeur vers une copie de v. Chaque appel renvoie un pointeur distinct.\nfunc Ptr[T any](v T) *T {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Deref renvoie la valeur pointée par p, ou fallback si p est nil.\n// Attention : un pointeur vers la valeur zéro n'est pas un pointeur absent.\nfunc Deref[T any](p *T, fallback T) T {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Swap échange les valeurs pointées par a et b. Si l'un des deux est nil, ne fait rien.\nfunc Swap(a, b *int) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// IncrementAll ajoute 1 à chaque entier pointé. Les pointeurs nil sont ignorés.\nfunc IncrementAll(counters ...*int) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Largest renvoie un pointeur vers le plus grand élément de xs, c'est-à-dire vers la case elle-même dans xs\n// (pas vers une copie). En cas d'égalité, c'est la première. Il renvoie nil si xs est vide.\nfunc Largest(xs []int) *int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Person a un deuxième prénom optionnel : nil signifie « pas de deuxième prénom ».\ntype Person struct {\n\tFirstName  string\n\tMiddleName *string\n\tLastName   string\n}\n\n// FullName assemble prénom, deuxième prénom (s'il existe et n'est pas vide) et nom, séparés par un espace.\nfunc FullName(p Person) string {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/primer_test.go": "package lab\n\nimport \"testing\"\n\nfunc TestPtr(t *testing.T) {\n\tp := Ptr(5)\n\tif p == nil || *p != 5 {\n\t\tt.Fatalf(\"Ptr(5) = %v\", p)\n\t}\n\tq := Ptr(5)\n\tif p == q {\n\t\tt.Errorf(\"deux appels doivent renvoyer deux pointeurs distincts\")\n\t}\n\t*p = 9\n\tif *q != 5 {\n\t\tt.Errorf(\"modifier un pointeur a modifié l'autre : %d\", *q)\n\t}\n\tif s := Ptr(\"go\"); s == nil || *s != \"go\" {\n\t\tt.Errorf(\"Ptr(\\\"go\\\") = %v\", s)\n\t}\n\ttype point struct{ X, Y int }\n\tif pt := Ptr(point{1, 2}); pt.X != 1 || pt.Y != 2 {\n\t\tt.Errorf(\"Ptr(struct) = %v\", pt)\n\t}\n\tif b := Ptr(false); b == nil || *b {\n\t\tt.Errorf(\"Ptr(false) doit pointer vers false : %v\", b)\n\t}\n}\n\nfunc TestDeref(t *testing.T) {\n\tif got := Deref(nil, 7); got != 7 {\n\t\tt.Errorf(\"Deref(nil, 7) = %d, attendu 7\", got)\n\t}\n\tif got := Deref(Ptr(3), 7); got != 3 {\n\t\tt.Errorf(\"Deref(&3, 7) = %d, attendu 3\", got)\n\t}\n\tif got := Deref(Ptr(0), 7); got != 0 {\n\t\tt.Errorf(\"Deref(&0, 7) = %d, attendu 0 : un pointeur vers la valeur zéro n'est pas un pointeur absent\", got)\n\t}\n\tif got := Deref[string](nil, \"défaut\"); got != \"défaut\" {\n\t\tt.Errorf(\"Deref[string](nil) = %q\", got)\n\t}\n\tif got := Deref(Ptr(\"\"), \"défaut\"); got != \"\" {\n\t\tt.Errorf(\"une string vide pointée n'est pas absente : %q\", got)\n\t}\n}\n\nfunc TestSwap(t *testing.T) {\n\ta, b := 1, 2\n\tSwap(&a, &b)\n\tif a != 2 || b != 1 {\n\t\tt.Errorf(\"après Swap : a = %d, b = %d, attendu 2 et 1\", a, b)\n\t}\n\tc := 5\n\tSwap(&c, &c)\n\tif c != 5 {\n\t\tt.Errorf(\"Swap(&c, &c) = %d, attendu 5\", c)\n\t}\n\tSwap(nil, &a)\n\tSwap(&a, nil)\n\tSwap(nil, nil)\n\tif a != 2 {\n\t\tt.Errorf(\"un pointeur nil ne doit rien changer : a = %d\", a)\n\t}\n}\n\nfunc TestIncrementAll(t *testing.T) {\n\ta, b, c := 0, 10, -1\n\tIncrementAll(&a, nil, &b, &c, &a)\n\tif a != 2 || b != 11 || c != 0 {\n\t\tt.Errorf(\"après IncrementAll : %d %d %d, attendu 2 11 0 (a est pointé deux fois)\", a, b, c)\n\t}\n\tIncrementAll()\n\tIncrementAll(nil, nil)\n}\n\nfunc TestLargest(t *testing.T) {\n\txs := []int{3, 9, 2, 9, 4}\n\tp := Largest(xs)\n\tif p == nil || *p != 9 {\n\t\tt.Fatalf(\"Largest = %v\", p)\n\t}\n\tif p != &xs[1] {\n\t\tt.Errorf(\"Largest doit pointer vers la première case maximale de la slice elle-même, pas vers une copie\")\n\t}\n\t*p = 0\n\tif xs[1] != 0 {\n\t\tt.Errorf(\"écrire à travers le pointeur doit modifier la slice : %v\", xs)\n\t}\n\tif got := Largest([]int{-5, -2, -9}); got == nil || *got != -2 {\n\t\tt.Errorf(\"Largest de négatifs = %v\", got)\n\t}\n\tif Largest(nil) != nil || Largest([]int{}) != nil {\n\t\tt.Errorf(\"Largest d'une slice vide doit renvoyer nil\")\n\t}\n\tsingle := []int{4}\n\tif Largest(single) != &single[0] {\n\t\tt.Errorf(\"slice d'un seul élément\")\n\t}\n}\n\nfunc TestFullName(t *testing.T) {\n\tmiddle := \"Perry\"\n\tempty := \"\"\n\tspaces := \"   \"\n\tcases := []struct {\n\t\tname string\n\t\tp    Person\n\t\twant string\n\t}{\n\t\t{\"avec deuxième prénom\", Person{\"Pat\", &middle, \"Peterson\"}, \"Pat Perry Peterson\"},\n\t\t{\"sans deuxième prénom\", Person{\"Pat\", nil, \"Peterson\"}, \"Pat Peterson\"},\n\t\t{\"deuxième prénom vide\", Person{\"Pat\", &empty, \"Peterson\"}, \"Pat Peterson\"},\n\t\t{\"deuxième prénom d'espaces\", Person{\"Pat\", &spaces, \"Peterson\"}, \"Pat Peterson\"},\n\t\t{\"avec Ptr\", Person{\"Ada\", Ptr(\"Augusta\"), \"Lovelace\"}, \"Ada Augusta Lovelace\"},\n\t}\n\tfor _, c := range cases {\n\t\tif got := FullName(c.p); got != c.want {\n\t\t\tt.Errorf(\"%s : FullName = %q, attendu %q\", c.name, got, c.want)\n\t\t}\n\t}\n}\n"
+    }
+   },
+   "xp": 55
+  },
+  "name": "exercise:go-ch05-l01-lab-primer",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch05",
+   "checks": [],
+   "concepts": [
+    "go-pointer-mutable-param",
+    "go-pointer-copy-semantics",
+    "go-pointer-last-resort",
+    "go-nil-pointer"
+   ],
+   "difficulty": 3,
+   "id": "go-ch05-l02-lab-accounts",
+   "instructions": "## Contexte\n\nTu modélises les comptes d'une petite banque pour Relay. Le choix entre **valeur** et **pointeur** dans chaque signature n'est pas anodin : il dit à l'appelant si la fonction va modifier son compte.\n\n## Ta mission\n\nDans `accounts.go`, implémente :\n\n### `Open(owner string, initial int) (Account, error)`\nCrée un compte et le renvoie **par valeur** (pas de pointeur : l'appelant décide). Erreurs : `ErrOwner` si le propriétaire est vide, `ErrAmount` si le solde initial est négatif. Zéro est un solde initial valide.\n\n### `Deposit(a *Account, amount int) error`\nAjoute au solde de `a`. Le compte de l'appelant **est modifié**. Erreurs : `ErrNilAccount` (pointeur nil), `ErrAmount` (montant ≤ 0).\n\n### `Withdraw(a *Account, amount int) error`\nRetire du solde. Mêmes erreurs, plus `ErrInsufficient` quand `amount` dépasse le solde (retirer exactement le solde est permis).\n\n### `Transfer(from, to *Account, amount int) error`\nDéplace `amount` de `from` vers `to`. Vérifications **dans cet ordre** : un compte nil (`ErrNilAccount`), le même compte des deux côtés (`ErrSameAccount`), un montant ≤ 0 (`ErrAmount`), un solde insuffisant (`ErrInsufficient`). **En cas d'erreur, aucun des deux comptes n'est modifié.**\n\n> Pour détecter « le même compte », compare les **pointeurs**, pas les contenus : deux comptes distincts peuvent avoir les mêmes valeurs.\n\n### `Ensure(a *Account) *Account`\nRenvoie `a`, ou un **nouveau** compte vide s'il est `nil`. Une fonction ne peut pas rendre non nil le pointeur de l'appelant : elle doit renvoyer le résultat, que l'appelant réaffecte (`acc = Ensure(acc)`).\n\n### `Snapshot(a *Account) (Account, bool)`\nUne copie de `a` ; `false` si `a` est `nil`. La copie ne suit pas les modifications ultérieures de l'original.\n\n## Contrainte\n\nChaque fonction qui accepte un pointeur doit se protéger d'un `nil` sans paniquer.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch05-l02",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Comptes bancaires : qui peut modifier quoi ?",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "accounts.go": "package lab\n\nimport \"errors\"\n\nvar (\n\tErrNilAccount   = errors.New(\"compte nil\")\n\tErrOwner        = errors.New(\"propriétaire manquant\")\n\tErrAmount       = errors.New(\"montant invalide\")\n\tErrInsufficient = errors.New(\"solde insuffisant\")\n\tErrSameAccount  = errors.New(\"comptes identiques\")\n)\n\n// Account est un compte bancaire.\ntype Account struct {\n\tOwner   string\n\tBalance int\n}\n\n// Open crée un compte. Elle renvoie une valeur, pas un pointeur : l'appelant décide s'il veut en prendre l'adresse.\nfunc Open(owner string, initial int) (Account, error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Deposit ajoute amount au solde de a (a est modifié : c'est ce que dit le pointeur).\nfunc Deposit(a *Account, amount int) error {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Withdraw retire amount du solde de a.\nfunc Withdraw(a *Account, amount int) error {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Transfer déplace amount de from vers to. Les vérifications se font dans cet ordre : un compte nil,\n// le même compte des deux côtés, un montant invalide, un solde insuffisant.\n// En cas d'erreur, aucun des deux comptes n'est modifié.\nfunc Transfer(from, to *Account, amount int) error {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Ensure renvoie a, ou un nouveau compte vide si a est nil.\n// Une fonction ne peut pas rendre non nil le pointeur de l'appelant : elle doit le renvoyer.\nfunc Ensure(a *Account) *Account {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Snapshot renvoie une copie de a. ok vaut false si a est nil.\nfunc Snapshot(a *Account) (snap Account, ok bool) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/accounts_test.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"testing\"\n)\n\nfunc TestOpen(t *testing.T) {\n\ta, err := Open(\"ada\", 100)\n\tif err != nil || a != (Account{\"ada\", 100}) {\n\t\tt.Errorf(\"Open = (%v, %v)\", a, err)\n\t}\n\tif _, err := Open(\"\", 10); !errors.Is(err, ErrOwner) {\n\t\tt.Errorf(\"propriétaire vide : %v\", err)\n\t}\n\tif _, err := Open(\"bob\", -1); !errors.Is(err, ErrAmount) {\n\t\tt.Errorf(\"solde initial négatif : %v\", err)\n\t}\n\tif a, err := Open(\"zero\", 0); err != nil || a.Balance != 0 {\n\t\tt.Errorf(\"un solde initial nul est valide : (%v, %v)\", a, err)\n\t}\n}\n\nfunc TestDeposit(t *testing.T) {\n\ta := Account{\"ada\", 100}\n\tif err := Deposit(&a, 50); err != nil || a.Balance != 150 {\n\t\tt.Errorf(\"Deposit = %v, solde %d — le compte de l'appelant doit être modifié\", err, a.Balance)\n\t}\n\tfor _, amount := range []int{0, -5} {\n\t\tif err := Deposit(&a, amount); !errors.Is(err, ErrAmount) || a.Balance != 150 {\n\t\t\tt.Errorf(\"Deposit(%d) : %v, solde %d, attendu ErrAmount sans modification\", amount, err, a.Balance)\n\t\t}\n\t}\n\tif err := Deposit(nil, 10); !errors.Is(err, ErrNilAccount) {\n\t\tt.Errorf(\"Deposit(nil) : %v\", err)\n\t}\n}\n\nfunc TestWithdraw(t *testing.T) {\n\ta := Account{\"ada\", 100}\n\tif err := Withdraw(&a, 40); err != nil || a.Balance != 60 {\n\t\tt.Errorf(\"Withdraw = %v, solde %d\", err, a.Balance)\n\t}\n\tif err := Withdraw(&a, 60); err != nil || a.Balance != 0 {\n\t\tt.Errorf(\"retirer tout le solde est permis : %v, solde %d\", err, a.Balance)\n\t}\n\tif err := Withdraw(&a, 1); !errors.Is(err, ErrInsufficient) || a.Balance != 0 {\n\t\tt.Errorf(\"solde insuffisant : %v, solde %d\", err, a.Balance)\n\t}\n\tif err := Withdraw(&a, 0); !errors.Is(err, ErrAmount) {\n\t\tt.Errorf(\"montant nul : %v\", err)\n\t}\n\tif err := Withdraw(nil, 5); !errors.Is(err, ErrNilAccount) {\n\t\tt.Errorf(\"Withdraw(nil) : %v\", err)\n\t}\n}\n\nfunc TestTransfer(t *testing.T) {\n\tfrom, to := Account{\"a\", 100}, Account{\"b\", 5}\n\tif err := Transfer(&from, &to, 30); err != nil || from.Balance != 70 || to.Balance != 35 {\n\t\tt.Errorf(\"Transfer = %v, soldes %d et %d, attendu 70 et 35\", err, from.Balance, to.Balance)\n\t}\n\tif err := Transfer(&from, &to, 70); err != nil || from.Balance != 0 || to.Balance != 105 {\n\t\tt.Errorf(\"transférer tout le solde : %v, soldes %d et %d\", err, from.Balance, to.Balance)\n\t}\n}\n\nfunc TestTransferIsAtomicOnError(t *testing.T) {\n\tcases := []struct {\n\t\tname       string\n\t\tfrom, to   *Account\n\t\tamount     int\n\t\twant       error\n\t\tfromB, toB int\n\t}{\n\t\t{\"solde insuffisant\", &Account{\"a\", 10}, &Account{\"b\", 5}, 11, ErrInsufficient, 10, 5},\n\t\t{\"montant nul\", &Account{\"a\", 10}, &Account{\"b\", 5}, 0, ErrAmount, 10, 5},\n\t\t{\"montant négatif\", &Account{\"a\", 10}, &Account{\"b\", 5}, -3, ErrAmount, 10, 5},\n\t\t{\"source nil\", nil, &Account{\"b\", 5}, 1, ErrNilAccount, 0, 5},\n\t\t{\"destination nil\", &Account{\"a\", 10}, nil, 1, ErrNilAccount, 10, 0},\n\t}\n\tfor _, c := range cases {\n\t\terr := Transfer(c.from, c.to, c.amount)\n\t\tif !errors.Is(err, c.want) {\n\t\t\tt.Errorf(\"%s : erreur %v, attendu %v\", c.name, err, c.want)\n\t\t}\n\t\tif c.from != nil && c.from.Balance != c.fromB {\n\t\t\tt.Errorf(\"%s : le compte source a été modifié (%d)\", c.name, c.from.Balance)\n\t\t}\n\t\tif c.to != nil && c.to.Balance != c.toB {\n\t\t\tt.Errorf(\"%s : le compte destination a été modifié (%d)\", c.name, c.to.Balance)\n\t\t}\n\t}\n}\n\nfunc TestTransferSameAccount(t *testing.T) {\n\ta := Account{\"a\", 100}\n\tif err := Transfer(&a, &a, 10); !errors.Is(err, ErrSameAccount) || a.Balance != 100 {\n\t\tt.Errorf(\"même compte : %v, solde %d, attendu ErrSameAccount et un solde inchangé\", err, a.Balance)\n\t}\n\tb := Account{\"a\", 100} // même contenu mais compte différent : c'est permis\n\tif err := Transfer(&a, &b, 10); err != nil || a.Balance != 90 || b.Balance != 110 {\n\t\tt.Errorf(\"deux comptes de même contenu mais distincts : %v, %d, %d (compare les pointeurs, pas les valeurs)\", err, a.Balance, b.Balance)\n\t}\n}\n\nfunc TestEnsure(t *testing.T) {\n\ta := &Account{\"ada\", 5}\n\tif Ensure(a) != a {\n\t\tt.Errorf(\"Ensure d'un compte existant doit renvoyer le même pointeur\")\n\t}\n\tn1, n2 := Ensure(nil), Ensure(nil)\n\tif n1 == nil || n2 == nil || n1 == n2 || *n1 != (Account{}) {\n\t\tt.Errorf(\"Ensure(nil) doit créer un compte neuf à chaque appel : %v %v\", n1, n2)\n\t}\n\tn1.Balance = 99\n\tif n2.Balance != 0 {\n\t\tt.Errorf(\"les comptes créés ne doivent pas être partagés\")\n\t}\n\n\t// Le piège : la fonction ne peut pas modifier le pointeur de l'appelant, c'est donc la valeur renvoyée qui compte.\n\tvar mine *Account\n\tmine = Ensure(mine)\n\tif mine == nil {\n\t\tt.Errorf(\"l'appelant doit réaffecter le résultat : mine = Ensure(mine)\")\n\t}\n}\n\nfunc TestSnapshot(t *testing.T) {\n\ta := &Account{\"ada\", 10}\n\tsnap, ok := Snapshot(a)\n\tif !ok || snap != *a {\n\t\tt.Fatalf(\"Snapshot = (%v, %v)\", snap, ok)\n\t}\n\ta.Balance = 999\n\tif snap.Balance != 10 {\n\t\tt.Errorf(\"la copie ne doit pas suivre l'original : %d\", snap.Balance)\n\t}\n\tif got, ok := Snapshot(nil); ok || got != (Account{}) {\n\t\tt.Errorf(\"Snapshot(nil) = (%v, %v)\", got, ok)\n\t}\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:go-ch05-l02-lab-accounts",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch05",
+   "checks": [],
+   "concepts": [
+    "go-pointer-optional",
+    "go-slice-header",
+    "go-buffer-reuse"
+   ],
+   "difficulty": 3,
+   "id": "go-ch05-l03-lab-optional",
+   "instructions": "## Contexte\n\nRelay lit sa configuration depuis un fichier où chaque champ est facultatif, et traite de gros fichiers de journaux par morceaux. Deux problèmes de pointeurs et de slices : distinguer « pas renseigné » de « renseigné à zéro », et ne pas allouer de mémoire à chaque lecture.\n\n## Ta mission\n\nDans `optional.go`, implémente quatre fonctions.\n\n### `Merge(base, override Settings) Settings`\n`Settings` a trois champs facultatifs (`Port *int`, `Debug *bool`, `Name *string`) : `nil` signifie « non renseigné ». Le résultat prend la valeur d'`override` quand elle est renseignée, sinon celle de `base` (qui peut elle-même être absente).\n\n- Un pointeur vers `0`, `false` ou `\"\"` est **renseigné** : `override.Port = &0` remplace bien le port de `base`.\n- Le résultat ne doit partager **aucun pointeur** avec `base` ni `override` : copie les valeurs. Modifier `*merged.Port` ne doit modifier aucune des deux entrées.\n\n### `Describe(s Settings) string`\n`\"port=8080 debug=unset name=api\"` : les champs absents s'affichent `unset`, dans cet ordre.\n\n### `ParseOptionalInt(s string) (*int, error)`\nUne chaîne vide ou d'espaces donne `(nil, nil)` : l'absence n'est pas une erreur. Un entier valide (espaces autour tolérés) donne un pointeur vers sa valeur. Tout le reste : `(nil, erreur)`.\n\n### `ReadChunks(r io.Reader, buf []byte, handle func(chunk []byte) error) error`\nLit `r` par morceaux dans le tampon `buf` et appelle `handle` avec `buf[:n]` pour chaque lecture non vide.\n\n- Fin des données (`io.EOF`) : retourne `nil`.\n- Erreur de `handle` : retourne-la immédiatement. Erreur de lecture : retourne-la, **après** avoir transmis les octets lus avec elle.\n- `buf` vide : `ErrEmptyBuffer`.\n- Aucune allocation dans la boucle : le tampon est alloué une fois (par l'appelant) et réutilisé.\n\n## Contrainte\n\nUn `Read` peut renvoyer des octets **et** une erreur dans le même appel. Traite d'abord les octets.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch05-l03",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Champs facultatifs et tampon réutilisable",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "optional.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"io\"\n)\n\n// Settings est une configuration dont chaque champ est facultatif : nil signifie « non renseigné ».\n// Un pointeur vers 0, false ou \"\" est bien une valeur renseignée.\ntype Settings struct {\n\tPort  *int\n\tDebug *bool\n\tName  *string\n}\n\n// Merge renvoie base dont les champs renseignés dans override sont remplacés.\n// Le résultat ne partage aucun pointeur avec base ni override : modifier une valeur pointée par le résultat\n// ne doit modifier aucune des deux entrées.\nfunc Merge(base, override Settings) Settings {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Describe affiche la configuration : « port=8080 debug=unset name=api ».\n// Un champ non renseigné s'affiche « unset ».\nfunc Describe(s Settings) string {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// ParseOptionalInt lit un entier facultatif : une chaîne vide (ou d'espaces) donne (nil, nil) ;\n// un entier valide donne un pointeur vers sa valeur ; sinon (nil, erreur).\nfunc ParseOptionalInt(s string) (*int, error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// ErrEmptyBuffer est renvoyée par ReadChunks quand le tampon fourni est vide.\nvar ErrEmptyBuffer = errors.New(\"tampon vide\")\n\n// ReadChunks lit r par morceaux dans buf et appelle handle pour chacun (une vue sur buf, valable\n// seulement pendant l'appel). Elle s'arrête sans erreur à la fin des données (io.EOF), et renvoie\n// la première erreur de lecture ou de handle. Elle n'alloue rien dans sa boucle.\nfunc ReadChunks(r io.Reader, buf []byte, handle func(chunk []byte) error) error {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/optional_test.go": "package lab\n\nimport (\n\t\"bytes\"\n\t\"errors\"\n\t\"io\"\n\t\"strings\"\n\t\"testing\"\n\t\"testing/iotest\"\n)\n\nfunc ptr[T any](v T) *T { return &v }\n\nfunc TestMerge(t *testing.T) {\n\tbase := Settings{Port: ptr(8080), Debug: ptr(true), Name: ptr(\"api\")}\n\tcases := []struct {\n\t\tname     string\n\t\toverride Settings\n\t\twant     string\n\t}{\n\t\t{\"rien à remplacer\", Settings{}, \"port=8080 debug=true name=api\"},\n\t\t{\"un champ\", Settings{Port: ptr(9090)}, \"port=9090 debug=true name=api\"},\n\t\t{\"valeurs zéro renseignées\", Settings{Port: ptr(0), Debug: ptr(false), Name: ptr(\"\")}, \"port=0 debug=false name=\"},\n\t\t{\"tout\", Settings{Port: ptr(1), Debug: ptr(false), Name: ptr(\"x\")}, \"port=1 debug=false name=x\"},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Describe(Merge(base, c.override)); got != c.want {\n\t\t\tt.Errorf(\"%s : %q, attendu %q — un pointeur vers la valeur zéro est une valeur renseignée\", c.name, got, c.want)\n\t\t}\n\t}\n\tif got := Describe(Merge(Settings{}, Settings{})); got != \"port=unset debug=unset name=unset\" {\n\t\tt.Errorf(\"deux configurations vides : %q\", got)\n\t}\n\tif got := Describe(Merge(Settings{}, Settings{Name: ptr(\"n\")})); got != \"port=unset debug=unset name=n\" {\n\t\tt.Errorf(\"champ seulement dans override : %q\", got)\n\t}\n}\n\nfunc TestMergeDoesNotShareMemory(t *testing.T) {\n\tbase := Settings{Port: ptr(1), Debug: ptr(true), Name: ptr(\"base\")}\n\toverride := Settings{Port: ptr(2)}\n\tmerged := Merge(base, override)\n\n\t*merged.Port = 100\n\t*merged.Debug = false\n\t*merged.Name = \"modifié\"\n\n\tif *base.Port != 1 || *base.Debug != true || *base.Name != \"base\" {\n\t\tt.Errorf(\"modifier le résultat a modifié base : %d %v %q — copie les valeurs, pas les pointeurs\", *base.Port, *base.Debug, *base.Name)\n\t}\n\tif *override.Port != 2 {\n\t\tt.Errorf(\"modifier le résultat a modifié override : %d\", *override.Port)\n\t}\n}\n\nfunc TestDescribe(t *testing.T) {\n\tcases := []struct {\n\t\ts    Settings\n\t\twant string\n\t}{\n\t\t{Settings{}, \"port=unset debug=unset name=unset\"},\n\t\t{Settings{Port: ptr(8080), Name: ptr(\"api\")}, \"port=8080 debug=unset name=api\"},\n\t\t{Settings{Debug: ptr(false)}, \"port=unset debug=false name=unset\"},\n\t\t{Settings{Port: ptr(0)}, \"port=0 debug=unset name=unset\"},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Describe(c.s); got != c.want {\n\t\t\tt.Errorf(\"Describe = %q, attendu %q\", got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestParseOptionalInt(t *testing.T) {\n\tfor _, in := range []string{\"\", \"   \", \"\\t\\n\"} {\n\t\tif got, err := ParseOptionalInt(in); got != nil || err != nil {\n\t\t\tt.Errorf(\"ParseOptionalInt(%q) = (%v, %v), attendu (nil, nil) : une valeur absente n'est pas une erreur\", in, got, err)\n\t\t}\n\t}\n\tcases := map[string]int{\"42\": 42, \"0\": 0, \"-7\": -7, \" 15 \": 15}\n\tfor in, want := range cases {\n\t\tgot, err := ParseOptionalInt(in)\n\t\tif err != nil || got == nil || *got != want {\n\t\t\tt.Errorf(\"ParseOptionalInt(%q) = (%v, %v), attendu %d\", in, got, err, want)\n\t\t}\n\t}\n\tfor _, in := range []string{\"abc\", \"1.5\", \"12x\", \"--3\"} {\n\t\tif got, err := ParseOptionalInt(in); got != nil || err == nil {\n\t\t\tt.Errorf(\"ParseOptionalInt(%q) = (%v, %v), attendu (nil, erreur)\", in, got, err)\n\t\t}\n\t}\n\ta, _ := ParseOptionalInt(\"5\")\n\tb, _ := ParseOptionalInt(\"5\")\n\tif a == b {\n\t\tt.Errorf(\"chaque appel doit renvoyer un pointeur distinct\")\n\t}\n}\n\nfunc TestReadChunksReadsEverything(t *testing.T) {\n\ttext := strings.Repeat(\"abcdefghij\", 25) // 250 octets\n\tvar got bytes.Buffer\n\tvar sizes []int\n\terr := ReadChunks(strings.NewReader(text), make([]byte, 64), func(chunk []byte) error {\n\t\tsizes = append(sizes, len(chunk))\n\t\tgot.Write(chunk)\n\t\treturn nil\n\t})\n\tif err != nil || got.String() != text {\n\t\tt.Fatalf(\"lecture complète : erreur %v, %d octets lus sur %d\", err, got.Len(), len(text))\n\t}\n\tif want := []int{64, 64, 64, 58}; len(sizes) != 4 || sizes[0] != 64 || sizes[3] != 58 {\n\t\tt.Errorf(\"tailles des morceaux = %v, attendu %v : seule la partie remplie du tampon doit être transmise\", sizes, want)\n\t}\n}\n\nfunc TestReadChunksWithTrickyReaders(t *testing.T) {\n\ttext := \"Go est un langage compilé, statique, avec un ramasse-miettes.\"\n\treaders := map[string]io.Reader{\n\t\t\"un octet à la fois\": iotest.OneByteReader(strings.NewReader(text)),\n\t\t\"données puis EOF\":   iotest.DataErrReader(strings.NewReader(text)),\n\t\t\"lectures coupées\":   iotest.HalfReader(strings.NewReader(text)),\n\t}\n\tfor name, r := range readers {\n\t\tvar got strings.Builder\n\t\terr := ReadChunks(r, make([]byte, 16), func(chunk []byte) error { got.Write(chunk); return nil })\n\t\tif err != nil || got.String() != text {\n\t\t\tt.Errorf(\"%s : erreur %v, texte %q\", name, err, got.String())\n\t\t}\n\t}\n}\n\nfunc TestReadChunksErrors(t *testing.T) {\n\tboom := errors.New(\"handle a échoué\")\n\tcalls := 0\n\terr := ReadChunks(strings.NewReader(strings.Repeat(\"x\", 100)), make([]byte, 10), func([]byte) error {\n\t\tcalls++\n\t\tif calls == 3 {\n\t\t\treturn boom\n\t\t}\n\t\treturn nil\n\t})\n\tif err != boom || calls != 3 {\n\t\tt.Errorf(\"l'erreur de handle doit arrêter la lecture : erreur %v après %d appels\", err, calls)\n\t}\n\n\tfailing := io.MultiReader(strings.NewReader(\"abc\"), iotest.ErrReader(errors.New(\"disque en feu\")))\n\tvar got strings.Builder\n\terr = ReadChunks(failing, make([]byte, 8), func(c []byte) error { got.Write(c); return nil })\n\tif err == nil || err.Error() != \"disque en feu\" || got.String() != \"abc\" {\n\t\tt.Errorf(\"erreur de lecture : %v, données reçues %q (les données lues avant l'erreur doivent être transmises)\", err, got.String())\n\t}\n\n\tif err := ReadChunks(strings.NewReader(\"abc\"), nil, func([]byte) error { return nil }); !errors.Is(err, ErrEmptyBuffer) {\n\t\tt.Errorf(\"tampon nil : %v\", err)\n\t}\n\tif err := ReadChunks(strings.NewReader(\"\"), make([]byte, 4), func([]byte) error { t.Error(\"handle ne doit pas être appelée\"); return nil }); err != nil {\n\t\tt.Errorf(\"source vide : %v\", err)\n\t}\n}\n\nfunc TestReadChunksPassesViewsOnTheBuffer(t *testing.T) {\n\tbuf := make([]byte, 8)\n\t_ = ReadChunks(strings.NewReader(\"abcdefgh12345\"), buf, func(chunk []byte) error {\n\t\tif &chunk[0] != &buf[0] {\n\t\t\tt.Errorf(\"le morceau doit être une vue sur le tampon fourni (buf[:n]), pas une copie\")\n\t\t}\n\t\treturn nil\n\t})\n}\n\nfunc TestReadChunksDoesNotAllocateInItsLoop(t *testing.T) {\n\tdata := bytes.Repeat([]byte(\"0123456789\"), 100_000) // 1 Mo\n\treader := bytes.NewReader(data)\n\tbuf := make([]byte, 1024)\n\ttotal := 0\n\thandle := func(chunk []byte) error { total += len(chunk); return nil }\n\n\tallocs := testing.AllocsPerRun(5, func() {\n\t\treader.Reset(data)\n\t\tif err := ReadChunks(reader, buf, handle); err != nil {\n\t\t\tt.Fatal(err)\n\t\t}\n\t})\n\tif allocs > 2 {\n\t\tt.Errorf(\"%.0f allocations pour lire 1 Mo en ~1000 morceaux : alloue le tampon une fois, pas à chaque lecture\", allocs)\n\t}\n\tif total == 0 {\n\t\tt.Errorf(\"rien n'a été lu\")\n\t}\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:go-ch05-l03-lab-optional",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch05",
+   "checks": [],
+   "concepts": [
+    "go-stack-heap",
+    "go-escape-analysis",
+    "go-gc-cost",
+    "go-buffer-reuse"
+   ],
+   "difficulty": 3,
+   "id": "go-ch05-l04-lab-allocs",
+   "instructions": "## Contexte\n\nDans le chemin le plus chaud de Relay (le formatage de chaque ligne de journal), chaque allocation sur le tas est du travail de plus pour le ramasse-miettes. Tu réécris trois fonctions pour qu'elles n'allouent **rien** : les tests mesurent le nombre d'allocations avec `testing.AllocsPerRun`.\n\n## Ta mission\n\nDans `allocs.go`, implémente :\n\n### `JoinInts(dst []byte, nums []int, sep byte) []byte`\nAjoute à `dst` les entiers de `nums` en décimal, séparés par `sep`, et renvoie le résultat (comme `append`). Avec un `dst` de capacité suffisante, **0 allocation**.\n\n```\nJoinInts([]byte(\"ids=\"), []int{4, 5}, ',') → \"ids=4,5\"\n```\n\n*(Le paquet `strconv` a une fonction qui écrit un entier directement à la suite d'une slice d'octets.)*\n\n### `CountVowels(s string) int`\nCompte les voyelles : `a e i o u y`, en majuscules ou minuscules, et leurs formes accentuées (`é è ê ë à â ä î ï ô ö ù û ü ÿ`, majuscules comprises). **0 allocation.**\n\nPiège : `strings.ToLower(s)`, `[]rune(s)` ou `strings.Split` allouent. Parcours la string directement.\n\n### `Dedupe(xs []int) []int`\nSupprime **en place** les doublons *consécutifs* de `xs` et renvoie la slice raccourcie, qui réutilise **le même tableau** (même première case). Sur une slice triée, tous les doublons disparaissent. **0 allocation.**\n\n## Contraintes\n\n- Aucune allocation : pas de `make`, pas de conversion `[]rune`, pas de `strings.ToLower`.\n- Ne modifie jamais le contenu d'une `nums` ou d'une `s` reçues (seule `xs` est modifiée par `Dedupe`).\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch05-l04",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Zéro allocation : le ramasse-miettes n'a rien à faire",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "allocs.go": "package lab\n\n// JoinInts ajoute à dst les entiers de nums écrits en décimal et séparés par sep, et renvoie le résultat.\n// Quand dst a assez de capacité, aucune allocation n'a lieu.\nfunc JoinInts(dst []byte, nums []int, sep byte) []byte {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// CountVowels compte les voyelles de s, majuscules, minuscules et accentuées comprises (a e i o u y et leurs accents).\n// Elle n'alloue rien.\nfunc CountVowels(s string) int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Dedupe supprime en place les doublons consécutifs de xs et renvoie la slice raccourcie, qui réutilise\n// le même tableau. Sur une slice triée, cela supprime tous les doublons.\nfunc Dedupe(xs []int) []int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/allocs_test.go": "package lab\n\nimport (\n\t\"slices\"\n\t\"testing\"\n)\n\nfunc TestJoinInts(t *testing.T) {\n\tcases := []struct {\n\t\tname string\n\t\tdst  string\n\t\tnums []int\n\t\tsep  byte\n\t\twant string\n\t}{\n\t\t{\"liste simple\", \"\", []int{1, 22, 333}, ',', \"1,22,333\"},\n\t\t{\"un seul nombre\", \"\", []int{7}, ',', \"7\"},\n\t\t{\"séparateur différent\", \"\", []int{1, 2, 3}, ' ', \"1 2 3\"},\n\t\t{\"négatifs et zéro\", \"\", []int{-5, 0, 12, -300}, ';', \"-5;0;12;-300\"},\n\t\t{\"ajoute à dst\", \"ids=\", []int{4, 5}, ',', \"ids=4,5\"},\n\t\t{\"liste vide\", \"x\", nil, ',', \"x\"},\n\t\t{\"grands nombres\", \"\", []int{1 << 40, -1 << 40}, ',', \"1099511627776,-1099511627776\"},\n\t}\n\tfor _, c := range cases {\n\t\tif got := string(JoinInts([]byte(c.dst), c.nums, c.sep)); got != c.want {\n\t\t\tt.Errorf(\"%s : %q, attendu %q\", c.name, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestJoinIntsDoesNotAllocate(t *testing.T) {\n\tnums := []int{10, -20, 30, 400, 5000, 60000}\n\tdst := make([]byte, 0, 128)\n\tallocs := testing.AllocsPerRun(100, func() {\n\t\tdst = JoinInts(dst[:0], nums, ',')\n\t})\n\tif allocs != 0 {\n\t\tt.Errorf(\"%.0f allocation(s) par appel avec un tampon assez grand, attendu 0 — strconv.AppendInt écrit directement dans dst\", allocs)\n\t}\n\tif string(dst) != \"10,-20,30,400,5000,60000\" {\n\t\tt.Errorf(\"résultat = %q\", dst)\n\t}\n}\n\nfunc TestCountVowels(t *testing.T) {\n\tcases := map[string]int{\n\t\t\"\":                     0,\n\t\t\"Hello World\":          3,\n\t\t\"rhythm\":               1, // le y compte\n\t\t\"AEIOUY\":               6,\n\t\t\"aeiouy\":               6,\n\t\t\"Été à Noël\":           5,\n\t\t\"çà et là, où ça va ?\": 7,\n\t\t\"bcdfg\":                0,\n\t\t\"日本語 and ünï\":          3,\n\t\t\"Ÿ ÿ\":                  2,\n\t}\n\tfor in, want := range cases {\n\t\tif got := CountVowels(in); got != want {\n\t\t\tt.Errorf(\"CountVowels(%q) = %d, attendu %d\", in, got, want)\n\t\t}\n\t}\n}\n\nfunc TestCountVowelsDoesNotAllocate(t *testing.T) {\n\ttext := \"Ça va très bien, merci beaucoup ÉTÉ — Où est la bibliothèque ?\"\n\ttotal := 0\n\tallocs := testing.AllocsPerRun(100, func() {\n\t\ttotal += CountVowels(text)\n\t})\n\tif allocs != 0 {\n\t\tt.Errorf(\"%.0f allocation(s) par appel, attendu 0 — convertir en []rune ou en minuscules alloue : parcours la string avec range\", allocs)\n\t}\n\tif total == 0 {\n\t\tt.Errorf(\"rien compté\")\n\t}\n}\n\nfunc TestDedupe(t *testing.T) {\n\tcases := []struct{ in, want []int }{\n\t\t{[]int{1, 1, 2, 2, 2, 3}, []int{1, 2, 3}},\n\t\t{[]int{1, 2, 3}, []int{1, 2, 3}},\n\t\t{[]int{5, 5, 5, 5}, []int{5}},\n\t\t{[]int{7}, []int{7}},\n\t\t{[]int{}, []int{}},\n\t\t{[]int{-3, -3, 0, 0, 4}, []int{-3, 0, 4}},\n\t\t{[]int{1, 2, 1}, []int{1, 2, 1}}, // seuls les doublons consécutifs disparaissent\n\t\t{[]int{1, 1, 2, 3, 3, 3, 4, 4}, []int{1, 2, 3, 4}},\n\t}\n\tfor _, c := range cases {\n\t\tin := slices.Clone(c.in)\n\t\tgot := Dedupe(in)\n\t\tif !slices.Equal(got, c.want) {\n\t\t\tt.Errorf(\"Dedupe(%v) = %v, attendu %v\", c.in, got, c.want)\n\t\t}\n\t}\n\tif got := Dedupe(nil); len(got) != 0 {\n\t\tt.Errorf(\"Dedupe(nil) = %v\", got)\n\t}\n}\n\nfunc TestDedupeWorksInPlace(t *testing.T) {\n\txs := []int{1, 1, 2, 3, 3}\n\tgot := Dedupe(xs)\n\tif len(got) != 3 || &got[0] != &xs[0] {\n\t\tt.Errorf(\"le résultat doit réutiliser le tableau de xs (même première case), longueur %d\", len(got))\n\t}\n\tif xs[0] != 1 || xs[1] != 2 || xs[2] != 3 {\n\t\tt.Errorf(\"les premiers éléments de xs doivent contenir le résultat : %v\", xs)\n\t}\n\n\tdata := make([]int, 1000)\n\tfor i := range data {\n\t\tdata[i] = i / 10\n\t}\n\twork := make([]int, len(data))\n\tallocs := testing.AllocsPerRun(50, func() {\n\t\tcopy(work, data)\n\t\t_ = Dedupe(work)\n\t})\n\tif allocs != 0 {\n\t\tt.Errorf(\"%.0f allocation(s) : Dedupe doit travailler sur place, sans nouvelle slice\", allocs)\n\t}\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:go-ch05-l04-lab-allocs",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch05",
+   "checks": [],
+   "concepts": [
+    "go-gogc",
+    "go-gomemlimit",
+    "go-gc-thrashing"
+   ],
+   "difficulty": 4,
+   "id": "go-ch05-l05-lab-gctune",
+   "instructions": "## Contexte\n\nRelay lit sa configuration mémoire dans l'environnement : `GOGC` et `GOMEMLIMIT`. Avant de les passer au runtime, il veut les valider, calculer à quelle taille de tas le prochain ramasse-miettes se déclenchera, et vérifier que la limite laisse de la marge. Ce sont des calculs sur de très grands entiers : le débordement n'est pas un cas théorique.\n\n## Ta mission\n\nDans `gctune.go`, implémente cinq fonctions.\n\n### `NextGCTarget(heap uint64, gogc int) uint64`\n`heap + heap × gogc / 100`. Si `gogc` est négatif (`GOGCOff`), le GC ne se déclenche jamais : `math.MaxUint64`. **Le résultat sature à `MaxUint64` au lieu de déborder**, même quand le produit `heap × gogc` dépasse 64 bits.\n\n```\nNextGCTarget(200 MiB, 100) = 400 MiB     NextGCTarget(1<<63, 100) = MaxUint64\n```\n\n*(Le paquet `math/bits` offre un produit sur 128 bits et une division qui l'accepte.)*\n\n### `ParseMemLimit(s string) (uint64, error)`\nDes chiffres suivis d'un suffixe facultatif : `B`, `KiB`, `MiB`, `GiB` ou `TiB`, **sensibles à la casse**. `\"3GiB\"` vaut `3 × 2³⁰`. Erreurs : chaîne vide, pas de nombre, suffixe inconnu (`GB`, `gib`), signe, espace, virgule, valeur qui déborde 64 bits.\n\n### `ReadGCSettings(env map[string]string) (GCSettings, error)`\n- `GOGC` absent ou vide : `100`. `\"off\"` : `GOGCOff`. Sinon un entier `≥ 0`.\n- `GOMEMLIMIT` absent ou vide : `NoLimit`. Sinon `ParseMemLimit`.\n- Les autres variables sont ignorées. Une valeur invalide est une erreur qui cite le nom de la variable.\n\n### `EffectiveTarget(heap uint64, s GCSettings) uint64`\nLa taille de tas qui déclenchera réellement le prochain cycle : le déclenchement de `GOGC`, ramené à la limite mémoire si celle-ci est plus basse.\n\n### `CheckLimit(limit, physical uint64) (safe bool, err error)`\n`safe` est vrai si la limite reste à **90 % ou moins** de la mémoire physique (le calcul `physical × 9 / 10` ne doit pas déborder). Une limite nulle donne `ErrInvalidLimit`.\n\n## Contrainte\n\nAucune conversion en `float64` : les valeurs dépassent 2⁵³ et perdraient de la précision.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch05-l05",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "GOGC et GOMEMLIMIT : lire et calculer sans déborder",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "gctune.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"math\"\n)\n\nconst (\n\t// GOGCOff représente GOGC=off.\n\tGOGCOff = -1\n\t// NoLimit est la valeur de GOMEMLIMIT quand aucune limite n'est fixée.\n\tNoLimit uint64 = math.MaxInt64\n)\n\n// GCSettings regroupe les deux réglages du ramasse-miettes.\ntype GCSettings struct {\n\tGOGC     int    // pourcentage ; GOGCOff si le GC est désactivé\n\tMemLimit uint64 // en octets ; NoLimit si aucune limite\n}\n\n// NextGCTarget renvoie la taille du tas qui déclenche le prochain cycle : heap + heap×gogc/100.\n// Si gogc est négatif (GC désactivé), il n'y a pas de déclenchement : math.MaxUint64.\n// Le résultat sature à math.MaxUint64 au lieu de déborder.\nfunc NextGCTarget(heap uint64, gogc int) uint64 {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// ParseMemLimit lit une valeur de GOMEMLIMIT : des chiffres suivis d'un suffixe facultatif\n// (B, KiB, MiB, GiB ou TiB, en respectant la casse).\nfunc ParseMemLimit(s string) (uint64, error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// ReadGCSettings lit GOGC et GOMEMLIMIT dans env.\n// GOGC absent ou vide vaut 100 ; « off » désactive le GC ; sinon un entier >= 0.\n// GOMEMLIMIT absent ou vide vaut NoLimit ; sinon voir ParseMemLimit.\nfunc ReadGCSettings(env map[string]string) (GCSettings, error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// EffectiveTarget renvoie la taille de tas qui déclenchera réellement le prochain cycle :\n// le déclenchement de GOGC, ramené à la limite mémoire si elle est plus basse.\nfunc EffectiveTarget(heap uint64, s GCSettings) uint64 {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// ErrInvalidLimit est renvoyée par CheckLimit quand la limite est nulle.\nvar ErrInvalidLimit = errors.New(\"limite mémoire nulle\")\n\n// CheckLimit indique si limit laisse de la marge sur la mémoire physique : elle doit rester à 90 % ou moins.\n// Une limite nulle est une erreur.\nfunc CheckLimit(limit, physical uint64) (safe bool, err error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/gctune_test.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"math\"\n\t\"testing\"\n)\n\nconst (\n\tKiB = uint64(1) << 10\n\tMiB = uint64(1) << 20\n\tGiB = uint64(1) << 30\n)\n\nfunc TestNextGCTarget(t *testing.T) {\n\tcases := []struct {\n\t\theap uint64\n\t\tgogc int\n\t\twant uint64\n\t\twhy  string\n\t}{\n\t\t{200 * MiB, 100, 400 * MiB, \"GOGC par défaut : le tas double\"},\n\t\t{200 * MiB, 50, 300 * MiB, \"GOGC=50 : +50 %\"},\n\t\t{200 * MiB, 200, 600 * MiB, \"GOGC=200 : +200 %\"},\n\t\t{200 * MiB, 0, 200 * MiB, \"GOGC=0 : déclenchement immédiat\"},\n\t\t{0, 100, 0, \"tas vide\"},\n\t\t{1, 100, 2, \"un octet\"},\n\t\t{150, 33, 150 + 49, \"troncature de la division entière : 150×33/100 = 49\"},\n\t\t{200 * MiB, GOGCOff, math.MaxUint64, \"GOGC=off : jamais\"},\n\t\t{1 << 62, 100, 1 << 63, \"grand tas, sans débordement\"},\n\t\t{1 << 63, 100, math.MaxUint64, \"1<<63 + 1<<63 = 1<<64 : sature au lieu de déborder\"},\n\t\t{math.MaxUint64, 100, math.MaxUint64, \"tas maximal : sature\"},\n\t\t{math.MaxUint64, 100000, math.MaxUint64, \"produit énorme : sature\"},\n\t\t{1 << 60, 1000, 11 << 60, \"GOGC=1000 : ×11\"},\n\t}\n\tfor _, c := range cases {\n\t\tif got := NextGCTarget(c.heap, c.gogc); got != c.want {\n\t\t\tt.Errorf(\"NextGCTarget(%d, %d) = %d, attendu %d — %s\", c.heap, c.gogc, got, c.want, c.why)\n\t\t}\n\t}\n}\n\nfunc TestParseMemLimit(t *testing.T) {\n\tcases := map[string]uint64{\n\t\t\"0\":        0,\n\t\t\"1024\":     1024,\n\t\t\"1024B\":    1024,\n\t\t\"1KiB\":     KiB,\n\t\t\"512MiB\":   512 * MiB,\n\t\t\"3GiB\":     3 * GiB,\n\t\t\"2TiB\":     2 << 40,\n\t\t\"10\":       10,\n\t\t\"007KiB\":   7 * KiB,\n\t\t\"16383TiB\": 16383 << 40,\n\t}\n\tfor in, want := range cases {\n\t\tif got, err := ParseMemLimit(in); err != nil || got != want {\n\t\t\tt.Errorf(\"ParseMemLimit(%q) = (%d, %v), attendu %d\", in, got, err, want)\n\t\t}\n\t}\n}\n\nfunc TestParseMemLimitErrors(t *testing.T) {\n\tfor _, in := range []string{\n\t\t\"\", \"GiB\", \"1.5GiB\", \"1gib\", \"1GB\", \"1KB\", \"-1\", \"+1\", \"1 GiB\", \" 1\", \"1MiBB\", \"0x10\",\n\t\t\"99999999999999999999\", \"17179869184GiB\", \"16777216TiB\",\n\t} {\n\t\tif got, err := ParseMemLimit(in); err == nil {\n\t\t\tt.Errorf(\"ParseMemLimit(%q) = %d sans erreur, une erreur était attendue\", in, got)\n\t\t}\n\t}\n}\n\nfunc TestReadGCSettings(t *testing.T) {\n\tcases := []struct {\n\t\tname string\n\t\tenv  map[string]string\n\t\twant GCSettings\n\t}{\n\t\t{\"défauts\", nil, GCSettings{GOGC: 100, MemLimit: NoLimit}},\n\t\t{\"variables vides\", map[string]string{\"GOGC\": \"\", \"GOMEMLIMIT\": \"\"}, GCSettings{GOGC: 100, MemLimit: NoLimit}},\n\t\t{\"GOGC seul\", map[string]string{\"GOGC\": \"200\"}, GCSettings{GOGC: 200, MemLimit: NoLimit}},\n\t\t{\"GOGC=0\", map[string]string{\"GOGC\": \"0\"}, GCSettings{GOGC: 0, MemLimit: NoLimit}},\n\t\t{\"GOGC=off\", map[string]string{\"GOGC\": \"off\"}, GCSettings{GOGC: GOGCOff, MemLimit: NoLimit}},\n\t\t{\"GOMEMLIMIT seul\", map[string]string{\"GOMEMLIMIT\": \"3GiB\"}, GCSettings{GOGC: 100, MemLimit: 3 * GiB}},\n\t\t{\"les deux\", map[string]string{\"GOGC\": \"50\", \"GOMEMLIMIT\": \"512MiB\"}, GCSettings{GOGC: 50, MemLimit: 512 * MiB}},\n\t\t{\"autres variables ignorées\", map[string]string{\"HOME\": \"/root\", \"GOGC\": \"75\"}, GCSettings{GOGC: 75, MemLimit: NoLimit}},\n\t}\n\tfor _, c := range cases {\n\t\tif got, err := ReadGCSettings(c.env); err != nil || got != c.want {\n\t\t\tt.Errorf(\"%s : (%+v, %v), attendu %+v\", c.name, got, err, c.want)\n\t\t}\n\t}\n}\n\nfunc TestReadGCSettingsErrors(t *testing.T) {\n\tfor _, env := range []map[string]string{\n\t\t{\"GOGC\": \"-5\"}, {\"GOGC\": \"abc\"}, {\"GOGC\": \"OFF\"}, {\"GOGC\": \"1.5\"},\n\t\t{\"GOMEMLIMIT\": \"lots\"}, {\"GOMEMLIMIT\": \"3GB\"}, {\"GOMEMLIMIT\": \"-1\"},\n\t\t{\"GOGC\": \"100\", \"GOMEMLIMIT\": \"x\"},\n\t} {\n\t\tif got, err := ReadGCSettings(env); err == nil {\n\t\t\tt.Errorf(\"ReadGCSettings(%v) = %+v sans erreur\", env, got)\n\t\t}\n\t}\n}\n\nfunc TestEffectiveTarget(t *testing.T) {\n\tcases := []struct {\n\t\tname string\n\t\theap uint64\n\t\ts    GCSettings\n\t\twant uint64\n\t}{\n\t\t{\"sans limite : GOGC décide\", 200 * MiB, GCSettings{GOGC: 100, MemLimit: NoLimit}, 400 * MiB},\n\t\t{\"limite plus basse que le déclenchement\", 200 * MiB, GCSettings{GOGC: 100, MemLimit: 300 * MiB}, 300 * MiB},\n\t\t{\"limite plus haute : GOGC décide\", 200 * MiB, GCSettings{GOGC: 100, MemLimit: 1 * GiB}, 400 * MiB},\n\t\t{\"GOGC=off + limite : la limite décide\", 200 * MiB, GCSettings{GOGC: GOGCOff, MemLimit: 1 * GiB}, 1 * GiB},\n\t\t{\"GOGC=off sans limite : rien ne déclenche\", 200 * MiB, GCSettings{GOGC: GOGCOff, MemLimit: NoLimit}, uint64(NoLimit)},\n\t}\n\tfor _, c := range cases {\n\t\tif got := EffectiveTarget(c.heap, c.s); got != c.want {\n\t\t\tt.Errorf(\"%s : %d, attendu %d\", c.name, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCheckLimit(t *testing.T) {\n\tcases := []struct {\n\t\tlimit, physical uint64\n\t\tsafe            bool\n\t}{\n\t\t{3 * GiB, 4 * GiB, true},\n\t\t{4 * GiB, 4 * GiB, false},\n\t\t{900, 1000, true},\n\t\t{901, 1000, false},\n\t\t{1, 1000, true},\n\t\t{math.MaxInt64, 4 * GiB, false},\n\t\t{math.MaxUint64 / 2, math.MaxUint64, true},\n\t\t{math.MaxUint64, math.MaxUint64, false},\n\t}\n\tfor _, c := range cases {\n\t\tsafe, err := CheckLimit(c.limit, c.physical)\n\t\tif err != nil || safe != c.safe {\n\t\t\tt.Errorf(\"CheckLimit(%d, %d) = (%v, %v), attendu %v\", c.limit, c.physical, safe, err, c.safe)\n\t\t}\n\t}\n\tif _, err := CheckLimit(0, 4*GiB); !errors.Is(err, ErrInvalidLimit) {\n\t\tt.Errorf(\"limite nulle : %v\", err)\n\t}\n}\n"
+    }
+   },
+   "xp": 65
+  },
+  "name": "exercise:go-ch05-l05-lab-gctune",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch05",
+   "checks": [],
+   "concepts": [
+    "go-pointer-basics",
+    "go-nil-pointer",
+    "go-new-and-literal",
+    "go-pointer-mutable-param",
+    "go-pointer-last-resort",
+    "go-map-pointer"
+   ],
+   "difficulty": 4,
+   "id": "go-ch05-project",
+   "instructions": "## Contexte\n\nRelay exécute sans cesse les mêmes jobs avec les mêmes arguments. Un **cache LRU** (*Least Recently Used*) garde les résultats récents et, quand il est plein, oublie celui qu'on n'a pas touché depuis le plus longtemps. C'est la structure de données la plus utilisée de l'ingénierie système, et c'est un cas d'école de pointeurs : une **map** pour retrouver une entrée en temps constant, et une **liste doublement chaînée** pour retenir l'ordre de récence en temps constant aussi.\n\n## L'idée de la structure\n\n```\nmap : clé ─▶ ┌─────────┐\n             │ maillon │    head ⇄ [plus récent] ⇄ … ⇄ [moins récent] ⇄ tail\n             └─────────┘\n```\n\nChaque maillon connaît son précédent et son suivant. Le **supprimer** (quand on le touche ou qu'on l'évince) et le **remettre en tête** ne coûte que quelques affectations de pointeurs. Deux maillons « sentinelles » (`head` et `tail`) qui ne contiennent aucune donnée évitent de traiter à part le premier et le dernier.\n\n## Ta mission\n\nDans `cache.go`, tu définis les champs de `Cache` et implémentes les fonctions (toutes acceptent un cache `nil`, vu comme un cache vide) :\n\n| Fonction | Rôle |\n|---|---|\n| `NewCache(capacity int) *Cache` | crée un cache ; la capacité est d'au moins une entrée |\n| `Put(c, key, value)` | ajoute ou met à jour ; l'entrée devient la plus récente ; si le cache dépasse sa capacité, évince la moins récente |\n| `Get(c, key) (string, bool)` | lit et rend l'entrée la plus récente |\n| `Peek(c, key) (string, bool)` | lit **sans** changer la récence ni les statistiques |\n| `Delete(c, key) bool` | supprime ; `false` si absente |\n| `Len(c) int` | nombre d'entrées |\n| `Keys(c) []string` | les clés de la plus récente à la moins récente |\n| `Stats(c) (hits, misses, evictions int)` | succès et échecs de `Get`, évictions |\n\n### Précisions\n\n- Mettre à jour une clé existante (`Put`) ne change pas le nombre d'entrées, donc **n'évince rien** même si le cache est plein.\n- Seul `Get` compte des succès et des échecs. `Peek` et `Delete` ne touchent pas aux statistiques ; une suppression n'est pas une éviction.\n- Une valeur vide `\"\"` est une valeur valide, et `\"\"` est une clé valide.\n\n## Jalons\n\n1. **m1** : stockage, lecture, mise à jour, suppression, `Len`, sûreté face à `nil`. (Tu peux n'utiliser qu'une map.)\n2. **m2** : la récence. Il te faut maintenant la liste doublement chaînée.\n3. **m3** : `Peek`, `Stats`, et des opérations en temps constant (un test mesure 400 000 opérations).\n\n## Contrainte\n\nPas de parcours de toutes les entrées dans `Put` ou `Get`.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": null,
+   "milestones": [
+    {
+     "goal": "Stocker, relire, mettre à jour et supprimer des entrées par clé, compter les entrées et rester sûr face à un cache nil.",
+     "id": "m1",
+     "review": false,
+     "tests": "go test ./... -run TestM1",
+     "title": "Un cache sans mémoire du passé"
+    },
+    {
+     "goal": "Ajouter la récence : Get et Put rendent une entrée la plus récente, un cache plein évince la moins récente, Keys liste de la plus récente à la moins récente.",
+     "id": "m2",
+     "review": false,
+     "tests": "go test ./... -run TestM2",
+     "title": "Oublier le moins récent"
+    },
+    {
+     "goal": "Ajouter Peek (lecture sans changer la récence), Stats (succès, échecs, évictions) et garantir des opérations en temps constant.",
+     "id": "m3",
+     "review": true,
+     "tests": "go test ./... -run TestM3",
+     "title": "Mesurer sans perturber"
+    }
+   ],
+   "palette": [],
+   "role": "project",
+   "rubric": [],
+   "source": null,
+   "title": "Relay : un cache LRU",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "cache.go": "package lab\n\n// Cache est un cache LRU (Least Recently Used) : quand il est plein, il oublie l'entrée utilisée le moins récemment.\n// Ajoute les champs dont tu as besoin (une map pour retrouver une entrée, une liste doublement chaînée pour la récence…).\ntype Cache struct {\n\t// TODO\n}\n\n// NewCache crée un cache de capacity entrées (au moins une).\nfunc NewCache(capacity int) *Cache {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Put ajoute ou met à jour une entrée, qui devient la plus récente (jalons 1 et 2).\n// Si le cache dépasse sa capacité, l'entrée la moins récente est supprimée (jalon 2).\nfunc Put(c *Cache, key, value string) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Get renvoie la valeur d'une clé (jalon 1) et la marque comme la plus récente (jalon 2). Il compte un succès ou un échec (jalon 3).\nfunc Get(c *Cache, key string) (string, bool) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Peek renvoie la valeur d'une clé sans changer son rang de récence ni les statistiques (jalon 3).\nfunc Peek(c *Cache, key string) (string, bool) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Delete supprime une clé. Il renvoie false si elle est absente (jalon 1). Une suppression n'est pas une éviction.\nfunc Delete(c *Cache, key string) bool {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Len renvoie le nombre d'entrées (jalon 1).\nfunc Len(c *Cache) int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Keys renvoie les clés de la plus récente à la moins récente (jalon 2).\nfunc Keys(c *Cache) []string {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Stats renvoie le nombre de succès et d'échecs de Get, et d'évictions (jalon 3).\nfunc Stats(c *Cache) (hits, misses, evictions int) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/cache_test.go": "package lab\n\nimport (\n\t\"fmt\"\n\t\"slices\"\n\t\"testing\"\n\t\"time\"\n)\n\nfunc mustGet(t *testing.T, c *Cache, key, want string) {\n\tt.Helper()\n\tif got, ok := Get(c, key); !ok || got != want {\n\t\tt.Errorf(\"Get(%q) = (%q, %v), attendu (%q, true)\", key, got, ok, want)\n\t}\n}\n\nfunc mustMiss(t *testing.T, c *Cache, key string) {\n\tt.Helper()\n\tif got, ok := Get(c, key); ok {\n\t\tt.Errorf(\"Get(%q) = (%q, true), attendu une absence\", key, got)\n\t}\n}\n\nfunc TestM1PutGetDelete(t *testing.T) {\n\tc := NewCache(10)\n\tmustMiss(t, c, \"a\")\n\tPut(c, \"a\", \"1\")\n\tPut(c, \"b\", \"2\")\n\tmustGet(t, c, \"a\", \"1\")\n\tmustGet(t, c, \"b\", \"2\")\n\tif Len(c) != 2 {\n\t\tt.Errorf(\"Len = %d, attendu 2\", Len(c))\n\t}\n\n\tPut(c, \"a\", \"10\") // mise à jour\n\tmustGet(t, c, \"a\", \"10\")\n\tif Len(c) != 2 {\n\t\tt.Errorf(\"une mise à jour ne doit pas ajouter d'entrée : Len = %d\", Len(c))\n\t}\n\n\tif !Delete(c, \"a\") || Delete(c, \"a\") || Delete(c, \"zzz\") {\n\t\tt.Errorf(\"Delete doit renvoyer true une seule fois pour une clé présente\")\n\t}\n\tmustMiss(t, c, \"a\")\n\tmustGet(t, c, \"b\", \"2\")\n\tif Len(c) != 1 {\n\t\tt.Errorf(\"Len après suppression = %d\", Len(c))\n\t}\n\tDelete(c, \"b\")\n\tif Len(c) != 0 {\n\t\tt.Errorf(\"cache vidé : Len = %d\", Len(c))\n\t}\n\tPut(c, \"c\", \"3\")\n\tmustGet(t, c, \"c\", \"3\") // le cache reste utilisable après avoir été vidé\n}\n\nfunc TestM1EmptyValueIsStillAValue(t *testing.T) {\n\tc := NewCache(2)\n\tPut(c, \"empty\", \"\")\n\tif got, ok := Get(c, \"empty\"); !ok || got != \"\" {\n\t\tt.Errorf(\"une valeur vide est une valeur : (%q, %v)\", got, ok)\n\t}\n\tif got, ok := Get(c, \"\"); ok {\n\t\tt.Errorf(\"la clé vide est absente : (%q, %v)\", got, ok)\n\t}\n\tPut(c, \"\", \"clé vide\")\n\tmustGet(t, c, \"\", \"clé vide\")\n}\n\nfunc TestM1NilCacheIsSafe(t *testing.T) {\n\tvar c *Cache\n\tPut(c, \"a\", \"1\")\n\tif _, ok := Get(c, \"a\"); ok {\n\t\tt.Errorf(\"Get sur un cache nil\")\n\t}\n\tif _, ok := Peek(c, \"a\"); ok {\n\t\tt.Errorf(\"Peek sur un cache nil\")\n\t}\n\tif Delete(c, \"a\") || Len(c) != 0 || len(Keys(c)) != 0 {\n\t\tt.Errorf(\"un cache nil se comporte comme un cache vide\")\n\t}\n\tif h, m, e := Stats(c); h+m+e != 0 {\n\t\tt.Errorf(\"Stats(nil) = %d %d %d\", h, m, e)\n\t}\n}\n\nfunc TestM2EvictsTheLeastRecentlyUsed(t *testing.T) {\n\tc := NewCache(2)\n\tPut(c, \"a\", \"1\")\n\tPut(c, \"b\", \"2\")\n\tPut(c, \"c\", \"3\") // a est la plus ancienne : évincée\n\tmustMiss(t, c, \"a\")\n\tmustGet(t, c, \"b\", \"2\")\n\tmustGet(t, c, \"c\", \"3\")\n\tif Len(c) != 2 {\n\t\tt.Errorf(\"Len = %d, attendu 2\", Len(c))\n\t}\n}\n\nfunc TestM2GetRefreshesRecency(t *testing.T) {\n\tc := NewCache(2)\n\tPut(c, \"a\", \"1\")\n\tPut(c, \"b\", \"2\")\n\tmustGet(t, c, \"a\", \"1\") // a devient la plus récente\n\tPut(c, \"c\", \"3\")        // b est maintenant la plus ancienne\n\tmustMiss(t, c, \"b\")\n\tmustGet(t, c, \"a\", \"1\")\n\tmustGet(t, c, \"c\", \"3\")\n}\n\nfunc TestM2PutOfAnExistingKeyRefreshesWithoutEvicting(t *testing.T) {\n\tc := NewCache(2)\n\tPut(c, \"a\", \"1\")\n\tPut(c, \"b\", \"2\")\n\tPut(c, \"a\", \"10\") // le cache est plein mais la clé existe : aucune éviction, a devient la plus récente\n\tif Len(c) != 2 {\n\t\tt.Fatalf(\"Len = %d\", Len(c))\n\t}\n\tPut(c, \"c\", \"3\") // évince b\n\tmustMiss(t, c, \"b\")\n\tmustGet(t, c, \"a\", \"10\")\n}\n\nfunc TestM2KeysFromMostToLeastRecent(t *testing.T) {\n\tc := NewCache(4)\n\tfor _, k := range []string{\"a\", \"b\", \"c\", \"d\"} {\n\t\tPut(c, k, k)\n\t}\n\tif got := Keys(c); !slices.Equal(got, []string{\"d\", \"c\", \"b\", \"a\"}) {\n\t\tt.Errorf(\"Keys = %v, attendu [d c b a]\", got)\n\t}\n\tGet(c, \"b\")\n\tif got := Keys(c); !slices.Equal(got, []string{\"b\", \"d\", \"c\", \"a\"}) {\n\t\tt.Errorf(\"après Get(b) : %v, attendu [b d c a]\", got)\n\t}\n\tPut(c, \"e\", \"e\") // évince a\n\tif got := Keys(c); !slices.Equal(got, []string{\"e\", \"b\", \"d\", \"c\"}) {\n\t\tt.Errorf(\"après Put(e) : %v, attendu [e b d c]\", got)\n\t}\n\tDelete(c, \"d\")\n\tif got := Keys(c); !slices.Equal(got, []string{\"e\", \"b\", \"c\"}) {\n\t\tt.Errorf(\"après Delete(d) : %v, attendu [e b c]\", got)\n\t}\n\tPut(c, \"f\", \"f\")\n\tif got := Keys(c); !slices.Equal(got, []string{\"f\", \"e\", \"b\", \"c\"}) {\n\t\tt.Errorf(\"après Put(f) : %v, attendu [f e b c]\", got)\n\t}\n}\n\nfunc TestM2CapacityOfOneAndMinimum(t *testing.T) {\n\tfor _, capacity := range []int{1, 0, -5} {\n\t\tc := NewCache(capacity)\n\t\tPut(c, \"a\", \"1\")\n\t\tPut(c, \"b\", \"2\")\n\t\tif Len(c) != 1 {\n\t\t\tt.Errorf(\"NewCache(%d) : Len = %d, attendu 1 (la capacité est d'au moins une entrée)\", capacity, Len(c))\n\t\t}\n\t\tmustMiss(t, c, \"a\")\n\t\tmustGet(t, c, \"b\", \"2\")\n\t}\n}\n\nfunc TestM2DeleteTheOnlyEntryAndTheEnds(t *testing.T) {\n\tc := NewCache(3)\n\tPut(c, \"a\", \"1\")\n\tDelete(c, \"a\")\n\tif got := Keys(c); len(got) != 0 {\n\t\tt.Errorf(\"Keys d'un cache vidé = %v\", got)\n\t}\n\tPut(c, \"a\", \"1\")\n\tPut(c, \"b\", \"2\")\n\tPut(c, \"c\", \"3\")\n\tDelete(c, \"c\") // la plus récente\n\tDelete(c, \"a\") // la plus ancienne\n\tif got := Keys(c); !slices.Equal(got, []string{\"b\"}) {\n\t\tt.Errorf(\"Keys = %v, attendu [b]\", got)\n\t}\n\tPut(c, \"d\", \"4\")\n\tPut(c, \"e\", \"5\")\n\tif got := Keys(c); !slices.Equal(got, []string{\"e\", \"d\", \"b\"}) {\n\t\tt.Errorf(\"Keys = %v, attendu [e d b]\", got)\n\t}\n}\n\nfunc TestM3PeekDoesNotRefresh(t *testing.T) {\n\tc := NewCache(2)\n\tPut(c, \"a\", \"1\")\n\tPut(c, \"b\", \"2\")\n\tif got, ok := Peek(c, \"a\"); !ok || got != \"1\" {\n\t\tt.Fatalf(\"Peek(a) = (%q, %v)\", got, ok)\n\t}\n\tPut(c, \"c\", \"3\") // Peek n'a pas rendu a plus récente : elle est évincée\n\tif _, ok := Peek(c, \"a\"); ok {\n\t\tt.Errorf(\"a aurait dû être évincée : Peek ne change pas la récence\")\n\t}\n\tif _, ok := Peek(c, \"b\"); !ok {\n\t\tt.Errorf(\"b doit être conservée\")\n\t}\n\tif got := Keys(c); !slices.Equal(got, []string{\"c\", \"b\"}) {\n\t\tt.Errorf(\"Keys = %v\", got)\n\t}\n}\n\nfunc TestM3Stats(t *testing.T) {\n\tc := NewCache(2)\n\tPut(c, \"a\", \"1\")\n\tPut(c, \"b\", \"2\")\n\tGet(c, \"a\")      // succès\n\tGet(c, \"a\")      // succès\n\tGet(c, \"zzz\")    // échec\n\tPeek(c, \"a\")     // ignoré\n\tPeek(c, \"nope\")  // ignoré\n\tPut(c, \"c\", \"3\") // éviction de b\n\tPut(c, \"d\", \"4\") // éviction de a\n\tDelete(c, \"c\")   // ni éviction ni statistique\n\tDelete(c, \"zzz\")\n\tGet(c, \"a\") // échec : a a été évincée\n\n\thits, misses, evictions := Stats(c)\n\tif hits != 2 || misses != 2 || evictions != 2 {\n\t\tt.Errorf(\"Stats = (%d, %d, %d), attendu (2, 2, 2) : seuls Get compte les succès et échecs, Delete n'est pas une éviction\", hits, misses, evictions)\n\t}\n}\n\nfunc TestM3StatsOfAFreshCache(t *testing.T) {\n\tif h, m, e := Stats(NewCache(3)); h != 0 || m != 0 || e != 0 {\n\t\tt.Errorf(\"Stats initiales = (%d, %d, %d)\", h, m, e)\n\t}\n}\n\nfunc TestM3OperationsAreConstantTime(t *testing.T) {\n\tc := NewCache(1000)\n\tstart := time.Now()\n\tfor i := 0; i < 400_000; i++ {\n\t\tkey := fmt.Sprint(i % 1500)\n\t\tif i%3 == 0 {\n\t\t\tPut(c, key, key)\n\t\t} else {\n\t\t\tGet(c, key)\n\t\t}\n\t}\n\tif elapsed := time.Since(start); elapsed > 3*time.Second {\n\t\tt.Errorf(\"400 000 opérations en %v : Put et Get doivent être en temps constant (map + liste doublement chaînée), pas en parcourant toutes les entrées\", elapsed)\n\t}\n\tif Len(c) > 1000 {\n\t\tt.Errorf(\"Len = %d, la capacité de 1000 est dépassée\", Len(c))\n\t}\n}\n\nfunc TestM3ManyOperationsStayConsistent(t *testing.T) {\n\tc := NewCache(5)\n\treference := []string{} // clés de la plus récente à la moins récente\n\ttouch := func(key string) {\n\t\treference = slices.DeleteFunc(reference, func(k string) bool { return k == key })\n\t\treference = slices.Insert(reference, 0, key)\n\t\tif len(reference) > 5 {\n\t\t\treference = reference[:5]\n\t\t}\n\t}\n\tseed := uint32(12345)\n\tnext := func(n int) int { seed = seed*1664525 + 1013904223; return int(seed>>16) % n }\n\tfor i := 0; i < 5000; i++ {\n\t\tkey := fmt.Sprint(next(9))\n\t\tswitch next(3) {\n\t\tcase 0:\n\t\t\tPut(c, key, key)\n\t\t\ttouch(key)\n\t\tcase 1:\n\t\t\tif _, ok := Get(c, key); ok != slices.Contains(reference, key) {\n\t\t\t\tt.Fatalf(\"étape %d : Get(%s) = %v mais la référence contient %v\", i, key, ok, reference)\n\t\t\t} else if ok {\n\t\t\t\ttouch(key)\n\t\t\t}\n\t\tcase 2:\n\t\t\tDelete(c, key)\n\t\t\treference = slices.DeleteFunc(reference, func(k string) bool { return k == key })\n\t\t}\n\t\tif got := Keys(c); !slices.Equal(got, reference) {\n\t\t\tt.Fatalf(\"étape %d : Keys = %v, référence %v\", i, got, reference)\n\t\t}\n\t}\n}\n"
+    }
+   },
+   "xp": 230
+  },
+  "name": "exercise:go-ch05-project",
+  "status": 200
+ },
+ {
+  "body": {
    "xp_awarded": 40
   },
   "name": "lesson-complete",
@@ -9977,8 +11875,23 @@
         "title": "Fonctions"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "go-ch05",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "go-ch05",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 48,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "05-pointers-memory",
+        "subtitle": "Adresses, valeur ou pointeur, pile et tas, ramasse-miettes : comprendre où vivent vos données",
         "title": "Pointeurs et mémoire"
        }
       ],
@@ -10727,6 +12640,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 45,
+     "score": 0,
+     "unlocked": false
+    },
+    "go-ch05": {
+     "chapter_id": "go-ch05",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 48,
      "score": 0,
      "unlocked": false
     }

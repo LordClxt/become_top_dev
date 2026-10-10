@@ -1,0 +1,12 @@
+id: go-ch05-assignment
+title: "Une liste chaînée à la main"
+kind: code
+language: go
+difficulty: 3
+xp: 130
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["list.go"]
+concepts: [go-pointer-basics, go-nil-pointer, go-new-and-literal, go-pointer-mutable-param, go-pointer-copy-semantics]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

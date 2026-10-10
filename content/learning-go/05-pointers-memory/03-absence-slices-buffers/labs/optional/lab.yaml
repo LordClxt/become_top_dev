@@ -1,0 +1,12 @@
+id: go-ch05-l03-lab-optional
+title: "Champs facultatifs et tampon réutilisable"
+kind: code
+language: go
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["optional.go"]
+concepts: [go-pointer-optional, go-slice-header, go-buffer-reuse]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Comment fonctionne l'allocation sur la pile ?"
+    back: "On déplace un pointeur de pile de la taille de la variable ; à la sortie de la fonction on le ramène en arrière. Rien à nettoyer."
+    concept: go-stack-heap
+  - id: fc2
+    front: "Qu'exige la pile de la taille des données ?"
+    back: "Qu'elle soit connue à la compilation. C'est pourquoi la taille d'un array fait partie de son type."
+    concept: go-stack-heap
+  - id: fc3
+    front: "Qu'est-ce que le tas ?"
+    back: "La mémoire gérée par le ramasse-miettes : une donnée y reste valide tant qu'une chaîne de pointeurs la relie à la pile."
+    concept: go-stack-heap
+  - id: fc4
+    front: "Quand une donnée s'échappe-t-elle vers le tas ?"
+    back: "Quand son pointeur est renvoyé, que sa taille est inconnue à la compilation, ou que le compilateur ne peut pas prouver qu'elle reste locale."
+    concept: go-escape-analysis
+  - id: fc5
+    front: "Comment voir les décisions d'échappement du compilateur ?"
+    back: "go build -gcflags=-m : il affiche par exemple « moved to heap: p »."
+    concept: go-escape-analysis
+  - id: fc6
+    front: "Renvoyer l'adresse d'une variable locale est-il dangereux en Go ?"
+    back: "Non : le compilateur place alors la variable sur le tas. C'est correct, mais cela coûte une allocation."
+    concept: go-escape-analysis
+  - id: fc7
+    front: "Quels sont les deux coûts du tas ?"
+    back: "Le travail du ramasse-miettes, et la lenteur de l'accès à des données dispersées en mémoire."
+    concept: go-gc-cost
+  - id: fc8
+    front: "Pour quoi le GC de Go est-il optimisé ?"
+    back: "La faible latence : des pauses de moins de 500 µs par cycle. Trop de déchets le ralentissent quand même."
+    concept: go-gc-cost
+  - id: fc9
+    front: "Pourquoi []Point est-il plus rapide à parcourir que []*Point ?"
+    back: "Les valeurs sont contiguës en mémoire (lecture séquentielle, rapide). Les pointeurs mènent à des blocs éparpillés (de l'ordre de 100 fois plus lent)."
+    concept: go-mechanical-sympathy
+  - id: fc10
+    front: "Qu'est-ce que la mechanical sympathy ?"
+    back: "Écrire du logiciel en tenant compte du matériel : par exemple lire la mémoire dans l'ordre."
+    concept: go-mechanical-sympathy
