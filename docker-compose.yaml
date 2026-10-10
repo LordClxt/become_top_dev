@@ -5,13 +5,13 @@ services:
   db:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: btd
+      POSTGRES_USER: ${POSTGRES_USER:-btd}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?définir POSTGRES_PASSWORD}
       POSTGRES_DB: btd
     volumes:
       - db-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U btd"]
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\""]
       interval: 5s
       retries: 10
     restart: unless-stopped
@@ -40,7 +40,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     environment:
-      BTD_DATABASE_URL: postgresql+asyncpg://btd:${POSTGRES_PASSWORD}@db:5432/btd
+      BTD_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-btd}:${POSTGRES_PASSWORD}@db:5432/btd
       BTD_SESSION_SECRET: ${SESSION_SECRET:?définir SESSION_SECRET}
       BTD_APP_PASSWORD: ${APP_PASSWORD:?définir APP_PASSWORD}
       BTD_SECURE_COOKIES: ${SECURE_COOKIES:-true}
