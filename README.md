@@ -1,62 +1,123 @@
 # become_top_dev
 
-Plateforme personnelle d'apprentissage du code, inspirée de boot.dev : des cours construits à partir de livres de référence, avec leçons, TP testés en sandbox, quiz, flashcards, projets, boss fights et XP. Un seul utilisateur, un objectif : devenir un développeur top 1 %.
+A personal platform for learning to code deeply, in the spirit of boot.dev, with more depth and a more careful design. Courses are built from reference books. Each one comes with lessons, sandbox-tested labs, quizzes, flashcards, projects, boss fights and XP.
 
-## Cours
+One user. One goal: become a top 1% developer.
 
-| Cours | Livre | Type | État |
+<p align="center">
+  <img src="docs/screenshots/learn.png" alt="Dashboard: current quest, level, streak and activity graph" width="900">
+</p>
+
+## Highlights
+
+- **Courses written from books, not copied from them.** An agent reads each book in full, then rewrites it as lessons with page references. There are no long excerpts.
+- **Every lab is verified.** A lab ships only if its reference solution passes the tests *and* its starter code fails them.
+- **Real code execution.** Go code runs in a throwaway Docker container with no network, capped CPU, memory, pids and time, and a read-only filesystem.
+- **Non-code exercises are graded too.** Architecture katas (diagrams, ADRs) are scored against a rubric rule by rule, each rule saying what is missing.
+- **Progression that matters.** XP, levels, streaks, an activity graph, and modules that unlock only once the previous one is mastered (80%).
+- **Dark by default**, light theme available, desktop-first.
+
+## Tour
+
+### Lessons
+
+Long-form reading with a table of contents, a glossary, key concepts and the book pages each lesson comes from. Animated visuals explain the hard concepts.
+
+<p align="center">
+  <img src="docs/screenshots/lesson.png" alt="Lesson page about Go slices" width="900">
+</p>
+
+### Chapters
+
+Each chapter is a path of lessons with their labs, XP, mastery ring, objectives and first-try quiz score.
+
+<p align="center">
+  <img src="docs/screenshots/chapter.png" alt="Chapter page with lesson path and mastery ring" width="900">
+</p>
+
+### Code labs
+
+A CodeMirror editor next to the brief. Tests run in the sandbox and report per-test results with precise failure messages.
+
+<p align="center">
+  <img src="docs/screenshots/exercise.png" alt="Go lab with failing test output" width="900">
+</p>
+
+### Architecture katas
+
+Conceptual exercises are drawn on a canvas (React Flow) and checked against a rubric.
+
+<p align="center">
+  <img src="docs/screenshots/kata.png" alt="Architecture kata diagram editor" width="900">
+</p>
+
+## Courses
+
+| Course | Book | Exercises | Status |
 |---|---|---|---|
-| `go` — Go idiomatique | *Learning Go, 2nd ed.* (Bodner) | TP codés en Go, testés | ch. 00 et 02 complets, ch. 10 en cours |
-| `ddia` — Systèmes de données | *Designing Data-Intensive Applications* (Kleppmann) | TP Go, fil rouge Tinybase | plan validé |
-| `arch` — Architecte logiciel | *Fundamentals of Software Architecture* (Richards & Ford) | katas, ADR, diagrammes notés par rubrique | plan validé, premier kata dans l'Atelier |
+| `go`: Idiomatic Go | *Learning Go, 2nd ed.* (Bodner) | Go labs, tested | chapters 00 to 05 and 10 generated |
+| `ddia`: Data systems | *Designing Data-Intensive Applications* (Kleppmann) | Go labs, running project "Tinybase" | plan validated, first chapters in progress |
+| `arch`: Software architect | *Fundamentals of Software Architecture* (Richards & Ford) | katas, ADRs and diagrams, graded by rubric | plan validated, first kata available |
 
-Le contenu est généré à l'avance par l'agent à partir des livres de `books/`, versionné dans `content/` puis chargé par l'app. Les livres et leurs extractions (`books/`, `.cache/`) ne sont jamais committés.
+Course content is generated ahead of time, versioned in `content/`, and loaded by the app. Books and their text extractions (`books/`, `.cache/`) are never committed.
 
-## Stack
-
-- **Backend** : Go (net/http), PostgreSQL via pgx, migrations goose. Monolithe en couches `internal/api → service → repository → model`.
-- **Runner** : service Go séparé (bibliothèque standard uniquement), seul à parler à Docker. Un conteneur jetable par exécution (`--network none`, limites CPU, mémoire, pids et temps).
-- **Frontend** : TanStack Start (React), shadcn/ui, Tailwind, CodeMirror 6, React Flow (exercices de diagramme), `@remotion/player` et HyperFrames pour les visuels.
-- **Déploiement** : Docker Compose sur Coolify, Caddy en reverse proxy.
+## Architecture
 
 ```
-content/<livre>/     cours générés (source de vérité du contenu)
-backend/             API Go (état utilisateur : XP, tentatives, progression)
-runner/              exécution du code en sandbox
-frontend/            app TanStack Start
-sandbox/images/      images Docker des runners (go…)
-deploy/              Caddyfile + image du proxy
-scripts/             dev.sh, validate_content.sh
+ Browser ──► Caddy ──┬──► Frontend (TanStack Start)
+                     └──► Backend (Go) ──► PostgreSQL
+                              │
+                              ▼
+                       Runner (Go) ──► Docker: one throwaway container per run
 ```
 
-## Démarrer en local
+- **Backend**: Go (`net/http`), PostgreSQL via pgx with hand-written SQL, goose migrations. Layered monolith: `internal/api → service → repository → model`. PostgreSQL stores user state only (XP, attempts, progress); content stays in files.
+- **Runner**: a separate Go service using only the standard library. It is the only component that talks to Docker, so the backend never touches the Docker socket.
+- **Frontend**: TanStack Start (React), shadcn/ui, Tailwind, CodeMirror 6, React Flow, `@remotion/player` and HyperFrames for visuals.
+- **Deployment**: Docker Compose on Coolify, Caddy as reverse proxy.
 
-Prérequis : Docker, [uv](https://docs.astral.sh/uv/), Node + pnpm.
+```
+content/<book>/     generated courses (source of truth for content)
+backend/            Go API (XP, attempts, progress)
+runner/             sandboxed code execution
+frontend/           TanStack Start app
+sandbox/images/     Docker images for the runners
+deploy/             Caddyfile and proxy image
+scripts/            dev.sh, validate_content.sh
+docs/screenshots/   README images
+```
+
+## Getting started
+
+Requirements: Docker, Go, Node and pnpm.
 
 ```bash
 make dev
 ```
 
-Lance Postgres (Docker, port 5433), le runner (:8001), le backend (:8000) et le frontend sur http://localhost:3000. Mot de passe de dev : `dev`.
+This starts PostgreSQL (Docker, port 5433), the runner (:8001), the backend (:8000) and the frontend at http://localhost:3000. Development password: `dev`.
 
-## Commandes
+## Commands
 
-| Commande | Rôle |
+| Command | Purpose |
 |---|---|
-| `make dev` | Tout lancer en local |
-| `make test` | Tests backend + runner + contrôle de types du frontend |
-| `make lint` | gofmt + go vet (backend, runner) |
-| `make validate-content` | Rejouer tous les TP (solution passe, starter échoue) et les quiz « code-output » |
-| `make up` / `make down` | Pile complète via Docker Compose |
-| `make reset-progress` | Remettre la progression locale à zéro |
+| `make dev` | Run everything locally |
+| `make test` | Backend and runner tests, frontend type check |
+| `make lint` | gofmt and go vet (backend, runner) |
+| `make validate-content` | Replay every lab (solution passes, starter fails) and every code-output quiz |
+| `make up` / `make down` | Full stack with Docker Compose |
+| `make reset-progress` | Reset local progress |
 
-## Déploiement (Coolify)
+## Deployment (Coolify)
 
-1. Créer `.env` à partir de `.env.example` et remplacer chaque valeur (`SECURE_COOKIES=true` derrière HTTPS).
-2. Déployer `docker-compose.yaml` et pointer le domaine vers le service `proxy` (port 80). Caddy envoie `/api/*` au backend et le reste au frontend.
+1. Create `.env` from `.env.example` and replace every value. Set `SECURE_COOKIES=true` behind HTTPS.
+2. Deploy `docker-compose.yaml` and point your domain at the `proxy` service (port 80). Caddy sends `/api/*` to the backend and everything else to the frontend.
+3. PostgreSQL is external to the stack: the backend connects through `DATABASE_URL`.
 
-Le `runner` monte le socket Docker de l'hôte : ne jamais l'exposer publiquement.
+The `runner` mounts the host Docker socket. Never expose it publicly.
 
-## Contribuer au contenu
+## Contributing content
 
-Le workflow complet (lecture du livre, plan, génération chapitre par chapitre) et les règles qualité sont dans [AGENTS.md](AGENTS.md). Règle clé : un TP n'est livré que si `verify_lab.sh` passe — la solution réussit les tests et le starter échoue.
+The full workflow (read the book, plan, generate chapter by chapter) and the quality rules are in [AGENTS.md](AGENTS.md). Key rule: a lab is delivered only when `verify_lab.sh` passes.
+
+The app's UI and course content are in French. Code, identifiers and paths are in English.
