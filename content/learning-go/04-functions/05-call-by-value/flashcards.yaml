@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Comment Go passe-t-il les arguments ?"
+    back: "Toujours par valeur : le paramètre est une copie."
+    concept: go-call-by-value
+  - id: fc2
+    front: "Une fonction peut-elle modifier une struct reçue en paramètre ?"
+    back: "Elle modifie une copie. Pour que l'appelant voie le changement, elle doit renvoyer la struct (ou recevoir un pointeur)."
+    concept: go-call-by-value
+  - id: fc3
+    front: "Pourquoi une modification de map dans une fonction est-elle visible ?"
+    back: "La copie d'une map pointe vers la même table de données."
+    concept: go-map-slice-param
+  - id: fc4
+    front: "Qu'est-ce qui est copié quand on passe une slice ?"
+    back: "Son en-tête (pointeur, longueur, capacité). Les éléments sont partagés, la longueur est propre à la copie."
+    concept: go-map-slice-param
+  - id: fc5
+    front: "Une fonction peut-elle agrandir la slice de l'appelant ?"
+    back: "Non, sauf à la renvoyer : s = grow(s). Le changement de longueur reste local à la copie de l'en-tête."
+    concept: go-map-slice-param
+  - id: fc6
+    front: "Pourquoi append(s[:i], s[i+1:]...) est-il dangereux pour supprimer un élément ?"
+    back: "Il réécrit le tableau partagé : la slice de l'appelant est corrompue. Construis une nouvelle slice."
+    concept: go-map-slice-param
+  - id: fc7
+    front: "Une struct contenant une slice est copiée : que partage-t-on ?"
+    back: "Le tableau d'éléments. Modifier un élément via la copie se voit dans l'original."
+    concept: go-map-slice-param
+  - id: fc8
+    front: "Quelle phrase résume le modèle de Go ?"
+    back: "Chaque type est un type valeur ; simplement, parfois, la valeur est un pointeur."
+    concept: go-call-by-value

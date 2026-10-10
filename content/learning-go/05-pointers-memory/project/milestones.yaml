@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Un cache sans mémoire du passé"
+    goal: "Stocker, relire, mettre à jour et supprimer des entrées par clé, compter les entrées et rester sûr face à un cache nil."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Oublier le moins récent"
+    goal: "Ajouter la récence : Get et Put rendent une entrée la plus récente, un cache plein évince la moins récente, Keys liste de la plus récente à la moins récente."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Mesurer sans perturber"
+    goal: "Ajouter Peek (lecture sans changer la récence), Stats (succès, échecs, évictions) et garantir des opérations en temps constant."
+    tests: "go test ./... -run TestM3"
+    review: true

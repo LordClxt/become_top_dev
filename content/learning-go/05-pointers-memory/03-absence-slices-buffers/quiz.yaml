@@ -1,0 +1,123 @@
+id: go-ch05-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var absent *int
+      zero := 0
+      present := &zero
+      fmt.Println(absent == nil, present == nil, *present)
+    answer: "true false 0"
+    explanation: "Un pointeur nil signifie « pas de valeur » ; un pointeur non nil vers 0 signifie « valeur renseignée, égale à zéro »."
+    concept: go-pointer-optional
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      f := func(s []int) {
+      	s[0] = 100
+      }
+      s := []int{1, 2}
+      f(s)
+      fmt.Println(s)
+    answer: "[100 2]"
+    explanation: "La copie de la slice pointe vers le même tableau d'éléments : l'écriture est visible chez l'appelant."
+    concept: go-slice-header
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      s := make([]int, 2, 5)
+      t := append(s, 9)
+      fmt.Println(len(s), len(t), cap(s) == cap(t))
+    answer: "2 3 true"
+    explanation: "Il restait de la capacité : append écrit dans le même tableau et augmente la longueur de t seulement. s garde une longueur de 2."
+    concept: go-slice-header
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      s := []int{1, 2}
+      t := append(s, 3)
+      t[0] = 100
+      fmt.Println(s[0], t[0])
+    answer: "1 100"
+    explanation: "La capacité de s était pleine (2) : append a alloué un nouveau tableau pour t. Les deux slices ne partagent plus rien."
+    concept: go-slice-header
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      s := make([]int, 2, 5)
+      t := append(s, 9)
+      u := s[:3]
+      fmt.Println(t[2], u[2])
+    answer: "9 9"
+    explanation: "t et s partagent le tableau. u := s[:3] étend la vue de s jusqu'à la capacité : la case 2 contient le 9 écrit par append."
+    concept: go-slice-header
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "De quoi se compose une slice en interne ?"
+    choices:
+      - "D'un tableau et d'un nom"
+      - "D'un pointeur vers un tableau, d'une longueur et d'une capacité"
+      - "D'une liste chaînée d'éléments"
+      - "D'une adresse mémoire seulement"
+    answer: 1
+    explanation: "Ces trois champs sont copiés quand on copie la slice. Le tableau, lui, est partagé."
+    concept: go-slice-header
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Pourquoi éviter de passer une map comme paramètre ou valeur de retour d'une API publique ?"
+    choices:
+      - "Parce que les maps sont lentes"
+      - "Parce qu'elle ne dit rien de ses clés ni de ses valeurs, et peut être modifiée par n'importe qui : une struct est plus explicite"
+      - "Parce que les maps ne peuvent pas être passées à une fonction"
+      - "Parce que les maps ne sont pas triées"
+    answer: 1
+    explanation: "Une struct déclare ses champs et son typage. Une map reste le bon choix quand les clés ne sont pas connues à la compilation."
+    concept: go-map-pointer
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Pour une fonction qui peut ne pas trouver de valeur, quelle signature est la plus idiomatique ?"
+    choices:
+      - "func find(key string) *int"
+      - "func find(key string) (int, bool)"
+      - "func find(key string) int avec -1 pour « non trouvé »"
+      - "func find(key string) map[string]int"
+    answer: 1
+    explanation: "L'idiome comma ok évite d'exposer un pointeur modifiable pour dire « absent »."
+    concept: go-pointer-optional
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Quel est l'intérêt d'un tampon réutilisé pour lire un fichier par morceaux ?"
+    choices:
+      - "Il évite d'allouer un nouveau tableau à chaque lecture, donc du travail pour le ramasse-miettes"
+      - "Il accélère le disque dur"
+      - "Il garantit que le fichier est fermé"
+      - "Il trie les données"
+    answer: 0
+    explanation: "On alloue une seule fois et on remplit le tampon à chaque lecture. Seule la partie remplie (data[:count]) est traitée."
+    concept: go-buffer-reuse
+    difficulty: 1
+  - id: q10
+    type: single
+    prompt: "Qu'implique ceci : `process(data[:count])` reçoit une vue sur un tampon réutilisé ?"
+    choices:
+      - "Rien de particulier"
+      - "Si process garde ces octets après la lecture suivante, ils auront été écrasés : il doit les copier"
+      - "process ne peut pas lire les données"
+      - "Le tampon grandit tout seul"
+    answer: 1
+    explanation: "La sous-slice partage le tableau du tampon. La lecture suivante réécrit dedans."
+    concept: go-buffer-reuse
+    difficulty: 2

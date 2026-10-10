@@ -1,0 +1,23 @@
+id: go-ch05
+title: "Pointeurs et mémoire"
+subtitle: "Adresses, valeur ou pointeur, pile et tas, ramasse-miettes : comprendre où vivent vos données"
+source: { chapter: 6, pages: "143-166" }
+objectives:
+  - "Utiliser & et *, créer des pointeurs (&T{}, new) et éviter le déréférencement de nil"
+  - "Expliquer pourquoi réaffecter un pointeur reçu est sans effet alors qu'écrire à travers lui modifie l'appelant"
+  - "Choisir entre valeur et pointeur pour un paramètre ou un retour, et préférer renvoyer des valeurs"
+  - "Représenter une valeur absente avec un pointeur nil, et raisonner sur l'en-tête d'une slice pour manipuler des tampons"
+  - "Décrire pile, tas et analyse d'échappement, et écrire du code qui limite les allocations"
+  - "Lire et calculer les réglages GOGC et GOMEMLIMIT du ramasse-miettes"
+mastery_threshold: 0.8
+prerequisites: [go-ch04]
+lessons:
+  - "01-pointer-primer"
+  - "02-pointers-mutability"
+  - "03-absence-slices-buffers"
+  - "04-stack-heap-gc"
+  - "05-tuning-gc"
+xp: { assignment: 130, project: 230, boss: 270 }
+boss: boss
+assignment: assignment
+project: project

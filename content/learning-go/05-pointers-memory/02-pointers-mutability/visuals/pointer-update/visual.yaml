@@ -1,0 +1,6 @@
+id: go-ch05-pointer-update
+concept: go-pointer-copy-semantics
+format: interactive
+justification: "Voir chaque case mémoire et chaque flèche changer pendant l'appel explique pourquoi réaffecter le pointeur reçu ne change rien, alors qu'écrire à travers lui oui."
+entry: PointerUpdate.tsx
+status: built

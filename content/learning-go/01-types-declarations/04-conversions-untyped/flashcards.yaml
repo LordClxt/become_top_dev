@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Go convertit-il automatiquement un int en float64 dans une expression ?"
+    back: "Non. Il faut écrire float64(x) : aucune promotion implicite."
+    concept: go-explicit-conversion
+  - id: fc2
+    front: "Que donne int(-2.7) ?"
+    back: "-2 : la conversion tronque vers zéro. Pour arrondir, math.Round."
+    concept: go-explicit-conversion
+  - id: fc3
+    front: "Que fait byte(n) quand n (variable) vaut 300 ?"
+    back: "44, sans erreur : seuls les 8 bits de poids faible sont gardés."
+    concept: go-explicit-conversion
+  - id: fc4
+    front: "Peut-on convertir un entier en bool ?"
+    back: "Non. On écrit n != 0."
+    concept: go-explicit-conversion
+  - id: fc5
+    front: "Que donne string(65) ?"
+    back: "\"A\" (point de code 65). Pour \"65\", utilise strconv.Itoa(65)."
+    concept: go-explicit-conversion
+  - id: fc6
+    front: "Pourquoi var f float64 = 10 compile-t-il ?"
+    back: "Le littéral 10 est non typé : il prend le type demandé (float64) tant que la valeur y tient."
+    concept: go-untyped-literals
+  - id: fc7
+    front: "Types par défaut des littéraux 42, 3.14, 'x' et \"go\" ?"
+    back: "int, float64, rune, string."
+    concept: go-untyped-literals
+  - id: fc8
+    front: "Pourquoi 7/2 vaut 3 et 7/2.0 vaut 3.5 ?"
+    back: "Deux littéraux entiers donnent une division entière ; un littéral flottant rend la division décimale."
+    concept: go-untyped-literals
+  - id: fc9
+    front: "float64(a/b) ou float64(a)/float64(b) pour deux int ?"
+    back: "float64(a)/float64(b) : le premier tronque avant de convertir."
+    concept: go-explicit-conversion

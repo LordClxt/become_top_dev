@@ -1,0 +1,29 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: overflow
+    label: "Détection du débordement"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Détection exacte pour toutes les largeurs sans type plus large ni math/big, avec le cas -2^63 / -1 traité"
+      2: "Correct pour 8, 16 et 32 bits grâce à int64, mais le cas 64 bits est contourné ou approximatif"
+      0: "Ne détecte pas le débordement, ou le détecte avec des erreurs"
+  - id: errors
+    label: "Conception des erreurs"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Erreurs sentinelles, enveloppées avec %w et un message précis qui cite l'expression"
+      2: "Les sentinelles sont renvoyées mais sans contexte, ou le contexte casse errors.Is"
+      0: "Erreurs créées à la volée, impossibles à tester proprement"
+  - id: readability
+    label: "Lisibilité et style Go"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes et nommées, bornes calculées plutôt que recopiées, conversions explicites claires"
+      2: "Correct mais une grosse fonction ou des constantes magiques"
+      0: "Difficile à suivre"

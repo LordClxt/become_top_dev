@@ -1,0 +1,90 @@
+id: go-ch05-l05-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quelle est la valeur par défaut de GOGC ?"
+    choices: ["0", "50", "100", "off"]
+    answer: 2
+    explanation: "100 : le prochain cycle de GC se déclenche quand le tas a doublé depuis la fin du cycle précédent."
+    concept: go-gogc
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Avec GOGC=100, le tas fait 200 Mo à la fin d'un cycle. À quelle taille le cycle suivant se déclenche-t-il environ ?"
+    choices: ["200 Mo", "300 Mo", "400 Mo", "800 Mo"]
+    answer: 2
+    explanation: "Tas + tas × GOGC/100 = 200 + 200 × 100/100 = 400 Mo."
+    concept: go-gogc
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Avec GOGC=50 et un tas de 200 Mo à la fin d'un cycle, à quelle taille le suivant se déclenche-t-il ?"
+    choices: ["250 Mo", "300 Mo", "350 Mo", "400 Mo"]
+    answer: 1
+    explanation: "200 + 200 × 50/100 = 300 Mo. Un GOGC plus bas déclenche le GC plus souvent et garde le tas plus petit."
+    concept: go-gogc
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "En première approximation, quel effet a le doublement de GOGC sur le temps de processeur consacré au GC ?"
+    choices: ["Il le double", "Il le divise par deux", "Aucun effet", "Il le supprime"]
+    answer: 1
+    explanation: "Le GC passe moitié moins souvent, au prix d'un tas qui monte plus haut."
+    concept: go-gogc
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi déconseille-t-on GOGC=off sur un service qui tourne longtemps ?"
+    choices:
+      - "Parce que le programme devient plus lent"
+      - "Parce que la mémoire n'est plus jamais récupérée et finira par saturer la machine"
+      - "Parce que GOGC=off est une erreur de syntaxe"
+      - "Parce que cela active le mode debug"
+    answer: 1
+    explanation: "Sans GC, les déchets s'accumulent. Un processus long peut consommer toute la RAM disponible."
+    concept: go-gogc
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Que représente GOMEMLIMIT=3GiB ?"
+    choices: ["3 000 000 000 octets", "3 221 225 472 octets", "3 072 octets", "3 millions d'objets"]
+    answer: 1
+    explanation: "GiB est une puissance de deux : 3 × 2³⁰ = 3 221 225 472 octets."
+    concept: go-gomemlimit
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Qu'est-ce que le thrashing du ramasse-miettes ?"
+    choices:
+      - "Un GC qui déclenche en boucle sans libérer assez, jusqu'à ne plus faire que cela"
+      - "Un GC qui ne se déclenche jamais"
+      - "Une fuite de goroutines"
+      - "Une erreur de compilation"
+    answer: 0
+    explanation: "Le programme frôle sa limite mémoire : chaque cycle libère trop peu et le suivant redémarre aussitôt."
+    concept: go-gc-thrashing
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Pourquoi fixer GOMEMLIMIT en dessous de la mémoire réellement disponible ?"
+    choices:
+      - "Parce que c'est une limite souple que le runtime peut dépasser pour éviter le thrashing : il faut garder de la marge"
+      - "Parce que GOMEMLIMIT ne peut pas valoir la mémoire totale"
+      - "Parce que Go réserve la moitié de la RAM"
+      - "Parce que le noyau l'exige"
+    answer: 0
+    explanation: "Le runtime préfère dépasser la limite que de rester bloqué dans des cycles continus : sans marge, il peut manquer de mémoire."
+    concept: go-gomemlimit
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Quel est le meilleur réglage pour un service web ?"
+    choices:
+      - "GOGC=off seul"
+      - "GOMEMLIMIT seul"
+      - "GOGC et GOMEMLIMIT ensemble : un rythme raisonnable et un maximum respecté"
+      - "Ne jamais rien régler, même sous contrainte"
+    answer: 2
+    explanation: "GOGC=off + GOMEMLIMIT donne des pauses rares mais longues, donc des temps de réponse irréguliers. Les deux ensemble évitent cela."
+    concept: go-gc-thrashing
+    difficulty: 2

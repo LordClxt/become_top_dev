@@ -1,0 +1,12 @@
+id: go-ch04-assignment
+title: "Une chaîne de middlewares"
+kind: code
+language: go
+difficulty: 3
+xp: 130
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["middleware.go"]
+concepts: [go-func-values, go-func-types, go-closure-capture, go-func-return, go-variadic, go-multi-return]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

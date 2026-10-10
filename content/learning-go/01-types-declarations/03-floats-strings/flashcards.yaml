@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Quel type flottant utiliser par défaut ?"
+    back: "float64. float32 seulement si un format existant l'impose."
+    concept: go-float-precision
+  - id: fc2
+    front: "Pourquoi 0.1 + 0.2 != 0.3 avec des variables float64 ?"
+    back: "Ce sont des approximations binaires : la somme vaut 0.30000000000000004."
+    concept: go-float-precision
+  - id: fc3
+    front: "Que donne 1/z pour une variable float64 z égale à 0 ?"
+    back: "+Inf, sans panic. 0/0 donne NaN."
+    concept: go-float-precision
+  - id: fc4
+    front: "Comment représenter de l'argent en Go ?"
+    back: "Avec des entiers (centimes) ou une bibliothèque décimale, jamais avec un float."
+    concept: go-float-precision
+  - id: fc5
+    front: "Comment tester l'égalité de deux flottants ?"
+    back: "math.Abs(a-b) <= epsilon, avec un epsilon adapté au besoin."
+    concept: go-float-compare
+  - id: fc6
+    front: "NaN == NaN vaut quoi, et comment détecter un NaN ?"
+    back: "false. On utilise math.IsNaN(x)."
+    concept: go-float-compare
+  - id: fc7
+    front: "Quelle est la valeur zéro d'une string ?"
+    back: "La chaîne vide \"\"."
+    concept: go-string-rune-basics
+  - id: fc8
+    front: "Une string Go est-elle modifiable ?"
+    back: "Non : elle est immuable. On peut réassigner la variable, pas changer la string."
+    concept: go-string-rune-basics
+  - id: fc9
+    front: "Rune ou int32 pour stocker un caractère ?"
+    back: "rune : c'est le même type pour le compilateur, mais le nom exprime l'intention."
+    concept: go-string-rune-basics

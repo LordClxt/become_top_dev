@@ -1,0 +1,6 @@
+id: go-ch04-by-value
+concept: go-call-by-value
+format: interactive
+justification: "Un tableau « type × opération » qui dit ce que l'appelant voit permet de comparer d'un coup d'œil int, struct, map et slice."
+entry: ByValue.tsx
+status: built

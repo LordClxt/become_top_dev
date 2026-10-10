@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Où est visible n dans if n := f(); n > 0 { … } else { … } ?"
+    back: "Dans la condition, le corps et toutes les branches else — et nulle part après le if."
+    concept: go-if-scoped
+  - id: fc2
+    front: "Pourquoi écrire if err := f(); err != nil { … } ?"
+    back: "err est limitée au if : elle ne pollue pas la fonction et ne peut pas être réutilisée par erreur."
+    concept: go-if-scoped
+  - id: fc3
+    front: "Quelles sont les quatre formes de for ?"
+    back: "Complète (init; cond; incr), condition seule (le while), infinie (for {}), et for-range."
+    concept: go-for-forms
+  - id: fc4
+    front: "Quelle initialisation est autorisée dans for init; cond; incr ?"
+    back: "Seulement :=. Pas de var."
+    concept: go-for-forms
+  - id: fc5
+    front: "Comment écrire un do-while en Go ?"
+    back: "for { corps; if !condition { break } } : le corps s'exécute au moins une fois."
+    concept: go-break-continue
+  - id: fc6
+    front: "Sur quelle boucle agissent break et continue ?"
+    back: "La boucle la plus intérieure qui les contient (sauf si on utilise un label)."
+    concept: go-break-continue
+  - id: fc7
+    front: "Pourquoi utiliser continue ?"
+    back: "Pour aplatir le code : chaque cas est traité et abandonné, au lieu d'empiler des else."
+    concept: go-break-continue
+  - id: fc8
+    front: "Que fait for i := range 5 ?"
+    back: "Il parcourt 0, 1, 2, 3, 4 (Go 1.22+)."
+    concept: go-for-forms

@@ -1,7 +1,14 @@
 package api
 
-// Rejoue le contrat enregistré sur l'ancien backend Python (testdata/contract) et compare chaque réponse.
-// Le script d'enregistrement (tests/record_contract.py) est conservé au tag git python-backend-last.
+// Rejoue le scénario testdata/contract/scenario.json et compare chaque réponse à testdata/contract/golden.json.
+//
+// La référence a d'abord été enregistrée sur l'ancien backend Python (tag git python-backend-last), ce qui a prouvé
+// la parité des deux implémentations. Elle sert maintenant de test de régression : le balayage du contenu
+// (chapitres, leçons, quiz, exercices) est généré depuis content/, et après une évolution voulue du contenu ou de l'API :
+//
+//	UPDATE_GOLDEN=1 go test ./internal/api -run TestContract
+//
+// réécrit golden.json. Relis le diff avant de le committer.
 
 import (
 	"bytes"
@@ -102,36 +109,75 @@ func readJSON(t *testing.T, path string, dst any) {
 	}
 }
 
-func TestContract(t *testing.T) {
+// sweepSteps lit chaque chapitre, leçon, quiz et exercice du contenu chargé, dans l'ordre alphabétique des identifiants.
+func sweepSteps(idx *content.Index) []step {
 	var steps []step
-	var golden []map[string]any
-	readJSON(t, "../../testdata/contract/scenario.json", &steps)
-	readJSON(t, "../../testdata/contract/golden.json", &golden)
-	if len(steps) != len(golden) {
-		t.Fatalf("%d étapes pour %d réponses de référence", len(steps), len(golden))
+	add := func(kind, route string, ids []string) {
+		slices.Sort(ids)
+		for _, id := range ids {
+			steps = append(steps, step{Name: kind + ":" + id, Method: http.MethodGet, Path: "/api/" + route + "/" + id})
+		}
 	}
+	add("chapter", "chapters", slices.Collect(maps.Keys(idx.Chapters)))
+	add("lesson", "lessons", slices.Collect(maps.Keys(idx.Lessons)))
+	add("quiz", "quizzes", slices.Collect(maps.Keys(idx.Quizzes)))
+	add("exercise", "exercises", slices.Collect(maps.Keys(idx.Exercises)))
+	return steps
+}
+
+var sweepPrefixes = []string{"chapter:", "lesson:", "quiz:", "exercise:"}
+
+// scenarioSteps remplace les étapes de balayage enregistrées par celles du contenu actuel.
+func scenarioSteps(recorded []step, idx *content.Index) []step {
+	var steps []step
+	for _, s := range recorded {
+		if slices.ContainsFunc(sweepPrefixes, func(p string) bool { return strings.HasPrefix(s.Name, p) }) {
+			continue
+		}
+		steps = append(steps, s)
+		if s.Name == "sandbox" {
+			steps = append(steps, sweepSteps(idx)...)
+		}
+	}
+	return steps
+}
+
+func TestContract(t *testing.T) {
+	var recorded []step
+	var goldenList []map[string]any
+	readJSON(t, "../../testdata/contract/scenario.json", &recorded)
+	readJSON(t, "../../testdata/contract/golden.json", &goldenList)
+	golden := map[string]map[string]any{}
+	for _, g := range goldenList {
+		golden[g["name"].(string)] = g
+	}
+	idx, err := content.Load(contentDir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	steps := scenarioSteps(recorded, idx)
+	update := os.Getenv("UPDATE_GOLDEN") != ""
 
 	srv, runner := newTestServer(t)
 	client := newClient(t)
-	for i, s := range steps {
+	var results []map[string]any
+	for _, s := range steps {
 		if s.Runner != nil {
 			runner.exitCode, runner.output = s.Runner.ExitCode, s.Runner.Output
 		}
 		var body io.Reader
-		req, err := http.NewRequest(s.Method, srv.URL+s.Path, nil)
-		if err != nil {
-			t.Fatal(err)
-		}
 		switch {
 		case s.JSON != nil:
 			body = bytes.NewReader(s.JSON)
-			req.Header.Set("Content-Type", "application/json")
 		case s.BodyB64 != nil:
 			raw, _ := base64.StdEncoding.DecodeString(*s.BodyB64)
 			body = bytes.NewReader(raw)
 		}
+		req, err := http.NewRequest(s.Method, srv.URL+s.Path, body)
+		if err != nil {
+			t.Fatal(err)
+		}
 		if body != nil {
-			req, _ = http.NewRequest(s.Method, srv.URL+s.Path, body)
 			req.Header.Set("Content-Type", "application/json")
 		}
 		resp, err := client.Do(req)
@@ -140,10 +186,33 @@ func TestContract(t *testing.T) {
 		}
 		got := record(t, s, resp, runner)
 		resp.Body.Close()
+		results = append(results, got)
 
-		if diff := firstDiff(golden[i], got, ""); diff != "" {
+		if update {
+			continue
+		}
+		want, ok := golden[s.Name]
+		if !ok {
+			t.Errorf("%s : aucune référence enregistrée (UPDATE_GOLDEN=1 pour la créer)", s.Name)
+			continue
+		}
+		if diff := firstDiff(want, got, ""); diff != "" {
 			t.Errorf("%s : %s", s.Name, diff)
 		}
+	}
+
+	if update {
+		var out bytes.Buffer
+		enc := json.NewEncoder(&out)
+		enc.SetEscapeHTML(false)
+		enc.SetIndent("", " ")
+		if err := enc.Encode(results); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile("../../testdata/contract/golden.json", out.Bytes(), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		t.Logf("%d réponses de référence réécrites", len(results))
 	}
 }
 

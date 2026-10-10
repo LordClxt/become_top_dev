@@ -1,0 +1,12 @@
+id: go-ch05-l02-lab-accounts
+title: "Comptes bancaires : qui peut modifier quoi ?"
+kind: code
+language: go
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["accounts.go"]
+concepts: [go-pointer-mutable-param, go-pointer-copy-semantics, go-pointer-last-resort, go-nil-pointer]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

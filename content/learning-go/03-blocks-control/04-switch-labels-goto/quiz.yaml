@@ -1,0 +1,152 @@
+id: go-ch03-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      switch n := 2; n {
+      case 1:
+      	fmt.Println("one")
+      case 2:
+      	fmt.Println("two")
+      case 3:
+      	fmt.Println("three")
+      }
+    answer: "two"
+    explanation: "Aucun break n'est nécessaire et les cases ne tombent pas dans le suivant : seul le case 2 s'exécute."
+    concept: go-switch
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      for _, w := range []string{"a", "cow", "gopher", "anthropologist"} {
+      	switch n := len(w); n {
+      	case 1, 2, 3, 4:
+      		fmt.Println(w, "court")
+      	case 6, 7, 8, 9:
+      	default:
+      		fmt.Println(w, "long")
+      	}
+      }
+    answer: "a court\ncow court\nanthropologist long"
+    explanation: "gopher fait 6 lettres : le case vide s'exécute, c'est-à-dire qu'il ne fait rien (il ne tombe pas dans default)."
+    concept: go-switch
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      for i := 0; i < 5; i++ {
+      	switch i {
+      	case 3:
+      		break
+      	default:
+      		fmt.Print(i)
+      	}
+      }
+    answer: "0124"
+    explanation: "Le break sort du switch, pas de la boucle for. Pour i = 3 on n'affiche rien, mais la boucle continue avec 4."
+    concept: go-labels
+    difficulty: 3
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      loop:
+      	for i := 0; i < 5; i++ {
+      		switch i {
+      		case 3:
+      			break loop
+      		default:
+      			fmt.Print(i)
+      		}
+      	}
+    answer: "012"
+    explanation: "Avec le label, break loop sort de la boucle for et pas seulement du switch."
+    concept: go-labels
+    difficulty: 3
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      switch 1 {
+      case 1:
+      	fmt.Print("a")
+      	fallthrough
+      case 2:
+      	fmt.Print("b")
+      case 3:
+      	fmt.Print("c")
+      }
+    answer: "ab"
+    explanation: "fallthrough continue dans le case suivant sans tester sa condition, mais pas au-delà : le case 3 n'est pas exécuté."
+    concept: go-switch
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      for _, n := range []int{5, 50, 500} {
+      	switch {
+      	case n < 10:
+      		fmt.Print("S ")
+      	case n < 100:
+      		fmt.Print("M ")
+      	default:
+      		fmt.Print("L ")
+      	}
+      }
+    answer: "S M L"
+    explanation: "Dans un switch sans expression, chaque case est une condition ; le premier qui est vrai est exécuté."
+    concept: go-blank-switch
+    difficulty: 1
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      outer:
+      	for i := 0; i < 3; i++ {
+      		for j := 0; j < 3; j++ {
+      			if j == 1 {
+      				continue outer
+      			}
+      			fmt.Print(i, "-", j, " ")
+      		}
+      	}
+    answer: "0-0 1-0 2-0"
+    explanation: "Dès que j vaut 1, continue outer abandonne la boucle intérieure et passe au i suivant."
+    concept: go-labels
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Sur quel type ne peut-on PAS faire un switch (comparaison avec ==) ?"
+    choices: ["string", "bool", "[]int", "struct{ a, b int }"]
+    answer: 2
+    explanation: "Les slices ne sont pas comparables avec == (sauf à nil), donc inutilisables dans un switch. Les structs dont les champs sont comparables, eux, le sont."
+    concept: go-switch
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Quand préférer un switch sans expression à une chaîne de if/else if ?"
+    choices:
+      - "Quand les cas sont des tests liés qui forment un ensemble cohérent"
+      - "Quand on veut que le code soit plus rapide"
+      - "Quand les conditions n'ont aucun rapport entre elles"
+      - "Quand il n'y a qu'un seul cas"
+    answer: 0
+    explanation: "Un switch signale que les cas sont liés. Pour des tests indépendants, des if successifs sont plus honnêtes."
+    concept: go-blank-switch
+    difficulty: 1
+  - id: q10
+    type: single
+    prompt: "Quelles restrictions Go impose-t-il à goto ?"
+    choices:
+      - "Aucune"
+      - "Il ne peut pas sauter par-dessus une déclaration de variable ni entrer dans un bloc"
+      - "Il ne fonctionne qu'à l'intérieur d'un for"
+      - "Il ne peut sauter que vers le haut"
+    answer: 1
+    explanation: "Ces règles évitent les sauts qui laisseraient des variables non initialisées ou qui entreraient au milieu d'une structure."
+    concept: go-goto
+    difficulty: 2

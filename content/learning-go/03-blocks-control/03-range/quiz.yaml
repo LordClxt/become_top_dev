@@ -1,0 +1,116 @@
+id: go-ch03-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      for i, r := range "aπb" {
+      	fmt.Println(i, string(r))
+      }
+    answer: "0 a\n1 π\n3 b"
+    explanation: "range sur une string donne des runes. π occupe deux octets (positions 1 et 2), donc la rune suivante, b, commence au décalage 3."
+    concept: go-range-string
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      xs := []int{2, 4, 6}
+      for _, v := range xs {
+      	v *= 2
+      }
+      fmt.Println(xs)
+    answer: "[2 4 6]"
+    explanation: "v est une copie de l'élément : la doubler ne modifie pas la slice."
+    concept: go-range-copy
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      xs := []int{2, 4, 6}
+      for i := range xs {
+      	xs[i] *= 2
+      }
+      fmt.Println(xs)
+    answer: "[4 8 12]"
+    explanation: "En passant par l'indice, on modifie directement l'élément de la slice."
+    concept: go-range-copy
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      m := map[string]int{"b": 2, "a": 1, "c": 3}
+      fmt.Println(m)
+    answer: "map[a:1 b:2 c:3]"
+    explanation: "Les fonctions de fmt affichent toujours les maps avec leurs clés triées, même si un range sur cette map donnerait un ordre aléatoire."
+    concept: go-map-order
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Dans quel ordre un for-range parcourt-il une map ?"
+    choices:
+      - "Dans l'ordre d'insertion"
+      - "Dans l'ordre trié des clés"
+      - "Dans un ordre qui peut changer d'une boucle à l'autre"
+      - "Dans l'ordre inverse de l'insertion"
+    answer: 2
+    explanation: "L'ordre est volontairement aléatoire, pour que personne ne dépende d'un ordre et pour limiter les attaques de type Hash DoS."
+    concept: go-map-order
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ? (Go 1.22 ou plus)"
+    code: |
+      var fs []func() int
+      for i := 0; i < 3; i++ {
+      	fs = append(fs, func() int { return i })
+      }
+      for _, f := range fs {
+      	fmt.Print(f())
+      }
+    answer: "012"
+    explanation: "Depuis Go 1.22 chaque tour de boucle a sa propre variable i. Avant, les trois closures auraient partagé la même variable et affiché 333."
+    concept: go-range-copy
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "Dans for i, r := range \"héllo\", quelle est la valeur de i pour le premier l ?"
+    choices: ["2", "3", "4", "1"]
+    answer: 1
+    explanation: "h est à l'octet 0, é occupe les octets 1 et 2, donc le premier l est à l'octet 3."
+    concept: go-range-string
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Comment parcourir du deuxième au dernier-moins-un élément d'une slice de la façon la plus claire ?"
+    choices:
+      - "for-range avec continue sur i == 0 et break sur le dernier"
+      - "for i := 1; i < len(xs)-1; i++ { … }"
+      - "for-range sur xs[1:len(xs)-1] en ignorant l'indice"
+      - "for { … } avec un compteur"
+    answer: 1
+    explanation: "Quand on ne parcourt pas toute la collection, le for complet exprime directement le début et la fin. (La troisième option marche aussi, mais perd les indices d'origine.)"
+    concept: go-for-range
+    difficulty: 2
+  - id: q9
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      set := map[string]bool{"go": true}
+      for k := range set {
+      	fmt.Println(k)
+      }
+    answer: "go"
+    explanation: "Avec une seule variable, range fournit la clé : c'est la façon de parcourir une map utilisée comme ensemble."
+    concept: go-for-range
+    difficulty: 1
+  - id: q10
+    type: single
+    prompt: "Que renvoie len(\"héllo\") ?"
+    choices: ["5", "6", "7", "4"]
+    answer: 1
+    explanation: "len compte les octets. é prend deux octets en UTF-8 : 4 caractères d'un octet + 2 octets = 6."
+    concept: go-range-string
+    difficulty: 2

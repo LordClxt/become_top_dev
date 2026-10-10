@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Que fournit for i, v := range x à chaque tour ?"
+    back: "La position (ou la clé) puis une copie de la valeur."
+    concept: go-for-range
+  - id: fc2
+    front: "Comment ignorer l'indice ? Et la valeur ?"
+    back: "for _, v := range x pour ignorer l'indice ; for k := range x (un seul nom) pour ignorer la valeur."
+    concept: go-for-range
+  - id: fc3
+    front: "Quel ordre pour range sur une map ?"
+    back: "Aléatoire, qui change d'une boucle à l'autre. fmt, lui, affiche les maps avec les clés triées."
+    concept: go-map-order
+  - id: fc4
+    front: "Pourquoi l'ordre des maps est-il aléatoire ?"
+    back: "Pour éviter que du code dépende d'un ordre, et contre les attaques Hash DoS."
+    concept: go-map-order
+  - id: fc5
+    front: "Que donne range sur une string ?"
+    back: "Des runes (type rune) et le décalage en octets de chacune."
+    concept: go-range-string
+  - id: fc6
+    front: "Que renvoie range sur des octets UTF-8 invalides ?"
+    back: "Le caractère de remplacement U+FFFD, puis avance d'un octet."
+    concept: go-range-string
+  - id: fc7
+    front: "v *= 2 dans for _, v := range xs modifie-t-il xs ?"
+    back: "Non : v est une copie. Écris xs[i] *= 2."
+    concept: go-range-copy
+  - id: fc8
+    front: "Depuis quelle version Go crée-t-il une variable neuve à chaque tour ?"
+    back: "Go 1.22, si le go.mod annonce go 1.22 ou plus. Avant, la variable était partagée entre les tours."
+    concept: go-range-copy
+  - id: fc9
+    front: "Quand préférer le for complet au for-range ?"
+    back: "Quand on ne parcourt pas toute la collection : sous-intervalle, pas différent de 1. Jamais pour sauter le début d'une string."
+    concept: go-for-range

@@ -1,0 +1,122 @@
+id: go-ch05-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi allouer sur la pile est-il si rapide ?"
+    choices:
+      - "Parce que la mémoire de la pile est plus rapide physiquement"
+      - "Parce qu'il suffit de déplacer un pointeur de pile, et que rien n'est à nettoyer à la sortie de la fonction"
+      - "Parce que le ramasse-miettes s'en occupe en arrière-plan"
+      - "Parce que la pile est compressée"
+    answer: 1
+    explanation: "Allouer = avancer un pointeur ; libérer = le reculer quand la fonction se termine. Aucun travail de GC."
+    concept: go-stack-heap
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Qu'est-ce qui oblige une variable locale à « s'échapper » vers le tas ?"
+    choices:
+      - "Le fait qu'elle soit de type int"
+      - "Le fait qu'un pointeur vers elle soit renvoyé par la fonction (elle doit survivre à l'appel)"
+      - "Le fait qu'elle soit utilisée dans une boucle"
+      - "Le fait qu'elle soit déclarée avec :="
+    answer: 1
+    explanation: "Un pointeur renvoyé doit rester valide après la fonction : la donnée ne peut plus vivre dans le cadre de pile qui disparaît."
+    concept: go-escape-analysis
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Que fait Go quand une fonction renvoie l'adresse d'une de ses variables locales ?"
+    choices:
+      - "Il renvoie un pointeur invalide comme en C"
+      - "Il refuse de compiler"
+      - "Il place la variable sur le tas : le programme reste correct, au prix d'une allocation"
+      - "Il copie la variable dans une variable globale"
+    answer: 2
+    explanation: "L'analyse d'échappement détecte le cas et alloue la variable sur le tas. C'est sûr, mais coûteux."
+    concept: go-escape-analysis
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Quelle commande indique ce que le compilateur a décidé de mettre sur le tas ?"
+    choices:
+      - "go vet"
+      - "go build -gcflags=-m"
+      - "go fmt"
+      - "go mod tidy"
+    answer: 1
+    explanation: "L'option -m du compilateur affiche les décisions d'inlining et d'échappement (« moved to heap: p »)."
+    concept: go-escape-analysis
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi parcourir un []Point est-il bien plus rapide que parcourir un []*Point ?"
+    choices:
+      - "Parce que Point est plus petit que *Point"
+      - "Parce que les valeurs sont rangées les unes à la suite des autres en mémoire, alors que les pointeurs mènent à des blocs dispersés"
+      - "Parce que les pointeurs sont interdits dans les boucles"
+      - "Parce que []*Point ne peut pas être trié"
+    answer: 1
+    explanation: "La mémoire se lit beaucoup plus vite séquentiellement. Des pointeurs vers des blocs éparpillés obligent le processeur à aller chercher chaque donnée ailleurs."
+    concept: go-mechanical-sympathy
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Qu'appelle-t-on « déchet » (garbage) ?"
+    choices:
+      - "Une variable inutilisée dans le code"
+      - "Une donnée du tas vers laquelle plus aucun pointeur ne mène"
+      - "Un fichier temporaire"
+      - "Une erreur ignorée"
+    answer: 1
+    explanation: "Quand plus rien ne référence une donnée, sa mémoire peut être récupérée par le ramasse-miettes."
+    concept: go-gc-cost
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Pour quel objectif le ramasse-miettes de Go est-il conçu ?"
+    choices:
+      - "Le débit maximal, quitte à geler le programme longtemps"
+      - "La faible latence : des pauses de l'ordre de la demi-milliseconde au plus"
+      - "Ne jamais libérer de mémoire"
+      - "Compacter la mémoire à chaque appel de fonction"
+    answer: 1
+    explanation: "Chaque cycle vise moins de 500 microsecondes de pause. Mais un programme qui produit beaucoup de déchets ralentit tout de même le GC."
+    concept: go-gc-cost
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "En quoi Java crée-t-il plus de travail de GC que Go ?"
+    choices:
+      - "Java n'a pas de GC"
+      - "Chaque objet y est un pointeur vers des données sur le tas, alors que Go garde beaucoup de valeurs sur la pile"
+      - "Java utilise toujours la pile"
+      - "Java interdit les objets"
+    answer: 1
+    explanation: "En Java, seules les valeurs primitives restent sur la pile. Les objets, tableaux de pointeurs compris, vivent sur le tas."
+    concept: go-gc-cost
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Quelle est la meilleure stratégie de Go pour limiter le coût du GC ?"
+    choices:
+      - "Désactiver le GC"
+      - "Produire moins de déchets dès le départ : valeurs plutôt que pointeurs, slices de valeurs, tampons réutilisés"
+      - "Utiliser plus de pointeurs"
+      - "Appeler runtime.GC() dans chaque boucle"
+    answer: 1
+    explanation: "L'approche idiomatique de Go est aussi la plus efficace : créer moins de déchets."
+    concept: go-mechanical-sympathy
+    difficulty: 1
+  - id: q10
+    type: single
+    prompt: "Un & devant une variable signifie-t-il forcément qu'elle sera allouée sur le tas ?"
+    choices:
+      - "Oui, toujours"
+      - "Non : si le pointeur ne quitte pas la fonction et que le compilateur peut le prouver, la variable reste sur la pile"
+      - "Non, jamais"
+      - "Seulement pour les structs"
+    answer: 1
+    explanation: "C'est l'analyse d'échappement qui décide, pas la présence d'un &."
+    concept: go-escape-analysis
+    difficulty: 2

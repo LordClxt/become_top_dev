@@ -1,0 +1,115 @@
+id: go-ch05-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      x := 10
+      p := &x
+      *p = 20
+      fmt.Println(x, *p)
+    answer: "20 20"
+    explanation: "p contient l'adresse de x. Écrire dans *p écrit dans x : les deux lectures voient 20."
+    concept: go-pointer-basics
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      x := 1
+      p := &x
+      q := p
+      *q = 5
+      fmt.Println(x, *p)
+    answer: "5 5"
+    explanation: "Copier un pointeur copie l'adresse : p et q désignent la même variable x."
+    concept: go-pointer-basics
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      a, b := 1, 1
+      pa, pb := &a, &b
+      fmt.Println(pa == pb, *pa == *pb)
+    answer: "false true"
+    explanation: "pa == pb compare des adresses (deux variables distinctes), *pa == *pb compare les valeurs pointées (1 et 1)."
+    concept: go-pointer-basics
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var p *int
+      fmt.Println(p == nil)
+    answer: "true"
+    explanation: "La valeur zéro d'un pointeur est nil."
+    concept: go-nil-pointer
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Que se passe-t-il à l'exécution de `var p *int; fmt.Println(*p)` ?"
+    choices:
+      - "Elle affiche 0"
+      - "Le programme panique (nil pointer dereference)"
+      - "Elle affiche nil"
+      - "Erreur de compilation"
+    answer: 1
+    explanation: "Déréférencer un pointeur nil provoque un panic à l'exécution : le compilateur ne peut pas le voir."
+    concept: go-nil-pointer
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      p := new(int)
+      *p += 3
+      fmt.Println(*p, p == nil)
+    answer: "3 false"
+    explanation: "new(int) alloue un int à sa valeur zéro et renvoie son adresse : un pointeur non nil, qui pointe sur 0 puis sur 3."
+    concept: go-new-and-literal
+    difficulty: 1
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      type T struct{ N int }
+      t := &T{N: 1}
+      t.N++
+      fmt.Println(t.N, (*t).N)
+    answer: "2 2"
+    explanation: "Go déréférence automatiquement un pointeur de struct pour accéder à ses champs : t.N et (*t).N sont la même écriture."
+    concept: go-new-and-literal
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Comment obtenir un *string qui pointe vers \"Perry\" ?"
+    choices:
+      - "&\"Perry\""
+      - "middle := \"Perry\"; &middle"
+      - "new(\"Perry\")"
+      - "*\"Perry\""
+    answer: 1
+    explanation: "Un littéral n'a pas d'adresse. Il faut le mettre dans une variable (ou le passer à une fonction générique comme makePointer)."
+    concept: go-pointer-to-constant
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Peut-on écrire p + 1 pour passer à l'octet suivant d'un pointeur p en Go ?"
+    choices:
+      - "Oui, comme en C"
+      - "Non, Go n'a pas d'arithmétique de pointeurs"
+      - "Oui, mais seulement pour *byte"
+      - "Oui, avec le mot-clé unsafe obligatoire"
+    answer: 1
+    explanation: "L'arithmétique de pointeurs est interdite. Seul le paquet unsafe permet de la contourner, pour des cas très rares."
+    concept: go-pointer-basics
+    difficulty: 1
+  - id: q10
+    type: single
+    prompt: "Quelle est la valeur zéro d'un pointeur ?"
+    choices: ["0", "nil", "false", "\"\""]
+    answer: 1
+    explanation: "nil. Ce n'est pas un synonyme de 0 : on ne peut pas les convertir l'un en l'autre."
+    concept: go-nil-pointer
+    difficulty: 1

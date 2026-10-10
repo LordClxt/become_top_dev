@@ -1,0 +1,87 @@
+id: go-ch01-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var f float64
+      var b bool
+      var s string
+      var p *int
+      fmt.Println(f, b, s == "", p == nil)
+    answer: "0 false true true"
+    explanation: "Chaque variable reçoit sa valeur zéro : 0, false, la chaîne vide et nil. Les deux comparaisons sont donc vraies."
+    concept: go-zero-value
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Println(0b1010_0000, 0o17, 0x1F)
+    answer: "160 15 31"
+    explanation: "0b10100000 = 160, 0o17 = 1×8 + 7 = 15, 0x1F = 1×16 + 15 = 31. Les underscores ne changent pas la valeur."
+    concept: go-literals
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Lequel de ces littéraux ne compile pas ?"
+    choices:
+      - "1_000_000"
+      - "0b1010_1010"
+      - "1__000"
+      - "0o755"
+    answer: 2
+    explanation: "Un underscore doit séparer deux chiffres : deux underscores d'affilée sont refusés."
+    concept: go-literals
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      s := `a\nb`
+      fmt.Println(len(s))
+    answer: "4"
+    explanation: "Dans une raw string, \\n n'est pas interprété : ce sont deux caractères. La string contient a, \\, n, b."
+    concept: go-literals
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Println(010)
+    answer: "8"
+    explanation: "Un zéro initial sans lettre désigne l'octal : 010 = 8. C'est un piège classique ; on écrit 0o10 si on veut vraiment de l'octal."
+    concept: go-literals
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Quelles affirmations sur les strings littérales sont vraies ?"
+    choices:
+      - "Une raw string peut contenir un retour à la ligne"
+      - "Dans une raw string, \\n produit un saut de ligne"
+      - "'a' et \"a\" sont interchangeables"
+      - "Une string interprétée ne peut pas contenir de guillemet double non échappé"
+    answer: [0, 3]
+    explanation: "La raw string garde tout tel quel, retours à la ligne compris, mais n'interprète aucun échappement. Les apostrophes désignent une rune, pas une string."
+    concept: go-literals
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Quel est le type par défaut du littéral 'x' ?"
+    choices: ["byte", "rune", "string", "char"]
+    answer: 1
+    explanation: "Un littéral entre apostrophes est une rune (alias de int32). Go n'a pas de type char."
+    concept: go-literals
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Comment tester qu'un compteur n'est pas nul ?"
+    choices:
+      - "if count { … }"
+      - "if count != 0 { … }"
+      - "if bool(count) { … }"
+      - "if count > false { … }"
+    answer: 1
+    explanation: "Go n'a pas de truthiness : aucun type ne se convertit en bool, il faut écrire la comparaison."
+    concept: go-bool
+    difficulty: 1
