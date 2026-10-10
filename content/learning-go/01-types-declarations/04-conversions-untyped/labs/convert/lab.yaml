@@ -1,0 +1,12 @@
+id: go-ch01-l04-lab-convert
+title: "Convertir sans rien perdre en route"
+kind: code
+language: go
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["convert.go"]
+concepts: [go-explicit-conversion]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

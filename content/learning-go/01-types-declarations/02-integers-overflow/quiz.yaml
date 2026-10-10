@@ -1,0 +1,97 @@
+id: go-ch01-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var b byte = 255
+      b++
+      fmt.Println(b)
+    answer: "0"
+    explanation: "255 est la valeur maximale d'un byte : ajouter 1 fait le tour complet, sans erreur, et donne 0."
+    concept: go-int-overflow
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var x int8 = 127
+      x++
+      fmt.Println(x)
+    answer: "-128"
+    explanation: "127 est le maximum d'un int8. En complément à deux, 127 + 1 devient le bit de signe seul : −128."
+    concept: go-int-overflow
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var u uint8 = 3
+      u -= 5
+      fmt.Println(u)
+    answer: "254"
+    explanation: "3 − 5 = −2, et −2 modulo 256 vaut 254. Un entier non signé ne devient jamais négatif : il fait le tour par le haut."
+    concept: go-int-overflow
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      a, b := -7, 2
+      fmt.Println(a/b, a%b, 7/-b, 7%-b)
+    answer: "-3 -1 -3 1"
+    explanation: "La division tronque vers zéro (−3,5 → −3) et le reste prend le signe du dividende : −7 % 2 = −1, 7 % −2 = 1."
+    concept: go-int-division
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      x := 0b1111_0000
+      x &^= 0b0011_0000
+      fmt.Printf("%08b\n", x)
+    answer: "11000000"
+    explanation: "x &^ mask met à zéro les bits de x qui sont à 1 dans mask. Les deux bits du milieu disparaissent."
+    concept: go-bit-ops
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Println(1<<10, 0xF0>>4, 6&3, 6|3, 6^3)
+    answer: "1024 15 2 7 5"
+    explanation: "1<<10 = 1024 ; 0xF0>>4 = 0xF = 15 ; 6&3 = 0b110&0b011 = 2 ; 6|3 = 7 ; 6^3 = 0b101 = 5."
+    concept: go-bit-ops
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Un en-tête réseau contient un champ « longueur » de 16 bits non signés. Quel type Go utiliser pour le lire ?"
+    choices: ["int", "uint16", "int16", "uint"]
+    answer: 1
+    explanation: "Quand un format impose une taille et un signe, on prend le type correspondant : uint16. Hors de ce cas, int est le bon défaut."
+    concept: go-int-types
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Que se passe-t-il avec a / b quand a et b sont des variables int et que b vaut 0 ?"
+    choices:
+      - "Le résultat vaut +Inf"
+      - "Le programme panique à l'exécution"
+      - "Le résultat vaut 0"
+      - "La compilation échoue"
+    answer: 1
+    explanation: "La division entière par zéro déclenche un panic. Seule une constante nulle (1/0) est refusée à la compilation, et +Inf n'existe que pour les flottants."
+    concept: go-int-division
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Pourquoi Go refuse-t-il d'additionner directement un int et un int64 ?"
+    choices:
+      - "Parce que int64 est plus lent"
+      - "Parce que la taille de int dépend de la machine, donc le mélange doit être explicite"
+      - "Parce que int est toujours 32 bits"
+      - "Parce que l'addition est réservée aux flottants"
+    answer: 1
+    explanation: "int fait 32 ou 64 bits selon l'architecture. Go impose une conversion visible pour éviter les surprises de portabilité."
+    concept: go-int-types
+    difficulty: 2

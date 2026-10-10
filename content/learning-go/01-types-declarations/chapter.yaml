@@ -1,0 +1,23 @@
+id: go-ch01
+title: "Types et déclarations"
+subtitle: "Valeur zéro, littéraux, entiers, flottants, conversions, var et const : les briques du moindre programme Go"
+source: { chapter: 2, pages: "41-60" }
+objectives:
+  - "Prédire la valeur zéro d'une variable et lire les littéraux entiers, flottants, runes et strings"
+  - "Choisir un type entier et prévoir division, reste, opérateurs de bits et débordement silencieux"
+  - "Expliquer pourquoi un flottant n'est pas exact et comparer deux flottants avec une tolérance"
+  - "Écrire les conversions explicites nécessaires et expliquer pourquoi les littéraux n'ont pas de type"
+  - "Choisir entre var, := et const, et savoir ce que le compilateur impose ou tolère"
+  - "Nommer les variables et constantes selon les conventions idiomatiques de Go"
+mastery_threshold: 0.8
+prerequisites: [go-ch00]
+lessons:
+  - "01-zero-value-literals"
+  - "02-integers-overflow"
+  - "03-floats-strings"
+  - "04-conversions-untyped"
+  - "05-declarations-const-naming"
+xp: { assignment: 120, project: 200, boss: 220 }
+boss: boss
+assignment: assignment
+project: project

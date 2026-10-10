@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Quelle est la valeur zéro d'une variable int, bool, string et pointeur ?"
+    back: "0, false, \"\" (chaîne vide) et nil."
+    concept: go-zero-value
+  - id: fc2
+    front: "Une variable Go peut-elle être non initialisée ?"
+    back: "Non. Elle reçoit toujours sa valeur zéro à la déclaration."
+    concept: go-zero-value
+  - id: fc3
+    front: "Quels préfixes indiquent le binaire, l'octal et l'hexadécimal ?"
+    back: "0b, 0o et 0x."
+    concept: go-literals
+  - id: fc4
+    front: "À quoi sert l'underscore dans 1_000_000 ?"
+    back: "À la lisibilité uniquement. Il doit séparer deux chiffres."
+    concept: go-literals
+  - id: fc5
+    front: "Que vaut 010 en Go ?"
+    back: "8 : un zéro initial sans lettre désigne l'octal. À éviter, écris 0o10."
+    concept: go-literals
+  - id: fc6
+    front: "Rune ou string : 'a' ou \"a\" ?"
+    back: "'a' est une rune (un point de code), \"a\" est une string."
+    concept: go-literals
+  - id: fc7
+    front: "Quelle différence entre une string interprétée et une raw string ?"
+    back: "Interprétée (\") : les échappements comme \\n sont traités. Raw (`) : rien n'est interprété, les retours à la ligne sont conservés."
+    concept: go-literals
+  - id: fc8
+    front: "Peut-on écrire if count { … } avec un int ?"
+    back: "Non : Go n'a pas de truthiness. On écrit if count != 0."
+    concept: go-bool

@@ -1,0 +1,95 @@
+id: go-ch01-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi `var i int = 10; var f float64 = i` ne compile-t-il pas ?"
+    choices:
+      - "Parce qu'un int ne peut jamais devenir un float64"
+      - "Parce que Go n'effectue aucune conversion implicite entre types distincts"
+      - "Parce que f doit être déclaré avec :="
+      - "Parce que i est trop petit"
+    answer: 1
+    explanation: "Il faut écrire float64(i). Go refuse les promotions automatiques pour que le type de chaque valeur soit toujours visible."
+    concept: go-explicit-conversion
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      x := 10
+      y := 30.2
+      fmt.Println(float64(x)+y, x+int(y))
+    answer: "40.2 40"
+    explanation: "float64(x)+y = 40.2. int(y) tronque 30.2 en 30, donc x+int(y) = 40."
+    concept: go-explicit-conversion
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var b byte = 100
+      n := 300
+      fmt.Println(byte(n) + b)
+    answer: "144"
+    explanation: "byte(n) garde les 8 bits de poids faible de 300 (soit 44), sans erreur car n est une variable. 44 + 100 = 144."
+    concept: go-explicit-conversion
+    difficulty: 3
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      f := -2.7
+      fmt.Println(int(f), math.Round(f))
+    answer: "-2 -3"
+    explanation: "Convertir un flottant en entier tronque vers zéro (−2). math.Round arrondit au plus proche (−3)."
+    concept: go-explicit-conversion
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      fmt.Println(7/2, 7/2.0, float64(7)/2)
+    answer: "3 3.5 3.5"
+    explanation: "7/2 est une division entre deux littéraux entiers : 3. Dès qu'un opérande est un littéral flottant (2.0), la division est décimale."
+    concept: go-untyped-literals
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Parmi ces déclarations, laquelle compile ?"
+    choices:
+      - "var f float64 = 10"
+      - "var i int = 3.5"
+      - "var s string = 65"
+      - "var b byte = 256"
+    answer: 0
+    explanation: "Le littéral 10 est non typé : il devient un float64. 3.5 n'est pas un entier, 65 n'est pas une string et 256 déborde un byte."
+    concept: go-untyped-literals
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Comment obtenir un booléen à partir d'un entier n ?"
+    choices:
+      - "bool(n)"
+      - "n != 0"
+      - "n ? true : false"
+      - "if n { … }"
+    answer: 1
+    explanation: "Aucun type ne se convertit en bool. On écrit la comparaison qui exprime ce qu'on teste."
+    concept: go-explicit-conversion
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Quel est le type par défaut du littéral 3.14 ?"
+    choices: ["float32", "float64", "decimal", "complex128"]
+    answer: 1
+    explanation: "Un littéral à virgule prend le type float64 quand le contexte ne précise rien."
+    concept: go-untyped-literals
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Que produit string(65) ?"
+    choices: ["\"65\"", "\"A\"", "une erreur de compilation", "\"\""]
+    answer: 1
+    explanation: "Un entier converti en string est lu comme un point de code Unicode : 65 est 'A'. go vet signale le piège ; pour obtenir \"65\", utilise strconv.Itoa."
+    concept: go-explicit-conversion
+    difficulty: 2

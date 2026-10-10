@@ -1,0 +1,12 @@
+id: go-ch01-l01-lab-literals
+title: "Lire un littéral entier comme le fait le compilateur"
+kind: code
+language: go
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["literal.go"]
+concepts: [go-literals]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

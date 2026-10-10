@@ -1,0 +1,14 @@
+id: go-ch01-project
+title: "Relay : limites et tailles"
+pitch: "Le service de jobs Relay doit lire « 1.5MiB » dans sa configuration, afficher « 1.5 KiB » dans ses logs et alerter à 80 % de quota. Tu écris cette brique sans un seul flottant pour les octets."
+running_project: go-relay
+kind: code
+language: go
+difficulty: 3
+xp: 200
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["size.go"]
+concepts: [go-literals, go-int-types, go-int-overflow, go-explicit-conversion, go-float-precision]
+verified: { at: 2026-10-10, solution: pass, starter: fail }
