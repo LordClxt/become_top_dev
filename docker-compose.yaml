@@ -1,4 +1,4 @@
-# Déploiement (Coolify) : pointer le domaine vers le service `proxy`, port 80.
+# Déploiement Coolify : router le domaine vers le service `proxy`, port 80.
 name: become-top-dev
 
 services:
@@ -63,11 +63,9 @@ services:
     restart: unless-stopped
 
   proxy:
-    image: caddy:2.10-alpine
-    ports:
-      - "${HTTP_PORT:-80}:80"
-    volumes:
-      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+    build: ./deploy
+    expose:
+      - "80"
     depends_on:
       - backend
       - frontend
