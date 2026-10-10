@@ -1,0 +1,12 @@
+id: go-ch03-l03-lab-ranges
+title: "Runes, maps et copies : trois pièges de range"
+kind: code
+language: go
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["ranges.go"]
+concepts: [go-for-range, go-range-string, go-range-copy, go-map-order]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

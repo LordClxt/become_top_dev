@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Développer un champ"
+    goal: "Transformer un champ comme « */15 », « 1,5,10-12 » ou « 9-17/2 » en la liste triée de ses valeurs, avec des erreurs distinctes pour une syntaxe invalide et une valeur hors plage."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Lire une planification"
+    goal: "Analyser une planification à cinq champs et dire si une minute donnée y correspond."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Calculer la prochaine exécution"
+    goal: "Trouver la première minute postérieure qui correspond, en traversant heures, jours, mois et années, et savoir renoncer quand aucune date réelle ne convient."
+    tests: "go test ./... -run TestM3"
+    review: true

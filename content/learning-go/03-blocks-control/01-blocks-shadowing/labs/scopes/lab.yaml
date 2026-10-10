@@ -1,0 +1,12 @@
+id: go-ch03-l01-lab-scopes
+title: "Un mini-interpréteur de portées"
+kind: code
+language: go
+difficulty: 3
+xp: 65
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["scope.go"]
+concepts: [go-blocks, go-shadowing]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

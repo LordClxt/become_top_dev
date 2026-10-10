@@ -1,0 +1,12 @@
+id: go-ch03-l02-lab-loops
+title: "Quatre boucles, quatre formes de for"
+kind: code
+language: go
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["loops.go"]
+concepts: [go-for-forms, go-break-continue, go-if-scoped]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

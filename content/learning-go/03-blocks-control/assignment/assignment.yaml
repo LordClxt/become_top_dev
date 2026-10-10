@@ -1,0 +1,12 @@
+id: go-ch03-assignment
+title: "L'analyseur de journal"
+kind: code
+language: go
+difficulty: 3
+xp: 130
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["logs.go"]
+concepts: [go-for-range, go-switch, go-labels, go-break-continue, go-map-order, go-blank-switch]
+verified: { at: 2026-10-10, solution: pass, starter: fail }
