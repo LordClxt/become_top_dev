@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Comment grouper deux paramètres de même type ?"
+    back: "func div(num, denom int) int : le type s'écrit une seule fois."
+    concept: go-func-decl
+  - id: fc2
+    front: "Go a-t-il des paramètres nommés ou optionnels ?"
+    back: "Non. On passe une struct d'options : les champs omis valent leur valeur zéro."
+    concept: go-options-struct
+  - id: fc3
+    front: "Quel est le type d'un paramètre ...int dans la fonction ?"
+    back: "[]int (nil si aucun argument)."
+    concept: go-variadic
+  - id: fc4
+    front: "Comment passer une slice xs à un paramètre variadique ?"
+    back: "f(xs...) : les trois points derrière la slice. La fonction reçoit la même slice, pas une copie."
+    concept: go-variadic
+  - id: fc5
+    front: "Où place-t-on l'erreur parmi les valeurs de retour ?"
+    back: "En dernier. Elle vaut nil quand tout va bien."
+    concept: go-multi-return
+  - id: fc6
+    front: "Comment ignorer une valeur de retour ?"
+    back: "Avec l'identifiant blanc _ : q, _, err := f()."
+    concept: go-multi-return
+  - id: fc7
+    front: "Peut-on renvoyer plusieurs valeurs dans un tuple et les mettre dans une variable ?"
+    back: "Non. Il n'existe pas de tuple : chaque valeur retournée s'affecte à sa propre variable."
+    concept: go-multi-return
+  - id: fc8
+    front: "Que sont les retours nommés ?"
+    back: "Des variables locales prédéclarées à leur valeur zéro. Elles ne sont pas obligatoires dans le return."
+    concept: go-named-returns
+  - id: fc9
+    front: "Pourquoi éviter le retour nu ?"
+    back: "Il cache ce qui est renvoyé : on doit remonter dans la fonction pour retrouver la dernière valeur affectée."
+    concept: go-named-returns
+  - id: fc10
+    front: "Quel est le seul bon usage des retours nommés ?"
+    back: "Permettre à un defer de lire ou de modifier la valeur renvoyée (par exemple l'erreur)."
+    concept: go-named-returns

@@ -1,0 +1,126 @@
+id: go-ch04-l05-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      type person struct {
+      	age  int
+      	name string
+      }
+      modifyFails := func(i int, s string, p person) {
+      	i = i * 2
+      	s = "Goodbye"
+      	p.name = "Bob"
+      }
+      p := person{}
+      i := 2
+      s := "Hello"
+      modifyFails(i, s, p)
+      fmt.Println(i, s, p)
+    answer: "2 Hello {0 }"
+    explanation: "Chaque paramètre est une copie : les modifications dans la fonction n'atteignent pas les variables de l'appelant, struct comprise."
+    concept: go-call-by-value
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      modMap := func(m map[int]string) {
+      	m[2] = "hello"
+      	m[3] = "goodbye"
+      	delete(m, 1)
+      }
+      modSlice := func(s []int) {
+      	for k, v := range s {
+      		s[k] = v * 2
+      	}
+      	s = append(s, 10)
+      }
+      m := map[int]string{1: "first", 2: "second"}
+      modMap(m)
+      fmt.Println(m)
+      s := []int{1, 2, 3}
+      modSlice(s)
+      fmt.Println(s)
+    answer: "map[2:hello 3:goodbye]\n[2 4 6]"
+    explanation: "La map partage sa table avec la copie : tout est visible. Pour la slice, les éléments modifiés sont partagés, mais l'append ne change que la copie locale de l'en-tête (longueur 4 dans la fonction, 3 chez l'appelant)."
+    concept: go-map-slice-param
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      type box struct{ items []int }
+      fill := func(b box) {
+      	b.items[0] = 100
+      }
+      b := box{items: []int{1, 2}}
+      fill(b)
+      fmt.Println(b.items)
+    answer: "[100 2]"
+    explanation: "La struct est copiée, mais son champ items est un en-tête de slice qui pointe vers le même tableau : modifier un élément se voit."
+    concept: go-map-slice-param
+    difficulty: 3
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      f := func(s []int) {
+      	s = append(s, 99)
+      }
+      s := make([]int, 2, 10)
+      f(s)
+      fmt.Println(len(s), s[:3][2])
+    answer: "2 99"
+    explanation: "Il reste de la capacité : append écrit 99 dans le tableau partagé (visible via s[:3]) mais la longueur de la slice de l'appelant reste 2."
+    concept: go-map-slice-param
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Go passe-t-il les arguments par valeur ou par référence ?"
+    choices:
+      - "Toujours par référence"
+      - "Toujours par valeur : le paramètre est une copie"
+      - "Par référence pour les structs, par valeur pour le reste"
+      - "Par référence pour les maps et slices uniquement"
+    answer: 1
+    explanation: "Tout est copié. Ce qui est parfois partagé, c'est ce vers quoi pointe la valeur copiée (map, slice)."
+    concept: go-call-by-value
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Pourquoi une fonction ne peut-elle pas agrandir la slice de l'appelant avec append ?"
+    choices:
+      - "Parce que append est interdit dans une fonction"
+      - "Parce que l'en-tête de slice (dont la longueur) est copié : le changement de longueur reste local, sauf si on renvoie la nouvelle slice"
+      - "Parce que les slices ont une taille fixe"
+      - "Parce que append renvoie toujours une erreur"
+    answer: 1
+    explanation: "La longueur fait partie de l'en-tête copié. Il faut renvoyer la slice agrandie, comme le fait append lui-même."
+    concept: go-map-slice-param
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Quel avantage le passage par valeur apporte-t-il ?"
+    choices:
+      - "Il est toujours plus rapide"
+      - "Appeler une fonction ne peut pas modifier tes variables simples : le flux de données est plus facile à suivre"
+      - "Il évite d'écrire des return"
+      - "Il permet de modifier plusieurs variables à la fois"
+    answer: 1
+    explanation: "On sait qu'une fonction qui reçoit un int ou une struct ne modifiera pas la variable d'origine ; seules les maps et slices peuvent être modifiées."
+    concept: go-call-by-value
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Comment passer à une fonction une variable qu'elle puisse vraiment modifier ?"
+    choices:
+      - "Avec le mot-clé ref"
+      - "Avec un pointeur (sujet du prochain module)"
+      - "En la déclarant const"
+      - "C'est impossible en Go"
+    answer: 1
+    explanation: "Quand il faut du mutable, on passe un pointeur : l'adresse est copiée, mais elle désigne la variable d'origine."
+    concept: go-call-by-value
+    difficulty: 1

@@ -1,0 +1,14 @@
+id: go-ch04-project
+title: "Relay : le registre de jobs"
+pitch: "Relay doit connaître ses jobs par leur nom, les décorer (réessais, arguments par défaut) et les enchaîner. Tout est fonction : c'est le moment d'en tirer parti."
+running_project: go-relay
+kind: code
+language: go
+difficulty: 4
+xp: 230
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["jobs.go"]
+concepts: [go-func-values, go-func-types, go-closure-capture, go-variadic, go-multi-return, go-map-slice-param, go-func-return]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

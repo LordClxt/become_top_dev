@@ -1,0 +1,123 @@
+id: go-ch04-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      addTo := func(base int, vals ...int) []int {
+      	out := make([]int, 0, len(vals))
+      	for _, v := range vals {
+      		out = append(out, base+v)
+      	}
+      	return out
+      }
+      nums := []int{4, 3}
+      fmt.Println(addTo(3), addTo(3, 2, 4), addTo(3, nums...))
+    answer: "[] [5 7] [7 6]"
+    explanation: "Sans argument variadique, vals est une slice vide. Avec nums..., la slice est dépliée en arguments."
+    concept: go-variadic
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      divmod := func(a, b int) (int, int, error) {
+      	if b == 0 {
+      		return 0, 0, errors.New("division par zéro")
+      	}
+      	return a / b, a % b, nil
+      }
+      q, r, err := divmod(17, 5)
+      fmt.Println(q, r, err)
+      _, _, err = divmod(1, 0)
+      fmt.Println(err)
+    answer: "3 2 <nil>\ndivision par zéro"
+    explanation: "17 / 5 = 3 reste 2, et l'erreur vaut nil en cas de succès (Println l'affiche <nil>)."
+    concept: go-multi-return
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Quelle convention suit-on pour une fonction qui peut échouer ?"
+    choices:
+      - "L'erreur est la dernière valeur de retour"
+      - "L'erreur est la première valeur de retour"
+      - "La fonction lève une exception"
+      - "La fonction renvoie un code numérique négatif"
+    answer: 0
+    explanation: "Par convention, l'erreur est la dernière (ou la seule) valeur renvoyée, et vaut nil en cas de succès."
+    concept: go-multi-return
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      f := func() (result int, err error) {
+      	result = 20
+      	return 7, nil
+      }
+      r, _ := f()
+      fmt.Println(r)
+    answer: "7"
+    explanation: "Ce qui suit return est copié dans les variables nommées : les valeurs affectées avant ne comptent plus. Les noms ne sont pas obligatoires à l'usage."
+    concept: go-named-returns
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      f := func(n int) (result int) {
+      	if n > 0 {
+      		result := n * 2
+      		_ = result
+      	}
+      	return
+      }
+      fmt.Println(f(5))
+    answer: "0"
+    explanation: "result := … dans le if crée une nouvelle variable qui masque le retour nommé. Le return nu renvoie le result extérieur, jamais modifié : 0."
+    concept: go-named-returns
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Que se passe-t-il si on écrit `result := divmod(7, 2)` alors que divmod renvoie trois valeurs ?"
+    choices:
+      - "result reçoit un tuple des trois valeurs"
+      - "result reçoit la première valeur"
+      - "Erreur de compilation : on doit affecter chaque valeur retournée"
+      - "result reçoit la dernière valeur"
+    answer: 2
+    explanation: "Go n'a pas de tuple : le nombre de variables à gauche doit correspondre au nombre de valeurs renvoyées."
+    concept: go-multi-return
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Comment simuler un paramètre optionnel en Go ?"
+    choices:
+      - "Avec une valeur par défaut : func f(x int = 5)"
+      - "Avec une struct d'options dont les champs omis valent leur valeur zéro"
+      - "En surchargeant la fonction avec plusieurs signatures"
+      - "Avec le mot-clé optional"
+    answer: 1
+    explanation: "Go n'a ni valeurs par défaut ni surcharge. On passe une struct : les champs non renseignés prennent leur valeur zéro."
+    concept: go-options-struct
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Pourquoi déconseille-t-on le retour nu (un return seul avec retours nommés) ?"
+    choices:
+      - "Il est plus lent"
+      - "Le lecteur doit remonter le code pour savoir ce qui est réellement renvoyé"
+      - "Il ne compile pas"
+      - "Il ne renvoie jamais d'erreur"
+    answer: 1
+    explanation: "Le retour nu cache le flux de données. Il est légal, mais les équipes Go l'évitent dès que la fonction renvoie des valeurs."
+    concept: go-named-returns
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Quel est le type de vals dans func f(vals ...int) ?"
+    choices: ["int", "[]int", "...int", "*int"]
+    answer: 1
+    explanation: "À l'intérieur de la fonction, un paramètre variadique est une slice du type indiqué."
+    concept: go-variadic
+    difficulty: 1

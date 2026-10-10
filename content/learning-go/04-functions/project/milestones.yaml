@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Un registre de jobs"
+    goal: "Enregistrer des jobs par nom, refuser les noms vides, les jobs nil et les doublons, exécuter un job par son nom et lister les noms triés."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Des décorateurs"
+    goal: "Écrire des décorateurs de jobs (réessais, arguments par défaut, transformation de la sortie) et un Decorate qui les empile, sans jamais partager de mémoire entre appels."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Un pipeline"
+    goal: "Enchaîner des étapes en passant la sortie de l'une comme dernier argument de la suivante, s'arrêter à la première erreur et la signaler avec son contexte."
+    tests: "go test ./... -run TestM3"
+    review: true

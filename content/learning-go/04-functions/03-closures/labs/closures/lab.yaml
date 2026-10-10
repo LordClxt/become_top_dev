@@ -1,0 +1,12 @@
+id: go-ch04-l03-lab-closures
+title: "Fabriquer des fonctions : compteur, mémoïsation, chaîne"
+kind: code
+language: go
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["closures.go"]
+concepts: [go-closure-capture, go-closure-state, go-func-return, go-func-param]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

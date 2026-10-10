@@ -85,8 +85,11 @@
         "title": "Blocs, portée et contrôle"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "go-ch04",
+        "lesson_count": 5,
         "slug": "04-functions",
+        "subtitle": "Retours multiples, variadiques, closures, defer et passage par valeur : tout ce que Go fait des fonctions",
         "title": "Fonctions"
        },
        {
@@ -604,8 +607,23 @@
         "title": "Blocs, portée et contrôle"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "go-ch04",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "go-ch04",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 45,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "04-functions",
+        "subtitle": "Retours multiples, variadiques, closures, defer et passage par valeur : tout ce que Go fait des fonctions",
         "title": "Fonctions"
        },
        {
@@ -1053,6 +1071,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 37,
+     "score": 0,
+     "unlocked": false
+    },
+    "go-ch04": {
+     "chapter_id": "go-ch04",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 45,
      "score": 0,
      "unlocked": false
     }
@@ -1670,6 +1700,155 @@
    "title": "Blocs, portée et contrôle"
   },
   "name": "chapter:go-ch03",
+  "status": 200
+ },
+ {
+  "body": {
+   "assignment": {
+    "difficulty": 3,
+    "id": "go-ch04-assignment",
+    "passed": false,
+    "role": "assignment",
+    "title": "Une chaîne de middlewares",
+    "xp": 130
+   },
+   "boss": {
+    "difficulty": 5,
+    "id": "go-ch04-boss",
+    "passed": false,
+    "role": "boss",
+    "title": "Boss : la calculatrice scientifique",
+    "xp": 260
+   },
+   "course": {
+    "id": "go",
+    "title": "Go idiomatique"
+   },
+   "id": "go-ch04",
+   "lessons": [
+    {
+     "completed": false,
+     "duration_min": 25,
+     "id": "go-ch04-l01",
+     "labs": [
+      {
+       "difficulty": 2,
+       "id": "go-ch04-l01-lab-signatures",
+       "passed": false,
+       "role": "lab",
+       "title": "Variadiques, retours multiples et struct d'options",
+       "xp": 55
+      }
+     ],
+     "title": "Déclarer une fonction, retourner plusieurs valeurs",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 25,
+     "id": "go-ch04-l02",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "go-ch04-l02-lab-values",
+       "passed": false,
+       "role": "lab",
+       "title": "Une calculatrice à table de fonctions",
+       "xp": 60
+      }
+     ],
+     "title": "Les fonctions sont des valeurs",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 25,
+     "id": "go-ch04-l03",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "go-ch04-l03-lab-closures",
+       "passed": false,
+       "role": "lab",
+       "title": "Fabriquer des fonctions : compteur, mémoïsation, chaîne",
+       "xp": 60
+      }
+     ],
+     "title": "Closures : des fonctions qui retiennent leur environnement",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 25,
+     "id": "go-ch04-l04",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "go-ch04-l04-lab-defers",
+       "passed": false,
+       "role": "lab",
+       "title": "Nettoyer dans l'ordre : sessions et transactions",
+       "xp": 65
+      }
+     ],
+     "title": "defer : nettoyer quoi qu'il arrive",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 20,
+     "id": "go-ch04-l05",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "go-ch04-l05-lab-copies",
+       "passed": false,
+       "role": "lab",
+       "title": "Copier ou partager ? Structs, maps et slices en paramètres",
+       "xp": 55
+      }
+     ],
+     "title": "Go passe tout par valeur",
+     "xp": 25
+    }
+   ],
+   "mastery": {
+    "chapter_id": "go-ch04",
+    "labs_passed": 0,
+    "labs_total": 5,
+    "lessons_done": 0,
+    "lessons_total": 5,
+    "mastered": false,
+    "quiz_correct": 0,
+    "quiz_total": 45,
+    "score": 0,
+    "unlocked": false
+   },
+   "mastery_threshold": 0.8,
+   "objectives": [
+    "Déclarer des fonctions avec plusieurs retours, un paramètre variadique ou une struct d'options, et suivre la convention de l'erreur en dernier",
+    "Expliquer pourquoi les retours nommés servent surtout à defer, et pourquoi le retour nu est à éviter",
+    "Utiliser les fonctions comme valeurs : variables, tables de fonctions, types fonction et fonctions anonymes",
+    "Écrire et raisonner sur des closures qui capturent et modifient leur environnement, les passer et les renvoyer",
+    "Libérer des ressources avec defer en connaissant l'ordre LIFO, l'évaluation immédiate des arguments et l'interaction avec les retours nommés",
+    "Prédire ce que voit l'appelant après un appel, selon que l'on passe un entier, une struct, une map ou une slice"
+   ],
+   "project": {
+    "difficulty": 4,
+    "id": "go-ch04-project",
+    "passed": false,
+    "role": "project",
+    "title": "Relay : le registre de jobs",
+    "xp": 230
+   },
+   "source": {
+    "chapter": 5,
+    "pages": "117-142"
+   },
+   "subtitle": "Retours multiples, variadiques, closures, defer et passage par valeur : tout ce que Go fait des fonctions",
+   "title": "Fonctions"
+  },
+  "name": "chapter:go-ch04",
   "status": 200
  },
  {
@@ -3958,6 +4137,658 @@
  },
  {
   "body": {
+   "body": "\n## Pourquoi c'est important\n\nLe code Go est fait de petites fonctions qui retournent souvent **deux choses** : un résultat et une erreur. C'est le rythme de tout programme Go, et les conventions autour de cette écriture (erreur en dernier, valeur ignorée par `_`, struct d'options) forment un vocabulaire que tous les projets partagent. Cette leçon met en place ce vocabulaire.\n\n## Déclarer et appeler\n\n```go\nfunc div(num, denom int) int {\n\tif denom == 0 {\n\t\treturn 0\n\t}\n\treturn num / denom\n}\n```\n\nQuatre éléments : le mot-clé `func`, le **nom**, les **paramètres** entre parenthèses (nom d'abord, type ensuite), et le **type de retour** juste avant l'accolade. Deux paramètres consécutifs du même type se regroupent : `num, denom int`.\n\n- Une fonction qui retourne une valeur doit finir par un `return` sur tous ses chemins.\n- Une fonction sans retour n'écrit rien après les parenthèses, et n'a pas besoin de `return` (sauf pour sortir plus tôt).\n- `main` n'a ni paramètres ni retour.\n\n## Pas de paramètres nommés ni optionnels\n\nGo n'offre ni `div(denom: 2, num: 10)` ni valeurs par défaut. Pour une fonction qui en a vraiment besoin, on passe **une struct** dont les champs jouent le rôle de paramètres nommés :\n\n```go\ntype Options struct {\n\tFirstName string\n\tLastName  string\n\tAge       int\n}\n\nfunc Register(opts Options) error { … }\n\nRegister(Options{LastName: \"Patel\", Age: 50})   // FirstName reste \"\"\nRegister(Options{FirstName: \"Joe\", LastName: \"Smith\"})\n```\n\nLes champs omis valent leur **valeur zéro** : c'est pourquoi on prépare des valeurs zéro utiles. Si une fonction a besoin de beaucoup de paramètres, c'est souvent le signe qu'elle fait trop de choses.\n\n## Les paramètres variadiques\n\n`fmt.Println` accepte autant d'arguments qu'on veut. Tu peux écrire pareil avec `...` devant le type du **dernier** paramètre :\n\n```go\nfunc addTo(base int, vals ...int) []int {\n\tout := make([]int, 0, len(vals))\n\tfor _, v := range vals {\n\t\tout = append(out, base+v)\n\t}\n\treturn out\n}\n\naddTo(3)                  // []   : zéro valeur est permis\naddTo(3, 2, 4, 6)         // [5 7 9]\nnums := []int{4, 3}\naddTo(3, nums...)         // [7 6] : les trois points « déplient » une slice\n```\n\nDans la fonction, `vals` est une **slice** ordinaire (`nil` si aucun argument). Pour passer une slice existante, il faut les trois points derrière : `addTo(3, nums)` ne compile pas.\n\n> **Piège.** Quand tu passes `nums...`, la fonction reçoit la **même** slice, pas une copie. Si elle la trie ou la modifie, l'appelant le voit. Copie avant de modifier (tu le vérifieras dans le TP).\n\n## Plusieurs valeurs de retour\n\nGo permet de renvoyer plusieurs valeurs. Leurs types se listent entre parenthèses :\n\n```go\nfunc divAndRemainder(num, denom int) (int, int, error) {\n\tif denom == 0 {\n\t\treturn 0, 0, errors.New(\"division par zéro\")\n\t}\n\treturn num / denom, num % denom, nil\n}\n```\n\nTrois règles :\n\n1. On renvoie **toutes** les valeurs, séparées par des virgules, **sans parenthèses**.\n2. Par convention, l'**erreur est toujours la dernière** valeur. En cas de succès, elle vaut `nil`.\n3. À l'appel, on affecte **chaque** valeur à sa variable : il n'existe pas de tuple.\n\n```go\nquotient, remainder, err := divAndRemainder(5, 2)\nif err != nil {\n\treturn err\n}\n```\n\nSi tu n'as pas besoin d'une valeur, ignore-la avec `_` : `quotient, _, err := divAndRemainder(5, 2)`. Mettre le résultat de plusieurs valeurs dans une seule variable est une erreur de compilation, contrairement à Python.\n\nAppeler une fonction en jetant **tout** son résultat est légal (`fmt.Println` renvoie deux valeurs que l'on ignore toujours), mais dans presque tous les autres cas, on écrit `_` pour montrer qu'on ignore volontairement.\n\n## Les valeurs de retour nommées\n\nOn peut nommer les valeurs de retour. Ce sont alors des **variables locales prédéclarées**, à leur valeur zéro :\n\n```go\nfunc divAndRemainder(num, denom int) (result, remainder int, err error) {\n\tif denom == 0 {\n\t\terr = errors.New(\"division par zéro\")\n\t\treturn result, remainder, err\n\t}\n\tresult, remainder = num/denom, num%denom\n\treturn result, remainder, err\n}\n```\n\nElles servent de documentation, et sont **indispensables dans un cas précis** (modifier la valeur renvoyée depuis un `defer`, voir la leçon dédiée). Mais elles ont deux pièges :\n\n- **Le shadowing.** Un `result, err := …` dans un bloc interne crée de nouvelles variables : on croit assigner la valeur de retour, on assigne une copie locale.\n- **Elles ne sont pas obligatoires.** `return 1, 2, nil` fonctionne même si les variables nommées valent autre chose : le compilateur copie ce que tu renvoies dans les noms.\n\nLe nom est local à la fonction : l'appelant nomme ce qu'il reçoit comme il veut.\n\n> **Évite les noms `min`, `max`, `len`…** pour tes retours nommés ou tes variables : ce sont des identifiants prédéclarés, et tu les masquerais (voir la leçon sur le shadowing).\n\n### Le retour nu : à ne jamais utiliser\n\nAvec des retours nommés, `return` seul est autorisé : il renvoie les valeurs courantes des variables.\n\n```go\nfunc divAndRemainder(num, denom int) (result, remainder int, err error) {\n\tif denom == 0 {\n\t\terr = errors.New(\"division par zéro\")\n\t\treturn              // retour nu\n\t}\n\tresult, remainder = num/denom, num%denom\n\treturn\n}\n```\n\nC'est compact, mais le lecteur doit remonter dans la fonction pour savoir **ce qui est vraiment renvoyé**. Les développeurs Go expérimentés le considèrent comme une erreur de conception. **Si ta fonction retourne des valeurs, ne l'utilise jamais.**\n\n## Pièges fréquents\n\n- **`addTo(3, nums)`** au lieu de `addTo(3, nums...)`.\n- **Modifier la slice variadique** reçue via `xs...` : l'appelant voit le changement.\n- **Oublier de tester `err`** juste après l'appel.\n- **Retours nommés + `:=`** dans un bloc : on assigne une copie, pas la valeur de retour.\n- **Retour nu** dans une fonction de plus de quelques lignes.\n\n## À retenir\n\n- Déclaration : `func nom(params) retour { … }` ; paramètres du même type regroupés.\n- Ni paramètres nommés ni optionnels : une struct d'options, dont les champs omis valent leur zéro.\n- `...T` pour le dernier paramètre ; une slice se déplie avec `xs...`.\n- Plusieurs retours, l'erreur en dernier ; `_` pour ignorer ; pas de tuple.\n- Retours nommés : utiles pour `defer`, risqués ailleurs ; retour nu : jamais.\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch04",
+    "title": "Fonctions"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-func-decl",
+     "label": "Déclaration et appel d'une fonction"
+    },
+    {
+     "id": "go-options-struct",
+     "label": "Pas de paramètres nommés ni optionnels : une struct d'options"
+    },
+    {
+     "id": "go-variadic",
+     "label": "Paramètres variadiques"
+    },
+    {
+     "id": "go-multi-return",
+     "label": "Valeurs de retour multiples et convention de l'erreur en dernier"
+    },
+    {
+     "id": "go-named-returns",
+     "label": "Valeurs de retour nommées et pourquoi éviter le retour nu"
+    }
+   ],
+   "duration_min": 25,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "func div(num, denom int) int : le type s'écrit une seule fois.",
+     "concept": "go-func-decl",
+     "front": "Comment grouper deux paramètres de même type ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Non. On passe une struct d'options : les champs omis valent leur valeur zéro.",
+     "concept": "go-options-struct",
+     "front": "Go a-t-il des paramètres nommés ou optionnels ?",
+     "id": "fc2"
+    },
+    {
+     "back": "[]int (nil si aucun argument).",
+     "concept": "go-variadic",
+     "front": "Quel est le type d'un paramètre ...int dans la fonction ?",
+     "id": "fc3"
+    },
+    {
+     "back": "f(xs...) : les trois points derrière la slice. La fonction reçoit la même slice, pas une copie.",
+     "concept": "go-variadic",
+     "front": "Comment passer une slice xs à un paramètre variadique ?",
+     "id": "fc4"
+    },
+    {
+     "back": "En dernier. Elle vaut nil quand tout va bien.",
+     "concept": "go-multi-return",
+     "front": "Où place-t-on l'erreur parmi les valeurs de retour ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Avec l'identifiant blanc _ : q, _, err := f().",
+     "concept": "go-multi-return",
+     "front": "Comment ignorer une valeur de retour ?",
+     "id": "fc6"
+    },
+    {
+     "back": "Non. Il n'existe pas de tuple : chaque valeur retournée s'affecte à sa propre variable.",
+     "concept": "go-multi-return",
+     "front": "Peut-on renvoyer plusieurs valeurs dans un tuple et les mettre dans une variable ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Des variables locales prédéclarées à leur valeur zéro. Elles ne sont pas obligatoires dans le return.",
+     "concept": "go-named-returns",
+     "front": "Que sont les retours nommés ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Il cache ce qui est renvoyé : on doit remonter dans la fonction pour retrouver la dernière valeur affectée.",
+     "concept": "go-named-returns",
+     "front": "Pourquoi éviter le retour nu ?",
+     "id": "fc9"
+    },
+    {
+     "back": "Permettre à un defer de lire ou de modifier la valeur renvoyée (par exemple l'erreur).",
+     "concept": "go-named-returns",
+     "front": "Quel est le seul bon usage des retours nommés ?",
+     "id": "fc10"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Nom, paramètres et valeurs de retour d'une fonction. Deux fonctions de même forme ont le même type.",
+     "term": "signature"
+    },
+    {
+     "definition": "Se dit d'un paramètre qui accepte un nombre quelconque de valeurs, écrit ...T. Dans la fonction, c'est une slice []T.",
+     "term": "variadique"
+    },
+    {
+     "definition": "Un return sans valeurs dans une fonction à retours nommés : il renvoie les valeurs courantes des variables nommées.",
+     "term": "retour nu (blank / naked return)"
+    },
+    {
+     "definition": "Convention Go : une fonction renvoie sa valeur puis, en dernier, une erreur (ou un booléen) qui dit si ça a marché.",
+     "term": "comma ok / (valeur, erreur)"
+    }
+   ],
+   "id": "go-ch04-l01",
+   "labs": [
+    {
+     "difficulty": 2,
+     "id": "go-ch04-l01-lab-signatures",
+     "passed": false,
+     "role": "lab",
+     "title": "Variadiques, retours multiples et struct d'options",
+     "xp": 55
+    }
+   ],
+   "next_id": "go-ch04-l02",
+   "previous_id": null,
+   "quiz_id": "go-ch04-l01-quiz",
+   "source": {
+    "chapter": 5,
+    "pages": "117-123"
+   },
+   "title": "Déclarer une fonction, retourner plusieurs valeurs",
+   "visuals": {},
+   "xp": 30
+  },
+  "name": "lesson:go-ch04-l01",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nEn Go, une fonction n'est pas qu'un bloc de code que l'on appelle : c'est une **valeur** comme une autre. On peut la mettre dans une variable, dans une map, la passer à une autre fonction, la renvoyer. Cette seule idée explique le tri personnalisé, les middlewares HTTP, les callbacks, les options fonctionnelles… et rend possible de remplacer de longs `switch` par une simple table.\n\n## Le type d'une fonction\n\nLe type d'une fonction se compose du mot `func` et des types de ses paramètres et de ses retours : sa **signature**. Les noms des paramètres n'en font pas partie.\n\n```go\nfunc f1(a string) int { return len(a) }\n\nfunc f2(a string) int {\n\ttotal := 0\n\tfor _, v := range a {\n\t\ttotal += int(v)\n\t}\n\treturn total\n}\n\nvar myFunc func(string) int   // une variable qui peut contenir n'importe quelle func(string) int\n\nmyFunc = f1\nfmt.Println(myFunc(\"Hello\"))   // 5\nmyFunc = f2\nfmt.Println(myFunc(\"Hello\"))   // 500\n```\n\nToute fonction qui a **exactement** le même nombre et les mêmes types de paramètres et de retours peut être affectée à `myFunc`. La valeur zéro d'une variable de type fonction est `nil` ; l'appeler **provoque un panic**.\n\n## Une table de fonctions : la calculatrice\n\nL'application classique : remplacer un `switch` sur une chaîne par une map de fonctions.\n\n```go\nfunc add(i, j int) int { return i + j }\nfunc sub(i, j int) int { return i - j }\nfunc mul(i, j int) int { return i * j }\n\nvar opMap = map[string]func(int, int) int{\n\t\"+\": add,\n\t\"-\": sub,\n\t\"*\": mul,\n}\n\nif op, ok := opMap[symbol]; ok {\n\tfmt.Println(op(2, 3))\n} else {\n\tfmt.Println(\"opérateur non géré :\", symbol)\n}\n```\n\nOn cherche la fonction par sa clé (avec l'idiome *comma ok* pour gérer l'absence), puis on l'appelle comme n'importe quelle fonction. L'avantage : **ajouter un opérateur, c'est ajouter une entrée dans la map**, sans toucher à la logique d'évaluation. C'est ce que fait le TP.\n\n> **Ne sois pas fragile.** Dans cet exemple, 6 lignes font le calcul et 16 vérifient les entrées (nombre de termes, conversions, opérateur connu). C'est normal. La gestion rigoureuse des erreurs distingue le code de production du prototype.\n\n### Donner un nom à un type de fonction\n\nQuand une même signature revient souvent, on lui donne un nom avec `type` :\n\n```go\ntype BinaryOp func(int, int) int\n\nvar opMap = map[string]BinaryOp{ \"+\": add, \"-\": sub }\n```\n\nRien ne change pour les fonctions elles-mêmes : toute fonction de la bonne signature satisfait automatiquement le type. Le gain est la lisibilité (un nom au lieu d'une signature à rallonge), et plus tard un lien avec les interfaces.\n\n## Les fonctions anonymes\n\nOn peut définir une fonction **à l'intérieur** d'une autre, sans nom :\n\n```go\nfunc main() {\n\tf := func(j int) {\n\t\tfmt.Println(\"valeur :\", j)\n\t}\n\tfor i := 0; i < 3; i++ {\n\t\tf(i)\n\t}\n}\n```\n\nPas de nom entre `func` et la parenthèse des paramètres. On peut aussi l'**appeler immédiatement**, avec des parenthèses après l'accolade fermante :\n\n```go\nfor i := 0; i < 3; i++ {\n\tfunc(j int) {\n\t\tfmt.Println(\"valeur :\", j)\n\t}(i)\n}\n```\n\nÉcrit ainsi, c'est inutile : autant mettre le code directement dans la boucle. Cette forme sert dans deux situations : `defer` et le lancement de **goroutines**, que l'on verra bientôt.\n\n### Fonctions anonymes au niveau du package : sois prudent\n\nOn peut aussi affecter une fonction anonyme à une variable de package :\n\n```go\nvar add = func(i, j int) int { return i + j }\n\nfunc changeAdd() {\n\tadd = func(i, j int) int { return i + j + j }   // légal !\n}\n```\n\nContrairement à une fonction déclarée avec `func add(…)`, cette variable peut être **réaffectée** : le sens de `add(2, 3)` change pendant que le programme tourne. C'est la pire sorte d'état global, car le code appelant ne le sait pas. N'utilise ce mécanisme que si tu en as vraiment besoin (par exemple, pour remplacer une dépendance dans un test) et garde l'état du package immuable autant que possible.\n\n## Pièges fréquents\n\n- **Appeler une variable fonction `nil`** : panic. Vérifie `if f != nil` quand elle est optionnelle.\n- **Une signature presque identique** : `func(int, int) (int, error)` n'est **pas** un `func(int, int) int`.\n- **Oublier les parenthèses** d'un appel immédiat : `func() { … }` seul est une valeur, pas un appel.\n- **Fonction de package modifiable** : sources de bugs subtils et de tests qui s'influencent.\n\n## À retenir\n\n- Une fonction est une valeur : variable, champ, élément de map, argument, résultat.\n- Son type est sa signature ; la valeur zéro est `nil` et l'appeler paniquerait.\n- Une map de fonctions remplace un `switch` : on ajoute une entrée plutôt qu'un `case`.\n- `type Nom func(…)` nomme une signature ; toute fonction de la bonne forme y correspond.\n- Une fonction anonyme se définit sur place ; réserve l'appel immédiat à `defer` et aux goroutines.\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch04",
+    "title": "Fonctions"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-func-values",
+     "label": "Une fonction est une valeur que l'on stocke, passe et renvoie"
+    },
+    {
+     "id": "go-func-types",
+     "label": "Types fonction : signature et déclaration avec type"
+    },
+    {
+     "id": "go-anon-func",
+     "label": "Fonctions anonymes, appelées sur place ou stockées"
+    }
+   ],
+   "duration_min": 25,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Sa signature : les types de ses paramètres et de ses retours. Les noms ne comptent pas.",
+     "concept": "go-func-types",
+     "front": "Qu'est-ce qui fait le type d'une fonction ?",
+     "id": "fc1"
+    },
+    {
+     "back": "nil ; l'appeler déclenche un panic.",
+     "concept": "go-func-values",
+     "front": "Quelle est la valeur zéro d'un type fonction, et que provoque son appel ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Ajouter un comportement revient à ajouter une entrée dans la map, sans modifier la logique d'évaluation.",
+     "concept": "go-func-values",
+     "front": "Pourquoi une map de fonctions plutôt qu'un switch ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Avec l'idiome comma ok : op, ok := ops[symbol].",
+     "concept": "go-func-values",
+     "front": "Comment tester qu'une clé de map de fonctions existe ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Non : le nombre de valeurs de retour fait partie de la signature.",
+     "concept": "go-func-types",
+     "front": "func(int, int) (int, error) est-il assignable à func(int, int) int ?",
+     "id": "fc5"
+    },
+    {
+     "back": "À nommer une signature pour la lisibilité. Toute fonction de cette forme y correspond sans modification.",
+     "concept": "go-func-types",
+     "front": "À quoi sert type BinaryOp func(int, int) int ?",
+     "id": "fc6"
+    },
+    {
+     "back": "En ajoutant des parenthèses (avec les arguments) après son accolade fermante : func(j int) { … }(i).",
+     "concept": "go-anon-func",
+     "front": "Comment appelle-t-on une fonction anonyme immédiatement ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Avec defer et pour lancer des goroutines.",
+     "concept": "go-anon-func",
+     "front": "Où une fonction anonyme appelée sur place est-elle utile ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Elle est réaffectable : le comportement d'un appel peut changer sans que l'appelant le sache.",
+     "concept": "go-anon-func",
+     "front": "Pourquoi éviter une variable de package qui contient une fonction ?",
+     "id": "fc9"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Le type d'une fonction : la liste des types de ses paramètres et de ses valeurs de retour (les noms ne comptent pas).",
+     "term": "signature"
+    },
+    {
+     "definition": "Fonction écrite sans nom, directement dans une expression : func(x int) int { return x * 2 }.",
+     "term": "fonction anonyme"
+    },
+    {
+     "definition": "Map dont les valeurs sont des fonctions : on choisit le comportement par une clé (un opérateur, une commande) au lieu d'un gros switch.",
+     "term": "table de dispatch"
+    },
+    {
+     "definition": "Fonction qui prend une fonction en paramètre ou en renvoie une.",
+     "term": "fonction d'ordre supérieur"
+    }
+   ],
+   "id": "go-ch04-l02",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "go-ch04-l02-lab-values",
+     "passed": false,
+     "role": "lab",
+     "title": "Une calculatrice à table de fonctions",
+     "xp": 60
+    }
+   ],
+   "next_id": "go-ch04-l03",
+   "previous_id": "go-ch04-l01",
+   "quiz_id": "go-ch04-l02-quiz",
+   "source": {
+    "chapter": 5,
+    "pages": "123-129"
+   },
+   "title": "Les fonctions sont des valeurs",
+   "visuals": {},
+   "xp": 30
+  },
+  "name": "lesson:go-ch04-l02",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nLes closures sont l'une des raisons pour lesquelles les fonctions comme valeurs sont si utiles. Elles permettent de **fabriquer** des fonctions sur mesure, de les **configurer** avec des données, et de leur faire **garder un état**. On les rencontre partout en Go : tri personnalisé, middlewares HTTP, nettoyage avec `defer`, goroutines, options fonctionnelles.\n\n## Capturer des variables\n\nUne fonction déclarée dans une fonction voit les variables de son **environnement** et peut les modifier :\n\n```go\nfunc main() {\n\ta := 20\n\tf := func() {\n\t\tfmt.Println(a)  // 20 : lit a, déclarée à l'extérieur\n\t\ta = 30          // modifie a\n\t}\n\tf()\n\tfmt.Println(a)      // 30\n}\n```\n\n`a` n'est pas passée en paramètre : la closure l'**a capturée**. Ce n'est pas une copie : la closure et la fonction extérieure partagent la **même** variable.\n\n### Attention à `:=`\n\nComme partout, `:=` crée une nouvelle variable qui masque l'ancienne :\n\n```go\na := 20\nf := func() {\n\tfmt.Println(a)  // 20\n\ta := 30         // nouvelle variable, locale à la closure\n\tfmt.Println(a)  // 30\n}\nf()\nfmt.Println(a)      // 20 : inchangée\n```\n\nDans une closure, vérifie toujours si tu veux **modifier** (`=`) ou **déclarer** (`:=`).\n\n## À quoi servent-elles ?\n\nMême seules, les closures permettent deux choses :\n\n- **Limiter la portée** : une petite fonction appelée plusieurs fois par une seule autre fonction peut vivre à l'intérieur, au lieu d'encombrer le package de noms.\n- **Supprimer une répétition** : un bout de logique répété dans une fonction devient une closure locale qui capture ce dont elle a besoin.\n\nElles deviennent vraiment puissantes quand on les **passe** ou qu'on les **renvoie**.\n\n## Passer une fonction en paramètre\n\nLe paquet `sort` propose `sort.Slice`, qui trie n'importe quelle slice selon une fonction que tu fournis :\n\n```go\ntype Person struct {\n\tFirstName string\n\tLastName  string\n\tAge       int\n}\n\npeople := []Person{\n\t{\"Pat\", \"Patterson\", 37},\n\t{\"Tracy\", \"Bobdaughter\", 23},\n\t{\"Fred\", \"Fredson\", 18},\n}\n\n// tri par nom de famille\nsort.Slice(people, func(i, j int) bool {\n\treturn people[i].LastName < people[j].LastName\n})\n\n// tri par âge, avec la même slice\nsort.Slice(people, func(i, j int) bool {\n\treturn people[i].Age < people[j].Age\n})\n```\n\nLa closure reçoit deux **indices** `i` et `j`, mais elle utilise `people`, qu'elle a capturée, pour comparer les éléments. Même donnée, deux ordres : on change le comportement en changeant la fonction.\n\n> **Au-delà du livre.** Depuis Go 1.21, `slices.SortFunc(people, func(a, b Person) int { … })` est la forme moderne : la fonction reçoit directement les deux **éléments** (pas les indices) et renvoie un entier négatif, nul ou positif (`cmp.Compare(a.Age, b.Age)`). C'est plus sûr et plus rapide, et c'est ce que tu utiliseras dans du code récent.\n\n## Renvoyer une fonction\n\nUne fonction peut en fabriquer une autre :\n\n```go\nfunc makeMult(base int) func(int) int {\n\treturn func(factor int) int {\n\t\treturn base * factor\n\t}\n}\n\ntwoBase := makeMult(2)\nthreeBase := makeMult(3)\nfor i := 0; i < 3; i++ {\n\tfmt.Println(twoBase(i), threeBase(i))   // 0 0, 2 3, 4 6\n}\n```\n\nChaque appel à `makeMult` crée un **nouvel** environnement : `twoBase` retient `base = 2`, `threeBase` retient `base = 3`. La variable `base` vit tant qu'une closure l'utilise, même après le retour de `makeMult`.\n\n### L'état d'une closure\n\nSi la closure **modifie** une variable capturée, cet état persiste entre ses appels :\n\n```go\nfunc counter() func() int {\n\tn := 0\n\treturn func() int {\n\t\tn++\n\t\treturn n\n\t}\n}\n\na, b := counter(), counter()\nfmt.Println(a(), a(), a(), b())   // 1 2 3 1\n```\n\n`a` et `b` ont chacune **leur** `n` : deux compteurs indépendants. C'est un moyen simple d'avoir un état privé sans définir de type.\n\n## Les boucles et les closures\n\nDepuis Go 1.22, chaque tour de boucle a **sa propre** variable. Les closures créées dans une boucle `for` capturent donc chacune une valeur différente :\n\n```go\nvar fs []func() int\nfor i := 0; i < 3; i++ {\n\tfs = append(fs, func() int { return i * i })\n}\n// Go 1.22+ : 0, 1, 4 (avant : 4, 4, 4)\n```\n\nSi tu maintiens un module plus ancien (`go 1.21` dans le `go.mod`), passe la valeur en paramètre ou copie-la : `i := i`.\n\n## Pièges fréquents\n\n- **Confondre capture et copie.** Une closure voit les modifications ultérieures de la variable, et peut la modifier.\n- **`:=` à la place de `=`** dans la closure : on crée une variable locale au lieu de modifier celle de l'extérieur.\n- **Anciens modules et boucles** : avant Go 1.22, toutes les closures d'une boucle partageaient la même variable.\n- **État partagé sans le savoir** : plusieurs goroutines qui utilisent une même closure avec état créent une course de données (chapitre sur la concurrence).\n\n## À retenir\n\n- Une closure lit **et modifie** les variables de la fonction qui l'entoure, même après le retour de celle-ci.\n- Elle partage ces variables (pas de copie) : c'est ce qui lui donne un état.\n- Fabriquer une fonction avec `makeMult(3)` ou `counter()` donne des fonctions indépendantes.\n- Passer une closure à `sort.Slice` (ou `slices.SortFunc`) change le comportement sans changer la donnée.\n- Dans une closure, `=` modifie, `:=` masque.\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch04",
+    "title": "Fonctions"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-closure-capture",
+     "label": "Une closure lit et modifie les variables de la fonction englobante"
+    },
+    {
+     "id": "go-closure-state",
+     "label": "Une closure garde un état entre deux appels"
+    },
+    {
+     "id": "go-func-param",
+     "label": "Passer une fonction en paramètre (sort.Slice)"
+    },
+    {
+     "id": "go-func-return",
+     "label": "Renvoyer une fonction depuis une fonction"
+    }
+   ],
+   "duration_min": 25,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Une fonction déclarée dans une autre, qui peut lire et modifier les variables de la fonction englobante, même après son retour.",
+     "concept": "go-closure-capture",
+     "front": "Qu'est-ce qu'une closure ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Non : elle les capture par référence. Elle et la fonction extérieure partagent la même variable.",
+     "concept": "go-closure-capture",
+     "front": "Une closure copie-t-elle les variables qu'elle utilise ?",
+     "id": "fc2"
+    },
+    {
+     "back": "=. Avec :=, on crée une variable locale qui masque l'extérieure.",
+     "concept": "go-closure-capture",
+     "front": "Dans une closure, = ou := pour modifier une variable extérieure ?",
+     "id": "fc3"
+    },
+    {
+     "back": "En modifiant une variable capturée : l'état persiste entre ses appels, et chaque fonction fabriquée a le sien.",
+     "concept": "go-closure-state",
+     "front": "Comment une closure garde-t-elle un état ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Non : chaque appel crée un nouvel environnement, donc deux compteurs indépendants.",
+     "concept": "go-closure-state",
+     "front": "Deux appels à counter() partagent-ils leur compteur ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Trie xs selon la closure less(i, j) bool, qui compare les éléments aux indices i et j.",
+     "concept": "go-func-param",
+     "front": "Que fait sort.Slice(xs, less) ?",
+     "id": "fc6"
+    },
+    {
+     "back": "slices.SortFunc(xs, func(a, b T) int { … }) (Go 1.21+) : la fonction reçoit les éléments et renvoie un entier négatif, nul ou positif.",
+     "concept": "go-func-param",
+     "front": "Quelle forme moderne remplace sort.Slice ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Une fonction func(int) int qui multiplie son argument par 3, car elle a capturé base = 3.",
+     "concept": "go-func-return",
+     "front": "Que renvoie makeMult(3) ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Chaque tour de boucle a sa propre variable : les closures créées dans la boucle capturent chacune une valeur différente.",
+     "concept": "go-closure-capture",
+     "front": "Qu'a changé Go 1.22 pour les closures dans les boucles ?",
+     "id": "fc9"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Fonction déclarée dans une autre fonction, qui peut lire et modifier les variables de celle-ci, même après son retour.",
+     "term": "closure"
+    },
+    {
+     "definition": "Le fait qu'une closure garde une référence aux variables extérieures qu'elle utilise (pas une copie de leur valeur).",
+     "term": "capture"
+    },
+    {
+     "definition": "Fonction qui reçoit une fonction en paramètre ou qui en renvoie une.",
+     "term": "fonction d'ordre supérieur"
+    },
+    {
+     "definition": "Fonction qui construit et renvoie un objet configuré, ici une autre fonction (makeMult(3)).",
+     "term": "fabrique (factory)"
+    }
+   ],
+   "id": "go-ch04-l03",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "go-ch04-l03-lab-closures",
+     "passed": false,
+     "role": "lab",
+     "title": "Fabriquer des fonctions : compteur, mémoïsation, chaîne",
+     "xp": 60
+    }
+   ],
+   "next_id": "go-ch04-l04",
+   "previous_id": "go-ch04-l02",
+   "quiz_id": "go-ch04-l03-quiz",
+   "source": {
+    "chapter": 5,
+    "pages": "129-133"
+   },
+   "title": "Closures : des fonctions qui retiennent leur environnement",
+   "visuals": {},
+   "xp": 30
+  },
+  "name": "lesson:go-ch04-l03",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nUn programme ouvre des fichiers, des connexions, des transactions, des verrous. Chacun doit être libéré, **quel que soit le chemin de sortie** de la fonction : fin normale, `return` anticipé sur une erreur, panique. Oublier une seule libération sur un seul chemin, c'est une fuite de ressource. Go résout ce problème avec `defer`, qui attache le nettoyage à l'endroit même où l'on acquiert la ressource.\n\n## `defer` en action\n\n```go\nfunc main() {\n\tif len(os.Args) < 2 {\n\t\tlog.Fatal(\"aucun fichier indiqué\")\n\t}\n\tf, err := os.Open(os.Args[1])\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer f.Close()          // sera exécuté à la sortie de main, quoi qu'il arrive\n\n\tdata := make([]byte, 2048)\n\tfor {\n\t\tcount, err := f.Read(data)\n\t\tos.Stdout.Write(data[:count])\n\t\tif err != nil {\n\t\t\tif err != io.EOF {\n\t\t\t\tlog.Fatal(err)\n\t\t\t}\n\t\t\tbreak\n\t\t}\n\t}\n}\n```\n\nUn appel de fonction normal s'exécute tout de suite ; avec `defer`, il est **mémorisé** et ne s'exécute que lorsque la fonction se termine. Tu peux différer une fonction, une méthode ou une closure. Le `defer` se place juste après l'acquisition : tout ce qui suit, y compris les `return` anticipés, bénéficiera du nettoyage.\n\n### Plusieurs `defer` : dernier arrivé, premier servi\n\nLes appels différés s'exécutent dans l'ordre **inverse** de leur enregistrement (LIFO). C'est logique : on ferme d'abord ce qu'on a ouvert en dernier.\n\n### Les arguments sont évalués tout de suite\n\nQuand tu écris `defer f(x)`, la valeur de `x` est **fixée à ce moment-là**, pas à l'exécution différée :\n\n```go\nfunc deferExample() int {\n\ta := 10\n\tdefer func(val int) {\n\t\tfmt.Println(\"premier :\", val)\n\t}(a)                        // val = 10, figé ici\n\ta = 20\n\tdefer func(val int) {\n\t\tfmt.Println(\"second :\", val)\n\t}(a)                        // val = 20\n\ta = 30\n\tfmt.Println(\"sortie :\", a)\n\treturn a\n}\n// sortie : 30\n// second : 20\n// premier : 10\n```\n\nLe code différé s'exécute **après** le `return`, dans l'ordre inverse, avec les valeurs capturées au moment du `defer`.\n\n::visual{id=\"go-ch04-defer-timeline\"}\n\n> **Piège classique.** Oublier les parenthèses d'une closure différée : `defer func() { … }` ne compile pas. Les parenthèses servent à passer les arguments, même quand il n'y en a pas : `defer func() { … }()`.\n\nSi la fonction différée renvoie des valeurs, elles sont simplement perdues : on ne peut pas les lire.\n\n## Lire et modifier le résultat : les retours nommés\n\nUn `defer` peut **examiner et changer les valeurs de retour** de la fonction, à condition qu'elles soient nommées. C'est la meilleure raison d'utiliser des retours nommés. Exemple type : une transaction.\n\n```go\nfunc DoSomeInserts(ctx context.Context, db *sql.DB, value1, value2 string) (err error) {\n\ttx, err := db.BeginTx(ctx, nil)\n\tif err != nil {\n\t\treturn err\n\t}\n\tdefer func() {\n\t\tif err == nil {\n\t\t\terr = tx.Commit()      // peut échouer : on remplace err\n\t\t}\n\t\tif err != nil {\n\t\t\ttx.Rollback()\n\t\t}\n\t}()\n\t_, err = tx.ExecContext(ctx, \"INSERT INTO foo (val) VALUES ($1)\", value1)\n\tif err != nil {\n\t\treturn err\n\t}\n\t// … d'autres insertions\n\treturn nil\n}\n```\n\nLe `defer` fait tout le travail de fin : s'il n'y a pas d'erreur, il valide ; si l'une des étapes a échoué, ou si la validation elle-même échoue, il annule. Le corps de la fonction se contente de `return err` à chaque échec. Sans retour nommé, le `defer` ne pourrait pas modifier la valeur renvoyée.\n\n> **Sans retour nommé :** `return n` copie `n` dans la valeur de retour *avant* l'exécution des `defer`. Modifier `n` ensuite ne change rien à ce qui est renvoyé.\n\n## Motif : renvoyer le nettoyage avec la ressource\n\nUne fonction qui acquiert une ressource peut aussi renvoyer **la fonction qui la libère** :\n\n```go\nfunc getFile(name string) (*os.File, func(), error) {\n\tfile, err := os.Open(name)\n\tif err != nil {\n\t\treturn nil, nil, err\n\t}\n\treturn file, func() { file.Close() }, nil\n}\n\nf, closer, err := getFile(os.Args[1])\nif err != nil {\n\tlog.Fatal(err)\n}\ndefer closer()\n```\n\nComme Go interdit les variables inutilisées, l'appelant **ne peut pas oublier** d'utiliser `closer` : le code ne compile pas tant qu'il ne le fait pas. C'est une façon élégante de rappeler à l'appelant qu'il y a quelque chose à libérer.\n\n### Pourquoi pas des blocs `try/finally` ?\n\nLes langages à blocs (`try/finally`, `begin/ensure`) ajoutent un niveau d'indentation par ressource. Une étude sur la complexité du code a identifié l'**imbrication** comme l'un des facteurs qui la font croître le plus. Avec `defer`, le nettoyage reste à plat, juste sous l'acquisition.\n\n## Pièges fréquents\n\n- **`defer` dans une boucle** : les appels s'accumulent jusqu'à la fin de la **fonction**, pas de l'itération. Pour libérer à chaque tour, extrais le corps dans une fonction.\n- **Évaluation immédiate des arguments** : `defer fmt.Println(x)` affiche la valeur de `x` à l'instant du `defer`.\n- **Oublier de vérifier l'erreur avant le `defer`** : fais `defer f.Close()` seulement une fois `err == nil`, sinon `f` peut être `nil`.\n- **`:=` qui masque le retour nommé** dans le corps : le `defer` modifie le bon `err`, mais le corps en remplit un autre.\n\n## À retenir\n\n- `defer` repousse un appel à la sortie de la fonction : fin normale, `return` anticipé ou panique.\n- Plusieurs `defer` s'exécutent en ordre inverse ; leurs arguments sont évalués à l'enregistrement.\n- Avec des retours nommés, un `defer` peut lire et modifier le résultat, par exemple pour valider ou annuler une transaction.\n- Renvoyer une fonction de nettoyage avec la ressource force l'appelant à penser à la libérer.\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch04",
+    "title": "Fonctions"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-defer-basics",
+     "label": "defer différé jusqu'à la sortie de la fonction, en ordre inverse (LIFO)"
+    },
+    {
+     "id": "go-defer-args",
+     "label": "Les arguments d'un defer sont évalués immédiatement"
+    },
+    {
+     "id": "go-defer-named-return",
+     "label": "Un defer peut lire et modifier les retours nommés"
+    },
+    {
+     "id": "go-closer-pattern",
+     "label": "Le motif « ressource + fonction de nettoyage »"
+    }
+   ],
+   "duration_min": 25,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "À la sortie de la fonction englobante (return, fin ou panique), pas à la fin du bloc.",
+     "concept": "go-defer-basics",
+     "front": "Quand s'exécute un appel différé avec defer ?",
+     "id": "fc1"
+    },
+    {
+     "back": "En ordre inverse de leur enregistrement (LIFO).",
+     "concept": "go-defer-basics",
+     "front": "Dans quel ordre s'exécutent plusieurs defer ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Immédiatement, au moment du defer : leur valeur est figée jusqu'à l'exécution différée.",
+     "concept": "go-defer-args",
+     "front": "Quand les arguments d'un defer sont-ils évalués ?",
+     "id": "fc3"
+    },
+    {
+     "back": "defer attend un appel de fonction. Les parenthèses l'appellent et permettent de lui passer des arguments.",
+     "concept": "go-defer-args",
+     "front": "Pourquoi écrire defer func() { … }() avec des parenthèses finales ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Oui, si le retour est nommé : le defer s'exécute après le return et peut changer la variable.",
+     "concept": "go-defer-named-return",
+     "front": "Un defer peut-il modifier la valeur renvoyée par la fonction ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Il copie n dans la valeur de retour avant les defer : les modifications ultérieures de n ne comptent pas.",
+     "concept": "go-defer-named-return",
+     "front": "Que fait return n si la fonction n'a pas de retour nommé ?",
+     "id": "fc6"
+    },
+    {
+     "back": "Les appels s'accumulent jusqu'à la fin de la fonction, pas de l'itération. Extrais le corps dans une fonction pour libérer à chaque tour.",
+     "concept": "go-defer-basics",
+     "front": "Que se passe-t-il avec un defer dans une boucle ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Une fonction renvoie la ressource et une fonction de nettoyage ; l'appelant fait defer closer(). Il ne peut pas l'oublier, sinon variable inutilisée.",
+     "concept": "go-closer-pattern",
+     "front": "Quel est le motif « ressource + nettoyage » ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Il évite un niveau d'indentation par ressource : le nettoyage reste à plat sous l'acquisition.",
+     "concept": "go-closer-pattern",
+     "front": "Pourquoi defer est-il préféré à try/finally ?",
+     "id": "fc9"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Mot-clé qui repousse l'exécution d'un appel de fonction jusqu'à la sortie de la fonction englobante, quelle que soit la manière dont elle sort.",
+     "term": "defer"
+    },
+    {
+     "definition": "Last In, First Out : le dernier defer enregistré est le premier exécuté, comme une pile d'assiettes.",
+     "term": "LIFO"
+    },
+    {
+     "definition": "Ce qu'il faut libérer après usage : fichier, connexion réseau, verrou, transaction.",
+     "term": "ressource"
+    },
+    {
+     "definition": "Suite d'opérations de base de données qui réussissent toutes (commit) ou sont toutes annulées (rollback).",
+     "term": "transaction"
+    }
+   ],
+   "id": "go-ch04-l04",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "go-ch04-l04-lab-defers",
+     "passed": false,
+     "role": "lab",
+     "title": "Nettoyer dans l'ordre : sessions et transactions",
+     "xp": 65
+    }
+   ],
+   "next_id": "go-ch04-l05",
+   "previous_id": "go-ch04-l03",
+   "quiz_id": "go-ch04-l04-quiz",
+   "source": {
+    "chapter": 5,
+    "pages": "133-138"
+   },
+   "title": "defer : nettoyer quoi qu'il arrive",
+   "visuals": {
+    "go-ch04-defer-timeline": {
+     "concept": "go-defer-basics",
+     "entry": "DeferTimeline.tsx",
+     "format": "interactive",
+     "id": "go-ch04-defer-timeline",
+     "justification": "Avancer pas à pas dans trois programmes et voir la pile de defer, les valeurs figées et la valeur de retour fait comprendre ce qui s'exécute quand.",
+     "params": [],
+     "status": "built"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:go-ch04-l04",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\n« Si je passe ma variable à une fonction, la fonction peut-elle la modifier ? » La réponse dépend du langage, et elle est la source de la moitié des surprises des débutants. En Go la règle de base est simple et sans exception : **tout est passé par valeur**. Ce qui rend la chose délicate, c'est que certaines valeurs (les maps, les slices) *contiennent* des références vers des données partagées.\n\n## La règle : une copie\n\nQuand tu passes une variable à une fonction, Go **copie sa valeur** dans le paramètre. La fonction travaille sur la copie.\n\n```go\ntype person struct {\n\tage  int\n\tname string\n}\n\nfunc modifyFails(i int, s string, p person) {\n\ti = i * 2\n\ts = \"Goodbye\"\n\tp.name = \"Bob\"\n}\n\nfunc main() {\n\tp := person{}\n\ti := 2\n\ts := \"Hello\"\n\tmodifyFails(i, s, p)\n\tfmt.Println(i, s, p)   // 2 Hello {0 }\n}\n```\n\nRien n'a changé dans `main`. Ça vaut aussi pour la struct : si tu viens de Java, Python ou JavaScript, où passer un objet permet de le modifier, c'est une vraie différence.\n\n::visual{id=\"go-ch04-by-value\"}\n\n## Les maps et les slices se comportent différemment\n\nRegarde ce qui se passe quand on essaie de modifier une map et une slice dans une fonction :\n\n```go\nfunc modMap(m map[int]string) {\n\tm[2] = \"hello\"\n\tm[3] = \"goodbye\"\n\tdelete(m, 1)\n}\n\nfunc modSlice(s []int) {\n\tfor k, v := range s {\n\t\ts[k] = v * 2\n\t}\n\ts = append(s, 10)\n}\n\nm := map[int]string{1: \"first\", 2: \"second\"}\nmodMap(m)\nfmt.Println(m)            // map[2:hello 3:goodbye]\n\ns := []int{1, 2, 3}\nmodSlice(s)\nfmt.Println(s)            // [2 4 6]\n```\n\n- **La map** est modifiée : tous les changements sont visibles par l'appelant.\n- **La slice** : les éléments sont modifiés (`[2 4 6]`), mais l'`append` final n'est **pas** visible : l'appelant garde une slice de longueur 3.\n\nLa règle est cohérente. Go copie *bien* la valeur, mais la valeur d'une map ou d'une slice est un **petit descripteur qui pointe vers des données** :\n\n- une map est (en interne) un pointeur vers sa table : la copie pointe vers la même table ;\n- une slice est un en-tête `(pointeur, longueur, capacité)` : la copie pointe vers le même tableau d'éléments, mais sa longueur est **à part**. Modifier un élément se voit ; changer la longueur ne se voit pas.\n\n> **Chaque type de Go est un type valeur. Simplement, parfois, la valeur est un pointeur.**\n\nCela vaut aussi pour les maps et slices **à l'intérieur d'une struct** : copier la struct copie l'en-tête, pas les éléments.\n\n```go\ntype box struct{ items []int }\nfunc fill(b box) { b.items[0] = 100 }\nb := box{items: []int{1, 2}}\nfill(b)\nfmt.Println(b.items)   // [100 2] : la struct est copiée, le tableau est partagé\n```\n\n### Ce qu'on en tire dans le code\n\n- Une fonction qui reçoit une slice peut changer ses éléments (c'est utile : trier, inverser sur place).\n- Pour **agrandir** une slice, la fonction doit la **renvoyer** : `s = grow(s)`, comme `append`.\n- Pour ne **pas** abîmer la slice de l'appelant, copie avant de modifier (`slices.Clone`).\n- Une fonction qui prend une map peut la modifier : documente-le, ou renvoie une nouvelle map.\n\n## L'avantage du passage par valeur\n\nComme les variables sont copiées, **appeler une fonction ne peut pas modifier tes variables simples** (sauf si tu lui donnes une slice ou une map). C'est ce qui permet de raisonner sur le flux de données : une fonction qui renvoie des valeurs nouvelles est plus facile à comprendre qu'une fonction qui en modifie en cachette.\n\nMais parfois on a *besoin* de passer quelque chose de modifiable. C'est le rôle des **pointeurs**, dans le prochain module.\n\n## Pièges fréquents\n\n- **Croire qu'on modifie sa struct** en la passant à une fonction : on modifie la copie.\n- **`s = append(s, x)` dans la fonction** sans renvoyer `s` : l'appelant ne voit pas la nouvelle longueur.\n- **`append(s[:i], s[i+1:]...)`** pour supprimer un élément : cela *réécrit le tableau partagé* et corrompt la slice de l'appelant.\n- **Modifier la map d'un paramètre** sans le dire : effet de bord surprenant.\n- **Supposer qu'une struct qui contient une slice est entièrement copiée** : le tableau d'éléments, lui, reste partagé.\n\n## À retenir\n\n- Go passe tout **par valeur** : le paramètre est une copie de l'argument.\n- Une map copiée pointe vers la même table ; une slice copiée pointe vers le même tableau mais a sa propre longueur.\n- Donc : éléments modifiables, longueur non. Pour agrandir, on renvoie la slice.\n- Pour changer une variable simple ou une struct, il faut renvoyer la nouvelle valeur… ou un pointeur (prochain module).\n",
+   "chapter": {
+    "course_id": "go",
+    "id": "go-ch04",
+    "title": "Fonctions"
+   },
+   "completed": false,
+   "concepts": [
+    {
+     "id": "go-call-by-value",
+     "label": "Un paramètre est toujours une copie de l'argument"
+    },
+    {
+     "id": "go-map-slice-param",
+     "label": "Maps et slices : le contenu se modifie, mais la slice ne grandit pas"
+    }
+   ],
+   "duration_min": 20,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Toujours par valeur : le paramètre est une copie.",
+     "concept": "go-call-by-value",
+     "front": "Comment Go passe-t-il les arguments ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Elle modifie une copie. Pour que l'appelant voie le changement, elle doit renvoyer la struct (ou recevoir un pointeur).",
+     "concept": "go-call-by-value",
+     "front": "Une fonction peut-elle modifier une struct reçue en paramètre ?",
+     "id": "fc2"
+    },
+    {
+     "back": "La copie d'une map pointe vers la même table de données.",
+     "concept": "go-map-slice-param",
+     "front": "Pourquoi une modification de map dans une fonction est-elle visible ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Son en-tête (pointeur, longueur, capacité). Les éléments sont partagés, la longueur est propre à la copie.",
+     "concept": "go-map-slice-param",
+     "front": "Qu'est-ce qui est copié quand on passe une slice ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Non, sauf à la renvoyer : s = grow(s). Le changement de longueur reste local à la copie de l'en-tête.",
+     "concept": "go-map-slice-param",
+     "front": "Une fonction peut-elle agrandir la slice de l'appelant ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Il réécrit le tableau partagé : la slice de l'appelant est corrompue. Construis une nouvelle slice.",
+     "concept": "go-map-slice-param",
+     "front": "Pourquoi append(s[:i], s[i+1:]...) est-il dangereux pour supprimer un élément ?",
+     "id": "fc6"
+    },
+    {
+     "back": "Le tableau d'éléments. Modifier un élément via la copie se voit dans l'original.",
+     "concept": "go-map-slice-param",
+     "front": "Une struct contenant une slice est copiée : que partage-t-on ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Chaque type est un type valeur ; simplement, parfois, la valeur est un pointeur.",
+     "concept": "go-call-by-value",
+     "front": "Quelle phrase résume le modèle de Go ?",
+     "id": "fc8"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Mode de passage où la fonction reçoit une copie de l'argument. Modifier la copie ne change pas la variable de l'appelant.",
+     "term": "appel par valeur"
+    },
+    {
+     "definition": "Petite structure (pointeur vers les données, longueur, capacité) qui représente une slice. C'est elle que l'on copie, pas les éléments.",
+     "term": "en-tête de slice"
+    },
+    {
+     "definition": "Situation où deux variables donnent accès aux mêmes données : modifier par l'une se voit par l'autre.",
+     "term": "alias (aliasing)"
+    },
+    {
+     "definition": "Modification, par une fonction, d'un état extérieur à ses résultats : une variable de l'appelant, un fichier, une map.",
+     "term": "effet de bord"
+    }
+   ],
+   "id": "go-ch04-l05",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "go-ch04-l05-lab-copies",
+     "passed": false,
+     "role": "lab",
+     "title": "Copier ou partager ? Structs, maps et slices en paramètres",
+     "xp": 55
+    }
+   ],
+   "next_id": null,
+   "previous_id": "go-ch04-l04",
+   "quiz_id": "go-ch04-l05-quiz",
+   "source": {
+    "chapter": 5,
+    "pages": "138-140"
+   },
+   "title": "Go passe tout par valeur",
+   "visuals": {
+    "go-ch04-by-value": {
+     "concept": "go-call-by-value",
+     "entry": "ByValue.tsx",
+     "format": "interactive",
+     "id": "go-ch04-by-value",
+     "justification": "Un tableau « type × opération » qui dit ce que l'appelant voit permet de comparer d'un coup d'œil int, struct, map et slice.",
+     "params": [],
+     "status": "built"
+    }
+   },
+   "xp": 25
+  },
+  "name": "lesson:go-ch04-l05",
+  "status": 200
+ },
+ {
+  "body": {
    "id": "go-ch00-l01-quiz",
    "lesson_id": "go-ch00-l01",
    "questions": [
@@ -5782,6 +6613,566 @@
  },
  {
   "body": {
+   "id": "go-ch04-l01-quiz",
+   "lesson_id": "go-ch04-l01",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "addTo := func(base int, vals ...int) []int {\n\tout := make([]int, 0, len(vals))\n\tfor _, v := range vals {\n\t\tout = append(out, base+v)\n\t}\n\treturn out\n}\nnums := []int{4, 3}\nfmt.Println(addTo(3), addTo(3, 2, 4), addTo(3, nums...))\n",
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "divmod := func(a, b int) (int, int, error) {\n\tif b == 0 {\n\t\treturn 0, 0, errors.New(\"division par zéro\")\n\t}\n\treturn a / b, a % b, nil\n}\nq, r, err := divmod(17, 5)\nfmt.Println(q, r, err)\n_, _, err = divmod(1, 0)\nfmt.Println(err)\n",
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "L'erreur est la dernière valeur de retour",
+      "L'erreur est la première valeur de retour",
+      "La fonction lève une exception",
+      "La fonction renvoie un code numérique négatif"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q3",
+     "prompt": "Quelle convention suit-on pour une fonction qui peut échouer ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "f := func() (result int, err error) {\n\tresult = 20\n\treturn 7, nil\n}\nr, _ := f()\nfmt.Println(r)\n",
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "f := func(n int) (result int) {\n\tif n > 0 {\n\t\tresult := n * 2\n\t\t_ = result\n\t}\n\treturn\n}\nfmt.Println(f(5))\n",
+     "difficulty": 3,
+     "id": "q5",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "result reçoit un tuple des trois valeurs",
+      "result reçoit la première valeur",
+      "Erreur de compilation : on doit affecter chaque valeur retournée",
+      "result reçoit la dernière valeur"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q6",
+     "prompt": "Que se passe-t-il si on écrit `result := divmod(7, 2)` alors que divmod renvoie trois valeurs ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Avec une valeur par défaut : func f(x int = 5)",
+      "Avec une struct d'options dont les champs omis valent leur valeur zéro",
+      "En surchargeant la fonction avec plusieurs signatures",
+      "Avec le mot-clé optional"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q7",
+     "prompt": "Comment simuler un paramètre optionnel en Go ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il est plus lent",
+      "Le lecteur doit remonter le code pour savoir ce qui est réellement renvoyé",
+      "Il ne compile pas",
+      "Il ne renvoie jamais d'erreur"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q8",
+     "prompt": "Pourquoi déconseille-t-on le retour nu (un return seul avec retours nommés) ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "int",
+      "[]int",
+      "...int",
+      "*int"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q9",
+     "prompt": "Quel est le type de vals dans func f(vals ...int) ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch04-l01-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "go-ch04-l02-quiz",
+   "lesson_id": "go-ch04-l02",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "f1 := func(a string) int { return len(a) }\nf2 := func(a string) int {\n\ttotal := 0\n\tfor _, v := range a {\n\t\ttotal += int(v)\n\t}\n\treturn total\n}\nvar f func(string) int\nf = f1\nfmt.Println(f(\"Hello\"))\nf = f2\nfmt.Println(f(\"Hello\"))\n",
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Elle renvoie 0",
+      "Le programme panique",
+      "Erreur de compilation",
+      "L'appel est ignoré"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Que se passe-t-il quand on appelle une variable de type func(int) int qui n'a jamais été affectée ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "ops := map[string]func(int, int) int{\n\t\"+\": func(a, b int) int { return a + b },\n\t\"*\": func(a, b int) int { return a * b },\n}\nif op, ok := ops[\"-\"]; !ok {\n\tfmt.Println(\"non géré\", op == nil)\n}\nfmt.Println(ops[\"*\"](6, 7))\n",
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "func add(i, j int) int",
+      "func sub(a int, b int) int",
+      "func div(a, b int) (int, error)",
+      "func neg(a int) int"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Lesquelles de ces fonctions peuvent être affectées à une variable de type func(int, int) int ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "for i := 0; i < 3; i++ {\n\tfunc(j int) {\n\t\tfmt.Print(j*j, \" \")\n\t}(i)\n}\n",
+     "difficulty": 1,
+     "id": "q5",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "apply := func(xs []int, f func(int) int) []int {\n\tout := make([]int, len(xs))\n\tfor i, x := range xs {\n\t\tout[i] = f(x)\n\t}\n\treturn out\n}\nfmt.Println(apply([]int{1, 2, 3}, func(x int) int { return x * 10 }))\n",
+     "difficulty": 1,
+     "id": "q6",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il rend les fonctions plus rapides",
+      "Il donne un nom à la signature, et toute fonction de cette forme y correspond automatiquement",
+      "Il oblige à déclarer chaque fonction avec ce type",
+      "Il crée une nouvelle fonction"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q7",
+     "prompt": "Quel est l'intérêt de `type BinaryOp func(int, int) int` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Pour remplacer toutes les fonctions nommées",
+      "Avec defer et pour lancer des goroutines",
+      "Pour accélérer les boucles",
+      "Elle n'est jamais utile"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q8",
+     "prompt": "Dans quelles situations une fonction anonyme appelée sur place est-elle vraiment utile ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Elle ne compile pas hors de main",
+      "On peut la réaffecter : le sens d'un appel change pendant l'exécution, sans que l'appelant le sache",
+      "Elle est toujours nil",
+      "Elle ne peut pas être appelée"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q9",
+     "prompt": "Pourquoi se méfier d'une variable de package de type fonction (var add = func(…) {…}) ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch04-l02-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "go-ch04-l03-quiz",
+   "lesson_id": "go-ch04-l03",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "a := 20\nf := func() {\n\tfmt.Println(a)\n\ta = 30\n}\nf()\nfmt.Println(a)\n",
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "a := 20\nf := func() {\n\tfmt.Println(a)\n\ta := 30\n\tfmt.Println(a)\n}\nf()\nfmt.Println(a)\n",
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "makeMult := func(base int) func(int) int {\n\treturn func(factor int) int {\n\t\treturn base * factor\n\t}\n}\ntwo, three := makeMult(2), makeMult(3)\nfor i := 0; i < 3; i++ {\n\tfmt.Print(two(i), \",\", three(i), \" \")\n}\n",
+     "difficulty": 1,
+     "id": "q3",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "counter := func() func() int {\n\tn := 0\n\treturn func() int {\n\t\tn++\n\t\treturn n\n\t}\n}\na, b := counter(), counter()\nfmt.Println(a(), a(), a(), b())\n",
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "xs := []string{\"banana\", \"kiwi\", \"apple\"}\nsort.Slice(xs, func(i, j int) bool {\n\treturn len(xs[i]) < len(xs[j])\n})\nfmt.Println(xs)\n",
+     "difficulty": 1,
+     "id": "q5",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "var fs []func() int\nfor i := 0; i < 3; i++ {\n\tfs = append(fs, func() int { return i * i })\n}\nfor _, f := range fs {\n\tfmt.Print(f(), \" \")\n}\n",
+     "difficulty": 3,
+     "id": "q6",
+     "prompt": "Qu'affiche ce programme ? (Go 1.22 ou plus)",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "x := 1\ninc := func() { x++ }\ninc()\ninc()\nfmt.Println(x)\n",
+     "difficulty": 1,
+     "id": "q7",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Une fonction exportée",
+      "Une fonction qui prend une fonction en paramètre ou en renvoie une",
+      "Une fonction récursive",
+      "Une fonction qui s'exécute en premier"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q8",
+     "prompt": "Qu'est-ce qu'une fonction d'ordre supérieur ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Elle en fait une copie au moment de sa création",
+      "Elle garde une référence à la variable extérieure, qu'elle peut lire et modifier",
+      "Elle la supprime de la fonction extérieure",
+      "Elle la rend constante"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q9",
+     "prompt": "Que signifie qu'une closure « capture » une variable ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch04-l03-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "go-ch04-l04-quiz",
+   "lesson_id": "go-ch04-l04",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "deferExample := func() int {\n\ta := 10\n\tdefer func(val int) {\n\t\tfmt.Println(\"first:\", val)\n\t}(a)\n\ta = 20\n\tdefer func(val int) {\n\t\tfmt.Println(\"second:\", val)\n\t}(a)\n\ta = 30\n\tfmt.Println(\"exiting:\", a)\n\treturn a\n}\ndeferExample()\n",
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "for i := 0; i < 3; i++ {\n\tdefer fmt.Print(i, \" \")\n}\n",
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "x := 1\ndefer fmt.Println(\"différé :\", x)\nx = 2\nfmt.Println(\"maintenant :\", x)\n",
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "f := func() (n int) {\n\tdefer func() { n *= 2 }()\n\tn = 21\n\treturn n\n}\nfmt.Println(f())\n",
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "f := func() int {\n\tn := 21\n\tdefer func() { n *= 2 }()\n\treturn n\n}\nfmt.Println(f())\n",
+     "difficulty": 3,
+     "id": "q5",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Immédiatement, comme un appel normal",
+      "À la fin du bloc dans lequel elle est écrite",
+      "Quand la fonction englobante se termine, quelle que soit la façon dont elle sort",
+      "À la fin du programme"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q6",
+     "prompt": "Quand s'exécute une fonction différée avec defer ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "defer n'accepte pas les fonctions anonymes",
+      "Il manque les parenthèses d'appel après l'accolade fermante",
+      "Il faut un return dans la fonction",
+      "fmt.Println ne peut pas être différé"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q7",
+     "prompt": "Pourquoi ce code ne compile-t-il pas ?\n\ndefer func() {\n    fmt.Println(\"fin\")\n}",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Pour que le fichier se ferme tout seul",
+      "Parce que Go interdit les variables inutilisées : l'appelant ne peut pas oublier d'utiliser le nettoyage",
+      "Parce que os.Open l'exige",
+      "Pour accélérer l'ouverture"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q8",
+     "prompt": "Pourquoi une fonction qui ouvre un fichier peut-elle renvoyer aussi une fonction de nettoyage ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il est plus rapide",
+      "Il garde le nettoyage à plat, sans niveau d'indentation supplémentaire par ressource",
+      "Il capture les exceptions",
+      "Il s'exécute avant la fonction"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q9",
+     "prompt": "Quel avantage defer a-t-il sur un bloc try/finally ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Pour que le defer puisse lire et modifier l'erreur renvoyée par la fonction",
+      "Pour accélérer le commit",
+      "Parce que defer l'exige syntaxiquement",
+      "Pour éviter le shadowing"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q10",
+     "prompt": "Pourquoi les retours nommés sont-ils indispensables dans un defer qui valide ou annule une transaction ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch04-l04-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "go-ch04-l05-quiz",
+   "lesson_id": "go-ch04-l05",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "type person struct {\n\tage  int\n\tname string\n}\nmodifyFails := func(i int, s string, p person) {\n\ti = i * 2\n\ts = \"Goodbye\"\n\tp.name = \"Bob\"\n}\np := person{}\ni := 2\ns := \"Hello\"\nmodifyFails(i, s, p)\nfmt.Println(i, s, p)\n",
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "modMap := func(m map[int]string) {\n\tm[2] = \"hello\"\n\tm[3] = \"goodbye\"\n\tdelete(m, 1)\n}\nmodSlice := func(s []int) {\n\tfor k, v := range s {\n\t\ts[k] = v * 2\n\t}\n\ts = append(s, 10)\n}\nm := map[int]string{1: \"first\", 2: \"second\"}\nmodMap(m)\nfmt.Println(m)\ns := []int{1, 2, 3}\nmodSlice(s)\nfmt.Println(s)\n",
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "type box struct{ items []int }\nfill := func(b box) {\n\tb.items[0] = 100\n}\nb := box{items: []int{1, 2}}\nfill(b)\nfmt.Println(b.items)\n",
+     "difficulty": 3,
+     "id": "q3",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "f := func(s []int) {\n\ts = append(s, 99)\n}\ns := make([]int, 2, 10)\nf(s)\nfmt.Println(len(s), s[:3][2])\n",
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Qu'affiche ce programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Toujours par référence",
+      "Toujours par valeur : le paramètre est une copie",
+      "Par référence pour les structs, par valeur pour le reste",
+      "Par référence pour les maps et slices uniquement"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q5",
+     "prompt": "Go passe-t-il les arguments par valeur ou par référence ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que append est interdit dans une fonction",
+      "Parce que l'en-tête de slice (dont la longueur) est copié : le changement de longueur reste local, sauf si on renvoie la nouvelle slice",
+      "Parce que les slices ont une taille fixe",
+      "Parce que append renvoie toujours une erreur"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q6",
+     "prompt": "Pourquoi une fonction ne peut-elle pas agrandir la slice de l'appelant avec append ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il est toujours plus rapide",
+      "Appeler une fonction ne peut pas modifier tes variables simples : le flux de données est plus facile à suivre",
+      "Il évite d'écrire des return",
+      "Il permet de modifier plusieurs variables à la fois"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q7",
+     "prompt": "Quel avantage le passage par valeur apporte-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Avec le mot-clé ref",
+      "Avec un pointeur (sujet du prochain module)",
+      "En la déclarant const",
+      "C'est impossible en Go"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q8",
+     "prompt": "Comment passer à une fonction une variable qu'elle puisse vraiment modifier ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:go-ch04-l05-quiz",
+  "status": 200
+ },
+ {
+  "body": {
    "chapter_id": "",
    "checks": [
     {
@@ -7338,6 +8729,391 @@
  },
  {
   "body": {
+   "chapter_id": "go-ch04",
+   "checks": [],
+   "concepts": [
+    "go-func-values",
+    "go-func-types",
+    "go-closure-capture",
+    "go-func-return",
+    "go-variadic",
+    "go-multi-return"
+   ],
+   "difficulty": 3,
+   "id": "go-ch04-assignment",
+   "instructions": "## Contexte\n\nUn serveur web traite chaque requête en la faisant passer par une série de couches : journalisation, validation, réessais, mise en forme. En Go, on les écrit comme des **middlewares** : des fonctions qui prennent un handler et en renvoient un autre, enrichi. C'est le motif d'ordre supérieur par excellence, et tu as déjà tous les ingrédients : fonctions comme valeurs, closures, variadiques.\n\n```go\ntype Handler func(request string) (string, error)\ntype Middleware func(Handler) Handler\n```\n\n## Ta mission\n\nDans `middleware.go`, implémente cinq fonctions.\n\n### `Chain(h Handler, middlewares ...Middleware) Handler`\nEnveloppe `h` avec tous les middlewares. **Le premier de la liste est le plus extérieur** : il s'exécute en premier à l'aller et en dernier au retour.\n\n```\nChain(h, A, B, C)  →  A avant, B avant, C avant, h, C après, B après, A après\n```\n\n### `Logging(logf func(string)) Middleware`\nAppelle `logf(\"start <requête>\")` avant le handler, puis `logf(\"end <requête> ok\")` ou `logf(\"end <requête> error: <message>\")` après. La réponse et l'erreur passent inchangées.\n\n### `Retry(attempts int) Middleware`\nRelance le handler jusqu'à `attempts` essais **au total** (au moins un, même si `attempts ≤ 0`). Renvoie le premier succès, ou l'erreur du **dernier** essai.\n\n### `WithPrefix(prefix string) Middleware`\nAjoute `prefix` devant la réponse en cas de succès. En cas d'erreur, la réponse est vide et l'erreur passe inchangée.\n\n### `Validate(check func(request string) error) Middleware`\nSi `check` renvoie une erreur, la requête est refusée avec cette erreur et le handler n'est **pas appelé**.\n\n## Contraintes\n\n- Aucune variable de package : tout l'état vit dans les closures.\n- Une chaîne doit pouvoir servir plusieurs requêtes.\n- Compose-les : `Chain(h, Logging(log), Validate(check), Retry(3), WithPrefix(\"# \"))` doit journaliser **une seule fois** pour l'ensemble, même s'il y a plusieurs essais.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "assignment",
+   "rubric": [
+    {
+     "id": "correctness",
+     "label": "Correction (tests)",
+     "source": "tests",
+     "weight": 0.5
+    },
+    {
+     "id": "composition",
+     "label": "Composition des fonctions",
+     "levels": {
+      "0": "Ordre d'enveloppement faux ou dépendance à des variables de package",
+      "2": "Correct mais avec de la duplication, ou un état partagé entre requêtes",
+      "4": "Chain construit la pile en boucle à l'envers, chaque middleware est une closure qui retourne un Handler, aucun état global"
+     },
+     "source": "ai",
+     "weight": 0.2
+    },
+    {
+     "id": "errors",
+     "label": "Gestion des erreurs et du flux",
+     "levels": {
+      "0": "Erreurs perdues ou modifiées sans raison",
+      "2": "Correct mais avec des else inutiles ou des valeurs de retour incohérentes en cas d'erreur",
+      "4": "Retour anticipé sur erreur, valeur de retour vide en cas d'erreur, aucune erreur avalée, dernier essai de Retry renvoyé"
+     },
+     "source": "ai",
+     "weight": 0.15
+    },
+    {
+     "id": "readability",
+     "label": "Lisibilité et idiomes",
+     "levels": {
+      "0": "Difficile à suivre",
+      "2": "Lisible mais noms peu parlants ou imbrication inutile",
+      "4": "Noms clairs (next, request, response), pas de retour nu, pas de shadowing de err, commentaires utiles"
+     },
+     "source": "ai",
+     "weight": 0.15
+    }
+   ],
+   "source": null,
+   "title": "Une chaîne de middlewares",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "middleware.go": "package lab\n\n// Handler traite une requête textuelle et renvoie une réponse ou une erreur.\ntype Handler func(request string) (string, error)\n\n// Middleware enveloppe un Handler pour lui ajouter un comportement.\ntype Middleware func(Handler) Handler\n\n// Chain enveloppe h avec les middlewares. Le premier de la liste est le plus extérieur :\n// il s'exécute en premier à l'aller et en dernier au retour.\nfunc Chain(h Handler, middlewares ...Middleware) Handler {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Logging appelle logf(\"start <requête>\") avant le handler, puis \"end <requête> ok\" ou \"end <requête> error: <erreur>\".\nfunc Logging(logf func(string)) Middleware {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Retry réessaie le handler jusqu'à attempts essais au total (au moins un).\n// Il renvoie le premier succès, ou l'erreur du dernier essai.\nfunc Retry(attempts int) Middleware {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// WithPrefix ajoute prefix devant la réponse en cas de succès. Une erreur passe sans modification.\nfunc WithPrefix(prefix string) Middleware {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Validate refuse la requête, sans appeler le handler, si check renvoie une erreur.\nfunc Validate(check func(request string) error) Middleware {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 0,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/middleware_test.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"fmt\"\n\t\"slices\"\n\t\"testing\"\n)\n\nfunc upper(request string) (string, error) { return \"OK:\" + request, nil }\n\nfunc TestChainWithoutMiddlewares(t *testing.T) {\n\th := Chain(upper)\n\tif got, err := h(\"a\"); err != nil || got != \"OK:a\" {\n\t\tt.Errorf(\"Chain(h)(a) = (%q, %v)\", got, err)\n\t}\n}\n\nfunc TestChainOrder(t *testing.T) {\n\tvar trace []string\n\ttag := func(name string) Middleware {\n\t\treturn func(next Handler) Handler {\n\t\t\treturn func(request string) (string, error) {\n\t\t\t\ttrace = append(trace, name+\" avant\")\n\t\t\t\tresponse, err := next(request)\n\t\t\t\ttrace = append(trace, name+\" après\")\n\t\t\t\treturn response, err\n\t\t\t}\n\t\t}\n\t}\n\th := Chain(func(request string) (string, error) {\n\t\ttrace = append(trace, \"handler\")\n\t\treturn \"ok\", nil\n\t}, tag(\"A\"), tag(\"B\"), tag(\"C\"))\n\n\tif _, err := h(\"x\"); err != nil {\n\t\tt.Fatal(err)\n\t}\n\twant := []string{\"A avant\", \"B avant\", \"C avant\", \"handler\", \"C après\", \"B après\", \"A après\"}\n\tif !slices.Equal(trace, want) {\n\t\tt.Errorf(\"ordre d'exécution :\\n   reçu    %v\\n   attendu %v\\n(le premier middleware de la liste est le plus extérieur)\", trace, want)\n\t}\n}\n\nfunc TestChainCanBeUsedSeveralTimes(t *testing.T) {\n\tcalls := 0\n\th := Chain(func(request string) (string, error) { calls++; return request, nil }, WithPrefix(\"> \"))\n\tfor _, req := range []string{\"a\", \"b\", \"c\"} {\n\t\tif got, _ := h(req); got != \"> \"+req {\n\t\t\tt.Errorf(\"h(%q) = %q\", req, got)\n\t\t}\n\t}\n\tif calls != 3 {\n\t\tt.Errorf(\"le handler doit être appelé une fois par requête : %d\", calls)\n\t}\n}\n\nfunc TestLogging(t *testing.T) {\n\tvar logs []string\n\tlogf := func(s string) { logs = append(logs, s) }\n\n\th := Chain(upper, Logging(logf))\n\tif got, err := h(\"ping\"); err != nil || got != \"OK:ping\" {\n\t\tt.Fatalf(\"la réponse doit passer inchangée : (%q, %v)\", got, err)\n\t}\n\tif want := []string{\"start ping\", \"end ping ok\"}; !slices.Equal(logs, want) {\n\t\tt.Errorf(\"journal = %v, attendu %v\", logs, want)\n\t}\n\n\tlogs = nil\n\tboom := errors.New(\"boom\")\n\tfailing := Chain(func(string) (string, error) { return \"\", boom }, Logging(logf))\n\tif _, err := failing(\"x\"); err != boom {\n\t\tt.Errorf(\"l'erreur doit passer inchangée : %v\", err)\n\t}\n\tif want := []string{\"start x\", \"end x error: boom\"}; !slices.Equal(logs, want) {\n\t\tt.Errorf(\"journal en cas d'erreur = %v, attendu %v\", logs, want)\n\t}\n}\n\nfunc flaky(failures int) (Handler, *int) {\n\tcalls := 0\n\treturn func(request string) (string, error) {\n\t\tcalls++\n\t\tif calls <= failures {\n\t\t\treturn \"\", fmt.Errorf(\"échec %d\", calls)\n\t\t}\n\t\treturn \"réussi après \" + fmt.Sprint(calls), nil\n\t}, &calls\n}\n\nfunc TestRetry(t *testing.T) {\n\tcases := []struct {\n\t\tname       string\n\t\tattempts   int\n\t\tfailures   int\n\t\twantCalls  int\n\t\twantResp   string\n\t\twantErrMsg string\n\t}{\n\t\t{\"réussit du premier coup\", 3, 0, 1, \"réussi après 1\", \"\"},\n\t\t{\"réussit au dernier essai\", 3, 2, 3, \"réussi après 3\", \"\"},\n\t\t{\"échoue tout le temps : dernière erreur\", 3, 10, 3, \"\", \"échec 3\"},\n\t\t{\"un seul essai\", 1, 5, 1, \"\", \"échec 1\"},\n\t\t{\"zéro essai = un essai\", 0, 5, 1, \"\", \"échec 1\"},\n\t\t{\"négatif = un essai\", -4, 5, 1, \"\", \"échec 1\"},\n\t}\n\tfor _, c := range cases {\n\t\th, calls := flaky(c.failures)\n\t\tgot, err := Chain(h, Retry(c.attempts))(\"req\")\n\t\tif *calls != c.wantCalls || got != c.wantResp || (err == nil) != (c.wantErrMsg == \"\") || (err != nil && err.Error() != c.wantErrMsg) {\n\t\t\tt.Errorf(\"%s : (%q, %v) après %d appels, attendu (%q, %q) après %d appels\", c.name, got, err, *calls, c.wantResp, c.wantErrMsg, c.wantCalls)\n\t\t}\n\t}\n}\n\nfunc TestWithPrefix(t *testing.T) {\n\th := Chain(upper, WithPrefix(\"# \"))\n\tif got, err := h(\"a\"); err != nil || got != \"# OK:a\" {\n\t\tt.Errorf(\"WithPrefix = (%q, %v)\", got, err)\n\t}\n\tboom := errors.New(\"boom\")\n\tfailing := Chain(func(string) (string, error) { return \"ignorée\", boom }, WithPrefix(\"# \"))\n\tif got, err := failing(\"a\"); err != boom || got != \"\" {\n\t\tt.Errorf(\"en cas d'erreur : (%q, %v), attendu (\\\"\\\", boom) — pas de préfixe sur une erreur\", got, err)\n\t}\n}\n\nfunc TestValidate(t *testing.T) {\n\terrEmpty := errors.New(\"requête vide\")\n\tcalls := 0\n\th := Chain(func(r string) (string, error) { calls++; return r, nil }, Validate(func(r string) error {\n\t\tif r == \"\" {\n\t\t\treturn errEmpty\n\t\t}\n\t\treturn nil\n\t}))\n\tif got, err := h(\"ok\"); err != nil || got != \"ok\" || calls != 1 {\n\t\tt.Errorf(\"requête valide : (%q, %v), appels %d\", got, err, calls)\n\t}\n\tif got, err := h(\"\"); err != errEmpty || got != \"\" || calls != 1 {\n\t\tt.Errorf(\"requête invalide : (%q, %v), appels %d — le handler ne doit pas être appelé\", got, err, calls)\n\t}\n}\n\nfunc TestMiddlewaresCompose(t *testing.T) {\n\tvar logs []string\n\tlogf := func(s string) { logs = append(logs, s) }\n\thandler, calls := flaky(1)\n\n\th := Chain(handler,\n\t\tLogging(logf), // extérieur : journalise une seule fois pour l'ensemble\n\t\tValidate(func(r string) error {\n\t\t\tif r == \"\" {\n\t\t\t\treturn errors.New(\"vide\")\n\t\t\t}\n\t\t\treturn nil\n\t\t}),\n\t\tRetry(2),\n\t\tWithPrefix(\"# \"),\n\t)\n\tgot, err := h(\"job\")\n\tif err != nil || got != \"# réussi après 2\" {\n\t\tt.Errorf(\"(%q, %v)\", got, err)\n\t}\n\tif *calls != 2 {\n\t\tt.Errorf(\"le handler a été appelé %d fois, attendu 2 (un échec, un succès)\", *calls)\n\t}\n\tif want := []string{\"start job\", \"end job ok\"}; !slices.Equal(logs, want) {\n\t\tt.Errorf(\"Logging est le plus extérieur : un seul start/end pour les deux essais, reçu %v\", logs)\n\t}\n}\n"
+    }
+   },
+   "xp": 130
+  },
+  "name": "exercise:go-ch04-assignment",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch04",
+   "checks": [],
+   "concepts": [
+    "go-func-values",
+    "go-closure-capture",
+    "go-variadic",
+    "go-multi-return",
+    "go-func-types",
+    "go-named-returns"
+   ],
+   "difficulty": 5,
+   "id": "go-ch04-boss",
+   "instructions": "## Contexte\n\nRelay doit calculer des expressions saisies par ses utilisateurs : `sqrt(x ^ 2 + y ^ 2)`, `max(1, min(5, 3) * 2)`, `2 * pi`. Pas question de lancer un interpréteur complet : tu écris une petite calculatrice scientifique, avec une grammaire précise et des erreurs bien typées. C'est l'occasion de tout combiner : tables de fonctions, variadiques, closures, retours multiples.\n\n## Ta mission\n\nDans `calc.go`, implémente :\n\n```go\nfunc Eval(expression string, vars map[string]float64) (float64, error)\n```\n\n`vars` donne la valeur des noms utilisables dans l'expression (`pi`, `x`…). Il peut être `nil` et ne doit **jamais être modifié**.\n\n### Grammaire\n\n```\nexpression := terme   (('+' | '-') terme)*\nterme      := unaire  (('*' | '/') unaire)*\nunaire     := '-' unaire | puissance\npuissance  := primaire ('^' unaire)?          ← associatif à droite\nprimaire   := nombre\n            | nom\n            | nom '(' [ expression (',' expression)* ] ')'     ← appel de fonction\n            | '(' expression ')'\n```\n\n- **nombre** : des chiffres, avec éventuellement un point suivi d'**au moins un chiffre** (`3.25` oui ; `.5` et `5.` non).\n- **nom** : une lettre ou `_`, suivie de lettres, chiffres ou `_`. Suivi d'une parenthèse ouvrante, c'est un appel de fonction ; sinon c'est une variable.\n- Les espaces sont ignorés. Il n'y a pas de `+` unaire.\n\nConséquences à connaître :\n\n| Expression | Valeur | Pourquoi |\n|---|---|---|\n| `2 ^ 3 ^ 2` | 512 | `^` s'associe à droite : `2 ^ (3 ^ 2)` |\n| `-2 ^ 2` | −4 | le moins unaire s'applique après la puissance |\n| `2 ^ -1` | 0,5 | l'exposant est un `unaire`, il peut être négatif |\n| `10 - 3 - 2` | 5 | `-` s'associe à gauche |\n\n### Fonctions\n\n| Fonction | Arguments | Résultat |\n|---|---|---|\n| `abs(x)` | 1 | valeur absolue |\n| `sqrt(x)` | 1 | racine carrée (`x ≥ 0`) |\n| `pow(a, b)` | 2 | `a` puissance `b` |\n| `max(...)`, `min(...)` | 1 ou plus | plus grand / plus petit |\n| `sum(...)` | 0 ou plus | somme (`sum()` vaut 0) |\n| `avg(...)` | 1 ou plus | moyenne |\n\n### Erreurs\n\nChaque erreur doit être testable avec `errors.Is`. Tu peux les enrichir avec `fmt.Errorf(\"…: %w\", …)`.\n\n| Erreur | Quand |\n|---|---|\n| `ErrSyntax` | expression vide, jeton inattendu, parenthèse non fermée, jeton en trop, nombre mal formé, caractère inconnu… |\n| `ErrUnknownName` | variable ou fonction inconnue (un nom de fonction sans parenthèses est une variable) |\n| `ErrDivisionByZero` | division par zéro |\n| `ErrDomain` | `sqrt` d'un négatif, ou une puissance dont le résultat est infini ou non défini (`0 ^ -1`, `(-8) ^ 0.5`) |\n| `ErrArity` | mauvais nombre d'arguments pour une fonction |\n\n## Conseils d'architecture\n\n- Découpe d'abord l'entrée en **jetons** (nombres, noms, opérateurs).\n- Écris un **analyseur à descente récursive** : une fonction par règle de la grammaire, qui consomme les jetons et renvoie `(valeur, erreur)`. Des closures qui partagent la position courante, ou toute autre approche, conviennent.\n- Garde les fonctions dans une **table** (map nom → description avec bornes d'arguments et calcul) : ajouter `floor` ne doit coûter qu'une ligne.\n- Arrête-toi à la **première** erreur, et vérifie qu'il ne reste pas de jeton après l'expression complète.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "boss",
+   "rubric": [],
+   "source": null,
+   "title": "Boss : la calculatrice scientifique",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "calc.go": "package lab\n\nimport \"errors\"\n\nvar (\n\tErrSyntax         = errors.New(\"syntaxe invalide\")\n\tErrUnknownName    = errors.New(\"nom inconnu\")\n\tErrDivisionByZero = errors.New(\"division par zéro\")\n\tErrDomain         = errors.New(\"hors du domaine\")\n\tErrArity          = errors.New(\"mauvais nombre d'arguments\")\n)\n\n// Eval calcule une expression arithmétique. Voir instructions.md pour la grammaire,\n// les fonctions disponibles et les erreurs.\nfunc Eval(expression string, vars map[string]float64) (float64, error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/calc_test.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"math\"\n\t\"testing\"\n)\n\nfunc approx(a, b float64) bool { return math.Abs(a-b) < 1e-9 }\n\nfunc TestEvalValues(t *testing.T) {\n\tvars := map[string]float64{\"x\": 3, \"y\": 4, \"pi\": math.Pi, \"zero\": 0}\n\tcases := []struct {\n\t\texpr string\n\t\twant float64\n\t\twhy  string\n\t}{\n\t\t{\"7\", 7, \"un nombre\"},\n\t\t{\"  42  \", 42, \"espaces ignorés\"},\n\t\t{\"3.25\", 3.25, \"décimal\"},\n\t\t{\"1 + 2 * 3\", 7, \"priorité de *\"},\n\t\t{\"(1 + 2) * 3\", 9, \"parenthèses\"},\n\t\t{\"10 - 3 - 2\", 5, \"- s'associe à gauche\"},\n\t\t{\"100 / 10 / 5\", 2, \"/ s'associe à gauche\"},\n\t\t{\"10 / 4\", 2.5, \"division décimale\"},\n\t\t{\"0.1 + 0.2\", 0.3, \"approximation flottante\"},\n\t\t{\"2 * (3 + 4) * 5\", 70, \"plusieurs facteurs\"},\n\t\t{\"((((5))))\", 5, \"parenthèses imbriquées\"},\n\t\t{\"2 ^ 3\", 8, \"puissance\"},\n\t\t{\"2 ^ 3 ^ 2\", 512, \"^ s'associe à droite : 2^(3^2)\"},\n\t\t{\"-2 ^ 2\", -4, \"le moins unaire s'applique après la puissance\"},\n\t\t{\"(-2) ^ 2\", 4, \"parenthèses autour du négatif\"},\n\t\t{\"2 ^ -1\", 0.5, \"exposant négatif\"},\n\t\t{\"2 * 3 ^ 2\", 18, \"^ passe avant *\"},\n\t\t{\"--3\", 3, \"double moins\"},\n\t\t{\"3 - -3\", 6, \"soustraire un négatif\"},\n\t\t{\"-(2 + 3)\", -5, \"moins devant une parenthèse\"},\n\t\t{\"2 * -3\", -6, \"moins après une multiplication\"},\n\t\t{\"max(1, 5, 3)\", 5, \"max variadique\"},\n\t\t{\"max(7)\", 7, \"max d'un seul argument\"},\n\t\t{\"min(4, 2)\", 2, \"min\"},\n\t\t{\"sum()\", 0, \"sum sans argument vaut 0\"},\n\t\t{\"sum(1, 2, 3, 4)\", 10, \"sum\"},\n\t\t{\"abs(-7.5)\", 7.5, \"abs\"},\n\t\t{\"sqrt(16)\", 4, \"sqrt\"},\n\t\t{\"avg(1, 2, 3, 4)\", 2.5, \"avg\"},\n\t\t{\"pow(2, 10)\", 1024, \"pow\"},\n\t\t{\"max(1, min(5, 3) * 2)\", 6, \"appels imbriqués\"},\n\t\t{\"sqrt(abs(-9)) + 1\", 4, \"composition\"},\n\t\t{\"abs(-2) ^ 3\", 8, \"puissance d'un appel de fonction\"},\n\t\t{\"max( 1 ,2 )\", 2, \"espaces dans l'appel\"},\n\t\t{\"x * 2 + y\", 10, \"variables\"},\n\t\t{\"2 * pi\", 2 * math.Pi, \"constante fournie par l'appelant\"},\n\t\t{\"max(x, y, 10) - min(x, y)\", 7, \"variables dans des appels\"},\n\t\t{\"x ^ 2 + y ^ 2\", 25, \"x² + y²\"},\n\t\t{\"sqrt(x ^ 2 + y ^ 2)\", 5, \"hypoténuse\"},\n\t\t{\"zero * 5\", 0, \"variable nulle\"},\n\t}\n\tfor _, c := range cases {\n\t\tgot, err := Eval(c.expr, vars)\n\t\tif err != nil || !approx(got, c.want) {\n\t\t\tt.Errorf(\"Eval(%q) = (%v, %v), attendu %v — %s\", c.expr, got, err, c.want, c.why)\n\t\t}\n\t}\n}\n\nfunc TestEvalWithoutVariables(t *testing.T) {\n\tif got, err := Eval(\"1 + 1\", nil); err != nil || got != 2 {\n\t\tt.Errorf(\"Eval avec une map nil = (%v, %v)\", got, err)\n\t}\n}\n\nfunc expectError(t *testing.T, want error, exprs ...string) {\n\tt.Helper()\n\tfor _, expr := range exprs {\n\t\tif got, err := Eval(expr, map[string]float64{\"x\": 1}); !errors.Is(err, want) {\n\t\t\tt.Errorf(\"Eval(%q) = (%v, %v), attendu l'erreur %v\", expr, got, err, want)\n\t\t}\n\t}\n}\n\nfunc TestEvalSyntaxErrors(t *testing.T) {\n\texpectError(t, ErrSyntax,\n\t\t\"\", \"   \", \"1 +\", \"+ 1\", \"* 2\", \"(1 + 2\", \"1 + 2)\", \"1 2\", \"()\", \"2 +* 3\", \"2 ** 3\",\n\t\t\"max(1,)\", \"max(,1)\", \"max(1 2)\", \"sum(1,2\", \".5\", \"5.\", \"1 . 5\", \"3 $ 4\", \"1 + (2 * )\", \"^ 2\", \"2 ^\", \"x y\",\n\t)\n}\n\nfunc TestEvalUnknownNames(t *testing.T) {\n\texpectError(t, ErrUnknownName, \"y\", \"foo(1)\", \"x + z\", \"max\", \"pi * 2\", \"2 * unknown(3)\", \"x(2)\")\n}\n\nfunc TestEvalDivisionByZero(t *testing.T) {\n\texpectError(t, ErrDivisionByZero, \"1 / 0\", \"5 / (3 - 3)\", \"1 / sum()\", \"x / (x - x)\", \"2 * 3 / 0\")\n}\n\nfunc TestEvalDomainErrors(t *testing.T) {\n\texpectError(t, ErrDomain, \"sqrt(-1)\", \"0 ^ -1\", \"(-8) ^ 0.5\", \"pow(0, -2)\", \"sqrt(1 - 2)\")\n}\n\nfunc TestEvalArityErrors(t *testing.T) {\n\texpectError(t, ErrArity, \"abs()\", \"abs(1, 2)\", \"sqrt(1, 2)\", \"sqrt()\", \"pow(2)\", \"pow(1, 2, 3)\", \"max()\", \"min()\", \"avg()\")\n}\n\nfunc TestEvalDoesNotModifyVariables(t *testing.T) {\n\tvars := map[string]float64{\"x\": 2}\n\tif _, err := Eval(\"x * x + x\", vars); err != nil {\n\t\tt.Fatal(err)\n\t}\n\tif len(vars) != 1 || vars[\"x\"] != 2 {\n\t\tt.Errorf(\"Eval a modifié les variables de l'appelant : %v\", vars)\n\t}\n}\n\nfunc TestEvalIsRepeatable(t *testing.T) {\n\tfor i := 0; i < 3; i++ {\n\t\tif got, err := Eval(\"max(1, 2) + 3 ^ 2\", nil); err != nil || got != 11 {\n\t\t\tt.Fatalf(\"appel %d : (%v, %v), attendu 11 — pas d'état partagé entre les appels\", i+1, got, err)\n\t\t}\n\t}\n}\n"
+    }
+   },
+   "xp": 260
+  },
+  "name": "exercise:go-ch04-boss",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch04",
+   "checks": [],
+   "concepts": [
+    "go-variadic",
+    "go-multi-return",
+    "go-options-struct",
+    "go-named-returns"
+   ],
+   "difficulty": 2,
+   "id": "go-ch04-l01-lab-signatures",
+   "instructions": "## Contexte\n\nTu écris la petite bibliothèque d'utilitaires de Relay. Elle sert à résumer des mesures et à afficher des listes. Chaque fonction exerce une facette de la déclaration de fonction en Go : paramètres variadiques, valeurs de retour multiples, retours nommés et struct d'options.\n\n## Ta mission\n\nDans `signatures.go`, implémente trois fonctions.\n\n### `MinMax(vals ...int) (lo, hi int, ok bool)`\nRenvoie la plus petite et la plus grande valeur. `ok` vaut `false` s'il n'y a aucune valeur (dans ce cas `lo` et `hi` valent 0).\n\nLes retours s'appellent volontairement `lo` et `hi` : `min` et `max` sont des identifiants prédéclarés que tu masquerais.\n\n### `Stats(vals ...float64) (mean, median float64, err error)`\nMoyenne et médiane. La médiane d'un nombre pair de valeurs est la moyenne des deux valeurs centrales. Sans valeur : `ErrNoValues`.\n\n**Contrainte importante :** `Stats` ne doit jamais modifier les valeurs de l'appelant. Quand on l'appelle avec `Stats(xs...)`, la fonction reçoit **la même slice** que l'appelant : trier `vals` en place trierait `xs`.\n\n### `Join(items []string, opts FormatOptions) string`\nAssemble `items` selon une struct d'options (le moyen de Go pour avoir des paramètres nommés et optionnels) :\n\n| Champ | Effet | Valeur zéro |\n|---|---|---|\n| `Prefix` | ajouté devant **chaque** élément | rien |\n| `Separator` | entre les éléments | `\",\"` |\n| `Max` | nombre maximum d'éléments affichés | `0` ou moins = pas de limite |\n\nQuand il y a plus de `Max` éléments, affiche les `Max` premiers puis un dernier élément `…(+N)` où `N` est le nombre d'éléments omis. Ce marqueur n'a pas de préfixe.\n\n```\nJoin([a b c], {})                      → \"a,b,c\"\nJoin([a b c], {Prefix: \"#\", Max: 2})   → \"#a,#b,…(+1)\"\n```\n\n## Contrainte\n\nN'utilise pas de retour nu.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch04-l01",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Variadiques, retours multiples et struct d'options",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "signatures.go": "package lab\n\nimport \"errors\"\n\n// MinMax renvoie la plus petite et la plus grande des valeurs. ok vaut false s'il n'y a aucune valeur.\n// (Les retours se nomment lo et hi : min et max masqueraient des identifiants prédéclarés.)\nfunc MinMax(vals ...int) (lo, hi int, ok bool) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// ErrNoValues est renvoyée par Stats quand on ne lui passe aucune valeur.\nvar ErrNoValues = errors.New(\"aucune valeur\")\n\n// Stats renvoie la moyenne et la médiane des valeurs. Elle ne modifie jamais les valeurs de l'appelant.\nfunc Stats(vals ...float64) (mean, median float64, err error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// FormatOptions remplace des paramètres nommés et optionnels.\ntype FormatOptions struct {\n\tPrefix    string // ajouté devant chaque élément\n\tSeparator string // « , » si vide\n\tMax       int    // nombre maximum d'éléments affichés ; 0 ou moins = pas de limite\n}\n\n// Join assemble items selon opts. Quand il y a plus de Max éléments, les premiers sont affichés,\n// suivis de « …(+N) » où N est le nombre d'éléments omis.\nfunc Join(items []string, opts FormatOptions) string {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/signatures_test.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"math\"\n\t\"slices\"\n\t\"testing\"\n)\n\nfunc TestMinMax(t *testing.T) {\n\tcases := []struct {\n\t\tvals   []int\n\t\tlo, hi int\n\t\tok     bool\n\t}{\n\t\t{[]int{3}, 3, 3, true},\n\t\t{[]int{3, 1, 2}, 1, 3, true},\n\t\t{[]int{-5, -9, -1}, -9, -1, true},\n\t\t{[]int{7, 7, 7}, 7, 7, true},\n\t\t{[]int{0, -3, 8, 8, -3}, -3, 8, true},\n\t\t{nil, 0, 0, false},\n\t\t{[]int{}, 0, 0, false},\n\t}\n\tfor _, c := range cases {\n\t\tlo, hi, ok := MinMax(c.vals...)\n\t\tif lo != c.lo || hi != c.hi || ok != c.ok {\n\t\t\tt.Errorf(\"MinMax(%v) = (%d, %d, %v), attendu (%d, %d, %v)\", c.vals, lo, hi, ok, c.lo, c.hi, c.ok)\n\t\t}\n\t}\n\tif lo, hi, ok := MinMax(4, 9, 2); lo != 2 || hi != 9 || !ok {\n\t\tt.Errorf(\"MinMax(4, 9, 2) avec des arguments séparés = (%d, %d, %v)\", lo, hi, ok)\n\t}\n\tif _, _, ok := MinMax(); ok {\n\t\tt.Errorf(\"MinMax() sans argument doit renvoyer ok = false\")\n\t}\n}\n\nfunc TestStats(t *testing.T) {\n\tcases := []struct {\n\t\tvals         []float64\n\t\tmean, median float64\n\t}{\n\t\t{[]float64{5}, 5, 5},\n\t\t{[]float64{1, 2, 3}, 2, 2},\n\t\t{[]float64{1, 2, 3, 4}, 2.5, 2.5},\n\t\t{[]float64{9, 1, 5}, 5, 5},\n\t\t{[]float64{10, 0, 0, 10}, 5, 5},\n\t\t{[]float64{1, 1, 1, 100}, 25.75, 1},\n\t\t{[]float64{-2, 2}, 0, 0},\n\t}\n\tfor _, c := range cases {\n\t\tmean, median, err := Stats(c.vals...)\n\t\tif err != nil || math.Abs(mean-c.mean) > 1e-9 || math.Abs(median-c.median) > 1e-9 {\n\t\t\tt.Errorf(\"Stats(%v) = (%v, %v, %v), attendu (%v, %v, nil)\", c.vals, mean, median, err, c.mean, c.median)\n\t\t}\n\t}\n}\n\nfunc TestStatsNoValues(t *testing.T) {\n\tif _, _, err := Stats(); !errors.Is(err, ErrNoValues) {\n\t\tt.Errorf(\"Stats() : erreur %v, attendu ErrNoValues\", err)\n\t}\n\tvar none []float64\n\tif _, _, err := Stats(none...); !errors.Is(err, ErrNoValues) {\n\t\tt.Errorf(\"Stats(nil...) : erreur %v, attendu ErrNoValues\", err)\n\t}\n}\n\nfunc TestStatsDoesNotModifyCallerSlice(t *testing.T) {\n\txs := []float64{9, 1, 5, 3, 7}\n\toriginal := slices.Clone(xs)\n\tif _, _, err := Stats(xs...); err != nil {\n\t\tt.Fatal(err)\n\t}\n\tif !slices.Equal(xs, original) {\n\t\tt.Errorf(\"Stats a modifié la slice de l'appelant : %v, attendu %v — avec xs..., la fonction reçoit la même slice : copie avant de trier\", xs, original)\n\t}\n}\n\nfunc TestJoin(t *testing.T) {\n\titems := []string{\"a\", \"b\", \"c\"}\n\tcases := []struct {\n\t\tname  string\n\t\titems []string\n\t\topts  FormatOptions\n\t\twant  string\n\t}{\n\t\t{\"options par défaut\", items, FormatOptions{}, \"a,b,c\"},\n\t\t{\"séparateur\", items, FormatOptions{Separator: \" | \"}, \"a | b | c\"},\n\t\t{\"préfixe\", items, FormatOptions{Prefix: \"#\"}, \"#a,#b,#c\"},\n\t\t{\"préfixe et séparateur\", items, FormatOptions{Prefix: \"@\", Separator: \" \"}, \"@a @b @c\"},\n\t\t{\"limite\", items, FormatOptions{Max: 2}, \"a,b,…(+1)\"},\n\t\t{\"limite avec séparateur et préfixe\", []string{\"x\", \"y\", \"z\", \"w\", \"v\"}, FormatOptions{Prefix: \"-\", Separator: \";\", Max: 3}, \"-x;-y;-z;…(+2)\"},\n\t\t{\"limite non atteinte\", items, FormatOptions{Max: 3}, \"a,b,c\"},\n\t\t{\"limite plus grande que la liste\", items, FormatOptions{Max: 10}, \"a,b,c\"},\n\t\t{\"limite négative = pas de limite\", items, FormatOptions{Max: -1}, \"a,b,c\"},\n\t\t{\"aucun élément\", nil, FormatOptions{Prefix: \"#\", Max: 2}, \"\"},\n\t\t{\"un seul élément\", []string{\"solo\"}, FormatOptions{Prefix: \"#\"}, \"#solo\"},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Join(c.items, c.opts); got != c.want {\n\t\t\tt.Errorf(\"%s : Join(%v, %+v) = %q, attendu %q\", c.name, c.items, c.opts, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestJoinDoesNotModifyItems(t *testing.T) {\n\titems := []string{\"a\", \"b\", \"c\"}\n\t_ = Join(items, FormatOptions{Prefix: \"#\", Max: 2})\n\tif !slices.Equal(items, []string{\"a\", \"b\", \"c\"}) {\n\t\tt.Errorf(\"Join a modifié sa slice d'entrée : %v\", items)\n\t}\n}\n"
+    }
+   },
+   "xp": 55
+  },
+  "name": "exercise:go-ch04-l01-lab-signatures",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch04",
+   "checks": [],
+   "concepts": [
+    "go-func-values",
+    "go-func-types",
+    "go-anon-func"
+   ],
+   "difficulty": 3,
+   "id": "go-ch04-l02-lab-values",
+   "instructions": "## Contexte\n\nTu construis le moteur de calcul d'un outil de configuration : des expressions comme `2 ** 10` ou `7 % 3` doivent être évaluées, et les équipes doivent pouvoir **ajouter leurs propres opérateurs** sans toucher au code du moteur. C'est exactement le cas où une table de fonctions bat un `switch`.\n\n## Ta mission\n\nDans `values.go`, implémente cinq fonctions. Le type `BinaryOp` et les erreurs sentinelles sont déjà déclarés.\n\n### `Operators() map[string]BinaryOp`\nUne table avec `+`, `-`, `*`, `/`, `%`. La division et le reste par zéro renvoient `ErrDivisionByZero`. **Chaque appel renvoie une nouvelle map** : modifier l'une ne doit pas toucher les autres.\n\n### `Eval(expr string, ops map[string]BinaryOp) (int, error)`\nÉvalue `a op b` : exactement trois éléments séparés par des espaces (les espaces multiples sont tolérés).\n\n| Erreur | Quand |\n|---|---|\n| `ErrFormat` | pas trois éléments, ou un opérande qui n'est pas un entier |\n| `ErrOperator` | opérateur absent de `ops` (y compris quand `ops` est `nil`) |\n| *(celle de l'opérateur)* | renvoyée telle quelle (par exemple `ErrDivisionByZero`) |\n\nEnveloppe tes erreurs avec `fmt.Errorf(\"…: %w\", …)` pour garder le contexte tout en restant testable avec `errors.Is`.\n\n### `Apply`, `Filter`, `Reduce`\nLes trois classiques de l'ordre supérieur, sans toucher à la slice d'entrée :\n\n- `Apply(xs, f)` : une nouvelle slice avec `f` appliquée à chaque élément.\n- `Filter(xs, keep)` : les éléments pour lesquels `keep` renvoie `true`, dans l'ordre.\n- `Reduce(xs, initial, f)` : `acc = initial`, puis `acc = f(acc, x)` pour chaque `x`.\n\n## Contrainte\n\nPas de `switch` sur l'opérateur : la table de fonctions est le sujet.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch04-l02",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Une calculatrice à table de fonctions",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "values.go": "package lab\n\nimport \"errors\"\n\n// BinaryOp est une opération sur deux entiers qui peut échouer.\ntype BinaryOp func(a, b int) (int, error)\n\nvar (\n\tErrFormat         = errors.New(\"expression mal formée\")\n\tErrOperator       = errors.New(\"opérateur inconnu\")\n\tErrDivisionByZero = errors.New(\"division par zéro\")\n)\n\n// Operators renvoie une nouvelle table d'opérateurs : + - * / %.\n// Chaque appel renvoie une map indépendante, que l'appelant peut compléter à sa guise.\nfunc Operators() map[string]BinaryOp {\n\t// TODO : une map dont les valeurs sont des fonctions anonymes\n\tpanic(\"à implémenter\")\n}\n\n// Eval évalue « a op b » avec la table d'opérateurs fournie.\nfunc Eval(expr string, ops map[string]BinaryOp) (int, error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Apply renvoie une nouvelle slice où f est appliquée à chaque élément de xs.\nfunc Apply(xs []int, f func(int) int) []int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Filter renvoie, dans l'ordre, les éléments de xs pour lesquels keep renvoie true.\nfunc Filter(xs []int, keep func(int) bool) []int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Reduce replie xs en une valeur : acc part de initial, puis acc = f(acc, x) pour chaque x.\nfunc Reduce(xs []int, initial int, f func(acc, x int) int) int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/values_test.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"math\"\n\t\"slices\"\n\t\"testing\"\n)\n\nfunc TestEval(t *testing.T) {\n\tops := Operators()\n\tcases := []struct {\n\t\texpr string\n\t\twant int\n\t}{\n\t\t{\"2 + 3\", 5}, {\"2 - 3\", -1}, {\"6 * 7\", 42}, {\"7 / 2\", 3}, {\"-7 / 2\", -3}, {\"7 % 3\", 1}, {\"-7 % 3\", -1},\n\t\t{\"  10   +   5 \", 15}, {\"0 * 99\", 0}, {\"-3 - -3\", 0},\n\t}\n\tfor _, c := range cases {\n\t\tgot, err := Eval(c.expr, ops)\n\t\tif err != nil || got != c.want {\n\t\t\tt.Errorf(\"Eval(%q) = (%d, %v), attendu %d\", c.expr, got, err, c.want)\n\t\t}\n\t}\n}\n\nfunc TestEvalErrors(t *testing.T) {\n\tops := Operators()\n\tcases := []struct {\n\t\texpr string\n\t\twant error\n\t\twhy  string\n\t}{\n\t\t{\"1 / 0\", ErrDivisionByZero, \"l'erreur de l'opérateur doit remonter telle quelle\"},\n\t\t{\"1 % 0\", ErrDivisionByZero, \"idem pour %\"},\n\t\t{\"2 ^ 3\", ErrOperator, \"opérateur absent de la table\"},\n\t\t{\"two + 3\", ErrFormat, \"premier opérande illisible\"},\n\t\t{\"3 + three\", ErrFormat, \"second opérande illisible\"},\n\t\t{\"5\", ErrFormat, \"un seul élément\"},\n\t\t{\"1 + 2 + 3\", ErrFormat, \"trop d'éléments\"},\n\t\t{\"\", ErrFormat, \"expression vide\"},\n\t\t{\"1 +\", ErrFormat, \"opérande manquant\"},\n\t}\n\tfor _, c := range cases {\n\t\tif got, err := Eval(c.expr, ops); !errors.Is(err, c.want) {\n\t\t\tt.Errorf(\"Eval(%q) = (%d, %v), attendu l'erreur %v — %s\", c.expr, got, err, c.want, c.why)\n\t\t}\n\t}\n\tif _, err := Eval(\"1 + 2\", nil); !errors.Is(err, ErrOperator) {\n\t\tt.Errorf(\"Eval avec une table nil : erreur %v, attendu ErrOperator (lire une map nil est permis)\", err)\n\t}\n}\n\nfunc TestEvalCustomOperators(t *testing.T) {\n\tops := Operators()\n\tops[\"**\"] = func(a, b int) (int, error) {\n\t\tresult := 1\n\t\tfor i := 0; i < b; i++ {\n\t\t\tresult *= a\n\t\t}\n\t\treturn result, nil\n\t}\n\tops[\"max\"] = func(a, b int) (int, error) { return max(a, b), nil }\n\tops[\"fail\"] = func(a, b int) (int, error) { return 0, errors.New(\"échec voulu\") }\n\n\tif got, err := Eval(\"2 ** 10\", ops); err != nil || got != 1024 {\n\t\tt.Errorf(\"Eval(2 ** 10) = (%d, %v), attendu 1024\", got, err)\n\t}\n\tif got, err := Eval(\"3 max 9\", ops); err != nil || got != 9 {\n\t\tt.Errorf(\"Eval(3 max 9) = (%d, %v), attendu 9\", got, err)\n\t}\n\tif _, err := Eval(\"1 fail 2\", ops); err == nil || err.Error() != \"échec voulu\" {\n\t\tt.Errorf(\"l'erreur d'un opérateur personnalisé doit remonter : %v\", err)\n\t}\n}\n\nfunc TestOperatorsReturnsAFreshMap(t *testing.T) {\n\tfirst := Operators()\n\tfirst[\"+\"] = func(a, b int) (int, error) { return 0, errors.New(\"sabotage\") }\n\tdelete(first, \"-\")\n\n\tsecond := Operators()\n\tif got, err := Eval(\"2 + 3\", second); err != nil || got != 5 {\n\t\tt.Errorf(\"une modification de la première table a contaminé la seconde : (%d, %v)\", got, err)\n\t}\n\tif _, ok := second[\"-\"]; !ok {\n\t\tt.Errorf(\"la seconde table doit contenir « - »\")\n\t}\n\tfor _, symbol := range []string{\"+\", \"-\", \"*\", \"/\", \"%\"} {\n\t\tif second[symbol] == nil {\n\t\t\tt.Errorf(\"l'opérateur %q est absent\", symbol)\n\t\t}\n\t}\n}\n\nfunc TestApply(t *testing.T) {\n\txs := []int{1, 2, 3}\n\tif got := Apply(xs, func(x int) int { return x * x }); !slices.Equal(got, []int{1, 4, 9}) {\n\t\tt.Errorf(\"Apply carré = %v\", got)\n\t}\n\tif !slices.Equal(xs, []int{1, 2, 3}) {\n\t\tt.Errorf(\"Apply a modifié son entrée : %v\", xs)\n\t}\n\toffset := 100\n\tif got := Apply(xs, func(x int) int { return x + offset }); !slices.Equal(got, []int{101, 102, 103}) {\n\t\tt.Errorf(\"Apply doit accepter une fonction qui utilise une variable extérieure : %v\", got)\n\t}\n\tif got := Apply(nil, func(x int) int { return x }); len(got) != 0 {\n\t\tt.Errorf(\"Apply(nil) = %v, attendu vide\", got)\n\t}\n}\n\nfunc TestFilter(t *testing.T) {\n\teven := func(x int) bool { return x%2 == 0 }\n\tif got := Filter([]int{1, 2, 3, 4, 5, 6}, even); !slices.Equal(got, []int{2, 4, 6}) {\n\t\tt.Errorf(\"Filter pairs = %v\", got)\n\t}\n\tif got := Filter([]int{1, 3, 5}, even); len(got) != 0 {\n\t\tt.Errorf(\"Filter sans résultat = %v, attendu vide\", got)\n\t}\n\tif got := Filter(nil, even); len(got) != 0 {\n\t\tt.Errorf(\"Filter(nil) = %v\", got)\n\t}\n\txs := []int{5, 6, 7, 8}\n\t_ = Filter(xs, even)\n\tif !slices.Equal(xs, []int{5, 6, 7, 8}) {\n\t\tt.Errorf(\"Filter a modifié son entrée : %v\", xs)\n\t}\n\tcalls := 0\n\tFilter([]int{1, 2, 3}, func(int) bool { calls++; return true })\n\tif calls != 3 {\n\t\tt.Errorf(\"keep doit être appelée une fois par élément, pas %d fois\", calls)\n\t}\n}\n\nfunc TestReduce(t *testing.T) {\n\tadd := func(acc, x int) int { return acc + x }\n\tmul := func(acc, x int) int { return acc * x }\n\tif got := Reduce([]int{1, 2, 3, 4}, 0, add); got != 10 {\n\t\tt.Errorf(\"somme = %d\", got)\n\t}\n\tif got := Reduce([]int{1, 2, 3, 4}, 1, mul); got != 24 {\n\t\tt.Errorf(\"produit = %d\", got)\n\t}\n\tif got := Reduce([]int{3, 9, 2}, math.MinInt, func(acc, x int) int { return max(acc, x) }); got != 9 {\n\t\tt.Errorf(\"maximum = %d\", got)\n\t}\n\tif got := Reduce(nil, 42, add); got != 42 {\n\t\tt.Errorf(\"Reduce de rien doit renvoyer la valeur initiale, reçu %d\", got)\n\t}\n\tif got := Reduce([]int{1, 2, 3}, 0, func(acc, x int) int { return acc*10 + x }); got != 123 {\n\t\tt.Errorf(\"l'ordre compte : attendu 123, reçu %d\", got)\n\t}\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:go-ch04-l02-lab-values",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch04",
+   "checks": [],
+   "concepts": [
+    "go-closure-capture",
+    "go-closure-state",
+    "go-func-return",
+    "go-func-param"
+   ],
+   "difficulty": 3,
+   "id": "go-ch04-l03-lab-closures",
+   "instructions": "## Contexte\n\nLes closures sont les outils de base de la boîte à outils fonctionnelle de Go : elles fabriquent des fonctions configurées, retiennent un état, enchaînent des traitements. Tu implémentes cinq petites briques que tu retrouveras dans les middlewares et les pipelines de données.\n\n## Ta mission\n\nDans `closures.go`, implémente :\n\n### `Counter(start int) func() int`\nRenvoie une fonction qui renvoie `start`, puis `start+1`, puis `start+2`… à chaque appel. Deux appels à `Counter` créent deux compteurs **indépendants**.\n\n### `Prefixer(prefix string) func(string) string`\nRenvoie une fonction qui ajoute `prefix` devant son argument.\n\n### `Memoize(f func(int) int) func(int) int`\nRenvoie une version de `f` qui **retient ses résultats** : `f` n'est appelée qu'une fois par argument. Chaque fonction mémoïsée a son propre cache. Attention : un résultat égal à `0` est un résultat comme un autre.\n\n### `Chain(fns ...func(string) string) func(string) string`\nRenvoie une fonction qui applique `fns` **dans l'ordre**. Sans fonction, c'est l'identité.\n\n`Chain` doit rester correcte même si l'appelant modifie sa slice `fns` après coup. Rappelle-toi : avec `Chain(fns...)`, la fonction reçoit **la même slice** que l'appelant.\n\n### `SortPeople(people []Person, less func(a, b Person) bool)`\nTrie `people` **sur place** à l'aide de `less`, avec un tri **stable** : deux personnes « égales » gardent leur ordre d'origine. Tu peux t'appuyer sur `sort.SliceStable` : sa fonction reçoit des *indices*, la tienne des *éléments*. C'est à toi de faire le lien avec une closure.\n\n## Contrainte\n\nAucune variable de package : tout l'état vit dans les closures.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch04-l03",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Fabriquer des fonctions : compteur, mémoïsation, chaîne",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "closures.go": "package lab\n\n// Counter renvoie une fonction qui, à chaque appel, renvoie start, puis start+1, puis start+2…\n// Chaque appel de Counter crée un compteur indépendant.\nfunc Counter(start int) func() int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Prefixer renvoie une fonction qui ajoute prefix devant son argument.\nfunc Prefixer(prefix string) func(string) string {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Memoize renvoie une version de f qui retient ses résultats : f n'est appelée qu'une fois par argument.\n// Le cache appartient à la fonction renvoyée, pas au package.\nfunc Memoize(f func(int) int) func(int) int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Chain renvoie une fonction qui applique fns dans l'ordre. Sans fonction, elle renvoie son argument.\n// Chain doit rester correcte même si l'appelant modifie sa slice fns après coup.\nfunc Chain(fns ...func(string) string) func(string) string {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Person est une personne à trier.\ntype Person struct {\n\tFirstName string\n\tLastName  string\n\tAge       int\n}\n\n// SortPeople trie people sur place selon less. Le tri est stable : deux personnes « égales » gardent leur ordre.\nfunc SortPeople(people []Person, less func(a, b Person) bool) {\n\t// TODO : une closure qui compare people[i] et people[j] grâce à less\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/closures_test.go": "package lab\n\nimport (\n\t\"strings\"\n\t\"testing\"\n)\n\nfunc TestCounter(t *testing.T) {\n\tc := Counter(5)\n\tfor _, want := range []int{5, 6, 7, 8} {\n\t\tif got := c(); got != want {\n\t\t\tt.Fatalf(\"Counter(5) a renvoyé %d, attendu %d\", got, want)\n\t\t}\n\t}\n\ta, b := Counter(0), Counter(100)\n\tif a() != 0 || a() != 1 || b() != 100 || a() != 2 || b() != 101 {\n\t\tt.Errorf(\"deux compteurs doivent être indépendants\")\n\t}\n\tif n := Counter(-2); n() != -2 || n() != -1 || n() != 0 {\n\t\tt.Errorf(\"Counter(-2) doit compter à partir de -2\")\n\t}\n}\n\nfunc TestPrefixer(t *testing.T) {\n\thello := Prefixer(\"Hello \")\n\tif got := hello(\"Bob\"); got != \"Hello Bob\" {\n\t\tt.Errorf(\"hello(Bob) = %q\", got)\n\t}\n\tif got := hello(\"Maria\"); got != \"Hello Maria\" {\n\t\tt.Errorf(\"hello(Maria) = %q\", got)\n\t}\n\tbye := Prefixer(\"Bye \")\n\tif hello(\"X\") != \"Hello X\" || bye(\"X\") != \"Bye X\" {\n\t\tt.Errorf(\"deux fonctions fabriquées doivent garder chacune leur préfixe\")\n\t}\n\tif got := Prefixer(\"\")(\"x\"); got != \"x\" {\n\t\tt.Errorf(\"préfixe vide : %q\", got)\n\t}\n\tif got := Prefixer(\">\")(\"\"); got != \">\" {\n\t\tt.Errorf(\"argument vide : %q\", got)\n\t}\n}\n\nfunc TestMemoize(t *testing.T) {\n\tcalls := 0\n\tsquare := func(n int) int { calls++; return n * n }\n\tfast := Memoize(square)\n\n\tif fast(4) != 16 || fast(4) != 16 || fast(4) != 16 {\n\t\tt.Fatalf(\"Memoize doit renvoyer le bon résultat\")\n\t}\n\tif calls != 1 {\n\t\tt.Errorf(\"f appelée %d fois pour le même argument, attendu 1\", calls)\n\t}\n\tif fast(5) != 25 || fast(-3) != 9 {\n\t\tt.Errorf(\"résultats faux pour d'autres arguments\")\n\t}\n\tif calls != 3 {\n\t\tt.Errorf(\"f appelée %d fois pour trois arguments distincts, attendu 3\", calls)\n\t}\n\tfast(5)\n\tfast(-3)\n\tfast(4)\n\tif calls != 3 {\n\t\tt.Errorf(\"tout est déjà en cache, f ne doit plus être appelée (appels : %d)\", calls)\n\t}\n}\n\nfunc TestMemoizeCachesZeroResults(t *testing.T) {\n\tcalls := 0\n\tzero := Memoize(func(n int) int { calls++; return n * 0 })\n\tzero(3)\n\tzero(3)\n\tzero(3)\n\tif calls != 1 {\n\t\tt.Errorf(\"un résultat égal à 0 doit être mis en cache aussi : f appelée %d fois (idiome comma ok)\", calls)\n\t}\n}\n\nfunc TestMemoizeKeepsSeparateCaches(t *testing.T) {\n\tdouble := Memoize(func(n int) int { return n * 2 })\n\ttriple := Memoize(func(n int) int { return n * 3 })\n\tif double(7) != 14 || triple(7) != 21 || double(7) != 14 {\n\t\tt.Errorf(\"chaque fonction mémoïsée doit avoir son propre cache\")\n\t}\n}\n\nfunc TestChain(t *testing.T) {\n\tpipeline := Chain(strings.TrimSpace, strings.ToUpper, Prefixer(\">> \"))\n\tif got := pipeline(\"   hi there \"); got != \">> HI THERE\" {\n\t\tt.Errorf(\"Chain = %q, attendu %q\", got, \">> HI THERE\")\n\t}\n\tif got := Chain()(\"inchangé\"); got != \"inchangé\" {\n\t\tt.Errorf(\"Chain() doit être l'identité : %q\", got)\n\t}\n\t// L'ordre compte.\n\ta := Chain(Prefixer(\"a\"), Prefixer(\"b\"))\n\tif got := a(\"-\"); got != \"ba-\" {\n\t\tt.Errorf(\"Chain(a, b)(-) = %q, attendu \\\"ba-\\\" : a s'applique d'abord\", got)\n\t}\n}\n\nfunc TestChainIgnoresLaterChangesToTheCallersSlice(t *testing.T) {\n\tfns := []func(string) string{strings.ToUpper}\n\tchain := Chain(fns...)\n\tfns[0] = strings.ToLower // l'appelant réutilise sa slice\n\tif got := chain(\"MiXed\"); got != \"MIXED\" {\n\t\tt.Errorf(\"la chaîne a changé de comportement après coup : %q — copie fns, la closure ne doit pas partager la slice de l'appelant\", got)\n\t}\n}\n\nfunc TestSortPeople(t *testing.T) {\n\tpeople := []Person{{\"Pat\", \"Patterson\", 37}, {\"Tracy\", \"Bobdaughter\", 23}, {\"Fred\", \"Fredson\", 18}}\n\n\tSortPeople(people, func(a, b Person) bool { return a.LastName < b.LastName })\n\tif people[0].LastName != \"Bobdaughter\" || people[1].LastName != \"Fredson\" || people[2].LastName != \"Patterson\" {\n\t\tt.Errorf(\"tri par nom : %v\", people)\n\t}\n\tSortPeople(people, func(a, b Person) bool { return a.Age < b.Age })\n\tif people[0].Age != 18 || people[1].Age != 23 || people[2].Age != 37 {\n\t\tt.Errorf(\"tri par âge : %v\", people)\n\t}\n\tSortPeople(people, func(a, b Person) bool { return a.Age > b.Age })\n\tif people[0].Age != 37 || people[2].Age != 18 {\n\t\tt.Errorf(\"tri par âge décroissant : %v\", people)\n\t}\n}\n\nfunc TestSortPeopleIsStable(t *testing.T) {\n\tpeople := []Person{\n\t\t{\"A\", \"X\", 30}, {\"B\", \"X\", 20}, {\"C\", \"X\", 30}, {\"D\", \"X\", 20}, {\"E\", \"X\", 30}, {\"F\", \"X\", 20},\n\t}\n\tSortPeople(people, func(a, b Person) bool { return a.Age < b.Age })\n\tvar order []string\n\tfor _, p := range people {\n\t\torder = append(order, p.FirstName)\n\t}\n\tif got := strings.Join(order, \"\"); got != \"BDFACE\" {\n\t\tt.Errorf(\"tri non stable : %s, attendu BDFACE (à âge égal, l'ordre d'origine est conservé)\", got)\n\t}\n}\n\nfunc TestSortPeopleEmpty(t *testing.T) {\n\tSortPeople(nil, func(a, b Person) bool { return a.Age < b.Age })\n\tSortPeople([]Person{}, func(a, b Person) bool { return a.Age < b.Age })\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:go-ch04-l03-lab-closures",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch04",
+   "checks": [],
+   "concepts": [
+    "go-defer-basics",
+    "go-defer-args",
+    "go-defer-named-return"
+   ],
+   "difficulty": 3,
+   "id": "go-ch04-l04-lab-defers",
+   "instructions": "## Contexte\n\nTu écris deux briques de fiabilité pour Relay : une **session** qui ouvre plusieurs ressources et les referme dans le bon ordre quoi qu'il arrive, et un **gestionnaire de transaction** qui valide ou annule selon le résultat. Les deux reposent sur `defer`.\n\n## Ta mission\n\nDans `defers.go`, implémente :\n\n### `Session(names []string) (log []string, err error)`\n\nOuvre les ressources dans l'ordre, travaille, puis les ferme dans l'ordre **inverse**. Le journal `log` contient :\n\n- `\"open X\"` à chaque ouverture ;\n- `\"work\"` une fois que **tout** est ouvert ;\n- `\"close X\"` à chaque fermeture.\n\n```\nSession([\"a\", \"b\"]) → [open a, open b, work, close b, close a]\n```\n\nSi un nom est **vide**, l'ouverture s'arrête et la fonction renvoie `ErrEmptyName`. Les ressources déjà ouvertes sont **quand même fermées** (ordre inverse), et `\"work\"` n'a pas lieu :\n\n```\nSession([\"a\", \"b\", \"\", \"d\"]) → [open a, open b, close b, close a], ErrEmptyName\n```\n\nLes fermetures doivent être faites par des `defer`, et visibles dans le journal renvoyé : il te faudra un retour nommé.\n\n### `WithTx(begin func() (Tx, error), work func(Tx) error) (err error)`\n\n| Situation | Ce qui doit se passer |\n|---|---|\n| `begin` échoue | renvoie son erreur ; rien d'autre n'est appelé |\n| `work` réussit | `Commit` ; si `Commit` échoue, `Rollback` puis renvoie l'erreur du `Commit` |\n| `work` renvoie une erreur | `Rollback`, jamais de `Commit` ; renvoie l'erreur de `work` |\n| `work` **panique** | `Rollback`, jamais de `Commit` ; la panique **continue** (n'utilise pas `recover`) |\n\nSi le `Rollback` échoue aussi, ajoute son erreur avec `errors.Join`. Si le `Rollback` réussit, renvoie l'erreur d'origine **telle quelle** (pas d'enveloppe inutile).\n\nToute la validation / annulation doit être faite dans un `defer`.\n\n## Piège\n\nDans le cas de la panique, le `defer` s'exécute alors que `err` vaut encore `nil`. Un `if err == nil { Commit() }` naïf validerait une transaction dont le travail a échoué. Il te faut un moyen de savoir que `work` a bien terminé.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch04-l04",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Nettoyer dans l'ordre : sessions et transactions",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "defers.go": "package lab\n\nimport \"errors\"\n\n// ErrEmptyName est renvoyée par Session quand un nom de ressource est vide.\nvar ErrEmptyName = errors.New(\"nom de ressource vide\")\n\n// Session ouvre les ressources names dans l'ordre, puis « travaille », puis les ferme dans l'ordre inverse.\n// Le journal contient « open X » à chaque ouverture, « work » une fois tout ouvert, et « close X » à chaque fermeture.\n//\n// Si un nom est vide, l'ouverture s'arrête avec ErrEmptyName : les ressources déjà ouvertes sont quand même\n// fermées, dans l'ordre inverse, et « work » n'est pas exécuté.\nfunc Session(names []string) (log []string, err error) {\n\t// TODO : un defer par ressource ouverte, qui ajoute « close X » au journal\n\tpanic(\"à implémenter\")\n}\n\n// Tx représente une transaction.\ntype Tx struct {\n\tCommit   func() error\n\tRollback func() error\n}\n\n// WithTx ouvre une transaction avec begin, exécute work, puis :\n//   - si work réussit, valide avec Commit ; si Commit échoue, annule avec Rollback et renvoie l'erreur de Commit ;\n//   - si work échoue, annule avec Rollback et renvoie l'erreur de work ;\n//   - si work panique, annule avec Rollback et laisse la panique continuer.\n//\n// Si l'annulation échoue aussi, son erreur est ajoutée avec errors.Join. Si begin échoue, rien d'autre n'est appelé.\nfunc WithTx(begin func() (Tx, error), work func(Tx) error) (err error) {\n\t// TODO : un defer qui lit et modifie err\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/defers_test.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"slices\"\n\t\"testing\"\n)\n\nfunc TestSession(t *testing.T) {\n\tcases := []struct {\n\t\tname  string\n\t\tnames []string\n\t\twant  []string\n\t}{\n\t\t{\"deux ressources\", []string{\"a\", \"b\"}, []string{\"open a\", \"open b\", \"work\", \"close b\", \"close a\"}},\n\t\t{\"une ressource\", []string{\"x\"}, []string{\"open x\", \"work\", \"close x\"}},\n\t\t{\"trois ressources\", []string{\"db\", \"cache\", \"queue\"}, []string{\"open db\", \"open cache\", \"open queue\", \"work\", \"close queue\", \"close cache\", \"close db\"}},\n\t\t{\"aucune ressource\", nil, []string{\"work\"}},\n\t}\n\tfor _, c := range cases {\n\t\tgot, err := Session(c.names)\n\t\tif err != nil || !slices.Equal(got, c.want) {\n\t\t\tt.Errorf(\"%s : Session(%v) = (%v, %v), attendu (%v, nil) — les fermetures doivent apparaître dans l'ordre inverse, après « work »\", c.name, c.names, got, err, c.want)\n\t\t}\n\t}\n}\n\nfunc TestSessionClosesWhatWasOpenedOnError(t *testing.T) {\n\tgot, err := Session([]string{\"a\", \"b\", \"\", \"d\"})\n\twant := []string{\"open a\", \"open b\", \"close b\", \"close a\"}\n\tif !errors.Is(err, ErrEmptyName) || !slices.Equal(got, want) {\n\t\tt.Errorf(\"Session avec un nom vide = (%v, %v), attendu (%v, ErrEmptyName) — « work » est ignoré mais a et b doivent être fermées en ordre inverse\", got, err, want)\n\t}\n\tgot, err = Session([]string{\"\"})\n\tif !errors.Is(err, ErrEmptyName) || len(got) != 0 {\n\t\tt.Errorf(\"Session([\\\"\\\"]) = (%v, %v), attendu (vide, ErrEmptyName)\", got, err)\n\t}\n}\n\n// fakeTx enregistre les appels reçus.\ntype fakeTx struct {\n\tcalls       []string\n\tcommitErr   error\n\trollbackErr error\n}\n\nfunc (f *fakeTx) tx() Tx {\n\treturn Tx{\n\t\tCommit:   func() error { f.calls = append(f.calls, \"commit\"); return f.commitErr },\n\t\tRollback: func() error { f.calls = append(f.calls, \"rollback\"); return f.rollbackErr },\n\t}\n}\n\nfunc begin(f *fakeTx) func() (Tx, error) {\n\treturn func() (Tx, error) { f.calls = append(f.calls, \"begin\"); return f.tx(), nil }\n}\n\nfunc TestWithTxCommitsOnSuccess(t *testing.T) {\n\tf := &fakeTx{}\n\terr := WithTx(begin(f), func(tx Tx) error { f.calls = append(f.calls, \"work\"); return nil })\n\tif err != nil || !slices.Equal(f.calls, []string{\"begin\", \"work\", \"commit\"}) {\n\t\tt.Errorf(\"succès : err = %v, appels = %v, attendu [begin work commit]\", err, f.calls)\n\t}\n}\n\nfunc TestWithTxRollsBackOnWorkError(t *testing.T) {\n\tf := &fakeTx{}\n\tboom := errors.New(\"boom\")\n\terr := WithTx(begin(f), func(tx Tx) error { f.calls = append(f.calls, \"work\"); return boom })\n\tif err != boom {\n\t\tt.Errorf(\"l'erreur de work doit être renvoyée telle quelle quand l'annulation réussit : %v\", err)\n\t}\n\tif !slices.Equal(f.calls, []string{\"begin\", \"work\", \"rollback\"}) {\n\t\tt.Errorf(\"appels = %v, attendu [begin work rollback] : jamais de commit après une erreur\", f.calls)\n\t}\n}\n\nfunc TestWithTxCommitFailureRollsBack(t *testing.T) {\n\tf := &fakeTx{commitErr: errors.New(\"commit impossible\")}\n\terr := WithTx(begin(f), func(tx Tx) error { return nil })\n\tif !errors.Is(err, f.commitErr) {\n\t\tt.Errorf(\"l'erreur du Commit doit être renvoyée : %v\", err)\n\t}\n\tif !slices.Equal(f.calls, []string{\"begin\", \"commit\", \"rollback\"}) {\n\t\tt.Errorf(\"appels = %v, attendu [begin commit rollback]\", f.calls)\n\t}\n}\n\nfunc TestWithTxJoinsRollbackError(t *testing.T) {\n\tf := &fakeTx{rollbackErr: errors.New(\"rollback impossible\")}\n\tboom := errors.New(\"boom\")\n\terr := WithTx(begin(f), func(tx Tx) error { return boom })\n\tif !errors.Is(err, boom) || !errors.Is(err, f.rollbackErr) {\n\t\tt.Errorf(\"les deux erreurs doivent être présentes (errors.Join) : %v\", err)\n\t}\n}\n\nfunc TestWithTxBeginFailure(t *testing.T) {\n\tvar called []string\n\tbeginErr := errors.New(\"connexion refusée\")\n\terr := WithTx(\n\t\tfunc() (Tx, error) { called = append(called, \"begin\"); return Tx{}, beginErr },\n\t\tfunc(tx Tx) error { called = append(called, \"work\"); return nil },\n\t)\n\tif err != beginErr || !slices.Equal(called, []string{\"begin\"}) {\n\t\tt.Errorf(\"begin en échec : err = %v, appels = %v, attendu seulement begin\", err, called)\n\t}\n}\n\nfunc TestWithTxRollsBackOnPanic(t *testing.T) {\n\tf := &fakeTx{}\n\tvar recovered any\n\tfunc() {\n\t\tdefer func() { recovered = recover() }()\n\t\t_ = WithTx(begin(f), func(tx Tx) error { panic(\"catastrophe\") })\n\t}()\n\tif recovered != \"catastrophe\" {\n\t\tt.Errorf(\"la panique doit continuer après le nettoyage, recover() = %v\", recovered)\n\t}\n\tif !slices.Equal(f.calls, []string{\"begin\", \"rollback\"}) {\n\t\tt.Errorf(\"appels = %v, attendu [begin rollback] : un defer s'exécute aussi pendant une panique, et il ne faut surtout pas valider\", f.calls)\n\t}\n}\n"
+    }
+   },
+   "xp": 65
+  },
+  "name": "exercise:go-ch04-l04-lab-defers",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch04",
+   "checks": [],
+   "concepts": [
+    "go-call-by-value",
+    "go-map-slice-param"
+   ],
+   "difficulty": 3,
+   "id": "go-ch04-l05-lab-copies",
+   "instructions": "## Contexte\n\nTu écris des utilitaires de manipulation de données pour Relay. Chacun doit se comporter correctement face au passage par valeur : certains doivent **modifier** les données de l'appelant (parce que c'est leur rôle), d'autres doivent **s'interdire** d'y toucher.\n\n## Ta mission\n\nDans `copies.go`, implémente cinq fonctions.\n\n### `Birthday(p Person) Person`\nRenvoie une copie de `p` un an plus âgée. La personne d'origine reste intacte : une struct est passée par valeur, c'est la valeur renvoyée qui porte le changement.\n\n### `Clamp(scores map[string]int)`\nRamène chaque score dans `0…100`, **sur place**. L'appelant doit voir ses scores corrigés. Accepte une map `nil`.\n\n### `Without(s []int, i int) []int`\nRenvoie une **nouvelle** slice sans l'élément d'indice `i`. Si `i` est hors de `s`, c'est une copie de `s`. **La slice de l'appelant ne doit jamais être modifiée**, et le résultat ne doit partager aucun élément avec elle.\n\n> Piège classique : `append(s[:i], s[i+1:]...)` décale les éléments dans le tableau partagé et corrompt la slice de l'appelant.\n\n### `Reverse(s []int)`\nInverse `s` **sur place**. Les éléments d'une slice sont partagés avec l'appelant (et avec le tableau d'une slice parente).\n\n### `Resize(s []int, n int) []int`\nRenvoie une **nouvelle** slice de longueur exactement `n` : tronquée si `n < len(s)`, complétée de zéros sinon. `n` négatif donne une slice vide. Elle ne modifie pas `s` et ne partage rien avec elle.\n\n## Question de conception\n\nPour chaque fonction, demande-toi : *est-ce que l'appelant doit voir ce changement ?* Si oui, la fonction travaille sur le contenu partagé (map, éléments de slice). Si non, elle **construit et renvoie** une nouvelle valeur.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": "go-ch04-l05",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Copier ou partager ? Structs, maps et slices en paramètres",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "copies.go": "package lab\n\n// Person est une personne.\ntype Person struct {\n\tName string\n\tAge  int\n}\n\n// Birthday renvoie une copie de p, un an plus âgée. p n'est pas modifiée (une struct est passée par valeur).\nfunc Birthday(p Person) Person {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Clamp ramène chaque score de la map dans 0…100, sur place. Une map est partagée avec l'appelant.\nfunc Clamp(scores map[string]int) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Without renvoie une nouvelle slice sans l'élément d'indice i. La slice de l'appelant n'est jamais modifiée.\n// Si i est hors de s, le résultat est une copie de s.\nfunc Without(s []int, i int) []int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Reverse inverse s sur place. Les éléments d'une slice sont partagés avec l'appelant.\nfunc Reverse(s []int) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Resize renvoie une nouvelle slice de longueur exactement n : tronquée, ou complétée par des zéros.\n// s n'est pas modifiée et le résultat ne partage aucun élément avec elle. n négatif donne une slice vide.\nfunc Resize(s []int, n int) []int {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/copies_test.go": "package lab\n\nimport (\n\t\"maps\"\n\t\"slices\"\n\t\"testing\"\n)\n\nfunc TestBirthday(t *testing.T) {\n\tp := Person{Name: \"Ada\", Age: 30}\n\tq := Birthday(p)\n\tif q != (Person{Name: \"Ada\", Age: 31}) {\n\t\tt.Errorf(\"Birthday(%v) = %v\", p, q)\n\t}\n\tif p.Age != 30 {\n\t\tt.Errorf(\"la personne d'origine a changé : %v — une struct est passée par valeur, on renvoie la copie modifiée\", p)\n\t}\n\tif r := Birthday(Birthday(q)); r.Age != 33 {\n\t\tt.Errorf(\"appels enchaînés : %v\", r)\n\t}\n}\n\nfunc TestClamp(t *testing.T) {\n\tscores := map[string]int{\"ada\": 120, \"bob\": -5, \"cy\": 50, \"di\": 100, \"ed\": 0}\n\tClamp(scores)\n\twant := map[string]int{\"ada\": 100, \"bob\": 0, \"cy\": 50, \"di\": 100, \"ed\": 0}\n\tif !maps.Equal(scores, want) {\n\t\tt.Errorf(\"après Clamp : %v, attendu %v — la map de l'appelant doit être modifiée\", scores, want)\n\t}\n\tClamp(nil)               // ne doit pas paniquer\n\tClamp(map[string]int{}) // idem\n}\n\nfunc TestWithout(t *testing.T) {\n\ts := []int{1, 2, 3, 4}\n\tgot := Without(s, 1)\n\tif !slices.Equal(got, []int{1, 3, 4}) {\n\t\tt.Errorf(\"Without(s, 1) = %v, attendu [1 3 4]\", got)\n\t}\n\tif !slices.Equal(s, []int{1, 2, 3, 4}) {\n\t\tt.Errorf(\"la slice de l'appelant a été modifiée : %v — append(s[:i], s[i+1:]...) réécrit le tableau partagé\", s)\n\t}\n\tcases := []struct {\n\t\ti    int\n\t\twant []int\n\t}{\n\t\t{0, []int{2, 3, 4}}, {3, []int{1, 2, 3}}, {4, []int{1, 2, 3, 4}}, {-1, []int{1, 2, 3, 4}}, {100, []int{1, 2, 3, 4}},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Without(s, c.i); !slices.Equal(got, c.want) {\n\t\t\tt.Errorf(\"Without(s, %d) = %v, attendu %v\", c.i, got, c.want)\n\t\t}\n\t}\n\tif got := Without(nil, 0); len(got) != 0 {\n\t\tt.Errorf(\"Without(nil, 0) = %v\", got)\n\t}\n\t// Le résultat ne doit pas partager son tableau avec s.\n\tr := Without(s, 3)\n\tr[0] = 99\n\tif s[0] != 1 {\n\t\tt.Errorf(\"modifier le résultat a modifié la slice d'origine : le résultat partage son tableau\")\n\t}\n}\n\nfunc TestReverse(t *testing.T) {\n\tcases := []struct{ in, want []int }{\n\t\t{[]int{1, 2, 3}, []int{3, 2, 1}},\n\t\t{[]int{1, 2, 3, 4}, []int{4, 3, 2, 1}},\n\t\t{[]int{7}, []int{7}},\n\t\t{[]int{}, []int{}},\n\t\t{nil, nil},\n\t}\n\tfor _, c := range cases {\n\t\tReverse(c.in)\n\t\tif !slices.Equal(c.in, c.want) {\n\t\t\tt.Errorf(\"après Reverse : %v, attendu %v\", c.in, c.want)\n\t\t}\n\t}\n\t// Une sous-slice partage le tableau de son parent : inverser l'une modifie l'autre.\n\tparent := []int{1, 2, 3, 4}\n\tReverse(parent[1:3])\n\tif !slices.Equal(parent, []int{1, 3, 2, 4}) {\n\t\tt.Errorf(\"Reverse sur une sous-slice : parent = %v, attendu [1 3 2 4]\", parent)\n\t}\n}\n\nfunc TestResize(t *testing.T) {\n\ts := []int{1, 2, 3}\n\tcases := []struct {\n\t\tn    int\n\t\twant []int\n\t}{\n\t\t{5, []int{1, 2, 3, 0, 0}}, {3, []int{1, 2, 3}}, {2, []int{1, 2}}, {0, []int{}}, {-4, []int{}},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Resize(s, c.n); !slices.Equal(got, c.want) || len(got) != max(c.n, 0) {\n\t\t\tt.Errorf(\"Resize(s, %d) = %v, attendu %v\", c.n, got, c.want)\n\t\t}\n\t}\n\tif !slices.Equal(s, []int{1, 2, 3}) {\n\t\tt.Errorf(\"Resize a modifié la slice d'origine : %v\", s)\n\t}\n\tr := Resize(s, 2)\n\tr[0] = 99\n\tif s[0] != 1 {\n\t\tt.Errorf(\"le résultat de Resize partage son tableau avec la slice d'origine : modifier l'un modifie l'autre\")\n\t}\n\tif got := Resize(nil, 2); !slices.Equal(got, []int{0, 0}) {\n\t\tt.Errorf(\"Resize(nil, 2) = %v\", got)\n\t}\n}\n"
+    }
+   },
+   "xp": 55
+  },
+  "name": "exercise:go-ch04-l05-lab-copies",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "go-ch04",
+   "checks": [],
+   "concepts": [
+    "go-func-values",
+    "go-func-types",
+    "go-closure-capture",
+    "go-variadic",
+    "go-multi-return",
+    "go-map-slice-param",
+    "go-func-return"
+   ],
+   "difficulty": 4,
+   "id": "go-ch04-project",
+   "instructions": "## Contexte\n\nRelay exécute des **jobs** : de petites fonctions qui reçoivent des arguments et renvoient un résultat.\n\n```go\ntype Job func(args []string) (string, error)\n```\n\nTu construis son cœur : un registre pour retrouver les jobs par leur nom, des décorateurs pour leur ajouter des comportements, et un pipeline pour les enchaîner. Tout repose sur des fonctions qui prennent et renvoient des fonctions.\n\n## Jalon 1 : le registre\n\nLe registre est une simple `map[string]Job`.\n\n- `Register(registry, name, job) error` : ajoute le job. Erreurs : `ErrEmptyName` (nom vide), `ErrNilJob` (job `nil`), `ErrDuplicateJob` (nom déjà pris : le job d'origine **n'est pas écrasé**).\n- `Run(registry, name, args...) (string, error)` : exécute le job. Nom absent : `ErrUnknownJob`.\n- `Names(registry) []string` : les noms enregistrés, **triés**.\n\nEnveloppe tes erreurs avec `%w` pour que `errors.Is` fonctionne.\n\n## Jalon 2 : les décorateurs\n\n```go\ntype Decorator func(Job) Job\n```\n\n- `WithRetry(attempts)` : relance le job jusqu'à `attempts` essais au total (au moins un), renvoie le premier succès ou l'erreur du dernier essai.\n- `WithDefaults(defaults...)` : place les arguments par défaut **devant** ceux de l'appel. Chaque appel doit recevoir un **tableau neuf** : un job qui modifie ses arguments ne doit jamais influencer l'appel suivant, et l'appelant doit pouvoir réutiliser sa slice `defaults` sans effet sur le décorateur.\n- `MapOutput(f)` : transforme la sortie d'un job réussi. Une erreur passe inchangée, avec une sortie vide.\n- `Decorate(job, decorators...)` : empile les décorateurs. **Le premier de la liste est le plus extérieur.**\n\n## Jalon 3 : le pipeline\n\n```go\ntype Step struct {\n\tJob  string\n\tArgs []string\n}\n```\n\n`Pipe(registry, steps) (string, error)` exécute les étapes dans l'ordre. Chaque étape reçoit ses `Args`, **suivis, sauf la première, de la sortie de l'étape précédente** (dernier argument). Elle renvoie la sortie de la dernière étape (`\"\"` pour un pipeline vide).\n\nÀ la première erreur, l'exécution s'arrête (les étapes suivantes ne sont pas lancées) et l'erreur est enveloppée avec le contexte : `étape 2 (fail) : explosion`. Elle doit rester testable avec `errors.Is`.\n\n`Pipe` ne doit **jamais modifier** les `Args` de tes étapes, même si leur slice a de la capacité libre.\n\n## Contraintes\n\n- Aucune variable de package (le job `Join` fourni est une fonction, pas un état).\n- Pense à l'aliasing : `append` sur une slice reçue peut écraser le tableau de l'appelant.\n",
+   "kind": "code",
+   "language": "go",
+   "lesson_id": null,
+   "milestones": [
+    {
+     "goal": "Enregistrer des jobs par nom, refuser les noms vides, les jobs nil et les doublons, exécuter un job par son nom et lister les noms triés.",
+     "id": "m1",
+     "review": false,
+     "tests": "go test ./... -run TestM1",
+     "title": "Un registre de jobs"
+    },
+    {
+     "goal": "Écrire des décorateurs de jobs (réessais, arguments par défaut, transformation de la sortie) et un Decorate qui les empile, sans jamais partager de mémoire entre appels.",
+     "id": "m2",
+     "review": false,
+     "tests": "go test ./... -run TestM2",
+     "title": "Des décorateurs"
+    },
+    {
+     "goal": "Enchaîner des étapes en passant la sortie de l'une comme dernier argument de la suivante, s'arrêter à la première erreur et la signaler avec son contexte.",
+     "id": "m3",
+     "review": true,
+     "tests": "go test ./... -run TestM3",
+     "title": "Un pipeline"
+    }
+   ],
+   "palette": [],
+   "role": "project",
+   "rubric": [],
+   "source": null,
+   "title": "Relay : le registre de jobs",
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "jobs.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"strings\"\n)\n\nvar (\n\tErrEmptyName    = errors.New(\"nom de job vide\")\n\tErrNilJob       = errors.New(\"job nil\")\n\tErrDuplicateJob = errors.New(\"job déjà enregistré\")\n\tErrUnknownJob   = errors.New(\"job inconnu\")\n)\n\n// Job est une tâche de Relay : elle reçoit des arguments et renvoie un résultat.\ntype Job func(args []string) (string, error)\n\n// Register ajoute job à registry sous le nom name (jalon 1).\nfunc Register(registry map[string]Job, name string, job Job) error {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Run exécute le job name avec args.\nfunc Run(registry map[string]Job, name string, args ...string) (string, error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Names renvoie les noms enregistrés, triés.\nfunc Names(registry map[string]Job) []string {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Decorator enveloppe un Job pour lui ajouter un comportement (jalon 2).\ntype Decorator func(Job) Job\n\n// WithRetry relance le job jusqu'à attempts essais au total (au moins un) et renvoie le premier succès\n// ou l'erreur du dernier essai.\nfunc WithRetry(attempts int) Decorator {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// WithDefaults place defaults devant les arguments reçus. Chaque appel reçoit un tableau neuf :\n// ni les defaults de l'appelant, ni les arguments d'un appel précédent ne sont jamais partagés.\nfunc WithDefaults(defaults ...string) Decorator {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// MapOutput transforme la sortie d'un job réussi avec f. Une erreur passe sans modification.\nfunc MapOutput(f func(string) string) Decorator {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Decorate enveloppe job avec les décorateurs. Le premier de la liste est le plus extérieur.\nfunc Decorate(job Job, decorators ...Decorator) Job {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Step est une étape d'un pipeline : un job et ses arguments propres.\ntype Step struct {\n\tJob  string\n\tArgs []string\n}\n\n// Pipe exécute les étapes dans l'ordre (jalon 3). Chaque étape reçoit ses Args, suivis, sauf la première,\n// de la sortie de l'étape précédente comme dernier argument. Pipe renvoie la sortie de la dernière étape.\n// À la première erreur, l'exécution s'arrête et l'erreur est enveloppée avec le numéro et le nom de l'étape (%w).\nfunc Pipe(registry map[string]Job, steps []Step) (string, error) {\n\t// TODO\n\tpanic(\"à implémenter\")\n}\n\n// Join est un job prêt à l'emploi : il assemble ses arguments avec un espace.\nfunc Join(args []string) (string, error) {\n\treturn strings.Join(args, \" \"), nil\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "go.mod": "module lab\n\ngo 1.23\n",
+     "tests/jobs_test.go": "package lab\n\nimport (\n\t\"errors\"\n\t\"fmt\"\n\t\"slices\"\n\t\"strings\"\n\t\"testing\"\n)\n\nfunc upperJob(args []string) (string, error) { return strings.ToUpper(strings.Join(args, \" \")), nil }\n\nfunc TestM1RegisterAndRun(t *testing.T) {\n\tregistry := map[string]Job{}\n\tif err := Register(registry, \"echo\", Join); err != nil {\n\t\tt.Fatal(err)\n\t}\n\tif err := Register(registry, \"upper\", upperJob); err != nil {\n\t\tt.Fatal(err)\n\t}\n\tif got, err := Run(registry, \"echo\", \"a\", \"b\"); err != nil || got != \"a b\" {\n\t\tt.Errorf(\"Run(echo) = (%q, %v)\", got, err)\n\t}\n\tif got, err := Run(registry, \"upper\", \"go\", \"relay\"); err != nil || got != \"GO RELAY\" {\n\t\tt.Errorf(\"Run(upper) = (%q, %v)\", got, err)\n\t}\n\tif got, err := Run(registry, \"echo\"); err != nil || got != \"\" {\n\t\tt.Errorf(\"Run sans argument = (%q, %v)\", got, err)\n\t}\n}\n\nfunc TestM1RegisterErrors(t *testing.T) {\n\tregistry := map[string]Job{}\n\t_ = Register(registry, \"echo\", Join)\n\tcases := []struct {\n\t\tname string\n\t\tjob  Job\n\t\twant error\n\t}{\n\t\t{\"\", Join, ErrEmptyName},\n\t\t{\"nil\", nil, ErrNilJob},\n\t\t{\"echo\", upperJob, ErrDuplicateJob},\n\t}\n\tfor _, c := range cases {\n\t\tif err := Register(registry, c.name, c.job); !errors.Is(err, c.want) {\n\t\t\tt.Errorf(\"Register(%q) : erreur %v, attendu %v\", c.name, err, c.want)\n\t\t}\n\t}\n\tif len(registry) != 1 {\n\t\tt.Errorf(\"un enregistrement refusé ne doit rien ajouter : %v\", Names(registry))\n\t}\n\t// Le doublon ne doit pas avoir écrasé l'original.\n\tif got, _ := Run(registry, \"echo\", \"x\"); got != \"x\" {\n\t\tt.Errorf(\"le job d'origine a été écrasé : %q\", got)\n\t}\n}\n\nfunc TestM1RunUnknown(t *testing.T) {\n\tif _, err := Run(map[string]Job{}, \"ghost\"); !errors.Is(err, ErrUnknownJob) {\n\t\tt.Errorf(\"job inconnu : %v\", err)\n\t}\n\tif _, err := Run(nil, \"ghost\"); !errors.Is(err, ErrUnknownJob) {\n\t\tt.Errorf(\"registre nil : %v (lire une map nil est permis)\", err)\n\t}\n}\n\nfunc TestM1Names(t *testing.T) {\n\tregistry := map[string]Job{}\n\tfor _, name := range []string{\"zeta\", \"alpha\", \"mid\", \"beta\"} {\n\t\t_ = Register(registry, name, Join)\n\t}\n\twant := []string{\"alpha\", \"beta\", \"mid\", \"zeta\"}\n\tfor i := 0; i < 20; i++ {\n\t\tif got := Names(registry); !slices.Equal(got, want) {\n\t\t\tt.Fatalf(\"Names = %v, attendu %v (trié, à chaque appel)\", got, want)\n\t\t}\n\t}\n\tif got := Names(nil); len(got) != 0 {\n\t\tt.Errorf(\"Names(nil) = %v\", got)\n\t}\n}\n\nfunc failing(failures int, calls *int) Job {\n\treturn func(args []string) (string, error) {\n\t\t*calls++\n\t\tif *calls <= failures {\n\t\t\treturn \"\", fmt.Errorf(\"échec %d\", *calls)\n\t\t}\n\t\treturn fmt.Sprintf(\"ok après %d\", *calls), nil\n\t}\n}\n\nfunc TestM2WithRetry(t *testing.T) {\n\tcalls := 0\n\tjob := Decorate(failing(2, &calls), WithRetry(3))\n\tif got, err := job(nil); err != nil || got != \"ok après 3\" || calls != 3 {\n\t\tt.Errorf(\"WithRetry(3) : (%q, %v) après %d appels\", got, err, calls)\n\t}\n\n\tcalls = 0\n\tif _, err := Decorate(failing(10, &calls), WithRetry(2))(nil); err == nil || err.Error() != \"échec 2\" || calls != 2 {\n\t\tt.Errorf(\"trop d'échecs : erreur %v après %d appels, attendu « échec 2 » après 2\", err, calls)\n\t}\n\n\tcalls = 0\n\tif _, err := Decorate(failing(10, &calls), WithRetry(0))(nil); err == nil || calls != 1 {\n\t\tt.Errorf(\"WithRetry(0) doit tenter une fois : %d appels\", calls)\n\t}\n}\n\nfunc TestM2WithDefaults(t *testing.T) {\n\tvar received [][]string\n\tjob := func(args []string) (string, error) {\n\t\treceived = append(received, slices.Clone(args))\n\t\treturn strings.Join(args, \",\"), nil\n\t}\n\tdecorated := Decorate(job, WithDefaults(\"-v\", \"--json\"))\n\n\tif got, _ := decorated([]string{\"a\"}); got != \"-v,--json,a\" {\n\t\tt.Errorf(\"WithDefaults = %q\", got)\n\t}\n\tif got, _ := decorated(nil); got != \"-v,--json\" {\n\t\tt.Errorf(\"sans argument = %q\", got)\n\t}\n}\n\nfunc TestM2WithDefaultsDoesNotShareMemory(t *testing.T) {\n\tdefaults := []string{\"-v\", \"--json\"}\n\tvar seen []string\n\tjob := func(args []string) (string, error) {\n\t\tseen = append(seen, strings.Join(args, \",\"))\n\t\targs[0] = \"MODIFIÉ\" // un job a le droit de modifier ses arguments\n\t\t_ = append(args, \"extra\")\n\t\treturn \"\", nil\n\t}\n\tdecorated := Decorate(job, WithDefaults(defaults...))\n\tdefaults[0] = \"ALTÉRÉ\" // l'appelant réutilise sa slice après coup\n\n\tdecorated([]string{\"a\"})\n\tdecorated([]string{\"b\"})\n\tif want := []string{\"-v,--json,a\", \"-v,--json,b\"}; !slices.Equal(seen, want) {\n\t\tt.Errorf(\"les jobs ont reçu %v, attendu %v — copie les defaults à la création, et construis un tableau neuf à chaque appel\", seen, want)\n\t}\n}\n\nfunc TestM2MapOutput(t *testing.T) {\n\tjob := Decorate(Join, MapOutput(strings.ToUpper))\n\tif got, err := job([]string{\"go\", \"go\"}); err != nil || got != \"GO GO\" {\n\t\tt.Errorf(\"MapOutput = (%q, %v)\", got, err)\n\t}\n\tboom := errors.New(\"boom\")\n\tfailingJob := Decorate(func([]string) (string, error) { return \"x\", boom }, MapOutput(strings.ToUpper))\n\tif got, err := failingJob(nil); err != boom || got != \"\" {\n\t\tt.Errorf(\"une erreur doit passer inchangée, sans sortie : (%q, %v)\", got, err)\n\t}\n}\n\nfunc TestM2DecorateOrder(t *testing.T) {\n\tvar trace []string\n\ttag := func(name string) Decorator {\n\t\treturn func(next Job) Job {\n\t\t\treturn func(args []string) (string, error) {\n\t\t\t\ttrace = append(trace, name+\">\")\n\t\t\t\tout, err := next(args)\n\t\t\t\ttrace = append(trace, \"<\"+name)\n\t\t\t\treturn out, err\n\t\t\t}\n\t\t}\n\t}\n\tjob := Decorate(func([]string) (string, error) { trace = append(trace, \"job\"); return \"\", nil }, tag(\"A\"), tag(\"B\"))\n\t_, _ = job(nil)\n\tif want := []string{\"A>\", \"B>\", \"job\", \"<B\", \"<A\"}; !slices.Equal(trace, want) {\n\t\tt.Errorf(\"ordre = %v, attendu %v (le premier décorateur est le plus extérieur)\", trace, want)\n\t}\n\tif got, _ := Decorate(Join)([]string{\"x\"}); got != \"x\" {\n\t\tt.Errorf(\"Decorate sans décorateur doit renvoyer le job tel quel\")\n\t}\n}\n\nfunc pipeRegistry() map[string]Job {\n\tregistry := map[string]Job{}\n\t_ = Register(registry, \"join\", Join)\n\t_ = Register(registry, \"upper\", upperJob)\n\t_ = Register(registry, \"fail\", func([]string) (string, error) { return \"\", errors.New(\"explosion\") })\n\t_ = Register(registry, \"wrap\", func(args []string) (string, error) { return \"[\" + strings.Join(args, \"|\") + \"]\", nil })\n\treturn registry\n}\n\nfunc TestM3Pipe(t *testing.T) {\n\tregistry := pipeRegistry()\n\tgot, err := Pipe(registry, []Step{\n\t\t{Job: \"join\", Args: []string{\"hello\", \"world\"}},\n\t\t{Job: \"upper\"},\n\t\t{Job: \"wrap\", Args: []string{\"x\"}},\n\t})\n\tif err != nil || got != \"[x|HELLO WORLD]\" {\n\t\tt.Errorf(\"Pipe = (%q, %v), attendu \\\"[x|HELLO WORLD]\\\" — la sortie de l'étape précédente est le DERNIER argument\", got, err)\n\t}\n\tif got, err := Pipe(registry, []Step{{Job: \"join\", Args: []string{\"seul\"}}}); err != nil || got != \"seul\" {\n\t\tt.Errorf(\"une seule étape : (%q, %v)\", got, err)\n\t}\n\tif got, err := Pipe(registry, nil); err != nil || got != \"\" {\n\t\tt.Errorf(\"pipeline vide : (%q, %v)\", got, err)\n\t}\n}\n\nfunc TestM3PipeErrors(t *testing.T) {\n\tregistry := pipeRegistry()\n\t_, err := Pipe(registry, []Step{{Job: \"join\", Args: []string{\"a\"}}, {Job: \"fail\"}, {Job: \"upper\"}})\n\tif err == nil || !strings.Contains(err.Error(), \"étape 2 (fail)\") || !strings.Contains(err.Error(), \"explosion\") {\n\t\tt.Errorf(\"erreur = %v, attendu un message qui cite « étape 2 (fail) » et la cause\", err)\n\t}\n\tif _, err := Pipe(registry, []Step{{Job: \"join\"}, {Job: \"ghost\"}}); !errors.Is(err, ErrUnknownJob) {\n\t\tt.Errorf(\"job inconnu dans un pipeline : %v — enveloppe avec %%w pour garder errors.Is\", err)\n\t}\n\n\t// Le pipeline s'arrête à la première erreur : l'étape suivante n'est pas lancée.\n\tran := false\n\t_ = Register(registry, \"spy\", func([]string) (string, error) { ran = true; return \"\", nil })\n\t_, _ = Pipe(registry, []Step{{Job: \"fail\"}, {Job: \"spy\"}})\n\tif ran {\n\t\tt.Errorf(\"l'étape après l'erreur ne doit pas s'exécuter\")\n\t}\n}\n\nfunc TestM3PipeDoesNotModifyStepArgs(t *testing.T) {\n\tregistry := pipeRegistry()\n\targs := make([]string, 1, 5) // de la capacité libre : append écraserait le tableau partagé\n\targs[0] = \"base\"\n\tsteps := []Step{{Job: \"join\", Args: []string{\"a\"}}, {Job: \"wrap\", Args: args}}\n\tfor i := 0; i < 2; i++ {\n\t\tif got, _ := Pipe(registry, steps); got != \"[base|a]\" {\n\t\t\tt.Fatalf(\"appel %d : %q, attendu [base|a]\", i+1, got)\n\t\t}\n\t}\n\tif len(steps[1].Args) != 1 || args[:2][1] != \"\" {\n\t\tt.Errorf(\"Pipe a modifié les Args de l'étape (ou le tableau derrière) : copie avant d'ajouter la sortie précédente\")\n\t}\n}\n\nfunc TestM3PipeWithDecorators(t *testing.T) {\n\tregistry := pipeRegistry()\n\tcalls := 0\n\t_ = Register(registry, \"flaky\", Decorate(failing(1, &calls), WithRetry(2)))\n\tgot, err := Pipe(registry, []Step{{Job: \"join\", Args: []string{\"x\"}}, {Job: \"flaky\"}})\n\tif err != nil || got != \"ok après 2\" || calls != 2 {\n\t\tt.Errorf(\"un job décoré dans un pipeline : (%q, %v), %d appels\", got, err, calls)\n\t}\n}\n"
+    }
+   },
+   "xp": 230
+  },
+  "name": "exercise:go-ch04-project",
+  "status": 200
+ },
+ {
+  "body": {
    "xp_awarded": 40
   },
   "name": "lesson-complete",
@@ -8181,8 +9957,23 @@
         "title": "Blocs, portée et contrôle"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "go-ch04",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "go-ch04",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 45,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "04-functions",
+        "subtitle": "Retours multiples, variadiques, closures, defer et passage par valeur : tout ce que Go fait des fonctions",
         "title": "Fonctions"
        },
        {
@@ -8924,6 +10715,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 37,
+     "score": 0,
+     "unlocked": false
+    },
+    "go-ch04": {
+     "chapter_id": "go-ch04",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 45,
      "score": 0,
      "unlocked": false
     }

@@ -1,0 +1,128 @@
+id: go-ch04-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      f1 := func(a string) int { return len(a) }
+      f2 := func(a string) int {
+      	total := 0
+      	for _, v := range a {
+      		total += int(v)
+      	}
+      	return total
+      }
+      var f func(string) int
+      f = f1
+      fmt.Println(f("Hello"))
+      f = f2
+      fmt.Println(f("Hello"))
+    answer: "5\n500"
+    explanation: "La même variable f contient d'abord f1 (longueur : 5) puis f2 (somme des points de code H+e+l+l+o = 500). Toutes deux ont la signature func(string) int."
+    concept: go-func-values
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Que se passe-t-il quand on appelle une variable de type func(int) int qui n'a jamais été affectée ?"
+    choices:
+      - "Elle renvoie 0"
+      - "Le programme panique"
+      - "Erreur de compilation"
+      - "L'appel est ignoré"
+    answer: 1
+    explanation: "La valeur zéro d'un type fonction est nil, et appeler une fonction nil provoque un panic à l'exécution."
+    concept: go-func-values
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      ops := map[string]func(int, int) int{
+      	"+": func(a, b int) int { return a + b },
+      	"*": func(a, b int) int { return a * b },
+      }
+      if op, ok := ops["-"]; !ok {
+      	fmt.Println("non géré", op == nil)
+      }
+      fmt.Println(ops["*"](6, 7))
+    answer: "non géré true\n42"
+    explanation: "Une clé absente donne la valeur zéro du type (une fonction nil) et ok vaut false. ops[\"*\"] est la fonction de multiplication, appelée comme n'importe quelle fonction."
+    concept: go-func-values
+    difficulty: 2
+  - id: q4
+    type: multiple
+    prompt: "Lesquelles de ces fonctions peuvent être affectées à une variable de type func(int, int) int ?"
+    choices:
+      - "func add(i, j int) int"
+      - "func sub(a int, b int) int"
+      - "func div(a, b int) (int, error)"
+      - "func neg(a int) int"
+    answer: [0, 1]
+    explanation: "Seule la signature compte, pas les noms ni le regroupement des paramètres. div a un retour de plus, neg un paramètre de moins : ce sont d'autres types."
+    concept: go-func-types
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      for i := 0; i < 3; i++ {
+      	func(j int) {
+      		fmt.Print(j*j, " ")
+      	}(i)
+      }
+    answer: "0 1 4"
+    explanation: "La fonction anonyme est appelée immédiatement avec i. Les parenthèses suivant l'accolade fermante déclenchent l'appel."
+    concept: go-anon-func
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      apply := func(xs []int, f func(int) int) []int {
+      	out := make([]int, len(xs))
+      	for i, x := range xs {
+      		out[i] = f(x)
+      	}
+      	return out
+      }
+      fmt.Println(apply([]int{1, 2, 3}, func(x int) int { return x * 10 }))
+    answer: "[10 20 30]"
+    explanation: "apply est une fonction d'ordre supérieur : elle reçoit une fonction et l'applique à chaque élément."
+    concept: go-func-values
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Quel est l'intérêt de `type BinaryOp func(int, int) int` ?"
+    choices:
+      - "Il rend les fonctions plus rapides"
+      - "Il donne un nom à la signature, et toute fonction de cette forme y correspond automatiquement"
+      - "Il oblige à déclarer chaque fonction avec ce type"
+      - "Il crée une nouvelle fonction"
+    answer: 1
+    explanation: "C'est un nom pour une signature : documentation et lisibilité. Les fonctions existantes n'ont pas besoin d'être modifiées."
+    concept: go-func-types
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Dans quelles situations une fonction anonyme appelée sur place est-elle vraiment utile ?"
+    choices:
+      - "Pour remplacer toutes les fonctions nommées"
+      - "Avec defer et pour lancer des goroutines"
+      - "Pour accélérer les boucles"
+      - "Elle n'est jamais utile"
+    answer: 1
+    explanation: "Appelée immédiatement dans le seul but d'exécuter son code, elle n'apporte rien. Avec defer et les goroutines, elle permet de différer ou de lancer un bloc de code."
+    concept: go-anon-func
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Pourquoi se méfier d'une variable de package de type fonction (var add = func(…) {…}) ?"
+    choices:
+      - "Elle ne compile pas hors de main"
+      - "On peut la réaffecter : le sens d'un appel change pendant l'exécution, sans que l'appelant le sache"
+      - "Elle est toujours nil"
+      - "Elle ne peut pas être appelée"
+    answer: 1
+    explanation: "Une fonction déclarée avec func add(…) est fixe, pas une variable. La variable peut être modifiée n'importe où, ce qui rend le flux de données difficile à suivre."
+    concept: go-anon-func
+    difficulty: 2

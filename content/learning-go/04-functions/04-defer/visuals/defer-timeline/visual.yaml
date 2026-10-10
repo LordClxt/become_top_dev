@@ -1,0 +1,6 @@
+id: go-ch04-defer-timeline
+concept: go-defer-basics
+format: interactive
+justification: "Avancer pas à pas dans trois programmes et voir la pile de defer, les valeurs figées et la valeur de retour fait comprendre ce qui s'exécute quand."
+entry: DeferTimeline.tsx
+status: built

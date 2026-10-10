@@ -1,0 +1,13 @@
+id: go-ch04-boss
+title: "Boss : la calculatrice scientifique"
+kind: code
+language: go
+difficulty: 5
+xp: 260
+timeout_s: 60
+time_limit_min: 75
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["calc.go"]
+concepts: [go-func-values, go-closure-capture, go-variadic, go-multi-return, go-func-types, go-named-returns]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

@@ -1,0 +1,135 @@
+id: go-ch04-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      deferExample := func() int {
+      	a := 10
+      	defer func(val int) {
+      		fmt.Println("first:", val)
+      	}(a)
+      	a = 20
+      	defer func(val int) {
+      		fmt.Println("second:", val)
+      	}(a)
+      	a = 30
+      	fmt.Println("exiting:", a)
+      	return a
+      }
+      deferExample()
+    answer: "exiting: 30\nsecond: 20\nfirst: 10"
+    explanation: "Le corps s'exécute d'abord (exiting). Puis les defer, en ordre inverse (LIFO), avec les valeurs capturées à leur enregistrement : 20 puis 10."
+    concept: go-defer-args
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      for i := 0; i < 3; i++ {
+      	defer fmt.Print(i, " ")
+      }
+    answer: "2 1 0"
+    explanation: "Chaque defer est enregistré avec la valeur de i à ce moment. À la sortie de main, ils s'exécutent dans l'ordre inverse : 2, 1, 0."
+    concept: go-defer-basics
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      x := 1
+      defer fmt.Println("différé :", x)
+      x = 2
+      fmt.Println("maintenant :", x)
+    answer: "maintenant : 2\ndifféré : 1"
+    explanation: "L'argument x de l'appel différé est évalué au moment du defer (1), pas à l'exécution."
+    concept: go-defer-args
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      f := func() (n int) {
+      	defer func() { n *= 2 }()
+      	n = 21
+      	return n
+      }
+      fmt.Println(f())
+    answer: "42"
+    explanation: "n est un retour nommé : return n le fixe à 21, puis le defer s'exécute et le double avant que la fonction ne rende la main."
+    concept: go-defer-named-return
+    difficulty: 3
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      f := func() int {
+      	n := 21
+      	defer func() { n *= 2 }()
+      	return n
+      }
+      fmt.Println(f())
+    answer: "21"
+    explanation: "Sans retour nommé, return n copie la valeur 21 avant l'exécution des defer. Doubler la variable locale ensuite ne change pas ce qui est renvoyé."
+    concept: go-defer-named-return
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Quand s'exécute une fonction différée avec defer ?"
+    choices:
+      - "Immédiatement, comme un appel normal"
+      - "À la fin du bloc dans lequel elle est écrite"
+      - "Quand la fonction englobante se termine, quelle que soit la façon dont elle sort"
+      - "À la fin du programme"
+    answer: 2
+    explanation: "defer est lié à la fonction, pas au bloc : il s'exécute à la sortie de la fonction, qu'il s'agisse d'un return, de la dernière ligne ou d'une panique."
+    concept: go-defer-basics
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Pourquoi ce code ne compile-t-il pas ?\n\ndefer func() {\n    fmt.Println(\"fin\")\n}"
+    choices:
+      - "defer n'accepte pas les fonctions anonymes"
+      - "Il manque les parenthèses d'appel après l'accolade fermante"
+      - "Il faut un return dans la fonction"
+      - "fmt.Println ne peut pas être différé"
+    answer: 1
+    explanation: "defer attend un appel de fonction. Les parenthèses servent à l'appeler (et à lui passer des arguments) : defer func() { … }()."
+    concept: go-defer-basics
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Pourquoi une fonction qui ouvre un fichier peut-elle renvoyer aussi une fonction de nettoyage ?"
+    choices:
+      - "Pour que le fichier se ferme tout seul"
+      - "Parce que Go interdit les variables inutilisées : l'appelant ne peut pas oublier d'utiliser le nettoyage"
+      - "Parce que os.Open l'exige"
+      - "Pour accélérer l'ouverture"
+    answer: 1
+    explanation: "Si l'appelant déclare closer sans jamais l'utiliser, le code ne compile pas : le nettoyage est difficile à oublier."
+    concept: go-closer-pattern
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Quel avantage defer a-t-il sur un bloc try/finally ?"
+    choices:
+      - "Il est plus rapide"
+      - "Il garde le nettoyage à plat, sans niveau d'indentation supplémentaire par ressource"
+      - "Il capture les exceptions"
+      - "Il s'exécute avant la fonction"
+    answer: 1
+    explanation: "Le nettoyage se place juste sous l'acquisition, sans imbrication, ce qui garde le code lisible."
+    concept: go-defer-basics
+    difficulty: 1
+  - id: q10
+    type: single
+    prompt: "Pourquoi les retours nommés sont-ils indispensables dans un defer qui valide ou annule une transaction ?"
+    choices:
+      - "Pour que le defer puisse lire et modifier l'erreur renvoyée par la fonction"
+      - "Pour accélérer le commit"
+      - "Parce que defer l'exige syntaxiquement"
+      - "Pour éviter le shadowing"
+    answer: 0
+    explanation: "Le defer a besoin d'un nom pour accéder à err (et la remplacer si le Commit échoue) après le return."
+    concept: go-defer-named-return
+    difficulty: 2
