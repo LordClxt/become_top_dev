@@ -85,4 +85,4 @@ design-system/             tokens partagés UI + visuels (couleurs, typo, motion
 - `python3 .claude/skills/lab-authoring/scripts/verify_quiz.py <chapitre>` — valider les quiz d'un chapitre
 
 ## Déploiement (Coolify)
-`compose.yaml` à la racine. Pointer le domaine vers le service `proxy` (port 80) ; Caddy envoie `/api/*` au backend et le reste au frontend. Variables : voir `.env.example`. Le `runner` monte le socket Docker de l'hôte : ne jamais l'exposer.
+`docker-compose.yaml` à la racine. Pointer le domaine vers le service `proxy` (port 80) ; Caddy envoie `/api/*` au backend et le reste au frontend. Variables : voir `.env.example`. Le `runner` monte le socket Docker de l'hôte : ne jamais l'exposer.
