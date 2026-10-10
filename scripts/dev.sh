@@ -9,11 +9,10 @@ if ! docker ps --format '{{.Names}}' | grep -q '^btd-db$'; then
     -e POSTGRES_USER=btd -e POSTGRES_PASSWORD=btd -e POSTGRES_DB=btd -p 5433:5432 postgres:17-alpine >/dev/null
   until docker exec btd-db pg_isready -U btd >/dev/null 2>&1; do sleep 1; done
 fi
-(cd backend && uv run alembic upgrade head)
 
 trap 'kill 0' EXIT
 (cd runner && RUNNER_ADDR=127.0.0.1:8001 go run .) &
-(cd backend && uv run uvicorn app.main:app --port 8000 --reload) &
+(cd backend && BTD_ADDR=127.0.0.1:8000 go run ./cmd/btd serve) &  # applique les migrations au démarrage
 (cd frontend && pnpm dev) &
 echo "→ http://localhost:3000  (mot de passe de dev : dev)"
 wait

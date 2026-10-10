@@ -430,6 +430,52 @@
   "path": "/api/exercises/go-ch02-l03-lab-chunk"
  },
  {
+  "name": "diagram-run-starter",
+  "method": "POST",
+  "path": "/api/exercises/arch-sandbox-ggg-bid-flow/run",
+  "json": {
+   "files": {
+    "diagram.json": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": []\n}\n"
+   }
+  }
+ },
+ {
+  "name": "diagram-run-solution",
+  "method": "POST",
+  "path": "/api/exercises/arch-sandbox-ggg-bid-flow/run",
+  "json": {
+   "files": {
+    "diagram.json": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"capture\",\n      \"type\": \"bid-capture\",\n      \"x\": 200,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auct-capture\",\n      \"type\": \"auctioneer-capture\",\n      \"x\": 200,\n      \"y\": 220\n    },\n    {\n      \"id\": \"q-bids\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 0\n    },\n    {\n      \"id\": \"q-auct\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"db\",\n      \"type\": \"database\",\n      \"x\": 800,\n      \"y\": 110\n    },\n    {\n      \"id\": \"streamer\",\n      \"type\": \"bid-streamer\",\n      \"x\": 600,\n      \"y\": -110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"q-pay\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"e1\",\n      \"source\": \"bidder\",\n      \"target\": \"capture\"\n    },\n    {\n      \"id\": \"e2\",\n      \"source\": \"capture\",\n      \"target\": \"q-bids\"\n    },\n    {\n      \"id\": \"e3\",\n      \"source\": \"q-bids\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e4\",\n      \"source\": \"auctioneer\",\n      \"target\": \"auct-capture\"\n    },\n    {\n      \"id\": \"e5\",\n      \"source\": \"auct-capture\",\n      \"target\": \"q-auct\"\n    },\n    {\n      \"id\": \"e6\",\n      \"source\": \"q-auct\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e7\",\n      \"source\": \"tracker\",\n      \"target\": \"db\"\n    },\n    {\n      \"id\": \"e8\",\n      \"source\": \"tracker\",\n      \"target\": \"streamer\"\n    },\n    {\n      \"id\": \"e9\",\n      \"source\": \"streamer\",\n      \"target\": \"bidder\"\n    },\n    {\n      \"id\": \"e10\",\n      \"source\": \"session\",\n      \"target\": \"q-pay\"\n    },\n    {\n      \"id\": \"e11\",\n      \"source\": \"q-pay\",\n      \"target\": \"payment\"\n    }\n  ]\n}\n"
+   }
+  }
+ },
+ {
+  "name": "diagram-run-again",
+  "method": "POST",
+  "path": "/api/exercises/arch-sandbox-ggg-bid-flow/run",
+  "json": {
+   "files": {
+    "diagram.json": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"capture\",\n      \"type\": \"bid-capture\",\n      \"x\": 200,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auct-capture\",\n      \"type\": \"auctioneer-capture\",\n      \"x\": 200,\n      \"y\": 220\n    },\n    {\n      \"id\": \"q-bids\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 0\n    },\n    {\n      \"id\": \"q-auct\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"db\",\n      \"type\": \"database\",\n      \"x\": 800,\n      \"y\": 110\n    },\n    {\n      \"id\": \"streamer\",\n      \"type\": \"bid-streamer\",\n      \"x\": 600,\n      \"y\": -110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"q-pay\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"e1\",\n      \"source\": \"bidder\",\n      \"target\": \"capture\"\n    },\n    {\n      \"id\": \"e2\",\n      \"source\": \"capture\",\n      \"target\": \"q-bids\"\n    },\n    {\n      \"id\": \"e3\",\n      \"source\": \"q-bids\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e4\",\n      \"source\": \"auctioneer\",\n      \"target\": \"auct-capture\"\n    },\n    {\n      \"id\": \"e5\",\n      \"source\": \"auct-capture\",\n      \"target\": \"q-auct\"\n    },\n    {\n      \"id\": \"e6\",\n      \"source\": \"q-auct\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e7\",\n      \"source\": \"tracker\",\n      \"target\": \"db\"\n    },\n    {\n      \"id\": \"e8\",\n      \"source\": \"tracker\",\n      \"target\": \"streamer\"\n    },\n    {\n      \"id\": \"e9\",\n      \"source\": \"streamer\",\n      \"target\": \"bidder\"\n    },\n    {\n      \"id\": \"e10\",\n      \"source\": \"session\",\n      \"target\": \"q-pay\"\n    },\n    {\n      \"id\": \"e11\",\n      \"source\": \"q-pay\",\n      \"target\": \"payment\"\n    }\n  ]\n}\n"
+   }
+  }
+ },
+ {
+  "name": "diagram-run-invalid",
+  "method": "POST",
+  "path": "/api/exercises/arch-sandbox-ggg-bid-flow/run",
+  "json": {
+   "files": {
+    "diagram.json": "{"
+   }
+  },
+  "select": "status"
+ },
+ {
+  "name": "diagram-after",
+  "method": "GET",
+  "path": "/api/exercises/arch-sandbox-ggg-bid-flow"
+ },
+ {
   "name": "courses-after",
   "method": "GET",
   "path": "/api/courses"

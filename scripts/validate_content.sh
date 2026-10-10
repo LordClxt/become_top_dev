@@ -14,5 +14,5 @@ done
 for chapter in content/*/[0-9]*/; do
   [ -f "$chapter/chapter.yaml" ] && { python3 .claude/skills/lab-authoring/scripts/verify_quiz.py "$chapter" | tail -1 || status=1; }
 done
-(cd backend && uv run python -c "from app.content.loader import load_content; from app.core.config import settings; load_content(settings.content_dir); print('✅ contenu chargé par le backend')") || status=1
+(cd backend && go run ./cmd/btd validate-content) || status=1
 exit $status

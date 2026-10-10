@@ -1,14 +1,17 @@
 # Contexte de build : racine du dépôt (le contenu des cours est embarqué dans l'image).
-FROM python:3.13-slim
-COPY --from=ghcr.io/astral-sh/uv:0.12.1 /uv /bin/uv
+FROM golang:1.27.1 AS build
+WORKDIR /src
+COPY backend/go.mod backend/go.sum ./
+RUN go mod download
+COPY backend/cmd ./cmd
+COPY backend/internal ./internal
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /btd ./cmd/btd
 
-WORKDIR /app/backend
-COPY backend/pyproject.toml backend/uv.lock ./
-RUN uv sync --frozen --no-dev --no-install-project
-
-COPY backend/ ./
+FROM gcr.io/distroless/static-debian12:nonroot
+COPY --from=build /btd /btd
 COPY content/ /app/content/
-ENV BTD_CONTENT_DIR=/app/content PATH="/app/backend/.venv/bin:$PATH"
+ENV BTD_CONTENT_DIR=/app/content BTD_ADDR=:8000
 
 EXPOSE 8000
-CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips='*'"]
+# `serve` applique les migrations avant d'écouter.
+ENTRYPOINT ["/btd", "serve"]

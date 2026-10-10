@@ -20,7 +20,7 @@ field() { sed -n "s/^$1:[[:space:]]*//p" "$yaml" | head -1 | sed 's/[[:space:]]#
 # Exercice de diagramme : rien à exécuter, les règles du graphe sont vérifiées par le backend.
 if [[ "$(field kind)" == "diagram" ]]; then
   repo_root="$(cd "$(dirname "$0")/../../../.." && pwd)"
-  cd "$repo_root/backend" && exec uv run python -m app.services.diagram verify "$lab_dir"
+  cd "$repo_root/backend" && exec go run ./cmd/btd verify-diagram "$lab_dir"
 fi
 language="$(field language)"
 test_command="$(field test_command)"

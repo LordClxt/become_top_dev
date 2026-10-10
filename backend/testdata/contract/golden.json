@@ -4269,7 +4269,7 @@
    ],
    "build_output": "",
    "timed_out": false,
-   "duration_ms": 42,
+   "duration_ms": "<int>",
    "xp_awarded": 0
   },
   "runner_call": {
@@ -4345,7 +4345,7 @@
    ],
    "build_output": "",
    "timed_out": false,
-   "duration_ms": 42,
+   "duration_ms": "<int>",
    "xp_awarded": 56
   },
   "runner_call": {
@@ -4375,7 +4375,7 @@
    ],
    "build_output": "",
    "timed_out": false,
-   "duration_ms": 42,
+   "duration_ms": "<int>",
    "xp_awarded": 0
   },
   "runner_call": {
@@ -4399,7 +4399,7 @@
    "tests": [],
    "build_output": "# lab\n./chunk.go:1:1: expected 'package'\nFAIL\tlab [build failed]",
    "timed_out": false,
-   "duration_ms": 42,
+   "duration_ms": "<int>",
    "xp_awarded": 0
   },
   "runner_call": {
@@ -4502,6 +4502,298 @@
      "Découper avec `ids[i:j]` est correct pour la lecture. Le problème, c'est la capacité de chaque lot : elle s'étend jusqu'à la fin de `ids`."
     ],
     "attempts": 4,
+    "passed": true
+   }
+  }
+ },
+ {
+  "name": "diagram-run-starter",
+  "status": 200,
+  "body": {
+   "passed": false,
+   "tests": [
+    {
+     "name": "Les offres en ligne passent par Bid Capture avant d'atteindre Bid Tracker",
+     "status": "fail",
+     "output": "Aucun chemin de « Enchérisseurs » vers « Bid Tracker »."
+    },
+    {
+     "name": "Les offres du commissaire-priseur ont leur propre entrée : Auctioneer Capture",
+     "status": "fail",
+     "output": "Aucun chemin de « Commissaire-priseur » vers « Bid Tracker »."
+    },
+    {
+     "name": "Tout ce qui entre dans Bid Tracker passe par une file",
+     "status": "fail",
+     "output": "Rien n'arrive dans « Bid Tracker »."
+    },
+    {
+     "name": "Bid Capture ne stocke rien : c'est un simple conduit",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Bid Tracker enregistre les offres qu'il ordonne",
+     "status": "fail",
+     "output": "Aucun bloc « Base de données » sur le diagramme."
+    },
+    {
+     "name": "Les paiements passent par une file : Payment n'en traite qu'un toutes les 500 ms",
+     "status": "fail",
+     "output": "Aucun chemin de « Auction Session » vers « Payment »."
+    },
+    {
+     "name": "Chaque base de données n'a qu'un seul service qui y écrit",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Chaque bloc posé est relié au reste",
+     "status": "fail",
+     "output": "« Enchérisseurs » n'est relié à rien."
+    }
+   ],
+   "build_output": "",
+   "timed_out": false,
+   "duration_ms": "<int>",
+   "xp_awarded": 0
+  }
+ },
+ {
+  "name": "diagram-run-solution",
+  "status": 200,
+  "body": {
+   "passed": true,
+   "tests": [
+    {
+     "name": "Les offres en ligne passent par Bid Capture avant d'atteindre Bid Tracker",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Les offres du commissaire-priseur ont leur propre entrée : Auctioneer Capture",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Tout ce qui entre dans Bid Tracker passe par une file",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Bid Capture ne stocke rien : c'est un simple conduit",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Bid Tracker enregistre les offres qu'il ordonne",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Les paiements passent par une file : Payment n'en traite qu'un toutes les 500 ms",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Chaque base de données n'a qu'un seul service qui y écrit",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Chaque bloc posé est relié au reste",
+     "status": "pass",
+     "output": ""
+    }
+   ],
+   "build_output": "",
+   "timed_out": false,
+   "duration_ms": "<int>",
+   "xp_awarded": 120
+  }
+ },
+ {
+  "name": "diagram-run-again",
+  "status": 200,
+  "body": {
+   "passed": true,
+   "tests": [
+    {
+     "name": "Les offres en ligne passent par Bid Capture avant d'atteindre Bid Tracker",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Les offres du commissaire-priseur ont leur propre entrée : Auctioneer Capture",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Tout ce qui entre dans Bid Tracker passe par une file",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Bid Capture ne stocke rien : c'est un simple conduit",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Bid Tracker enregistre les offres qu'il ordonne",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Les paiements passent par une file : Payment n'en traite qu'un toutes les 500 ms",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Chaque base de données n'a qu'un seul service qui y écrit",
+     "status": "pass",
+     "output": ""
+    },
+    {
+     "name": "Chaque bloc posé est relié au reste",
+     "status": "pass",
+     "output": ""
+    }
+   ],
+   "build_output": "",
+   "timed_out": false,
+   "duration_ms": "<int>",
+   "xp_awarded": 0
+  }
+ },
+ {
+  "name": "diagram-run-invalid",
+  "status": 400
+ },
+ {
+  "name": "diagram-after",
+  "status": 200,
+  "body": {
+   "id": "arch-sandbox-ggg-bid-flow",
+   "title": "Going, Going, Gone : le soir de clôture",
+   "role": "lab",
+   "kind": "diagram",
+   "language": "",
+   "difficulty": 3,
+   "xp": 120,
+   "chapter_id": "",
+   "lesson_id": null,
+   "concepts": [],
+   "instructions": "**Going, Going, Gone** est un site d'enchères en ligne. Dans la salle, un commissaire-priseur annonce les offres ; en ligne, des milliers d'enchérisseurs enchérissent en même temps. Le soir où beaucoup de ventes se terminent, les offres arrivent par rafales.\n\nTa mission : dessiner le chemin des offres et des paiements pour que le système tienne ce soir-là.\n\n- Les offres en ligne et celles du commissaire-priseur n'ont ni le même volume ni les mêmes exigences : chacune a son point d'entrée.\n- **Bid Tracker** est la référence : il réunit les deux flux et les ordonne.\n- **Payment** est un prestataire externe : il ne traite qu'un paiement toutes les 500 ms.\n\nPose les blocs depuis la palette, relie-les par des flèches dans le sens où circulent les données, puis lance la vérification. Chaque règle te dit ce qui manque.\n\nIl n'existe pas *la* bonne architecture : les règles reprennent les choix argumentés par le livre, ceux qui ont les compromis les moins mauvais.\n",
+   "milestones": [],
+   "rubric": [],
+   "source": {
+    "chapter": 18,
+    "pages": "295-297"
+   },
+   "palette": [
+    {
+     "type": "bidder",
+     "label": "Enchérisseurs",
+     "shape": "client",
+     "hint": "Des milliers de navigateurs qui enchérissent en ligne."
+    },
+    {
+     "type": "auctioneer",
+     "label": "Commissaire-priseur",
+     "shape": "client",
+     "hint": "Un seul par vente, en salle."
+    },
+    {
+     "type": "bid-capture",
+     "label": "Bid Capture",
+     "shape": "service",
+     "hint": "Reçoit les offres en ligne."
+    },
+    {
+     "type": "auctioneer-capture",
+     "label": "Auctioneer Capture",
+     "shape": "service",
+     "hint": "Reçoit les offres du commissaire-priseur."
+    },
+    {
+     "type": "bid-tracker",
+     "label": "Bid Tracker",
+     "shape": "service",
+     "hint": "Ordonne toutes les offres : la référence."
+    },
+    {
+     "type": "bid-streamer",
+     "label": "Bid Streamer",
+     "shape": "service",
+     "hint": "Renvoie le fil des offres aux enchérisseurs, en lecture seule."
+    },
+    {
+     "type": "auction-session",
+     "label": "Auction Session",
+     "shape": "service",
+     "hint": "Pilote le déroulé d'une vente."
+    },
+    {
+     "type": "payment",
+     "label": "Payment",
+     "shape": "external",
+     "hint": "Prestataire externe : un paiement toutes les 500 ms."
+    },
+    {
+     "type": "queue",
+     "label": "File de messages",
+     "shape": "queue",
+     "hint": "Tampon asynchrone entre deux rythmes différents."
+    },
+    {
+     "type": "database",
+     "label": "Base de données",
+     "shape": "database",
+     "hint": "Stockage durable."
+    }
+   ],
+   "checks": [
+    {
+     "id": "bidder-path",
+     "label": "Les offres en ligne passent par Bid Capture avant d'atteindre Bid Tracker"
+    },
+    {
+     "id": "auctioneer-path",
+     "label": "Les offres du commissaire-priseur ont leur propre entrée : Auctioneer Capture"
+    },
+    {
+     "id": "tracker-buffered",
+     "label": "Tout ce qui entre dans Bid Tracker passe par une file"
+    },
+    {
+     "id": "capture-stateless",
+     "label": "Bid Capture ne stocke rien : c'est un simple conduit"
+    },
+    {
+     "id": "tracker-persists",
+     "label": "Bid Tracker enregistre les offres qu'il ordonne"
+    },
+    {
+     "id": "payment-buffered",
+     "label": "Les paiements passent par une file : Payment n'en traite qu'un toutes les 500 ms"
+    },
+    {
+     "id": "single-owner",
+     "label": "Chaque base de données n'a qu'un seul service qui y écrit"
+    },
+    {
+     "id": "connected",
+     "label": "Chaque bloc posé est relié au reste"
+    }
+   ],
+   "workspace": {
+    "editable": {
+     "diagram.json": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"capture\",\n      \"type\": \"bid-capture\",\n      \"x\": 200,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auct-capture\",\n      \"type\": \"auctioneer-capture\",\n      \"x\": 200,\n      \"y\": 220\n    },\n    {\n      \"id\": \"q-bids\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 0\n    },\n    {\n      \"id\": \"q-auct\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"db\",\n      \"type\": \"database\",\n      \"x\": 800,\n      \"y\": 110\n    },\n    {\n      \"id\": \"streamer\",\n      \"type\": \"bid-streamer\",\n      \"x\": 600,\n      \"y\": -110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"q-pay\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"e1\",\n      \"source\": \"bidder\",\n      \"target\": \"capture\"\n    },\n    {\n      \"id\": \"e2\",\n      \"source\": \"capture\",\n      \"target\": \"q-bids\"\n    },\n    {\n      \"id\": \"e3\",\n      \"source\": \"q-bids\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e4\",\n      \"source\": \"auctioneer\",\n      \"target\": \"auct-capture\"\n    },\n    {\n      \"id\": \"e5\",\n      \"source\": \"auct-capture\",\n      \"target\": \"q-auct\"\n    },\n    {\n      \"id\": \"e6\",\n      \"source\": \"q-auct\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e7\",\n      \"source\": \"tracker\",\n      \"target\": \"db\"\n    },\n    {\n      \"id\": \"e8\",\n      \"source\": \"tracker\",\n      \"target\": \"streamer\"\n    },\n    {\n      \"id\": \"e9\",\n      \"source\": \"streamer\",\n      \"target\": \"bidder\"\n    },\n    {\n      \"id\": \"e10\",\n      \"source\": \"session\",\n      \"target\": \"q-pay\"\n    },\n    {\n      \"id\": \"e11\",\n      \"source\": \"q-pay\",\n      \"target\": \"payment\"\n    }\n  ]\n}\n"
+    },
+    "readonly": {},
+    "hints_total": 3,
+    "hints_revealed": [],
+    "attempts": 3,
     "passed": true
    }
   }
@@ -5279,7 +5571,7 @@
   "name": "progress-after",
   "status": 200,
   "body": {
-   "xp": 121,
+   "xp": 241,
    "level": 2,
    "level_floor_xp": 100,
    "next_level_xp": 300,
@@ -5320,10 +5612,10 @@
   "body": {
    "date": "<date>",
    "lessons": 2,
-   "runs": 4,
-   "runs_passed": 2,
+   "runs": 7,
+   "runs_passed": 4,
    "answers": 3,
-   "xp": 121,
+   "xp": 241,
    "level": 4
   }
  },
@@ -5344,6 +5636,32 @@
   "name": "feed",
   "status": 200,
   "body": [
+   {
+    "kind": "exercise_runs",
+    "at": "<datetime>",
+    "date": "<date>",
+    "title": "Going, Going, Gone : le soir de clôture",
+    "target": {
+     "type": "exercise",
+     "id": "arch-sandbox-ggg-bid-flow"
+    },
+    "xp": 0,
+    "count": 3,
+    "ok": 2
+   },
+   {
+    "kind": "exercise_passed",
+    "at": "<datetime>",
+    "date": "<date>",
+    "title": "Going, Going, Gone : le soir de clôture",
+    "target": {
+     "type": "exercise",
+     "id": "arch-sandbox-ggg-bid-flow"
+    },
+    "xp": 120,
+    "count": 1,
+    "ok": 0
+   },
    {
     "kind": "exercise_runs",
     "at": "<datetime>",

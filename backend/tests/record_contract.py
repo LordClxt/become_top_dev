@@ -26,6 +26,8 @@ from tests.conftest import FakeRunner, go_json
 OUT = Path(__file__).resolve().parents[1] / "testdata" / "contract"
 LAB = "go-ch02-l03-lab-chunk"
 QUIZ = "go-ch02-l03-quiz"
+KATA = "arch-sandbox-ggg-bid-flow"
+MASKED = {"avatar_version", "duration_ms"}
 PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 32
 DATETIME = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -62,6 +64,11 @@ def scenario(content) -> list[dict]:
 
     lab = f"/api/exercises/{LAB}"
     quiz = f"/api/quizzes/{QUIZ}/questions"
+    kata = f"/api/exercises/{KATA}"
+
+    def kata_file(side: str) -> str:
+        return (content.exercises[KATA].path / side / "diagram.json").read_text(encoding="utf-8")
+
     steps += [
         step("lesson-complete", "POST", "/api/lessons/go-ch02-l03/complete"),
         step("lesson-complete-again", "POST", "/api/lessons/go-ch02-l03/complete"),
@@ -111,6 +118,32 @@ def scenario(content) -> list[dict]:
         step("exercise-after-pass", "GET", lab),
         step("reset", "POST", f"{lab}/reset"),
         step("exercise-after-reset", "GET", lab),
+        step(
+            "diagram-run-starter",
+            "POST",
+            f"{kata}/run",
+            json={"files": {"diagram.json": kata_file("starter")}},
+        ),
+        step(
+            "diagram-run-solution",
+            "POST",
+            f"{kata}/run",
+            json={"files": {"diagram.json": kata_file("solution")}},
+        ),
+        step(
+            "diagram-run-again",
+            "POST",
+            f"{kata}/run",
+            json={"files": {"diagram.json": kata_file("solution")}},
+        ),
+        step(
+            "diagram-run-invalid",
+            "POST",
+            f"{kata}/run",
+            json={"files": {"diagram.json": "{"}},
+            select="status",
+        ),
+        step("diagram-after", "GET", kata),
         step("courses-after", "GET", "/api/courses"),
         step("chapter-after", "GET", "/api/chapters/go-ch02"),
         step("lesson-after", "GET", "/api/lessons/go-ch02-l03"),
@@ -139,11 +172,9 @@ def scenario(content) -> list[dict]:
 
 
 def normalize(value):
-    """Masque ce qui dépend de l'heure d'enregistrement. Même règle côté Go."""
+    """Masque ce qui dépend de l'heure ou de la machine d'enregistrement. Même règle côté Go."""
     if isinstance(value, dict):
-        return {
-            k: "<int>" if k == "avatar_version" and v is not None else normalize(v) for k, v in value.items()
-        }
+        return {k: "<int>" if k in MASKED and v is not None else normalize(v) for k, v in value.items()}
     if isinstance(value, list):
         return [normalize(v) for v in value]
     if isinstance(value, str):
