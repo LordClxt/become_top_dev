@@ -1,0 +1,7 @@
+id: go-ch05-pointer-basics
+concept: go-pointer-basics
+format: hyperframes
+justification: "& range une adresse, * la suit pour écrire : voir l'impulsion parcourir p puis q jusqu'au même x, puis buter sur nil, rend tangible ce que le code seul cache."
+entry: scene.html
+duration_s: 12
+status: built

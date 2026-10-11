@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="go-ch04-closure-counter" />
+    <title>Closure : deux compteurs, deux variables n</title>
+    <!--
+      Choreography (12 s) :
+        0.0 – 0.6   décor : code à gauche, mémoire à droite
+        0.7 – 3.0   a := counter() : n naît, la closure le capture, counter() se termine, n reste
+        3.3 – 5.0   b := counter() : un deuxième n, indépendant
+        5.5 – 9.7   a(), a(), a(), b() : chaque appel incrémente SON n → 1 2 3 1
+        10 – 12     bilan
+      L'état affiché est rejoué par un mini-interpréteur (STEPS) : ligne active, valeurs de n, sortie.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 46px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .label { position: absolute; font-size: 30px; color: var(--muted); white-space: nowrap; }
+
+      .code { position: absolute; left: 70px; top: 170px; width: 880px; height: 700px; border-radius: 28px; border: 3px solid var(--line);
+        background: var(--surface); padding: 30px 0; }
+      .cl { position: relative; height: 58px; padding-left: 90px; font-size: 32px; line-height: 58px; white-space: pre; }
+      .cl .no { position: absolute; left: 24px; width: 44px; text-align: right; color: var(--muted); font-size: 26px; }
+      .cl.on { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+      .cl.on::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--accent); }
+      .kw { color: var(--accent); }
+      .cm { color: var(--muted); }
+
+      .zone { position: absolute; left: 1020px; width: 830px; border-radius: 28px; border: 3px dashed var(--line); }
+      .zone .t { position: absolute; left: 26px; top: 14px; font-size: 30px; color: var(--muted); }
+      .var { position: absolute; height: 76px; padding: 0 24px; border-radius: 16px; border: 4px solid var(--line); background: var(--surface);
+        font-size: 36px; font-weight: 600; display: flex; align-items: center; gap: 14px; opacity: 0; }
+      .frame { position: absolute; left: 1430px; top: 250px; width: 380px; height: 120px; border-radius: 18px; border: 4px solid var(--accent);
+        background: var(--surface-2); padding: 14px 22px; font-size: 32px; opacity: 0; }
+      .frame .s { color: var(--muted); font-size: 26px; margin-top: 6px; }
+      .env { position: absolute; top: 580px; width: 340px; height: 200px; border-radius: 22px; border: 4px solid var(--line); background: var(--surface);
+        padding: 18px 24px; opacity: 0; }
+      .env .h { font-size: 28px; color: var(--muted); }
+      .env .n { font-size: 60px; font-weight: 700; margin-top: 10px; }
+      .env .n b { color: var(--accent); display: inline-block; }
+      .env .fn { position: absolute; right: 18px; top: 18px; padding: 4px 14px; border-radius: 12px; background: var(--accent); color: var(--ink);
+        font-size: 26px; font-weight: 700; }
+      #envA { left: 1060px; } #envB { left: 1470px; }
+      svg.lines { position: absolute; inset: 0; overflow: visible; }
+      svg.lines path { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; opacity: 0; }
+      .out { position: absolute; left: 70px; top: 920px; width: 880px; height: 100px; border-radius: 22px; border: 3px solid var(--line);
+        background: var(--surface); padding: 0 30px; font-size: 40px; display: flex; align-items: center; gap: 20px; }
+      .out .p { color: var(--muted); font-size: 30px; }
+      .out .v { color: var(--pass); font-weight: 600; }
+      .survive { position: absolute; left: 1060px; top: 800px; font-size: 32px; color: var(--pass); font-weight: 600; opacity: 0; white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Chaque appel à counter() crée <em>un nouveau n</em></div>
+      <div class="caption" id="c2">counter() est terminé, mais n vit tant que <em>la closure l'utilise</em></div>
+      <div class="caption" id="c3">Un deuxième appel : <em>un deuxième n</em>, indépendant</div>
+      <div class="caption" id="c4">a() modifie <em>son</em> n, b() modifie <em>le sien</em></div>
+      <div class="caption" id="c5">Une closure : du code <em>+ les variables qu'il a capturées</em></div>
+
+      <div class="code mono" id="code"></div>
+      <div class="out mono" id="outbox"><span class="p" id="outp">arguments</span><span class="v" id="out"></span></div>
+
+      <div class="zone" style="top: 170px; height: 260px"><div class="t">pile · main</div></div>
+      <div class="zone" style="top: 470px; height: 400px"><div class="t" style="left: auto; right: 26px; top: auto; bottom: 14px">variables capturées (tas)</div></div>
+      <div class="var mono" id="va" style="left: 1060px; top: 250px">a</div>
+      <div class="var mono" id="vb" style="left: 1230px; top: 250px">b</div>
+      <div class="frame mono" id="frame">counter()<div class="s">en cours d'exécution</div></div>
+      <div class="env mono" id="envA"><div class="h">n de a</div><div class="n">n = <b id="nA">0</b></div><div class="fn">func</div></div>
+      <div class="env mono" id="envB"><div class="h">n de b</div><div class="n">n = <b id="nB">0</b></div><div class="fn">func</div></div>
+      <div class="survive" id="survive">survit au retour de counter()</div>
+      <svg class="lines" width="1920" height="1080">
+        <path id="arA" d="M 1100 330 C 1100 450, 1200 470, 1220 576" />
+        <path id="arB" d="M 1270 330 C 1270 450, 1620 470, 1640 576" />
+      </svg>
+    </div>
+
+    <script>
+      const DURATION = 12;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+
+      // --- Code et mini-interpréteur -----------------------------------------------------------
+      const CODE = [
+        ['<span class="kw">func</span> counter() <span class="kw">func</span>() <span class="kw">int</span> {'],
+        ['    n := 0'],
+        ['    <span class="kw">return func</span>() <span class="kw">int</span> {'],
+        ['        n++'],
+        ['        <span class="kw">return</span> n'],
+        ['    }'],
+        ['}'],
+        [''],
+        ['a, b := counter(), counter()'],
+        ['fmt.Println(a(), a(), a(), b())'],
+      ];
+      // Chaque pas : instant, ligne active (1-based) et effet sur l'état.
+      const STEPS = [];
+      const at = (t, line, fx = () => {}) => STEPS.push({ t, line, fx });
+      function makeCounter(t0, name) {
+        at(t0, 9, (s) => { s.frame = true; });
+        at(t0 + 0.5, 2, (s) => { s.env[name] = 0; });
+        at(t0 + 1.0, 3, (s) => { s.fn[name] = true; });
+        at(t0 + 1.5, 7, (s) => { s.frame = false; s.bound[name] = true; });
+      }
+      function call(t0, name) {
+        at(t0, 10, (s) => { s.calling = name; });
+        at(t0 + 0.3, 4, (s) => { s.env[name] += 1; });
+        at(t0 + 0.7, 5, (s) => { s.args.push(s.env[name]); s.calling = null; });
+      }
+      makeCounter(0.8, "a");
+      makeCounter(3.4, "b");
+      ["a", "a", "a", "b"].forEach((name, i) => call(5.6 + i * 1.05, name));
+      at(9.8, 10, (s) => { s.printed = true; });
+      at(10.4, 0);
+      function stateAt(t) {
+        const s = { line: 0, frame: false, env: {}, fn: {}, bound: {}, args: [], printed: false, calling: null };
+        for (const st of STEPS) {
+          if (st.t > t) break;
+          s.line = st.line;
+          st.fx(s);
+        }
+        return s;
+      }
+
+      // --- DOM ------------------------------------------------------------------------------
+      const code = document.getElementById("code");
+      CODE.forEach(([html], i) => code.insertAdjacentHTML("beforeend", `<div class="cl" id="l${i + 1}"><span class="no">${i + 1}</span>${html}</div>`));
+      const lines = [...code.children];
+      const $ = (id) => document.getElementById(id);
+      function render(t) {
+        const s = stateAt(t);
+        lines.forEach((el, i) => el.classList.toggle("on", s.line === i + 1));
+        $("frame").style.opacity = s.frame ? 1 : 0;
+        for (const [k, env, ar, v] of [["a", "envA", "arA", "va"], ["b", "envB", "arB", "vb"]]) {
+          $(env).style.opacity = k in s.env ? 1 : 0;
+          $(env).querySelector(".fn").style.opacity = s.fn[k] ? 1 : 0;
+          $("n" + k.toUpperCase()).textContent = s.env[k] ?? 0;
+          $(ar).style.opacity = s.bound[k] ? 1 : 0;
+          $(v).style.opacity = s.bound[k] ? 1 : 0.0;
+          $(env).style.borderColor = s.calling === k ? "var(--accent)" : "";
+        }
+        $("outp").textContent = s.printed ? "sortie" : "arguments";
+        $("out").textContent = s.printed ? s.args.join(" ") : s.args.join(", ");
+      }
+      const driver = { t: 0 };
+      tl.to(driver, { t: DURATION, duration: DURATION, ease: "none", onUpdate: () => render(driver.t) }, 0);
+
+      // --- Mouvement ------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      captions([["#c1", 0.7, 2.3], ["#c2", 2.3, 3.4], ["#c3", 3.4, 5.5], ["#c4", 5.5, 9.9], ["#c5", 9.9, DURATION + 1]]);
+      tl.fromTo("#code, #outbox, .zone", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "power3.out" }, 0);
+      tl.fromTo("#survive", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 2.4);
+      tl.to("#survive", { opacity: 0, duration: 0.3 }, 3.3);
+      // Petite impulsion sur n à chaque incrément.
+      STEPS.filter((s) => s.line === 4).forEach((s, i) => {
+        const who = i < 3 ? "#nA" : "#nB";
+        tl.fromTo(who, { scale: 1 }, { keyframes: { scale: [1, 1.4, 1] }, duration: 0.4, ...NF }, s.t);
+      });
+
+      tl.set({}, {}, DURATION);
+      render(0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
