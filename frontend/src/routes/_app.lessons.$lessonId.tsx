@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { BookOpen, Check, ChevronLeft, ChevronRight, Clock, FlaskConical, Sparkles } from 'lucide-react'
 import { type ReactNode, useEffect, useMemo, useState } from 'react'
-import { GridZone } from '@/components/Backdrop'
 import { Flashcards } from '@/components/Flashcards'
 import { LessonBody, lessonSections } from '@/components/LessonBody'
 import { Quiz } from '@/components/Quiz'
@@ -47,33 +46,34 @@ function LessonPage() {
 
   return (
     <main className="relative isolate overflow-x-clip">
-      <GridZone style={{ top: -140, right: -60 }} size={620} glow={{ x: -0.05, y: 0.05 }} />
-
-      <header className="mx-auto max-w-[1400px] px-6 pt-10 pb-12">
-        <Link
-          to="/chapters/$chapterId"
-          params={{ chapterId: lesson.chapter.id }}
-          className="inline-flex items-center gap-1 text-sm text-muted hover:text-text"
-        >
-          <ChevronLeft className="size-4" />
-          {lesson.chapter.title}
-          {position >= 0 && `, leçon ${position + 1} sur ${lessons.length}`}
-        </Link>
-        <h1 className="mt-4 max-w-[24ch] font-read text-4xl leading-[1.1] font-semibold tracking-tight md:text-5xl">
-          {lesson.title}
-        </h1>
-        <div className="mt-5 flex flex-wrap gap-2 text-sm">
-          <Chip icon={<Clock className="size-3.5" />}>{lesson.duration_min} min de lecture</Chip>
-          <Chip icon={<Sparkles className="size-3.5 text-accent" />}>{lesson.xp} XP</Chip>
-          <Chip icon={<BookOpen className="size-3.5" />}>Livre, p. {lesson.source.pages}</Chip>
-          {lesson.extra && <Chip>Au-delà du livre</Chip>}
-          {done && (
-            <Chip icon={<Check className="size-3.5 text-pass" />} className="text-pass">
-              Terminée
-            </Chip>
-          )}
+      {/* L'en-tête partage la grille du corps : le titre s'aligne sur la colonne de lecture. */}
+      <header className="mx-auto grid max-w-[1400px] px-6 pt-10 pb-12 xl:grid-cols-[200px_minmax(0,1fr)_280px] xl:gap-12">
+        <div className="xl:col-start-2">
+          <Link
+            to="/chapters/$chapterId"
+            params={{ chapterId: lesson.chapter.id }}
+            className="inline-flex items-center gap-1 text-sm text-muted hover:text-text"
+          >
+            <ChevronLeft className="size-4" />
+            {lesson.chapter.title}
+            {position >= 0 && `, leçon ${position + 1} sur ${lessons.length}`}
+          </Link>
+          <h1 className="mt-4 max-w-[24ch] font-read text-4xl leading-[1.1] font-semibold tracking-tight text-balance md:text-5xl">
+            {lesson.title}
+          </h1>
+          <div className="mt-5 flex flex-wrap gap-2 text-sm">
+            <Chip icon={<Clock className="size-3.5" />}>{lesson.duration_min} min de lecture</Chip>
+            <Chip icon={<Sparkles className="size-3.5 text-accent" />}>{lesson.xp} XP</Chip>
+            <Chip icon={<BookOpen className="size-3.5" />}>Livre, p. {lesson.source.pages}</Chip>
+            {lesson.extra && <Chip>Au-delà du livre</Chip>}
+            {done && (
+              <Chip icon={<Check className="size-3.5 text-pass" />} className="text-pass">
+                Terminée
+              </Chip>
+            )}
+          </div>
+          {lessons.length > 0 && <ChapterSteps lessons={lessons} currentId={lesson.id} />}
         </div>
-        {lessons.length > 0 && <ChapterSteps lessons={lessons} currentId={lesson.id} />}
       </header>
 
       <div className="mx-auto grid max-w-[1400px] gap-10 px-6 pb-24 xl:grid-cols-[200px_minmax(0,1fr)_280px] xl:gap-12">
@@ -121,7 +121,7 @@ function LessonPage() {
           </nav>
         </article>
 
-        <aside className="grid content-start gap-4 text-sm xl:sticky xl:top-8 xl:self-start">
+        <aside className="grid content-start gap-8 text-sm xl:sticky xl:top-8 xl:self-start">
           <Panel title="Concepts de la leçon">
             <ul className="grid gap-2.5">
               {lesson.concepts.map((c) => (
@@ -234,7 +234,7 @@ function Toc({ sections }: { sections: { id: string; title: string }[] }) {
 
 function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="rounded-xl border border-line bg-surface/80 p-4 backdrop-blur">
+    <section className="border-l border-line pl-4">
       <h2 className="mb-3 font-medium text-muted">{title}</h2>
       {children}
     </section>
@@ -253,9 +253,7 @@ function FinishPanel({
   children: ReactNode
 }) {
   return (
-    <section className="relative isolate mt-14 overflow-hidden rounded-2xl border border-line bg-surface p-6 md:p-8">
-      <div className="bg-grid pointer-events-none absolute -bottom-32 -left-24 -z-10 size-96" aria-hidden="true" />
-      <div className="glow-cyan pointer-events-none absolute -bottom-20 left-10 -z-10 size-56 rounded-full" aria-hidden="true" />
+    <section className="mt-16 border-t border-line pt-10">
       <h2 className="font-read text-2xl font-semibold">{done ? 'Leçon terminée' : 'Tu as tout lu ?'}</h2>
       <p className="mt-1 text-muted">
         {done
@@ -283,7 +281,7 @@ function LabCard({ lab }: { lab: ExerciseSummary }) {
     <Link
       to="/exercises/$exerciseId"
       params={{ exerciseId: lab.id }}
-      className="group flex h-full items-start gap-3 rounded-xl border border-line bg-ink/60 p-4 hover:border-accent"
+      className="group flex h-full items-start gap-3 rounded-xl border border-line bg-surface p-4 hover:border-accent"
     >
       <span
         className={cn(

@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Check, Code2, Workflow } from 'lucide-react'
-import { GridZone } from '@/components/Backdrop'
 import { ErrorState } from '@/components/states'
 import { sandboxQuery } from '@/features/courses/queries'
 import type { SandboxExercise } from '@/lib/api'
@@ -29,7 +28,6 @@ function Sandbox() {
 
   return (
     <main className="relative isolate overflow-x-clip">
-      <GridZone style={{ top: -140, right: -100 }} size={620} glow={{ x: -0.1, y: 0.05 }} />
       <div className="mx-auto max-w-[1100px] px-6 pt-12 pb-24">
         <h1 className="font-read text-5xl leading-tight font-semibold tracking-tight">Atelier</h1>
         <p className="mt-3 max-w-[56ch] font-read text-lg leading-relaxed text-muted">
@@ -70,7 +68,6 @@ function SandboxCard({ exercise: ex }: { exercise: SandboxExercise }) {
         ex.passed ? 'border-pass/50' : 'border-line hover:border-accent',
       )}
     >
-      <span className="bg-grid pointer-events-none absolute -top-16 -right-16 -z-10 size-64" aria-hidden="true" />
       <span className="flex items-center justify-between gap-4">
         <span className="flex items-center gap-2 text-sm text-accent">
           <kind.icon className="size-4" />

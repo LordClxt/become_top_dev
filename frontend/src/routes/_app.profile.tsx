@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { BookOpenCheck, Check, CircleHelp, FlaskConical, type LucideIcon, Play, X } from 'lucide-react'
 import { useState } from 'react'
 import { ActivityGraph } from '@/components/ActivityGraph'
-import { GridZone } from '@/components/Backdrop'
 import { StreakFlame } from '@/components/StreakFlame'
 import { SliceMeter } from '@/components/SliceMeter'
 import { XpBar } from '@/components/XpBar'
@@ -29,9 +28,6 @@ function ProfilePage() {
 
   return (
     <main className="relative isolate overflow-x-clip">
-      <GridZone style={{ top: -160, left: -120 }} size={620} glow={{ x: 0.1, y: 0.1 }} />
-      <GridZone style={{ top: 520, right: -140 }} size={560} glow={{ x: -0.1, y: 0 }} />
-
       <div className="mx-auto max-w-[1100px] px-6 pt-14 pb-24">
         <section className="grid gap-10 lg:grid-cols-[auto_1fr_auto] lg:items-end">
           <div className="flex items-center gap-6">
@@ -45,7 +41,7 @@ function ProfilePage() {
               </p>
             </div>
           </div>
-          <dl className="grid grid-cols-3 gap-3">
+          <dl className="grid grid-cols-3 gap-6">
             <Stat label="XP au total" value={progress.xp} />
             <Stat label="Plus longue série" value={`${progress.longest_streak_days} j`} />
             <Stat label="Jours actifs" value={progress.active_days} />
@@ -172,7 +168,7 @@ function Streak({ days }: { days: number }) {
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl border border-line bg-surface/80 px-4 py-3 backdrop-blur">
+    <div className="border-l border-line pl-4">
       <dt className="text-xs text-muted">{label}</dt>
       <dd className="mt-1 font-read text-2xl font-semibold tabular-nums">{value}</dd>
     </div>

@@ -47,8 +47,6 @@ function Login() {
 
   return (
     <main className="relative isolate grid min-h-screen place-items-center overflow-hidden px-6 py-16">
-      <div className="bg-grid pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
-
       <form
         className="w-full max-w-sm"
         noValidate

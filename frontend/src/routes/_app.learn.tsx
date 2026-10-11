@@ -2,7 +2,6 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Check, Lock, LockOpen } from 'lucide-react'
 import { ActivityGraph } from '@/components/ActivityGraph'
-import { GridZone } from '@/components/Backdrop'
 import { SliceMeter } from '@/components/SliceMeter'
 import { ErrorState } from '@/components/states'
 import { Button } from '@/components/ui/button'
@@ -30,7 +29,6 @@ function Dashboard() {
 
   return (
     <main className="relative isolate overflow-x-clip">
-      <GridZone style={{ top: -140, right: -100 }} size={620} glow={{ x: -0.1, y: 0.05 }} />
       <div className="mx-auto grid max-w-[1200px] gap-14 px-6 pt-12 pb-28 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
         <div>
           {focus?.next ? (
