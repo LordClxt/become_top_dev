@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch04-unknown-field" />
+    <title>Le piège des champs inconnus</title>
+    <!--
+      Choreography (14 s) :
+        0.0 – 0.6   décor : nouveau code (v2), base, ancien code (v1)
+        0.7 – 2.2   v2 écrit un enregistrement avec un champ récent : photoUrl
+        2.4 – 7.0   v1 lit, décode vers sa classe User (sans photoUrl), modifie name, ré-encode :
+                    photoUrl disparaît de la base
+        7.3 – 12.4  même scénario, mais v1 garde les champs inconnus de côté et les réécrit
+        12.4 – 14   bilan
+      Les deux issues sont calculées par la même fonction readModifyWrite(record, keepUnknown).
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 46px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .caption b { color: var(--fail); }
+      .caption i { font-style: normal; color: var(--pass); }
+
+      .actor { position: absolute; top: 200px; width: 470px; height: 640px; border-radius: 30px; border: 3px solid var(--line); }
+      .actor h3 { position: absolute; left: 30px; top: 22px; font-size: 36px; font-weight: 700; }
+      .actor .sub { position: absolute; left: 30px; top: 76px; font-size: 28px; color: var(--muted); }
+      #v2 { left: 70px; } #v1 { left: 1380px; }
+      .db { position: absolute; left: 700px; top: 250px; width: 520px; height: 560px; }
+      .db .body { position: absolute; left: 0; right: 0; top: 50px; bottom: 0; border: 4px solid var(--line); border-top: none;
+        border-radius: 0 0 260px 260px / 0 0 60px 60px; background: var(--surface); }
+      .db .lid { position: absolute; left: 0; right: 0; top: 0; height: 100px; border-radius: 50%; border: 4px solid var(--line); background: var(--surface-2); }
+      .db .t { position: absolute; left: 0; right: 0; top: 30px; text-align: center; font-size: 34px; font-weight: 700; }
+
+      .rec { position: absolute; width: 420px; border-radius: 20px; border: 4px solid var(--accent); background: var(--surface-2); padding: 14px 22px; opacity: 0; }
+      .rec .f { position: relative; height: 56px; font-size: 32px; display: flex; align-items: center; gap: 14px; white-space: nowrap; }
+      .rec .f .k { color: var(--accent); }
+      .rec .f.new .k { color: var(--fail); }
+      .rec .f .edit { color: var(--pass); }
+      .rec.lost { border-color: var(--fail); }
+      .rec.kept { border-color: var(--pass); }
+      .rec .tag { font-size: 26px; color: var(--muted); margin-bottom: 4px; }
+      .pocket { position: absolute; left: 1410px; top: 640px; width: 420px; height: 190px; border-radius: 20px; border: 4px dashed var(--line);
+        padding: 14px 20px; font-size: 24px; color: var(--muted); opacity: 0; white-space: nowrap; }
+      .verdict { position: absolute; left: 700px; width: 520px; top: 850px; text-align: center; font-size: 38px; font-weight: 700; opacity: 0; }
+      .verdict.bad { color: var(--fail); }
+      .verdict.good { color: var(--pass); }
+      .gone { position: absolute; font-size: 32px; color: var(--fail); white-space: nowrap; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="14" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Le nouveau code écrit un champ récent : <em>photoUrl</em></div>
+      <div class="caption" id="c2">L'ancien code décode vers sa classe… <b>qui n'a pas ce champ</b></div>
+      <div class="caption" id="c3">Il modifie name, ré-encode : <b>photoUrl est perdu</b></div>
+      <div class="caption" id="c4">La parade : <em>garder les champs inconnus</em> tels quels</div>
+      <div class="caption" id="c5">…et les réécrire avec le reste : <i>photoUrl survit</i></div>
+      <div class="caption" id="c6">Les formats savent préserver l'inconnu, <em>encore faut-il ne pas le jeter</em></div>
+
+      <div class="actor" id="v2"><h3>nouveau code (v2)</h3><div class="sub mono">User{userId, name, photoUrl}</div></div>
+      <div class="actor" id="v1"><h3>ancien code (v1)</h3><div class="sub mono">User{userId, name}</div></div>
+      <div class="db" id="db"><div class="body"></div><div class="lid"></div><div class="t">base</div></div>
+      <div class="pocket mono" id="pocket">champs inconnus, gardés tels quels</div>
+      <div class="verdict bad" id="vbad">✗ photoUrl effacé</div>
+      <div class="verdict good" id="vgood">✓ photoUrl conservé</div>
+      <div class="gone mono" id="gone">photoUrl ?</div>
+      <div id="recs"></div>
+    </div>
+
+    <script>
+      const DURATION = 14;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+
+      // --- Modèle -------------------------------------------------------------------------
+      const RECORD = { userId: 42, name: '"Ada"', photoUrl: '"ada.jpg"' };
+      const V1_FIELDS = ["userId", "name"];
+      function decode(rec) {
+        const obj = {}, unknown = {};
+        for (const k in rec) (V1_FIELDS.includes(k) ? obj : unknown)[k] = rec[k];
+        return { obj, unknown };
+      }
+      function readModifyWrite(rec, keepUnknown) {
+        const { obj, unknown } = decode(rec);
+        obj.name = '"Ada L."';
+        return keepUnknown ? { ...obj, ...unknown } : { ...obj };
+      }
+      const LOST = readModifyWrite(RECORD, false);
+      const KEPT = readModifyWrite(RECORD, true);
+      const DEC = decode(RECORD);
+
+      // --- Cartes ---------------------------------------------------------------------------
+      const recs = document.getElementById("recs");
+      function card(id, rec, x, y, tag = "", cls = "", edited = false) {
+        const rows = Object.entries(rec).map(([k, v]) =>
+          `<div class="f ${k === "photoUrl" ? "new" : ""}" data-k="${k}"><span class="k">${k}</span><span class="${edited && k === "name" ? "edit" : ""}">${v}</span></div>`).join("");
+        recs.insertAdjacentHTML("beforeend", `<div class="rec mono ${cls}" id="${id}" style="left:${x}px;top:${y}px">${tag ? `<div class="tag">${tag}</div>` : ""}${rows}</div>`);
+      }
+      const DBX = 750, DBY = 420, V1X = 1405, V1Y = 330, V2X = 95;
+      card("w2", RECORD, V2X, V1Y, "écrit par v2");
+      card("dbA", RECORD, DBX, DBY);
+      card("objA", { ...DEC.obj, photoUrl: RECORD.photoUrl }, V1X, V1Y, "objet User (v1)");
+      card("objA2", { ...DEC.obj, name: '"Ada L."' }, V1X, V1Y, "objet User (v1)", "", true);
+      card("dbLost", LOST, DBX, DBY, "", "lost", true);
+      card("dbB", RECORD, DBX, DBY);
+      card("objB", { ...DEC.obj, name: '"Ada L."' }, V1X, V1Y, "objet User (v1)", "", true);
+      card("unk", DEC.unknown, V1X + 5, 728, "", "");
+      card("dbKept", KEPT, DBX, DBY, "", "kept", true);
+
+      // --- Mouvement ------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      const show = (sel, at, from = {}) => tl.fromTo(sel, { opacity: 0, ...from }, { opacity: 1, x: 0, y: 0, duration: 0.35, ease: "power2.out", ...NF }, at);
+      const hide = (sel, at) => tl.to(sel, { opacity: 0, duration: 0.25 }, at);
+      const move = (sel, dx, dy, at, d = 0.6) => tl.fromTo(sel, { x: dx, y: dy, opacity: 1 }, { x: 0, y: 0, duration: d, ease: "power2.inOut", ...NF }, at);
+
+      captions([["#c1", 0.6, 2.4], ["#c2", 2.4, 4.6], ["#c3", 4.6, 7.2], ["#c4", 7.2, 9.8], ["#c5", 9.8, 12.4], ["#c6", 12.4, DURATION + 1]]);
+      tl.fromTo(".actor, #db", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0);
+
+      // v2 écrit.
+      show("#w2", 0.7, { y: -20 });
+      move("#dbA", V2X - DBX, V1Y - DBY, 1.4, 0.7);
+      hide("#w2", 1.4);
+
+      // Scénario 1 : v1 lit, la classe n'a pas photoUrl.
+      move("#objA", DBX - V1X, DBY - V1Y, 2.6, 0.7);
+      tl.to("#objA [data-k=photoUrl]", { x: 140, y: 120, opacity: 0, duration: 0.6, ease: "power2.in" }, 3.7);
+      show("#gone", 4.2, { x: 0 });
+      tl.set("#gone", { left: 1560, top: 610 }, 0);
+      hide("#gone", 5.0);
+      hide("#objA", 4.6);
+      show("#objA2", 4.6);
+      // ré-encodage vers la base
+      move("#dbLost", V1X - DBX, V1Y - DBY, 5.4, 0.7);
+      hide("#objA2", 5.4);
+      hide("#dbA", 6.0);
+      show("#vbad", 6.2, { y: 10 });
+
+      // Scénario 2 : on garde l'inconnu.
+      hide("#dbLost, #vbad", 7.2);
+      show("#dbB", 7.3);
+      show("#pocket", 7.5);
+      move("#objB", DBX - V1X, DBY - V1Y, 7.9, 0.7);
+      move("#unk", DBX - V1X - 5, DBY + 112 - 728 + 14, 8.0, 0.8);
+      // réécriture : objet + inconnus repartent ensemble
+      move("#dbKept", V1X - DBX, V1Y - DBY, 10.0, 0.7);
+      tl.to("#unk", { x: DBX - V1X - 5, y: DBY + 112 - 728 + 14, duration: 0.7, ease: "power2.inOut" }, 10.0);
+      hide("#objB, #unk", 10.5);
+      hide("#dbB", 10.6);
+      show("#vgood", 10.9, { y: 10 });
+
+      tl.set({}, {}, DURATION);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+id: ddia-ch04-unknown-field
+concept: ddia-unknown-fields
+format: hyperframes
+justification: "La perte d'un champ inconnu se produit en trois temps (lecture, modification, réécriture) : rejouer le même scénario avec et sans précaution montre où elle a lieu."
+entry: scene.html
+duration_s: 14
+status: built

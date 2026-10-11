@@ -1,0 +1,7 @@
+id: ddia-ch01-mapreduce-sharks
+concept: ddia-mapreduce-model
+format: hyperframes
+justification: "MapReduce enchaîne trois étapes (map par document, regroupement par clé, reduce par clé) : voir les paires voyager d'une étape à l'autre montre qui appelle quoi, et combien de fois."
+entry: scene.html
+duration_s: 13
+status: built
