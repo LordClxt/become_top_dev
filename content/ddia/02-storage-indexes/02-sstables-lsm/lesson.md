@@ -31,7 +31,7 @@ glossary:
     definition: "Structure compacte qui approxime un ensemble : elle peut affirmer « absent » avec certitude, mais « présent » seulement avec une probabilité."
   - term: "compaction size-tiered / leveled"
     definition: "Size-tiered : les SSTables récentes et petites sont fusionnées dans de plus anciennes et grosses. Leveled : l'espace de clés est découpé en petites SSTables rangées par niveaux."
-visuals: []
+visuals: [ddia-ch02-lsm-flush-merge]
 labs: [ddia-ch02-l02-lab-sstable-design, ddia-ch02-l02-lab-bloom-design]
 xp: 40
 ---
@@ -62,6 +62,8 @@ Un seul problème : au crash, les écritures récentes (en memtable, pas encore 
 ## LSM-tree
 
 Ce principe est décrit par O'Neil et al. sous le nom de **Log-Structured Merge-Tree**. Les moteurs qui fusionnent et compactent des fichiers triés s'appellent des **moteurs LSM**. LevelDB et RocksDB sont des bibliothèques embarquables ; Cassandra et HBase, inspirés du papier Bigtable (qui a introduit *SSTable* et *memtable*), fonctionnent de même. **Lucene** (Elasticsearch, Solr) range son dictionnaire de termes de façon semblable : la clé est un mot, la valeur est la liste des identifiants de documents qui le contiennent (la *postings list*).
+
+::visual{id="ddia-ch02-lsm-flush-merge"}
 
 ### Optimisations
 

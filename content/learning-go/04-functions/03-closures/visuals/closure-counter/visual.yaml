@@ -1,0 +1,7 @@
+id: go-ch04-closure-counter
+concept: go-closure-state
+format: hyperframes
+justification: "Une closure garde vivante une variable après le retour de sa fonction : suivre pas à pas la création des deux n puis les appels montre que chaque compteur a son propre état."
+entry: scene.html
+duration_s: 12
+status: built

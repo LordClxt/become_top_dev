@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch01-mapreduce-sharks" />
+    <title>MapReduce : requins observés par mois</title>
+    <!--
+      Choreography (13 s) :
+        0.0 – 0.6   décor : 4 colonnes (documents, map, regroupement, reduce)
+        0.7 – 1.9   filtre : seuls les documents family = "Sharks" sont retenus
+        2.1 – 4.6   map est appelée une fois par document retenu et émet (mois, nombre)
+        4.9 – 7.4   le framework regroupe les paires par clé
+        7.7 – 10.2  reduce est appelée une fois par clé et somme les valeurs
+        10.4 – 13   bilan : des fonctions pures, exécutables n'importe où
+      Paires, groupes et sommes calculés par mapFn / reduceFn ci-dessous.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 46px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .head { position: absolute; top: 160px; font-size: 34px; font-weight: 700; white-space: nowrap; }
+      .head span { color: var(--muted); font-weight: 500; font-size: 28px; }
+
+      .doc { position: absolute; left: 70px; width: 500px; height: 92px; border-radius: 16px; border: 3px solid var(--line); background: var(--surface);
+        padding: 8px 20px; font-size: 28px; line-height: 1.35; opacity: 0; }
+      .doc .fam { color: var(--accent); }
+      .doc.out .fam { color: var(--muted); }
+      .chip { position: absolute; height: 64px; padding: 0 20px; border-radius: 32px; background: var(--accent); color: var(--ink);
+        font-size: 30px; font-weight: 700; display: flex; align-items: center; white-space: nowrap; opacity: 0; }
+      .grp { position: absolute; left: 1010px; width: 440px; height: 214px; border-radius: 20px; border: 3px dashed var(--line); opacity: 0; }
+      .grp .k { position: absolute; left: 22px; top: 12px; font-size: 32px; font-weight: 700; }
+      .res { position: absolute; left: 1530px; width: 320px; height: 214px; border-radius: 20px; border: 4px solid var(--pass); background: var(--surface);
+        display: flex; flex-direction: column; justify-content: center; padding-left: 26px; opacity: 0; }
+      .res .call { font-size: 26px; color: var(--muted); }
+      .res .v { font-size: 52px; font-weight: 700; color: var(--pass); }
+      .fn { position: absolute; left: 70px; right: 70px; top: 960px; font-size: 30px; color: var(--muted); text-align: center; opacity: 0; }
+      .fn b { color: var(--text); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="13" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">On ne garde que les documents <em>family = "Sharks"</em></div>
+      <div class="caption" id="c2"><em>map</em> : appelée une fois par document, elle émet (mois, nombre)</div>
+      <div class="caption" id="c3">Le framework <em>regroupe</em> les paires par clé</div>
+      <div class="caption" id="c4"><em>reduce</em> : appelée une fois par clé, avec toutes ses valeurs</div>
+      <div class="caption" id="c5">Des fonctions <em>pures</em> : exécutables n'importe où, relançables</div>
+
+      <div class="head" style="left: 70px">documents <span>observations</span></div>
+      <div class="head" style="left: 640px">map</div>
+      <div class="head" style="left: 1010px">regroupement <span>par clé</span></div>
+      <div class="head" style="left: 1530px">reduce</div>
+      <div id="stage"></div>
+      <div class="fn mono" id="fn"><b>map</b>(doc) → emit(mois(doc.date), doc.num) · <b>reduce</b>(clé, valeurs) → sum(valeurs)</div>
+    </div>
+
+    <script>
+      const DURATION = 13;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+
+      // --- Données et fonctions --------------------------------------------------------------
+      const DOCS = [
+        { date: "1995-12-25", family: "Sharks", num: 3 },
+        { date: "1995-12-12", family: "Sharks", num: 4 },
+        { date: "1995-12-20", family: "Dolphins", num: 5 },
+        { date: "1996-01-07", family: "Sharks", num: 2 },
+        { date: "1995-11-30", family: "Sharks", num: 1 },
+        { date: "1996-01-15", family: "Sharks", num: 6 },
+      ];
+      const mapFn = (doc, emit) => emit(doc.date.slice(0, 7), doc.num);
+      const reduceFn = (key, values) => values.reduce((a, b) => a + b, 0);
+      const KEPT = DOCS.map((d, i) => ({ ...d, i })).filter((d) => d.family === "Sharks");
+      const PAIRS = [];
+      KEPT.forEach((d) => mapFn(d, (k, v) => PAIRS.push({ k, v, doc: d.i })));
+      const KEYS = [...new Set(PAIRS.map((p) => p.k))].sort();
+      const GROUPS = KEYS.map((k) => ({ k, values: PAIRS.filter((p) => p.k === k).map((p) => p.v) }));
+
+      // --- Géométrie ------------------------------------------------------------------------
+      const DY = (i) => 230 + i * 116;
+      const GY = (g) => 230 + g * 236;
+      const stage = document.getElementById("stage");
+      DOCS.forEach((d, i) => stage.insertAdjacentHTML("beforeend",
+        `<div class="doc mono ${d.family === "Sharks" ? "" : "out"}" id="d${i}" style="top:${DY(i)}px">date: ${d.date}<br/><span class="fam">family: "${d.family}"</span> · num: ${d.num}</div>`));
+      GROUPS.forEach((g, n) => {
+        stage.insertAdjacentHTML("beforeend", `<div class="grp mono" id="g${n}" style="top:${GY(n)}px"><div class="k">"${g.k}"</div></div>`);
+        stage.insertAdjacentHTML("beforeend",
+          `<div class="res mono" id="r${n}" style="top:${GY(n)}px"><div class="call">reduce("${g.k}", [${g.values.join(", ")}])</div><div class="v">${reduceFn(g.k, g.values)}</div></div>`);
+      });
+      // Chaque paire : position à la sortie de map, puis dans son groupe.
+      const slot = {};
+      PAIRS.forEach((p, n) => {
+        const g = KEYS.indexOf(p.k);
+        slot[g] = (slot[g] || 0);
+        p.mapPos = [640, DY(p.doc) + 14];
+        p.grpPos = [1034, GY(g) + 62 + slot[g] * 72];
+        slot[g]++;
+        stage.insertAdjacentHTML("beforeend", `<div class="chip mono" id="p${n}" style="left:${p.grpPos[0]}px;top:${p.grpPos[1]}px">("${p.k}", ${p.v})</div>`);
+      });
+
+      // --- Mouvement ------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      captions([["#c1", 0.6, 2.0], ["#c2", 2.0, 4.8], ["#c3", 4.8, 7.6], ["#c4", 7.6, 10.4], ["#c5", 10.4, DURATION + 1]]);
+      tl.fromTo(".head", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ...NF }, 0);
+      tl.fromTo(".doc", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.06, ...NF }, 0.1);
+      DOCS.forEach((d, i) => { if (d.family !== "Sharks") tl.to("#d" + i, { opacity: 0.3, duration: 0.3 }, 1.2); });
+
+      PAIRS.forEach((p, n) => {
+        const t = 2.2 + n * 0.45;
+        const [mx, my] = p.mapPos, [gx, gy] = p.grpPos;
+        tl.fromTo("#d" + p.doc, { borderColor: "var(--line)" }, { keyframes: { scale: [1, 1.03, 1] }, duration: 0.35, ...NF }, t);
+        tl.fromTo("#p" + n, { opacity: 0, x: mx - 80 - gx, y: my - gy }, { opacity: 1, x: mx - gx, duration: 0.35, ease: "power2.out", ...NF }, t + 0.1);
+        tl.to("#p" + n, { x: 0, y: 0, duration: 0.7, ease: "power2.inOut" }, 5.0 + KEYS.indexOf(p.k) * 0.25 + n * 0.06);
+      });
+      GROUPS.forEach((g, n) => tl.fromTo("#g" + n, { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 4.9 + n * 0.1));
+      GROUPS.forEach((g, n) => {
+        const t = 7.8 + n * 0.7;
+        tl.fromTo("#g" + n, { x: 0 }, { keyframes: { scale: [1, 1.03, 1] }, duration: 0.4, ...NF }, t);
+        tl.fromTo("#r" + n, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out", ...NF }, t + 0.2);
+      });
+      tl.fromTo("#fn", { opacity: 0 }, { opacity: 1, duration: 0.4, ...NF }, 10.5);
+
+      tl.set({}, {}, DURATION);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

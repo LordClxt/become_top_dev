@@ -21,7 +21,7 @@ glossary:
     definition: "Fonction qui reçoit une fonction en paramètre ou qui en renvoie une."
   - term: "fabrique (factory)"
     definition: "Fonction qui construit et renvoie un objet configuré, ici une autre fonction (makeMult(3))."
-visuals: []
+visuals: [go-ch04-closure-counter]
 labs: [go-ch04-l03-lab-closures]
 xp: 30
 ---
@@ -144,6 +144,8 @@ fmt.Println(a(), a(), a(), b())   // 1 2 3 1
 ```
 
 `a` et `b` ont chacune **leur** `n` : deux compteurs indépendants. C'est un moyen simple d'avoir un état privé sans définir de type.
+
+::visual{id="go-ch04-closure-counter"}
 
 ## Les boucles et les closures
 

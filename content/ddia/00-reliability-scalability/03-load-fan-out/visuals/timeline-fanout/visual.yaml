@@ -1,0 +1,7 @@
+id: ddia-ch00-timeline-fanout
+concept: ddia-fan-out
+format: hyperframes
+justification: "Où se fait le travail (à la lecture, à l'écriture, ou les deux) est une question de moment : voir les tweets voyager puis le compteur s'emballer pour une célébrité le montre mieux qu'un tableau."
+entry: scene.html
+duration_s: 14
+status: built

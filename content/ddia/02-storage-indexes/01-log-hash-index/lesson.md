@@ -29,7 +29,7 @@ glossary:
     definition: "Enregistrement spécial ajouté au log pour dire « cette clé est supprimée » ; la fusion de segments s'en sert pour écarter les anciennes valeurs."
   - term: "checksum"
     definition: "Somme de contrôle stockée avec l'enregistrement : elle permet de détecter une écriture partielle ou corrompue."
-visuals: []
+visuals: [ddia-ch02-bitcask-log]
 labs: [ddia-ch02-l01-lab-bitcask-design]
 xp: 35
 ---
@@ -73,6 +73,8 @@ Un log qui ne fait qu'ajouter finit par saturer le disque. Solution : découper 
 Comme la compaction rend souvent les segments bien plus petits, on peut aussi **fusionner plusieurs segments** en même temps. Les segments ne sont jamais modifiés après écriture : la fusion produit un **nouveau fichier**, dans un thread d'arrière-plan, pendant que lectures et écritures continuent sur les anciens segments. Une fois terminé, on bascule les lectures vers le segment fusionné et on supprime les anciens.
 
 Chaque segment a sa propre table de hachage. Pour lire une clé, on consulte d'abord le segment **le plus récent**, puis le précédent, et ainsi de suite. La fusion garde peu de segments à consulter.
+
+::visual{id="ddia-ch02-bitcask-log"}
 
 ## Les détails qui comptent en vrai
 

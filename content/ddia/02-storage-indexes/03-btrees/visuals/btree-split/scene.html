@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch02-btree-split" />
+    <title>B-tree : chercher une clé, éclater une page</title>
+    <!--
+      Choreography (13 s) :
+        0.0 – 0.6   décor : racine, deux pages internes, deux feuilles
+        0.7 – 4.2   chercher 251 : racine (entre 200 et 300) → page [250|270] → feuille, trouvée
+        4.6 – 6.6   insérer 334 : descente jusqu'à la feuille [333 … 344], déjà pleine (5/5)
+        6.8 – 7.6   334 prend sa place : 6 clés, la page déborde
+        7.8 – 9.6   éclatement : [333 334 335] | [337 340 344], 337 monte dans le parent
+        9.8 – 13    bilan : l'arbre reste équilibré
+      Éclatement = règle de la leçon : mid = len/2, la plus petite clé de droite monte.
+      Capacité d'une feuille fixée à 5 clés pour l'exemple (en vrai : une page de 4 Ko).
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 48px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .caption b { color: var(--fail); }
+      .label { position: absolute; font-size: 30px; color: var(--muted); white-space: nowrap; }
+
+      .page { position: absolute; height: 84px; margin-top: -6px; border-radius: 18px; border: 4px solid var(--line); background: var(--surface); }
+      .page.hot { border-color: var(--accent); }
+      .page.over { border-color: var(--fail); background: color-mix(in srgb, var(--fail) 14%, var(--surface)); }
+      .cell { position: absolute; width: 100px; height: 72px; display: flex; align-items: center; justify-content: center;
+        font-size: 34px; font-weight: 600; }
+      .cell.leaf { color: var(--text); }
+      .cell .hl { position: absolute; inset: 8px; border-radius: 10px; background: var(--accent); opacity: 0; }
+      .cell span { position: relative; }
+      .gap { position: absolute; width: 8px; height: 40px; margin: 16px 0 0 -4px; border-radius: 4px; background: var(--accent); opacity: 0; }
+      .key-new { color: var(--fail); }
+      svg.lines { position: absolute; inset: 0; overflow: visible; }
+      svg.lines line { stroke: var(--line); stroke-width: 5; stroke-linecap: round; }
+      svg.lines line.stub { stroke-dasharray: 4 12; }
+      svg.lines line.hot { stroke: var(--accent); }
+      .dot { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: var(--accent);
+        box-shadow: 0 0 30px var(--accent); opacity: 0; }
+      .probe { position: absolute; left: 1480px; top: 196px; font-size: 44px; font-weight: 700; opacity: 0; }
+      .probe em { font-style: normal; color: var(--accent); }
+      .badge { position: absolute; padding: 6px 18px; border-radius: 26px; font-size: 30px; font-weight: 700; opacity: 0; white-space: nowrap; }
+      .badge.ok { color: var(--pass); border: 3px solid var(--pass); }
+      .badge.full { color: var(--fail); border: 3px solid var(--fail); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="13" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Chercher <em>251</em> : chaque page indique quel enfant couvre la clé</div>
+      <div class="caption" id="c2">Trois pages lues : la feuille contient <em>la valeur</em></div>
+      <div class="caption" id="c3">Insérer <em>334</em> : la feuille visée est <b>déjà pleine</b></div>
+      <div class="caption" id="c4">On l'éclate en <em>deux pages à moitié pleines</em></div>
+      <div class="caption" id="c5">…et la plus petite clé de droite <em>monte dans le parent</em></div>
+      <div class="caption" id="c6">L'arbre reste équilibré : profondeur en <em>O(log n)</em></div>
+
+      <svg class="lines" width="1920" height="1080" id="svg"></svg>
+      <div id="pages"></div>
+      <div class="probe" id="probe1">get <em>251</em></div>
+      <div class="probe" id="probe2">put <em>334</em></div>
+      <div class="badge ok" id="found">trouvée · 3 pages lues</div>
+      <div class="badge full" id="full">5 / 5 : pleine</div>
+      <div class="label" style="left: 60px; top: 200px; opacity: 0" id="l-root">racine</div>
+      <div class="label" style="left: 60px; top: 450px; opacity: 0" id="l-int">pages internes</div>
+      <div class="label" style="left: 60px; top: 710px; opacity: 0" id="l-leaf">feuilles</div>
+      <div class="dot" id="dot"></div>
+    </div>
+
+    <script>
+      const DURATION = 13;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+      const CW = 100;
+
+      // --- Construction --------------------------------------------------------------------------
+      const pagesEl = document.getElementById("pages");
+      const svg = document.getElementById("svg");
+      function page(id, x, y, n, cls = "") {
+        const el = document.createElement("div");
+        el.className = "page " + cls;
+        el.id = id;
+        Object.assign(el.style, { left: x - 6 + "px", top: y + "px", width: n * CW + 12 + "px" });
+        pagesEl.appendChild(el);
+        return el;
+      }
+      function cell(id, txt, x, y, cls = "") {
+        const el = document.createElement("div");
+        el.className = "cell mono " + cls;
+        el.id = id;
+        Object.assign(el.style, { left: x + "px", top: y + "px" });
+        el.innerHTML = `<i class="hl"></i><span>${txt}</span>`;
+        pagesEl.appendChild(el);
+        return el;
+      }
+      function gap(id, x, y) {
+        const el = document.createElement("div");
+        el.className = "gap";
+        el.id = id;
+        Object.assign(el.style, { left: x + "px", top: y + "px" });
+        pagesEl.appendChild(el);
+      }
+      function line(id, x1, y1, x2, y2, cls = "") {
+        const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        Object.entries({ id, x1, y1, x2, y2, class: cls }).forEach(([k, v]) => l.setAttribute(k, v));
+        svg.appendChild(l);
+      }
+
+      const Y = { root: 190, int: 440, leaf: 700 };
+      // Racine
+      const ROOT = [100, 200, 300, 400, 500], RX = 710;
+      page("p-root", RX, Y.root, ROOT.length);
+      ROOT.forEach((k, i) => cell("r" + k, k, RX + i * CW, Y.root));
+      for (let g = 0; g <= ROOT.length; g++) gap("g-root-" + g, RX + g * CW, Y.root);
+      // Page interne gauche [250|270]
+      const LX = 360;
+      page("p-l", LX, Y.int, 2);
+      [250, 270].forEach((k, i) => cell("i" + k, k, LX + i * CW, Y.int));
+      gap("g-l-1", LX + CW, Y.int);
+      // Page interne droite [310|333|345] → [310|333|337|345]
+      const PX = 1300;
+      page("p-r3", PX, Y.int, 3);
+      page("p-r4", PX, Y.int, 4, "");
+      [310, 333].forEach((k, i) => cell("i" + k, k, PX + i * CW, Y.int));
+      cell("i345", 345, PX + 2 * CW, Y.int);
+      cell("i337", 337, PX + 2 * CW, Y.int, "key-new");
+      gap("g-r-2", PX + 2 * CW, Y.int);
+      // Feuille gauche
+      const FL = [251, 252, 255, 260], FLX = 260;
+      page("p-fl", FLX, Y.leaf, FL.length);
+      FL.forEach((k, i) => cell("f" + k, k, FLX + i * CW, Y.leaf, "leaf"));
+      // Feuille droite (pleine) + débordement + deux moitiés
+      const FR = [333, 335, 337, 340, 344], FRX = 1150;
+      page("p-fr5", FRX, Y.leaf, 5);
+      page("p-fr6", FRX, Y.leaf, 6, "over");
+      page("p-frA", FRX, Y.leaf, 3);
+      const SPLIT_DX = 70;
+      page("p-frB", FRX + 3 * CW + SPLIT_DX, Y.leaf, 3);
+      FR.forEach((k, i) => cell("f" + k, k, FRX + i * CW, Y.leaf, "leaf"));
+      cell("f334", 334, FRX + CW, Y.leaf, "leaf key-new");
+
+      // Liens parent → enfant
+      const bottom = (y) => y + 78;
+      line("lk-root-l", RX + 2 * CW, bottom(Y.root), LX + CW, Y.int - 6);
+      line("lk-root-r", RX + 3 * CW, bottom(Y.root), PX + 1.5 * CW, Y.int - 6);
+      [0, 1, 4, 5].forEach((g) => line("stub-" + g, RX + g * CW, bottom(Y.root), RX + g * CW + (g - 2.5) * 40, bottom(Y.root) + 70, "stub"));
+      line("lk-l-leaf", LX + CW, bottom(Y.int), FLX + 2 * CW, Y.leaf - 6);
+      line("lk-r-leaf", PX + 2 * CW, bottom(Y.int), FRX + 2.5 * CW, Y.leaf - 6);
+      line("lk-r-A", PX + 2 * CW, bottom(Y.int), FRX + 1.5 * CW, Y.leaf - 6);
+      line("lk-r-B", PX + 3 * CW, bottom(Y.int), FRX + 4.5 * CW + SPLIT_DX, Y.leaf - 6);
+
+      // --- Mouvement ----------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      captions([["#c1", 0.6, 3.1], ["#c2", 3.1, 4.6], ["#c3", 4.6, 7.7], ["#c4", 7.7, 8.7], ["#c5", 8.7, 9.9], ["#c6", 9.9, DURATION + 1]]);
+
+      const hidden = ["#p-r4", "#i337", "#p-fr6", "#p-frA", "#p-frB", "#f334", "#lk-r-A", "#lk-r-B"];
+      tl.set(hidden.join(","), { opacity: 0 }, 0);
+      const base = "#p-root, #p-l, #p-r3, #p-fl, #p-fr5, .cell:not(#i337):not(#f334), #lk-root-l, #lk-root-r, [id^=stub], #lk-l-leaf, #lk-r-leaf, #l-root, #l-int, #l-leaf";
+      tl.fromTo(base, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.01, ease: "power3.out", ...NF }, 0);
+
+      function blink(sel, at, d = 0.9) {
+        tl.fromTo(sel, { opacity: 0 }, { keyframes: { opacity: [0, 1, 1, 0] }, duration: d, ...NF }, at);
+      }
+      function hot(sel, at, until) {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 0.35, duration: 0.15, ...NF }, at);
+        tl.to(sel, { opacity: 0, duration: 0.2 }, until);
+      }
+
+      // Recherche de 251
+      tl.fromTo("#probe1", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 0.7);
+      tl.fromTo("#dot", { x: RX + 2.5 * CW, y: Y.root - 40, opacity: 0 }, { opacity: 1, duration: 0.15, ...NF }, 0.9);
+      blink("#g-root-2", 1.1);
+      tl.fromTo("#dot", { x: RX + 2.5 * CW, y: Y.root - 40 }, {
+        keyframes: [
+          { x: RX + 2 * CW, y: bottom(Y.root), duration: 0.35 },
+          { x: LX + CW, y: Y.int - 6, duration: 0.5 },
+        ], ease: "power1.inOut", ...NF }, 1.3);
+      tl.fromTo("#lk-root-l", { attr: { class: "" } }, { attr: { class: "hot" }, duration: 0.01, ...NF }, 1.6);
+      blink("#g-l-1", 2.2);
+      tl.fromTo("#dot", { x: LX + CW, y: Y.int - 6 }, { keyframes: [
+          { x: LX + CW, y: bottom(Y.int), duration: 0.3 },
+          { x: FLX + 0.5 * CW, y: Y.leaf - 6, duration: 0.45 },
+        ], ease: "power1.inOut", ...NF }, 2.4);
+      tl.fromTo("#lk-l-leaf", { attr: { class: "" } }, { attr: { class: "hot" }, duration: 0.01, ...NF }, 2.6);
+      hot("#f251 .hl", 3.15, 4.4);
+      tl.fromTo("#found", { opacity: 0, x: FLX, y: Y.leaf + 110 }, { opacity: 1, duration: 0.3, ...NF }, 3.2);
+      tl.to("#dot, #probe1, #found", { opacity: 0, duration: 0.25 }, 4.4);
+      tl.to("#lk-root-l, #lk-l-leaf", { attr: { class: "" }, duration: 0.01 }, 4.4);
+
+      // Insertion de 334
+      tl.fromTo("#probe2", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 4.6);
+      tl.fromTo("#dot", { x: RX + 3.5 * CW, y: Y.root - 40, opacity: 0 }, { opacity: 1, duration: 0.15, ...NF }, 4.8);
+      blink("#g-root-3", 4.9);
+      tl.fromTo("#dot", { x: RX + 3.5 * CW, y: Y.root - 40 }, { keyframes: [
+          { x: RX + 3 * CW, y: bottom(Y.root), duration: 0.3 },
+          { x: PX + 1.5 * CW, y: Y.int - 6, duration: 0.45 },
+        ], ease: "power1.inOut", ...NF }, 5.1);
+      tl.fromTo("#lk-root-r", { attr: { class: "" } }, { attr: { class: "hot" }, duration: 0.01, ...NF }, 5.3);
+      blink("#g-r-2", 5.7);
+      tl.fromTo("#dot", { x: PX + 1.5 * CW, y: Y.int - 6 }, { keyframes: [
+          { x: PX + 2 * CW, y: bottom(Y.int), duration: 0.3 },
+          { x: FRX + 2.5 * CW, y: Y.leaf - 6, duration: 0.4 },
+        ], ease: "power1.inOut", ...NF }, 5.9);
+      tl.fromTo("#lk-r-leaf", { attr: { class: "" } }, { attr: { class: "hot" }, duration: 0.01, ...NF }, 6.1);
+      tl.fromTo("#full", { opacity: 0, x: FRX, y: Y.leaf + 110 }, { opacity: 1, duration: 0.3, ...NF }, 6.4);
+      tl.to("#dot", { opacity: 0, duration: 0.2 }, 6.7);
+
+      // 334 prend sa place : 335…344 glissent d'une case, la page déborde.
+      [335, 337, 340, 344].forEach((k) => tl.to("#f" + k, { x: CW, duration: 0.4, ease: "power2.inOut" }, 6.9));
+      tl.fromTo("#f334", { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", ...NF }, 7.0);
+      tl.to("#p-fr5", { opacity: 0, duration: 0.2 }, 7.0);
+      tl.fromTo("#p-fr6", { opacity: 0 }, { opacity: 1, duration: 0.2, ...NF }, 7.0);
+      tl.to("#full", { opacity: 0, duration: 0.2 }, 7.6);
+
+      // Éclatement : mid = 3 → [333 334 335] | [337 340 344]
+      tl.to("#p-fr6", { opacity: 0, duration: 0.25 }, 7.9);
+      tl.fromTo("#p-frA, #p-frB", { opacity: 0 }, { opacity: 1, duration: 0.25, ...NF }, 7.9);
+      [337, 340, 344].forEach((k) => tl.to("#f" + k, { x: CW + SPLIT_DX, duration: 0.4, ease: "power2.inOut" }, 7.9));
+      tl.to("#lk-r-leaf", { opacity: 0, duration: 0.2 }, 8.0);
+      tl.fromTo("#lk-r-A", { opacity: 0 }, { opacity: 1, duration: 0.2, ...NF }, 8.1);
+      // 337 monte : le parent passe de 3 à 4 clés, 345 se décale.
+      tl.fromTo("#i337", { opacity: 0, x: FRX + 3 * CW + SPLIT_DX - (PX + 2 * CW), y: Y.leaf - Y.int }, { opacity: 1, duration: 0.15, ...NF }, 8.8);
+      tl.to("#i345", { x: CW, duration: 0.4, ease: "power2.inOut" }, 8.8);
+      tl.to("#p-r3", { opacity: 0, duration: 0.2 }, 8.8);
+      tl.fromTo("#p-r4", { opacity: 0 }, { opacity: 1, duration: 0.2, ...NF }, 8.8);
+      tl.to("#i337", { x: 0, y: 0, duration: 0.6, ease: "power2.inOut" }, 8.9);
+      tl.fromTo("#lk-r-B", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 9.4);
+      tl.to("#lk-root-r", { attr: { class: "" }, duration: 0.01 }, 9.8);
+      tl.to("#probe2", { opacity: 0, duration: 0.3 }, 9.8);
+
+      tl.set({}, {}, DURATION);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

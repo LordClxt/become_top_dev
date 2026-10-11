@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch04-field-tags" />
+    <title>Protocol Buffers : numéros de champ et compatibilité</title>
+    <!--
+      Choreography (13 s) :
+        0.0 – 0.6   décor : schéma v1 (ancien code) et v2 (nouveau code, champ 4 ajouté)
+        0.7 – 3.4   le nouveau code encode Person : champs 1, 2, 3, 3 (33 octets) puis 4 (41)
+        3.7 – 8.4   l'ancien code décode : chaque numéro trouve sa ligne dans le schéma v1 ;
+                    le numéro 4 est inconnu, sa longueur dit combien d'octets sauter
+        8.7 – 13    renommer userName → name : aucun octet ne change ; le numéro, lui, est sacré
+      Tailles = encodage Protocol Buffers réel : tag sur 1 octet, longueur sur 1 octet pour les chaînes,
+      1337 en varint sur 2 octets. Total 33 octets, comme dans le livre.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 46px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .caption b { color: var(--fail); }
+      .label { position: absolute; font-size: 30px; color: var(--muted); white-space: nowrap; }
+
+      .blk { position: absolute; top: 250px; height: 150px; border-radius: 16px; border: 4px solid var(--line); background: var(--surface);
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; opacity: 0; overflow: hidden; }
+      .blk .tag { min-width: 56px; height: 52px; padding: 0 12px; border-radius: 26px; background: var(--accent); color: var(--ink);
+        font-size: 34px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+      .blk .val { font-size: 32px; font-weight: 600; white-space: nowrap; }
+      .blk.new { border-color: var(--fail); }
+      .blk.new .tag { background: var(--fail); }
+      .blk .ok { position: absolute; inset: 0; background: var(--pass); opacity: 0; }
+      .blk .tag, .blk .val { position: relative; }
+      .size { position: absolute; top: 410px; font-size: 26px; color: var(--muted); text-align: center; opacity: 0; }
+      .total { position: absolute; left: 0; right: 0; top: 470px; text-align: center; font-size: 36px; font-weight: 600; opacity: 0; }
+      .total .n { color: var(--accent); }
+
+      .schema { position: absolute; top: 590px; width: 820px; border-radius: 24px; border: 3px solid var(--line); background: var(--surface);
+        padding: 22px 32px; opacity: 0; }
+      .schema h3 { font-size: 34px; font-weight: 700; margin-bottom: 12px; }
+      .schema h3 span { color: var(--muted); font-weight: 500; font-size: 28px; }
+      .ln { position: relative; height: 62px; font-size: 32px; display: flex; align-items: center; gap: 18px; padding: 0 12px; border-radius: 12px; }
+      .ln .n { width: 52px; height: 46px; border-radius: 23px; background: var(--surface-2); display: flex; align-items: center; justify-content: center;
+        font-weight: 700; color: var(--accent); }
+      .ln .ty { color: var(--muted); }
+      .ln .hl { position: absolute; inset: 0; border-radius: 12px; background: var(--accent); opacity: 0; }
+      .ln > span { position: relative; }
+      .ln.added .n { color: var(--fail); }
+      .ln .old { position: relative; }
+      .ln .strike { position: absolute; left: 0; right: 0; top: 50%; height: 4px; background: var(--fail); transform: scaleX(0); transform-origin: left; }
+      .ln .renamed { position: absolute; left: 0; top: 0; color: var(--pass); opacity: 0; }
+      #sv1 { left: 90px; } #sv2 { left: 1010px; }
+
+      .cursor { position: absolute; top: 232px; width: 6px; height: 186px; margin-left: -3px; border-radius: 3px; background: var(--accent);
+        box-shadow: 0 0 22px var(--accent); opacity: 0; }
+      .readout { position: absolute; left: 90px; top: 960px; font-size: 34px; opacity: 0; }
+      .readout .k { color: var(--accent); }
+      .skip { position: absolute; top: 200px; height: 26px; border: 5px solid var(--fail); border-bottom: none; border-radius: 40px 40px 0 0; opacity: 0; }
+      .skipl { position: absolute; top: 150px; font-size: 30px; font-weight: 600; color: var(--fail); white-space: nowrap; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="13" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Les octets portent <em>des numéros de champ</em>, jamais des noms</div>
+      <div class="caption" id="c2">Le nouveau code ajoute le champ <b>4</b> : 8 octets de plus</div>
+      <div class="caption" id="c3">L'ancien code décode : chaque numéro → <em>son champ</em></div>
+      <div class="caption" id="c4">Numéro 4 inconnu : <b>sa longueur dit combien sauter</b></div>
+      <div class="caption" id="c5">Renommer un champ ne change <em>aucun octet</em></div>
+      <div class="caption" id="c6">Le numéro, lui, ne change <b>jamais</b> : il donne leur sens aux octets</div>
+
+      <div id="strip"></div>
+      <div class="total" id="total">enregistrement encodé : <span class="n mono" id="bytes">0</span> octets</div>
+      <div class="cursor" id="cursor"></div>
+      <div class="skip" id="skip"></div>
+      <div class="skipl" id="skipl">inconnu : sauter 8 octets</div>
+
+      <div class="schema mono" id="sv1">
+        <h3>schéma v1 <span>(ancien code)</span></h3>
+        <div class="ln" id="v1-1"><i class="hl"></i><span class="n">1</span><span class="old">userName<i class="strike"></i><span class="renamed">name</span></span><span class="ty">string</span></div>
+        <div class="ln" id="v1-2"><i class="hl"></i><span class="n">2</span><span>favoriteNumber</span><span class="ty">int64</span></div>
+        <div class="ln" id="v1-3"><i class="hl"></i><span class="n">3</span><span>interests</span><span class="ty">repeated string</span></div>
+        <div class="ln" style="opacity: 0.0"><span class="n">·</span></div>
+      </div>
+      <div class="schema mono" id="sv2">
+        <h3>schéma v2 <span>(nouveau code)</span></h3>
+        <div class="ln"><span class="n">1</span><span>userName</span><span class="ty">string</span></div>
+        <div class="ln"><span class="n">2</span><span>favoriteNumber</span><span class="ty">int64</span></div>
+        <div class="ln"><span class="n">3</span><span>interests</span><span class="ty">repeated string</span></div>
+        <div class="ln added"><span class="n">4</span><span>email</span><span class="ty">optional string</span></div>
+      </div>
+      <div class="readout mono" id="readout"></div>
+    </div>
+
+    <script>
+      const DURATION = 13;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+
+      // --- Encodage Protocol Buffers ---------------------------------------------------------
+      const varintLen = (n) => { let l = 1; while (n >= 128) { n = Math.floor(n / 128); l++; } return l; };
+      const FIELDS = [
+        { tag: 1, name: "userName", val: "Martin", kind: "str" },
+        { tag: 2, name: "favoriteNumber", val: 1337, kind: "int" },
+        { tag: 3, name: "interests", val: "daydreaming", kind: "str" },
+        { tag: 3, name: "interests", val: "hacking", kind: "str" },
+        { tag: 4, name: "email", val: "m@k.io", kind: "str", added: true },
+      ];
+      for (const f of FIELDS) f.bytes = 1 + (f.kind === "str" ? 1 + f.val.length : varintLen(f.val)); // tag + (longueur + données | varint)
+      const V1 = new Set([1, 2, 3]);
+
+      const PX = 40, GAPX = 10;
+      const width = FIELDS.reduce((s, f) => s + f.bytes * PX, 0) + GAPX * (FIELDS.length - 1);
+      let x = Math.round((1920 - width) / 2);
+      const strip = document.getElementById("strip");
+      FIELDS.forEach((f, i) => {
+        f.x = x;
+        f.w = f.bytes * PX;
+        const b = document.createElement("div");
+        b.className = "blk mono" + (f.added ? " new" : "");
+        b.id = "f" + i;
+        Object.assign(b.style, { left: x + "px", width: f.w + "px" });
+        b.innerHTML = `<i class="ok"></i><div class="tag">${f.tag}</div><div class="val">${f.kind === "str" ? "“" + f.val + "”" : f.val}</div>`;
+        strip.appendChild(b);
+        const s = document.createElement("div");
+        s.className = "size mono";
+        s.id = "s" + i;
+        Object.assign(s.style, { left: x + "px", width: f.w + "px" });
+        s.textContent = f.bytes + " o";
+        strip.appendChild(s);
+        x += f.w + GAPX;
+      });
+      const T_ENC = (i) => (i < 4 ? 0.8 + i * 0.4 : 2.7);
+      const T_DEC = (i) => 3.9 + i * 0.85;
+      function sumBytes(t) { return FIELDS.reduce((s, f, i) => (t >= T_ENC(i) + 0.2 ? s + f.bytes : s), 0); }
+      const readout = document.getElementById("readout");
+      function render(t) {
+        document.getElementById("bytes").textContent = sumBytes(t);
+        let txt = "";
+        if (t >= 3.8 && t < 8.6) {
+          const done = FIELDS.filter((f, i) => t >= T_DEC(i) + 0.35 && V1.has(f.tag));
+          const p = {};
+          for (const f of done) {
+            if (f.tag === 3) (p.interests = p.interests || []).push(f.val);
+            else p[f.name] = f.val;
+          }
+          const parts = [];
+          if (p.userName) parts.push(`<span class="k">userName</span>: "${p.userName}"`);
+          if (p.favoriteNumber) parts.push(`<span class="k">favoriteNumber</span>: ${p.favoriteNumber}`);
+          if (p.interests) parts.push(`<span class="k">interests</span>: [${p.interests.map((s) => '"' + s + '"').join(", ")}]`);
+          txt = "{ " + parts.join(", ") + " }";
+        }
+        readout.innerHTML = txt;
+      }
+      const driver = { t: 0 };
+      tl.to(driver, { t: DURATION, duration: DURATION, ease: "none", onUpdate: () => render(driver.t) }, 0);
+
+      // --- Mouvement -------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      captions([["#c1", 0.6, 2.6], ["#c2", 2.6, 3.8], ["#c3", 3.8, 7.3], ["#c4", 7.3, 8.7], ["#c5", 8.7, 10.6], ["#c6", 10.6, DURATION + 1]]);
+      tl.fromTo("#sv1, #sv2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out" }, 0);
+      tl.fromTo("#total", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 0.6);
+      FIELDS.forEach((f, i) => {
+        tl.fromTo(`#f${i}, #s${i}`, { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", ...NF }, T_ENC(i));
+      });
+      tl.fromTo("#sv2 .added", { scale: 1 }, { keyframes: { scale: [1, 1.06, 1] }, duration: 0.5, ...NF }, 2.7);
+
+      // Décodage par l'ancien code
+      tl.fromTo("#readout", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 3.8);
+      tl.fromTo("#cursor", { x: FIELDS[0].x - 8, opacity: 0 }, { opacity: 1, duration: 0.2, ...NF }, 3.8);
+      FIELDS.forEach((f, i) => {
+        const t = T_DEC(i);
+        const end = f.x + f.w + GAPX / 2;
+        if (V1.has(f.tag)) {
+          tl.fromTo("#cursor", { x: f.x - 8 }, { x: end, duration: 0.5, ease: "power1.inOut", ...NF }, t);
+          tl.fromTo(`#v1-${f.tag} .hl`, { opacity: 0 }, { keyframes: { opacity: [0, 0.28, 0.28, 0] }, duration: 0.7, ...NF }, t);
+          tl.fromTo(`#f${i} .ok`, { opacity: 0 }, { opacity: 0.18, duration: 0.2, ...NF }, t + 0.35);
+        } else {
+          // Numéro inconnu : on lit le tag + la longueur, puis on saute.
+          tl.fromTo("#cursor", { x: f.x - 8 }, { x: f.x + 2 * PX, duration: 0.3, ease: "power1.out", ...NF }, t);
+          tl.fromTo(`#f${i}`, { x: 0 }, { keyframes: { x: [0, -10, 9, -6, 3, 0] }, duration: 0.45, ease: "none", ...NF }, t + 0.3);
+          Object.assign(document.getElementById("skip").style, { left: f.x + "px", width: f.w + "px" });
+          tl.fromTo("#skip", { opacity: 0 }, { opacity: 1, duration: 0.25, ...NF }, t + 0.8);
+          document.getElementById("skipl").style.left = f.x - 100 + "px";
+          tl.fromTo("#skipl", { opacity: 0 }, { opacity: 1, duration: 0.25, ...NF }, t + 0.8);
+          tl.to("#cursor", { x: end, duration: 0.45, ease: "power2.inOut" }, t + 1.15);
+          tl.to(`#f${i}`, { opacity: 0.45, duration: 0.3 }, t + 1.3);
+        }
+      });
+      tl.to("#cursor, #skip, #skipl", { opacity: 0, duration: 0.3 }, 8.6);
+
+      // Renommer : seul le schéma change.
+      tl.fromTo("#v1-1 .strike", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ...NF }, 9.0);
+      tl.to("#v1-1 .old", { color: "rgba(0,0,0,0)", duration: 0.2 }, 9.4);
+      tl.fromTo("#v1-1 .renamed", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ...NF }, 9.5);
+      tl.to("#v1-1 .strike", { opacity: 0, duration: 0.2 }, 9.5);
+      tl.fromTo("#f0", { scale: 1 }, { keyframes: { scale: [1, 1.05, 1] }, duration: 0.5, ...NF }, 9.9);
+      tl.fromTo("#v1-1 .n, #f0 .tag", { scale: 1 }, { keyframes: { scale: [1, 1.25, 1] }, duration: 0.6, ...NF }, 10.9);
+
+      tl.set({}, {}, DURATION);
+      render(0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

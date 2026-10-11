@@ -1,0 +1,7 @@
+id: ddia-ch04-avro-resolution
+concept: ddia-avro-resolution
+format: hyperframes
+justification: "La résolution Avro se fait en deux temps (lire avec le schéma de l'écrivain, puis apparier par nom vers celui du lecteur) : l'animation sépare ces temps et montre champ ignoré et valeur par défaut au moment où ils se produisent."
+entry: scene.html
+duration_s: 13
+status: built

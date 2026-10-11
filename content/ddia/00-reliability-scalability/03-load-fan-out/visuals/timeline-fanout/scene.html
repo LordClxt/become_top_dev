@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch00-timeline-fanout" />
+    <title>Fan-out : assembler à la lecture ou préparer à l'écriture</title>
+    <!--
+      Choreography (14 s) :
+        0.0 – 0.6   décor : deux colonnes (approche 1 à gauche, approche 2 à droite)
+        0.6 – 2.4   approche 1 : trois auteurs publient, chaque tweet = 1 insertion dans la table globale
+        2.4 – 4.6   tu lis ton fil : 3 recherches dans la table puis fusion par date
+        4.8 – 6.6   approche 2 : Alice publie, son tweet est copié dans les 4 fils de ses abonnés
+        6.8 – 8.0   tu lis ton fil : un seul accès, déjà prêt
+        8.4 – 10.6  une célébrité publie : le compteur d'écritures s'emballe (30 M)
+        10.8 – 14.0 hybride : pas de fan-out pour elle, son tweet est fusionné à la lecture
+      Compteurs = fonction pure du temps (driver + onUpdate). Positions précalculées.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 48px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .caption b { color: var(--fail); }
+
+      .col { position: absolute; top: 150px; width: 860px; height: 900px; border-radius: 32px; border: 3px solid var(--line); }
+      .col h2 { position: absolute; left: 40px; top: 24px; font-size: 38px; font-weight: 700; }
+      .col h2 span { color: var(--muted); font-weight: 500; font-size: 30px; margin-left: 12px; }
+      #colA { left: 70px; } #colB { left: 990px; }
+
+      .chip { position: absolute; height: 72px; padding: 0 26px; border-radius: 36px; border: 4px solid var(--line);
+        background: var(--surface); font-size: 34px; font-weight: 600; display: flex; align-items: center; white-space: nowrap; }
+      .chip.author { border-color: var(--accent); }
+      .table { position: absolute; border-radius: 22px; border: 4px solid var(--line); background: var(--surface); overflow: hidden; }
+      .table .head { height: 56px; padding: 0 24px; font-size: 30px; color: var(--muted); display: flex; align-items: center;
+        border-bottom: 3px solid var(--line); background: var(--surface-2); }
+      .row { position: absolute; left: 0; right: 0; height: 64px; padding: 0 24px; font-size: 32px; display: flex; align-items: center; gap: 18px; opacity: 0; }
+      .row .who { color: var(--accent); font-weight: 600; }
+      .row .hl { position: absolute; inset: 0; background: var(--accent); opacity: 0; }
+      .row > span, .row > b { position: relative; }
+
+      .tweet { position: absolute; width: 230px; height: 56px; margin: -28px 0 0 -115px; border-radius: 16px; background: var(--accent);
+        color: var(--ink); font-size: 28px; font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; }
+      .tweet.star { background: var(--fail); }
+      .box { position: absolute; width: 180px; height: 230px; border-radius: 22px; border: 4px solid var(--line); background: var(--surface);
+        display: flex; flex-direction: column; align-items: center; padding-top: 16px; gap: 10px; }
+      .box .n { font-size: 32px; font-weight: 700; }
+      .box .slot, .meslot { position: relative; width: 140px; height: 40px; border-radius: 10px; background: var(--surface-2); overflow: hidden; }
+      .slot i { position: absolute; inset: 0; background: var(--accent); opacity: 0; }
+      .slot i.star { background: var(--fail); }
+      .box.me { border-color: var(--accent); }
+      .cost { position: absolute; font-size: 34px; font-weight: 600; opacity: 0; }
+      .cost .k { color: var(--fail); }
+      .cost .g { color: var(--pass); }
+      .counter { position: absolute; left: 1050px; top: 420px; width: 740px; text-align: center; opacity: 0; }
+      .counter .num { font-size: 96px; font-weight: 700; color: var(--fail); }
+      .counter .lbl { font-size: 34px; color: var(--muted); }
+      svg.lines { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+      svg.lines path { opacity: 0; fill: none; stroke: var(--fail); stroke-width: 6; stroke-dasharray: 18 14; stroke-linecap: round; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="14" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Approche 1 : publier = <em>une seule insertion</em></div>
+      <div class="caption" id="c2">…mais lire son fil = <b>chercher et fusionner</b> à chaque fois</div>
+      <div class="caption" id="c3">Approche 2 : le tweet est <em>copié dans le fil</em> de chaque abonné</div>
+      <div class="caption" id="c4">Lire devient trivial : le fil est <em>déjà calculé</em></div>
+      <div class="caption" id="c5">Sauf pour une célébrité : <b>30 millions d'écritures</b> pour un tweet</div>
+      <div class="caption" id="c6">Hybride : pour elle, <em>pas de fan-out</em>, on fusionne à la lecture</div>
+
+      <!-- Approche 1 -->
+      <div class="col" id="colA"><h2>1. Assembler à la lecture <span>(fan-out à la lecture)</span></h2></div>
+      <div class="chip author" id="a-alice" style="left: 130px; top: 260px">@alice</div>
+      <div class="chip author" id="a-bob" style="left: 400px; top: 260px">@bob</div>
+      <div class="chip author" id="a-chloe" style="left: 640px; top: 260px">@chloé</div>
+      <div class="table" id="tweets" style="left: 130px; top: 390px; width: 740px; height: 290px">
+        <div class="head mono">table tweets (globale)</div>
+        <div class="row" id="r1" style="top: 66px"><i class="hl"></i><span class="who mono">@alice</span><span>nouveau billet</span></div>
+        <div class="row" id="r2" style="top: 136px"><i class="hl"></i><span class="who mono">@bob</span><span>photo du concert</span></div>
+        <div class="row" id="r3" style="top: 206px"><i class="hl"></i><span class="who mono">@chloé</span><span>release v2.0</span></div>
+      </div>
+      <div class="box me" id="meA" style="left: 410px; top: 760px; height: 250px"><div class="n">toi</div>
+        <div class="slot"><i id="mA1"></i></div><div class="slot"><i id="mA2"></i></div><div class="slot"><i id="mA3"></i></div><div class="slot"><i></i></div></div>
+      <div class="cost" id="costA1" style="left: 130px; top: 700px">publier : <span class="g">1 écriture</span></div>
+      <div class="cost" id="costA2" style="left: 610px; top: 840px; width: 260px">lire : <span class="k">3 recherches + tri</span></div>
+
+      <!-- Approche 2 -->
+      <div class="col" id="colB"><h2>2. Préparer à l'écriture <span>(fan-out à l'écriture)</span></h2></div>
+      <div class="chip author" id="b-alice" style="left: 1310px; top: 260px; width: 240px; justify-content: center">@alice</div>
+      <div class="chip author" id="b-star" style="left: 1240px; top: 260px; width: 380px; justify-content: center; opacity: 0; border-color: var(--fail)">@star · 30 M abonnés</div>
+      <div class="box me" id="bx0" style="left: 1040px; top: 620px"><div class="n">toi</div><div class="slot"><i></i></div><div class="slot"><i class="star" id="starSlot"></i></div><div class="slot"><i></i></div></div>
+      <div class="box" id="bx1" style="left: 1240px; top: 620px"><div class="n">dan</div><div class="slot"><i></i></div><div class="slot"><i></i></div><div class="slot"><i></i></div></div>
+      <div class="box" id="bx2" style="left: 1440px; top: 620px"><div class="n">eve</div><div class="slot"><i></i></div><div class="slot"><i></i></div><div class="slot"><i></i></div></div>
+      <div class="box" id="bx3" style="left: 1640px; top: 620px"><div class="n">fred</div><div class="slot"><i></i></div><div class="slot"><i></i></div><div class="slot"><i></i></div></div>
+      <div class="cost" id="costB1" style="left: 1040px; top: 420px">publier : <span class="k">1 écriture par abonné (4)</span></div>
+      <div class="cost" id="costB2" style="left: 1040px; top: 880px">lire : <span class="g">1 accès, déjà trié</span></div>
+      <div class="counter" id="counter"><div class="num mono" id="cnum">0</div><div class="lbl">écritures dans les fils pour <em style="font-style:normal;color:var(--fail)">un seul</em> tweet</div></div>
+
+      <svg class="lines" width="1920" height="1080"><path id="hyb" d="M 1430 340 C 1430 480, 1130 470, 1130 612" /></svg>
+
+      <!-- Tweets en vol -->
+      <div class="tweet" id="tA1">@alice</div>
+      <div class="tweet" id="tA2">@bob</div>
+      <div class="tweet" id="tA3">@chloé</div>
+      <div class="tweet" id="g1">@alice</div>
+      <div class="tweet" id="g2">@bob</div>
+      <div class="tweet" id="g3">@chloé</div>
+      <div class="tweet" id="f0">@alice</div>
+      <div class="tweet" id="f1">@alice</div>
+      <div class="tweet" id="f2">@alice</div>
+      <div class="tweet" id="f3">@alice</div>
+      <div class="tweet star" id="fs">@star</div>
+    </div>
+
+    <script>
+      const DURATION = 14;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      // Déplace un tweet (centre) de p à q.
+      function fly(sel, p, q, at, dur = 0.55) {
+        tl.fromTo(sel, { x: p[0], y: p[1], opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.12, ...NF }, at);
+        tl.fromTo(sel, { x: p[0], y: p[1] }, { x: q[0], y: q[1], duration: dur, ease: "power2.inOut", ...NF }, at + 0.08);
+        tl.to(sel, { opacity: 0, duration: 0.12 }, at + dur + 0.05);
+      }
+      function show(sel, at, d = 0.3) {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: d, ...NF }, at);
+      }
+
+      // Décor
+      tl.fromTo(".col, .chip:not(#b-star), .table, .box", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.03, ease: "power3.out" }, 0);
+
+      captions([
+        ["#c1", 0.6, 2.4], ["#c2", 2.4, 4.7], ["#c3", 4.8, 6.8],
+        ["#c4", 6.8, 8.3], ["#c5", 8.4, 10.8], ["#c6", 10.8, DURATION + 1],
+      ]);
+
+      // --- Approche 1 : 3 publications = 3 insertions -----------------------------------
+      const A_SRC = [[220, 296], [470, 296], [720, 296]];
+      const A_ROW = [[300, 488], [300, 558], [300, 628]];
+      ["#tA1", "#tA2", "#tA3"].forEach((s, i) => {
+        fly(s, A_SRC[i], A_ROW[i], 0.7 + i * 0.45, 0.45);
+        show("#r" + (i + 1), 0.7 + i * 0.45 + 0.55, 0.2);
+      });
+      show("#costA1", 1.9);
+
+      // Lecture : les 3 lignes s'allument puis descendent dans ton fil.
+      ["#r1", "#r2", "#r3"].forEach((s, i) => {
+        tl.fromTo(s + " .hl", { opacity: 0 }, { opacity: 0.22, duration: 0.2, ...NF }, 2.6 + i * 0.35);
+      });
+      const A_MINE = [[500, 846], [500, 896], [500, 946]];
+      // ordre fusionné par date (plus récent en haut) : chloé, bob, alice
+      fly("#g3", A_ROW[2], A_MINE[0], 3.7, 0.5);
+      fly("#g2", A_ROW[1], A_MINE[1], 3.85, 0.5);
+      fly("#g1", A_ROW[0], A_MINE[2], 4.0, 0.5);
+      ["#mA1", "#mA2", "#mA3"].forEach((s, i) => {
+        tl.fromTo(s, { opacity: 0 }, { opacity: 1, duration: 0.15, ...NF }, 4.3 + i * 0.15);
+      });
+      show("#costA2", 3.3);
+
+      // --- Approche 2 : 1 tweet copié dans 4 fils -------------------------------------
+      const B_SRC = [1430, 296];
+      const B_BOX = [[1130, 700], [1330, 700], [1530, 700], [1730, 700]];
+      ["#f0", "#f1", "#f2", "#f3"].forEach((s, i) => fly(s, B_SRC, B_BOX[i], 5.0 + i * 0.18, 0.6));
+      [0, 1, 2, 3].forEach((i) => {
+        tl.fromTo(`#bx${i} .slot:nth-child(2) i`, { opacity: 0 }, { opacity: 1, duration: 0.15, ...NF }, 5.7 + i * 0.18);
+      });
+      show("#costB1", 5.3);
+
+      // Lecture : ton fil s'allume d'un coup.
+      tl.fromTo("#bx0", { scale: 1 }, { keyframes: { scale: [1, 1.07, 1] }, duration: 0.5, ease: "power2.out", ...NF }, 7.0);
+      show("#costB2", 7.0);
+
+      // --- Célébrité : le compteur s'emballe -------------------------------------------
+      tl.to("#b-alice", { opacity: 0, duration: 0.25 }, 8.4);
+      tl.fromTo("#b-star", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)", ...NF }, 8.5);
+      tl.to("#costB1, #costB2", { opacity: 0, duration: 0.25 }, 8.4);
+      tl.to("#bx0, #bx1, #bx2, #bx3", { opacity: 0.25, duration: 0.3 }, 8.5);
+      show("#counter", 8.7);
+      const cnum = document.getElementById("cnum");
+      const driver = { v: 0 };
+      const fmt = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      tl.fromTo(driver, { v: 0 }, { v: 30000000, duration: 1.6, ease: "power3.in", onUpdate: () => (cnum.textContent = fmt(driver.v)), ...NF }, 8.8);
+
+      // --- Hybride : pas de fan-out pour la célébrité, fusion à la lecture -------------
+      tl.to("#counter", { opacity: 0, duration: 0.3 }, 10.8);
+      tl.to("#bx0", { opacity: 1, duration: 0.3 }, 10.9);
+      const hyb = document.getElementById("hyb");
+      const L = 520;
+      tl.fromTo("#hyb", { opacity: 0 }, { opacity: 1, duration: 0.2, ...NF }, 11.2);
+      tl.fromTo("#hyb", { strokeDashoffset: L }, { strokeDashoffset: 0, duration: 1.0, ease: "none", ...NF }, 11.2);
+      fly("#fs", B_SRC, [1130, 750], 11.6, 0.9);
+      tl.fromTo("#starSlot", { opacity: 0 }, { opacity: 1, duration: 0.15, ...NF }, 12.5);
+
+      tl.set({}, {}, DURATION);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

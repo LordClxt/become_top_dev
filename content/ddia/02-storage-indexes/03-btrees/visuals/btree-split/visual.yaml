@@ -1,0 +1,7 @@
+id: ddia-ch02-btree-split
+concept: ddia-btree-split
+format: hyperframes
+justification: "Une recherche descend de page en page et un éclatement réorganise deux niveaux à la fois : une courte animation montre le trajet et la clé qui remonte, ce qu'un schéma figé ne fait que suggérer."
+entry: scene.html
+duration_s: 13
+status: built

@@ -21,7 +21,7 @@ glossary:
     definition: "Suivre un pointeur pour lire ou écrire la valeur à laquelle il mène. Se note *p."
   - term: "nil"
     definition: "Valeur zéro d'un pointeur (et d'une slice, d'une map, d'une fonction…) : il ne désigne rien. Ce n'est pas un synonyme de 0."
-visuals: []
+visuals: [go-ch05-pointer-basics]
 labs: [go-ch05-l01-lab-primer]
 xp: 25
 ---
@@ -69,6 +69,8 @@ q := p       // q pointe aussi sur x
 *q = 5
 fmt.Println(x, *p)   // 5 5
 ```
+
+::visual{id="go-ch05-pointer-basics"}
 
 ### Pas d'arithmétique sur les pointeurs
 

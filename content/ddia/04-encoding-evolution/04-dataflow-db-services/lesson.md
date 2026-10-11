@@ -29,7 +29,7 @@ glossary:
     definition: "Modèle qui fait ressembler une requête réseau à un appel de fonction local (transparence de localisation)."
   - term: "idempotence"
     definition: "Propriété d'une opération qu'on peut rejouer sans effet supplémentaire : indispensable quand une réponse perdue provoque un nouvel essai."
-visuals: []
+visuals: [ddia-ch04-unknown-field]
 labs: [ddia-ch04-l04-lab-dataflow-design]
 xp: 40
 ---
@@ -49,6 +49,8 @@ Mais souvent, **plusieurs processus** accèdent à la base en même temps : plus
 Une subtilité : le nouveau code ajoute un champ et l'écrit. Puis une **ancienne version** lit l'enregistrement, le modifie et le **réécrit**. Le comportement souhaité est que l'ancien code **conserve le champ nouveau**, même s'il ne sait pas l'interpréter.
 
 Les formats d'encodage savent préserver les champs inconnus, mais il faut parfois **y veiller dans l'application**. Si tu décodes la valeur de la base en objets de ton modèle, puis les ré-encodes, le champ inconnu **disparaît** dans la traduction. Ce n'est pas difficile à corriger, il suffit d'y penser.
+
+::visual{id="ddia-ch04-unknown-field"}
 
 ### Les données survivent au code
 

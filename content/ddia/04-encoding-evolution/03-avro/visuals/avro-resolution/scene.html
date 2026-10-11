@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch04-avro-resolution" />
+    <title>Avro : schéma de l'écrivain, schéma du lecteur</title>
+    <!--
+      Choreography (13 s) :
+        0.0 – 0.6   décor
+        0.7 – 2.4   les octets : des valeurs collées, sans nom ni numéro
+        2.6 – 5.4   décoder = parcourir le schéma de l'écrivain dans l'ordre
+        5.7 – 9.4   résolution par NOM vers le schéma du lecteur : l'ordre peut différer,
+                    photoUrl (inconnu du lecteur) est ignoré, email (absent chez l'écrivain) prend son défaut
+        9.6 – 13    l'objet obtenu par le lecteur
+      Appariement calculé par nom (resolve()), conformément à la spécification Avro.
+      Tailles en octets : longueur zigzag-varint + UTF-8 ; union = index de branche + valeur ;
+      tableau = nombre d'éléments, éléments, 0 final. 32 octets sans photoUrl, comme dans le livre.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 46px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .caption b { color: var(--fail); }
+
+      .blk { position: absolute; top: 180px; height: 96px; border-radius: 14px; border: 4px solid var(--line); background: var(--surface);
+        display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 600; white-space: nowrap; opacity: 0; overflow: hidden; }
+      .blk .hl { position: absolute; inset: 0; background: var(--accent); opacity: 0; }
+      .blk span { position: relative; }
+      .size { position: absolute; top: 286px; font-size: 26px; color: var(--muted); text-align: center; opacity: 0; }
+
+      .schema { position: absolute; top: 400px; width: 700px; border-radius: 24px; border: 3px solid var(--line); background: var(--surface); padding: 20px 26px; opacity: 0; }
+      .schema h3 { font-size: 34px; font-weight: 700; height: 56px; }
+      .schema h3 span { color: var(--muted); font-size: 28px; font-weight: 500; }
+      #wr { left: 110px; } #rd { left: 1110px; width: 740px; }
+      .ln { position: relative; height: 66px; display: flex; align-items: center; gap: 16px; padding: 0 14px; font-size: 32px; border-radius: 12px; }
+      .ln .ty { color: var(--muted); font-size: 28px; white-space: nowrap; }
+      .ln .hl { position: absolute; inset: 0; border-radius: 12px; background: var(--accent); opacity: 0; }
+      .ln > span { position: relative; }
+      .ln .tagx { white-space: nowrap; margin-left: auto; font-size: 28px; font-weight: 700; opacity: 0; }
+      .ln .tagx.ign { color: var(--fail); }
+      .ln .tagx.def { color: var(--pass); }
+
+      svg.lines { position: absolute; inset: 0; overflow: visible; }
+      svg.lines path { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+      .result { position: absolute; left: 110px; right: 110px; top: 870px; font-size: 34px; line-height: 1.5; opacity: 0; }
+      .result .k { color: var(--accent); }
+      .result .d { color: var(--pass); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="13" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Les octets Avro : <em>des valeurs collées</em>, ni nom ni numéro</div>
+      <div class="caption" id="c2">On ne peut les lire qu'<em>avec le schéma de l'écrivain</em>, dans son ordre</div>
+      <div class="caption" id="c3">Puis on traduit vers le schéma du lecteur <em>en appariant les noms</em></div>
+      <div class="caption" id="c4">Inconnu du lecteur : <b>ignoré</b> · absent chez l'écrivain : <em>valeur par défaut</em></div>
+      <div class="caption" id="c5">Les schémas n'ont pas à être identiques, <em>seulement compatibles</em></div>
+
+      <div id="strip"></div>
+      <div class="schema mono" id="wr"><h3>schéma de l'écrivain <span>(v2)</span></h3></div>
+      <div class="schema mono" id="rd"><h3>schéma du lecteur <span>(v1 + email)</span></h3></div>
+      <svg class="lines" id="svg" width="1920" height="1080"></svg>
+      <div class="result mono" id="result"></div>
+    </div>
+
+    <script>
+      const DURATION = 13;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+
+      // --- Schémas et données --------------------------------------------------------------
+      const zz = (n) => (n << 1) ^ (n >> 31);
+      const varintLen = (n) => { let l = 1; while (n >= 128) { n = Math.floor(n / 128); l++; } return l; };
+      const strLen = (s) => varintLen(zz(s.length)) + s.length;
+      const WRITER = [
+        { name: "userName", type: "string", val: "Martin", show: "“Martin”", bytes: strLen("Martin") },
+        { name: "favoriteNumber", type: "union{null,long}", val: 1337, show: "1337", bytes: 1 + varintLen(zz(1337)) },
+        { name: "interests", type: "array<string>", val: ["daydreaming", "hacking"], show: "[“daydreaming”, “hacking”]",
+          bytes: varintLen(zz(2)) + strLen("daydreaming") + strLen("hacking") + 1 },
+        { name: "photoUrl", type: "string", val: "cat.jpg", show: "“cat.jpg”", bytes: strLen("cat.jpg") },
+      ];
+      const READER = [
+        { name: "favoriteNumber", type: "union{null,long}" },
+        { name: "userName", type: "string" },
+        { name: "interests", type: "array<string>" },
+        { name: "email", type: "union{null,string} = null", def: "null" },
+      ];
+      // Résolution Avro : appariement par nom.
+      function resolve(writer, reader) {
+        const links = [], ignored = [], defaults = [];
+        writer.forEach((w, i) => {
+          const j = reader.findIndex((r) => r.name === w.name);
+          if (j < 0) ignored.push(i); else links.push([i, j]);
+        });
+        reader.forEach((r, j) => { if (!writer.some((w) => w.name === r.name)) defaults.push(j); });
+        return { links, ignored, defaults };
+      }
+      const RES = resolve(WRITER, READER);
+
+      // --- DOM ------------------------------------------------------------------------------
+      const PX = 38, GAP = 12;
+      const total = WRITER.reduce((s, f) => s + f.bytes * PX, 0) + GAP * (WRITER.length - 1);
+      let x = Math.round((1920 - total) / 2);
+      const strip = document.getElementById("strip");
+      WRITER.forEach((f, i) => {
+        const w = f.bytes * PX;
+        strip.insertAdjacentHTML("beforeend",
+          `<div class="blk mono" id="b${i}" style="left:${x}px;width:${w}px"><i class="hl"></i><span>${f.bytes >= 6 ? f.show : f.val}</span></div>` +
+          `<div class="size mono" id="z${i}" style="left:${x}px;width:${w}px">${f.bytes} o</div>`);
+        x += w + GAP;
+      });
+      const LY = (j) => 400 + 20 + 56 + j * 66 + 33;
+      const wr = document.getElementById("wr"), rd = document.getElementById("rd");
+      WRITER.forEach((f, i) => wr.insertAdjacentHTML("beforeend",
+        `<div class="ln" id="w${i}"><i class="hl"></i><span>${f.name}</span><span class="ty">${f.type}</span><span class="tagx ign" id="wi${i}">ignoré</span></div>`));
+      READER.forEach((f, j) => rd.insertAdjacentHTML("beforeend",
+        `<div class="ln" id="r${j}"><i class="hl"></i><span>${f.name}</span><span class="ty">${f.type.replace(" = null", "")}</span><span class="tagx def" id="rdft${j}">défaut = null</span></div>`));
+      const svg = document.getElementById("svg");
+      RES.links.forEach(([i, j], n) => {
+        const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const x1 = 110 + 700, x2 = 1110, y1 = LY(i), y2 = LY(j);
+        p.setAttribute("d", `M ${x1} ${y1} C ${x1 + 160} ${y1}, ${x2 - 160} ${y2}, ${x2} ${y2}`);
+        p.setAttribute("pathLength", "1");
+        p.id = "lk" + n;
+        svg.appendChild(p);
+      });
+
+      // Objet lu
+      const parts = READER.map((r) => {
+        const w = WRITER.find((f) => f.name === r.name);
+        const v = w ? (Array.isArray(w.val) ? `[${w.val.map((s) => `"${s}"`).join(", ")}]` : typeof w.val === "string" ? `"${w.val}"` : w.val) : `<span class="d">${r.def}</span>`;
+        return `<span class="k">${r.name}</span>: ${v}`;
+      });
+      document.getElementById("result").innerHTML = "lecteur → { " + parts.join(", ") + " }";
+
+      // --- Mouvement --------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      captions([["#c1", 0.6, 2.6], ["#c2", 2.6, 5.6], ["#c3", 5.6, 7.9], ["#c4", 7.9, 9.9], ["#c5", 9.9, DURATION + 1]]);
+      WRITER.forEach((_, i) => tl.fromTo(`#b${i}, #z${i}`, { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out", ...NF }, 0.7 + i * 0.3));
+      tl.fromTo("#wr", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", ...NF }, 2.6);
+
+      // Décodage dans l'ordre de l'écrivain.
+      WRITER.forEach((_, i) => {
+        const t = 3.0 + i * 0.6;
+        tl.fromTo(`#b${i} .hl, #w${i} .hl`, { opacity: 0 }, { keyframes: { opacity: [0, 0.3, 0.3, 0] }, duration: 0.65, ...NF }, t);
+      });
+
+      // Résolution vers le lecteur.
+      tl.fromTo("#rd", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", ...NF }, 5.7);
+      RES.links.forEach(([i, j], n) => {
+        const t = 6.2 + n * 0.45;
+        tl.fromTo("#lk" + n, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut", ...NF }, t);
+        tl.fromTo(`#w${i} .hl, #r${j} .hl`, { opacity: 0 }, { keyframes: { opacity: [0, 0.28, 0] }, duration: 0.6, ...NF }, t + 0.2);
+      });
+      RES.ignored.forEach((i) => {
+        tl.fromTo("#wi" + i, { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 8.0);
+        tl.to(`#w${i} > span:not(.tagx), #b${i}`, { opacity: 0.35, duration: 0.3 }, 8.1);
+      });
+      RES.defaults.forEach((j) => {
+        tl.fromTo("#rdft" + j, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ...NF }, 8.7);
+        tl.fromTo(`#r${j} .hl`, { opacity: 0 }, { keyframes: { opacity: [0, 0.25, 0] }, duration: 0.6, ...NF }, 8.7);
+      });
+      tl.fromTo("#result", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ...NF }, 9.8);
+
+      tl.set({}, {}, DURATION);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
