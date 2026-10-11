@@ -1,0 +1,7 @@
+id: ddia-ch02-bitcask-log
+concept: ddia-hash-index
+format: hyperframes
+justification: "L'index qui suit la dernière écriture puis la compaction qui jette les doublons sont des changements d'état successifs : une courte animation les montre dans l'ordre exact."
+entry: scene.html
+duration_s: 12
+status: built

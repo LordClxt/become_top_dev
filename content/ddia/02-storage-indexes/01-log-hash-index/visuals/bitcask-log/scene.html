@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch02-bitcask-log" />
+    <title>Log en ajout seul et index de hachage</title>
+    <!--
+      Choreography (12 s) :
+        0.0 – 0.6   décor : index en mémoire (haut), segment sur disque (bas)
+        0.7 – 4.4   7 écritures : chaque enregistrement est ajouté au bout du log,
+                    l'index associe la clé à l'offset de sa DERNIÈRE écriture
+        4.7 – 6.5   get purr : index → offset → un seul seek
+        6.7 – 7.3   le segment est plein : on le fige
+        7.4 – 10.2  compaction : les doublons tombent, la dernière valeur de chaque clé
+                    est recopiée dans un nouveau segment, l'index bascule dessus
+      Offsets = longueurs réelles des lignes "clé,valeur\n" (calculées, pas saisies).
+      État de l'index = fonction pure du temps (driver + onUpdate).
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 48px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .caption b { color: var(--fail); }
+      .label { position: absolute; font-size: 32px; color: var(--muted); }
+
+      .index { position: absolute; left: 150px; top: 180px; width: 600px; border-radius: 24px; border: 4px solid var(--accent);
+        background: var(--surface); overflow: hidden; }
+      .index .head, .index .ir { display: grid; grid-template-columns: 1fr 1.3fr; align-items: center; padding: 0 32px; }
+      .index .head { height: 58px; font-size: 28px; color: var(--muted); background: var(--surface-2); border-bottom: 3px solid var(--line); }
+      .index .ir { position: relative; height: 68px; font-size: 38px; border-top: 2px solid var(--line); opacity: 0.25; }
+      .index .ir .k { font-weight: 600; }
+      .index .ir .v { color: var(--accent); }
+      .index .ir .flash { position: absolute; inset: 0; background: var(--accent); opacity: 0; }
+
+      .cmd { position: absolute; left: 900px; top: 220px; width: 860px; height: 220px; border-radius: 24px; border: 3px solid var(--line);
+        background: var(--surface); padding: 28px 36px; font-size: 36px; line-height: 1.6; opacity: 0; }
+      .cmd .p { color: var(--accent); }
+      .cmd .o { color: var(--pass); }
+
+      .seg { position: absolute; left: 110px; height: 150px; border-radius: 24px; border: 4px dashed var(--line); }
+      #seg1 { top: 560px; width: 1700px; }
+      #seg2 { top: 850px; width: 1700px; opacity: 0; }
+      .seg.frozen { border-style: solid; }
+      .rec { position: absolute; top: 18px; width: 226px; height: 108px; border-radius: 16px; border: 3px solid var(--line);
+        background: var(--surface-2); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; }
+      .rec .kv { font-size: 32px; font-weight: 600; white-space: nowrap; }
+      .rec .off { font-size: 24px; color: var(--muted); margin-top: 4px; }
+      .rec .strike { position: absolute; left: 12px; right: 12px; top: 50%; height: 5px; border-radius: 3px; background: var(--fail);
+        transform: scaleX(0); transform-origin: left center; }
+      .rec.hit { border-color: var(--accent); }
+      .seek { position: absolute; width: 6px; border-radius: 3px; background: var(--accent); transform-origin: top center; opacity: 0; }
+      .seekdot { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: var(--accent);
+        box-shadow: 0 0 30px var(--accent); opacity: 0; }
+      .badge { position: absolute; padding: 8px 20px; border-radius: 30px; font-size: 30px; font-weight: 700; opacity: 0; }
+      .badge.frozen { background: var(--surface-2); color: var(--muted); border: 3px solid var(--line); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Écrire = <em>ajouter au bout du log</em>, et noter l'offset dans l'index</div>
+      <div class="caption" id="c2">Lire = demander l'offset à l'index, puis <em>un seul seek</em></div>
+      <div class="caption" id="c3">Le segment atteint sa taille limite : il est <em>figé</em></div>
+      <div class="caption" id="c4">Compaction : on garde <em>la dernière valeur</em> de chaque clé</div>
+
+      <div class="index" id="index">
+        <div class="head mono"><span>clé</span><span>offset</span></div>
+        <div class="ir mono" id="ix-mew"><i class="flash"></i><span class="k">mew</span><span class="v"></span></div>
+        <div class="ir mono" id="ix-purr"><i class="flash"></i><span class="k">purr</span><span class="v"></span></div>
+        <div class="ir mono" id="ix-yawn"><i class="flash"></i><span class="k">yawn</span><span class="v"></span></div>
+      </div>
+      <div class="label" style="left: 150px; top: 132px">index de hachage <b style="color: var(--text)">en mémoire</b></div>
+
+      <div class="cmd mono" id="cmd">
+        <div><span class="p">&gt;</span> get purr</div>
+        <div class="o" id="cmdout">&nbsp;</div>
+      </div>
+
+      <div class="label" style="left: 110px; top: 510px">segment 1 · fichier sur disque, <b style="color: var(--text)">ajout seul</b></div>
+      <div class="seg" id="seg1"></div>
+      <div class="label" id="lbl2" style="left: 110px; top: 800px; opacity: 0">segment compacté · nouveau fichier</div>
+      <div class="seg frozen" id="seg2"></div>
+      <div class="badge frozen" id="frozen" style="left: 1620px; top: 506px">figé</div>
+
+      <div id="recs"></div>
+      <div class="seek" id="seek"></div>
+      <div class="seekdot" id="seekdot"></div>
+    </div>
+
+    <script>
+      const DURATION = 12;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+
+      // --- Modèle : log en ajout seul + index clé → offset --------------------------------
+      const WRITES = [["mew", 1078], ["purr", 2103], ["purr", 2104], ["yawn", 511], ["mew", 1079], ["mew", 1080], ["purr", 2105]];
+      const T_WRITE = (i) => 0.8 + i * 0.52;
+      let off = 0;
+      const LOG = WRITES.map(([k, v], i) => {
+        const line = `${k},${v}\n`;
+        const r = { k, v, i, off, t: T_WRITE(i) };
+        off += line.length;
+        return r;
+      });
+      const latest = {};
+      for (const r of LOG) latest[r.k] = r; // dernière écriture de chaque clé
+      const KEEP = LOG.filter((r) => latest[r.k] === r); // ordre conservé : yawn, mew, purr
+      let off2 = 0;
+      const COMPACT = KEEP.map((r) => {
+        const c = { ...r, off2 };
+        off2 += `${r.k},${r.v}\n`.length;
+        return c;
+      });
+      const T_SWITCH = 9.6; // l'index bascule vers le segment compacté
+
+      function indexAt(t) {
+        const out = {};
+        for (const r of LOG) if (t >= r.t + 0.45) out[r.k] = `seg1 @ ${r.off}`;
+        if (t >= T_SWITCH) for (const c of COMPACT) out[c.k] = `seg2 @ ${c.off2}`;
+        return out;
+      }
+
+      // --- DOM ----------------------------------------------------------------------------
+      const X0 = 130, W = 238;
+      const recs = document.getElementById("recs");
+      function makeRec(r, x, y, offTxt, id) {
+        const el = document.createElement("div");
+        el.className = "rec mono";
+        el.id = id;
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+        el.innerHTML = `<div class="kv">${r.k}:${r.v}</div><div class="off">offset ${offTxt}</div><i class="strike"></i>`;
+        recs.appendChild(el);
+        return el;
+      }
+      LOG.forEach((r) => makeRec(r, X0 + r.i * W, 578, r.off, "r" + r.i));
+      COMPACT.forEach((c, j) => makeRec(c, X0 + j * W, 868, c.off2, "k" + j));
+
+      const rows = Object.fromEntries(["mew", "purr", "yawn"].map((k) => [k, document.querySelector(`#ix-${k}`)]));
+      function render(t) {
+        const ix = indexAt(t);
+        for (const k in rows) {
+          rows[k].querySelector(".v").textContent = ix[k] || "";
+          rows[k].style.opacity = ix[k] ? 1 : 0.25;
+        }
+        document.getElementById("seg1").classList.toggle("frozen", t >= 6.8);
+        document.getElementById("r" + latest.purr.i).classList.toggle("hit", t >= 5.95 && t < 7.2);
+        document.getElementById("cmdout").textContent = t >= 6.0 ? "2105   (1 seek, offset " + latest.purr.off + ")" : " ";
+      }
+      const driver = { t: 0 };
+      tl.to(driver, { t: DURATION, duration: DURATION, ease: "none", onUpdate: () => render(driver.t) }, 0);
+
+      // --- Mouvement ------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      captions([["#c1", 0.6, 4.6], ["#c2", 4.6, 6.7], ["#c3", 6.7, 7.4], ["#c4", 7.4, DURATION + 1]]);
+      tl.fromTo("#index, #seg1, .label:not(#lbl2)", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "power3.out" }, 0);
+
+      for (const r of LOG) {
+        tl.fromTo("#r" + r.i, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out", ...NF }, r.t);
+        tl.fromTo(`#ix-${r.k} .flash`, { opacity: 0 }, { keyframes: { opacity: [0, 0.3, 0] }, duration: 0.5, ...NF }, r.t + 0.4);
+      }
+
+      // get purr : la ligne s'allume, un trait descend jusqu'à l'enregistrement.
+      tl.fromTo("#cmd", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ...NF }, 4.7);
+      tl.fromTo("#ix-purr .flash", { opacity: 0 }, { opacity: 0.3, duration: 0.2, ...NF }, 5.0);
+      const target = LOG[latest.purr.i];
+      const sx = X0 + target.i * W + 113;
+      const seek = document.getElementById("seek");
+      seek.style.left = sx - 3 + "px";
+      seek.style.top = "402px";
+      seek.style.height = "176px";
+      tl.fromTo("#seekdot", { x: 750, y: 316, opacity: 0 }, { opacity: 1, duration: 0.1, ...NF }, 5.2);
+      tl.fromTo("#seekdot", { x: 750, y: 316 }, { keyframes: [{ x: sx, y: 402, duration: 0.35 }, { x: sx, y: 578, duration: 0.3 }], ease: "power2.inOut", ...NF }, 5.3);
+      tl.to("#seekdot", { opacity: 0, duration: 0.2 }, 6.3);
+      tl.to("#ix-purr .flash", { opacity: 0, duration: 0.2 }, 6.4);
+
+      // Segment figé
+      tl.fromTo("#frozen", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.8)", ...NF }, 6.8);
+      tl.to("#cmd", { opacity: 0, duration: 0.3 }, 7.2);
+
+      // Compaction : doublons barrés, survivants recopiés.
+      const dups = LOG.filter((r) => latest[r.k] !== r);
+      dups.forEach((r, j) => {
+        tl.fromTo(`#r${r.i} .strike`, { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.out", ...NF }, 7.6 + j * 0.15);
+        tl.to("#r" + r.i, { opacity: 0.35, duration: 0.25 }, 7.8 + j * 0.15);
+      });
+      tl.fromTo("#seg2, #lbl2", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 8.2);
+      COMPACT.forEach((c, j) => {
+        const dx = (c.i - j) * W;
+        tl.fromTo("#k" + j, { opacity: 0, x: dx, y: -290 }, { opacity: 1, duration: 0.1, ...NF }, 8.5 + j * 0.3);
+        tl.fromTo("#k" + j, { x: dx, y: -290 }, { x: 0, y: 0, duration: 0.6, ease: "power2.inOut", ...NF }, 8.55 + j * 0.3);
+      });
+      ["mew", "purr", "yawn"].forEach((k) => {
+        tl.fromTo(`#ix-${k} .flash`, { opacity: 0 }, { keyframes: { opacity: [0, 0.3, 0] }, duration: 0.6, ...NF }, T_SWITCH);
+      });
+      tl.to("#seg1, #frozen, #recs .rec[id^=r]", { opacity: 0.18, duration: 0.5 }, 10.4);
+
+      tl.set({}, {}, DURATION);
+      render(0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

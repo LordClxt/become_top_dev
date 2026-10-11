@@ -1,0 +1,7 @@
+id: ddia-ch02-lsm-flush-merge
+concept: ddia-lsm-tree
+format: hyperframes
+justification: "Le chemin d'une écriture (WAL, memtable triée, flush, puis fusion mergesort où le plus récent gagne) est une suite d'étapes dans le temps : l'animation montre chaque état intermédiaire dans l'ordre."
+entry: scene.html
+duration_s: 13
+status: built

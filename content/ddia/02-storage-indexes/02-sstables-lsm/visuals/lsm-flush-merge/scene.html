@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch02-lsm-flush-merge" />
+    <title>LSM : memtable, WAL, SSTable et fusion</title>
+    <!--
+      Choreography (13 s) :
+        0.0 – 0.6   décor : memtable + WAL à gauche, disque à droite (SSTable 1 déjà là)
+        0.7 – 4.0   4 écritures dans le désordre : ajoutées au WAL (ordre d'arrivée)
+                    et insérées à leur place dans la memtable (toujours triée)
+        4.3 – 5.6   memtable pleine : écrite telle quelle en SSTable 2, le WAL est jeté
+        6.0 – 9.8   fusion façon mergesort : on compare les têtes, on copie la plus petite ;
+                    clé en double → la valeur du segment le plus récent gagne
+        10.0 – 13   bilan
+      La trace de fusion est calculée par l'algorithme (merge()), pas écrite à la main.
+      Positions des lignes de la memtable = fonction pure du temps.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 48px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .caption b { color: var(--fail); }
+      .label { position: absolute; font-size: 30px; color: var(--muted); white-space: nowrap; }
+      .label b { color: var(--text); }
+
+      .zone { position: absolute; border-radius: 28px; border: 3px solid var(--line); }
+      .zone h3 { position: absolute; left: 30px; top: 18px; font-size: 34px; font-weight: 700; }
+      .box { position: absolute; border-radius: 20px; border: 4px solid var(--line); background: var(--surface); }
+      #mem { border-color: var(--accent); }
+
+      .row { position: absolute; width: 240px; height: 56px; border-radius: 12px; background: var(--surface-2); border: 3px solid var(--line);
+        font-size: 32px; font-weight: 600; display: flex; align-items: center; justify-content: center; opacity: 0; white-space: nowrap; }
+      .row .v { color: var(--accent); margin-left: 4px; }
+      .row.old .v { color: var(--muted); }
+      .row .strike { position: absolute; left: 14px; right: 14px; top: 50%; height: 5px; border-radius: 3px; background: var(--fail);
+        transform: scaleX(0); transform-origin: left center; }
+      .wal { position: absolute; width: 112px; height: 52px; border-radius: 10px; background: var(--surface-2); border: 3px solid var(--line);
+        font-size: 24px; display: flex; align-items: center; justify-content: center; opacity: 0; }
+      .put { position: absolute; left: 150px; top: 250px; font-size: 38px; opacity: 0; }
+      .put .p { color: var(--accent); }
+      .ptr { position: absolute; width: 0; height: 0; border-top: 16px solid transparent; border-bottom: 16px solid transparent;
+        border-left: 24px solid var(--accent); opacity: 0; }
+      .sel { position: absolute; width: 252px; height: 68px; margin: -6px 0 0 -6px; border-radius: 16px; border: 4px solid var(--accent); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="13" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Les écritures arrivent <em>dans le désordre</em></div>
+      <div class="caption" id="c2">WAL : ordre d'arrivée · memtable : <em>toujours triée</em></div>
+      <div class="caption" id="c3">Memtable pleine : écrite d'un bloc en <em>SSTable triée</em></div>
+      <div class="caption" id="c4">Fusion : on copie la <em>plus petite</em> des têtes</div>
+      <div class="caption" id="c5">Clé en double : <em>le segment le plus récent</em> gagne</div>
+      <div class="caption" id="c6">Écritures séquentielles, fusions en arrière-plan : <em>un LSM-tree</em></div>
+
+      <div class="zone" style="left: 70px; top: 150px; width: 640px; height: 890px"><h3>Mémoire</h3></div>
+      <div class="zone" style="left: 760px; top: 150px; width: 1090px; height: 890px"><h3>Disque</h3></div>
+
+      <div class="put mono" id="put"><span class="p">put</span> <span id="putkv"></span></div>
+      <div class="label" style="left: 120px; top: 330px">memtable <b>(arbre équilibré, trié)</b></div>
+      <div class="box" id="mem" style="left: 120px; top: 380px; width: 540px; height: 310px"></div>
+      <div class="label" id="walLbl" style="left: 120px; top: 760px">WAL <b>(ajout seul, ordre d'arrivée)</b></div>
+      <div class="box" id="walBox" style="left: 120px; top: 810px; width: 540px; height: 92px"></div>
+      <div class="label" id="walGone" style="left: 120px; top: 920px; opacity: 0">journal jeté : la SSTable est durable</div>
+
+      <div class="label" style="left: 810px; top: 240px">SSTable 1 <b>(ancienne)</b></div>
+      <div class="label" id="lbl2" style="left: 1130px; top: 240px; opacity: 0">SSTable 2 <b>(récente)</b></div>
+      <div class="label" id="lbl3" style="left: 1500px; top: 240px; opacity: 0">fusionnée <b>(nouvelle)</b></div>
+
+      <div id="rows"></div>
+      <div class="ptr" id="p1"></div>
+      <div class="ptr" id="p2"></div>
+    </div>
+
+    <script>
+      const DURATION = 13;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+      const ease = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : 1 - Math.pow(1 - u, 3));
+
+      // --- Données et modèle -----------------------------------------------------------------
+      const SST1 = [["ant", 1], ["cat", 4], ["dog", 2], ["owl", 7]];
+      const WRITES = [["dog", 5], ["bee", 3], ["yak", 8], ["cat", 6]];
+      const T_W = (i) => 0.8 + i * 0.8;
+      const SST2 = [...WRITES].sort((a, b) => (a[0] < b[0] ? -1 : 1));
+
+      // Fusion mergesort : SST2 est plus récente que SST1.
+      function merge(older, newer) {
+        const out = [];
+        let i = 0, j = 0;
+        while (i < older.length || j < newer.length) {
+          const a = older[i], b = newer[j];
+          if (b === undefined || (a !== undefined && a[0] < b[0])) out.push({ kv: a, src: 1, idx: i++, ptrs: [i - 1, j] });
+          else if (a === undefined || b[0] < a[0]) out.push({ kv: b, src: 2, idx: j++, ptrs: [i, j - 1] });
+          else out.push({ kv: b, src: 2, idx: j, dropIdx: i, ptrs: [i++, j++] });
+        }
+        return out;
+      }
+      const STEPS = merge(SST1, SST2);
+
+      // --- Géométrie ---------------------------------------------------------------------------
+      const RH = 70;
+      const MEM = { x: 270, y: 400 };
+      const COL = { 1: 810, 2: 1130, 3: 1500 };
+      const TOP = 300;
+
+      const rowsEl = document.getElementById("rows");
+      function row(id, k, v, x, y, cls = "") {
+        const el = document.createElement("div");
+        el.className = "row mono " + cls;
+        el.id = id;
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+        el.innerHTML = `${k}:<span class="v">${v}</span><i class="strike"></i>`;
+        rowsEl.appendChild(el);
+        return el;
+      }
+      SST1.forEach(([k, v], i) => row("s1-" + i, k, v, COL[1], TOP + i * RH, "old"));
+      const memRows = WRITES.map(([k, v], i) => row("m-" + k, k, v, MEM.x, MEM.y, ""));
+      STEPS.forEach((s, n) => row("o-" + n, s.kv[0], s.kv[1], COL[3], TOP + n * RH));
+      const walEls = WRITES.map(([k, v], i) => {
+        const el = document.createElement("div");
+        el.className = "wal mono";
+        el.id = "w-" + i;
+        el.style.left = 140 + i * 128 + "px";
+        el.style.top = "830px";
+        el.textContent = `${k}:${v}`;
+        rowsEl.appendChild(el);
+        return el;
+      });
+
+      // Rang de chaque clé dans la memtable après chaque écriture.
+      const ranks = WRITES.map((_, n) => {
+        const keys = WRITES.slice(0, n + 1).map((w) => w[0]).sort();
+        return Object.fromEntries(keys.map((k, r) => [k, r]));
+      });
+      function memRank(k, t) {
+        let prev = null, cur = null, at = 0;
+        for (let n = 0; n < WRITES.length; n++) {
+          if (t < T_W(n) + 0.35) break;
+          if (ranks[n][k] === undefined) continue;
+          prev = cur === null ? ranks[n][k] : cur;
+          cur = ranks[n][k];
+          at = T_W(n) + 0.35;
+        }
+        if (cur === null) return null;
+        return prev + (cur - prev) * ease((t - at) / 0.3);
+      }
+      function render(t) {
+        for (const [k] of WRITES) {
+          const r = memRank(k, t);
+          const el = document.getElementById("m-" + k);
+          if (r !== null) el.style.top = MEM.y + r * RH + "px";
+        }
+        const n = WRITES.filter((_, i) => t >= T_W(i)).length;
+        document.getElementById("putkv").textContent = n && t < 4.1 ? `${WRITES[n - 1][0]} ${WRITES[n - 1][1]}` : "";
+      }
+      const driver = { t: 0 };
+      tl.to(driver, { t: DURATION, duration: DURATION, ease: "none", onUpdate: () => render(driver.t) }, 0);
+
+      // --- Mouvement ---------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      captions([["#c1", 0.6, 2.2], ["#c2", 2.2, 4.3], ["#c3", 4.3, 6.0], ["#c4", 6.0, 7.9], ["#c5", 7.9, 10.0], ["#c6", 10.0, DURATION + 1]]);
+      tl.fromTo(".zone, .box, .label:not(#lbl2):not(#lbl3):not(#walGone)", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.03, ease: "power3.out" }, 0);
+      tl.fromTo("#rows .row[id^=s1-]", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.05, ...NF }, 0.2);
+      tl.fromTo("#put", { opacity: 0 }, { opacity: 1, duration: 0.2, ...NF }, 0.7);
+      tl.to("#put", { opacity: 0, duration: 0.2 }, 4.0);
+
+      WRITES.forEach((w, i) => {
+        const t = T_W(i);
+        tl.fromTo("#m-" + w[0], { opacity: 0, x: 0, y: -150 - memRankStatic(i) * RH }, { opacity: 1, x: 0, y: 0, duration: 0.35, ease: "power2.out", ...NF }, t);
+        tl.fromTo("#w-" + i, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, t + 0.1);
+      });
+      function memRankStatic(i) { return ranks[i][WRITES[i][0]]; }
+
+      // Flush : chaque ligne de la memtable part vers la colonne SSTable 2 (même rang).
+      tl.fromTo("#lbl2", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 4.4);
+      SST2.forEach(([k], r) => {
+        const dx = COL[2] - MEM.x, dy = TOP + r * RH - (MEM.y + r * RH);
+        tl.fromTo("#m-" + k, { x: 0, y: 0 }, { x: dx, y: dy, duration: 0.7, ease: "power2.inOut", ...NF }, 4.5 + r * 0.08);
+      });
+      tl.to(".wal", { opacity: 0, y: 20, duration: 0.3, stagger: 0.04 }, 5.3);
+      tl.fromTo("#walGone", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 5.5);
+
+      // Fusion
+      tl.fromTo("#lbl3", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 6.0);
+      tl.fromTo("#p1, #p2", { opacity: 0 }, { opacity: 1, duration: 0.2, ...NF }, 6.1);
+      const T_S = (n) => 6.3 + n * 0.58;
+      const ptrY = (i) => TOP + i * RH + 12;
+      tl.set("#p1", { x: COL[1] - 34, y: ptrY(0) }, 0);
+      tl.set("#p2", { x: COL[2] - 34, y: ptrY(0) }, 0);
+      STEPS.forEach((s, n) => {
+        const t = T_S(n);
+        const srcY = TOP + s.idx * RH;
+        const dx = COL[s.src] - COL[3], dy = srcY - (TOP + n * RH);
+        tl.fromTo("#o-" + n, { opacity: 0, x: dx, y: dy }, { opacity: 1, duration: 0.1, ...NF }, t);
+        tl.fromTo("#o-" + n, { x: dx, y: dy }, { x: 0, y: 0, duration: 0.42, ease: "power2.inOut", ...NF }, t + 0.05);
+        if (s.dropIdx !== undefined) {
+          tl.fromTo(`#s1-${s.dropIdx} .strike`, { scaleX: 0 }, { scaleX: 1, duration: 0.25, ...NF }, t);
+          tl.to("#s1-" + s.dropIdx, { opacity: 0.4, duration: 0.25 }, t + 0.15);
+        }
+        // Les pointeurs avancent après la copie.
+        const next = STEPS[n + 1];
+        if (next) {
+          const [i1, i2] = next.ptrs;
+          tl.to("#p1", { y: ptrY(Math.min(i1, SST1.length - 1)), opacity: i1 >= SST1.length ? 0 : 1, duration: 0.15 }, t + 0.45);
+          tl.to("#p2", { y: ptrY(Math.min(i2, SST2.length - 1)), opacity: i2 >= SST2.length ? 0 : 1, duration: 0.15 }, t + 0.45);
+        }
+      });
+      const tEnd = T_S(STEPS.length) + 0.1;
+      tl.to("#p1, #p2", { opacity: 0, duration: 0.2 }, tEnd);
+      tl.to("#rows .row[id^=s1-], #rows .row[id^=m-], #lbl2, #walGone", { opacity: 0.3, duration: 0.4 }, 10.2);
+
+      tl.set({}, {}, DURATION);
+      render(0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
