@@ -1,0 +1,56 @@
+checks:
+- id: entry
+  label: Les requêtes entrent par une API gateway
+  rule: path
+  source: browser
+  target: service
+  via: gateway
+- id: cache
+  label: Le service lit d'abord dans Redis
+  rule: edge_kind
+  source: service
+  target: redis
+  kind: read
+- id: role
+  label: Redis joue le rôle de cache
+  rule: prop
+  source: redis
+  prop: role
+  value: cache
+- id: write
+  label: Les écritures vont à la base principale
+  rule: edge_kind
+  source: service
+  target: pg
+  kind: write
+- id: repl
+  label: La base principale se réplique vers un réplica
+  rule: edge_kind
+  source: pg
+  target: pg
+  kind: replication
+- id: twodb
+  label: Deux bases PostgreSQL (principal et réplica)
+  rule: count
+  source: pg
+  min: 2
+  max: 2
+- id: async
+  label: Le travail différé passe par une file
+  rule: path
+  source: service
+  target: worker
+  via: queue
+- id: mail
+  label: Le worker envoie l'e-mail
+  rule: path
+  source: worker
+  target: email
+- id: zone
+  label: Le service est dans une zone
+  rule: in_zone
+  source: service
+  target: zone
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Ordre des lignes par défaut ?
+  back: 'Ordre d''insertion : ajouter une valeur à la fin de chaque fichier de colonne.'
+  concept: ddia-column-sort-order
+- id: fc2
+  front: Peut-on trier chaque colonne séparément ?
+  back: 'Non : la k-ième valeur de chaque colonne doit rester la même ligne. On trie des lignes entières.'
+  concept: ddia-column-sort-order
+- id: fc3
+  front: Comment choisir la clé de tri ?
+  back: D'après les requêtes fréquentes (plage de dates → date en première clé).
+  concept: ddia-column-sort-order
+- id: fc4
+  front: Effet du tri sur la compression ?
+  back: La première clé forme de longues séquences, parfaites pour le RLE ; les suivantes de moins en moins.
+  concept: ddia-sort-compression
+- id: fc5
+  front: Ordres de tri multiples ?
+  back: Copies répliquées triées différemment (C-Store, Vertica), choisies selon la requête.
+  concept: ddia-multiple-sort-orders
+- id: fc6
+  front: Différence avec les index secondaires ?
+  back: 'Pas de pointeurs vers les données ailleurs : seulement des colonnes de valeurs.'
+  concept: ddia-multiple-sort-orders
+- id: fc7
+  front: Pourquoi pas de mise à jour sur place ?
+  back: 'Colonnes compressées et triées : une insertion obligerait à réécrire tous les fichiers de colonnes.'
+  concept: ddia-column-writes
+- id: fc8
+  front: Écriture en colonnes ?
+  back: Mémoire triée puis fusion en bloc dans de nouveaux fichiers, comme un LSM-tree ; les requêtes combinent disque et mémoire.
+  concept: ddia-column-writes

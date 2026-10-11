@@ -1,0 +1,23 @@
+blocks:
+  btree:
+    tolerance:
+      rel: 0.01
+    wrong: '(100 + 4096) ÷ 100 : on réécrit toute la page pour quelques octets.'
+  lsm:
+    tolerance:
+      abs: 0.05
+    wrong: 2 écritures (journal + flush) plus 3 niveaux de fusion = 5 écritures par octet.
+  reglage:
+    goals:
+      amp: 'Trop de niveaux de fusion : chaque niveau réécrit les données. Augmente le facteur.'
+      seg: 'Un facteur trop grand laisse trop de segments à consulter : une lecture doit tous les examiner.'
+  charges:
+    options:
+      tx: 'Dans un B-tree, chaque clé est à un seul endroit : on y attache directement des verrous d''intervalle.'
+      p99: 'La compaction d''un LSM peut retarder des requêtes : le B-tree est plus prévisible aux percentiles élevés.'
+      metriques: Les écritures séquentielles de gros fichiers donnent un meilleur débit d'écriture.
+      espace: 'Un LSM n''est pas orienté pages : moins de fragmentation et meilleure compression.'
+  compaction:
+    options:
+      frein: 'Les moteurs à SSTable ne freinent généralement pas les écritures : il faut surveiller le retard de compaction.'
+      cle: 'Les lectures par clé restent possibles : elles consultent simplement plus de segments.'

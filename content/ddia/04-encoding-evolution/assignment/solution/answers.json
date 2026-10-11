@@ -1,0 +1,33 @@
+{
+  "tailles": {
+    "json.n": 23,
+    "mp.n": 16,
+    "pb.n": 8,
+    "avro.n": 6
+  },
+  "gain": 3.8,
+  "proto": {
+    "rename": "ok",
+    "addopt": "ok",
+    "addreq": "break",
+    "renum": "break",
+    "reuse": "break"
+  },
+  "avro": {
+    "add": "both",
+    "addnodef": "fwd",
+    "rmnodef": "back"
+  },
+  "upgrade": [
+    "schema",
+    "readers",
+    "writers",
+    "clean"
+  ],
+  "js": "string",
+  "retry": [
+    "idem",
+    "timeout",
+    "backoff"
+  ]
+}

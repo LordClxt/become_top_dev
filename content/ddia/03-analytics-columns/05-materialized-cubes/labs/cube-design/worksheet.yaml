@@ -1,0 +1,76 @@
+intro: |2
+
+  Ventes en euros par **date** et par **produit** :
+
+  | | P1 | P2 | P3 |
+  |---|---|---|---|
+  | **D1** | 10 | 20 | 5 |
+  | **D2** | 15 | 5 | 25 |
+blocks:
+- id: tot
+  type: table
+  title: Résumer le cube
+  prompt: 'Applique la somme le long de chaque dimension : ventes **par produit** (toutes dates), **par date** (tous produits), et total.'
+  columns:
+  - id: v
+    label: Somme (€)
+  rows:
+  - id: p1
+    label: P1 toutes dates
+  - id: p2
+    label: P2 toutes dates
+  - id: p3
+    label: P3 toutes dates
+  - id: d1
+    label: D1 tous produits
+  - id: d2
+    label: D2 tous produits
+  - id: all
+    label: Total
+- id: vues
+  type: match
+  title: Vue virtuelle ou matérialisée ?
+  prompt: Range chaque caractéristique.
+  items:
+  - id: replay
+    label: La requête est dépliée et recalculée à chaque lecture
+  - id: write
+    label: Elle renchérit les écritures, car la copie doit être mise à jour
+  - id: copy
+    label: C'est une copie réelle des résultats, écrite sur disque
+  - id: nogain
+    label: Elle ne fait gagner aucun temps de calcul à la lecture
+  categories:
+  - id: virtual
+    label: Vue virtuelle
+  - id: mat
+    label: Vue matérialisée
+- id: cells
+  type: number
+  title: La taille d'un cube
+  prompt: Un cube regroupe les ventes par **365 dates**, **1 000 produits** et **50 magasins**. Combien de cases contient-il au plus ?
+  unit: cases
+- id: limite
+  type: choice
+  title: Ce que le cube ne sait pas faire
+  prompt: Le cube a pour dimensions date, produit et magasin. Quelle question reste **impossible** à lui poser ?
+  options:
+  - id: prix
+    label: Quelle part des ventes vient d'articles à plus de 100 € ? (le prix n'est pas une dimension)
+    hint: Il faut les données brutes
+  - id: magasin
+    label: Quelles sont les ventes totales du magasin 7 hier ?
+  - id: produit
+    label: Quelles sont les ventes du produit P1 toutes dates confondues ?
+- id: garde
+  type: choice
+  title: Que garder ?
+  prompt: Que recommande-t-on de faire des données brutes une fois le cube construit ?
+  options:
+  - id: garder
+    label: 'Les conserver : le cube n''est qu''un accélérateur pour certaines requêtes'
+    hint: Souplesse des données brutes
+  - id: jeter
+    label: Les jeter pour gagner de la place
+  - id: copie
+    label: Les copier dans un second cube identique

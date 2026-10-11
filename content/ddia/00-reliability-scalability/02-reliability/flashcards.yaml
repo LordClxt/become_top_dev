@@ -1,0 +1,45 @@
+cards:
+  - id: fc1
+    front: "Faute (fault) ou panne (failure) : lequel est le service entier qui s'arrête ?"
+    back: "La panne. Une faute est seulement un composant qui s'écarte de sa spécification."
+    concept: ddia-fault-vs-failure
+  - id: fc2
+    front: "Quel est le but de la tolérance aux fautes ?"
+    back: "Empêcher que des fautes (inévitables) deviennent des pannes. On ne tolère que certains types de fautes."
+    concept: ddia-fault-vs-failure
+  - id: fc3
+    front: "Pourquoi déclencher volontairement des fautes (Chaos Monkey) ?"
+    back: "Pour exercer en continu la gestion d'erreur et vérifier qu'elle fonctionne avant qu'une faute réelle n'arrive."
+    concept: ddia-fault-vs-failure
+  - id: fc4
+    front: "Combien de disques meurent par jour sur 10 000 disques de MTTF 10 à 50 ans ?"
+    back: "Environ un par jour."
+    concept: ddia-hardware-faults
+  - id: fc5
+    front: "Quels avantages opérationnels apporte la tolérance logicielle à la perte de machines ?"
+    back: "Mises à jour nœud par nœud (rolling upgrade) sans interruption de service."
+    concept: ddia-hardware-faults
+  - id: fc6
+    front: "Pourquoi les erreurs logicielles sont-elles plus dangereuses que les pannes matérielles ?"
+    back: "Elles sont systématiques et corrélées : le même bug frappe tous les nœuds en même temps."
+    concept: ddia-software-faults
+  - id: fc7
+    front: "Cite deux exemples de fautes logicielles systématiques."
+    back: "Une entrée qui plante toutes les instances (seconde intercalaire de 2012), un processus qui épuise une ressource partagée, une dépendance qui devient lente ou corrompue, une défaillance en cascade."
+    concept: ddia-software-faults
+  - id: fc8
+    front: "Première cause de pannes selon l'étude citée ?"
+    back: "Les erreurs de configuration des opérateurs (matériel : seulement 10 à 25 % des pannes)."
+    concept: ddia-human-errors
+  - id: fc9
+    front: "Cinq moyens de contenir les erreurs humaines ?"
+    back: "Bonnes abstractions, bac à sable, tests à tous les niveaux, récupération rapide (retour arrière, déploiement progressif), télémétrie."
+    concept: ddia-human-errors
+  - id: fc10
+    front: "Disponibilité de composants en série, en parallèle ?"
+    back: "Série (tous nécessaires) : produit des disponibilités. Parallèle (un suffit) : 1 − produit des indisponibilités, si les pannes sont indépendantes."
+    concept: ddia-availability-math
+  - id: fc11
+    front: "Que représentent 99 %, 99,9 % et 99,99 % de disponibilité par an ?"
+    back: "À peu près 3,65 jours, 8 h 45 et 52 minutes d'indisponibilité."
+    concept: ddia-availability-math

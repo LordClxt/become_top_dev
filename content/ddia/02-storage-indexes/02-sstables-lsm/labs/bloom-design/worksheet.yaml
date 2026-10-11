@@ -1,0 +1,66 @@
+intro: Chercher une clé **absente** dans un LSM-tree oblige à lire tous les segments. Un **filtre de Bloom** en mémoire répond « sûrement absent
+  » à bas coût, en échange d'un peu de RAM. Tu dimensionnes celui d'un segment de **1 million de clés**.
+blocks:
+- id: garanties
+  type: multi
+  title: Ce que le filtre garantit
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: absent
+    label: S'il répond « absent », la clé n'est sûrement pas dans le segment
+  - id: present
+    label: S'il répond « présent », la clé est sûrement dans le segment
+  - id: fneg
+    label: Il peut produire des faux négatifs
+  - id: fpos
+    label: Un faux positif coûte une lecture inutile du segment
+- id: taux
+  type: number
+  title: Le taux de faux positifs
+  prompt: Avec **10 bits par clé** et **7 fonctions de hachage**, le taux de faux positifs vaut `(1 − e^(−k·n/m))^k`. Donne-le en pourcentage,
+    avec deux décimales.
+  unit: '%'
+- id: k
+  type: number
+  title: Le bon nombre de hachages
+  prompt: Le nombre de hachages qui minimise les faux positifs vaut `(m/n) × ln 2`, arrondi. Que vaut-il pour **10 bits par clé** ?
+  unit: hachages
+- id: reglage
+  type: tuner
+  title: Dimensionner le filtre
+  prompt: 'Règle les bits par clé et le nombre de hachages : **moins de 1 %** de faux positifs, **moins de 1,5 Mo** de RAM pour le million de
+    clés, et pas plus de **8 hachages** (coût en CPU).'
+  params:
+  - id: bpk
+    label: Bits par clé
+    unit: bits
+    min: 2
+    max: 20
+    step: 1
+    default: 4
+  - id: k
+    label: Fonctions de hachage
+    unit: ''
+    min: 1
+    max: 12
+    step: 1
+    default: 1
+  metrics:
+  - id: fpr
+    label: Faux positifs
+    expr: pow(1 - exp(-k / bpk), k)
+    format: percent
+  - id: mem
+    label: Mémoire
+    expr: bpk * 1000000 / 8
+    format: bytes
+  goals:
+  - id: fpr
+    label: Moins de 1 % de faux positifs
+    expr: fpr < 0.01
+  - id: mem
+    label: Moins de 1,5 Mo de RAM
+    expr: mem < 1500000
+  - id: cpu
+    label: Au plus 8 hachages
+    expr: k <= 8

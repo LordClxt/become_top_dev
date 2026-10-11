@@ -1,0 +1,35 @@
+blocks:
+  tailles:
+    options:
+      json.n: 'Compte les caractères : `{"id":300,"name":"Ada"}` fait 23 octets.'
+      mp.n: 1 (objet) + 3 (nom « id ») + 3 (le nombre 300) + 5 (nom « name ») + 4 (chaîne « Ada ») = 16.
+      pb.n: (1 + 2) pour id + (1 + 1 + 3) pour name = 8.
+      avro.n: '2 octets pour 300 + 1 de longueur + 3 octets = 6 : pas d''en-tête de champ.'
+  gain:
+    tolerance:
+      abs: 0.1
+    wrong: 23 / 6 ≈ 3,8.
+  proto:
+    options:
+      rename: 'Les octets ne contiennent pas le nom : seul le numéro compte.'
+      addreq: 'Les anciennes données n''ont pas ce champ : le nouveau code ne peut plus les lire.'
+      renum: Changer un numéro invalide toutes les données encodées.
+      reuse: D'anciennes données portent encore l'ancien sens du numéro 2.
+  avro:
+    options:
+      add: 'Avec un défaut, un nouveau lecteur remplit le champ manquant, un ancien l''ignore : les deux sens passent.'
+      addnodef: Sans défaut, un nouveau lecteur ne sait pas lire les anciennes données ; un ancien lecteur ignore le champ.
+      rmnodef: Sans défaut, un ancien lecteur ne sait pas remplir le champ manquant des nouvelles données.
+  upgrade:
+    options:
+      readers: Les lecteurs doivent savoir ignorer le champ AVANT que des écrivains le produisent.
+      clean: 'Rendre le champ obligatoire en dernier : sinon on casse les données écrites avant.'
+  js:
+    options:
+      number: Au-delà de 2⁵³ le nombre est arrondi en JavaScript.
+      float: Un flottant perd encore plus de précision.
+  retry:
+    options:
+      local: 'Un appel réseau n''est pas un appel local : il peut être perdu, expirer, être répété.'
+      idem: Sans idempotence, un nouvel essai peut dupliquer l'action.
+      backoff: La réponse perdue n'implique pas que la requête ait échoué.

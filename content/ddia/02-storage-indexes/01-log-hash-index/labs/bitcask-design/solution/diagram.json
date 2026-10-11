@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    { "id": "app", "type": "app", "x": 0, "y": 168 },
+    { "id": "hash", "type": "hash", "x": 300, "y": 36 },
+    { "id": "active", "type": "active", "x": 600, "y": 168 },
+    { "id": "closed", "type": "closed", "x": 600, "y": 24 },
+    { "id": "compaction", "type": "compaction", "x": 900, "y": 24 },
+    { "id": "merged", "type": "merged", "x": 1200, "y": 24 }
+  ],
+  "edges": [
+    { "id": "e1", "source": "app", "target": "active", "kind": "write", "label": "Set" },
+    { "id": "e2", "source": "app", "target": "hash", "kind": "read", "label": "Get" },
+    { "id": "e3", "source": "hash", "target": "active", "kind": "read", "label": "offset" },
+    { "id": "e4", "source": "hash", "target": "closed", "kind": "read", "label": "offset" },
+    { "id": "e5", "source": "compaction", "target": "closed", "kind": "read" },
+    { "id": "e6", "source": "compaction", "target": "merged", "kind": "write" }
+  ]
+}

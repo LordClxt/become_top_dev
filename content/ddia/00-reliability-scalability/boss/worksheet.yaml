@@ -1,0 +1,102 @@
+intro: |2
+
+  Ton service reçoit **600 requêtes utilisateur par seconde**. Chacune déclenche **20 appels parallèles** vers un backend : un pool de workers FIFO. Un appel dure **25 ms** de service. Le produit exige : **p99 tenu**, **moins de 5 %** de requêtes utilisateur lentes, et un parc de **450 workers maximum**. Tu rassembles tout le chapitre : charge, file d'attente, queue de latence.
+blocks:
+- id: appels
+  type: number
+  title: La charge du backend
+  prompt: Combien d'appels par seconde le backend reçoit-il ?
+  unit: appels/s
+- id: capa
+  type: number
+  title: Le plancher théorique
+  prompt: Un worker traite 1 appel à la fois, en 25 ms. Combien de workers faut-il **au minimum**, à 100 % d'utilisation ?
+  unit: workers
+- id: part
+  type: number
+  title: Amplification de la latence de queue
+  prompt: '**0,5 %** des appels sont lents. Une requête utilisateur attend le plus lent de ses 20 appels. Quelle part des requêtes utilisateur
+    est lente ?'
+  unit: '%'
+- id: hol
+  type: choice
+  title: Pourquoi une requête lente en gêne-t-elle d'autres ?
+  prompt: Dans un pool FIFO, une requête lente fait attendre celles qui sont derrière elle, même si elles sont rapides. Comment appelle-t-on ce
+    phénomène ?
+  options:
+  - id: hol
+    label: Le blocage en tête de file (head-of-line blocking)
+  - id: tail
+    label: Le fan-out
+  - id: cold
+    label: Le démarrage à froid
+- id: dash
+  type: order
+  title: Un tableau de bord honnête
+  prompt: Remets dans l'ordre les étapes pour publier le p99 du cluster.
+  items:
+  - id: measure
+    label: Mesurer côté client, en boucle ouverte
+  - id: hist
+    label: Ranger chaque mesure dans un histogramme à tranches fixes
+  - id: sum
+    label: Additionner les histogrammes des nœuds
+  - id: read
+    label: Lire le p99 sur l'histogramme fusionné
+  - id: slo
+    label: Comparer au SLO et déduire le budget d'erreur consommé
+- id: agg
+  type: match
+  title: Agréger sans mentir
+  prompt: Valable ou à éviter ?
+  items:
+  - id: sumh
+    label: Additionner les histogrammes de 40 nœuds
+  - id: avg99
+    label: Moyenner les 40 p99
+  - id: max99
+    label: Prendre le maximum des 40 p99 comme borne haute prudente
+  categories:
+  - id: ok
+    label: Valable
+  - id: bad
+    label: À éviter
+- id: plan
+  type: tuner
+  title: Dimensionner le parc
+  prompt: 'Charge de **12 000 appels/s** à 25 ms : `ρ = 300 / workers`. Ajuste le parc **et** la part d''appels lents (après optimisation du backend)
+    pour tenir : utilisation **≤ 70 %**, **450 workers maximum**, **moins de 5 %** de requêtes utilisateur lentes.'
+  params:
+  - id: w
+    label: Workers
+    unit: ''
+    min: 100
+    max: 800
+    step: 10
+    default: 300
+  - id: p
+    label: Appels lents
+    unit: '%'
+    min: 0.05
+    max: 1
+    step: 0.05
+    default: 0.5
+  metrics:
+  - id: rho
+    label: Utilisation ρ
+    expr: 300 / w
+    format: percent
+  - id: slow
+    label: Requêtes utilisateur lentes
+    expr: 1 - pow(1 - p / 100, 20)
+    format: percent
+  goals:
+  - id: util
+    label: Utilisation ≤ 70 %
+    expr: rho <= 0.7
+  - id: cost
+    label: 450 workers maximum
+    expr: w <= 450
+  - id: slow
+    label: Moins de 5 % de requêtes lentes
+    expr: slow < 0.05

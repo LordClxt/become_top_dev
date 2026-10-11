@@ -1,0 +1,22 @@
+id: ddia-ch00
+title: "Fiabilité, charge et percentiles"
+subtitle: "Décrire un système de données avec des chiffres : pannes, charge, temps de réponse"
+source: { chapter: 1, pages: "25-46" }
+objectives:
+  - "Distinguer application intensive en données et intensive en calcul, et décrire un système de données composite"
+  - "Distinguer faute et panne, et classer les causes de pannes (matériel, logiciel, humain)"
+  - "Calculer une disponibilité en série et en parallèle et la convertir en indisponibilité annuelle"
+  - "Décrire une charge par des paramètres et raisonner sur le fan-out et l'approche hybride"
+  - "Résumer des temps de réponse par des percentiles, calculer l'amplification de la latence de queue"
+  - "Agréger des mesures par addition d'histogrammes et vérifier un SLO avec un budget d'erreur"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-data-systems"
+  - "02-reliability"
+  - "03-load-fan-out"
+  - "04-percentiles"
+xp: { assignment: 120, project: 200, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

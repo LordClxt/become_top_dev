@@ -1,0 +1,143 @@
+id: ddia-ch03-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi une requête analytique est-elle lente sur un stockage orienté lignes ?
+  choices:
+  - Il faut charger les lignes entières (plus de 100 attributs) alors que la requête n'en utilise que quelques-uns
+  - Il ne gère pas SQL
+  - Il n'a pas d'index
+  - Il ne peut pas filtrer
+  answer: 0
+  explanation: Même avec des index, le moteur charge toutes les colonnes de chaque ligne avant de filtrer.
+  concept: ddia-row-vs-column
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quelle est l'idée du stockage orienté colonnes ?
+  choices:
+  - Ranger ensemble toutes les valeurs de chaque colonne, dans un fichier séparé
+  - Ranger ensemble toutes les valeurs d'une ligne
+  - Ne stocker que les index
+  - Trier chaque colonne indépendamment
+  answer: 0
+  explanation: Une requête ne lit et n'analyse que les colonnes dont elle a besoin.
+  concept: ddia-row-vs-column
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Comment reconstituer la 23ᵉ ligne dans un stockage en colonnes ?
+  choices:
+  - Prendre la 23ᵉ valeur de chaque fichier de colonne
+  - Chercher son identifiant dans un index
+  - Lire la 23ᵉ page
+  - Relire tout le fichier
+  answer: 0
+  explanation: Toutes les colonnes contiennent les lignes dans le même ordre.
+  concept: ddia-column-position
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Que fait l'encodage par bitmap ?
+  choices:
+  - Un bitmap par valeur distincte, avec un bit par ligne
+  - Un bit par colonne
+  - Un seul bitmap pour toute la table
+  - Il chiffre la colonne
+  answer: 0
+  explanation: Pour une colonne à n valeurs distinctes, n bitmaps ; le bit vaut 1 si la ligne a cette valeur.
+  concept: ddia-bitmap-encoding
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Comment répond-on à `WHERE product_sk IN (30, 68, 69)` avec des bitmaps ?
+  choices:
+  - OU bit à bit des trois bitmaps
+  - ET bit à bit des trois bitmaps
+  - On relit toute la colonne
+  - On trie les bitmaps
+  answer: 0
+  explanation: Une ligne est retenue si elle a l'une des trois valeurs.
+  concept: ddia-bitmap-encoding
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Pourquoi un ET entre le bitmap d'une colonne et celui d'une autre colonne est-il possible ?
+  choices:
+  - 'Les colonnes gardent les lignes dans le même ordre : le k-ième bit désigne la même ligne'
+  - Les bitmaps sont chiffrés avec la même clé
+  - Toutes les colonnes ont la même taille en octets
+  - Les colonnes sont triées séparément
+  answer: 0
+  explanation: Sans cet ordre commun, les positions ne correspondraient plus.
+  concept: ddia-column-position
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Quand ajoute-t-on un run-length encoding sur les bitmaps ?
+  choices:
+  - 'Quand le nombre de valeurs distinctes est grand : les bitmaps sont creux'
+  - Quand il y a moins de 200 valeurs distinctes
+  - Jamais
+  - Seulement pour des booléens
+  answer: 0
+  explanation: 'Un bitmap creux est surtout fait de zéros : les longueurs de séquences suffisent.'
+  concept: ddia-run-length-encoding
+  difficulty: 2
+- id: q8
+  type: code-output
+  prompt: Qu'affiche ce programme ? (bitmap de la valeur 29, puis nombre de bits à 1)
+  code: |
+    col := []int{29, 29, 69, 69, 69, 69, 29, 31, 31}
+    bits := make([]byte, len(col))
+    ones := 0
+    for i, v := range col {
+        if v == 29 {
+            bits[i] = 1
+            ones++
+        }
+    }
+    fmt.Println(bits, ones)
+  answer: '[1 1 0 0 0 0 1 0 0] 3'
+  explanation: 'Un octet par ligne ici pour la lisibilité : le bit i vaut 1 si la ligne i contient 29.'
+  concept: ddia-bitmap-encoding
+  difficulty: 2
+- id: q9
+  type: code-output
+  prompt: Qu'affiche ce programme ? (ET de deux bitmaps)
+  code: |
+    a := []byte{1, 1, 0, 0, 1}
+    b := []byte{1, 0, 1, 0, 1}
+    out := make([]byte, len(a))
+    for i := range a {
+        out[i] = a[i] & b[i]
+    }
+    fmt.Println(out)
+  answer: '[1 0 0 0 1]'
+  explanation: Seules les lignes qui ont les deux valeurs gardent un 1.
+  concept: ddia-bitmap-encoding
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Les familles de colonnes de Cassandra et HBase sont-elles du stockage orienté colonnes ?
+  choices:
+  - 'Non : toutes les colonnes d''une ligne restent ensemble dans une famille, sans compression par colonne'
+  - Oui, avec compression par bitmap
+  - Oui, avec un fichier par colonne
+  - Seulement pour les nombres
+  answer: 0
+  explanation: Le modèle Bigtable reste surtout orienté lignes malgré le nom.
+  concept: ddia-row-vs-column
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: En quoi consiste le traitement vectoriel ?
+  choices:
+  - Parcourir en boucle serrée un bloc de colonne compressée qui tient dans le cache L1
+  - Calculer sur des vecteurs géométriques
+  - Distribuer les colonnes sur plusieurs machines
+  - Remplacer SQL par des vecteurs
+  answer: 0
+  explanation: Sans appels de fonction par ligne, le CPU exécute la boucle bien plus vite.
+  concept: ddia-vectorized
+  difficulty: 2

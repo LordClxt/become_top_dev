@@ -1,0 +1,134 @@
+id: ddia-ch04-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qu'un broker de messages ?
+  choices:
+  - Un intermédiaire qui stocke temporairement les messages entre émetteur et destinataire
+  - Un équilibreur de charge
+  - Une base relationnelle
+  - Un compilateur
+  answer: 0
+  explanation: Il se situe entre le RPC et la base de données.
+  concept: ddia-message-broker
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quel avantage un broker a-t-il sur un RPC direct ?
+  choices:
+  - Il sert de tampon et peut redélivrer un message à un processus qui a planté
+  - Il est toujours plus rapide
+  - Il garantit l'ordre global
+  - Il supprime l'encodage
+  answer: 0
+  explanation: Il améliore la fiabilité si le destinataire est indisponible ou surchargé.
+  concept: ddia-message-broker
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: L'émetteur doit-il connaître l'adresse du destinataire ?
+  choices:
+  - 'Non : le broker découple l''émetteur du destinataire'
+  - Oui, toujours
+  - Seulement l'IP
+  - Seulement le port
+  answer: 0
+  explanation: Précieux dans le cloud où les machines virtuelles vont et viennent.
+  concept: ddia-message-broker
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Un message peut-il aller à plusieurs destinataires ?
+  choices:
+  - Oui, plusieurs consommateurs ou abonnés peuvent recevoir le même message d'un sujet
+  - Non, jamais
+  - Seulement avec RPC
+  - Seulement sur un nœud
+  answer: 0
+  explanation: Plusieurs producteurs et plusieurs consommateurs sur un même sujet.
+  concept: ddia-queue-topic
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Que signifie « asynchrone » pour l'émetteur d'un message ?
+  choices:
+  - Il envoie puis passe à autre chose, sans attendre la livraison ni de réponse
+  - Il attend la réponse
+  - Il attend que le consommateur confirme
+  - Il bloque son thread
+  answer: 0
+  explanation: Une réponse éventuelle passe sur un canal séparé, comme une file de réponse.
+  concept: ddia-queue-topic
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quel modèle de données un broker impose-t-il ?
+  choices:
+  - 'Aucun : un message est une suite d''octets avec des métadonnées'
+  - Relationnel
+  - JSON
+  - Avro
+  answer: 0
+  explanation: Tu choisis l'encodage, donc la compatibilité.
+  concept: ddia-broker-encoding
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Quel soin faut-il si un consommateur republie des messages sur un autre sujet ?
+  choices:
+  - Préserver les champs inconnus
+  - Les compresser
+  - Les trier
+  - Les chiffrer
+  answer: 0
+  explanation: Même piège que pour une base de données.
+  concept: ddia-broker-encoding
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Qu'est-ce qu'un acteur ?
+  choices:
+  - Une unité qui a un état local, communique par messages asynchrones et traite un message à la fois
+  - Un thread partagé
+  - Un type de base de données
+  - Un client REST
+  answer: 0
+  explanation: 'Pas de verrous : l''état n''est partagé avec personne.'
+  concept: ddia-actor-model
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: La livraison des messages d'un acteur est-elle garantie ?
+  choices:
+  - 'Non : dans certains cas d''erreur, des messages sont perdus'
+  - Oui, toujours
+  - Oui, sur un seul nœud
+  - Oui, avec un broker
+  answer: 0
+  explanation: Le modèle suppose déjà que des messages peuvent se perdre.
+  concept: ddia-actor-model
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Pourquoi Akka par défaut ne permet-il pas les mises à jour progressives ?
+  choices:
+  - Il utilise la sérialisation intégrée de Java, sans compatibilité ; on la remplace par Protocol Buffers
+  - Il refuse les messages
+  - Il n'a pas de réseau
+  - Il est monolithique
+  answer: 0
+  explanation: Le choix de l'encodage décide des options de déploiement.
+  concept: ddia-actor-model
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: Quel est le bilan du chapitre ?
+  choices:
+  - Avec un peu de soin, compatibilité et mises à jour progressives sont à portée
+  - Il faut toujours arrêter le service pour mettre à jour
+  - Seul Avro est compatible
+  - JSON suffit toujours
+  answer: 0
+  explanation: Tout ce qui circule doit offrir la rétro et l'ascendante.
+  concept: ddia-ch04-summary
+  difficulty: 1

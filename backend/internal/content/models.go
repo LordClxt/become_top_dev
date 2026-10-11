@@ -25,12 +25,15 @@ type Verified struct {
 	Starter  string    `yaml:"starter"`
 }
 
-// PaletteItem est un bloc que l'on peut poser sur un diagramme. Shape choisit l'icône et la forme.
+// PaletteItem est un bloc que l'on peut poser sur un diagramme. Component désigne un composant du catalogue
+// (catalog.yaml) qui fixe l'icône, la couleur et les propriétés ; l'ancien Shape (client, service, queue, database,
+// external, cache) reste accepté et sert de Component quand celui-ci est absent.
 type PaletteItem struct {
-	Type  string `yaml:"type" json:"type"`
-	Label string `yaml:"label" json:"label"`
-	Shape string `yaml:"shape" json:"shape"`
-	Hint  string `yaml:"hint" json:"hint"`
+	Type      string `yaml:"type" json:"type"`
+	Label     string `yaml:"label" json:"label"`
+	Shape     string `yaml:"shape" json:"shape"`
+	Component string `yaml:"component" json:"component"`
+	Hint      string `yaml:"hint" json:"hint"`
 }
 
 // DiagramCheck est une règle vérifiée sur le graphe d'un exercice diagram (voir service/diagram.go).
@@ -40,16 +43,125 @@ type PaletteItem struct {
 //   - inbound_via : tout ce qui entre dans Target vient d'un bloc de type Via
 //   - single_owner : chaque bloc de type Target a au plus un bloc entrant
 //   - connected : aucun bloc isolé
+//   - prop : chaque bloc de type Source a la propriété Prop égale à Value (et il y en a au moins un)
+//   - edge_kind : chaque flèche de Source vers Target est de nature Kind (et il y en a au moins une)
+//   - count : le nombre de blocs de type Source est compris entre Min et Max (Max absent : sans plafond)
+//   - in_zone : chaque bloc de type Source est posé dans une zone de type Target
+//   - link : un bloc nommé Source est relié à un bloc nommé Target par une flèche d'étiquette Value (noms et étiquette sans casse)
+//   - tree_shape : les blocs de type Source forment l'arbre Tree (clés lues dans la propriété "keys", enfants de gauche à droite)
 type DiagramCheck struct {
-	ID     string `yaml:"id"`
-	Label  string `yaml:"label"`
-	Rule   string `yaml:"rule"`
-	Source string `yaml:"source"`
-	Target string `yaml:"target"`
-	Via    string `yaml:"via"`
+	ID     string    `yaml:"id"`
+	Label  string    `yaml:"label"`
+	Rule   string    `yaml:"rule"`
+	Source string    `yaml:"source"`
+	Target string    `yaml:"target"`
+	Via    string    `yaml:"via"`
+	Prop   string    `yaml:"prop"`
+	Value  string    `yaml:"value"`
+	Kind   string    `yaml:"kind"`
+	Min    *int      `yaml:"min"`
+	Max    *int      `yaml:"max"`
+	Tree   *TreeSpec `yaml:"tree"`
+}
+
+// TreeSpec décrit un arbre attendu : les clés d'une page et ses enfants, dans l'ordre.
+type TreeSpec struct {
+	Keys     string     `yaml:"keys"`
+	Children []TreeSpec `yaml:"children"`
 }
 
 type Map = map[string]any
+
+// --- Fiches interactives (kind: worksheet) ---------------------------------------------------------------------
+
+// WSOption est un choix, un élément à ordonner ou à ranger, ou une catégorie.
+type WSOption struct {
+	ID    string `yaml:"id" json:"id"`
+	Label string `yaml:"label" json:"label"`
+	Hint  string `yaml:"hint" json:"hint"`
+}
+
+// WSColumn est une colonne d'un bloc table.
+type WSColumn struct {
+	ID    string `yaml:"id" json:"id"`
+	Label string `yaml:"label" json:"label"`
+}
+
+// WSRow est une ligne d'un bloc table : Cells donne les cases déjà remplies, les autres sont à compléter.
+type WSRow struct {
+	ID    string            `yaml:"id" json:"id"`
+	Label string            `yaml:"label" json:"label"`
+	Cells map[string]string `yaml:"cells" json:"cells"`
+}
+
+// WSParam est un curseur d'un bloc tuner.
+type WSParam struct {
+	ID      string  `yaml:"id" json:"id"`
+	Label   string  `yaml:"label" json:"label"`
+	Unit    string  `yaml:"unit" json:"unit"`
+	Min     float64 `yaml:"min" json:"min"`
+	Max     float64 `yaml:"max" json:"max"`
+	Step    float64 `yaml:"step" json:"step"`
+	Default float64 `yaml:"default" json:"default"`
+}
+
+// WSMetric est une valeur calculée en direct à partir des curseurs (et des métriques précédentes).
+type WSMetric struct {
+	ID     string `yaml:"id" json:"id"`
+	Label  string `yaml:"label" json:"label"`
+	Expr   string `yaml:"expr" json:"expr"`
+	Unit   string `yaml:"unit" json:"unit"`
+	Format string `yaml:"format" json:"format"` // number | percent | bytes | duration-s
+}
+
+// WSGoal est une contrainte à satisfaire : une expression booléenne sur les curseurs et les métriques.
+type WSGoal struct {
+	ID    string `yaml:"id" json:"id"`
+	Label string `yaml:"label" json:"label"`
+	Expr  string `yaml:"expr" json:"expr"`
+}
+
+// WSBlock est une brique d'une fiche. Type : number | choice | multi | order | match | table | tuner.
+type WSBlock struct {
+	ID         string     `yaml:"id" json:"id"`
+	Type       string     `yaml:"type" json:"type"`
+	Title      string     `yaml:"title" json:"title"`
+	Prompt     string     `yaml:"prompt" json:"prompt"`
+	Unit       string     `yaml:"unit" json:"unit"`
+	Options    []WSOption `yaml:"options" json:"options"`       // choice, multi
+	Items      []WSOption `yaml:"items" json:"items"`           // order, match
+	Categories []WSOption `yaml:"categories" json:"categories"` // match
+	Columns    []WSColumn `yaml:"columns" json:"columns"`       // table
+	Rows       []WSRow    `yaml:"rows" json:"rows"`             // table
+	Params     []WSParam  `yaml:"params" json:"params"`         // tuner
+	Metrics    []WSMetric `yaml:"metrics" json:"metrics"`       // tuner
+	Goals      []WSGoal   `yaml:"goals" json:"goals"`           // tuner
+}
+
+// Worksheet est le spécifique public d'une fiche (worksheet.yaml) : ce que le client affiche.
+type Worksheet struct {
+	Intro  string    `yaml:"intro" json:"intro"`
+	Blocks []WSBlock `yaml:"blocks" json:"blocks"`
+}
+
+// WSTolerance règle la comparaison d'une valeur numérique.
+type WSTolerance struct {
+	Rel float64 `yaml:"rel"`
+	Abs float64 `yaml:"abs"`
+}
+
+// WSBlockFeedback est la partie privée d'un bloc : tolérances et explications des mauvaises réponses.
+type WSBlockFeedback struct {
+	Tolerance *WSTolerance      `yaml:"tolerance"`
+	Wrong     string            `yaml:"wrong"`   // message général en cas d'erreur
+	Options   map[string]string `yaml:"options"` // explication par option (ou par élément/cellule) fausse
+	Goals     map[string]string `yaml:"goals"`   // explication par contrainte non satisfaite (tuner)
+}
+
+// WorksheetFeedback est tests/feedback.yaml.
+type WorksheetFeedback struct {
+	Blocks map[string]WSBlockFeedback `yaml:"blocks"`
+}
 
 // Exercise est un exercice exécutable : TP, devoir, boss fight ou étape de projet.
 type Exercise struct {
@@ -67,6 +179,11 @@ type Exercise struct {
 	Verified      *Verified     `yaml:"verified"`
 	Source        *Source       `yaml:"source"`
 	Palette       []PaletteItem `yaml:"palette"`
+
+	Worksheet         *Worksheet         `yaml:"-"`
+	WorksheetFeedback *WorksheetFeedback `yaml:"-"`
+	WorksheetAnswers  map[string]any     `yaml:"-"` // solution/answers.json, jamais envoyé au client
+	Debrief           string             `yaml:"-"` // debrief.md, dévoilé après réussite
 
 	Role          string         `yaml:"-"` // lab | assignment | boss | project
 	ChapterID     string         `yaml:"-"`

@@ -1,0 +1,49 @@
+id: ddia-ch03-l02-lab-star-design
+title: Dessiner le schéma en étoile d'un supermarché
+difficulty: 3
+xp: 70
+concepts:
+- ddia-star-schema
+- ddia-fact-table
+- ddia-dimension-table
+source:
+  chapter: 3
+  pages: 93-95
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: fact
+  component: warehouse
+  label: fact_sales
+  hint: 'Table de faits : une ligne par achat d''un produit.'
+- type: date
+  component: entity
+  label: dim_date
+  hint: 'Quand : jour, week-end, jour férié, trimestre fiscal.'
+- type: product
+  component: entity
+  label: dim_product
+  hint: 'Quoi : SKU, marque, catégorie, taille d''emballage.'
+- type: store
+  component: entity
+  label: dim_store
+  hint: 'Où : surface, boulangerie, date d''ouverture.'
+- type: promo
+  component: entity
+  label: dim_promotion
+  hint: 'Comment : la promotion en cours.'
+- type: customer
+  component: entity
+  label: dim_customer
+  hint: 'Qui : le client.'
+- type: brand
+  component: entity
+  label: dim_brand
+  hint: 'Une sous-dimension : appartient à un schéma en flocon.'
+- type: doc
+  component: mongo
+  label: Document de commande
+  hint: Un document JSON imbriqué, modèle transactionnel.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: ddia-ch01-l03-lab-mapreduce
+title: "TP Go : MapReduce en mémoire et pipeline d'agrégation"
+kind: code
+language: go
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["mapreduce.go"]
+concepts: [ddia-mapreduce-model, ddia-pure-functions, ddia-declarative-vs-imperative, ddia-aggregation-pipeline]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

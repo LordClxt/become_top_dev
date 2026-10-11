@@ -1,0 +1,123 @@
+{
+  "nodes": [
+    {
+      "id": "lucy",
+      "type": "person",
+      "x": 0,
+      "y": 20,
+      "label": "Lucy"
+    },
+    {
+      "id": "alain",
+      "type": "person",
+      "x": 0,
+      "y": 280,
+      "label": "Alain"
+    },
+    {
+      "id": "idaho",
+      "type": "place",
+      "x": 300,
+      "y": 0,
+      "label": "Idaho"
+    },
+    {
+      "id": "usa",
+      "type": "place",
+      "x": 600,
+      "y": 0,
+      "label": "United States"
+    },
+    {
+      "id": "london",
+      "type": "place",
+      "x": 300,
+      "y": 150,
+      "label": "London"
+    },
+    {
+      "id": "uk",
+      "type": "place",
+      "x": 600,
+      "y": 150,
+      "label": "United Kingdom"
+    },
+    {
+      "id": "beaune",
+      "type": "place",
+      "x": 300,
+      "y": 300,
+      "label": "Beaune"
+    },
+    {
+      "id": "france",
+      "type": "place",
+      "x": 600,
+      "y": 300,
+      "label": "France"
+    },
+    {
+      "id": "europe",
+      "type": "place",
+      "x": 900,
+      "y": 225,
+      "label": "Europe"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "lucy",
+      "target": "idaho",
+      "label": "born_in"
+    },
+    {
+      "id": "e2",
+      "source": "alain",
+      "target": "beaune",
+      "label": "born_in"
+    },
+    {
+      "id": "e3",
+      "source": "lucy",
+      "target": "london",
+      "label": "lives_in"
+    },
+    {
+      "id": "e4",
+      "source": "alain",
+      "target": "london",
+      "label": "lives_in"
+    },
+    {
+      "id": "e5",
+      "source": "idaho",
+      "target": "usa",
+      "label": "within"
+    },
+    {
+      "id": "e6",
+      "source": "beaune",
+      "target": "france",
+      "label": "within"
+    },
+    {
+      "id": "e7",
+      "source": "france",
+      "target": "europe",
+      "label": "within"
+    },
+    {
+      "id": "e8",
+      "source": "london",
+      "target": "uk",
+      "label": "within"
+    },
+    {
+      "id": "e9",
+      "source": "uk",
+      "target": "europe",
+      "label": "within"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "disk",
+      "type": "disk",
+      "x": 300,
+      "y": -20,
+      "label": "Disque durable",
+      "w": 860,
+      "h": 520
+    },
+    {
+      "id": "app",
+      "type": "app",
+      "x": 0,
+      "y": 200
+    },
+    {
+      "id": "rec",
+      "type": "recovery",
+      "x": 0,
+      "y": 400
+    },
+    {
+      "id": "wal",
+      "type": "wal",
+      "x": 330,
+      "y": 200,
+      "parent": "disk"
+    },
+    {
+      "id": "root",
+      "type": "page",
+      "x": 760,
+      "y": 40,
+      "parent": "disk",
+      "props": {
+        "keys": "30"
+      }
+    },
+    {
+      "id": "l",
+      "type": "page",
+      "x": 640,
+      "y": 280,
+      "parent": "disk",
+      "props": {
+        "keys": "10 20"
+      }
+    },
+    {
+      "id": "r",
+      "type": "page",
+      "x": 900,
+      "y": 280,
+      "parent": "disk",
+      "props": {
+        "keys": "30 40"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "app",
+      "target": "wal",
+      "kind": "write",
+      "label": "batch"
+    },
+    {
+      "id": "e2",
+      "source": "wal",
+      "target": "root",
+      "kind": "write"
+    },
+    {
+      "id": "e3",
+      "source": "wal",
+      "target": "l",
+      "kind": "write"
+    },
+    {
+      "id": "e4",
+      "source": "wal",
+      "target": "r",
+      "kind": "write"
+    },
+    {
+      "id": "e5",
+      "source": "app",
+      "target": "root",
+      "kind": "read",
+      "label": "Get"
+    },
+    {
+      "id": "e6",
+      "source": "rec",
+      "target": "wal",
+      "kind": "read",
+      "label": "rejeu"
+    },
+    {
+      "id": "e7",
+      "source": "rec",
+      "target": "root",
+      "kind": "write",
+      "label": "réapplique"
+    },
+    {
+      "id": "t1",
+      "source": "root",
+      "target": "l",
+      "kind": "sync"
+    },
+    {
+      "id": "t2",
+      "source": "root",
+      "target": "r",
+      "kind": "sync"
+    }
+  ]
+}

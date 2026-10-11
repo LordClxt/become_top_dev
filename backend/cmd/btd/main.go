@@ -87,8 +87,17 @@ func main() {
 		if ok, err = verifyDiagram(os.Args[2]); err == nil && !ok {
 			os.Exit(1)
 		}
+	case "verify-worksheet":
+		if len(os.Args) != 3 {
+			fmt.Fprintln(os.Stderr, "usage : btd verify-worksheet <dossier_du_lab>")
+			os.Exit(2)
+		}
+		var ok bool
+		if ok, err = verifyWorksheet(os.Args[2]); err == nil && !ok {
+			os.Exit(1)
+		}
 	default:
-		fmt.Fprintf(os.Stderr, "commande inconnue : %s (serve, migrate, validate-content, verify-diagram)\n", cmd)
+		fmt.Fprintf(os.Stderr, "commande inconnue : %s (serve, migrate, validate-content, verify-diagram, verify-worksheet)\n", cmd)
 		os.Exit(2)
 	}
 	if err != nil {
@@ -142,6 +151,39 @@ func verifyDiagram(dir string) (bool, error) {
 	results := map[string]string{}
 	for _, side := range []string{"solution", "starter"} {
 		report, err := service.VerifyDiagramSide(dir, side, checks, labels)
+		if err != nil {
+			return false, err
+		}
+		results[side] = "fail"
+		if report.Passed {
+			results[side] = "pass"
+		}
+		fmt.Printf("== %s\n", side)
+		for _, tc := range report.Tests {
+			mark, detail := "✓", ""
+			if tc.Status != "pass" {
+				mark = "✗"
+			}
+			if tc.Output != "" {
+				detail = "  — " + tc.Output
+			}
+			fmt.Printf("  %s %s%s\n", mark, tc.Name, detail)
+		}
+	}
+	fmt.Printf("\nsolution: %s   starter: %s\n", results["solution"], results["starter"])
+	return results["solution"] == "pass" && results["starter"] == "fail", nil
+}
+
+// verifyWorksheet corrige les réponses de solution/ et de starter/ : la solution doit passer, le starter échouer.
+func verifyWorksheet(dir string) (bool, error) {
+	ws, fb, solution, err := content.LoadWorksheet(dir)
+	if err != nil {
+		return false, err
+	}
+	spec := service.WorksheetSpec{Sheet: ws, Feedback: fb, Solution: solution}
+	results := map[string]string{}
+	for _, side := range []string{"solution", "starter"} {
+		report, err := service.VerifyWorksheetSide(dir, side, spec)
 		if err != nil {
 			return false, err
 		}

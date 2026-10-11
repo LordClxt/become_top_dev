@@ -251,8 +251,21 @@ func loadExercise(dir, metaFile, role, chapterID, lessonID string) (*Exercise, e
 		}
 		ex.DiagramChecks = checks
 	}
+	if ex.Kind == "worksheet" {
+		if !slices.Equal(ex.FilesEditable, []string{"answers.json"}) {
+			return nil, fmt.Errorf("%s: une fiche (worksheet) n'édite que answers.json", dir)
+		}
+		ws, fb, answers, err := LoadWorksheet(dir)
+		if err != nil {
+			return nil, err
+		}
+		ex.Worksheet, ex.WorksheetFeedback, ex.WorksheetAnswers = ws, fb, answers
+	}
 	if raw, err := os.ReadFile(filepath.Join(dir, "instructions.md")); err == nil {
 		ex.Instructions = string(raw)
+	}
+	if raw, err := os.ReadFile(filepath.Join(dir, "debrief.md")); err == nil {
+		ex.Debrief = string(raw)
 	}
 	hints, err := readHints(filepath.Join(dir, "hints.md"))
 	if err != nil {
@@ -284,6 +297,9 @@ func diagramChecks(dir string, ex *Exercise) ([]DiagramCheck, error) {
 		types[p.Type] = true
 	}
 	for _, c := range checks {
+		if c.Rule == "link" {
+			continue // source et target y sont des noms de blocs, pas des types
+		}
 		for _, t := range []string{c.Source, c.Target, c.Via} {
 			if t != "" && !types[t] {
 				return nil, fmt.Errorf("%s: la règle %s cite le type %s, absent de la palette", dir, c.ID, t)
@@ -294,6 +310,46 @@ func diagramChecks(dir string, ex *Exercise) ([]DiagramCheck, error) {
 		return nil, fmt.Errorf("%s: un exercice diagram n'édite que diagram.json", dir)
 	}
 	return checks, nil
+}
+
+// EdgeKinds sont les natures de flèche reconnues par l'éditeur et les règles.
+var EdgeKinds = []string{"sync", "async", "replication", "read", "write"}
+
+// validateCheck contrôle les champs requis par chaque règle.
+func validateCheck(c DiagramCheck) error {
+	need := func(ok bool, what string) error {
+		if !ok {
+			return fmt.Errorf("%s requis", what)
+		}
+		return nil
+	}
+	switch c.Rule {
+	case "path", "no_edge":
+		return errors.Join(need(c.Source != "", "source"), need(c.Target != "", "target"))
+	case "inbound_via":
+		return errors.Join(need(c.Target != "", "target"), need(c.Via != "", "via"))
+	case "single_owner":
+		return need(c.Target != "", "target")
+	case "prop":
+		return errors.Join(need(c.Source != "", "source"), need(c.Prop != "", "prop"), need(c.Value != "", "value"))
+	case "edge_kind":
+		if !slices.Contains(EdgeKinds, c.Kind) {
+			return fmt.Errorf("kind doit valoir l'une des natures %v", EdgeKinds)
+		}
+		return errors.Join(need(c.Source != "", "source"), need(c.Target != "", "target"))
+	case "count":
+		if c.Min == nil && c.Max == nil {
+			return errors.New("min ou max requis")
+		}
+		return need(c.Source != "", "source")
+	case "in_zone":
+		return errors.Join(need(c.Source != "", "source"), need(c.Target != "", "target"))
+	case "tree_shape":
+		return errors.Join(need(c.Source != "", "source"), need(c.Tree != nil, "tree"))
+	case "link":
+		return errors.Join(need(c.Source != "", "source"), need(c.Target != "", "target"), need(c.Value != "", "value"))
+	}
+	return nil
 }
 
 // LoadChecks lit tests/checks.yaml d'un exercice diagram.
@@ -308,8 +364,12 @@ func LoadChecks(file string) ([]DiagramCheck, error) {
 		if c.ID == "" || c.Label == "" {
 			return nil, fmt.Errorf("%s: règle sans id ou label", file)
 		}
-		if !slices.Contains([]string{"path", "no_edge", "inbound_via", "single_owner", "connected"}, c.Rule) {
+		if !slices.Contains([]string{"path", "no_edge", "inbound_via", "single_owner", "connected",
+			"prop", "edge_kind", "count", "in_zone", "tree_shape", "link"}, c.Rule) {
 			return nil, fmt.Errorf("%s: règle %s : type %q inconnu", file, c.ID, c.Rule)
+		}
+		if err := validateCheck(c); err != nil {
+			return nil, fmt.Errorf("%s: règle %s : %w", file, c.ID, err)
 		}
 	}
 	return raw.Checks, nil
@@ -506,7 +566,7 @@ func (ex *Exercise) validate(file string) error {
 	}); err != nil {
 		return err
 	}
-	if err := oneOf(file, "kind", ex.Kind, "code", "tests", "design", "diagram"); err != nil {
+	if err := oneOf(file, "kind", ex.Kind, "code", "tests", "design", "diagram", "worksheet"); err != nil {
 		return err
 	}
 	for _, c := range ex.Checks {
@@ -517,9 +577,23 @@ func (ex *Exercise) validate(file string) error {
 	if ex.Verified.Solution != "pass" || ex.Verified.Starter != "fail" || ex.Verified.At.IsZero() {
 		return fmt.Errorf("%s: verified doit valoir { at: <date>, solution: pass, starter: fail }", file)
 	}
-	for _, p := range ex.Palette {
-		if err := oneOf(file, "palette.shape", p.Shape, "client", "service", "queue", "database", "external", "cache"); err != nil {
-			return err
+	catalog, err := DiagramCatalog()
+	if err != nil {
+		return err
+	}
+	for i := range ex.Palette {
+		p := &ex.Palette[i]
+		if p.Type == "" || p.Label == "" {
+			return fmt.Errorf("%s: palette : un bloc sans type ou label", file)
+		}
+		if p.Component == "" {
+			p.Component = p.Shape // ancien format
+		}
+		if _, ok := catalog.Component(p.Component); !ok {
+			return fmt.Errorf("%s: palette.%s : composant %q absent du catalogue (catalog.yaml)", file, p.Type, p.Component)
+		}
+		if p.Shape == "" {
+			p.Shape = p.Component
 		}
 	}
 	ex.Concepts, ex.Checks, ex.Palette = nonNil(ex.Concepts), nonNil(ex.Checks), nonNil(ex.Palette)

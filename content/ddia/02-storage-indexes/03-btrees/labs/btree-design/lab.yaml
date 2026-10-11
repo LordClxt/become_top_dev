@@ -1,0 +1,21 @@
+id: ddia-ch02-l03-lab-btree-design
+title: Construis le B-tree étape par étape
+difficulty: 4
+xp: 90
+concepts:
+- ddia-btree-pages
+- ddia-branching-factor
+- ddia-btree-split
+source:
+  chapter: 3
+  pages: 79-83
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: page
+  component: btree-page
+  label: Page
+  hint: 'Une page : renseigne ses clés dans le panneau de droite.'
+verified: { at: 2026-10-11, solution: pass, starter: fail }

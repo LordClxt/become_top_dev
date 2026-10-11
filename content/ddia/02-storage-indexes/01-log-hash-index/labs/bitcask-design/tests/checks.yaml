@@ -1,0 +1,11 @@
+checks:
+  - { id: unique-active, label: "Un seul segment actif", rule: count, source: active, min: 1, max: 1 }
+  - { id: append, label: "L'application écrit dans le segment actif", rule: edge_kind, source: app, target: active, kind: write }
+  - { id: read-via-index, label: "Les lectures passent par l'index de hachage", rule: edge_kind, source: app, target: hash, kind: read }
+  - { id: no-scan, label: "L'application ne parcourt pas les segments elle-même", rule: no_edge, source: app, target: closed }
+  - { id: index-active, label: "L'index renvoie vers le segment actif", rule: edge_kind, source: hash, target: active, kind: read }
+  - { id: index-closed, label: "L'index renvoie aussi vers les segments fermés", rule: edge_kind, source: hash, target: closed, kind: read }
+  - { id: compact-read, label: "La compaction lit les segments fermés", rule: edge_kind, source: compaction, target: closed, kind: read }
+  - { id: compact-write, label: "La compaction écrit un segment fusionné", rule: edge_kind, source: compaction, target: merged, kind: write }
+  - { id: immutable, label: "La compaction ne touche jamais le segment actif", rule: no_edge, source: compaction, target: active }
+  - { id: no-stray, label: "Aucun bloc isolé", rule: connected }

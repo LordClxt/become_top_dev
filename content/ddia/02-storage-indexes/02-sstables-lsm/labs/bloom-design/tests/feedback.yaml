@@ -1,0 +1,16 @@
+blocks:
+  garanties:
+    options:
+      present: '« Présent » signifie seulement « peut-être » : des clés différentes peuvent allumer les mêmes bits.'
+      fneg: 'Jamais : tous les bits d''une clé ajoutée restent allumés.'
+  taux:
+    tolerance:
+      abs: 0.05
+    wrong: '(1 − e^(−0,7))⁷ : avec k·n/m = 0,7.'
+  k:
+    wrong: 10 × ln 2 ≈ 6,93, arrondi au plus proche.
+  reglage:
+    goals:
+      fpr: 'Il y a trop de faux positifs : donne plus de bits à chaque clé, et ajuste le nombre de hachages à environ 0,7 × bits par clé.'
+      mem: Au-delà de 12 bits par clé, la mémoire dépasse le budget.
+      cpu: 'Trop de hachages : chaque recherche coûte k calculs.'

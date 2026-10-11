@@ -1,0 +1,12 @@
+id: ddia-ch02-l03-lab-btree
+title: "TP Go : Un B-tree en mémoire avec éclatement de pages"
+kind: code
+language: go
+difficulty: 4
+xp: 90
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["btree.go"]
+concepts: [ddia-btree-pages, ddia-branching-factor, ddia-btree-split]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

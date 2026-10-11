@@ -1,0 +1,26 @@
+checks:
+- id: shape
+  label: L'arbre obtenu après les dix insertions
+  rule: tree_shape
+  source: page
+  tree:
+    keys: '70'
+    children:
+    - keys: 30 50
+      children:
+      - keys: 10 20
+      - keys: 30 40
+      - keys: 50 60
+    - keys: '90'
+      children:
+      - keys: 70 80
+      - keys: 90 100
+- id: pages
+  label: Huit pages en tout
+  rule: count
+  source: page
+  min: 8
+  max: 8
+- id: alone
+  label: Aucune page isolée
+  rule: connected

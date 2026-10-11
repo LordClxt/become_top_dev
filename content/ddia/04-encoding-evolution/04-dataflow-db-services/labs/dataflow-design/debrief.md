@@ -1,0 +1,3 @@
+**La compatibilité à tenir dépend du flux.** Une base partagée exige les deux sens (les données survivent au code). Pour un RPC où les serveurs sont mis à jour en premier, il suffit de la rétrocompatibilité des *requêtes* et de la compatibilité ascendante des *réponses*. Une archive relue plus tard demande la rétrocompatibilité.
+
+Et un appel réseau n'est pas un appel de fonction : perte, issue inconnue après délai, latence variable et, sans idempotence, un nouvel essai exécute l'action plusieurs fois (4 débits au lieu d'un). Enfin, une API publique garde sa compatibilité longtemps, quitte à servir plusieurs versions.

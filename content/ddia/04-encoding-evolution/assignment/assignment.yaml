@@ -1,0 +1,17 @@
+id: ddia-ch04-assignment
+title: Faire évoluer un schéma sans casser personne
+difficulty: 3
+xp: 120
+concepts:
+- ddia-field-tags
+- ddia-avro-resolution
+- ddia-rolling-upgrade
+- ddia-rpc-problems
+source:
+  chapter: 4
+  pages: 111-139
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

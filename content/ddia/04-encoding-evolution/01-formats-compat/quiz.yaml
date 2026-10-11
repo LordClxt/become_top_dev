@@ -1,0 +1,110 @@
+id: ddia-ch04-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi anciennes et nouvelles versions coexistent-elles pendant un déploiement ?
+  choices:
+  - Mise à jour progressive côté serveur et mises à jour tardives côté client
+  - Parce que les bases refusent les migrations
+  - Parce que le code est toujours rétrocompatible
+  - Parce que les déploiements sont instantanés
+  answer: 0
+  explanation: On déploie nœud par nœud et l'utilisateur d'une application ne met à jour qu'à son rythme.
+  concept: ddia-rolling-upgrade
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que signifie rétrocompatibilité (backward compatibility) ?
+  choices:
+  - Le code récent lit les données écrites par un code plus ancien
+  - Le code ancien lit les données écrites par un code plus récent
+  - Le code récent écrit dans l'ancien format
+  - Le même code lit et écrit
+  answer: 0
+  explanation: 'En général facile : on connaît l''ancien format.'
+  concept: ddia-backward-forward
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que signifie compatibilité ascendante (forward compatibility) ?
+  choices:
+  - Le code ancien lit les données écrites par un code plus récent
+  - Le code récent lit les données anciennes
+  - Le code est compatible avec les versions futures du langage
+  - Le schéma n'a jamais de champs optionnels
+  answer: 0
+  explanation: 'Plus délicate : l''ancien code doit ignorer ce que la nouvelle version a ajouté.'
+  concept: ddia-backward-forward
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Que veut dire « encoder » dans ce chapitre ?
+  choices:
+  - Passer d'une structure en mémoire à une suite d'octets autonome
+  - Chiffrer des données
+  - Compiler un programme
+  - Compresser avec perte
+  answer: 0
+  explanation: L'encodage n'a rien à voir avec le chiffrement ; on dit aussi sérialisation ou marshalling.
+  concept: ddia-encoding-decoding
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pourquoi éviter pickle ou Serializable pour des données conservées longtemps ?
+  choices:
+  - Liés à un langage, risque de sécurité à la désérialisation, versionnement et efficacité négligés
+  - Ils sont toujours plus gros que JSON
+  - Ils ne gèrent pas les nombres
+  - Ils sont interdits par les standards
+  answer: 0
+  explanation: 'Le décodage peut instancier des classes arbitraires : une porte ouverte à l''exécution de code.'
+  concept: ddia-language-specific-formats
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quel est le problème des grands entiers dans JSON lu par JavaScript ?
+  choices:
+  - Au-delà de 2^53 ils ne sont plus exacts dans un flottant double précision
+  - JSON interdit les entiers
+  - Ils sont convertis en chaînes
+  - Ils deviennent négatifs
+  answer: 0
+  explanation: Twitter renvoie donc ses identifiants 64 bits à la fois en nombre et en chaîne.
+  concept: ddia-textual-formats
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Comment met-on des octets dans du JSON ?
+  choices:
+  - En Base64, qui gonfle les données de 33 %
+  - En hexadécimal, sans surcoût
+  - En les mettant tels quels
+  - JSON accepte nativement les octets
+  answer: 0
+  explanation: JSON et XML ne gèrent pas les chaînes binaires.
+  concept: ddia-textual-formats
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pourquoi le MessagePack de l'exemple ne fait-il que 66 octets contre 81 pour le JSON ?
+  choices:
+  - Il garde le modèle JSON, donc inclut les noms de champs dans les octets
+  - Il compresse avec gzip
+  - Il supprime les valeurs
+  - Il utilise un schéma
+  answer: 0
+  explanation: Sans schéma, il faut écrire userName, favoriteNumber et interests dans chaque message.
+  concept: ddia-textual-formats
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Pour un format d'échange entre organisations, quel est souvent le critère décisif ?
+  choices:
+  - Que les deux parties s'accordent, plus que l'élégance ou l'efficacité
+  - Le format le plus compact
+  - Le format binaire le plus récent
+  - Le format propre au langage de l'émetteur
+  answer: 0
+  explanation: Faire s'accorder des organisations pèse plus que la beauté du format.
+  concept: ddia-textual-formats
+  difficulty: 2

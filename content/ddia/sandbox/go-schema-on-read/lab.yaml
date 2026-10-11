@@ -1,0 +1,12 @@
+id: ddia-ch01-l02-lab-schema-on-read
+title: "TP Go : Lire des documents de plusieurs versions"
+kind: code
+language: go
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["reader.go"]
+concepts: [ddia-schema-on-read, ddia-data-locality]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

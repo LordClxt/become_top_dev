@@ -1,0 +1,64 @@
+id: ddia-ch04-boss
+title: 'Boss : une plateforme qui évolue sans jamais s''arrêter'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-rolling-upgrade
+- ddia-schema-registry
+- ddia-message-broker
+- ddia-data-outlives-code
+- ddia-merits-of-schemas
+source:
+  chapter: 4
+  pages: 111-139
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: mobile
+  label: Application mobile
+  hint: Des clients qui ne se mettent à jour qu'à leur rythme.
+- type: gw
+  component: gateway
+  label: API gateway
+  hint: Point d'entrée de l'API.
+- type: v1
+  component: service
+  label: Service v1
+  hint: L'ancienne version, encore en production.
+- type: v2
+  component: service
+  label: Service v2
+  hint: La nouvelle version, déployée progressivement.
+- type: db
+  component: postgres
+  label: Base partagée
+  hint: Les données survivent au code.
+- type: registry
+  component: index
+  label: Registre de schémas
+  hint: Versions de schéma pour contrôler la compatibilité.
+- type: topic
+  component: topic
+  label: Sujet d'événements
+  hint: Un broker entre le service et ses consommateurs.
+- type: analytics
+  component: worker
+  label: Consommateur analytique
+  hint: Lit les événements.
+- type: archive
+  component: warehouse
+  label: Archive en colonnes
+  hint: Dump immuable (Avro conteneur, Parquet).
+- type: pickle
+  component: file
+  label: Objets sérialisés (pickle)
+  hint: Format propre à un langage.
+- type: direct
+  component: external
+  label: Appel direct non tolérant
+  hint: Un couplage synchrone fragile.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

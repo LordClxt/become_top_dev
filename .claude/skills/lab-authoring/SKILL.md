@@ -23,10 +23,12 @@ Règle absolue : **un TP n'est livré que si la solution passe ses tests ET le s
    ```
    Si ✅, écrire `verified: { at: <date>, solution: pass, starter: fail }` dans `lab.yaml`. Sinon corriger et relancer — ne jamais livrer en échec.
 
-## Exercice conceptuel (`kind: design`, livre d'architecture)
-- Pas de faux tests. Livrables possibles : ADR, choix de style architectural justifié, identification des caractéristiques d'architecture, diagramme C4/Mermaid, analyse de trade-offs sur un kata.
-- `rubric.yaml` détaillée (niveaux décrits) + `solution/` = réponse modèle commentée + `checks` structurels éventuels (sections présentes, nombre de caractéristiques citées).
-- `verified` : `{ at: <date>, rubric_reviewed: true }` après avoir noté soi-même la réponse modèle avec la rubrique (doit obtenir ≥ 90 %).
+## Exercice de conception (`kind: diagram` ou `kind: worksheet`, sans code)
+Pour tout livre conceptuel, et pour les cours pratiques dont la leçon est une **décision** (choisir un modèle, dimensionner, comparer), le TP n'est pas du code. Deux outils, corrigés de façon déterministe par le backend (aucun Docker) : formats dans `content-format/reference/schemas.md`.
+- **`diagram`** : l'élève dessine une architecture ou une structure (composants du catalogue, flèches typées, zones, arbres) ; règles de graphe qui surlignent les fautes.
+- **`worksheet`** : fiche de blocs (`number`, `choice`, `multi`, `order`, `match`, `table`, `tuner`) corrigés champ par champ.
+Formule : **prédire → vérifier → debriefer**. Une mini-situation chiffrée ou à trancher, jamais une question de cours ; chaque mauvaise réponse a son explication (`feedback.yaml`), `debrief.md` donne le pourquoi une fois réussi.
+Vérifier : `verify_lab.sh <dir>` (la solution passe, le starter échoue) puis écrire `verified`. Pas de faux tests, pas de revue IA.
 
 ## Quiz « Qu'affiche ce programme ? »
 Chaque question `code-output` est exécutée pour de vrai :
@@ -39,8 +41,8 @@ Une réponse fausse bloque la livraison du chapitre, comme un TP en échec.
 Même format qu'un lab, dans `boss/`, difficulté 4–5, combine tout le chapitre, `timeout_s` plus large, XP élevé.
 
 ## Definition of Done
-- [ ] `verify_lab.sh` ✅ (ou rubrique auto-notée pour `design`)
-- [ ] Le starter compile ; les messages d'échec guident sans donner la réponse
+- [ ] `verify_lab.sh` ✅ (code, diagram ou worksheet)
+- [ ] Le starter compile (code) ; les messages d'échec guident sans donner la réponse
 - [ ] 3 niveaux d'indices
 - [ ] Solution idiomatique, sans dépendance réseau
 - [ ] `verify_quiz.py` ✅ sur le chapitre

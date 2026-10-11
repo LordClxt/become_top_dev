@@ -1,0 +1,3 @@
+**Une plateforme qui évolue sans s'arrêter repose sur la compatibilité de tout ce qui circule.** La gateway route vers deux versions du service qui coexistent pendant le déploiement progressif ; les deux écrivent dans la même base, dont les données survivent au code. Les événements passent par un broker, ce qui découple l'émetteur du consommateur ; un registre de schémas permet de vérifier les changements avant de déployer. L'archive en colonnes reçoit un export encodé avec le schéma le plus récent.
+
+Rien dans ce schéma n'est un format propre à un langage ni un appel synchrone fragile : l'un enferme dans un langage, l'autre lie les déploiements.

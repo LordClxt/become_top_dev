@@ -1,0 +1,30 @@
+blocks:
+  tours:
+    options:
+      t1.new: 'La première règle copie chaque fait `within` en fait `in` : il y en a 5.'
+      t2.new: 'La seconde règle compose deux niveaux : paris→europe, lyon→europe, idaho→namerica.'
+      t3.new: 'Rien de nouveau : c''est le point fixe, l''évaluation s''arrête.'
+  europe:
+    options:
+      idaho: idaho est en Amérique du Nord, pas en Europe.
+      usa: usa est en Amérique du Nord, pas en Europe.
+  migrants:
+    tolerance:
+      abs: 0
+    wrong: 'Lucy est née dans l''Idaho (donc en Amérique du Nord) et vit à Paris (donc en Europe) : une seule personne.'
+  total:
+    tolerance:
+      abs: 0
+    wrong: 5 faits au tour 1 + 3 au tour 2.
+  unsafe:
+    options:
+      all: Une variable de la tête non liée par le corps donnerait un résultat non défini.
+      fail: La syntaxe est valide ; c'est la règle qui est non sûre.
+  steps:
+    options:
+      second: La liaison de Y issue du premier atome contraint le second.
+      dedup: Sans ce contrôle, l'évaluation ne s'arrêterait jamais.
+  rec:
+    options:
+      p2: 'Un nombre inconnu de niveaux : seule une règle récursive peut suivre tous les chemins.'
+      p3: 'Même chose : l''imbrication a une profondeur variable.'

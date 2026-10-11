@@ -1,0 +1,12 @@
+id: ddia-sandbox-go-ch02-assignment
+title: "TP Go : Un LSM-tree en mémoire"
+kind: code
+language: go
+difficulty: 4
+xp: 130
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["lsm.go"]
+concepts: [ddia-lsm-tree, ddia-memtable-wal, ddia-sstable, ddia-merge-sorted, ddia-compaction-strategies]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

@@ -1,0 +1,28 @@
+id: ddia-ch04
+title: Encodage et évolution des schémas
+subtitle: 'JSON, Protobuf, Avro et les flux de données : comment faire coexister l''ancien et le nouveau code'
+source:
+  chapter: 4
+  pages: 111-139
+objectives:
+- Distinguer rétrocompatibilité et compatibilité ascendante et expliquer pourquoi une mise à jour progressive exige les deux
+- Comparer formats propres à un langage, JSON/XML/CSV et encodages binaires, et dire pourquoi un schéma allège les octets
+- Faire évoluer un schéma Thrift ou Protocol Buffers avec des numéros de champ, sans jamais en changer ni en réutiliser
+- Expliquer la résolution entre schéma de l'écrivain et schéma du lecteur d'Avro et retrouver le schéma de l'écrivain
+- Choisir la compatibilité requise pour une base, un service REST/RPC ou un broker, et repérer les pièges d'un appel réseau
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch03
+lessons:
+- 01-formats-compat
+- 02-thrift-protobuf
+- 03-avro
+- 04-dataflow-db-services
+- 05-message-passing
+xp:
+  assignment: 120
+  project: 220
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

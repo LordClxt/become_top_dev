@@ -1,0 +1,41 @@
+id: ddia-ch04-l05-lab-broker-design
+title: Découpler avec un broker
+difficulty: 3
+xp: 60
+concepts:
+- ddia-message-broker
+- ddia-queue-topic
+- ddia-broker-encoding
+source:
+  chapter: 4
+  pages: 136-139
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: orders
+  component: service
+  label: Service commandes
+  hint: Publie un message à chaque commande.
+- type: topic
+  component: topic
+  label: Sujet « commandes »
+  hint: Destination nommée gérée par le broker.
+- type: mail
+  component: worker
+  label: Notification e-mail
+  hint: Consomme les commandes pour envoyer un e-mail.
+- type: stats
+  component: worker
+  label: Analytique
+  hint: Consomme les mêmes commandes pour des statistiques.
+- type: registry
+  component: index
+  label: Registre de schémas
+  hint: Garde les versions de schéma pour vérifier la compatibilité.
+- type: pickle
+  component: file
+  label: Objets sérialisés (pickle)
+  hint: Format propre à un langage.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

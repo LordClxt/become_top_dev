@@ -1,0 +1,69 @@
+intro: Ton entreprise a une base partagée par plusieurs services, une API REST publique et des appels RPC entre services internes. Tu décides
+  quelle compatibilité tenir où, et tu repères les pièges.
+blocks:
+- id: flux
+  type: match
+  title: Quelle compatibilité pour quel flux ?
+  prompt: On suppose que, pour les services, les serveurs sont mis à jour avant les clients.
+  items:
+  - id: db
+    label: Une base lue par des instances mises à jour et d'autres non
+  - id: req
+    label: Les requêtes d'un RPC (client encode, serveur décode)
+  - id: resp
+    label: Les réponses d'un RPC (serveur encode, client décode)
+  - id: archive
+    label: Un dump immuable relu des années plus tard par du code récent
+  categories:
+  - id: backward
+    label: Rétrocompatibilité (nouveau lit ancien)
+  - id: forward
+    label: Compatibilité ascendante (ancien lit nouveau)
+  - id: both
+    label: Les deux
+- id: perte
+  type: order
+  title: Le champ inconnu qui disparaît
+  prompt: Remets dans l'ordre ce qui fait perdre un champ à une ancienne version.
+  items:
+  - id: write-new
+    label: La version 2 écrit un enregistrement avec un champ `email`
+  - id: read-old
+    label: La version 1 (qui ignore `email`) le lit
+  - id: model
+    label: Elle le décode en objets de son modèle, qui n'ont pas de champ `email`
+  - id: update
+    label: Elle modifie un autre champ
+  - id: rewrite
+    label: 'Elle ré-encode l''objet et le réécrit : `email` a disparu'
+- id: rpc
+  type: multi
+  title: Un appel réseau n'est pas un appel local
+  prompt: Coche les différences réelles.
+  options:
+  - id: lost
+    label: La requête ou la réponse peut être perdue
+  - id: timeout
+    label: 'Un délai dépassé laisse une issue inconnue : la requête est-elle arrivée ?'
+  - id: same
+    label: La durée est toujours la même
+  - id: retry
+    label: Un nouvel essai peut exécuter l'action plusieurs fois sans idempotence
+- id: debits
+  type: number
+  title: Sans clé d'idempotence
+  prompt: Un paiement est envoyé, l'action réussit, mais la **réponse** est perdue chaque fois. Le client réessaie **3 fois** après l'envoi initial.
+    Sans déduplication, combien de débits ?
+  unit: débits
+- id: public
+  type: choice
+  title: Une API publique
+  prompt: Des partenaires dont tu ne contrôles pas les mises à jour appellent ton API. Quelle stratégie convient ?
+  options:
+  - id: keep
+    label: Rester compatible longtemps, et maintenir plusieurs versions côte à côte si un changement cassant s'impose
+    hint: Clients non maîtrisés
+  - id: break
+    label: 'Changer l''API quand tu veux : les clients n''ont qu''à suivre'
+  - id: remove
+    label: Supprimer les anciens champs dès que tu en ajoutes de nouveaux

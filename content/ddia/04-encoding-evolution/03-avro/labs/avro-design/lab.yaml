@@ -1,0 +1,18 @@
+id: ddia-ch04-l03-lab-avro-design
+title: 'Lire un schéma avec un autre : la résolution Avro'
+difficulty: 3
+xp: 80
+concepts:
+- ddia-avro-no-tags
+- ddia-writer-reader-schema
+- ddia-avro-resolution
+- ddia-avro-evolution-rules
+- ddia-schema-registry
+source:
+  chapter: 4
+  pages: 122-128
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

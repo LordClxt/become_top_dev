@@ -1,0 +1,17 @@
+id: ddia-ch00-l04-lab-percentiles-design
+title: Ce que la moyenne ne dit pas
+difficulty: 3
+xp: 75
+concepts:
+- ddia-response-time
+- ddia-percentiles
+- ddia-tail-amplification
+- ddia-merge-histograms
+source:
+  chapter: 1
+  pages: 35-39
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

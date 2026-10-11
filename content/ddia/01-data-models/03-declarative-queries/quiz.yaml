@@ -1,0 +1,126 @@
+id: ddia-ch01-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qui distingue une requête déclarative d'une requête impérative ?
+  choices:
+  - La première décrit le motif du résultat, la seconde la suite d'opérations pour l'obtenir
+  - La première est toujours plus lente
+  - La seconde ne peut pas boucler
+  - Aucune différence
+  answer: 0
+  explanation: SQL, CSS et XPath sont déclaratifs ; le DOM JavaScript et les API d'IMS/CODASYL sont impératifs.
+  concept: ddia-declarative-vs-imperative
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi une base peut-elle devenir plus rapide sans que les requêtes SQL changent ?
+  choices:
+  - 'Parce que SQL ne spécifie ni l''algorithme ni l''ordre : l''optimiseur peut changer d''index, réorganiser le stockage, paralléliser'
+  - Parce que SQL est compilé
+  - Parce que les requêtes sont réécrites par les développeurs
+  - Parce que SQL ne fait que des lectures
+  answer: 0
+  explanation: 'Une requête impérative peut dépendre de l''ordre des éléments : la base ne peut jamais en être sûre.'
+  concept: ddia-declarative-benefits
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Pourquoi le déclaratif se prête-t-il mieux au parallélisme ?
+  choices:
+  - Parce qu'il ne définit que le motif du résultat, pas un ordre d'instructions imposé
+  - Parce qu'il utilise moins de mémoire
+  - Parce qu'il n'utilise pas de boucle
+  - Parce qu'il est interprété
+  answer: 0
+  explanation: Les processeurs gagnent en cœurs plus qu'en fréquence. Un ordre d'instructions imposé est très difficile à répartir.
+  concept: ddia-declarative-benefits
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Que se passe-t-il dans la version DOM impérative si la classe « selected » est retirée ?
+  choices:
+  - Le style bleu reste, car le code ne le retire pas tout seul
+  - Le style disparaît automatiquement
+  - Une erreur est levée
+  - La page se recharge
+  answer: 0
+  explanation: Avec CSS, le navigateur retire le style dès que la règle ne s'applique plus.
+  concept: ddia-declarative-vs-imperative
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Comment s'exécute MapReduce sur un jeu de documents ?
+  choices:
+  - map est appelée une fois par document, le framework regroupe par clé, reduce est appelée une fois par clé
+  - reduce est appelée une fois par document
+  - map est appelée une fois par clé
+  - Le framework trie d'abord les documents
+  answer: 0
+  explanation: map émet des paires (clé, valeur) ; reduce agrège toutes les valeurs d'une même clé.
+  concept: ddia-mapreduce-model
+  difficulty: 1
+- id: q6
+  type: code-output
+  prompt: Qu'affiche ce programme ? (comptage de mots façon MapReduce)
+  code: |
+    words := []string{"a", "b", "a"}
+    counts := map[string]int{}
+    for _, w := range words {
+        counts[w]++
+    }
+    fmt.Println(counts["a"], counts["b"], len(counts))
+  answer: 2 1 2
+  explanation: 'Regrouper par clé puis agréger : deux clés (a et b), avec 2 et 1 occurrences.'
+  concept: ddia-mapreduce-model
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Pourquoi map et reduce doivent-elles être des fonctions pures ?
+  choices:
+  - Pour que le framework puisse les exécuter n'importe où, dans n'importe quel ordre, et les relancer après une panne
+  - Pour économiser la mémoire
+  - Parce que Go l'impose
+  - Pour éviter les clés dupliquées
+  answer: 0
+  explanation: 'Pas de requête supplémentaire ni d''effet de bord : le résultat ne dépend que de l''entrée.'
+  concept: ddia-pure-functions
+  difficulty: 2
+- id: q8
+  type: code-output
+  prompt: Qu'affiche ce programme ? (une fonction avec effet de bord, appelée à plusieurs reprises)
+  code: |
+    total := 0
+    add := func(n int) int {
+        total += n
+        return total
+    }
+    fmt.Println(add(1), add(1), add(1))
+  answer: 1 2 3
+  explanation: 'Le même appel add(1) renvoie des valeurs différentes : la fonction n''est pas pure. Si le framework la relançait après une panne, le résultat serait faux.'
+  concept: ddia-pure-functions
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Pourquoi MongoDB a-t-il ajouté le pipeline d'agrégation à MapReduce ?
+  choices:
+  - Écrire deux fonctions coordonnées est plus dur qu'une seule requête, et un langage déclaratif laisse plus de place à l'optimiseur
+  - Parce que MapReduce a été interdit
+  - Parce que JavaScript était trop lent
+  - Pour supprimer les index
+  answer: 0
+  explanation: 'Moralité du livre : un système NoSQL peut réinventer SQL, déguisé.'
+  concept: ddia-aggregation-pipeline
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: MapReduce est-il le seul moyen d'exécuter une requête sur plusieurs machines ?
+  choices:
+  - 'Non : SQL peut aussi s''exécuter sur un cluster, et beaucoup d''implémentations distribuées n''utilisent pas MapReduce'
+  - Oui
+  - Seulement pour les graphes
+  - Seulement en lecture seule
+  answer: 0
+  explanation: Rien dans SQL ne l'oblige à tourner sur une seule machine.
+  concept: ddia-mapreduce-model
+  difficulty: 2

@@ -1,0 +1,12 @@
+{
+  "garanties": [
+    "absent",
+    "fpos"
+  ],
+  "taux": 0.82,
+  "k": 7,
+  "reglage": {
+    "bpk": 10,
+    "k": 7
+  }
+}

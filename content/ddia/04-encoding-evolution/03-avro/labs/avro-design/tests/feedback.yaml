@@ -1,0 +1,30 @@
+blocks:
+  resol:
+    options:
+      age: 'Le lecteur ne connaît pas ce champ : il saute sa valeur.'
+      email: 'L''écrivain ne l''a pas écrit : le lecteur utilise sa valeur par défaut.'
+  evol:
+    options:
+      add-nodef: 'Un nouveau lecteur ne sait pas remplir le champ manquant des anciennes données : la rétrocompatibilité est cassée, mais l''ancien
+        lecteur ignore le champ.'
+      rm-nodef: 'Un ancien lecteur ne saurait pas remplir le champ manquant des nouvelles données : l''ascendance est cassée.'
+      alias: 'Le lecteur apparie l''ancien nom grâce à l''alias : rétrocompatible seulement.'
+      union: 'Un ancien lecteur ne connaît pas la nouvelle branche : rétrocompatible seulement.'
+  ou:
+    options:
+      file: Le schéma est écrit une seule fois (fichier conteneur d'objets).
+      db: Le lecteur lit le numéro et va chercher le schéma correspondant (Espresso).
+      net: Le protocole RPC d'Avro négocie la version à la connexion.
+  sizes:
+    options:
+      avro: 'Avro ne stocke ni nom ni numéro de champ : c''est le plus compact.'
+      msgpack: MessagePack garde les noms de champs.
+      json: 'JSON est textuel et garde aussi les noms : le plus gros.'
+  saving:
+    tolerance:
+      abs: 0.5
+    wrong: (81 − 32) / 81 ≈ 60,5 %.
+  'null':
+    options:
+      any: 'Avro ne rend pas tout nullable : c''est explicite.'
+      optional: 'Avro n''a pas de marqueur optional : il utilise des unions et des valeurs par défaut.'

@@ -1,0 +1,22 @@
+blocks:
+  ecritures:
+    tolerance:
+      rel: 0.001
+    wrong: '4 600 tweets/s × 75 abonnés : chaque tweet se multiplie par le nombre de ses abonnés.'
+  recherches:
+    tolerance:
+      rel: 0.001
+    wrong: '300 000 lectures/s × 75 comptes suivis : le coût est reporté sur chaque lecture.'
+  profils:
+    options:
+      journal: 'Si on ne relit presque jamais, il est inutile de préparer chaque fil à l''avance : écrire doit être le moins cher possible.'
+      social: Avec beaucoup plus de lectures que d'écritures, mieux vaut payer une fois à l'écriture que à chaque lecture.
+      stars: 'Une moyenne cache les cas extrêmes : le fan-out pur explose pour les célébrités, le fan-in pur pénalise tous les autres.'
+  celebrite:
+    tolerance:
+      rel: 0.001
+    wrong: 'Autant d''écritures que d''abonnés : 30 millions.'
+  seuil:
+    goals:
+      pic: Tant que les célébrités sont copiées dans les fils, un seul tweet déclenche des millions d'écritures. Le seuil doit passer sous 3 millions.
+      total: 'Ce seuil laisse les célébrités en fan-out : la charge d''écriture dépasse largement ce que le système peut absorber.'

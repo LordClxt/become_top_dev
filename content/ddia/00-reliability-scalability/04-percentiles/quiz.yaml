@@ -1,0 +1,138 @@
+id: ddia-ch00-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quelle différence entre latence et temps de réponse ?"
+    choices:
+      - "Aucune, ce sont deux noms du même nombre"
+      - "Le temps de réponse est ce que voit le client (traitement + réseau + attente en file) ; la latence est la durée d'attente avant prise en charge"
+      - "La latence inclut le traitement, pas le temps de réponse"
+      - "La latence se mesure côté serveur, le temps de réponse côté base de données"
+    answer: 1
+    explanation: "Le temps de réponse est la vue du client. La latence désigne seulement le temps pendant lequel la requête est « latente », en attente."
+    concept: ddia-response-time
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi la moyenne est-elle un mauvais résumé du temps de réponse ?"
+    choices:
+      - "Elle est trop coûteuse à calculer"
+      - "Elle ne dit pas combien d'utilisateurs ont réellement subi un délai : quelques requêtes très lentes sont diluées"
+      - "Elle ne fonctionne que pour les entiers"
+      - "Elle est toujours plus basse que la médiane"
+    answer: 1
+    explanation: "La distribution est asymétrique : la moyenne mélange la masse des requêtes rapides et la queue lente, sans décrire ni l'une ni l'autre."
+    concept: ddia-response-time
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      times := []float64{100, 100, 100, 100, 100, 100, 100, 100, 100, 1100}
+      sum := 0.0
+      for _, t := range times {
+          sum += t
+      }
+      fmt.Println(sum/float64(len(times)), times[len(times)/2])
+    answer: "200 100"
+    explanation: "Une seule requête à 1,1 s double la moyenne (200 ms), alors que 9 utilisateurs sur 10 ont attendu 100 ms. La médiane (indice 5 de la liste triée) reste 100."
+    concept: ddia-percentiles
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Un p95 de 400 ms signifie que…"
+    choices:
+      - "95 % des requêtes durent exactement 400 ms"
+      - "95 % des requêtes sont servies en 400 ms ou moins, et 5 % prennent plus"
+      - "la moyenne vaut 400 ms"
+      - "5 % des requêtes échouent"
+    answer: 1
+    explanation: "Un percentile est un seuil dans la liste triée : 95 % des valeurs se trouvent en dessous."
+    concept: ddia-percentiles
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Avec la méthode du rang le plus proche (rang = ceil(p/100 × n)), quel rang le p95 de 20 mesures occupe-t-il dans la liste triée ?"
+    code: |
+      fmt.Println(math.Ceil(0.95 * 20))
+    answer: "19"
+    explanation: "0,95 × 20 = 19 : le p95 est la 19ᵉ plus petite valeur, donc une seule mesure (la plus lente) le dépasse."
+    concept: ddia-percentiles
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Pourquoi Amazon exprime-t-il ses exigences internes en p99,9 alors que cela ne concerne qu'une requête sur 1 000 ?"
+    choices:
+      - "Parce que c'est le seul percentile calculable"
+      - "Parce que les clients aux requêtes les plus lentes sont souvent ceux qui ont le plus de données, donc les plus précieux"
+      - "Parce que les serveurs sont lents au démarrage"
+      - "Parce que la moyenne est interdite par la loi"
+    answer: 1
+    explanation: "La queue touche de façon disproportionnée les gros comptes. À l'inverse, optimiser le p99,99 coûte plus qu'il ne rapporte."
+    concept: ddia-percentiles
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Un SLO dit : « p50 < 200 ms, p99 < 1 s, disponible 99,9 % du temps ». Que faut-il pour qu'il ait un sens ?"
+    choices:
+      - "Des mesures de percentiles sur une période définie, côté client si possible"
+      - "Une moyenne glissante sur une heure"
+      - "Un seul serveur très puissant"
+      - "Aucune mesure, une promesse suffit"
+    answer: 0
+    explanation: "Un objectif se vérifie : il lui faut une fenêtre de mesure et des percentiles calculés correctement. Une réponse trop lente vaut une absence de réponse."
+    concept: ddia-slo-sla
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Quelques requêtes lentes retardent toutes celles qui les suivent dans la file. Comment s'appelle ce phénomène ?"
+    choices: ["Fan-out", "Head-of-line blocking", "Amplification d'écriture", "Split brain"]
+    answer: 1
+    explanation: "Un serveur traite peu de requêtes en parallèle : celles qui attendent derrière une requête lente subissent un temps de réponse élevé même si elles sont rapides à traiter."
+    concept: ddia-response-time
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Pourquoi un générateur de charge doit-il envoyer ses requêtes indépendamment des réponses (boucle ouverte) ?"
+    choices:
+      - "Pour consommer moins de bande passante"
+      - "Parce qu'un client qui attend chaque réponse avant d'envoyer la suivante garde artificiellement les files courtes et fausse les mesures"
+      - "Parce que HTTP l'impose"
+      - "Pour éviter les percentiles"
+    answer: 1
+    explanation: "Des vrais utilisateurs n'attendent pas que les autres aient fini. Une boucle fermée ralentit quand le serveur ralentit et masque la queue."
+    concept: ddia-response-time
+    difficulty: 3
+  - id: q10
+    type: code-output
+    prompt: "Quelle part des requêtes touche au moins un appel lent, quand 1 % des appels le sont et qu'une requête en fait 100 ?"
+    code: |
+      fmt.Printf("%.2f\n", 1-math.Pow(0.99, 100))
+    answer: "0.63"
+    explanation: "1 − 0,99¹⁰⁰ ≈ 0,63. C'est l'amplification de la latence de queue : près de deux requêtes sur trois sont lentes."
+    concept: ddia-tail-amplification
+    difficulty: 2
+  - id: q11
+    type: single
+    prompt: "Deux serveurs ont un p95 de 100 ms et de 300 ms. Quel est le p95 de l'ensemble ?"
+    choices:
+      - "200 ms, la moyenne"
+      - "On ne peut pas le déduire des deux p95 : il faut leurs histogrammes, qu'on additionne"
+      - "300 ms, le maximum"
+      - "100 ms, le minimum"
+    answer: 1
+    explanation: "Les percentiles ne s'agrègent pas. En additionnant les histogrammes tranche par tranche, on obtient la vraie distribution combinée."
+    concept: ddia-merge-histograms
+    difficulty: 2
+  - id: q12
+    type: single
+    prompt: "Pourquoi mesurer le temps de réponse côté client ?"
+    choices:
+      - "Parce que le serveur ne voit pas l'attente en file avant la prise en charge de la requête"
+      - "Parce que le client est plus rapide"
+      - "Parce que le serveur n'a pas d'horloge"
+      - "Parce que cela évite les histogrammes"
+    answer: 0
+    explanation: "Le chronomètre du serveur démarre quand il commence le travail ; le client, lui, compte aussi l'attente en file et le réseau."
+    concept: ddia-response-time
+    difficulty: 2

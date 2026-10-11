@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.6
+    source: tests
+  - id: read-path
+    label: "Chemin de lecture"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Get consulte la memtable puis les segments du plus récent au plus ancien et s'arrête à la première occurrence, avec une recherche dichotomique dans chaque SSTable ; une pierre tombale arrête la recherche"
+      2: "Correct mais balaie les segments linéairement ou parcourt tous les segments même quand la clé est trouvée"
+      0: "Mauvais ordre de consultation ou pierres tombales ignorées"
+  - id: design
+    label: "Conception et lisibilité"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Le flush, la fusion et le tri sont factorisés ; les invariants (segments triés, une entrée par clé, plus récent en dernier) sont explicités en commentaires"
+      2: "Fonctionne mais avec de la duplication de tri ou de fusion"
+      0: "Difficile à suivre"

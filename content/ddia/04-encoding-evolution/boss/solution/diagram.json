@@ -1,0 +1,125 @@
+{
+  "nodes": [
+    {
+      "id": "app",
+      "type": "app",
+      "x": 0,
+      "y": 200
+    },
+    {
+      "id": "gw",
+      "type": "gw",
+      "x": 280,
+      "y": 200
+    },
+    {
+      "id": "v1",
+      "type": "v1",
+      "x": 560,
+      "y": 60
+    },
+    {
+      "id": "v2",
+      "type": "v2",
+      "x": 560,
+      "y": 340
+    },
+    {
+      "id": "db",
+      "type": "db",
+      "x": 880,
+      "y": 200
+    },
+    {
+      "id": "registry",
+      "type": "registry",
+      "x": 880,
+      "y": 480
+    },
+    {
+      "id": "topic",
+      "type": "topic",
+      "x": 880,
+      "y": -120
+    },
+    {
+      "id": "analytics",
+      "type": "analytics",
+      "x": 1180,
+      "y": -120
+    },
+    {
+      "id": "archive",
+      "type": "archive",
+      "x": 1180,
+      "y": 200
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "app",
+      "target": "gw",
+      "kind": "sync",
+      "label": "HTTPS"
+    },
+    {
+      "id": "e2",
+      "source": "gw",
+      "target": "v1",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "gw",
+      "target": "v2",
+      "kind": "sync"
+    },
+    {
+      "id": "e4",
+      "source": "v1",
+      "target": "db",
+      "kind": "write"
+    },
+    {
+      "id": "e5",
+      "source": "v2",
+      "target": "db",
+      "kind": "write"
+    },
+    {
+      "id": "e6",
+      "source": "v2",
+      "target": "topic",
+      "kind": "async",
+      "label": "événements"
+    },
+    {
+      "id": "e7",
+      "source": "topic",
+      "target": "analytics",
+      "kind": "async"
+    },
+    {
+      "id": "e8",
+      "source": "v2",
+      "target": "registry",
+      "kind": "read",
+      "label": "schéma"
+    },
+    {
+      "id": "e9",
+      "source": "analytics",
+      "target": "registry",
+      "kind": "read",
+      "label": "schéma"
+    },
+    {
+      "id": "e10",
+      "source": "db",
+      "target": "archive",
+      "kind": "async",
+      "label": "export"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+intro: |2
+
+  Trois SSTables, de la plus **ancienne** à la plus **récente** (`✗` marque une pierre tombale) :
+
+  | Segment | Contenu |
+  |---|---|
+  | S1 (ancien) | `a=1`, `c=1`, `e=1` |
+  | S2 | `b=2`, `c=2`, `d=2` |
+  | S3 (récent) | `a=✗`, `c=3`, `f=3` |
+blocks:
+- id: fusion
+  type: table
+  title: Fusionner S1, S2 et S3
+  prompt: Fusionne les trois segments en **conservant** les pierres tombales. Pour chaque clé, la version du segment le plus récent gagne. Écris
+    `x` pour une pierre tombale.
+  columns:
+  - id: v
+    label: Valeur
+  rows:
+  - id: a
+    label: a
+  - id: b
+    label: b
+  - id: c
+    label: c
+  - id: d
+    label: d
+  - id: e
+    label: e
+  - id: f
+    label: f
+- id: tombstone
+  type: choice
+  title: Peut-on jeter la pierre tombale de `a` ?
+  prompt: Tu fusionnes **seulement S2 et S3**, S1 reste intact sur disque. Peut-on abandonner la pierre tombale de `a` dans le segment fusionné
+    ?
+  options:
+  - id: oui
+    label: 'Oui : `a` est supprimée, il n''y a plus rien à retenir'
+  - id: non
+    label: 'Non : S1 contient encore `a=1`, la clé réapparaîtrait'
+    hint: Une pierre tombale masque les versions plus anciennes
+  - id: memtable
+    label: Seulement si la memtable est vide
+- id: index
+  type: table
+  title: Dimensionner l'index creux
+  prompt: Une SSTable contient **10 000 entrées** triées. L'index creux garde une clé toutes les **64 entrées**, en commençant par la première.
+  columns:
+  - id: n
+    label: Nombre
+  rows:
+  - id: idx
+    label: Entrées dans l'index creux
+  - id: scan
+    label: Entrées à balayer au plus pour une recherche
+- id: ecriture
+  type: order
+  title: Le chemin d'une écriture
+  prompt: Remets dans l'ordre ce qui se passe quand une écriture arrive dans un moteur LSM.
+  items:
+  - id: wal
+    label: Ajouter l'écriture au journal (WAL) sur disque
+  - id: mem
+    label: L'insérer dans la memtable triée, en mémoire
+  - id: flush
+    label: 'Quand la memtable dépasse le seuil : l''écrire en SSTable triée'
+  - id: trunc
+    label: Jeter le journal correspondant
+  - id: merge
+    label: 'Plus tard, en arrière-plan : fusionner les segments'
+- id: memoire
+  type: match
+  title: Mémoire ou disque ?
+  prompt: Où vit chaque structure d'un LSM-tree ?
+  items:
+  - id: memtable
+    label: Memtable
+  - id: wal
+    label: Journal (WAL)
+  - id: sstable
+    label: SSTable
+  - id: sparse
+    label: Index creux
+  - id: bloom
+    label: Filtre de Bloom
+  categories:
+  - id: ram
+    label: En mémoire
+  - id: disk
+    label: Sur disque

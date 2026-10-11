@@ -1,0 +1,17 @@
+id: ddia-ch01-l01-lab-normalize-design
+title: 'Éclater un CV : où va chaque champ ?'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-normalization
+- ddia-many-to-many
+- ddia-one-to-many-tree
+- ddia-impedance-mismatch
+source:
+  chapter: 2
+  pages: 27-35
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

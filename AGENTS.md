@@ -50,7 +50,7 @@ design-system/             tokens partagés UI + visuels (couleurs, typo, motion
 
 ## Règles qualité non négociables
 - Un TP n'est livré que si `verify_lab.sh` passe : la **solution passe** les tests ET le **starter échoue**.
-- Pas de faux tests pour les exercices non exécutables : utiliser une rubrique.
+- Pas de faux tests pour les exercices non exécutables : utiliser un exercice `diagram` ou `worksheet` (corrigé par le backend, sans code), pas de rubrique à auto-noter.
 - Chaque visuel a une justification de format en une ligne.
 - Le contenu doit être valide selon `content-format/reference/schemas.md`.
 
@@ -77,7 +77,7 @@ design-system/             tokens partagés UI + visuels (couleurs, typo, motion
 - `make dev` — tout lancer en local : Postgres (Docker, port 5433), runner :8001, backend :8000, frontend http://localhost:3000 (mot de passe de dev : `dev`)
 - `make test` — tests backend + runner + contrôle de types du frontend
 - `make lint` — gofmt + go vet (backend, runner)
-- `make validate-content` — rejoue tous les TP (solution passe, starter échoue) et tous les quiz « code-output »
+- `make validate-content` — rejoue tous les TP (code, diagram, worksheet : solution passe, starter échoue) et tous les quiz « code-output »
 - `make up` / `make down` — pile complète via Docker Compose (`.env` à créer depuis `.env.example`)
 - `make reset-progress` — remet la progression locale à zéro
 - `python3 .claude/skills/book-ingest/scripts/extract_book.py <pdf> --slug <slug>` — extraire un livre

@@ -1,0 +1,26 @@
+{
+  "map": {
+    "d1.cle": "1995-12",
+    "d1.val": 3,
+    "d2.cle": "1995-12",
+    "d2.val": 4,
+    "d3.cle": "1996-01",
+    "d3.val": 2
+  },
+  "reduce": {
+    "dec.total": 7,
+    "jan.total": 2
+  },
+  "appels": 2,
+  "pure": [
+    "mois",
+    "plusieurs"
+  ],
+  "style": {
+    "sql": "decl",
+    "boucle": "imp",
+    "css": "decl",
+    "dom": "imp",
+    "pipe": "decl"
+  }
+}

@@ -1,0 +1,102 @@
+id: ddia-ch00-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Qu'est-ce qui distingue une application intensive en données d'une application intensive en calcul ?"
+    choices:
+      - "Elle utilise toujours plusieurs ordinateurs"
+      - "Son principal défi vient de la quantité, de la complexité et du rythme de changement des données, pas de la puissance du processeur"
+      - "Elle n'a pas besoin de base de données"
+      - "Elle est écrite dans un langage compilé"
+    answer: 1
+    explanation: "Pour ces applications, le processeur est rarement le facteur limitant : ce sont les données qui posent problème."
+    concept: ddia-data-intensive
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Lesquelles de ces briques sont des « systèmes de données » au sens du cours ?"
+    choices: ["Une base de données", "Un cache", "Un index de recherche", "Un compilateur", "Une file de messages"]
+    answer: [0, 1, 2, 4]
+    explanation: "Base, cache, index de recherche, file de messages (flux) et traitement par lots sont des briques qui stockent ou font circuler des données. Un compilateur n'en fait pas partie."
+    concept: ddia-data-intensive
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi dit-on que les frontières entre catégories d'outils (base, cache, file) s'estompent ?"
+    choices:
+      - "Parce que tous les outils sont devenus identiques"
+      - "Parce que des outils sortent de leur catégorie : Redis sert aussi de file de messages, Kafka offre une durabilité proche d'une base"
+      - "Parce qu'on ne peut plus distinguer une base d'un fichier"
+      - "Parce que les catégories n'ont jamais existé"
+    answer: 1
+    explanation: "De nombreux outils récents sont optimisés pour des usages variés et ne rentrent plus dans une seule case."
+    concept: ddia-composite-system
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Une application utilise PostgreSQL, Redis comme cache et Elasticsearch pour la recherche. Qui doit en général garder le cache et l'index à jour ?"
+    choices:
+      - "PostgreSQL, automatiquement"
+      - "Le code de l'application"
+      - "Le navigateur du client"
+      - "Personne : ils se synchronisent tout seuls"
+    answer: 1
+    explanation: "Quand on recolle des outils séparés, c'est au code applicatif de garantir leur cohérence. C'est une source classique de bugs."
+    concept: ddia-composite-system
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Que veut dire « devenir concepteur de système de données » ?"
+    choices:
+      - "Écrire son propre moteur de base de données"
+      - "En assemblant plusieurs outils derrière une API, on crée un nouveau système, dont on doit définir et tenir les garanties"
+      - "Travailler uniquement sur la couche réseau"
+      - "Ne plus écrire d'application"
+    answer: 1
+    explanation: "Le système composite offre des garanties (par exemple un cache cohérent) qui relèvent de ta conception."
+    concept: ddia-composite-system
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Quelle définition correspond à la fiabilité ?"
+    choices:
+      - "Le système est le plus rapide possible"
+      - "Le système continue à fonctionner correctement, au niveau de performance attendu, même quand des choses tournent mal"
+      - "Le système peut être modifié facilement"
+      - "Le système gère un nombre illimité d'utilisateurs"
+    answer: 1
+    explanation: "La fiabilité parle de bon fonctionnement face à l'adversité. La rapidité relève de la performance, la facilité de modification de la maintenabilité."
+    concept: ddia-three-concerns
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Pourquoi n'est-il pas pertinent de dire « ce système est scalable » sans autre précision ?"
+    choices:
+      - "Parce que la scalabilité n'existe pas"
+      - "Parce que la scalabilité se définit par rapport à une charge et une croissance précises : « si le système grandit de telle manière, quelles sont nos options ? »"
+      - "Parce que seul le matériel peut être scalable"
+      - "Parce que scalable est un mot réservé"
+    answer: 1
+    explanation: "La scalabilité n'est pas une étiquette à une dimension : elle se discute en fonction de la façon dont la charge croît."
+    concept: ddia-three-concerns
+    difficulty: 2
+  - id: q8
+    type: multiple
+    prompt: "Lesquelles de ces propriétés sont des exigences non fonctionnelles ?"
+    choices: ["Permettre de chercher un produit par mot-clé", "La sécurité", "La fiabilité", "La maintenabilité", "Permettre de passer une commande"]
+    answer: [1, 2, 3]
+    explanation: "Ce que fait l'application (chercher, commander) est fonctionnel. Sécurité, fiabilité et maintenabilité sont des propriétés générales : non fonctionnelles."
+    concept: ddia-three-concerns
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Pourquoi les trois exigences sont-elles décrites comme difficiles à satisfaire par une « solution miracle » ?"
+    choices:
+      - "Parce que les ingénieurs ne les comprennent pas"
+      - "Parce que chaque choix est un compromis qui dépend du contexte : équipe, contraintes, risques, calendrier"
+      - "Parce que le matériel change trop vite"
+      - "Parce qu'elles sont contradictoires dans tous les cas"
+    answer: 1
+    explanation: "Il n'existe pas de recette universelle, seulement des principes et des compromis à arbitrer."
+    concept: ddia-three-concerns
+    difficulty: 2

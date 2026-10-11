@@ -1,0 +1,20 @@
+{
+  "varint": {
+    "v50.bytes": 1,
+    "v63.bytes": 1,
+    "v64.bytes": 2,
+    "v1337.bytes": 2,
+    "v8192.bytes": 3
+  },
+  "changes": {
+    "rename": "ok",
+    "addopt": "ok",
+    "addreq": "break",
+    "renumber": "break",
+    "reuse": "break",
+    "retire": "ok"
+  },
+  "forward": "skip",
+  "repeated": "last",
+  "widen": "trunc"
+}

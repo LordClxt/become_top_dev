@@ -21,7 +21,7 @@ glossary:
     definition: "Zone mémoire réutilisée pour lire des données par morceaux, afin de ne pas allouer un nouveau tableau à chaque lecture."
   - term: "allocation"
     definition: "Réservation d'un bloc de mémoire. Sur le tas, elle sollicite ensuite le ramasse-miettes."
-visuals: []
+visuals: [go-ch05-slice-header]
 labs: [go-ch05-l03-lab-optional]
 xp: 30
 ---
@@ -74,11 +74,7 @@ Go est un langage typé. Plutôt que de passer une `map[string]any` « fourre-to
 
 Une slice est une petite structure de trois champs :
 
-```
-slice  ─ pointeur ─▶  [ 10 | 20 | 30 | 40 | ?  | ?  ]   ← tableau d'éléments
-       ─ longueur : 4
-       ─ capacité : 6
-```
+::visual{id="go-ch05-slice-header"}
 
 Quand tu **copies** une slice (affectation ou passage de paramètre), on copie ces trois champs : la copie pointe vers le **même tableau**.
 

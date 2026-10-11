@@ -1,0 +1,22 @@
+{
+  "charges": {
+    "profil": "oltp",
+    "panier": "oltp",
+    "ca": "olap",
+    "promo": "olap",
+    "adresse": "oltp",
+    "couples": "olap"
+  },
+  "pourquoi": "perf",
+  "etl": [
+    "extract",
+    "transform",
+    "load"
+  ],
+  "vrai": [
+    "copy",
+    "sql",
+    "hist"
+  ],
+  "taille": 2.19
+}

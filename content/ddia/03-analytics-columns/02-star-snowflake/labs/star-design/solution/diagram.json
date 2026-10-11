@@ -1,0 +1,83 @@
+{
+  "nodes": [
+    {
+      "id": "fact",
+      "type": "fact",
+      "x": 520,
+      "y": 220,
+      "label": "fact_sales"
+    },
+    {
+      "id": "date",
+      "type": "date",
+      "x": 520,
+      "y": 0,
+      "label": "dim_date"
+    },
+    {
+      "id": "product",
+      "type": "product",
+      "x": 950,
+      "y": 130,
+      "label": "dim_product"
+    },
+    {
+      "id": "store",
+      "type": "store",
+      "x": 950,
+      "y": 330,
+      "label": "dim_store"
+    },
+    {
+      "id": "promo",
+      "type": "promo",
+      "x": 90,
+      "y": 330,
+      "label": "dim_promotion"
+    },
+    {
+      "id": "customer",
+      "type": "customer",
+      "x": 90,
+      "y": 130,
+      "label": "dim_customer"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-date",
+      "source": "fact",
+      "target": "date",
+      "kind": "sync",
+      "label": "clé étrangère"
+    },
+    {
+      "id": "e-product",
+      "source": "fact",
+      "target": "product",
+      "kind": "sync",
+      "label": "clé étrangère"
+    },
+    {
+      "id": "e-store",
+      "source": "fact",
+      "target": "store",
+      "kind": "sync",
+      "label": "clé étrangère"
+    },
+    {
+      "id": "e-promo",
+      "source": "fact",
+      "target": "promo",
+      "kind": "sync",
+      "label": "clé étrangère"
+    },
+    {
+      "id": "e-customer",
+      "source": "fact",
+      "target": "customer",
+      "kind": "sync",
+      "label": "clé étrangère"
+    }
+  ]
+}

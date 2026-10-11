@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.6
+    source: tests
+  - id: modeling
+    label: "Modélisation de la file"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Un seul état (instant de libération du serveur), démarrage à max(arrivée, libre), aucun cas particulier pour la première requête"
+      2: "Correct mais avec des cas particuliers ou un état redondant"
+      0: "Ne modélise pas l'attente : temps de réponse = temps de service"
+  - id: explanation
+    label: "Explication de la moyenne"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Explique que la moyenne mélange requêtes rapides et lentes, que personne ne vit 63 ms, et que la médiane/le p99 décrivent les utilisateurs"
+      2: "Dit que la moyenne est trompeuse sans relier à l'exemple"
+      0: "Absent ou incorrect"

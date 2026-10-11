@@ -1,0 +1,22 @@
+blocks:
+  io:
+    options:
+      row.go: '10⁹ lignes × 100 colonnes × 8 octets = 800 Go : le stockage par lignes charge les lignes entières.'
+      col.go: '10⁹ lignes × 3 colonnes × 8 octets = 24 Go : seules les colonnes utilisées sont lues.'
+  b69:
+    options:
+      l1: La ligne 1 vaut 29, pas 69.
+  bor:
+    options:
+      l3: 'La ligne 3 vaut 69 : ni 29 ni 31.'
+  band:
+    options:
+      l8: 'La ligne 8 vaut 31 : pas 29.'
+      l9: 'La ligne 9 vaut 31 : pas 29.'
+  rle:
+    options:
+      b29.runs: 'Le bitmap `110000100` commence par un 1 : zéro zéro d''abord (0), puis 2 uns, 4 zéros, 1 un, 2 zéros.'
+  famille:
+    options:
+      oui: 'Elles ne compressent pas par colonne : toutes les colonnes d''une ligne restent ensemble.'
+      partiel: Le type de la colonne n'y change rien.

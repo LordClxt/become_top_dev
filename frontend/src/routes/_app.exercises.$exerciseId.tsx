@@ -1,12 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ChevronLeft, Lightbulb, ListChecks, Play, RotateCcw, Workflow } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { ChevronLeft, ClipboardList, Lightbulb, ListChecks, Play, RotateCcw, Workflow } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CodeEditor } from '@/components/CodeEditor'
 import { DiagramEditor } from '@/components/diagram/DiagramEditor'
 import { LessonBody } from '@/components/LessonBody'
 import { ErrorState, Loading } from '@/components/states'
 import { TestResults } from '@/components/TestResults'
+import { Worksheet } from '@/components/worksheet/Worksheet'
 import { Button } from '@/components/ui/button'
 import { announceXp } from '@/features/xp/xp-events'
 import { api, type Exercise } from '@/lib/api'
@@ -40,6 +41,8 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
   // Incrémenté à chaque remise à zéro : l'éditeur repart de l'état de départ.
   const [editorKey, setEditorKey] = useState(0)
   const isDiagram = ex.kind === 'diagram'
+  const isSheet = ex.kind === 'worksheet'
+  const noCode = isDiagram || isSheet
   const editableNames = Object.keys(files)
   const allNames = [...editableNames, ...Object.keys(ex.workspace.readonly)]
 
@@ -79,6 +82,16 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
   })
 
   const passed = ex.workspace.passed || run.data?.passed
+  const debrief = run.data?.debrief || ex.debrief
+  // Blocs et flèches fautifs d'un diagramme : le premier message gagne.
+  const errors = useMemo(() => {
+    const m = new Map<string, string>()
+    for (const t of run.data?.tests ?? []) {
+      if (t.status !== 'fail') continue
+      for (const ref of t.refs ?? []) if (!m.has(ref)) m.set(ref, t.output)
+    }
+    return m
+  }, [run.data])
   const backTo = ex.lesson_id
     ? ({ to: '/lessons/$lessonId', params: { lessonId: ex.lesson_id } } as const)
     : ex.chapter_id
@@ -90,7 +103,7 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
     <main
       className={cn(
         'grid h-[calc(100vh-3.5rem)] grid-cols-1',
-        isDiagram ? 'lg:grid-cols-[minmax(320px,30%)_1fr]' : 'lg:grid-cols-[minmax(340px,38%)_1fr]',
+        noCode ? 'lg:grid-cols-[minmax(300px,27%)_1fr]' : 'lg:grid-cols-[minmax(340px,38%)_1fr]',
       )}
     >
       {/* Énoncé */}
@@ -100,7 +113,7 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
           {ex.lesson_id ? 'Retour à la leçon' : inSandbox ? 'Retour à l’atelier' : 'Retour au module'}
         </Link>
         <p className={cn('mt-5 text-sm', ex.role === 'boss' ? 'text-fail' : 'text-muted')}>
-          {inSandbox ? (isDiagram ? 'Kata de diagramme' : 'Atelier') : ROLE_LABEL[ex.role]}, difficulté {ex.difficulty}/5,{' '}
+          {inSandbox ? (isDiagram ? 'Kata de diagramme' : isSheet ? 'Fiche' : 'Atelier') : ROLE_LABEL[ex.role]}, difficulté {ex.difficulty}/5,{' '}
           {ex.xp} XP
           {passed && <span className="text-pass">, réussi</span>}
         </p>
@@ -109,7 +122,7 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
           <LessonBody body={ex.instructions} visuals={{}} />
         </div>
 
-        {isDiagram && ex.checks.length > 0 && (
+        {noCode && ex.checks.length > 0 && (
           <div className="mt-8">
             <h2 className="flex items-center gap-2 font-medium">
               <ListChecks className="size-4 text-accent" /> Ce qui est vérifié
@@ -207,15 +220,15 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
       <section
         className={cn(
           'grid min-h-0',
-          isDiagram ? 'grid-rows-[auto_minmax(0,1fr)_minmax(120px,30%)]' : 'grid-rows-[auto_minmax(0,1fr)_minmax(140px,34%)]',
+          noCode ? 'grid-rows-[auto_minmax(0,1fr)_minmax(110px,24%)]' : 'grid-rows-[auto_minmax(0,1fr)_minmax(140px,34%)]',
         )}
       >
         <div className="flex items-center justify-between border-b border-line pr-3">
-          {isDiagram ? (
+          {noCode ? (
             <p className="flex items-center gap-2 px-4 py-2.5 text-sm">
-              <Workflow className="size-4 text-accent" />
-              <span className="font-medium">Ton diagramme</span>
-              <span className="text-muted">enregistré automatiquement</span>
+              {isDiagram ? <Workflow className="size-4 text-accent" /> : <ClipboardList className="size-4 text-accent" />}
+              <span className="font-medium">{isDiagram ? 'Ton diagramme' : 'Ta fiche'}</span>
+              <span className="text-muted">enregistré{isDiagram ? '' : 'e'} automatiquement</span>
             </p>
           ) : (
           <div className="flex overflow-x-auto" role="tablist" aria-label="Fichiers">
@@ -242,14 +255,14 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
               variant="ghost"
               size="sm"
               onClick={() => {
-                const what = isDiagram ? 'le diagramme de départ' : 'le code de départ'
+                const what = isDiagram ? 'le diagramme de départ' : isSheet ? 'une fiche vierge' : 'le code de départ'
                 if (confirm(`Remettre ${what} ? Ton brouillon sera perdu.`)) reset.mutate()
               }}
             >
-              <RotateCcw /> {isDiagram ? 'Repartir du départ' : 'Code de départ'}
+              <RotateCcw /> {isDiagram ? 'Repartir du départ' : isSheet ? 'Tout effacer' : 'Code de départ'}
             </Button>
             <Button size="sm" onClick={runTests} disabled={run.isPending}>
-              <Play /> {isDiagram ? 'Vérifier le diagramme' : 'Lancer les tests'}
+              <Play /> {isDiagram ? 'Vérifier le diagramme' : isSheet ? 'Vérifier mes réponses' : 'Lancer les tests'}
             </Button>
           </div>
         </div>
@@ -259,12 +272,27 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
             <DiagramEditor
               key={editorKey}
               palette={ex.palette}
+              errors={errors}
               value={files['diagram.json'] ?? '{}'}
               onChange={(v) => {
                 dirty.current = true
                 setFiles({ 'diagram.json': v })
               }}
             />
+          ) : isSheet && ex.worksheet ? (
+            <div className="h-full overflow-y-auto">
+              <Worksheet
+                key={editorKey}
+                exerciseId={ex.id}
+                sheet={ex.worksheet}
+                value={files['answers.json'] ?? '{}'}
+                report={run.data}
+                onChange={(v) => {
+                  dirty.current = true
+                  setFiles({ 'answers.json': v })
+                }}
+              />
+            </div>
           ) : editableNames.includes(active) ? (
             <CodeEditor
               value={files[active] ?? ''}
@@ -283,7 +311,19 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
           {run.isError ? (
             <p className="p-4 text-sm text-fail">{run.error.message}</p>
           ) : (
-            <TestResults report={run.data} running={run.isPending} diagram={isDiagram} />
+            <>
+              <TestResults report={run.data} running={run.isPending} diagram={isDiagram} sheet={isSheet} />
+              {passed && debrief && (
+                <section className="border-t border-line p-5" aria-label="Debrief">
+                  <h2 className="flex items-center gap-2 font-medium">
+                    <Lightbulb className="size-4 text-accent" /> Ce qu’il fallait retenir
+                  </h2>
+                  <div className="mt-3 [&_.prose-read]:text-[0.95rem]">
+                    <LessonBody body={debrief} visuals={{}} />
+                  </div>
+                </section>
+              )}
+            </>
           )}
         </div>
       </section>

@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Schéma en étoile ?
+  back: Table de faits au centre, tables de dimensions autour, reliées par clés étrangères.
+  concept: ddia-star-schema
+- id: fc2
+  front: Une ligne de la table de faits ?
+  back: 'Un événement : un achat, une page vue, un clic.'
+  concept: ddia-fact-table
+- id: fc3
+  front: Attributs et clés étrangères d'un fait ?
+  back: 'Attributs : prix de vente, coût… Clés étrangères : vers produit, magasin, date, promotion, client.'
+  concept: ddia-fact-table
+- id: fc4
+  front: Qu'exprime une dimension ?
+  back: Le qui, quoi, où, quand, comment et pourquoi de l'événement.
+  concept: ddia-dimension-table
+- id: fc5
+  front: Pourquoi une dimension de dates ?
+  back: Pour coder jours fériés, week-ends, trimestres fiscaux et les filtrer facilement.
+  concept: ddia-dimension-table
+- id: fc6
+  front: Flocon ?
+  back: Étoile dont les dimensions sont normalisées en sous-dimensions (marque, catégorie).
+  concept: ddia-snowflake-schema
+- id: fc7
+  front: Pourquoi souvent l'étoile ?
+  back: Plus simple pour les analystes, moins de jointures.
+  concept: ddia-snowflake-schema
+- id: fc8
+  front: Largeur typique d'une table de faits ?
+  back: Plus de 100 colonnes, parfois plusieurs centaines ; pourtant une requête n'en lit que 4 ou 5.
+  concept: ddia-star-schema

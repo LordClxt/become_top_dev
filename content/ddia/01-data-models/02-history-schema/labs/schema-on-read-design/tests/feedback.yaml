@@ -1,0 +1,13 @@
+blocks:
+  etapes:
+    options:
+      up: On ne peut pas appliquer la mise à niveau avant de connaître la version du document.
+      ret: L'application ne doit recevoir un document qu'une fois mis à niveau.
+  migration:
+    options:
+      update: 'L''`UPDATE` réécrit chaque ligne : sur 500 millions de lignes, il verrouille et sature le disque.'
+      stop: 'Un arrêt n''est jamais nécessaire : l''ALTER TABLE est rapide, et le remplissage peut se faire à la lecture.'
+  avantage:
+    options:
+      uniforme: 'Si tous les enregistrements ont la même structure, un schéma documente et impose cette structure : il aide.'
+      refus: 'Refuser des données invalides, c''est le schema-on-write : l''inverse du schema-on-read.'

@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Que signifie parler de scalabilité en pratique ?"
+    back: "Se demander : « si la charge croît de telle façon, quelles sont nos options, et comment ajouter des ressources ? »"
+    concept: ddia-scalability-definition
+  - id: fc2
+    front: "Qu'est-ce qu'un paramètre de charge ? Donne trois exemples."
+    back: "Un nombre qui décrit la charge : requêtes/s, ratio lectures/écritures, utilisateurs actifs simultanés, taux de succès d'un cache."
+    concept: ddia-load-parameters
+  - id: fc3
+    front: "Quelles étaient les deux opérations de Twitter en 2012 et leurs volumes ?"
+    back: "Publier un tweet : 4,6 k/s en moyenne (12 k/s en pointe). Fil d'accueil : 300 k/s."
+    concept: ddia-load-parameters
+  - id: fc4
+    front: "Qu'est-ce que le fan-out ?"
+    back: "Le nombre de requêtes ou d'écritures à émettre pour servir une seule requête entrante."
+    concept: ddia-fan-out
+  - id: fc5
+    front: "Approche 1 pour le fil d'accueil ?"
+    back: "Insérer le tweet dans une collection globale ; à la lecture, chercher les comptes suivis, récupérer leurs tweets et fusionner par date."
+    concept: ddia-fan-out
+  - id: fc6
+    front: "Approche 2 pour le fil d'accueil ?"
+    back: "Entretenir un fil par utilisateur ; à la publication, insérer le tweet dans le fil de chaque abonné. La lecture devient bon marché."
+    concept: ddia-fan-out
+  - id: fc7
+    front: "Pourquoi l'approche 2 a-t-elle remplacé la 1 ?"
+    back: "Les lectures de fil sont environ deux ordres de grandeur plus fréquentes que les publications : mieux vaut travailler à l'écriture."
+    concept: ddia-fan-out
+  - id: fc8
+    front: "Combien d'écritures par seconde pour 4,6 k tweets/s livrés à 75 abonnés en moyenne ?"
+    back: "345 000 écritures par seconde dans les fils."
+    concept: ddia-fan-out
+  - id: fc9
+    front: "Quel est le paramètre de charge clé de l'exemple Twitter ?"
+    back: "La distribution du nombre d'abonnés par utilisateur : elle fixe la charge de fan-out."
+    concept: ddia-load-parameters
+  - id: fc10
+    front: "Qu'est-ce que l'approche hybride ?"
+    back: "Fan-out à l'écriture pour la plupart des comptes ; les célébrités en sont exclues et fusionnées à la lecture."
+    concept: ddia-hybrid-approach

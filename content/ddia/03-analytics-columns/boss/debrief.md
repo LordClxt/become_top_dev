@@ -1,0 +1,3 @@
+**La chaîne analytique protège la production et sert l'analyse.** Les caisses écrivent dans la base transactionnelle ; l'**ETL** lit la production et charge l'entrepôt ; l'analyste ne touche jamais la production. Dans l'entrepôt, les écritures récentes s'accumulent en mémoire (comme dans un LSM-tree), puis sont **fusionnées en bloc** dans des copies en colonnes **triées différemment** (par date, par produit), qui servent aussi de réplicas. Un **cube** précalcule les agrégats courants, alimenté depuis la copie par date.
+
+Une requête combine toujours les colonnes sur disque **et** les écritures récentes en mémoire : l'optimiseur le cache à l'analyste.

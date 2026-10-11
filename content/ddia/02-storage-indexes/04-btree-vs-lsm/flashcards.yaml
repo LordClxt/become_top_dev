@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Amplification en écriture ?
+  back: 'Une écriture de l''application déclenche plusieurs écritures disque (WAL, page, compactions) : rapport octets sur disque / octets applicatifs.'
+  concept: ddia-write-amplification
+- id: fc2
+  front: Où un B-tree écrit-il deux fois ?
+  back: Dans le WAL et dans la page de l'arbre (et plus à chaque éclatement) ; une page entière même pour quelques octets.
+  concept: ddia-write-amplification
+- id: fc3
+  front: D'où vient l'amplification d'un LSM ?
+  back: 'Des compactions et fusions répétées : une donnée est réécrite à chaque fusion.'
+  concept: ddia-write-amplification
+- id: fc4
+  front: Quatre atouts des LSM-trees ?
+  back: Meilleur débit d'écriture, écritures séquentielles, meilleure compression, moins de fragmentation.
+  concept: ddia-lsm-advantages
+- id: fc5
+  front: Premier inconvénient d'un LSM ?
+  back: La compaction perturbe les requêtes en cours, surtout les percentiles élevés.
+  concept: ddia-compaction-interference
+- id: fc6
+  front: Deuxième inconvénient ?
+  back: 'À fort débit d''écriture, la compaction peut ne pas suivre : les segments s''accumulent, le disque se remplit, les lectures ralentissent ; pas de frein automatique.'
+  concept: ddia-compaction-interference
+- id: fc7
+  front: Atout d'un B-tree pour les transactions ?
+  back: 'Chaque clé est à un seul endroit : on attache les verrous d''intervalle à l''arbre.'
+  concept: ddia-btree-single-copy
+- id: fc8
+  front: Règle de pouce LSM vs B-tree ?
+  back: LSM souvent plus rapide en écriture, B-tree réputé plus rapide en lecture ; à vérifier avec sa charge.
+  concept: ddia-measure-workload
+- id: fc9
+  front: Pourquoi les SSD relativisent-ils la différence ?
+  back: Leur micrologiciel est lui-même log-structuré ; mais moins d'amplification et de fragmentation restent un avantage.
+  concept: ddia-lsm-advantages

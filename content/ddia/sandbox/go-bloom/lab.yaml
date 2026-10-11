@@ -1,0 +1,12 @@
+id: ddia-ch02-l02-lab-bloom
+title: "TP Go : Un filtre de Bloom et son taux de faux positifs"
+kind: code
+language: go
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["bloom.go"]
+concepts: [ddia-bloom-filter, ddia-lsm-tree]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

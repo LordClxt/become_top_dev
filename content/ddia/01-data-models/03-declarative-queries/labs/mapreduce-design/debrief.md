@@ -1,0 +1,3 @@
+**MapReduce est un pipeline en trois temps** : `map` émet des paires `(clé, valeur)` pour chaque document, le framework **regroupe par clé**, `reduce` agrège chaque groupe. Ici : `("1995-12", 3)`, `("1995-12", 4)`, `("1996-01", 2)` → `reduce("1995-12", [3, 4]) = 7` et `reduce("1996-01", [2]) = 2`, soit **2 appels**.
+
+Pour que le framework puisse rejouer et répartir ces fonctions, elles doivent être **pures**. Et le même résultat s'écrit en une ligne déclarative (`SELECT … GROUP BY`) : c'est pourquoi MongoDB a fini par ajouter un pipeline d'agrégation. Un système NoSQL peut réinventer SQL sans le dire.

@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "orders",
+      "type": "orders",
+      "x": 0,
+      "y": 150
+    },
+    {
+      "id": "topic",
+      "type": "topic",
+      "x": 330,
+      "y": 150,
+      "label": "Sujet « commandes »"
+    },
+    {
+      "id": "mail",
+      "type": "mail",
+      "x": 680,
+      "y": 20
+    },
+    {
+      "id": "stats",
+      "type": "stats",
+      "x": 680,
+      "y": 280
+    },
+    {
+      "id": "registry",
+      "type": "registry",
+      "x": 330,
+      "y": 400
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "orders",
+      "target": "topic",
+      "kind": "async",
+      "label": "publie"
+    },
+    {
+      "id": "e2",
+      "source": "topic",
+      "target": "mail",
+      "kind": "async",
+      "label": "livre"
+    },
+    {
+      "id": "e3",
+      "source": "topic",
+      "target": "stats",
+      "kind": "async",
+      "label": "livre"
+    },
+    {
+      "id": "e4",
+      "source": "orders",
+      "target": "registry",
+      "kind": "read",
+      "label": "schéma"
+    },
+    {
+      "id": "e5",
+      "source": "mail",
+      "target": "registry",
+      "kind": "read",
+      "label": "schéma"
+    }
+  ]
+}

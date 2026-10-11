@@ -1,0 +1,49 @@
+cards:
+- id: fc1
+  front: Quelles sont les couches de modèles d'une application ?
+  back: Monde réel → objets/structures → modèle général (tables, documents, graphe) → octets (stockage) → matériel.
+  concept: ddia-data-model-layers
+- id: fc2
+  front: Que veut dire « NoSQL » à l'origine ?
+  back: 'Un mot-clic de meetup (2009), relu comme « Not Only SQL » : pas une technologie précise.'
+  concept: ddia-data-model-layers
+- id: fc3
+  front: Citez quatre moteurs de l'adoption de NoSQL.
+  back: Scalabilité (volume, débit d'écriture), préférence pour le libre, requêtes spécialisées, schémas jugés trop rigides.
+  concept: ddia-data-model-layers
+- id: fc4
+  front: Décalage d'impédance ?
+  back: Désaccord entre objets du code et tables de la base ; une couche de traduction (ORM) est nécessaire.
+  concept: ddia-impedance-mismatch
+- id: fc5
+  front: Shredding ?
+  back: Éclater une structure de type document en plusieurs tables (positions, education, contact_info), avec clés étrangères.
+  concept: ddia-impedance-mismatch
+- id: fc6
+  front: Avantage de la représentation JSON d'un CV ?
+  back: 'Meilleure localité : une seule requête suffit, et l''arbre des relations un-à-plusieurs est explicite.'
+  concept: ddia-one-to-many-tree
+- id: fc7
+  front: Normaliser, c'est quoi ?
+  back: 'Enlever la duplication : l''information lisible par un humain est stockée à un seul endroit, le reste y renvoie par identifiant.'
+  concept: ddia-normalization
+- id: fc8
+  front: Pourquoi un identifiant n'a-t-il jamais besoin de changer ?
+  back: Parce qu'il n'a aucun sens pour un humain, contrairement au nom qu'il désigne.
+  concept: ddia-normalization
+- id: fc9
+  front: Cinq avantages d'une liste standardisée (régions, secteurs) ?
+  back: Style cohérent, pas d'ambiguïté, mise à jour facile, traduction possible, meilleure recherche.
+  concept: ddia-normalization
+- id: fc10
+  front: Quelles relations s'adaptent mal au modèle document ?
+  back: 'Plusieurs-à-un et plusieurs-à-plusieurs : elles exigent des références et des jointures, souvent absentes ou faibles.'
+  concept: ddia-many-to-many
+- id: fc11
+  front: Pourquoi les données deviennent-elles plus interconnectées avec le temps ?
+  back: Chaque fonctionnalité (organisations comme entités, recommandations) ajoute des références entre enregistrements.
+  concept: ddia-many-to-many
+- id: fc12
+  front: Que fait-on si la base n'a pas de jointure ?
+  back: On l'émule côté application par plusieurs requêtes, ce qui déplace la complexité dans le code.
+  concept: ddia-many-to-many

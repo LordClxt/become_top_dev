@@ -1,0 +1,3 @@
+**Un LSM-tree est une pile de segments immuables devant une memtable.** Après `Put(c)`, la memtable `{a, b, c}` part en S1. `Delete(b)` écrit une pierre tombale ; `Put(e)` déclenche S2 = `{b✗, d, e}`. Une lecture de `a` doit descendre jusqu'à S1 (2 segments), une clé absente parcourt tout (2 segments) : c'est pourquoi on ajoute un **filtre de Bloom**, qui ramène ce coût à 0,08 segment en moyenne pour 8 segments.
+
+La **compaction** fusionne et supprime : seule la dernière version de chaque clé vit, et la pierre tombale de `b` disparaît parce qu'**aucun segment plus ancien** ne contient plus `b`.

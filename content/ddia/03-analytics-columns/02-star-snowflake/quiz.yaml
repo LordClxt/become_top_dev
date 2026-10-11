@@ -1,0 +1,110 @@
+id: ddia-ch03-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Au centre d'un schéma en étoile, on trouve…
+  choices:
+  - La table de faits
+  - La table de dimensions la plus grosse
+  - Un index
+  - Un cube de données
+  answer: 0
+  explanation: Les dimensions l'entourent, comme les branches d'une étoile.
+  concept: ddia-star-schema
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que représente une ligne de la table de faits ?
+  choices:
+  - Un événement, par exemple l'achat d'un produit
+  - Un produit en stock
+  - Un magasin
+  - Une date du calendrier
+  answer: 0
+  explanation: On capture les faits comme des événements individuels pour garder un maximum de souplesse.
+  concept: ddia-fact-table
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Quelles colonnes une table de faits contient-elle ?
+  choices:
+  - Des attributs (prix, coût…) et des clés étrangères vers les dimensions
+  - Seulement des clés étrangères
+  - Seulement du texte libre
+  - Uniquement des index
+  answer: 0
+  explanation: Le prix de vente et le coût permettent de calculer la marge ; les clés étrangères pointent vers les dimensions.
+  concept: ddia-fact-table
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: À quoi servent les tables de dimensions ?
+  choices:
+  - Décrire le qui, quoi, où, quand, comment et pourquoi de l'événement
+  - Stocker les agrégats
+  - Remplacer la table de faits
+  - Chiffrer les données
+  answer: 0
+  explanation: 'Chaque dimension répond à une question sur l''événement : client, produit, magasin, date, promotion.'
+  concept: ddia-dimension-table
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pourquoi la date est-elle souvent une table de dimensions ?
+  choices:
+  - Pour y ranger des informations de calendrier (jours fériés, trimestre fiscal)
+  - Parce qu'une date est trop grosse pour une colonne
+  - Pour éviter le tri
+  - Parce que SQL ne gère pas les dates
+  answer: 0
+  explanation: Cela permet de distinguer les ventes un jour férié d'un jour ordinaire.
+  concept: ddia-dimension-table
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Qu'est-ce qui distingue un schéma en flocon d'un schéma en étoile ?
+  choices:
+  - Les dimensions sont décomposées en sous-dimensions (marques, catégories à part)
+  - Il n'a pas de table de faits
+  - Il est dénormalisé à l'extrême
+  - Il n'utilise pas de clés étrangères
+  answer: 0
+  explanation: Le flocon est plus normalisé que l'étoile.
+  concept: ddia-snowflake-schema
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Pourquoi préfère-t-on souvent l'étoile au flocon ?
+  choices:
+  - Elle est plus simple à manipuler pour les analystes
+  - Elle consomme toujours moins d'espace
+  - Elle interdit les jointures
+  - Elle est obligatoire en SQL
+  answer: 0
+  explanation: Moins de jointures à écrire, malgré une normalisation moindre.
+  concept: ddia-snowflake-schema
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Quelle est la taille typique d'une table de faits dans un grand groupe ?
+  choices:
+  - Des dizaines de pétaoctets d'historique
+  - Quelques mégaoctets
+  - Moins qu'une table de dimensions
+  - Un seul fichier de configuration
+  answer: 0
+  explanation: Apple, Walmart ou eBay stockent des dizaines de pétaoctets, surtout dans les tables de faits.
+  concept: ddia-fact-table
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Combien de colonnes ont souvent les tables d'un entrepôt ?
+  choices:
+  - Plus de 100, parfois plusieurs centaines
+  - Trois ou quatre
+  - Une seule
+  - Exactement dix
+  answer: 0
+  explanation: Les faits et les dimensions regroupent beaucoup de métadonnées utiles à l'analyse.
+  concept: ddia-star-schema
+  difficulty: 1

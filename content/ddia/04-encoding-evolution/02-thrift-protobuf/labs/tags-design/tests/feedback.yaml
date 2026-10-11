@@ -1,0 +1,25 @@
+blocks:
+  varint:
+    options:
+      v63.bytes: 63 est la dernière valeur qui tient sur un octet.
+      v64.bytes: '64 dépasse 63 : il faut un deuxième octet.'
+      v8192.bytes: '8 192 dépasse 8 191 : trois octets.'
+  changes:
+    options:
+      rename: 'Les octets ne contiennent jamais le nom : seul le numéro compte.'
+      addreq: 'Les anciennes données n''ont pas ce champ : le nouveau code refuserait de les lire.'
+      renumber: Changer un numéro invalide toutes les données déjà encodées.
+      reuse: 'D''anciennes données portent encore l''ancien sens du numéro 2 : elles seraient lues comme un e-mail.'
+      retire: Retirer un champ optionnel est sûr si son numéro n'est plus jamais utilisé.
+  forward:
+    options:
+      fail: Ce serait casser la compatibilité ascendante.
+      guess: Le type annoté suffit à sauter les octets.
+  repeated:
+    options:
+      first: 'L''ancien code n''a qu''une place : il garde la dernière valeur lue.'
+      error: L'évolution de optional à repeated est précisément permise.
+  widen:
+    options:
+      exact: L'ancien code garde une variable de 32 bits.
+      zero: Les bits de poids faible sont conservés, les autres perdus.

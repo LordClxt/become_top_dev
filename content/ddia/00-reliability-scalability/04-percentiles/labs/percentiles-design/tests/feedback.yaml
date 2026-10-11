@@ -1,0 +1,23 @@
+blocks:
+  stats:
+    tolerance:
+      rel: 0.01
+  typique:
+    options:
+      moyenne: 'Aucune requête n''a duré 120 ms : la moyenne mélange la masse rapide (≈14 ms) et deux requêtes très lentes.'
+      max: Le maximum décrit le pire cas, pas l'utilisateur typique.
+  amplification:
+    tolerance:
+      abs: 0.5
+    wrong: 'C''est 1 − (1 − 0,01)¹⁰⁰ : la probabilité d''échapper à tous les appels lents est 0,99¹⁰⁰.'
+  agregats:
+    options:
+      hist: 'Les tranches s''additionnent : le percentile de la somme est exact.'
+      avgp99: 'Moyenner des percentiles n''a aucun sens mathématique : on ne peut pas en déduire le p99 de l''ensemble.'
+      raw: C'est la méthode naïve, correcte tant que la fenêtre tient en mémoire.
+      avgp50: 'Même erreur : la médiane d''un ensemble n''est pas la moyenne des médianes de ses parties.'
+      closed: 'Un client qui attend chaque réponse garde artificiellement les files courtes : il faut envoyer en boucle ouverte.'
+  reglage:
+    goals:
+      ok: 'Même avec peu d''appels lents, 100 appels par requête amplifient beaucoup : baisse la proportion d''appels lents.'
+      besoin: Réduire le nombre d'appels sous 20 contourne le problème au lieu de le résoudre.

@@ -1,0 +1,3 @@
+**Un éclatement de page écrit plusieurs pages** : les deux moitiés et le parent. Si la machine s'arrête entre deux écritures, l'arbre est corrompu. La parade est le **write-ahead log** : on écrit d'abord **un seul batch** dans le journal (atomique), puis on applique les pages. Après un crash, la reprise **rejoue le journal** : l'opération est idempotente, donc un crash pendant la reprise ne casse rien.
+
+Le schéma montre la règle clé : l'application **ne modifie jamais directement** les pages, elle passe par le journal ; et l'arbre obtenu après 4 insertions avec 3 clés par page est une racine « 30 » et deux feuilles « 10 20 » et « 30 40 » (la plus petite clé de la moitié droite monte).

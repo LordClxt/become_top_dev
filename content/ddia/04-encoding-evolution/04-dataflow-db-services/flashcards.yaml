@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Les données survivent au code ?
+  back: Le code est remplacé en minutes ; les données d'une base restent dans l'encodage où elles ont été écrites.
+  concept: ddia-data-outlives-code
+- id: fc2
+  front: Piège du champ inconnu ?
+  back: L'ancien code qui décode en objets puis ré-encode perd les champs qu'il ne connaît pas.
+  concept: ddia-unknown-fields
+- id: fc3
+  front: Archive ?
+  back: 'Dump encodé avec le schéma le plus récent, immuable : Avro conteneur ou Parquet.'
+  concept: ddia-data-outlives-code
+- id: fc4
+  front: REST ?
+  back: 'Philosophie fondée sur HTTP : URL pour les ressources, formats simples, cache, authentification.'
+  concept: ddia-rest-vs-soap
+- id: fc5
+  front: SOAP ?
+  back: Protocole XML, WSDL, WS-*, très outillé ; en recul hors grandes entreprises.
+  concept: ddia-rest-vs-soap
+- id: fc6
+  front: Pourquoi le RPC trompe ?
+  back: Un appel réseau peut être perdu, expirer sans issue connue, être répété, varier en latence et traduire des types.
+  concept: ddia-rpc-problems
+- id: fc7
+  front: Idempotence ?
+  back: Rejouer l'opération n'a pas d'effet supplémentaire ; indispensable avec des nouvels essais.
+  concept: ddia-rpc-problems
+- id: fc8
+  front: Compatibilité d'un service ?
+  back: 'Serveurs avant clients : rétro sur les requêtes, ascendante sur les réponses ; API publique : plusieurs versions côte à côte.'
+  concept: ddia-service-evolution

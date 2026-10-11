@@ -1,0 +1,119 @@
+id: ddia-ch02-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce que l'amplification en écriture ?
+  choices:
+  - Une écriture dans la base provoque plusieurs écritures sur disque au fil de la vie des données
+  - La vitesse d'écriture d'un disque
+  - Le nombre de clés dupliquées
+  - Une erreur de checksum
+  answer: 0
+  explanation: On la mesure comme octets écrits sur disque / octets écrits par l'application.
+  concept: ddia-write-amplification
+  difficulty: 1
+- id: q2
+  type: code-output
+  prompt: 'Qu''affiche ce programme ? (amplification d''une mise à jour de 100 octets dans un B-tree : WAL + page de 4 096 octets)'
+  code: |
+    fmt.Printf("%.0f\n", float64(100+4096)/100)
+  answer: '42'
+  explanation: L'écriture d'une page entière pour quelques octets modifiés est le surcoût classique du B-tree.
+  concept: ddia-write-amplification
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Pourquoi l'amplification en écriture inquiète-t-elle surtout sur SSD ?
+  choices:
+  - Un SSD ne supporte qu'un nombre limité de réécritures d'un bloc avant de s'user
+  - Parce que les SSD sont lents en lecture
+  - Parce qu'ils n'ont pas de cache
+  - Parce qu'ils sont chers
+  answer: 0
+  explanation: Moins le moteur écrit, plus le disque dure et plus la bande passante sert aux requêtes.
+  concept: ddia-write-amplification
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Dans une application qui écrit beaucoup, quel est souvent le goulot ?
+  choices:
+  - Le débit d'écriture du disque
+  - Le processeur
+  - La mémoire
+  - Le réseau
+  answer: 0
+  explanation: Plus le moteur écrit par opération, moins d'opérations par seconde il soutient.
+  concept: ddia-write-amplification
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi les LSM-trees compressent-ils souvent mieux ?
+  choices:
+  - Ils ne sont pas orientés pages et réécrivent périodiquement leurs SSTables, donc moins de fragmentation
+  - Ils utilisent un algorithme secret
+  - Ils ne stockent que les clés
+  - Ils évitent la mémoire
+  answer: 0
+  explanation: Un B-tree laisse de l'espace inutilisé à chaque éclatement ou quand une ligne ne tient pas dans une page.
+  concept: ddia-lsm-advantages
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Quel inconvénient de la compaction touche les percentiles élevés ?
+  choices:
+  - Une requête peut attendre qu'une compaction coûteuse finisse, ce qui allonge la latence de queue
+  - La compaction supprime des données
+  - La compaction bloque tous les écrivains
+  - La compaction désactive le WAL
+  answer: 0
+  explanation: L'effet sur le débit et la latence moyenne est généralement faible ; c'est la queue de distribution qui souffre.
+  concept: ddia-compaction-interference
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Que se passe-t-il si la compaction ne suit pas le débit d'écriture ?
+  choices:
+  - Les segments non fusionnés s'accumulent jusqu'à saturer le disque et les lectures ralentissent
+  - Les écritures sont automatiquement ralenties
+  - Les données sont perdues immédiatement
+  - Rien
+  answer: 0
+  explanation: 'Les moteurs à SSTable ne freinent généralement pas les écritures : il faut une surveillance explicite.'
+  concept: ddia-compaction-interference
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pourquoi les B-trees plaisent-ils aux bases transactionnelles ?
+  choices:
+  - Chaque clé n'existe qu'à un seul endroit, donc on peut y attacher directement des verrous sur des intervalles de clés
+  - Ils n'ont pas de WAL
+  - Ils sont plus petits
+  - Ils ne fragmentent pas
+  answer: 0
+  explanation: Un LSM peut avoir plusieurs copies d'une clé dans des segments différents.
+  concept: ddia-btree-single-copy
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Quelle est la bonne conclusion sur « LSM = écriture, B-tree = lecture » ?
+  choices:
+  - 'C''est une règle de pouce : les benchmarks sont sensibles à la charge, il faut tester avec la sienne'
+  - C'est une loi
+  - C'est toujours faux
+  - C'est vrai seulement sur disque magnétique
+  answer: 0
+  explanation: Aucune règle simple et rapide pour choisir son moteur.
+  concept: ddia-measure-workload
+  difficulty: 1
+- id: q10
+  type: single
+  prompt: Pourquoi mesurer les percentiles et pas seulement la moyenne pour comparer deux moteurs ?
+  choices:
+  - Parce que les différences (compaction) apparaissent surtout dans la queue de distribution
+  - Parce que la moyenne est interdite
+  - Parce que les percentiles sont plus rapides à calculer
+  - Parce que seul le p50 compte
+  answer: 0
+  explanation: 'Rappel de la leçon sur les percentiles : la moyenne cache la latence de queue.'
+  concept: ddia-compaction-interference
+  difficulty: 2

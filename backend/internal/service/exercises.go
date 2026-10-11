@@ -93,6 +93,8 @@ type ExerciseView struct {
 	Source       *content.Source       `json:"source"`
 	Palette      []content.PaletteItem `json:"palette"`
 	Checks       []CheckView           `json:"checks"`
+	Worksheet    *content.Worksheet    `json:"worksheet"`
+	Debrief      string                `json:"debrief"` // dévoilé une fois l'exercice réussi
 	Workspace    Workspace             `json:"workspace"`
 }
 
@@ -109,11 +111,18 @@ func (s *Service) Exercise(ctx context.Context, id string) (*ExerciseView, error
 	for _, c := range ex.DiagramChecks {
 		checks = append(checks, CheckView{c.ID, c.Label})
 	}
+	if ex.Worksheet != nil {
+		checks = CheckViews(ex.Worksheet)
+	}
+	debrief := ""
+	if ws.Passed {
+		debrief = ex.Debrief
+	}
 	return &ExerciseView{
 		ID: ex.ID, Title: ex.Title, Role: ex.Role, Kind: ex.Kind, Language: ex.Language, Difficulty: ex.Difficulty,
 		XP: ex.XP, ChapterID: ex.ChapterID, LessonID: optional(ex.LessonID), Concepts: ex.Concepts,
 		Instructions: ex.Instructions, Milestones: ex.Milestones, Rubric: ex.Rubric, Source: ex.Source,
-		Palette: ex.Palette, Checks: checks, Workspace: *ws,
+		Palette: ex.Palette, Checks: checks, Worksheet: ex.Worksheet, Debrief: debrief, Workspace: *ws,
 	}, nil
 }
 
@@ -141,7 +150,8 @@ func (s *Service) workspace(ctx context.Context, ex *content.Exercise) (*Workspa
 			readonly[name] = body
 		}
 	}
-	if ex.Kind != "diagram" { // les règles d'un diagramme sont envoyées à part, lisibles (voir Checks)
+	// Les règles d'un diagramme et le spec d'une fiche sont envoyés à part (Checks, Worksheet) ; le corrigé jamais.
+	if ex.Kind != "diagram" && ex.Kind != "worksheet" {
 		tests, err := readDir(filepath.Join(ex.Path, "tests"))
 		if err != nil {
 			return nil, err
@@ -253,7 +263,8 @@ func (s *Service) RevealHint(ctx context.Context, id string) (*Hints, error) {
 
 type RunReport struct {
 	TestReport
-	XPAwarded int `json:"xp_awarded"`
+	XPAwarded int    `json:"xp_awarded"`
+	Debrief   string `json:"debrief"`
 }
 
 // Run exécute les tests sur le code soumis et enregistre la tentative.
@@ -266,11 +277,16 @@ func (s *Service) Run(ctx context.Context, id string, files map[string]string) (
 		return nil, err
 	}
 	var report TestReport
-	if ex.Kind == "diagram" {
+	switch ex.Kind {
+	case "diagram":
 		if report, err = checkDiagram(ex, files); err != nil {
 			return nil, err
 		}
-	} else {
+	case "worksheet":
+		if report, err = checkWorksheet(ex, files); err != nil {
+			return nil, err
+		}
+	default:
 		starter, err := readDir(filepath.Join(ex.Path, "starter"))
 		if err != nil {
 			return nil, err
@@ -309,7 +325,42 @@ func (s *Service) Run(ctx context.Context, id string, files map[string]string) (
 	if err != nil {
 		return nil, err
 	}
-	return &RunReport{TestReport: report, XPAwarded: xp}, nil
+	debrief := ""
+	if report.Passed {
+		debrief = ex.Debrief
+	}
+	return &RunReport{TestReport: report, XPAwarded: xp, Debrief: debrief}, nil
+}
+
+// checkWorksheet : une fiche ne s'exécute pas, on corrige ses réponses sans passer par le runner.
+func checkWorksheet(ex *content.Exercise, files map[string]string) (TestReport, error) {
+	started := time.Now()
+	answers, err := ParseAnswers(files["answers.json"])
+	if err != nil {
+		return TestReport{}, errorf(Invalid, "%s", err)
+	}
+	report := EvaluateWorksheet(specOf(ex), answers)
+	report.DurationMs = time.Since(started).Milliseconds()
+	return report, nil
+}
+
+// Preview calcule les métriques en direct des tuners d'une fiche, sans compter de tentative ni d'XP.
+func (s *Service) Preview(_ context.Context, id string, files map[string]string) (map[string]TunerPreview, error) {
+	ex, err := s.exercise(id)
+	if err != nil {
+		return nil, err
+	}
+	if ex.Worksheet == nil {
+		return nil, errorf(Invalid, "cet exercice n'a pas de calcul en direct")
+	}
+	if err := editableOnly(ex, files); err != nil {
+		return nil, err
+	}
+	answers, err := ParseAnswers(files["answers.json"])
+	if err != nil {
+		return nil, errorf(Invalid, "%s", err)
+	}
+	return PreviewWorksheet(ex.Worksheet, answers), nil
 }
 
 // checkDiagram : un diagramme ne s'exécute pas, on vérifie ses règles sans passer par le runner.

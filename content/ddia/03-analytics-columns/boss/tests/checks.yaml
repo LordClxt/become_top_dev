@@ -1,0 +1,94 @@
+checks:
+- id: tx
+  label: Les caisses écrivent dans la base transactionnelle
+  rule: edge_kind
+  source: shop
+  target: oltp
+  kind: write
+- id: protect
+  label: L'analyste ne touche jamais à la base de production
+  rule: no_edge
+  source: analyst
+  target: oltp
+- id: extract
+  label: L'ETL lit la production
+  rule: edge_kind
+  source: etl
+  target: oltp
+  kind: read
+- id: load
+  label: L'ETL charge les écritures récentes de l'entrepôt
+  rule: edge_kind
+  source: etl
+  target: mem
+  kind: write
+- id: z-mem
+  label: Les écritures récentes vivent dans l'entrepôt
+  rule: in_zone
+  source: mem
+  target: wh
+- id: z-date
+  label: La copie triée par date vit dans l'entrepôt
+  rule: in_zone
+  source: bydate
+  target: wh
+- id: z-prod
+  label: La copie triée par produit vit dans l'entrepôt
+  rule: in_zone
+  source: byproduct
+  target: wh
+- id: merge-date
+  label: La mémoire est fusionnée en bloc dans la copie par date
+  rule: edge_kind
+  source: mem
+  target: bydate
+  kind: write
+- id: merge-prod
+  label: …et dans la copie par produit
+  rule: edge_kind
+  source: mem
+  target: byproduct
+  kind: write
+- id: cube-feed
+  label: Le cube est alimenté depuis les colonnes triées par date
+  rule: edge_kind
+  source: bydate
+  target: cube
+  kind: write
+- id: ask-cols
+  label: L'analyste interroge les colonnes de l'entrepôt
+  rule: edge_kind
+  source: analyst
+  target: bydate
+  kind: read
+- id: ask-recent
+  label: …y compris les écritures récentes en mémoire
+  rule: edge_kind
+  source: analyst
+  target: mem
+  kind: read
+- id: ask-cube
+  label: …et le cube pour les questions courantes
+  rule: edge_kind
+  source: analyst
+  target: cube
+  kind: read
+- id: one-cube
+  label: Un seul cube
+  rule: count
+  source: cube
+  min: 1
+  max: 1
+- id: no-cache
+  label: 'Pas de cache Redis : ce n''est pas un système transactionnel'
+  rule: count
+  source: redis
+  max: 0
+- id: no-doc
+  label: Pas de base de documents dans l'entrepôt relationnel
+  rule: count
+  source: doc
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

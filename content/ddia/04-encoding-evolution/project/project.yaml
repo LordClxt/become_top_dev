@@ -1,0 +1,14 @@
+id: ddia-ch04-project
+title: "Tinybase — le codec binaire"
+pitch: "Tinybase doit échanger des enregistrements avec des versions anciennes et nouvelles de lui-même : un codec à numéros de champ, des entiers de longueur variable, et une mise à jour qui préserve ce qu'un ancien code ne connaît pas."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 220
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["codec.go"]
+concepts: [ddia-varint, ddia-field-tags, ddia-unknown-fields, ddia-protobuf-evolution]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

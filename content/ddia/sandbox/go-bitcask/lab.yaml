@@ -1,0 +1,12 @@
+id: ddia-ch02-l01-lab-bitcask
+title: "TP Go : Un mini Bitcask : log, index de hachage, reprise et compaction"
+kind: code
+language: go
+difficulty: 3
+xp: 80
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["bitcask.go"]
+concepts: [ddia-log-append-only, ddia-hash-index, ddia-segments-compaction, ddia-tombstone-recovery]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

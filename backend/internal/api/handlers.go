@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"btd/backend/internal/content"
 	"btd/backend/internal/service"
 )
 
@@ -80,6 +81,18 @@ func (s *Server) run(w http.ResponseWriter, r *http.Request) {
 		v, err := s.svc.Run(r.Context(), r.PathValue("id"), files)
 		respond(w, v, err)
 	}
+}
+
+func (s *Server) preview(w http.ResponseWriter, r *http.Request) {
+	if files, ok := readFiles(w, r); ok {
+		v, err := s.svc.Preview(r.Context(), r.PathValue("id"), files)
+		respond(w, v, err)
+	}
+}
+
+func (s *Server) diagramCatalog(w http.ResponseWriter, _ *http.Request) {
+	v, err := content.DiagramCatalog()
+	respond(w, v, err)
 }
 
 // --- Quiz --------------------------------------------------------------------

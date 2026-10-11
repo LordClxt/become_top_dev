@@ -1,0 +1,3 @@
+**Un graphe de propriétés, c'est des sommets et des arêtes étiquetées.** Rien ne force les lieux à être des « villes » ou des « pays » : la granularité varie (Lucy est née dans un *état*, Alain dans une *ville*), et une seule étiquette, `within`, suffit à emboîter n'importe quel niveau.
+
+C'est ce qui rend la requête « qui est né aux États-Unis et vit en Europe ? » naturelle : il faut suivre `within` **zéro fois ou plus** depuis le lieu de naissance. En Cypher : `(person) -[:BORN_IN]-> () -[:WITHIN*0..]-> (us)`. Le nombre de sauts n'est pas connu d'avance, et c'est exactement ce qu'une jointure SQL classique ne sait pas exprimer sans `WITH RECURSIVE`.

@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Numéro de champ (tag) ?
+  back: Alias numérique du champ dans les octets ; remplace le nom.
+  concept: ddia-field-tags
+- id: fc2
+  front: Règle d'or des numéros ?
+  back: Renommer, oui ; changer un numéro ou en réutiliser un, jamais.
+  concept: ddia-field-tags
+- id: fc3
+  front: Ajouter un champ ?
+  back: Nouveau numéro, optionnel ou avec valeur par défaut ; l'ancien code ignore les numéros inconnus.
+  concept: ddia-protobuf-evolution
+- id: fc4
+  front: Retirer un champ ?
+  back: Uniquement un optionnel ; son numéro est retiré à jamais.
+  concept: ddia-protobuf-evolution
+- id: fc5
+  front: Entier de longueur variable ?
+  back: '1 octet pour −64 à 63, 2 octets pour −8 192 à 8 191, etc. : le bit de poids fort signale qu''un octet suit.'
+  concept: ddia-varint
+- id: fc6
+  front: Tailles de l'exemple ?
+  back: JSON 81 · MessagePack 66 · Thrift binaire 59 · Thrift compact 34 · protobuf 33 · Avro 32 octets.
+  concept: ddia-schema-binary-encoding
+- id: fc7
+  front: repeated ?
+  back: Même numéro de champ répété ; permet de passer d'une valeur à une liste ; l'ancien code lit le dernier élément.
+  concept: ddia-repeated-field
+- id: fc8
+  front: Changer le type d'un champ ?
+  back: 'Risque de perte de précision ou de troncature (32 → 64 bits : l''ancien code tronque).'
+  concept: ddia-protobuf-evolution

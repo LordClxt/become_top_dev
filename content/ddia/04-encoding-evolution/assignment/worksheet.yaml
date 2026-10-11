@@ -1,0 +1,103 @@
+intro: |2
+
+  Ton équipe échange des profils `{id: 300, name: "Ada"}` entre services, pendant des mises à jour progressives. Tu compares les encodages, tu vérifies des évolutions de schéma, et tu règles une stratégie de déploiement.
+
+  Rappels : en **JSON compact** le profil s'écrit `{"id":300,"name":"Ada"}`. En **MessagePack** : en-tête d'objet (1 octet), chaque nom de champ = 1 octet de type + sa longueur, un entier 300 = 1 octet de type + 2 octets, une chaîne = 1 octet de type + sa longueur. En **Protocol Buffers** : un octet d'en-tête (numéro + type) par champ, 300 sur 2 octets (entier de longueur variable), une chaîne = longueur (1 octet) + ses octets. En **Avro** : aucun en-tête ; 300 sur 2 octets, une chaîne = longueur (1 octet) + ses octets.
+blocks:
+- id: tailles
+  type: table
+  title: La taille du profil
+  prompt: 'Combien d''octets pour `{id: 300, name: "Ada"}` ?'
+  columns:
+  - id: n
+    label: Octets
+  rows:
+  - id: json
+    label: JSON compact
+  - id: mp
+    label: MessagePack
+  - id: pb
+    label: Protocol Buffers
+  - id: avro
+    label: Avro
+- id: gain
+  type: number
+  title: Le gain d'Avro
+  prompt: Combien de fois moins gros qu'en JSON est le profil Avro (6 octets contre 23) ? Réponds avec une décimale.
+  unit: ×
+- id: proto
+  type: match
+  title: Faire évoluer le schéma Protobuf
+  prompt: Le message `Profile { int64 id = 1; string name = 2; }` est en production. Chaque modification est-elle sûre ?
+  items:
+  - id: rename
+    label: Renommer `name` en `full_name` (même numéro 2)
+  - id: addopt
+    label: Ajouter `optional string email = 3`
+  - id: addreq
+    label: Ajouter `required string email = 3`
+  - id: renum
+    label: Passer `name` du numéro 2 au numéro 3
+  - id: reuse
+    label: Retirer `name`, puis attribuer le numéro 2 à `email`
+  categories:
+  - id: ok
+    label: Sûr
+  - id: break
+    label: Casse des données
+- id: avro
+  type: match
+  title: Faire évoluer le schéma Avro
+  prompt: Pour chaque changement du schéma Avro, quelle compatibilité est conservée ?
+  items:
+  - id: add
+    label: Ajouter `email` avec défaut `""`
+  - id: addnodef
+    label: Ajouter `email` sans défaut
+  - id: rmnodef
+    label: Retirer `name` (sans défaut)
+  categories:
+  - id: both
+    label: Les deux sens
+  - id: back
+    label: Rétrocompatible seulement
+  - id: fwd
+    label: Ascendante seulement
+- id: upgrade
+  type: order
+  title: Ajouter un champ sans interruption
+  prompt: Remets dans l'ordre le déploiement d'un nouveau champ optionnel `email` écrit par la version 2.
+  items:
+  - id: schema
+    label: Publier le schéma v2 dans le registre et vérifier sa compatibilité
+  - id: readers
+    label: Déployer d'abord les lecteurs capables de lire (et d'ignorer) le champ
+  - id: writers
+    label: Déployer ensuite les écrivains qui renseignent le champ
+  - id: clean
+    label: Seulement après, rendre le champ obligatoire dans le code applicatif
+- id: js
+  type: choice
+  title: Un identifiant 64 bits
+  prompt: Ton API JSON renvoie l'identifiant d'un objet sur 64 bits à des clients JavaScript. Que faire ?
+  options:
+  - id: string
+    label: L'envoyer aussi en chaîne décimale, car les nombres au-delà de 2⁵³ perdent leur exactitude
+    hint: Comme le fait l'API de Twitter
+  - id: number
+    label: 'Le laisser en nombre JSON : JavaScript le gère'
+  - id: float
+    label: Le convertir en flottant
+- id: retry
+  type: multi
+  title: Avant de réessayer un appel
+  prompt: Quelles précautions s'imposent pour réessayer un appel réseau sans danger ?
+  options:
+  - id: idem
+    label: Rendre l'opération idempotente (clé de déduplication)
+  - id: timeout
+    label: 'Fixer un délai maximum : un délai dépassé laisse une issue inconnue'
+  - id: local
+    label: Traiter l'appel comme un appel de fonction local
+  - id: backoff
+    label: Prévoir qu'une réponse perdue ne prouve pas que l'action n'a pas eu lieu

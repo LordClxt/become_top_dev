@@ -1,0 +1,103 @@
+intro: |2
+
+  Tu déroules un évaluateur **Datalog** jusqu'au **point fixe**. Faits de départ :
+
+  ```
+  within(paris, france)   within(lyon, france)   within(france, europe)
+  within(idaho, usa)      within(usa, namerica)
+  born(lucy, idaho)       lives(lucy, paris)
+  ```
+
+  Deux règles :
+
+  ```
+  in(X, Y) :- within(X, Y).
+  in(X, Z) :- within(X, Y), in(Y, Z).
+  ```
+
+  À chaque tour, on applique toutes les règles à tous les faits connus et on ajoute les **faits nouveaux**.
+blocks:
+- id: tours
+  type: table
+  title: Les tours d'évaluation
+  prompt: Combien de faits `in(…)` **nouveaux** chaque tour produit-il ? Le tour 1 applique la première règle, les suivants la seconde.
+  columns:
+  - id: new
+    label: Faits nouveaux
+  rows:
+  - id: t1
+    label: Tour 1
+  - id: t2
+    label: Tour 2
+  - id: t3
+    label: Tour 3
+- id: europe
+  type: multi
+  title: La requête `in(X, europe)`
+  prompt: Quelles valeurs de `X` satisfont la requête une fois le point fixe atteint ?
+  options:
+  - id: paris
+    label: paris
+  - id: lyon
+    label: lyon
+  - id: france
+    label: france
+  - id: idaho
+    label: idaho
+  - id: usa
+    label: usa
+- id: migrants
+  type: number
+  title: Les migrants
+  prompt: 'Règle : `migrant(P) :- born(P, B), in(B, namerica), lives(P, L), in(L, europe).` Combien de personnes `P` satisfont `migrant(P)` ?'
+  unit: personnes
+- id: total
+  type: number
+  title: Le nombre total de faits `in`
+  prompt: Combien de faits `in(…)` existent au point fixe ?
+  unit: faits
+- id: unsafe
+  type: choice
+  title: Une règle non sûre
+  prompt: Que fait l'évaluateur de `bad(X) :- within(paris, france).` ? (la variable `X` de la tête n'apparaît pas dans le corps)
+  options:
+  - id: ignore
+    label: 'Il l''ignore : sans valeur pour X, la règle produirait une infinité de faits possibles'
+    hint: Règle non sûre
+  - id: all
+    label: Il génère `bad(c)` pour chaque constante connue
+  - id: fail
+    label: Il renvoie une erreur de syntaxe
+- id: steps
+  type: order
+  title: Résoudre le corps d'une règle
+  prompt: Remets dans l'ordre le calcul de `in(X, Z) :- within(X, Y), in(Y, Z).`
+  items:
+  - id: first
+    label: 'Trouver les faits `within(X, Y)` : première liaison de X et Y'
+  - id: second
+    label: Pour chaque liaison, chercher les faits `in(Y, Z)` avec la même valeur de Y
+  - id: head
+    label: Construire la tête `in(X, Z)` avec les liaisons obtenues
+  - id: dedup
+    label: Ajouter le fait seulement s'il est nouveau
+  - id: loop
+    label: Recommencer jusqu'à ce qu'aucun fait nouveau n'apparaisse
+- id: rec
+  type: match
+  title: Faut-il de la récursion ?
+  prompt: Chaque besoin demande-t-il une règle récursive ?
+  items:
+  - id: p1
+    label: Les parents directs d'une personne
+  - id: p2
+    label: Tous les ancêtres d'une personne
+  - id: p3
+    label: Toutes les villes situées dans un pays, sur plusieurs niveaux d'imbrication
+  - id: p4
+    label: Les personnes nées dans une ville donnée
+  categories:
+  - id: flat
+    label: Un motif simple suffit
+  - id: rec
+    label: Il faut une règle récursive

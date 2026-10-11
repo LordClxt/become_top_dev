@@ -22,6 +22,11 @@ if [[ "$(field kind)" == "diagram" ]]; then
   repo_root="$(cd "$(dirname "$0")/../../../.." && pwd)"
   cd "$repo_root/backend" && exec go run ./cmd/btd verify-diagram "$lab_dir"
 fi
+# Fiche interactive : les réponses de référence sont corrigées par le backend, sans exécuter de code.
+if [[ "$(field kind)" == "worksheet" ]]; then
+  repo_root="$(cd "$(dirname "$0")/../../../.." && pwd)"
+  cd "$repo_root/backend" && exec go run ./cmd/btd verify-worksheet "$lab_dir"
+fi
 language="$(field language)"
 test_command="$(field test_command)"
 timeout_s="$(field timeout_s)"; timeout_s="${timeout_s:-30}"

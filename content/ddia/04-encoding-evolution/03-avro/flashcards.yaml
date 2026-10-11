@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Avro en une phrase ?
+  back: 'Encodage binaire sans numéros de champ ni types dans les octets : valeurs concaténées dans l''ordre du schéma (32 octets).'
+  concept: ddia-avro-no-tags
+- id: fc2
+  front: Schéma de l'écrivain / du lecteur ?
+  back: 'Écrivain : celui qui a encodé. Lecteur : celui qu''attend le code qui décode. Compatibles, pas identiques.'
+  concept: ddia-writer-reader-schema
+- id: fc3
+  front: Résolution Avro ?
+  back: Champs appariés par nom ; champ inconnu du lecteur ignoré ; champ manquant rempli par le défaut du lecteur.
+  concept: ddia-avro-resolution
+- id: fc4
+  front: Règle d'évolution Avro ?
+  back: N'ajouter ou ne retirer qu'un champ ayant une valeur par défaut.
+  concept: ddia-avro-evolution-rules
+- id: fc5
+  front: Null en Avro ?
+  back: Via un type union { null, … } ; défaut null seulement si null est la première branche.
+  concept: ddia-avro-evolution-rules
+- id: fc6
+  front: Renommer un champ Avro ?
+  back: 'Alias dans le schéma du lecteur : rétrocompatible, pas ascendant ; idem pour une nouvelle branche d''union.'
+  concept: ddia-avro-evolution-rules
+- id: fc7
+  front: Retrouver le schéma de l'écrivain ?
+  back: 'Fichier : en tête. Base : numéro de version par enregistrement. Connexion : négociation à l''ouverture.'
+  concept: ddia-schema-registry
+- id: fc8
+  front: Atouts des schémas ?
+  back: Compacts, documentation toujours à jour, compatibilité vérifiable avant déploiement, code généré typé.
+  concept: ddia-merits-of-schemas
