@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: OLTP en une phrase ?
+  back: Peu d'enregistrements par requête, trouvés par clé, écritures aléatoires à faible latence, état courant.
+  concept: ddia-oltp
+- id: fc2
+  front: OLAP en une phrase ?
+  back: Agrégats sur énormément d'enregistrements, quelques colonnes lues, historique, import en masse.
+  concept: ddia-olap
+- id: fc3
+  front: Qui utilise OLTP, qui utilise OLAP ?
+  back: 'OLTP : l''utilisateur final via une application web. OLAP : un analyste interne pour l''aide à la décision.'
+  concept: ddia-olap
+- id: fc4
+  front: Volumes typiques OLTP et OLAP ?
+  back: 'OLTP : gigaoctets à téraoctets. OLAP : téraoctets à pétaoctets.'
+  concept: ddia-olap
+- id: fc5
+  front: Entrepôt de données ?
+  back: Base séparée, lecture seule, copie des bases transactionnelles, optimisée pour l'analyse.
+  concept: ddia-data-warehouse
+- id: fc6
+  front: Pourquoi ne pas analyser en production ?
+  back: Les requêtes d'analyse balayent beaucoup de données et peuvent ralentir les transactions.
+  concept: ddia-data-warehouse
+- id: fc7
+  front: ETL ?
+  back: Extract (export ou flux), Transform (schéma d'analyse, nettoyage), Load (chargement dans l'entrepôt).
+  concept: ddia-etl
+- id: fc8
+  front: Qui n'a pas d'entrepôt ?
+  back: 'Les petites entreprises : peu de systèmes, peu de données, une base SQL ou un tableur suffit.'
+  concept: ddia-data-warehouse

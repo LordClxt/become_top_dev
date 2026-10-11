@@ -1,0 +1,1 @@
+Fais les comptes de fiabilité de cette API : dans chaque bloc, réponds, puis clique sur **Vérifier mes réponses**. Chaque erreur est expliquée. Les calculs se font à la main ou à la calculatrice ; le dernier bloc se règle avec des curseurs.

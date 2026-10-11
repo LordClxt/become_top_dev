@@ -1,0 +1,110 @@
+id: ddia-ch03-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quel profil d'accès décrit l'OLTP ?
+  choices:
+  - Peu d'enregistrements par requête, trouvés par clé, écritures à faible latence
+  - Agrégats sur des milliards de lignes
+  - Traitement par lots une fois par jour
+  - Lecture seule exclusivement
+  answer: 0
+  explanation: L'application interactive cherche quelques enregistrements via un index et les met à jour selon l'action de l'utilisateur.
+  concept: ddia-oltp
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quel profil d'accès décrit l'OLAP ?
+  choices:
+  - Agrégats sur un très grand nombre d'enregistrements, quelques colonnes lues
+  - Une lecture par clé à la milliseconde
+  - Écritures aléatoires de l'utilisateur
+  - Mises à jour sur place de pages
+  answer: 0
+  explanation: Une requête analytique balaie énormément de lignes mais n'en lit que quelques colonnes, pour renvoyer un agrégat.
+  concept: ddia-olap
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que représentent les données d'un système OLAP ?
+  choices:
+  - L'historique des événements survenus
+  - Seulement l'état courant
+  - Uniquement des index
+  - Des sessions utilisateur
+  answer: 0
+  explanation: Les systèmes transactionnels gardent l'état courant ; l'entrepôt garde l'historique.
+  concept: ddia-olap
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Pourquoi séparer un entrepôt de données de la production ?
+  choices:
+  - Une requête d'analyse coûteuse pourrait ralentir les transactions, et l'entrepôt peut être optimisé pour l'analyse
+  - SQL ne marche pas en production
+  - Les entrepôts sont toujours gratuits
+  - La production n'accepte pas de lectures
+  answer: 0
+  explanation: 'Deux raisons : protéger la production et pouvoir choisir un moteur de stockage adapté aux balayages.'
+  concept: ddia-data-warehouse
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Que contient un entrepôt de données ?
+  choices:
+  - Une copie en lecture seule des données de tous les systèmes transactionnels
+  - Uniquement des agrégats
+  - Le code des applications
+  - Des écritures des utilisateurs en temps réel
+  answer: 0
+  explanation: Il centralise une copie lisible des dizaines de bases de l'entreprise.
+  concept: ddia-data-warehouse
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Que signifie ETL ?
+  choices:
+  - Extract, Transform, Load
+  - Execute, Test, Launch
+  - Encode, Transfer, Lock
+  - Evaluate, Tune, Log
+  answer: 0
+  explanation: On extrait les données de production, on les transforme vers un schéma d'analyse et on les charge.
+  concept: ddia-etl
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: D'où peuvent venir les données extraites par l'ETL ?
+  choices:
+  - D'un export périodique ou d'un flux continu de mises à jour
+  - Uniquement d'un export papier
+  - Des journaux du navigateur seulement
+  - D'un autre entrepôt exclusivement
+  answer: 0
+  explanation: 'Les deux modes existent : dump périodique ou flux de changements.'
+  concept: ddia-etl
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Dans le contexte OLTP, que veut dire « transaction » ?
+  choices:
+  - Un accès interactif à faible latence ; pas forcément ACID
+  - Toujours une opération ACID
+  - Un paiement bancaire
+  - Un traitement par lots
+  answer: 0
+  explanation: Le mot est resté des premières bases commerciales ; il désigne un groupe de lectures et d'écritures formant une unité logique.
+  concept: ddia-oltp
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Le modèle de données d'un entrepôt est le plus souvent…
+  choices:
+  - Relationnel, avec une interface SQL
+  - Documentaire, sans schéma
+  - Graphe de propriétés
+  - Clé-valeur pur
+  answer: 0
+  explanation: SQL convient bien à l'analyse et de nombreux outils graphiques génèrent du SQL.
+  concept: ddia-data-warehouse
+  difficulty: 1

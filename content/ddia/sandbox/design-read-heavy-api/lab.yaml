@@ -1,0 +1,66 @@
+id: ddia-sandbox-read-heavy-api
+title: 'Une API très lue : cache, réplica et file'
+difficulty: 4
+xp: 100
+concepts:
+- ddia-load-parameters
+- ddia-fan-out
+- ddia-hybrid-approach
+- ddia-write-amplification
+source:
+  chapter: 1
+  pages: 32-35
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: browser
+  component: browser
+  label: Navigateur
+- type: cdn
+  component: cdn
+  label: CDN
+- type: lb
+  component: load-balancer
+  label: Load balancer
+- type: gateway
+  component: gateway
+  label: API gateway
+- type: service
+  component: service
+  label: Service
+- type: worker
+  component: worker
+  label: Worker
+- type: redis
+  component: redis
+  label: Redis
+- type: memcached
+  component: memcached
+  label: Memcached
+- type: pg
+  component: postgres
+  label: PostgreSQL
+- type: mongo
+  component: mongo
+  label: MongoDB
+- type: search
+  component: search
+  label: Recherche
+- type: queue
+  component: queue
+  label: File de messages
+- type: kafka
+  component: kafka
+  label: Kafka
+- type: email
+  component: email
+  label: E-mail
+- type: store
+  component: object-store
+  label: Stockage objet
+- type: zone
+  component: zone
+  label: Zone
+verified: { at: 2026-10-11, solution: pass, starter: fail }

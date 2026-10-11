@@ -1,0 +1,27 @@
+blocks:
+  naive:
+    tolerance:
+      rel: 0.001
+    wrong: 50 lectures de documents + 50 × 2 lectures de références = 150.
+  batch:
+    tolerance:
+      rel: 0.001
+    wrong: 1 requête pour les documents, puis 1 pour les auteurs, 1 pour les organisations.
+  temps:
+    options:
+      naive.ms: 150 requêtes × 3 ms.
+      batch.ms: 3 requêtes × 3 ms.
+  distinct:
+    options:
+      authors.n: 'Il faut dédupliquer : 50 recommandations citent 20 auteurs distincts, pas 50.'
+      orgs.n: '5 organisations distinctes : on ne redemande pas la même.'
+  steps:
+    options:
+      collect: On ne peut collecter qu'après avoir lu les documents.
+      replace: Le remplacement vient en dernier, sur une copie pour ne pas modifier les documents lus.
+  shape:
+    options:
+      addr: 'Une donnée qui ne vit que dans un document s''embarque : une seule lecture suffit.'
+      org: 'Une donnée partagée par beaucoup de documents se référence : la mettre à jour une seule fois.'
+      jobs: 'Une liste qui appartient au CV se lit toujours avec lui : embarque-la.'
+      author: Dupliquer l'auteur dans des milliers de documents rend chaque modification coûteuse.

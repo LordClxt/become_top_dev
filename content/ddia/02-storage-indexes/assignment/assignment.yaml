@@ -1,0 +1,17 @@
+id: ddia-ch02-assignment
+title: Suivre un LSM-tree pas à pas
+difficulty: 3
+xp: 120
+concepts:
+- ddia-lsm-tree
+- ddia-memtable-wal
+- ddia-sstable
+- ddia-tombstone-recovery
+source:
+  chapter: 3
+  pages: 75-82
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

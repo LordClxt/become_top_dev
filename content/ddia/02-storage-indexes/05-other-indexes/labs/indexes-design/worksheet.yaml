@@ -1,0 +1,70 @@
+intro: Un annuaire de personnes (`nom`, `prénom`, `ville`, `téléphone`). Tu choisis des index, et tu mesures ce qu'ils t'apportent ou te coûtent.
+blocks:
+- id: prefixe
+  type: table
+  title: L'index concaténé (nom, prénom, ville)
+  prompt: Un index concaténé ne sert que par **préfixe de colonnes**. Pour chaque requête (égalités), combien de colonnes de l'index sont réellement
+    utilisables ?
+  columns:
+  - id: n
+    label: Colonnes utilisées
+  rows:
+  - id: q1
+    label: nom = Dupont
+  - id: q2
+    label: nom = Dupont et prénom = Marie
+  - id: q3
+    label: prénom = Marie
+  - id: q4
+    label: nom = Dupont et ville = Lyon
+- id: types
+  type: match
+  title: Chaque besoin son index
+  prompt: Quel type d'index répond à chaque besoin ?
+  items:
+  - id: carte
+    label: Les restaurants dont latitude et longitude tombent dans la zone d'une carte
+  - id: couvrant
+    label: Répondre à une requête sans lire la ligne de la table
+  - id: secondaire
+    label: Retrouver toutes les lignes d'une même ville (valeur non unique)
+  - id: clustered
+    label: Stocker la ligne entière dans l'index pour éviter un saut vers le heap
+  - id: flou
+    label: Chercher des mots proches malgré une faute de frappe
+  categories:
+  - id: rtree
+    label: Multidimensionnel (R-tree)
+  - id: cover
+    label: Index couvrant
+  - id: sec
+    label: Index secondaire
+  - id: clus
+    label: Index clustered
+  - id: fuzzy
+    label: Recherche floue
+- id: cout
+  type: multi
+  title: Le coût d'un index de plus
+  prompt: Coche ce qu'un index secondaire supplémentaire entraîne réellement.
+  options:
+  - id: ecriture
+    label: Chaque écriture doit aussi le mettre à jour
+  - id: espace
+    label: Il occupe de la place sur disque ou en mémoire
+  - id: toutes
+    label: Il accélère toutes les requêtes
+  - id: lectures
+    label: Il ralentit les lectures
+- id: memoire
+  type: choice
+  title: Pourquoi une base en mémoire est-elle rapide ?
+  prompt: Une base en mémoire (VoltDB, Redis…) bat souvent une base sur disque. Pour quelle raison principale ?
+  options:
+  - id: disque
+    label: Parce qu'elle n'a jamais besoin de lire le disque
+    hint: Un moteur sur disque non plus, si tout tient en cache OS
+  - id: encodage
+    label: Parce qu'elle évite d'encoder ses structures dans un format écrivable sur disque
+  - id: index
+    label: Parce qu'elle n'utilise aucun index

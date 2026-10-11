@@ -1,0 +1,12 @@
+id: ddia-ch02-l02-lab-sstable
+title: "TP Go : Fusionner des SSTables et chercher avec un index creux"
+kind: code
+language: go
+difficulty: 3
+xp: 75
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["sstable.go"]
+concepts: [ddia-sstable, ddia-merge-sorted, ddia-sparse-index]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

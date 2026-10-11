@@ -1,0 +1,17 @@
+id: ddia-ch04-l01-lab-compat-design
+title: 'Qui lit quoi : compatibilité et formats'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-backward-forward
+- ddia-rolling-upgrade
+- ddia-textual-formats
+- ddia-language-specific-formats
+source:
+  chapter: 4
+  pages: 111-116
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

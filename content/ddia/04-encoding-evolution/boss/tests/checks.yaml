@@ -1,0 +1,84 @@
+checks:
+- id: entry
+  label: Les clients entrent par l'API gateway
+  rule: edge_kind
+  source: app
+  target: gw
+  kind: sync
+- id: old
+  label: La gateway route vers l'ancienne version
+  rule: edge_kind
+  source: gw
+  target: v1
+  kind: sync
+- id: new
+  label: '…et vers la nouvelle : les deux coexistent'
+  rule: edge_kind
+  source: gw
+  target: v2
+  kind: sync
+- id: shared
+  label: Les deux versions écrivent dans la même base (les données survivent au code)
+  rule: edge_kind
+  source: v1
+  target: db
+  kind: write
+- id: shared2
+  label: …la nouvelle aussi
+  rule: edge_kind
+  source: v2
+  target: db
+  kind: write
+- id: one-db
+  label: Une seule base partagée
+  rule: count
+  source: db
+  min: 1
+  max: 1
+- id: publish
+  label: La nouvelle version publie ses événements sur un sujet
+  rule: edge_kind
+  source: v2
+  target: topic
+  kind: async
+- id: deliver
+  label: Le broker livre au consommateur analytique
+  rule: edge_kind
+  source: topic
+  target: analytics
+  kind: async
+- id: decoupled
+  label: L'émetteur n'appelle pas le consommateur directement
+  rule: no_edge
+  source: v2
+  target: analytics
+- id: reg-writer
+  label: L'émetteur consulte le registre de schémas
+  rule: edge_kind
+  source: v2
+  target: registry
+  kind: read
+- id: reg-reader
+  label: Le consommateur aussi
+  rule: edge_kind
+  source: analytics
+  target: registry
+  kind: read
+- id: archive
+  label: La base est exportée vers une archive en colonnes
+  rule: path
+  source: db
+  target: archive
+- id: no-lang
+  label: Pas de format propre à un langage
+  rule: count
+  source: pickle
+  max: 0
+- id: no-coupling
+  label: Pas d'appel synchrone fragile entre services
+  rule: count
+  source: direct
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

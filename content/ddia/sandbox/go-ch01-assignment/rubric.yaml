@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.6
+    source: tests
+  - id: batching
+    label: "Regroupement des lectures"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Expand lit les documents en une requête, puis une requête par champ de référence sur les identifiants distincts ; aucune requête dans une boucle sur les documents"
+      2: "Réduit le nombre de requêtes mais sans dédupliquer les identifiants, ou avec une requête par document pour un des champs"
+      0: "Reste en N+1"
+  - id: clarity
+    label: "Clarté et partage du code"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "La logique de copie et de remplacement est lisible, sans mutation des documents stockés, et les cas limites (absent, non chaîne) sont traités explicitement"
+      2: "Correct mais avec de la duplication entre Expand et ExpandNaive ou des cas limites implicites"
+      0: "Difficile à suivre ou mutations des documents stockés"

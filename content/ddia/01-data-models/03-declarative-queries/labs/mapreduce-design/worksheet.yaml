@@ -1,0 +1,72 @@
+intro: 'Un biologiste marin note chaque observation : `(date, famille, espèce, nombre)`. Il veut le **nombre de requins observés par mois**. Voici
+  ses quatre notes : `1995-12-25 Sharks 3`, `1995-12-12 Sharks 4`, `1996-01-02 Sharks 2`, `1995-12-30 Whales 9`. Tu exécutes MapReduce sur papier,
+  avec le filtre `family = Sharks`.'
+blocks:
+- id: map
+  type: table
+  title: Ce que `map` émet
+  prompt: '`map` est appelée **une fois par document retenu** et émet une paire `(mois, nombre)`. La note sur les baleines est écartée par le
+    filtre.'
+  columns:
+  - id: cle
+    label: Clé émise
+  - id: val
+    label: Valeur émise
+  rows:
+  - id: d1
+    label: 1995-12-25 Sharks 3
+  - id: d2
+    label: 1995-12-12 Sharks 4
+  - id: d3
+    label: 1996-01-02 Sharks 2
+- id: reduce
+  type: table
+  title: Ce que `reduce` renvoie
+  prompt: Le framework regroupe les paires par clé. `reduce` additionne les valeurs de chaque groupe.
+  columns:
+  - id: total
+    label: Total
+  rows:
+  - id: dec
+    label: 1995-12
+  - id: jan
+    label: 1996-01
+- id: appels
+  type: number
+  title: Combien d'appels à `reduce` ?
+  prompt: Combien de fois `reduce` est-elle appelée sur cet exemple ?
+  unit: appels
+- id: pure
+  type: multi
+  title: Ce qu'une fonction `map` peut faire
+  prompt: '`map` et `reduce` doivent être **pures** : le framework peut les rejouer ou les exécuter n''importe où. Coche ce qui est permis dans
+    `map`.'
+  options:
+  - id: mois
+    label: Calculer le mois à partir de la date du document
+  - id: compteur
+    label: Incrémenter un compteur global pour compter les documents
+  - id: api
+    label: Appeler un service web pour obtenir le nom français de l'espèce
+  - id: plusieurs
+    label: Émettre plusieurs paires pour un même document
+- id: style
+  type: match
+  title: Déclaratif ou impératif ?
+  prompt: Range chaque façon de formuler une requête.
+  items:
+  - id: sql
+    label: SELECT mois, SUM(nombre) … GROUP BY mois
+  - id: boucle
+    label: Une boucle for qui ajoute chaque valeur à une map
+  - id: css
+    label: 'li.selected > p { background-color: blue }'
+  - id: dom
+    label: getElementsByTagName puis setAttribute sur chaque nœud
+  - id: pipe
+    label: $match puis $group dans le pipeline d'agrégation de MongoDB
+  categories:
+  - id: decl
+    label: Déclaratif
+  - id: imp
+    label: Impératif

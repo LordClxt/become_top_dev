@@ -1,0 +1,7 @@
+id: ddia-ch00-tail-amplification
+concept: ddia-tail-latency-amplification
+format: hyperframes
+justification: "Voir la part de requêtes touchées grimper de 1 % à 63 % quand le nombre d'appels passe de 1 à 100 rend tangible pourquoi les percentiles élevés comptent."
+entry: scene.html
+duration_s: 11.0
+status: built

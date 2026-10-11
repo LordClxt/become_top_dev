@@ -1,0 +1,13 @@
+{
+  "ecritures": 345000,
+  "recherches": 22500000,
+  "profils": {
+    "journal": "read",
+    "social": "write",
+    "stars": "hybrid"
+  },
+  "celebrite": 30000000,
+  "seuil": {
+    "seuil": 1000000
+  }
+}

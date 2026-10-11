@@ -1,0 +1,22 @@
+{
+  "flux": {
+    "db": "both",
+    "req": "backward",
+    "resp": "forward",
+    "archive": "backward"
+  },
+  "perte": [
+    "write-new",
+    "read-old",
+    "model",
+    "update",
+    "rewrite"
+  ],
+  "rpc": [
+    "lost",
+    "timeout",
+    "retry"
+  ],
+  "debits": 4,
+  "public": "keep"
+}

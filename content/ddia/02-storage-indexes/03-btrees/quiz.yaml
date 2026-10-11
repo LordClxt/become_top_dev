@@ -1,0 +1,144 @@
+id: ddia-ch02-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qui distingue fondamentalement un B-tree d'un index log-structuré ?
+  choices:
+  - Il découpe la base en pages de taille fixe lues et écrites une à une, et écrase les pages sur place
+  - Il n'a pas de tri
+  - Il ne gère pas les intervalles
+  - Il n'utilise jamais de disque
+  answer: 0
+  explanation: Les LSM-trees écrivent des segments variables séquentiellement et ne modifient jamais un fichier.
+  concept: ddia-btree-pages
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quelle taille de page traditionnelle pour un B-tree ?
+  choices:
+  - 64 octets
+  - 4 Ko
+  - 4 Mo
+  - 1 Go
+  answer: 1
+  explanation: Cela correspond mieux aux blocs de taille fixe des disques.
+  concept: ddia-btree-pages
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Qu'est-ce que le facteur de branchement ?
+  choices:
+  - Le nombre de références vers des pages enfants dans une page
+  - Le nombre de niveaux
+  - Le nombre de clés dans l'arbre
+  - Le nombre de feuilles
+  answer: 0
+  explanation: Typiquement plusieurs centaines.
+  concept: ddia-branching-factor
+  difficulty: 1
+- id: q4
+  type: code-output
+  prompt: Qu'affiche ce programme ? (capacité en octets d'un B-tree de 4 niveaux, branchement 500, pages de 4 096 octets)
+  code: |
+    fmt.Println(500 * 500 * 500 * 500 * 4096)
+  answer: '256000000000000'
+  explanation: 'C''est le chiffre du livre : 256 To avec seulement quatre niveaux, d''où des recherches en peu de sauts.'
+  concept: ddia-branching-factor
+  difficulty: 2
+- id: q5
+  type: code-output
+  prompt: Qu'affiche ce programme ? (nombre de niveaux nécessaires pour un million de pages avec un facteur de branchement de 100)
+  code: |
+    n, b, levels := 1000000, 100, 0
+    for capacity := 1; capacity < n; capacity *= b {
+        levels++
+    }
+    fmt.Println(levels)
+  answer: '3'
+  explanation: '100³ = 10⁶ : trois niveaux. La profondeur croît en log_b(n), donc très lentement.'
+  concept: ddia-branching-factor
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Que se passe-t-il quand on ajoute une clé à une page pleine ?
+  choices:
+  - Elle éclate en deux pages à moitié pleines et le parent reçoit une nouvelle frontière
+  - La clé est refusée
+  - Un nouveau fichier est créé
+  - Tout l'arbre est reconstruit
+  answer: 0
+  explanation: L'arbre reste équilibré ; sa profondeur est en O(log n).
+  concept: ddia-btree-split
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Que se passe-t-il si la racine éclate ?
+  choices:
+  - 'Une nouvelle racine est créée : l''arbre gagne un niveau'
+  - L'arbre perd un niveau
+  - L'insertion échoue
+  - Rien
+  answer: 0
+  explanation: C'est le seul moment où la hauteur d'un B-tree augmente.
+  concept: ddia-btree-split
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pourquoi un éclatement de page est-il dangereux en cas de crash ?
+  choices:
+  - 'Il écrit plusieurs pages (les deux moitiés et le parent) : un crash à mi-parcours laisse un index corrompu'
+  - Il efface le disque
+  - Il double la mémoire utilisée
+  - Il verrouille le système de fichiers
+  answer: 0
+  explanation: Par exemple une page orpheline qui n'est l'enfant d'aucun parent.
+  concept: ddia-btree-wal
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Que contient le WAL d'un B-tree ?
+  choices:
+  - Chaque modification, écrite avant d'être appliquée aux pages
+  - Les pages entières de l'arbre
+  - Les index secondaires
+  - Les statistiques
+  answer: 0
+  explanation: Au redémarrage, on le rejoue pour restaurer un arbre cohérent.
+  concept: ddia-btree-wal
+  difficulty: 1
+- id: q10
+  type: single
+  prompt: À quoi servent les latches ?
+  choices:
+  - Protéger les structures de l'arbre contre un accès concurrent incohérent
+  - Compresser les pages
+  - Chiffrer les clés
+  - Accélérer le WAL
+  answer: 0
+  explanation: 'Les approches log-structurées en ont moins besoin : elles échangent atomiquement anciens et nouveaux segments.'
+  concept: ddia-btree-wal
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: Comment fonctionne le copy-on-write de LMDB ?
+  choices:
+  - La page modifiée est écrite ailleurs et les parents sont recréés pour pointer vers elle
+  - Les pages sont copiées dans la RAM
+  - Le WAL est dupliqué
+  - Les feuilles sont compressées
+  answer: 0
+  explanation: Pas d'écrasement donc pas de WAL ; utile aussi pour l'isolation par snapshot.
+  concept: ddia-btree-optimizations
+  difficulty: 2
+- id: q12
+  type: single
+  prompt: Pourquoi abréger les clés dans les pages internes ?
+  choices:
+  - 'Elles ne servent que de frontières : on tasse plus de clés par page, le facteur de branchement augmente et il y a moins de niveaux'
+  - Pour économiser la RAM uniquement
+  - Pour trier plus vite
+  - Pour éviter le WAL
+  answer: 0
+  explanation: C'est la variante dite B+ tree.
+  concept: ddia-btree-optimizations
+  difficulty: 3

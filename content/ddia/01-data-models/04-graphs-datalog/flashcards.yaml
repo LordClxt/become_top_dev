@@ -1,0 +1,49 @@
+cards:
+- id: fc1
+  front: Sommet et arête d'un graphe de propriétés ?
+  back: 'Sommet : identifiant, arêtes entrantes/sortantes, propriétés. Arête : identifiant, queue, tête, étiquette, propriétés.'
+  concept: ddia-property-graph
+- id: fc2
+  front: Trois propriétés importantes du graphe relationnel à deux tables ?
+  back: Tout sommet peut être relié à tout autre ; on parcourt dans les deux sens (index tail et head) ; les étiquettes permettent plusieurs types de relations.
+  concept: ddia-property-graph
+- id: fc3
+  front: Que gagne-t-on avec un graphe ?
+  back: L'évolutivité (ajouter sommets et arêtes) et l'expression de structures irrégulières (régions, granularités variables).
+  concept: ddia-property-graph
+- id: fc4
+  front: 'Cypher : lire (a)-[:WITHIN*0..]->(b)'
+  back: Depuis a, suivre zéro arête WITHIN ou plus jusqu'à b.
+  concept: ddia-variable-length-traversal
+- id: fc5
+  front: Pourquoi le zéro saut compte-t-il ?
+  back: Un lieu de naissance peut être directement le pays cherché ; sans le cas 0 il serait manqué.
+  concept: ddia-variable-length-traversal
+- id: fc6
+  front: Équivalent SQL du parcours variable ?
+  back: WITH RECURSIVE (expression de table commune récursive, SQL:1999).
+  concept: ddia-recursive-cte
+- id: fc7
+  front: Triple-store ?
+  back: 'Tout est un triplet (sujet, prédicat, objet) : propriété si l''objet est une valeur, arête si c''est un sommet.'
+  concept: ddia-triple-store
+- id: fc8
+  front: SPARQL vs Cypher ?
+  back: SPARQL, pour les triple-stores RDF, est plus ancien et plus concis ; Cypher a repris sa syntaxe de motifs.
+  concept: ddia-triple-store
+- id: fc9
+  front: Quatre différences entre graphe et CODASYL ?
+  back: Pas de schéma d'imbrication ; accès par identifiant/index ; pas d'ordre ; langages déclaratifs.
+  concept: ddia-graph-vs-network
+- id: fc10
+  front: Fait et règle en Datalog ?
+  back: 'Fait : predicat(sujet, objet). Règle : tête :- corps ; la tête est dérivée si tout le corps correspond.'
+  concept: ddia-datalog-rules
+- id: fc11
+  front: Point fixe ?
+  back: L'état où réappliquer toutes les règles ne produit plus de fait nouveau.
+  concept: ddia-datalog-rules
+- id: fc12
+  front: Quand préférer le graphe ?
+  back: Quand les relations plusieurs-à-plusieurs sont partout et que le parcours de chemins est central.
+  concept: ddia-property-graph

@@ -1,0 +1,120 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "type": "page",
+      "x": 480,
+      "y": 0,
+      "props": {
+        "keys": "70"
+      }
+    },
+    {
+      "id": "l",
+      "type": "page",
+      "x": 200,
+      "y": 150,
+      "props": {
+        "keys": "30 50"
+      }
+    },
+    {
+      "id": "r",
+      "type": "page",
+      "x": 760,
+      "y": 150,
+      "props": {
+        "keys": "90"
+      }
+    },
+    {
+      "id": "a",
+      "type": "page",
+      "x": 0,
+      "y": 300,
+      "props": {
+        "keys": "10 20"
+      }
+    },
+    {
+      "id": "b",
+      "type": "page",
+      "x": 200,
+      "y": 300,
+      "props": {
+        "keys": "30 40"
+      }
+    },
+    {
+      "id": "c",
+      "type": "page",
+      "x": 400,
+      "y": 300,
+      "props": {
+        "keys": "50 60"
+      }
+    },
+    {
+      "id": "d",
+      "type": "page",
+      "x": 640,
+      "y": 300,
+      "props": {
+        "keys": "70 80"
+      }
+    },
+    {
+      "id": "f",
+      "type": "page",
+      "x": 860,
+      "y": 300,
+      "props": {
+        "keys": "90 100"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-root-l",
+      "source": "root",
+      "target": "l",
+      "kind": "sync"
+    },
+    {
+      "id": "e-root-r",
+      "source": "root",
+      "target": "r",
+      "kind": "sync"
+    },
+    {
+      "id": "e-l-a",
+      "source": "l",
+      "target": "a",
+      "kind": "sync"
+    },
+    {
+      "id": "e-l-b",
+      "source": "l",
+      "target": "b",
+      "kind": "sync"
+    },
+    {
+      "id": "e-l-c",
+      "source": "l",
+      "target": "c",
+      "kind": "sync"
+    },
+    {
+      "id": "e-r-d",
+      "source": "r",
+      "target": "d",
+      "kind": "sync"
+    },
+    {
+      "id": "e-r-f",
+      "source": "r",
+      "target": "f",
+      "kind": "sync"
+    }
+  ]
+}

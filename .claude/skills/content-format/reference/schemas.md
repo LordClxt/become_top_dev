@@ -71,7 +71,7 @@ xp: 30                                  # lesson read to the end
 ```yaml
 id: go-ch02-l02-lab-enum                # required
 title: "Énumération avec iota"          # required
-kind: code                              # required — code | tests (the learner writes the tests) | design (conceptual)
+kind: code                              # required — code | tests (the learner writes the tests) | diagram | worksheet (see below)
 checks: [race, goroutine-leak]          # optional — checks on top of the tests (`-race`, goroutine leaks)
 language: go                            # required if kind=code
 difficulty: 2                           # 1-5
@@ -171,36 +171,73 @@ params:                                 # interactive only — exposed controls
 status: idea                            # idea | built
 ```
 
-## `diagram` exercise (diagram kata, node editor)
+## `diagram` exercise (architecture diagram, node editor)
 Same folder as a lab (`lab.yaml`, `starter/`, `solution/`, `tests/`), but nothing is run: the backend checks a graph.
 ```yaml
 # lab.yaml
-id: arch-sandbox-ggg-bid-flow
-title: "Going, Going, Gone : le soir de clôture"
+id: ddia-ch02-l01-lab-bitcask-design
+title: "Dessine le moteur Bitcask"
 kind: diagram
 difficulty: 3
-xp: 120
+xp: 80
 entrypoint: starter/
 files_editable: ["diagram.json"]          # required, and the only entry
-concepts: []                              # concepts from a course lesson, if the exercise is attached to one
-source: { chapter: 18, pages: "295-297" }
-palette:                                  # available blocks; shape = client|service|queue|database|external|cache
-  - { type: bid-tracker, label: "Bid Tracker", shape: service, hint: "Ordonne toutes les offres." }
+concepts: [ddia-hash-index]
+source: { chapter: 3, pages: "72-75" }
+palette:                                  # available blocks
+  - { type: hash, component: hash-index, label: "Index de hachage", hint: "Table clé → offset." }
+  - { type: active, component: log, label: "Segment actif", hint: "Le seul fichier où l'on écrit." }
 verified: { at: 2026-10-10, solution: pass, starter: fail }  # written after verify_lab.sh
 ```
-`starter/diagram.json` and `solution/diagram.json`: `{"nodes": [{"id", "type", "x", "y"}], "edges": [{"id", "source", "target"}]}`.
-An arrow points in the direction data flows; an arrow touching a `queue` block is asynchronous.
+`component` names a **catalog** component (`backend/internal/content/catalog.yaml`, served by `/api/diagram/catalog`) that fixes the icon, color family and properties: browser, CDN, load balancer, API gateway, service, worker, PostgreSQL, MySQL, MongoDB, Cassandra, Redis, Memcached, queue, Kafka, object storage, WAL, memtable, SSTable, B-tree page, leader, replica, graph entity, zone… The old `shape` (client|service|queue|database|external|cache) is still accepted. Several palette blocks can share a component (`type` tells them apart in the rules).
 
-`tests/checks.yaml`: rules (palette types only), labels in French, shown to the learner.
-```yaml
-checks:
-  - { id: bidder-path, label: "...", rule: path, source: bidder, target: bid-tracker, via: bid-capture }
-  - { id: tracker-buffered, label: "...", rule: inbound_via, target: bid-tracker, via: queue }
-  - { id: capture-stateless, label: "...", rule: no_edge, source: bid-capture, target: database }
-  - { id: single-owner, label: "...", rule: single_owner, target: database }
-  - { id: connected, label: "...", rule: connected }
+`diagram.json` (v2; v1 is still read):
+```json
+{"nodes": [{"id": "n1", "type": "hash", "x": 0, "y": 0, "label": "Index", "parent": "zone1", "props": {"role": "cache"}, "w": 380, "h": 250}],
+ "edges": [{"id": "e1", "source": "n1", "target": "n2", "kind": "read", "label": "Get"}]}
 ```
-`path` (with `via`: every path goes through it) · `no_edge` · `inbound_via` · `single_owner` · `connected`.
+Arrow `kind`: `sync` (call) · `async` · `read` · `write` · `replication`. `parent` places a block inside a zone; `w`/`h` only apply to zones; `props` follows the component's properties (e.g. Redis: `role: cache`, B-tree page: `keys: "10 20"`).
+
+`tests/checks.yaml`: rules (palette types), labels in French shown to the learner. Faulty blocks or arrows are highlighted after "Vérifier".
+| Rule | Fields | Checks |
+|---|---|---|
+| `path` | source, target, via? | a path exists (with `via`: every path goes through it) |
+| `no_edge` | source, target | no direct arrow |
+| `inbound_via` | target, via | everything entering target comes from via |
+| `single_owner` | target | at most one incoming block |
+| `connected` | — | no isolated block (a zone containing blocks doesn't count) |
+| `prop` | source, prop, value | every block of this type has the property |
+| `edge_kind` | source, target, kind | arrows exist and all are of this kind |
+| `count` | source, min?, max? | number of blocks of this type |
+| `in_zone` | source, target | every block of this type is inside a zone of type target |
+| `link` | source, target, value | a block **named** source is linked to a block **named** target by an arrow with **label** value (case-insensitive) |
+| `tree_shape` | source, tree | blocks of this type (parent → child arrows) form the tree `tree: {keys, children}`, children read left to right |
+
+## `worksheet` exercise (interactive sheet, no code)
+```
+labs/<slug>/
+  lab.yaml          kind: worksheet, files_editable: ["answers.json"], entrypoint: starter/
+  worksheet.yaml    PUBLIC: intro + displayed blocks
+  tests/feedback.yaml   PRIVATE: tolerances and wrong-answer explanations
+  solution/answers.json reference answers (never sent)
+  starter/answers.json  {}
+  debrief.md        revealed after success: the "why" and the formula
+  hints.md, instructions.md
+```
+`worksheet.yaml`: `intro` (markdown) and `blocks`, each with `id`, `type`, `title`, `prompt`:
+| type | fields | answer (`answers.json`) |
+|---|---|---|
+| `number` | `unit` | number |
+| `choice` | `options: [{id, label, hint}]` | option id |
+| `multi` | `options` | list of ids |
+| `order` | `items: [{id, label}]` | ordered list of ids |
+| `match` | `items`, `categories` | `{item: category}` |
+| `table` | `columns`, `rows: [{id, label, cells}]` (cells = given cells) | `{"row.column": value}` for each empty cell |
+| `tuner` | `params: [{id,min,max,step,default}]`, `metrics: [{id,expr,format}]`, `goals: [{id,label,expr}]` | `{param: value}` (any setting that satisfies the constraints) |
+
+`tests/feedback.yaml`: `blocks: {<id>: {tolerance: {rel, abs}, wrong: "…", options: {<option|item|row.column>: "explanation"}, goals: {<goal>: "explanation"}}}`.
+Tuner expressions (`pow exp log log2 sqrt abs ceil floor round min max`, `+ - * / %`, comparisons, `&& || !`) are evaluated by the backend; a constraint is an expression that is true when it equals 1. `format`: `number | percent | bytes | duration-s`.
+Every wrong answer must **explain why** without giving the right one. `verify_lab.sh`: the solution passes, the starter fails.
 
 ## Workshop: `content/<book>/sandbox/<slug>/`
 Exercises outside any module (shown under "Atelier"), in the same format as a lab or a `diagram`. They award XP but do not count toward a module's mastery.

@@ -1,0 +1,21 @@
+{
+  "stats": {
+    "p50.v": 14,
+    "p95.v": 950,
+    "p99.v": 1200,
+    "mean.v": 120.2
+  },
+  "typique": "mediane",
+  "amplification": 63.4,
+  "agregats": {
+    "hist": "ok",
+    "avgp99": "bad",
+    "raw": "ok",
+    "avgp50": "bad",
+    "closed": "bad"
+  },
+  "reglage": {
+    "p": 0.1,
+    "n": 100
+  }
+}

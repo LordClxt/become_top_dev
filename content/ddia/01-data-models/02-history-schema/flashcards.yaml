@@ -1,0 +1,57 @@
+cards:
+- id: fc1
+  front: Modèle hiérarchique (IMS) ?
+  back: Tous les enregistrements forment un arbre ; bon pour l'un-à-plusieurs, pénible pour le plusieurs-à-plusieurs, pas de jointure.
+  concept: ddia-hierarchical-network
+- id: fc2
+  front: Modèle réseau (CODASYL) ?
+  back: 'Généralisation du hiérarchique : un enregistrement peut avoir plusieurs parents, reliés par des pointeurs (chemins d''accès).'
+  concept: ddia-hierarchical-network
+- id: fc3
+  front: Pourquoi CODASYL a-t-il échoué ?
+  back: Les chemins d'accès écrits à la main rendaient le code de requête rigide et difficile à faire évoluer.
+  concept: ddia-hierarchical-network
+- id: fc4
+  front: Idée clé du modèle relationnel ?
+  back: Tout mettre à plat (tables de lignes) et laisser l'optimiseur choisir les chemins d'accès, une fois pour toutes les applications.
+  concept: ddia-relational-optimizer
+- id: fc5
+  front: Comment accélérer une requête relationnelle sans la modifier ?
+  back: 'Déclarer un nouvel index : l''optimiseur l''utilise s''il est pertinent.'
+  concept: ddia-relational-optimizer
+- id: fc6
+  front: Quel modèle quand les données forment un arbre lu d'un bloc ?
+  back: Le document ; éviter le shredding en tables.
+  concept: ddia-model-choice
+- id: fc7
+  front: Quel modèle quand tout peut être lié à tout ?
+  back: Le graphe est le plus naturel ; le relationnel est acceptable, le document maladroit.
+  concept: ddia-model-choice
+- id: fc8
+  front: Schema-on-read ?
+  back: Structure implicite, interprétée à la lecture par le code (comme le typage dynamique).
+  concept: ddia-schema-on-read
+- id: fc9
+  front: Schema-on-write ?
+  back: Schéma explicite, vérifié par la base à l'écriture (comme le typage statique).
+  concept: ddia-schema-on-read
+- id: fc10
+  front: Quand le schema-on-read est-il avantageux ?
+  back: 'Quand les éléments sont hétérogènes : beaucoup de types d''objets, ou structure dictée par un système externe qui peut changer.'
+  concept: ddia-schema-on-read
+- id: fc11
+  front: Quel est le coût réel d'une migration relationnelle ?
+  back: ALTER TABLE est rapide (sauf MySQL, qui recopie la table) ; l'UPDATE qui réécrit chaque ligne est lent partout.
+  concept: ddia-schema-on-read
+- id: fc12
+  front: Avantage et limite de la localité d'un document ?
+  back: 'Avantage : un seul accès pour tout lire. Limite : le document est chargé et réécrit en entier ; le garder petit.'
+  concept: ddia-data-locality
+- id: fc13
+  front: Autres moyens d'obtenir de la localité ?
+  back: Entrelacement de Spanner, multi-table index cluster d'Oracle, column families de Bigtable.
+  concept: ddia-data-locality
+- id: fc14
+  front: Convergence document/relationnel ?
+  back: JSON dans PostgreSQL, MySQL, DB2 ; jointures dans RethinkDB ; Codd avait déjà décrit des « domaines non simples ».
+  concept: ddia-convergence

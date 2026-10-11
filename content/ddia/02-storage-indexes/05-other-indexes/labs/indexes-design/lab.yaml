@@ -1,0 +1,18 @@
+id: ddia-ch02-l05-lab-indexes-design
+title: Quel index pour quelle requête ?
+difficulty: 3
+xp: 70
+concepts:
+- ddia-secondary-index
+- ddia-concatenated-index
+- ddia-heap-clustered-covering
+- ddia-multidim-index
+- ddia-in-memory-db
+source:
+  chapter: 3
+  pages: 85-90
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

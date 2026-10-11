@@ -1,0 +1,18 @@
+id: ddia-ch01-boss
+title: 'Boss : dérouler un évaluateur Datalog à la main'
+difficulty: 5
+xp: 280
+time_limit_min: 90
+concepts:
+- ddia-datalog-rules
+- ddia-variable-length-traversal
+- ddia-triple-store
+- ddia-declarative-vs-imperative
+source:
+  chapter: 2
+  pages: 64-70
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

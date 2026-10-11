@@ -1,0 +1,154 @@
+id: ddia-ch04-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qui distingue Avro de Thrift et Protocol Buffers ?
+  choices:
+  - 'Pas de numéros de champ : les valeurs sont concaténées dans l''ordre du schéma'
+  - Il n'utilise aucun schéma
+  - Il n'encode que du texte
+  - Il garde les noms de champs
+  answer: 0
+  explanation: 'C''est ce qui donne l''encodage le plus compact : 32 octets.'
+  concept: ddia-avro-no-tags
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que sont le schéma de l'écrivain et celui du lecteur ?
+  choices:
+  - Le schéma utilisé pour encoder et celui sur lequel s'appuie le code qui décode
+  - Deux copies identiques du même schéma
+  - Le schéma de la base et celui du client
+  - Les schémas de deux langages
+  answer: 0
+  explanation: Ils n'ont pas à être identiques, seulement compatibles.
+  concept: ddia-writer-reader-schema
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Comment Avro apparie-t-il les champs entre écrivain et lecteur ?
+  choices:
+  - Par leur nom
+  - Par leur position
+  - Par leur numéro de champ
+  - Par leur type
+  answer: 0
+  explanation: L'ordre des champs peut donc différer.
+  concept: ddia-avro-resolution
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Un champ existe chez l'écrivain mais pas chez le lecteur. Que se passe-t-il ?
+  choices:
+  - Il est ignoré
+  - Le décodage échoue
+  - Il est ajouté au schéma du lecteur
+  - Il devient null
+  answer: 0
+  explanation: 'Résolution : le lecteur saute la valeur.'
+  concept: ddia-avro-resolution
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Un champ existe chez le lecteur mais pas chez l'écrivain. Que se passe-t-il ?
+  choices:
+  - Il est rempli par la valeur par défaut déclarée dans le schéma du lecteur
+  - Il reste vide
+  - Le décodage échoue toujours
+  - Il prend la valeur du champ précédent
+  answer: 0
+  explanation: C'est pourquoi un champ ajouté doit avoir une valeur par défaut.
+  concept: ddia-avro-resolution
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quelle règle garantit la compatibilité lors d'un ajout ou d'un retrait de champ ?
+  choices:
+  - Seul un champ avec valeur par défaut peut être ajouté ou retiré
+  - Seuls les champs required peuvent changer
+  - Il faut changer le numéro du champ
+  - Il faut régénérer tous les fichiers
+  answer: 0
+  explanation: Sans défaut, un des deux sens de compatibilité casse.
+  concept: ddia-avro-evolution-rules
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Comment un champ Avro peut-il valoir null ?
+  choices:
+  - Par un type union, par exemple union { null, long }
+  - Tous les champs sont nullables
+  - Avec le marqueur optional
+  - Avec un champ booléen auxiliaire
+  answer: 0
+  explanation: Et null n'est un défaut valide que s'il est la première branche de l'union.
+  concept: ddia-avro-evolution-rules
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Comment le lecteur retrouve-t-il le schéma de l'écrivain dans un fichier de millions d'enregistrements ?
+  choices:
+  - Le schéma est écrit une fois en tête de fichier
+  - Chaque enregistrement contient son schéma
+  - Il le devine
+  - Il est dans le nom du fichier
+  answer: 0
+  explanation: C'est le fichier conteneur d'objets d'Avro.
+  concept: ddia-schema-registry
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Que fait-on dans une base où chaque enregistrement a été écrit à un moment différent ?
+  choices:
+  - Un numéro de version au début de chaque enregistrement, avec une liste des schémas
+  - On réécrit tout à chaque changement
+  - On interdit les changements
+  - On stocke le schéma complet dans chaque ligne
+  answer: 0
+  explanation: Le lecteur lit le numéro et récupère le schéma de l'écrivain correspondant.
+  concept: ddia-schema-registry
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Pourquoi Avro convient-il aux schémas générés dynamiquement ?
+  choices:
+  - Il n'a pas de numéros à attribuer à la main à chaque changement de la base
+  - Il est plus rapide
+  - Il génère du code
+  - Il impose un schéma fixe
+  answer: 0
+  explanation: 'Les colonnes deviennent des champs de même nom : on régénère le schéma à chaque export.'
+  concept: ddia-avro-no-tags
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: Quel atout n'est PAS un atout des encodages binaires à schéma ?
+  choices:
+  - Être lisibles à l'œil sans décodage
+  - Être plus compacts que les variantes binaires de JSON
+  - Servir de documentation à jour
+  - Permettre de vérifier la compatibilité avant de déployer
+  answer: 0
+  explanation: 'Leur inconvénient : il faut les décoder pour les lire.'
+  concept: ddia-merits-of-schemas
+  difficulty: 1
+- id: q12
+  type: code-output
+  prompt: Qu'affiche ce programme ? (l'écrivain a name et age, le lecteur veut name et email avec défaut)
+  code: |
+    writer := map[string]string{"name": "Ada", "age": "36"}
+    reader := []string{"name", "email"}
+    defaults := map[string]string{"email": ""}
+    out := map[string]string{}
+    for _, f := range reader {
+        if v, ok := writer[f]; ok {
+            out[f] = v
+        } else {
+            out[f] = defaults[f]
+        }
+    }
+    fmt.Printf("%q %q %d\n", out["name"], out["email"], len(out))
+  answer: '"Ada" "" 2'
+  explanation: age est ignoré (absent du lecteur), email est rempli par son défaut.
+  concept: ddia-avro-resolution
+  difficulty: 2

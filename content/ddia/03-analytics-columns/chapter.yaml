@@ -1,0 +1,28 @@
+id: ddia-ch03
+title: Analytique et stockage en colonnes
+subtitle: 'OLTP contre OLAP, schéma en étoile, colonnes, bitmaps, tri et cubes : comment un entrepôt répond aux questions d''analyse'
+source:
+  chapter: 3
+  pages: 90-104
+objectives:
+- Distinguer OLTP et OLAP par leur profil d'accès et expliquer pourquoi un entrepôt de données alimenté par ETL protège la production
+- 'Décrire un schéma en étoile : table de faits, dimensions, et la variante en flocon'
+- Expliquer pourquoi le stockage en colonnes réduit les lectures, et calculer des bitmaps avec ET, OU et run-length encoding
+- Choisir un ordre de tri, mesurer son effet sur la compression et expliquer les écritures par fusion en bloc
+- Distinguer vue virtuelle et matérialisée, calculer un cube et dire ce qu'il ne peut pas répondre
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch02
+lessons:
+- 01-oltp-olap-warehouse
+- 02-star-snowflake
+- 03-column-storage
+- 04-sort-order-writes
+- 05-materialized-cubes
+xp:
+  assignment: 120
+  project: 220
+  boss: 280
+boss: boss
+assignment: assignment
+project: project

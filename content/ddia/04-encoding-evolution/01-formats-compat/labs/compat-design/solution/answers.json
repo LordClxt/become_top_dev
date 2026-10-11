@@ -1,0 +1,20 @@
+{
+  "sens": {
+    "old-data": "backward",
+    "new-data": "forward",
+    "msg": "forward",
+    "archive": "backward"
+  },
+  "rolling": [
+    "few",
+    "watch",
+    "more",
+    "all"
+  ],
+  "pickle": "lang",
+  "json": [
+    "intfloat",
+    "strnum"
+  ],
+  "base64": 8
+}

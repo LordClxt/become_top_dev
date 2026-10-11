@@ -1,0 +1,68 @@
+intro: 'Une plateforme stocke des **CV** : prénom, nom, et une liste de postes (titre, organisation, dates). Chaque poste contient aujourd''hui
+  le **nom** de l''organisation, copié tel quel. Tu décides ce qui devient une table, et ce que cela change.'
+blocks:
+- id: tables
+  type: match
+  title: Range chaque champ dans sa table
+  prompt: 'Tu normalises : l''information qui a du sens pour un humain n''est stockée qu''à **un seul endroit**, le reste y renvoie par un identifiant.'
+  items:
+  - id: nom
+    label: Prénom et nom de la personne
+  - id: titre
+    label: Titre du poste
+  - id: orgnom
+    label: Nom de l'organisation
+  - id: dates
+    label: Dates de début et de fin du poste
+  - id: orgid
+    label: Identifiant de l'organisation cité dans un poste
+  - id: logo
+    label: Logo de l'organisation
+  categories:
+  - id: users
+    label: Table users
+  - id: positions
+    label: Table positions
+  - id: orgs
+    label: Table organizations
+- id: cout
+  type: table
+  title: Renommer une organisation
+  prompt: « Maison Babbage » change de nom. Elle apparaît **une fois** dans chacun des 3 000 CV qui la citent. Combien d'écritures faut-il dans
+    chaque modèle ?
+  columns:
+  - id: n
+    label: Écritures
+  rows:
+  - id: doc
+    label: Document (nom copié dans chaque CV)
+  - id: norm
+    label: Tables normalisées (identifiant)
+- id: reco
+  type: choice
+  title: Les recommandations entre utilisateurs
+  prompt: 'Le produit évolue : un utilisateur peut écrire une **recommandation** pour un autre, affichée avec le nom et la photo de son auteur.
+    Que devient le modèle document ?'
+  options:
+  - id: imbrique
+    label: 'Rien ne change : on imbrique la recommandation dans le CV du destinataire'
+  - id: jointure
+    label: Il faut des références vers les profils et des jointures émulées côté code
+    hint: La relation devient plusieurs-à-plusieurs
+  - id: impossible
+    label: C'est impossible à stocker dans une base de documents
+- id: identifiants
+  type: multi
+  title: Pourquoi un identifiant plutôt que du texte ?
+  prompt: Coche les vraies raisons de stocker `region_id` plutôt que « Greater Seattle Area ».
+  options:
+  - id: maj
+    label: 'Le nom n''est stocké qu''à un endroit : un renommage met tout à jour'
+  - id: trad
+    label: On peut traduire la région dans la langue du lecteur
+  - id: homonymes
+    label: On évite l'ambiguïté entre villes de même nom
+  - id: moins
+    label: Une lecture est toujours plus rapide
+  - id: sens
+    label: L'identifiant est parlant pour un humain

@@ -1,0 +1,16 @@
+id: ddia-ch01-l02-lab-schema-on-read-design
+title: Lire des documents de plusieurs versions
+difficulty: 2
+xp: 60
+concepts:
+- ddia-schema-on-read
+- ddia-data-locality
+- ddia-convergence
+source:
+  chapter: 2
+  pages: 36-42
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,25 @@
+id: ddia-ch01-l04-lab-graph-design
+title: Modélise le graphe des émigrés
+difficulty: 3
+xp: 80
+concepts:
+- ddia-property-graph
+- ddia-variable-length-traversal
+- ddia-graph-vs-network
+source:
+  chapter: 2
+  pages: 49-62
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: person
+  component: entity
+  label: Personne
+  hint: Un sommet qui représente quelqu'un.
+- type: place
+  component: entity
+  label: Lieu
+  hint: 'Un sommet qui représente un lieu : ville, région, pays, continent.'
+verified: { at: 2026-10-11, solution: pass, starter: fail }

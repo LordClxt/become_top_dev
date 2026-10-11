@@ -1,0 +1,54 @@
+intro: |
+  Ton équipe doit signer un **SLA à 99,99 %** pour une API. Avant de répondre, tu fais les comptes : combien d'arrêt cela
+  autorise, ce que valent des composants assemblés, et jusqu'où la redondance aide vraiment.
+blocks:
+  - id: serie
+    type: number
+    title: "Trois services en série"
+    prompt: |
+      L'API traverse **trois services**, tous nécessaires, chacun disponible à **99,9 %**. Quelle est la disponibilité de l'ensemble ?
+    unit: "%"
+  - id: arret
+    type: number
+    title: "Combien d'arrêt par an à 99,9 % ?"
+    prompt: |
+      Une année de 365 jours. Donne l'indisponibilité tolérée par un SLA à **99,9 %**, en minutes.
+    unit: "minutes par an"
+  - id: parallele
+    type: choice
+    title: "Deux serveurs à 90 %"
+    prompt: |
+      Deux serveurs identiques, chacun disponible à **90 %**, et **un seul suffit** pour répondre. Leurs pannes sont indépendantes.
+      Quelle est la disponibilité de la paire ?
+    options:
+      - { id: p90, label: "90 %", hint: "Comme un seul serveur" }
+      - { id: p81, label: "81 %", hint: "Le produit 0,9 × 0,9" }
+      - { id: p95, label: "95 %", hint: "La moyenne des deux, relevée un peu" }
+      - { id: p99, label: "99 %", hint: "1 − 0,1 × 0,1" }
+  - id: correle
+    type: multi
+    title: "Quand la redondance ment"
+    prompt: |
+      La formule en parallèle suppose des pannes **indépendantes**. Coche ce qui rend deux réplicas **corrélés**, donc la formule trop optimiste.
+    options:
+      - { id: bug, label: "Les deux exécutent la même version du logiciel, avec le même bug" }
+      - { id: rack, label: "Les deux sont branchés sur la même alimentation" }
+      - { id: deploy, label: "Un déploiement les met à jour tous en même temps" }
+      - { id: lots, label: "Leurs disques viennent de lots de fabrication différents" }
+      - { id: zones, label: "Ils tournent dans deux zones de disponibilité distinctes" }
+  - id: reglage
+    type: tuner
+    title: "Combien de réplicas pour quatre neuf ?"
+    prompt: |
+      Un **répartiteur de charge** à 99,999 % est placé **en série** devant `n` réplicas **en parallèle**.
+      Règle les curseurs pour atteindre le SLA sans dépenser plus que nécessaire.
+    params:
+      - { id: n, label: "Nombre de réplicas", unit: "", min: 1, max: 8, step: 1, default: 1 }
+      - { id: a, label: "Disponibilité d'un réplica", unit: "%", min: 90, max: 99.9, step: 0.1, default: 99 }
+    metrics:
+      - { id: replicas, label: "Réplicas en parallèle", expr: "1 - pow(1 - a / 100, n)", format: percent }
+      - { id: total, label: "Ensemble avec le répartiteur", expr: "replicas * 0.99999", format: percent }
+      - { id: downtime, label: "Arrêt par an", expr: "(1 - total) * 365 * 24 * 60 * 60", format: duration-s }
+    goals:
+      - { id: sla, label: "Au moins 99,99 % pour l'ensemble", expr: "total >= 0.9999" }
+      - { id: cout, label: "Au plus 3 réplicas", expr: "n <= 3" }

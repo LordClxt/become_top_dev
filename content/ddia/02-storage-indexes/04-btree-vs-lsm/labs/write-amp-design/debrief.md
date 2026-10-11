@@ -1,0 +1,3 @@
+**Chiffrer avant de choisir.** Le B-tree écrit `(100 + 4 096) / 100 ≈ 42×` les octets utiles pour une petite mise à jour ; le LSM, 5× avec une fusion par 4 sur 64 flushes. Cela explique son meilleur débit d'écriture et sa moindre usure du SSD.
+
+Mais le LSM paie ailleurs : lectures sur plusieurs segments, compaction qui perturbe les **percentiles élevés** et qui peut ne pas suivre sans qu'on s'en aperçoive. Le facteur de fusion est un vrai compromis : ici, un seul réglage (4) tient à la fois l'amplification et le nombre de segments. D'où la règle du livre : pas de règle universelle, **teste avec ta charge**.

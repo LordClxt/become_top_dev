@@ -1,0 +1,128 @@
+intro: |2
+
+  Une chaîne de magasins veut analyser ses ventes. Sa **table de faits** compte **2 milliards de lignes** et **120 colonnes** de **4 octets**. L'analyse type utilise **5 colonnes**. Tu dimensionnes l'entrepôt, tu choisis les encodages, puis tu règles un cube.
+blocks:
+- id: ou
+  type: match
+  title: Où va chaque charge ?
+  prompt: Quelle base reçoit chaque requête ?
+  items:
+  - id: caisse
+    label: Enregistrer un achat à la caisse
+  - id: marge
+    label: Marge moyenne par catégorie sur trois ans
+  - id: profil
+    label: Afficher le panier en cours d'un client
+  - id: promo
+    label: Effet d'une promotion sur les ventes de bananes
+  categories:
+  - id: oltp
+    label: Base transactionnelle
+  - id: wh
+    label: Entrepôt de données
+- id: io
+  type: table
+  title: Octets lus par la requête type
+  prompt: Combien de gigaoctets chaque organisation lit-elle (1 Go = 10⁹ octets) ?
+  columns:
+  - id: go
+    label: Go lus
+  rows:
+  - id: row
+    label: Orienté lignes
+  - id: col
+    label: Orienté colonnes
+- id: ratio
+  type: number
+  title: Le gain
+  prompt: Combien de fois moins de données le stockage par colonnes lit-il ?
+  unit: ×
+- id: bitmaps
+  type: table
+  title: Bitmaps non compressés
+  prompt: Un bitmap par valeur distincte, un bit par ligne. Combien de gigaoctets (1 Go = 10⁹ octets) pour **toute la colonne** sur 1 milliard
+    de lignes ?
+  columns:
+  - id: go
+    label: Go
+  rows:
+  - id: pays
+    label: Colonne « pays » (200 valeurs distinctes)
+  - id: produit
+    label: Colonne « produit » (100 000 valeurs distinctes)
+- id: choix
+  type: choice
+  title: Que faire pour la colonne « produit » ?
+  prompt: Les bitmaps de « produit » sont énormes et presque vides. Que recommande-t-on ?
+  options:
+  - id: rle
+    label: Compresser chaque bitmap creux par run-length encoding
+    hint: Séquences de zéros
+  - id: none
+    label: 'Ne rien faire : un bit par ligne suffit'
+  - id: drop
+    label: Supprimer la colonne
+- id: runs
+  type: number
+  title: Une colonne triée se réduit à presque rien
+  prompt: Les lignes sont triées par **date** en première clé (365 dates, 1 milliard de lignes). Avec un RLE qui stocke une paire (valeur 4 octets,
+    longueur 8 octets) par séquence, quelle taille fait la colonne « date » ?
+  unit: octets
+- id: tri
+  type: choice
+  title: Quelle première clé de tri ?
+  prompt: Presque toutes les requêtes portent sur « le dernier trimestre », puis par magasin. Quelle clé de tri choisis-tu ?
+  options:
+  - id: date
+    label: Date, puis magasin
+    hint: Plage de dates en premier
+  - id: magasin
+    label: Magasin, puis date
+  - id: hasard
+    label: Peu importe
+- id: cube
+  type: tuner
+  title: Régler la taille d'un cube
+  prompt: 'Cube par **365 dates × produits × magasins**, 8 octets par case. Il doit servir **au moins 1 000 produits** et **50 magasins**, et
+    tenir sous **200 Mo** : `365 × produits × magasins × 8 / 10⁶`.'
+  params:
+  - id: p
+    label: Produits
+    unit: ''
+    min: 100
+    max: 10000
+    step: 100
+    default: 5000
+  - id: m
+    label: Magasins
+    unit: ''
+    min: 10
+    max: 500
+    step: 10
+    default: 200
+  metrics:
+  - id: mo
+    label: Taille du cube
+    expr: 365 * p * m * 8 / 1000000
+    unit: Mo
+    format: number
+  goals:
+  - id: size
+    label: Moins de 200 Mo
+    expr: mo < 200
+  - id: prod
+    label: Au moins 1 000 produits
+    expr: p >= 1000
+  - id: mag
+    label: Au moins 50 magasins
+    expr: m >= 50
+- id: brut
+  type: choice
+  title: Et les données brutes ?
+  prompt: Une fois le cube en place, que fait-on des faits bruts ?
+  options:
+  - id: garder
+    label: 'On les garde : le cube n''est qu''un accélérateur pour certaines requêtes'
+    hint: Souplesse
+  - id: jeter
+    label: On les jette pour économiser de la place

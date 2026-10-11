@@ -1,0 +1,1 @@
+Dessine la chaîne analytique complète : production, ETL, entrepôt en colonnes avec écritures récentes, deux ordres de tri et un cube, et l'analyste qui interroge l'entrepôt sans toucher la production.

@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Intensif en données vs intensif en calcul ?"
+    back: "Intensif en données : le défi est le volume, la complexité et le rythme de changement des données. Intensif en calcul : le goulet est le processeur."
+    concept: ddia-data-intensive
+  - id: fc2
+    front: "Quelles sont les cinq briques standard d'une application intensive en données ?"
+    back: "Base de données, cache, index de recherche, traitement de flux (file de messages), traitement par lots."
+    concept: ddia-data-intensive
+  - id: fc3
+    front: "Pourquoi les catégories d'outils se brouillent-elles ?"
+    back: "Des outils sortent de leur catégorie (Redis comme file, Kafka avec durabilité de base) et les besoins dépassent un seul outil."
+    concept: ddia-composite-system
+  - id: fc4
+    front: "Qui garde un cache ou un index de recherche synchronisé avec la base principale ?"
+    back: "Le code de l'application : c'est une des parties les plus fragiles d'un système composite."
+    concept: ddia-composite-system
+  - id: fc5
+    front: "Que devient un développeur qui assemble plusieurs outils derrière une API ?"
+    back: "Un concepteur de système de données : il définit les garanties de son système composite."
+    concept: ddia-composite-system
+  - id: fc6
+    front: "Définis la fiabilité."
+    back: "Continuer à fonctionner correctement (bonne fonction, bonne performance) même face à des pannes matérielles, des bugs logiciels ou des erreurs humaines."
+    concept: ddia-three-concerns
+  - id: fc7
+    front: "Définis la scalabilité."
+    back: "Disposer de moyens raisonnables de faire face à la croissance (volume de données, trafic, complexité)."
+    concept: ddia-three-concerns
+  - id: fc8
+    front: "Définis la maintenabilité."
+    back: "Permettre à de nombreuses personnes (ingénierie et exploitation) de travailler productivement sur le système dans la durée."
+    concept: ddia-three-concerns
+  - id: fc9
+    front: "Exigences fonctionnelles vs non fonctionnelles ?"
+    back: "Fonctionnelles : ce que fait l'application. Non fonctionnelles : propriétés générales comme la sécurité, la fiabilité, la scalabilité, la maintenabilité."
+    concept: ddia-three-concerns

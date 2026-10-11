@@ -1,0 +1,60 @@
+checks:
+- id: publish
+  label: Le service publie de façon asynchrone sur le sujet
+  rule: edge_kind
+  source: orders
+  target: topic
+  kind: async
+- id: deliver-mail
+  label: Le broker livre à la notification
+  rule: edge_kind
+  source: topic
+  target: mail
+  kind: async
+- id: deliver-stats
+  label: '…et à l''analytique : un message, plusieurs destinataires'
+  rule: edge_kind
+  source: topic
+  target: stats
+  kind: async
+- id: decoupled-mail
+  label: 'L''émetteur ne connaît pas la notification : aucun appel direct'
+  rule: no_edge
+  source: orders
+  target: mail
+- id: decoupled-stats
+  label: L'émetteur ne connaît pas l'analytique non plus
+  rule: no_edge
+  source: orders
+  target: stats
+- id: via
+  label: Tout ce qui arrive à la notification passe par le sujet
+  rule: inbound_via
+  target: mail
+  via: topic
+- id: schema
+  label: L'émetteur consulte le registre de schémas
+  rule: edge_kind
+  source: orders
+  target: registry
+  kind: read
+- id: schema-consumer
+  label: Un consommateur aussi
+  rule: edge_kind
+  source: mail
+  target: registry
+  kind: read
+- id: no-lang
+  label: Pas de format propre à un langage
+  rule: count
+  source: pickle
+  max: 0
+- id: one-topic
+  label: Un seul sujet
+  rule: count
+  source: topic
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

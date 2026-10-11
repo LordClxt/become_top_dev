@@ -1,0 +1,12 @@
+id: ddia-ch02-l05-lab-indexes
+title: "TP Go : Index secondaire, concaténé et couvrant"
+kind: code
+language: go
+difficulty: 3
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["indexes.go"]
+concepts: [ddia-secondary-index, ddia-concatenated-index, ddia-heap-clustered-covering]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

@@ -1,0 +1,14 @@
+id: ddia-ch03-project
+title: "Tinybase — le magasin en colonnes"
+pitch: "Tinybase apprend à répondre à des questions d'analyse : un stockage par colonne, des bitmaps qui se combinent par ET et OU, une compression par séquences, et une table triée dont les colonnes se compressent."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 220
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["colstore.go"]
+concepts: [ddia-row-vs-column, ddia-bitmap-encoding, ddia-run-length-encoding, ddia-column-sort-order]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

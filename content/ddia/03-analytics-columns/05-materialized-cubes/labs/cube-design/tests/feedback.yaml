@@ -1,0 +1,22 @@
+blocks:
+  tot:
+    options:
+      p1.v: 10 (D1) + 15 (D2).
+      d1.v: 10 + 20 + 5.
+      all.v: La somme des totaux par date (35 + 45) doit être égale à celle des totaux par produit (25 + 25 + 30).
+  vues:
+    options:
+      nogain: 'Une vue virtuelle n''est qu''un raccourci d''écriture : elle recalcule tout.'
+      write: 'C''est le coût d''une copie dénormalisée : chaque écriture sous-jacente doit la mettre à jour.'
+  cells:
+    tolerance:
+      rel: 0.0001
+    wrong: 365 × 1 000 × 50 = 18 250 000.
+  limite:
+    options:
+      magasin: 'Le magasin est une dimension : la réponse est une simple lecture.'
+      produit: 'C''est un total le long d''une dimension : précalculé.'
+  garde:
+    options:
+      jeter: Une question que le cube n'a pas prévue deviendrait impossible à poser.
+      copie: Dupliquer un cube n'apporte aucune souplesse.

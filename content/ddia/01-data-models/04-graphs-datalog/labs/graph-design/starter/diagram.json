@@ -1,0 +1,19 @@
+{
+  "nodes": [
+    {
+      "id": "lucy",
+      "type": "person",
+      "x": 0,
+      "y": 0,
+      "label": "Lucy"
+    },
+    {
+      "id": "alain",
+      "type": "person",
+      "x": 0,
+      "y": 160,
+      "label": "Alain"
+    }
+  ],
+  "edges": []
+}

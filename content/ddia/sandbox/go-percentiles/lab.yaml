@@ -1,0 +1,12 @@
+id: ddia-ch00-l04-lab-percentiles
+title: "TP Go : Percentiles, histogrammes et fusion"
+kind: code
+language: go
+difficulty: 3
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["percentiles.go"]
+concepts: [ddia-percentiles, ddia-tail-amplification, ddia-merge-histograms]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

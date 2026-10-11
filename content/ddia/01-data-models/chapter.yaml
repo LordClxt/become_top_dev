@@ -1,0 +1,22 @@
+id: ddia-ch01
+title: "Modèles de données et requêtes"
+subtitle: "Document, relationnel ou graphe : choisir la forme des données, puis l'interroger"
+source: { chapter: 2, pages: "27-63" }
+objectives:
+  - "Comparer les modèles relationnel, document et graphe d'après la forme des relations (un-à-plusieurs, plusieurs-à-un, plusieurs-à-plusieurs)"
+  - "Normaliser un document en tables et mesurer le coût de la duplication"
+  - "Expliquer l'échec des modèles hiérarchique et réseau et le rôle de l'optimiseur de requêtes"
+  - "Distinguer schema-on-read et schema-on-write et écrire un lecteur qui gère plusieurs versions d'un document"
+  - "Distinguer requête déclarative et impérative, et écrire un MapReduce et son pipeline équivalent"
+  - "Modéliser et interroger un graphe de propriétés (parcours de longueur variable) et évaluer des règles Datalog jusqu'au point fixe"
+mastery_threshold: 0.8
+prerequisites: [ddia-ch00]
+lessons:
+  - "01-relational-document"
+  - "02-history-schema"
+  - "03-declarative-queries"
+  - "04-graphs-datalog"
+xp: { assignment: 120, project: 220, boss: 280 }
+boss: boss
+assignment: assignment
+project: project

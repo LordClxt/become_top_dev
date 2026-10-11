@@ -1,0 +1,22 @@
+blocks:
+  flux:
+    options:
+      db: 'Des instances de versions différentes lisent et écrivent la même base : les deux sens sont nécessaires.'
+      req: 'Serveurs d''abord : le nouveau serveur doit lire les requêtes des anciens clients.'
+      resp: 'Serveurs d''abord : l''ancien client doit lire les réponses du nouveau serveur.'
+      archive: 'Du code récent relit des données anciennes : rétrocompatibilité.'
+  perte:
+    options:
+      model: Décoder vers un modèle qui ignore le champ est ce qui le fait disparaître.
+      rewrite: 'Le champ n''est plus dans l''objet : il n''est donc plus écrit.'
+  rpc:
+    options:
+      same: La latence d'un appel réseau varie énormément, de moins d'une milliseconde à plusieurs secondes.
+  debits:
+    tolerance:
+      abs: 0
+    wrong: '1 envoi initial + 3 nouveaux essais, tous exécutés : 4 débits.'
+  public:
+    options:
+      break: Tu ne peux pas forcer des clients externes à migrer.
+      remove: Supprimer un champ casse les clients qui le lisent encore.

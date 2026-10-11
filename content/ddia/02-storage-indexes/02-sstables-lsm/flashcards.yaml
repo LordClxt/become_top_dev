@@ -1,0 +1,49 @@
+cards:
+- id: fc1
+  front: SSTable ?
+  back: 'Sorted String Table : segment dont les paires sont triées par clé, une seule fois chaque.'
+  concept: ddia-sstable
+- id: fc2
+  front: Trois avantages d'une SSTable sur un segment avec hachage ?
+  back: Fusion simple façon mergesort ; index creux suffisant ; compression par blocs.
+  concept: ddia-sstable
+- id: fc3
+  front: Comment fusionne-t-on des SSTables ?
+  back: Lecture côte à côte, copie de la plus petite clé ; en cas d'égalité le segment le plus récent gagne.
+  concept: ddia-merge-sorted
+- id: fc4
+  front: Index creux ?
+  back: Une clé indexée tous les quelques Ko ; on saute à la plus proche inférieure et on balaie.
+  concept: ddia-sparse-index
+- id: fc5
+  front: Memtable ?
+  back: Arbre équilibré en mémoire qui reçoit les écritures et les trie ; écrit en SSTable au-delà d'un seuil.
+  concept: ddia-memtable-wal
+- id: fc6
+  front: Rôle du WAL dans un LSM ?
+  back: Journal de chaque écriture, uniquement pour reconstruire la memtable après un crash.
+  concept: ddia-memtable-wal
+- id: fc7
+  front: Chemin de lecture d'un LSM ?
+  back: Memtable → segment le plus récent → plus anciens, jusqu'à trouver la clé.
+  concept: ddia-lsm-tree
+- id: fc8
+  front: Qui utilise des moteurs LSM ?
+  back: LevelDB, RocksDB, Cassandra, HBase (inspirés de Bigtable) ; Lucene pour son dictionnaire de termes.
+  concept: ddia-lsm-tree
+- id: fc9
+  front: 'Filtre de Bloom : garanties ?'
+  back: Absent = sûr ; présent = probable. Aucun faux négatif, quelques faux positifs.
+  concept: ddia-bloom-filter
+- id: fc10
+  front: Size-tiered ?
+  back: Les SSTables récentes et petites sont fusionnées dans des plus anciennes et plus grosses.
+  concept: ddia-compaction-strategies
+- id: fc11
+  front: Leveled ?
+  back: L'espace de clés est découpé en petites SSTables, les données plus anciennes passent à des niveaux séparés (LevelDB, RocksDB).
+  concept: ddia-compaction-strategies
+- id: fc12
+  front: Pourquoi un LSM écrit-il vite ?
+  back: Écritures disque séquentielles de fichiers compacts, et memtable en mémoire.
+  concept: ddia-lsm-tree

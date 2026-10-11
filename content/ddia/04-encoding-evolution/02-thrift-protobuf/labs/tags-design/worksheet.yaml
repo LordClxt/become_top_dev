@@ -1,0 +1,89 @@
+intro: |2
+
+  Schéma de départ, version 1 :
+
+  ```
+  message Person {
+      required string user_name       = 1;
+      optional int64  favorite_number = 2;
+      repeated string interests       = 3;
+  }
+  ```
+blocks:
+- id: varint
+  type: table
+  title: Entiers de longueur variable
+  prompt: Dans l'encodage compact de Thrift, les nombres de −64 à 63 tiennent sur **1 octet**, ceux de −8 192 à 8 191 sur **2 octets**, jusqu'à
+    ±1 048 575 sur 3 octets. Combien d'octets pour chaque valeur ?
+  columns:
+  - id: bytes
+    label: Octets
+  rows:
+  - id: v50
+    label: '50'
+  - id: v63
+    label: '63'
+  - id: v64
+    label: '64'
+  - id: v1337
+    label: 1 337
+  - id: v8192
+    label: 8 192
+- id: changes
+  type: match
+  title: Ce qui casse, ce qui passe
+  prompt: Chaque modification du schéma est-elle sûre pour les anciennes **et** les nouvelles données ?
+  items:
+  - id: rename
+    label: Renommer `user_name` en `name` en gardant le numéro 1
+  - id: addopt
+    label: Ajouter `optional string email = 4`
+  - id: addreq
+    label: Ajouter `required string email = 4`
+  - id: renumber
+    label: Passer `favorite_number` du numéro 2 au numéro 5
+  - id: reuse
+    label: Supprimer `favorite_number` et donner le numéro 2 à un nouveau champ `email`
+  - id: retire
+    label: Supprimer `favorite_number` et ne plus jamais utiliser le numéro 2
+  categories:
+  - id: ok
+    label: Sûr
+  - id: break
+    label: Casse des données
+- id: forward
+  type: choice
+  title: Un ancien code face à un numéro inconnu
+  prompt: L'ancien code (version 1) lit un enregistrement écrit avec un champ de numéro 4 qu'il ne connaît pas. Que fait-il ?
+  options:
+  - id: skip
+    label: 'Il l''ignore : l''annotation de type lui dit combien d''octets sauter'
+    hint: Compatibilité ascendante
+  - id: fail
+    label: 'Il échoue : un champ inconnu est une erreur'
+  - id: guess
+    label: Il devine le sens d'après le contexte
+- id: repeated
+  type: choice
+  title: D'optionnel à répété
+  prompt: Un champ `optional` devient `repeated` et le nouveau code écrit trois éléments. Que voit l'**ancien** code ?
+  options:
+  - id: last
+    label: Seulement le dernier élément
+    hint: Même numéro répété
+  - id: first
+    label: Seulement le premier élément
+  - id: error
+    label: Une erreur de décodage
+- id: widen
+  type: choice
+  title: Élargir un entier
+  prompt: Un champ passe de 32 à 64 bits. Le nouveau code écrit une valeur qui ne tient pas dans 32 bits. Que lit l'ancien code ?
+  options:
+  - id: trunc
+    label: Une valeur tronquée
+    hint: Perte de précision
+  - id: exact
+    label: La valeur exacte
+  - id: zero
+    label: Toujours zéro

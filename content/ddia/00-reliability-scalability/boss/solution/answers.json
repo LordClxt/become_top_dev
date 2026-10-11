@@ -1,0 +1,22 @@
+{
+  "appels": 12000,
+  "capa": 300,
+  "part": 9.53,
+  "hol": "hol",
+  "dash": [
+    "measure",
+    "hist",
+    "sum",
+    "read",
+    "slo"
+  ],
+  "agg": {
+    "sumh": "ok",
+    "avg99": "bad",
+    "max99": "ok"
+  },
+  "plan": {
+    "w": 440,
+    "p": 0.25
+  }
+}

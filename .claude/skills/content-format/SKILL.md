@@ -42,6 +42,7 @@ content/<book>/
 - Every lesson cites `source.chapter` and `source.pages`.
 - Code in Markdown: fenced blocks with a language (` ```go `).
 - Inline visuals in a lesson: `::visual{id="go-ch10-goroutine-scheduler"}` directive.
+- No text diagram (ASCII/box-drawing) in the Markdown: use a visual (`hyperframes` by default for an 8–15 s flow or structure, see `concept-visual`) and list its id in the lesson's `visuals:`.
 
 ## Schemas
 See [reference/schemas.md](reference/schemas.md) for every YAML/front-matter file with a complete example.

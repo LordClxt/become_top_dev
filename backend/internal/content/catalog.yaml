@@ -1,0 +1,121 @@
+# Catalogue des composants d'architecture de l'éditeur de diagrammes.
+# `color` désigne une famille de couleur de l'interface (jetons --c-<famille> dans styles/app.css),
+# `icon` une clé du jeu de pictogrammes du frontend (components/diagram/icons.tsx).
+# Les pictogrammes sont originaux : ni logos officiels, ni marques.
+categories:
+  - { id: edge, label: "Bord et clients", color: sky }
+  - { id: compute, label: "Calcul", color: violet }
+  - { id: data, label: "Bases de données", color: blue }
+  - { id: cache, label: "Caches et mémoire", color: red }
+  - { id: messaging, label: "Messagerie", color: orange }
+  - { id: storage, label: "Stockage", color: teal }
+  - { id: external, label: "Externe et ops", color: slate }
+  - { id: engine, label: "Dans le moteur", color: pink }
+  - { id: graph, label: "Graphe", color: violet }
+  - { id: zone, label: "Zones", color: slate }
+
+components:
+  # --- bord et clients ---
+  - { id: client, label: "Client", category: edge, icon: monitor, hint: "Un client générique." }
+  - { id: browser, label: "Navigateur", category: edge, icon: browser, hint: "Application web côté utilisateur." }
+  - { id: mobile, label: "App mobile", category: edge, icon: phone, hint: "Application iOS ou Android." }
+  - { id: cdn, label: "CDN", category: edge, icon: globe, hint: "Sert les contenus statiques au plus près de l'utilisateur." }
+  - { id: dns, label: "DNS", category: edge, icon: signpost, hint: "Traduit un nom en adresse." }
+  - { id: load-balancer, label: "Load balancer", category: edge, icon: split, hint: "Répartit les requêtes entre plusieurs instances." }
+  - { id: gateway, label: "API gateway", category: edge, icon: gate, hint: "Point d'entrée unique : authentification, quotas, routage." }
+  - { id: proxy, label: "Reverse proxy", category: edge, icon: shuffle, hint: "Intermédiaire devant les services." }
+
+  # --- calcul ---
+  - { id: service, label: "Service", category: compute, icon: server, hint: "Un service applicatif." }
+  - { id: worker, label: "Worker", category: compute, icon: cog, hint: "Traite des tâches en arrière-plan." }
+  - { id: cron, label: "Tâche planifiée", category: compute, icon: clock, hint: "Lancée à intervalle régulier." }
+  - { id: function, label: "Fonction serverless", category: compute, icon: bolt, hint: "Code déclenché à la demande." }
+  - { id: stream-processor, label: "Traitement de flux", category: compute, icon: waves, hint: "Calcule en continu sur un flux d'événements." }
+
+  # --- bases de données ---
+  - id: database
+    label: "Base de données"
+    category: data
+    icon: database
+    hint: "Une base de données générique."
+    props: [{ id: role, label: "Rôle", options: [primary, replica], default: primary }]
+  - id: postgres
+    label: "PostgreSQL"
+    category: data
+    icon: postgres
+    hint: "Base relationnelle."
+    props: [{ id: role, label: "Rôle", options: [primary, replica], default: primary }]
+  - id: mysql
+    label: "MySQL"
+    category: data
+    icon: mysql
+    hint: "Base relationnelle."
+    props: [{ id: role, label: "Rôle", options: [primary, replica], default: primary }]
+  - { id: mongo, label: "MongoDB", category: data, icon: leaf, hint: "Base de documents." }
+  - { id: cassandra, label: "Cassandra", category: data, icon: ring, hint: "Base à colonnes larges, sans leader." }
+  - { id: dynamo, label: "DynamoDB", category: data, icon: bolt-db, hint: "Clé-valeur géré, partitionné." }
+  - { id: sqlite, label: "SQLite", category: data, icon: file-db, hint: "Base embarquée dans un fichier." }
+  - { id: graph-db, label: "Base de graphe", category: data, icon: graph, hint: "Sommets et arêtes (Neo4j…)." }
+  - { id: search, label: "Moteur de recherche", category: data, icon: search, hint: "Index plein texte (Elasticsearch, Solr)." }
+  - { id: warehouse, label: "Entrepôt de données", category: data, icon: columns, hint: "Stockage en colonnes pour l'analytique." }
+
+  # --- caches ---
+  - id: cache
+    label: "Cache"
+    category: cache
+    icon: zap
+    hint: "Un cache générique."
+  - id: redis
+    label: "Redis"
+    category: cache
+    icon: redis
+    hint: "Structures de données en mémoire."
+    props: [{ id: role, label: "Rôle", options: [cache, primary-store, queue], default: cache }]
+  - { id: memcached, label: "Memcached", category: cache, icon: chip, hint: "Cache clé-valeur en mémoire." }
+
+  # --- messagerie ---
+  - { id: queue, label: "File de messages", category: messaging, icon: layers, hint: "Découple l'émetteur du consommateur : asynchrone." }
+  - { id: kafka, label: "Kafka", category: messaging, icon: kafka, hint: "Log distribué partitionné." }
+  - { id: rabbit, label: "RabbitMQ", category: messaging, icon: rabbit, hint: "Courtier de messages." }
+  - { id: topic, label: "Topic", category: messaging, icon: topic, hint: "Canal de publication/abonnement." }
+
+  # --- stockage ---
+  - { id: object-store, label: "Stockage objet", category: storage, icon: bucket, hint: "Fichiers volumineux (S3…)." }
+  - { id: disk, label: "Disque", category: storage, icon: disk, hint: "Stockage local persistant." }
+  - { id: file, label: "Fichier", category: storage, icon: file, hint: "Un fichier sur disque." }
+
+  # --- externe et ops ---
+  - { id: external, label: "Système externe", category: external, icon: building, hint: "Un service tiers." }
+  - { id: auth, label: "Authentification", category: external, icon: key, hint: "Fournisseur d'identité." }
+  - { id: payment, label: "Paiement", category: external, icon: card, hint: "Passerelle de paiement." }
+  - { id: email, label: "E-mail", category: external, icon: mail, hint: "Envoi de messages." }
+  - { id: monitoring, label: "Supervision", category: external, icon: pulse, hint: "Métriques, logs, alertes." }
+
+  # --- dans le moteur (DDIA) ---
+  - { id: wal, label: "WAL", category: engine, icon: scroll, hint: "Journal d'écriture anticipée." }
+  - { id: log, label: "Segment de log", category: engine, icon: log, hint: "Fichier en ajout seul." }
+  - { id: hash-index, label: "Index de hachage", category: engine, icon: hash, hint: "Table clé → offset en mémoire." }
+  - { id: memtable, label: "Memtable", category: engine, icon: tree, hint: "Arbre trié en mémoire." }
+  - { id: sstable, label: "SSTable", category: engine, icon: rows, hint: "Segment trié par clé, immuable." }
+  - { id: compaction, label: "Compaction", category: engine, icon: merge, hint: "Fusionne des segments." }
+  - { id: bloom, label: "Filtre de Bloom", category: engine, icon: filter, hint: "Dit qu'une clé est sûrement absente." }
+  - id: btree-page
+    label: "Page B-tree"
+    category: engine
+    icon: page
+    hint: "Une page : des clés triées et des références."
+    props: [{ id: keys, label: "Clés", kind: text, default: "" }]
+  - { id: index, label: "Index", category: engine, icon: list, hint: "Structure dérivée pour retrouver vite." }
+  - { id: leader, label: "Leader", category: engine, icon: crown, hint: "Nœud qui reçoit les écritures." }
+  - { id: follower, label: "Réplica", category: engine, icon: copy, hint: "Copie qui suit le leader." }
+  - { id: partition, label: "Partition", category: engine, icon: grid, hint: "Tranche des données." }
+  - { id: consensus, label: "Nœud de consensus", category: engine, icon: vote, hint: "Participe à un accord." }
+  - id: entity
+    label: "Entité"
+    category: graph
+    icon: node
+    hint: "Un sommet d'un graphe (lieu, personne…)."
+    props: [{ id: kind, label: "Type", options: [location, person, other], default: other }]
+
+  # --- zones ---
+  - { id: zone, label: "Zone", category: zone, icon: frame, zone: true, hint: "Regroupe des composants (datacenter, région, VPC…)." }

@@ -50,7 +50,7 @@ design-system/             shared UI + visual tokens (colors, typography, motion
 
 ## Non-negotiable quality rules
 - A lab ships only if `verify_lab.sh` passes: the **solution passes** the tests AND the **starter fails**.
-- No fake tests for non-executable exercises: use a rubric.
+- No fake tests for non-executable exercises: use a `diagram` or `worksheet` exercise (graded by the backend, no code), with no self-graded rubric.
 - Every visual has a one-line justification of its format.
 - Content must be valid according to `content-format/reference/schemas.md`.
 
@@ -77,7 +77,7 @@ design-system/             shared UI + visual tokens (colors, typography, motion
 - `make dev` — run everything locally: Postgres (Docker, port 5433), runner :8001, backend :8000, frontend http://localhost:3000 (dev password: `dev`)
 - `make test` — backend + runner tests + front-end type check
 - `make lint` — gofmt + go vet (backend, runner)
-- `make validate-content` — replays every lab (solution passes, starter fails) and every "code-output" quiz
+- `make validate-content` — replays every lab (code, diagram, worksheet: solution passes, starter fails) and every "code-output" quiz
 - `make up` / `make down` — full stack via Docker Compose (create `.env` from `.env.example`)
 - `make reset-progress` — resets local progress to zero
 - `python3 .claude/skills/book-ingest/scripts/extract_book.py <pdf> --slug <slug>` — extract a book

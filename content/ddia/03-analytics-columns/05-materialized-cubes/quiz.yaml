@@ -1,0 +1,126 @@
+id: ddia-ch03-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle est la différence entre une vue virtuelle et une vue matérialisée ?
+  choices:
+  - La virtuelle est un raccourci recalculé à chaque lecture ; la matérialisée est une copie des résultats écrite sur disque
+  - La matérialisée est plus petite
+  - La virtuelle est toujours plus rapide
+  - Il n'y en a pas
+  answer: 0
+  explanation: La vue virtuelle est dépliée en sa requête sous-jacente à chaque lecture.
+  concept: ddia-materialized-view
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quel est le coût d'une vue matérialisée ?
+  choices:
+  - Elle doit être mise à jour quand les données changent, ce qui renchérit les écritures
+  - Elle interdit les lectures
+  - Elle doit être recréée chaque minute
+  - Elle n'a aucun coût
+  answer: 0
+  explanation: C'est une copie dénormalisée.
+  concept: ddia-materialized-view
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi les vues matérialisées sont-elles peu utilisées dans les bases OLTP ?
+  choices:
+  - Elles ralentissent des écritures qui doivent rester rapides
+  - Elles ne marchent pas avec les index
+  - Elles interdisent les transactions
+  - SQL ne les accepte pas
+  answer: 0
+  explanation: Dans un entrepôt qui lit beaucoup et écrit peu, elles ont plus de sens.
+  concept: ddia-materialized-view
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Qu'est-ce qu'un cube de données ?
+  choices:
+  - Une grille d'agrégats regroupés par plusieurs dimensions
+  - Une table de faits en trois dimensions
+  - Un index 3D
+  - Un format de compression
+  answer: 0
+  explanation: Cas particulier de vue matérialisée.
+  concept: ddia-data-cube
+  difficulty: 1
+- id: q5
+  type: code-output
+  prompt: Qu'affiche ce programme ? (somme par produit à partir d'un petit cube)
+  code: |
+    cube := [][]int{{10, 20, 5}, {15, 5, 25}}
+    by := make([]int, 3)
+    for _, row := range cube {
+        for j, v := range row {
+            by[j] += v
+        }
+    }
+    fmt.Println(by)
+  answer: '[25 25 30]'
+  explanation: Résumer le long de la dimension « date » donne le total par produit.
+  concept: ddia-data-cube
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Quel avantage a un cube ?
+  choices:
+  - Certaines requêtes deviennent très rapides car précalculées
+  - Il remplace les données brutes
+  - Il réduit la taille de l'entrepôt
+  - Il garantit la cohérence
+  answer: 0
+  explanation: Le total des ventes par magasin hier se lit directement.
+  concept: ddia-data-cube
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Quel est l'inconvénient d'un cube ?
+  choices:
+  - 'Il manque de souplesse : on ne peut interroger que les dimensions prévues'
+  - Il est toujours trop lent
+  - Il ne gère pas SUM
+  - Il exige un schéma en flocon
+  answer: 0
+  explanation: Par exemple, la part des ventes d'articles à plus de 100 € est impossible si le prix n'est pas une dimension.
+  concept: ddia-data-cube
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Que fait-on généralement des données brutes quand on utilise des cubes ?
+  choices:
+  - On les garde et on utilise les cubes comme accélérateur
+  - On les supprime
+  - On ne garde que les cubes
+  - On les chiffre
+  answer: 0
+  explanation: Les entrepôts conservent autant de données brutes que possible.
+  concept: ddia-data-cube
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Combien de cases contient au plus un cube sur 10 dates, 4 produits et 3 magasins ?
+  choices:
+  - '120'
+  - '17'
+  - '43'
+  - 1 200
+  answer: 0
+  explanation: 'Produit des cardinalités : 10 × 4 × 3.'
+  concept: ddia-data-cube
+  difficulty: 1
+- id: q10
+  type: single
+  prompt: Première question avant de choisir un moteur de stockage ?
+  choices:
+  - Ma charge est-elle OLTP ou OLAP ?
+  - Quelle marque de disque ?
+  - Quel langage de programmation ?
+  - Combien d'index ?
+  answer: 0
+  explanation: 'OLTP : LSM-trees ou B-trees. OLAP : stockage en colonnes.'
+  concept: ddia-olap-oltp-summary
+  difficulty: 1

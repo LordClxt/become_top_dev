@@ -9,6 +9,8 @@ type TestCase struct {
 	Name   string `json:"name"`
 	Status string `json:"status"` // pass | fail | skip | run
 	Output string `json:"output"`
+	// Refs liste les blocs ou flèches fautifs d'un diagramme (le client les surligne).
+	Refs []string `json:"refs,omitempty"`
 }
 
 type TestReport struct {

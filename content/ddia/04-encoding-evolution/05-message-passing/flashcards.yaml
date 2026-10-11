@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Message broker ?
+  back: 'Intermédiaire qui stocke temporairement les messages : tampon, redélivrance, découplage, plusieurs destinataires.'
+  concept: ddia-message-broker
+- id: fc2
+  front: RPC contre messages ?
+  back: 'Le message est à sens unique et asynchrone : l''émetteur n''attend pas de réponse.'
+  concept: ddia-queue-topic
+- id: fc3
+  front: File ou sujet ?
+  back: Destination nommée ; le broker livre à un ou plusieurs consommateurs ou abonnés.
+  concept: ddia-queue-topic
+- id: fc4
+  front: Réponse via un broker ?
+  back: Un consommateur publie sur une file de réponse lue par l'émetteur d'origine.
+  concept: ddia-queue-topic
+- id: fc5
+  front: Encodage des messages ?
+  back: 'Libre : le broker transporte des octets ; un encodage compatible rend éditeurs et consommateurs indépendants.'
+  concept: ddia-broker-encoding
+- id: fc6
+  front: Modèle d'acteurs ?
+  back: Acteurs avec état local, messages asynchrones, un message à la fois, livraison non garantie.
+  concept: ddia-actor-model
+- id: fc7
+  front: Acteurs et mises à jour progressives ?
+  back: Même exigence de compatibilité ; Akka (Java par défaut) et Orleans l'empêchent par défaut, Erlang demande un plan soigné.
+  concept: ddia-actor-model
+- id: fc8
+  front: Conclusion du chapitre 4 ?
+  back: Les détails d'encodage dictent l'architecture et les déploiements ; viser rétro et ascendante pour tout ce qui circule.
+  concept: ddia-ch04-summary

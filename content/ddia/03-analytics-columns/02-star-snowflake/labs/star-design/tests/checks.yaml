@@ -1,0 +1,50 @@
+checks:
+- id: one-fact
+  label: Une seule table de faits
+  rule: count
+  source: fact
+  min: 1
+  max: 1
+- id: who
+  label: Les faits référencent le client (qui)
+  rule: edge_kind
+  source: fact
+  target: customer
+  kind: sync
+- id: what
+  label: Les faits référencent le produit (quoi)
+  rule: edge_kind
+  source: fact
+  target: product
+  kind: sync
+- id: where
+  label: Les faits référencent le magasin (où)
+  rule: edge_kind
+  source: fact
+  target: store
+  kind: sync
+- id: when
+  label: Les faits référencent la date (quand)
+  rule: edge_kind
+  source: fact
+  target: date
+  kind: sync
+- id: how
+  label: Les faits référencent la promotion (comment)
+  rule: edge_kind
+  source: fact
+  target: promo
+  kind: sync
+- id: star
+  label: 'Étoile et non flocon : pas de sous-dimension'
+  rule: count
+  source: brand
+  max: 0
+- id: relational
+  label: Pas de document imbriqué dans un entrepôt relationnel
+  rule: count
+  source: doc
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

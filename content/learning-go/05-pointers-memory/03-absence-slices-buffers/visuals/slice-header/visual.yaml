@@ -1,0 +1,7 @@
+id: go-ch05-slice-header
+concept: go-slice-header
+format: hyperframes
+justification: "Voir les trois champs de la slice copiés vers t, puis append remplir une case du tableau partagé alors que seule la longueur de t change, rend visible pourquoi s ne voit pas la nouvelle valeur."
+entry: scene.html
+duration_s: 12.0
+status: built

@@ -1,0 +1,81 @@
+intro: |2
+
+  Huit ventes, dans leur **ordre d'insertion**, avec un jour (1 ou 2) et un produit (A ou B) :
+
+  | # | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+  |---|---|---|---|---|---|---|---|---|
+  | jour | 1 | 2 | 1 | 2 | 1 | 2 | 1 | 2 |
+  | produit | B | A | A | B | B | A | A | B |
+
+  Une séquence de valeurs identiques consécutives s'appelle une **séquence** (*run*) ; le RLE stocke une paire (valeur, longueur) par séquence.
+blocks:
+- id: runs
+  type: table
+  title: Compter les séquences
+  prompt: Combien de séquences obtient-on dans chaque colonne selon l'ordre des lignes ? (On trie toujours des **lignes entières** ; `tri (jour,
+    produit)` trie d'abord par jour, puis par produit.)
+  columns:
+  - id: day
+    label: Séquences du jour
+  - id: prod
+    label: Séquences du produit
+  rows:
+  - id: ins
+    label: Ordre d'insertion
+  - id: dp
+    label: Tri (jour, produit)
+  - id: pd
+    label: Tri (produit, jour)
+- id: cle
+  type: choice
+  title: Quelle première clé de tri ?
+  prompt: Les analystes interrogent presque toujours **le dernier mois**. Quelle colonne doit être la première clé de tri ?
+  options:
+  - id: date
+    label: 'La date : seules les lignes du mois sont balayées'
+    hint: Plage de dates
+  - id: price
+    label: Le prix
+  - id: rand
+    label: 'N''importe laquelle : l''ordre n''a pas d''importance'
+- id: separe
+  type: choice
+  title: Trier chaque colonne à part ?
+  prompt: On trie la colonne `jour` seule, puis la colonne `produit` seule, pour maximiser la compression. Pourquoi est-ce interdit ?
+  options:
+  - id: pos
+    label: 'On ne saurait plus quelles valeurs appartiennent à la même ligne : la k-ième valeur de chaque colonne ne désigne plus la même ligne'
+    hint: Reconstruction des lignes
+  - id: perf
+    label: Le tri coûte trop cher
+  - id: sql
+    label: SQL l'interdit
+- id: copies
+  type: match
+  title: Plusieurs ordres de tri
+  prompt: Vrai pour un stockage orienté lignes avec index secondaires, ou pour un stockage en colonnes avec plusieurs ordres de tri ?
+  items:
+  - id: heap
+    label: Chaque ligne n'existe qu'à un seul endroit, les index y renvoient par pointeur
+  - id: copies
+    label: Les copies répliquées sont triées différemment, sans pointeurs
+  - id: secondaire
+    label: Chaque index secondaire contient des références vers les lignes
+  categories:
+  - id: row
+    label: Orienté lignes (index)
+  - id: col
+    label: Orienté colonnes (ordres de tri)
+- id: ecriture
+  type: order
+  title: Écrire dans un stockage en colonnes
+  prompt: Remets dans l'ordre le chemin d'une écriture.
+  items:
+  - id: mem
+    label: Ajouter la ligne à une structure triée en mémoire
+  - id: accum
+    label: Laisser s'accumuler assez d'écritures
+  - id: merge
+    label: Les fusionner avec les fichiers de colonnes existants
+  - id: bulk
+    label: Écrire de nouveaux fichiers en bloc

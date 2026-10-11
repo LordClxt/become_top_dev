@@ -1,0 +1,3 @@
+**Le même profil pèse 23 octets en JSON, 16 en MessagePack, 8 en Protobuf, 6 en Avro** : plus le format dépend d'un schéma, moins il répète de métadonnées. En contrepartie, il impose une discipline d'évolution : numéros jamais changés ni réutilisés (Protobuf), champs avec défaut (Avro), champs inconnus ignorés — et un ordre de déploiement : schéma d'abord, **lecteurs avant écrivains**, puis seulement les contraintes plus strictes.
+
+Aux frontières, deux réflexes : un entier de plus de 2⁵³ s'envoie aussi en chaîne pour JavaScript ; et un appel réseau qui expire laisse une issue inconnue, donc on ne le réessaie que s'il est idempotent.

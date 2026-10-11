@@ -1,0 +1,133 @@
+{
+  "nodes": [
+    {
+      "id": "dc",
+      "type": "zone",
+      "x": 330,
+      "y": -20,
+      "label": "Datacenter",
+      "w": 900,
+      "h": 420
+    },
+    {
+      "id": "browser",
+      "type": "browser",
+      "x": 0,
+      "y": 150
+    },
+    {
+      "id": "gateway",
+      "type": "gateway",
+      "x": 330,
+      "y": 150
+    },
+    {
+      "id": "service",
+      "type": "service",
+      "x": 560,
+      "y": 150,
+      "parent": "dc"
+    },
+    {
+      "id": "redis",
+      "type": "redis",
+      "x": 840,
+      "y": 20,
+      "parent": "dc",
+      "props": {
+        "role": "cache"
+      }
+    },
+    {
+      "id": "pg",
+      "type": "pg",
+      "x": 840,
+      "y": 150,
+      "label": "PostgreSQL principal",
+      "parent": "dc"
+    },
+    {
+      "id": "pg2",
+      "type": "pg",
+      "x": 840,
+      "y": 290,
+      "label": "PostgreSQL réplica",
+      "parent": "dc"
+    },
+    {
+      "id": "queue",
+      "type": "queue",
+      "x": 560,
+      "y": 290,
+      "parent": "dc"
+    },
+    {
+      "id": "worker",
+      "type": "worker",
+      "x": 560,
+      "y": 400,
+      "parent": "dc"
+    },
+    {
+      "id": "email",
+      "type": "email",
+      "x": 1300,
+      "y": 400
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "browser",
+      "target": "gateway",
+      "kind": "sync",
+      "label": "HTTPS"
+    },
+    {
+      "id": "e2",
+      "source": "gateway",
+      "target": "service",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "service",
+      "target": "redis",
+      "kind": "read",
+      "label": "GET"
+    },
+    {
+      "id": "e4",
+      "source": "service",
+      "target": "pg",
+      "kind": "write",
+      "label": "INSERT"
+    },
+    {
+      "id": "e5",
+      "source": "pg",
+      "target": "pg2",
+      "kind": "replication",
+      "label": "WAL"
+    },
+    {
+      "id": "e6",
+      "source": "service",
+      "target": "queue",
+      "kind": "async",
+      "label": "événement"
+    },
+    {
+      "id": "e7",
+      "source": "queue",
+      "target": "worker",
+      "kind": "async"
+    },
+    {
+      "id": "e8",
+      "source": "worker",
+      "target": "email",
+      "kind": "sync"
+    }
+  ]
+}

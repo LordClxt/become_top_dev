@@ -1,0 +1,17 @@
+id: ddia-ch03-l04-lab-sortorder-design
+title: Choisir l'ordre de tri d'une table en colonnes
+difficulty: 3
+xp: 70
+concepts:
+- ddia-column-sort-order
+- ddia-sort-compression
+- ddia-column-writes
+- ddia-multiple-sort-orders
+source:
+  chapter: 3
+  pages: 99-101
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

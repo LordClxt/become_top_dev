@@ -1,0 +1,1 @@
+Voici le monde de la leçon : **Lucy** est née en Idaho (dans les États-Unis) ; **Alain** est né à Beaune (en France, en Europe) ; tous deux vivent à Londres (au Royaume-Uni, en Europe). Dessine ce graphe : un sommet par personne et par lieu, des flèches **étiquetées** (`born_in`, `lives_in`, `within`). Les noms des lieux sont en anglais, comme dans le livre.

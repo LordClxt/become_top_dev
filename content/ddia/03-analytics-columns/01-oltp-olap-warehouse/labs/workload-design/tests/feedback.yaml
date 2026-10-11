@@ -1,0 +1,21 @@
+blocks:
+  charges:
+    options:
+      profil: 'On cherche un seul enregistrement par sa clé : c''est le profil typique de l''OLTP.'
+      ca: 'On additionne énormément de lignes pour obtenir un chiffre par magasin : c''est de l''analyse.'
+      adresse: 'Une écriture ponctuelle déclenchée par l''utilisateur : OLTP.'
+  pourquoi:
+    options:
+      sql: 'SQL convient aux deux usages : ce n''est pas la raison.'
+      acid: L'analyse ne viole rien ; c'est son coût qui menace la production.
+  etl:
+    options:
+      transform: On ne peut transformer qu'après avoir extrait.
+      load: Le chargement vient une fois les données prêtes.
+  vrai:
+    options:
+      same: 'Les index de la première moitié du chapitre répondent mal aux requêtes analytiques : l''entrepôt utilise d''autres moteurs.'
+  taille:
+    tolerance:
+      rel: 0.02
+    wrong: 50 000 000 × 120 octets × 365 jours = 2,19 × 10¹² octets.

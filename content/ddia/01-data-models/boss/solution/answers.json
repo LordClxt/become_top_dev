@@ -1,0 +1,28 @@
+{
+  "tours": {
+    "t1.new": 5,
+    "t2.new": 3,
+    "t3.new": 0
+  },
+  "europe": [
+    "paris",
+    "lyon",
+    "france"
+  ],
+  "migrants": 1,
+  "total": 8,
+  "unsafe": "ignore",
+  "steps": [
+    "first",
+    "second",
+    "head",
+    "dedup",
+    "loop"
+  ],
+  "rec": {
+    "p1": "flat",
+    "p2": "rec",
+    "p3": "rec",
+    "p4": "flat"
+  }
+}

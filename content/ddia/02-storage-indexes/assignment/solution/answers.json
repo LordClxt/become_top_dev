@@ -1,0 +1,22 @@
+{
+  "segments": 2,
+  "lectures": {
+    "gb.n": 1,
+    "ga.n": 2,
+    "gz.n": 2
+  },
+  "scan": [
+    "a",
+    "c",
+    "d"
+  ],
+  "compact": 4,
+  "tomb": "all",
+  "bloom": 0.08,
+  "mem": {
+    "memtable": "ram",
+    "wal": "disk",
+    "sstable": "disk",
+    "bloom": "ram"
+  }
+}

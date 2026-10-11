@@ -1,0 +1,45 @@
+cards:
+- id: fc1
+  front: Page d'un B-tree ?
+  back: Bloc de taille fixe (4 Ko) identifié par une adresse, qui peut référencer d'autres pages.
+  concept: ddia-btree-pages
+- id: fc2
+  front: Différence B-tree / LSM dans l'écriture ?
+  back: 'B-tree : écrase des pages de taille fixe sur place. LSM : écrit des segments séquentiellement et ne modifie jamais un fichier.'
+  concept: ddia-btree-pages
+- id: fc3
+  front: Facteur de branchement ?
+  back: Nombre de références vers les enfants dans une page ; typiquement plusieurs centaines.
+  concept: ddia-branching-factor
+- id: fc4
+  front: Profondeur d'un B-tree ?
+  back: O(log n) ; 3 ou 4 niveaux suffisent pour la plupart des bases (4 niveaux × 500 × 4 Ko ≈ 256 To).
+  concept: ddia-branching-factor
+- id: fc5
+  front: Étapes d'une insertion dans un B-tree ?
+  back: Trouver la feuille, insérer ; si pleine, éclater en deux pages à moitié pleines et mettre à jour le parent (récursivement).
+  concept: ddia-btree-split
+- id: fc6
+  front: Quand l'arbre gagne-t-il un niveau ?
+  back: 'Quand la racine éclate : on crée une nouvelle racine.'
+  concept: ddia-btree-split
+- id: fc7
+  front: Danger d'un split sans WAL ?
+  back: 'Plusieurs pages à écrire : un crash au milieu corrompt l''index (page orpheline).'
+  concept: ddia-btree-wal
+- id: fc8
+  front: WAL / redo log ?
+  back: Fichier en ajout seul où chaque modification est écrite avant son application ; rejoué après un crash.
+  concept: ddia-btree-wal
+- id: fc9
+  front: Latch ?
+  back: Verrou léger protégeant les structures du B-tree d'accès concurrents incohérents.
+  concept: ddia-btree-wal
+- id: fc10
+  front: Copy-on-write ?
+  back: Écrire la page modifiée ailleurs et recréer les parents (LMDB) au lieu d'écraser et de tenir un WAL.
+  concept: ddia-btree-optimizations
+- id: fc11
+  front: Quatre optimisations de B-tree ?
+  back: Copy-on-write, clés abrégées, feuilles séquentielles sur disque, pointeurs vers les feuilles voisines.
+  concept: ddia-btree-optimizations

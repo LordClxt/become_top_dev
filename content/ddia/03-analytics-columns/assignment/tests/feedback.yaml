@@ -1,0 +1,37 @@
+blocks:
+  ou:
+    options:
+      profil: Lire le panier d'un client par sa clé est un accès transactionnel.
+      promo: 'Comparer une période à l''habitude parcourt beaucoup de lignes : analyse.'
+  io:
+    options:
+      row.go: 2 × 10⁹ lignes × 120 colonnes × 4 octets = 960 Go.
+      col.go: 2 × 10⁹ lignes × 5 colonnes × 4 octets = 40 Go.
+  ratio:
+    tolerance:
+      rel: 0.001
+    wrong: 120 colonnes divisées par 5 colonnes utilisées = 24.
+  bitmaps:
+    options:
+      pays.go: 200 bitmaps × 10⁹ bits = 2 × 10¹¹ bits = 25 Go.
+      produit.go: '100 000 bitmaps × 10⁹ bits = 10¹⁴ bits = 12 500 Go : bien plus que la colonne elle-même.'
+  choix:
+    options:
+      none: '12,5 To de bits presque tous à zéro : un gaspillage énorme.'
+      drop: La colonne est utile aux requêtes ; on la compresse au lieu de la supprimer.
+  runs:
+    tolerance:
+      rel: 0.001
+    wrong: 'Triée, la colonne n''a que 365 séquences : 365 × (4 + 8) = 4 380 octets.'
+  tri:
+    options:
+      magasin: 'Les requêtes filtrent d''abord une plage de dates : c''est la date qui doit trier en premier.'
+      hasard: L'ordre décide à la fois des lignes qu'on peut sauter et de la compression.
+  cube:
+    goals:
+      size: 'Le cube est trop gros : réduis les produits ou les magasins.'
+      prod: En dessous de 1 000 produits, le cube ne sert pas le besoin.
+      mag: En dessous de 50 magasins, le cube ne couvre pas la chaîne.
+  brut:
+    options:
+      jeter: Une question que le cube n'a pas prévue deviendrait impossible à poser.

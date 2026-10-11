@@ -1,0 +1,23 @@
+{
+  "etapes": [
+    "read",
+    "ver",
+    "up",
+    "ret"
+  ],
+  "coupe": {
+    "r1.first": "Ada",
+    "r1.last": "Lovelace",
+    "r2.first": "Ludwig",
+    "r2.last": "van Beethoven",
+    "r3.first": "Alan",
+    "r3.last": "Turing",
+    "r4.first": "Jean-Pierre",
+    "r4.last": "Dupont"
+  },
+  "migration": "lazy",
+  "avantage": [
+    "hetero",
+    "externe"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "ou": {
+    "caisse": "oltp",
+    "marge": "wh",
+    "profil": "oltp",
+    "promo": "wh"
+  },
+  "io": {
+    "row.go": 960,
+    "col.go": 40
+  },
+  "ratio": 24,
+  "bitmaps": {
+    "pays.go": 25,
+    "produit.go": 12500
+  },
+  "choix": "rle",
+  "runs": 4380,
+  "tri": "date",
+  "cube": {
+    "p": 1000,
+    "m": 50
+  },
+  "brut": "garder"
+}

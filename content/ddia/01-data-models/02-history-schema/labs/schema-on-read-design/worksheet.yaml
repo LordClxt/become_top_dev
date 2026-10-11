@@ -1,0 +1,60 @@
+intro: 'Ton application stocke des utilisateurs dans une base de documents. Les anciens documents ont un seul champ `name` ; les nouveaux, `first_name`
+  et `last_name`. La base ne vérifie rien : c''est **ton code de lecture** qui comprend toutes les versions.'
+blocks:
+- id: etapes
+  type: order
+  title: Le chemin d'une lecture
+  prompt: Remets dans l'ordre ce que fait le code quand il lit un document ancien.
+  items:
+  - id: read
+    label: Lire le document brut dans la base
+  - id: ver
+    label: 'Lire sa version (absente : version 1)'
+  - id: up
+    label: 'Appliquer la mise à niveau : couper `name` au premier espace'
+  - id: ret
+    label: Rendre à l'application un document au format courant
+- id: coupe
+  type: table
+  title: Mettre à niveau quatre noms
+  prompt: Coupe `name` au **premier espace**, après avoir retiré les espaces autour. Le reste du nom va dans `last_name`.
+  columns:
+  - id: first
+    label: first_name
+  - id: last
+    label: last_name
+  rows:
+  - id: r1
+    label: « Ada Lovelace »
+  - id: r2
+    label: « Ludwig van Beethoven »
+  - id: r3
+    label: « ␣␣Alan Turing␣␣ »
+  - id: r4
+    label: « Jean-Pierre Dupont »
+- id: migration
+  type: choice
+  title: 500 millions de lignes à migrer
+  prompt: Il faut ajouter `first_name` à une table de 500 millions de lignes, **sans arrêter le service**. Quelle stratégie est raisonnable ?
+  options:
+  - id: update
+    label: Un `UPDATE` global dans une seule transaction
+    hint: Simple et immédiat
+  - id: lazy
+    label: Laisser la colonne vide et la remplir à la lecture, avec une tâche de fond
+    hint: Même principe qu'avec un document
+  - id: stop
+    label: Arrêter le service le temps de réécrire la table
+- id: avantage
+  type: multi
+  title: Quand le schema-on-read aide-t-il ?
+  prompt: Coche les situations où l'absence de schéma imposé est un atout.
+  options:
+  - id: hetero
+    label: Beaucoup de types d'objets hétérogènes qu'on ne veut pas répartir en tables
+  - id: externe
+    label: La structure est dictée par un système externe qui peut changer
+  - id: uniforme
+    label: Tous les enregistrements ont exactement la même structure
+  - id: refus
+    label: On veut que la base refuse les données invalides à l'écriture

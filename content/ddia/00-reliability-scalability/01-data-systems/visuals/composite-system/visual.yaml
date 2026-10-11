@@ -1,0 +1,7 @@
+id: ddia-ch00-composite-system
+concept: ddia-composite-system
+format: hyperframes
+justification: "Voir un paquet d'écriture traverser l'application puis la base, le cache et l'index, et une lecture rater le cache, montre que c'est le code applicatif qui garde les briques synchronisées."
+entry: scene.html
+duration_s: 12.5
+status: built

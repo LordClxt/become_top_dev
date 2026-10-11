@@ -1,0 +1,23 @@
+{
+  "runs": {
+    "ins.day": 8,
+    "ins.prod": 5,
+    "dp.day": 2,
+    "dp.prod": 4,
+    "pd.day": 4,
+    "pd.prod": 2
+  },
+  "cle": "date",
+  "separe": "pos",
+  "copies": {
+    "heap": "row",
+    "copies": "col",
+    "secondaire": "row"
+  },
+  "ecriture": [
+    "mem",
+    "accum",
+    "merge",
+    "bulk"
+  ]
+}

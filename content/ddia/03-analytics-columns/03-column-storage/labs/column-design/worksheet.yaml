@@ -1,0 +1,115 @@
+intro: |2
+
+  Une table de faits compte **1 milliard de lignes** et **100 colonnes** de 8 octets chacune. Une requête n'utilise que **3 colonnes**.
+
+  Pour la partie bitmap, on regarde une colonne sur 9 lignes (numérotées 1 à 9) :
+
+  | Ligne | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+  |---|---|---|---|---|---|---|---|---|---|
+  | `product_sk` | 29 | 29 | 69 | 69 | 69 | 69 | 29 | 31 | 31 |
+  | `store_sk` | 3 | 3 | 3 | 5 | 5 | 3 | 3 | 5 | 3 |
+blocks:
+- id: io
+  type: table
+  title: Données lues par la requête
+  prompt: Combien de gigaoctets chaque organisation doit-elle lire ? (1 Go = 10⁹ octets. Le stockage par lignes charge les lignes entières.)
+  columns:
+  - id: go
+    label: Go lus
+  rows:
+  - id: row
+    label: Orienté lignes
+  - id: col
+    label: Orienté colonnes
+- id: b69
+  type: multi
+  title: Le bitmap de la valeur 69
+  prompt: Dans le bitmap de `product_sk = 69`, quelles lignes ont un bit à **1** ?
+  options:
+  - id: l1
+    label: Ligne 1
+  - id: l2
+    label: Ligne 2
+  - id: l3
+    label: Ligne 3
+  - id: l4
+    label: Ligne 4
+  - id: l5
+    label: Ligne 5
+  - id: l6
+    label: Ligne 6
+  - id: l7
+    label: Ligne 7
+  - id: l8
+    label: Ligne 8
+  - id: l9
+    label: Ligne 9
+- id: bor
+  type: multi
+  title: '`product_sk IN (29, 31)`'
+  prompt: On calcule le **OU** des bitmaps de 29 et de 31. Quelles lignes ont un bit à 1 dans le résultat ?
+  options:
+  - id: l1
+    label: Ligne 1
+  - id: l2
+    label: Ligne 2
+  - id: l3
+    label: Ligne 3
+  - id: l4
+    label: Ligne 4
+  - id: l5
+    label: Ligne 5
+  - id: l6
+    label: Ligne 6
+  - id: l7
+    label: Ligne 7
+  - id: l8
+    label: Ligne 8
+  - id: l9
+    label: Ligne 9
+- id: band
+  type: multi
+  title: '`product_sk = 29 AND store_sk = 3`'
+  prompt: On calcule le **ET** du bitmap de `product_sk = 29` et de celui de `store_sk = 3`. Quelles lignes restent ?
+  options:
+  - id: l1
+    label: Ligne 1
+  - id: l2
+    label: Ligne 2
+  - id: l3
+    label: Ligne 3
+  - id: l4
+    label: Ligne 4
+  - id: l5
+    label: Ligne 5
+  - id: l6
+    label: Ligne 6
+  - id: l7
+    label: Ligne 7
+  - id: l8
+    label: Ligne 8
+  - id: l9
+    label: Ligne 9
+- id: rle
+  type: table
+  title: Run-length encoding
+  prompt: 'Le bitmap de 29 est `110000100`. Encode-le en longueurs de séquences alternées, en **commençant par les zéros** (zéro séquence de zéros
+    possible) : écris les longueurs séparées par des espaces.'
+  columns:
+  - id: runs
+    label: Longueurs
+  rows:
+  - id: b29
+    label: Bitmap de 29
+- id: famille
+  type: choice
+  title: Les familles de colonnes de Cassandra
+  prompt: Cassandra et HBase ont des « familles de colonnes ». Est-ce du stockage orienté colonnes ?
+  options:
+  - id: non
+    label: 'Non : toutes les colonnes d''une ligne sont stockées ensemble dans une famille, sans compression de colonnes'
+    hint: Le modèle Bigtable reste surtout orienté lignes
+  - id: oui
+    label: 'Oui : chaque famille est un fichier de colonnes compressé'
+  - id: partiel
+    label: Oui, mais seulement pour les colonnes numériques

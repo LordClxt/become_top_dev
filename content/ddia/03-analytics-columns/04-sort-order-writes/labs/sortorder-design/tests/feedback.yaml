@@ -1,0 +1,23 @@
+blocks:
+  runs:
+    options:
+      ins.day: 'L''ordre d''insertion alterne 1, 2, 1, 2… : chaque ligne ouvre une séquence.'
+      ins.prod: 'B A A B B A A B : séquences B, AA, BB, AA, B.'
+      dp.prod: 'Triées par jour puis produit : A A B B | A A B B → quatre séquences pour le produit. Seule la première clé se compresse bien.'
+      pd.day: 'Triées par produit puis jour : le jour alterne dans chaque produit → quatre séquences.'
+  cle:
+    options:
+      price: Le prix n'aide pas à ne balayer que le dernier mois.
+      rand: L'ordre décide de ce qu'on peut sauter et de la compression.
+  separe:
+    options:
+      perf: 'Le coût n''est pas la raison : c''est la perte de correspondance entre colonnes.'
+      sql: 'Ce n''est pas une règle SQL : c''est une contrainte de structure.'
+  copies:
+    options:
+      heap: Le heap file garde une seule copie de chaque ligne.
+      copies: Dans un stockage en colonnes il n'y a que des colonnes de valeurs, pas de pointeurs.
+  ecriture:
+    options:
+      mem: Tout commence en mémoire, comme pour la memtable d'un LSM-tree.
+      bulk: L'écriture finale est en bloc, jamais sur place.

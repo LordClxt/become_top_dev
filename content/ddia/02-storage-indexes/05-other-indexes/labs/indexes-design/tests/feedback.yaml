@@ -1,0 +1,18 @@
+blocks:
+  prefixe:
+    options:
+      q3.n: 'Un annuaire trié par (nom, prénom) ne se parcourt pas par prénom seul : les « Marie » sont dispersées partout.'
+      q4.n: 'L''index est trié par nom puis prénom : sans le prénom, la ville ne peut pas servir à resserrer la recherche.'
+  types:
+    options:
+      couvrant: 'L''index contient lui-même les colonnes demandées : il « couvre » la requête.'
+      clustered: 'La ligne est dans l''index : pas de saut vers le heap file.'
+      carte: 'Un B-tree ordinaire ne traite qu''une dimension à la fois : il faut un index multidimensionnel.'
+  cout:
+    options:
+      toutes: Un index n'aide que les requêtes qui l'utilisent, et il ralentit toutes les écritures.
+      lectures: 'Il accélère généralement les lectures : c''est le coût d''écriture qui est le prix à payer.'
+  memoire:
+    options:
+      disque: 'Même un moteur sur disque n''y touche pas s''il a assez de mémoire : l''OS met les blocs récents en cache.'
+      index: Les bases en mémoire ont des index, simplement bâtis pour la RAM.

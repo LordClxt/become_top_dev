@@ -23,10 +23,12 @@ Absolute rule: **a lab ships only if the solution passes its tests AND the start
    ```
    If ✅, write `verified: { at: <date>, solution: pass, starter: fail }` in `lab.yaml`. Otherwise fix and rerun — never ship a failing lab.
 
-## Design exercise (`kind: design`, architecture book)
-- No fake tests. Possible deliverables: ADR, justified architecture style choice, identification of architecture characteristics, C4/Mermaid diagram, trade-off analysis on a kata.
-- Detailed `rubric.yaml` (described levels) + `solution/` = annotated model answer + optional structural `checks` (sections present, number of characteristics cited).
-- `verified`: `{ at: <date>, rubric_reviewed: true }` after grading the model answer yourself with the rubric (it must score ≥ 90 %).
+## Design exercise (`kind: diagram` or `kind: worksheet`, no code)
+For every conceptual book, and for practical courses whose lesson is a **decision** (choose a model, size a system, compare), the lab is not code. Two tools, graded deterministically by the backend (no Docker): formats in `content-format/reference/schemas.md`.
+- **`diagram`**: the learner draws an architecture or a structure (catalog components, typed arrows, zones, trees); graph rules highlight the mistakes.
+- **`worksheet`**: a sheet of blocks (`number`, `choice`, `multi`, `order`, `match`, `table`, `tuner`) graded field by field.
+Formula: **predict → check → debrief**. A small numeric or judgment scenario, never a recall question; every wrong answer has its explanation (`feedback.yaml`), and `debrief.md` gives the why once solved.
+Verify: `verify_lab.sh <dir>` (solution passes, starter fails), then write `verified`. No fake tests, no AI review.
 
 ## "What does this program print?" quizzes
 Every `code-output` question is actually run:
@@ -39,8 +41,8 @@ A wrong answer blocks the chapter from shipping, just like a failing lab.
 Same format as a lab, in `boss/`, difficulty 4–5, combines the whole chapter, larger `timeout_s`, high XP.
 
 ## Definition of Done
-- [ ] `verify_lab.sh` ✅ (or self-graded rubric for `design`)
-- [ ] The starter compiles; failure messages guide without giving away the answer
+- [ ] `verify_lab.sh` ✅ (code, diagram or worksheet)
+- [ ] The starter compiles (code); failure messages guide without giving away the answer
 - [ ] 3 hint levels
 - [ ] Idiomatic solution, no network dependency
 - [ ] `verify_quiz.py` ✅ on the chapter

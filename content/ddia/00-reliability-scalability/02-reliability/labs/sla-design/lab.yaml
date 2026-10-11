@@ -1,0 +1,10 @@
+id: ddia-ch00-l02-lab-sla
+title: "Peut-on signer ce SLA ?"
+kind: worksheet
+difficulty: 2
+xp: 60
+entrypoint: starter/
+files_editable: ["answers.json"]
+concepts: [ddia-availability-math, ddia-hardware-faults, ddia-software-faults]
+source: { chapter: 1, pages: "28-32" }
+verified: { at: 2026-10-11, solution: pass, starter: fail }

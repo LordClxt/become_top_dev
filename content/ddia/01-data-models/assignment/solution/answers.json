@@ -1,0 +1,26 @@
+{
+  "naive": 150,
+  "batch": 3,
+  "temps": {
+    "naive.ms": 450,
+    "batch.ms": 9
+  },
+  "distinct": {
+    "docs.n": 50,
+    "authors.n": 20,
+    "orgs.n": 5
+  },
+  "steps": [
+    "read",
+    "collect",
+    "fetch",
+    "index",
+    "replace"
+  ],
+  "shape": {
+    "addr": "embed",
+    "org": "ref",
+    "jobs": "embed",
+    "author": "ref"
+  }
+}

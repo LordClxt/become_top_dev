@@ -1,0 +1,3 @@
+**L'ordre de tri est le principal levier d'un stockage en colonnes.** Avec le tri `(jour, produit)`, la colonne `jour` n'a plus que 2 séquences au lieu de 8 : un RLE la réduit à deux paires. La colonne `produit`, deuxième clé, ne passe qu'à 4 séquences : **seule la première clé de tri se compresse fortement**. Avec le tri inverse, c'est le produit qui gagne.
+
+On choisit la première clé d'après les requêtes (la date si on interroge le dernier mois). On trie toujours des lignes entières, jamais des colonnes isolées. Et les écritures passent par une mémoire triée puis une fusion en bloc — la mécanique d'un LSM-tree.

@@ -1,0 +1,30 @@
+blocks:
+  segments:
+    tolerance:
+      abs: 0
+    wrong: Un flush à `Put(c)` (a, b, c), un second à `Put(e)` (b✗, d, e). `Put(a, 2)` n'ajoute pas de clé.
+  lectures:
+    options:
+      gb.n: 'Le segment le plus récent contient la pierre tombale de b : on s''arrête.'
+      ga.n: 'a n''est pas dans le segment récent : il faut aller au plus ancien.'
+      gz.n: Une clé absente oblige à parcourir tous les segments.
+  scan:
+    options:
+      b: b est masquée par sa pierre tombale.
+      e: La borne haute est exclue.
+  compact:
+    tolerance:
+      abs: 0
+    wrong: 'Clés vivantes : a, c, d, e.'
+  tomb:
+    options:
+      time: Le temps n'entre pas en compte.
+      mem: La memtable ne contient pas de segment plus ancien.
+  bloom:
+    tolerance:
+      abs: 0.005
+    wrong: 8 segments × 1 % de faux positifs = 0,08 segment en moyenne.
+  mem:
+    options:
+      wal: 'Le journal est sur disque : c''est lui qui permet de reconstruire la memtable.'
+      bloom: Le filtre est gardé en mémoire pour répondre sans lire le disque.

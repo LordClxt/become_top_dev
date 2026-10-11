@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Stockage par lignes vs colonnes ?
+  back: 'Lignes : toutes les valeurs d''une ligne ensemble. Colonnes : toutes les valeurs d''une colonne ensemble, un fichier par colonne.'
+  concept: ddia-row-vs-column
+- id: fc2
+  front: Pourquoi les colonnes accélèrent l'analyse ?
+  back: Une requête ne lit que 4 ou 5 colonnes sur plus de 100.
+  concept: ddia-row-vs-column
+- id: fc3
+  front: Contrainte des fichiers de colonnes ?
+  back: Toutes les colonnes gardent le même ordre de lignes ; la position identifie la ligne.
+  concept: ddia-column-position
+- id: fc4
+  front: Encodage par bitmap ?
+  back: 'Un bitmap par valeur distincte, un bit par ligne : 1 si la ligne a cette valeur.'
+  concept: ddia-bitmap-encoding
+- id: fc5
+  front: Filtre IN avec bitmaps ?
+  back: OU bit à bit des bitmaps des valeurs demandées.
+  concept: ddia-bitmap-encoding
+- id: fc6
+  front: Filtre AND de deux colonnes ?
+  back: 'ET bit à bit des bitmaps de chaque colonne : marche car l''ordre de lignes est commun.'
+  concept: ddia-bitmap-encoding
+- id: fc7
+  front: RLE sur un bitmap creux ?
+  back: On garde les longueurs des séquences de zéros et de uns au lieu de tous les bits.
+  concept: ddia-run-length-encoding
+- id: fc8
+  front: Traitement vectoriel ?
+  back: Boucle serrée sur un bloc de colonne compressée qui tient dans le cache L1, avec opérateurs bit à bit (SIMD).
+  concept: ddia-vectorized
+- id: fc9
+  front: Familles de colonnes de Bigtable ?
+  back: 'Colonnes d''une ligne stockées ensemble, sans compression de colonnes : surtout orienté lignes.'
+  concept: ddia-row-vs-column

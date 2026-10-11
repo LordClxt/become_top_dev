@@ -1,0 +1,17 @@
+{
+  "btree": 41.96,
+  "lsm": 5,
+  "reglage": {
+    "f": 4
+  },
+  "charges": {
+    "metriques": "lsm",
+    "tx": "btree",
+    "p99": "btree",
+    "espace": "lsm"
+  },
+  "compaction": [
+    "suit",
+    "queue"
+  ]
+}

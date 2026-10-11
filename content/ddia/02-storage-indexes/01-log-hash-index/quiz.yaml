@@ -1,0 +1,156 @@
+id: ddia-ch02-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Dans le « log » des deux fonctions shell, comment db_get trouve-t-il la valeur courante d'une clé ?
+  choices:
+  - En lisant la première occurrence de la clé
+  - En lisant la dernière occurrence de la clé
+  - En utilisant un index sur disque
+  - En triant le fichier
+  answer: 1
+  explanation: 'Les anciennes valeurs restent dans le fichier : la dernière ligne qui porte la clé est la valeur courante (d''où tail -n 1).'
+  concept: ddia-log-append-only
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quel est le coût d'une lecture dans ce log sans index ?
+  choices:
+  - O(1)
+  - O(log n)
+  - 'O(n) : il faut parcourir tout le fichier'
+  - O(n²)
+  answer: 2
+  explanation: Doubler le nombre d'enregistrements double le temps d'une recherche.
+  concept: ddia-log-append-only
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que dit le compromis fondamental des index ?
+  choices:
+  - Un index accélère les lectures mais ralentit chaque écriture
+  - Un index accélère les écritures mais ralentit les lectures
+  - Un index n'a aucun coût
+  - Un index remplace les données
+  answer: 0
+  explanation: 'C''est pourquoi les bases n''indexent pas tout par défaut : on choisit d''après ses requêtes.'
+  concept: ddia-index-tradeoff
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Qu'associe l'index de hachage de Bitcask ?
+  choices:
+  - Chaque clé à son offset (position en octets) dans le fichier
+  - Chaque valeur à sa clé
+  - Chaque segment à sa date
+  - Chaque page à son parent
+  answer: 0
+  explanation: On lit l'offset en mémoire, puis on fait un seul seek sur le disque.
+  concept: ddia-hash-index
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quelle contrainte l'index de hachage de Bitcask impose-t-il ?
+  choices:
+  - Toutes les clés doivent tenir en mémoire
+  - Toutes les valeurs doivent tenir en mémoire
+  - Les clés doivent être triées
+  - Les valeurs doivent faire moins de 4 Ko
+  answer: 0
+  explanation: Les valeurs, elles, peuvent dépasser la RAM puisqu'un seek suffit à les lire.
+  concept: ddia-hash-index
+  difficulty: 2
+- id: q6
+  type: code-output
+  prompt: Qu'affiche ce programme ? (rejouer un log pour retrouver la valeur courante)
+  code: |
+    log := []string{"42=a", "7=b", "42=c"}
+    latest := map[string]string{}
+    for _, line := range log {
+        k, v, _ := strings.Cut(line, "=")
+        latest[k] = v
+    }
+    fmt.Println(latest["42"], len(latest))
+  answer: c 2
+  explanation: 'Rejouer le log dans l''ordre : la dernière valeur écrase les précédentes. Il reste deux clés distinctes.'
+  concept: ddia-hash-index
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: À quoi sert la compaction d'un log ?
+  choices:
+  - À jeter les clés en double et ne garder que la valeur la plus récente de chacune
+  - À compresser chaque valeur
+  - À trier le fichier
+  - À répliquer les données
+  answer: 0
+  explanation: Elle récupère l'espace disque pris par les anciennes versions.
+  concept: ddia-segments-compaction
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Pourquoi les segments sont-ils immuables après écriture ?
+  choices:
+  - La fusion écrit un nouveau fichier pendant que lectures et écritures continuent sur les anciens, puis on bascule
+  - Parce que le disque est en lecture seule
+  - Pour économiser la mémoire
+  - Parce que les valeurs sont chiffrées
+  answer: 0
+  explanation: 'Concurrence et reprise sur crash sont aussi plus simples : jamais de valeur à moitié ancienne, à moitié nouvelle.'
+  concept: ddia-segments-compaction
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Dans quel ordre consulte-t-on les segments pour lire une clé ?
+  choices:
+  - Du plus ancien au plus récent
+  - Du plus récent au plus ancien
+  - Dans un ordre aléatoire
+  - Seulement le plus ancien
+  answer: 1
+  explanation: Le segment le plus récent contient la valeur la plus à jour.
+  concept: ddia-segments-compaction
+  difficulty: 1
+- id: q10
+  type: code-output
+  prompt: Qu'affiche ce programme ? (rejeu avec pierre tombale « -clé »)
+  code: |
+    log := []string{"a=1", "b=2", "a=3", "-b"}
+    live := map[string]string{}
+    for _, rec := range log {
+        if strings.HasPrefix(rec, "-") {
+            delete(live, rec[1:])
+            continue
+        }
+        k, v, _ := strings.Cut(rec, "=")
+        live[k] = v
+    }
+    fmt.Println(len(live), live["a"])
+  answer: 1 3
+  explanation: La pierre tombale supprime b ; a garde sa dernière valeur. Sans elle, b réapparaîtrait au redémarrage.
+  concept: ddia-tombstone-recovery
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: Pourquoi les enregistrements portent-ils un checksum ?
+  choices:
+  - Pour détecter et ignorer un enregistrement écrit partiellement lors d'un crash
+  - Pour chiffrer la valeur
+  - Pour accélérer la recherche
+  - Pour compresser le log
+  answer: 0
+  explanation: La base peut tomber au milieu de l'ajout d'un enregistrement ; sans somme de contrôle, il serait lu comme un vrai.
+  concept: ddia-tombstone-recovery
+  difficulty: 1
+- id: q12
+  type: single
+  prompt: Quelle limite de l'index de hachage les SSTables lèvent-elles ?
+  choices:
+  - Les requêtes par intervalle (clés triées)
+  - La durabilité
+  - L'écriture séquentielle
+  - L'immuabilité des segments
+  answer: 0
+  explanation: Avec un hachage, parcourir les clés entre kitty00000 et kitty99999 oblige à chercher chacune individuellement.
+  concept: ddia-hash-index
+  difficulty: 2

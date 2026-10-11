@@ -1,0 +1,1 @@
+Conçois l'architecture d'une API qui reçoit **cent fois plus de lectures que d'écritures** : une API gateway, un service, un cache Redis, une base PostgreSQL avec son réplica, et une file pour le travail différé (envoi d'e-mails). Range le cœur dans une zone *Datacenter*, puis **simule** une requête pour voir le cache se réchauffer.

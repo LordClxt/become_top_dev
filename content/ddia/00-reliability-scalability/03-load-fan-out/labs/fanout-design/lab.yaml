@@ -1,0 +1,16 @@
+id: ddia-ch00-l03-lab-fanout-design
+title: 'Lire ou écrire : où mettre le travail ?'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-load-parameters
+- ddia-fan-out
+- ddia-hybrid-approach
+source:
+  chapter: 1
+  pages: 32-35
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

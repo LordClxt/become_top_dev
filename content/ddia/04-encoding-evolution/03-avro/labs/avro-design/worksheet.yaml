@@ -1,0 +1,100 @@
+intro: |2
+
+  Schéma de l'**écrivain** (ancien) : `record Person { string name; long age; }`
+
+  Schéma du **lecteur** (nouveau) : `record Person { string name; string email = ""; }`
+blocks:
+- id: resol
+  type: match
+  title: La résolution champ par champ
+  prompt: Que fait la bibliothèque Avro de chaque champ quand elle lit des octets de l'écrivain avec le schéma du lecteur ?
+  items:
+  - id: name
+    label: '`name`, présent dans les deux schémas'
+  - id: age
+    label: '`age`, présent chez l''écrivain seulement'
+  - id: email
+    label: '`email`, présent chez le lecteur seulement'
+  categories:
+  - id: copy
+    label: Valeur lue dans les octets
+  - id: skip
+    label: Ignoré
+  - id: default
+    label: Rempli par la valeur par défaut du lecteur
+- id: evol
+  type: match
+  title: Quel sens de compatibilité ?
+  prompt: Pour chaque changement de schéma, dans quel(s) sens la compatibilité est-elle conservée ?
+  items:
+  - id: add-def
+    label: Ajouter un champ avec valeur par défaut
+  - id: add-nodef
+    label: Ajouter un champ sans valeur par défaut
+  - id: rm-def
+    label: Retirer un champ qui a une valeur par défaut
+  - id: rm-nodef
+    label: Retirer un champ sans valeur par défaut
+  - id: alias
+    label: Renommer un champ avec un alias
+  - id: union
+    label: Ajouter une branche à un type union
+  categories:
+  - id: both
+    label: Les deux sens
+  - id: back
+    label: Rétrocompatible seulement (nouveau lit ancien)
+  - id: fwd
+    label: Ascendante seulement (ancien lit nouveau)
+- id: ou
+  type: match
+  title: Où trouver le schéma de l'écrivain ?
+  prompt: Quel mécanisme pour chaque contexte ?
+  items:
+  - id: file
+    label: Un fichier de millions d'enregistrements au même schéma
+  - id: db
+    label: Une base où chaque ligne a été écrite à un moment différent
+  - id: net
+    label: Une connexion réseau bidirectionnelle entre deux processus
+  categories:
+  - id: header
+    label: Le schéma une fois en tête de fichier
+  - id: version
+    label: Un numéro de version au début de chaque enregistrement
+  - id: nego
+    label: Négocié à l'établissement de la connexion
+- id: sizes
+  type: order
+  title: Du plus compact au plus volumineux
+  prompt: Classe les encodages de l'enregistrement du livre, du plus petit au plus grand.
+  items:
+  - id: avro
+    label: Avro (32 octets)
+  - id: proto
+    label: Protocol Buffers (33 octets)
+  - id: compact
+    label: Thrift CompactProtocol (34 octets)
+  - id: binary
+    label: Thrift BinaryProtocol (59 octets)
+  - id: msgpack
+    label: MessagePack (66 octets)
+  - id: json
+    label: JSON (81 octets)
+- id: saving
+  type: number
+  title: L'économie d'Avro
+  prompt: De combien Avro (32 octets) réduit-il la taille du JSON (81 octets) ? Réponds en pourcentage, avec une décimale.
+  unit: '%'
+- id: 'null'
+  type: choice
+  title: Autoriser null
+  prompt: Comment un champ Avro peut-il valoir `null` ?
+  options:
+  - id: union
+    label: En le déclarant dans un type union, `union { null, long }`, avec null comme défaut s'il est la première branche
+    hint: Explicite
+  - id: any
+    label: Tout champ peut être null par défaut
+  - id: optional
+    label: Avec le marqueur `optional`

@@ -16,6 +16,7 @@ description: Design and produce an illustration for a hard concept (event loop, 
 When in doubt, prefer `interactive`: understanding by manipulating > watching.
 
 ## 2. Produce
+- **Rule**: a diagram is never written as text in a lesson (ASCII, box-drawing, arrows in a code block). As soon as a concept can be drawn (architecture, request flow, memory, slice header, curve), produce a visual; with no other need for interaction, `hyperframes` is the default choice.
 - **The visual must be faithful to the real mechanism** (order of events, intermediate states). Simulate the logic in a small pure model (a `step(state) → state` function), then animate the trace — never a hand-made animation that could lie.
 - `remotion`: React composition in `visuals/<id>/`, 10–30 s, 30 fps, steps annotated in French, played through `@remotion/player`.
 - `hyperframes`: standalone `visuals/<id>/scene.html` (`hyperframes-animation` skill): `<meta name="visual-id">`, root with `data-composition-id` / `data-duration` / `data-width=1920` / `data-height=1080`, **one** paused GSAP timeline on `window.__timelines`, state = pure function of time. App color tokens copied in, with `html.light` for the light theme (the player syncs the class). Text ≥ 30 px (the scene is scaled down to ~40 %). The GSAP CDN `<script>` is replaced with the npm copy at build time. Check a few key moments in screenshots (both themes) before delivering.

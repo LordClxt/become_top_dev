@@ -1,0 +1,12 @@
+id: ddia-ch02-l04-lab-write-amp
+title: "TP Go : Chiffrer l'amplification en écriture : B-tree contre LSM"
+kind: code
+language: go
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["amp.go"]
+concepts: [ddia-write-amplification, ddia-lsm-advantages, ddia-measure-workload]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

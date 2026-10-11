@@ -1,0 +1,14 @@
+id: ddia-ch00-project
+title: "Tinybase — le tableau de bord de performance"
+pitch: "Avant d'optimiser Tinybase, il faut pouvoir le mesurer sans se mentir : des histogrammes par opération, fusionnables entre nœuds, et des SLO avec budget d'erreur."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 3
+xp: 200
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["recorder.go"]
+concepts: [ddia-percentiles, ddia-slo-sla, ddia-merge-histograms, ddia-availability-math]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

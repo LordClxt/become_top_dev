@@ -1,0 +1,128 @@
+{
+  "nodes": [
+    {
+      "id": "wh",
+      "type": "wh",
+      "x": 480,
+      "y": -30,
+      "label": "Entrepôt de données",
+      "w": 760,
+      "h": 560
+    },
+    {
+      "id": "shop",
+      "type": "shop",
+      "x": 0,
+      "y": 40
+    },
+    {
+      "id": "oltp",
+      "type": "oltp",
+      "x": 240,
+      "y": 40
+    },
+    {
+      "id": "etl",
+      "type": "etl",
+      "x": 240,
+      "y": 240
+    },
+    {
+      "id": "mem",
+      "type": "mem",
+      "x": 520,
+      "y": 240,
+      "parent": "wh"
+    },
+    {
+      "id": "bydate",
+      "type": "bydate",
+      "x": 860,
+      "y": 130,
+      "parent": "wh"
+    },
+    {
+      "id": "byproduct",
+      "type": "byproduct",
+      "x": 860,
+      "y": 330,
+      "parent": "wh"
+    },
+    {
+      "id": "cube",
+      "type": "cube",
+      "x": 1000,
+      "y": 450,
+      "parent": "wh"
+    },
+    {
+      "id": "analyst",
+      "type": "analyst",
+      "x": 0,
+      "y": 440
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "shop",
+      "target": "oltp",
+      "kind": "write",
+      "label": "ventes"
+    },
+    {
+      "id": "e2",
+      "source": "etl",
+      "target": "oltp",
+      "kind": "read",
+      "label": "extraire"
+    },
+    {
+      "id": "e3",
+      "source": "etl",
+      "target": "mem",
+      "kind": "write",
+      "label": "charger"
+    },
+    {
+      "id": "e4",
+      "source": "mem",
+      "target": "bydate",
+      "kind": "write",
+      "label": "fusion"
+    },
+    {
+      "id": "e5",
+      "source": "mem",
+      "target": "byproduct",
+      "kind": "write",
+      "label": "fusion"
+    },
+    {
+      "id": "e6",
+      "source": "bydate",
+      "target": "cube",
+      "kind": "write",
+      "label": "agréger"
+    },
+    {
+      "id": "e7",
+      "source": "analyst",
+      "target": "bydate",
+      "kind": "read"
+    },
+    {
+      "id": "e8",
+      "source": "analyst",
+      "target": "mem",
+      "kind": "read",
+      "label": "récent"
+    },
+    {
+      "id": "e9",
+      "source": "analyst",
+      "target": "cube",
+      "kind": "read"
+    }
+  ]
+}

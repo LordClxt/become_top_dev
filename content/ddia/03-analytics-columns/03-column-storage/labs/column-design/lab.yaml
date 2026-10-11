@@ -1,0 +1,17 @@
+id: ddia-ch03-l03-lab-column-design
+title: Ce qu'une requête lit vraiment
+difficulty: 3
+xp: 80
+concepts:
+- ddia-row-vs-column
+- ddia-bitmap-encoding
+- ddia-run-length-encoding
+- ddia-column-position
+source:
+  chapter: 3
+  pages: 95-99
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

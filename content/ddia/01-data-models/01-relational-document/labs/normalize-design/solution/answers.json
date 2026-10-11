@@ -1,0 +1,20 @@
+{
+  "tables": {
+    "nom": "users",
+    "titre": "positions",
+    "orgnom": "orgs",
+    "dates": "positions",
+    "orgid": "positions",
+    "logo": "orgs"
+  },
+  "cout": {
+    "doc.n": 3000,
+    "norm.n": 1
+  },
+  "reco": "jointure",
+  "identifiants": [
+    "maj",
+    "trad",
+    "homonymes"
+  ]
+}

@@ -1,0 +1,16 @@
+id: ddia-ch00-assignment
+title: Mesurer une file d'attente sans se mentir
+difficulty: 3
+xp: 120
+concepts:
+- ddia-percentiles
+- ddia-response-time
+- ddia-slo-sla
+source:
+  chapter: 1
+  pages: 35-46
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

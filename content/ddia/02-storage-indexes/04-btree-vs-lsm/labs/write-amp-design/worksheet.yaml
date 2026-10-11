@@ -1,0 +1,80 @@
+intro: Ton équipe hésite entre un moteur à B-tree et un moteur LSM. « LSM écrit plus vite » est une affirmation, pas un argument. Tu la remplaces
+  par des chiffres.
+blocks:
+- id: btree
+  type: number
+  title: L'amplification d'un B-tree
+  prompt: Une mise à jour de **100 octets** est écrite dans le journal (100 octets), puis la **page entière de 4 096 octets** est réécrite. Quelle
+    est l'amplification en écriture ?
+  unit: ×
+- id: lsm
+  type: number
+  title: L'amplification d'un LSM
+  prompt: 'Compaction *size-tiered* : chaque octet est écrit dans le journal, dans la SSTable de flush, puis **une fois par niveau de fusion**.
+    Avec une fusion par groupe de 4 segments et **64 flushes**, il y a 3 niveaux de fusion. Quelle est l''amplification ?'
+  unit: ×
+- id: reglage
+  type: tuner
+  title: Le bon facteur de fusion
+  prompt: 256 flushes. Un facteur de fusion `f` plus grand fusionne moins souvent (moins d'écritures) mais laisse plus de segments à consulter
+    en lecture. Trouve le seul réglage qui garde l'amplification **≤ 6** (usure du SSD) et **≤ 12 segments** à consulter.
+  params:
+  - id: f
+    label: Facteur de fusion
+    unit: segments
+    min: 2
+    max: 16
+    step: 1
+    default: 2
+  metrics:
+  - id: niv
+    label: Niveaux de fusion
+    expr: ceil(log(256) / log(f) - 0.000001)
+    format: number
+  - id: amp
+    label: Amplification
+    expr: 2 + niv
+    unit: ×
+    format: number
+  - id: seg
+    label: Segments au pire
+    expr: niv * (f - 1)
+    format: number
+  goals:
+  - id: amp
+    label: Amplification de 6 au plus
+    expr: amp <= 6
+  - id: seg
+    label: 12 segments au plus à consulter
+    expr: seg <= 12
+- id: charges
+  type: match
+  title: Chaque charge son moteur
+  prompt: Quel moteur favorises-tu a priori pour chaque besoin ?
+  items:
+  - id: metriques
+    label: Ingestion massive de métriques, très peu de lectures
+  - id: tx
+    label: Base transactionnelle avec des verrous sur des intervalles de clés
+  - id: p99
+    label: Latences p99 très prévisibles exigées
+  - id: espace
+    label: Données très compressibles, espace disque compté
+  categories:
+  - id: lsm
+    label: LSM-tree
+  - id: btree
+    label: B-tree
+- id: compaction
+  type: multi
+  title: Les revers de la compaction
+  prompt: Coche les inconvénients réels de la compaction dans un LSM-tree.
+  options:
+  - id: suit
+    label: Elle peut ne pas suivre un fort débit d'écriture
+  - id: queue
+    label: Elle perturbe les percentiles élevés
+  - id: frein
+    label: Le moteur ralentit automatiquement les écritures quand elle prend du retard
+  - id: cle
+    label: Elle rend les lectures par clé impossibles
