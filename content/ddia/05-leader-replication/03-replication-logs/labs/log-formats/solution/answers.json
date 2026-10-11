@@ -1,0 +1,7 @@
+{
+  "incidents": {"now": "statement", "autoinc": "statement", "upgrade": "wal", "warehouse": "logical", "subset": "trigger"},
+  "records": 40001,
+  "taille": 4.8,
+  "figer": "freeze",
+  "atouts": ["versions", "cdc", "determinism"]
+}

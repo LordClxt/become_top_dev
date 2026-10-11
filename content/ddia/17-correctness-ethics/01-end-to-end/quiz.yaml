@@ -1,0 +1,99 @@
+id: ddia-ch17-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un client envoie `COMMIT`, puis la connexion à la base tombe avant la réponse. Que sait-il ?
+  choices:
+  - La transaction a forcément été annulée
+  - La transaction a forcément été validée
+  - Rien de sûr ; s'il rejoue sur une nouvelle connexion, il risque une double exécution
+  - TCP renverra automatiquement la réponse à la reconnexion
+  answer: 2
+  explanation: La base voit une nouvelle connexion et une nouvelle transaction ; elle ne peut pas relier le nouvel essai à l'ancien.
+  concept: ddia-correct-dedup-layers
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Ton site de paiement utilise une base sérialisable et un 2PC entre deux bases. Un utilisateur renvoie le formulaire après une erreur réseau. Qu'est-ce qui empêche le double paiement ?
+  choices:
+  - La sérialisabilité
+  - Le 2PC
+  - Rien, sauf un identifiant d'opération généré côté client et contrôlé par une contrainte d'unicité
+  - Les numéros de séquence de TCP
+  answer: 2
+  explanation: Le renvoi est une nouvelle requête HTTP, une nouvelle transaction ; seul un identifiant né avec l'intention de l'utilisateur relie les deux essais.
+  concept: ddia-correct-operation-id
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Où l'identifiant d'opération doit-il être généré ?
+  choices:
+  - Par la base, au moment de l'INSERT
+  - Par le serveur web, à la réception de chaque requête
+  - Par TCP, à l'ouverture de la connexion
+  - Côté client, au moment où naît l'intention (par exemple un UUID dans un champ caché du formulaire)
+  answer: 3
+  explanation: Généré plus bas, chaque nouvel essai recevrait un identifiant neuf et aucun doublon ne serait reconnu.
+  concept: ddia-correct-operation-id
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Pourquoi la déduplication par `SELECT` (« l'identifiant existe-t-il ? ») puis `INSERT`, sans contrainte d'unicité, est-elle fragile ?
+  choices:
+  - Deux essais concurrents peuvent tous deux constater l'absence et insérer
+  - Le SELECT est trop lent
+  - Les UUID peuvent entrer en collision fréquemment
+  - Un INSERT ne peut pas être annulé
+  answer: 0
+  explanation: Sous isolation faible, c'est un write skew ; la contrainte d'unicité porte vraiment la garantie.
+  concept: ddia-correct-operation-id
+  difficulty: 3
+- id: q5
+  type: multiple
+  prompt: Lesquelles de ces affirmations reflètent l'argument de bout en bout ?
+  choices:
+  - Une somme de contrôle TCP détecte un bug du logiciel émetteur
+  - Seul un chiffrement de bout en bout protège d'un serveur intermédiaire compromis
+  - Une garantie incomplète d'une couche basse reste utile comme optimisation de performance
+  - Si chaque couche est correcte, le système entier l'est forcément
+  - Une somme de contrôle calculée par l'émetteur final et vérifiée par le destinataire final couvre tout le chemin
+  answer: [1, 2, 4]
+  explanation: Les couches basses ne voient que leur maillon ; la garantie complète vit aux extrémités, les couches basses rendent juste les problèmes plus rares.
+  concept: ddia-correct-end-to-end-argument
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Pourquoi dit-on qu'un message traité deux fois est une forme de corruption de données ?
+  choices:
+  - Parce qu'il abîme les octets sur le disque
+  - Parce que l'état (solde, compteur, facture) ne reflète plus ce qui s'est réellement passé
+  - Parce qu'il ralentit le système
+  - Parce qu'il viole la linéarisabilité
+  answer: 1
+  explanation: Un client facturé deux fois a des données fausses, même si chaque octet est intact.
+  concept: ddia-correct-exactly-once
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Un serveur reçoit deux requêtes avec la même clé d'idempotence mais des montants différents (10 € puis 15 €). Quelle réaction est la plus saine ?
+  choices:
+  - Appliquer les deux, car les montants diffèrent
+  - Appliquer la seconde, plus récente
+  - Refuser la seconde comme une erreur du client, car une même clé désigne une même opération
+  - Additionner les montants
+  answer: 2
+  explanation: Une clé réutilisée avec un autre contenu trahit un bug ; l'ignorer en silence ou l'appliquer corromprait les données.
+  concept: ddia-correct-exactly-once
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Quelle conclusion le livre tire-t-il pour les systèmes de données ?
+  choices:
+  - Les transactions sont inutiles et doivent être abandonnées
+  - Il suffit d'utiliser l'isolation sérialisable partout
+  - Le réseau doit fournir l'exactly-once
+  - Les transactions ne suffisent pas ; il faut des abstractions qui rendent la correction de bout en bout facile et performante dans l'application
+  answer: 3
+  explanation: La transaction reste précieuse mais ne couvre qu'une partie du chemin, et coûte cher entre machines.
+  concept: ddia-correct-app-level-fault-tolerance
+  difficulty: 2

@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Pessimiste vs optimiste ?
+  back: Pessimiste (2PL, série) attend dès qu'un conflit est possible ; optimiste (SSI) avance et vérifie au commit.
+  concept: ddia-optimistic-vs-pessimistic
+- id: fc2
+  front: Quand l'optimiste est-il mauvais ?
+  back: 'Sous forte contention, surtout près de la saturation : beaucoup d''abandons, et les relances ajoutent de la charge.'
+  concept: ddia-optimistic-vs-pessimistic
+- id: fc3
+  front: SSI en une ligne ?
+  back: Snapshot isolation + détection des conflits de sérialisation, avec abandon au commit (Cahill, 2008 ; PostgreSQL ≥ 9.1, FoundationDB).
+  concept: ddia-optimistic-vs-pessimistic
+- id: fc4
+  front: Prémisse périmée ?
+  back: Le résultat d'une lecture, sur lequel la transaction a décidé d'écrire, n'est plus vrai au moment du commit.
+  concept: ddia-ssi-outdated-premise
+- id: fc5
+  front: Détection n°1 de SSI ?
+  back: 'Lecture MVCC périmée : la base note les écritures non validées ignorées ; si l''une est validée avant le commit, abandon.'
+  concept: ddia-ssi-stale-mvcc-read
+- id: fc6
+  front: Détection n°2 de SSI ?
+  back: 'Écriture après lecture : les lectures sont notées dans l''index ; un écrivain prévient les lecteurs récents (fil-piège, sans blocage).'
+  concept: ddia-ssi-write-after-read
+- id: fc7
+  front: Qui est abandonnée quand T42 et T43 se préviennent mutuellement ?
+  back: La seconde à valider ; la première réussit car l'écriture de l'autre n'a pas encore pris effet.
+  concept: ddia-ssi-write-after-read
+- id: fc8
+  front: Pourquoi SSI attend-elle le commit ?
+  back: La lectrice est peut-être en lecture seule, ou l'écrivaine peut encore abandonner ; on évite des abandons inutiles.
+  concept: ddia-ssi-abort-at-commit
+- id: fc9
+  front: Avantages de SSI sur le 2PL ?
+  back: Aucune attente de verrou, latence prévisible, lectures seules sans verrou ; distribuable, contrairement à l'exécution en série.
+  concept: ddia-ssi-performance
+- id: fc10
+  front: La contrainte de SSI ?
+  back: Le taux d'abandon ; les transactions d'écriture doivent être courtes (les longues lectures seules restent sans problème).
+  concept: ddia-ssi-performance

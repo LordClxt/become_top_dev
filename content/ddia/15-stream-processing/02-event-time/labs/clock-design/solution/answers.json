@@ -1,0 +1,7 @@
+{
+  "offsets": {"a.min": 12, "b.min": -3, "c.min": 2},
+  "windows": {"a": "h10", "b": "h13", "c": "h11"},
+  "spike": 16800,
+  "close": ["w40"],
+  "stragglers": {"billing": "correct", "ops": "ignore", "payroll": "correct"}
+}

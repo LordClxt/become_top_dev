@@ -1,0 +1,87 @@
+checks:
+- id: entry
+  label: Les clients passent par l'API commandes
+  rule: edge_kind
+  source: client
+  target: api
+  kind: sync
+- id: write
+  label: L'API écrit dans la base de référence
+  rule: edge_kind
+  source: api
+  target: db
+  kind: write
+- id: one-leader
+  label: 'Un seul leader : la base n''a qu''un écrivain'
+  rule: single_owner
+  target: db
+- id: cdc
+  label: Les changements de la base atteignent le sujet en passant par le connecteur CDC
+  rule: path
+  source: db
+  target: log
+  via: cdc
+- id: deliver-index
+  label: Le sujet livre les changements aux indexeurs
+  rule: edge_kind
+  source: log
+  target: indexer
+  kind: async
+- id: index-group
+  label: Les indexeurs forment un groupe de consommateurs
+  rule: in_zone
+  source: indexer
+  target: igroup
+- id: index-scale
+  label: L'index est assez gros pour au moins deux indexeurs, qui se partagent les partitions
+  rule: count
+  source: indexer
+  min: 2
+- id: search-via
+  label: L'index de recherche n'est écrit que par les indexeurs
+  rule: inbound_via
+  target: search
+  via: indexer
+- id: cache-path
+  label: Le cache est une autre vue, alimentée depuis le sujet par son propre consommateur
+  rule: path
+  source: log
+  target: cache
+  via: cacheupd
+- id: warehouse
+  label: L'entrepôt reçoit les changements en passant par le sujet
+  rule: path
+  source: db
+  target: wh
+  via: log
+- id: replay-read
+  label: La reconstruction relit le sujet sans y écrire
+  rule: edge_kind
+  source: replay
+  target: log
+  kind: read
+- id: replay-write
+  label: La reconstruction construit la nouvelle vue à côté de l'ancienne
+  rule: edge_kind
+  source: replay
+  target: newview
+  kind: write
+- id: lag
+  label: La supervision lit le sujet pour mesurer le retard des groupes
+  rule: edge_kind
+  source: mon
+  target: log
+  kind: read
+- id: no-trigger
+  label: Pas de déclencheur SQL
+  rule: count
+  source: trigger
+  max: 0
+- id: no-dual
+  label: Pas de double écriture depuis l'API
+  rule: count
+  source: dual
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

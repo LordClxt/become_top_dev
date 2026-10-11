@@ -1,0 +1,17 @@
+id: ddia-ch12-l03-lab-quorum-epochs
+title: 'Dimensionner un cluster de consensus'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-consensus-majority
+- ddia-consensus-quorum-overlap
+- ddia-consensus-epochs
+- ddia-consensus-properties
+source:
+  chapter: 9
+  pages: 364-370
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

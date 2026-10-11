@@ -1,0 +1,39 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 300},
+    {"id": "gw", "type": "gw", "x": 260, "y": 300},
+    {"id": "check", "type": "check", "x": 520, "y": 120},
+    {"id": "reqlog", "type": "reqlog", "x": 780, "y": 120},
+    {"id": "split", "type": "split", "x": 1040, "y": 120},
+    {"id": "acctlog", "type": "acctlog", "x": 1300, "y": 120},
+    {"id": "acctproc", "type": "acctproc", "x": 1560, "y": 120},
+    {"id": "balances", "type": "balances", "x": 1820, "y": 120},
+    {"id": "auditor", "type": "auditor", "x": 1300, "y": -120},
+    {"id": "alerts", "type": "alerts", "x": 1560, "y": -120},
+    {"id": "warehouse", "type": "warehouse", "x": 780, "y": -120},
+    {"id": "purge", "type": "purge", "x": 520, "y": -120},
+    {"id": "namelog", "type": "namelog", "x": 520, "y": 480},
+    {"id": "nameproc", "type": "nameproc", "x": 780, "y": 480},
+    {"id": "users", "type": "users", "x": 1040, "y": 600},
+    {"id": "outcomes", "type": "outcomes", "x": 1040, "y": 380}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "gw", "kind": "sync", "label": "requête + id"},
+    {"id": "e2", "source": "gw", "target": "check", "kind": "sync", "label": "virement"},
+    {"id": "e3", "source": "check", "target": "reqlog", "kind": "async", "label": "valide"},
+    {"id": "e4", "source": "reqlog", "target": "split", "kind": "async"},
+    {"id": "e5", "source": "split", "target": "acctlog", "kind": "async", "label": "débit + crédit (id)"},
+    {"id": "e6", "source": "acctlog", "target": "acctproc", "kind": "async"},
+    {"id": "e7", "source": "acctproc", "target": "balances", "kind": "write", "label": "dédup + applique"},
+    {"id": "e8", "source": "gw", "target": "namelog", "kind": "async", "label": "pseudo"},
+    {"id": "e9", "source": "namelog", "target": "nameproc", "kind": "async"},
+    {"id": "e10", "source": "nameproc", "target": "users", "kind": "write"},
+    {"id": "e11", "source": "nameproc", "target": "outcomes", "kind": "async", "label": "succès / refus"},
+    {"id": "e12", "source": "outcomes", "target": "gw", "kind": "async"},
+    {"id": "e13", "source": "auditor", "target": "reqlog", "kind": "read", "label": "rejoue"},
+    {"id": "e14", "source": "auditor", "target": "balances", "kind": "read", "label": "compare"},
+    {"id": "e15", "source": "auditor", "target": "alerts", "kind": "async"},
+    {"id": "e16", "source": "reqlog", "target": "warehouse", "kind": "async", "label": "agrégats"},
+    {"id": "e17", "source": "purge", "target": "warehouse", "kind": "write", "label": "rétention"}
+  ]
+}

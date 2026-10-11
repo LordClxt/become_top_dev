@@ -1,0 +1,19 @@
+id: ddia-ch14-assignment
+title: Synchroniser une marketplace sans double écriture
+difficulty: 3
+xp: 130
+concepts:
+- ddia-dual-writes-problem
+- ddia-log-compaction-keyed
+- ddia-cdc-initial-snapshot
+- ddia-partition-assignment
+- ddia-log-retention-ring-buffer
+- ddia-event-sourcing
+source:
+  chapter: 11
+  pages: 439-464
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

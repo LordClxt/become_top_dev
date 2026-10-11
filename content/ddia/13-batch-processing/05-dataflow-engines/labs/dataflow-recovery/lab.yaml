@@ -1,0 +1,18 @@
+id: ddia-ch13-l05-lab-dataflow-recovery
+title: Migrer un workflow vers Spark sans perdre la reprise
+difficulty: 3
+xp: 70
+concepts:
+- ddia-batch-materialization
+- ddia-batch-dataflow-engines
+- ddia-batch-recompute-lineage
+- ddia-batch-determinism
+- ddia-batch-pregel-bsp
+source:
+  chapter: 10
+  pages: 419-436
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

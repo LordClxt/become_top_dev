@@ -1,0 +1,24 @@
+blocks:
+  room-index:
+    options:
+      same: 'Salle 7 à 14 h 30 : elle apparaîtrait dans la recherche de A. Le blocage est mérité.'
+      evening: 'Elle touche l''entrée 7 de l''index, donc elle attend ; pourtant 18 h ne chevauche pas le créneau de A.'
+      other: 'La salle 9 n''est pas dans l''entrée 7 de l''index : rien ne la retient.'
+      move: 'La nouvelle valeur est dans la salle 7 : elle attend, mais 10 h ne chevauche pas 14 h–15 h.'
+  time-index:
+    options:
+      same: 'Elle commence dans la plage 14 h–15 h et correspond au prédicat de A.'
+      evening: '18 h est hors de la plage verrouillée de l''index temporel.'
+      other: 'Elle tombe dans la plage 14 h–15 h, donc elle attend, alors que la salle 9 ne concerne pas A.'
+  exact-cost:
+    tolerance:
+      rel: 0.02
+    wrong: '1 500 prédicats × 2 µs = 3 000 µs = 3 ms par insertion.'
+  false-rate:
+    tolerance:
+      abs: 1
+    wrong: 'Seule 1 heure sur 10 chevauche le créneau de A : 9 réservations bloquées sur 10 sont des faux conflits, soit 90 %.'
+  no-index:
+    options:
+      none: 'Ne rien verrouiller laisserait passer un fantôme : la base doit couvrir le prédicat d''une façon ou d''une autre.'
+      rows: 'Une ligne insérée plus tard ne serait pas couverte : c''est exactement le fantôme.'

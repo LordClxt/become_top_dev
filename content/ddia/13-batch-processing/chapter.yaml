@@ -1,0 +1,29 @@
+id: ddia-ch13
+title: Traitement par lots
+subtitle: 'Des pipes Unix à MapReduce puis aux moteurs de dataflow : recalculer des données dérivées à partir d''entrées immuables'
+source:
+  chapter: 10
+  pages: 389-436
+objectives:
+- Distinguer services, traitements par lots et traitements de flux, et raisonner avec les principes Unix (interface uniforme, séparation de la logique et du câblage)
+- Décrire l'exécution d'un job MapReduce sur HDFS (tâches map, partition par hachage, tri, shuffle, reduce) et l'enchaînement de jobs en workflow
+- Choisir entre jointure sort-merge côté reduce, broadcast hash, partitioned hash et map-side merge selon la taille et le rangement des entrées, et traiter une clé chaude
+- Concevoir la sortie d'un workflow (index de recherche, base clé-valeur) en fichiers immuables chargés d'un bloc plutôt qu'en écritures directes
+- Comparer Hadoop et les bases MPP, puis expliquer ce que les moteurs de dataflow (Spark, Flink, Tez) changent à la matérialisation et à la reprise sur panne
+- Expliquer pourquoi le recalcul exige des opérateurs déterministes et quand préférer Pregel ou une API de haut niveau
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch12
+lessons:
+- 01-unix-batch
+- 02-mapreduce-hdfs
+- 03-batch-joins
+- 04-workflow-outputs
+- 05-dataflow-engines
+xp:
+  assignment: 130
+  project: 240
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

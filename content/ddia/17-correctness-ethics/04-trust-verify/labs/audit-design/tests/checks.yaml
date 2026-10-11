@@ -1,0 +1,77 @@
+checks:
+- id: append
+  label: Le service écrit chaque virement dans le log d'événements
+  rule: edge_kind
+  source: api
+  target: events
+  kind: write
+- id: derive-in
+  label: Le processeur de soldes consomme le log
+  rule: edge_kind
+  source: events
+  target: deriver
+  kind: async
+- id: derive-out
+  label: …et écrit la base des soldes
+  rule: edge_kind
+  source: deriver
+  target: balances
+  kind: write
+- id: no-shortcut
+  label: Le service n'écrit pas les soldes directement (ils sont dérivés)
+  rule: no_edge
+  source: api
+  target: balances
+- id: audit-log
+  label: L'auditeur relit le log pour recalculer
+  rule: edge_kind
+  source: auditor
+  target: events
+  kind: read
+- id: audit-state
+  label: L'auditeur lit les soldes pour comparer, sans les modifier
+  rule: edge_kind
+  source: auditor
+  target: balances
+  kind: read
+- id: audit-alert
+  label: Un écart déclenche une alerte
+  rule: edge_kind
+  source: auditor
+  target: alerts
+  kind: async
+- id: merkle
+  label: Le log est haché dans un arbre de Merkle
+  rule: path
+  source: events
+  target: merkle
+- id: backup
+  label: Les soldes sont sauvegardés
+  rule: path
+  source: balances
+  target: backup
+- id: restore
+  label: Un test de restauration relit les sauvegardes
+  rule: edge_kind
+  source: restore
+  target: backup
+  kind: read
+- id: no-inplace
+  label: Pas de table mise à jour en place sans événements
+  rule: count
+  source: inplace
+  max: 0
+- id: no-link-only
+  label: Pas de contrôle qui ne couvre qu'un maillon
+  rule: count
+  source: disk-only
+  max: 0
+- id: one-log
+  label: Un seul log, source de vérité
+  rule: count
+  source: events
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

@@ -1,0 +1,50 @@
+id: ddia-ch05-l02-lab-failover-design
+title: Redessiner le cluster après un failover
+difficulty: 3
+xp: 70
+concepts:
+- ddia-leader-failover
+- ddia-failover-split-brain
+- ddia-failover-lost-writes
+- ddia-follower-catchup
+source:
+  chapter: 5
+  pages: 156-158
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: service
+  label: Application
+  hint: Envoie lectures et écritures.
+- type: router
+  component: proxy
+  label: Routeur d'écritures
+  hint: Connaît l'adresse du leader courant et y envoie les écritures.
+- type: monitor
+  component: monitoring
+  label: Détecteur de pannes
+  hint: Envoie des messages de vie et déclenche la promotion.
+- type: new
+  component: leader
+  label: Nouveau leader (ex-follower B, LSN 10 980)
+  hint: Le follower le plus avancé au moment de la panne.
+- type: old
+  component: follower
+  label: Ancien leader, rétrogradé
+  hint: Il revient après la panne. Quel rôle doit-il jouer ?
+- type: f
+  component: follower
+  label: Follower A (LSN 10 400)
+  hint: Un follower qui doit rattraper le nouveau leader.
+- type: lagging
+  component: leader
+  label: Nouveau leader (ex-follower C, LSN 9 870)
+  hint: Un autre candidat possible à la promotion.
+- type: dual
+  component: leader
+  label: Ancien leader resté actif (époque 1)
+  hint: L'ancien leader qui accepte encore des écritures.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

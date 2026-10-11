@@ -1,0 +1,49 @@
+id: ddia-ch12-l02-lab-xa-design
+title: 'Exactement une fois avec XA'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-dtx-exactly-once-messages
+- ddia-xa-standard
+- ddia-dtx-orphaned-heuristic
+source:
+  chapter: 9
+  pages: 359-364
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: zone
+  label: Processus applicatif
+  hint: Le serveur d'application et tout ce qui vit dans son processus.
+- type: broker
+  component: queue
+  label: File « commandes payées »
+  hint: Broker qui supporte XA et livre les messages.
+- type: consumer
+  component: service
+  label: Consommateur
+  hint: Lit un message et écrit la commande en base.
+- type: coord
+  component: service
+  label: Coordinateur XA
+  hint: Bibliothèque de gestion de transactions (JTA).
+- type: txlog
+  component: wal
+  label: Journal du coordinateur
+  hint: Décisions écrites sur le disque local du serveur.
+- type: db
+  component: postgres
+  label: Base des commandes
+  hint: Participant XA.
+- type: memlog
+  component: redis
+  label: Journal en mémoire
+  hint: Rapide, mais perdu au redémarrage.
+- type: heur
+  component: external
+  label: Décisions heuristiques automatiques
+  hint: Débloque les transactions en doute sans attendre le coordinateur.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

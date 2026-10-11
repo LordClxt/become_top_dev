@@ -1,0 +1,104 @@
+id: ddia-ch16-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi une sortie de traitement par lots peut-elle être recalculée sans risque après une panne ?
+  choices:
+  - Parce qu'elle est écrite dans une transaction distribuée
+  - Parce qu'elle est mise en cache
+  - Parce qu'elle est une fonction déterministe d'entrées immuables
+  - Parce que le lot ne tombe jamais en panne
+  answer: 2
+  explanation: Mêmes entrées, même fonction, même résultat ; relancer ne change rien.
+  concept: ddia-derived-state-functional
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi le livre préfère-t-il maintenir les vues dérivées de façon asynchrone ?
+  choices:
+  - Une panne d'un consommateur reste locale au lieu de se propager
+  - C'est toujours plus rapide en latence
+  - L'asynchronisme garantit la lecture de ses propres écritures
+  - Les bases ne savent pas faire autrement
+  answer: 0
+  explanation: Le synchrone lie le sort de tous les participants ; l'asynchrone isole les pannes, au prix d'un retard.
+  concept: ddia-derived-state-functional
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Ton équipe veut passer de « commandes par ville » à « chiffre d'affaires par pays et par semaine ». Qu'apporte le retraitement de l'historique ?
+  choices:
+  - Rien, il faut un ALTER TABLE
+  - Il ne permet que d'ajouter un champ optionnel
+  - Il oblige à supprimer l'ancienne vue d'abord
+  - Il permet de construire une vue entièrement restructurée à partir des événements depuis l'origine
+  answer: 3
+  explanation: Bien plus puissant qu'un ajout de champ compatible ; on recalcule une nouvelle forme des données.
+  concept: ddia-reprocessing-evolution
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Remets dans l'ordre une migration progressive d'une vue dérivée. Choisis la bonne séquence.
+  choices:
+  - Dériver la nouvelle vue à partir de l'historique → La maintenir en parallèle de l'ancienne à partir du flux → Envoyer une petite part des lecteurs vers la nouvelle vue et comparer → Envoyer tous les lecteurs vers la nouvelle vue → Arrêter de maintenir l'ancienne vue
+  - Dériver la nouvelle vue à partir de l'historique → La maintenir en parallèle de l'ancienne à partir du flux → Envoyer une petite part des lecteurs vers la nouvelle vue et comparer → Arrêter de maintenir l'ancienne vue → Envoyer tous les lecteurs vers la nouvelle vue
+  - Dériver la nouvelle vue à partir de l'historique → Envoyer une petite part des lecteurs vers la nouvelle vue et comparer → La maintenir en parallèle de l'ancienne à partir du flux → Envoyer tous les lecteurs vers la nouvelle vue → Arrêter de maintenir l'ancienne vue
+  - Dériver la nouvelle vue à partir de l'historique → La maintenir en parallèle de l'ancienne à partir du flux → Envoyer tous les lecteurs vers la nouvelle vue → Envoyer une petite part des lecteurs vers la nouvelle vue et comparer → Arrêter de maintenir l'ancienne vue
+  answer: 0
+  explanation: L'ancienne vue n'est retirée qu'en dernier ; jusque-là, chaque étape est réversible.
+  concept: ddia-gradual-view-migration
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Qu'est-ce qui rend chaque étape d'une migration progressive réversible ?
+  choices:
+  - Une sauvegarde nocturne
+  - L'ancienne vue reste maintenue tant que la bascule n'est pas finie
+  - Un verrou global sur la base
+  - Le schéma Avro
+  answer: 1
+  explanation: Tant que l'ancienne vue existe et suit le flux, on peut renvoyer les lecteurs vers elle.
+  concept: ddia-gradual-view-migration
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Quels sont les défauts de l'architecture lambda relevés par le livre ?
+  choices:
+  - La même logique doit être écrite et exploitée dans deux frameworks
+  - Fusionner les sorties lots et flux est difficile pour des jointures ou des sessions
+  - Elle interdit les événements immuables
+  - Retraiter tout l'historique coûte cher ; les lots incrémentaux réintroduisent les traînards
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: L'idée des événements immuables est justement la bonne partie de lambda.
+  concept: ddia-lambda-architecture
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: De quoi a besoin un système qui unifie lots et flux ?
+  choices:
+  - Rejouer l'historique dans le même moteur que le flux
+  - Une sémantique exactly-once malgré les pannes
+  - Des fenêtres sur le temps de l'événement
+  - Une couche lots séparée pour corriger la couche flux
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: La couche lots séparée, c'est précisément lambda, que l'unification remplace.
+  concept: ddia-unified-batch-stream
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Tu relis une semaine d'événements de clics en 10 minutes pour recalculer des comptages par heure. Que se passe-t-il si tu fenêtres sur le temps de traitement ?
+  choices:
+  - Le résultat est identique
+  - Les comptages sont seulement un peu arrondis
+  - Presque tous les clics tombent dans une ou deux fenêtres, le résultat est faux
+  - Le moteur refuse de démarrer
+  answer: 2
+  explanation: Il faut fenêtrer sur le temps de l'événement pour qu'un retraitement reproduise le résultat du flux.
+  concept: ddia-unified-batch-stream
+  difficulty: 3

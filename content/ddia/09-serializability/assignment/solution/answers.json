@@ -1,0 +1,9 @@
+{
+  "core": 75,
+  "partitions": { "p02.max": 320000, "p1.max": 100000, "p5.max": 20000, "p20.max": 5000 },
+  "locks": { "ss": "grant", "sx": "wait", "upgrade": "grant", "double": "deadlock", "xs": "wait" },
+  "phantom": "range",
+  "ssi": ["read", "w42", "w43", "c42", "c43", "retry"],
+  "truths": ["ro", "core", "commit", "overlock"],
+  "retry": "whole"
+}

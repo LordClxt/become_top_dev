@@ -1,0 +1,98 @@
+intro: |
+  Un client se plaint : il a modifié son adresse de livraison, l'application a répondu « enregistré », et l'ancienne
+  adresse est revenue. La base est répliquée sur trois nœuds et résout les conflits par **last write wins** (LWW).
+  Tu mènes l'enquête, horloges en main.
+blocks:
+- id: pick
+  type: match
+  title: Quelle horloge pour quel usage ?
+  prompt: Associe chaque besoin à la bonne source de temps.
+  items:
+  - id: latency
+    label: Mesurer la latence d'une requête pour le p99
+  - id: invoice
+    label: Imprimer la date d'émission sur une facture
+  - id: lease
+    label: Savoir si 10 s se sont écoulées depuis le début d'une attente, sur la même machine
+  - id: order
+    label: Savoir laquelle de deux écritures faites sur deux nœuds dépend de l'autre
+  categories:
+  - id: monotonic
+    label: Horloge monotone
+  - id: wall
+    label: Horloge murale
+  - id: logical
+    label: Ni l'une ni l'autre, une horloge logique
+- id: firewall
+  type: number
+  title: Coupé de NTP
+  prompt: |
+    Après un changement de pare-feu, le nœud 1 ne joint plus aucun serveur NTP depuis **6 heures**. Son quartz dérive de
+    **200 ppm**. Quel écart a-t-il pu accumuler, en secondes ? (deux décimales)
+  unit: s
+- id: stamps
+  type: table
+  title: Les horodatages
+  prompt: |
+    Ce matin, l'horloge du nœud 1 avançait de **80 ms**, celle du nœud 3 retardait de **15 ms**. À l'instant réel
+    **2 000 ms**, l'ancienne application écrit l'ancienne adresse via le nœud 1. À l'instant réel **2 040 ms**, le client
+    écrit la nouvelle adresse via le nœud 3. Quel horodatage (en ms) chaque écriture reçoit-elle ?
+  columns:
+  - id: ts
+    label: Horodatage (ms)
+  rows:
+  - id: old
+    label: Ancienne adresse (nœud 1)
+  - id: new
+    label: Nouvelle adresse (nœud 3)
+- id: winner
+  type: choice
+  title: Le verdict de LWW
+  prompt: Quelle valeur la base garde-t-elle ?
+  options:
+  - id: old
+    label: L'ancienne adresse, car son horodatage est le plus grand
+  - id: new
+    label: La nouvelle adresse, car elle a été écrite en dernier
+  - id: both
+    label: Les deux, présentées au client comme un conflit
+- id: window
+  type: number
+  title: La fenêtre de perte
+  prompt: |
+    Combien de temps réel (en ms) après l'écriture de l'ancienne adresse toute écriture faite via le nœud 3 sur cette clé
+    est-elle jetée par LWW ?
+  unit: ms
+- id: intervals
+  type: choice
+  title: Intervalles de confiance
+  prompt: Pour quelle paire d'intervalles (A puis B, en secondes) peut-on affirmer que B a eu lieu après A ?
+  options:
+  - id: overlap
+    label: A = [1,000 ; 1,006], B = [1,004 ; 1,010]
+  - id: disjoint
+    label: A = [1,000 ; 1,006], B = [1,007 ; 1,013]
+  - id: inside
+    label: A = [2,000 ; 2,020], B = [2,010 ; 2,012]
+- id: wait
+  type: number
+  title: Spanner sans GPS
+  prompt: |
+    Spanner attend la largeur de l'intervalle de confiance avant de valider une écriture. Avec un GPS par datacentre,
+    l'incertitude est de **± 3,5 ms**. Sans, elle monterait à **± 50 ms**. Combien de ms chaque validation attendrait-elle alors ?
+  unit: ms
+- id: fixes
+  type: multi
+  title: Les correctifs
+  prompt: Quelles mesures auraient évité ou détecté l'incident ?
+  options:
+  - id: monitor
+    label: Superviser le décalage d'horloge de chaque nœud et exclure celui qui dérive trop
+  - id: versions
+    label: Détecter les écritures concurrentes avec des numéros de version au lieu de LWW
+  - id: nanos
+    label: Passer les horodatages à la nanoseconde
+  - id: ntp-boot
+    label: Synchroniser NTP une seule fois, au démarrage du serveur
+  - id: multi-ntp
+    label: Configurer plusieurs serveurs NTP pour écarter une source aberrante

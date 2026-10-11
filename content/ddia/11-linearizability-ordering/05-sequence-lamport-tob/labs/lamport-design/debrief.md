@@ -1,0 +1,3 @@
+**Lamport transforme la causalité en un ordre total compact.** Chaque envoi transporte le compteur ; chaque réception saute au-delà du maximum vu. Ainsi la réception par B (4) dépasse l'envoi de A (2), et C, parti de 0, saute à 6 en recevant le message de B (5). Mais cet ordre ne se connaît qu'après coup : pour décider seul d'un pseudo, un nœud devrait interroger tous les autres.
+
+La **diffusion à ordre total** fige l'ordre au moment de la livraison. Une réplique qui a reçu 1, 2, 4, 5, 6 n'en livre que **2** : le trou du 3 bloque la suite. C'est cette attente qui garantit que toutes les répliques désignent le même premier réclamant — et donc un compare-and-set linéarisable.

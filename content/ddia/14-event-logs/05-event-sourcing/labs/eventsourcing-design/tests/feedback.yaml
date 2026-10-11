@@ -1,0 +1,35 @@
+blocks:
+  wallet:
+    tolerance:
+      abs: 0.5
+    wrong: 'Rejoue dans l''ordre en partant de 0 : chaque crédit ajoute, chaque achat et chaque frais retire, le remboursement compense les frais.'
+  kinds:
+    options:
+      reserve: 'Elle peut échouer si le siège est pris : c''est une demande, pas un fait.'
+      reserved: 'C''est le résultat d''une commande validée : un fait daté, que plus personne ne peut rejeter.'
+      refund: Le remboursement peut être refusé (délai dépassé, concert passé).
+      refunded: Le remboursement a eu lieu ; on ne revient pas dessus, on compenserait par un nouvel événement.
+      rename: Le pseudo peut être déjà pris.
+  double:
+    options:
+      consumer: 'Un consommateur ne peut pas rejeter un événement : quand il le lit, c''est déjà un fait dans le log.'
+      delete: Le log est en ajout seul ; d'autres consommateurs ont peut-être déjà lu et appliqué cet événement.
+  compact:
+    options:
+      yes: 'Le dernier événement d''un client est par exemple « Crédité 50 » : il ne dit rien du solde.'
+      tombstone: Les tombstones servent à supprimer une clé ; elles n'aident pas à garder une somme d'actions.
+  churn:
+    tolerance:
+      rel: 0.01
+    wrong: Places × changements par jour × jours.
+  views:
+    options:
+      mood: Aucun événement du log ne porte cette information ; une vue ne peut dériver que ce qui a été enregistré.
+      hesit: Le log garde chaque réservation et chaque libération, même celles qui n'ont pas abouti.
+      revenue: Les événements `BilletPayé` sont horodatés ; il suffit de les additionner par jour.
+  gdpr:
+    options:
+      impossible: 'L''obligation légale s''applique ; c''est à la conception de prévoir comment effacer.'
+      notenough: Un événement de plus ne retire rien aux événements précédents.
+      rewrite: Une fois l'historique réécrit, les vues dérivées doivent être reconstruites pour ne plus contenir ces données.
+      copies: Effacer rend surtout la donnée plus difficile à retrouver ; supprimer toutes les copies est très dur.

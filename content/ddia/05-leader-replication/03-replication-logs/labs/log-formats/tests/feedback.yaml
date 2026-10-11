@@ -1,0 +1,26 @@
+blocks:
+  incidents:
+    options:
+      now: 'Une fonction réévaluée sur chaque réplica : seul un log qui rejoue le texte de la requête a ce problème.'
+      autoinc: 'L''auto-incrément dépend de l''ordre d''exécution : une requête réexécutée en concurrence peut obtenir une autre valeur.'
+      upgrade: 'Un log qui décrit des octets dans des blocs dépend du format disque de chaque version.'
+      warehouse: 'Il faut un format indépendant du moteur, facile à analyser, avec la valeur de chaque ligne : c''est la capture des changements.'
+      subset: 'Choisir les données et imposer sa propre logique de conflit demande du code applicatif.'
+  records:
+    tolerance:
+      abs: 0.5
+    wrong: 'Une entrée par ligne modifiée, plus une entrée de commit pour la transaction : 40 000 + 1.'
+  taille:
+    tolerance:
+      rel: 0.02
+    wrong: '40 000 × 120 octets = 4 800 000 octets, soit 4,8 Mo.'
+  figer:
+    options:
+      sync: 'Même parfaitement synchronisées, les horloges liraient l''heure d''exécution sur chaque follower, qui n''est pas celle du leader.'
+      forbid: 'Synchrone ne veut pas dire « au même instant » : le follower exécute après le leader, et NOW() change.'
+  atouts:
+    options:
+      smaller: 'Pour une écriture massive, il contient une entrée par ligne : 4,8 Mo contre 80 octets ici.'
+      versions: C'est l'intérêt de séparer le format de réplication du format de stockage.
+      cdc: C'est la capture des changements.
+      determinism: Chaque enregistrement porte la valeur déjà calculée par le leader.

@@ -1,0 +1,86 @@
+id: ddia-ch11-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: 'Leader unique à Paris, réplica à Montréal, le lien transatlantique est coupé. Que peuvent faire les clients de Montréal ?'
+  choices:
+  - Écrire localement, les écritures seront fusionnées plus tard
+  - Rien du tout, le réplica s'arrête
+  - Lire leur réplica local, potentiellement obsolète, mais ni écrire ni lire de façon linéarisable
+  - Tout faire normalement, la coupure est invisible
+  answer: 2
+  explanation: Écritures et lectures linéarisables doivent passer par le leader, injoignable. Seules des lectures éventuellement obsolètes restent possibles.
+  concept: ddia-lin-partition-tradeoff
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Avec un leader par datacenter (multi-leader), que se passe-t-il pendant la même coupure ?
+  choices:
+  - Chaque datacenter continue d'accepter lectures et écritures ; le système reste disponible mais n'est pas linéarisable
+  - Le système reste linéarisable car chaque leader est à jour
+  - Les écritures sont refusées des deux côtés
+  - Le datacenter le plus petit s'arrête
+  answer: 0
+  explanation: Les écritures sont mises en file et échangées au retour du lien ; entre-temps, les deux côtés divergent.
+  concept: ddia-lin-partition-tradeoff
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Quelle formulation du théorème CAP est la plus juste ?
+  choices:
+  - Il faut choisir deux propriétés parmi cohérence, disponibilité et tolérance aux partitions
+  - Un système distribué ne peut pas être cohérent
+  - Un système ne peut pas être disponible et rapide à la fois
+  - Quand le réseau est coupé, il faut choisir entre linéarisabilité et disponibilité
+  answer: 3
+  explanation: "Les partitions ne sont pas un choix : ce sont des pannes qui arrivent. Hors coupure, on peut avoir les deux."
+  concept: ddia-cap-theorem-precise
+  difficulty: 2
+- id: q4
+  type: multiple
+  prompt: Coche ce que le théorème CAP, tel que prouvé, ne prend PAS en compte.
+  choices:
+  - Les délais réseau
+  - Les nœuds morts
+  - Les modèles de cohérence autres que la linéarisabilité
+  - Les partitions réseau
+  answer: [0, 1, 2]
+  explanation: Il ne traite qu'un modèle (linéarisabilité) et qu'une panne (la partition), d'où son utilité limitée en conception.
+  concept: ddia-cap-theorem-precise
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi la RAM d'un processeur multicœur n'est-elle pas linéarisable ?
+  choices:
+  - Pour tolérer la panne d'un cœur
+  - "Pour la performance : chaque cœur a ses caches et tampons, synchronisés de façon asynchrone"
+  - Parce que la RAM perd des données
+  - Parce que les cœurs ont des horloges différentes
+  answer: 1
+  explanation: Aucune partition n'est en jeu ; c'est un pur choix de vitesse, compensé par les barrières mémoire.
+  concept: ddia-multicore-memory-not-linearizable
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Qu'ont prouvé Attiya et Welch sur un stockage linéarisable ?
+  choices:
+  - Que son temps de réponse est au moins proportionnel à l'incertitude des délais réseau
+  - Qu'il est impossible à construire
+  - Qu'il demande des horloges atomiques
+  - Qu'il est toujours plus rapide qu'un stockage à cohérence causale
+  answer: 0
+  explanation: Aucun algorithme linéarisable ne peut échapper à ce coût ; sur un réseau aux délais variables, il est élevé.
+  concept: ddia-lin-latency-cost
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: 'Aller-retour Paris-Montréal : 90 ms. Leader à Paris. Combien coûte au minimum une écriture linéarisable envoyée par un client de Montréal ?'
+  choices:
+  - 45 ms
+  - 90 ms
+  - 180 ms
+  - 2 ms
+  answer: 1
+  explanation: Il faut au moins un aller-retour jusqu'au leader avant de pouvoir confirmer l'écriture.
+  concept: ddia-lin-latency-cost
+  difficulty: 1

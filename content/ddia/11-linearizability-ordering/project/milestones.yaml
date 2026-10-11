@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "L'horloge de Lamport"
+    goal: "Avancer le compteur à chaque événement, sauter à max(local, reçu) + 1 à la réception, et ordonner totalement les horodatages en départageant par identifiant de nœud."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Le juge de linéarisabilité"
+    goal: "Pour un petit historique de lectures, écritures et compare-and-set, chercher exhaustivement un ordre total qui respecte le temps réel et la sémantique d'un registre, ou prouver qu'il n'en existe aucun."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Diffusion à ordre total par séquenceur"
+    goal: "Numéroter les messages avec un séquenceur, les livrer dans l'ordre sans trou ni doublon quel que soit l'ordre d'arrivée, et en déduire qui possède chaque nom d'utilisateur."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Pourquoi une réplique doit-elle retenir le message 5 tant qu'elle n'a pas reçu le 4, au lieu de le livrer tout de suite ? En quoi cette attente fait-elle d'Owners une contrainte d'unicité correcte, et qu'est-ce qui rend un séquenceur unique à la fois simple et fragile ?"

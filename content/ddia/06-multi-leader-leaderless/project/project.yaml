@@ -1,0 +1,14 @@
+id: ddia-ch06-project
+title: "Tinybase — le magasin sans leader"
+pitch: "Trois réplicas, aucun chef : Tinybase écrit et lit par quorum, répare les réplicas en retard au passage, et détecte les écritures concurrentes grâce aux vecteurs de versions au lieu d'en jeter une."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 240
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["leaderless.go"]
+concepts: [ddia-version-vectors, ddia-happens-before, ddia-siblings-merge, ddia-quorum-condition, ddia-read-repair, ddia-anti-entropy]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

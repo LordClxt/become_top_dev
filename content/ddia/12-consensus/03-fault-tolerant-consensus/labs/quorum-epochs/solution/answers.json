@@ -1,0 +1,17 @@
+{
+  "sizes": {
+    "n3.maj": 2, "n3.tol": 1,
+    "n4.maj": 3, "n4.tol": 1,
+    "n6.maj": 4, "n6.tol": 2,
+    "n7.maj": 4, "n7.tol": 3
+  },
+  "zones": { "n": 5 },
+  "overlap": 2,
+  "stale": "refuse",
+  "props": {
+    "split": "agreement",
+    "twice": "integrity",
+    "invent": "validity",
+    "stuck": "termination"
+  }
+}

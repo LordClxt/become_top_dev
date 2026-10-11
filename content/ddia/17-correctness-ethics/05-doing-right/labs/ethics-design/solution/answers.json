@@ -1,0 +1,17 @@
+{
+  "risques": {
+    "zip": "proxy",
+    "fewer-rides": "loop",
+    "tos": "consent",
+    "no-appeal": "opacity"
+  },
+  "faux-positifs": 60,
+  "retention": {
+    "fare": "keep",
+    "gps-old": "drop",
+    "contacts": "drop",
+    "heatmap": "aggregate"
+  },
+  "effacement": ["crypto-shred", "compaction", "derived"],
+  "posture": "responsible"
+}

@@ -1,0 +1,36 @@
+blocks:
+  noeuds:
+    tolerance:
+      abs: 0.01
+    wrong: 30 To × 3 copies = 90 To à loger, sur des nœuds de 2 To.
+  cle:
+    options:
+      date-seller: 'La date serait hachée : les annonces d''un vendeur seraient éparpillées dans toutes les partitions.'
+      ad-id: 'Chaque annonce est dans une partition différente : la requête par vendeur interrogerait tout.'
+      city: 'Bonne localité pour une ville, mais la requête fréquente est par vendeur.'
+  sel:
+    tolerance:
+      abs: 0.01
+    wrong: 45 000 / 8 000 = 5,6 ; un nombre entier de sous-clés, arrondi au-dessus.
+  queue:
+    tolerance:
+      abs: 0.3
+    wrong: 'La recherche est rapide seulement si les 20 partitions le sont : 0,99²⁰ ≈ 0,818. Le reste est lent.'
+  index:
+    options:
+      search: 'Avec 50 000 recherches/s, le scatter/gather mobiliserait toutes les partitions pour chaque requête.'
+      logs: 'Avec des écritures massives et des lectures rares, on garde les écritures sur une seule partition.'
+      fresh: 'Un index global est souvent asynchrone ; et si tout est dans une partition, l''index local suffit et reste à jour.'
+  deplace:
+    options:
+      modn.pct: 'Une clé reste si h mod 9 = h mod 10 : seuls 9 des 90 restes de h mod 90 conviennent.'
+      fixed.pct: 'Le nouveau nœud prend sa juste part, 900 / 10 = 90 partitions sur 900.'
+  routage:
+    options:
+      plan: 'Le nœud doit d''abord être connu du cluster pour qu''on lui propose des partitions.'
+      switch: 'On ne bascule l''affectation qu''après la copie : l''ancien nœud sert en attendant.'
+      notify: 'La notification suit la mise à jour dans ZooKeeper.'
+  auto:
+    options:
+      free: 'Les partitions déplacées sont copiées entièrement : c''est coûteux en réseau et en disque.'
+      stop: 'Une exigence du rééquilibrage est justement de continuer à servir pendant l''opération.'

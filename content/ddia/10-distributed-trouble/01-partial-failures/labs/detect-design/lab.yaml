@@ -1,0 +1,17 @@
+id: ddia-ch10-l01-lab-detect-design
+title: 'Le nœud ne répond plus : que sais-tu vraiment ?'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-unanswered-request
+- ddia-cloud-vs-hpc
+- ddia-partial-failure
+- ddia-fault-detection-signals
+source:
+  chapter: 8
+  pages: 273-281
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

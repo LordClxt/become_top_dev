@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    {
+      "id": "proddb",
+      "type": "proddb",
+      "x": 0,
+      "y": 420
+    },
+    {
+      "id": "app",
+      "type": "app",
+      "x": 2120,
+      "y": 330
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,22 @@
+blocks:
+  coupure:
+    options:
+      write: 'Toutes les écritures passent par le leader, à Paris, injoignable.'
+      linread: 'Une lecture linéarisable doit consulter le leader (ou un quorum) pour être sûre de la fraîcheur.'
+      localread: 'Le réplica local peut répondre, simplement sans garantie de fraîcheur.'
+      cas: 'Un compare-and-set exige la valeur à jour, que seul le leader détient.'
+  multi:
+    options:
+      lin: 'Deux leaders qui acceptent des écritures chacun de leur côté ne forment pas une copie unique.'
+      stop: 'C''est le comportement d''un système qui choisit la linéarisabilité, pas celui d''un multi-leader.'
+  page:
+    tolerance:
+      abs: 1
+    wrong: '5 × 90 ms = 450 ms en linéarisable, 5 × 2 ms = 10 ms en local : la différence est de 440 ms.'
+  cap:
+    options:
+      valid: 'Sur deux datacenters, la coupure finira par arriver ; « sans P » n''a de sens que sur un seul nœud.'
+      three: 'Ajouter des répliques ne supprime pas le dilemme : un réplica coupé doit toujours choisir.'
+  faux:
+    options:
+      delays: 'CAP ne parle que des partitions ; le coût en latence vient d''un autre résultat (Attiya et Welch).'

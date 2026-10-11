@@ -1,0 +1,21 @@
+{
+  "reessais": {
+    "lost.without": 3,
+    "lost.with": 1,
+    "failed.without": 1,
+    "failed.with": 1,
+    "double-tap.without": 2,
+    "double-tap.with": 1
+  },
+  "partitions": 96,
+  "cle": "norm",
+  "strategies": {
+    "pseudo": "log",
+    "iban": "log",
+    "goodies": "apology",
+    "webinar": "apology"
+  },
+  "virement": ["id", "check", "log", "split", "apply"],
+  "detection": ["replay", "sum"],
+  "score": ["explain", "appeal", "errors"]
+}

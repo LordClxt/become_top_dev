@@ -1,0 +1,17 @@
+id: ddia-ch07-l01-lab-key-range-design
+title: 'Découper un parc de capteurs'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-partition-replication-combo
+- ddia-key-range-partitioning
+- ddia-range-timestamp-hotspot
+- ddia-partition-skew-hotspot
+source:
+  chapter: 6
+  pages: 199-203
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

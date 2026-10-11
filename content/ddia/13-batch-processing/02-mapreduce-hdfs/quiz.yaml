@@ -1,0 +1,98 @@
+id: ddia-ch13-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Comment HDFS survit-il à la perte d'une machine ?
+  choices:
+  - Une baie de disques partagée garde une copie de tout
+  - Chaque bloc est répliqué sur plusieurs machines, ou protégé par un code d'effacement
+  - Le NameNode stocke une copie de chaque bloc
+  - Les mappers recalculent les fichiers perdus
+  answer: 1
+  explanation: HDFS est sans partage ; la redondance vient de la réplication des blocs (souvent 3 copies) ou d'un code de type Reed-Solomon.
+  concept: ddia-batch-hdfs
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quel est le rôle du NameNode ?
+  choices:
+  - Exécuter les tâches reduce
+  - Trier les paires entre map et reduce
+  - Savoir quel bloc de quel fichier se trouve sur quelle machine
+  - Compresser les fichiers d'entrée
+  answer: 2
+  explanation: C'est le serveur central de métadonnées ; les données elles-mêmes sont servies par les démons de chaque machine.
+  concept: ddia-batch-hdfs
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: 'Dans le comptage de visites par URL, quelle étape MapReduce correspond à `uniq -c` ?'
+  choices:
+  - Le reducer, qui reçoit toutes les valeurs d'une même clé
+  - Le mapper, qui extrait l'URL
+  - Le tri implicite du framework
+  - Le découpage de l'entrée en enregistrements
+  answer: 0
+  explanation: 'awk ≈ mapper, sort ≈ tri du framework, uniq -c ≈ reducer.'
+  concept: ddia-batch-mr-job-execution
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Ton mapper incrémente une variable globale pour numéroter les lignes qu'il voit. Pourquoi est-ce une erreur ?
+  choices:
+  - Go interdit les variables globales
+  - Le mapper doit être sans état ; le résultat dépendrait du découpage en tâches et des relances
+  - Le reducer ne peut pas lire d'entiers
+  - Cela ralentit le shuffle
+  answer: 1
+  explanation: Chaque enregistrement est traité indépendamment ; les tâches sont réparties et relancées, donc un état partagé donne des résultats arbitraires.
+  concept: ddia-batch-mr-job-execution
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Comment le framework garantit-il que toutes les paires de la clé « /cart » arrivent au même reducer ?
+  choices:
+  - Il envoie chaque paire à tous les reducers
+  - Le mapper choisit un reducer au hasard
+  - Il choisit le reducer à partir d'un hachage de la clé
+  - Le reducer interroge tous les mappers pour chaque clé
+  answer: 2
+  explanation: C'est un partitionnement par hachage ; la même clé donne toujours le même reducer.
+  concept: ddia-batch-mr-shuffle
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Que se passe-t-il pendant le shuffle ?
+  choices:
+  - Chaque mapper a écrit sa sortie, partitionnée et triée, sur son disque local
+  - Les reducers téléchargent leur partition chez chaque mapper
+  - Les paires sont mélangées aléatoirement pour équilibrer la charge
+  - Chaque reducer fusionne les fichiers triés reçus en gardant l'ordre des clés
+  answer: [0, 1, 3]
+  explanation: Malgré son nom, le shuffle n'a rien d'aléatoire ; c'est une fusion de fichiers triés.
+  concept: ddia-batch-mr-shuffle
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: L'ordonnanceur lance une tâche map sur la machine B, qui détient une réplique du bloc 42. Quel est le gain ?
+  choices:
+  - Le bloc est lu sur le disque local, sans traverser le réseau
+  - Le reducer n'a plus besoin de trier
+  - Le NameNode n'est plus nécessaire
+  - Le bloc n'a plus besoin d'être répliqué
+  answer: 0
+  explanation: Amener le calcul près des données économise la bande passante réseau, souvent la ressource la plus rare du cluster.
+  concept: ddia-batch-data-locality
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: 'Le job B lit le répertoire écrit par le job A. Le job A échoue à 80 %. Que doit faire l''ordonnanceur ?'
+  choices:
+  - Lancer B sur les 80 % déjà écrits
+  - Lancer B en parallèle de la relance de A
+  - Ne pas lancer B tant que A n'a pas réussi, car une sortie n'est valide qu'au succès du job
+  - Supprimer l'entrée de A
+  answer: 2
+  explanation: Oozie, Airflow et les autres attendent le succès des jobs dont un job dépend.
+  concept: ddia-batch-mr-workflows
+  difficulty: 2

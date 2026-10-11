@@ -1,0 +1,10 @@
+{
+  "famille": "leaderless",
+  "reglage": {"n": 5, "w": 3, "r": 3},
+  "limites": {"calm": "yes", "sloppy": "no", "partial": "no", "restore": "no", "inflight": "no"},
+  "hints": 360000,
+  "handoff": 180,
+  "contexte": {"a.n": 3, "b.n": 2, "c.n": 1},
+  "protocole": ["read", "merge", "add", "write", "server"],
+  "choix": ["union", "sloppy", "local"]
+}

@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: « Exactement une fois » ?
+  back: Même si l'opération est tentée ou livrée plusieurs fois, son effet final est celui d'une seule exécution.
+  concept: ddia-correct-exactly-once
+- id: fc2
+  front: Le moyen le plus robuste d'obtenir « exactement une fois » ?
+  back: Rendre l'opération idempotente, ce qui demande des métadonnées (quels identifiants ont été appliqués).
+  concept: ddia-correct-exactly-once
+- id: fc3
+  front: Ce que TCP déduplique ?
+  back: Les paquets d'une seule connexion. Si la connexion tombe, sa garantie s'arrête.
+  concept: ddia-correct-dedup-layers
+- id: fc4
+  front: Pourquoi le 2PC ne protège-t-il pas du renvoi de formulaire ?
+  back: Il couvre le chemin serveur ↔ bases ; le renvoi crée une nouvelle requête HTTP et une nouvelle transaction.
+  concept: ddia-correct-dedup-layers
+- id: fc5
+  front: Identifiant d'opération ?
+  back: Valeur unique générée côté client (UUID), transmise jusqu'à la base et enregistrée avec une contrainte d'unicité.
+  concept: ddia-correct-operation-id
+- id: fc6
+  front: Rôle de la table `requests` avec `UNIQUE (request_id)` ?
+  back: Dédupliquer, et servir de journal d'événements d'où les soldes peuvent être dérivés.
+  concept: ddia-correct-operation-id
+- id: fc7
+  front: Argument de bout en bout ?
+  back: Une fonction n'est complète et correcte qu'avec l'application aux extrémités ; une couche basse n'en offre qu'une version partielle, utile pour la performance.
+  concept: ddia-correct-end-to-end-argument
+- id: fc8
+  front: Exemple de l'argument hors déduplication ?
+  back: Les sommes de contrôle TCP ne voient pas un bug logiciel ni un disque corrompu ; le Wi-Fi chiffré ne protège pas d'un serveur compromis.
+  concept: ddia-correct-end-to-end-argument
+- id: fc9
+  front: Transactions et correction de bout en bout ?
+  back: Les transactions ne suffisent pas ; l'application doit porter ses mesures de bout en bout.
+  concept: ddia-correct-app-level-fault-tolerance

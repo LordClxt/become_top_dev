@@ -1,0 +1,1 @@
+Tu reçois des historiques d'opérations horodatées (début et fin de chaque requête vue par le client). Pour chacun, décide si une base linéarisable aurait pu le produire, puis tranche entre sérialisabilité et linéarisabilité.

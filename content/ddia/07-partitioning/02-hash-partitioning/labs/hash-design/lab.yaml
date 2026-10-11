@@ -1,0 +1,17 @@
+id: ddia-ch07-l02-lab-hash-design
+title: 'Hacher sans se brûler'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-hash-partitioning
+- ddia-partition-hash-function
+- ddia-compound-primary-key
+- ddia-hot-key-salting
+source:
+  chapter: 6
+  pages: 203-206
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

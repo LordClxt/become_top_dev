@@ -1,0 +1,98 @@
+id: ddia-ch05-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi une architecture « beaucoup de followers pour les lectures » est-elle presque toujours asynchrone ?
+  choices:
+  - Parce que les followers synchrones ne peuvent pas servir de lectures
+  - Parce qu'avec des dizaines de followers synchrones, une seule panne bloquerait toutes les écritures
+  - Parce que l'asynchrone garantit des lectures à jour
+  - Parce que les bases interdisent plus de deux followers synchrones
+  answer: 1
+  explanation: Plus il y a de followers synchrones, plus la probabilité qu'un d'eux bloque les écritures augmente.
+  concept: ddia-replication-lag
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Que promet exactement la cohérence à terme ?
+  choices:
+  - Que les followers ont moins d'une seconde de retard
+  - Que chaque lecture voit la dernière écriture
+  - Que si les écritures s'arrêtent, les réplicas finissent par converger, sans dire quand
+  - Que les lectures d'un même utilisateur ne reculent jamais
+  answer: 2
+  explanation: « À terme » est volontairement vague ; le retard n'a pas de borne.
+  concept: ddia-lag-eventual-consistency
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: 'Pendant un pic, le leader produit 5 000 changements par seconde et un follower n''en applique que 4 000. Quel retard accumule-t-il en 2 minutes ?'
+  choices:
+  - 1 000 changements
+  - 120 000 changements
+  - 600 000 changements
+  - Aucun, la réplication est continue
+  answer: 1
+  explanation: 1 000 changements de retard par seconde × 120 s = 120 000.
+  concept: ddia-replication-lag
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Que garantit read-your-writes ?
+  choices:
+  - Que l'utilisateur voit toujours ses propres écritures après les avoir soumises
+  - Que tous les utilisateurs voient toutes les écritures immédiatement
+  - Que l'utilisateur ne voit jamais une donnée plus ancienne qu'une donnée déjà vue
+  - Que les écritures sont confirmées après réplication
+  answer: 0
+  explanation: Elle ne promet rien sur les écritures des autres utilisateurs.
+  concept: ddia-lag-read-your-writes
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: 'Sur un réseau social, quelle règle simple garantit read-your-writes pour les profils ?'
+  choices:
+  - Lire tous les profils au leader
+  - Lire tous les profils sur un follower au hasard
+  - Lire son propre profil au leader, ceux des autres sur un follower
+  - Lire son propre profil sur le follower le plus lent
+  answer: 2
+  explanation: Seul le propriétaire modifie son profil ; c'est donc la seule lecture qui doit voir ses écritures.
+  concept: ddia-lag-ryw-techniques
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Ton écriture a le LSN 51 200. Les followers sont aux positions 51 090, 51 260 et 51 200. Combien peuvent servir ta lecture en respectant read-your-writes ?'
+  choices:
+  - '0'
+  - '1'
+  - '3'
+  - '2'
+  answer: 3
+  explanation: Il faut une position au moins égale à 51 200 ; 51 260 et 51 200 conviennent.
+  concept: ddia-lag-ryw-techniques
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: 'Un utilisateur écrit depuis son téléphone et relit depuis son ordinateur. Que faut-il pour qu''il voie son écriture ?'
+  choices:
+  - Centraliser côté serveur la position de sa dernière écriture
+  - Garder cette position dans un cookie du téléphone
+  - Router toutes les requêtes de cet utilisateur vers le même datacenter
+  - Lire toujours sur le follower le plus proche de l'ordinateur
+  answer: [0, 2]
+  explanation: L'ordinateur ne connaît pas ce que le téléphone a écrit, et les deux appareils peuvent passer par des datacenters différents.
+  concept: ddia-lag-cross-device
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: 'Une équipe envoie toutes les lectures au leader pendant 60 s après chaque écriture d''un utilisateur. Quelle faiblesse a cette règle ?'
+  choices:
+  - Elle viole read-your-writes en temps normal
+  - Elle oblige les followers à être synchrones
+  - Elle ne marche que pour les suppressions
+  - Elle est trop prudente en temps normal et peut être trop courte si le retard dépasse 60 s pendant une tempête
+  answer: 3
+  explanation: Une durée fixe ne suit pas le retard réel ; comparer la position du réplica à celle de l'écriture est plus précis. On peut aussi écarter les followers trop en retard.
+  concept: ddia-lag-ryw-techniques
+  difficulty: 3

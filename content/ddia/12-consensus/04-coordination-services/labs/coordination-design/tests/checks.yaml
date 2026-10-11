@@ -1,0 +1,70 @@
+checks:
+- id: three
+  label: 'Trois votants : une majorité de 2, une panne tolérée'
+  rule: count
+  source: zk
+  min: 3
+  max: 3
+- id: in-ensemble
+  label: Chaque nœud ZooKeeper fait partie de l'ensemble
+  rule: in_zone
+  source: zk
+  target: ensemble
+- id: zab
+  label: Les nœuds ZooKeeper se répliquent le log entre eux
+  rule: edge_kind
+  source: zk
+  target: zk
+  kind: replication
+- id: two-storage
+  label: Au moins deux nœuds de stockage
+  rule: count
+  source: storage
+  min: 2
+- id: register
+  label: Les nœuds de stockage s'enregistrent (nœuds éphémères) dans ZooKeeper
+  rule: edge_kind
+  source: storage
+  target: zk
+  kind: write
+- id: rebal
+  label: Le rééquilibreur surveille les membres et réattribue les partitions par CAS
+  rule: edge_kind
+  source: rebal
+  target: zk
+  kind: sync
+- id: route-read
+  label: Le routeur lit l'attribution des partitions dans ZooKeeper
+  rule: edge_kind
+  source: router
+  target: zk
+  kind: read
+- id: entry
+  label: Le client passe par le routeur
+  rule: edge_kind
+  source: client
+  target: router
+  kind: sync
+- id: via-router
+  label: Tout ce qui arrive aux nœuds de stockage vient du routeur
+  rule: inbound_via
+  target: storage
+  via: router
+- id: client-no-zk
+  label: Le client final ne parle pas à ZooKeeper
+  rule: no_edge
+  source: client
+  target: zk
+- id: no-peer-vote
+  label: 'Les nœuds de stockage ne votent pas entre eux : le consensus est sous-traité'
+  rule: no_edge
+  source: storage
+  target: storage
+- id: no-local-lock
+  label: 'Pas de verrou local : l''élection doit survivre à la mort du processus'
+  rule: count
+  source: localock
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

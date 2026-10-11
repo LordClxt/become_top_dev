@@ -1,0 +1,98 @@
+id: ddia-ch16-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi une boutique en ligne finit-elle avec PostgreSQL, Elasticsearch, un cache et un entrepôt ?
+  choices:
+  - Parce que PostgreSQL ne sait pas stocker plus d'un million de lignes
+  - Parce que chaque outil fait un compromis qui sert bien certains schémas d'accès et mal les autres
+  - Parce qu'il faut toujours une copie de secours de chaque donnée
+  - Par effet de mode, un seul système suffirait
+  answer: 1
+  explanation: Aucun outil ne sert tous les usages ; plus les usages sont variés, plus on combine d'outils spécialisés.
+  concept: ddia-data-integration-tools
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Le service écrit dans la base puis dans l'index de recherche, sans coordination. Deux mises à jour concurrentes du même produit arrivent. Que peut-il se passer ?
+  choices:
+  - Rien, la base rejette la seconde écriture
+  - L'index lève une erreur de conflit
+  - Base et index reçoivent les écritures dans des ordres différents et divergent sans erreur
+  - L'index finit toujours par rattraper la base
+  answer: 2
+  explanation: 'Double écriture : chaque système applique son propre ordre ; la divergence est silencieuse et permanente.'
+  concept: ddia-dataflow-reasoning
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Qu'est-ce qui garantit que l'index et la base convergent quand l'index est alimenté par CDC ?
+  choices:
+  - L'index applique les changements dans l'ordre décidé par le système de référence
+  - L'index interroge la base à chaque requête
+  - Les deux systèmes partagent un même verrou
+  - L'index rejoue les requêtes HTTP des clients
+  answer: 0
+  explanation: Même log, même ordre, dérivation déterministe ⇒ même résultat, comme une réplication par machine à états.
+  concept: ddia-dataflow-reasoning
+  difficulty: 2
+- id: q4
+  type: multiple
+  prompt: Quelles affirmations comparent correctement le log de données dérivées aux transactions distribuées (XA) ?
+  choices:
+  - Le log isole les pannes ; un consommateur lent ne bloque pas les autres
+  - Le log offre la lecture de ses propres écritures par défaut
+  - XA tend à amplifier les pannes, un participant lent bloquant la validation
+  - Avec un log, l'atomicité vient d'un événement écrit une fois et de consommateurs déterministes qui réessaient
+  answer: [0, 2, 3]
+  explanation: Le dérivé est asynchrone, donc en retard ; c'est la garantie qu'on perd par rapport à XA.
+  concept: ddia-derived-vs-distributed-tx
+  difficulty: 3
+- id: q5
+  type: multiple
+  prompt: Dans quelles situations un ordre total des événements devient-il difficile ?
+  choices:
+  - Le débit dépasse ce qu'un seul nœud peut ordonner
+  - Deux datacenters sur deux continents ont chacun leur leader
+  - Une application mono-nœud avec une seule table
+  - Une app mobile modifie son état hors ligne
+  answer: [0, 1, 3]
+  explanation: Un ordre total suppose qu'un seul nœud voie tout ; c'est faux dès qu'on partitionne, qu'on géo-distribue ou qu'on travaille hors ligne.
+  concept: ddia-total-order-limits
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Décider d'un ordre total des événements entre plusieurs nœuds équivaut à…
+  choices:
+  - une simple synchronisation d'horloges NTP
+  - un hachage cohérent
+  - résoudre le consensus (diffusion à ordre total)
+  - une compaction de log
+  answer: 2
+  explanation: La diffusion à ordre total est équivalente au consensus, et les algorithmes usuels font passer tout le flux par un leader.
+  concept: ddia-total-order-limits
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Alice retire Bob de ses amis puis envoie un message à « ses amis ». Le service de notifications lit les amitiés et les messages dans deux systèmes. Quelle technique du livre aide le plus ?
+  choices:
+  - Enregistrer, avec le message, l'identifiant de l'état d'amitié qu'Alice avait sous les yeux
+  - Ajouter un cache devant le service d'amitiés
+  - Augmenter le nombre de partitions des messages
+  - Utiliser la règle « la dernière écriture gagne »
+  answer: 0
+  explanation: Le message cite l'état dont il dépend ; un consommateur peut attendre que cet état lui soit parvenu.
+  concept: ddia-causal-event-ordering
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Pourquoi la résolution de conflits ne règle-t-elle pas l'exemple de la notification envoyée à Bob ?
+  choices:
+  - Parce qu'elle n'existe qu'en SQL
+  - Parce qu'elle règle un état, pas un effet externe déjà produit comme un message envoyé
+  - Parce qu'elle exige un ordre total
+  - Parce qu'elle est trop lente
+  answer: 1
+  explanation: Une fois la notification partie, aucun « merge » ne peut la rappeler.
+  concept: ddia-causal-event-ordering
+  difficulty: 3

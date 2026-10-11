@@ -1,0 +1,89 @@
+checks:
+- id: offline
+  label: L'app écrit d'abord dans sa base locale (un leader hors ligne)
+  rule: edge_kind
+  source: app
+  target: local
+  kind: write
+- id: sync
+  label: La base locale se synchronise de façon asynchrone avec le service panier
+  rule: edge_kind
+  source: local
+  target: cart
+  kind: async
+- id: coord
+  label: Le service panier passe par le coordinateur
+  rule: edge_kind
+  source: cart
+  target: coord
+  kind: sync
+- id: write-home
+  label: Le coordinateur écrit sur les réplicas d'origine
+  rule: edge_kind
+  source: coord
+  target: replica
+  kind: write
+- id: three
+  label: Trois réplicas d'origine dans le site local (n = 3)
+  rule: count
+  source: replica
+  min: 3
+  max: 3
+- id: home-zone
+  label: Les réplicas d'origine sont en Europe
+  rule: in_zone
+  source: replica
+  target: dceu
+- id: remote-async
+  label: L'Asie reçoit les écritures en asynchrone (quorum local)
+  rule: edge_kind
+  source: coord
+  target: remote
+  kind: async
+- id: remote-zone
+  label: Les réplicas d'Asie sont dans le datacenter Asie
+  rule: in_zone
+  source: remote
+  target: dcasia
+- id: sloppy
+  label: Le coordinateur peut confier une écriture à un nœud voisin (quorum lâche)
+  rule: edge_kind
+  source: coord
+  target: neighbor
+  kind: write
+- id: handoff
+  label: Le voisin rend l'écriture à un réplica d'origine (hinted handoff)
+  rule: edge_kind
+  source: neighbor
+  target: replica
+  kind: replication
+- id: anti-entropy
+  label: L'anti-entropie rattrape les réplicas d'origine en tâche de fond
+  rule: edge_kind
+  source: ae
+  target: replica
+  kind: replication
+- id: staleness
+  label: La péremption des réplicas est mesurée
+  rule: edge_kind
+  source: mon
+  target: replica
+  kind: read
+- id: no-lww
+  label: Aucun résolveur LWW (il jetterait des ajouts acquittés)
+  rule: count
+  source: lww
+  max: 0
+- id: no-leader
+  label: Aucun leader (une seule panne bloquerait les ajouts)
+  rule: count
+  source: leader
+  max: 0
+- id: no-lock
+  label: Aucun verrou global inter-sites
+  rule: count
+  source: lock
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

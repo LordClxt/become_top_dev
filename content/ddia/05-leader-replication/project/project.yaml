@@ -1,0 +1,14 @@
+id: ddia-ch05-project
+title: "Tinybase — leader, followers et failover"
+pitch: "Tinybase se réplique : un leader qui numérote chaque écriture, des followers qui rattrapent depuis leur position, un failover qui fait taire l'ancien leader grâce à un numéro d'époque, et un routeur qui ne montre jamais à un utilisateur moins que ce qu'il a déjà vu."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 250
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["replication.go"]
+concepts: [ddia-replication-change-stream, ddia-follower-bootstrap, ddia-follower-catchup, ddia-leader-failover, ddia-failover-split-brain, ddia-failover-lost-writes, ddia-lag-read-your-writes, ddia-lag-monotonic-reads]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

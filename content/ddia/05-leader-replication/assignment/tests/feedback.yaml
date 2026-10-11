@@ -1,0 +1,39 @@
+blocks:
+  arriere:
+    tolerance:
+      rel: 0.01
+    wrong: '1 500 changements/s × 7 200 s = 10 800 000 changements écrits pendant la copie.'
+  rattrapage:
+    tolerance:
+      rel: 0.02
+    wrong: 'Le follower gagne 6 000 − 1 500 = 4 500 changements par seconde : 10 800 000 / 4 500 = 2 400 s, soit 40 min.'
+  perdues:
+    tolerance:
+      rel: 0.01
+    wrong: '2 000 écritures/s × 0,6 s = 1 200 écritures confirmées que le nouveau leader n''a jamais reçues.'
+  etapes:
+    options:
+      choose: 'On ne choisit qu''après avoir déclaré le leader mort, et on prend le plus avancé pour perdre le moins possible.'
+      reconfig: 'Tant que le nouveau leader n''est pas choisi, on ne sait pas vers qui rediriger.'
+      demote: 'L''ancien leader ne revient qu''après : il doit alors reconnaître le nouveau et abandonner ses écritures orphelines.'
+  delai:
+    options:
+      d3: 'Plus court que les lenteurs normales sous charge : tu déclencherais des failovers inutiles en pleine surcharge.'
+      d300: 'Cinq minutes sans leader : toutes les écritures échouent pendant tout ce temps.'
+  upgrade:
+    options:
+      wal: 'Le WAL décrit des octets dans des blocs : un follower à la nouvelle version ne peut pas suivre un leader à l''ancienne si le format disque change.'
+      statement: 'Le non-déterminisme ferait diverger les réplicas, et rien ne garantit qu''une instruction se comporte pareil sur deux versions.'
+  plaintes:
+    options:
+      photo: 'C''est sa propre écriture qui disparaît.'
+      likes: 'Le compteur recule : deux lectures successives sont tombées sur des réplicas de retards différents.'
+      thread: 'Deux écritures liées causalement sont lues dans le désordre.'
+      panier: 'L''utilisateur ne voit pas ce qu''il vient lui-même d''écrire.'
+      virement: 'Deux partitions indépendantes, sans ordre global : on voit l''effet avant sa cause.'
+  routage:
+    options:
+      f1: '7 290 est avant même sa dernière écriture (7 300) : Léa ne verrait pas ce qu''elle vient d''écrire.'
+      f2: '7 340 contient son écriture, mais est en deçà de ce qu''elle a déjà lu (7 350) : le temps reculerait.'
+      f3: '7 360 dépasse 7 300 et 7 350.'
+      f4: Ce follower est le plus avancé.

@@ -1,0 +1,7 @@
+{
+  "room-index": { "same": "real", "evening": "fake", "other": "pass", "move": "fake" },
+  "time-index": { "same": "real", "evening": "pass", "other": "fake" },
+  "exact-cost": 3,
+  "false-rate": 90,
+  "no-index": "table"
+}

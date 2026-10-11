@@ -1,0 +1,32 @@
+blocks:
+  nature:
+    options:
+      stale-feed: Quatre secondes plus tard, tout le monde voit la photo ; rien à réparer.
+      replica-lag: La réplique rattrape le leader ; le problème disparaît seul.
+      lost-credit: De l'argent a disparu ; attendre n'y changera rien.
+      index-miss: Une donnée dérivée fausse depuis des semaines ne se corrigera pas seule.
+      double-charge: Un effet appliqué deux fois est une corruption, pas un retard.
+  couts:
+    options:
+      names.conflicts: 1 000 000 × 0,0002 = 200.
+      names.cost: 200 conflits × 1 € = 200 €.
+      stock.conflicts: 300 000 × 0,001 = 300.
+      stock.cost: 300 × 12 € = 3 600 €.
+  overbook:
+    tolerance:
+      abs: 1
+    wrong: Il faut N × 0,92 = 180, donc N = 180 / 0,92 ≈ 195,7, soit 196 billets.
+  strategie:
+    options:
+      username: Proposer un autre nom avec une excuse est bon marché.
+      icu-bed: Aucune compensation ne remplace un lit pour le second patient.
+      flight: Les compagnies surréservent volontairement et indemnisent.
+      drug: Une délivrance en double ne se rattrape pas par un geste commercial.
+      stock: Réassort, retard annoncé et réduction suffisent.
+  garde-fous:
+    options:
+      fresh: C'est de l'opportunité ; on l'a justement relâchée.
+      linear: La linéarisabilité est l'opportunité la plus forte ; elle n'est pas nécessaire ici.
+      no-loss: Perdre une commande est une violation d'intégrité.
+      once: Un double paiement est une corruption.
+      compensate: Sans compensation, une contrainte souple n'est plus une contrainte.

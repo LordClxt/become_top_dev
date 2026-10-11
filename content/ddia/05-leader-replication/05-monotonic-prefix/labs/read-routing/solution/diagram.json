@@ -1,0 +1,19 @@
+{
+  "nodes": [
+    {"id": "alice", "type": "alice", "x": 0, "y": 60},
+    {"id": "bob", "type": "bob", "x": 0, "y": 320},
+    {"id": "router", "type": "router", "x": 300, "y": 190},
+    {"id": "leader", "type": "leader", "x": 640, "y": -40},
+    {"id": "r0", "type": "r0", "x": 640, "y": 190},
+    {"id": "r1", "type": "r1", "x": 640, "y": 420}
+  ],
+  "edges": [
+    {"id": "e1", "source": "alice", "target": "router", "kind": "sync"},
+    {"id": "e2", "source": "bob", "target": "router", "kind": "sync"},
+    {"id": "e3", "source": "router", "target": "leader", "kind": "write", "label": "écritures"},
+    {"id": "e4", "source": "router", "target": "r0", "kind": "read", "label": "lectures d'Alice"},
+    {"id": "e5", "source": "router", "target": "r1", "kind": "read", "label": "lectures de Bob"},
+    {"id": "e6", "source": "leader", "target": "r0", "kind": "replication"},
+    {"id": "e7", "source": "leader", "target": "r1", "kind": "replication"}
+  ]
+}

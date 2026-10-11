@@ -1,0 +1,17 @@
+id: ddia-ch09-l01-lab-serial-budget
+title: 'Le budget d''un seul thread'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-serial-exec-single-thread
+- ddia-interactive-tx-roundtrips
+- ddia-stored-procedure-tx
+- ddia-deterministic-procedure-replication
+source:
+  chapter: 7
+  pages: 251-254
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

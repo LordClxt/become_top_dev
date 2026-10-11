@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Panne partielle ?
+  back: Une partie du système est cassée, le reste fonctionne ; le résultat d'une opération devient non déterministe.
+  concept: ddia-partial-failure
+- id: fc2
+  front: Pourquoi un ordinateur seul plante-t-il franchement ?
+  back: Il est conçu pour s'arrêter plutôt que renvoyer un résultat faux, plus dur à gérer.
+  concept: ddia-partial-failure
+- id: fc3
+  front: Stratégie de panne du calcul haute performance ?
+  back: Points de reprise ; si un nœud tombe, on arrête tout et on repart du dernier point.
+  concept: ddia-cloud-vs-hpc
+- id: fc4
+  front: Pourquoi le cloud doit-il tolérer les pannes partielles ?
+  back: Service en ligne, matériel ordinaire, des milliers de nœuds (toujours un cassé), mises à jour progressives, multi-régions.
+  concept: ddia-cloud-vs-hpc
+- id: fc5
+  front: Six raisons d'un silence réseau ?
+  back: Requête perdue, requête en file, nœud mort, nœud en pause, réponse perdue, réponse retardée. Indiscernables.
+  concept: ddia-unanswered-request
+- id: fc6
+  front: Après un timeout, sait-on si la requête a été traitée ?
+  back: Non. Un nouvel essai n'est sûr que si l'opération est idempotente.
+  concept: ddia-unanswered-request
+- id: fc7
+  front: Pannes réseau en datacentre ?
+  back: Environ 12 par mois dans un datacentre moyen, moitié une machine, moitié un rack ; cause dominante humaine.
+  concept: ddia-network-faults-practice
+- id: fc8
+  front: Comment se préparer aux partitions ?
+  back: Savoir comment le logiciel réagit, et les provoquer exprès en test (chaos engineering).
+  concept: ddia-network-faults-practice
+- id: fc9
+  front: Signaux explicites de panne ?
+  back: Connexion refusée (RST), script qui notifie la mort du processus, interface de gestion du switch, ICMP Destination Unreachable.
+  concept: ddia-fault-detection-signals
+- id: fc10
+  front: Pourquoi un timeout reste-t-il indispensable ?
+  back: Un nœud débranché n'envoie aucun signal ; seul le temps écoulé couvre tous les cas.
+  concept: ddia-fault-detection-signals

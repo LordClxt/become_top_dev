@@ -1,0 +1,1 @@
+Sur un forum répliqué dans trois régions, tu identifies les dépendances causales entre messages, tu décides quand une réplique peut appliquer une écriture, et tu choisis le modèle de cohérence suffisant.

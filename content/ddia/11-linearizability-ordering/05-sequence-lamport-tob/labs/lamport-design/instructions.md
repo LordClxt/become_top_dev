@@ -1,0 +1,1 @@
+Tu fais tourner des horloges de Lamport à la main sur trois nœuds, tu ordonnes des horodatages, puis tu observes une réplique qui reçoit un log à ordre total dans le désordre et tu reconstitues une réservation de pseudo.

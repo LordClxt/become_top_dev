@@ -1,0 +1,84 @@
+checks:
+- id: alice-in
+  label: Alice passe par le routeur
+  rule: edge_kind
+  source: alice
+  target: router
+  kind: sync
+- id: bob-in
+  label: Bob aussi
+  rule: edge_kind
+  source: bob
+  target: router
+  kind: sync
+- id: writes
+  label: Le routeur envoie les écritures au leader
+  rule: edge_kind
+  source: router
+  target: leader
+  kind: write
+- id: read0
+  label: Le routeur lit sur le réplica 0
+  rule: edge_kind
+  source: router
+  target: r0
+  kind: read
+- id: read1
+  label: …et sur le réplica 1
+  rule: edge_kind
+  source: router
+  target: r1
+  kind: read
+- id: repl0
+  label: Le leader réplique vers le réplica 0
+  rule: edge_kind
+  source: leader
+  target: r0
+  kind: replication
+- id: repl1
+  label: …et vers le réplica 1
+  rule: edge_kind
+  source: leader
+  target: r1
+  kind: replication
+- id: alice-via
+  label: Les lectures d'Alice atteignent le réplica 0 en passant toutes par le routeur
+  rule: path
+  source: alice
+  target: r0
+  via: router
+- id: bob-via
+  label: Celles de Bob atteignent le réplica 1 par le routeur
+  rule: path
+  source: bob
+  target: r1
+  via: router
+- id: alice-leader
+  label: Alice n'écrit jamais directement au leader
+  rule: no_edge
+  source: alice
+  target: leader
+- id: alice-r1
+  label: 'Affinité : Alice n''est jamais envoyée directement sur le réplica 1'
+  rule: no_edge
+  source: alice
+  target: r1
+- id: bob-r0
+  label: 'Affinité : Bob n''est jamais envoyé directement sur le réplica 0'
+  rule: no_edge
+  source: bob
+  target: r0
+- id: no-random
+  label: Pas de répartition aléatoire des lectures (le temps reculerait)
+  rule: count
+  source: rr
+  max: 0
+- id: one-leader
+  label: Un seul leader
+  rule: count
+  source: leader
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

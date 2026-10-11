@@ -1,0 +1,73 @@
+intro: |
+  Le leader de ta base est à **Paris** ; une écriture locale y prend **3 ms**. Il a trois followers :
+
+  - **A**, dans le même datacenter : **1 ms** d'aller-retour ;
+  - **C**, à Francfort : **12 ms** d'aller-retour ;
+  - **B**, à Montréal : **85 ms** d'aller-retour.
+
+  Quand un follower est synchrone, le leader attend son accusé avant de confirmer ; les accusés de plusieurs followers synchrones arrivent **en parallèle**. Chaque follower est indisponible **2 %** du temps, indépendamment des autres.
+blocks:
+- id: latence
+  type: table
+  title: La latence d'écriture
+  prompt: Quelle latence (en ms) le client observe-t-il pour une écriture, selon la configuration ?
+  columns:
+  - id: ms
+    label: Latence (ms)
+  rows:
+  - id: async
+    label: Tous les followers asynchrones
+  - id: semia
+    label: Semi-synchrone, A synchrone
+  - id: semic
+    label: Semi-synchrone, C synchrone (A est en maintenance)
+  - id: all
+    label: A, B et C synchrones
+- id: blocage
+  type: number
+  title: Le tout-synchrone bloque
+  prompt: Avec A, B et C **tous synchrones**, une écriture est bloquée dès qu'un follower est indisponible. Quel pourcentage du temps les écritures sont-elles bloquées ?
+  unit: '%'
+- id: semi
+  type: number
+  title: Le semi-synchrone bloque beaucoup moins
+  prompt: En semi-synchrone, l'équipe n'autorise que **A ou C** à être le follower synchrone (B est trop loin). Les écritures ne sont bloquées que si A et C sont indisponibles en même temps. Quel pourcentage du temps ?
+  unit: '%'
+- id: perte
+  type: number
+  title: Le prix de l'asynchrone
+  prompt: Tout est asynchrone. Le leader confirme **1 200 écritures par seconde**. Il meurt définitivement alors que le follower le plus avancé a **0,25 s** de retard. Combien d'écritures confirmées sont perdues, au plus ?
+  unit: écritures
+- id: usages
+  type: match
+  title: Chaque usage son mode
+  prompt: Quel mode de réplication choisis-tu pour chaque usage ?
+  items:
+  - id: catalogue
+    label: Un catalogue produit lu par 30 followers répartis dans 6 régions
+  - id: paiements
+    label: 'Des paiements : aucune écriture confirmée ne doit exister sur une seule machine, mais la panne d''un follower ne doit pas bloquer'
+  - id: reporting
+    label: Un réplica de reporting qui peut avoir une heure de retard
+  - id: rack
+    label: Un leader et un unique follower ; l'équipe préfère bloquer les écritures plutôt que d'en perdre une seule
+  categories:
+  - id: sync
+    label: Synchrone
+  - id: semi
+    label: Semi-synchrone
+  - id: async
+    label: Asynchrone
+- id: vrai
+  type: multi
+  title: Ce que garantit l'asynchrone
+  prompt: Avec une réplication entièrement asynchrone, coche les affirmations vraies.
+  options:
+  - id: continue
+    label: Le leader continue d'accepter des écritures même si tous les followers sont en retard
+  - id: durable
+    label: Un « OK » du leader garantit que l'écriture existe sur au moins deux machines
+  - id: retard
+    label: Un follower peut avoir plusieurs minutes de retard s'il se remet d'une panne
+  - id: backup
+    label: La réplication remplace les sauvegardes, puisque chaque donnée existe en plusieurs exemplaires

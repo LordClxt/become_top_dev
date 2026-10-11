@@ -1,0 +1,3 @@
+**La correction se construit aux extrémités, puis se vérifie.** L'identifiant généré à l'affichage du formulaire ramène chaque scénario de réessai à un seul débit. Les pseudos uniques passent par un log partitionné par le pseudo **normalisé** : 1 / 0,4 ms = 2 500 décisions/s, 1 250 à 50 % d'occupation, donc 120 000 / 1 250 = **96** partitions. Les contraintes qu'on peut compenser (stock, places gratuites) se vérifient après coup.
+
+Le virement suit l'ordre requête → log → répartiteur → instructions → processeurs dédupliquant ; seul un recalcul de bout en bout depuis le log voit un crédit appliqué deux fois. Enfin, un score de fraude qui bloque des personnes doit être explicable, contestable et mesuré sur ses erreurs, et ses données limitées à leur finalité.

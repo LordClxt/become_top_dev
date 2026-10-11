@@ -1,0 +1,98 @@
+id: ddia-ch15-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi un job batch qui fenêtre sur les horodatages des événements est-il déterministe ?
+  choices:
+  - Parce qu'il tourne la nuit
+  - Parce que le résultat ne dépend que des données, pas de l'horloge de la machine ni du moment de l'exécution
+  - Parce qu'il trie les fichiers
+  - Parce qu'il n'a pas de panne
+  answer: 1
+  explanation: Rejouer le même job sur les mêmes entrées donne la même sortie. Avec l'horloge locale, deux exécutions donneraient deux résultats.
+  concept: ddia-sp-event-vs-processing-time
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Un flux stable de 1 000 requêtes/min. Le job qui compte en temps de traitement tombe à 10 h 00 et repart à 10 h 05, puis dépile tout l'arriéré dans la minute. Que montre le tableau pour 10 h 05 ?
+  choices:
+  - '1 000'
+  - '5 000'
+  - 6 000, un pic qui n'a jamais existé
+  - '0'
+  answer: 2
+  explanation: 5 000 requêtes en retard plus les 1 000 de la minute courante tombent dans la minute de traitement 10 h 05. En temps de l'événement, la courbe serait restée à 1 000.
+  concept: ddia-sp-processing-lag-artifacts
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Quelles causes peuvent séparer fortement temps de l'événement et temps de traitement ?
+  choices:
+  - Le redémarrage d'un consommateur qui repart avec un arriéré
+  - Le retraitement volontaire d'événements passés après un bogue
+  - Un téléphone hors ligne qui envoie ses événements des heures plus tard
+  - Le format JSON des messages
+  answer: [0, 1, 2]
+  explanation: Files d'attente, pannes réseau, redémarrages, retraitement, mode hors ligne retardent le traitement. L'encodage n'y est pour rien.
+  concept: ddia-sp-event-vs-processing-time
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Tu as choisi d'ignorer les retardataires. Que dois-tu absolument faire en plus ?
+  choices:
+  - Rien, ils sont rares par définition
+  - Les compter comme une métrique et alerter si leur proportion augmente
+  - Arrêter le job à chaque retardataire
+  - Les réinjecter dans la fenêtre courante
+  answer: 1
+  explanation: Un taux de retardataires qui grimpe révèle un problème en amont. Les réinjecter dans la fenêtre courante fausserait une autre fenêtre.
+  concept: ddia-sp-stragglers
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Tu publies des corrections pour les fenêtres qui reçoivent des retardataires. Quelle exigence cela impose-t-il en aval ?
+  choices:
+  - Le consommateur doit savoir remplacer ou retirer la valeur publiée précédemment pour la même fenêtre
+  - Aucune
+  - Le consommateur doit additionner toutes les valeurs reçues
+  - Le producteur doit s'arrêter
+  answer: 0
+  explanation: Une correction remplace la valeur de la fenêtre. Additionner compterait deux fois les événements déjà publiés.
+  concept: ddia-sp-stragglers
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Trois serveurs web annoncent « plus rien avant t » avec t = 10:40:12, 10:40:05 et 10:39:58. Jusqu''où le consommateur peut-il fermer ses fenêtres ?'
+  choices:
+  - 10:40:12, le plus récent
+  - La moyenne, 10:40:05
+  - 10:39:58, le minimum des trois
+  - Il ne peut rien fermer
+  answer: 2
+  explanation: Le serveur le plus lent peut encore envoyer des événements de 10:39:59. Seul le minimum garantit qu'aucun producteur n'enverra d'événement antérieur.
+  concept: ddia-sp-watermark
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: 'Un watermark vaut « plus grand horodatage vu − 10 s ». Le dernier événement vu date de 12:00:55. La fenêtre [12:00:00, 12:01:00) est-elle émise ?'
+  choices:
+  - Oui, la minute est presque finie
+  - Oui, car un événement de 12:00:55 est arrivé
+  - Seulement si un retardataire arrive
+  - Non, le watermark vaut 12:00:45 ; il faut un événement d'au moins 12:01:10
+  answer: 3
+  explanation: La fenêtre est complète quand le watermark atteint sa fin, 12:01:00, donc quand un événement de 12:01:10 ou plus est arrivé.
+  concept: ddia-sp-watermark
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: 'Un téléphone note un achat à 08:00:00, l''envoie à 11:00:00 (horloge du téléphone) ; le serveur le reçoit à 10:58:00. Quel est l''instant réel estimé de l''achat ?'
+  choices:
+  - '08:00:00'
+  - '07:58:00'
+  - '10:58:00'
+  - '05:58:00'
+  answer: 1
+  explanation: Décalage = réception − envoi = 10:58:00 − 11:00:00 = −2 min (le téléphone avance). Instant réel ≈ 08:00:00 − 2 min = 07:58:00.
+  concept: ddia-sp-three-timestamps
+  difficulty: 3

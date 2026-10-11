@@ -1,0 +1,112 @@
+intro: |
+  Tu configures un magasin clé-valeur façon Dynamo pour des paniers d'achat. Chaque valeur est copiée sur **n** réplicas ; une écriture attend **w** accusés, une lecture **r** réponses. Les requêtes partent toujours vers les n réplicas.
+blocks:
+- id: tolere
+  type: table
+  title: Ce que chaque réglage tolère
+  prompt: Pour chaque réglage, combien de réplicas indisponibles l'écriture et la lecture tolèrent-elles, et le quorum est-il garanti (1 = oui, 0 = non) ?
+  columns:
+  - id: w
+    label: Pannes tolérées en écriture
+  - id: r
+    label: Pannes tolérées en lecture
+  - id: q
+    label: w + r > n (1/0)
+  rows:
+  - id: a
+    label: n = 3, w = 2, r = 2
+  - id: b
+    label: n = 5, w = 3, r = 3
+  - id: c
+    label: n = 3, w = 3, r = 1
+  - id: d
+    label: n = 5, w = 2, r = 2
+- id: reglage
+  type: tuner
+  title: Le bon réglage
+  prompt: 'Contraintes : lectures **garanties à jour** (quorum), écritures **et** lectures qui survivent à **2** réplicas indisponibles, et pas plus de **5** copies par valeur (coût du stockage).'
+  params:
+  - id: n
+    label: Réplicas par valeur
+    unit: copies
+    min: 1
+    max: 7
+    step: 1
+    default: 3
+  - id: w
+    label: Accusés d'écriture
+    unit: ''
+    min: 1
+    max: 7
+    step: 1
+    default: 1
+  - id: r
+    label: Réponses de lecture
+    unit: ''
+    min: 1
+    max: 7
+    step: 1
+    default: 1
+  metrics:
+  - id: overlap
+    label: Réplicas communs garantis (w + r − n)
+    expr: max(0, w + r - n)
+    format: number
+  - id: fw
+    label: Pannes tolérées en écriture
+    expr: max(0, n - w)
+    format: number
+  - id: fr
+    label: Pannes tolérées en lecture
+    expr: max(0, n - r)
+    format: number
+  goals:
+  - id: valid
+    label: w et r ne dépassent pas n
+    expr: w <= n && r <= n
+  - id: quorum
+    label: Quorum garanti
+    expr: w + r > n
+  - id: writes
+    label: Écritures sûres avec 2 pannes
+    expr: n - w >= 2
+  - id: reads
+    label: Lectures sûres avec 2 pannes
+    expr: n - r >= 2
+  - id: cost
+    label: 5 copies au plus
+    expr: n <= 5
+- id: latence
+  type: number
+  title: Attendre la plus lente ?
+  prompt: 'n = 5. Les réplicas répondent en 3, 4, 6, 9 et 120 ms (le dernier est surchargé). Combien de millisecondes attend une lecture avec **r = 3** ?'
+  unit: ms
+- id: repare
+  type: match
+  title: Qui répare quoi ?
+  prompt: Le réplica C a manqué des écritures pendant une panne. Quel mécanisme le rattrape dans chaque cas ?
+  items:
+  - id: hot
+    label: La fiche produit consultée 2 000 fois par minute
+  - id: cold
+    label: Une facture de 2019 que plus personne ne relit
+  - id: soon
+    label: Le panier qu'un client relit juste après l'avoir modifié
+  categories:
+  - id: rr
+    label: Read repair, à la prochaine lecture
+  - id: ae
+    label: Anti-entropie, en tâche de fond
+- id: lecture
+  type: order
+  title: Une lecture quorum avec réparation
+  prompt: n = 3, r = 2. Remets dans l'ordre.
+  items:
+  - id: send
+    label: La lecture part vers les trois réplicas
+  - id: wait
+    label: Le client attend les deux premières réponses
+  - id: compare
+    label: Il compare les numéros de version et garde la plus récente
+  - id: repair
+    label: Il réécrit la valeur récente sur le réplica qui a répondu une version périmée

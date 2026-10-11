@@ -1,0 +1,104 @@
+id: ddia-ch09-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que garantit l'isolation sérialisable ?
+  choices:
+  - Que les transactions s'exécutent réellement sur un seul thread
+  - Que chaque transaction voit un snapshot cohérent de la base
+  - Que les lectures ne bloquent jamais les écritures
+  - Que le résultat est celui d'une exécution des transactions une par une, dans un certain ordre
+  answer: 3
+  explanation: 'La garantie porte sur le résultat, pas sur la manière : une base peut faire tourner les transactions en parallèle tant que le résultat équivaut à un ordre en série. Le snapshot cohérent, c''est la snapshot isolation, plus faible.'
+  concept: ddia-serializable-one-at-a-time
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Quelles évolutions ont rendu l'exécution en série viable vers 2007 ?
+  choices:
+  - Des disques assez rapides pour lire à chaque transaction
+  - La RAM assez bon marché pour garder les données actives en mémoire
+  - Des transactions OLTP courtes, qui touchent peu de lignes
+  - La possibilité de faire tourner l'analytique en lecture seule sur un snapshot, hors de la boucle
+  answer:
+  - 1
+  - 2
+  - 3
+  explanation: Une transaction qui attend le disque bloquerait tout le thread ; c'est la mémoire qui rend chaque transaction assez rapide. Les longues lectures partent sur un snapshot.
+  concept: ddia-serial-exec-why-now
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Une base mono-thread exécute des transactions interactives de 5 requêtes, chacune avec 1 ms d'aller-retour réseau, pour 50 µs de travail réel. Quel débit maximal, environ ?
+  choices:
+  - 20 000 transactions/s
+  - 2 000 transactions/s
+  - 200 transactions/s
+  - 5 000 transactions/s
+  answer: 2
+  explanation: 'Chaque transaction occupe le thread environ 5,05 ms, presque entièrement à attendre le réseau : 1 / 0,00505 ≈ 198 par seconde. Avec une procédure stockée, on reviendrait vers 20 000.'
+  concept: ddia-interactive-tx-roundtrips
+  difficulty: 3
+- id: q4
+  type: single
+  prompt: Pourquoi les bases à exécution en série exigent-elles des procédures stockées ?
+  choices:
+  - Pour que la transaction entière s'exécute d'un bloc, sans attendre le réseau ni l'application
+  - Parce que SQL ne sait pas exprimer une transaction
+  - Pour chiffrer les requêtes
+  - Pour permettre à plusieurs threads de partager la transaction
+  answer: 0
+  explanation: 'Le seul thread ne doit jamais attendre : l''application envoie toute la logique d''avance, puis la base l''exécute en entier.'
+  concept: ddia-stored-procedure-tx
+  difficulty: 1
+- id: q5
+  type: multiple
+  prompt: Quelles critiques classiques visent les procédures stockées ?
+  choices:
+  - Elles empêchent toute réplication
+  - Chaque éditeur a son propre langage, souvent archaïque
+  - Le code dans la base est difficile à versionner, tester, déboguer et superviser
+  - Une procédure mal écrite pénalise toute la base, ressource partagée
+  answer:
+  - 1
+  - 2
+  - 3
+  explanation: Au contraire, VoltDB s'en sert pour répliquer. Les systèmes récents adoptent des langages généralistes (Java, Clojure, Lua) pour lever la première critique.
+  concept: ddia-stored-procedure-tradeoffs
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: VoltDB réplique en rejouant la procédure sur chaque réplica. Une procédure appelle `random()` pour tirer un gagnant. Que se passe-t-il ?
+  choices:
+  - Rien de grave, chaque réplica tire le même nombre
+  - La base refuse de démarrer
+  - Les réplicas peuvent tirer des gagnants différents et diverger
+  - Le leader envoie automatiquement les lignes modifiées à la place
+  answer: 2
+  explanation: 'La ré-exécution n''est sûre que si la procédure est déterministe : il faut des API qui fixent la valeur une fois et la transmettent à tous.'
+  concept: ddia-deterministic-procedure-replication
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Ton service de paiement a des transactions de 30 µs en mémoire et un pic à 25 000 transactions/s. Faut-il craindre la limite d'un seul cœur ?
+  choices:
+  - Oui, un cœur ne fait que 1 000 transactions/s
+  - Non, la limite d'un cœur n'existe pas en mémoire
+  - Oui, car chaque transaction doit écrire sur disque avant la suivante
+  - Non, un cœur en fait environ 33 000/s ; la marge est faible mais suffisante
+  answer: 3
+  explanation: '1 / 30 µs ≈ 33 000 par seconde. Le pic tient, mais avec 25 % de marge seulement : une croissance de la charge imposera de partitionner.'
+  concept: ddia-serial-exec-single-thread
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Pourquoi une base mono-thread peut-elle être plus rapide qu'une base concurrente ?
+  choices:
+  - Elle utilise plusieurs cœurs en cachette
+  - Elle évite tout le coût de coordination (verrous, détection de conflits)
+  - Elle ne garantit aucune isolation
+  - Elle saute l'écriture du journal
+  answer: 1
+  explanation: Sans concurrence, il n'y a ni verrou à prendre ni conflit à détecter. Elle reste sérialisable par construction.
+  concept: ddia-serial-exec-single-thread
+  difficulty: 2

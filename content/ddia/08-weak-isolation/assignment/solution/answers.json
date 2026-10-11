@@ -1,0 +1,11 @@
+{
+  "levels": {
+    "dread.rc": "oui", "dwrite.rc": "oui", "skew.rc": "non", "lost.rc": "non", "wskew.rc": "non",
+    "dread.rr": "oui", "dwrite.rr": "oui", "skew.rr": "oui", "lost.rr": "oui", "wskew.rr": "non"
+  },
+  "diagnose": {"ghost": "dirty-read", "report": "read-skew", "counter": "lost-update", "seat": "write-skew", "quota": "write-skew"},
+  "seatfix": "unique",
+  "quotafix": ["serial", "lockfan", "cond"],
+  "visible": ["t46", "t48"],
+  "bloat": 432
+}

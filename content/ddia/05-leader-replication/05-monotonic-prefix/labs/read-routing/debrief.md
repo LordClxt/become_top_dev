@@ -1,0 +1,3 @@
+**Un routeur avec affinité garantit les lectures monotones.** Toutes les lectures d'Alice tombent sur le réplica 0, toutes celles de Bob sur le réplica 1 : chacun peut lire des données un peu en retard, mais jamais revenir en arrière. Un répartiteur aléatoire, lui, enverrait deux lectures successives sur deux réplicas de retards différents, et le commentaire vu une seconde plus tôt disparaîtrait.
+
+Le même routeur porte read-your-writes : il envoie au leader les écritures, et les lectures qui doivent voir une écriture que le réplica n'a pas encore appliquée. C'est exactement ce que tu coderas dans le projet Tinybase de ce module, avec une position de log par utilisateur.

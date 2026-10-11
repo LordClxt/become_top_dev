@@ -1,0 +1,86 @@
+id: ddia-ch11-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un instantané de base contient la réponse à une question, mais pas la question. Quelle propriété est violée ?
+  choices:
+  - La durabilité
+  - La cohérence avec la causalité
+  - La disponibilité
+  - L'idempotence
+  answer: 1
+  explanation: Un instantané cohérent doit contenir les causes de tout effet qu'il contient.
+  concept: ddia-causal-order
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: 'Les ensembles {a, b} et {b, c} sont :'
+  choices:
+  - Égaux
+  - Ordonnés, {a, b} < {b, c}
+  - Ordonnés, {b, c} < {a, b}
+  - Incomparables, ce qui illustre un ordre partiel
+  answer: 3
+  explanation: Aucun ne contient l'autre ; c'est exactement la situation de deux événements concurrents.
+  concept: ddia-total-vs-partial-order
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi n'y a-t-il pas de concurrence dans un stockage linéarisable ?
+  choices:
+  - Parce qu'il refuse les requêtes simultanées
+  - Parce qu'il n'a qu'un client
+  - Parce que toutes les opérations sont placées sur une seule ligne de temps (ordre total)
+  - Parce qu'il utilise des verrous sur chaque ligne
+  answer: 2
+  explanation: Des requêtes peuvent arriver en même temps, mais chaque opération prend effet en un point, et ces points sont totalement ordonnés.
+  concept: ddia-total-vs-partial-order
+  difficulty: 2
+- id: q4
+  type: multiple
+  prompt: Coche les affirmations vraies.
+  choices:
+  - Un système linéarisable respecte forcément la causalité
+  - Respecter la causalité exige forcément la linéarisabilité
+  - L'historique de Git (un graphe de commits) illustre un ordre partiel
+  - Deux opérations à une heure d'écart peuvent être concurrentes
+  answer: [0, 2, 3]
+  explanation: 'La linéarisabilité implique la causalité mais n''est pas le seul moyen de l''obtenir. « Concurrent » veut dire qu''aucune ne connaissait l''autre, pas « simultané ».'
+  concept: ddia-lin-implies-causal
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Quelle est la propriété remarquable de la cohérence causale ?
+  choices:
+  - C'est le modèle le plus fort qui ne ralentit pas avec les délais réseau et reste disponible pendant une coupure
+  - Elle garantit l'unicité d'un pseudo
+  - Elle est équivalente à la linéarisabilité
+  - Elle n'a aucun coût de métadonnées
+  answer: 0
+  explanation: 'C''est pour ça qu''elle est si intéressante : beaucoup de systèmes qui croient avoir besoin de linéarisabilité n''ont besoin que d''elle.'
+  concept: ddia-causal-consistency
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Un client lit la version {A: 3, B: 5} d''un panier, puis écrit. Une réplique n''a appliqué que {A: 3, B: 4}. Que doit-elle faire pour respecter la causalité ?'
+  choices:
+  - Appliquer l'écriture immédiatement
+  - La rejeter définitivement
+  - Attendre d'avoir appliqué la 5ᵉ écriture de B, puis appliquer celle du client
+  - Écraser la version de B avec celle du client
+  answer: 2
+  explanation: 'L''écriture dépend de ce que le client a lu : toutes les opérations causalement antérieures doivent être appliquées d''abord.'
+  concept: ddia-capturing-causal-deps
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: 'Le write skew des médecins de garde (module 09) est une affaire de causalité parce que :'
+  choices:
+  - Les deux médecins écrivent la même ligne
+  - Chaque décision d'écrire est motivée par une lecture qui n'est plus vraie au moment de valider
+  - Les horloges des deux serveurs divergent
+  - La base perd une écriture lors d'un crash
+  answer: 1
+  explanation: 'L''écriture dépend causalement de la lecture ; la SSI suit justement ces dépendances lecture → écriture.'
+  concept: ddia-causal-order
+  difficulty: 2

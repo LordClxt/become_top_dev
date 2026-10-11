@@ -1,0 +1,98 @@
+id: ddia-ch07-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Une table d'utilisateurs est partitionnée par hachage de `user_id`. Que devient la requête « utilisateurs 100 à 200 » ?
+  choices:
+  - Elle touche une seule partition, lue séquentiellement
+  - Elle est envoyée à toutes les partitions, car les clés voisines sont éparpillées
+  - Elle touche deux partitions voisines
+  - Elle est impossible dans toute base
+  answer: 1
+  explanation: 'Le hachage détruit l''ordre : MongoDB en mode haché interroge toutes les partitions ; Riak ou Voldemort ne proposent pas de telle requête.'
+  concept: ddia-hash-partitioning
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: '4 partitions de même largeur se partagent les hachages sur 32 bits. Une clé a pour hachage 3 000 000 000. Quelle partition (1 à 4) ?'
+  choices:
+  - '2'
+  - '4'
+  - '1'
+  - '3'
+  answer: 3
+  explanation: 'Chaque partition couvre 2³² / 4 = 1 073 741 824 valeurs ; 3 000 000 000 / 1 073 741 824 ≈ 2,79, donc la troisième.'
+  concept: ddia-hash-partitioning
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Pour router les clés de ton service Go vers les partitions, tu utilises le hachage interne des `map`. Le problème ?
+  choices:
+  - Il est trop lent
+  - Il est cryptographiquement faible
+  - Il change d'un processus à l'autre, donc deux nœuds enverraient la même clé sur des partitions différentes
+  - Il ne gère pas les chaînes
+  answer: 2
+  explanation: 'La fonction doit être stable entre processus (MD5, FNV). La force cryptographique n''est pas nécessaire.'
+  concept: ddia-partition-hash-function
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Que désigne à l'origine le « hachage cohérent » ?
+  choices:
+  - Une technique de répartition de cache (CDN) à bornes aléatoires, pour rééquilibrer sans coordination centrale
+  - Une garantie de cohérence forte entre réplicas
+  - Une variante d'ACID
+  - Le hachage MD5 utilisé par Cassandra
+  answer: 0
+  explanation: 'Le mot « cohérent » n''a rien à voir avec la cohérence des données ; en base on parle plutôt de partitionnement par hachage.'
+  concept: ddia-consistent-hashing-term
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Dans Cassandra, la table des publications a la clé `(user_id, update_timestamp)`. Quelle requête est efficace ?'
+  choices:
+  - Toutes les publications de tous les utilisateurs d'hier
+  - Les utilisateurs 100 à 200
+  - Les publications de l'utilisateur 42 entre le 1ᵉʳ et le 7 octobre
+  - Les publications contenant le mot « Go »
+  answer: 2
+  explanation: '`user_id` est haché pour trouver la partition, puis `update_timestamp` trie les lignes : scan d''intervalle dans une seule partition.'
+  concept: ddia-compound-primary-key
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Une clé reçoit 45 000 écritures/s et une partition en encaisse 8 000. Combien de sous-clés (suffixe aléatoire) au minimum ?
+  choices:
+  - '5'
+  - '6'
+  - '8'
+  - '100'
+  answer: 1
+  explanation: '45 000 / 8 000 = 5,6, arrondi au-dessus : 6.'
+  concept: ddia-hot-key-salting
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Tu découpes une clé brûlante en 6 sous-clés. Coche les conséquences.
+  choices:
+  - Chaque lecture de la clé doit lire les 6 sous-clés et combiner
+  - Il faut garder trace des clés découpées
+  - Le hachage répartit désormais la charge de cette clé sur plusieurs partitions
+  - Il faut l'appliquer à toutes les clés de la base
+  answer: [0, 1, 2]
+  explanation: 'On ne sale que les quelques clés brûlantes : pour les autres, ce serait du coût sans bénéfice.'
+  concept: ddia-hot-key-salting
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Pourquoi le hachage ne règle-t-il pas le problème d'une célébrité dont la publication reçoit des millions de commentaires ?
+  choices:
+  - Parce que MD5 est trop lent
+  - Parce que les publications de célébrités ne sont pas hachées
+  - Parce que le hachage ne marche qu'avec des entiers
+  - Parce que toutes les requêtes sur la même clé ont le même hachage, donc la même partition
+  answer: 3
+  explanation: 'Le hachage répartit les clés, pas la charge d''une seule clé.'
+  concept: ddia-hot-key-salting
+  difficulty: 1

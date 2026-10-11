@@ -1,0 +1,7 @@
+{
+  "nodes": [
+    { "id": "app", "type": "app", "x": 0, "y": 220 },
+    { "id": "store", "type": "storage", "x": 900, "y": 220 }
+  ],
+  "edges": []
+}

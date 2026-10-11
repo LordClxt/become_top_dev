@@ -1,0 +1,35 @@
+{
+  "nodes": [
+    {"id": "client", "type": "client", "x": 0, "y": 200},
+    {"id": "api", "type": "api", "x": 260, "y": 200},
+    {"id": "db", "type": "db", "x": 520, "y": 200},
+    {"id": "cdc", "type": "cdc", "x": 780, "y": 200},
+    {"id": "log", "type": "log", "x": 1040, "y": 200},
+    {"id": "igroup", "type": "igroup", "x": 1300, "y": -120, "label": "Groupe indexation", "w": 360, "h": 260},
+    {"id": "ix1", "type": "indexer", "x": 40, "y": 40, "parent": "igroup"},
+    {"id": "ix2", "type": "indexer", "x": 40, "y": 150, "parent": "igroup"},
+    {"id": "search", "type": "search", "x": 1760, "y": -40},
+    {"id": "cacheupd", "type": "cacheupd", "x": 1300, "y": 220},
+    {"id": "cache", "type": "cache", "x": 1760, "y": 220},
+    {"id": "wh", "type": "wh", "x": 1300, "y": 380},
+    {"id": "replay", "type": "replay", "x": 1040, "y": 520},
+    {"id": "newview", "type": "newview", "x": 1300, "y": 560},
+    {"id": "mon", "type": "mon", "x": 1040, "y": -140}
+  ],
+  "edges": [
+    {"id": "e1", "source": "client", "target": "api", "kind": "sync", "label": "HTTPS"},
+    {"id": "e2", "source": "api", "target": "db", "kind": "write"},
+    {"id": "e3", "source": "db", "target": "cdc", "kind": "async", "label": "WAL"},
+    {"id": "e4", "source": "cdc", "target": "log", "kind": "async", "label": "changements"},
+    {"id": "e5", "source": "log", "target": "ix1", "kind": "async", "label": "partitions 0-5"},
+    {"id": "e6", "source": "log", "target": "ix2", "kind": "async", "label": "partitions 6-11"},
+    {"id": "e7", "source": "ix1", "target": "search", "kind": "write"},
+    {"id": "e8", "source": "ix2", "target": "search", "kind": "write"},
+    {"id": "e9", "source": "log", "target": "cacheupd", "kind": "async"},
+    {"id": "e10", "source": "cacheupd", "target": "cache", "kind": "write"},
+    {"id": "e11", "source": "log", "target": "wh", "kind": "async"},
+    {"id": "e12", "source": "replay", "target": "log", "kind": "read", "label": "offset 0"},
+    {"id": "e13", "source": "replay", "target": "newview", "kind": "write"},
+    {"id": "e14", "source": "mon", "target": "log", "kind": "read", "label": "retard"}
+  ]
+}

@@ -1,0 +1,19 @@
+id: ddia-ch13-assignment
+title: Planifier le workflow nocturne d'une boutique
+difficulty: 3
+xp: 130
+concepts:
+- ddia-batch-sort-merge-join
+- ddia-batch-broadcast-hash-join
+- ddia-batch-skew-hot-keys
+- ddia-batch-output-kv-files
+- ddia-batch-determinism
+- ddia-batch-sort-vs-hashmap
+source:
+  chapter: 10
+  pages: 389-436
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

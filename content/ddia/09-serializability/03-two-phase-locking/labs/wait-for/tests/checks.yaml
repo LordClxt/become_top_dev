@@ -1,0 +1,81 @@
+checks:
+- id: t1-t2
+  label: T1 attend l'exclusif sur b, détenu par T2
+  rule: edge_kind
+  source: t1
+  target: t2
+  kind: sync
+- id: t2-t3
+  label: T2 demande un exclusif sur c, qu'un verrou partagé de T3 empêche
+  rule: edge_kind
+  source: t2
+  target: t3
+  kind: sync
+- id: t2-t4
+  label: …et celui de T4 aussi
+  rule: edge_kind
+  source: t2
+  target: t4
+  kind: sync
+- id: t3-t1
+  label: T3 veut écrire a, que T1 a lu
+  rule: edge_kind
+  source: t3
+  target: t1
+  kind: sync
+- id: t3-t5
+  label: …et que T5 a lu aussi
+  rule: edge_kind
+  source: t3
+  target: t5
+  kind: sync
+- id: t4-t5
+  label: T4 veut lire d, que T5 a écrit
+  rule: edge_kind
+  source: t4
+  target: t5
+  kind: sync
+- id: no-t2-t1
+  label: T2 n'attend pas T1 (T1 ne détient rien sur c)
+  rule: no_edge
+  source: t2
+  target: t1
+- id: no-t1-t3
+  label: T1 n'attend que le détenteur de b
+  rule: no_edge
+  source: t1
+  target: t3
+- id: no-t4-t3
+  label: Deux verrous partagés sur c ne se bloquent pas
+  rule: no_edge
+  source: t4
+  target: t3
+- id: no-t3-t4
+  label: T3 ne demande rien sur c
+  rule: no_edge
+  source: t3
+  target: t4
+- id: t5-free-1
+  label: T5 n'attend personne
+  rule: no_edge
+  source: t5
+  target: t3
+- id: t5-free-2
+  label: T5 n'attend toujours personne
+  rule: no_edge
+  source: t5
+  target: t4
+- id: cycle
+  label: 'En suivant les attentes depuis T3, on atteint T2 : le cycle est fermé'
+  rule: path
+  source: t3
+  target: t2
+- id: one-each
+  label: Chaque transaction apparaît une seule fois (T1)
+  rule: count
+  source: t1
+  min: 1
+  max: 1
+- id: alone
+  label: Aucune transaction oubliée
+  rule: connected

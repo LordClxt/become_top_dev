@@ -1,0 +1,34 @@
+blocks:
+  counts:
+    options:
+      t0.n: 'Seuls les clics dont l''heure commence par 10:00 entrent dans [10:00, 10:01).'
+      t1.n: 'Compte les clics de 10:01:00 à 10:01:59.'
+      t2.n: 'Un seul clic tombe entre 10:02:00 et 10:02:59.'
+      t4.n: '10:04:20 et 10:04:50 sont dans la même minute.'
+      h0.n: 'La fenêtre couvre deux minutes, de 10:00:00 à 10:01:59 : additionne les deux fenêtres tumbling correspondantes.'
+      h1.n: 'De 10:01:00 à 10:02:59 : combine les minutes 10:01 et 10:02.'
+      h4.n: 'De 10:04:00 à 10:05:59 : la minute 10:05 est vide.'
+  membership:
+    tolerance:
+      abs: 0
+    wrong: Taille / pas = 2 / 1 ; vérifie avec [10:00, 10:02) et [10:01, 10:03).
+  burst:
+    options:
+      tumbling: 'Aucune minute alignée ne contient 3 clics : la frontière de 10:01 coupe la rafale (1 clic avant, 2 après).'
+      sliding: '10:00:40, 10:01:10 et 10:01:35 sont à moins de 60 s du premier : sans frontière fixe, la rafale est visible.'
+      hopping: 'Avec un pas de 30 s, [10:00:30, 10:01:30) et [10:01:00, 10:02:00) ne contiennent chacune que 2 clics : des frontières fixes, même rapprochées, peuvent encore couper une rafale.'
+  sessions:
+    tolerance:
+      abs: 0
+    wrong: 'Calcule les écarts entre clics consécutifs : 35, 30, 25, 55, 110, 30, 130 s. Chaque écart de 60 s ou plus ouvre une nouvelle session.'
+  sessionEnd:
+    options:
+      e1: 'C''est le dernier clic de la session ; il faut encore attendre l''écart d''inactivité.'
+      e3: 'La session ne s''aligne pas sur les minutes : elle se ferme 60 s après son dernier clic.'
+      e4: 'C''est le premier clic de la session suivante, pas la fin de la première.'
+  choose:
+    options:
+      report: 'Chaque vente doit compter dans une seule heure : pas de chevauchement.'
+      smooth: 'Fenêtres fixes de 5 minutes qui avancent d''une minute : elles se chevauchent pour lisser.'
+      limit: '« N''importe quel intervalle » interdit les frontières fixes.'
+      visit: 'Une visite a une durée variable et se termine par l''inactivité.'

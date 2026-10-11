@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Exécution en série partitionnée ?
+  back: Un thread par partition ; une transaction mono-partition n'a besoin d'aucune coordination, le débit croît avec les cœurs.
+  concept: ddia-serial-partition-per-core
+- id: fc2
+  front: Transaction multi-partitions en exécution en série ?
+  back: Coordonnée en lock-step sur toutes les partitions concernées ; ~1 000 écritures/s chez VoltDB.
+  concept: ddia-cross-partition-tx-cost
+- id: fc3
+  front: Ajouter des machines accélère-t-il les multi-partitions ?
+  back: Non. Leur débit ne monte pas avec les machines.
+  concept: ddia-cross-partition-tx-cost
+- id: fc4
+  front: Débit maximal avec une part p de multi-partitions plafonnées à C/s ?
+  back: 'C / p. Exemple : 1 000 / 0,02 = 50 000 transactions/s.'
+  concept: ddia-cross-partition-tx-cost
+- id: fc5
+  front: Charge facile à partitionner ?
+  back: Clé-valeur (une clé par transaction) ou entité autonome (un utilisateur et ses données, partitionnés par son id).
+  concept: ddia-partitionable-workload
+- id: fc6
+  front: Pourquoi les index secondaires gênent-ils ?
+  back: Ils transforment lectures (index par document) ou écritures (index par terme) en accès multi-partitions.
+  concept: ddia-partitionable-workload
+- id: fc7
+  front: Les conditions de l'exécution en série ?
+  back: Transactions courtes, données actives en mémoire, écritures d'un cœur par partition, multi-partitions rares.
+  concept: ddia-serial-exec-constraints
+- id: fc8
+  front: Anti-caching ?
+  back: Abandonner la transaction qui touche une donnée froide, la charger en mémoire en arrière-plan, puis relancer.
+  concept: ddia-anti-caching

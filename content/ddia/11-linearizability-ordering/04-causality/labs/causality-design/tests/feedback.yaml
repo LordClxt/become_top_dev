@@ -1,0 +1,25 @@
+blocks:
+  paires:
+    options:
+      q-l: 'Ana a lu R1, qui répondait à Q : la dépendance passe par une chaîne de lectures.'
+      r1-r2: 'Ni Ben ni Céa n''avait vu la réponse de l''autre : ce sont deux branches concurrentes.'
+      r2-l: 'Ana n''avait pas lu R2 quand elle a aimé R1 : aucune n''a influencé l''autre.'
+      r1-l: 'Le « j''aime » porte sur R1 et a été écrit après l''avoir lu.'
+  forme:
+    options:
+      line: 'L''horloge murale impose un ordre total arbitraire entre R1 et R2, qui sont concurrents.'
+      none: 'Les réponses dépendent de la question et le « j''aime » de R1 : il y a bien des dépendances.'
+  appliquer:
+    options:
+      w1: 'Tout ce que l''auteur avait lu est déjà appliqué ici.'
+      w2: 'L''auteur avait lu la 5ᵉ écriture de Montréal, que Tokyo n''a pas encore.'
+      w3: 'Paris 2 ≤ 3 et Montréal 4 ≤ 4 : rien ne manque.'
+      w4: 'L''auteur avait lu la 4ᵉ écriture de Paris, absente ici.'
+  modele:
+    options:
+      lin: 'Elle garantit aussi la causalité, mais rend le forum indisponible dans une région coupée : un prix inutile.'
+      eventual: 'Elle ne promet que la convergence : une réponse pourrait s''afficher sans sa question.'
+  force:
+    options:
+      lin: 'La linéarisabilité implique la causalité : c''est la plus forte des trois.'
+      eventual: 'La convergence seule est la plus faible.'

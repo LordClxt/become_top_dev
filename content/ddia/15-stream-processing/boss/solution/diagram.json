@@ -1,0 +1,34 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 100},
+    {"id": "gw", "type": "gw", "x": 250, "y": 100},
+    {"id": "pay", "type": "pay", "x": 500, "y": 100},
+    {"id": "ledger", "type": "ledger", "x": 500, "y": -120},
+    {"id": "tx", "type": "tx", "x": 800, "y": 100},
+    {"id": "custdb", "type": "custdb", "x": 600, "y": 520},
+    {"id": "cdc", "type": "cdc", "x": 850, "y": 520},
+    {"id": "fraud", "type": "fraud", "x": 1100, "y": 300},
+    {"id": "local", "type": "local", "x": 1100, "y": 520},
+    {"id": "ckpt", "type": "ckpt", "x": 1400, "y": 520},
+    {"id": "alerts", "type": "alerts", "x": 1400, "y": 300},
+    {"id": "notify", "type": "notify", "x": 1700, "y": 300},
+    {"id": "agg", "type": "agg", "x": 1100, "y": -80},
+    {"id": "dash", "type": "dash", "x": 1400, "y": -80}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "gw", "kind": "sync", "label": "payer"},
+    {"id": "e2", "source": "gw", "target": "pay", "kind": "sync"},
+    {"id": "e3", "source": "pay", "target": "ledger", "kind": "write"},
+    {"id": "e4", "source": "pay", "target": "tx", "kind": "async", "label": "paiement créé"},
+    {"id": "e5", "source": "custdb", "target": "cdc", "kind": "async", "label": "CDC"},
+    {"id": "e6", "source": "tx", "target": "fraud", "kind": "async"},
+    {"id": "e7", "source": "cdc", "target": "fraud", "kind": "async"},
+    {"id": "e8", "source": "fraud", "target": "local", "kind": "write", "label": "état de jointure"},
+    {"id": "e9", "source": "fraud", "target": "ckpt", "kind": "write", "label": "checkpoint"},
+    {"id": "e10", "source": "fraud", "target": "alerts", "kind": "async"},
+    {"id": "e11", "source": "alerts", "target": "notify", "kind": "async", "label": "id d'alerte"},
+    {"id": "e12", "source": "tx", "target": "agg", "kind": "async"},
+    {"id": "e13", "source": "agg", "target": "dash", "kind": "write", "label": "valeur + offset"},
+    {"id": "e14", "source": "agg", "target": "ckpt", "kind": "write", "label": "checkpoint"}
+  ]
+}

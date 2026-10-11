@@ -1,0 +1,5 @@
+**Chaque problème d'accord a son mécanisme.** Les élections de leader et la carte des partitions sont sous-traitées à **5 votants etcd** (majorité de 3, deux pannes tolérées) : un leader de partition tient son rôle par un bail lié à une époque, et un ancien leader qui revient d'une pause est écarté. Chaque partition réplique ensuite de son leader vers son réplica.
+
+Les transactions qui touchent A et B passent par un **coordinateur 2PC** : prepare aux deux leaders, décision écrite dans un **journal durable** avant toute diffusion, puis commit. Les leaders ne se parlent pas. Les pièges cassent chacun une garantie : un journal en mémoire oublie les décisions (des participants restent en doute), des décisions heuristiques cassent l'atomicité, et un opérateur qui désigne les leaders supprime la terminaison automatique.
+
+Pour aller plus loin : remplacer ce coordinateur unique par un coordinateur dont le journal est lui-même répliqué par consensus, c'est ce que font les bases distribuées modernes.

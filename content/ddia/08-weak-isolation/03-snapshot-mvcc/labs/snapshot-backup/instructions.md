@@ -1,0 +1,1 @@
+La banque veut une sauvegarde nocturne de six heures et un contrôle d'intégrité « la somme des comptes est constante », **sans jamais bloquer les virements**. Dessine l'architecture : les clients passent par le service, la sauvegarde et le contrôle lisent la base de production dans leur instantané, et un ramasse-miettes nettoie les anciennes versions.

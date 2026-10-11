@@ -1,0 +1,53 @@
+id: ddia-ch16-l03-lab-unbundled-design
+title: 'Sortir les index de la base'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-unbundled-database
+- ddia-index-as-stream
+- ddia-unbundling-async-log
+source:
+  chapter: 12
+  pages: 499-504
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: service
+  label: Service catalogue
+  hint: Reçoit les modifications des produits.
+- type: db
+  component: postgres
+  label: PostgreSQL (référence)
+  hint: Le système de référence, qui reçoit les écritures en premier.
+- type: log
+  component: kafka
+  label: Log de changements (CDC)
+  hint: L'ordre des écritures de la base, rejouable.
+- type: indexer
+  component: stream-processor
+  label: Indexeur
+  hint: Transforme chaque changement en document de recherche.
+- type: search
+  component: search
+  label: Index de recherche
+  hint: Dérivé, reconstructible depuis le log.
+- type: cacher
+  component: stream-processor
+  label: Mainteneur de cache
+  hint: Recalcule les fiches produit les plus vues.
+- type: cache
+  component: redis
+  label: Cache des fiches
+  hint: Une vue matérialisée en mémoire.
+- type: snapshot
+  component: object-store
+  label: Instantané initial
+  hint: Copie cohérente de la table, associée à un offset du log.
+- type: xa
+  component: consensus
+  label: Coordinateur XA
+  hint: Validation atomique entre systèmes hétérogènes.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

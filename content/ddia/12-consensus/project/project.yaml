@@ -1,0 +1,14 @@
+id: ddia-ch12-project
+title: "Tinybase — coordinateur 2PC et noyau Raft"
+pitch: "Tinybase apprend à se mettre d'accord : un coordinateur de validation en deux phases qui survit à ses propres crashs, puis un noyau Raft déterministe qui élit un leader, réplique son log et sait quand une entrée est validée."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 5
+xp: 260
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["consensus.go"]
+concepts: [ddia-2pc-protocol, ddia-2pc-points-of-no-return, ddia-2pc-coordinator-failure, ddia-raft-vote-restriction, ddia-raft-log-matching, ddia-raft-commit-index]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

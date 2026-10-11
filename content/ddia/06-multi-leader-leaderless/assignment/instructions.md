@@ -1,0 +1,1 @@
+Conçois le stockage des paniers d'un site présent sur deux continents, avec une exigence héritée de Dynamo : un ajout au panier doit toujours être accepté. Choisis la famille de réplication, règle le quorum, repère les cas où il ne protège pas, chiffre le hinted handoff et écris le protocole client avec vecteurs de versions.

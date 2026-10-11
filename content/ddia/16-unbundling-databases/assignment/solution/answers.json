@@ -1,0 +1,17 @@
+{
+  "needs": {
+    "search": "cdc",
+    "newview": "parallel",
+    "driver": "push",
+    "sql": "federation"
+  },
+  "rebuild": 100,
+  "precompute": {
+    "read.cpu": 80000,
+    "write.cpu": 16000
+  },
+  "newindex": ["snap", "bulk", "tail", "compare", "switch"],
+  "determinism": ["pure", "idem", "eventtime", "order"],
+  "offline": "offset",
+  "integrated": "single"
+}

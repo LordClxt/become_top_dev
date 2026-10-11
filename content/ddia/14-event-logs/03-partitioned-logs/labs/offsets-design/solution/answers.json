@@ -1,0 +1,9 @@
+{
+  "retention": 44.44,
+  "lag": {"p0.lag": 50, "p1.lag": 0, "p2.lag": 18000},
+  "catchup": 60,
+  "throughput": 30000,
+  "redo": 1500,
+  "replay": ["fix", "offsets", "rerun", "compare", "switch"],
+  "alert": "lag"
+}

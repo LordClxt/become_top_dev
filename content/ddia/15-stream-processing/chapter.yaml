@@ -1,0 +1,29 @@
+id: ddia-ch15
+title: Traitement de flux
+subtitle: 'Fenêtres, temps de l''événement, jointures et tolérance aux pannes : calculer en continu sur des données qui ne finissent jamais'
+source:
+  chapter: 11
+  pages: 464-488
+objectives:
+- Reconnaître les usages du traitement de flux (CEP, analytique, vues matérialisées, recherche sur flux) et le distinguer d'un système d'acteurs
+- Raisonner en temps de l'événement plutôt qu'en temps de traitement, et décider quand une fenêtre est complète malgré les retardataires
+- Corriger l'horloge d'un appareil grâce aux trois horodatages et choisir l'horloge adaptée à une question
+- Choisir entre fenêtres tumbling, hopping, sliding et session, et calculer à quelles fenêtres appartient un événement
+- Concevoir une jointure flux-flux, flux-table ou table-table, et la rendre déterministe face à la dépendance temporelle
+- Obtenir un résultat « exactly-once » effectif avec micro-batching ou checkpoints, transactions atomiques ou écritures idempotentes
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch14
+lessons:
+- 01-stream-uses
+- 02-event-time
+- 03-windows
+- 04-stream-joins
+- 05-fault-tolerance
+xp:
+  assignment: 130
+  project: 250
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

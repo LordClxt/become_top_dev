@@ -1,0 +1,75 @@
+intro: |
+  L'application mobile de **NeoBanque** envoie des virements. Le serveur ouvre une transaction, débite, crédite, valide. Quand la réponse n'arrive pas dans les 5 secondes, l'application **réessaie automatiquement**. Jusqu'ici, aucun identifiant de requête n'existe.
+blocks:
+- id: trois-essais
+  type: number
+  title: Trois essais pour un virement
+  prompt: Un client vire **11 €**. Le premier essai est validé mais la réponse se perd ; le deuxième aussi ; le troisième est validé et la réponse arrive. Combien d'euros ont quitté son compte ?
+  unit: €
+- id: par-jour
+  type: number
+  title: Le coût quotidien
+  prompt: NeoBanque traite **2 millions** de virements par jour. **0,3 %** expirent côté client et sont réessayés une fois ; parmi ces réessais, **40 %** concernent un virement qui avait en réalité été validé. Combien de doubles débits par jour ?
+  unit: virements
+- id: couche
+  type: choice
+  title: Qui peut supprimer le doublon ?
+  prompt: L'équipe propose plusieurs correctifs. Lequel supprime vraiment le double débit ?
+  options:
+  - id: tcp
+    label: Activer les options de retransmission de TCP plus agressives
+  - id: serializable
+    label: Passer la base en isolation sérialisable
+  - id: request-id
+    label: Générer un UUID dans l'application au moment du clic, l'envoyer à chaque essai et l'insérer dans une table `requests` avec une contrainte d'unicité
+    hint: L'identifiant naît avec l'intention
+  - id: server-id
+    label: Faire générer un UUID par le serveur à la réception de chaque requête
+- id: flux
+  type: order
+  title: Une requête identifiée, de bout en bout
+  prompt: Remets dans l'ordre le traitement d'un virement avec identifiant d'opération.
+  items:
+  - id: gen
+    label: L'application génère l'identifiant au clic sur « Virer »
+  - id: send
+    label: Elle envoie la requête avec l'identifiant (et le renverra tel quel en cas de réessai)
+  - id: begin
+    label: Le serveur ouvre une transaction et insère l'identifiant dans `requests` (contrainte d'unicité)
+  - id: apply
+    label: Il débite et crédite les comptes dans la même transaction
+  - id: commit
+    label: Il valide ; un réessai ultérieur viole la contrainte et reçoit le résultat déjà calculé
+- id: maillon
+  type: match
+  title: Un maillon ou tout le chemin ?
+  prompt: Chaque mécanisme protège-t-il tout le chemin entre l'utilisateur et la donnée finale, ou seulement un maillon ?
+  items:
+  - id: tcp-seq
+    label: Numéros de séquence TCP
+  - id: eth-crc
+    label: Somme de contrôle Ethernet
+  - id: tls
+    label: Chiffrement TLS entre l'application et le serveur
+  - id: e2e-sum
+    label: Somme de contrôle calculée par l'application émettrice et vérifiée par l'application qui relit la donnée
+  - id: req-id
+    label: Identifiant d'opération créé au clic et contrôlé en base
+  categories:
+  - id: e2e
+    label: Tout le chemin (bout en bout)
+  - id: link
+    label: Un seul maillon (optimisation utile, garantie partielle)
+- id: vrai
+  type: multi
+  title: Ce qui est vrai
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: rare
+    label: Grâce à TCP, les doublons sont rares, ce qui ne dispense pas l'application d'en gérer
+  - id: tx-enough
+    label: Une transaction ACID suffit à garantir qu'un clic ne produit qu'un virement
+  - id: idem
+    label: Rendre l'opération idempotente demande de mémoriser quels identifiants ont déjà été appliqués
+  - id: same-key
+    label: Un identifiant réutilisé avec un montant différent doit être appliqué, puisque le contenu change

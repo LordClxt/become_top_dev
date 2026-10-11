@@ -1,0 +1,1 @@
+Joue le rôle du détecteur de conflits d'une base SSI : pour chaque déroulé, prédis si la seconde transaction valide ou est abandonnée. Puis chiffre l'effet de la durée sur le taux d'abandon, règle la taille des lots d'un traitement, et choisis la bonne technique pour quatre systèmes.

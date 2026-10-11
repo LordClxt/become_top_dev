@@ -1,0 +1,6 @@
+{
+  "replayed": 4,
+  "totals": {"naive.eur": 280, "dedup.eur": 210, "truth.eur": 210},
+  "tuning": {"interval": 22},
+  "effects": {"state": "checkpoint", "transfer": "idem", "output": "atomic"}
+}

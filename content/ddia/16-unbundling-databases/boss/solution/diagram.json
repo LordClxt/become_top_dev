@@ -1,0 +1,34 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 300},
+    {"id": "api", "type": "api", "x": 260, "y": 300},
+    {"id": "rates", "type": "rates", "x": 260, "y": 80},
+    {"id": "ratestable", "type": "ratestable", "x": 260, "y": 520},
+    {"id": "db", "type": "db", "x": 520, "y": 300, "props": {"role": "primary"}},
+    {"id": "log", "type": "log", "x": 780, "y": 300},
+    {"id": "snapshot", "type": "snapshot", "x": 780, "y": 60},
+    {"id": "indexer", "type": "indexer", "x": 1040, "y": 60},
+    {"id": "search", "type": "search", "x": 1300, "y": 60},
+    {"id": "viewv1", "type": "viewv1", "x": 1040, "y": 260},
+    {"id": "storev1", "type": "storev1", "x": 1300, "y": 260, "props": {"role": "primary-store"}},
+    {"id": "viewv2", "type": "viewv2", "x": 1040, "y": 460},
+    {"id": "storev2", "type": "storev2", "x": 1300, "y": 460, "props": {"role": "primary-store"}},
+    {"id": "push", "type": "push", "x": 780, "y": 620}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "api", "kind": "sync", "label": "commande"},
+    {"id": "e2", "source": "api", "target": "db", "kind": "write", "label": "écrit"},
+    {"id": "e3", "source": "db", "target": "log", "kind": "async", "label": "CDC"},
+    {"id": "e4", "source": "log", "target": "indexer", "kind": "async", "label": "changements"},
+    {"id": "e5", "source": "snapshot", "target": "indexer", "kind": "read", "label": "amorçage"},
+    {"id": "e6", "source": "indexer", "target": "search", "kind": "write", "label": "documents"},
+    {"id": "e7", "source": "log", "target": "viewv1", "kind": "async", "label": "changements"},
+    {"id": "e8", "source": "viewv1", "target": "storev1", "kind": "write", "label": "v1"},
+    {"id": "e9", "source": "log", "target": "viewv2", "kind": "async", "label": "changements"},
+    {"id": "e10", "source": "viewv2", "target": "storev2", "kind": "write", "label": "v2"},
+    {"id": "e11", "source": "storev2", "target": "push", "kind": "async", "label": "abonnement"},
+    {"id": "e12", "source": "push", "target": "app", "kind": "async", "label": "WebSocket"},
+    {"id": "e13", "source": "rates", "target": "api", "kind": "async", "label": "taux"},
+    {"id": "e14", "source": "api", "target": "ratestable", "kind": "write", "label": "dernier taux"}
+  ]
+}

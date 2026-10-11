@@ -1,0 +1,19 @@
+id: ddia-ch12-assignment
+title: 'Choisir comment se mettre d''accord'
+difficulty: 3
+xp: 130
+concepts:
+- ddia-dtx-internal-vs-heterogeneous
+- ddia-dtx-limitations
+- ddia-2pc-protocol
+- ddia-coord-slow-changing-data
+- ddia-coord-service-features
+- ddia-consensus-equivalence
+source:
+  chapter: 9
+  pages: 352-373
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

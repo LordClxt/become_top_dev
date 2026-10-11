@@ -1,0 +1,46 @@
+id: ddia-ch12-l04-lab-coordination-design
+title: 'Sous-traiter la coordination à ZooKeeper'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-coord-service-features
+- ddia-coord-work-allocation
+- ddia-coord-membership
+- ddia-consensus-majority
+source:
+  chapter: 9
+  pages: 370-373
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: ensemble
+  component: zone
+  label: Ensemble ZooKeeper
+  hint: Les nœuds qui votent.
+- type: zk
+  component: consensus
+  label: Nœud ZooKeeper
+  hint: Votant de l'ensemble, réplique le log par Zab.
+- type: storage
+  component: database
+  label: Nœud de stockage
+  hint: Héberge des partitions ; s'enregistre au démarrage.
+- type: rebal
+  component: worker
+  label: Rééquilibreur
+  hint: Surveille les membres et réattribue les partitions.
+- type: router
+  component: service
+  label: Routeur de requêtes
+  hint: Sait quelle partition est sur quel nœud.
+- type: client
+  component: client
+  label: Client
+  hint: Une application qui lit et écrit des clés.
+- type: localock
+  component: cache
+  label: Verrou en mémoire locale
+  hint: Un mutex dans le processus du rééquilibreur.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

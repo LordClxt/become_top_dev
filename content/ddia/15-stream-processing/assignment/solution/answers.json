@@ -1,0 +1,9 @@
+{
+  "clock": "event",
+  "watermark": {"delay": 90},
+  "hopping": 3,
+  "joins": {"accept": "ss", "rating": "st", "favorites": "tt"},
+  "state": 108,
+  "surge": "version",
+  "payout": ["key", "offset", "atomic"]
+}

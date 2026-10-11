@@ -1,0 +1,98 @@
+id: ddia-ch13-l05-quiz
+questions:
+- id: q1
+  type: multiple
+  prompt: Quels sont les inconvénients de matérialiser chaque état intermédiaire dans HDFS ?
+  choices:
+  - Un job attend que toutes les tâches du précédent aient fini, y compris le traînard
+  - Des mappers ne font que relire ce que le reducer précédent vient d'écrire
+  - L'état temporaire est répliqué sur plusieurs machines
+  - Les sorties intermédiaires ne peuvent pas être relues en cas de panne
+  answer: [0, 1, 2]
+  explanation: Au contraire, la matérialisation rend la reprise simple ; c'est son seul vrai avantage pour un état purement temporaire.
+  concept: ddia-batch-materialization
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Qu'est-ce qui distingue un moteur de dataflow (Spark, Flink, Tez) de MapReduce ?
+  choices:
+  - Il exige de réécrire toutes les fonctions map et reduce
+  - Il traite tout le workflow comme un graphe d'opérateurs et garde l'intermédiaire en mémoire ou sur disque local
+  - Il n'utilise plus de partitionnement par clé
+  - Il n'écrit jamais rien dans HDFS
+  answer: 1
+  explanation: Les mêmes fonctions tournent ; c'est l'enchaînement et le stockage de l'intermédiaire qui changent. La sortie finale va toujours dans HDFS.
+  concept: ddia-batch-dataflow-engines
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Pourquoi un opérateur de tri ne peut-il pas transmettre ses données en flux au suivant comme un pipe ?
+  choices:
+  - Parce que le dernier élément d'entrée peut être le premier en sortie ; il doit tout consommer d'abord
+  - Parce que Spark interdit les tris
+  - Parce qu'un tri écrit toujours dans HDFS
+  - Parce que le tri est non déterministe
+  answer: 0
+  explanation: Certains opérateurs doivent voir toute leur entrée avant de produire ; la matérialisation ne disparaît pas complètement.
+  concept: ddia-batch-dataflow-engines
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Une machine Spark tombe et emporte une partition intermédiaire. Que fait Spark ?
+  choices:
+  - Il relance tout le workflow depuis le début
+  - Il lit la copie répliquée dans HDFS
+  - Il recalcule la partition à partir de sa lignée, depuis des données encore disponibles
+  - Il renvoie une erreur à l'utilisateur
+  answer: 2
+  explanation: Les RDD connaissent leurs ancêtres ; Flink, lui, repart d'un point de contrôle de l'état des opérateurs.
+  concept: ddia-batch-recompute-lineage
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Ton opérateur Go construit sa sortie en parcourant une map. Une partition perdue est recalculée alors que l'aval a déjà lu l'ancienne. Que risque-t-on ?
+  choices:
+  - Rien, l'ordre n'a pas d'importance pour Spark
+  - Une erreur de compilation
+  - Que le recalcul soit plus rapide
+  - Une sortie différente de celle déjà consommée ; il faut alors aussi tuer et relancer l'aval
+  answer: 3
+  explanation: L'ordre d'itération d'une map Go change d'une exécution à l'autre ; un opérateur doit être déterministe pour que le recalcul soit sûr.
+  concept: ddia-batch-determinism
+  difficulty: 3
+- id: q6
+  type: single
+  prompt: Dans le modèle Pregel, quand un sommet reçoit-il les messages qu'on lui envoie pendant l'itération 7 ?
+  choices:
+  - Immédiatement, pendant l'itération 7
+  - Au début de l'itération 8, exactement une fois
+  - Quand le reducer les a triés
+  - Seulement à la fin de tout le calcul
+  answer: 1
+  explanation: Les itérations sont synchronisées (BSP) ; le framework garantit une livraison unique à l'itération suivante.
+  concept: ddia-batch-pregel-bsp
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pourquoi PageRank est-il inefficace en MapReduce pur ?
+  choices:
+  - MapReduce ne sait pas représenter les arêtes
+  - Chaque itération relit et réécrit tout le graphe, même si peu de choses ont changé
+  - PageRank exige des transactions
+  - Les reducers ne peuvent pas calculer de moyenne
+  answer: 1
+  explanation: Pregel garde l'état des sommets en mémoire entre les itérations et n'envoie que des messages.
+  concept: ddia-batch-pregel-bsp
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: 'Tu écris `events.join(users, "user_id")` dans l''API DataFrame de Spark au lieu de coder la jointure à la main. Quel est le gain principal ?'
+  choices:
+  - L'optimiseur choisit l'algorithme (broadcast ou sort-merge) selon la taille des entrées
+  - La jointure devient transactionnelle
+  - Les données ne sont plus partitionnées
+  - Le job n'a plus besoin de cluster
+  answer: 0
+  explanation: Une API déclarative laisse un optimiseur fondé sur les coûts décider ; l'exécution vectorisée accélère ensuite le CPU.
+  concept: ddia-batch-high-level-apis
+  difficulty: 2

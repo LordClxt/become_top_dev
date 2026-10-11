@@ -1,0 +1,98 @@
+id: ddia-ch05-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: 'Bob voit le commentaire de Chloé, rafraîchit, et le commentaire a disparu. Quelle garantie manque ?'
+  choices:
+  - Read-your-writes
+  - Préfixe cohérent
+  - Lectures monotones
+  - Durabilité
+  answer: 2
+  explanation: Bob a vu le temps reculer, car ses deux lectures sont tombées sur des followers de retards différents. Ce n'est pas sa propre écriture, donc ce n'est pas read-your-writes.
+  concept: ddia-lag-monotonic-reads
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Comment garantir les lectures monotones simplement ?
+  choices:
+  - Répartir les lectures au hasard entre followers
+  - Router chaque utilisateur vers un réplica fixe, choisi par hachage de son identifiant
+  - Lire toujours sur le follower le plus rapide du moment
+  - Rendre la réplication synchrone
+  answer: 1
+  explanation: Un même réplica ne recule jamais. Il peut être en retard, mais l'état vu ne fait qu'avancer.
+  concept: ddia-lag-monotonic-reads
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Où se situent les lectures monotones par rapport aux autres garanties ?
+  choices:
+  - Plus fortes que la cohérence forte
+  - Équivalentes à la cohérence à terme
+  - Plus faibles que la cohérence à terme
+  - Plus fortes que la cohérence à terme, plus faibles que la cohérence forte
+  answer: 3
+  explanation: On peut lire des données périmées, mais jamais revenir en arrière.
+  concept: ddia-lag-monotonic-reads
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: 'Un observateur voit la réponse de Mme Cake avant la question de M. Poons. Quelle garantie est violée ?'
+  choices:
+  - Préfixe cohérent
+  - Read-your-writes
+  - Lectures monotones
+  - Cohérence à terme
+  answer: 0
+  explanation: Des écritures causalement liées apparaissent dans le désordre ; le lecteur ne voit pas un préfixe de l'histoire.
+  concept: ddia-lag-consistent-prefix
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Pourquoi le préfixe cohérent est-il surtout un problème dans les bases partitionnées ?'
+  choices:
+  - Parce que les partitions sont toujours synchrones
+  - Parce que chaque partition a son propre log et avance indépendamment, sans ordre global
+  - Parce qu'un seul leader ne peut pas ordonner les écritures
+  - Parce que les partitions ne répliquent pas
+  answer: 1
+  explanation: Avec un seul log, l'ordre est unique. Avec plusieurs partitions indépendantes, une lecture peut voir l'une plus tard que l'autre.
+  concept: ddia-lag-prefix-partitions
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Une messagerie partitionne ses messages par auteur. Questions et réponses s''affichent parfois dans le désordre. Que changer ?'
+  choices:
+  - Augmenter le nombre de partitions
+  - Lire au hasard sur les followers
+  - Partitionner par conversation, pour qu'une question et sa réponse partagent le même log
+  - Raccourcir le délai de failover
+  answer: 2
+  explanation: Les données causalement liées dans la même partition gardent leur ordre.
+  concept: ddia-lag-prefix-partitions
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Quelle question faut-il se poser pour chaque fonctionnalité lue sur des followers asynchrones ?
+  choices:
+  - Que se passe-t-il si le retard monte à plusieurs minutes, voire heures ?
+  - Le retard moyen est-il inférieur à 100 ms ?
+  - Combien de followers sont synchrones ?
+  - Le leader est-il dans le même datacenter ?
+  answer: 0
+  explanation: Faire comme si la réplication était synchrone alors qu'elle est asynchrone est la recette des problèmes.
+  concept: ddia-lag-design-mindset
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: 'Le réplica fixe de Bob tombe en panne. Le routeur le redirige vers un autre follower. Comment garder les lectures monotones ?'
+  choices:
+  - Choisir un follower au hasard
+  - Toujours lire au leader, définitivement
+  - N'accepter qu'un follower dont la position a atteint la plus haute position déjà lue par Bob
+  - Attendre que le réplica d'origine redémarre, sans rien servir
+  answer: 2
+  explanation: Un autre réplica peut être plus en retard ; comparer les positions évite de reculer, sinon on lit au leader.
+  concept: ddia-lag-monotonic-reads
+  difficulty: 3

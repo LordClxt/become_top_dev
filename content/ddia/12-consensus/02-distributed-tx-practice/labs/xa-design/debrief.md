@@ -1,0 +1,3 @@
+**L'acquittement du message et l'écriture en base forment une seule transaction.** Si l'un échoue, les deux sont annulés et le broker redélivre : le nouvel essai est sûr, l'effet n'est appliqué qu'une fois. Le coordinateur parle à chaque participant (prepare, puis commit) ; les participants ne se connaissent pas.
+
+Mais regarde où vit le coordinateur : **dans le processus applicatif**, avec son journal sur le disque local. Si cette machine disparaît, la base et le broker gardent des transactions en doute, et leurs verrous. Ton serveur d'application n'est plus sans état ; son disque est aussi précieux que la base. Un journal en mémoire ou des décisions heuristiques automatiques « résoudraient » le blocage en cassant l'atomicité.

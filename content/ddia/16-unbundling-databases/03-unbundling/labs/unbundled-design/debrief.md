@@ -1,0 +1,3 @@
+**Tu viens de sortir les index de la base.** L'index de recherche et le cache jouent le rôle d'un index secondaire et d'une vue matérialisée, mais dans des systèmes spécialisés. Ils sont **dérivés** : chacun est maintenu par un consommateur du même log de changements, donc dans le même ordre que la base, et chacun peut être reconstruit depuis l'instantané initial et le log.
+
+Le service n'écrit qu'à un seul endroit : pas de double écriture qui diverge, pas de coordinateur XA qui bloque tout dès qu'un participant tombe. Si l'indexeur s'arrête deux heures, le log met en tampon et il rattrape à son retour : c'est le couplage faible.

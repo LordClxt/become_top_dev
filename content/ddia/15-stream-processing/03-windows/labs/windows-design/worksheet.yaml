@@ -1,0 +1,83 @@
+intro: |
+  Un utilisateur produit huit clics (temps de l'événement) : **10:00:05, 10:00:40, 10:01:10, 10:01:35, 10:02:30, 10:04:20, 10:04:50, 10:07:00**.
+
+  Toutes les fenêtres sont semi-ouvertes `[début, fin)`.
+blocks:
+- id: counts
+  type: table
+  title: Remplir les fenêtres
+  prompt: Combien de clics dans chaque fenêtre ? Les fenêtres **tumbling** durent 1 minute ; les fenêtres **hopping** durent 2 minutes et avancent d'une minute.
+  columns:
+  - id: n
+    label: Clics
+  rows:
+  - id: t0
+    label: Tumbling [10:00, 10:01)
+  - id: t1
+    label: Tumbling [10:01, 10:02)
+  - id: t2
+    label: Tumbling [10:02, 10:03)
+  - id: t4
+    label: Tumbling [10:04, 10:05)
+  - id: h0
+    label: Hopping [10:00, 10:02)
+  - id: h1
+    label: Hopping [10:01, 10:03)
+  - id: h4
+    label: Hopping [10:04, 10:06)
+- id: membership
+  type: number
+  title: Combien de fenêtres hopping ?
+  prompt: Avec des fenêtres hopping de 2 minutes au pas d'une minute, à combien de fenêtres appartient le clic de 10:01:35 ?
+  unit: fenêtres
+- id: burst
+  type: multi
+  title: Qui voit la rafale ?
+  prompt: 'Règle : alerter dès que **3 clics** tombent dans une même fenêtre d''une minute. Avec quels types de fenêtres d''une minute l''alerte se déclenche-t-elle sur ce flux ?'
+  options:
+  - id: tumbling
+    label: Tumbling d'une minute
+  - id: sliding
+    label: Sliding d'une minute (clics à moins de 60 s les uns des autres)
+  - id: hopping
+    label: Hopping d'une minute au pas de 30 s
+- id: sessions
+  type: number
+  title: Combien de sessions ?
+  prompt: Une session se termine quand deux clics consécutifs sont séparés de **60 s ou plus**. Combien de sessions compte cet utilisateur ?
+  unit: sessions
+- id: sessionEnd
+  type: choice
+  title: La fin de la première session
+  prompt: Une session se ferme à son dernier clic + l'écart. Quand la première session est-elle complète, si aucun retardataire n'arrive ?
+  options:
+  - id: e1
+    label: '10:02:30'
+  - id: e2
+    label: '10:03:30'
+  - id: e3
+    label: '10:03:00'
+  - id: e4
+    label: '10:04:20'
+- id: choose
+  type: match
+  title: Quelle fenêtre pour quel besoin ?
+  prompt: Associe chaque besoin au type de fenêtre adapté.
+  items:
+  - id: report
+    label: Le rapport des ventes heure par heure
+  - id: smooth
+    label: Une courbe de latence moyenne sur 5 minutes, rafraîchie chaque minute
+  - id: limit
+    label: « Au plus 5 messages dans n'importe quel intervalle de 10 secondes » (anti-spam)
+  - id: visit
+    label: La durée moyenne d'une visite sur le site
+  categories:
+  - id: tumbling
+    label: Tumbling
+  - id: hopping
+    label: Hopping
+  - id: sliding
+    label: Sliding
+  - id: session
+    label: Session

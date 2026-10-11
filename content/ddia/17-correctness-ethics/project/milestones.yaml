@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Une requête, un effet"
+    goal: "Ajouter les virements au log en dédupliquant par identifiant (et refuser un identifiant réutilisé), dériver débit et crédit, et les appliquer de façon idempotente dans la partition de chaque compte, même après une relivraison."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Premier arrivé dans le log"
+    goal: "Imposer l'unicité des pseudos : partitionner par pseudo normalisé, traiter chaque partition dans l'ordre, publier succès ou refus, et rendre la même décision aux réessais."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Faire confiance, mais vérifier"
+    goal: "Recalculer les soldes depuis le log en ne comptant chaque identifiant qu'une fois, rassembler les soldes des partitions et signaler chaque écart, trié par compte."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Ton auditeur recalcule les soldes depuis le log. Quelles hypothèses fait-il encore (sur le log lui-même, sur la version du code de dérivation) ? Que faudrait-il ajouter pour détecter un log réécrit, et pourquoi ce contrôle de bout en bout attrape-t-il des bugs qu'aucun test unitaire de Shard.Apply ne verrait ?"

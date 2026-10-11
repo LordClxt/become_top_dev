@@ -1,0 +1,29 @@
+id: ddia-ch08
+title: Isolation faible et MVCC
+subtitle: 'Ce que garantit vraiment une transaction : ACID démystifié, read committed, snapshot isolation, mises à jour perdues et write skew'
+source:
+  chapter: 7
+  pages: 221-251
+objectives:
+- Expliquer ce que garantit chaque lettre d'ACID, et réessayer une transaction abandonnée sans doublon ni effet de bord répété
+- Distinguer lecture sale, écriture sale et read skew, et dire lesquelles read committed et le snapshot isolation empêchent
+- Appliquer les règles de visibilité MVCC (created_by, deleted_by, transactions en cours au démarrage) pour prédire ce que lit une transaction
+- Choisir la parade à une mise à jour perdue entre opération atomique, verrou explicite, détection automatique, compare-and-set et fusion de versions répliquées
+- Reconnaître un write skew et un fantôme dans un motif lire-décider-écrire, et le corriger par contrainte, verrou explicite ou matérialisation des conflits
+- Implémenter un moteur MVCC en mémoire qui donne un instantané cohérent et refuse la seconde de deux écritures concurrentes
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch07
+lessons:
+- 01-transactions-acid
+- 02-read-committed
+- 03-snapshot-mvcc
+- 04-lost-updates
+- 05-write-skew-phantoms
+xp:
+  assignment: 125
+  project: 240
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

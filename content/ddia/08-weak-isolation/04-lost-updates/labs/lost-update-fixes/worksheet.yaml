@@ -1,0 +1,71 @@
+intro: |
+  Ton équipe trouve des mises à jour perdues un peu partout : compteurs de vues, parties d'un jeu en ligne, wiki, paniers répliqués. Tu chiffres les dégâts et tu choisis la parade.
+blocks:
+- id: pairs
+  type: number
+  title: Le compteur qui retarde
+  prompt: 'Un compteur part de **0**. Deux workers font chacun **50** incréments par cycle lire-modifier-écrire, en read committed. Malchance totale, leurs cycles tombent toujours par paires : les deux lisent la même valeur, puis les deux écrivent lu + 1. Valeur finale ?'
+  unit: ''
+- id: fix
+  type: match
+  title: La bonne parade
+  prompt: Range chaque situation sous la parade la plus adaptée.
+  items:
+  - id: views
+    label: Compteur de vues d'une page, dans PostgreSQL
+  - id: game
+    label: Déplacer une pièce d'un jeu en vérifiant des règles complexes écrites en Go, dans MySQL
+  - id: wiki
+    label: Enregistrer une page wiki dans une base de documents sans transactions
+  - id: cart
+    label: Panier stocké dans une base sans leader, modifié en même temps sur deux réplicas
+  - id: lazy
+    label: Une équipe sur PostgreSQL qui ne veut gérer ni verrous ni opérations spéciales, seulement réessayer en cas d'erreur
+  categories:
+  - id: atomic
+    label: Opération atomique (UPDATE … SET n = n + 1)
+  - id: lock
+    label: Verrou explicite (SELECT … FOR UPDATE)
+  - id: detect
+    label: Détection automatique par la base (repeatable read)
+  - id: cas
+    label: Compare-and-set
+  - id: merge
+    label: Versions concurrentes fusionnées, opérations commutatives
+- id: dbs
+  type: multi
+  title: Qui détecte tout seul ?
+  prompt: Coche les niveaux qui détectent automatiquement une mise à jour perdue et abandonnent la transaction perdante.
+  options:
+  - id: pg
+    label: PostgreSQL, repeatable read
+  - id: oracle
+    label: Oracle, serializable
+  - id: mssql
+    label: SQL Server, snapshot isolation
+  - id: innodb
+    label: MySQL/InnoDB, repeatable read
+  - id: rc
+    label: PostgreSQL, read committed
+- id: orm
+  type: choice
+  title: Le code de l'ORM
+  prompt: 'Un développeur écrit `page = Page.get(id); page.views += 1; page.save()`. Que se passe-t-il sous forte charge ?'
+  options:
+  - id: lost
+    label: Des incréments se perdent, car c'est un cycle lire-modifier-écrire dans l'application
+    hint: Remplacer par un UPDATE … SET views = views + 1
+  - id: atomic
+    label: Rien, l'ORM traduit `+=` en opération atomique
+  - id: dirty
+    label: Des lectures sales apparaissent
+- id: cas
+  type: number
+  title: Le compare-and-set disputé
+  prompt: '**10** clients font un compare-and-set sur la même ligne au même instant. À chaque tour, tous les clients restants tentent leur UPDATE, un seul réussit, les autres relisent et recommencent au tour suivant. Combien de tentatives d''UPDATE au total pour que les 10 réussissent ?'
+  unit: tentatives
+- id: lww
+  type: number
+  title: LWW sur un compteur répliqué
+  prompt: Un compteur répliqué vaut **7** sur trois réplicas. Chaque réplica reçoit en même temps un incrément, lit 7 et écrit 8. La base résout le conflit en dernière écriture gagnante. Valeur finale ?
+  unit: ''

@@ -1,0 +1,59 @@
+checks:
+- id: ask
+  label: Les clients demandent le bail au service de verrous
+  rule: edge_kind
+  source: client
+  target: locknode
+  kind: sync
+- id: zone
+  label: Les nœuds de verrous forment un service à part
+  rule: in_zone
+  source: locknode
+  target: lockzone
+- id: quorum
+  label: 'Au moins 3 nœuds de verrous : une majorité survit à la panne de l''un d''eux'
+  rule: count
+  source: locknode
+  min: 3
+  max: 7
+- id: replicate
+  label: 'Les nœuds se répliquent l''état du verrou : la majorité décide qui le détient'
+  rule: edge_kind
+  source: locknode
+  target: locknode
+  kind: replication
+- id: two-clients
+  label: Deux clients se disputent le verrou
+  rule: count
+  source: client
+  min: 2
+- id: write
+  label: Les clients écrivent dans le stockage en joignant leur jeton
+  rule: edge_kind
+  source: client
+  target: storage
+  kind: write
+- id: only-clients
+  label: Seuls les clients, jeton en main, écrivent dans le stockage
+  rule: inbound_via
+  target: storage
+  via: client
+- id: one-storage
+  label: Une seule ressource protégée
+  rule: count
+  source: storage
+  min: 1
+  max: 1
+- id: no-redis
+  label: 'Pas de verrou sur un Redis unique : il tombe seul et ne fournit pas de jeton croissant'
+  rule: count
+  source: redis
+  max: 0
+- id: no-wall
+  label: 'Pas d''heure murale comme jeton : elle n''est ni croissante ni fiable'
+  rule: count
+  source: walltoken
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

@@ -1,0 +1,3 @@
+**Aucune couche intermédiaire ne connaît l'intention de l'utilisateur.** TCP déduplique les paquets d'une connexion, la transaction rend un groupe d'écritures atomique, le 2PC survit à une coupure entre serveur et bases. Mais un renvoi de formulaire est une nouvelle requête, une nouvelle connexion, une nouvelle transaction : pour la pile, rien ne le distingue d'un second virement.
+
+Le remède est de bout en bout : un identifiant généré **par le client**, transmis jusqu'à la base, et une **contrainte d'unicité** qui fait échouer le second `INSERT`. À 2 millions de virements par jour, 0,3 % de réessais dont 40 % déjà exécutés font 2 000 000 × 0,003 × 0,4 = **2 400** doubles débits par jour : rares en proportion, mais 2 400 clients lésés chaque jour.

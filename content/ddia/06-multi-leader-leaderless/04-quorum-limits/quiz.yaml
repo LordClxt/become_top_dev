@@ -1,0 +1,98 @@
+id: ddia-ch06-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle condition un quorum doit-il vraiment respecter pour garantir le chevauchement ?
+  choices:
+  - w et r doivent tous deux être des majorités
+  - w + r > n, sans qu'il s'agisse forcément de majorités
+  - w = r
+  - n doit être impair
+  answer: 1
+  explanation: 'n = 6, w = 5, r = 2 chevauche aussi ; la majorité est un choix courant, pas une obligation.'
+  concept: ddia-quorum-edge-cases
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: n = 3, w = 3. Une écriture réussit sur A et échoue sur B et C (disque plein). Le client reçoit une erreur. Que peut renvoyer ensuite une lecture qui interroge A ?
+  choices:
+  - Toujours l'ancienne valeur, l'écriture a été annulée
+  - Une erreur
+  - La nouvelle valeur, car l'écriture n'est pas annulée sur A
+  - Rien, A est mis en quarantaine
+  answer: 2
+  explanation: 'Une écriture qui n''atteint pas w n''est pas annulée là où elle a réussi : on peut la lire ensuite.'
+  concept: ddia-quorum-edge-cases
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Avec w + r > n, dans quels cas peut-on quand même lire une valeur périmée ?
+  choices:
+  - Une écriture concurrente à la lecture n'a atteint qu'une partie des réplicas
+  - Un réplica portant la nouvelle valeur est restauré à partir d'un réplica portant l'ancienne
+  - Le quorum lâche a placé l'écriture sur des nœuds hors des n d'origine
+  - Tous les réplicas sont à jour et aucune écriture n'est en cours
+  answer: [0, 1, 2]
+  explanation: Le dernier cas est le seul où la garantie tient sans réserve.
+  concept: ddia-quorum-edge-cases
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Ton équipe veut garantir l'unicité des pseudos avec des lectures et écritures quorum dans Cassandra. Ton avis ?
+  choices:
+  - Bonne idée, w + r > n le garantit
+  - Bonne idée si n est impair
+  - Il suffit d'activer le quorum lâche
+  - Risqué ; les cas limites laissent passer des doublons, il faut des transactions ou du consensus
+  answer: 3
+  explanation: Les quorums Dynamo règlent une probabilité de péremption ; ce n'est pas une garantie d'unicité.
+  concept: ddia-quorum-edge-cases
+  difficulty: 3
+- id: q5
+  type: single
+  prompt: Pourquoi mesurer le retard des réplicas est-il plus difficile sans leader ?
+  choices:
+  - Il n'y a pas d'ordre fixe des écritures, donc pas de position de journal à comparer
+  - Les réplicas refusent d'exposer des métriques
+  - Le retard est toujours nul
+  - L'anti-entropie efface les métriques
+  answer: 0
+  explanation: Avec un leader, on soustrait les positions dans le journal ; sans leader, cette mesure n'existe pas.
+  concept: ddia-staleness-monitoring
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Que fait un quorum lâche pendant une coupure qui isole le client de deux des trois nœuds d'origine ?
+  choices:
+  - Il renvoie une erreur
+  - Il écrit sur des nœuds joignables, même hors des nœuds d'origine, tant qu'il obtient w accusés
+  - Il élit un nouveau leader
+  - Il attend la fin de la coupure
+  answer: 1
+  explanation: 'Plus de disponibilité en écriture ; mais la lecture n''est plus garantie de croiser l''écriture.'
+  concept: ddia-sloppy-quorum
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Qu'est-ce que le hinted handoff ?
+  choices:
+  - La copie de toutes les données vers un nouveau nœud
+  - Une élection de leader
+  - Le transfert, à la fin de la coupure, des écritures acceptées pour le compte d'un nœud d'origine
+  - Un read repair déclenché à la lecture
+  answer: 2
+  explanation: Le voisin qui t'a hébergé sur son canapé te renvoie chez toi.
+  concept: ddia-hinted-handoff
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: n = 6, trois réplicas à Paris et trois à Singapour (160 ms d'aller-retour), quorum local de 2 dans Cassandra. Combien attend une écriture parisienne ?
+  choices:
+  - Les deux réplicas parisiens les plus rapides, quelques millisecondes
+  - Au moins un réplica de Singapour, donc 160 ms
+  - Les six réplicas
+  - Une majorité des six, dont forcément un singapourien
+  answer: 0
+  explanation: 'Le client n''attend que le quorum de son site ; l''écriture part quand même vers Singapour, de façon asynchrone.'
+  concept: ddia-leaderless-multi-dc
+  difficulty: 2

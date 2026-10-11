@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Qu'est-ce qu'un événement dans un flux ?
+  back: Un petit objet autonome et immuable qui décrit ce qui s'est passé à un instant, en général horodaté.
+  concept: ddia-event-stream-basics
+- id: fc2
+  front: Sujet (topic) ?
+  back: Le regroupement nommé d'événements liés ; l'équivalent, pour un flux, du fichier dans un lot.
+  concept: ddia-event-stream-basics
+- id: fc3
+  front: Pourquoi ne pas sonder une base pour détecter les événements ?
+  back: Plus l'intervalle est court, plus on fait de requêtes vides ; plus il est long, plus la latence grimpe. Mieux vaut être notifié.
+  concept: ddia-polling-vs-notification
+- id: fc4
+  front: 'Producteur plus rapide que le consommateur : les trois options ?'
+  back: Perdre des messages, les mettre en tampon, ou exercer une contre-pression sur le producteur.
+  concept: ddia-producer-overload-choices
+- id: fc5
+  front: Contre-pression ?
+  back: Bloquer le producteur tant que le consommateur n'a pas suivi ; c'est ce que font les pipes Unix et TCP.
+  concept: ddia-producer-overload-choices
+- id: fc6
+  front: Quand peut-on accepter de perdre des messages ?
+  back: Quand chaque message compte peu (métriques agrégées), jamais quand on compte les événements.
+  concept: ddia-message-durability-tradeoff
+- id: fc7
+  front: Limite de la messagerie directe (UDP, ZeroMQ, webhooks) ?
+  back: Producteur et consommateur doivent être en ligne en même temps ; l'application gère elle-même les pertes.
+  concept: ddia-direct-messaging
+- id: fc8
+  front: Que fait un broker classique d'un message livré ?
+  back: Il le supprime. C'est une file de transit, pas un stockage long terme.
+  concept: ddia-broker-vs-database
+- id: fc9
+  front: 'Broker contre base : requêtes ?'
+  back: La base répond à des requêtes à un instant ; le broker ne répond pas aux requêtes arbitraires mais notifie quand les données changent.
+  concept: ddia-broker-vs-database

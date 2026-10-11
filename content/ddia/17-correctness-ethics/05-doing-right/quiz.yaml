@@ -1,0 +1,115 @@
+id: ddia-ch17-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Une banque retire l'origine ethnique des variables de son modèle de crédit, mais garde le code postal, dans une ville très ségréguée. Que se passe-t-il ?
+  choices:
+  - Le modèle devient neutre
+  - Le code postal sert de variable de substitution et le modèle peut retrouver la discrimination par la bande
+  - Le modèle perd toute précision
+  - Le code postal est un attribut protégé, donc interdit
+  answer: 1
+  explanation: Les données regorgent de proxys ; retirer l'attribut ne retire pas la corrélation.
+  concept: ddia-ethics-predictive-bias
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Pourquoi une prédiction apprise sur l'historique ne rend-elle pas le futur plus juste que le passé ?
+  choices:
+  - Parce qu'elle extrapole les régularités du passé, y compris ses injustices
+  - Parce que les modèles sont toujours faux
+  - Parce que les données historiques sont trop petites
+  - Parce que les algorithmes sont plus biaisés que les humains par nature
+  answer: 0
+  explanation: Rendre le futur meilleur demande un jugement moral, que seules les personnes peuvent apporter.
+  concept: ddia-ethics-predictive-bias
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Un modèle signale 2 000 personnes « à risque » ; 500 le sont réellement. Quelle part des personnes signalées subit la décision à tort ?
+  choices:
+  - 25 %
+  - 50 %
+  - 80 %
+  - 75 %
+  answer: 3
+  explanation: 1 500 sur 2 000, soit 75 %. Une prédiction est statistique ; pour chacune de ces personnes, l'erreur est totale.
+  concept: ddia-ethics-accountability
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Qu'est-ce qui distingue un score de crédit appris sur des données très variées d'un score classique ?
+  choices:
+  - Il est toujours plus exact
+  - Il répond à « qui te ressemble et comment ces gens se sont comportés », souvent de façon opaque et difficile à contester
+  - Il n'utilise aucune donnée personnelle
+  - Il est réglementé par la directive de 1995
+  answer: 1
+  explanation: Le score classique juge ton propre passé ; le second relève du stéréotype.
+  concept: ddia-ethics-accountability
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Remets dans l'ordre la spirale du score de crédit utilisé à l'embauche. Choisis la bonne séquence.
+  choices:
+  - Un bon salarié subit un coup dur et manque quelques échéances → Son score baisse → Son score baisse encore, ce qui confirme la prédiction → Il trouve plus difficilement un emploi et s'appauvrit
+  - Son score baisse encore, ce qui confirme la prédiction → Il trouve plus difficilement un emploi et s'appauvrit → Son score baisse → Un bon salarié subit un coup dur et manque quelques échéances
+  - Son score baisse → Il trouve plus difficilement un emploi et s'appauvrit → Son score baisse encore, ce qui confirme la prédiction → Un bon salarié subit un coup dur et manque quelques échéances
+  - Un bon salarié subit un coup dur et manque quelques échéances → Son score baisse → Il trouve plus difficilement un emploi et s'appauvrit → Son score baisse encore, ce qui confirme la prédiction
+  answer: 3
+  explanation: Le système fabrique la preuve qui le justifie ; c'est une boucle de rétroaction auto-renforçante.
+  concept: ddia-ethics-feedback-loops
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Pourquoi le consentement aux conditions d'utilisation est-il un argument faible ?
+  choices:
+  - Les utilisateurs savent peu ce qui est collecté et comment c'est croisé
+  - Les conditions sont fixées par le service, sans négociation
+  - Des personnes qui n'ont rien accepté sont pistées via leurs proches
+  - Les politiques de confidentialité sont toujours illégales
+  - Refuser un service socialement indispensable a un coût réel
+  answer:
+  - 0
+  - 1
+  - 2
+  - 4
+  explanation: Asymétrie d'information, absence de négociation, tiers non consentants, et liberté de choix limitée.
+  concept: ddia-ethics-consent
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Selon le livre, avoir une vie privée signifie…
+  choices:
+  - tout garder secret
+  - n'avoir rien à cacher
+  - avoir la liberté de choisir ce qu'on révèle, à qui, et ce qu'on garde pour soi
+  - ne pas utiliser Internet
+  answer: 2
+  explanation: C'est un droit de décider ; la surveillance transfère ce droit au collecteur.
+  concept: ddia-ethics-data-as-power
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Ton équipe veut conserver indéfiniment l'historique de géolocalisation « au cas où il servirait ». Quel argument du livre s'y oppose le plus directement ?
+  choices:
+  - Le stockage coûte trop cher
+  - Les données de localisation sont imprécises
+  - La loi impose de tout supprimer après un jour
+  - Une donnée gardée est exposée aux fuites et aux gouvernements futurs ; il faut la purger quand elle ne sert plus
+  answer: 3
+  explanation: La donnée est un pouvoir et une matière dangereuse ; finalité déclarée et minimisation s'opposent au « tout garder ».
+  concept: ddia-ethics-regulation
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: À quoi sert l'expérience de pensée « remplace données par surveillance » ?
+  choices:
+  - À rendre visible ce que l'on construit réellement quand on piste le comportement des utilisateurs
+  - À renommer les tables d'une base
+  - À montrer que la surveillance est toujours illégale
+  - À prouver que les données sont neutres
+  answer: 0
+  explanation: Les mêmes phrases, avec ce mot, décrivent une infrastructure qu'aucun régime totalitaire n'aurait osé espérer.
+  concept: ddia-ethics-surveillance
+  difficulty: 1

@@ -1,0 +1,113 @@
+id: ddia-ch08-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Alice a 500 € sur chacun de ses deux comptes. Un virement de 100 € passe du compte 2 au compte 1 pendant qu'elle lit le compte 1 puis le compte 2, en read committed. Quel total peut-elle voir ?
+  choices:
+  - 1 000 €, toujours
+  - 900 €
+  - 1 100 €
+  - Rien, sa lecture est bloquée
+  answer: 1
+  explanation: 'Compte 1 lu avant (500 €), compte 2 après (400 €) : c''est le read skew.'
+  concept: ddia-read-skew
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Pourquoi le read skew est-il grave pour une sauvegarde, alors qu'il ne l'est pas pour Alice ?
+  choices:
+  - Une sauvegarde restaurée rend l'incohérence permanente
+  - Une sauvegarde prend des verrous de lecture
+  - Les sauvegardes ne lisent que des données non validées
+  - Ce n'est pas grave non plus pour une sauvegarde
+  answer: 0
+  explanation: Alice recharge la page ; une copie incohérente restaurée ne se corrige jamais seule.
+  concept: ddia-read-skew
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Qu'est-ce qu'une transaction voit en snapshot isolation ?
+  choices:
+  - La dernière valeur validée au moment de chaque lecture
+  - Toutes les écritures, validées ou non
+  - Toutes les données validées au moment où elle a démarré, et rien d'autre
+  - Les données de la dernière sauvegarde
+  answer: 2
+  explanation: 'Un instantané figé au démarrage : même si la base change, la transaction ne le voit pas.'
+  concept: ddia-snapshot-isolation
+  difficulty: 1
+- id: q4
+  type: multiple
+  prompt: Quelles affirmations sur le snapshot isolation sont vraies ?
+  choices:
+  - Les lecteurs ne bloquent jamais les écrivains
+  - Les écrivains ne bloquent jamais les lecteurs
+  - Un écrivain peut bloquer un autre écrivain sur la même ligne
+  - Chaque lecture prend un verrou partagé
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Les verrous d'écriture empêchent les écritures sales ; les lectures ne prennent aucun verrou.
+  concept: ddia-snapshot-isolation
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: La transaction 13 retire 100 € d'un compte dont la version courante est {500 €, created_by 3}. Que fait une base MVCC comme PostgreSQL ?
+  choices:
+  - Elle écrase 500 par 400 dans la même version
+  - Elle marque la version deleted_by 13 et crée {400 €, created_by 13}
+  - Elle supprime la version de 500 € immédiatement
+  - Elle crée une version {400 €, created_by 3}
+  answer: 1
+  explanation: Une mise à jour = une suppression (deleted_by) + une création ; le ramasse-miettes nettoiera plus tard.
+  concept: ddia-mvcc-versions
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: La transaction 20 démarre alors que la 18 est en cours. Ensuite la 18 valide, puis la 21 démarre, écrit et valide. Quelles écritures la 20 voit-elle ?
+  choices:
+  - Celles de la 18 et de la 21
+  - Celles de la 18 seulement
+  - Celles de la 21 seulement
+  - Ni l'une ni l'autre
+  answer: 3
+  explanation: La 18 était en cours au démarrage (règle 1) ; la 21 a un txid plus grand (règle 3).
+  concept: ddia-mvcc-visibility-rules
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Remets dans l'ordre ce que fait PostgreSQL pour une mise à jour sous MVCC. Choisis la bonne séquence.
+  choices:
+  - Marquer deleted_by sur la version actuelle et créer une version created_by avec ce txid → Valider la transaction → Le ramasse-miettes supprime l'ancienne version quand plus personne ne peut la voir → Attribuer un txid croissant au démarrage de la transaction
+  - Marquer deleted_by sur la version actuelle et créer une version created_by avec ce txid → Attribuer un txid croissant au démarrage de la transaction → Valider la transaction → Le ramasse-miettes supprime l'ancienne version quand plus personne ne peut la voir
+  - Attribuer un txid croissant au démarrage de la transaction → Marquer deleted_by sur la version actuelle et créer une version created_by avec ce txid → Valider la transaction → Le ramasse-miettes supprime l'ancienne version quand plus personne ne peut la voir
+  - Attribuer un txid croissant au démarrage de la transaction → Marquer deleted_by sur la version actuelle et créer une version created_by avec ce txid → Le ramasse-miettes supprime l'ancienne version quand plus personne ne peut la voir → Valider la transaction
+  answer: 2
+  explanation: L'ancienne version reste lisible par les transactions plus anciennes jusqu'au nettoyage.
+  concept: ddia-mvcc-versions
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Comment fonctionne un B-tree en ajout seul (CouchDB, LMDB) pour fournir des instantanés ?
+  choices:
+  - Il filtre chaque ligne par txid
+  - Il copie la page modifiée et tous ses parents jusqu'à une nouvelle racine ; chaque racine est un instantané
+  - Il prend un verrou sur la racine pendant chaque lecture
+  - Il garde une copie complète de la base par transaction
+  answer: 1
+  explanation: Les pages non modifiées sont partagées ; une écriture ultérieure ne touche jamais un arbre existant.
+  concept: ddia-mvcc-indexes
+  difficulty: 3
+- id: q9
+  type: single
+  prompt: Dans PostgreSQL, tu choisis le niveau REPEATABLE READ. Qu'obtiens-tu ?
+  choices:
+  - La sérialisabilité
+  - Read committed
+  - Le snapshot isolation
+  - Read uncommitted
+  answer: 2
+  explanation: PostgreSQL et MySQL appellent repeatable read leur snapshot isolation ; Oracle l'appelle serializable.
+  concept: ddia-repeatable-read-naming
+  difficulty: 2

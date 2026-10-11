@@ -1,0 +1,3 @@
+**Dans une base mono-thread, chaque microseconde d'attente est perdue pour tout le monde.** La transaction interactive occupe le thread 3 × 0,8 + 0,04 = 2,44 ms, soit environ **410 transactions/s**. La même logique en procédure stockée n'occupe que les 40 µs de travail : **25 000 transactions/s**, 60 fois plus.
+
+Les charges qui conviennent sont petites, rapides et en mémoire ; l'analytique tourne à part sur un snapshot ; tout ce qui attend un humain ou le disque n'a rien à faire dans la boucle. Enfin, rejouer une procédure sur les réplicas suppose qu'elle soit déterministe : heure système, aléa et ordre d'itération d'une table de hachage font diverger les copies.

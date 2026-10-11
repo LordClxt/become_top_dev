@@ -1,0 +1,54 @@
+id: ddia-ch14-l04-lab-cdc-design
+title: En finir avec les doubles écritures
+difficulty: 3
+xp: 70
+concepts:
+- ddia-dual-writes-problem
+- ddia-change-data-capture
+- ddia-log-compaction-keyed
+- ddia-replication-log-as-stream
+source:
+  chapter: 11
+  pages: 451-457
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: service
+  label: Service catalogue
+  hint: Le code qui crée et modifie les produits.
+- type: db
+  component: postgres
+  label: PostgreSQL (système de référence)
+  hint: La version qui fait foi des produits.
+- type: cdc
+  component: worker
+  label: Connecteur CDC
+  hint: Décode le log de réplication (WAL) et publie chaque changement.
+- type: log
+  component: kafka
+  label: Sujet compacté « produits »
+  hint: Log partitionné par identifiant de produit, compacté par clé.
+- type: search
+  component: search
+  label: Index de recherche
+  hint: Recherche plein texte sur les produits.
+- type: cache
+  component: redis
+  label: Cache des fiches produit
+  hint: Lectures rapides des fiches.
+- type: wh
+  component: warehouse
+  label: Entrepôt de données
+  hint: Analyses sur l'historique des produits.
+- type: trigger
+  component: cron
+  label: Déclencheur SQL
+  hint: Recopie chaque changement dans une table de journal.
+- type: poller
+  component: function
+  label: Sondage de la table toutes les 5 s
+  hint: Cherche les lignes modifiées depuis le dernier passage.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

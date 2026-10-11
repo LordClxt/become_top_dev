@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Ajouter un follower sans interruption ?
+  back: Snapshot cohérent associé à une position du log, copie, puis demander tous les changements depuis cette position.
+  concept: ddia-follower-bootstrap
+- id: fc2
+  front: LSN ?
+  back: Log sequence number de PostgreSQL, la position dans le log de réplication (MySQL dit coordonnées du binlog).
+  concept: ddia-follower-bootstrap
+- id: fc3
+  front: Rattrapage d'un follower redémarré ?
+  back: Il retrouve dans son log la dernière position appliquée et demande au leader la suite.
+  concept: ddia-follower-catchup
+- id: fc4
+  front: Les trois étapes d'un failover automatique ?
+  back: Détecter la panne (délai), choisir le follower le plus à jour, reconfigurer clients, followers et ancien leader.
+  concept: ddia-leader-failover
+- id: fc5
+  front: Que fait-on des écritures non répliquées de l'ancien leader ?
+  back: Le plus souvent, on les jette, ce qui trahit la durabilité promise aux clients.
+  concept: ddia-failover-lost-writes
+- id: fc6
+  front: Incident GitHub ?
+  back: Follower MySQL en retard promu, clés auto-incrémentées réattribuées, déjà utilisées dans Redis, données privées exposées.
+  concept: ddia-failover-lost-writes
+- id: fc7
+  front: Split brain ?
+  back: Deux nœuds se croient leader et acceptent des écritures. Fencing/STONITH en éteint un (parfois les deux, si mal conçu).
+  concept: ddia-failover-split-brain
+- id: fc8
+  front: Délai de détection trop court ?
+  back: Failovers inutiles sur un pic de charge ou une coupure brève, qui aggravent la surcharge.
+  concept: ddia-failover-timeout
+- id: fc9
+  front: Délai de détection trop long ?
+  back: Reprise lente ; les écritures échouent pendant toute la durée du délai.
+  concept: ddia-failover-timeout

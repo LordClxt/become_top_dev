@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Read skew ?
+  back: Lire deux parties de la base à des instants différents et voir un état qui n'a jamais existé (Alice voit 900 € au lieu de 1 000 €).
+  concept: ddia-read-skew
+- id: fc2
+  front: Qui ne tolère pas le read skew ?
+  back: Les sauvegardes (incohérence permanente une fois restaurée), l'analytique et les contrôles d'intégrité.
+  concept: ddia-read-skew
+- id: fc3
+  front: Snapshot isolation ?
+  back: Chaque transaction lit toutes les données validées à son démarrage, et rien d'autre.
+  concept: ddia-snapshot-isolation
+- id: fc4
+  front: Le principe clé du snapshot isolation ?
+  back: Les lecteurs ne bloquent jamais les écrivains, et les écrivains ne bloquent jamais les lecteurs.
+  concept: ddia-snapshot-isolation
+- id: fc5
+  front: created_by / deleted_by ?
+  back: Le txid qui a créé la version, et celui qui l'a supprimée (vide au départ) ; une mise à jour = suppression + création.
+  concept: ddia-mvcc-versions
+- id: fc6
+  front: Les 4 règles de visibilité ?
+  back: Ignorer les transactions en cours au démarrage, les abandonnées, celles de txid plus grand ; voir tout le reste.
+  concept: ddia-mvcc-visibility-rules
+- id: fc7
+  front: Version visible, en une phrase ?
+  back: Son créateur avait validé au démarrage du lecteur, et son suppresseur non (ou il n'y en a pas).
+  concept: ddia-mvcc-visibility-rules
+- id: fc8
+  front: Read committed avec MVCC ?
+  back: Un nouvel instantané par requête, au lieu d'un seul par transaction.
+  concept: ddia-mvcc-versions
+- id: fc9
+  front: B-tree en ajout seul ?
+  back: Copie la page modifiée et ses parents jusqu'à une nouvelle racine ; chaque racine est un instantané (CouchDB, Datomic, LMDB).
+  concept: ddia-mvcc-indexes
+- id: fc10
+  front: Repeatable read, chez qui ?
+  back: Snapshot isolation chez PostgreSQL et MySQL ; Oracle l'appelle serializable ; DB2 appelle repeatable read la sérialisabilité.
+  concept: ddia-repeatable-read-naming

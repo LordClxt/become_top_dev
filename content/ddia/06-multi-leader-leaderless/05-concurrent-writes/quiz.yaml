@@ -1,0 +1,98 @@
+id: ddia-ch06-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Le nœud 2 reçoit a puis b ; le nœud 3 reçoit b puis a. Chacun écrase la valeur à chaque écriture reçue. Résultat ?
+  choices:
+  - Les deux nœuds convergent sur b
+  - Les deux nœuds convergent sur a
+  - Le nœud 2 garde b, le nœud 3 garde a, définitivement
+  - Les deux nœuds gardent a et b
+  answer: 2
+  explanation: Écraser à l'arrivée n'est pas convergent quand l'ordre d'arrivée diffère.
+  concept: ddia-concurrent-writes
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Trois clients écrivent la même clé en même temps avec LWW, et chacun reçoit « OK » (w atteint). Combien d'écritures survivent ?
+  choices:
+  - Une seule ; les deux autres sont jetées sans erreur
+  - Les trois
+  - Deux
+  - Aucune, la base détecte le conflit
+  answer: 0
+  explanation: 'LWW converge au prix de la durabilité : des écritures acquittées disparaissent.'
+  concept: ddia-lww-data-loss
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Quelle est la façon sûre d'utiliser LWW dans Cassandra ?
+  choices:
+  - Synchroniser les horloges avec NTP
+  - N'écrire chaque clé qu'une fois (par exemple une clé UUID par écriture), puis la traiter comme immuable
+  - Utiliser w = n
+  - Activer le quorum lâche
+  answer: 1
+  explanation: 'S''il n''y a jamais deux écritures sur la même clé, il n''y a rien à jeter.'
+  concept: ddia-lww-data-loss
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Ana écrit une clé à 10:00:00 ; Bruno écrit la même clé à 10:00:03 sans avoir vu l'écriture d'Ana (réseau lent). Comment qualifier ces écritures ?
+  choices:
+  - Celle d'Ana arrive avant celle de Bruno, car elle est plus ancienne
+  - Celle de Bruno arrive avant celle d'Ana
+  - Elles sont concurrentes, car aucune ne connaît l'autre
+  - On ne peut pas savoir sans horloge synchronisée
+  answer: 2
+  explanation: Happens-before dépend de la connaissance, pas du temps physique.
+  concept: ddia-happens-before
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Avec l'algorithme à numéros de version, le serveur reçoit une écriture portant la version 3. Que fait-il des valeurs existantes ?
+  choices:
+  - Il les écrase toutes
+  - Il écrase celles de version ≤ 3 et garde celles de version plus grande
+  - Il garde toutes les valeurs
+  - Il écrase seulement la valeur de version 3
+  answer: 1
+  explanation: Les versions ≤ 3 ont été vues et fusionnées par le client ; les plus grandes lui sont concurrentes.
+  concept: ddia-version-numbers
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Un client écrit sans fournir de numéro de version. Que se passe-t-il ?
+  choices:
+  - L'écriture écrase toutes les valeurs
+  - L'écriture est refusée
+  - Elle prend la place de la valeur la plus ancienne
+  - Elle est concurrente à tout et n'écrase rien ; elle devient un sibling de plus
+  answer: 3
+  explanation: Sans version, le serveur ne sait pas ce que le client a vu.
+  concept: ddia-version-numbers
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Deux siblings `[café, pâtes]` et `[riz]`. Léa avait supprimé `pâtes` dans une troisième version, fusionnée sans pierre tombale. Que donne la fusion par union ?
+  choices:
+  - '[café, riz]'
+  - '[riz]'
+  - '[café, pâtes, riz] : les pâtes réapparaissent'
+  - Une erreur de fusion
+  answer: 2
+  explanation: Sans marqueur de suppression versionné, l'union ressuscite ce qui a été retiré.
+  concept: ddia-siblings-merge
+  difficulty: 2
+- id: q8
+  type: multiple
+  prompt: Quelles comparaisons de vecteurs de versions sont correctes ?
+  choices:
+  - '{A: 2, B: 1} arrive après {A: 1, B: 1}'
+  - '{A: 2, B: 1} et {A: 1, B: 2} sont concurrents'
+  - '{A: 1} et {A: 1, C: 1} sont concurrents'
+  - '{A: 3, B: 0} est égal à {A: 3}'
+  answer: [0, 1, 3]
+  explanation: 'Une entrée absente vaut 0 : {A: 1} arrive avant {A: 1, C: 1}.'
+  concept: ddia-version-vectors
+  difficulty: 3

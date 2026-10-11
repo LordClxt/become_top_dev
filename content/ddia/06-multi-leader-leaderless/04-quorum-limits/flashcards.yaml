@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Le quorum doit-il être une majorité ?
+  back: Non ; seule compte la condition w + r > n.
+  concept: ddia-quorum-edge-cases
+- id: fc2
+  front: Écriture réussie sur moins de w réplicas ?
+  back: Erreur pour le client, mais pas d'annulation là où elle a réussi ; une lecture peut la renvoyer.
+  concept: ddia-quorum-edge-cases
+- id: fc3
+  front: w et r dans une base Dynamo, garantie ou probabilité ?
+  back: Une probabilité de lire à jour ; pas de lecture de ses propres écritures, ni de lectures monotones garanties.
+  concept: ddia-quorum-edge-cases
+- id: fc4
+  front: Pourquoi superviser la péremption ?
+  back: Sans ordre des écritures, le retard ne se lit pas dans un journal ; sans anti-entropie, il n'a pas de limite. Il faut chiffrer « à terme ».
+  concept: ddia-staleness-monitoring
+- id: fc5
+  front: Quorum lâche ?
+  back: w et r réponses toujours exigées, mais elles peuvent venir de nœuds hors des n d'origine de la valeur.
+  concept: ddia-sloppy-quorum
+- id: fc6
+  front: Ce qu'un quorum lâche garantit encore ?
+  back: La durabilité (la valeur est sur w nœuds), pas la lecture de la dernière valeur.
+  concept: ddia-sloppy-quorum
+- id: fc7
+  front: Quorum lâche par défaut ?
+  back: Activé dans Riak, désactivé dans Cassandra et Voldemort (à l'époque du livre).
+  concept: ddia-sloppy-quorum
+- id: fc8
+  front: Hinted handoff ?
+  back: Le nœud de dépannage renvoie les écritures à leur nœud d'origine une fois la coupure finie.
+  concept: ddia-hinted-handoff
+- id: fc9
+  front: Cassandra sur plusieurs datacenters ?
+  back: n compte tous les sites ; le client attend un quorum local, les autres sites reçoivent l'écriture en asynchrone.
+  concept: ddia-leaderless-multi-dc

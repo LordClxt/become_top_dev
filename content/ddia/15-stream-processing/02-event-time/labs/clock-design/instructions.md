@@ -1,0 +1,1 @@
+Une application de livraison envoie ses événements depuis des téléphones aux horloges douteuses. Corrige les horloges avec les trois horodatages, range chaque événement dans sa vraie fenêtre horaire, chiffre le faux pic d'un redémarrage et décide quelles fenêtres peuvent être fermées.

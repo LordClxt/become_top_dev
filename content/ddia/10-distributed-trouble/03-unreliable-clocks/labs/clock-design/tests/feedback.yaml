@@ -1,0 +1,38 @@
+blocks:
+  pick:
+    options:
+      latency: Une durée sur une seule machine ; l'horloge murale pourrait reculer pendant la mesure.
+      invoice: Il faut une date du calendrier, lisible par un humain.
+      lease: Un délai local se mesure avec une horloge qui ne saute jamais.
+      order: 'Aucune horloge physique ne capture la dépendance entre deux écritures sur deux machines : c''est le rôle d''un compteur logique.'
+  firewall:
+    tolerance:
+      abs: 0.02
+    wrong: '6 h = 21 600 s ; multiplie par 200 × 10⁻⁶.'
+  stamps:
+    options:
+      old.ts: 'L''horloge du nœud 1 avance : l''horodatage vaut l''instant réel plus 80 ms.'
+      new.ts: 'L''horloge du nœud 3 retarde : l''horodatage vaut l''instant réel moins 15 ms.'
+  winner:
+    options:
+      new: LWW ne regarde pas l'instant réel, seulement l'horodatage écrit par le nœud.
+      both: 'LWW ne garde jamais deux valeurs : c''est justement ce qui rend la perte silencieuse.'
+  window:
+    tolerance:
+      abs: 1
+    wrong: 'Une écriture via le nœud 3 n''est gardée que si son horodatage (instant réel − 15) dépasse 2 080. Cherche l''instant réel correspondant, puis retire 2 000.'
+  intervals:
+    options:
+      overlap: L'au plus tard de A (1,006) dépasse l'au plus tôt de B (1,004) ; l'ordre reste incertain.
+      inside: 'B est entièrement dans A : impossible de savoir laquelle précède l''autre.'
+  wait:
+    tolerance:
+      abs: 0.5
+    wrong: L'attente est la largeur de l'intervalle, soit deux fois l'incertitude.
+  fixes:
+    options:
+      nanos: 'Une résolution plus fine ne corrige pas un décalage de 95 ms : c''est de la fausse précision.'
+      ntp-boot: Le quartz dérive en continu ; une synchronisation unique laisse l'écart grandir chaque jour.
+      monitor: Une horloge fausse ne plante pas ; seule la supervision la révèle.
+      versions: Des versions détectent que les écritures sont concurrentes au lieu d'en jeter une.
+      multi-ntp: Avec plusieurs sources, un serveur faux est mis en minorité.

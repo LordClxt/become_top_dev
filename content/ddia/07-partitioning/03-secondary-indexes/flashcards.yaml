@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Pourquoi les index secondaires compliquent le partitionnement ?
+  back: Les documents d'une même valeur sont répartis selon leur clé primaire, pas selon la valeur indexée.
+  concept: ddia-secondary-index-partitioning
+- id: fc2
+  front: Index local (par document) ?
+  back: Chaque partition indexe ses seuls documents ; une écriture ne touche qu'une partition.
+  concept: ddia-local-document-index
+- id: fc3
+  front: Qui utilise des index locaux ?
+  back: MongoDB, Riak, Cassandra, Elasticsearch, SolrCloud, VoltDB.
+  concept: ddia-local-document-index
+- id: fc4
+  front: Scatter/gather ?
+  back: Interroger toutes les partitions et combiner ; aussi lent que la plus lente, latence de queue amplifiée.
+  concept: ddia-scatter-gather
+- id: fc5
+  front: 20 partitions, chacune lente 1 % du temps ?
+  back: 1 − 0,99²⁰ ≈ 18 % des requêtes scatter/gather sont lentes.
+  concept: ddia-scatter-gather
+- id: fc6
+  front: Index global (par terme) ?
+  back: Couvre toutes les données, découpé par terme (plage ou hachage) ; une lecture vise une partition d'index.
+  concept: ddia-global-term-index
+- id: fc7
+  front: Coût d'écriture d'un index global ?
+  back: Une écriture peut toucher plusieurs partitions d'index (un terme par champ indexé).
+  concept: ddia-global-index-async-updates
+- id: fc8
+  front: Index global synchrone ou asynchrone ?
+  back: Souvent asynchrone (sinon transaction distribuée) ; DynamoDB, en général en une fraction de seconde.
+  concept: ddia-global-index-async-updates

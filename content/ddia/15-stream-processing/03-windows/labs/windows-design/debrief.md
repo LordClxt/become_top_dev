@@ -1,0 +1,3 @@
+**Le même flux donne des réponses différentes selon la fenêtre.** En tumbling d'une minute, aucune case ne dépasse 2 clics : la rafale de 10:00:40 → 10:01:35 (3 clics en 55 s) est coupée par la frontière de 10:01. La sliding, sans frontières, la voit ; même une hopping au pas de 30 s la rate, car ses frontières restent fixes. La hopping de 2 minutes, elle, lisse : chaque clic compte dans 2 fenêtres.
+
+La session, elle, ignore les frontières d'horloge : trois visites, dont la première (5 clics) se termine 60 s après son dernier clic, à 10:03:30. Le choix d'une fenêtre est donc un choix de **question** (« par minute ? », « dans n'importe quel intervalle ? », « par visite ? ») et un choix d'**état** à garder.

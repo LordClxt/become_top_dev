@@ -1,0 +1,8 @@
+{
+  "modn": 90.9,
+  "fixe": 91,
+  "reglage": {"p": 1200},
+  "strategie": {"unknown": "dynamic", "known": "fixed", "grow": "pernode"},
+  "cascade": ["slow", "dead", "move", "load", "more"],
+  "vide": "presplit"
+}

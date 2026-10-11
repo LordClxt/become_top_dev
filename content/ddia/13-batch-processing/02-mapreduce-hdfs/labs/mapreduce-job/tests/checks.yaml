@@ -1,0 +1,75 @@
+checks:
+- id: two-maps
+  label: Au moins deux tâches map (une par bloc d'entrée)
+  rule: count
+  source: mapper
+  min: 2
+- id: two-reduces
+  label: Au moins deux tâches reduce
+  rule: count
+  source: reducer
+  min: 2
+- id: locate
+  label: L'ordonnanceur demande au NameNode où sont les blocs
+  rule: edge_kind
+  source: sched
+  target: namenode
+  kind: read
+- id: launch
+  label: L'ordonnanceur lance les tâches map
+  rule: edge_kind
+  source: sched
+  target: mapper
+  kind: sync
+- id: read-input
+  label: Les mappers lisent les blocs d'entrée
+  rule: edge_kind
+  source: mapper
+  target: input
+  kind: read
+- id: spill
+  label: Chaque mapper écrit sa sortie triée sur son disque local
+  rule: edge_kind
+  source: mapper
+  target: sorted
+  kind: write
+- id: shuffle
+  label: 'Shuffle : les reducers lisent les sorties triées des mappers'
+  rule: edge_kind
+  source: reducer
+  target: sorted
+  kind: read
+- id: no-direct
+  label: Un mapper n'appelle jamais un reducer directement
+  rule: no_edge
+  source: mapper
+  target: reducer
+- id: no-direct-back
+  label: Ni l'inverse
+  rule: no_edge
+  source: reducer
+  target: mapper
+- id: write-out
+  label: Les reducers écrivent dans le répertoire de sortie HDFS
+  rule: edge_kind
+  source: reducer
+  target: output
+  kind: write
+- id: out-only-reducers
+  label: Seuls les reducers écrivent la sortie
+  rule: inbound_via
+  target: output
+  via: reducer
+- id: no-db
+  label: Le job ne touche pas à la base de production
+  rule: count
+  source: db
+  max: 0
+- id: no-san
+  label: 'Sans partage : pas de baie de disques commune'
+  rule: count
+  source: san
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

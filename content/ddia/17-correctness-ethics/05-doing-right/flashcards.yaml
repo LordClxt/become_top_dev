@@ -1,0 +1,49 @@
+cards:
+- id: fc1
+  front: Prison algorithmique ?
+  back: Exclusion systématique (emploi, vol, assurance, logement, crédit) par des algorithmes, sans preuve de faute et presque sans appel.
+  concept: ddia-ethics-accountability
+- id: fc2
+  front: Variable de substitution (proxy) ?
+  back: Donnée apparemment neutre corrélée à un attribut protégé (code postal, adresse IP) ; elle réintroduit la discrimination.
+  concept: ddia-ethics-predictive-bias
+- id: fc3
+  front: « Blanchir les biais » ?
+  back: Un modèle appris sur un passé discriminatoire le codifie tout en ayant l'air objectif.
+  concept: ddia-ethics-predictive-bias
+- id: fc4
+  front: Prédiction statistique vs individuelle ?
+  back: Juste en moyenne, totalement fausse pour certaines personnes ; une espérance de vie de 80 ans ne fixe pas ta date de mort.
+  concept: ddia-ethics-accountability
+- id: fc5
+  front: Boucle de rétroaction ?
+  back: La prédiction change le monde qui produit les données suivantes ; ex. spirale du score de crédit, bulles de filtre.
+  concept: ddia-ethics-feedback-loops
+- id: fc6
+  front: Remède aux boucles de rétroaction ?
+  back: 'La pensée systémique : analyser tout le système, humains compris, et se demander s''il renforce les inégalités.'
+  concept: ddia-ethics-feedback-loops
+- id: fc7
+  front: Pistage dans un service financé par la publicité ?
+  back: Les annonceurs sont les vrais clients ; l'intérêt des utilisateurs passe au second plan.
+  concept: ddia-ethics-surveillance
+- id: fc8
+  front: Pourquoi le consentement est-il souvent illusoire ?
+  back: Asymétrie d'information, conditions non négociées, tiers pistés, et refus socialement coûteux.
+  concept: ddia-ethics-consent
+- id: fc9
+  front: Vie privée selon le livre ?
+  back: La liberté de décider ce qu'on révèle et à qui ; la surveillance transfère ce droit au collecteur.
+  concept: ddia-ethics-data-as-power
+- id: fc10
+  front: Données et gouvernements futurs ?
+  back: Penser à tous les régimes possibles ; installer une technologie qui faciliterait un État policier est une mauvaise hygiène civique.
+  concept: ddia-ethics-data-as-power
+- id: fc11
+  front: Leçon de la révolution industrielle ?
+  back: Les garde-fous (environnement, travail) ont coûté mais profité à tous ; la donnée est la pollution de l'âge de l'information.
+  concept: ddia-ethics-regulation
+- id: fc12
+  front: Principes de la directive de 1995 opposés au « big data » ?
+  back: Finalités déterminées et légitimes ; données adéquates, pertinentes et non excessives.
+  concept: ddia-ethics-regulation

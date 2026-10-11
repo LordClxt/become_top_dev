@@ -1,0 +1,14 @@
+id: ddia-ch09-project
+title: "Tinybase — verrous 2PL et validateur SSI"
+pitch: "Tinybase devient sérialisable de deux façons : un gestionnaire de verrous partagés et exclusifs qui détecte les interblocages, puis un validateur optimiste qui abandonne au commit la transaction dont la prémisse est devenue fausse."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 250
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["locks.go"]
+concepts: [ddia-2pl-shared-exclusive, ddia-2pl-lock-upgrade, ddia-2pl-deadlock, ddia-ssi-outdated-premise, ddia-ssi-stale-mvcc-read, ddia-ssi-write-after-read, ddia-ssi-abort-at-commit]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

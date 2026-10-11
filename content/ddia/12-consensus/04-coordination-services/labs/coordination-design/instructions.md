@@ -1,0 +1,1 @@
+Un magasin clé-valeur partitionné doit savoir, à tout instant, quels nœuds de stockage sont vivants et quelle partition est sur quel nœud. Dessine l'architecture qui sous-traite cette coordination à un ensemble ZooKeeper.

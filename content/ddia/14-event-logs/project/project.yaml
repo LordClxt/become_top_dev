@@ -1,0 +1,14 @@
+id: ddia-ch14-project
+title: "Tinybase — le log d'événements partitionné"
+pitch: "Tinybase devient un broker : un log partitionné en ajout seul, des groupes de consommateurs qui valident leurs offsets et rejouent, une compaction par clé, et un index qui se reconstruit depuis l'offset 0."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 250
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["eventlog.go"]
+concepts: [ddia-log-partition-order, ddia-consumer-offset-commit, ddia-partition-assignment, ddia-log-replay, ddia-log-compaction-keyed, ddia-change-data-capture]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

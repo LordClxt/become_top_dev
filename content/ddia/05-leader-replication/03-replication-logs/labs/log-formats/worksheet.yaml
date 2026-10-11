@@ -1,0 +1,63 @@
+intro: |
+  Ta base relationnelle est répliquée vers trois followers. Plusieurs équipes viennent te voir avec un incident ou un besoin. À toi de relier chaque situation au log de réplication en cause ou adapté.
+
+  Rappel des quatre méthodes : **instructions** (le texte SQL est réexécuté), **WAL** (les octets modifiés dans les blocs disque), **logique** (une description de chaque ligne modifiée), **triggers** (un code applicatif recopie le changement).
+blocks:
+- id: incidents
+  type: match
+  title: Diagnostiquer
+  prompt: Quel format de log est en cause, ou adapté, dans chaque situation ?
+  items:
+  - id: now
+    label: '`INSERT … VALUES (NOW())` a produit une heure différente sur chaque follower'
+  - id: autoinc
+    label: Deux transactions concurrentes avec un auto-incrément ont reçu des identifiants inversés sur un follower
+  - id: upgrade
+    label: Impossible de passer les followers à la nouvelle version majeure avant le leader, le format disque a changé
+  - id: warehouse
+    label: L'équipe data veut recevoir chaque ligne modifiée dans son entrepôt, quel que soit le moteur
+  - id: subset
+    label: Ne répliquer que la table `orders` vers une autre base, avec une règle de conflit maison
+  categories:
+  - id: statement
+    label: Instructions
+  - id: wal
+    label: WAL
+  - id: logical
+    label: Logique (par ligne)
+  - id: trigger
+    label: Triggers
+- id: records
+  type: number
+  title: Compter les enregistrements
+  prompt: '`UPDATE products SET price = price * 1.1 WHERE category = ''books''` modifie **40 000 lignes** en une transaction. Combien d''enregistrements écrit le log logique ?'
+  unit: enregistrements
+- id: taille
+  type: number
+  title: Le prix du log logique
+  prompt: Chaque enregistrement de ligne fait **120 octets** (on néglige le commit). Combien de Mo pèse ce changement dans le log logique, contre environ 80 octets pour l'instruction ?
+  unit: Mo
+- id: figer
+  type: choice
+  title: Sauver la réplication par instructions
+  prompt: Tu dois garder la réplication par instructions pour un ancien système. Que doit faire le leader avec `NOW()` ?
+  options:
+  - id: freeze
+    label: Remplacer l'appel par la valeur calculée au moment de l'exécution avant de journaliser l'instruction
+  - id: sync
+    label: Synchroniser les horloges des followers au millième de seconde près
+  - id: forbid
+    label: Rendre les followers synchrones pour qu'ils exécutent au même instant
+- id: atouts
+  type: multi
+  title: Ce que permet le log logique
+  prompt: Coche les affirmations vraies sur le log logique.
+  options:
+  - id: versions
+    label: Le leader et les followers peuvent tourner avec des versions différentes du moteur
+  - id: cdc
+    label: Un système externe peut le lire pour alimenter un cache ou un index
+  - id: smaller
+    label: Il est toujours plus compact que l'instruction d'origine
+  - id: determinism
+    label: Les fonctions non déterministes ne font plus diverger les réplicas, car il contient les valeurs finales

@@ -1,0 +1,17 @@
+id: ddia-ch12-l05-lab-raft-trace
+title: 'Tracer une élection et une réplication Raft'
+difficulty: 4
+xp: 80
+concepts:
+- ddia-raft-vote-restriction
+- ddia-raft-log-matching
+- ddia-raft-commit-index
+- ddia-raft-election
+source:
+  chapter: 9
+  pages: 366-368
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

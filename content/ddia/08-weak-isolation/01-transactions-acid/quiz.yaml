@@ -1,0 +1,110 @@
+id: ddia-ch08-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un virement débite A puis crédite B. Le processus plante entre les deux écritures, dans une base transactionnelle. Que se passe-t-il ?
+  choices:
+  - Le débit reste, le crédit est perdu
+  - La base termine le crédit au redémarrage
+  - Le débit est annulé, le virement peut être relancé sans risque de double débit
+  - Les deux écritures restent en attente jusqu'à intervention manuelle
+  answer: 2
+  explanation: 'Atomicité ACID : une transaction interrompue est abandonnée, toutes ses écritures sont annulées.'
+  concept: ddia-acid-atomicity
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: L'équipe veut garantir « un solde n'est jamais négatif ». Qui est responsable de cette cohérence au sens ACID ?
+  choices:
+  - La base de données, automatiquement, puisqu'elle est ACID
+  - L'application, qui définit l'invariant et écrit des transactions qui le préservent (éventuellement avec une contrainte CHECK déclarée)
+  - Le journal d'écriture anticipée
+  - Le réplica suiveur
+  answer: 1
+  explanation: 'Le C appartient à l''application : la base ne vérifie que les contraintes qu''on lui déclare.'
+  concept: ddia-acid-consistency
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Que veut dire « atomique » en programmation concurrente, et quelle lettre d'ACID y correspond ?
+  choices:
+  - Personne ne voit d'état intermédiaire ; c'est le I (isolation)
+  - On peut tout annuler ; c'est le A
+  - Les données survivent au crash ; c'est le D
+  - Les invariants sont respectés ; c'est le C
+  answer: 0
+  explanation: 'Le A d''ACID parle d''abandon possible ; ne pas voir d''état intermédiaire relève de l''isolation.'
+  concept: ddia-acid-isolation
+  difficulty: 2
+- id: q4
+  type: multiple
+  prompt: Quels événements peuvent faire perdre une transaction pourtant annoncée validée ?
+  choices:
+  - Réplication asynchrone et leader qui tombe avant de transmettre
+  - Disque et sauvegardes détruits ensemble
+  - SSD qui perd des données à la coupure de courant
+  - Une transaction concurrente qui lit la même ligne
+  answer: [0, 1, 2]
+  explanation: 'La durabilité parfaite n''existe pas : on réduit le risque en combinant disque, réplicas et sauvegardes. Une lecture concurrente ne détruit rien.'
+  concept: ddia-acid-durability
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Ta base de documents garde dans chaque utilisateur un compteur de messages non lus, à côté des messages eux-mêmes. Pourquoi une transaction multi-objets aide-t-elle ?
+  choices:
+  - Pour compresser les messages
+  - Parce qu'une écriture sur un seul document n'est jamais atomique
+  - Pour que le compteur et les messages ne divergent pas après une panne ou un accès concurrent
+  - Pour que les index secondaires disparaissent
+  answer: 2
+  explanation: 'Dénormalisation : deux objets doivent rester d''accord, il faut les écrire ensemble.'
+  concept: ddia-multi-object-txn
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Une base propose un « incrément atomique » sur une seule clé. Est-ce une transaction au sens habituel ?
+  choices:
+  - Oui, c'est une transaction sérialisable
+  - Non, c'est une opération mono-objet utile, mais une transaction regroupe plusieurs objets
+  - Oui, si la base est répliquée
+  - Non, car elle n'est pas durable
+  answer: 1
+  explanation: Incrément et compare-and-set évitent des cycles lire-modifier-écrire sur un objet ; ce ne sont pas des transactions multi-objets.
+  concept: ddia-multi-object-txn
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Ton client reçoit un délai dépassé après avoir envoyé COMMIT pour un paiement. Que faut-il prévoir avant de réessayer ?
+  choices:
+  - Une clé d'idempotence, car le commit a peut-être réussi
+  - Un backoff exponentiel et un nombre d'essais limité
+  - Réessayer immédiatement en boucle jusqu'au succès
+  - Ne pas renvoyer l'e-mail de confirmation à chaque essai
+  answer: [0, 1, 3]
+  explanation: 'Accusé perdu : risque de doublon. Surcharge : la boucle immédiate aggrave. Effets de bord : ils se répètent.'
+  concept: ddia-txn-retry-pitfalls
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Une insertion échoue sur une violation de contrainte d'unicité. Faut-il réessayer automatiquement ?
+  choices:
+  - Oui, toujours
+  - Oui, avec un backoff exponentiel
+  - Oui, mais sur un autre réplica
+  - Non, l'erreur est permanente ; on ne réessaie que les erreurs transitoires (interblocage, conflit, coupure)
+  answer: 3
+  explanation: Réessayer une erreur permanente ne change rien et charge la base pour rien.
+  concept: ddia-txn-retry-pitfalls
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Pourquoi dit-on que l'intérêt d'une transaction est de simplifier la gestion d'erreurs ?
+  choices:
+  - Elle supprime toutes les pannes
+  - Elle réduit les issues possibles à deux, commit ou abort, et rend un nouvel essai sûr
+  - Elle rend le code plus rapide
+  - Elle remplace la réplication
+  answer: 1
+  explanation: L'application n'a plus à gérer les états à moitié faits.
+  concept: ddia-transaction-abstraction
+  difficulty: 1

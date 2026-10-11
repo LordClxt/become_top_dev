@@ -1,0 +1,1 @@
+Le leader vient de tomber. Au moment de la panne, le follower B était au LSN 10 980, A au LSN 10 400 et C au LSN 9 870. Dessine le cluster **après** le failover : qui reçoit les écritures, qui réplique vers qui, et ce que devient l'ancien leader quand il revient.

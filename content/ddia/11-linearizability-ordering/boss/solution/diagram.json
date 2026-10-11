@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 200},
+    {"id": "api", "type": "api", "x": 280, "y": 200},
+    {"id": "seq", "type": "seq", "x": 600, "y": 200},
+    {"id": "lock", "type": "lock", "x": 600, "y": -40},
+    {"id": "log", "type": "log", "x": 900, "y": 200},
+    {"id": "rep1", "type": "rep", "x": 1200, "y": 80, "label": "Réplique Dublin"},
+    {"id": "rep2", "type": "rep", "x": 1200, "y": 320, "label": "Réplique Virginie"},
+    {"id": "queue", "type": "queue", "x": 280, "y": 460},
+    {"id": "mailer", "type": "mailer", "x": 600, "y": 460}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "api", "kind": "sync", "label": "je veux « ada »"},
+    {"id": "e2", "source": "api", "target": "seq", "kind": "sync", "label": "réclame ada"},
+    {"id": "e3", "source": "seq", "target": "lock", "kind": "sync", "label": "bail"},
+    {"id": "e4", "source": "seq", "target": "log", "kind": "write", "label": "n° 42"},
+    {"id": "e5", "source": "log", "target": "rep1", "kind": "replication"},
+    {"id": "e6", "source": "log", "target": "rep2", "kind": "replication"},
+    {"id": "e7", "source": "api", "target": "queue", "kind": "async", "label": "compte créé"},
+    {"id": "e8", "source": "queue", "target": "mailer", "kind": "async"},
+    {"id": "e9", "source": "mailer", "target": "seq", "kind": "read", "label": "lecture linéarisable"}
+  ]
+}

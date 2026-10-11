@@ -1,0 +1,7 @@
+{
+  "nodes": [
+    {"id": "users", "type": "users", "x": 0, "y": 160},
+    {"id": "bookings", "type": "bookings", "x": 640, "y": 300}
+  ],
+  "edges": []
+}

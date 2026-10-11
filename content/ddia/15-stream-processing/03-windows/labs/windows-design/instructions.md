@@ -1,0 +1,1 @@
+Le même flux de huit clics, découpé de quatre façons. Remplis les compteurs de chaque fenêtre, trouve la rafale que seules certaines fenêtres voient, sessionise l'utilisateur, puis choisis le bon type de fenêtre pour chaque besoin.

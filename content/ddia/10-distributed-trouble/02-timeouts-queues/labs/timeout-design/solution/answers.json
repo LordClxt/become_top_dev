@@ -1,0 +1,13 @@
+{
+  "bounded": 56,
+  "cascade": 106.7,
+  "cascade-next": "domino",
+  "queues": {
+    "incast": "switch",
+    "vm": "hypervisor",
+    "backpressure": "sender",
+    "cpu": "os"
+  },
+  "tuning": { "h": 500, "t": 500 },
+  "adaptive": "per-node"
+}

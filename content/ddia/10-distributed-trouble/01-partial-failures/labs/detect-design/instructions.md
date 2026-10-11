@@ -1,0 +1,1 @@
+Un service ne répond plus. Trie ce qu'un silence réseau peut signifier, décide si l'on peut réessayer un débit, chiffre l'effet de l'échelle sur les pannes et distingue les vrais signaux de panne des simples soupçons.

@@ -1,0 +1,1 @@
+Ta billetterie dépasse le débit d'un cœur. Dessine la version partitionnée de la base à exécution en série : l'application, un routeur, au moins trois partitions avec chacune son réplica, un coordinateur pour les rares transactions multi-partitions, et des rapports analytiques qui ne ralentissent pas la boucle.

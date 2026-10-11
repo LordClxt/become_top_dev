@@ -1,0 +1,81 @@
+checks:
+- id: route
+  label: L'application atteint les partitions en passant par le routeur
+  rule: path
+  source: client
+  target: part
+  via: router
+- id: no-direct
+  label: L'application ne choisit pas elle-même sa partition
+  rule: no_edge
+  source: client
+  target: part
+- id: parts
+  label: Au moins trois partitions, une par cœur
+  rule: count
+  source: part
+  min: 3
+- id: call
+  label: Le routeur appelle les partitions (appel synchrone de procédure)
+  rule: edge_kind
+  source: router
+  target: part
+  kind: sync
+- id: replicate
+  label: Chaque partition réplique en rejouant ses procédures
+  rule: edge_kind
+  source: part
+  target: replica
+  kind: replication
+- id: replicas
+  label: Un réplica par partition
+  rule: count
+  source: replica
+  min: 3
+- id: coord-in
+  label: Les transactions multi-partitions passent par le coordinateur
+  rule: edge_kind
+  source: router
+  target: coord
+  kind: sync
+- id: coord-out
+  label: Le coordinateur exécute sur les partitions concernées
+  rule: edge_kind
+  source: coord
+  target: part
+  kind: sync
+- id: one-coord
+  label: Un seul coordinateur
+  rule: count
+  source: coord
+  min: 1
+  max: 1
+- id: reports
+  label: Les rapports lisent un réplica, hors de la boucle en série
+  rule: edge_kind
+  source: reports
+  target: replica
+  kind: read
+- id: reports-off
+  label: Les rapports ne lisent jamais une partition active
+  rule: no_edge
+  source: reports
+  target: part
+- id: no-lock
+  label: Pas de verrou global
+  rule: count
+  source: biglock
+  max: 0
+- id: no-disk
+  label: Pas de lecture disque pendant une transaction
+  rule: count
+  source: disk
+  max: 0
+- id: no-session
+  label: Pas de transaction interactive
+  rule: count
+  source: session
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

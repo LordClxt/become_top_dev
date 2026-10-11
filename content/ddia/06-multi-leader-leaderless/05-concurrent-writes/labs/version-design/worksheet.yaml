@@ -1,0 +1,90 @@
+intro: |
+  Une playlist partagée est stockée sous la clé `playlist`. Tu rejoues l'algorithme des numéros de version, tu compares des vecteurs de versions et tu choisis comment fusionner.
+blocks:
+- id: rejeu
+  type: table
+  title: Rejouer le serveur
+  prompt: |
+    Un serveur unique, clé vide au départ.
+    1. Ana écrit `[jazz]` sans version.
+    2. Bruno écrit `[rock]` sans version.
+    3. Ana écrit `[jazz, soul]` avec la version **1**.
+    4. Chloé, qui a lu après l'étape 2, écrit la fusion `[jazz, rock, funk]` avec la version **2**.
+    5. Bruno écrit `[pop]` sans version.
+    Pour chaque étape, quelle version le serveur attribue-t-il et combien de valeurs (siblings) garde-t-il ensuite ?
+  columns:
+  - id: v
+    label: Version attribuée
+  - id: n
+    label: Valeurs conservées
+  rows:
+  - id: s1
+    label: Étape 1
+  - id: s2
+    label: Étape 2
+  - id: s3
+    label: Étape 3
+  - id: s4
+    label: Étape 4
+  - id: s5
+    label: Étape 5
+- id: relation
+  type: match
+  title: Avant, après ou concurrent ?
+  prompt: Situe le premier vecteur par rapport au second.
+  items:
+  - id: p1
+    label: '{A: 2, B: 1} face à {A: 1, B: 1}'
+  - id: p2
+    label: '{A: 1, B: 2} face à {A: 2, B: 1}'
+  - id: p3
+    label: '{A: 1} face à {A: 1, C: 1}'
+  - id: p4
+    label: '{A: 3, B: 0} face à {A: 3}'
+  - id: p5
+    label: '{B: 4} face à {A: 1, B: 3}'
+  categories:
+  - id: before
+    label: Avant
+  - id: after
+    label: Après
+  - id: concurrent
+    label: Concurrents
+  - id: equal
+    label: Égaux
+- id: causal
+  type: match
+  title: Happens-before
+  prompt: Pour chaque paire d'opérations, la première arrive-t-elle avant la seconde, ou sont-elles concurrentes ?
+  items:
+  - id: incr
+    label: Ana insère un compteur ; Bruno lit ce compteur puis l'incrémente
+  - id: three
+    label: Ana et Bruno renomment la playlist à 3 secondes d'intervalle, sans avoir vu l'écriture de l'autre
+  - id: reply
+    label: Ana publie un commentaire ; Bruno y répond
+  - id: same
+    label: Ana et Bruno écrivent à la même milliseconde sur deux nœuds différents, sans s'être lus
+  categories:
+  - id: hb
+    label: La première arrive avant la seconde
+  - id: conc
+    label: Concurrentes
+- id: fusion
+  type: choice
+  title: Fusionner avec une suppression
+  prompt: 'Siblings : `[jazz, soul]` et `[jazz, rock, funk]`. Entre-temps, Bruno a retiré `rock` dans une version concurrente. Comment éviter que `rock` réapparaisse à la fusion ?'
+  options:
+  - id: lww
+    label: Passer en LWW pour ne garder qu'une version
+  - id: tomb
+    label: Enregistrer la suppression comme une pierre tombale versionnée, que l'union respecte
+  - id: inter
+    label: Fusionner par intersection au lieu de l'union
+  - id: drop
+    label: Effacer simplement `rock` de la version de Bruno
+- id: lww
+  type: number
+  title: Ce que LWW aurait coûté
+  prompt: 'Reprends le rejeu : 5 écritures, toutes acquittées. Avec LWW au lieu des numéros de version, la clé ne garde qu''**une** valeur. Combien d''écritures acquittées n''ont **pas** été vues (ni fusionnées) par la valeur finale si l''étape 5 l''emporte ?'
+  unit: écritures

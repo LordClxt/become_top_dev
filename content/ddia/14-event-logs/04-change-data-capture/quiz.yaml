@@ -1,0 +1,98 @@
+id: ddia-ch14-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: 'Le client 1 écrit `prix = 10`, le client 2 écrit `prix = 12`. La base les reçoit dans l''ordre 1 puis 2, l''index de recherche dans l''ordre 2 puis 1, chacun par double écriture. Que contient chaque système ?'
+  choices:
+  - 'Base : 12 ; index : 12'
+  - 'Base : 12 ; index : 10, sans aucune erreur signalée'
+  - 'Base : 10 ; index : 12'
+  - Les deux écritures échouent
+  answer: 1
+  explanation: Chaque système applique la dernière écriture qu'il reçoit ; les ordres diffèrent, donc les valeurs divergent, silencieusement et durablement.
+  concept: ddia-dual-writes-problem
+  difficulty: 2
+- id: q2
+  type: multiple
+  prompt: Quels problèmes les doubles écritures posent-elles ?
+  choices:
+  - Une condition de course quand deux écritures concurrentes arrivent dans des ordres différents
+  - Un échec partiel quand un système accepte l'écriture et l'autre non
+  - L'impossibilité d'utiliser SQL
+  - Elles exigent un broker à base de log
+  answer: [0, 1]
+  explanation: Les deux viennent du fait qu'il y a deux leaders ; un seul leader suivi par les autres règle les deux.
+  concept: ddia-dual-writes-problem
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Avec la CDC, quel rôle joue l'index de recherche ?
+  choices:
+  - Un second leader qui reçoit les écritures du code
+  - Le système de référence
+  - Un suiveur qui applique, dans l'ordre, les changements extraits de la base
+  - Un cache invalidé par TTL
+  answer: 2
+  explanation: La base est le leader ; tous les systèmes dérivés suivent le même flux de changements, donc convergent vers le même état.
+  concept: ddia-change-data-capture
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Pourquoi transporter les changements CDC par un log partitionné plutôt que par une file AMQP à plusieurs consommateurs ?
+  choices:
+  - Parce qu'AMQP ne sait pas transporter du JSON
+  - Parce que le log préserve l'ordre des changements d'une même clé, alors que la redistribution d'une file peut le casser
+  - Parce qu'un log est toujours plus rapide
+  - Parce que la CDC est synchrone
+  answer: 1
+  explanation: Appliquer les changements dans le désordre recrée exactement le problème des doubles écritures.
+  concept: ddia-change-data-capture
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Tu prends un snapshot de la base pour amorcer un nouvel index, sans noter sa position dans le log des changements. Quel est le risque ?
+  choices:
+  - Aucun, le snapshot suffit
+  - Le snapshot sera plus gros
+  - L'index sera en lecture seule
+  - Ne pas savoir d'où reprendre les changements, et en appliquer deux fois ou en manquer
+  answer: 3
+  explanation: Le snapshot doit correspondre à un offset précis ; on applique ensuite les changements à partir de cet offset.
+  concept: ddia-cdc-initial-snapshot
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Un sujet compacté reçoit, pour la clé `p7` : `stock=4`, `stock=9`, puis une valeur nulle. Que reste-t-il de `p7` une fois la compaction (et la purge des tombstones) passée ?'
+  choices:
+  - Rien, la clé a disparu
+  - '`stock=9`'
+  - '`stock=4` et `stock=9`'
+  - Les trois messages
+  answer: 0
+  explanation: La valeur nulle est une tombstone ; la compaction garde la dernière écriture de la clé, ici une suppression, puis finit par retirer la clé.
+  concept: ddia-log-compaction-keyed
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pourquoi la compaction par clé ne convient-elle pas à un sujet de messages « +1 au stock du produit p7 » ?
+  choices:
+  - Parce que les messages sont trop petits
+  - Parce que chaque message ne remplace pas le précédent ; ne garder que le dernier perd les autres incréments
+  - Parce que Kafka refuse les nombres
+  - Parce que la clé est trop longue
+  answer: 1
+  explanation: La compaction suppose que chaque message porte la valeur complète de la clé.
+  concept: ddia-log-compaction-keyed
+  difficulty: 3
+- id: q9
+  type: single
+  prompt: Debezium lit le binlog de MySQL. Quelle famille d'implémentation CDC est-ce ?
+  choices:
+  - Des déclencheurs SQL
+  - Un sondage de la table
+  - Des doubles écritures
+  - La lecture du log de réplication de la base
+  answer: 3
+  explanation: Plus robuste que les déclencheurs, mais il faut gérer les changements de schéma.
+  concept: ddia-change-stream-apis
+  difficulty: 1

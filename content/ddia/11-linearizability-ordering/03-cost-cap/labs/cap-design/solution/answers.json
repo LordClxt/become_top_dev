@@ -1,0 +1,7 @@
+{
+  "coupure": {"write": "ko", "linread": "ko", "localread": "ok", "cas": "ko"},
+  "multi": "avail",
+  "page": 440,
+  "cap": "nochoice",
+  "faux": ["one-model", "ram", "latency"]
+}

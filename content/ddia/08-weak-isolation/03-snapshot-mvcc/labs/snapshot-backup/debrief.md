@@ -1,0 +1,3 @@
+**Le snapshot isolation rend possible une sauvegarde cohérente pendant que la banque tourne.** La sauvegarde ouvre une transaction en lecture seule : pendant six heures, elle voit l'état figé de son démarrage, alors que les virements continuent de créer de nouvelles versions. Le contrôle d'intégrité fait de même et trouve toujours la même somme, sans read skew.
+
+Le prix est payé par le **ramasse-miettes** : tant que la sauvegarde tourne, il ne peut pas supprimer les anciennes versions qu'elle pourrait voir. Un verrou global aurait arrêté la banque ; une copie de fichiers à chaud aurait mélangé des instants différents, et une restauration aurait rendu l'incohérence permanente.

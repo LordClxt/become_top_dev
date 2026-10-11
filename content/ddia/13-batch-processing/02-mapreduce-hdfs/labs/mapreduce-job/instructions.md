@@ -1,0 +1,1 @@
+Le job compte les visites par URL dans les logs du jour (1 To en HDFS). Dessine-le en entier : l'ordonnanceur qui place les tâches, **au moins deux** tâches map et **au moins deux** tâches reduce, les fichiers triés locaux et le shuffle, puis la sortie. Choisis bien la nature de chaque flèche (lecture, écriture, appel).

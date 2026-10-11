@@ -1,0 +1,98 @@
+id: ddia-ch07-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Ta base répliquée sur 3 nœuds sature en écriture, alors que chaque nœud a une copie complète. Qu'apporte le partitionnement que la réplication n'apporte pas ?
+  choices:
+  - Plus de copies pour mieux résister aux pannes
+  - Chaque nœud n'écrit qu'une partie des données, donc le débit d'écriture et le volume grandissent avec les nœuds
+  - Des lectures toujours plus rapides sur une seule clé
+  - Une cohérence plus forte entre réplicas
+  answer: 1
+  explanation: 'Avec la réplication seule, chaque écriture arrive sur chaque copie : la capacité d''écriture ne grandit pas. Le partitionnement découpe les données.'
+  concept: ddia-partition-definition
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Un cluster a 4 nœuds, 8 partitions, facteur de réplication 3, réparti équitablement. Combien de partitions chaque nœud dirige-t-il (en tant que leader) ?
+  choices:
+  - '1'
+  - '6'
+  - '2'
+  - '8'
+  answer: 2
+  explanation: '8 leaders répartis sur 4 nœuds : 2 chacun. Chaque nœud porte en tout 24 / 4 = 6 copies, dont 4 en tant que suiveur.'
+  concept: ddia-partition-replication-combo
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Coche les affirmations vraies sur la combinaison partitionnement + réplication.
+  choices:
+  - Un même nœud peut être leader d'une partition et suiveur d'une autre
+  - Chaque enregistrement appartient à exactement une partition
+  - Une partition n'a qu'une seule copie dans le cluster
+  - Le choix du schéma de partitionnement est en grande partie indépendant de celui de la réplication
+  answer: [0, 1, 3]
+  explanation: 'Chaque partition est répliquée : ses copies vivent sur plusieurs nœuds.'
+  concept: ddia-partition-replication-combo
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Pour équilibrer parfaitement la charge, un collègue propose d'envoyer chaque enregistrement sur un nœud tiré au hasard. Le défaut ?
+  choices:
+  - Les écritures deviennent lentes
+  - Les nœuds se remplissent inégalement
+  - Il faut plus de réplicas
+  - Pour relire une clé, on ne sait pas où elle est et il faut interroger tous les nœuds
+  answer: 3
+  explanation: 'Il faut une règle déterministe clé → partition pour aller droit au bon nœud.'
+  concept: ddia-partition-skew-hotspot
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Bornes `g`, `n`, `t` sur 4 partitions (borne basse incluse). Dans quelle partition va la clé `nina` ?
+  choices:
+  - P2 (g–n)
+  - P3 (n–t)
+  - P4 (t–fin)
+  - P1 (a–g)
+  answer: 1
+  explanation: '`nina` est après `n` (inclus) et avant `t` : P3.'
+  concept: ddia-key-range-partitioning
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Pourquoi les bornes d'un partitionnement par plage ne sont-elles pas équidistantes dans l'alphabet ?
+  choices:
+  - Pour suivre la distribution réelle des données, qui n'est presque jamais uniforme
+  - Parce que les bases ne savent pas calculer des bornes régulières
+  - Pour accélérer le hachage
+  - Parce que les bornes sont tirées au hasard
+  answer: 0
+  explanation: 'Des tranches égales de l''alphabet donneraient des partitions de tailles très différentes.'
+  concept: ddia-key-range-partitioning
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: 'Des capteurs écrivent avec la clé `horodatage` dans une base partitionnée par plage, 8 partitions, 24 000 écritures/s. Que se passe-t-il ?'
+  choices:
+  - Chaque partition reçoit 3 000 écritures/s
+  - Les écritures sont réparties au hasard
+  - La partition qui couvre l'instant présent reçoit les 24 000 écritures/s
+  - Les écritures sont refusées
+  answer: 2
+  explanation: 'Les clés croissent avec le temps : toutes tombent dans la dernière plage. Point chaud.'
+  concept: ddia-range-timestamp-hotspot
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Tu préfixes la clé par le nom du capteur (`capteur/horodatage`). Quelle requête devient plus coûteuse ?
+  choices:
+  - Lire les mesures d'un capteur sur une semaine
+  - Lire les mesures de tous les capteurs sur une période, qui exige un scan par capteur
+  - Écrire une nouvelle mesure
+  - Lire une mesure précise par sa clé
+  answer: 1
+  explanation: 'Les écritures se répartissent, mais une période pour tous les capteurs n''est plus un seul intervalle.'
+  concept: ddia-range-timestamp-hotspot
+  difficulty: 3

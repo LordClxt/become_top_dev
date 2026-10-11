@@ -1,0 +1,122 @@
+intro: |
+  Une marketplace garde ses annonces dans PostgreSQL et les recopie aujourd'hui, par doubles écritures, dans un index de recherche. Tu prouves le bug, tu conçois le remplaçant (CDC vers un sujet Kafka compacté), tu dimensionnes le sujet, puis tu choisis le bon outil pour d'autres flux de l'entreprise.
+
+  Rappels : la compaction garde, pour chaque clé, le message de plus grand offset ; une valeur nulle est une tombstone. Dans un groupe, chaque partition est lue par un seul consommateur.
+blocks:
+- id: race
+  type: table
+  title: Prouver la divergence
+  prompt: 'Le client 1 fixe le prix de l''annonce 77 à **19 €**, le client 2 à **24 €**, presque en même temps. La base reçoit 1 puis 2 ; l''index, par double écriture, reçoit 2 puis 1. Quel prix finit dans chaque système ? (Dernière ligne : même scénario, mais l''index est alimenté par CDC.)'
+  columns:
+  - id: price
+    label: Prix final (€)
+  rows:
+  - id: db
+    label: PostgreSQL
+  - id: dual
+    label: Index (doubles écritures)
+  - id: cdc
+    label: Index (alimenté par CDC)
+- id: kept
+  type: number
+  title: Compacter une partition
+  prompt: |
+    Une partition du sujet compacté `listings` contient, dans l'ordre des offsets 0 à 7 : `a=1`, `b=2`, `a=3`, `c=4`, `b=null`, `a=5`, `d=6`, `c=7`. Combien de messages reste-t-il après la compaction, si les tombstones sont **encore conservées** ?
+  unit: messages
+- id: purged
+  type: number
+  title: Après la purge des tombstones
+  prompt: Et une fois les tombstones elles-mêmes purgées ?
+  unit: messages
+- id: view
+  type: table
+  title: Reconstruire la vue depuis l'offset 0
+  prompt: Un nouvel index relit cette partition compactée depuis l'offset 0. Quelle valeur voit-il pour chaque clé encore présente ?
+  columns:
+  - id: value
+    label: Valeur
+  rows:
+  - id: a
+    label: Clé a
+  - id: c
+    label: Clé c
+  - id: d
+    label: Clé d
+- id: bootstrap
+  type: order
+  title: Amorcer l'index avec un snapshot
+  prompt: Le sujet n'est pas encore compacté et ne contient que 2 jours de changements. Remets dans l'ordre l'amorçage du nouvel index.
+  items:
+  - id: snap
+    label: Prendre un snapshot cohérent de la base et noter l'offset du log des changements à cet instant
+  - id: load
+    label: Charger le snapshot dans le nouvel index
+  - id: apply
+    label: Appliquer les changements à partir de l'offset noté
+  - id: lag
+    label: Attendre que le retard de l'index soit proche de zéro
+  - id: switch
+    label: Envoyer les recherches vers le nouvel index
+- id: sizing
+  type: tuner
+  title: Dimensionner le sujet
+  prompt: 'Le sujet doit absorber **30 000 changements/s** ; un consommateur d''indexation en traite **2 000/s**. Tu veux **20 % de marge** pour rattraper un retard (36 000/s), **aucun consommateur inactif**, et pas plus de **20 partitions** (coût de coordination).'
+  params:
+  - id: p
+    label: Partitions
+    min: 1
+    max: 32
+    step: 1
+    default: 8
+  - id: c
+    label: Consommateurs du groupe
+    min: 1
+    max: 32
+    step: 1
+    default: 8
+  metrics:
+  - id: debit
+    label: Débit max du groupe (messages/s)
+    expr: min(p, c) * 2000
+    format: number
+  - id: idle
+    label: Consommateurs inactifs
+    expr: max(c - p, 0)
+    format: number
+  goals:
+  - id: marge
+    label: Au moins 36 000 messages/s
+    expr: debit >= 36000
+  - id: inactifs
+    label: Aucun consommateur inactif
+    expr: idle == 0
+  - id: coord
+    label: 20 partitions au plus
+    expr: p <= 20
+- id: retention
+  type: number
+  title: Survivre à une semaine de panne
+  prompt: L'index peut rester en panne jusqu'à **7 jours** (une semaine de gel). Le sujet non compacté reçoit en moyenne **40 Mo/s**. Combien de **To** de disque faut-il pour ne rien perdre (1 To = 10¹² octets, 1 Mo = 10⁶ octets) ?
+  unit: To
+- id: tools
+  type: match
+  title: Le bon outil pour chaque flux
+  prompt: L'entreprise a d'autres besoins. Quel outil choisis-tu pour chacun ?
+  items:
+  - id: pdf
+    label: Générer les factures PDF, 20 s chacune, ordre sans importance
+  - id: search
+    label: Synchroniser un moteur de recherche avec une base MySQL existante, sans toucher au code
+  - id: bank
+    label: Un nouveau porte-monnaie électronique qu'il faut auditer et dont on veut recalculer les soldes après un bug
+  - id: clicks
+    label: 200 000 clics/s, ordonnés par visiteur, lus par trois équipes indépendantes
+  categories:
+  - id: amqp
+    label: Broker classique (JMS/AMQP)
+  - id: log
+    label: Log partitionné
+  - id: cdc
+    label: Capture des changements (CDC)
+  - id: es
+    label: Event sourcing

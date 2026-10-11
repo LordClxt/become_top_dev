@@ -1,0 +1,29 @@
+blocks:
+  outcome:
+    options:
+      vote-no: 'Un seul « non » suffit : le coordinateur décide abort et personne n''a encore validé.'
+      crash-before-prepare: 'Personne n''a voté oui, donc personne n''a rien promis : chacun peut annuler seul.'
+      timeout-prepare: 'Pas de réponse = pas de oui : le coordinateur décide abort ; P1 et P2 reçoivent abort.'
+      crash-after-log: 'La décision est sur disque mais n''a atteint personne : les participants qui ont voté oui attendent, puis reçoivent commit à la reprise.'
+      crash-before-log: 'Les participants ont voté oui et attendent ; à la reprise, aucune décision n''est écrite, donc le coordinateur annule.'
+      retry-commit: 'Le coordinateur réessaie sans fin : P2 finit par valider. Les autres ne sont jamais en doute au-delà d''un aller-retour.'
+  prepare:
+    options:
+      commit-local: 'Valider avant la décision casserait l''atomicité si un autre participant vote non.'
+      release: 'La transaction n''est pas terminée : relâcher les verrous laisserait d''autres lire ou écrire des données qui seront peut-être annulées.'
+      ask-peers: 'Les participants ne se parlent pas dans 2PC : seul le coordinateur recueille les votes.'
+  doubt:
+    options:
+      wait: 'C''est la seule option sûre : seul le coordinateur connaît la décision.'
+      keep-locks: 'Les verrous doivent tenir tant que l''issue est inconnue.'
+      abort-timeout: 'Si le coordinateur a décidé commit, P1 a peut-être déjà validé : annuler casserait l''atomicité.'
+      commit-yes: 'Voter oui n''est pas une décision : un autre participant a peut-être voté non.'
+      survive-restart: 'Une transaction préparée est durable : un redémarrage ne la fait pas disparaître, ni ses verrous.'
+  blocked:
+    tolerance:
+      rel: 0.01
+    wrong: '45 minutes d''attente × 120 commandes par minute.'
+  recovery:
+    options:
+      abort-undecided: 'Sans décision écrite, aucun commit n''a pu partir : on annule, et on l''écrit avant de l''envoyer.'
+      resend: 'On diffuse en dernier, une fois toutes les décisions durables.'

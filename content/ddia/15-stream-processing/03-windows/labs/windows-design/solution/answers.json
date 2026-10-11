@@ -1,0 +1,8 @@
+{
+  "counts": {"t0.n": 2, "t1.n": 2, "t2.n": 1, "t4.n": 2, "h0.n": 4, "h1.n": 3, "h4.n": 2},
+  "membership": 2,
+  "burst": ["sliding"],
+  "sessions": 3,
+  "sessionEnd": "e2",
+  "choose": {"report": "tumbling", "smooth": "hopping", "limit": "sliding", "visit": "session"}
+}

@@ -1,0 +1,18 @@
+id: ddia-ch17-l05-lab-ethics-design
+title: 'La revue éthique d''un produit de données'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-ethics-predictive-bias
+- ddia-ethics-accountability
+- ddia-ethics-feedback-loops
+- ddia-ethics-consent
+- ddia-ethics-regulation
+source:
+  chapter: 12
+  pages: 533-546
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

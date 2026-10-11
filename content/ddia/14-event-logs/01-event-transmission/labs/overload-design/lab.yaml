@@ -1,0 +1,17 @@
+id: ddia-ch14-l01-lab-overload-design
+title: 'Le pic du Black Friday : perdre, tamponner ou freiner'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-producer-overload-choices
+- ddia-message-durability-tradeoff
+- ddia-direct-messaging
+- ddia-broker-vs-database
+source:
+  chapter: 11
+  pages: 439-444
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

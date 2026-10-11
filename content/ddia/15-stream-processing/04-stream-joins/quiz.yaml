@@ -1,0 +1,98 @@
+id: ddia-ch15-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pour calculer le taux de clic, pourquoi ne pas simplement recopier les détails de la recherche dans chaque événement clic ?
+  choices:
+  - Parce que les événements seraient trop gros
+  - Parce qu'on ne verrait que les recherches cliquées ; le taux de clic a aussi besoin des recherches sans clic
+  - Parce que Kafka l'interdit
+  - Parce que le clic arrive toujours avant la recherche
+  answer: 1
+  explanation: Le dénominateur, ce sont toutes les recherches. Seule une jointure qui émet aussi les recherches expirées sans clic le donne.
+  concept: ddia-sp-stream-stream-join
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: 'Jointure fenêtrée recherche-clic sur 1 heure : 10 000 recherches/s, 400 octets chacune. Quel état faut-il garder côté recherches ?'
+  choices:
+  - Environ 4 Mo
+  - Environ 1,4 Go
+  - Environ 14,4 Go
+  - Environ 144 Go
+  answer: 2
+  explanation: 10 000 × 3 600 × 400 octets = 14,4 milliards d'octets. On partitionne par identifiant de session pour répartir cet état.
+  concept: ddia-sp-stream-stream-join
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Un job enrichit 50 000 événements/s avec le profil de l'utilisateur en interrogeant PostgreSQL à chaque événement. Quel est le meilleur correctif ?
+  choices:
+  - Ajouter un réplica de lecture et continuer à interroger à chaque événement
+  - Charger un instantané de la table au démarrage du job et ne plus y toucher
+  - Garder une copie locale de la table dans l'opérateur, tenue à jour par le changelog (CDC) de la base
+  - Supprimer l'enrichissement
+  answer: 2
+  explanation: Une copie locale évite l'aller-retour réseau et la surcharge de la base ; la CDC la garde à jour pendant que le job tourne indéfiniment. Un instantané figé vieillit.
+  concept: ddia-sp-stream-table-join
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Vue comme une jointure flux-flux, quelle est la fenêtre du côté « table » dans un enrichissement ?
+  choices:
+  - Elle remonte au début des temps, une nouvelle version d'une clé écrasant l'ancienne
+  - Une minute
+  - La même que celle du flux d'activité
+  - Il n'y a pas d'état côté table
+  answer: 0
+  explanation: Un profil modifié il y a cinq ans reste valable. Le côté activité, lui, n'a pas besoin de fenêtre.
+  concept: ddia-sp-stream-table-join
+  difficulty: 2
+- id: q5
+  type: multiple
+  prompt: Pour maintenir les fils d'actualité de Twitter en flux, de quels états l'opérateur a-t-il besoin ?
+  choices:
+  - L'ensemble des abonnés de chaque utilisateur
+  - Les tweets récents de chaque utilisateur
+  - Le mot de passe de chaque utilisateur
+  - Le nombre total de tweets du site
+  answer: [0, 1]
+  explanation: Un nouveau tweet se joint aux abonnés (quels fils toucher) ; un nouvel abonnement se joint aux tweets récents (quoi ajouter au fil).
+  concept: ddia-sp-table-table-join
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: L'utilisateur A s'abonne à B, puis se désabonne. Les deux événements sont sur la même partition du flux d'abonnements. Que garantit le log ?
+  choices:
+  - Rien du tout
+  - Que le désabonnement est traité en premier
+  - Que les deux sont traités dans l'ordre où ils ont été écrits dans la partition
+  - Que le tweet de B arrive après
+  answer: 2
+  explanation: L'ordre est garanti dans une partition. Il ne l'est pas entre ce flux et le flux des tweets, ce qui rend la jointure sensible au temps.
+  concept: ddia-sp-join-time-dependence
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: 'Tu retraites les ventes de l''an dernier ; le taux de TVA a changé depuis. Que faut-il pour que la jointure donne le bon montant ?'
+  choices:
+  - Joindre avec le taux courant
+  - Trier les ventes par montant
+  - Retraiter plus vite
+  - Que chaque vente porte l'identifiant de la version du taux en vigueur à sa date
+  answer: 3
+  explanation: Joindre sur un identifiant de version rend la jointure déterministe, quel que soit l'ordre de traitement des flux.
+  concept: ddia-sp-versioned-join
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Quel est le coût de la solution « identifiant de version » pour une slowly changing dimension ?
+  choices:
+  - La compaction de log n'est plus possible, car toutes les versions doivent être gardées
+  - La jointure devient non déterministe
+  - On ne peut plus partitionner
+  - Les ventes doivent être triées
+  answer: 0
+  explanation: La compaction ne garde que la dernière valeur par clé ; ici, les anciennes versions servent encore.
+  concept: ddia-sp-versioned-join
+  difficulty: 3

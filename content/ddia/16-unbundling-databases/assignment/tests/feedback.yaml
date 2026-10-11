@@ -1,0 +1,35 @@
+blocks:
+  needs:
+    options:
+      search: 'Un consommateur du log applique les modifications dans l''ordre de PostgreSQL : pas de divergence possible.'
+      newview: 'Une nouvelle forme de données se dérive à côté de l''ancienne, puis on déplace les lecteurs.'
+      driver: 'Le délai de 2 s exige que le serveur pousse le changement ; interroger en boucle coûte cher et reste en retard.'
+      sql: 'Une seule interface de requête sur plusieurs moteurs, c''est la fédération (unifier les lectures).'
+  rebuild:
+    tolerance:
+      rel: 0.02
+    wrong: 'Débit total 8 × 25 000 = 200 000 événements/s ; 1,2 × 10⁹ / 200 000 = 6 000 s = 100 min.'
+  precompute:
+    options:
+      read.cpu: '2 000 000 affichages × 0,04 s = 80 000 s.'
+      write.cpu: '400 000 changements × 0,04 s = 16 000 s : cinq fois moins, car on lit cinq fois plus qu''on n''écrit.'
+  newindex:
+    options:
+      snap: 'Sans l''offset de l''instantané, on ne sait pas où reprendre dans le log.'
+      tail: 'Le rattrapage reprend exactement à l''offset de l''instantané : ni trou, ni doublon non géré.'
+      compare: 'On compare sur une partie du trafic avant de basculer : c''est la migration progressive.'
+  determinism:
+    options:
+      now: 'L''horloge du consommateur change à chaque rejeu : la vue reconstruite différerait de l''incrémentale.'
+      pure: 'Un appel à un service externe renvoie l''état d''aujourd''hui, pas celui de l''époque de l''événement.'
+      idem: 'Sans idempotence, une relivraison compte deux fois un événement.'
+      order: 'Deux changements d''une même clé appliqués dans le désordre laissent la mauvaise valeur.'
+  offline:
+    options:
+      reload: 'Tout recharger gaspille du réseau et de la batterie ; le client sait déjà où il s''est arrêté.'
+      wait: 'Les changements des 25 dernières minutes seraient perdus pour l''app.'
+      poll: 'Interroger en boucle ne dit pas ce qui a été manqué et coûte cher à tous les clients.'
+  integrated:
+    options:
+      unbundle: 'Dégrouper sert quand aucun produit ne suffit ; ici, il ajoute surtout de l''exploitation.'
+      xa: 'Une transaction distribuée couple les deux systèmes et amplifie les pannes, sans besoin réel ici.'

@@ -1,0 +1,24 @@
+blocks:
+  retard:
+    tolerance:
+      rel: 0.01
+    wrong: '(5 000 − 4 000) changements de retard par seconde × 90 s = 90 000.'
+  rattrapage:
+    tolerance:
+      rel: 0.02
+    wrong: 'Le follower réduit son retard de 4 000 − 2 000 = 2 000 changements par seconde : 90 000 / 2 000 = 45 s.'
+  pages:
+    options:
+      monprofil: 'L''utilisateur vient de le modifier : un follower en retard lui montrerait l''ancienne version.'
+      autre: 'Read-your-writes ne promet rien sur les écritures des autres : un léger retard est acceptable.'
+      tendances: 'Une page globale qu''il n''a pas modifiée lui-même : un follower suffit.'
+      parametres: 'Il vient de les enregistrer : il doit voir sa propre écriture.'
+  politique:
+    goals:
+      correct: 'Après la fenêtre, un follower peut avoir jusqu''à « retard max » de retard : s''il dépasse la fenêtre, l''écriture peut ne pas y être encore.'
+      charge: 'Une fenêtre trop longue envoie trop de lectures au leader : c''est la charge que la réplication devait absorber.'
+      pic: 'Un retard max trop bas écarte tous les followers au premier pic : toutes les lectures retombent sur le leader.'
+  appareils:
+    options:
+      cookie: 'Le cookie vit sur le téléphone : l''ordinateur ne sait rien de l''écriture.'
+      sync: 'Cela bloquerait les écritures à la moindre panne d''un des six followers, et ne règle pas le routage entre datacenters.'

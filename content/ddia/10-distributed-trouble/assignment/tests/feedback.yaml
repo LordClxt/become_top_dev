@@ -1,0 +1,44 @@
+blocks:
+  timeline:
+    options:
+      check: La vérification a lieu avant la pause ; c'est ce qui la rend périmée au réveil.
+      expire: Le bail expire pendant la pause, pas après.
+      a-debit: A ne débite qu'à son réveil, bien après que B a repris la file.
+  root:
+    options:
+      clock: B a obtenu le bail après l'expiration ; aucune horloge fausse n'est nécessaire pour expliquer l'incident.
+      network: 'Les deux débits viennent de deux leaders différents : ce n''est pas une duplication réseau.'
+  tokens:
+    options:
+      w1.ok: Premier jeton vu, rien de plus grand avant.
+      w2.ok: 42 est plus grand que 41 ; la base retient désormais 42.
+      w3.ok: Un jeton égal au plus grand vu est celui du détenteur actuel, qui peut écrire plusieurs fois.
+      w4.ok: 41 est plus petit que 42, déjà vu ; c'est le zombie.
+      w5.ok: 43 est un nouveau bail, plus récent ; il est accepté.
+  quorum:
+    options:
+      n3.maj: Plus de la moitié de 3.
+      n3.tol: 3 moins la majorité.
+      n5.maj: Plus de la moitié de 5.
+      n5.tol: 5 moins la majorité.
+      n6.maj: Plus de la moitié de 6, au sens strict.
+      n6.tol: '6 moins la majorité : pas mieux que 5 nœuds.'
+      n7.maj: Plus de la moitié de 7.
+      n7.tol: 7 moins la majorité.
+  props:
+    options:
+      once: Une violation se date (le second débit) et ne se répare pas.
+      one-leader: Deux leaders simultanés, c'est un événement daté et irréparable.
+      answer: '« Finit par » : la réponse peut encore venir.'
+      elect: '« Finit par » : c''est une vivacité, exigée sous conditions.'
+  model:
+    options:
+      sync: Le synchrone suppose des pauses bornées ; l'incident prouve le contraire.
+      async-byz: 'Trop pessimiste et trop coûteux : les nœuds sont à toi, et sans aucune hypothèse de temps on ne peut même pas utiliser de timeout.'
+  fixes:
+    options:
+      longer: Une pause de 70 s reste possible ; on recule le problème sans le supprimer.
+      double-check: La pause peut tomber après la seconde vérification aussi.
+      bft: 'Le leader déchu n''est pas malveillant, il est en retard : un jeton vérifié suffit.'
+      fencing: La base refuse le jeton 41 dès qu'elle a vu 42.
+      idem: Le second débit du même paiement est reconnu et ignoré.

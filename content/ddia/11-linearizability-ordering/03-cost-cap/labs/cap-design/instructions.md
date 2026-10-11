@@ -1,0 +1,1 @@
+Une application tourne dans deux datacenters, Paris et Montréal. Tu prédis ce qui reste possible pendant une coupure transatlantique, tu chiffres la latence d'une garantie linéarisable, et tu reformules CAP correctement.

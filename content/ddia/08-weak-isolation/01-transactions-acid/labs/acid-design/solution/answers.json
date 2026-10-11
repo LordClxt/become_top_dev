@@ -1,0 +1,7 @@
+{
+  "letters": {"half": "a", "peek": "i", "reboot": "d", "rule": "c", "race": "i"},
+  "retry": ["deadlock", "failover", "conflict"],
+  "backoff": 750,
+  "timeout": "idem",
+  "mails": 3
+}

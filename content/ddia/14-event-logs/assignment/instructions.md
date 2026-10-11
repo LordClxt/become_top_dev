@@ -1,0 +1,1 @@
+Prouve chiffres à l'appui que les doubles écritures font diverger la base et l'index, conçois leur remplaçant (CDC, sujet compacté, amorçage par snapshot), dimensionne partitions, consommateurs et disque, puis choisis le bon outil pour quatre autres flux.

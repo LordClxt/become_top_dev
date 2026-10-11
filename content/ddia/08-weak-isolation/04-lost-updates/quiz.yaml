@@ -1,0 +1,98 @@
+id: ddia-ch08-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un compteur vaut 42. Deux transactions lisent 42, ajoutent 1 et écrivent. Quel nom porte l'anomalie et quel est le résultat ?
+  choices:
+  - Lecture sale ; 44
+  - Mise à jour perdue ; 43
+  - Écriture sale ; 42
+  - Read skew ; 44
+  answer: 1
+  explanation: Deux cycles lire-modifier-écrire concurrents ; le second écrase le premier.
+  concept: ddia-lost-update
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Lesquelles de ces opérations sont des cycles lire-modifier-écrire exposés aux mises à jour perdues ?
+  choices:
+  - Lire un document JSON, ajouter un élément à une liste, réécrire le document
+  - '`UPDATE counters SET value = value + 1 WHERE key = ''x''`'
+  - Deux personnes qui éditent une page wiki et envoient chacune la page entière
+  - Avec un ORM, `account.balance -= 20; account.save()`
+  answer: [0, 2, 3]
+  explanation: L'UPDATE atomique fait le calcul dans la base ; l'ORM cache un cycle dans le code.
+  concept: ddia-lost-update
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Comment une base implémente-t-elle souvent une opération atomique d'écriture ?
+  choices:
+  - Par un verrou exclusif sur l'objet de la lecture à l'écriture (cursor stability), ou sur un seul thread
+  - Par un compare-and-set côté client
+  - Par réplication synchrone
+  - Par un nouvel instantané à chaque requête
+  answer: 0
+  explanation: La base garantit que personne d'autre ne lit l'objet entre la lecture et l'écriture.
+  concept: ddia-atomic-write-ops
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Dans un jeu, déplacer une pièce exige de vérifier des règles complexes en Go. La base n'a pas d'opération atomique adaptée. Que faire ?
+  choices:
+  - Écrire LWW
+  - SELECT … FOR UPDATE sur la pièce, vérifier le coup, puis UPDATE dans la même transaction
+  - Lire en read uncommitted
+  - Rien, read committed suffit
+  answer: 1
+  explanation: Le verrou explicite fait attendre un second cycle sur la même pièce — à condition de ne l'oublier nulle part.
+  concept: ddia-explicit-locking
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Quel niveau ne détecte PAS automatiquement les mises à jour perdues ?
+  choices:
+  - Repeatable read de PostgreSQL
+  - Serializable d'Oracle
+  - Snapshot isolation de SQL Server
+  - Repeatable read de MySQL/InnoDB
+  answer: 3
+  explanation: InnoDB laisse passer la mise à jour perdue en repeatable read.
+  concept: ddia-lost-update-detection
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Quel est l'avantage principal de la détection automatique sur le verrou explicite ?
+  choices:
+  - Elle ne demande rien à l'application, hormis réessayer la transaction abandonnée
+  - Elle n'abandonne jamais de transaction
+  - Elle fonctionne sans snapshot isolation
+  - Elle est plus rapide qu'une opération atomique
+  answer: 0
+  explanation: Pas de FOR UPDATE à ne pas oublier ; la base abandonne la perdante.
+  concept: ddia-lost-update-detection
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Un compare-and-set `UPDATE … WHERE content = 'ancien'` peut-il échouer à protéger ?
+  choices:
+  - Non, jamais
+  - Oui, si la base évalue le WHERE sur un ancien instantané au lieu de la valeur courante
+  - Oui, si la ligne est petite
+  - Non, sauf en multi-leader
+  answer: 1
+  explanation: 'Il faut comparer à la valeur courante ; sinon la comparaison passe malgré une écriture concurrente.'
+  concept: ddia-compare-and-set
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Ta base sans leader garde un compteur de likes sur trois réplicas, avec LWW par défaut. Que risques-tu, et quelle meilleure option ?
+  choices:
+  - Rien ; LWW additionne
+  - Des lectures sales ; passer en read committed
+  - Des incréments perdus ; utiliser un compteur commutatif qui fusionne les réplicas
+  - Un interblocage ; ajouter FOR UPDATE
+  answer: 2
+  explanation: Verrous et CAS supposent une seule copie à jour ; un compteur commutatif ne perd rien, LWW si.
+  concept: ddia-replicated-lost-updates
+  difficulty: 3

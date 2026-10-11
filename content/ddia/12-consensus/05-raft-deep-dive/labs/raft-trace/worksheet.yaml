@@ -1,0 +1,64 @@
+intro: |
+  Tu débogues un cluster Raft à partir de ses journaux. Pour chaque nœud, on te donne la **dernière entrée de son log** sous la forme (index, terme). Tu rejoues à la main ce que l'algorithme a dû décider.
+blocks:
+- id: votes
+  type: match
+  title: Qui vote pour C ?
+  prompt: 'Cluster de 5 nœuds. Le candidat **C**, dernière entrée (8, 3), demande des voix pour le **terme 6**. Aucun autre nœud n''a voté dans ce terme. Que répond chacun ?'
+  items:
+  - id: a
+    label: A, dernière entrée (8, 3)
+  - id: b
+    label: B, dernière entrée (10, 3)
+  - id: d
+    label: D, dernière entrée (9, 2)
+  - id: e
+    label: E, dernière entrée (5, 4)
+  categories:
+  - id: grant
+    label: Accorde sa voix
+  - id: refuse
+    label: Refuse
+- id: count
+  type: number
+  title: Le décompte
+  prompt: Combien de voix C obtient-il en tout, la sienne comprise ?
+  unit: voix
+- id: backtrack
+  type: number
+  title: Retrouver le point d'accord
+  prompt: 'Le nouveau leader a **10 entrées**. Un follower en a **6** : ses entrées 1 à 4 concordent avec celles du leader, ses entrées 5 et 6 portent un terme différent. Le leader part de `nextIndex = 11` et recule d''un cran à chaque refus. Combien d''AppendEntries sont **refusés** avant le premier succès ?'
+  unit: refus
+- id: commit
+  type: number
+  title: Avancer commitIndex
+  prompt: 'Cluster de **7 nœuds**. Le leader a 20 entrées, toutes de son terme. Les `matchIndex` de ses six followers valent 20, 18, 15, 15, 11 et 3. Que vaut `commitIndex` ?'
+  unit: index
+- id: oldterm
+  type: choice
+  title: Une entrée d'un ancien terme
+  prompt: 'Cluster de 5 nœuds, leader du **terme 7**, `commitIndex = 12`. Les entrées 13 et 14 (terme 5) sont sur 3 nœuds ; l''entrée 15 (terme 7) n''est que sur le leader et un follower. Que devient `commitIndex` ?'
+  options:
+  - id: stay
+    label: Il reste à 12 tant qu'aucune entrée du terme 7 n'est sur une majorité
+  - id: fourteen
+    label: Il passe à 14, puisque 14 est sur une majorité
+  - id: fifteen
+    label: Il passe à 15, l'entrée la plus récente
+  - id: thirteen
+    label: Il passe à 13, une entrée à la fois
+- id: follower
+  type: order
+  title: Un follower reçoit AppendEntries
+  prompt: Remets dans l'ordre ce que fait le follower.
+  items:
+  - id: term
+    label: Refuser si le terme du message est plus petit que le sien, sinon l'adopter
+  - id: check
+    label: Vérifier qu'il a une entrée à prevLogIndex portant prevLogTerm
+  - id: truncate
+    label: Supprimer la première entrée en conflit et tout ce qui la suit
+  - id: append
+    label: Ajouter les entrées qu'il n'a pas encore
+  - id: commit
+    label: Avancer son commitIndex à min(leaderCommit, dernier index reçu)

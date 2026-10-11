@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Bail (lease) ?
+  back: Un verrou avec échéance ; son détenteur doit le renouveler avant l'expiration, sinon un autre le prend.
+  concept: ddia-lease-check-race
+- id: fc2
+  front: Pourquoi « if lease.IsValid() { process() } » est-il dangereux ?
+  back: Une pause entre la vérification et l'action laisse agir un nœud dont le bail a expiré.
+  concept: ddia-lease-check-race
+- id: fc3
+  front: Causes de pauses de processus ?
+  back: GC stop-the-world, VM suspendue ou migrée, CPU volé, capot fermé, E/S synchrones, swap, SIGSTOP.
+  concept: ddia-process-pause
+- id: fc4
+  front: Règle d'or sur les pauses ?
+  back: Un nœud doit supposer qu'il peut être figé longtemps à n'importe quel moment, même au milieu d'une fonction.
+  concept: ddia-process-pause
+- id: fc5
+  front: Pourquoi désactiver le swap sur un serveur ?
+  back: Un accès mémoire peut attendre le disque, et sous pression le système passe son temps à paginer (thrashing).
+  concept: ddia-process-pause
+- id: fc6
+  front: Temps réel strict ?
+  back: Garantir une réponse avant une échéance (RTOS, pire temps connu, allocation restreinte, tests) ; débit souvent plus faible.
+  concept: ddia-realtime-guarantees
+- id: fc7
+  front: Temps réel strict = haute performance ?
+  back: Non. Il privilégie les échéances, pas le débit.
+  concept: ddia-realtime-guarantees
+- id: fc8
+  front: GC comme panne planifiée ?
+  back: Prévenir, retirer le nœud du trafic, finir les requêtes en cours, collecter, puis remettre le nœud.
+  concept: ddia-gc-pause-mitigation
+- id: fc9
+  front: Autre façon de limiter le GC ?
+  back: Ne collecter que les objets à courte vie et redémarrer les processus, un à la fois, avant la grosse collecte.
+  concept: ddia-gc-pause-mitigation

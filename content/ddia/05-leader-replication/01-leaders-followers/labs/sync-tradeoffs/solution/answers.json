@@ -1,0 +1,8 @@
+{
+  "latence": {"async.ms": 3, "semia.ms": 4, "semic.ms": 15, "all.ms": 88},
+  "blocage": 5.88,
+  "semi": 0.04,
+  "perte": 300,
+  "usages": {"catalogue": "async", "paiements": "semi", "reporting": "async", "rack": "sync"},
+  "vrai": ["continue", "retard"]
+}

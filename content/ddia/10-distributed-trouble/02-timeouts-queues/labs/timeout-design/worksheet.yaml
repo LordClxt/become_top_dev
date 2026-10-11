@@ -1,0 +1,85 @@
+intro: |
+  Un cluster de **4 nœuds** surveille ses membres par **battements de cœur** (*heartbeats*). Un nœud qui n'a rien envoyé
+  depuis plus que le timeout est déclaré mort, et sa charge est répartie entre les survivants. Tu dois choisir les réglages,
+  sachant qu'une fausse alerte coûte cher.
+blocks:
+- id: bounded
+  type: number
+  title: Dans un monde idéal
+  prompt: |
+    Si le réseau garantissait un délai maximal de **3 ms** dans chaque sens et le serveur un traitement en au plus **50 ms**,
+    quel serait le plus petit timeout sûr pour une requête ?
+  unit: ms
+- id: cascade
+  type: number
+  title: La cascade
+  prompt: |
+    Les 4 nœuds tournent chacun à **80 %** de leur capacité. L'un d'eux, simplement ralenti, est déclaré mort à tort,
+    et sa charge est répartie à parts égales entre les 3 autres. À quelle charge, en pourcentage de leur capacité, tournent-ils ? (une décimale)
+  unit: '%'
+- id: cascade-next
+  type: choice
+  title: Et ensuite ?
+  prompt: Que risque-t-il de se passer avec un timeout court ?
+  options:
+  - id: domino
+    label: Les survivants, saturés, répondent en retard, sont déclarés morts à leur tour, et le cluster s'effondre
+    hint: Panne en cascade
+  - id: stable
+    label: 'Rien : la charge sera absorbée car le nœud accusé reviendra vite'
+  - id: faster
+    label: Le cluster devient plus rapide, car il y a un nœud de moins à coordonner
+- id: queues
+  type: match
+  title: Où attend le paquet ?
+  prompt: Pour chaque situation, indique la file où le message prend du retard.
+  items:
+  - id: incast
+    label: Trois serveurs envoient au même instant une grosse réponse vers le même client
+  - id: vm
+    label: La VM destinataire est suspendue 30 ms pendant qu'une autre VM utilise le cœur physique
+  - id: backpressure
+    label: L'émetteur réduit lui-même son débit, car les acquittements tardent
+  - id: cpu
+    label: Tous les cœurs du destinataire sont occupés à calculer un rapport
+  categories:
+  - id: switch
+    label: File du switch
+  - id: os
+    label: File du système d'exploitation
+  - id: hypervisor
+    label: Tampon de l'hyperviseur
+  - id: sender
+    label: Contrôle de flux TCP chez l'émetteur
+- id: tuning
+  type: tuner
+  title: Le réglage
+  prompt: |
+    Des mesures sur plusieurs semaines montrent qu'un battement de cœur met **10 ms** au minimum, plus un retard aléatoire
+    à longue traîne de **40 ms** en moyenne : la probabilité qu'il ait plus de `t` ms de retard vaut environ `exp(-(t − 10) / 40)`.
+    Chaque battement manqué au-delà du timeout est une fausse alerte. Règle l'intervalle entre battements et le timeout.
+  params:
+  - { id: h, label: Intervalle entre battements, unit: ms, min: 100, max: 2000, step: 100, default: 1000 }
+  - { id: t, label: Timeout, unit: ms, min: 50, max: 2000, step: 10, default: 100 }
+  metrics:
+  - { id: p, label: Probabilité de fausse alerte par battement, expr: "exp(-(t - 10) / 40)", format: percent }
+  - { id: perday, label: Fausses alertes par jour, expr: "(86400000 / h) * p", format: number }
+  - { id: detect, label: Délai de détection d'une vraie panne (pire cas), expr: "(h + t) / 1000", format: duration-s }
+  - { id: rate, label: Battements par seconde, expr: "1000 / h", format: number }
+  goals:
+  - { id: quiet, label: Au plus une fausse alerte par jour, expr: "perday <= 1" }
+  - { id: fast, label: "Une vraie panne détectée en 1,5 s au plus", expr: "detect <= 1.5" }
+  - { id: cheap, label: Au plus 5 battements par seconde, expr: "rate <= 5" }
+- id: adaptive
+  type: choice
+  title: Un nœud de plus
+  prompt: |
+    Un cinquième nœud, dans un autre datacentre, a des battements bien plus irréguliers. Que faire du timeout ?
+  options:
+  - id: global
+    label: Garder le même timeout pour tous, c'est plus simple à expliquer
+  - id: per-node
+    label: Mesurer en continu la moyenne et la gigue de chaque nœud et en déduire un timeout par nœud
+    hint: Détecteur adaptatif, à la phi accrual
+  - id: udp
+    label: Passer les battements en UDP pour supprimer la gigue

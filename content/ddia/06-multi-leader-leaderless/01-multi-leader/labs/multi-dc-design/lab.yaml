@@ -1,0 +1,57 @@
+id: ddia-ch06-l01-lab-multi-dc-design
+title: Un leader par datacenter
+difficulty: 3
+xp: 60
+concepts:
+- ddia-multi-leader-multi-dc
+- ddia-multi-leader-replication
+- ddia-multi-leader-dangers
+source:
+  chapter: 5
+  pages: 168-171
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: dceu
+  component: zone
+  label: Datacenter Europe
+  hint: Francfort.
+- type: dcus
+  component: zone
+  label: Datacenter États-Unis
+  hint: Virginie, à 90 ms d'aller-retour de Francfort.
+- type: usereu
+  component: browser
+  label: Utilisateurs européens
+  hint: Écrivent depuis l'Europe.
+- type: userus
+  component: browser
+  label: Utilisateurs américains
+  hint: Écrivent depuis les États-Unis.
+- type: leadereu
+  component: leader
+  label: Leader Europe
+  hint: Accepte les écritures du site européen.
+- type: leaderus
+  component: leader
+  label: Leader États-Unis
+  hint: Accepte les écritures du site américain.
+- type: followereu
+  component: follower
+  label: Suiveur Europe
+  hint: Copie locale du leader européen.
+- type: followerus
+  component: follower
+  label: Suiveur États-Unis
+  hint: Copie locale du leader américain.
+- type: lock
+  component: consensus
+  label: Verrou global synchrone
+  hint: Chaque écriture attend l'accord des deux sites.
+- type: sequence
+  component: index
+  label: Séquence auto-incrémentée partagée
+  hint: Un compteur d'identifiants commun aux deux leaders.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

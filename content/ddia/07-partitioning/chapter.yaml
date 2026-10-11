@@ -1,0 +1,28 @@
+id: ddia-ch07
+title: Partitionnement
+subtitle: 'Plages de clés, hachage, index secondaires, rééquilibrage et routage : répartir les données quand un nœud ne suffit plus'
+source:
+  chapter: 6
+  pages: 199-218
+objectives:
+- Expliquer pourquoi on partitionne, comment partitionnement et réplication se combinent, et ce que sont le déséquilibre et les points chauds
+- Choisir entre partitionnement par plage de clés et par hachage selon les requêtes à servir, et neutraliser une clé brûlante
+- Comparer un index secondaire local (scatter/gather) et un index global partitionné par terme, en lecture comme en écriture
+- Chiffrer le coût d'un rééquilibrage et choisir entre nombre fixe de partitions, partitionnement dynamique et partitions proportionnelles aux nœuds
+- Concevoir le routage des requêtes (n'importe quel nœud, couche de routage, client informé) et le rôle d'un service de coordination comme ZooKeeper
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch06
+lessons:
+- 01-partitions-key-range
+- 02-hash-partitioning
+- 03-secondary-indexes
+- 04-rebalancing
+- 05-request-routing
+xp:
+  assignment: 130
+  project: 240
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

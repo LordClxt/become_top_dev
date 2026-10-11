@@ -1,0 +1,14 @@
+id: ddia-ch08-project
+title: "Tinybase — les transactions MVCC"
+pitch: "Tinybase apprend les transactions : des identifiants croissants, des versions created_by/deleted_by, des instantanés cohérents pour chaque lecteur, et un refus net quand deux écrivains se marchent dessus."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 240
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["mvcc.go"]
+concepts: [ddia-mvcc-versions, ddia-mvcc-visibility-rules, ddia-snapshot-isolation, ddia-lost-update-detection, ddia-write-skew-anomaly]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

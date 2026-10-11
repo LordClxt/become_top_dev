@@ -1,0 +1,29 @@
+id: ddia-ch16
+title: Dégrouper la base de données
+subtitle: 'Intégrer des outils spécialisés par des données dérivées, unifier lots et flux, et concevoir les applications autour du flux de données'
+source:
+  chapter: 12
+  pages: 489-514
+objectives:
+- Intégrer plusieurs outils spécialisés en dérivant leurs données d'un log ordonné plutôt qu'en écrivant partout ou en recourant à des transactions distribuées
+- Expliquer les limites d'un ordre total des événements et capturer la causalité quand cet ordre n'existe pas
+- Faire évoluer un système par retraitement et migration progressive d'une vue dérivée, et comparer architecture lambda et traitement unifié
+- Décrire une base « dégroupée » (index, caches, vues comme abonnés d'un log) et la distinguer d'une fédération de lecture
+- Concevoir une application comme un ensemble de fonctions de dérivation qui s'abonnent aux changements, au lieu d'appels synchrones
+- Placer la frontière entre chemin d'écriture et chemin de lecture (cache, vue matérialisée, état poussé jusqu'au client)
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch15
+lessons:
+- 01-data-integration
+- 02-batch-stream-evolution
+- 03-unbundling
+- 04-dataflow-applications
+- 05-observing-derived-state
+xp:
+  assignment: 130
+  project: 250
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

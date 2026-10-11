@@ -1,0 +1,100 @@
+id: ddia-ch14-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Transcoder une vidéo prend 40 s, et 300 vidéos arrivent chaque heure. Quel mode de livraison veux-tu entre tes workers de transcodage ?
+  choices:
+  - Fan-out, pour que chaque worker transcode toutes les vidéos
+  - Répartition de charge, pour que chaque vidéo soit transcodée par un seul worker
+  - Aucun, un seul worker suffit toujours
+  - Un webhook par vidéo
+  answer: 1
+  explanation: 300 × 40 s = 12 000 s de travail par heure, soit plus de 3 workers à plein temps. On partage les messages, on ne les duplique pas.
+  concept: ddia-consumer-load-balancing
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: La facturation et l'analytique doivent toutes deux voir chaque commande. Quel mode ?
+  choices:
+  - Fan-out
+  - Répartition de charge
+  - Contre-pression
+  - Redistribution
+  answer: 0
+  explanation: Chaque abonné reçoit tous les messages et les traite indépendamment, comme deux jobs batch qui lisent le même fichier.
+  concept: ddia-consumer-fan-out
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: 'Un sujet reçoit 900 messages/s. Groupe A : 3 workers. Groupe B : 1 worker. Combien de messages par seconde voit le worker du groupe B ?'
+  choices:
+  - '225'
+  - '300'
+  - '900'
+  - '450'
+  answer: 2
+  explanation: Chaque groupe reçoit le flux complet ; la répartition ne joue qu'à l'intérieur d'un groupe. Le worker seul de B voit les 900.
+  concept: ddia-consumer-groups
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Un développeur met le service e-mail et le service de facturation dans le même groupe de consommateurs. Que se passe-t-il ?
+  choices:
+  - Chaque commande reçoit une facture et un e-mail
+  - Le broker refuse la configuration
+  - Les commandes sont traitées deux fois
+  - Ils se partagent les commandes ; chacune n'a qu'une facture ou qu'un e-mail
+  answer: 3
+  explanation: Dans un groupe, chaque message ne va qu'à un membre. Deux traitements différents doivent être deux groupes.
+  concept: ddia-consumer-groups
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Un consommateur a envoyé l'e-mail de confirmation, puis la connexion tombe avant que son accusé n'arrive au broker. Que se passe-t-il ?
+  choices:
+  - Le message est perdu
+  - Le broker redistribue le message, et l'e-mail risque d'être envoyé deux fois
+  - Le broker sait que l'e-mail est parti
+  - Le message reste bloqué pour toujours
+  answer: 1
+  explanation: Sans accusé, le broker suppose que rien n'a été fait. Seule l'idempotence (ou un commit atomique) évite le double envoi.
+  concept: ddia-ack-redelivery
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: À quel moment un consommateur doit-il acquitter un message ?
+  choices:
+  - Dès la réception, pour libérer le broker au plus vite
+  - Jamais, le broker se débrouille
+  - Après avoir produit l'effet du traitement
+  - Avant de se connecter
+  answer: 2
+  explanation: Acquitter à la réception puis planter, c'est perdre le message. On acquitte quand le travail est fait.
+  concept: ddia-ack-redelivery
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Deux consommateurs, cinq messages. Le consommateur 2 plante pendant m3, qui est redistribué au consommateur 1 après m4. Dans quel ordre le consommateur 1 traite-t-il ses messages ?
+  choices:
+  - m5 → m3 → m4 → m1
+  - m1 → m4 → m5 → m3
+  - m1 → m4 → m3 → m5
+  - m4 → m3 → m5 → m1
+  answer: 2
+  explanation: m3 arrive chez le consommateur 1 après m4, qu'il a déjà fini. Panne + répartition = réordonnancement.
+  concept: ddia-redelivery-reordering
+  difficulty: 3
+- id: q8
+  type: multiple
+  prompt: Dans quels cas le réordonnancement dû à la redistribution pose-t-il un vrai problème ?
+  choices:
+  - « Compte créé » puis « dépôt sur ce compte »
+  - Des vignettes d'images indépendantes à générer
+  - « Commande passée » puis « commande annulée »
+  - Des e-mails de bienvenue à des clients différents
+  answer:
+  - 0
+  - 2
+  explanation: Le problème apparaît quand un message dépend causalement d'un autre ; des tâches indépendantes peuvent être traitées dans n'importe quel ordre.
+  concept: ddia-redelivery-reordering
+  difficulty: 2

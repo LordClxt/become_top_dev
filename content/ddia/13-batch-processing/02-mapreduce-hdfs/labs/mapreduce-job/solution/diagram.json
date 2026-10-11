@@ -1,0 +1,157 @@
+{
+  "nodes": [
+    {
+      "id": "sched",
+      "type": "sched",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "namenode",
+      "type": "namenode",
+      "x": 0,
+      "y": -180
+    },
+    {
+      "id": "input",
+      "type": "input",
+      "x": -320,
+      "y": 200
+    },
+    {
+      "id": "m1",
+      "type": "mapper",
+      "x": 0,
+      "y": 140
+    },
+    {
+      "id": "m2",
+      "type": "mapper",
+      "x": 0,
+      "y": 300
+    },
+    {
+      "id": "s1",
+      "type": "sorted",
+      "x": 300,
+      "y": 140
+    },
+    {
+      "id": "s2",
+      "type": "sorted",
+      "x": 300,
+      "y": 300
+    },
+    {
+      "id": "r1",
+      "type": "reducer",
+      "x": 620,
+      "y": 140
+    },
+    {
+      "id": "r2",
+      "type": "reducer",
+      "x": 620,
+      "y": 300
+    },
+    {
+      "id": "output",
+      "type": "output",
+      "x": 920,
+      "y": 220
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "sched",
+      "target": "namenode",
+      "kind": "read",
+      "label": "où sont les blocs ?"
+    },
+    {
+      "id": "e2",
+      "source": "sched",
+      "target": "m1",
+      "kind": "sync",
+      "label": "lance"
+    },
+    {
+      "id": "e3",
+      "source": "sched",
+      "target": "m2",
+      "kind": "sync",
+      "label": "lance"
+    },
+    {
+      "id": "e4",
+      "source": "m1",
+      "target": "input",
+      "kind": "read",
+      "label": "bloc 1"
+    },
+    {
+      "id": "e5",
+      "source": "m2",
+      "target": "input",
+      "kind": "read",
+      "label": "bloc 2"
+    },
+    {
+      "id": "e6",
+      "source": "m1",
+      "target": "s1",
+      "kind": "write",
+      "label": "trie, partitionne"
+    },
+    {
+      "id": "e7",
+      "source": "m2",
+      "target": "s2",
+      "kind": "write",
+      "label": "trie, partitionne"
+    },
+    {
+      "id": "e8",
+      "source": "r1",
+      "target": "s1",
+      "kind": "read",
+      "label": "shuffle"
+    },
+    {
+      "id": "e9",
+      "source": "r1",
+      "target": "s2",
+      "kind": "read",
+      "label": "shuffle"
+    },
+    {
+      "id": "e10",
+      "source": "r2",
+      "target": "s1",
+      "kind": "read",
+      "label": "shuffle"
+    },
+    {
+      "id": "e11",
+      "source": "r2",
+      "target": "s2",
+      "kind": "read",
+      "label": "shuffle"
+    },
+    {
+      "id": "e12",
+      "source": "r1",
+      "target": "output",
+      "kind": "write",
+      "label": "part-0"
+    },
+    {
+      "id": "e13",
+      "source": "r2",
+      "target": "output",
+      "kind": "write",
+      "label": "part-1"
+    }
+  ]
+}

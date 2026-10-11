@@ -1,0 +1,17 @@
+id: ddia-ch05-l04-lab-read-your-writes
+title: Voir son commentaire après l'avoir posté
+difficulty: 3
+xp: 60
+concepts:
+- ddia-replication-lag
+- ddia-lag-read-your-writes
+- ddia-lag-ryw-techniques
+- ddia-lag-cross-device
+source:
+  chapter: 5
+  pages: 161-164
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

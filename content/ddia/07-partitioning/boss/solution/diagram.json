@@ -1,0 +1,315 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 300
+    },
+    {
+      "id": "router",
+      "type": "router",
+      "x": 260,
+      "y": 300
+    },
+    {
+      "id": "zk",
+      "type": "zk",
+      "x": 260,
+      "y": 700
+    },
+    {
+      "id": "admin",
+      "type": "admin",
+      "x": 0,
+      "y": 700
+    },
+    {
+      "id": "search",
+      "type": "search",
+      "x": 0,
+      "y": -100
+    },
+    {
+      "id": "g0",
+      "type": "gidx",
+      "x": 1500,
+      "y": 100,
+      "label": "Index catégorie:a → catégorie:m"
+    },
+    {
+      "id": "g1",
+      "type": "gidx",
+      "x": 1500,
+      "y": 500,
+      "label": "Index catégorie:n → catégorie:z"
+    },
+    {
+      "id": "nA",
+      "type": "node",
+      "x": 560,
+      "y": -60,
+      "label": "Nœud A",
+      "w": 860,
+      "h": 260
+    },
+    {
+      "id": "nB",
+      "type": "node",
+      "x": 560,
+      "y": 240,
+      "label": "Nœud B",
+      "w": 860,
+      "h": 260
+    },
+    {
+      "id": "nC",
+      "type": "node",
+      "x": 560,
+      "y": 540,
+      "label": "Nœud C",
+      "w": 860,
+      "h": 260
+    },
+    {
+      "id": "p0",
+      "type": "primary",
+      "x": 580,
+      "y": 20,
+      "parent": "nA",
+      "label": "P0 leader"
+    },
+    {
+      "id": "r0",
+      "type": "replica",
+      "x": 1000,
+      "y": 320,
+      "parent": "nB",
+      "label": "P0 réplica"
+    },
+    {
+      "id": "p1",
+      "type": "primary",
+      "x": 580,
+      "y": 320,
+      "parent": "nB",
+      "label": "P1 leader"
+    },
+    {
+      "id": "r1",
+      "type": "replica",
+      "x": 1000,
+      "y": 620,
+      "parent": "nC",
+      "label": "P1 réplica"
+    },
+    {
+      "id": "p2",
+      "type": "primary",
+      "x": 580,
+      "y": 620,
+      "parent": "nC",
+      "label": "P2 leader"
+    },
+    {
+      "id": "r2",
+      "type": "replica",
+      "x": 1000,
+      "y": 20,
+      "parent": "nA",
+      "label": "P2 réplica"
+    },
+    {
+      "id": "p3",
+      "type": "primary",
+      "x": 780,
+      "y": 20,
+      "parent": "nA",
+      "label": "P3 leader"
+    },
+    {
+      "id": "r3",
+      "type": "replica",
+      "x": 1200,
+      "y": 320,
+      "parent": "nB",
+      "label": "P3 réplica"
+    },
+    {
+      "id": "p4",
+      "type": "primary",
+      "x": 780,
+      "y": 320,
+      "parent": "nB",
+      "label": "P4 leader"
+    },
+    {
+      "id": "r4",
+      "type": "replica",
+      "x": 1200,
+      "y": 620,
+      "parent": "nC",
+      "label": "P4 réplica"
+    },
+    {
+      "id": "p5",
+      "type": "primary",
+      "x": 780,
+      "y": 620,
+      "parent": "nC",
+      "label": "P5 leader"
+    },
+    {
+      "id": "r5",
+      "type": "replica",
+      "x": 1200,
+      "y": 20,
+      "parent": "nA",
+      "label": "P5 réplica"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-client",
+      "source": "client",
+      "target": "router",
+      "kind": "sync"
+    },
+    {
+      "id": "e-sub",
+      "source": "router",
+      "target": "zk",
+      "kind": "read",
+      "label": "s'abonne"
+    },
+    {
+      "id": "e-plan",
+      "source": "admin",
+      "target": "zk",
+      "kind": "write",
+      "label": "affectation validée"
+    },
+    {
+      "id": "e-look",
+      "source": "search",
+      "target": "g0",
+      "kind": "read",
+      "label": "catégorie:auto ?"
+    },
+    {
+      "id": "e-look2",
+      "source": "search",
+      "target": "router",
+      "kind": "sync",
+      "label": "lire les annonces"
+    },
+    {
+      "id": "e-r0",
+      "source": "router",
+      "target": "p0",
+      "kind": "sync"
+    },
+    {
+      "id": "e-rep0",
+      "source": "p0",
+      "target": "r0",
+      "kind": "replication"
+    },
+    {
+      "id": "e-idx0",
+      "source": "p0",
+      "target": "g0",
+      "kind": "async"
+    },
+    {
+      "id": "e-r1",
+      "source": "router",
+      "target": "p1",
+      "kind": "sync"
+    },
+    {
+      "id": "e-rep1",
+      "source": "p1",
+      "target": "r1",
+      "kind": "replication"
+    },
+    {
+      "id": "e-idx1",
+      "source": "p1",
+      "target": "g1",
+      "kind": "async"
+    },
+    {
+      "id": "e-r2",
+      "source": "router",
+      "target": "p2",
+      "kind": "sync"
+    },
+    {
+      "id": "e-rep2",
+      "source": "p2",
+      "target": "r2",
+      "kind": "replication"
+    },
+    {
+      "id": "e-idx2",
+      "source": "p2",
+      "target": "g0",
+      "kind": "async"
+    },
+    {
+      "id": "e-r3",
+      "source": "router",
+      "target": "p3",
+      "kind": "sync"
+    },
+    {
+      "id": "e-rep3",
+      "source": "p3",
+      "target": "r3",
+      "kind": "replication"
+    },
+    {
+      "id": "e-idx3",
+      "source": "p3",
+      "target": "g1",
+      "kind": "async"
+    },
+    {
+      "id": "e-r4",
+      "source": "router",
+      "target": "p4",
+      "kind": "sync"
+    },
+    {
+      "id": "e-rep4",
+      "source": "p4",
+      "target": "r4",
+      "kind": "replication"
+    },
+    {
+      "id": "e-idx4",
+      "source": "p4",
+      "target": "g0",
+      "kind": "async"
+    },
+    {
+      "id": "e-r5",
+      "source": "router",
+      "target": "p5",
+      "kind": "sync"
+    },
+    {
+      "id": "e-rep5",
+      "source": "p5",
+      "target": "r5",
+      "kind": "replication"
+    },
+    {
+      "id": "e-idx5",
+      "source": "p5",
+      "target": "g1",
+      "kind": "async"
+    }
+  ]
+}

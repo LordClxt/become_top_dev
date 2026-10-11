@@ -1,0 +1,69 @@
+intro: |
+  Tu conçois le stockage d'un réseau social. La base (de type Cassandra) **hache** la première colonne de la clé pour choisir la partition, sur 2³² valeurs réparties en **4 partitions de même largeur**.
+blocks:
+- id: tranche
+  type: number
+  title: Où tombe ce hachage ?
+  prompt: Le hachage de la clé `post-9182` vaut **3 000 000 000**. Dans quelle partition tombe-t-il (1 à 4) ?
+  unit: partition
+- id: requetes
+  type: match
+  title: Une partition ou toutes ?
+  prompt: 'La table `users` a pour clé `user_id`, hachée. Combien de partitions chaque requête doit-elle interroger ?'
+  items:
+  - id: one
+    label: Lire l'utilisateur 42
+  - id: range
+    label: Lire les utilisateurs 100 à 200
+  - id: count
+    label: Compter tous les utilisateurs
+  - id: update
+    label: Mettre à jour le profil de l'utilisateur 7
+  categories:
+  - id: single
+    label: Une seule partition
+  - id: all
+    label: Toutes les partitions
+- id: modele
+  type: choice
+  title: La clé du fil d'actualité
+  prompt: 'On veut servir « les publications de l''utilisateur X entre deux dates », très souvent. Quelle clé primaire ?'
+  options:
+  - id: compound
+    label: '`(user_id, created_at)` : user_id haché, created_at trie dans la partition'
+    hint: Clé composée
+  - id: ts-first
+    label: '`(created_at, user_id)`'
+  - id: post-id
+    label: '`post_id` seul, haché'
+  - id: random
+    label: Un UUID aléatoire
+- id: fonction
+  type: choice
+  title: Quelle fonction de hachage ?
+  prompt: Les nœuds du routeur sont écrits en Go. Quelle fonction utiliser pour choisir la partition ?
+  options:
+  - id: fnv
+    label: Une fonction stable et bien répartie, comme FNV ou MD5
+  - id: maphash
+    label: Le hachage interne des `map` Go
+  - id: sha
+    label: Obligatoirement SHA-256, pour la sécurité
+- id: sel
+  type: number
+  title: La publication virale
+  prompt: Une publication virale reçoit **45 000** écritures de commentaires par seconde ; une partition en encaisse au plus **8 000**. Combien de sous-clés (suffixe aléatoire) faut-il au minimum ?
+  unit: sous-clés
+- id: prix
+  type: multi
+  title: Le prix du suffixe
+  prompt: Coche ce que coûte ce découpage.
+  options:
+  - id: reads
+    label: Chaque lecture des commentaires doit lire toutes les sous-clés et fusionner
+  - id: track
+    label: Il faut se souvenir des clés découpées
+  - id: all-keys
+    label: Il faut l'appliquer à toutes les clés pour que ça marche
+  - id: order
+    label: La clé brûlante passe sur une seule partition plus puissante

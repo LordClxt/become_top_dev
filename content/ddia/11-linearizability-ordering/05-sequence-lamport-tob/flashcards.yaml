@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Ordre par numéros de séquence ?
+  back: Compact et total ; doit être cohérent avec la causalité (la cause a un plus petit numéro). Gratuit avec un leader unique.
+  concept: ddia-sequence-number-ordering
+- id: fc2
+  front: Pourquoi compteurs pairs/impairs, horloges murales et blocs ne suffisent-ils pas ?
+  back: Uniques, mais pas cohérents avec la causalité (compteurs déséquilibrés, dérive d'horloge, blocs).
+  concept: ddia-noncausal-seq-generators
+- id: fc3
+  front: Horodatage de Lamport ?
+  back: (compteur, id du nœud). Compteur d'abord, id pour départager.
+  concept: ddia-lamport-timestamps
+- id: fc4
+  front: Règle de réception de Lamport ?
+  back: compteur = max(local, reçu) + 1. Chaque client transmet le maximum qu'il a vu.
+  concept: ddia-lamport-timestamps
+- id: fc5
+  front: Lamport vs vecteur de versions ?
+  back: 'Lamport : ordre total compact, ne détecte pas la concurrence. Vecteur : détecte la concurrence, taille proportionnelle au nombre de nœuds.'
+  concept: ddia-lamport-timestamps
+- id: fc6
+  front: Pourquoi un ordre total après coup ne suffit pas pour l'unicité ?
+  back: Il faut savoir quand l'ordre est figé, sinon un nœud doit joindre tous les autres avant de répondre.
+  concept: ddia-timestamp-ordering-insufficient
+- id: fc7
+  front: Diffusion à ordre total ?
+  back: Livraison fiable (aucune perte) + totalement ordonnée (même ordre partout), ordre figé à la livraison.
+  concept: ddia-total-order-broadcast-def
+- id: fc8
+  front: Réplication par machine à états ?
+  back: Chaque réplique applique les mêmes écritures déterministes dans le même ordre (via diffusion à ordre total) et reste identique.
+  concept: ddia-total-order-broadcast-def
+- id: fc9
+  front: Log à ordre total → compare-and-set ?
+  back: Ajouter la réclamation, attendre qu'elle revienne, gagner si c'est la première pour ce nom.
+  concept: ddia-tob-linearizable-storage
+- id: fc10
+  front: Compteur linéarisable → diffusion à ordre total ?
+  back: Numéroter chaque message (sans trou) et livrer dans l'ordre en attendant les trous. Le rendre tolérant aux pannes = consensus.
+  concept: ddia-tob-linearizable-storage

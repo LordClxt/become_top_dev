@@ -1,0 +1,111 @@
+id: ddia-ch17-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi le livre dit-il que les hypothèses d'un modèle de système sont « probabilistes » ?
+  choices:
+  - Parce que les algorithmes utilisent du hasard
+  - Parce que ce qu'on suppose impossible (corruption mémoire, perte après fsync) est seulement assez rare pour être ignoré, et finit par arriver à grande échelle
+  - Parce que les réseaux sont toujours fiables
+  - Parce que les bases ne garantissent rien
+  answer: 1
+  explanation: 'Bits qui basculent, rowhammer, bugs de bases mûres : le rare arrive quand on a assez de machines et de temps.'
+  concept: ddia-correct-system-model-assumptions
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Ton application compte sur la contrainte d'unicité de la base. Que retenir des bugs passés de MySQL et PostgreSQL ?
+  choices:
+  - Il faut changer de base
+  - Ces bugs sont impossibles aujourd'hui
+  - Même une base mûre peut violer ses garanties ; et l'application peut mal l'utiliser, donc il faut vérifier
+  - Il suffit d'activer l'isolation sérialisable
+  answer: 2
+  explanation: La cohérence ACID suppose une base sans bug et une application qui l'utilise correctement.
+  concept: ddia-correct-system-model-assumptions
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Que font HDFS et S3 pour ne pas croire aveuglément leurs disques ?
+  choices:
+  - Ils désactivent les sommes de contrôle
+  - Ils écrivent trois fois sur le même disque
+  - Ils font confiance au RAID
+  - Ils relisent en arrière-plan les fichiers, les comparent aux répliques et déplacent les données des disques défaillants
+  answer: 3
+  explanation: Pour savoir que les données sont encore là, il faut les lire et les vérifier.
+  concept: ddia-correct-auditing
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Ton équipe sauvegarde la base chaque nuit depuis deux ans, sans jamais avoir restauré. Quel est le problème ?
+  choices:
+  - Aucun, les sauvegardes sont faites
+  - Une sauvegarde jamais restaurée est une hypothèse, pas une garantie
+  - Les sauvegardes nocturnes sont trop fréquentes
+  - Il faut sauvegarder toutes les heures
+  answer: 1
+  explanation: Seule une restauration réelle prouve que la sauvegarde est exploitable.
+  concept: ddia-correct-auditing
+  difficulty: 1
+- id: q5
+  type: multiple
+  prompt: Qu'est-ce qui rend une architecture par événements facile à auditer ?
+  choices:
+  - Les entrées sont des événements immuables et conservés
+  - Les états dérivés se recalculent en rejouant le log avec le même code
+  - Les mises à jour se font en place, sans historique
+  - On peut faire tourner une dérivation redondante et comparer
+  - On peut rejouer jusqu'à un instant passé pour déboguer
+  answer: [0, 1, 3, 4]
+  explanation: La mise à jour en place détruit le pourquoi ; c'est précisément ce qui rend les bases transactionnelles difficiles à auditer.
+  concept: ddia-correct-auditability-by-design
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Tu vérifies séparément les sommes de contrôle du disque, du réseau et de la base. Un bug du processeur de flux applique un crédit deux fois. Qui le détecte ?
+  choices:
+  - Personne ; seul un contrôle de bout en bout (recalcul depuis le log comparé aux soldes) le voit
+  - Le contrôle du disque
+  - Le contrôle du réseau
+  - La base, grâce à ses sommes de contrôle
+  answer: 0
+  explanation: Chaque composant a fait correctement son travail ; l'erreur est entre eux. Plus le contrôle couvre de systèmes, moins elle passe.
+  concept: ddia-correct-e2e-integrity-check
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Pourquoi le livre compare-t-il les contrôles d'intégrité continus aux tests automatisés ?
+  choices:
+  - Parce qu'ils remplacent les tests
+  - Parce qu'ils s'écrivent dans le même langage
+  - Parce qu'ils donnent la confiance nécessaire pour changer le système et avancer vite
+  - Parce qu'ils ne tournent qu'en intégration continue
+  answer: 2
+  explanation: Un filet de sécurité réduit le risque de chaque changement.
+  concept: ddia-correct-verification-culture
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Combien de hachages faut-il, environ, pour prouver qu'un certificat appartient à un journal Merkle d'un million d'entrées ?
+  choices:
+  - '1 000 000'
+  - '1 000'
+  - '20'
+  - '1'
+  answer: 2
+  explanation: Une preuve d'appartenance remonte de la feuille à la racine ; log₂(10⁶) ≈ 20.
+  concept: ddia-correct-crypto-audit
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Quelle réserve le livre émet-il sur les blockchains comme outil d'audit ?
+  choices:
+  - Elles ne sont pas répliquées
+  - La tolérance byzantine et la preuve de travail coûtent cher en énergie et en débit
+  - Elles n'utilisent pas de hachage
+  - Elles n'ont pas de consensus
+  answer: 1
+  explanation: Les techniques d'audit comme les arbres de Merkle de la transparence des certificats semblent plus prometteuses pour les systèmes ordinaires.
+  concept: ddia-correct-crypto-audit
+  difficulty: 2

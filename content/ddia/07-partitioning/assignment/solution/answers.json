@@ -1,0 +1,10 @@
+{
+  "noeuds": 45,
+  "cle": "seller-date",
+  "sel": 6,
+  "queue": 18.2,
+  "index": {"search": "global", "logs": "local", "fresh": "local"},
+  "deplace": {"modn.pct": 90, "fixed.pct": 10},
+  "routage": ["register", "plan", "copy", "switch", "notify"],
+  "auto": ["cascade", "human"]
+}

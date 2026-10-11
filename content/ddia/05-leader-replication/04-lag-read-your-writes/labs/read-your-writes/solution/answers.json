@@ -1,0 +1,7 @@
+{
+  "retard": 90000,
+  "rattrapage": 45,
+  "pages": {"monprofil": "leader", "autre": "follower", "tendances": "follower", "parametres": "leader"},
+  "politique": {"fenetre": 40, "retardmax": 30},
+  "appareils": "central"
+}

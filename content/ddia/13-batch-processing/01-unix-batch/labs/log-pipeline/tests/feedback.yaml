@@ -1,0 +1,33 @@
+blocks:
+  pipeline:
+    options:
+      awk: On commence par extraire le champ utile de chaque ligne.
+      sort1: uniq -c ne fusionne que des lignes adjacentes ; il faut d'abord rassembler les IP identiques.
+      uniq: Le comptage vient juste après le premier tri.
+      sort2: On ne peut classer par nombre qu'une fois les compteurs calculés.
+      head: On ne garde les 5 premières lignes qu'à la toute fin.
+  hashmem:
+    tolerance:
+      rel: 0.02
+    wrong: 2 000 000 entrées × 120 octets = 240 000 000 octets, soit 240 Mo. C'est le nombre de clés distinctes qui compte, pas la taille du log.
+  sessions:
+    options:
+      hash: 3 × 10⁹ × 60 octets = 180 Go, bien plus que les 32 Go de RAM ; la table déborderait.
+      load: 500 Go ne tiennent pas dans 32 Go, et le tri externe existe justement pour éviter cela.
+      sample: Un échantillon ne donne pas le compte exact par session ; on change la question au lieu d'y répondre.
+  runs:
+    tolerance:
+      abs: 0
+    wrong: 500 Go / 8 Go = 62,5 ; le dernier morceau, partiel, compte aussi, donc on arrondit au supérieur.
+  kinds:
+    options:
+      page: 'Un utilisateur attend la page : on la juge au temps de réponse, c''est un service.'
+      reco: 'L''entrée (les achats de la veille) est bornée et personne n''attend : c''est un lot.'
+      fraud: 'L''entrée ne s''arrête jamais et l''alerte suit l''événement de quelques secondes : c''est un flux.'
+      top: 'Le mois dernier est une entrée bornée, calculée hors ligne : c''est un lot.'
+  safe:
+    options:
+      inplace: Modifier l'entrée en place détruit la possibilité de rejouer le calcul, ton principal filet de sécurité.
+      immutable: Garder l'entrée intacte est ce qui permet de relancer sans risque.
+      less: Inspecter une étape intermédiaire est le moyen le plus simple de déboguer une chaîne.
+      tmp: Matérialiser une étape coûteuse permet de reprendre la suite sans tout recalculer.

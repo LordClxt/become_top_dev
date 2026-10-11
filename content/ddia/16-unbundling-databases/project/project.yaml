@@ -1,0 +1,14 @@
+id: ddia-ch16-project
+title: "Tinybase — le pipeline dérivé"
+pitch: "Tinybase sort ses index de la base : un index secondaire et une vue de compteurs dérivés d'un log de changements, une reconstruction qui retombe exactement sur l'incrémental, et une migration à deux vues qu'on peut annuler jusqu'au dernier moment."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 250
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["derive.go"]
+concepts: [ddia-index-as-stream, ddia-derived-state-functional, ddia-unbundling-async-log, ddia-gradual-view-migration, ddia-derivation-function]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

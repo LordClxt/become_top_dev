@@ -1,0 +1,1 @@
+Un pic de trafic sature le consommateur des événements « ajout au panier ». Chiffre le retard accumulé, la mémoire qu'il occupe et le temps de rattrapage, puis choisis pour chaque flux de la boutique entre perdre, mettre en tampon et freiner le producteur.

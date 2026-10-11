@@ -1,0 +1,45 @@
+cards:
+- id: fc1
+  front: Event sourcing ?
+  back: L'application écrit des événements métier immuables dans un log en ajout seul et en dérive son état.
+  concept: ddia-event-sourcing
+- id: fc2
+  front: CDC contre event sourcing ?
+  back: 'CDC : changements de bas niveau extraits d''une base mutable. Event sourcing : événements métier écrits volontairement par l''application.'
+  concept: ddia-event-sourcing
+- id: fc3
+  front: Peut-on compacter un event store par clé ?
+  back: Non, un événement métier ne remplace pas le précédent ; il faut tout l'historique. On stocke plutôt des instantanés.
+  concept: ddia-event-sourcing
+- id: fc4
+  front: Commande ou événement ?
+  back: La commande peut encore échouer ; validée, elle devient un événement immuable, un fait.
+  concept: ddia-commands-vs-events
+- id: fc5
+  front: Un consommateur peut-il rejeter un événement ?
+  back: Non ; la validation doit se faire avant, de façon synchrone, ou via réservation provisoire puis confirmation.
+  concept: ddia-commands-vs-events
+- id: fc6
+  front: État et flux, mathématiquement ?
+  back: L'état est l'intégrale du flux dans le temps ; le flux est la dérivée de l'état.
+  concept: ddia-state-integral-of-events
+- id: fc7
+  front: La formule de Pat Helland ?
+  back: La vérité, c'est le log ; la base de données est un cache d'un sous-ensemble du log.
+  concept: ddia-state-integral-of-events
+- id: fc8
+  front: Pourquoi les comptables n'effacent-ils pas ?
+  back: Un livre de comptes est en ajout seul ; une erreur se corrige par une transaction compensatoire, ce qui garde l'audit.
+  concept: ddia-immutable-events-benefits
+- id: fc9
+  front: CQRS ?
+  back: Séparer la forme écrite (le log) des formes lues (vues dénormalisées), dérivées et remplaçables.
+  concept: ddia-cqrs-multiple-views
+- id: fc10
+  front: Pourquoi un consommateur mono-thread par partition suffit-il ?
+  back: Le log fixe un ordre ; si un événement ne touche que sa partition, les écritures sont exécutées en série, sans contrôle de concurrence.
+  concept: ddia-event-log-concurrency
+- id: fc11
+  front: Limites de l'immuabilité ?
+  back: Historique énorme sous forte rotation, et données à effacer vraiment (vie privée, loi, fuite) ; d'où l'excision de Datomic.
+  concept: ddia-immutability-limits

@@ -1,0 +1,85 @@
+intro: |
+  Tu conseilles trois équipes qui hésitent entre **coordination synchrone** (vérifier avant d'écrire, sur toutes les régions) et **contrainte souple** (écrire d'abord, vérifier après, s'excuser si besoin). Avant de trancher, il faut savoir de quel type de « cohérence » on parle et combien coûtent les excuses.
+blocks:
+- id: nature
+  type: match
+  title: Opportunité ou intégrité ?
+  prompt: Chaque incident est-il une violation d'opportunité (temporaire) ou d'intégrité (permanente) ?
+  items:
+  - id: stale-feed
+    label: Un ami voit ta photo 4 secondes après sa publication
+  - id: lost-credit
+    label: Un virement a débité le payeur mais n'a jamais crédité le bénéficiaire
+  - id: index-miss
+    label: Un index secondaire pointe vers une ligne qui n'existe plus, depuis des semaines
+  - id: replica-lag
+    label: Une réplique de lecture affiche un stock en retard de 2 secondes
+  - id: double-charge
+    label: Un client a été débité deux fois pour la même commande
+  categories:
+  - id: timeliness
+    label: Opportunité (se résorbe en attendant)
+  - id: integrity
+    label: Intégrité (reste faux sans réparation)
+- id: couts
+  type: table
+  title: Le prix des excuses
+  prompt: Complète les conflits par mois et le coût mensuel des excuses.
+  columns:
+  - id: vol
+    label: Volume / mois
+  - id: rate
+    label: Taux de conflit
+  - id: unit
+    label: Coût d'une excuse (€)
+  - id: conflicts
+    label: Conflits / mois
+  - id: cost
+    label: Coût / mois (€)
+  rows:
+  - id: names
+    label: Noms d'utilisateur en double
+    cells: {vol: "1 000 000", rate: "0,02 %", unit: "1"}
+  - id: stock
+    label: Commandes au-delà du stock
+    cells: {vol: "300 000", rate: "0,1 %", unit: "12"}
+- id: overbook
+  type: number
+  title: Surréserver un vol
+  prompt: Un avion a **180** sièges et, en moyenne, **8 %** des passagers ne se présentent pas. Combien de billets vendre pour que le nombre moyen de présents soit 180 (arrondi à l'unité) ?
+  unit: billets
+- id: strategie
+  type: match
+  title: Coordination synchrone ou excuse ?
+  prompt: Pour chaque contrainte, quelle stratégie est raisonnable ?
+  items:
+  - id: username
+    label: Nom d'utilisateur unique sur un réseau social
+  - id: icu-bed
+    label: Attribution d'un lit de réanimation
+  - id: flight
+    label: Siège d'avion en classe économique
+  - id: drug
+    label: Délivrance d'un médicament contrôlé sur une ordonnance à usage unique
+  - id: stock
+    label: Stock d'une boutique de t-shirts
+  categories:
+  - id: sync
+    label: Vérifier de façon synchrone avant d'écrire
+  - id: apology
+    label: Écrire d'abord, vérifier ensuite, compenser
+- id: garde-fous
+  type: multi
+  title: Ce qu'on ne relâche pas
+  prompt: L'équipe boutique passe en contrainte souple sur le stock. Qu'est-ce qui doit rester garanti ?
+  options:
+  - id: no-loss
+    label: Aucune commande acceptée n'est perdue
+  - id: fresh
+    label: Le stock affiché est toujours exact à la seconde
+  - id: once
+    label: Chaque paiement est appliqué exactement une fois, grâce à l'identifiant de requête
+  - id: compensate
+    label: Chaque dépassement détecté déclenche une compensation
+  - id: linear
+    label: Toutes les lectures sont linéarisables

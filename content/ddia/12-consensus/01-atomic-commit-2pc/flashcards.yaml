@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Deux situations qui exigent un consensus ?
+  back: 'L''élection de leader (éviter le split brain) et le commit atomique d''une transaction sur plusieurs nœuds.'
+  concept: ddia-consensus-problem
+- id: fc2
+  front: Impossibilité FLP ?
+  back: 'Pas d''algorithme de consensus toujours correct si un nœud peut tomber, dans un modèle asynchrone sans horloge. Avec des timeouts, c''est soluble.'
+  concept: ddia-consensus-problem
+- id: fc3
+  front: Pourquoi un commit ne se reprend-il pas ?
+  back: 'D''autres transactions ont pu lire les données validées. Défaire = transaction de compensation, une nouvelle transaction.'
+  concept: ddia-atomic-commit-distributed
+- id: fc4
+  front: Les deux phases de 2PC ?
+  back: '1) « prepare » et votes ; 2) « commit » ou « abort » selon la décision journalisée du coordinateur.'
+  concept: ddia-2pc-protocol
+- id: fc5
+  front: Que fait un participant avant de voter oui ?
+  back: 'Il écrit toutes les données de la transaction sur disque et vérifie les contraintes : il doit pouvoir valider même après un crash.'
+  concept: ddia-2pc-points-of-no-return
+- id: fc6
+  front: Point de commit de 2PC ?
+  back: 'L''écriture de la décision dans le journal du coordinateur : un commit atomique sur un seul nœud.'
+  concept: ddia-2pc-points-of-no-return
+- id: fc7
+  front: Transaction en doute ?
+  back: 'Préparée (vote oui) sans connaître la décision : le participant ne peut ni valider ni annuler seul ; il attend le coordinateur.'
+  concept: ddia-2pc-coordinator-failure
+- id: fc8
+  front: Reprise du coordinateur ?
+  back: 'Il relit son journal : il relance les décisions écrites et annule toute transaction sans décision.'
+  concept: ddia-2pc-coordinator-failure
+- id: fc9
+  front: 3PC ?
+  back: 'Non bloquant seulement avec délais bornés et détecteur de pannes parfait : inutilisable tel quel sur un vrai réseau.'
+  concept: ddia-3pc-nonblocking

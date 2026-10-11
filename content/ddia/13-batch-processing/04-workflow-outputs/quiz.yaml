@@ -1,0 +1,98 @@
+id: ddia-ch13-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Comment un workflow MapReduce construit-il un index de recherche plein texte ?
+  choices:
+  - Chaque mapper écrit ses termes dans un Elasticsearch de production
+  - Les mappers partitionnent les documents, chaque reducer construit l'index de sa partition, les fichiers sont écrits dans HDFS
+  - Un seul reducer construit tout l'index en mémoire
+  - Le NameNode indexe les blocs au fil de l'eau
+  answer: 1
+  explanation: C'est l'usage d'origine de MapReduce chez Google ; les fichiers d'index produits sont immuables.
+  concept: ddia-batch-output-search-index
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: 'Tes 5 000 documents modifiés sur 80 millions : quelle alternative à la reconstruction complète de l''index ?'
+  choices:
+  - Modifier les fichiers d'index existants octet par octet
+  - Désactiver la recherche pendant la nuit
+  - L'indexation incrémentale, qui écrit de nouveaux segments fusionnés en arrière-plan
+  - Supprimer l'index et laisser les requêtes parcourir les documents
+  answer: 2
+  explanation: Lucene ajoute des segments et les compacte, comme les SSTables ; la reconstruction complète reste plus simple à raisonner.
+  concept: ddia-batch-output-search-index
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Pourquoi ne pas écrire chaque recommandation dans la base de production directement depuis le reducer ?
+  choices:
+  - Une requête réseau par enregistrement est bien plus lente que le débit d'une tâche
+  - Des milliers de tâches parallèles peuvent submerger la base qui sert les utilisateurs
+  - Une tâche relancée ou un job à moitié échoué laisse des effets de bord partiels ou en double
+  - Les reducers n'ont pas le droit d'ouvrir une connexion réseau
+  answer: [0, 1, 2]
+  explanation: La sortie d'un job n'est tout-ou-rien que si elle reste dans ses propres fichiers jusqu'au succès.
+  concept: ddia-batch-output-kv-files
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Que fait un serveur façon Voldemort quand le job du jour a produit de nouveaux fichiers ?
+  choices:
+  - Il les charge, continue de servir l'ancienne version pendant ce temps, puis bascule atomiquement
+  - Il fusionne les nouveaux enregistrements dans l'ancienne base un par un
+  - Il redémarre et attend que le job rejoue les écritures
+  - Il copie les fichiers dans PostgreSQL
+  answer: 0
+  explanation: L'ancienne version reste disponible, ce qui permet aussi de rebasculer si la nouvelle est mauvaise.
+  concept: ddia-batch-output-kv-files
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Un bug déployé hier a produit des recommandations absurdes. Comment répare-t-on, dans la philosophie des lots ?
+  choices:
+  - En écrivant un script qui corrige les lignes fautives dans la base
+  - En restaurant une sauvegarde de la base de production
+  - En revenant au code précédent et en relançant le job, puisque les entrées n'ont pas été modifiées
+  - En attendant le job de la semaine suivante
+  answer: 2
+  explanation: Entrées immuables et sortie remplacée rendent l'erreur réversible ; c'est la tolérance aux erreurs humaines.
+  concept: ddia-batch-immutable-rerun
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Qu'est-ce que le « principe du sushi » ?
+  choices:
+  - Découper les données en petites partitions
+  - Stocker les données brutes telles quelles et décider plus tard comment les interpréter
+  - Servir les données froides en dernier
+  - Toujours compresser les données
+  answer: 1
+  explanation: Raw data is better ; c'est le schéma à la lecture appliqué au stockage, l'idée du data lake.
+  concept: ddia-batch-hadoop-vs-mpp
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Sur le même cluster HDFS tournent Hive, Impala, HBase et un job d'analyse d'images. Quel avantage d'Hadoop sur une base MPP cela illustre-t-il ?
+  choices:
+  - La diversité des modèles de traitement sur les mêmes données
+  - La garantie de transactions sérialisables
+  - Un temps de réponse inférieur à la milliseconde
+  - L'absence de réplication
+  answer: 0
+  explanation: Hadoop ressemble à un système d'exploitation ; on y lance SQL, OLTP et code arbitraire sans déplacer les données.
+  concept: ddia-batch-hadoop-vs-mpp
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pourquoi MapReduce relance-t-il une seule tâche au lieu de toute la requête, comme le ferait une base MPP ?
+  choices:
+  - Parce que le matériel de Google tombait en panne toutes les heures
+  - Parce que SQL ne sait pas reprendre une requête
+  - Parce que les tâches de lots, en basse priorité sur des machines partagées, sont souvent préemptées
+  - Parce que les reducers n'écrivent jamais sur disque
+  answer: 2
+  explanation: Une tâche d'une heure avait environ 5 % de risque d'être tuée ; sans préemption, ce choix se justifie beaucoup moins.
+  concept: ddia-batch-task-level-recovery
+  difficulty: 3

@@ -1,0 +1,1 @@
+Tinybase passe en production : deux partitions répliquées avec leader, des transactions qui touchent les deux, et un ensemble etcd qui doit survivre à deux pannes. Dessine un cluster qui élit ses leaders, route ses requêtes et valide atomiquement ses transactions multi-partitions **sans intervention humaine**.

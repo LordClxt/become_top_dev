@@ -1,0 +1,3 @@
+**Trois nœuds votent pour des centaines de clients.** Les nœuds de stockage ne font aucun consensus entre eux : ils s'enregistrent par des nœuds éphémères liés à leur session. Quand l'un meurt, sa session expire, son entrée disparaît, le rééquilibreur est notifié et réattribue ses partitions par compare-and-set ; le routeur, qui surveille l'attribution, l'apprend à son tour.
+
+Tout ce qui passe par ZooKeeper change lentement (membres, attributions) ; les requêtes des clients, elles, vont directement du routeur au stockage. Un verrou en mémoire locale mourrait avec son processus et ne coordonnerait personne.

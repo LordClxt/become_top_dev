@@ -1,0 +1,1 @@
+Choisis le mécanisme de coordination de chaque équipe, chiffre le coût en disponibilité et en latence de 2PC, règle un délai de session etcd, décide ce qui a sa place dans etcd et ordonne le runbook d'une transaction orpheline.

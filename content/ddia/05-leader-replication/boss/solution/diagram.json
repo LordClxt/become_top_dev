@@ -1,0 +1,30 @@
+{
+  "nodes": [
+    {"id": "dc1", "type": "dc1", "x": 520, "y": -40, "label": "Datacenter 1 (Paris)", "w": 760, "h": 560},
+    {"id": "dc2", "type": "dc2", "x": 1380, "y": -40, "label": "Datacenter 2 (Montréal)", "w": 360, "h": 300},
+    {"id": "app", "type": "app", "x": 0, "y": 200},
+    {"id": "router", "type": "router", "x": 260, "y": 200},
+    {"id": "monitor", "type": "monitor", "x": 260, "y": 460},
+    {"id": "leader", "type": "leader", "x": 560, "y": 200, "parent": "dc1"},
+    {"id": "sync", "type": "sync", "x": 900, "y": 40, "parent": "dc1"},
+    {"id": "snap", "type": "snap", "x": 900, "y": 380, "parent": "dc1"},
+    {"id": "newf", "type": "newf", "x": 1100, "y": 220, "parent": "dc1"},
+    {"id": "async", "type": "async", "x": 1440, "y": 80, "parent": "dc2"},
+    {"id": "cdc", "type": "cdc", "x": 560, "y": 640},
+    {"id": "dwh", "type": "dwh", "x": 900, "y": 640}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "router", "kind": "sync"},
+    {"id": "e2", "source": "router", "target": "leader", "kind": "write", "label": "écritures + lectures fraîches"},
+    {"id": "e3", "source": "router", "target": "async", "kind": "read", "label": "lectures (position ≥ jeton)"},
+    {"id": "e4", "source": "leader", "target": "sync", "kind": "replication", "label": "synchrone"},
+    {"id": "e5", "source": "leader", "target": "async", "kind": "replication", "label": "asynchrone"},
+    {"id": "e6", "source": "leader", "target": "snap", "kind": "write", "label": "snapshot au LSN 8 400 000"},
+    {"id": "e7", "source": "newf", "target": "snap", "kind": "read"},
+    {"id": "e8", "source": "leader", "target": "newf", "kind": "replication", "label": "depuis le LSN 8 400 000"},
+    {"id": "e9", "source": "monitor", "target": "leader", "kind": "read", "label": "messages de vie"},
+    {"id": "e10", "source": "monitor", "target": "router", "kind": "write", "label": "nouveau leader"},
+    {"id": "e11", "source": "leader", "target": "cdc", "kind": "async", "label": "log logique"},
+    {"id": "e12", "source": "cdc", "target": "dwh", "kind": "write"}
+  ]
+}

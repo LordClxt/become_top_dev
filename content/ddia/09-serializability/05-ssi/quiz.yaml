@@ -1,0 +1,101 @@
+id: ddia-ch09-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qui distingue SSI du 2PL ?
+  choices:
+  - SSI est pessimiste, 2PL est optimiste
+  - SSI n'est pas réellement sérialisable
+  - SSI exige un seul thread
+  - SSI laisse avancer les transactions et vérifie au commit ; 2PL attend dès qu'un conflit est possible
+  answer: 3
+  explanation: 'SSI est optimiste : elle abandonne au commit ce qui a violé l''isolation. 2PL, pessimiste, bloque a priori.'
+  concept: ddia-optimistic-vs-pessimistic
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Ta base tourne à 95 % de sa capacité et des centaines de transactions lisent puis modifient le même compteur de stock. Qu'attendre d'un passage du 2PL à SSI ?
+  choices:
+  - Une nette amélioration, car plus personne n'attend
+  - Beaucoup d'abandons, et des relances qui ajoutent de la charge à un système déjà saturé
+  - Aucun changement, les deux se comportent pareil
+  - La disparition de toute contention
+  answer: 1
+  explanation: L'optimiste brille avec de la marge et une contention modérée ; sous forte contention près de la saturation, les relances aggravent la situation.
+  concept: ddia-optimistic-vs-pessimistic
+  difficulty: 3
+- id: q3
+  type: single
+  prompt: Qu'appelle-t-on la prémisse d'une transaction ?
+  choices:
+  - Sa première requête SQL
+  - Son identifiant de transaction
+  - Le fait lu sur lequel elle fonde sa décision d'écrire
+  - Le snapshot de la veille
+  answer: 2
+  explanation: « Il reste deux médecins de garde » est la prémisse de la transaction qui retire Alice. Si elle devient fausse, l'écriture n'est plus justifiée.
+  concept: ddia-ssi-outdated-premise
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: T43 a lu Alice « de garde » en ignorant l'écriture non validée de T42. T42 valide. T43 est en lecture seule et valide ensuite. Que fait SSI ?
+  choices:
+  - Elle laisse T43 valider, car elle n'a rien écrit sur cette prémisse
+  - Elle abandonne T43, car sa lecture est périmée
+  - Elle abandonne T42 rétroactivement
+  - Elle relance T43 automatiquement
+  answer: 0
+  explanation: Une lecture seule sur un snapshot cohérent ne crée pas de write skew ; c'est pour ce cas que SSI attend le commit avant de décider.
+  concept: ddia-ssi-stale-mvcc-read
+  difficulty: 2
+- id: q5
+  type: multiple
+  prompt: Pourquoi SSI attend-elle le commit plutôt que d'abandonner dès une lecture périmée ?
+  choices:
+  - Abandonner tôt est interdit par le standard SQL
+  - La transaction est peut-être en lecture seule
+  - La transaction qui a écrit peut encore abandonner
+  - On ne sait pas encore si la transaction lectrice écrira
+  answer:
+  - 1
+  - 2
+  - 3
+  explanation: Attendre évite des abandons inutiles et préserve les longues lectures sur snapshot.
+  concept: ddia-ssi-abort-at-commit
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: T42 et T43 lisent la garde 1234, puis chacune écrit. Les deux reçoivent un avertissement du fil-piège. T42 valide en premier. Que se passe-t-il ?
+  choices:
+  - Les deux sont abandonnées
+  - T42 est abandonnée, T43 réussit
+  - T42 réussit ; T43 est abandonnée au commit, car l'écriture conflictuelle de T42 est déjà validée
+  - Les deux réussissent, l'avertissement est indicatif
+  answer: 2
+  explanation: 'Quand T42 valide, l''écriture de T43 n''a pas encore pris effet. Quand T43 valide, celle de T42 l''a fait : sa prémisse est fausse.'
+  concept: ddia-ssi-write-after-read
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: En quoi le fil-piège de SSI diffère-t-il d'un verrou de plage d'index en 2PL ?
+  choices:
+  - Il est posé sur la table, jamais sur un index
+  - Il bloque les lecteurs au lieu des écrivains
+  - Il est libéré dès la lecture terminée
+  - Il ne bloque pas ; il prévient seulement les lecteurs récents que leur lecture est peut-être dépassée
+  answer: 3
+  explanation: 'Même endroit (une entrée d''index), effet opposé : aucune attente, juste une notification.'
+  concept: ddia-ssi-write-after-read
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Un traitement par lots ouvre une transaction d'écriture de 20 minutes sous SSI, en pleine journée. Que risque-t-il ?
+  choices:
+  - Rien, SSI ne bloque jamais
+  - Une forte probabilité d'abandon au commit, après 20 minutes de travail perdu
+  - De bloquer toutes les lectures
+  - D'être limité au débit d'un cœur
+  answer: 1
+  explanation: Plus une transaction d'écriture dure, plus une autre a de chances d'invalider une de ses prémisses. Découpe-la en petites transactions.
+  concept: ddia-ssi-performance
+  difficulty: 3

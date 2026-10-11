@@ -1,0 +1,91 @@
+intro: |
+  Tu es l'architecte d'une plateforme de réservation de concerts : une base distribuée partitionnée (même logiciel sur tous les nœuds), un broker de messages, un planificateur de tâches, des services web sans état, et un ensemble etcd de 5 nœuds. Chaque équipe vient te voir avec un problème de coordination. Tu tranches, tu chiffres, et tu écris le runbook du pire incident.
+blocks:
+- id: tools
+  type: match
+  title: Le bon outil pour chaque problème
+  prompt: Quel mécanisme choisis-tu ?
+  items:
+  - id: seats
+    label: Déplacer une réservation d'un concert (partition 4) à un autre (partition 11), atomiquement
+  - id: ack
+    label: Écrire le paiement dans PostgreSQL et acquitter le message du broker, atomiquement
+  - id: scheduler
+    label: Garantir qu'une seule instance du planificateur de rappels est active
+  - id: webfront
+    label: Permettre aux services web sans état de trouver l'adresse du service de recherche
+  - id: username
+    label: Garantir qu'un pseudo n'est attribué qu'à un seul compte, sur une base partitionnée par compte
+  categories:
+  - id: internal
+    label: Transaction distribuée interne à la base
+  - id: xa
+    label: Transaction distribuée hétérogène (XA)
+  - id: lease
+    label: Bail ou opération atomique dans etcd
+  - id: dns
+    label: Registre en DNS, sans consensus
+- id: availability
+  type: number
+  title: L'amplification des pannes
+  prompt: 'Une transaction XA touche **3 participants** et un **coordinateur**, chacun disponible **99,9 %** du temps, indépendamment. Quel pourcentage du temps tous sont-ils disponibles, donc la transaction possible ? (une décimale)'
+  unit: '%'
+- id: latency
+  type: number
+  title: La latence d'un commit 2PC
+  prompt: 'Aller-retour réseau coordinateur ↔ participant : **2 ms**. Un `fsync` coûte **5 ms**. Les participants sont interrogés en parallèle. Le coordinateur répond au client **dès que sa décision est durable**. Combien de millisecondes au minimum entre l''envoi des « prepare » et la réponse au client ?'
+  unit: ms
+- id: session
+  type: tuner
+  title: Régler le délai de session
+  prompt: 'Le planificateur détient son bail etcd tant que sa session vit. Ses pauses de ramasse-miettes durent **jusqu''à 4 s** : elles ne doivent pas faire expirer la session. Mais si l''instance meurt vraiment, la reprise complète (expiration + 3 s pour qu''une autre instance acquière le bail et démarre) doit tenir en **10 s**.'
+  params:
+  - id: t
+    label: Délai de session
+    unit: s
+    min: 1
+    max: 20
+    step: 1
+    default: 2
+  metrics:
+  - id: failover
+    label: Reprise après une vraie panne
+    expr: t + 3
+    format: duration-s
+  goals:
+  - id: gc
+    label: Une pause de 4 s ne fait pas expirer la session
+    expr: t > 4
+  - id: fast
+    label: Reprise en 10 s au plus
+    expr: failover <= 10
+- id: store
+  type: multi
+  title: Ce qu'on met dans etcd
+  prompt: Coche ce qui a sa place dans l'ensemble etcd.
+  options:
+  - id: assign
+    label: L'attribution des partitions aux nœuds de la base
+  - id: members
+    label: La liste des nœuds vivants (clés liées à un bail)
+  - id: seatsleft
+    label: Le nombre de places restantes, décrémenté à chaque réservation (3 000 par seconde à l'ouverture)
+  - id: flags
+    label: Les drapeaux de configuration lus au démarrage des services
+  - id: carts
+    label: Le contenu des paniers des utilisateurs
+- id: runbook
+  type: order
+  title: Runbook — transaction orpheline
+  prompt: 'Le serveur d''application qui hébergeait le coordinateur XA a perdu son disque. PostgreSQL et le broker gardent une transaction en doute qui bloque la ligne d''un concert. Ordonne le runbook.'
+  items:
+  - id: find
+    label: Lister les transactions préparées en doute et les verrous qu'elles tiennent
+  - id: evidence
+    label: Chercher l'issue ailleurs (sauvegarde du journal, état chez l'autre participant)
+  - id: decide
+    label: Décider une seule issue, la même pour tous les participants
+  - id: apply
+    label: Appliquer manuellement cette issue sur chaque participant (commit ou rollback préparé)
+  - id: postmortem
+    label: Rendre le journal du coordinateur durable et répliqué pour la suite

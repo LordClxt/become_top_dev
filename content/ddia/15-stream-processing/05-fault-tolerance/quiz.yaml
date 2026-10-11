@@ -1,0 +1,110 @@
+id: ddia-ch15-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que promet réellement la sémantique « exactly-once » d'un framework de flux ?
+  choices:
+  - Que chaque message est lu physiquement une seule fois
+  - Que le résultat est le même que si aucune panne n'avait eu lieu, même si certains messages ont été retraités
+  - Que le réseau ne perd jamais de message
+  - Que les e-mails partent une seule fois sans autre précaution
+  answer: 1
+  explanation: D'où le nom plus juste d'« effectively-once ». Des messages peuvent être relus ; c'est leur effet visible qui compte une fois.
+  concept: ddia-sp-exactly-once
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Avec Spark Streaming et des micro-lots d'une seconde, quelle fenêtre ton job a-t-il implicitement ?
+  choices:
+  - Une fenêtre tumbling d'une seconde en temps de traitement
+  - Une fenêtre de session
+  - Une fenêtre sliding en temps de l'événement
+  - Aucune fenêtre
+  answer: 0
+  explanation: Le lot impose une découpe tumbling de la taille du lot, fondée sur l'heure de traitement. Une fenêtre plus longue demande de reporter l'état d'un lot à l'autre.
+  concept: ddia-sp-microbatching
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Tu réduis la taille des micro-lots de 1 s à 50 ms. Quel effet attends-tu ?
+  choices:
+  - Moins de surcoût et moins de latence
+  - Plus de latence
+  - Moins de latence, mais plus de surcoût d'ordonnancement et de coordination
+  - Aucun effet
+  answer: 2
+  explanation: Petits lots = résultats plus rapides mais davantage de lots à planifier ; gros lots = l'inverse.
+  concept: ddia-sp-microbatching
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: 'Checkpoint Flink toutes les 60 s, flux de 5 000 messages/s. Au pire, combien de messages faut-il retraiter après une panne ?'
+  choices:
+  - '5 000'
+  - '60 000'
+  - '3 000 000'
+  - '300 000'
+  answer: 3
+  explanation: Une panne juste avant le checkpoint suivant oblige à rejouer 60 × 5 000 = 300 000 messages depuis le dernier instantané.
+  concept: ddia-sp-checkpointing
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Ton job Flink envoie un e-mail de confirmation par commande. Il plante et repart de son dernier checkpoint. Que se passe-t-il ?
+  choices:
+  - Rien, le checkpoint annule l'e-mail
+  - Des clients reçoivent l'e-mail deux fois, car l'effet de bord a quitté le framework
+  - Flink supprime les e-mails envoyés
+  - Le job refuse de redémarrer
+  answer: 1
+  explanation: Le framework peut rejeter sa sortie interne, pas reprendre un effet externe. Il faut des transactions atomiques ou une opération idempotente côté envoi.
+  concept: ddia-sp-checkpointing
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Dans l'approche par transactions atomiques, qu'est-ce qui doit être validé ensemble ou pas du tout ?
+  choices:
+  - Les messages envoyés en aval
+  - Les changements d'état de l'opérateur
+  - L'avancement de l'offset du consommateur (acquittement de l'entrée)
+  - La version du compilateur
+  answer: [0, 1, 2]
+  explanation: Si l'offset avance sans la sortie (ou l'inverse), on perd ou on duplique des effets. Tout passe dans la même transaction interne.
+  concept: ddia-sp-atomic-commit
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: 'La ligne du marchand 42 contient total = 1 230 et offset = 8 812. Après une reprise, on relit le message 8 811 (+30), puis le 8 813 (+50). Que contient la ligne ?'
+  choices:
+  - total = 1 310, offset = 8 813
+  - total = 1 260, offset = 8 812
+  - total = 1 230, offset = 8 812
+  - total = 1 280, offset = 8 813
+  answer: 3
+  explanation: 8 811 ≤ 8 812 a déjà été appliqué, on l'ignore ; 8 813 est nouveau, on ajoute 50 et l'on écrit son offset dans la même écriture.
+  concept: ddia-sp-idempotent-writes
+  difficulty: 3
+- id: q8
+  type: multiple
+  prompt: Quelles hypothèses la déduplication par offset exige-t-elle ?
+  choices:
+  - Un rejeu qui relit les mêmes messages dans le même ordre
+  - Un traitement déterministe
+  - Aucun autre nœud qui modifie la même valeur en même temps (fencing en cas de bascule)
+  - Des messages encodés en JSON
+  answer: [0, 1, 2]
+  explanation: Un broker de type log garantit l'ordre du rejeu ; le déterminisme et l'absence d'écrivain concurrent garantissent que l'offset décrit bien l'état.
+  concept: ddia-sp-idempotent-writes
+  difficulty: 3
+- id: q9
+  type: single
+  prompt: Comment Kafka Streams rend-il l'état local d'un opérateur durable ?
+  choices:
+  - En traitant chaque message deux fois sur deux nœuds
+  - En envoyant chaque changement d'état sur un sujet Kafka dédié et compacté, qu'on relit après une panne
+  - En interrogeant une base distante à chaque message
+  - Il ne le rend pas durable
+  answer: 1
+  explanation: C'est de la capture des changements appliquée à l'état de l'opérateur. Flink, lui, fait des instantanés ; VoltDB traite en double.
+  concept: ddia-sp-state-recovery
+  difficulty: 2

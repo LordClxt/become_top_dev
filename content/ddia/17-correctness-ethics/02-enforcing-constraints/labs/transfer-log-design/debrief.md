@@ -1,0 +1,3 @@
+**Une transaction multi-partitions devient une suite d'étapes à partition unique.** L'écriture de la requête dans le log est atomique par nature (un seul message). Tout le reste en est **dérivé** : le répartiteur émet de façon déterministe un débit vers la partition de A et un crédit vers celle de B, tous deux porteurs de l'identifiant d'origine. Après une panne, le répartiteur relit et réémet les mêmes instructions ; les processeurs de comptes les reconnaissent et les ignorent.
+
+La vérification de fonds se fait **avant** le log, par un processeur partitionné par compte payeur : toutes les demandes de A passent par la même partition, dans l'ordre, donc la vérification est séquentielle sans verrou global ni coordinateur 2PC.

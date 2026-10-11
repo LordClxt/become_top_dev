@@ -1,0 +1,98 @@
+id: ddia-ch05-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: 'En réplication par instructions, le leader exécute `INSERT INTO events (at) VALUES (NOW())`. Que se passe-t-il sans précaution ?'
+  choices:
+  - Les followers refusent l'instruction
+  - Chaque follower enregistre une heure différente
+  - L'heure du leader est copiée automatiquement
+  - L'instruction est ignorée
+  answer: 1
+  explanation: NOW() est réévalué sur chaque réplica. Le leader peut remplacer l'appel par sa valeur figée, mais les cas limites sont nombreux.
+  concept: ddia-repl-log-statement
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Quelles instructions posent problème en réplication par instructions ?
+  choices:
+  - Un INSERT qui utilise une colonne auto-incrémentée, avec des transactions concurrentes
+  - Un UPDATE qui appelle RAND()
+  - Un INSERT de valeurs littérales dans une table sans trigger
+  - Un INSERT qui déclenche un trigger non déterministe
+  answer: [0, 1, 3]
+  explanation: Non-déterminisme, dépendance à l'ordre d'exécution et effets de bord font diverger les réplicas. Des valeurs littérales sans effet de bord rejouent à l'identique.
+  concept: ddia-repl-log-statement
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Pourquoi l'expédition du WAL rend-elle les mises à jour de version sans arrêt difficiles ?
+  choices:
+  - Parce que le WAL est effacé à chaque redémarrage
+  - Parce que le WAL ne contient que des requêtes SQL
+  - Parce qu'il décrit des octets dans des blocs disque, donc dépend du format de stockage de chaque version
+  - Parce que les followers ne lisent jamais le WAL
+  answer: 2
+  explanation: Si la nouvelle version change le format sur disque, un follower à jour ne peut plus suivre un leader ancien, et inversement.
+  concept: ddia-repl-log-engine-coupling
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: 'Que doit contenir un enregistrement de log logique pour une suppression dans une table **sans clé primaire** ?'
+  choices:
+  - Les anciennes valeurs de toutes les colonnes
+  - Seulement le numéro de page disque
+  - Le texte de la requête DELETE
+  - Rien, la suppression n'est pas répliquée
+  answer: 0
+  explanation: Il faut identifier la ligne de façon unique ; sans clé primaire, seules toutes les colonnes le permettent.
+  concept: ddia-repl-log-logical
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Un `UPDATE` modifie 40 000 lignes dans une transaction. Combien d''enregistrements produit un log logique ?'
+  choices:
+  - '1'
+  - '2'
+  - '40 000'
+  - '40 001'
+  answer: 3
+  explanation: Un enregistrement par ligne modifiée, puis un enregistrement de commit.
+  concept: ddia-repl-log-logical
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Ton équipe veut alimenter un entrepôt de données et un index de recherche avec chaque ligne modifiée dans PostgreSQL. Quel format de log est adapté ?'
+  choices:
+  - L'expédition du WAL physique
+  - Le log logique, lu par un outil de capture des changements
+  - La réplication par instructions
+  - Une copie nocturne des fichiers
+  answer: 1
+  explanation: Le log logique est découplé du moteur et facile à analyser pour des systèmes externes. C'est la capture des changements (CDC).
+  concept: ddia-repl-log-logical
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Quand la réplication par triggers se justifie-t-elle ?
+  choices:
+  - Toujours, car elle est la plus rapide
+  - Quand on veut éviter tout code applicatif
+  - Quand on veut répliquer tout le cluster sans configuration
+  - Quand on doit répliquer une partie des données, vers un autre type de base, ou avec une logique de conflits maison
+  answer: 3
+  explanation: Elle offre la souplesse du code applicatif, au prix d'un surcoût et d'un risque de bogues plus élevés.
+  concept: ddia-repl-log-trigger
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Qu'a fait MySQL face aux problèmes de la réplication par instructions ?
+  choices:
+  - Il bascule par défaut vers la réplication par ligne dès qu'une instruction est non déterministe
+  - Il a interdit NOW()
+  - Il expédie désormais son WAL physique
+  - Il exige des transactions déterministes, comme VoltDB
+  answer: 0
+  explanation: Avant la 5.1, MySQL répliquait par instructions ; il utilise aujourd'hui le binlog par ligne quand c'est nécessaire.
+  concept: ddia-repl-log-statement
+  difficulty: 2

@@ -1,0 +1,1 @@
+Tu es d'astreinte sur la base répliquée d'une boutique en ligne. Tu ajoutes un follower, tu prépares le prochain failover, tu choisis le format de log d'une mise à jour sans arrêt, puis tu diagnostiques les plaintes des utilisateurs et tu règles le routage des lectures.

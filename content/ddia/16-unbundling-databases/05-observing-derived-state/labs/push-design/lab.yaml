@@ -1,0 +1,53 @@
+id: ddia-ch16-l05-lab-push-design
+title: 'Prolonger le chemin d''écriture jusqu''au téléphone'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-write-read-path
+- ddia-offline-clients
+- ddia-push-to-clients
+source:
+  chapter: 12
+  pages: 509-514
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: mobile
+  label: App mobile
+  hint: Fonctionne hors ligne, affiche l'état du tableau de bord.
+- type: local
+  component: sqlite
+  label: Base locale de l'app
+  hint: Un cache de l'état serveur, sur l'appareil.
+- type: api
+  component: service
+  label: API d'écriture
+  hint: Reçoit les actions de l'utilisateur.
+- type: db
+  component: postgres
+  label: Base de référence
+  hint: Le système de référence.
+- type: log
+  component: kafka
+  label: Log de changements
+  hint: Ordre des écritures, rejouable depuis un offset.
+- type: viewer
+  component: stream-processor
+  label: Mainteneur de vue
+  hint: Calcule le tableau de bord à l'écriture.
+- type: view
+  component: redis
+  label: Vue matérialisée
+  hint: Le tableau de bord précalculé.
+- type: push
+  component: service
+  label: Service de push (WebSocket)
+  hint: Garde une connexion ouverte avec chaque client et lui envoie les changements.
+- type: poll
+  component: cron
+  label: Interrogation périodique
+  hint: Le client redemande tout l'état toutes les 10 secondes.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

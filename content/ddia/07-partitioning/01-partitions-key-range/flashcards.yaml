@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Partition ?
+  back: 'Tranche des données ; chaque enregistrement appartient à exactement une partition, gérée comme une petite base.'
+  concept: ddia-partition-definition
+- id: fc2
+  front: Les autres noms d'une partition ?
+  back: shard (MongoDB, Elasticsearch), region (HBase), tablet (Bigtable), vnode (Cassandra, Riak), vBucket (Couchbase).
+  concept: ddia-partition-definition
+- id: fc3
+  front: Partitionnement + réplication à leader ?
+  back: Chaque partition a un leader et des suiveurs sur d'autres nœuds ; un nœud est leader de certaines partitions, suiveur d'autres.
+  concept: ddia-partition-replication-combo
+- id: fc4
+  front: Point chaud (hot spot) ?
+  back: 'Partition qui reçoit une charge disproportionnée : le cluster tourne à la vitesse de ce nœud.'
+  concept: ddia-partition-skew-hotspot
+- id: fc5
+  front: Placer les enregistrements au hasard ?
+  back: Charge équilibrée, mais une lecture doit interroger tous les nœuds.
+  concept: ddia-partition-skew-hotspot
+- id: fc6
+  front: Partitionnement par plage de clés ?
+  back: Chaque partition couvre un intervalle continu de clés triées ; scans d'intervalle efficaces.
+  concept: ddia-key-range-partitioning
+- id: fc7
+  front: Comment choisir les bornes d'une plage ?
+  back: Selon la distribution réelle des données, à la main ou automatiquement (Bigtable, HBase, RethinkDB).
+  concept: ddia-key-range-partitioning
+- id: fc8
+  front: Clé = horodatage, partitionnement par plage ?
+  back: 'Toutes les écritures récentes vont dans une seule partition : point chaud.'
+  concept: ddia-range-timestamp-hotspot
+- id: fc9
+  front: Corriger le point chaud des capteurs ?
+  back: Préfixer la clé par le capteur ; prix à payer, un scan par capteur pour lire une période sur tous les capteurs.
+  concept: ddia-range-timestamp-hotspot

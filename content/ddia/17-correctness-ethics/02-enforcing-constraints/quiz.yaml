@@ -1,0 +1,102 @@
+id: ddia-ch17-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi une contrainte d'unicité stricte est-elle un problème de consensus ?
+  choices:
+  - Parce qu'elle exige de chiffrer les valeurs
+  - Parce que, face à des demandes concurrentes pour la même valeur, il faut une décision unique et partagée sur celle qui gagne
+  - Parce qu'elle oblige à répliquer de façon asynchrone
+  - Parce que les index uniques sont lents
+  answer: 1
+  explanation: Choisir un gagnant parmi des propositions concurrentes, c'est exactement décider ensemble ; un leader par valeur rend ce choix simple.
+  concept: ddia-correct-uniqueness-consensus
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Deux datacenters acceptent les inscriptions en multi-leader asynchrone. Que se passe-t-il si `ada` est demandé dans les deux à la même seconde ?
+  choices:
+  - Les deux inscriptions sont acceptées et le conflit n'est découvert qu'après coup
+  - La seconde est refusée immédiatement
+  - Le réseau sérialise les deux demandes
+  - Le hachage du nom résout le conflit
+  answer: 0
+  explanation: Sans coordination synchrone, chaque leader décide seul ; l'unicité stricte est violée.
+  concept: ddia-correct-uniqueness-consensus
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Remets dans l'ordre l'imposition d'unicité d'un nom par log. Choisis la bonne séquence.
+  choices:
+  - La demande est ajoutée à la partition choisie par le hachage du nom normalisé → Le processeur consulte sa base locale des noms pris et émet succès ou refus → Le processeur de la partition lit les demandes dans l'ordre → Le client lit le flux de sortie pour connaître l'issue
+  - Le processeur de la partition lit les demandes dans l'ordre → La demande est ajoutée à la partition choisie par le hachage du nom normalisé → Le processeur consulte sa base locale des noms pris et émet succès ou refus → Le client lit le flux de sortie pour connaître l'issue
+  - Le processeur de la partition lit les demandes dans l'ordre → Le processeur consulte sa base locale des noms pris et émet succès ou refus → Le client lit le flux de sortie pour connaître l'issue → La demande est ajoutée à la partition choisie par le hachage du nom normalisé
+  - La demande est ajoutée à la partition choisie par le hachage du nom normalisé → Le processeur de la partition lit les demandes dans l'ordre → Le processeur consulte sa base locale des noms pris et émet succès ou refus → Le client lit le flux de sortie pour connaître l'issue
+  answer: 3
+  explanation: Le log fixe l'ordre, le processeur décide séquentiellement, le client attend la décision publiée.
+  concept: ddia-correct-uniqueness-log
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Le service partitionne les demandes par le hachage du nom tel que saisi. Les noms sont insensibles à la casse. Quel est le risque ?
+  choices:
+  - Aucun, le processeur compare sans tenir compte de la casse
+  - Le débit baisse
+  - '`Ada` et `ada` tombent dans deux partitions différentes et sont acceptés tous les deux'
+  - Le log perd des messages
+  answer: 2
+  explanation: Le processeur ne voit que sa partition ; les écritures en conflit doivent être routées au même endroit, donc on hache la forme normalisée.
+  concept: ddia-correct-conflict-routing
+  difficulty: 3
+- id: q5
+  type: single
+  prompt: Chaque processeur décide une demande en 0,25 ms. Combien de partitions faut-il au minimum pour absorber 200 000 demandes par seconde ?
+  choices:
+  - '20'
+  - '50'
+  - '40'
+  - '800'
+  answer: 1
+  explanation: Une partition traite 1 / 0,25 ms = 4 000 demandes/s ; 200 000 / 4 000 = 50 partitions. Le débit croît avec le nombre de partitions car chacune reste séquentielle et indépendante.
+  concept: ddia-correct-uniqueness-log
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Dans le virement par logs, pourquoi l'étape « écrire la requête dans le log » rend-elle l'ensemble atomique ?
+  choices:
+  - Parce que c'est une écriture unique sur un seul objet ; tout le reste en est dérivé de façon déterministe
+  - Parce qu'elle verrouille les deux comptes
+  - Parce qu'elle lance un commit à deux phases
+  - Parce que le log est répliqué de façon synchrone sur tous les comptes
+  answer: 0
+  explanation: Une fois la requête dans le log, elle produira exactement un débit et un crédit, même après des pannes et des relectures.
+  concept: ddia-correct-multi-partition
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Le processeur qui découpe les requêtes plante et reprend au dernier point de contrôle. Qu'est-ce qui évite un double débit ?
+  choices:
+  - Il est déterministe, donc il réémet exactement les mêmes instructions
+  - Les instructions portent l'identifiant de la requête d'origine
+  - Les processeurs de comptes dédupliquent par identifiant
+  - Le client annule sa requête
+  - Le log efface les requêtes déjà lues
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Déterminisme + identifiant transmis + déduplication en aval rendent la relecture inoffensive.
+  concept: ddia-correct-multi-partition
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Comment refuser un virement quand le payeur n'a pas assez de fonds, sans transaction distribuée ?
+  choices:
+  - Le processeur de crédit vérifie le solde du payeur
+  - Un processeur en amont, partitionné par compte payeur, tient les soldes et ne laisse entrer dans le log des requêtes que les demandes valides
+  - On interroge toutes les partitions en parallèle
+  - On laisse passer et on espère
+  answer: 1
+  explanation: Toutes les demandes d'un payeur passent par sa partition dans l'ordre, donc la vérification est séquentielle.
+  concept: ddia-correct-funds-check
+  difficulty: 2

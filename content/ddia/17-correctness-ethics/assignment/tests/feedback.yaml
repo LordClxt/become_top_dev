@@ -1,0 +1,45 @@
+blocks:
+  reessais:
+    options:
+      lost.without: Trois envois ont atteint le COMMIT ; sans identifiant, trois débits.
+      lost.with: Le même identifiant voyage avec les trois essais ; les deux derniers violent la contrainte d'unicité.
+      failed.without: Le premier essai n'a rien validé ; un seul débit.
+      failed.with: Un seul débit validé, l'identifiant ne change rien ici.
+      double-tap.without: Deux envois validés, deux débits.
+      double-tap.with: L'identifiant naît à l'affichage du formulaire ; les deux taps le partagent.
+  partitions:
+    tolerance:
+      abs: 0.5
+    wrong: 1 / 0,4 ms = 2 500 décisions/s ; à 50 % → 1 250/s ; 120 000 / 1 250 = 96 partitions.
+  cle:
+    options:
+      raw: « Ada » et « ada » tomberaient dans deux partitions et seraient acceptés tous les deux.
+      user: Deux utilisateurs demandant le même pseudo seraient décidés par deux partitions différentes.
+      random: Les demandes en conflit seraient éparpillées ; aucune partition ne pourrait trancher.
+  strategies:
+    options:
+      pseudo: Deux personnes avec le même pseudo, c'est de l'argent envoyé à la mauvaise personne ; on tranche avant de confirmer.
+      iban: Un numéro de compte en double ne se compense pas ; décision stricte.
+      goodies: Dépasser de quelques cartes se compense par un geste commercial.
+      webinar: Quelques inscrits de trop se gèrent par une excuse ou une place en rediffusion.
+  virement:
+    options:
+      id: L'identifiant naît avant tout envoi.
+      check: La vérification de fonds a lieu avant l'entrée dans le log des requêtes.
+      log: L'écriture dans le log est l'étape atomique d'où tout découle.
+      split: Le répartiteur dérive les instructions depuis le log.
+      apply: L'application des soldes vient en dernier, avec déduplication.
+  detection:
+    options:
+      smart: Les disques ne sont pas en cause ; le bug est dans le traitement.
+      tls: TLS protège le transport, pas la logique de traitement.
+      merkle: L'arbre prouve que le log n'a pas été réécrit ; or le log est intact, ce sont les soldes dérivés qui sont faux.
+      replay: Le recalcul de bout en bout voit l'écart sur le compte concerné.
+      sum: Un crédit sans débit correspondant crée de l'argent ; l'invariant global le révèle.
+  score:
+    options:
+      keep-all: Conserver sans limite multiplie les risques de fuite et d'abus ; minimisation et purge.
+      resell: Revendre des scores étend la prison algorithmique bien au-delà de PayLite.
+      explain: Sans explication, la décision est inattaquable.
+      appeal: Sans recours, la personne lésée n'a aucun moyen de corriger l'erreur.
+      errors: Une précision moyenne peut cacher des erreurs concentrées sur un groupe.

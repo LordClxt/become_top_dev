@@ -1,0 +1,3 @@
+**Ce qui compte, c'est ce qui bouge.** Avec hash mod N, passer de 10 à 11 nœuds ne laisse en place que les clés dont le reste est identique : 10 restes sur 110, donc environ 91 % des données déménagent. Avec 1 000 partitions fixes, le nouveau nœud vole environ 91 partitions entières (≈ 9 % des données, le minimum) et aucune clé ne change de partition.
+
+Le nombre fixe se choisit **une fois** : assez grand pour la flotte maximale (5 partitions par nœud sur 200 nœuds : 1 000), assez petit pour que chacun des 10 nœuds du départ n'en gère pas plus de 150, et pour que les partitions restent sous 100 Go à 100 To. Quand le volume est imprévisible et qu'on scanne par plage, le partitionnement dynamique s'adapte seul, à condition de pré-découper une base neuve.

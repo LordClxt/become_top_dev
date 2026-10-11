@@ -1,0 +1,98 @@
+id: ddia-ch14-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle est la différence essentielle entre la CDC et l'event sourcing ?
+  choices:
+  - La CDC est synchrone, l'event sourcing asynchrone
+  - La CDC extrait à bas niveau les changements d'une base mutable ; l'event sourcing construit l'application sur des événements métier immuables
+  - L'event sourcing n'utilise pas de log
+  - La CDC ne fonctionne qu'avec Kafka
+  answer: 1
+  explanation: En CDC, l'application ignore le flux ; en event sourcing, le flux d'événements métier est la source de vérité de l'application.
+  concept: ddia-event-sourcing
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Quel événement est le mieux nommé pour une application en event sourcing ?
+  choices:
+  - « Ligne 812 de `enrollments` supprimée »
+  - « Colonne `status` mise à jour »
+  - « Table `feedback` modifiée »
+  - « L'étudiant 17 a annulé son inscription au cours de chimie »
+  answer: 3
+  explanation: Un événement métier exprime l'intention d'une action, indépendamment du schéma de stockage.
+  concept: ddia-event-sourcing
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: '« Choisir le nom d''utilisateur `ada` » arrive alors que `ada` est déjà pris. Que doit-il se passer ?'
+  choices:
+  - La commande est refusée lors de sa validation, aucun événement n'est publié
+  - L'événement est publié, puis le consommateur le rejette
+  - Les deux comptes partagent le nom
+  - L'événement est publié puis effacé du log
+  answer: 0
+  explanation: On valide la commande avant qu'elle devienne un événement ; une fois dans le log, un événement est un fait que personne ne peut rejeter.
+  concept: ddia-commands-vs-events
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Que signifie « l''état est l''intégrale du flux d''événements » ?'
+  choices:
+  - Que l'état est stocké en virgule flottante
+  - Que l'état courant s'obtient en accumulant tous les événements depuis le début
+  - Que les événements sont calculés à partir de l'état
+  - Que l'état et le log sont deux systèmes sans rapport
+  answer: 1
+  explanation: Le flux est la dérivée de l'état dans le temps ; l'état, l'accumulation du flux. La vérité est le log, la base en est un cache.
+  concept: ddia-state-integral-of-events
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Quels bénéfices un log d'événements immuables apporte-t-il par rapport à une base qu'on écrase en place ?
+  choices:
+  - Retrouver et réparer les dégâts d'un code bogué en rejouant le log
+  - Savoir qu'un client a ajouté puis retiré un article de son panier
+  - Une taille toujours inférieure à celle de la base
+  - Corriger une erreur par une écriture compensatoire, comme un comptable
+  answer: [0, 1, 3]
+  explanation: Le log garde plus d'information que l'état, et il grossit donc au contraire plus vite que lui.
+  concept: ddia-immutable-events-benefits
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Le produit veut une nouvelle page « produits les plus hésités ». Avec un log d'événements et CQRS, que fais-tu ?
+  choices:
+  - Une migration de schéma de la base existante, en production
+  - Un nouveau consommateur du log qui construit une vue dédiée, à côté des vues existantes
+  - Des doubles écritures depuis le code
+  - Rien, c'est impossible sans l'historique
+  answer: 1
+  explanation: Le log garde les ajouts et retraits de panier ; on dérive une nouvelle vue de lecture sans toucher aux autres.
+  concept: ddia-cqrs-multiple-views
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Un utilisateur publie un commentaire, recharge la page et ne le voit pas. Quelle est la cause la plus probable dans une architecture à event sourcing ?
+  choices:
+  - Le commentaire a été rejeté par le consommateur
+  - Le log a été compacté
+  - La vue de lecture est mise à jour de façon asynchrone et n'a pas encore appliqué l'événement
+  - L'événement a été écrit deux fois
+  answer: 2
+  explanation: C'est le problème « lire ses propres écritures » ; on peut mettre à jour la vue de façon synchrone ou lire depuis une source à jour pour cet utilisateur.
+  concept: ddia-event-log-concurrency
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Un utilisateur demande l'effacement de ses données personnelles, stockées dans des événements immuables. Qu'est-ce qui ne suffit pas ?
+  choices:
+  - Ajouter un événement « données de l'utilisateur supprimées »
+  - Réécrire l'historique pour retirer ses données (excision)
+  - Ne pas mettre de données personnelles dans les événements dès la conception
+  - Retirer aussi ses données des vues dérivées
+  answer: 0
+  explanation: L'ancien événement contient toujours les données ; il faut réécrire l'histoire, et même alors des copies peuvent traîner (sauvegardes, SSD).
+  concept: ddia-immutability-limits
+  difficulty: 3

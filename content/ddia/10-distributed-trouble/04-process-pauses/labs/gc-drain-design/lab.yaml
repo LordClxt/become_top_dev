@@ -1,0 +1,44 @@
+id: ddia-ch10-l04-lab-gc-drain-design
+title: Cacher les pauses du ramasse-miettes
+difficulty: 3
+xp: 70
+concepts:
+- ddia-gc-pause-mitigation
+- ddia-process-pause
+source:
+  chapter: 8
+  pages: 295-300
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: browser
+  label: Clients
+  hint: Les utilisateurs du service.
+- type: lb
+  component: load-balancer
+  label: Répartiteur de charge
+  hint: Peut retirer un nœud du trafic quand on le lui demande.
+- type: node
+  component: service
+  label: Nœud applicatif
+  hint: Un serveur avec ramasse-miettes. Pose-en plusieurs.
+- type: restart
+  component: cron
+  label: Redémarrage roulant
+  hint: Relance un nœud à la fois, avant qu'une collecte complète ne soit nécessaire.
+- type: db
+  component: postgres
+  label: Base de données
+  hint: Où les nœuds lisent et écrivent.
+- type: swap
+  component: disk
+  label: Swap (pagination sur disque)
+  hint: De la mémoire « en plus », sur le disque.
+- type: netdisk
+  component: disk
+  label: Disque réseau pour les classes
+  hint: Les fichiers du programme chargés à la demande depuis un volume réseau.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,3 @@
+**Le hachage répartit les clés, pas la charge d'une clé.** Avec 4 tranches de 1 073 741 824 valeurs, le hachage 3 000 000 000 tombe dans la 3ᵉ partition, quelle que soit la clé d'origine : c'est ce qui égalise la charge, et ce qui détruit l'ordre. Une requête d'intervalle sur la clé part donc vers toutes les partitions, tandis qu'une clé composée à la Cassandra garde un ordre **à l'intérieur** de la partition choisie par la première colonne.
+
+La publication virale reste un point chaud : 45 000 / 8 000 = 5,6, soit 6 sous-clés au minimum. Chaque lecture lira ces 6 sous-clés : on ne sale que les clés brûlantes, et on garde la liste.

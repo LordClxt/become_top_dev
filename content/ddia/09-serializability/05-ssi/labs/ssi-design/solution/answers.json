@@ -1,0 +1,6 @@
+{
+  "verdicts": { "doctors": "abort", "readonly": "commit", "aborted": "commit", "before": "commit", "stock": "abort" },
+  "duration": 26,
+  "batch": { "b": 500 },
+  "technique": { "tickets": "serial", "reports": "ssi", "hot": "tpl", "distributed": "ssi" }
+}

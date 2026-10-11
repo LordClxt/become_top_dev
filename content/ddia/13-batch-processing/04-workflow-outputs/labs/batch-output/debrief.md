@@ -1,0 +1,3 @@
+**Une sortie de lots se publie comme un déploiement, pas comme une série d'écritures.** Le workflow lit des entrées immuables (logs bruts, instantané des profils exporté de la production) et écrit une base **neuve** sous forme de fichiers triés dans HDFS. Les serveurs clé-valeur chargent ces fichiers d'un bloc, basculent atomiquement, et gardent la version précédente sous la main : si les suggestions sont absurdes, on rebascule, on corrige le code et on relance.
+
+Rien n'écrit enregistrement par enregistrement dans un cache ou une base de production : ce serait lent, cela surchargerait les serveurs qui répondent aux utilisateurs, et une tâche relancée laisserait des effets de bord partiels ou en double.

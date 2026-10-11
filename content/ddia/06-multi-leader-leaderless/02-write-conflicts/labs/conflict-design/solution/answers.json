@@ -1,0 +1,18 @@
+{
+  "diverge": "diverge",
+  "perdus": 900,
+  "strategie": {
+    "profil": "avoid",
+    "tags": "merge",
+    "vue": "lww",
+    "contrat": "keep"
+  },
+  "moment": {
+    "bucardo": "write",
+    "couch": "read",
+    "user": "read",
+    "background": "write"
+  },
+  "salle": "conflict",
+  "topo": ["cut", "tags", "overtake"]
+}

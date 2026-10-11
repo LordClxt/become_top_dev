@@ -1,0 +1,101 @@
+id: ddia-ch10-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Tu mesures la latence d'une requête en soustrayant deux lectures de l'horloge murale. Quel est le risque ?
+  choices:
+  - Aucun, l'horloge murale est la plus précise
+  - L'horloge murale ne compte pas les millisecondes
+  - Si NTP recule l'horloge entre les deux lectures, la durée peut devenir négative
+  - L'horloge murale avance plus vite que le temps réel
+  answer: 2
+  explanation: L'horloge murale peut sauter ; pour une durée, on utilise l'horloge monotone.
+  concept: ddia-wall-vs-monotonic
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que vaut la comparaison des horloges monotones de deux machines différentes ?
+  choices:
+  - Elle donne l'écart de synchronisation entre les deux
+  - Elle dit laquelle a démarré en premier
+  - Elle est exacte à la microseconde près
+  - Elle n'a aucun sens, car la valeur absolue d'une horloge monotone est arbitraire
+  answer: 3
+  explanation: Seule la différence entre deux lectures sur la même machine a un sens.
+  concept: ddia-wall-vs-monotonic
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Un serveur dérive de 200 ppm et n'est resynchronisé qu'une fois par jour. Quel écart peut-il accumuler ?
+  choices:
+  - Environ 6 ms
+  - Environ 17 s
+  - Environ 200 ms
+  - Environ 2 min
+  answer: 1
+  explanation: 86 400 s × 200 × 10⁻⁶ ≈ 17,3 s. Resynchronisé toutes les 30 s, l'écart tombe à 6 ms.
+  concept: ddia-ntp-drift
+  difficulty: 2
+- id: q4
+  type: multiple
+  prompt: Qu'est-ce qui peut faire sauter brusquement l'horloge murale d'un serveur ?
+  choices:
+  - NTP qui remet de force à l'heure une horloge trop éloignée
+  - Une machine virtuelle mise en pause puis reprise
+  - Une seconde intercalaire mal gérée
+  - Un appel à time.Since en Go
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: time.Since utilise la lecture monotone ; les trois autres causes produisent des sauts réels.
+  concept: ddia-ntp-drift
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: L'horloge du nœud 1 avance de 20 ms. A écrit x = 1 via le nœud 1, puis 10 ms plus tard B écrit x = 2 via le nœud 2 (horloge juste). Avec last write wins, que vaut x ?
+  choices:
+  - 2, car B a écrit plus tard
+  - Les deux valeurs sont gardées comme versions concurrentes
+  - 1, car l'horodatage de A est plus grand de 10 ms
+  - Une erreur de conflit est renvoyée
+  answer: 2
+  explanation: 'A est horodatée t + 20, B t + 10 : l''écriture de B, pourtant postérieure, est jetée sans bruit.'
+  concept: ddia-lww-clock-skew
+  difficulty: 3
+- id: q6
+  type: single
+  prompt: Pour ordonner de façon sûre des événements entre nœuds, quel outil le livre recommande-t-il plutôt que des horloges physiques ?
+  choices:
+  - Des horloges logiques, qui comptent l'ordre des événements et non le temps
+  - Un NTP plus précis
+  - Des horodatages à la nanoseconde
+  - Le fuseau horaire du client
+  answer: 0
+  explanation: La précision de NTP est limitée par le réseau ; les horloges logiques capturent la causalité.
+  concept: ddia-lww-clock-skew
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: TrueTime renvoie [10,000 s ; 10,007 s] pour A et [10,005 s ; 10,012 s] pour B. Que peut-on conclure ?
+  choices:
+  - B est certainement après A
+  - A est certainement après B
+  - Elles ont eu lieu exactement en même temps
+  - Rien sur leur ordre, car les intervalles se chevauchent
+  answer: 3
+  explanation: L'ordre n'est certain que si le « au plus tard » de l'une précède le « au plus tôt » de l'autre.
+  concept: ddia-clock-confidence
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pourquoi Spanner attend-il la durée de l'intervalle de confiance avant de valider une écriture ?
+  choices:
+  - Pour laisser le temps au disque de s'écrire
+  - Pour que toute transaction qui lira ces données ait un intervalle qui ne chevauche pas le sien, donc un ordre certain
+  - Pour synchroniser les horloges par NTP
+  - Pour réduire la charge réseau
+  answer: 1
+  explanation: D'où l'intérêt de garder l'intervalle petit (environ 7 ms avec GPS et horloges atomiques).
+  concept: ddia-truetime-snapshots
+  difficulty: 3

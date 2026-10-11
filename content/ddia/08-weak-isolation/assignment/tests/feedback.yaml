@@ -1,0 +1,38 @@
+blocks:
+  levels:
+    options:
+      dread.rc: Read committed ne montre que des données validées.
+      dwrite.rc: Read committed fait attendre le second écrivain (verrou de ligne).
+      skew.rc: 'Read committed lit chaque ligne au moment de la lecture : deux instants différents.'
+      lost.rc: La seconde écriture arrive après le commit de la première ; read committed ne détecte rien.
+      wskew.rc: Read committed ne voit même pas les mises à jour perdues.
+      dread.rr: Un instantané ne contient que des données validées.
+      dwrite.rr: Les verrous d'écriture restent en place en snapshot isolation.
+      skew.rr: 'C''est la raison d''être de l''instantané : tout est lu au même instant.'
+      lost.rr: PostgreSQL abandonne la transaction perdante en repeatable read.
+      wskew.rr: Les deux transactions écrivent des lignes différentes ; la détection ne voit rien.
+  diagnose:
+    options:
+      ghost: Voir l'écriture d'une transaction qui n'a pas validé (et ne validera jamais).
+      report: Deux lectures faites à des instants différents, qui voient un état qui n'a jamais existé.
+      counter: Deux cycles lire-modifier-écrire sur la même valeur.
+      seat: Deux transactions vérifient une absence puis insèrent chacune une ligne différente.
+      quota: Chaque achat compte les billets puis en insère d'autres ; les lignes écrites diffèrent.
+  seatfix:
+    options:
+      forupdate: Le SELECT ne renvoie aucune ligne ; il n'y a rien à verrouiller (fantôme).
+      cache: Le cache lit un état qui peut changer avant l'écriture ; la vérification doit être dans la base.
+      rr: Le repeatable read de PostgreSQL ne détecte pas le write skew.
+  quotafix:
+    options:
+      rr: Le snapshot isolation laisse passer ce write skew.
+      front: Deux onglets, deux appareils ou une requête rejouée contournent le navigateur.
+  visible:
+    options:
+      t47: 47 était en cours au démarrage de 50 ; elle reste invisible même après son commit.
+      t49: 49 était en cours, et elle a abandonné.
+      t51: 51 a un identifiant plus grand que 50.
+  bloat:
+    tolerance:
+      rel: 0.01
+    wrong: 300 mises à jour/s × 7 200 s × 200 octets, puis divise par 10⁶.

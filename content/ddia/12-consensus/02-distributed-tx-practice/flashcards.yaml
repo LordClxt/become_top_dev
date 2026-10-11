@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Transaction distribuée interne vs hétérogène ?
+  back: 'Interne : tous les nœuds exécutent la même base (VoltDB, MySQL Cluster). Hétérogène : technologies différentes (base + broker…), via XA.'
+  concept: ddia-dtx-internal-vs-heterogeneous
+- id: fc2
+  front: Pourquoi les transactions distribuées sont-elles lentes ?
+  back: 'fsync supplémentaires pour la reprise après crash et allers-retours réseau (MySQL : plus de 10× plus lent mesuré).'
+  concept: ddia-dtx-internal-vs-heterogeneous
+- id: fc3
+  front: Traitement exactement une fois avec XA ?
+  back: 'Acquitter le message et écrire en base dans la même transaction atomique ; en cas d''échec tout est annulé et on réessaie.'
+  concept: ddia-dtx-exactly-once-messages
+- id: fc4
+  front: XA, c'est quoi ?
+  back: 'Un standard de 1991 : une API en C (JTA en Java) pour faire 2PC entre technologies ; pas un protocole réseau.'
+  concept: ddia-xa-standard
+- id: fc5
+  front: Où vit le coordinateur XA ?
+  back: 'Bibliothèque dans le processus applicatif, journal sur le disque local. Le serveur meurt → les participants restent en doute.'
+  concept: ddia-xa-standard
+- id: fc6
+  front: Pourquoi une transaction en doute est-elle grave ?
+  back: 'Elle garde ses verrous (lignes modifiées, voire lues) : d''autres transactions sont bloquées tant que l''issue est inconnue.'
+  concept: ddia-dtx-in-doubt-locks
+- id: fc7
+  front: Transaction orpheline ?
+  back: 'En doute pour toujours (journal du coordinateur perdu) ; survit aux redémarrages ; seule issue : décision manuelle d''un administrateur.'
+  concept: ddia-dtx-orphaned-heuristic
+- id: fc8
+  front: Décision heuristique ?
+  back: 'Un participant tranche seul une transaction en doute : issue de secours qui casse probablement l''atomicité.'
+  concept: ddia-dtx-orphaned-heuristic
+- id: fc9
+  front: Quatre limites de fond des transactions XA ?
+  back: 'Coordinateur point unique de défaillance ; serveur applicatif plus sans état ; pas de détection d''interblocages ni de SSI entre systèmes ; un participant en panne fait tout échouer.'
+  concept: ddia-dtx-limitations

@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Fenêtre tumbling ?
+  back: Longueur fixe, sans chevauchement ; chaque événement dans exactement une fenêtre, trouvée en arrondissant l'horodatage à la baisse.
+  concept: ddia-sp-window-tumbling
+- id: fc2
+  front: Pourquoi des intervalles semi-ouverts [début, fin) ?
+  back: Pour qu'un événement pile sur une frontière n'appartienne qu'à une seule fenêtre.
+  concept: ddia-sp-window-tumbling
+- id: fc3
+  front: Fenêtre hopping ?
+  back: Longueur fixe, avance par pas plus petits ; les fenêtres se chevauchent et lissent le résultat.
+  concept: ddia-sp-window-hopping
+- id: fc4
+  front: À combien de fenêtres hopping appartient un événement ?
+  back: Taille / pas (5 minutes au pas d'une minute → 5 fenêtres).
+  concept: ddia-sp-window-hopping
+- id: fc5
+  front: Implémenter une hopping efficacement ?
+  back: Fenêtres tumbling de la taille du pas, puis combiner les sous-agrégats adjacents (agrégat décomposable).
+  concept: ddia-sp-window-hopping
+- id: fc6
+  front: Fenêtre sliding ?
+  back: Tous les événements à moins d'une durée les uns des autres ; pas de frontières fixes ; tampon trié par temps dont on retire les vieux.
+  concept: ddia-sp-window-sliding
+- id: fc7
+  front: Fenêtre de session ?
+  back: Durée variable ; événements rapprochés d'un même utilisateur ; se ferme après une inactivité (souvent 30 minutes).
+  concept: ddia-sp-window-session
+- id: fc8
+  front: Quand une session est-elle sûre d'être finie ?
+  back: Quand le watermark dépasse dernier événement + écart ; avant, un retardataire peut la prolonger ou la fusionner avec la suivante.
+  concept: ddia-sp-window-session
+- id: fc9
+  front: Coût en état de chaque fenêtre ?
+  back: 'Tumbling : un agrégat ; hopping : un sous-agrégat par pas ; sliding : les événements ; session : une session par utilisateur actif.'
+  concept: ddia-sp-window-state-cost

@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: 'Service, lot, flux : comment juge-t-on chacun ?'
+  back: 'Service : temps de réponse et disponibilité. Lot : débit sur une entrée bornée. Flux : entrée non bornée, traitée peu après l''arrivée.'
+  concept: ddia-batch-three-system-kinds
+- id: fc2
+  front: Les 5 URL les plus vues, en Unix ?
+  back: awk '{print $7}' | sort | uniq -c | sort -r -n | head -n 5
+  concept: ddia-batch-unix-log-analysis
+- id: fc3
+  front: Table de hachage ou tri pour compter ?
+  back: Table si les clés distinctes tiennent en mémoire (l'ensemble de travail), tri externe sinon.
+  concept: ddia-batch-sort-vs-hashmap
+- id: fc4
+  front: Comment sort dépasse-t-il la mémoire ?
+  back: Il trie des morceaux, les écrit sur disque et fusionne les fichiers triés, en accès séquentiels.
+  concept: ddia-batch-sort-vs-hashmap
+- id: fc5
+  front: Philosophie Unix en une phrase ?
+  back: Un programme fait une seule chose bien, et sa sortie peut devenir l'entrée d'un programme encore inconnu.
+  concept: ddia-batch-unix-uniform-interface
+- id: fc6
+  front: L'interface uniforme d'Unix ?
+  back: Le fichier, une suite d'octets ; par convention des lignes séparées par \n, découpées en champs.
+  concept: ddia-batch-unix-uniform-interface
+- id: fc7
+  front: Séparer la logique du câblage ?
+  back: Le programme lit stdin et écrit stdout ; le shell décide d'où vient et où va la donnée (couplage faible).
+  concept: ddia-batch-logic-wiring
+- id: fc8
+  front: Limites des pipes Unix ?
+  back: Une seule machine, mal adaptés à plusieurs entrées ou sorties, pas de branchement direct sur le réseau.
+  concept: ddia-batch-logic-wiring
+- id: fc9
+  front: Pourquoi expérimenter est sans risque en Unix ?
+  back: Entrées immuables, chaîne coupable à toute étape, sorties intermédiaires écrites puis rejouées.
+  concept: ddia-batch-unix-transparency

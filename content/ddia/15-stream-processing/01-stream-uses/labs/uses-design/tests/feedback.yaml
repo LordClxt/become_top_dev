@@ -1,0 +1,30 @@
+blocks:
+  usages:
+    options:
+      fraud: 'On cherche une séquence précise d''événements (20 publications, puis un changement d''IP) : c''est un motif, pas une simple statistique.'
+      dash: 'Un comptage par minute comparé à hier est un agrégat sur une fenêtre : il n''y a pas de motif à reconnaître.'
+      cache: 'Le cache est une copie dérivée de la base, tenue à jour à partir de ses changements.'
+      alert: 'C''est la requête du client qui est stockée, et chaque nouvelle annonce est testée contre elle.'
+  exact:
+    tolerance:
+      abs: 1
+    wrong: 50 000 000 identifiants × 16 octets = 800 000 000 octets, à convertir en Mo.
+  hll:
+    tolerance:
+      abs: 0.05
+    wrong: 300 × 12 000 octets = 3 600 000 octets, soit quelques Mo seulement.
+  naive:
+    tolerance:
+      abs: 1
+    wrong: 50 annonces/s × 2 000 000 alertes = 100 000 000 tests par seconde.
+  forever:
+    options:
+      profile: 'Une fiche modifiée il y a trois ans est toujours valable : le cache a besoin de la dernière valeur de chaque clé, depuis le début.'
+      balance: 'Un solde dépend de tous les événements depuis la création du compte.'
+      rate: 'Un comptage par minute n''a besoin que de la minute en cours.'
+      fraud: 'Le motif porte sur 10 minutes : les événements plus anciens ne servent plus.'
+      index: 'Une annonce publiée il y a un an et toujours en ligne doit rester dans l''index.'
+  actors:
+    options:
+      actor: 'Les messages d''acteurs sont éphémères et un à un : impossible de rejouer le dernier mois, et le service doit connaître chaque équipe.'
+      rpc: 'Le service de paiement serait couplé aux trois équipes et bloqué si l''une tombe ; aucune relecture possible.'

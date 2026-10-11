@@ -1,0 +1,18 @@
+id: ddia-ch14-l03-lab-offsets-design
+title: 'Exploiter un sujet Kafka : rétention, retard et rejeu'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-log-retention-ring-buffer
+- ddia-consumer-lag-isolation
+- ddia-consumer-offset-commit
+- ddia-partition-assignment
+- ddia-log-replay
+source:
+  chapter: 11
+  pages: 446-451
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

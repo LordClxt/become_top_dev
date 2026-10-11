@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Fonction de dérivation ?
+  back: Le code qui transforme un jeu de données en un autre (index, document de recherche, modèle, cache).
+  concept: ddia-derivation-function
+- id: fc2
+  front: Index secondaire vs modèle de ML comme dérivés ?
+  back: L'index utilise une fonction standard intégrée à la base ; le modèle, une fonction propre à l'application.
+  concept: ddia-derivation-function
+- id: fc3
+  front: Pourquoi séparer code et état ?
+  back: Les outils de déploiement gèrent bien le code, les bases gèrent bien l'état durable ; chacun son métier.
+  concept: ddia-code-state-separation
+- id: fc4
+  front: La base comme variable partagée ?
+  back: On la lit et on l'écrit, mais on ne peut pas s'y abonner ; il faut interroger en boucle.
+  concept: ddia-code-state-separation
+- id: fc5
+  front: L'idéal du tableur ?
+  back: Quand une entrée change, tout ce qui en dépend se recalcule automatiquement.
+  concept: ddia-code-state-separation
+- id: fc6
+  front: Le dataflow en une phrase ?
+  back: Un changement d'état ici déclenche du code qui change l'état ailleurs.
+  concept: ddia-state-change-dataflow
+- id: fc7
+  front: Deux exigences pour maintenir un dérivé ?
+  back: Un ordre des changements stable et aucune perte (idempotence, exactly-once).
+  concept: ddia-state-change-dataflow
+- id: fc8
+  front: Taux de change, version dataflow ?
+  back: S'abonner au flux des taux, les garder dans une base locale, lire localement à l'achat.
+  concept: ddia-stream-vs-rpc-services
+- id: fc9
+  front: Le piège de la jointure flux-table au retraitement ?
+  back: Il faut l'état valable à la date de l'événement, pas celui d'aujourd'hui.
+  concept: ddia-stream-vs-rpc-services

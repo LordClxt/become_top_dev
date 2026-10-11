@@ -1,0 +1,89 @@
+checks:
+- id: entry
+  label: L'app envoie ses commandes au service, en synchrone
+  rule: edge_kind
+  source: app
+  target: api
+  kind: sync
+- id: write
+  label: Le service écrit dans la base de référence
+  rule: edge_kind
+  source: api
+  target: db
+  kind: write
+- id: cdc
+  label: La base publie ses changements dans le log, de façon asynchrone
+  rule: edge_kind
+  source: db
+  target: log
+  kind: async
+- id: search-path
+  label: L'index de recherche est dérivé du log par l'indexeur
+  rule: path
+  source: log
+  target: search
+  via: indexer
+- id: search-owner
+  label: Tout ce qui entre dans l'index vient de l'indexeur
+  rule: inbound_via
+  target: search
+  via: indexer
+- id: bootstrap
+  label: L'indexeur est amorcé par l'instantané avant de suivre le log
+  rule: edge_kind
+  source: snapshot
+  target: indexer
+  kind: read
+- id: no-dual
+  label: 'Pas de double écriture : le service n''écrit pas dans l''index'
+  rule: no_edge
+  source: api
+  target: search
+- id: old-view
+  label: L'ancienne vue reste maintenue depuis le log (réversibilité)
+  rule: path
+  source: log
+  target: storev1
+  via: viewv1
+- id: new-view
+  label: La nouvelle vue est dérivée du même log, en parallèle
+  rule: path
+  source: log
+  target: storev2
+  via: viewv2
+- id: push
+  label: Les changements de la nouvelle vue sont poussés jusqu'à l'app
+  rule: path
+  source: storev2
+  target: app
+  via: push
+- id: rates-sub
+  label: Le service commandes s'abonne au flux des taux
+  rule: edge_kind
+  source: rates
+  target: api
+  kind: async
+- id: rates-local
+  label: Il garde les taux dans une table locale
+  rule: edge_kind
+  source: api
+  target: ratestable
+  kind: write
+- id: no-xa
+  label: Pas de transaction distribuée entre systèmes hétérogènes
+  rule: count
+  source: xa
+  max: 0
+- id: no-rpc
+  label: Pas d'appel synchrone au service de taux sur le chemin d'une commande
+  rule: count
+  source: ratesrpc
+  max: 0
+- id: no-poll
+  label: Pas d'interrogation périodique des clients
+  rule: count
+  source: poll
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

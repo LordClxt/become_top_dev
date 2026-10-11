@@ -1,0 +1,1 @@
+Les soldes de tes clients sont dérivés d'un log de virements. Dessine l'architecture qui permet de **prouver** chaque nuit que ces soldes sont justes : un log immuable haché, une dérivation déterministe, un auditeur qui recalcule de bout en bout et alerte, et des sauvegardes réellement restaurées.

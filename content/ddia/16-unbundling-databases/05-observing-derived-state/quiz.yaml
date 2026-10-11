@@ -1,0 +1,98 @@
+id: ddia-ch16-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Dans un moteur de recherche, que fait le chemin d'écriture ?
+  choices:
+  - Il calcule la réponse à chaque requête à la demande
+  - Il met à jour l'index dès qu'un document arrive, même si personne ne le cherchera
+  - Il met en cache les pages de résultats
+  - Il envoie les documents aux clients
+  answer: 1
+  explanation: Le chemin d'écriture est anticipé (eager) ; le chemin de lecture est paresseux (lazy).
+  concept: ddia-write-read-path
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Sans aucun index, où se trouve la frontière entre écriture et lecture ?
+  choices:
+  - Tout le travail est fait à l'écriture
+  - La frontière n'existe plus
+  - Presque tout le travail est fait à la lecture, en parcourant tous les documents
+  - Le travail est partagé à égalité
+  answer: 2
+  explanation: Écrire ne coûte presque rien, mais chaque requête fait un « grep » de tout le corpus.
+  concept: ddia-write-read-path
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Une page produit est lue 5 000 fois pour chaque modification et coûte 40 ms à assembler. Que conseilles-tu ?
+  choices:
+  - La précalculer à l'écriture (vue matérialisée ou cache) ; 40 ms par modification contre 200 s de CPU par modification à la lecture
+  - La calculer à chaque lecture, c'est plus simple
+  - Supprimer l'index
+  - La recalculer chaque nuit seulement
+  answer: 0
+  explanation: Un fort rapport lectures/écritures pousse la frontière vers l'écriture.
+  concept: ddia-materialized-view-cache-tradeoff
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Un compteur de vues est incrémenté 1 000 fois par seconde et consulté une fois par jour par un analyste. Où placer le calcul de l'agrégat affiché ?
+  choices:
+  - Le précalculer et le pousser à tous les clients à chaque incrément
+  - Le mettre en cache côté navigateur
+  - Le recalculer pour chaque requête possible
+  - Plutôt à la lecture, puisque presque personne ne le lit
+  answer: 3
+  explanation: Précalculer coûte à chaque écriture ; c'est rentable seulement si on lit souvent.
+  concept: ddia-materialized-view-cache-tradeoff
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Selon le livre, que sont les pixels affichés par une app mobile ?
+  choices:
+  - Le système de référence
+  - Une vue matérialisée des objets du modèle côté client, eux-mêmes un cache de l'état serveur
+  - Un log d'événements
+  - Une transaction distribuée
+  answer: 1
+  explanation: L'appareil garde un cache de l'état serveur ; l'écran en est une vue matérialisée.
+  concept: ddia-offline-clients
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Une app mobile se reconnecte après 3 heures hors ligne. Comment rattraper les changements poussés par le serveur pendant ce temps ?
+  choices:
+  - Elle recharge tout l'état depuis zéro
+  - Elle ignore les changements manqués
+  - Elle envoie son dernier offset reçu et demande tout ce qui a suivi, comme un consommateur de log
+  - Elle attend le prochain changement
+  answer: 2
+  explanation: Le client se comporte comme un consommateur Kafka au bout du réseau.
+  concept: ddia-push-to-clients
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Que permet le fait de traiter les lectures comme des événements ?
+  choices:
+  - Enregistrer ce que l'utilisateur a vu avant de décider (provenance)
+  - Supprimer le coût de stockage des lectures
+  - Faire une jointure flux-table entre requêtes et base dans un processeur de flux
+  - Router des sous-requêtes vers plusieurs partitions et regrouper les réponses
+  answer: [0, 2, 3]
+  explanation: Enregistrer les lectures coûte au contraire du stockage et des entrées-sorties.
+  concept: ddia-reads-as-events
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Pourquoi calculer un score de fraude est-il une requête multi-partitions ?
+  choices:
+  - Parce que l'achat est trop gros pour une partition
+  - Parce que les réputations de l'IP, de l'e-mail et des adresses vivent dans des bases partitionnées différemment
+  - Parce que la fraude exige une transaction distribuée
+  - Parce que les scores sont calculés hors ligne
+  answer: 1
+  explanation: Chaque sous-requête va vers une partition différente ; un processeur de flux route et regroupe.
+  concept: ddia-multi-partition-dataflow
+  difficulty: 3

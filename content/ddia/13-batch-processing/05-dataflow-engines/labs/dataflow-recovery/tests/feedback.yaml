@@ -1,0 +1,31 @@
+blocks:
+  written:
+    tolerance:
+      rel: 0.01
+    wrong: '4 jobs donnent 3 sorties intermédiaires (la 4e est la sortie finale) : 3 × 2 To × 3 copies.'
+  connect:
+    options:
+      sum: Une somme par clé n'a besoin que de rassembler les clés ; trier serait du travail perdu.
+      smj: Une jointure sort-merge exige des entrées regroupées ET triées par la clé.
+      dim: 300 lignes tiennent partout ; on les envoie à chaque partition plutôt que de repartitionner la grosse entrée.
+  nondet:
+    options:
+      maporder: L'ordre d'itération d'une map Go change d'une exécution à l'autre.
+      clock: L'horloge donne une autre valeur au recalcul.
+      seeded: Avec une graine fixée par le job, le recalcul tire exactement les mêmes nombres ; c'est sûr.
+      api: Le service externe peut répondre autrement au recalcul.
+      sortslice: Un tri stable rend justement la sortie déterministe.
+  checkpoint:
+    options:
+      recompute: Perdre ces 50 Mo coûterait 3 heures de recalcul sur 20 To ; le stockage durable est presque gratuit ici.
+      hdfs-all: On reviendrait aux défauts de MapReduce ; seule cette étape justifie un point de contrôle.
+  pregel:
+    options:
+      receive: Les messages de l'itération précédente sont l'entrée de la fonction du sommet.
+      update: Le sommet met à jour son état après avoir lu ses messages.
+      send: Les messages émis ne seront livrés qu'à l'itération suivante.
+      barrier: Une itération se termine quand tous les sommets ont fini ; c'est le « bulk synchronous ».
+  graphsize:
+    options:
+      cluster: Partitionné par identifiant arbitraire, le graphe générerait énormément de messages réseau ; 6 Go tiennent en mémoire d'une machine.
+      mapreduce: Chaque itération relirait tout le graphe depuis HDFS ; c'est précisément ce que Pregel évite.

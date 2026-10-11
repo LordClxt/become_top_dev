@@ -1,0 +1,98 @@
+id: ddia-ch06-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qui distingue un coordinateur Dynamo d'un leader ?
+  choices:
+  - Il est le seul à pouvoir écrire sur disque
+  - Il transmet les requêtes aux réplicas sans imposer d'ordre aux écritures
+  - Il est élu par consensus
+  - Il ne reçoit que les lectures
+  answer: 1
+  explanation: N'importe quel nœud peut coordonner ; aucun ne décide de l'ordre des écritures.
+  concept: ddia-leaderless-replication
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: n = 3, C est en panne pendant une écriture acceptée par A et B, puis revient. Pourquoi la lecture interroge-t-elle plusieurs réplicas ?
+  choices:
+  - Pour répartir la charge uniquement
+  - Parce que C refuse les lectures après un redémarrage
+  - Parce que C peut renvoyer une valeur périmée ; les numéros de version permettent de garder la plus récente
+  - Parce qu'il faut l'accord de tous pour lire
+  answer: 2
+  explanation: Un réplica qui a manqué une écriture répond quand même ; seule la comparaison de plusieurs réponses permet de repérer le retard.
+  concept: ddia-leaderless-replication
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi le read repair ne suffit-il pas toujours ?
+  choices:
+  - Il ne répare que les valeurs lues ; une valeur rarement lue peut rester absente de certains réplicas
+  - Il efface les valeurs récentes
+  - Il ne fonctionne qu'avec un leader
+  - Il bloque les écritures pendant la réparation
+  answer: 0
+  explanation: D'où l'anti-entropie, qui compare les réplicas en tâche de fond.
+  concept: ddia-read-repair
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: En quoi l'anti-entropie diffère-t-elle du journal de réplication d'un leader ?
+  choices:
+  - Elle copie les écritures dans l'ordre exact où elles ont été faites
+  - Elle est synchrone
+  - Elle ne s'exécute qu'à la lecture
+  - Elle copie les données manquantes sans ordre particulier, parfois avec un délai important
+  answer: 3
+  explanation: C'est un processus de fond qui compare les réplicas, pas un flux ordonné d'écritures.
+  concept: ddia-anti-entropy
+  difficulty: 2
+- id: q5
+  type: multiple
+  prompt: Avec n = 5, quels réglages garantissent qu'au moins un réplica lu a la dernière écriture réussie ?
+  choices:
+  - w = 3, r = 3
+  - w = 2, r = 3
+  - w = 5, r = 1
+  - w = 4, r = 2
+  answer: [0, 2, 3]
+  explanation: Il faut w + r > n, soit w + r ≥ 6 ; 2 + 3 = 5 ne suffit pas.
+  concept: ddia-quorum-condition
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: n = 5, w = 3, r = 3. Combien de réplicas indisponibles une écriture tolère-t-elle ?
+  choices:
+  - 1
+  - 3
+  - 2
+  - 0
+  answer: 2
+  explanation: n − w = 5 − 3 = 2.
+  concept: ddia-quorum-tuning
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Ta charge est faite à 99 % de lectures ; tu passes à w = n = 3, r = 1. Quel est le risque ?
+  choices:
+  - Les lectures deviennent périmées
+  - Un seul réplica en panne fait échouer toutes les écritures
+  - Les lectures deviennent plus lentes
+  - Le quorum n'est plus respecté
+  answer: 1
+  explanation: 'w + r = 4 > 3, le quorum tient ; mais n − w = 0 : aucune panne tolérée en écriture.'
+  concept: ddia-quorum-tuning
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Chaque réplica répond en 5 ms sauf un, lent, à 80 ms. Avec n = 3, combien attend une lecture r = 2 ?
+  choices:
+  - 5 ms
+  - 80 ms
+  - 85 ms
+  - 160 ms
+  answer: 0
+  explanation: La lecture part vers les trois réplicas ; elle attend les deux réponses les plus rapides.
+  concept: ddia-quorum-tuning
+  difficulty: 2

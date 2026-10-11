@@ -1,0 +1,23 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 40},
+    {"id": "activity", "type": "activity", "x": 300, "y": 40},
+    {"id": "profiles", "type": "profiles", "x": -300, "y": 360},
+    {"id": "db", "type": "db", "x": 0, "y": 360},
+    {"id": "cdc", "type": "cdc", "x": 300, "y": 360},
+    {"id": "proc", "type": "proc", "x": 600, "y": 200},
+    {"id": "local", "type": "local", "x": 600, "y": 420},
+    {"id": "out", "type": "out", "x": 900, "y": 200},
+    {"id": "wh", "type": "wh", "x": 1200, "y": 200}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "activity", "kind": "async", "label": "événements"},
+    {"id": "e2", "source": "profiles", "target": "db", "kind": "write", "label": "UPDATE"},
+    {"id": "e3", "source": "db", "target": "cdc", "kind": "async", "label": "CDC"},
+    {"id": "e4", "source": "activity", "target": "proc", "kind": "async"},
+    {"id": "e5", "source": "cdc", "target": "proc", "kind": "async"},
+    {"id": "e6", "source": "proc", "target": "local", "kind": "write", "label": "met à jour / lit"},
+    {"id": "e7", "source": "proc", "target": "out", "kind": "async", "label": "enrichi"},
+    {"id": "e8", "source": "out", "target": "wh", "kind": "async"}
+  ]
+}

@@ -1,0 +1,101 @@
+id: ddia-ch05-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi ne pas simplement copier les fichiers de données du leader pour créer un follower ?
+  choices:
+  - Parce que les fichiers sont chiffrés
+  - Parce que les clients écrivent pendant la copie, qui mélangerait plusieurs instants
+  - Parce qu'un follower ne peut pas lire le format du leader
+  - Parce que la copie réseau est interdite par les bases
+  answer: 1
+  explanation: Il faut un snapshot cohérent associé à une position du log, ou bien verrouiller la base, ce qui casse la disponibilité.
+  concept: ddia-follower-bootstrap
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Remets dans l'ordre l'ajout d'un follower sans interruption. Choisis la bonne séquence.
+  choices:
+  - Suivre le flux de changements en continu → Demander au leader tous les changements depuis cette position → Copier le snapshot sur le nouveau nœud → Prendre un snapshot cohérent associé à une position du log
+  - Prendre un snapshot cohérent associé à une position du log → Demander au leader tous les changements depuis cette position → Copier le snapshot sur le nouveau nœud → Suivre le flux de changements en continu
+  - Copier le snapshot sur le nouveau nœud → Demander au leader tous les changements depuis cette position → Suivre le flux de changements en continu → Prendre un snapshot cohérent associé à une position du log
+  - Prendre un snapshot cohérent associé à une position du log → Copier le snapshot sur le nouveau nœud → Demander au leader tous les changements depuis cette position → Suivre le flux de changements en continu
+  answer: 3
+  explanation: Le snapshot fige un instant ; sa position (LSN, coordonnées du binlog) dit où reprendre le log.
+  concept: ddia-follower-bootstrap
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Un follower redémarre après un crash. Comment sait-il quoi demander au leader ?
+  choices:
+  - Il relit son log local pour trouver la dernière position appliquée et demande la suite
+  - Il redemande une copie complète de la base
+  - Il attend que le leader lui renvoie tout l'historique
+  - Il compare chaque ligne avec celles du leader
+  answer: 0
+  explanation: C'est le rattrapage (catch-up recovery). Rejouer un changement déjà appliqué doit être ignoré sans dommage.
+  concept: ddia-follower-catchup
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Le leader tombe. Follower A est au LSN 10 400, B au LSN 10 980, C au LSN 9 870. Lequel promouvoir ?
+  choices:
+  - A, car il a été créé en premier
+  - C, car il est le moins chargé
+  - B, car il a les changements les plus récents
+  - N'importe lequel, ils finiront identiques
+  answer: 2
+  explanation: Le plus avancé minimise les écritures perdues. A et C rattraperont ensuite B, le nouveau leader.
+  concept: ddia-leader-failover
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Dans l'incident GitHub, pourquoi la promotion d'un follower MySQL en retard a-t-elle exposé des données privées ?
+  choices:
+  - Le nouveau leader avait perdu ses mots de passe
+  - Redis avait été vidé pendant le failover
+  - La réplication par instructions avait recalculé NOW()
+  - Le compteur auto-incrémenté du nouveau leader a réattribué des clés déjà utilisées, aussi référencées dans Redis
+  answer: 3
+  explanation: Les écritures jetées avaient laissé des traces ailleurs (Redis) ; les clés réutilisées ont mélangé les données de deux utilisateurs.
+  concept: ddia-failover-lost-writes
+  difficulty: 3
+- id: q6
+  type: single
+  prompt: Que se passe-t-il en cas de split brain si rien n'est prévu ?
+  choices:
+  - Les deux leaders acceptent des écritures et les données divergent ou se perdent
+  - Le système s'arrête proprement
+  - Les followers votent et ignorent automatiquement l'un des deux
+  - Les écritures sont fusionnées sans conflit
+  answer: 0
+  explanation: Sans résolution de conflits, deux leaders actifs corrompent ou perdent des données. STONITH tente d'en éteindre un, au risque d'éteindre les deux.
+  concept: ddia-failover-split-brain
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: 'Ta base subit un pic de charge : le temps de réponse du leader monte à 6 s pendant une minute. Le délai de détection est de 5 s. Que risques-tu ?'
+  choices:
+  - Rien, un délai court est toujours plus sûr
+  - Un failover inutile qui ajoute du travail à un système déjà saturé
+  - Que les followers deviennent synchrones
+  - Que le leader passe en lecture seule
+  answer: 1
+  explanation: Un délai trop court confond lenteur et panne ; la promotion aggrave alors la surcharge.
+  concept: ddia-failover-timeout
+  difficulty: 2
+- id: q8
+  type: multiple
+  prompt: Quelles étapes font partie d'un failover automatique ?
+  choices:
+  - Déclarer le leader mort après un délai sans réponse
+  - Choisir comme nouveau leader le réplica le plus à jour
+  - Faire revenir l'ancien leader en tant que follower
+  - Recopier toute la base sur chaque follower
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Détecter, choisir, reconfigurer (clients, followers, ancien leader). Les followers rattrapent le nouveau leader par le log, sans recopie.
+  concept: ddia-leader-failover
+  difficulty: 2

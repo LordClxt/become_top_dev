@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: 3 exigences d'un rééquilibrage ?
+  back: Charge équitable après ; service continu pendant ; pas plus de données déplacées que nécessaire.
+  concept: ddia-rebalancing-requirements
+- id: fc2
+  front: hash mod N, de 4 à 5 nœuds ?
+  back: 80 % des clés bougent (au lieu des 20 % nécessaires).
+  concept: ddia-hash-mod-n-pitfall
+- id: fc3
+  front: Nombre fixe de partitions ?
+  back: Bien plus de partitions que de nœuds ; un nouveau nœud vole des partitions entières. Seule l'affectation partition → nœud change.
+  concept: ddia-fixed-partition-count
+- id: fc4
+  front: Limite du nombre fixe de partitions ?
+  back: Fixé à la création ; trop petit, il borne le nombre de nœuds ; trop grand, coût de gestion.
+  concept: ddia-fixed-partition-count
+- id: fc5
+  front: Partitionnement dynamique ?
+  back: Découpe en deux une partition trop grosse (10 Go dans HBase), fusionne les trop petites ; le nombre suit le volume.
+  concept: ddia-dynamic-partitioning
+- id: fc6
+  front: Pré-découpage (pre-splitting) ?
+  back: Créer d'emblée plusieurs partitions sur une base vide, pour ne pas écrire sur un seul nœud au début.
+  concept: ddia-dynamic-partitioning
+- id: fc7
+  front: Partitions proportionnelles aux nœuds ?
+  back: Nombre fixe par nœud (Cassandra, 256) ; un nouveau nœud coupe des partitions au hasard et prend des moitiés. Exige le hachage.
+  concept: ddia-partitions-per-node
+- id: fc8
+  front: Pourquoi un humain dans le rééquilibrage ?
+  back: Couplé à la détection de panne, le rééquilibrage automatique peut déclencher une cascade.
+  concept: ddia-automatic-rebalancing-risk

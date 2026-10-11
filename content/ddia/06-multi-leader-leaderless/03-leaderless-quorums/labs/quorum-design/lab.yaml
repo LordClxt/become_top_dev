@@ -1,0 +1,17 @@
+id: ddia-ch06-l03-lab-quorum-design
+title: Régler n, w et r
+difficulty: 3
+xp: 60
+concepts:
+- ddia-quorum-condition
+- ddia-quorum-tuning
+- ddia-read-repair
+- ddia-anti-entropy
+source:
+  chapter: 5
+  pages: 177-181
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

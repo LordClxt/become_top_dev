@@ -1,0 +1,101 @@
+id: ddia-ch07-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un équilibreur à tourniquet envoie la requête `user:42` à un nœud qui ne possède pas cette partition. Dans l'approche « n'importe quel nœud », que fait-il ?
+  choices:
+  - Il renvoie une erreur au client
+  - Il transmet la requête au nœud propriétaire, puis renvoie la réponse au client
+  - Il crée la partition localement
+  - Il interroge tous les nœuds
+  answer: 1
+  explanation: Chaque nœud doit connaître l'affectation pour pouvoir transmettre.
+  concept: ddia-request-routing-approaches
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Qu'est-ce qu'une couche de routage ?
+  choices:
+  - Un équilibreur de charge qui connaît les partitions et transmet chaque requête au bon nœud, sans la traiter
+  - Un cache devant la base
+  - Un nœud qui stocke une copie de toutes les partitions
+  - Le leader de toutes les partitions
+  answer: 0
+  explanation: 'Elle ne sert aucune requête elle-même : elle ne fait que router.'
+  concept: ddia-request-routing-approaches
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: La partition 17 migre du nœud A vers le nœud D. Remets dans l'ordre ce qui se passe avec ZooKeeper. Choisis la bonne séquence.
+  choices:
+  - Le transfert des données de A vers D se termine, A servant toujours entre-temps → L'affectation de la partition 17 est mise à jour dans ZooKeeper → La couche de routage met à jour sa table et envoie la partition 17 vers D → ZooKeeper notifie les abonnés du changement
+  - L'affectation de la partition 17 est mise à jour dans ZooKeeper → ZooKeeper notifie les abonnés du changement → La couche de routage met à jour sa table et envoie la partition 17 vers D → Le transfert des données de A vers D se termine, A servant toujours entre-temps
+  - Le transfert des données de A vers D se termine, A servant toujours entre-temps → L'affectation de la partition 17 est mise à jour dans ZooKeeper → ZooKeeper notifie les abonnés du changement → La couche de routage met à jour sa table et envoie la partition 17 vers D
+  - La couche de routage met à jour sa table et envoie la partition 17 vers D → ZooKeeper notifie les abonnés du changement → L'affectation de la partition 17 est mise à jour dans ZooKeeper → Le transfert des données de A vers D se termine, A servant toujours entre-temps
+  answer: 2
+  explanation: ZooKeeper garde l'affectation faisant autorité ; les routeurs s'y abonnent.
+  concept: ddia-zookeeper-partition-metadata
+  difficulty: 2
+- id: q4
+  type: multiple
+  prompt: Quels systèmes s'appuient sur ZooKeeper (directement ou via Helix) pour suivre l'affectation des partitions ?
+  choices:
+  - HBase
+  - Cassandra
+  - Kafka (historiquement)
+  - Espresso de LinkedIn
+  answer:
+  - 0
+  - 2
+  - 3
+  explanation: Cassandra (comme Riak) utilise un protocole de bavardage entre nœuds.
+  concept: ddia-zookeeper-partition-metadata
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Quel est l'intérêt du protocole de bavardage de Cassandra et Riak ?
+  choices:
+  - Il garantit un consensus instantané
+  - Il permet des jointures parallèles
+  - Pas de service de coordination externe à opérer ; n'importe quel nœud peut recevoir et transmettre les requêtes
+  - Il supprime le besoin de réplication
+  answer: 2
+  explanation: 'Le prix : plus de complexité dans chaque nœud de la base.'
+  concept: ddia-gossip-routing
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Pourquoi le problème du routage relève-t-il, au fond, du consensus ?
+  choices:
+  - Parce qu'il faut que tous les participants soient d'accord sur l'affectation partition → nœud, même quand elle change
+  - Parce que chaque requête est votée par tous les nœuds
+  - Parce que le DNS ne fonctionne pas
+  - Parce que le hachage est aléatoire
+  answer: 0
+  explanation: Si deux routeurs ont des affectations différentes, des requêtes partent au mauvais nœud.
+  concept: ddia-zookeeper-partition-metadata
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Que fait une base MPP d'une requête analytique avec jointures et agrégations ?
+  choices:
+  - Elle l'envoie au seul nœud qui a toutes les données
+  - Elle la découpe en étapes et morceaux exécutés en parallèle sur les nœuds et leurs partitions
+  - 'Elle la refuse : seules les requêtes par clé sont permises'
+  - Elle la transforme en scatter/gather par clé
+  answer: 1
+  explanation: C'est ce qui rend les gros balayages analytiques rapides.
+  concept: ddia-mpp-parallel-query
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Une application de catalogue fait surtout des scans par plage de références produit, et le volume est imprévisible. Quelle combinaison est la plus cohérente ?
+  choices:
+  - Hachage, nombre fixe de partitions, hash mod N
+  - Hachage, index global synchrone sur un nœud
+  - Placement aléatoire, scatter/gather pour tout
+  - Plage de clés, partitionnement dynamique avec pré-découpage, routage via un registre faisant autorité
+  answer: 3
+  explanation: Les scans par plage exigent l'ordre ; le dynamique suit le volume ; le registre garde tout le monde d'accord.
+  concept: ddia-partitioning-summary
+  difficulty: 3

@@ -1,0 +1,35 @@
+blocks:
+  tolere:
+    options:
+      a.w: n − w = 3 − 2.
+      a.r: n − r = 3 − 2.
+      a.q: 2 + 2 = 4 > 3.
+      b.w: n − w = 5 − 3.
+      b.r: n − r = 5 − 3.
+      b.q: 3 + 3 = 6 > 5.
+      c.w: 'w = n : la moindre panne bloque les écritures.'
+      c.r: n − r = 3 − 1.
+      c.q: 3 + 1 = 4 > 3.
+      d.w: n − w = 5 − 2.
+      d.r: n − r = 5 − 2.
+      d.q: '2 + 2 = 4, pas plus grand que 5 : les réplicas écrits et lus peuvent ne pas se croiser.'
+  reglage:
+    goals:
+      valid: On ne peut pas attendre plus de réponses qu'il n'y a de réplicas.
+      quorum: 'Si w + r ≤ n, une lecture peut ne tomber que sur des réplicas qui n''ont pas reçu la dernière écriture : augmente w ou r.'
+      writes: 'Il faut n − w ≥ 2 : diminue w ou ajoute des réplicas.'
+      reads: 'Il faut n − r ≥ 2 : diminue r ou ajoute des réplicas.'
+      cost: 'Chaque copie coûte du stockage : 5 au plus.'
+  latence:
+    tolerance:
+      abs: 0.5
+    wrong: 'La lecture part vers les 5 réplicas et attend les 3 premières réponses : 3, 4 puis 6 ms. Le réplica surchargé est ignoré.'
+  repare:
+    options:
+      hot: Une valeur très lue est réparée à la première lecture qui tombe sur C.
+      cold: 'Personne ne la lit : seul un processus de fond la recopiera.'
+      soon: La prochaine lecture repère la version périmée et la corrige aussitôt.
+  lecture:
+    options:
+      wait: 'On envoie aux n réplicas, mais on n''attend que r réponses.'
+      repair: La réparation vient après la comparaison des versions.

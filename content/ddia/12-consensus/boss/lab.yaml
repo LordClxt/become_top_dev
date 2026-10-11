@@ -1,0 +1,73 @@
+id: ddia-ch12-boss
+title: 'Boss : un cluster qui se gouverne seul'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-consensus-majority
+- ddia-coord-work-allocation
+- ddia-2pc-protocol
+- ddia-2pc-points-of-no-return
+- ddia-consensus-epochs
+- ddia-dtx-orphaned-heuristic
+source:
+  chapter: 9
+  pages: 352-373
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Client
+  hint: Une application qui lit et écrit.
+- type: router
+  component: service
+  label: Routeur
+  hint: Envoie chaque requête au bon leader de partition.
+- type: ensemble
+  component: zone
+  label: Ensemble etcd
+  hint: Les votants du service de coordination.
+- type: etcd
+  component: consensus
+  label: Nœud etcd
+  hint: Votant Raft du service de coordination.
+- type: leaderA
+  component: leader
+  label: Leader partition A
+  hint: Reçoit les écritures de la partition A.
+- type: followerA
+  component: follower
+  label: Réplica partition A
+  hint: Suit le leader de A.
+- type: leaderB
+  component: leader
+  label: Leader partition B
+  hint: Reçoit les écritures de la partition B.
+- type: followerB
+  component: follower
+  label: Réplica partition B
+  hint: Suit le leader de B.
+- type: coord
+  component: service
+  label: Coordinateur de transactions
+  hint: Pilote le commit atomique des transactions multi-partitions.
+- type: txlog
+  component: wal
+  label: Journal du coordinateur
+  hint: Décisions durables, écrites avant d'être diffusées.
+- type: memlog
+  component: redis
+  label: Journal des décisions en mémoire
+  hint: Rapide, mais vidé à chaque redémarrage.
+- type: heur
+  component: external
+  label: Décisions heuristiques automatiques
+  hint: Débloque les transactions en doute sans le coordinateur.
+- type: manual
+  component: monitoring
+  label: Opérateur qui désigne les leaders
+  hint: Bascule manuelle après chaque panne.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

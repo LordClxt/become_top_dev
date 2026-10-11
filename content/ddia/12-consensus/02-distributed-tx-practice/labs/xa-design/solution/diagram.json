@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    { "id": "app", "type": "app", "x": 260, "y": 0, "label": "Processus applicatif", "w": 420, "h": 460 },
+    { "id": "broker", "type": "broker", "x": 0, "y": 160 },
+    { "id": "consumer", "type": "consumer", "x": 300, "y": 60, "parent": "app" },
+    { "id": "coord", "type": "coord", "x": 300, "y": 220, "parent": "app" },
+    { "id": "txlog", "type": "txlog", "x": 300, "y": 360, "parent": "app" },
+    { "id": "db", "type": "db", "x": 800, "y": 160 }
+  ],
+  "edges": [
+    { "id": "e1", "source": "broker", "target": "consumer", "kind": "async", "label": "livre" },
+    { "id": "e2", "source": "consumer", "target": "db", "kind": "write", "label": "INSERT commande" },
+    { "id": "e3", "source": "consumer", "target": "coord", "kind": "sync", "label": "begin / commit" },
+    { "id": "e4", "source": "coord", "target": "db", "kind": "sync", "label": "prepare / commit" },
+    { "id": "e5", "source": "coord", "target": "broker", "kind": "sync", "label": "prepare / commit (acquittement)" },
+    { "id": "e6", "source": "coord", "target": "txlog", "kind": "write", "label": "décision" }
+  ]
+}

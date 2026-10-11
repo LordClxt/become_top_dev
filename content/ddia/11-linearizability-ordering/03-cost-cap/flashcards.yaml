@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Réplica coupé du leader, système linéarisable ?
+  back: Il ne peut ni accepter d'écriture ni servir de lecture linéarisable ; il est indisponible pour ces opérations.
+  concept: ddia-lin-partition-tradeoff
+- id: fc2
+  front: Multi-leader pendant une coupure ?
+  back: "Chaque côté continue d'accepter lectures et écritures : disponible, mais pas linéarisable."
+  concept: ddia-lin-partition-tradeoff
+- id: fc3
+  front: CAP en une phrase juste ?
+  back: Quand le réseau est coupé, il faut choisir entre linéarisabilité et disponibilité.
+  concept: ddia-cap-theorem-precise
+- id: fc4
+  front: Pourquoi « 2 parmi 3 » est-il trompeur ?
+  back: Les partitions ne se choisissent pas, elles arrivent. Hors coupure, on a cohérence et disponibilité.
+  concept: ddia-cap-theorem-precise
+- id: fc5
+  front: Portée du théorème CAP ?
+  back: Un seul modèle (linéarisabilité), une seule panne (partition) ; rien sur les délais ni les nœuds morts.
+  concept: ddia-cap-theorem-precise
+- id: fc6
+  front: La RAM multicœur est-elle linéarisable ?
+  back: Non, sans barrière mémoire un autre cœur peut lire une valeur obsolète ; choix de performance.
+  concept: ddia-multicore-memory-not-linearizable
+- id: fc7
+  front: Coût en latence de la linéarisabilité ?
+  back: Temps de réponse au moins proportionnel à l'incertitude des délais réseau (Attiya et Welch).
+  concept: ddia-lin-latency-cost
+- id: fc8
+  front: Pourquoi tant de systèmes renoncent-ils à la linéarisabilité ?
+  back: Surtout pour la performance (latence), plus encore que pour la tolérance aux pannes.
+  concept: ddia-lin-latency-cost

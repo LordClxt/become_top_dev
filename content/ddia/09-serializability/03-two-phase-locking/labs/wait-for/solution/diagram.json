@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    { "id": "t1", "type": "t1", "x": 0, "y": 0 },
+    { "id": "t2", "type": "t2", "x": 340, "y": 0 },
+    { "id": "t3", "type": "t3", "x": 170, "y": 260 },
+    { "id": "t4", "type": "t4", "x": 640, "y": 140 },
+    { "id": "t5", "type": "t5", "x": 470, "y": 400 }
+  ],
+  "edges": [
+    { "id": "e1", "source": "t1", "target": "t2", "kind": "sync", "label": "attend b" },
+    { "id": "e2", "source": "t2", "target": "t3", "kind": "sync", "label": "attend c" },
+    { "id": "e3", "source": "t2", "target": "t4", "kind": "sync", "label": "attend c" },
+    { "id": "e4", "source": "t3", "target": "t1", "kind": "sync", "label": "attend a" },
+    { "id": "e5", "source": "t3", "target": "t5", "kind": "sync", "label": "attend a" },
+    { "id": "e6", "source": "t4", "target": "t5", "kind": "sync", "label": "attend d" }
+  ]
+}

@@ -1,0 +1,54 @@
+id: ddia-ch11-l02-lab-resizer-design
+title: 'Photos, vignettes et pseudos : où placer la linéarisabilité'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-lin-cross-channel-timing
+- ddia-lin-uniqueness-constraints
+- ddia-lin-replication-methods
+- ddia-lin-locks-leader-election
+source:
+  chapter: 9
+  pages: 330-335
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: browser
+  component: browser
+  label: Navigateur
+  hint: L'utilisateur s'inscrit puis envoie sa photo.
+- type: web
+  component: service
+  label: Serveur web
+  hint: Reçoit l'inscription et l'envoi de photo.
+- type: store
+  component: object-store
+  label: Stockage des photos (linéarisable)
+  hint: Une lecture voit toute écriture terminée.
+- type: queue
+  component: queue
+  label: File « redimensionner »
+  hint: Transporte l'identifiant de la photo, pas la photo.
+- type: resizer
+  component: worker
+  label: Service de redimensionnement
+  hint: Produit les vignettes.
+- type: thumbs
+  component: object-store
+  label: Stockage des vignettes
+  hint: Reçoit les images réduites.
+- type: coord
+  component: consensus
+  label: Service de coordination (etcd)
+  hint: Stockage linéarisable par consensus, avec compare-and-set.
+- type: stale
+  component: follower
+  label: Réplique asynchrone du stockage
+  hint: Peut avoir du retard sur le stockage principal.
+- type: lww
+  component: cassandra
+  label: Base sans leader « dernière écriture gagne »
+  hint: Résout les conflits par horodatage.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

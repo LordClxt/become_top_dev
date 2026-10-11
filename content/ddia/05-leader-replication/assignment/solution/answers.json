@@ -1,0 +1,10 @@
+{
+  "arriere": 10800000,
+  "rattrapage": 40,
+  "perdues": 1200,
+  "etapes": ["detect", "choose", "reconfig", "demote"],
+  "delai": "d15",
+  "upgrade": "logical",
+  "plaintes": {"photo": "ryw", "likes": "mono", "thread": "prefix", "panier": "ryw", "virement": "prefix"},
+  "routage": ["f3", "f4"]
+}

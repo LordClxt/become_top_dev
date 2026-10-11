@@ -1,0 +1,105 @@
+id: ddia-ch10-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi un ordinateur seul est-il conçu pour planter plutôt que renvoyer un résultat faux ?
+  choices:
+  - Parce qu'un résultat faux est bien plus difficile à détecter et à gérer qu'un arrêt franc
+  - Parce que planter coûte moins cher en électricité
+  - Parce que le système d'exploitation ne sait pas signaler une erreur
+  - Parce que la mémoire ne peut jamais être corrompue
+  answer: 0
+  explanation: 'Un arrêt franc garde le modèle simple « ça marche ou ça ne marche pas ». Les systèmes distribués perdent ce confort : la panne y est partielle.'
+  concept: ddia-partial-failure
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Ton service envoie « débite 50 € » à un autre nœud et ne reçoit rien en 10 s. Que peux-tu en conclure de façon certaine ?
+  choices:
+  - Le débit n'a pas eu lieu
+  - Le nœud distant est en panne
+  - Rien sur l'issue de la requête, seulement qu'aucune réponse n'est arrivée à temps
+  - La requête s'est perdue sur le réseau
+  answer: 2
+  explanation: 'Requête perdue, en file, nœud mort, nœud en pause, réponse perdue ou retardée : les six cas sont indiscernables. Réessayer n''est sûr que si l''opération est idempotente.'
+  concept: ddia-unanswered-request
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Parmi ces situations, lesquelles produisent exactement le même silence pour l'émetteur ?
+  choices:
+  - Le nœud distant fait une pause de ramasse-miettes de 20 s
+  - La réponse a été jetée par un switch mal configuré
+  - Le nœud distant a perdu son alimentation
+  - La requête attend dans une file de switch surchargée
+  answer:
+  - 0
+  - 1
+  - 2
+  - 3
+  explanation: 'Toutes : l''émetteur ne voit que l''absence de réponse. C''est ce qui rend la détection de panne si difficile.'
+  concept: ddia-unanswered-request
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Une simulation climatique tourne 5 jours sur 3 000 nœuds. Quelle stratégie de panne est raisonnable ?
+  choices:
+  - Tolérer les pannes partielles avec réplication et basculement automatique
+  - 'Ignorer les pannes : le résultat sera approximatif'
+  - Faire une mise à jour progressive à chaque panne
+  - Enregistrer des points de reprise et, si un nœud tombe, tout arrêter puis repartir du dernier point
+  answer: 3
+  explanation: Un calcul hors ligne peut s'arrêter ; le calcul haute performance transforme la panne partielle en panne totale, comme sur un seul ordinateur.
+  concept: ddia-cloud-vs-hpc
+  difficulty: 2
+- id: q5
+  type: multiple
+  prompt: Pourquoi un service Internet ne peut-il pas adopter la stratégie « tout arrêter et repartir » ?
+  choices:
+  - Il doit répondre en ligne avec une faible latence à tout moment
+  - Avec des milliers de nœuds, il y a toujours quelque chose de cassé
+  - Le matériel ordinaire ne tombe jamais en panne
+  - Les mises à jour progressives supposent déjà qu'un nœud puisse être absent
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: 'Le matériel ordinaire est au contraire moins fiable : c''est l''échelle et la disponibilité qui imposent de tolérer les pannes partielles.'
+  concept: ddia-cloud-vs-hpc
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Une étude d'un datacentre moyen relève environ 12 pannes réseau par mois. Qu'est-ce que la redondance du matériel réseau change, d'après le livre ?
+  choices:
+  - Elle les supprime presque toutes
+  - Elle aide moins qu'espéré, car elle ne protège pas des erreurs humaines comme un switch mal configuré
+  - Elle les double, car il y a deux fois plus d'équipements
+  - Elle transforme toutes les pannes en pannes symétriques
+  answer: 1
+  explanation: La cause dominante est humaine ; dupliquer un équipement mal configuré ne corrige pas la configuration.
+  concept: ddia-network-faults-practice
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Un nœud envoie normalement ses messages mais ne reçoit plus rien. Comment le voient les autres ?
+  choices:
+  - Ils le voient parfaitement sain, puisqu'il parle
+  - Ils reçoivent un message d'erreur explicite de sa carte réseau
+  - Ils peuvent le déclarer mort, car il ne répond plus à leurs requêtes, alors qu'il fonctionne
+  - Ce cas est impossible avec TCP
+  answer: 2
+  explanation: Un lien à sens unique est une panne réelle (interface qui jette les paquets entrants). Le nœud semble mort vu de l'extérieur.
+  concept: ddia-network-faults-practice
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Range ces signaux du plus informatif au moins informatif sur l'état d'un nœud distant. Choisis la bonne séquence.
+  choices:
+  - Une réponse positive de l'application elle-même → Un refus de connexion (RST) renvoyé par l'OS distant → Un simple timeout sans aucune réponse
+  - Un simple timeout sans aucune réponse → Un refus de connexion (RST) renvoyé par l'OS distant → Une réponse positive de l'application elle-même
+  - Un refus de connexion (RST) renvoyé par l'OS distant → Un simple timeout sans aucune réponse → Une réponse positive de l'application elle-même
+  - Une réponse positive de l'application elle-même → Un simple timeout sans aucune réponse → Un refus de connexion (RST) renvoyé par l'OS distant
+  answer: 0
+  explanation: Seule la réponse applicative confirme le traitement. Le RST dit que le processus n'écoute plus (sans dire ce qu'il a traité). Le timeout ne dit presque rien.
+  concept: ddia-fault-detection-signals
+  difficulty: 3

@@ -1,0 +1,1 @@
+Dessine le virement du compte A vers le compte B quand les deux comptes et la requête vivent sur des partitions différentes : une vérification de fonds en amont, un log des requêtes, un répartiteur qui dérive débit et crédit, et un processeur par compte. Pas de commit atomique distribué.

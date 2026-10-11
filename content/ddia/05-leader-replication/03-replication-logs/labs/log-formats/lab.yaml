@@ -1,0 +1,18 @@
+id: ddia-ch05-l03-lab-log-formats
+title: 'Instructions, WAL ou lignes : choisir son log'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-repl-log-statement
+- ddia-repl-log-wal-shipping
+- ddia-repl-log-logical
+- ddia-repl-log-trigger
+- ddia-repl-log-engine-coupling
+source:
+  chapter: 5
+  pages: 158-161
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

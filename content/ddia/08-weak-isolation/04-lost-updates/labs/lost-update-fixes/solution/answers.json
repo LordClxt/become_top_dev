@@ -1,0 +1,8 @@
+{
+  "pairs": 50,
+  "fix": {"views": "atomic", "game": "lock", "wiki": "cas", "cart": "merge", "lazy": "detect"},
+  "dbs": ["pg", "oracle", "mssql"],
+  "orm": "lost",
+  "cas": 55,
+  "lww": 8
+}

@@ -1,0 +1,14 @@
+id: ddia-ch15-project
+title: "Tinybase — le moteur de fenêtres"
+pitch: "Tinybase apprend à calculer en continu : fenêtres tumbling et hopping en temps de l'événement, watermark qui décide quand publier, sessions, et un consommateur qui survit à une reprise sans jamais compter deux fois."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 250
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["stream.go"]
+concepts: [ddia-sp-window-tumbling, ddia-sp-window-hopping, ddia-sp-watermark, ddia-sp-stragglers, ddia-sp-window-session, ddia-sp-idempotent-writes, ddia-sp-checkpointing]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

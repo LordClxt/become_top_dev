@@ -1,0 +1,3 @@
+**Le numéro de version transporte ce que le client a vu.** C'est lui qui permet au serveur de savoir ce qu'il peut écraser (ce qui a été vu et fusionné) et ce qu'il doit garder (ce qui est concurrent). Après l'étape 5, trois siblings coexistent : `[jazz, soul]`, `[jazz, rock, funk]` et `[pop]` ; aucune écriture n'a disparu sans avoir été fusionnée. Avec LWW, `[pop]` aurait effacé les quatre autres.
+
+Les vecteurs de versions généralisent l'idée à plusieurs réplicas : on compare entrée par entrée, une entrée absente valant 0. Et la causalité n'est pas une affaire d'horloge : deux écritures à 3 secondes d'intervalle sont concurrentes si aucune n'a vu l'autre. Enfin, une suppression doit laisser une **pierre tombale**, sinon l'union la fait réapparaître.

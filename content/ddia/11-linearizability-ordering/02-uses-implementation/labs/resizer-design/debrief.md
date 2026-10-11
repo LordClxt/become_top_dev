@@ -1,0 +1,3 @@
+**Deux canaux, une seule source de vérité.** Le serveur écrit la photo, puis publie son identifiant dans la file. Comme la file peut doubler la réplication, le worker doit lire dans un stockage **linéarisable** : une écriture terminée y est visible par toute lecture qui commence ensuite. Lire sur une réplique asynchrone, c'est risquer une vignette de l'ancienne photo, jamais corrigée.
+
+Le pseudo est une **contrainte d'unicité** : un `cas(nom, libre, moi)` sur un service de coordination à consensus garantit un seul gagnant. Une base « dernière écriture gagne » choisirait un gagnant après coup, en effaçant silencieusement l'autre compte.

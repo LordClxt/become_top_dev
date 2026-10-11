@@ -1,0 +1,106 @@
+intro: |
+  Ton service réserve des salles de réunion pour 300 entreprises. Deux personnes ne doivent **jamais** obtenir la même salle sur le même créneau : il faut la sérialisabilité. Tu compares les trois techniques du chapitre.
+blocks:
+- id: core
+  type: number
+  title: Un seul cœur suffit-il ?
+  prompt: En exécution en série, chaque réservation est une procédure stockée de **25 µs**. Au pic, il arrive **30 000** réservations par seconde. Quel pourcentage du thread unique est occupé ?
+  unit: '%'
+- id: partitions
+  type: table
+  title: Le plafond des multi-partitions
+  prompt: 'Tu partitionnes en **8 partitions** de 40 000 transactions/s chacune. Les transactions multi-partitions (réserver plusieurs salles d''entreprises différentes) plafonnent à **1 000 par seconde**. Quel débit total maximal selon leur part ?'
+  columns:
+  - id: max
+    label: Débit maximal (transactions/s)
+  rows:
+  - id: p02
+    label: 0,2 % de multi-partitions
+  - id: p1
+    label: 1 % de multi-partitions
+  - id: p5
+    label: 5 % de multi-partitions
+  - id: p20
+    label: 20 % de multi-partitions
+- id: locks
+  type: match
+  title: Le gestionnaire de verrous 2PL
+  prompt: Pour chaque demande, que répond le gestionnaire de verrous ?
+  items:
+  - id: ss
+    label: T1 détient un partagé sur la salle 7 ; T2 demande un partagé sur la salle 7
+  - id: sx
+    label: T1 détient un partagé sur la salle 7 ; T2 demande un exclusif sur la salle 7
+  - id: upgrade
+    label: T1 est seule à détenir un partagé sur la salle 7 et demande un exclusif sur la salle 7
+  - id: double
+    label: T1 et T2 détiennent un partagé sur la salle 7 ; T1 attend déjà l'exclusif ; T2 demande l'exclusif à son tour
+  - id: xs
+    label: T1 détient un exclusif sur la salle 7 ; T2 demande un partagé sur la salle 7
+  categories:
+  - id: grant
+    label: Accordé immédiatement
+  - id: wait
+    label: En attente
+  - id: deadlock
+    label: Interblocage détecté, une victime est abandonnée
+- id: phantom
+  type: choice
+  title: Contre les fantômes
+  prompt: 'La recherche « salle 7, entre 14 h et 15 h » est la prémisse de chaque réservation. Il existe un index composite sur `(room_id, start_time)`. Quel verrou la base 2PL doit-elle prendre ?'
+  options:
+  - id: range
+    label: Un verrou partagé sur la plage `(7, 14 h)` à `(7, 15 h)` de l'index composite
+  - id: rows
+    label: Un verrou partagé sur chaque ligne trouvée
+  - id: table
+    label: Un verrou partagé sur toute la table
+  - id: predicate
+    label: Un verrou de prédicat exact, comparé à chaque écriture
+- id: ssi
+  type: order
+  title: La détection SSI, pas à pas
+  prompt: 'Sous SSI, T42 et T43 veulent chacune réserver la salle 7 de 14 h à 15 h. Remets les événements dans l''ordre.'
+  items:
+  - id: read
+    label: T42 et T43 cherchent les réservations de la salle 7 ; l'index note qu'elles ont lu cette plage
+  - id: w42
+    label: T42 insère sa réservation et prévient T43 que sa lecture est peut-être dépassée
+  - id: w43
+    label: T43 insère la sienne et prévient T42 de même
+  - id: c42
+    label: T42 valide avec succès
+  - id: c43
+    label: T43 tente de valider et est abandonnée, l'écriture de T42 étant validée
+  - id: retry
+    label: L'application relance T43, qui relit la plage et voit la salle occupée
+- id: truths
+  type: multi
+  title: Vrai ou faux ?
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: ro
+    label: Sous SSI, une requête en lecture seule ne prend aucun verrou
+  - id: wr
+    label: Sous 2PL, les écrivains ne bloquent jamais les lecteurs
+  - id: core
+    label: En exécution en série, le débit est borné par un cœur par partition
+  - id: machines
+    label: Ajouter des machines accélère les transactions multi-partitions d'une base en série
+  - id: commit
+    label: SSI détecte les conflits et abandonne au moment du commit
+  - id: overlock
+    label: Un verrou de plage d'index peut bloquer une écriture qui ne change pas le résultat de la recherche
+- id: retry
+  type: choice
+  title: Après un abandon
+  prompt: Ta transaction reçoit une erreur d'interblocage (2PL) ou de sérialisation (SSI). Que fait l'application ?
+  options:
+  - id: whole
+    label: Elle relance toute la transaction, lectures comprises, un nombre limité de fois
+  - id: last
+    label: Elle relance seulement la dernière écriture
+  - id: lower
+    label: Elle passe en read committed pour ne plus être abandonnée
+  - id: ignore
+    label: Elle considère la réservation comme faite

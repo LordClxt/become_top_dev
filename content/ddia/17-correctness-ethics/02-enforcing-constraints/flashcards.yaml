@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Pourquoi l'unicité stricte exige-t-elle un consensus ?
+  back: Parmi des demandes concurrentes pour la même valeur, il faut une décision unique et partagée sur celle qui gagne.
+  concept: ddia-correct-uniqueness-consensus
+- id: fc2
+  front: Unicité et multi-leader asynchrone ?
+  back: Incompatibles pour une unicité stricte ; chaque leader accepte seul et le conflit apparaît après coup.
+  concept: ddia-correct-uniqueness-consensus
+- id: fc3
+  front: Unicité par log, en une phrase ?
+  back: Partitionner les demandes par la valeur, les traiter séquentiellement ; le premier arrivé dans le log gagne.
+  concept: ddia-correct-uniqueness-log
+- id: fc4
+  front: Comment le client connaît-il l'issue de sa demande de nom ?
+  back: Il lit le flux de sortie où le processeur publie succès ou refus.
+  concept: ddia-correct-uniqueness-log
+- id: fc5
+  front: Condition pour imposer une contrainte par partition ?
+  back: Toutes les écritures qui peuvent entrer en conflit doivent être routées vers la même partition.
+  concept: ddia-correct-conflict-routing
+- id: fc6
+  front: Nom insensible à la casse et partitionnement ?
+  back: Hacher la forme normalisée, sinon `Ada` et `ada` tombent dans deux partitions.
+  concept: ddia-correct-conflict-routing
+- id: fc7
+  front: Les trois étapes d'un virement par logs ?
+  back: Requête identifiée ajoutée au log ; processeur qui émet débit et crédit portant l'identifiant ; processeurs de comptes qui dédupliquent et appliquent.
+  concept: ddia-correct-multi-partition
+- id: fc8
+  front: Pourquoi la reprise du processeur de découpage est-elle sans danger ?
+  back: Il est déterministe et les instructions portent l'identifiant ; l'aval reconnaît les doublons.
+  concept: ddia-correct-multi-partition
+- id: fc9
+  front: Vérifier les fonds sans transaction distribuée ?
+  back: Un processeur en amont partitionné par compte payeur valide les demandes ; seules les valides entrent dans le log.
+  concept: ddia-correct-funds-check

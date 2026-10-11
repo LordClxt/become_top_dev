@@ -1,0 +1,10 @@
+{
+  "race": {"db.price": 24, "dual.price": 19, "cdc.price": 24},
+  "kept": 4,
+  "purged": 3,
+  "view": {"a.value": 5, "c.value": 7, "d.value": 6},
+  "bootstrap": ["snap", "load", "apply", "lag", "switch"],
+  "sizing": {"p": 18, "c": 18},
+  "retention": 24.19,
+  "tools": {"pdf": "amqp", "search": "cdc", "bank": "es", "clicks": "log"}
+}

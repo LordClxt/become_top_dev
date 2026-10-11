@@ -1,0 +1,63 @@
+intro: |
+  Le service a un datacenter à **Paris** et un à **Montréal**. Aller-retour réseau entre les deux : **90 ms**. Une écriture servie par un leader dans le datacenter local coûte **2 ms**.
+
+  Un matin, le lien transatlantique tombe pendant 20 minutes. Chaque datacenter fonctionne et reste joignable par ses propres clients.
+blocks:
+- id: coupure
+  type: match
+  title: Configuration « leader unique à Paris »
+  prompt: Pendant la coupure, pour un client de **Montréal**, chaque opération est-elle possible ?
+  items:
+  - id: write
+    label: Écrire un nouveau profil
+  - id: linread
+    label: Lire son solde de façon linéarisable
+  - id: localread
+    label: Lire le réplica local, en acceptant une valeur obsolète
+  - id: cas
+    label: Réserver un pseudo par compare-and-set
+  categories:
+  - id: ok
+    label: Possible pendant la coupure
+  - id: ko
+    label: Indisponible jusqu'au retour du lien
+- id: multi
+  type: choice
+  title: Configuration « un leader par datacenter »
+  prompt: Même coupure, mais chaque datacenter a son propre leader (multi-leader). Quel est le comportement ?
+  options:
+  - id: avail
+    label: Lectures et écritures continuent des deux côtés ; elles seront échangées au retour du lien, sans linéarisabilité
+  - id: lin
+    label: Lectures et écritures continuent, et le système reste linéarisable
+  - id: stop
+    label: Les deux datacenters refusent les écritures pour rester cohérents
+- id: page
+  type: number
+  title: La facture d'une page
+  prompt: 'Une page de Montréal enchaîne **5 écritures séquentielles**. Combien de millisecondes de plus coûte-t-elle si chaque écriture est linéarisable via le leader de Paris, plutôt qu''acceptée par un leader local ?'
+  unit: ms
+- id: cap
+  type: choice
+  title: Reformuler CAP
+  prompt: "Ton collègue écrit dans un document d'architecture « nous avons choisi CA : cohérent et disponible, sans tolérance aux partitions ». Quelle réponse est juste ?"
+  options:
+  - id: nochoice
+    label: Les partitions ne se choisissent pas ; il faut dire ce que fait le système quand elles arrivent (refuser ou répondre sans garantie)
+  - id: valid
+    label: C'est un choix valable pour un système réparti sur deux datacenters
+  - id: three
+    label: Il vaudrait mieux choisir les trois propriétés en ajoutant des répliques
+- id: faux
+  type: multi
+  title: Ce que CAP ne dit pas
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: one-model
+    label: CAP ne considère qu'un seul modèle de cohérence, la linéarisabilité
+  - id: delays
+    label: CAP donne le surcoût de latence d'un système linéarisable sans panne
+  - id: ram
+    label: La RAM d'un processeur multicœur n'est pas linéarisable, alors qu'aucune partition n'y survient
+  - id: latency
+    label: Le temps de réponse d'un stockage linéarisable croît avec l'incertitude des délais réseau

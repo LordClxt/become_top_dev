@@ -1,0 +1,101 @@
+id: ddia-ch08-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Alice et Bob, seuls de garde, quittent leur garde en même temps en snapshot isolation. Chaque transaction compte les médecins de garde puis met à jour SA ligne. Résultat ?
+  choices:
+  - L'une des deux transactions est abandonnée pour mise à jour perdue
+  - Bob attend le commit d'Alice
+  - Les deux valident et plus personne n'est de garde
+  - La base renvoie une erreur de contrainte
+  answer: 2
+  explanation: 'Chacune voit 2 médecins dans son instantané et écrit une ligne différente : write skew.'
+  concept: ddia-write-skew-anomaly
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Pourquoi la détection automatique des mises à jour perdues ne voit-elle pas le write skew ?
+  choices:
+  - Parce que les deux transactions écrivent des objets différents
+  - Parce que le write skew n'arrive qu'en read uncommitted
+  - Parce que les lectures sont sales
+  - Parce que PostgreSQL n'a pas de détection
+  answer: 0
+  explanation: La détection compare les objets écrits ; ici aucun n'est commun.
+  concept: ddia-write-skew-anomaly
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Remets dans l'ordre le motif qui mène à un write skew. Choisis la bonne séquence.
+  choices:
+  - L'application décide de continuer selon le résultat → Un SELECT vérifie une condition → Une écriture modifie la condition vérifiée au début
+  - L'application décide de continuer selon le résultat → Une écriture modifie la condition vérifiée au début → Un SELECT vérifie une condition
+  - Un SELECT vérifie une condition → L'application décide de continuer selon le résultat → Une écriture modifie la condition vérifiée au début
+  - Une écriture modifie la condition vérifiée au début → L'application décide de continuer selon le résultat → Un SELECT vérifie une condition
+  answer: 2
+  explanation: Relancé après le commit, le SELECT donnerait un autre résultat.
+  concept: ddia-write-skew-check-then-act
+  difficulty: 1
+- id: q4
+  type: multiple
+  prompt: Quels scénarios sont des write skews possibles en snapshot isolation ?
+  choices:
+  - Deux réservations de la même salle sur des créneaux qui se chevauchent
+  - Deux joueurs qui déplacent deux pièces différentes sur la même case
+  - Deux dépenses de 80 € sur un solde de 100 € qui vérifient chacune le solde
+  - Deux lectures du même compte dans une transaction en lecture seule
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Une transaction en lecture seule n'écrit rien ; elle voit un instantané stable.
+  concept: ddia-write-skew-examples
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Deux personnes créent en même temps un compte nommé « ada ». Quelle parade est la plus simple ?
+  choices:
+  - Matérialiser les conflits
+  - Une contrainte d'unicité sur le nom
+  - Un cache des noms pris
+  - SELECT … FOR UPDATE sur le nom
+  answer: 1
+  explanation: 'La seconde insertion échoue sur la contrainte. FOR UPDATE ne verrouillerait rien : la ligne n''existe pas.'
+  concept: ddia-write-skew-examples
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Une réservation vérifie qu'aucune ligne de bookings ne chevauche le créneau, avec FOR UPDATE, puis insère. Pourquoi deux réservations concurrentes passent-elles encore ?
+  choices:
+  - Parce que FOR UPDATE ne marche qu'en read uncommitted
+  - Parce que la requête ne renvoie aucune ligne, donc rien n'est verrouillé ; c'est un fantôme
+  - Parce que l'INSERT est une écriture sale
+  - Parce que la base est répliquée
+  answer: 1
+  explanation: 'La condition porte sur une absence de lignes : l''écriture de l''autre transaction est un fantôme.'
+  concept: ddia-phantom-writes
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Que veut dire « matérialiser les conflits » pour des salles de réunion ?
+  choices:
+  - Stocker les réservations dans une vue matérialisée
+  - Créer d'avance une ligne par salle et par créneau, que la réservation verrouille avec FOR UPDATE
+  - Répliquer la table sur plusieurs nœuds
+  - Interdire les réservations concurrentes dans l'interface
+  answer: 1
+  explanation: Les lignes ne portent aucune information ; elles ne servent qu'à verrouiller.
+  concept: ddia-materialize-conflicts
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Ta base propose un vrai niveau sérialisable, au prix d'un peu de performance. Faut-il matérialiser les conflits ?
+  choices:
+  - Oui, c'est toujours plus propre
+  - Oui, la sérialisabilité ne gère pas les fantômes
+  - Non, la matérialisation est un dernier recours ; la sérialisabilité est préférable
+  - Non, il suffit de passer en read committed
+  answer: 2
+  explanation: Matérialiser est difficile, sujet aux erreurs, et fait fuir la concurrence dans le modèle de données.
+  concept: ddia-materialize-conflicts
+  difficulty: 2

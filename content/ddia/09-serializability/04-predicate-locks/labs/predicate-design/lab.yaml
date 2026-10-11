@@ -1,0 +1,17 @@
+id: ddia-ch09-l04-lab-predicate-design
+title: Ce que bloque un verrou de plage
+difficulty: 3
+xp: 70
+concepts:
+- ddia-predicate-lock
+- ddia-predicate-lock-cost
+- ddia-index-range-lock
+- ddia-lock-table-fallback
+source:
+  chapter: 7
+  pages: 259-261
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

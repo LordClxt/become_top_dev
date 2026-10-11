@@ -1,0 +1,86 @@
+checks:
+- id: entry
+  label: Le client passe par la couche de routage
+  rule: edge_kind
+  source: client
+  target: router
+  kind: sync
+- id: forward
+  label: La couche de routage transmet aux leaders des partitions
+  rule: edge_kind
+  source: router
+  target: primary
+  kind: sync
+- id: only-router
+  label: Tout ce qui entre dans un leader vient de la couche de routage
+  rule: inbound_via
+  target: primary
+  via: router
+- id: subscribe
+  label: La couche de routage s'abonne à l'affectation dans ZooKeeper
+  rule: edge_kind
+  source: router
+  target: zk
+  kind: read
+- id: publish
+  label: Le rééquilibreur validé publie l'affectation dans ZooKeeper
+  rule: edge_kind
+  source: admin
+  target: zk
+  kind: write
+- id: replicate
+  label: Chaque leader réplique vers ses réplicas
+  rule: edge_kind
+  source: primary
+  target: replica
+  kind: replication
+- id: leaders-on-nodes
+  label: Les leaders vivent dans des nœuds
+  rule: in_zone
+  source: primary
+  target: node
+- id: replicas-on-nodes
+  label: Les réplicas vivent dans des nœuds
+  rule: in_zone
+  source: replica
+  target: node
+- id: nodes
+  label: Au moins trois nœuds
+  rule: count
+  source: node
+  min: 3
+- id: fixed
+  label: Plus de partitions que de nœuds (au moins quatre leaders)
+  rule: count
+  source: primary
+  min: 4
+- id: index-async
+  label: Les leaders alimentent l'index global de façon asynchrone
+  rule: edge_kind
+  source: primary
+  target: gidx
+  kind: async
+- id: index-split
+  label: L'index global est partitionné par terme (au moins deux tranches)
+  rule: count
+  source: gidx
+  min: 2
+- id: lookup
+  label: Le service de recherche lit l'index global
+  rule: edge_kind
+  source: search
+  target: gidx
+  kind: read
+- id: no-modn
+  label: Pas de hash mod N
+  rule: count
+  source: modn
+  max: 0
+- id: no-auto
+  label: Pas de rééquilibrage automatique branché sur la détection de panne
+  rule: count
+  source: auto
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

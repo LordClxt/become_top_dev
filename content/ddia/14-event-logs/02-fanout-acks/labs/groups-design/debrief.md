@@ -1,0 +1,3 @@
+**Fan-out entre groupes, répartition dans chaque groupe.** Le broker livre chaque commande une fois au groupe « facturation », où les workers se la partagent, et une fois au groupe « e-mail ». Ajouter un worker de facturation n'enlève rien à l'e-mail.
+
+Chaque worker acquitte **après** avoir produit son effet ; sans accusé, le broker redistribue le message à un autre membre du groupe. D'où deux conséquences à garder en tête : une facture peut être émise deux fois si un accusé se perd (prévois une clé d'idempotence), et deux commandes d'un même client peuvent être traitées dans le désordre après une panne. Ni le sondage d'une table ni un webhook direct ne donnent ces garanties : le premier gaspille des requêtes, le second perd les commandes quand le worker est arrêté.

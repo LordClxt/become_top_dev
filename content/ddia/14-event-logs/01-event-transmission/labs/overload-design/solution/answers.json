@@ -1,0 +1,13 @@
+{
+  "backlog": 240000,
+  "memory": 480,
+  "drain": 800,
+  "strategy": {
+    "temp": "drop",
+    "orders": "buffer",
+    "export": "backpressure",
+    "video": "drop"
+  },
+  "statsd": "lost",
+  "broker": ["offline", "async"]
+}

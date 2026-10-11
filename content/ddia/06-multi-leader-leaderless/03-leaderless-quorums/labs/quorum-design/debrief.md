@@ -1,0 +1,3 @@
+**Le quorum est un arbitrage entre trois choses : fraîcheur, disponibilité et coût.** w + r > n garantit qu'au moins un réplica lu a la dernière écriture ; n − w et n − r disent combien de pannes l'écriture et la lecture supportent. Pour tolérer 2 pannes des deux côtés **et** garder le quorum, il faut w ≤ n − 2, r ≤ n − 2 et w + r > n, donc 2n − 4 > n, soit **n ≥ 5** : n = 5, w = r = 3 est le seul réglage à 5 copies au plus.
+
+Comme les requêtes partent vers les n réplicas, r ne fixe que le nombre de réponses attendues : une lecture r = 3 attend la 3ᵉ plus rapide (6 ms) et ignore le réplica surchargé. Enfin, le read repair soigne ce qui est lu ; ce que personne ne lit dépend de l'anti-entropie.

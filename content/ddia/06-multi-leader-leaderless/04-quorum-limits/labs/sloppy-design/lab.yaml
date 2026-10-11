@@ -1,0 +1,53 @@
+id: ddia-ch06-l04-lab-sloppy-design
+title: Le voisin qui dépanne
+difficulty: 3
+xp: 60
+concepts:
+- ddia-sloppy-quorum
+- ddia-hinted-handoff
+- ddia-staleness-monitoring
+source:
+  chapter: 5
+  pages: 181-184
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: home
+  component: zone
+  label: Nœuds d'origine de la clé
+  hint: Les n = 3 nœuds où la clé vit normalement.
+- type: client
+  component: client
+  label: Client
+  hint: Écrit la clé « panier:42 » avec w = 2.
+- type: coord
+  component: service
+  label: Coordinateur
+  hint: Reçoit la requête et l'envoie aux réplicas.
+- type: reach
+  component: cassandra
+  label: Nœud d'origine joignable
+  hint: Répond normalement.
+- type: cut
+  component: cassandra
+  label: Nœud d'origine coupé
+  hint: Injoignable pendant la coupure réseau.
+- type: neighbor
+  component: cassandra
+  label: Nœud voisin
+  hint: Un nœud du cluster qui ne fait pas partie des n nœuds d'origine de la clé.
+- type: monitor
+  component: monitoring
+  label: Mesure de la péremption
+  hint: Suit l'écart entre réplicas.
+- type: leader
+  component: leader
+  label: Leader de secours
+  hint: Un nœud qui déciderait de l'ordre des écritures.
+- type: reject
+  component: external
+  label: Rejet de l'écriture
+  hint: Renvoie une erreur au client faute de nœuds d'origine.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

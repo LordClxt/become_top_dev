@@ -1,0 +1,22 @@
+blocks:
+  verdicts:
+    options:
+      doctors: 'T1 a validé une écriture sur `alice`, que T2 avait lue pour décider : la prémisse de T2 est fausse.'
+      readonly: 'T2 n''a rien écrit : une lecture seule sur un snapshot cohérent ne peut pas créer de write skew.'
+      aborted: 'L''écriture de T1 n''a jamais pris effet : la lecture de T2 n''était pas périmée.'
+      before: 'T1 a validé avant le début de T2 : son écriture est dans le snapshot de T2, aucune prémisse n''est fausse.'
+      stock: 'T2 a écrit en se fondant sur `stock:42`, qu''une transaction concurrente a modifié et validé avant elle.'
+  duration:
+    tolerance:
+      abs: 1
+    wrong: '1 − 0,97¹⁰ ≈ 1 − 0,737 ≈ 26 %. Les risques ne s''additionnent pas simplement (ce serait 30 %).'
+  batch:
+    goals:
+      aborts: 'Le lot dure trop longtemps : au-delà d''environ 2 s, le risque d''abandon dépasse 2 %.'
+      commits: 'Lots trop petits : 100 000 lignes demandent alors plus de 500 transactions.'
+  technique:
+    options:
+      tickets: 'Petites procédures en mémoire, débit d''un cœur : les quatre conditions de l''exécution en série sont réunies.'
+      reports: 'Sous SSI, les longues lectures ne prennent aucun verrou et n''abandonnent pas ; sous 2PL, elles bloqueraient les écrivains.'
+      hot: 'Sous très forte contention près de la saturation, l''optimiste gaspille son débit en relances.'
+      distributed: 'L''exécution en série bute sur les multi-partitions ; SSI distribue la détection de conflits (comme FoundationDB).'

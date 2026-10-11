@@ -1,0 +1,96 @@
+intro: |
+  Tu es l'architecte d'une plateforme de covoiturage. Les trajets vivent dans **PostgreSQL**. Il faut une recherche de trajets, des tableaux de bord pour les conducteurs, une app mobile qui marche dans les zones sans réseau, et l'équipe analytique veut de l'autonomie. Le log de changements (CDC) garde **1,2 milliard** d'événements depuis le lancement, répartis sur **8 partitions**.
+blocks:
+- id: needs
+  type: match
+  title: Un besoin, un mécanisme
+  prompt: Associe chaque besoin au mécanisme qui y répond le mieux.
+  items:
+  - id: search
+    label: La recherche de trajets doit refléter chaque modification, sans jamais diverger de PostgreSQL
+  - id: newview
+    label: Remplacer « trajets par ville » par « trajets par corridor et par heure » sans interruption
+  - id: driver
+    label: Le conducteur doit voir une nouvelle réservation sur son téléphone en moins de 2 s
+  - id: sql
+    label: Les analystes veulent une seule requête SQL qui croise PostgreSQL et l'index de recherche
+  categories:
+  - id: cdc
+    label: Consommateur du log de changements (CDC)
+  - id: parallel
+    label: Nouvelle vue dérivée en parallèle, puis bascule
+  - id: push
+    label: Push des changements vers le client (WebSocket)
+  - id: federation
+    label: Requête fédérée sur plusieurs moteurs
+- id: rebuild
+  type: number
+  title: Reconstruire l'index de recherche
+  prompt: Un consommateur relit **25 000 événements/s**. Tu lances **un consommateur par partition** (8 en parallèle, chacun relit 1/8 du log). En combien de **minutes** l'index est-il reconstruit depuis le log ?
+  unit: min
+- id: precompute
+  type: table
+  title: Calculer à l'écriture ou à la lecture ?
+  prompt: Le tableau de bord d'un conducteur coûte **40 ms** de CPU à assembler. Sur la journée, la plateforme compte **2 000 000** affichages de tableaux de bord et **400 000** changements qui modifient un tableau de bord. Combien de secondes de CPU par jour pour chaque stratégie ?
+  columns:
+  - id: cpu
+    label: CPU par jour (s)
+  rows:
+  - id: read
+    label: Assembler à chaque affichage (chemin de lecture)
+  - id: write
+    label: Précalculer à chaque changement (vue matérialisée)
+- id: newindex
+  type: order
+  title: Ajouter l'index de recherche sans interruption
+  prompt: Remets dans l'ordre la mise en service d'un nouvel index de recherche dérivé de PostgreSQL.
+  items:
+  - id: snap
+    label: Prendre un instantané cohérent de la table, en notant l'offset du log correspondant
+  - id: bulk
+    label: Construire l'index à partir de l'instantané
+  - id: tail
+    label: Consommer le log à partir de l'offset noté, jusqu'à rattraper le présent
+  - id: compare
+    label: Envoyer une partie des recherches au nouvel index et comparer les résultats
+  - id: switch
+    label: Basculer toutes les recherches vers le nouvel index
+- id: determinism
+  type: multi
+  title: Pour qu'une reconstruction égale l'incrémental
+  prompt: Quelles règles garantissent qu'une vue reconstruite depuis le log est identique à celle maintenue au fil de l'eau ?
+  options:
+  - id: pure
+    label: La fonction de dérivation ne dépend que des événements (pas d'appel à un service externe sur l'état actuel)
+  - id: idem
+    label: Chaque consommateur ignore un événement dont l'offset est déjà appliqué
+  - id: eventtime
+    label: Les fenêtres sont calculées sur la date de l'événement
+  - id: now
+    label: Chaque événement est horodaté avec l'horloge du consommateur au moment où il l'applique
+  - id: order
+    label: Les événements d'une même clé sont appliqués dans l'ordre du log
+- id: offline
+  type: choice
+  title: Le conducteur sort du tunnel
+  prompt: L'app d'un conducteur a perdu le réseau 25 minutes. Comment récupère-t-elle les changements manqués ?
+  options:
+  - id: reload
+    label: Elle télécharge à nouveau l'intégralité des trajets de la plateforme
+  - id: offset
+    label: Elle envoie le dernier offset reçu et le serveur lui renvoie tout ce qui a suivi
+  - id: wait
+    label: Elle attend le prochain changement poussé
+  - id: poll
+    label: Elle passe en interrogation toutes les secondes jusqu'à la fin de la journée
+- id: integrated
+  type: choice
+  title: Et la petite filiale ?
+  prompt: Une filiale régionale gère 8 000 trajets par mois et a besoin d'une recherche plein texte simple. Que recommandes-tu ?
+  options:
+  - id: unbundle
+    label: Le même pipeline PostgreSQL → Kafka → Elasticsearch que la maison mère
+  - id: xa
+    label: Une transaction distribuée entre PostgreSQL et Elasticsearch
+  - id: single
+    label: PostgreSQL seul, avec son index plein texte intégré

@@ -1,0 +1,3 @@
+**La causalité n'ordonne que ce qui a pu s'influencer.** La question précède les deux réponses et le « j'aime » (directement ou par chaîne de lectures) ; les deux réponses écrites sans se voir sont concurrentes, comme le « j'aime » et la réponse de Céa. C'est un **ordre partiel** — la linéarisabilité, elle, aurait imposé un ordre total arbitraire entre les réponses concurrentes.
+
+Pour respecter cet ordre, une réplique compare le vecteur de dépendances de chaque écriture à ce qu'elle a appliqué : tout ce qui précède doit être là, sinon elle **attend**. Rien n'exige de joindre une autre région : la cohérence causale reste disponible pendant une coupure, et c'est le modèle le plus fort qui le permet.

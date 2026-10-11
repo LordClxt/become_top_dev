@@ -1,0 +1,99 @@
+id: ddia-ch17-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un paiement fait hier n'apparaît pas encore sur ton relevé en ligne. De quoi s'agit-il ?
+  choices:
+  - Une violation d'intégrité
+  - Une violation d'opportunité, temporaire
+  - Une corruption permanente
+  - Un échec du consensus
+  answer: 1
+  explanation: Attendre suffit à la faire disparaître ; c'est de la cohérence à terme.
+  concept: ddia-correct-timeliness
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Le solde affiché n'est pas égal à la somme des opérations du compte, et ne l'est toujours pas une semaine plus tard. De quoi s'agit-il ?
+  choices:
+  - Une violation d'intégrité, qui demande détection et réparation explicites
+  - Une simple latence de réplication
+  - Une lecture de ses propres écritures manquée
+  - Un comportement normal d'un système asynchrone
+  answer: 0
+  explanation: Une donnée dérivée fausse ne se corrige pas en attendant ; c'est l'incohérence perpétuelle.
+  concept: ddia-correct-integrity
+  difficulty: 1
+- id: q3
+  type: multiple
+  prompt: Quels ingrédients permettent à un système de flux de garantir l'intégrité sans transaction distribuée ?
+  choices:
+  - Écrire chaque opération comme un seul message atomique
+  - Dériver tout le reste par des fonctions déterministes
+  - Lire de façon linéarisable avant chaque écriture
+  - Transmettre l'identifiant de requête à travers toutes les étapes
+  - Rendre les messages immuables et les données dérivées retraitables
+  answer: [0, 1, 3, 4]
+  explanation: La linéarisabilité relève de l'opportunité, pas de l'intégrité ; les systèmes de flux s'en passent.
+  concept: ddia-correct-dataflow-integrity
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Pourquoi la distinction opportunité / intégrité passe-t-elle inaperçue avec les transactions ACID ?
+  choices:
+  - Parce qu'ACID ne garantit ni l'une ni l'autre
+  - Parce qu'ACID ne garantit que l'opportunité
+  - Parce qu'ACID fournit les deux à la fois (linéarisabilité et commit atomique)
+  - Parce qu'ACID n'existe que sur un nœud
+  answer: 2
+  explanation: Les systèmes de flux, eux, découplent les deux et forcent à les penser séparément.
+  concept: ddia-correct-dataflow-integrity
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Une boutique vend des billets de concert. Vérifier le stock de façon synchrone sur tous les datacenters ajoute 300 ms à chaque achat ; en asynchrone, 0,1 % des ventes dépassent le stock et coûtent 15 € de remboursement et geste commercial. Pour 50 000 ventes par jour, combien coûtent les excuses ?'
+  choices:
+  - 75 €
+  - 7 500 €
+  - 750 €
+  - 50 €
+  answer: 2
+  explanation: 50 000 × 0,001 = 50 ventes en trop × 15 € = 750 € par jour. C'est ce chiffre qu'on compare au coût de la latence.
+  concept: ddia-correct-apologies
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Que reste-t-il de non négociable quand on assouplit une contrainte avec des excuses ?
+  choices:
+  - L'opportunité
+  - La linéarisabilité des lectures
+  - 'L''intégrité : ne perdre aucune réservation, ne pas créer ou détruire d''argent'
+  - Le commit à deux phases
+  answer: 2
+  explanation: La vérification a lieu après coup, mais elle a lieu, sur des données intactes.
+  concept: ddia-correct-apologies
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Quelle situation justifie de garder une coordination synchrone ?
+  choices:
+  - L'affichage du nombre de likes d'un message
+  - L'attribution d'un lit de réanimation, qu'on ne peut pas « excuser » après coup
+  - Le classement des produits les plus vus
+  - La mise à jour d'un index de recherche
+  answer: 1
+  explanation: La coordination synchrone se réserve aux cas où une compensation est impossible ou trop chère.
+  concept: ddia-correct-coordination-avoidance
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Un système sans coordination déployé sur trois régions en multi-leader asynchrone offre…
+  choices:
+  - une opportunité faible mais une intégrité forte, et chaque région continue seule si le lien tombe
+  - une opportunité forte et une intégrité faible
+  - une linéarisabilité globale
+  - aucune garantie
+  answer: 0
+  explanation: 'C''est le compromis visé : intégrité préservée par le flux, opportunité sacrifiée au profit de la disponibilité et des performances.'
+  concept: ddia-correct-coordination-avoidance
+  difficulty: 3

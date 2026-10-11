@@ -1,0 +1,85 @@
+id: ddia-ch14-boss
+title: 'Boss : la base de données devient un flux'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-change-data-capture
+- ddia-dual-writes-problem
+- ddia-consumer-groups
+- ddia-log-replay
+- ddia-consumer-lag-isolation
+- ddia-cqrs-multiple-views
+source:
+  chapter: 11
+  pages: 439-464
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: browser
+  label: Clients web
+  hint: Passent et consultent des commandes.
+- type: api
+  component: service
+  label: API commandes
+  hint: Valide chaque commande avant de l'enregistrer.
+- type: db
+  component: postgres
+  label: Base des commandes
+  hint: Le système de référence.
+- type: cdc
+  component: worker
+  label: Connecteur CDC
+  hint: Décode le log de réplication de la base.
+- type: log
+  component: kafka
+  label: Sujet compacté « commandes »
+  hint: Partitionné par identifiant de commande, compacté par clé.
+- type: igroup
+  component: zone
+  label: Groupe « indexation »
+  hint: Les indexeurs s'y partagent les partitions.
+- type: indexer
+  component: worker
+  label: Indexeur
+  hint: Consomme des partitions du sujet et met à jour la recherche.
+- type: search
+  component: search
+  label: Index de recherche
+  hint: Vue de lecture pour la recherche plein texte.
+- type: cacheupd
+  component: stream-processor
+  label: Mise à jour du cache
+  hint: Un second groupe de consommateurs.
+- type: cache
+  component: redis
+  label: Cache des commandes
+  hint: Vue de lecture pour les fiches.
+- type: wh
+  component: warehouse
+  label: Entrepôt de données
+  hint: Analyses sur toutes les commandes.
+- type: replay
+  component: cron
+  label: Reconstruction depuis l'offset 0
+  hint: Relit tout le sujet compacté avec un code corrigé.
+- type: newview
+  component: database
+  label: Nouvelle vue de lecture (v2)
+  hint: Construite à côté de l'ancienne, sans migration.
+- type: mon
+  component: monitoring
+  label: Supervision du retard
+  hint: Compare la fin du log aux offsets validés de chaque groupe.
+- type: trigger
+  component: cron
+  label: Déclencheur SQL vers une table de journal
+  hint: Recopie chaque écriture dans une autre table.
+- type: dual
+  component: external
+  label: Écriture directe de l'API dans l'index
+  hint: Double écriture depuis le code.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

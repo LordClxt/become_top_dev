@@ -1,0 +1,104 @@
+id: ddia-ch16-l03-quiz
+questions:
+- id: q1
+  type: multiple
+  prompt: Lesquels de ces éléments sont des données dérivées qu'une base maintient déjà en interne ?
+  choices:
+  - Un index secondaire
+  - Une vue matérialisée
+  - La table elle-même, système de référence
+  - Un réplica alimenté par le log de réplication
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: La table est la source ; index, vues et réplicas en sont dérivés.
+  concept: ddia-unbundled-database
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Remets dans l'ordre ce que fait une base lors d'un CREATE INDEX sur une table vivante. Choisis la bonne séquence.
+  choices:
+  - Prendre un instantané cohérent de la table → Appliquer les écritures arrivées depuis l'instantané → Parcourir les lignes, extraire et trier les valeurs indexées → Maintenir l'index à chaque nouvelle écriture
+  - Parcourir les lignes, extraire et trier les valeurs indexées → Prendre un instantané cohérent de la table → Appliquer les écritures arrivées depuis l'instantané → Maintenir l'index à chaque nouvelle écriture
+  - Parcourir les lignes, extraire et trier les valeurs indexées → Appliquer les écritures arrivées depuis l'instantané → Maintenir l'index à chaque nouvelle écriture → Prendre un instantané cohérent de la table
+  - Prendre un instantané cohérent de la table → Parcourir les lignes, extraire et trier les valeurs indexées → Appliquer les écritures arrivées depuis l'instantané → Maintenir l'index à chaque nouvelle écriture
+  answer: 3
+  explanation: Le même schéma qu'un nouveau réplica ou qu'un amorçage CDC.
+  concept: ddia-index-as-stream
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Tu branches un nouvel index de recherche sur le flux CDC d'une table de 50 millions de lignes, sans rien d'autre. Que manque-t-il ?
+  choices:
+  - Rien, le flux contient tout
+  - Un cache devant l'index
+  - Un coordinateur XA
+  - Un instantané initial associé à une position dans le log
+  answer: 3
+  explanation: Le flux ne contient que les changements à partir de maintenant ; l'existant vient de l'instantané.
+  concept: ddia-index-as-stream
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Que fait une base fédérée (polystore) ?
+  choices:
+  - Elle offre une interface de requête unique sur plusieurs moteurs, elle unifie les lectures
+  - Elle synchronise les écritures entre plusieurs moteurs
+  - Elle remplace tous les moteurs par un seul
+  - Elle partitionne une base par hachage
+  answer: 0
+  explanation: La fédération ne règle pas la synchronisation des écritures, que vise le dégroupement.
+  concept: ddia-federated-vs-unbundled
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: À quelle tradition le dégroupement se rattache-t-il ?
+  choices:
+  - Au modèle hiérarchique d'IMS
+  - 'À la philosophie Unix : petits outils spécialisés reliés par une interface uniforme (le log)'
+  - Au SQL déclaratif
+  - Au modèle en réseau CODASYL
+  answer: 1
+  explanation: La fédération suit plutôt la tradition relationnelle d'un langage de requête unique.
+  concept: ddia-federated-vs-unbundled
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Pourquoi un log asynchrone avec consommateurs idempotents fait-il mieux qu'une transaction distribuée entre systèmes hétérogènes ?
+  choices:
+  - Le log met en tampon quand un consommateur est en panne
+  - Les équipes n'ont à s'accorder que sur un format d'événements
+  - Le log garantit qu'on relit immédiatement ses écritures dans l'index
+  - Il ne faut pas que tous les systèmes parlent le même protocole de validation
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: Le log est asynchrone ; il échange la lecture immédiate contre le couplage faible.
+  concept: ddia-unbundling-async-log
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Un consommateur reçoit deux fois le changement « +1 commande à Lyon » (livraison au moins une fois). Comment éviter de compter 2 ?
+  choices:
+  - Mémoriser l'offset déjà appliqué et ignorer ce qui n'est pas plus récent
+  - Passer en livraison au plus une fois
+  - Arrêter le producteur
+  - Augmenter le nombre de partitions
+  answer: 0
+  explanation: Un consommateur idempotent rend la relivraison sans effet.
+  concept: ddia-unbundling-async-log
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Une startup a 30 000 produits et a besoin d'une recherche plein texte basique. Que conseille le livre ?
+  choices:
+  - Dégrouper tout de suite avec Kafka et Elasticsearch
+  - Écrire son propre moteur de recherche
+  - Si un seul produit (par exemple PostgreSQL et son index plein texte) suffit, l'utiliser
+  - Utiliser une base fédérée
+  answer: 2
+  explanation: Dégrouper sert à couvrir ce qu'aucun produit ne fait seul ; sinon, l'intégré est plus simple et plus prévisible.
+  concept: ddia-unbundled-vs-integrated
+  difficulty: 3

@@ -1,0 +1,18 @@
+id: ddia-ch15-l03-lab-windows-design
+title: 'Huit clics, quatre fenêtres'
+difficulty: 3
+xp: 80
+concepts:
+- ddia-sp-window-tumbling
+- ddia-sp-window-hopping
+- ddia-sp-window-sliding
+- ddia-sp-window-session
+- ddia-sp-window-state-cost
+source:
+  chapter: 11
+  pages: 472-473
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Clé → partition → nœud"
+    goal: "Créer un nombre fixe de partitions affectées en tourniquet, router une clé par son hachage FNV vers sa partition puis son nœud, et refuser les configurations impossibles."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Rééquilibrer sans tout déménager"
+    goal: "Ajouter un nœud qui vole des partitions entières aux plus chargés, compter les clés déplacées, et constater l'écart avec hash mod N."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Plages de clés et découpage dynamique"
+    goal: "Partitionner par plage, découper au milieu une partition trop grosse, scanner un intervalle en ne touchant que les partitions utiles, et observer le point chaud des clés horodatées."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Pourquoi le découpage au milieu garde-t-il des partitions de taille bornée quel que soit le volume ? Et pourquoi le test des clés horodatées montre-t-il que toutes les écritures frappent la dernière partition, alors que le préfixe par capteur les répartit ? Qu'est-ce que cela coûte aux scans ?"

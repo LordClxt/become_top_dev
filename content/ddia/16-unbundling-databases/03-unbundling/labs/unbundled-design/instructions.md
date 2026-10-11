@@ -1,0 +1,1 @@
+Dessine une base « dégroupée » : un système de référence dont le log de changements alimente un index de recherche et un cache, chacun maintenu par son propre consommateur, sans double écriture ni transaction distribuée.

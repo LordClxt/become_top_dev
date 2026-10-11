@@ -1,0 +1,8 @@
+{
+  "stockage": 2,
+  "bornes": {"hugo.p": 2, "zoe.p": 4, "alice.p": 1, "gaston.p": 2, "nina.p": 3},
+  "chaud": 24000,
+  "corrige": 3000,
+  "cle": "sensor-ts",
+  "vrai": ["lead-follow", "one-part"]
+}

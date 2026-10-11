@@ -1,0 +1,18 @@
+id: ddia-ch15-l02-lab-clock-design
+title: 'Remettre chaque événement à sa vraie minute'
+difficulty: 3
+xp: 80
+concepts:
+- ddia-sp-event-vs-processing-time
+- ddia-sp-processing-lag-artifacts
+- ddia-sp-stragglers
+- ddia-sp-watermark
+- ddia-sp-three-timestamps
+source:
+  chapter: 11
+  pages: 468-472
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

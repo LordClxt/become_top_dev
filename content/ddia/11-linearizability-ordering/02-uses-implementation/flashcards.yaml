@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Pourquoi l'élection de leader exige-t-elle la linéarisabilité ?
+  back: Le verrou qui désigne le leader doit avoir un seul détenteur reconnu par tous ; sinon split brain.
+  concept: ddia-lin-locks-leader-election
+- id: fc2
+  front: À quoi servent ZooKeeper et etcd ici ?
+  back: Services de coordination au stockage linéarisable (par consensus) pour verrous, élection et métadonnées.
+  concept: ddia-lin-locks-leader-election
+- id: fc3
+  front: Contraintes d'unicité qui exigent la linéarisabilité ?
+  back: Pseudo unique, solde ≥ 0, stock non négatif, siège vendu une fois, clé primaire / UNIQUE.
+  concept: ddia-lin-uniqueness-constraints
+- id: fc4
+  front: Course entre deux canaux ?
+  back: Les données passent par le stockage, la notification par une file ; si la file va plus vite que la réplication, le lecteur lit une version obsolète.
+  concept: ddia-lin-cross-channel-timing
+- id: fc5
+  front: Réplication et linéarisabilité ?
+  back: 'Leader unique : potentiellement. Consensus : oui. Multi-leader : non. Sans leader : probablement pas.'
+  concept: ddia-lin-replication-methods
+- id: fc6
+  front: Pourquoi « dernière écriture gagne » casse-t-elle la linéarisabilité ?
+  back: Elle ordonne par horloge murale, qui ne respecte pas forcément l'ordre réel des événements.
+  concept: ddia-lin-replication-methods
+- id: fc7
+  front: w + r > n suffit-il pour être linéarisable ?
+  back: Non. Avec des délais variables, un lecteur peut voir la nouvelle valeur puis un lecteur suivant l'ancienne.
+  concept: ddia-lin-quorums-not-linearizable
+- id: fc8
+  front: Comment rendre un quorum (presque) linéarisable ?
+  back: Réparation à la lecture synchrone et lecture d'un quorum avant d'écrire. Ça marche pour lire/écrire, pas pour compare-and-set.
+  concept: ddia-lin-quorums-not-linearizable

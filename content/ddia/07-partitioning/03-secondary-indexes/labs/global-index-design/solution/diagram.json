@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {"id": "listings", "type": "listings", "x": 0, "y": 80},
+    {"id": "search", "type": "search", "x": 0, "y": 420},
+    {"id": "p0", "type": "part", "x": 320, "y": 0, "label": "Partition 0 (annonces 0–499)"},
+    {"id": "p1", "type": "part", "x": 320, "y": 200, "label": "Partition 1 (annonces 500–999)"},
+    {"id": "g0", "type": "gidx", "x": 660, "y": 0, "label": "Index color:a → color:r"},
+    {"id": "g1", "type": "gidx", "x": 660, "y": 200, "label": "Index color:s → color:z"}
+  ],
+  "edges": [
+    {"id": "e1", "source": "listings", "target": "p0", "kind": "write", "label": "annonce 306"},
+    {"id": "e2", "source": "listings", "target": "p1", "kind": "write", "label": "annonce 768"},
+    {"id": "e3", "source": "p0", "target": "g0", "kind": "async", "label": "color:rouge"},
+    {"id": "e4", "source": "p1", "target": "g0", "kind": "async", "label": "color:rouge"},
+    {"id": "e5", "source": "p0", "target": "g1", "kind": "async", "label": "color:vert"},
+    {"id": "e6", "source": "search", "target": "g0", "kind": "read", "label": "color:rouge ?"},
+    {"id": "e7", "source": "search", "target": "p0", "kind": "read", "label": "annonce 306"},
+    {"id": "e8", "source": "search", "target": "p1", "kind": "read", "label": "annonce 768"}
+  ]
+}

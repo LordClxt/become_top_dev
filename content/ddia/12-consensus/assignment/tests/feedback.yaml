@@ -1,0 +1,32 @@
+blocks:
+  tools:
+    options:
+      seats: 'Les deux partitions exécutent le même logiciel : la base sait faire son propre commit atomique, sans XA.'
+      ack: 'Deux technologies différentes doivent valider ensemble : c''est le cas d''usage de XA.'
+      scheduler: 'Une seule instance active = élection de leader : un bail etcd, libéré si l''instance meurt.'
+      webfront: 'Une adresse un peu périmée est acceptable et le DNS reste disponible : pas besoin de consensus.'
+      username: 'L''unicité est équivalente au consensus : un compare-and-set linéarisable (ou une transaction sérialisable) tranche entre deux demandes simultanées.'
+  availability:
+    tolerance:
+      abs: 0.05
+    wrong: '0,999 à la puissance 4 (3 participants + le coordinateur), en pourcentage.'
+  latency:
+    tolerance:
+      abs: 0
+    wrong: 'Un aller-retour pour les « prepare » pendant lequel chaque participant fait son fsync, puis le fsync de la décision chez le coordinateur. La phase 2 peut suivre après la réponse.'
+  session:
+    goals:
+      gc: 'Une pause de ramasse-miettes ferait expirer la session : une deuxième instance prendrait le bail pendant que la première se croit encore active.'
+      fast: 'La reprise après une vraie panne dépasse 10 s.'
+  store:
+    options:
+      seatsleft: '3 000 écritures par seconde passées par un vote de majorité : etcd est fait pour des données qui changent lentement.'
+      carts: 'C''est de l''état applicatif volumineux et fréquent : il a sa place dans la base.'
+      assign: 'Donnée lente et critique, que tous doivent voir de la même façon : sa place est dans etcd.'
+      members: 'Les baux expirent avec les sessions : c''est exactement ce que fournit etcd.'
+      flags: 'Peu de données, changées rarement, lues par tous : un usage classique.'
+  runbook:
+    options:
+      evidence: 'Avant de trancher, on cherche une preuve : si un participant a déjà validé, l''issue est commit.'
+      decide: 'Une seule décision pour tous : sinon l''atomicité est rompue.'
+      postmortem: 'Le correctif de fond vient après la remise en service.'

@@ -1,0 +1,117 @@
+intro: |
+  Vendredi, 214 clients ont été débités deux fois. Le service de paiement a un **leader** par file de paiements, élu par
+  un **bail de 10 s** que délivre un service de verrous. Les journaux montrent une pause de ramasse-miettes de **12 s** sur
+  l'ancien leader. Tu rédiges le post-mortem : chronologie, mécanisme, dimensionnement, et ce qu'il faut changer.
+blocks:
+- id: timeline
+  type: order
+  title: La chronologie
+  prompt: Remets les événements dans l'ordre où ils se sont produits.
+  items:
+  - id: grant
+    label: Le leader A obtient le bail (jeton 41)
+  - id: check
+    label: A vérifie que son bail est valide avant de débiter le client 7
+  - id: pause
+    label: A se fige 12 s (pause GC)
+  - id: expire
+    label: Le bail de A expire ; B l'obtient (jeton 42) et reprend la file, client 7 compris
+  - id: b-debit
+    label: B débite le client 7
+  - id: a-debit
+    label: A se réveille et débite le client 7, persuadé d'être toujours leader
+- id: root
+  type: choice
+  title: La cause racine
+  prompt: Quelle est la cause racine du double débit ?
+  options:
+  - id: race
+    label: A agit sur une vérification de bail faite avant sa pause, et rien côté base ne refuse un leader déchu
+    hint: Vérifier puis agir
+  - id: clock
+    label: L'horloge de B avançait
+  - id: network
+    label: Le réseau a dupliqué la requête de débit
+- id: tokens
+  type: table
+  title: Le stockage avec jetons
+  prompt: |
+    Après correctif, la base de paiements vérifie les jetons de clôture. Elle reçoit, dans cet ordre, des écritures portant
+    les jetons ci-dessous. Pour chacune, indique **1** si elle est acceptée, **0** si elle est rejetée.
+  columns:
+  - id: ok
+    label: Acceptée (1) ou rejetée (0)
+  rows:
+  - id: w1
+    label: 1re écriture, jeton 41
+  - id: w2
+    label: 2e écriture, jeton 42
+  - id: w3
+    label: 3e écriture, jeton 42
+  - id: w4
+    label: 4e écriture, jeton 41
+  - id: w5
+    label: 5e écriture, jeton 43
+- id: quorum
+  type: table
+  title: Dimensionner le service de verrous
+  prompt: Pour chaque taille de cluster, donne la majorité nécessaire et le nombre de nœuds qui peuvent tomber sans bloquer les décisions.
+  columns:
+  - id: maj
+    label: Majorité
+  - id: tol
+    label: Pannes tolérées
+  rows:
+  - id: n3
+    label: 3 nœuds
+  - id: n5
+    label: 5 nœuds
+  - id: n6
+    label: 6 nœuds
+  - id: n7
+    label: 7 nœuds
+- id: props
+  type: match
+  title: Sûreté ou vivacité ?
+  prompt: Le post-mortem liste les garanties attendues. Classe-les.
+  items:
+  - id: once
+    label: Un client n'est jamais débité deux fois pour le même paiement
+  - id: one-leader
+    label: Deux leaders ne valident jamais d'écriture pour la même file
+  - id: answer
+    label: Une demande de paiement finit par recevoir une réponse si une majorité de nœuds est joignable
+  - id: elect
+    label: Après la panne d'un leader, un nouveau leader finit par être élu
+  categories:
+  - id: safety
+    label: Sûreté (rien de mal n'arrive)
+  - id: liveness
+    label: Vivacité (quelque chose de bien finit par arriver)
+- id: model
+  type: choice
+  title: Le modèle de système
+  prompt: Sous quel modèle le nouveau design doit-il être prouvé correct ?
+  options:
+  - id: sync
+    label: Synchrone, crash-stop
+  - id: partial
+    label: Partiellement synchrone, crash-recovery
+    hint: Délais bornés la plupart du temps, nœuds qui redémarrent
+  - id: async-byz
+    label: Asynchrone, byzantin
+- id: fixes
+  type: multi
+  title: Les actions correctives
+  prompt: Coche les actions qui empêchent **vraiment** un nouveau double débit.
+  options:
+  - id: fencing
+    label: Joindre le jeton du bail à chaque débit et le faire vérifier par la base de paiements
+  - id: idem
+    label: Donner à chaque paiement une clé d'idempotence que la base déduplique
+  - id: longer
+    label: Allonger le bail à 60 s
+  - id: double-check
+    label: Vérifier le bail deux fois de suite avant de débiter
+  - id: bft
+    label: Remplacer le service de verrous par un protocole byzantin

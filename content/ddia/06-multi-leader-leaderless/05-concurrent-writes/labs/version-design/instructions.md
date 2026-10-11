@@ -1,0 +1,1 @@
+Rejoue l'algorithme des numéros de version sur une playlist partagée, compare des vecteurs de versions, distingue causalité et concurrence, puis choisis comment fusionner sans ressusciter une suppression.

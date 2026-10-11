@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Trois raisons de répliquer ?
+  back: Latence (données proches des utilisateurs), disponibilité (survivre aux pannes), débit de lecture (plus de machines).
+  concept: ddia-replication-goals
+- id: fc2
+  front: Où est toute la difficulté de la réplication ?
+  back: 'Dans les changements : si les données ne changeaient jamais, une copie suffirait.'
+  concept: ddia-replication-goals
+- id: fc3
+  front: Réplication avec leader, en une phrase ?
+  back: Écritures sur le leader seul, qui envoie un log de changements aux followers ; lectures sur n'importe quel réplica.
+  concept: ddia-leader-follower
+- id: fc4
+  front: Pourquoi l'ordre du log de réplication compte-t-il ?
+  back: Les mêmes changements appliqués dans le même ordre donnent le même état sur chaque follower.
+  concept: ddia-replication-change-stream
+- id: fc5
+  front: Follower synchrone ?
+  back: Le leader attend son accusé avant de confirmer. Durable, mais s'il ne répond pas, aucune écriture ne passe.
+  concept: ddia-leader-sync-replication
+- id: fc6
+  front: Follower asynchrone ?
+  back: Le leader confirme sans attendre. Rapide et disponible, mais une écriture confirmée peut être perdue si le leader meurt.
+  concept: ddia-leader-async-replication
+- id: fc7
+  front: Semi-synchrone ?
+  back: Un seul follower synchrone, les autres asynchrones ; si le synchrone ralentit, un autre prend sa place. Au moins 2 copies à jour.
+  concept: ddia-leader-semi-sync
+- id: fc8
+  front: Combien de temps prend la réplication ?
+  back: En général moins d'une seconde, mais sans garantie ; des minutes en cas de reprise, de surcharge ou de réseau dégradé.
+  concept: ddia-leader-async-replication

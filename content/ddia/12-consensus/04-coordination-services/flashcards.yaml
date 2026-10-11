@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: ZooKeeper / etcd en une phrase ?
+  back: 'Petit magasin clé-valeur en mémoire, répliqué par diffusion à ordre total (Zab, Raft), pour coordonner d''autres systèmes.'
+  concept: ddia-coord-service-features
+- id: fc2
+  front: Les quatre fonctions clés de ZooKeeper ?
+  back: 'Opérations atomiques linéarisables, ordre total (zxid), détection de pannes (sessions, nœuds éphémères), notifications (watch).'
+  concept: ddia-coord-service-features
+- id: fc3
+  front: Nœud éphémère ?
+  back: 'Entrée liée à la session d''un client ; elle disparaît quand la session expire, ce qui libère un verrou ou signale un départ.'
+  concept: ddia-coord-service-features
+- id: fc4
+  front: zxid et clôture ?
+  back: 'Identifiant croissant de chaque opération : sert de jeton de clôture contre un ancien détenteur de verrou.'
+  concept: ddia-coord-fencing-zxid
+- id: fc5
+  front: Allocation du travail avec ZooKeeper ?
+  back: 'Élire un leader, attribuer les partitions, rééquilibrer quand un nœud arrive ou meurt, avec CAS + éphémères + watches.'
+  concept: ddia-coord-work-allocation
+- id: fc6
+  front: Combien de nœuds dans un ensemble ZooKeeper ?
+  back: '3 ou 5 votants, pour un nombre de clients potentiellement très grand : on sous-traite le consensus.'
+  concept: ddia-coord-work-allocation
+- id: fc7
+  front: Quelles données confier à ZooKeeper ?
+  back: 'Des données qui changent lentement (minutes, heures), pas l''état applicatif modifié des milliers de fois par seconde.'
+  concept: ddia-coord-slow-changing-data
+- id: fc8
+  front: Découverte de services et consensus ?
+  back: 'Le DNS (lectures en cache, non linéarisables) suffit souvent ; le consensus sert à savoir qui est leader. Observers pour les lectures.'
+  concept: ddia-coord-service-discovery
+- id: fc9
+  front: Service d'appartenance ?
+  back: 'Les nœuds s''accordent sur qui est vivant (détection de pannes + consensus), quitte à déclarer mort un nœud vivant.'
+  concept: ddia-coord-membership
+- id: fc10
+  front: Problèmes équivalents au consensus ?
+  back: 'CAS linéarisable, commit atomique, diffusion à ordre total, verrous et baux, appartenance/coordination, contrainte d''unicité.'
+  concept: ddia-consensus-equivalence

@@ -1,0 +1,14 @@
+id: ddia-ch07-project
+title: "Tinybase — le routeur de partitions"
+pitch: "Tinybase passe à plusieurs nœuds : un routeur à nombre fixe de partitions qui rééquilibre en déplaçant des partitions entières (et le prouve face à hash mod N), puis un partitionnement par plage qui se découpe tout seul."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 240
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["partition.go"]
+concepts: [ddia-hash-partitioning, ddia-fixed-partition-count, ddia-hash-mod-n-pitfall, ddia-key-range-partitioning, ddia-dynamic-partitioning, ddia-range-timestamp-hotspot]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

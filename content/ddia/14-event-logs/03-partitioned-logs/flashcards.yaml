@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Broker à base de log ?
+  back: Le producteur ajoute à un log sur disque, le consommateur lit séquentiellement ; lire n'efface rien.
+  concept: ddia-log-based-broker
+- id: fc2
+  front: Où l'ordre est-il garanti dans Kafka ?
+  back: Uniquement à l'intérieur d'une partition, grâce aux offsets croissants.
+  concept: ddia-log-partition-order
+- id: fc3
+  front: Comment garder ordonnés les événements d'un même utilisateur ?
+  back: Choisir la partition à partir de sa clé (identifiant hashé).
+  concept: ddia-log-partition-order
+- id: fc4
+  front: Nombre max de consommateurs utiles dans un groupe ?
+  back: Le nombre de partitions du sujet.
+  concept: ddia-partition-assignment
+- id: fc5
+  front: Log partitionné ou file classique ?
+  back: 'Log : gros débit, messages rapides, ordre important. File : messages coûteux, parallélisme par message, ordre indifférent.'
+  concept: ddia-partition-assignment
+- id: fc6
+  front: Que retient le broker pour un groupe de consommateurs ?
+  back: Un offset par partition ; tout ce qui précède est considéré comme traité.
+  concept: ddia-consumer-offset-commit
+- id: fc7
+  front: Pourquoi un remplaçant peut-il retraiter des messages ?
+  back: Il repart du dernier offset validé, alors que le défunt avait peut-être traité au-delà.
+  concept: ddia-consumer-offset-commit
+- id: fc8
+  front: Pourquoi parle-t-on de tampon circulaire pour un log ?
+  back: Les segments les plus anciens sont supprimés ; un consommateur trop lent peut pointer vers un segment effacé.
+  concept: ddia-log-retention-ring-buffer
+- id: fc9
+  front: Un consommateur lent gêne-t-il les autres dans un log ?
+  back: Non, seul lui prend du retard ; on surveille ce retard et l'on alerte.
+  concept: ddia-consumer-lag-isolation
+- id: fc10
+  front: Comment retraiter la journée d'hier ?
+  back: Relancer un consommateur avec les offsets d'hier, en écrivant sa sortie ailleurs.
+  concept: ddia-log-replay

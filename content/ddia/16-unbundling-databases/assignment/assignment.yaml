@@ -1,0 +1,19 @@
+id: ddia-ch16-assignment
+title: Dégrouper la plateforme de covoiturage
+difficulty: 4
+xp: 130
+concepts:
+- ddia-dataflow-reasoning
+- ddia-index-as-stream
+- ddia-gradual-view-migration
+- ddia-federated-vs-unbundled
+- ddia-materialized-view-cache-tradeoff
+- ddia-push-to-clients
+source:
+  chapter: 12
+  pages: 489-514
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

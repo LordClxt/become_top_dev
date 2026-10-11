@@ -1,0 +1,75 @@
+intro: |
+  Le service de commandes de ton équipe utilise 2PC entre trois participants : **P1** (stock), **P2** (paiements) et **P3** (fidélité). Un coordinateur journalise ses décisions sur disque. Tu reçois des chronologies d'incidents : pour chacune, tu dois dire comment finit la transaction, et ce que coûte l'attente.
+blocks:
+- id: outcome
+  type: match
+  title: Comment finit la transaction ?
+  prompt: Pour chaque chronologie, quel est le sort de la transaction sur **tous** les participants ?
+  items:
+  - id: vote-no
+    label: P1 et P3 votent oui, P2 vote non (solde insuffisant)
+  - id: crash-before-prepare
+    label: Le coordinateur plante avant d'avoir envoyé le moindre « prepare »
+  - id: timeout-prepare
+    label: P3 ne répond pas au « prepare » dans le délai, P1 et P2 ont voté oui
+  - id: crash-after-log
+    label: Tous votent oui, le coordinateur écrit « commit » dans son journal puis plante avant d'envoyer quoi que ce soit
+  - id: crash-before-log
+    label: Tous votent oui, le coordinateur plante avant d'écrire sa décision
+  - id: retry-commit
+    label: Tous votent oui, « commit » est journalisé, l'envoi vers P2 échoue trois fois puis passe
+  categories:
+  - id: commit
+    label: Validée, sans participant bloqué
+  - id: abort
+    label: Annulée, sans participant bloqué
+  - id: doubt-commit
+    label: Des participants restent en doute, puis validée à la reprise du coordinateur
+  - id: doubt-abort
+    label: Des participants restent en doute, puis annulée à la reprise du coordinateur
+- id: prepare
+  type: choice
+  title: Avant de voter oui
+  prompt: P2 reçoit « prepare ». Que doit-il avoir fait **avant** de répondre oui ?
+  options:
+  - id: durable
+    label: Écrire toutes les données de la transaction sur disque et vérifier les contraintes, sans valider
+  - id: commit-local
+    label: Valider localement, pour gagner du temps
+  - id: release
+    label: Relâcher ses verrous, puisque la transaction est terminée de son côté
+  - id: ask-peers
+    label: Demander à P1 et P3 comment ils vont voter
+- id: doubt
+  type: multi
+  title: Un participant en doute
+  prompt: P3 a voté oui il y a deux minutes et n'a plus de nouvelles du coordinateur. Coche ce qu'il fait **correctement**.
+  options:
+  - id: wait
+    label: Il attend la décision du coordinateur
+  - id: keep-locks
+    label: Il garde les verrous des lignes modifiées
+  - id: abort-timeout
+    label: Il annule, puisque le délai est dépassé
+  - id: commit-yes
+    label: Il valide, puisqu'il a voté oui
+  - id: survive-restart
+    label: S'il redémarre, il retrouve la transaction préparée et reste en doute
+- id: blocked
+  type: number
+  title: Le prix de l'attente
+  prompt: 'P1 tient, pour une transaction en doute, un verrou exclusif sur la ligne de stock d''un article vedette. Le coordinateur plante à 14 h 00 et redémarre à 14 h 45. Pendant ce temps, **120 commandes par minute** voudraient mettre à jour cette ligne. Combien de commandes restent bloquées (ou échouent) ?'
+  unit: commandes
+- id: recovery
+  type: order
+  title: La reprise du coordinateur
+  prompt: Remets dans l'ordre ce que fait le coordinateur à son redémarrage.
+  items:
+  - id: read
+    label: Relire son journal sur disque
+  - id: classify
+    label: Repérer les transactions commencées, avec ou sans décision
+  - id: abort-undecided
+    label: Écrire « abort » pour celles qui n'ont aucune décision
+  - id: resend
+    label: Renvoyer la décision à tous les participants, jusqu'à acquittement

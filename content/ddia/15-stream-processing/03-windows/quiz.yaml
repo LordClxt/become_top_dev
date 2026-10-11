@@ -1,0 +1,98 @@
+id: ddia-ch15-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Fenêtres tumbling d'une minute. Dans quelle fenêtre tombe un événement horodaté 10:04:00 pile ?
+  choices:
+  - '[10:03:00, 10:04:00)'
+  - '[10:04:00, 10:05:00)'
+  - Les deux
+  - Aucune
+  answer: 1
+  explanation: Les fenêtres sont semi-ouvertes [début, fin) et chaque événement appartient à exactement une fenêtre tumbling. 10:04:00 ouvre la fenêtre suivante.
+  concept: ddia-sp-window-tumbling
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Fenêtres hopping de 10 minutes avec un pas de 2 minutes. À combien de fenêtres appartient chaque événement ?
+  choices:
+  - '1'
+  - '2'
+  - '10'
+  - '5'
+  answer: 3
+  explanation: Taille / pas = 10 / 2 = 5 fenêtres chevauchantes contiennent chaque instant.
+  concept: ddia-sp-window-hopping
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Comment le livre suggère-t-il d'implémenter une fenêtre hopping de 5 minutes au pas d'une minute ?
+  choices:
+  - Calculer des fenêtres tumbling d'une minute, puis agréger plusieurs fenêtres adjacentes
+  - Recopier chaque événement dans 5 tampons
+  - Trier tout le flux
+  - Utiliser une fenêtre de session
+  answer: 0
+  explanation: On garde un sous-agrégat par minute et on en combine 5. Cela suppose un agrégat décomposable (somme, nombre, min, max).
+  concept: ddia-sp-window-hopping
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Deux événements à 10:03:39 et 10:08:12. Quelle fenêtre de 5 minutes les réunit forcément ?
+  choices:
+  - Une tumbling de 5 minutes
+  - Une hopping de 5 minutes au pas de 5 minutes
+  - Une sliding de 5 minutes
+  - Aucune fenêtre de 5 minutes
+  answer: 2
+  explanation: Moins de 5 minutes les séparent ; seule la fenêtre sliding, définie par la distance entre événements, les réunit. Les frontières fixes à 10:05 les séparent dans les autres.
+  concept: ddia-sp-window-sliding
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Règle anti-fraude : « au plus 3 tentatives de mot de passe dans n''importe quel intervalle de 5 minutes ». Quelle fenêtre choisir ?'
+  choices:
+  - Tumbling de 5 minutes
+  - Sliding de 5 minutes
+  - Session avec un écart de 5 minutes
+  - Hopping de 1 heure
+  answer: 1
+  explanation: « N'importe quel intervalle » exclut des frontières fixes, qu'une rafale à cheval contournerait. La sliding regarde toujours les 5 dernières minutes autour de chaque événement.
+  concept: ddia-sp-window-sliding
+  difficulty: 3
+- id: q6
+  type: single
+  prompt: 'Écart de session 30 minutes. Clics : 14:00, 14:10, 14:35, 15:20, 15:30. Combien de sessions ?'
+  choices:
+  - '1'
+  - '3'
+  - '2'
+  - '5'
+  answer: 2
+  explanation: Les écarts valent 10, 25, 45 et 10 minutes. Seul l'écart de 45 minutes dépasse 30 et coupe en deux sessions.
+  concept: ddia-sp-window-session
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Même exemple ; un clic de 14:58 arrive en retard. Que devient la sessionisation ?
+  choices:
+  - Les deux sessions fusionnent en une seule (écarts de 23 et 22 minutes)
+  - Rien, le clic est ignoré
+  - Une troisième session s'ouvre
+  - La seconde session est supprimée
+  answer: 0
+  explanation: Le retardataire comble le trou ; aucune pause ne dépasse plus 30 minutes. C'est pourquoi une session n'est sûre d'être finie que quand le watermark dépasse sa fin.
+  concept: ddia-sp-window-session
+  difficulty: 3
+- id: q8
+  type: multiple
+  prompt: Quelles fenêtres obligent à garder un état qui croît avec le nombre d'événements ou d'utilisateurs, plutôt qu'un simple compteur par fenêtre ?
+  choices:
+  - Sliding (tampon d'événements trié)
+  - Tumbling
+  - Session (une session ouverte par utilisateur actif)
+  - Hopping construite avec des sous-agrégats
+  answer: [0, 2]
+  explanation: Tumbling et hopping décomposée gardent des agrégats de taille fixe. La sliding garde les événements, la session un état par utilisateur actif.
+  concept: ddia-sp-window-state-cost
+  difficulty: 3

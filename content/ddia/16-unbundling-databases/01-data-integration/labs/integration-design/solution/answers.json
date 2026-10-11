@@ -1,0 +1,16 @@
+{
+  "dual": {
+    "db.price": 45,
+    "search.price": 50
+  },
+  "approach": {
+    "ryw": "xa",
+    "slow": "log",
+    "newsys": "log",
+    "hetero": "log"
+  },
+  "backlog": 900000,
+  "catchup": 30,
+  "total": ["geo", "micro", "mobile", "part"],
+  "causal": "readstate"
+}

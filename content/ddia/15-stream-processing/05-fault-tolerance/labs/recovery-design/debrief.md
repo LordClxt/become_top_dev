@@ -1,0 +1,3 @@
+**Le rejeu est inévitable ; le doublon ne l'est pas.** Le consommateur avait validé l'offset 101 alors que la base avait déjà appliqué jusqu'à 103 : les messages 102 et 103 sont relus. Un simple `total += montant` les compte deux fois (280 € au lieu de 210 €). En écrivant l'offset **dans la même écriture** que le total, la reprise reconnaît ce qui est déjà appliqué et retombe sur 210 €.
+
+L'intervalle de checkpoint est un compromis chiffrable : plus court, il réduit le rejeu mais écrit l'état plus souvent ; ici, seuls 20 à 25 s satisfont les deux contraintes. Enfin, aucun checkpoint ne reprend un effet sorti du framework : le virement bancaire exige une clé d'idempotence, et l'écriture de sortie doit être validée avec l'offset d'entrée dans une même transaction.

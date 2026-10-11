@@ -1,0 +1,99 @@
+id: ddia-ch12-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: 'Ton équipe veut stocker dans etcd le compteur de vues de chaque vidéo, mis à jour 80 000 fois par seconde. Ton avis ?'
+  choices:
+  - Bonne idée, etcd est linéarisable
+  - Bonne idée si on passe à 7 nœuds
+  - Mauvaise idée, chaque écriture passe par un vote de majorité ; etcd est fait pour des données qui changent lentement
+  - Bonne idée à condition d'utiliser des watches
+  answer: 2
+  explanation: 'Les services de coordination stockent des informations comme « qui est leader de la partition 7 », qui changent à l''échelle de la minute.'
+  concept: ddia-coord-slow-changing-data
+  difficulty: 2
+- id: q2
+  type: multiple
+  prompt: Quelles fonctions de ZooKeeper le rendent utile pour la coordination ?
+  choices:
+  - Opérations atomiques linéarisables (compare-and-set)
+  - Ordre total des opérations (zxid)
+  - Requêtes analytiques en colonnes
+  - Sessions et nœuds éphémères pour détecter les pannes
+  - Notifications de changement (watch)
+  answer: [0, 1, 3, 4]
+  explanation: 'C''est la combinaison des quatre qui fait sa force ; l''analytique n''en fait pas partie.'
+  concept: ddia-coord-service-features
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: 'Un nœud de stockage tombe. Comment le rééquilibreur l''apprend-il avec ZooKeeper ?'
+  choices:
+  - En interrogeant chaque nœud de stockage toutes les secondes
+  - La session du nœud expire, son nœud éphémère disparaît, et le rééquilibreur qui surveille la liste est notifié
+  - Le nœud mort envoie un message d'adieu
+  - Un humain met à jour la configuration
+  answer: 1
+  explanation: 'Détection de pannes par session et notification par watch, sans interrogation en boucle.'
+  concept: ddia-coord-work-allocation
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: 'Pourquoi un cluster de 40 nœuds de stockage n''a-t-il pas besoin de faire voter ses 40 nœuds ?'
+  choices:
+  - Parce que le stockage n'a jamais besoin de consensus
+  - Parce que les 40 nœuds utilisent un protocole multi-leader
+  - Parce qu'on choisit le leader au hasard
+  - Parce qu'il sous-traite le consensus à un ensemble ZooKeeper de 3 ou 5 nœuds
+  answer: 3
+  explanation: 'Un petit nombre fixe de votants sert un grand nombre de clients.'
+  concept: ddia-coord-work-allocation
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'À quoi sert le zxid de ZooKeeper dans un verrou distribué ?'
+  choices:
+  - De jeton de clôture croissant, pour que le stockage rejette les écritures d'un ancien détenteur en pause
+  - D'identifiant de session
+  - De clé de chiffrement
+  - D'adresse IP du leader
+  answer: 0
+  explanation: 'L''ordre total des opérations fournit des numéros croissants.'
+  concept: ddia-coord-fencing-zxid
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Ton ensemble ZooKeeper sature sous les lectures de milliers de clients. Que fais-tu ?'
+  choices:
+  - Passer de 5 à 9 votants
+  - Ajouter des observers qui reçoivent le log sans voter et servent les lectures non linéarisables
+  - Désactiver les sessions
+  - Remplacer ZooKeeper par le DNS
+  answer: 1
+  explanation: 'Plus de votants ralentit chaque écriture ; les observers ne votent pas.'
+  concept: ddia-coord-service-discovery
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: 'Que garantit un service d''appartenance ?'
+  choices:
+  - Qu'aucun nœud vivant ne sera jamais déclaré mort
+  - Que tous les nœuds s'accordent sur la liste des membres actifs, même si un nœud vivant est parfois déclaré mort
+  - Que les nœuds n'ont plus besoin de timeouts
+  - Que le réseau ne se partitionne jamais
+  answer: 1
+  explanation: 'La certitude est impossible ; l''accord, lui, est possible et suffit pour choisir par exemple le plus petit numéro comme leader.'
+  concept: ddia-coord-membership
+  difficulty: 2
+- id: q8
+  type: multiple
+  prompt: 'Quels problèmes sont équivalents au consensus ?'
+  choices:
+  - Un registre compare-and-set linéarisable
+  - Une contrainte d'unicité sur les noms d'utilisateur
+  - La diffusion à ordre total
+  - Un cache LRU local
+  answer: [0, 1, 2]
+  explanation: 'Commit atomique, verrous et baux, appartenance complètent la liste ; un cache local n''a rien à décider avec d''autres.'
+  concept: ddia-consensus-equivalence
+  difficulty: 2

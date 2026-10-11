@@ -1,0 +1,17 @@
+id: ddia-ch11-l01-lab-histories-design
+title: 'Juge d''historiques : linéarisable ou pas ?'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-linearizable-read-visibility
+- ddia-linearizability-definition
+- ddia-linearizability-cas-register
+- ddia-linearizability-vs-serializability
+source:
+  chapter: 9
+  pages: 321-330
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

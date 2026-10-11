@@ -1,0 +1,80 @@
+checks:
+- id: entry
+  label: L'application envoie ses écritures au routeur
+  rule: edge_kind
+  source: app
+  target: router
+  kind: write
+- id: route
+  label: Le routeur envoie les écritures au nouveau leader
+  rule: edge_kind
+  source: router
+  target: new
+  kind: write
+- id: via
+  label: Toute écriture de l'application atteint le nouveau leader en passant par le routeur
+  rule: path
+  source: app
+  target: new
+  via: router
+- id: heartbeat
+  label: Le détecteur de pannes surveille le leader (lecture des messages de vie)
+  rule: edge_kind
+  source: monitor
+  target: new
+  kind: read
+- id: reconfigure
+  label: Le détecteur de pannes reconfigure le routeur
+  rule: edge_kind
+  source: monitor
+  target: router
+  kind: write
+- id: catchup
+  label: Le follower A rattrape le nouveau leader par réplication
+  rule: edge_kind
+  source: new
+  target: f
+  kind: replication
+- id: demote
+  label: L'ancien leader revient comme follower du nouveau
+  rule: edge_kind
+  source: new
+  target: old
+  kind: replication
+- id: no-write-old-app
+  label: L'application n'écrit plus jamais dans l'ancien leader
+  rule: no_edge
+  source: app
+  target: old
+- id: no-write-old-router
+  label: Le routeur non plus
+  rule: no_edge
+  source: router
+  target: old
+- id: one-source-f
+  label: Le follower A n'a qu'une source de changements
+  rule: single_owner
+  target: f
+- id: one-source-old
+  label: L'ancien leader aussi
+  rule: single_owner
+  target: old
+- id: one-leader
+  label: Un seul nouveau leader
+  rule: count
+  source: new
+  min: 1
+  max: 1
+- id: most-advanced
+  label: 'On promeut le follower le plus avancé, pas C (LSN 9 870)'
+  rule: count
+  source: lagging
+  max: 0
+- id: no-split-brain
+  label: 'Pas de split brain : l''ancien leader n''accepte plus d''écritures'
+  rule: count
+  source: dual
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

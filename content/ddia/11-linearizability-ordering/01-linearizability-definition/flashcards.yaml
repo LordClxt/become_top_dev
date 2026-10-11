@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Cohérence à terme ?
+  back: 'Promesse de convergence : sans nouvelle écriture, les répliques finiront par être identiques. Ni délai, ni garantie sur ce qu''on lit en attendant.'
+  concept: ddia-eventual-consistency-weakness
+- id: fc2
+  front: Linéarisabilité, en une phrase ?
+  back: Le système se comporte comme s'il n'y avait qu'une seule copie des données, modifiée par des opérations atomiques.
+  concept: ddia-linearizability-definition
+- id: fc3
+  front: Garantie de fraîcheur (recency guarantee) ?
+  back: Dès qu'une écriture est terminée, toute lecture qui commence ensuite voit la valeur écrite (ou une plus récente).
+  concept: ddia-linearizability-definition
+- id: fc4
+  front: Une lecture chevauche une écriture. Que peut-elle renvoyer ?
+  back: L'ancienne ou la nouvelle valeur… sauf si une lecture terminée avant son début a déjà vu la nouvelle.
+  concept: ddia-linearizable-read-visibility
+- id: fc5
+  front: Critère formel d'un historique linéarisable ?
+  back: Un point d'effet dans l'intervalle de chaque opération, et ces points rangés dans l'ordre forment une exécution valide d'un registre unique.
+  concept: ddia-linearizability-definition
+- id: fc6
+  front: cas(x, ancien, nouveau) ?
+  back: Remplace x seulement s'il vaut encore « ancien », sinon échoue sans rien changer. Sur un système linéarisable, un seul cas concurrent gagne.
+  concept: ddia-linearizability-cas-register
+- id: fc7
+  front: Sérialisabilité vs linéarisabilité ?
+  back: 'Sérialisabilité : transactions multi-objets, ordre sériel quelconque. Linéarisabilité : un objet, ordre qui respecte le temps réel.'
+  concept: ddia-linearizability-vs-serializability
+- id: fc8
+  front: Sérialisabilité stricte ?
+  back: Sérialisabilité et linéarisabilité réunies. 2PL et l'exécution en série l'offrent en général ; SSI non.
+  concept: ddia-linearizability-vs-serializability

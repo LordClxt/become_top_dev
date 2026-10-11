@@ -1,0 +1,3 @@
+**Chaque usage se reconnaît à ce qui persiste.** En CEP et en recherche sur flux, ce sont les **requêtes** qui restent et les événements qui passent (d'où l'intérêt d'indexer les requêtes : 100 millions de tests par seconde sinon). En analytique, c'est un **agrégat sur une fenêtre** bornée. Pour une vue matérialisée, c'est une **copie des données**, et la fenêtre remonte au début des temps.
+
+L'exactitude a un prix : 800 Mo par site et par jour pour compter exactement 50 millions de visiteurs, contre 12 Ko pour un HyperLogLog. Choisir l'approximation est une **optimisation**, pas une contrainte du flux. Enfin, un journal d'audit rejouable par plusieurs équipes réclame un log durable multi-abonnés : c'est du traitement de flux, pas un système d'acteurs.

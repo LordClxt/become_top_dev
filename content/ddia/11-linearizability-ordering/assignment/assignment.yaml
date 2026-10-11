@@ -1,0 +1,19 @@
+id: ddia-ch11-assignment
+title: Le registre mondial des pseudos
+difficulty: 3
+xp: 130
+concepts:
+- ddia-lin-uniqueness-constraints
+- ddia-causal-consistency
+- ddia-lin-quorums-not-linearizable
+- ddia-lin-latency-cost
+- ddia-lamport-timestamps
+- ddia-tob-linearizable-storage
+source:
+  chapter: 9
+  pages: 321-351
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

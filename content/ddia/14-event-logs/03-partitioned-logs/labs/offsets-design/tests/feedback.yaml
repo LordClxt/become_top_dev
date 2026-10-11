@@ -1,0 +1,31 @@
+blocks:
+  retention:
+    tolerance:
+      rel: 0.02
+    wrong: '4 × 10¹² octets ÷ (25 × 10⁶ octets/s) donne des secondes ; divise ensuite par 3 600.'
+  lag:
+    options:
+      p0.lag: Retard = fin du log − offset validé.
+      p1.lag: L'offset validé est déjà au bout du log.
+      p2.lag: 63 500 − 45 500.
+  catchup:
+    tolerance:
+      rel: 0.02
+    wrong: 'Le retard ne diminue que de la différence entre les deux débits : 900 − 600 messages par seconde.'
+  throughput:
+    tolerance:
+      rel: 0.01
+    wrong: 'Chaque partition est lue par un seul membre du groupe : au-delà de 6 consommateurs, les suivants n''ont rien à lire.'
+  redo:
+    tolerance:
+      abs: 0.5
+    wrong: Le remplaçant repart de l'offset validé et retraite tout jusqu'au dernier offset traité, bornes incluses.
+  replay:
+    options:
+      fix: On ne relance pas un code bogué.
+      rerun: 'La nouvelle sortie va dans une table neuve : l''ancienne reste en service tant qu''on n''a pas vérifié.'
+      switch: On ne bascule qu'après la comparaison.
+  alert:
+    options:
+      cpu: Le CPU du broker ne dit rien de la position d'un consommateur dans le log.
+      disk: 'Le disque d''un log est toujours « plein » en régime normal : les vieux segments sont supprimés pour faire de la place.'

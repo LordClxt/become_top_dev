@@ -1,0 +1,18 @@
+id: ddia-ch06-l02-lab-conflict-design
+title: 'Trois leaders, un titre : régler les conflits'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-conflict-convergence
+- ddia-conflict-avoidance
+- ddia-custom-conflict-resolution
+- ddia-replication-topologies
+- ddia-topology-causality
+source:
+  chapter: 5
+  pages: 171-177
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

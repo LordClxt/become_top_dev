@@ -1,0 +1,29 @@
+id: ddia-ch17
+title: Correction et éthique
+subtitle: 'Des systèmes justes au sens technique (aucune donnée perdue ni inventée) et au sens humain (les personnes derrière les données)'
+source:
+  chapter: 12
+  pages: 515-546
+objectives:
+- Expliquer pourquoi TCP, les transactions et le 2PC ne suffisent pas à garantir un effet unique, et appliquer l'argument de bout en bout avec un identifiant de requête
+- Imposer une contrainte d'unicité ou un transfert multi-partitions avec un log partitionné, sans commit atomique distribué
+- Distinguer opportunité (timeliness) et intégrité, et décider quand une contrainte souple avec excuse coûte moins qu'une coordination synchrone
+- Concevoir un système auditable (événements immuables, dérivation déterministe, vérification de bout en bout, arbres de Merkle) au lieu de faire une confiance aveugle au matériel et au logiciel
+- Repérer biais, opacité et boucles de rétroaction dans l'analytique prédictive, et en assigner la responsabilité
+- 'Évaluer une collecte de données sous l''angle de la vie privée : consentement réel, minimisation, conservation, donnée comme matière dangereuse'
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch16
+lessons:
+- 01-end-to-end
+- 02-enforcing-constraints
+- 03-timeliness-integrity
+- 04-trust-verify
+- 05-doing-right
+xp:
+  assignment: 130
+  project: 240
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

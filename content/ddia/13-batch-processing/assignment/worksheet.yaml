@@ -1,0 +1,114 @@
+intro: |
+  La boutique stocke dans HDFS **3 To** d'événements d'achat et de consultation de la nuit (**2 milliards** de lignes), un instantané de **40 Go** de fiches produits et une table de **20 Mo** de catégories. Les événements sont lus par **1 500** tâches map, chacune avec **8 Go** de mémoire. Le résultat, « souvent achetés ensemble », doit être servi demain matin à l'application.
+blocks:
+- id: volumes
+  type: table
+  title: Ce que coûte chaque jointure
+  prompt: Combien de **Go** transitent pour joindre les 3 To d'événements à chaque table ? Côté reduce, compte ce qui passe par le shuffle (les deux entrées) ; en broadcast, ce que lisent toutes les tâches map pour charger la petite table.
+  columns:
+  - id: go
+    label: Go transférés
+  rows:
+  - id: prod-reduce
+    label: Produits (40 Go), jointure côté reduce
+  - id: prod-bcast
+    label: Produits (40 Go), broadcast hash join
+  - id: cat-reduce
+    label: Catégories (20 Mo), jointure côté reduce
+  - id: cat-bcast
+    label: Catégories (20 Mo), broadcast hash join
+- id: prodjoin
+  type: choice
+  title: La jointure avec les produits
+  prompt: Quelle stratégie retiens-tu pour joindre les événements aux fiches produits (sans rangement particulier) ?
+  options:
+  - id: reduce
+    label: Sort-merge côté reduce
+  - id: bcast
+    label: Broadcast hash join
+  - id: query
+    label: Une requête à l'API produits pour chaque événement
+- id: hot
+  type: number
+  title: La console star
+  prompt: Une console de jeu apparaît dans **12 %** des 2 milliards d'événements ; le reste se répartit également entre **200** reducers. Combien de **millions** de lignes reçoit le reducer de la console ?
+  unit: millions
+- id: tune
+  type: tuner
+  title: Régler la jointure asymétrique
+  prompt: Tu répartis la clé de la console sur `k` reducers choisis au hasard (sa fiche est copiée sur chacun) et tu choisis `R`, le nombre total de reducers. Trouve un réglage où le reducer le plus chargé reçoit **20 millions** de lignes au plus, avec **400** reducers au maximum.
+  params:
+  - id: r
+    label: Reducers (R)
+    min: 50
+    max: 800
+    step: 50
+    default: 200
+  - id: k
+    label: Reducers pour la console (k)
+    min: 1
+    max: 100
+    step: 1
+    default: 1
+  metrics:
+  - id: hotload
+    label: Lignes par reducer de la console (millions)
+    expr: 2000 * 0.12 / k + 2000 * 0.88 / r
+    format: number
+  - id: copies
+    label: Copies de la fiche de la console
+    expr: k
+    format: number
+  goals:
+  - id: load
+    label: Reducer le plus chargé à 20 millions au plus
+    expr: hotload <= 20
+  - id: cap
+    label: 400 reducers au maximum
+    expr: r <= 400
+  - id: fit
+    label: La console n'est pas répartie sur plus de reducers qu'il n'en existe
+    expr: k <= r
+- id: flow
+  type: order
+  title: Le workflow de la nuit
+  prompt: Remets les étapes dans l'ordre.
+  items:
+  - id: snapshot
+    label: Exporter un instantané des fiches produits dans HDFS
+  - id: join
+    label: Joindre les événements aux produits et aux catégories
+  - id: pairs
+    label: Compter les paires de produits achetés ensemble
+  - id: build
+    label: Écrire une base clé-valeur neuve (fichiers triés) dans HDFS
+  - id: check
+    label: Comparer la nouvelle sortie à celle d'hier (contrôle de cohérence)
+  - id: swap
+    label: Charger les fichiers sur les serveurs et basculer atomiquement
+- id: replay
+  type: multi
+  title: Un workflow rejouable
+  prompt: Quelles règles rendent le workflow rejouable à l'identique après une panne ou un bug ?
+  options:
+  - id: immutable
+    label: Ne jamais modifier les logs ni l'instantané d'entrée
+  - id: refdate
+    label: Passer la date de référence en paramètre au lieu d'appeler l'horloge dans les opérateurs
+  - id: sortout
+    label: Trier la sortie au lieu de la produire en parcourant une table de hachage
+  - id: upsert
+    label: Mettre à jour la base de production ligne à ligne depuis les reducers
+  - id: livecat
+    label: Lire les prix en direct depuis l'API produits pendant le job
+- id: memory
+  type: choice
+  title: Le comptage des paires
+  prompt: Il existe **9 milliards** de paires de produits distinctes possibles dans la nuit, à environ **40 octets** par compteur. Un reducer a 8 Go. Comment le reducer compte-t-il les paires de sa partition (1/200 des paires) ?
+  options:
+  - id: hash
+    label: Une table de hachage en mémoire suffit, car sa partition fait environ 1,8 Go
+  - id: sort
+    label: Il faut forcément trier sur disque, car 9 milliards de paires ne tiennent pas en mémoire
+  - id: single
+    label: Il faut un seul reducer pour tout compter

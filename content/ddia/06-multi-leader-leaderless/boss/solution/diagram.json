@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {"id": "dceu", "type": "dceu", "x": 480, "y": -40, "label": "Datacenter Europe", "w": 700, "h": 620},
+    {"id": "dcasia", "type": "dcasia", "x": 1300, "y": -40, "label": "Datacenter Asie", "w": 320, "h": 620},
+    {"id": "app", "type": "app", "x": 0, "y": 200},
+    {"id": "local", "type": "local", "x": 0, "y": 380},
+    {"id": "cart", "type": "cart", "x": 240, "y": 200},
+    {"id": "coord", "type": "coord", "x": 520, "y": 200, "parent": "dceu"},
+    {"id": "r1", "type": "replica", "x": 820, "y": 20, "label": "Réplica A", "parent": "dceu"},
+    {"id": "r2", "type": "replica", "x": 820, "y": 200, "label": "Réplica B", "parent": "dceu"},
+    {"id": "r3", "type": "replica", "x": 820, "y": 380, "label": "Réplica C", "parent": "dceu"},
+    {"id": "nb", "type": "neighbor", "x": 520, "y": 440, "label": "Nœud D", "parent": "dceu"},
+    {"id": "ae", "type": "ae", "x": 1020, "y": 120, "parent": "dceu"},
+    {"id": "mon", "type": "mon", "x": 1020, "y": 320, "parent": "dceu"},
+    {"id": "a1", "type": "remote", "x": 1340, "y": 20, "label": "Réplica Asie 1", "parent": "dcasia"},
+    {"id": "a2", "type": "remote", "x": 1340, "y": 200, "label": "Réplica Asie 2", "parent": "dcasia"},
+    {"id": "a3", "type": "remote", "x": 1340, "y": 380, "label": "Réplica Asie 3", "parent": "dcasia"}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "local", "kind": "write", "label": "hors ligne"},
+    {"id": "e2", "source": "local", "target": "cart", "kind": "async", "label": "synchro"},
+    {"id": "e3", "source": "cart", "target": "coord", "kind": "sync", "label": "contexte + fusion"},
+    {"id": "e4", "source": "coord", "target": "r1", "kind": "write"},
+    {"id": "e5", "source": "coord", "target": "r2", "kind": "write"},
+    {"id": "e6", "source": "coord", "target": "r3", "kind": "write"},
+    {"id": "e7", "source": "coord", "target": "a1", "kind": "async"},
+    {"id": "e8", "source": "coord", "target": "a2", "kind": "async"},
+    {"id": "e9", "source": "coord", "target": "a3", "kind": "async"},
+    {"id": "e10", "source": "coord", "target": "nb", "kind": "write", "label": "indice"},
+    {"id": "e11", "source": "nb", "target": "r3", "kind": "replication", "label": "hinted handoff"},
+    {"id": "e12", "source": "ae", "target": "r1", "kind": "replication"},
+    {"id": "e13", "source": "ae", "target": "r2", "kind": "replication"},
+    {"id": "e14", "source": "ae", "target": "r3", "kind": "replication"},
+    {"id": "e15", "source": "mon", "target": "r1", "kind": "read"},
+    {"id": "e16", "source": "mon", "target": "r2", "kind": "read"},
+    {"id": "e17", "source": "mon", "target": "r3", "kind": "read"}
+  ]
+}

@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Les trois destinations d'un flux ?
+  back: Un système de stockage (base, cache, index), un humain (alerte, tableau de bord), ou d'autres flux via des opérateurs en pipeline.
+  concept: ddia-sp-three-outputs
+- id: fc2
+  front: Qu'est-ce qui empêche un job de flux de trier ou de recommencer depuis le début ?
+  back: 'Son entrée n''a pas de fin : il n''a jamais « tout vu », et rejouer un an de flux après une panne n''est pas réaliste.'
+  concept: ddia-sp-three-outputs
+- id: fc3
+  front: CEP en une phrase ?
+  back: On stocke un motif d'événements (langage proche de SQL) ; le moteur l'évalue sur chaque événement et émet un événement complexe quand il le reconnaît.
+  concept: ddia-sp-cep
+- id: fc4
+  front: Qu'est-ce qui est persistant dans un moteur CEP ?
+  back: Les requêtes. Les événements, eux, ne font que passer.
+  concept: ddia-sp-cep
+- id: fc5
+  front: Trois exemples d'analytique de flux ?
+  back: Débit d'un type d'événement, moyenne glissante sur 5 minutes, comparaison avec la même période précédente.
+  concept: ddia-sp-analytics
+- id: fc6
+  front: HyperLogLog sert à quoi ?
+  back: Estimer le nombre d'éléments distincts d'un flux avec quelques kilo-octets et une erreur d'environ un pour cent.
+  concept: ddia-sp-probabilistic
+- id: fc7
+  front: Quelle fenêtre pour maintenir une vue matérialisée ?
+  back: Tout l'historique depuis le début, réduit par la compaction de log (dernière valeur par clé).
+  concept: ddia-sp-maintain-views
+- id: fc8
+  front: Recherche sur flux ?
+  back: On stocke et indexe les requêtes, puis on teste chaque nouveau document contre elles (percolateur d'Elasticsearch).
+  concept: ddia-sp-search-streams
+- id: fc9
+  front: Acteurs ou flux ?
+  back: 'Acteurs : concurrence, messages éphémères un à un, cycles possibles. Flux : données, logs durables multi-abonnés, pipelines acycliques.'
+  concept: ddia-sp-vs-actors

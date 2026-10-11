@@ -1,0 +1,5 @@
+**Chaque niveau a ses angles morts.** Read committed empêche les lectures et écritures sales, rien d'autre. Le repeatable read de PostgreSQL (un snapshot isolation) ajoute l'instantané (plus de read skew) et la détection des mises à jour perdues, mais laisse passer le **write skew**.
+
+Les incidents de la billetterie se rangent alors : la confirmation d'une commande annulée est une lecture sale, le rapport incohérent un read skew, le compteur de places un incrément perdu, la place vendue deux fois et le quota dépassé des write skews. Pour la place, la parade la plus simple est **déclarative** : une contrainte d'unicité sur (concert, place), car `FOR UPDATE` ne verrouille pas une ligne qui n'existe pas encore (fantôme). Pour le quota, la ligne du fan existe : on peut la verrouiller ou faire une mise à jour atomique conditionnelle, sinon passer en sérialisable.
+
+Côté MVCC, la transaction 50 ne voit que ce qui était validé à son démarrage et absent de sa liste des transactions en cours : 46 et 48. Et une transaction ouverte deux heures empêche le ramasse-miettes : **300 × 7 200 × 200 o ≈ 432 Mo** d'anciennes versions gardées pour elle.

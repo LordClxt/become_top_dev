@@ -1,0 +1,3 @@
+**Un index global déplace le coût de la lecture vers l'écriture.** La recherche « rouge » va droit à la partition d'index qui contient `color:rouge`, puis lit les quelques annonces trouvées : pas de diffusion à toutes les partitions, donc pas d'amplification de la latence de queue.
+
+En échange, une annonce peut modifier plusieurs partitions d'index (sa couleur ici, sa marque là). Pour ne pas payer une transaction distribuée à chaque écriture, la propagation est asynchrone : l'index peut avoir un peu de retard, comme un suiveur sur son leader. Et l'index est lui-même partitionné : sur une seule machine, il serait le nouveau point chaud.

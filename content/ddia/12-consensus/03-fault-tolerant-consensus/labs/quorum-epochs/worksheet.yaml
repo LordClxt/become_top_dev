@@ -1,0 +1,96 @@
+intro: |
+  Ton équipe déploie un cluster etcd qui stockera la configuration et les élections de leader de toute la plateforme. Avant de commander des machines, tu vérifies combien de pannes chaque taille supporte, comment se comportent les époques, et quelles propriétés chaque bogue casserait.
+blocks:
+- id: sizes
+  type: table
+  title: Majorités et tolérance
+  prompt: Pour chaque taille de cluster, donne la taille de la majorité et le nombre de nœuds qui peuvent tomber sans arrêter le cluster.
+  columns:
+  - id: maj
+    label: Majorité
+  - id: tol
+    label: Pannes tolérées
+  rows:
+  - id: n3
+    label: 3 nœuds
+  - id: n4
+    label: 4 nœuds
+  - id: n6
+    label: 6 nœuds
+  - id: n7
+    label: 7 nœuds
+- id: zones
+  type: tuner
+  title: Placer le cluster sur trois zones
+  prompt: 'Tu répartis `n` nœuds aussi équitablement que possible sur **3 zones de disponibilité**. Exigences : survivre à **2 pannes de nœuds** quelconques, survivre à la **perte d''une zone entière**, et chaque écriture ne doit attendre qu''une majorité de **3 nœuds au plus** (latence). Trouve la taille.'
+  params:
+  - id: n
+    label: Nœuds
+    unit: nœuds
+    min: 3
+    max: 9
+    step: 1
+    default: 3
+  metrics:
+  - id: maj
+    label: Majorité
+    expr: floor(n / 2) + 1
+    format: number
+  - id: tol
+    label: Pannes tolérées
+    expr: floor((n - 1) / 2)
+    format: number
+  - id: left
+    label: Nœuds restants après la perte de la plus grosse zone
+    expr: n - ceil(n / 3)
+    format: number
+  goals:
+  - id: two
+    label: Survit à 2 pannes de nœuds
+    expr: tol >= 2
+  - id: zone
+    label: Survit à la perte d'une zone
+    expr: left >= maj
+  - id: latency
+    label: Majorité de 3 nœuds au plus
+    expr: maj <= 3
+- id: overlap
+  type: number
+  title: Le chevauchement des quorums
+  prompt: 'Sur un cluster de **7 nœuds**, le leader de l''époque 12 a été élu avec **5 voix**. Il fait ensuite approuver une proposition par **4 nœuds**. Au minimum, combien de nœuds ont participé aux deux votes ?'
+  unit: nœuds
+- id: stale
+  type: choice
+  title: Une proposition d'une vieille époque
+  prompt: 'Le nœud C a voté hier soir pour le leader de l''époque 9. Il reçoit ce matin une proposition du leader de l''époque 8, qui sort d''une longue pause. Que fait C ?'
+  options:
+  - id: refuse
+    label: Il refuse et signale l'époque 9 ; l'ancien leader comprend qu'il a été remplacé
+  - id: accept
+    label: Il accepte, car l'ancien leader avait été élu régulièrement
+  - id: ignore
+    label: Il ignore le message sans répondre, en attendant un timeout
+  - id: elect
+    label: Il lance immédiatement une nouvelle élection à l'époque 10
+- id: props
+  type: match
+  title: Quelle propriété ce bogue casse-t-il ?
+  prompt: Associe chaque bogue observé à la propriété du consensus qu'il viole.
+  items:
+  - id: split
+    label: Deux nœuds décident chacun d'un titulaire différent pour le même siège
+  - id: twice
+    label: Un nœud décide « Alice », puis plus tard change d'avis pour « Bob »
+  - id: invent
+    label: Le système décide « siège libre », valeur que personne n'a proposée
+  - id: stuck
+    label: Trois nœuds sur cinq sont vivants et connectés, mais aucun ne décide jamais
+  categories:
+  - id: agreement
+    label: Accord uniforme
+  - id: integrity
+    label: Intégrité
+  - id: validity
+    label: Validité
+  - id: termination
+    label: Terminaison

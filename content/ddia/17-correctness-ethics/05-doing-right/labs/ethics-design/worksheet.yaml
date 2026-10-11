@@ -1,0 +1,79 @@
+intro: |
+  **RideNow** veut calculer un score de fiabilité pour ses chauffeurs et ses passagers, à partir des courses passées, des annulations, des notes et de la géolocalisation. Les comptes mal notés verront moins de courses proposées. Finalité déclarée des données : **facturer les courses et traiter les litiges pendant 90 jours**.
+blocks:
+- id: risques
+  type: match
+  title: Nommer le risque
+  prompt: Associe chaque observation au risque qu'elle illustre.
+  items:
+  - id: zip
+    label: Le modèle n'utilise pas l'origine, mais pénalise les départs de certains quartiers
+  - id: fewer-rides
+    label: Un chauffeur mal noté reçoit moins de courses, a donc moins de notes récentes, et son score reste bas
+  - id: tos
+    label: Le partage des contacts du téléphone est « accepté » dans des conditions de 40 pages, sans alternative pour utiliser l'application
+  - id: no-appeal
+    label: Un passager suspendu ne peut ni savoir pourquoi ni contester
+  categories:
+  - id: proxy
+    label: Variable de substitution (biais)
+  - id: loop
+    label: Boucle de rétroaction
+  - id: consent
+    label: Consentement illusoire
+  - id: opacity
+    label: Décision opaque et non contestable
+- id: faux-positifs
+  type: number
+  title: L'erreur individuelle
+  prompt: Le modèle signale **1 500** passagers comme « à problème » ; une enquête montre que **600** l'étaient vraiment. Quel pourcentage des passagers signalés l'a été à tort ?
+  unit: '%'
+- id: retention
+  type: match
+  title: Que garder ?
+  prompt: Selon la finalité déclarée, que faire de chaque donnée ?
+  items:
+  - id: fare
+    label: Montant, date et identifiants d'une course d'il y a 20 jours
+  - id: gps-old
+    label: Trace GPS précise d'une course d'il y a 2 ans
+  - id: contacts
+    label: Carnet d'adresses du téléphone du passager
+  - id: heatmap
+    label: Nombre de courses par quartier et par heure, pour planifier la flotte
+  categories:
+  - id: keep
+    label: Garder sous forme identifiante
+  - id: aggregate
+    label: Garder seulement agrégé, sans identifier personne
+  - id: drop
+    label: Ne pas collecter, ou purger
+- id: effacement
+  type: multi
+  title: Effacer dans un système à logs
+  prompt: Les courses sont stockées dans un log d'événements immuable. Quelles mesures permettent d'honorer une demande d'effacement ?
+  options:
+  - id: crypto-shred
+    label: Chiffrer les données de chaque personne avec sa propre clé, et détruire la clé à la demande
+  - id: compaction
+    label: Publier une suppression puis compacter le log pour retirer réellement les anciens événements
+  - id: flag
+    label: Ajouter un drapeau « supprimé » mais garder l'événement en clair
+  - id: derived
+    label: Propager l'effacement aux vues dérivées (index, caches, entrepôt)
+  - id: backup
+    label: Ignorer les sauvegardes, puisqu'elles ne sont pas en production
+- id: posture
+  type: choice
+  title: La posture de l'ingénieur
+  prompt: Un collègue dit « On ne fait que de la technique ; l'usage du score n'est pas notre problème ». Quelle réponse correspond au livre ?
+  options:
+  - id: neutral
+    label: Il a raison, la technologie est neutre
+  - id: legal
+    label: Tant que c'est légal, il n'y a rien à discuter
+  - id: responsible
+    label: Les ingénieurs sont responsables des conséquences des systèmes qu'ils construisent et doivent traiter les personnes avec humanité
+    hint: L'imagination morale
+  - id: users
+    label: C'est aux utilisateurs de lire les conditions

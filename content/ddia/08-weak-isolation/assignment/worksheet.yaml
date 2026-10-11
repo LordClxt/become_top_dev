@@ -1,0 +1,96 @@
+intro: |
+  Une salle de concert vend ses billets en ligne sur PostgreSQL. Tables : `concerts`, `tickets(concert_id, seat, fan_id)`, `fans(id, tickets_bought)` et un compteur `seats_left`. Les ventes s'ouvrent à 10 h et 20 000 fans arrivent en même temps. Le support remonte des incidents ; tu fais l'audit.
+blocks:
+- id: levels
+  type: table
+  title: Qui empêche quoi ?
+  prompt: Pour chaque anomalie, réponds « oui » si le niveau l'empêche, « non » sinon.
+  columns:
+  - id: rc
+    label: Read committed
+  - id: rr
+    label: Repeatable read de PostgreSQL (snapshot isolation)
+  rows:
+  - id: dread
+    label: Lecture sale
+  - id: dwrite
+    label: Écriture sale
+  - id: skew
+    label: Read skew
+  - id: lost
+    label: Mise à jour perdue
+  - id: wskew
+    label: Write skew
+- id: diagnose
+  type: match
+  title: Diagnostiquer les incidents
+  prompt: Quelle anomalie explique chaque incident ?
+  items:
+  - id: ghost
+    label: Un écran affiche « commande confirmée » pour une commande dont la transaction a ensuite été annulée
+  - id: report
+    label: Le rapport de chiffre d'affaires, calculé pendant un remboursement, compte le billet remboursé mais pas le remboursement
+  - id: counter
+    label: Deux ventes simultanées lisent `seats_left = 12` et écrivent toutes deux 11
+  - id: seat
+    label: La place B12 est vendue à deux fans ; chaque transaction a vérifié qu'aucun billet B12 n'existait puis a inséré le sien
+  - id: quota
+    label: Un fan dépasse le quota de 4 billets avec deux achats simultanés de 3, chacun ayant compté ses billets existants
+  categories:
+  - id: dirty-read
+    label: Lecture sale
+  - id: read-skew
+    label: Read skew
+  - id: lost-update
+    label: Mise à jour perdue
+  - id: write-skew
+    label: Write skew (avec ou sans fantôme)
+- id: seatfix
+  type: choice
+  title: La place vendue deux fois
+  prompt: Quelle parade est la plus simple et la plus sûre pour B12 ?
+  options:
+  - id: unique
+    label: Une contrainte d'unicité sur (concert_id, seat) dans tickets
+    hint: La seconde insertion échoue, on réessaie avec une autre place
+  - id: forupdate
+    label: Ajouter FOR UPDATE au SELECT qui vérifie qu'aucun billet B12 n'existe
+  - id: cache
+    label: Vérifier la place dans un cache Redis avant l'achat
+  - id: rr
+    label: Passer en repeatable read
+- id: quotafix
+  type: multi
+  title: Le quota de 4 billets
+  prompt: Coche les parades qui empêchent vraiment le dépassement du quota.
+  options:
+  - id: serial
+    label: Passer ces transactions en niveau sérialisable
+  - id: lockfan
+    label: Verrouiller la ligne du fan (`SELECT … FROM fans WHERE id = … FOR UPDATE`), compter ses billets, puis mettre à jour `tickets_bought` sur cette même ligne
+  - id: cond
+    label: '`UPDATE fans SET tickets_bought = tickets_bought + 3 WHERE id = … AND tickets_bought + 3 <= 4`, et annuler si aucune ligne n''est modifiée'
+  - id: rr
+    label: Passer en repeatable read de PostgreSQL
+  - id: front
+    label: Désactiver le bouton d'achat dans le navigateur pendant un achat
+- id: visible
+  type: multi
+  title: Ce que voit la transaction 50
+  prompt: 'La transaction 50 démarre. À cet instant, 47 et 49 sont en cours ; 46 et 48 ont déjà validé. Ensuite : 47 valide, 49 abandonne, 51 démarre et valide. Quelles écritures la transaction 50 voit-elle ?'
+  options:
+  - id: t46
+    label: Celles de 46
+  - id: t47
+    label: Celles de 47
+  - id: t48
+    label: Celles de 48
+  - id: t49
+    label: Celles de 49
+  - id: t51
+    label: Celles de 51
+- id: bloat
+  type: number
+  title: Le rapport qui reste ouvert
+  prompt: Un rapport tourne dans une transaction ouverte **2 heures**. Pendant ce temps, la billetterie fait **300** mises à jour par seconde, chacune laissant une ancienne version de **200 octets** que le ramasse-miettes ne peut pas supprimer tant que le rapport pourrait la voir. Combien de Mo d'anciennes versions sont retenus ? (1 Mo = 10⁶ octets)
+  unit: Mo

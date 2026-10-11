@@ -1,0 +1,1 @@
+Un job de flux calcule le montant dû à chaque marchand. Il vient de planter au mauvais moment. Rejoue la reprise à la main, avec et sans déduplication par offset, règle l'intervalle de checkpoint, et choisis la bonne protection pour chaque effet de bord.

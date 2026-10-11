@@ -1,0 +1,76 @@
+intro: |
+  Le workflow « tendances » enchaîne **4 jobs MapReduce**. Chaque job écrit une sortie de **2 To** dans HDFS, répliquée **3 fois** ; seule la sortie du dernier job est lue par d'autres équipes. Tu prépares sa migration vers Spark.
+blocks:
+- id: written
+  type: number
+  title: Le coût de la matérialisation
+  prompt: Combien de **To** sont écrits dans HDFS (réplication comprise) pour les seules sorties **intermédiaires**, celles que personne d'autre ne lit ?
+  unit: To
+- id: connect
+  type: match
+  title: Relier les opérateurs
+  prompt: Pour chaque étape du nouveau graphe Spark, comment l'opérateur reçoit-il ses données ?
+  items:
+  - id: sum
+    label: Somme des vues par URL (agrégation par hachage)
+  - id: smj
+    label: Jointure sort-merge de deux grosses entrées sur user_id
+  - id: dim
+    label: Jointure avec une table de 300 catégories
+  categories:
+  - id: sorted
+    label: Repartitionner et trier
+  - id: hash
+    label: Repartitionner sans trier
+  - id: bcast
+    label: Diffuser (broadcast)
+- id: nondet
+  type: multi
+  title: Le recalcul est-il sûr ?
+  prompt: Spark recalcule une partition perdue à partir de sa lignée. Quels éléments d'un opérateur rendent ce recalcul dangereux ?
+  options:
+  - id: maporder
+    label: Il construit sa sortie en itérant sur une map Go
+  - id: clock
+    label: Il marque chaque ligne avec time.Now()
+  - id: seeded
+    label: Il échantillonne avec un générateur aléatoire dont la graine est un paramètre du job
+  - id: api
+    label: Il appelle un service externe de géolocalisation pour chaque ligne
+  - id: sortslice
+    label: Il trie ses résultats avec un tri stable avant de les émettre
+- id: checkpoint
+  type: choice
+  title: Recalculer ou matérialiser ?
+  prompt: L'étape « score » lit **20 To**, tourne **3 heures** sur 500 cœurs et produit **50 Mo**. Les étapes suivantes sont rapides. Que fais-tu de sa sortie ?
+  options:
+  - id: recompute
+    label: Rien de spécial, la lignée permettra de la recalculer en cas de panne
+  - id: materialize
+    label: La matérialiser (point de contrôle durable), car elle est minuscule et coûteuse à recalculer
+  - id: hdfs-all
+    label: Matérialiser aussi toutes les autres étapes, comme en MapReduce
+- id: pregel
+  type: order
+  title: Une itération Pregel
+  prompt: Remets dans l'ordre ce qui arrive à un sommet pendant une itération.
+  items:
+  - id: receive
+    label: Recevoir les messages envoyés à l'itération précédente
+  - id: update
+    label: Mettre à jour son état en mémoire
+  - id: send
+    label: Envoyer des messages aux sommets voisins
+  - id: barrier
+    label: Attendre que tous les sommets aient fini l'itération
+- id: graphsize
+  type: choice
+  title: Un cluster pour un graphe ?
+  prompt: Ton graphe de relations fait **6 Go** et ta plus grosse machine a **128 Go** de RAM. Pour calculer un PageRank, que choisis-tu ?
+  options:
+  - id: cluster
+    label: Giraph sur 50 machines, pour paralléliser au maximum
+  - id: single
+    label: Un algorithme sur une seule machine, sans messages réseau entre partitions
+  - id: mapreduce
+    label: Une chaîne de jobs MapReduce, un par itération

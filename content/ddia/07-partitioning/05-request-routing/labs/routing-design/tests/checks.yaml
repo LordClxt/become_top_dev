@@ -1,0 +1,53 @@
+checks:
+- id: entry
+  label: Le client envoie ses requêtes à la couche de routage
+  rule: edge_kind
+  source: client
+  target: router
+  kind: sync
+- id: no-direct
+  label: Le client ne connaît pas les nœuds et ne les appelle pas directement
+  rule: no_edge
+  source: client
+  target: node
+- id: forward
+  label: La couche de routage transmet au nœud propriétaire
+  rule: edge_kind
+  source: router
+  target: node
+  kind: sync
+- id: only-router
+  label: Les requêtes n'arrivent aux nœuds que par la couche de routage
+  rule: inbound_via
+  target: node
+  via: router
+- id: register
+  label: Chaque nœud s'enregistre dans ZooKeeper
+  rule: edge_kind
+  source: node
+  target: zk
+  kind: write
+- id: subscribe
+  label: La couche de routage s'abonne à l'affectation dans ZooKeeper
+  rule: edge_kind
+  source: router
+  target: zk
+  kind: read
+- id: nodes
+  label: Au moins trois nœuds
+  rule: count
+  source: node
+  min: 3
+- id: one-zk
+  label: Un registre de coordination
+  rule: count
+  source: zk
+  min: 1
+- id: no-static
+  label: Pas de liste d'adresses figée
+  rule: count
+  source: static
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

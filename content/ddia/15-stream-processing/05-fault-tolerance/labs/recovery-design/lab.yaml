@@ -1,0 +1,18 @@
+id: ddia-ch15-l05-lab-recovery-design
+title: 'Survivre à une panne sans payer deux fois'
+difficulty: 4
+xp: 90
+concepts:
+- ddia-sp-exactly-once
+- ddia-sp-checkpointing
+- ddia-sp-atomic-commit
+- ddia-sp-idempotent-writes
+- ddia-sp-state-recovery
+source:
+  chapter: 11
+  pages: 476-488
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

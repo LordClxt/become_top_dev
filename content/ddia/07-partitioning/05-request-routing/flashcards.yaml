@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: 3 approches de routage ?
+  back: N'importe quel nœud qui transmet ; couche de routage consciente des partitions ; client conscient des partitions.
+  concept: ddia-request-routing-approaches
+- id: fc2
+  front: Le problème de fond du routage ?
+  back: Que tous les participants apprennent les changements d'affectation et soient d'accord (consensus).
+  concept: ddia-request-routing-approaches
+- id: fc3
+  front: Rôle de ZooKeeper ?
+  back: Garder l'affectation partition → nœud faisant autorité ; les nœuds s'enregistrent, les routeurs s'abonnent et sont notifiés.
+  concept: ddia-zookeeper-partition-metadata
+- id: fc4
+  front: Qui utilise ZooKeeper pour le routage ?
+  back: HBase, SolrCloud, Kafka ; Espresso via Helix. MongoDB a ses serveurs de config et mongos.
+  concept: ddia-zookeeper-partition-metadata
+- id: fc5
+  front: Gossip (Cassandra, Riak) ?
+  back: Les nœuds propagent entre eux l'état du cluster ; requêtes reçues par n'importe quel nœud ; pas de service externe.
+  concept: ddia-gossip-routing
+- id: fc6
+  front: Comment trouver l'IP de la couche de routage ?
+  back: Le DNS suffit généralement, ces adresses changent peu.
+  concept: ddia-request-routing-approaches
+- id: fc7
+  front: MPP ?
+  back: Base analytique qui découpe une requête complexe en étapes et morceaux exécutés en parallèle sur les partitions.
+  concept: ddia-mpp-parallel-query
+- id: fc8
+  front: Plage ou hachage, en une ligne ?
+  back: 'Plage : scans faciles, points chauds possibles. Hachage : répartition uniforme, pas de scans sur la clé.'
+  concept: ddia-partitioning-summary

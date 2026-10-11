@@ -1,0 +1,77 @@
+intro: |
+  Sur le forum, dans cet ordre d'horloge murale :
+
+  1. **Q** — Ana pose une question.
+  2. **R1** — Ben lit Q et répond.
+  3. **R2** — Céa lit Q (mais n'a pas vu R1) et répond.
+  4. **L** — Ana lit R1 (mais pas R2) et met un « j'aime » sur R1.
+blocks:
+- id: paires
+  type: match
+  title: Liées ou concurrentes ?
+  prompt: Pour chaque paire d'événements, dis si l'un précède causalement l'autre.
+  items:
+  - id: q-l
+    label: Q et L
+  - id: r1-r2
+    label: R1 et R2
+  - id: r2-l
+    label: R2 et L
+  - id: r1-l
+    label: R1 et L
+  categories:
+  - id: causal
+    label: Causalement liés
+  - id: conc
+    label: Concurrents
+- id: forme
+  type: choice
+  title: La forme de l'historique
+  prompt: Quelle structure décrit fidèlement les dépendances de ce forum ?
+  options:
+  - id: dag
+    label: Un graphe qui se sépare après Q en deux branches (R1 puis L, et R2), comme un historique Git
+  - id: line
+    label: Une seule ligne Q, R1, R2, L, dans l'ordre des horloges murales
+  - id: none
+    label: Aucune structure, chaque message est indépendant
+- id: appliquer
+  type: match
+  title: Appliquer ou attendre ?
+  prompt: 'La réplique de Tokyo a appliqué les écritures jusqu''à `{Paris: 3, Montréal: 4}`. Chaque écriture ci-dessous arrive **seule**, avec le vecteur de versions que son auteur avait lu.'
+  items:
+  - id: w1
+    label: 'Dépendances {Paris: 3, Montréal: 4}'
+  - id: w2
+    label: 'Dépendances {Paris: 3, Montréal: 5}'
+  - id: w3
+    label: 'Dépendances {Paris: 2, Montréal: 4}'
+  - id: w4
+    label: 'Dépendances {Paris: 4, Montréal: 1}'
+  categories:
+  - id: apply
+    label: Peut être appliquée tout de suite
+  - id: wait
+    label: Doit attendre des écritures antérieures
+- id: modele
+  type: choice
+  title: Le modèle suffisant
+  prompt: 'L''exigence produit : « on ne doit jamais voir une réponse sans sa question, ni un j''aime sans le message aimé », et le forum doit rester utilisable dans chaque région pendant une coupure. Quel modèle choisis-tu ?'
+  options:
+  - id: causal
+    label: La cohérence causale
+  - id: lin
+    label: La linéarisabilité
+  - id: eventual
+    label: La cohérence à terme seule
+- id: force
+  type: order
+  title: Du plus faible au plus fort
+  prompt: Range ces modèles du plus faible au plus fort.
+  items:
+  - id: lin
+    label: Linéarisabilité
+  - id: eventual
+    label: Cohérence à terme
+  - id: causal
+    label: Cohérence causale

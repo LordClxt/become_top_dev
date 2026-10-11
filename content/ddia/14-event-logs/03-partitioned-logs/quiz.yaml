@@ -1,0 +1,98 @@
+id: ddia-ch14-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle différence fondamentale sépare un broker à base de log d'un broker AMQP classique ?
+  choices:
+  - Le log garde les messages après leur lecture ; le broker classique les efface une fois acquittés
+  - Le log n'écrit jamais sur disque
+  - Le broker classique est forcément plus lent
+  - Le log impose JSON
+  answer: 0
+  explanation: Lire un log ne modifie rien ; c'est ce qui rend le fan-out gratuit et le rejeu possible.
+  concept: ddia-log-based-broker
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: 'Un sujet a 4 partitions. Les événements « panier créé » puis « article ajouté » d''un même utilisateur doivent être lus dans l''ordre. Que fais-tu ?'
+  choices:
+  - Rien, Kafka garantit un ordre global sur le sujet
+  - Je passe à une seule partition pour tout le système
+  - Je choisis la partition à partir de l'identifiant de l'utilisateur
+  - Je choisis la partition au hasard pour équilibrer
+  answer: 2
+  explanation: L'ordre n'est garanti que dans une partition ; une clé de partition met tous les événements d'un utilisateur dans la même.
+  concept: ddia-log-partition-order
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Un sujet a 8 partitions et un groupe compte 11 consommateurs. Combien de consommateurs du groupe restent sans travail ?
+  choices:
+  - '0'
+  - '3'
+  - '8'
+  - '11'
+  answer: 1
+  explanation: La répartition se fait par partition entière ; 8 partitions occupent au plus 8 consommateurs.
+  concept: ddia-partition-assignment
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Chaque message demande 30 s de traitement (appel à un modèle lent) et leur ordre n'a aucune importance. Que recommandes-tu ?
+  choices:
+  - Un log partitionné, pour l'ordre
+  - Un broker classique JMS/AMQP, qui répartit message par message
+  - Un seul consommateur sur une seule partition
+  - Des webhooks
+  answer: 1
+  explanation: Dans un log, un message de 30 s bloque toute sa partition ; une file classique parallélise chaque message entre les workers disponibles.
+  concept: ddia-partition-assignment
+  difficulty: 3
+- id: q5
+  type: single
+  prompt: 'Un consommateur valide son offset tous les 500 messages. Dernière validation : 12 000. Il traite jusqu''à 12 349 puis plante. Combien de messages son remplaçant retraite-t-il ?'
+  choices:
+  - '0'
+  - '151'
+  - '349'
+  - '350'
+  answer: 3
+  explanation: Le remplaçant repart à l'offset 12 000 ; les messages 12 000 à 12 349, soit 350, sont traités une seconde fois.
+  concept: ddia-consumer-offset-commit
+  difficulty: 3
+- id: q6
+  type: single
+  prompt: Pourquoi un broker à base de log n'a-t-il pas besoin de suivre un accusé par message ?
+  choices:
+  - Parce que les consommateurs ne plantent jamais
+  - Parce qu'il efface tout après une heure
+  - Parce que la lecture est séquentielle, une seule position par groupe et par partition suffit
+  - Parce que les messages n'ont pas d'identifiant
+  answer: 2
+  explanation: Tout ce qui précède l'offset est traité, tout ce qui suit ne l'est pas ; c'est l'équivalent de la position d'un suiveur dans un log de réplication.
+  concept: ddia-consumer-offset-commit
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Un consommateur a 4 jours de retard sur un sujet dont la rétention est de 3 jours. Que se passe-t-il ?
+  choices:
+  - Il a perdu les messages des segments déjà supprimés
+  - Le broker suspend les producteurs
+  - Les autres consommateurs ralentissent
+  - Le broker allonge la rétention automatiquement
+  answer: 0
+  explanation: Le log est un tampon circulaire ; d'où la surveillance du retard, qui doit alerter bien avant.
+  concept: ddia-log-retention-ring-buffer
+  difficulty: 2
+- id: q8
+  type: multiple
+  prompt: Un bug a écrit de mauvais totaux dans une vue pendant 3 heures. Le sujet source a 7 jours de rétention. Quelles actions sont possibles ?
+  choices:
+  - Corriger le code, repartir d'un offset antérieur au bug et reconstruire la sortie
+  - Lancer la version corrigée à côté, sur une sortie séparée, puis comparer
+  - Rien, les messages lus ont été effacés
+  - Brancher ce consommateur de test sur la production sans risque pour les autres consommateurs
+  answer: [0, 1, 3]
+  explanation: Consommer un log est une lecture seule ; l'offset appartient au consommateur, et un consommateur de plus ne gêne pas les autres.
+  concept: ddia-log-replay
+  difficulty: 2

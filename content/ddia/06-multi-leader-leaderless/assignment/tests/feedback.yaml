@@ -1,0 +1,44 @@
+blocks:
+  famille:
+    options:
+      single: 'Pendant le basculement, ou si l''Asie perd le lien vers l''Europe, plus aucun ajout n''est accepté.'
+      sync: 'La réplication synchrone entre sites bloque les écritures dès que le lien flanche.'
+  reglage:
+    goals:
+      valid: On ne peut pas attendre plus de réponses qu'il n'y a de réplicas.
+      quorum: 'w + r doit dépasser n, sinon une lecture peut manquer la dernière écriture.'
+      writes: 'Il faut n − w ≥ 2 : les ajouts doivent passer avec deux nœuds en panne.'
+      reads: 'Il faut n − r ≥ 1.'
+      cost: 5 copies au plus.
+  limites:
+    options:
+      calm: 'C''est le cas nominal : les ensembles écrits et lus se chevauchent.'
+      sloppy: 'Les nœuds voisins ne sont pas parmi ceux que la lecture interroge : plus de chevauchement garanti.'
+      partial: 'Une écriture en échec n''est pas annulée là où elle a réussi : on peut la lire.'
+      restore: 'Le nombre de copies de la nouvelle valeur peut passer sous w.'
+      inflight: 'La lecture peut voir l''ancienne valeur ou la nouvelle : c''est indéterminé.'
+  hints:
+    tolerance:
+      rel: 0.01
+    wrong: 400 écritures/s × 15 × 60 s.
+  handoff:
+    tolerance:
+      rel: 0.01
+    wrong: 'Nombre d''écritures accumulées ÷ 2 000 par seconde.'
+  contexte:
+    options:
+      a.n: 'Le maximum entrée par entrée : max(3, 2).'
+      b.n: max(1, 2).
+      c.n: Une entrée absente vaut 0 ; max(0, 1).
+  protocole:
+    options:
+      read: Il faut lire avant d'écrire pour obtenir le contexte.
+      merge: 'Le client fusionne ce qu''il a lu avant d''ajouter son article.'
+      server: 'C''est le serveur qui, à la réception, écrase ce que le contexte couvre.'
+  choix:
+    options:
+      union: 'L''union garde tous les ajouts ; les pierres tombales empêchent les retraits de ressusciter.'
+      lww: 'LWW jette des ajouts acquittés : exactement ce que le métier interdit.'
+      sloppy: 'Le quorum lâche maximise la disponibilité en écriture ; les lectures peuvent être un peu périmées, ce qui est acceptable pour un panier.'
+      local: 'Le quorum local rend l''écriture insensible aux lenteurs du lien entre sites.'
+      nocontext: 'Sans contexte, le serveur n''écrase rien : les siblings s''accumulent sans fin.'

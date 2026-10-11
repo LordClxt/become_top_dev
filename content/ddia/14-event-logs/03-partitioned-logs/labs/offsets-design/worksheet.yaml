@@ -1,0 +1,76 @@
+intro: |
+  Tu es d'astreinte sur le sujet `clicks`, un log partitionné qui reçoit les clics d'un site. Chaque broker a **4 To** de disque pour ce sujet, et le sujet y écrit en moyenne **25 Mo/s**. Le groupe de consommateurs `sessions` reconstitue les sessions des visiteurs. Tu dimensionnes, tu lis le tableau de bord, puis tu prépares une reprise après un bug.
+blocks:
+- id: retention
+  type: number
+  title: Combien d'heures dans le tampon ?
+  prompt: Au rythme moyen de 25 Mo/s, au bout de combien d'**heures** les 4 To sont-ils pleins (1 To = 10¹² octets, 1 Mo = 10⁶ octets) ? C'est la rétention maximale que tu peux promettre.
+  unit: h
+- id: lag
+  type: table
+  title: Le tableau de bord du groupe `sessions`
+  prompt: Complète le retard (en messages) de chaque partition.
+  columns:
+  - id: end
+    label: Fin du log
+  - id: committed
+    label: Offset validé
+  - id: lag
+    label: Retard
+  rows:
+  - id: p0
+    label: Partition 0
+    cells:
+      end: '48 200'
+      committed: '48 150'
+  - id: p1
+    label: Partition 1
+    cells:
+      end: '51 000'
+      committed: '51 000'
+  - id: p2
+    label: Partition 2
+    cells:
+      end: '63 500'
+      committed: '45 500'
+- id: catchup
+  type: number
+  title: Rattraper la partition 2
+  prompt: Sur la partition 2, le consommateur traite **900 messages/s** et le producteur en écrit **600/s**. En combien de **secondes** le retard est-il résorbé ?
+  unit: s
+- id: throughput
+  type: number
+  title: Ajouter des consommateurs
+  prompt: Le sujet a **6 partitions**. Chaque consommateur traite au plus **5 000 messages/s**. Tu passes le groupe de 6 à **9 consommateurs**. Quel est le débit maximal du groupe, en messages par seconde ?
+  unit: messages/s
+- id: redo
+  type: number
+  title: Le crash d'un consommateur
+  prompt: "Un consommateur valide son offset tous les **2 000** messages. Dernière validation dans la partition 1 : **86 000**. Il a traité jusqu'à l'offset **87 499** inclus, puis il plante. Combien de messages son remplaçant traite-t-il une seconde fois ?"
+  unit: messages
+- id: replay
+  type: order
+  title: Réparer trois heures de mauvaises sessions
+  prompt: Un bug a produit de fausses sessions entre 14 h et 17 h. Remets la reprise dans l'ordre.
+  items:
+  - id: fix
+    label: Corriger le code du consommateur
+  - id: offsets
+    label: Retrouver, pour chaque partition, l'offset du premier message de 14 h
+  - id: rerun
+    label: Lancer la version corrigée depuis ces offsets, vers une table de sortie neuve
+  - id: compare
+    label: Comparer l'ancienne et la nouvelle sortie
+  - id: switch
+    label: Basculer les lectures vers la nouvelle table
+- id: alert
+  type: choice
+  title: Quelle alerte poser ?
+  prompt: Quelle alerte protège le mieux le groupe `sessions` contre la perte de messages ?
+  options:
+  - id: lag
+    label: Alerter quand le retard en temps d'une partition dépasse une fraction de la rétention, par exemple 25 %
+  - id: cpu
+    label: Alerter quand le CPU du broker dépasse 80 %
+  - id: disk
+    label: Alerter quand le disque du broker est plein à 100 %

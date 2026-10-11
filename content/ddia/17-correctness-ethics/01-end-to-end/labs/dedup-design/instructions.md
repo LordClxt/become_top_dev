@@ -1,0 +1,1 @@
+Une banque en ligne reçoit des virements depuis une application mobile au réseau capricieux. Chiffre le coût des doublons, trouve la couche qui peut vraiment les supprimer, et remets dans l'ordre le traitement d'une requête identifiée.

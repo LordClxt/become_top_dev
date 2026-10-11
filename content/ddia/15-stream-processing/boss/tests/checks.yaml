@@ -1,0 +1,90 @@
+checks:
+- id: entry
+  label: Le client paie via l'API gateway
+  rule: edge_kind
+  source: app
+  target: gw
+  kind: sync
+- id: ledger
+  label: Le service paiements enregistre chaque paiement dans le grand livre
+  rule: edge_kind
+  source: pay
+  target: ledger
+  kind: write
+- id: publish
+  label: '…et le publie sur le flux des transactions, de façon asynchrone'
+  rule: edge_kind
+  source: pay
+  target: tx
+  kind: async
+- id: decoupled
+  label: Le service paiements n'appelle pas l'opérateur de fraude directement
+  rule: no_edge
+  source: pay
+  target: fraud
+- id: fraud-in
+  label: L'opérateur de fraude consomme le flux des transactions
+  rule: edge_kind
+  source: tx
+  target: fraud
+  kind: async
+- id: via-cdc
+  label: Le profil client arrive à l'opérateur par le changelog (jointure flux-table)
+  rule: path
+  source: custdb
+  target: fraud
+  via: cdc
+- id: no-query
+  label: 'L''opérateur n''interroge jamais la base des clients : 20 000 lectures/s'
+  rule: no_edge
+  source: fraud
+  target: custdb
+- id: local
+  label: L'opérateur tient une copie locale des clients
+  rule: path
+  source: fraud
+  target: local
+- id: ckpt-fraud
+  label: L'état de l'opérateur de fraude est sauvé par checkpoints sur un stockage durable
+  rule: edge_kind
+  source: fraud
+  target: ckpt
+  kind: write
+- id: alerts
+  label: Les alertes sont publiées sur un sujet
+  rule: edge_kind
+  source: fraud
+  target: alerts
+  kind: async
+- id: notify-via
+  label: La notification ne reçoit que le sujet des alertes (un e-mail parti ne se reprend pas)
+  rule: inbound_via
+  target: notify
+  via: alerts
+- id: agg-in
+  label: L'opérateur d'agrégats consomme aussi le flux des transactions
+  rule: edge_kind
+  source: tx
+  target: agg
+  kind: async
+- id: dash
+  label: Il écrit le tableau de bord (valeur et offset dans la même écriture)
+  rule: edge_kind
+  source: agg
+  target: dash
+  kind: write
+- id: no-lookup
+  label: Pas de requête SQL par transaction
+  rule: count
+  source: lookup
+  max: 0
+- id: no-timer
+  label: Pas de fenêtre fermée sur l'horloge du job (temps de traitement)
+  rule: count
+  source: timer
+  max: 0
+- id: no-snapshot
+  label: 'Pas d''export nocturne : les profils doivent suivre les changements'
+  rule: count
+  source: snapshot
+  max: 0

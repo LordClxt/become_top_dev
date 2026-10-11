@@ -1,0 +1,77 @@
+intro: |
+  **Vélivre** reçoit les événements « colis remis » de ses livreurs. Chaque événement porte trois horodatages : (1) l'heure de l'événement et (2) l'heure d'envoi, toutes deux selon l'**horloge du téléphone**, puis (3) l'heure de réception selon l'**horloge du serveur** (synchronisée). On néglige la durée du trajet réseau.
+
+  | Livreur | (1) événement | (2) envoi | (3) réception |
+  |---|---|---|---|
+  | A | 09:50 | 10:20 | 10:32 |
+  | B | 13:05 | 18:00 | 17:57 |
+  | C | 10:58 | 10:58 | 11:00 |
+blocks:
+- id: offsets
+  type: table
+  title: Le décalage de chaque téléphone
+  prompt: Calcule, en **minutes**, le décalage à ajouter à l'horloge de chaque téléphone pour retrouver l'heure du serveur (négatif si le téléphone avance).
+  columns:
+  - id: min
+    label: Décalage (min)
+  rows:
+  - id: a
+    label: Livreur A
+  - id: b
+    label: Livreur B
+  - id: c
+    label: Livreur C
+- id: windows
+  type: match
+  title: La bonne fenêtre horaire
+  prompt: Dans quelle fenêtre horaire (en temps de l'événement corrigé) range-t-on chaque remise de colis ?
+  items:
+  - id: a
+    label: Remise du livreur A
+  - id: b
+    label: Remise du livreur B
+  - id: c
+    label: Remise du livreur C
+  categories:
+  - id: h09
+    label: 9 h – 10 h
+  - id: h10
+    label: 10 h – 11 h
+  - id: h11
+    label: 11 h – 12 h
+  - id: h13
+    label: 13 h – 14 h
+  - id: h17
+    label: 17 h – 18 h
+- id: spike
+  type: number
+  title: Le faux pic
+  prompt: Le flux est parfaitement stable à **2 400 événements par minute**. Le job, qui compte **en temps de traitement**, ne traite rien de 10 h 00 à 10 h 06 (six minutes), puis dépile tout son arriéré et la minute courante pendant la minute 10 h 06. Quel nombre le tableau affiche-t-il pour 10 h 06 ?
+  unit: événements
+- id: close
+  type: multi
+  title: Quelles fenêtres fermer ?
+  prompt: 'Trois serveurs d''ingestion annoncent « plus aucun événement avant t » : 10:42:10, 10:42:45 et 10:41:55. Quelles fenêtres d''une minute le consommateur peut-il émettre ?'
+  options:
+  - id: w40
+    label: '[10:40, 10:41)'
+  - id: w41
+    label: '[10:41, 10:42)'
+  - id: w42
+    label: '[10:42, 10:43)'
+- id: stragglers
+  type: match
+  title: Que faire des retardataires ?
+  prompt: Pour chaque usage, quelle politique de retardataires choisis-tu ?
+  items:
+  - id: billing
+    label: Facturer chaque restaurant au nombre de livraisons du mois
+  - id: ops
+    label: Afficher en salle de contrôle le nombre de livraisons de la dernière minute
+  - id: payroll
+    label: Calculer la prime de chaque livreur à la semaine
+  categories:
+  - id: correct
+    label: Publier une correction de la fenêtre
+  - id: ignore
+    label: Ignorer, mais compter les retardataires et alerter s'ils augmentent

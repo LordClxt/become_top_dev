@@ -1,0 +1,19 @@
+id: ddia-ch10-assignment
+title: 'Post-mortem : le paiement débité deux fois'
+difficulty: 3
+xp: 130
+concepts:
+- ddia-lease-check-race
+- ddia-fencing-token
+- ddia-truth-by-majority
+- ddia-safety-liveness
+- ddia-system-model
+- ddia-byzantine-fault
+source:
+  chapter: 8
+  pages: 273-311
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

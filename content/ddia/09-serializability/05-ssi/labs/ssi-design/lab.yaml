@@ -1,0 +1,18 @@
+id: ddia-ch09-l05-lab-ssi-design
+title: Qui valide, qui abandonne ?
+difficulty: 3
+xp: 70
+concepts:
+- ddia-ssi-stale-mvcc-read
+- ddia-ssi-write-after-read
+- ddia-ssi-abort-at-commit
+- ddia-ssi-performance
+- ddia-optimistic-vs-pessimistic
+source:
+  chapter: 7
+  pages: 261-266
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,8 @@
+{
+  "tranche": 3,
+  "requetes": {"one": "single", "range": "all", "count": "all", "update": "single"},
+  "modele": "compound",
+  "fonction": "fnv",
+  "sel": 6,
+  "prix": ["reads", "track"]
+}

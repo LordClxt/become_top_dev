@@ -1,0 +1,14 @@
+{
+  "timeline": ["grant", "check", "pause", "expire", "b-debit", "a-debit"],
+  "root": "race",
+  "tokens": { "w1.ok": 1, "w2.ok": 1, "w3.ok": 1, "w4.ok": 0, "w5.ok": 1 },
+  "quorum": {
+    "n3.maj": 2, "n3.tol": 1,
+    "n5.maj": 3, "n5.tol": 2,
+    "n6.maj": 4, "n6.tol": 2,
+    "n7.maj": 4, "n7.tol": 3
+  },
+  "props": { "once": "safety", "one-leader": "safety", "answer": "liveness", "elect": "liveness" },
+  "model": "partial",
+  "fixes": ["fencing", "idem"]
+}

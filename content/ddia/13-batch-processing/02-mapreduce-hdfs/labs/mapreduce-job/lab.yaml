@@ -1,0 +1,54 @@
+id: ddia-ch13-l02-lab-mapreduce-job
+title: Dessine un job MapReduce de bout en bout
+difficulty: 3
+xp: 70
+concepts:
+- ddia-batch-mr-job-execution
+- ddia-batch-mr-shuffle
+- ddia-batch-data-locality
+- ddia-batch-hdfs
+source:
+  chapter: 10
+  pages: 397-403
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: input
+  component: object-store
+  label: Répertoire d'entrée HDFS
+  hint: Les logs du jour, découpés en blocs répliqués.
+- type: namenode
+  component: index
+  label: NameNode
+  hint: Sait sur quelles machines se trouve chaque bloc.
+- type: sched
+  component: service
+  label: Ordonnanceur du job
+  hint: Lance les tâches et choisit où elles tournent.
+- type: mapper
+  component: worker
+  label: Tâche map
+  hint: Une par bloc d'entrée ; émet des paires clé-valeur.
+- type: sorted
+  component: sstable
+  label: Sortie map triée (disque local)
+  hint: Les paires du mapper, partitionnées par reducer et triées par clé.
+- type: reducer
+  component: worker
+  label: Tâche reduce
+  hint: Une par partition ; reçoit toutes les valeurs d'une clé.
+- type: output
+  component: object-store
+  label: Répertoire de sortie HDFS
+  hint: Une partie de fichier par reducer, répliquée.
+- type: db
+  component: postgres
+  label: Base de production
+  hint: La base qui sert les utilisateurs.
+- type: san
+  component: disk
+  label: Baie de disques partagée
+  hint: Un stockage central commun à toutes les machines.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

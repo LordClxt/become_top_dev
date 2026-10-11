@@ -1,0 +1,139 @@
+intro: |
+  Tu conçois le stockage des paniers d'un site de commerce présent en Europe et en Asie. Exigence du métier, héritée de Dynamo : **un client doit toujours pouvoir ajouter un article**, même pendant une panne de nœud ou une coupure réseau. Perdre un ajout coûte une vente ; voir réapparaître un article retiré coûte un retour client.
+blocks:
+- id: famille
+  type: choice
+  title: Quelle réplication ?
+  prompt: Quelle famille de réplication colle le mieux à l'exigence « toujours accepter un ajout » ?
+  options:
+  - id: single
+    label: Un leader unique en Europe, avec basculement
+  - id: leaderless
+    label: Sans leader, façon Dynamo, avec détection des écritures concurrentes et fusion des siblings
+  - id: sync
+    label: Un leader par site, avec réplication synchrone entre sites
+- id: reglage
+  type: tuner
+  title: Régler le quorum d'un site
+  prompt: 'Dans chaque site : lectures **garanties à jour** hors cas limites, écritures qui survivent à **2** nœuds indisponibles (les ajouts passent avant tout), lectures qui survivent à **1** nœud indisponible, et **5** copies au plus.'
+  params:
+  - id: n
+    label: Réplicas par valeur
+    unit: copies
+    min: 1
+    max: 7
+    step: 1
+    default: 3
+  - id: w
+    label: Accusés d'écriture
+    unit: ''
+    min: 1
+    max: 7
+    step: 1
+    default: 3
+  - id: r
+    label: Réponses de lecture
+    unit: ''
+    min: 1
+    max: 7
+    step: 1
+    default: 1
+  metrics:
+  - id: fw
+    label: Pannes tolérées en écriture
+    expr: max(0, n - w)
+    format: number
+  - id: fr
+    label: Pannes tolérées en lecture
+    expr: max(0, n - r)
+    format: number
+  goals:
+  - id: valid
+    label: w et r ne dépassent pas n
+    expr: w <= n && r <= n
+  - id: quorum
+    label: Quorum garanti
+    expr: w + r > n
+  - id: writes
+    label: Écritures sûres avec 2 pannes
+    expr: n - w >= 2
+  - id: reads
+    label: Lectures sûres avec 1 panne
+    expr: n - r >= 1
+  - id: cost
+    label: 5 copies au plus
+    expr: n <= 5
+- id: limites
+  type: match
+  title: Le quorum tient-il ?
+  prompt: Avec w + r > n dans un site, la lecture suivante est-elle garantie de voir l'écriture ?
+  items:
+  - id: calm
+    label: Écriture terminée, aucun nœud en panne, aucune autre écriture en cours
+  - id: sloppy
+    label: L'écriture a été acceptée par quorum lâche sur des nœuds voisins
+  - id: partial
+    label: L'écriture a échoué (moins de w accusés), et l'on veut être sûr de ne PAS la lire
+  - id: restore
+    label: Un nœud qui portait la nouvelle valeur a été restauré depuis un nœud qui portait l'ancienne
+  - id: inflight
+    label: La lecture a lieu pendant que l'écriture se propage encore
+  categories:
+  - id: yes
+    label: Garanti
+  - id: no
+    label: Pas garanti
+- id: hints
+  type: number
+  title: Le canapé du voisin
+  prompt: 'Une coupure isole un nœud pendant **15 minutes**. Ses clés reçoivent **400 écritures/s**, toutes confiées à un nœud voisin par quorum lâche. Combien d''écritures avec indice le voisin a-t-il accumulées ?'
+  unit: écritures
+- id: handoff
+  type: number
+  title: Rendre les clés
+  prompt: À la fin de la coupure, le voisin transmet ces écritures au nœud d'origine à **2 000 écritures/s** (hinted handoff). Combien de secondes dure le transfert, en négligeant les nouvelles écritures ?
+  unit: s
+- id: contexte
+  type: table
+  title: Le contexte renvoyé au client
+  prompt: 'Une lecture renvoie deux siblings, de vecteurs `{A: 3, B: 1}` et `{A: 2, B: 2, C: 1}`. Quel contexte (fusion des vecteurs) le client doit-il renvoyer avec sa prochaine écriture ?'
+  columns:
+  - id: n
+    label: Compteur
+  rows:
+  - id: a
+    label: Entrée A
+  - id: b
+    label: Entrée B
+  - id: c
+    label: Entrée C
+- id: protocole
+  type: order
+  title: Ajouter un article sans rien perdre
+  prompt: Remets dans l'ordre ce que fait le client pour ajouter « casque » au panier.
+  items:
+  - id: read
+    label: Lire le panier et recevoir tous les siblings avec leur contexte
+  - id: merge
+    label: Fusionner les siblings par union, en respectant les pierres tombales
+  - id: add
+    label: Ajouter « casque » à la fusion
+  - id: write
+    label: Écrire le résultat en renvoyant le contexte lu
+  - id: server
+    label: Le serveur écrase les siblings couverts par ce contexte et garde les écritures concurrentes
+- id: choix
+  type: multi
+  title: Les bonnes décisions
+  prompt: Coche les décisions cohérentes avec l'exigence du métier.
+  options:
+  - id: union
+    label: Fusionner les siblings par union, avec des pierres tombales pour les articles retirés
+  - id: lww
+    label: Résoudre les conflits par LWW sur l'horodatage du serveur
+  - id: sloppy
+    label: Activer le quorum lâche pour accepter les ajouts même si des nœuds d'origine sont injoignables
+  - id: local
+    label: Attendre un quorum dans le site local et répliquer vers l'autre site de façon asynchrone
+  - id: nocontext
+    label: Écrire sans renvoyer le contexte, pour aller plus vite

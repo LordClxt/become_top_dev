@@ -1,0 +1,29 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 200},
+    {"id": "gw", "type": "gw", "x": 260, "y": 200},
+    {"id": "pay", "type": "pay", "x": 520, "y": 200},
+    {"id": "txn", "type": "txn", "x": 780, "y": 80, "w": 380, "h": 260, "label": "Transaction de paiement"},
+    {"id": "lockacct", "type": "lockacct", "x": 800, "y": 110, "parent": "txn"},
+    {"id": "debit", "type": "debit", "x": 800, "y": 240, "parent": "txn"},
+    {"id": "ledger", "type": "ledger", "x": 1260, "y": 200},
+    {"id": "queue", "type": "queue", "x": 520, "y": 440},
+    {"id": "mail", "type": "mail", "x": 800, "y": 440},
+    {"id": "backup", "type": "backup", "x": 1560, "y": 80},
+    {"id": "store", "type": "store", "x": 1840, "y": 80},
+    {"id": "audit", "type": "audit", "x": 1560, "y": 320}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "gw", "kind": "sync", "label": "payer"},
+    {"id": "e2", "source": "gw", "target": "pay", "kind": "sync", "label": "clé d'idempotence"},
+    {"id": "e3", "source": "pay", "target": "lockacct", "kind": "sync", "label": "BEGIN"},
+    {"id": "e4", "source": "lockacct", "target": "debit", "kind": "sync", "label": "solde suffisant"},
+    {"id": "e5", "source": "lockacct", "target": "ledger", "kind": "write", "label": "FOR UPDATE"},
+    {"id": "e6", "source": "debit", "target": "ledger", "kind": "write", "label": "UPDATE + INSERT"},
+    {"id": "e7", "source": "pay", "target": "queue", "kind": "async", "label": "après COMMIT"},
+    {"id": "e8", "source": "queue", "target": "mail", "kind": "async"},
+    {"id": "e9", "source": "backup", "target": "ledger", "kind": "read", "label": "instantané"},
+    {"id": "e10", "source": "backup", "target": "store", "kind": "write"},
+    {"id": "e11", "source": "audit", "target": "ledger", "kind": "read", "label": "instantané"}
+  ]
+}

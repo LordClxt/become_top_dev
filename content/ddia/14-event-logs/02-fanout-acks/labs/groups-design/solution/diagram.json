@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {"id": "shop", "type": "shop", "x": 0, "y": 200},
+    {"id": "queue", "type": "queue", "x": 300, "y": 200},
+    {"id": "gbill", "type": "billing-group", "x": 600, "y": -40, "label": "Groupe facturation", "w": 380, "h": 260},
+    {"id": "b1", "type": "billing", "x": 40, "y": 40, "parent": "gbill"},
+    {"id": "b2", "type": "billing", "x": 40, "y": 150, "parent": "gbill"},
+    {"id": "gmail", "type": "mail-group", "x": 600, "y": 300, "label": "Groupe e-mail", "w": 380, "h": 160},
+    {"id": "m1", "type": "mail", "x": 40, "y": 50, "parent": "gmail"}
+  ],
+  "edges": [
+    {"id": "e1", "source": "shop", "target": "queue", "kind": "async", "label": "publie"},
+    {"id": "e2", "source": "queue", "target": "b1", "kind": "async", "label": "livre"},
+    {"id": "e3", "source": "queue", "target": "b2", "kind": "async", "label": "livre"},
+    {"id": "e4", "source": "queue", "target": "m1", "kind": "async", "label": "livre"},
+    {"id": "e5", "source": "b1", "target": "queue", "kind": "sync", "label": "ack"},
+    {"id": "e6", "source": "b2", "target": "queue", "kind": "sync", "label": "ack"},
+    {"id": "e7", "source": "m1", "target": "queue", "kind": "sync", "label": "ack"}
+  ]
+}
