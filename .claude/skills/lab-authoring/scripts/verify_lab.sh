@@ -17,12 +17,12 @@ for f in lab.yaml assignment.yaml project.yaml; do [[ -f "$lab_dir/$f" ]] && yam
 
 field() { sed -n "s/^$1:[[:space:]]*//p" "$yaml" | head -1 | sed 's/[[:space:]]#.*$//; s/[[:space:]]*$//; s/^"\(.*\)"$/\1/'; }
 
-# Exercice de diagramme : rien à exécuter, les règles du graphe sont vérifiées par le backend.
+# Diagram exercise: nothing to run, the graph rules are checked by the backend.
 if [[ "$(field kind)" == "diagram" ]]; then
   repo_root="$(cd "$(dirname "$0")/../../../.." && pwd)"
   cd "$repo_root/backend" && exec go run ./cmd/btd verify-diagram "$lab_dir"
 fi
-# Fiche interactive : les réponses de référence sont corrigées par le backend, sans exécuter de code.
+# Interactive worksheet: reference answers are graded by the backend, no code is run.
 if [[ "$(field kind)" == "worksheet" ]]; then
   repo_root="$(cd "$(dirname "$0")/../../../.." && pwd)"
   cd "$repo_root/backend" && exec go run ./cmd/btd verify-worksheet "$lab_dir"

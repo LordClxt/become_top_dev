@@ -1,44 +1,44 @@
 ---
 name: chapter-content
-description: Générer tout le contenu d'un chapitre de cours (leçons, TP testés, devoir, quiz, flashcards, projet, boss fight, idées de visuels et simulations) à partir du livre source. À utiliser pour le chapitre pilote du MVP et pour chaque chapitre suivant.
+description: Generate all the content for a course chapter (lessons, tested labs, assignment, quiz, flashcards, project, boss fight, visual and simulation ideas) from the source book. Use it for the MVP pilot chapter and for every following chapter.
 ---
 
 # chapter-content
 
-Pré-requis : plan validé (`content/<book>/course.yaml` existe), livre extrait (`.cache/books/<slug>/`). Format : skill `content-format`.
+Prerequisites: approved plan (`content/<book>/course.yaml` exists), book extracted (`.cache/books/<slug>/`). Format: `content-format` skill.
 
-## Procédure
-1. Relire le chapitre source **en entier** (`.cache/books/<slug>/chNN-*.txt`) et `notes.md`.
-2. `chapter.yaml` : objectifs, seuil de maîtrise, prérequis.
-3. **Leçons** (`lesson.md`), pour chacune :
-   - Pourquoi c'est important → concept expliqué avec **ses propres exemples** → pièges fréquents → à retenir.
-   - Aller plus loin que le livre quand utile (perf, internals, idiomes pro) — marqué clairement.
-   - Rappels vers les concepts des chapitres précédents (révision espacée).
-   - Glossaire + `concepts` avec IDs stables.
-4. **TP** : via le skill `lab-authoring` (obligatoire — c'est lui qui valide). Cours pratique de langage (Go) : TP de code. Cours de conception ou de systèmes (DDIA, architecture) : **TP de leçon = `diagram` ou `worksheet`** (le code Go du livre va dans l'Atelier). **Devoir et boss = `diagram` ou `worksheet` aussi** ; seul le projet fil rouge (Tinybase) reste du code Go testé.
-5. **Devoir** (`assignment/`) : problème plus ouvert que les TP, `rubric.yaml` mêlant critères `tests` et `ai`.
-6. **Quiz** : 5–10 questions par leçon, mélange de types, chacune liée à un `concept`, explication pour chaque réponse. Inclure des `code-output` pour les livres pratiques et des scénarios de trade-off pour les livres conceptuels.
-7. **Flashcards** : 5–15 par leçon, une idée par carte.
-8. **Projet** de fin de chapitre : 2–4 jalons testés, réutilise les concepts de plusieurs leçons.
-9. **Boss fight** (`boss/`) : lab plus dur combinant tout le chapitre, via `lab-authoring`.
-10. **Visuels** : pour chaque concept difficile, un `visual.yaml` (`status: idea` au minimum) via `concept-visual`. Idées de simulations via `simulation-design`.
-    **Jamais de schéma en texte** (ASCII, box-drawing, flèches en code fencé) dans une leçon : tout schéma d'architecture, de flux, de mémoire ou de structure devient un visuel `hyperframes` (skill `hyperframes-animation`, voir `concept-visual`), référencé par `::visual{id}`. Les formules et le code restent en texte.
+## Procedure
+1. Re-read the source chapter **in full** (`.cache/books/<slug>/chNN-*.txt`) and `notes.md`.
+2. `chapter.yaml`: objectives, mastery threshold, prerequisites.
+3. **Lessons** (`lesson.md`), for each one:
+   - Why it matters → concept explained with **your own examples** → common pitfalls → key takeaways.
+   - Go beyond the book when useful (performance, internals, professional idioms) — clearly marked.
+   - Callbacks to concepts from earlier chapters (spaced repetition).
+   - Glossary + `concepts` with stable IDs.
+4. **Labs**: through the `lab-authoring` skill (mandatory — it is what validates the tests). Practical language course (Go): code labs. Design or systems course (DDIA, architecture): **lesson lab = `diagram` or `worksheet`** (the book's Go code goes in the Workshop). **Assignment and boss are `diagram` or `worksheet` too**; only the running project (Tinybase) stays tested Go code.
+5. **Assignment** (`assignment/`): a more open-ended problem than the labs, `rubric.yaml` mixing `tests` and `ai` criteria.
+6. **Quiz**: 5–10 questions per lesson, mixed types, each tied to a `concept`, an explanation for every answer. Include `code-output` questions for practical books and trade-off scenarios for conceptual books.
+7. **Flashcards**: 5–15 per lesson, one idea per card.
+8. End-of-chapter **project**: 2–4 tested milestones, reusing concepts from several lessons.
+9. **Boss fight** (`boss/`): a harder lab combining the whole chapter, through `lab-authoring`.
+10. **Visuals**: for each hard concept, a `visual.yaml` (`status: idea` at minimum) through `concept-visual`. Simulation ideas through `simulation-design`.
+    **Never a text diagram** (ASCII, box-drawing, arrows in a fenced block) in a lesson: every architecture, flow, memory or structure diagram becomes a `hyperframes` visual (`hyperframes-animation` skill, see `concept-visual`), referenced by `::visual{id}`. Formulas and code stay as text.
 
-## Récap à présenter à l'utilisateur
+## Summary to present to the user
 ```
-Chapitre NN — <titre>
-Leçons : n | TP : n (tous vérifiés ✅) | Quiz : n questions | Flashcards : n
-Devoir : <titre> | Projet : <titre> (n jalons) | Boss : <titre>
-Visuels : <id> (format — justification) …
-Points d'attention / écarts par rapport au livre : …
+Chapter NN — <title>
+Lessons: n | Labs: n (all verified ✅) | Quiz: n questions | Flashcards: n
+Assignment: <title> | Project: <title> (n milestones) | Boss: <title>
+Visuals: <id> (format — justification) …
+Points of attention / deviations from the book: …
 ```
-Puis **STOP** et attendre la validation avant le chapitre suivant.
+Then **STOP** and wait for approval before the next chapter.
 
 ## Definition of Done
-- [ ] Tous les objectifs de `chapter.yaml` sont couverts par au moins une leçon et un exercice
-- [ ] Tous les labs/devoir/boss ont `verified` renseigné par `verify_lab.sh` (ou rubrique si `kind: design`)
-- [ ] `verify_quiz.py` : toutes les réponses `code-output` sont correctes
-- [ ] Aucun long passage recopié ; `source.pages` sur chaque leçon
-- [ ] Tous les concepts du quiz existent dans les `concepts` des leçons
-- [ ] Aucun schéma en texte dans les `lesson.md` (blocs fencés sans langage contenant `│ ─ ▶ ┌`, `+--+`, flèches) : chacun est remplacé par un visuel
-- [ ] Contenu conforme à `content-format`
+- [ ] Every objective in `chapter.yaml` is covered by at least one lesson and one exercise
+- [ ] Every lab/assignment/boss has `verified` filled in by `verify_lab.sh` (or a rubric if `kind: design`)
+- [ ] `verify_quiz.py`: every `code-output` answer is correct
+- [ ] No long copied passages; `source.pages` on every lesson
+- [ ] Every quiz concept exists in the lessons' `concepts`
+- [ ] No text diagram in `lesson.md` (fenced blocks with no language containing `│ ─ ▶ ┌`, `+--+`, arrows): each is replaced by a visual
+- [ ] Content complies with `content-format`

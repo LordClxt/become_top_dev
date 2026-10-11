@@ -1,39 +1,39 @@
 ---
 name: backend-api
-description: Conventions pour tout travail dans backend/ — FastAPI en monolithe en couches, PostgreSQL, SQLAlchemy 2, Alembic, loader du contenu content/, service sandbox Docker, XP/progression, coach IA. À utiliser pour créer endpoints, modèles, migrations, services ou tests backend.
+description: Conventions for all work in backend/ — layered FastAPI monolith, PostgreSQL, SQLAlchemy 2, Alembic, content/ loader, Docker sandbox service, XP/progress, AI coach. Use it to create backend endpoints, models, migrations, services or tests.
 ---
 
 # backend-api
 
-## Couches (dépendances dans un seul sens)
+## Layers (dependencies flow one way only)
 ```
 backend/app/
-  api/            # routers FastAPI : validation I/O (Pydantic), aucun SQL, aucune logique métier
-  services/       # logique métier (xp, progression, mastery, sandbox, coach, content)
-  repositories/   # accès DB (SQLAlchemy 2, async)
+  api/            # FastAPI routers: I/O validation (Pydantic), no SQL, no business logic
+  services/       # business logic (xp, progress, mastery, sandbox, coach, content)
+  repositories/   # DB access (SQLAlchemy 2, async)
   models/         # ORM
   schemas/        # Pydantic in/out
-  content/        # loader : lit content/, valide les schémas, index en mémoire
+  content/        # loader: reads content/, validates schemas, in-memory index
   core/           # config (pydantic-settings), db, logging
 backend/migrations/  # Alembic
 backend/tests/
 ```
-`api → services → repositories → models`. Jamais l'inverse, jamais `api → repositories`.
+`api → services → repositories → models`. Never the reverse, never `api → repositories`.
 
-## Règles
-- Le contenu de cours vient des **fichiers** `content/` (source de vérité), pas de la DB. La DB stocke uniquement l'état utilisateur : progression, tentatives, XP, streaks, révisions espacées, conversations du coach — référencés par les `id` stables du contenu.
-- Le loader valide tout `content/` au démarrage (schémas `content-format`) et échoue bruyamment si invalide.
-- Sandbox : `services/sandbox.py` lance un conteneur éphémère (`--network none`, limites CPU/mem/pids, timeout, FS read-only sauf `/work`), même logique que `verify_lab.sh`. Ne jamais exécuter du code utilisateur dans le process API.
-- Secrets (token GitHub, clé API IA) via variables d'environnement, chiffrés au repos s'ils sont stockés.
-- Coach IA : SDK Anthropic, modèle configurable ; contexte = contenu de la leçon + historique de la conversation.
-- Chaque migration Alembic est relue (pas d'autogenerate aveugle).
+## Rules
+- Course content comes from the `content/` **files** (source of truth), not from the DB. The DB stores only user state: progress, attempts, XP, streaks, spaced repetition, coach conversations — referenced by the stable content `id`s.
+- The loader validates all of `content/` at startup (`content-format` schemas) and fails loudly if anything is invalid.
+- Sandbox: `services/sandbox.py` starts an ephemeral container (`--network none`, CPU/mem/pids limits, timeout, read-only FS except `/work`), same logic as `verify_lab.sh`. Never run user code inside the API process.
+- Secrets (GitHub token, AI API key) come from environment variables, encrypted at rest if stored.
+- AI coach: Anthropic SDK, configurable model; context = lesson content + conversation history.
+- Every Alembic migration is reviewed (no blind autogenerate).
 
 ## Tests
-- pytest + pytest-asyncio, Postgres de test via Docker.
-- Tests de service sans HTTP ; quelques tests d'API end-to-end par router.
+- pytest + pytest-asyncio, test Postgres via Docker.
+- Service tests without HTTP; a few end-to-end API tests per router.
 
 ## Definition of Done
-- [ ] Respect des couches
-- [ ] Migration Alembic si le modèle change
-- [ ] Tests ajoutés, `make test` passe
-- [ ] `ruff check && ruff format --check && mypy` propres
+- [ ] Layers respected
+- [ ] Alembic migration if the model changes
+- [ ] Tests added, `make test` passes
+- [ ] `ruff check && ruff format --check && mypy` clean

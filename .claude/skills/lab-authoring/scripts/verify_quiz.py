@@ -70,8 +70,8 @@ def main() -> int:
         want = str(q["answer"]).rstrip()
         ok = got == want
         failures += not ok
-        print(f"{'✅' if ok else '❌'} {lesson}/{q['id']}" + ("" if ok else f"\n   attendu: {want!r}\n   obtenu : {got!r}"))
-    print(f"\n{len(questions) - failures}/{len(questions)} réponses correctes")
+        print(f"{'✅' if ok else '❌'} {lesson}/{q['id']}" + ("" if ok else f"\n   expected: {want!r}\n   got     : {got!r}"))
+    print(f"\n{len(questions) - failures}/{len(questions)} correct answers")
     return 1 if failures else 0
 
 
