@@ -1,37 +1,37 @@
 ---
 name: concept-visual
-description: Concevoir et produire un visuel d'illustration pour un concept difficile (event loop, goroutines, scheduler, pile d'exécution, réseau, styles d'architecture…) en choisissant le bon format — vidéo Remotion, animation interactive HTML/SVG/canvas ou schéma statique. À utiliser pour les visuels pré-générés d'une leçon et pour concevoir la génération à la demande depuis le coach IA.
+description: Design and produce an illustration for a hard concept (event loop, goroutines, scheduler, call stack, networking, architecture styles…) by choosing the right format — Remotion video, interactive HTML/SVG/canvas animation or static diagram. Use it for a lesson's pre-generated visuals and to design on-demand generation from the AI coach.
 ---
 
 # concept-visual
 
-## 1. Choisir le format (et le justifier en une ligne dans `visual.yaml`)
+## 1. Choose the format (and justify it in one line in `visual.yaml`)
 | Question | Format |
 |---|---|
-| Le concept est un déroulé linéaire qu'il suffit de regarder (une requête traverse le réseau, un appel empile des frames) ? | `remotion` |
-| Une **mini-illustration** linéaire de 8–15 s (une commande, un flux, un enchaînement d'étapes) qui n'a pas besoin d'état React ? | `hyperframes` |
-| L'utilisateur doit **manipuler** un paramètre pour comprendre (délais de tâches, nombre de workers, taille de buffer d'un channel) ? | `interactive` |
-| Une structure fixe suffit (layers d'une archi, layout mémoire d'une slice) ? | `static` |
+| Is the concept a linear sequence you only need to watch (a request crosses the network, a call pushes frames)? | `remotion` |
+| A linear **mini-illustration** of 8–15 s (a command, a flow, a chain of steps) that needs no React state? | `hyperframes` |
+| Must the user **manipulate** a parameter to understand (task delays, number of workers, channel buffer size)? | `interactive` |
+| Is a fixed structure enough (architecture layers, memory layout of a slice)? | `static` |
 
-En cas de doute, préférer `interactive` : comprendre en manipulant > regarder.
+When in doubt, prefer `interactive`: understanding by manipulating > watching.
 
-## 2. Produire
-- **Le visuel doit être fidèle au mécanisme réel** (ordre des événements, états intermédiaires). Simuler la logique dans un petit modèle pur (fonction `step(state) → state`) puis animer la trace — jamais d'animation « à la main » qui pourrait mentir.
-- `remotion` : composition React dans `visuals/<id>/`, 10–30 s, 30 fps, étapes annotées en français, lue via `@remotion/player`.
-- `hyperframes` : `visuals/<id>/scene.html` autonome (skill `hyperframes-animation`) : `<meta name="visual-id">`, racine `data-composition-id` / `data-duration` / `data-width=1920` / `data-height=1080`, **une** timeline GSAP en pause sur `window.__timelines`, état = fonction pure du temps. Tokens de couleur de l'app recopiés, avec `html.light` pour le thème clair (le lecteur synchronise la classe). Texte ≥ 30 px (la scène est réduite à ~40 %). Le `<script>` GSAP du CDN est remplacé par la copie npm au build. Vérifier quelques instants clés en capture (deux thèmes) avant de livrer.
-- `interactive` : composant React autonome (props = `params` de `visual.yaml`), SVG de préférence, canvas si > ~200 éléments animés. Contrôles : sliders/boutons shadcn, bouton pas-à-pas + lecture + reset.
-- `static` : SVG (ou Mermaid pour les diagrammes d'archi), lisible en thème sombre et clair.
+## 2. Produce
+- **The visual must be faithful to the real mechanism** (order of events, intermediate states). Simulate the logic in a small pure model (a `step(state) → state` function), then animate the trace — never a hand-made animation that could lie.
+- `remotion`: React composition in `visuals/<id>/`, 10–30 s, 30 fps, steps annotated in French, played through `@remotion/player`.
+- `hyperframes`: standalone `visuals/<id>/scene.html` (`hyperframes-animation` skill): `<meta name="visual-id">`, root with `data-composition-id` / `data-duration` / `data-width=1920` / `data-height=1080`, **one** paused GSAP timeline on `window.__timelines`, state = pure function of time. App color tokens copied in, with `html.light` for the light theme (the player syncs the class). Text ≥ 30 px (the scene is scaled down to ~40 %). The GSAP CDN `<script>` is replaced with the npm copy at build time. Check a few key moments in screenshots (both themes) before delivering.
+- `interactive`: standalone React component (props = `visual.yaml` `params`), SVG preferred, canvas if > ~200 animated elements. Controls: shadcn sliders/buttons, step button + play + reset.
+- `static`: SVG (or Mermaid for architecture diagrams), readable in dark and light themes.
 
-## 3. Style (design system partagé)
-- Utiliser exclusivement les tokens de `design-system/` (couleurs sémantiques, typo, durées/easings de transition). Pas de couleurs en dur.
-- Animations sobres : une chose bouge à la fois, easing doux, 200–600 ms par transition.
-- Légendes et annotations en français, identifiants de code en anglais.
+## 3. Style (shared design system)
+- Use only the `design-system/` tokens (semantic colors, typography, transition durations/easings). No hard-coded colors.
+- Restrained animations: one thing moves at a time, gentle easing, 200–600 ms per transition.
+- Captions and annotations in French, code identifiers in English.
 
-## 4. À la demande (coach IA)
-Le coach génère un `visual.yaml` + un composant `interactive` ou `static` contraint au même design system, à partir du contexte de la leçon en cours. Les vidéos Remotion ne sont pas générées à la demande dans le MVP (coût de rendu) — à réévaluer en v2.
+## 4. On demand (AI coach)
+The coach generates a `visual.yaml` + an `interactive` or `static` component constrained to the same design system, from the context of the current lesson. Remotion videos are not generated on demand in the MVP (rendering cost) — to be reassessed in v2.
 
 ## Definition of Done
-- [ ] `visual.yaml` complet avec `justification` en une ligne
-- [ ] Mécanisme fidèle (modèle d'état testé si non trivial)
-- [ ] Rendu correct en thème sombre et clair
-- [ ] Référencé dans `lesson.md` via `::visual{id="…"}`
+- [ ] Complete `visual.yaml` with a one-line `justification`
+- [ ] Faithful mechanism (state model tested if non-trivial)
+- [ ] Renders correctly in dark and light themes
+- [ ] Referenced in `lesson.md` via `::visual{id="…"}`

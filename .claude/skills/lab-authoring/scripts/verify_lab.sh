@@ -17,7 +17,7 @@ for f in lab.yaml assignment.yaml project.yaml; do [[ -f "$lab_dir/$f" ]] && yam
 
 field() { sed -n "s/^$1:[[:space:]]*//p" "$yaml" | head -1 | sed 's/[[:space:]]#.*$//; s/[[:space:]]*$//; s/^"\(.*\)"$/\1/'; }
 
-# Exercice de diagramme : rien à exécuter, les règles du graphe sont vérifiées par le backend.
+# Diagram exercise: nothing to run, the graph rules are checked by the backend.
 if [[ "$(field kind)" == "diagram" ]]; then
   repo_root="$(cd "$(dirname "$0")/../../../.." && pwd)"
   cd "$repo_root/backend" && exec go run ./cmd/btd verify-diagram "$lab_dir"

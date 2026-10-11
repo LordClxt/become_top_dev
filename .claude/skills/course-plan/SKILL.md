@@ -1,34 +1,34 @@
 ---
 name: course-plan
-description: Proposer le plan d'un cours à partir d'un livre déjà lu (étape 1 du workflow) — parcours, chapitres, leçons, type d'exercices, format de contenu et features MVP/v2/v3. À utiliser quand l'utilisateur demande un plan de cours, un découpage de livre, ou ajoute un nouveau livre.
+description: Propose a course plan from a book that has already been read (workflow step 1) — tracks, chapters, lessons, exercise types, content format and MVP/v2/v3 features. Use it when the user asks for a course plan or a book breakdown, or adds a new book.
 ---
 
 # course-plan
 
-Pré-requis : le livre a été lu en entier via `book-ingest` (notes dans `.cache/books/<slug>/notes.md`).
+Prerequisite: the book has been read in full through `book-ingest` (notes in `.cache/books/<slug>/notes.md`).
 
-## Livrable (dans la conversation, pas encore de fichiers)
-1. **Profil du livre** : pratique (code exécutable, ex. Go) ou conceptuel (architecture). Cela fixe le type d'exercices.
-2. **Parcours** : 1 à 3 parcours (ex. « Fondations Go », « Concurrence », « Go en production »), chacun regroupant des chapitres.
-3. **Plan par chapitre** — un tableau :
-   | Chapitre (pages) | Leçons (titre + objectif en 1 ligne) | TP | Devoir | Projet | Concepts difficiles → format visuel |
-   - Regrouper ou scinder les chapitres du livre si la pédagogie l'exige (dire pourquoi).
-   - Ajouter des leçons « au-delà du livre » si nécessaire pour le top 1 % (marquées `extra: true`).
-4. **Type d'exercices** :
-   - Livre pratique → TP avec tests auto (`go test`), boss fight = mini-projet testé.
-   - Livre conceptuel → katas d'architecture, rédaction d'ADR, choix de style avec trade-offs, diagrammes ; notation par rubrique + revue IA ; quiz de scénarios.
-5. **Format des fichiers** : renvoyer au skill `content-format` et signaler tout ajustement proposé.
-6. **Features MVP / v2 / v3** : liste priorisée, MVP = le strict nécessaire pour 1 chapitre de bout en bout (leçon, TP testés en sandbox, quiz, XP).
-7. **Chapitre pilote recommandé** pour le MVP, avec justification (assez riche pour exercer tous les types de contenu).
+## Deliverable (in the conversation, no files yet)
+1. **Book profile**: practical (runnable code, e.g. Go) or conceptual (architecture). This sets the exercise type.
+2. **Tracks**: 1 to 3 tracks (e.g. "Go Foundations", "Concurrency", "Go in Production"), each grouping chapters.
+3. **Per-chapter plan** — a table:
+   | Chapter (pages) | Lessons (title + one-line objective) | Labs | Assignment | Project | Hard concepts → visual format |
+   - Merge or split the book's chapters if teaching requires it (say why).
+   - Add "beyond the book" lessons where needed for the top 1 % (marked `extra: true`).
+4. **Exercise types**:
+   - Practical book → labs with automated tests (`go test`), boss fight = tested mini-project.
+   - Conceptual book → architecture katas, ADR writing, style choices with trade-offs, diagrams; rubric grading + AI review; scenario quizzes.
+5. **File format**: refer to the `content-format` skill and flag any proposed adjustment.
+6. **MVP / v2 / v3 features**: prioritized list, MVP = the bare minimum for 1 chapter end to end (lesson, labs tested in the sandbox, quiz, XP).
+7. **Recommended pilot chapter** for the MVP, with justification (rich enough to exercise every content type).
 
-Terminer par : « Valides-tu ce plan ? » puis **STOP**.
+End with: "Do you approve this plan?" then **STOP**.
 
-## Après accord
-- Écrire `content/<book>/course.yaml` (schéma dans `content-format/reference/schemas.md`).
-- Ne générer aucune leçon avant l'accord sur l'architecture (étape 2).
+## After approval
+- Write `content/<book>/course.yaml` (schema in `content-format/reference/schemas.md`).
+- Generate no lesson before the architecture is approved (step 2).
 
 ## Definition of Done
-- [ ] Chaque chapitre du livre est couvert ou explicitement exclu (avec raison)
-- [ ] Chaque leçon a un objectif mesurable (« être capable de… »)
-- [ ] Concepts difficiles listés avec format visuel envisagé
-- [ ] Plan validé par l'utilisateur avant d'écrire `course.yaml`
+- [ ] Every chapter of the book is covered or explicitly excluded (with a reason)
+- [ ] Every lesson has a measurable objective ("be able to…")
+- [ ] Hard concepts listed with the intended visual format
+- [ ] Plan approved by the user before writing `course.yaml`

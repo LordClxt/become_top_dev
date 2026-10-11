@@ -1,35 +1,35 @@
 ---
 name: simulation-design
-description: Concevoir une simulation façon jeu vidéo où l'utilisateur programme un comportement (bot, agent, scheduler, load balancer, file d'attente, cache, circuit breaker…) et voit le résultat s'animer, avec niveaux, score et XP. À utiliser pour proposer des idées de simulations par chapitre ou spécifier/implémenter une simulation.
+description: Design a video-game-style simulation where the user programs a behavior (bot, agent, scheduler, load balancer, queue, cache, circuit breaker…) and watches the result animate, with levels, score and XP. Use it to propose simulation ideas per chapter or to specify/implement a simulation.
 ---
 
 # simulation-design
 
-## Principe d'architecture
+## Architecture principle
 ```
-code utilisateur ──► sandbox (moteur de simulation déterministe) ──► trace JSON d'états ──► front anime la trace
+user code ──► sandbox (deterministic simulation engine) ──► JSON state trace ──► front end animates the trace
 ```
-- Le moteur tourne **dans la sandbox** avec le code utilisateur (même langage que le cours, ex. Go). Le front n'exécute rien : il rejoue la trace.
-- Déterministe : graine aléatoire fixe par niveau → résultats reproductibles et comparables.
+- The engine runs **in the sandbox** alongside the user code (same language as the course, e.g. Go). The front end runs nothing: it replays the trace.
+- Deterministic: fixed random seed per level → reproducible, comparable results.
 
-## Spec à produire (`content/<book>/<chapter>/simulations/<slug>/simulation.yaml` + `README.md`)
-1. **Pitch** : une phrase, le concept enseigné (ex. « équilibrer la charge entre workers sans perdre de requêtes » → goroutines + channels + select).
-2. **API joueur** : la seule fonction/interface que l'utilisateur implémente, ex.
+## Spec to produce (`content/<book>/<chapter>/simulations/<slug>/simulation.yaml` + `README.md`)
+1. **Pitch**: one sentence, the concept taught (e.g. "balance load across workers without dropping requests" → goroutines + channels + select).
+2. **Player API**: the single function/interface the user implements, e.g.
    ```go
    type Scheduler interface { Next(state State) Action }
    ```
-3. **Monde** : entités, règles, tick.
-4. **Niveaux** (3–5) : chacun introduit **une** contrainte nouvelle (charge ↑, pannes, latence variable…).
-5. **Score** : métriques mesurables (débit, latence p99, requêtes perdues) + seuils 1/2/3 étoiles → XP.
-6. **Trace** : format JSON des frames (`{tick, entities:[…], events:[…]}`) consommé par le renderer.
-7. **Rendu** : canvas/SVG avec les tokens `design-system/`, contrôles lecture/pause/vitesse/pas-à-pas.
-8. **Solution de référence** qui obtient 3 étoiles à chaque niveau + solution naïve qui échoue au niveau 2+ (même principe que `lab-authoring`).
+3. **World**: entities, rules, tick.
+4. **Levels** (3–5): each introduces **one** new constraint (load ↑, failures, variable latency…).
+5. **Score**: measurable metrics (throughput, p99 latency, dropped requests) + 1/2/3-star thresholds → XP.
+6. **Trace**: JSON frame format (`{tick, entities:[…], events:[…]}`) consumed by the renderer.
+7. **Rendering**: canvas/SVG with the `design-system/` tokens, play/pause/speed/step controls.
+8. **Reference solution** that earns 3 stars on every level + a naive solution that fails level 2+ (same principle as `lab-authoring`).
 
-## Bonnes idées par domaine
-- Go : scheduler de goroutines, pipeline de workers, rate limiter, cache LRU sous charge, graceful shutdown.
-- Architecture : load balancer, circuit breaker, event-driven vs request/reply, scaling d'un microservice, saga.
+## Good ideas by domain
+- Go: goroutine scheduler, worker pipeline, rate limiter, LRU cache under load, graceful shutdown.
+- Architecture: load balancer, circuit breaker, event-driven vs request/reply, scaling a microservice, saga.
 
 ## Definition of Done
-- [ ] API joueur minimale (1 fonction/interface)
-- [ ] Niveaux progressifs avec seuils d'étoiles
-- [ ] Solutions référence (3★) et naïve (échoue) vérifiées dans la sandbox
+- [ ] Minimal player API (1 function/interface)
+- [ ] Progressive levels with star thresholds
+- [ ] Reference (3★) and naive (failing) solutions verified in the sandbox

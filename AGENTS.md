@@ -1,88 +1,88 @@
 # AGENTS.md — become_top_dev
 
-Plateforme personnelle d'apprentissage du code (inspirée de boot.dev, plus belle, plus profonde).
-Un seul utilisateur. Objectif : devenir un développeur top 1 %.
+Personal platform for learning to code (inspired by boot.dev, more beautiful, deeper).
+A single user. Goal: become a top 1 % developer.
 
-## Principe central
-- Les cours sont construits **par l'agent** à partir des livres de `books/`. L'app n'importe aucun livre.
-- Le contenu est généré à l'avance, versionné dans `content/`, puis chargé par l'app.
-- Reformuler et enseigner. Jamais de longs extraits du livre. Toujours citer `source: {chapter, pages}`.
-- Livres actuels :
-  - `learning-go` — *Learning Go, 2nd ed.* (Bodner) → TP codés en Go, testés.
-  - `software-architecture` — *Fundamentals of Software Architecture* (Richards & Ford) → TP conceptuels (katas, ADR, diagrammes) notés par rubrique + revue IA.
+## Core principle
+- Courses are built **by the agent** from the books in `books/`. The app imports no books.
+- Content is generated ahead of time, versioned in `content/`, then loaded by the app.
+- Rephrase and teach. Never long excerpts from the book. Always cite `source: {chapter, pages}`.
+- Current books:
+  - `learning-go` — *Learning Go, 2nd ed.* (Bodner) → labs coded in Go, tested.
+  - `software-architecture` — *Fundamentals of Software Architecture* (Richards & Ford) → conceptual labs (katas, ADRs, diagrams) graded by rubric + AI review.
 
-## Workflow (obligatoire, dans l'ordre)
-1. Lire le livre **en entier** (`book-ingest`) puis proposer plan du cours, format de contenu, features MVP/v2/v3 (`course-plan`). **STOP — attendre l'accord.**
-2. Proposer l'architecture avec trade-offs explicites. **STOP — attendre l'accord.**
-3. Construire le MVP sur **un** chapitre complet de bout en bout (leçon, TP testés, quiz, XP).
-4. Générer le reste du livre chapitre par chapitre (`chapter-content`). **STOP après chaque chapitre.**
-- Si ambigu : poser **une seule** question à la fois.
-- Réponses concises : décisions → trade-offs → code.
+## Workflow (mandatory, in order)
+1. Read the book **in full** (`book-ingest`), then propose the course plan, content format, and MVP/v2/v3 features (`course-plan`). **STOP — wait for approval.**
+2. Propose the architecture with explicit trade-offs. **STOP — wait for approval.**
+3. Build the MVP on **one** complete chapter end to end (lesson, tested labs, quiz, XP).
+4. Generate the rest of the book chapter by chapter (`chapter-content`). **STOP after each chapter.**
+- If something is ambiguous: ask **a single** question at a time.
+- Concise answers: decisions → trade-offs → code.
 
-## Stack (modifiable, mais justifier tout changement)
-- Backend : Go (net/http), PostgreSQL via pgx (SQL écrit à la main), migrations goose. Monolithe en couches :
-  `internal/api → service → repository → model`. Pas d'accès DB depuis `api`.
-- Front : TanStack Start (React) + shadcn/ui + Tailwind. Sombre par défaut + thème clair. Desktop-first.
-- Sandbox : conteneurs Docker éphémères (`--network none`, CPU/mémoire/timeout limités, FS en lecture seule sauf `/work`).
-- Déploiement : Docker Compose sur Coolify.
-- Visuels : Remotion pour les animations linéaires. Reco par défaut (à confirmer à l'étape 2) :
-  `@remotion/player` côté client pour les visuels pré-générés ; rendu mp4 serveur seulement pour l'export.
+## Stack (can change, but justify every change)
+- Backend: Go (net/http), PostgreSQL via pgx (hand-written SQL), goose migrations. Layered monolith:
+  `internal/api → service → repository → model`. No DB access from `api`.
+- Front end: TanStack Start (React) + shadcn/ui + Tailwind. Dark by default + light theme. Desktop-first.
+- Sandbox: ephemeral Docker containers (`--network none`, limited CPU/memory/timeout, read-only FS except `/work`).
+- Deployment: Docker Compose on Coolify.
+- Visuals: Remotion for linear animations. Default recommendation (to confirm at step 2):
+  `@remotion/player` client-side for pre-generated visuals; server-side mp4 rendering only for export.
 
-## Décisions d'architecture (validées étape 2)
-- Contenu = fichiers `content/` (source de vérité), chargés et validés par le backend au démarrage. Les visuels React de `content/` sont importés par le front au build.
-- PostgreSQL = uniquement l'état utilisateur (XP, tentatives, progression, coach), référencé par les `id` du contenu.
-- Exécution du code : service `runner/` séparé, seul à parler à Docker ; un conteneur jetable par exécution (`--network none`, limites CPU/mém/pids/temps). Le backend n'accède jamais au socket Docker.
-- Éditeur : CodeMirror 6. Remotion : `@remotion/player` côté client uniquement (pas de SSR) ; rendu mp4 serveur reporté en v3.
-- Auth : mot de passe unique + session cookie (un seul utilisateur).
-- Coach IA (v2) : API Claude depuis le backend, réponses en streaming.
+## Architecture decisions (approved at step 2)
+- Content = `content/` files (source of truth), loaded and validated by the backend at startup. The React visuals in `content/` are imported by the front end at build time.
+- PostgreSQL = user state only (XP, attempts, progress, coach), referenced by the content `id`s.
+- Code execution: a separate `runner/` service, the only one that talks to Docker; one throwaway container per run (`--network none`, CPU/mem/pids/time limits). The backend never touches the Docker socket.
+- Editor: CodeMirror 6. Remotion: `@remotion/player` client-side only (no SSR); server-side mp4 rendering deferred to v3.
+- Auth: single password + session cookie (a single user).
+- AI coach (v2): Claude API from the backend, streamed responses.
 
-## Arborescence cible
+## Target tree
 ```
-books/                     PDF sources (jamais committés)
-.cache/books/<slug>/       texte extrait (jamais committé)
-content/<book>/            cours générés (voir skill content-format)
-backend/                   API Go (cmd/btd, internal/)
-runner/                    service d'exécution (seul accès à Docker)
+books/                     source PDFs (never committed)
+.cache/books/<slug>/       extracted text (never committed)
+content/<book>/            generated courses (see the content-format skill)
+backend/                   Go API (cmd/btd, internal/)
+runner/                    execution service (only Docker access)
 frontend/                  TanStack Start
-sandbox/images/<lang>/     Dockerfiles des runners (go, python…)
-design-system/             tokens partagés UI + visuels (couleurs, typo, motion)
+sandbox/images/<lang>/     runner Dockerfiles (go, python…)
+design-system/             shared UI + visual tokens (colors, typography, motion)
 ```
 
-## Règles qualité non négociables
-- Un TP n'est livré que si `verify_lab.sh` passe : la **solution passe** les tests ET le **starter échoue**.
-- Pas de faux tests pour les exercices non exécutables : utiliser une rubrique.
-- Chaque visuel a une justification de format en une ligne.
-- Le contenu doit être valide selon `content-format/reference/schemas.md`.
+## Non-negotiable quality rules
+- A lab ships only if `verify_lab.sh` passes: the **solution passes** the tests AND the **starter fails**.
+- No fake tests for non-executable exercises: use a rubric.
+- Every visual has a one-line justification of its format.
+- Content must be valid according to `content-format/reference/schemas.md`.
 
 ## Conventions
-- Code, identifiants, chemins, clés YAML : **anglais**. UI et contenus pédagogiques : **français**.
-- IDs stables en kebab-case (`go-ch02-l03-constants`) : ils servent de clés pour la progression en DB.
-- Pas de dépendance ajoutée sans une ligne de justification.
+- Code, identifiers, paths, YAML keys: **English**. UI and teaching content: **French**.
+- Stable kebab-case IDs (`go-ch02-l03-constants`): they are the keys for progress in the DB.
+- No added dependency without a one-line justification.
 
 ## Skills (`.claude/skills/`)
-| Skill | Quand |
+| Skill | When |
 |---|---|
-| `book-ingest` | Lire / extraire un livre de `books/` |
-| `course-plan` | Étape 1 : proposer le plan d'un cours |
-| `content-format` | Toute lecture/écriture dans `content/` |
-| `chapter-content` | Générer le contenu complet d'un chapitre |
-| `lab-authoring` | Créer/modifier un TP, devoir ou boss fight testé |
-| `concept-visual` | Créer un visuel de concept (Remotion / interactif / statique) |
-| `simulation-design` | Concevoir une simulation « jeu » programmable |
-| `frontend-ui` | Travail dans `frontend/` |
-| `frontend-design` | Direction visuelle d'une page / du `design-system/` (avant `frontend-ui`) |
-| `backend-api` | Travail dans `backend/` |
+| `book-ingest` | Read / extract a book from `books/` |
+| `course-plan` | Step 1: propose a course plan |
+| `content-format` | Any read/write in `content/` |
+| `chapter-content` | Generate the complete content of a chapter |
+| `lab-authoring` | Create/modify a tested lab, assignment or boss fight |
+| `concept-visual` | Create a concept visual (Remotion / interactive / static) |
+| `simulation-design` | Design a programmable "game" simulation |
+| `frontend-ui` | Work in `frontend/` |
+| `frontend-design` | Visual direction for a page / the `design-system/` (before `frontend-ui`) |
+| `backend-api` | Work in `backend/` |
 
-## Commandes
-- `make dev` — tout lancer en local : Postgres (Docker, port 5433), runner :8001, backend :8000, frontend http://localhost:3000 (mot de passe de dev : `dev`)
-- `make test` — tests backend + runner + contrôle de types du frontend
+## Commands
+- `make dev` — run everything locally: Postgres (Docker, port 5433), runner :8001, backend :8000, frontend http://localhost:3000 (dev password: `dev`)
+- `make test` — backend + runner tests + front-end type check
 - `make lint` — gofmt + go vet (backend, runner)
-- `make validate-content` — rejoue tous les TP (solution passe, starter échoue) et tous les quiz « code-output »
-- `make up` / `make down` — pile complète via Docker Compose (`.env` à créer depuis `.env.example`)
-- `make reset-progress` — remet la progression locale à zéro
-- `python3 .claude/skills/book-ingest/scripts/extract_book.py <pdf> --slug <slug>` — extraire un livre
-- `.claude/skills/lab-authoring/scripts/verify_lab.sh <dir>` — valider un exercice
-- `python3 .claude/skills/lab-authoring/scripts/verify_quiz.py <chapitre>` — valider les quiz d'un chapitre
+- `make validate-content` — replays every lab (solution passes, starter fails) and every "code-output" quiz
+- `make up` / `make down` — full stack via Docker Compose (create `.env` from `.env.example`)
+- `make reset-progress` — resets local progress to zero
+- `python3 .claude/skills/book-ingest/scripts/extract_book.py <pdf> --slug <slug>` — extract a book
+- `.claude/skills/lab-authoring/scripts/verify_lab.sh <dir>` — validate an exercise
+- `python3 .claude/skills/lab-authoring/scripts/verify_quiz.py <chapter>` — validate a chapter's quizzes
 
-## Déploiement (Coolify)
-`docker-compose.yaml` à la racine. Pointer le domaine vers le service `proxy` (port 80) ; Caddy envoie `/api/*` au backend et le reste au frontend. Le port hôte local est publié uniquement via `docker-compose.override.yaml`. PostgreSQL est externe à la pile : le backend s'y connecte via `DATABASE_URL`. Variables : voir `.env.example`. Le `runner` monte le socket Docker de l'hôte : ne jamais l'exposer.
+## Deployment (Coolify)
+`docker-compose.yaml` at the root. Point the domain at the `proxy` service (port 80); Caddy sends `/api/*` to the backend and everything else to the front end. The local host port is published only through `docker-compose.override.yaml`. PostgreSQL is external to the stack: the backend connects to it through `DATABASE_URL`. Variables: see `.env.example`. The `runner` mounts the host's Docker socket: never expose it.
