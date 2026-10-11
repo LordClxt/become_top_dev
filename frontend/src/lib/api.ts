@@ -155,15 +155,65 @@ export type Lesson = {
 export type PaletteItem = {
   type: string
   label: string
-  shape: 'client' | 'service' | 'queue' | 'database' | 'external' | 'cache'
+  /** Ancien format ; `component` (id du catalogue) est toujours renseigné par le backend. */
+  shape: string
+  component: string
   hint: string
 }
 
-/** Graphe d'un exercice `diagram` : ce que contient diagram.json. */
+export type EdgeKind = 'sync' | 'async' | 'replication' | 'read' | 'write'
+
+/** Graphe d'un exercice `diagram` : ce que contient diagram.json (format v2, le v1 reste lisible). */
 export type DiagramGraph = {
-  nodes: { id: string; type: string; x: number; y: number }[]
-  edges: { id: string; source: string; target: string }[]
+  nodes: {
+    id: string
+    type: string
+    x: number
+    y: number
+    label?: string
+    parent?: string
+    w?: number
+    h?: number
+    props?: Record<string, string>
+  }[]
+  edges: { id: string; source: string; target: string; kind?: EdgeKind; label?: string }[]
 }
+
+export type CatalogProp = { id: string; label: string; kind: string; options: string[]; default: string }
+export type CatalogComponent = {
+  id: string
+  label: string
+  category: string
+  icon: string
+  hint: string
+  zone: boolean
+  props: CatalogProp[]
+}
+export type CatalogCategory = { id: string; label: string; color: string }
+export type DiagramCatalog = { categories: CatalogCategory[]; components: CatalogComponent[] }
+
+// --- Fiches interactives (kind: worksheet) ---
+export type WSOption = { id: string; label: string; hint: string }
+export type WSParam = { id: string; label: string; unit: string; min: number; max: number; step: number; default: number }
+export type WSMetric = { id: string; label: string; expr: string; unit: string; format: string }
+export type WSGoal = { id: string; label: string; expr: string }
+export type WSBlock = {
+  id: string
+  type: 'number' | 'choice' | 'multi' | 'order' | 'match' | 'table' | 'tuner'
+  title: string
+  prompt: string
+  unit: string
+  options: WSOption[]
+  items: WSOption[]
+  categories: WSOption[]
+  columns: { id: string; label: string }[]
+  rows: { id: string; label: string; cells: Record<string, string> | null }[]
+  params: WSParam[]
+  metrics: WSMetric[]
+  goals: WSGoal[]
+}
+export type Worksheet = { intro: string; blocks: WSBlock[] }
+export type TunerPreview = { metrics: Record<string, number>; goals: Record<string, boolean>; error?: string }
 
 export type SandboxExercise = {
   id: string
@@ -181,7 +231,7 @@ export type Exercise = {
   id: string
   title: string
   role: ExerciseSummary['role']
-  kind: 'code' | 'tests' | 'design' | 'diagram'
+  kind: 'code' | 'tests' | 'design' | 'diagram' | 'worksheet'
   language: string
   difficulty: number
   xp: number
@@ -194,6 +244,8 @@ export type Exercise = {
   source: { chapter: number; pages: string } | null
   palette: PaletteItem[]
   checks: { id: string; label: string }[]
+  worksheet: Worksheet | null
+  debrief: string
   workspace: {
     editable: Record<string, string>
     readonly: Record<string, string>
@@ -204,7 +256,7 @@ export type Exercise = {
   }
 }
 
-export type TestCase = { name: string; status: 'pass' | 'fail' | 'skip' | 'run'; output: string }
+export type TestCase = { name: string; status: 'pass' | 'fail' | 'skip' | 'run'; output: string; refs?: string[] }
 
 export type RunReport = {
   passed: boolean
@@ -213,6 +265,7 @@ export type RunReport = {
   timed_out: boolean
   duration_ms: number
   xp_awarded: number
+  debrief: string
 }
 
 export type QuizQuestion = {
@@ -279,6 +332,9 @@ export const api = {
   resetExercise: (id: string) => post<void>(`/exercises/${id}/reset`),
   revealHint: (id: string) => post<{ hints: string[]; hints_total: number }>(`/exercises/${id}/hints`),
   run: (id: string, files: Record<string, string>) => post<RunReport>(`/exercises/${id}/run`, { files }),
+  preview: (id: string, files: Record<string, string>) =>
+    post<Record<string, TunerPreview>>(`/exercises/${id}/preview`, { files }),
+  diagramCatalog: () => request<DiagramCatalog>('/diagram/catalog'),
 
   quiz: (id: string) => request<{ id: string; lesson_id: string; questions: QuizQuestion[] }>(`/quizzes/${id}`),
   answer: (quizId: string, questionId: string, answer: unknown) =>

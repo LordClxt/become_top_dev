@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Stocker sans partager la mémoire"
+    goal: "Put estampille la version courante, PutRaw charge des données anciennes, Raw/Delete/Len, avec des copies profondes dans les deux sens."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Schema-on-read"
+    goal: "Get met un ancien document à niveau en appliquant les Upgrader dans l'ordre, sans toucher au stockage, avec des erreurs claires (introuvable, version future, upgrader en échec)."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Chercher et migrer"
+    goal: "Find par chemin pointé à travers les versions, PendingMigration et Migrate qui réécrit le stockage et s'arrête au premier échec."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Quand choisirais-tu la mise à niveau à la lecture (lazy) plutôt que Migrate (eager) pour une vraie base ? Donne un argument de coût et un de risque."

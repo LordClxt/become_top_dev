@@ -1,0 +1,30 @@
+{
+  "resol": {
+    "name": "copy",
+    "age": "skip",
+    "email": "default"
+  },
+  "evol": {
+    "add-def": "both",
+    "add-nodef": "fwd",
+    "rm-def": "both",
+    "rm-nodef": "back",
+    "alias": "back",
+    "union": "back"
+  },
+  "ou": {
+    "file": "header",
+    "db": "version",
+    "net": "nego"
+  },
+  "sizes": [
+    "avro",
+    "proto",
+    "compact",
+    "binary",
+    "msgpack",
+    "json"
+  ],
+  "saving": 60.5,
+  "null": "union"
+}

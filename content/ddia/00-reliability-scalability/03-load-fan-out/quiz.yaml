@@ -1,0 +1,119 @@
+id: ddia-ch00-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi dire « ce système est scalable » n'a-t-il pas de sens en soi ?"
+    choices:
+      - "Parce que les systèmes ne peuvent jamais grandir"
+      - "Parce que la scalabilité se discute pour une croissance précise : « si la charge évolue de telle façon, quelles sont nos options ? »"
+      - "Parce que le mot est interdit en ingénierie"
+      - "Parce que seule la performance compte"
+    answer: 1
+    explanation: "La scalabilité n'est pas une étiquette à une dimension. Elle se mesure par rapport à des paramètres de charge et à une croissance donnée."
+    concept: ddia-scalability-definition
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Lesquels de ces nombres peuvent être des paramètres de charge ?"
+    choices:
+      - "Les requêtes par seconde d'un serveur web"
+      - "Le ratio lectures/écritures d'une base de données"
+      - "Le nombre d'utilisateurs actifs en même temps dans un salon de discussion"
+      - "Le taux de succès d'un cache"
+      - "La couleur du logo"
+    answer: [0, 1, 2, 3]
+    explanation: "Le bon choix dépend de l'architecture. Tous ces nombres décrivent la charge ; le logo, non."
+    concept: ddia-load-parameters
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Dans l'exemple de Twitter en 2012, pourquoi publier 12 000 tweets par seconde (en pointe) n'était-il pas le vrai problème ?"
+    choices:
+      - "Parce que 12 000 est un nombre trop petit pour compter"
+      - "Parce que la difficulté vient du fan-out : chaque tweet doit atteindre tous les abonnés de son auteur"
+      - "Parce que les tweets ne sont pas stockés"
+      - "Parce que Twitter utilisait des serveurs géants"
+    answer: 1
+    explanation: "Traiter 12 000 écritures par seconde est facile. Le défi, c'est de livrer chaque tweet à des dizaines, parfois des millions, de fils."
+    concept: ddia-fan-out
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "4,6 k tweets par seconde, en moyenne livrés à 75 abonnés : combien d'écritures par seconde dans les fils d'accueil (approche 2) ?"
+    choices: ["12 k", "75 k", "345 k", "4,6 M"]
+    answer: 2
+    explanation: "4 600 × 75 = 345 000 écritures par seconde."
+    concept: ddia-fan-out
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi l'approche « assembler à la lecture » a-t-elle fini par ne plus tenir ?"
+    choices:
+      - "Parce que les requêtes de fil d'accueil (300 k/s) étaient bien plus nombreuses que les publications (4,6 k/s) et coûteuses à chaque lecture"
+      - "Parce que SQL ne sait pas faire de jointure"
+      - "Parce que les tweets étaient trop longs"
+      - "Parce qu'elle consommait trop de disque"
+    answer: 0
+    explanation: "Chaque lecture exigeait de rechercher et de fusionner les tweets de tous les comptes suivis. Avec une lecture 65 fois plus fréquente que l'écriture, il valait mieux préparer le résultat à l'écriture."
+    concept: ddia-fan-out
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Quel est le principal inconvénient de l'approche « préparer à l'écriture » ?"
+    choices:
+      - "Les lectures deviennent plus lentes"
+      - "Publier devient très coûteux pour les comptes à énormément d'abonnés (plus de 30 millions d'écritures pour un seul tweet)"
+      - "Elle n'est pas compatible avec une base relationnelle"
+      - "Elle perd des tweets"
+    answer: 1
+    explanation: "Le travail de fan-out est proportionnel au nombre d'abonnés de l'auteur, d'où des pics énormes pour les célébrités."
+    concept: ddia-fan-out
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Quel paramètre de charge est, dans cet exemple, déterminant pour la scalabilité ?"
+    choices:
+      - "La taille moyenne d'un tweet"
+      - "La distribution du nombre d'abonnés par utilisateur"
+      - "Le nombre de serveurs"
+      - "Le langage de programmation"
+    answer: 1
+    explanation: "Elle détermine la charge de fan-out. La moyenne seule masque les comptes à des millions d'abonnés."
+    concept: ddia-load-parameters
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "En quoi consiste l'approche hybride adoptée par Twitter ?"
+    choices:
+      - "Utiliser deux bases de données"
+      - "Faire le fan-out à l'écriture pour la plupart des comptes, mais fusionner à la lecture les tweets des célébrités"
+      - "Supprimer les tweets des célébrités"
+      - "Limiter le nombre d'abonnés à 75"
+    answer: 1
+    explanation: "Les comptes à très grand nombre d'abonnés échappent au fan-out ; leurs tweets sont récupérés et fusionnés à la lecture."
+    concept: ddia-hybrid-approach
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Quel principe général retenir de l'approche hybride ?"
+    choices:
+      - "Choisir toujours l'approche la plus simple"
+      - "Quand une approche est excellente pour la majorité mais catastrophique pour une minorité, traiter cette minorité à part"
+      - "Dupliquer toutes les données"
+      - "Ne jamais optimiser"
+    answer: 1
+    explanation: "C'est un patron courant : un chemin rapide pour le cas habituel, un chemin spécial pour les cas extrêmes."
+    concept: ddia-hybrid-approach
+    difficulty: 2
+  - id: q10
+    type: single
+    prompt: "Pourquoi, dans une jeune entreprise, vaut-il souvent mieux ne pas concevoir pour une charge hypothétique énorme ?"
+    choices:
+      - "Parce que la scalabilité ne sert à rien"
+      - "Parce que si les hypothèses de charge sont fausses, l'effort est au mieux gaspillé, et itérer vite sur le produit compte davantage"
+      - "Parce que les serveurs sont gratuits"
+      - "Parce que les utilisateurs n'arrivent jamais"
+    answer: 1
+    explanation: "Une architecture scalable repose sur des hypothèses : quelles opérations seront courantes, lesquelles rares. Si elles sont fausses, on a travaillé pour rien."
+    concept: ddia-scalability-definition
+    difficulty: 2

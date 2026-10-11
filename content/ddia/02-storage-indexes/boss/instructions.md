@@ -1,0 +1,1 @@
+Dessine l'architecture d'un B-tree qui survit aux crashs : journal, pages sur disque durable, reprise, et la forme de l'arbre après quatre insertions. Chaque règle non respectée met en évidence les blocs fautifs.

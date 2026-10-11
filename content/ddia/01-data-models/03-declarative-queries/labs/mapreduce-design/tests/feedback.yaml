@@ -1,0 +1,20 @@
+blocks:
+  map:
+    options:
+      d1.cle: 'La clé est le mois : on ne garde que « année-mois », pas le jour.'
+  reduce:
+    tolerance:
+      abs: 0
+  appels:
+    wrong: '`reduce` est appelée une fois par **clé**, pas une fois par document.'
+  pure:
+    options:
+      compteur: 'Un compteur global est un effet de bord : si `map` est rejouée après une panne, il compte deux fois.'
+      api: 'Une requête externe n''est pas rejouable de façon fiable : `map` ne doit utiliser que ses entrées.'
+  style:
+    options:
+      sql: On décrit le résultat voulu, pas comment l'obtenir.
+      boucle: 'On dicte les étapes : c''est de l''impératif.'
+      css: On décrit le motif des éléments à styler.
+      dom: 'On parcourt et on modifie à la main : le style ne se retire pas tout seul.'
+      pipe: 'Un pipeline d''agrégation est un langage déclaratif à base de JSON : il réinvente SQL.'

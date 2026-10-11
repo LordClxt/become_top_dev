@@ -1,0 +1,17 @@
+id: ddia-ch03-l01-lab-workload-design
+title: 'OLTP ou OLAP : à chaque charge son moteur'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-oltp
+- ddia-olap
+- ddia-data-warehouse
+- ddia-etl
+source:
+  chapter: 3
+  pages: 90-93
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

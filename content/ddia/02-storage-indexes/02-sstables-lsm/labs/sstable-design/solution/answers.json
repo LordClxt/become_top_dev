@@ -1,0 +1,29 @@
+{
+  "fusion": {
+    "a.v": "x",
+    "b.v": 2,
+    "c.v": 3,
+    "d.v": 2,
+    "e.v": 1,
+    "f.v": 3
+  },
+  "tombstone": "non",
+  "index": {
+    "idx.n": 157,
+    "scan.n": 64
+  },
+  "ecriture": [
+    "wal",
+    "mem",
+    "flush",
+    "trunc",
+    "merge"
+  ],
+  "memoire": {
+    "memtable": "ram",
+    "wal": "disk",
+    "sstable": "disk",
+    "sparse": "ram",
+    "bloom": "ram"
+  }
+}

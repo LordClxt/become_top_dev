@@ -1,0 +1,75 @@
+intro: |2
+
+  Tes **50 recommandations** référencent leur **auteur** et leur **organisation** par identifiant. Ces 50 documents citent **20 auteurs distincts** et **5 organisations distinctes**. La base de documents n'a pas de jointure : tu l'émules dans le code. Chaque lecture d'un ou plusieurs documents par identifiant est **une requête**, et coûte **3 ms** d'aller-retour réseau.
+blocks:
+- id: naive
+  type: number
+  title: La version naïve
+  prompt: 'Pour chaque document : un `Get` du document, puis un `Get` par référence (auteur, organisation). Combien de requêtes pour les 50 documents
+    ?'
+  unit: requêtes
+- id: batch
+  type: number
+  title: La version groupée
+  prompt: Une requête lit tous les documents, puis **une requête par champ de référence** sur les identifiants distincts (`GetMany`). Combien
+    de requêtes en tout ?
+  unit: requêtes
+- id: temps
+  type: table
+  title: Le coût réseau
+  prompt: À 3 ms la requête, quelle durée de réseau pour chaque version, en millisecondes ?
+  columns:
+  - id: ms
+    label: Durée (ms)
+  rows:
+  - id: naive
+    label: Version naïve
+  - id: batch
+    label: Version groupée
+- id: distinct
+  type: table
+  title: Identifiants à demander
+  prompt: Combien d'identifiants chaque requête groupée transmet-elle ?
+  columns:
+  - id: n
+    label: Identifiants
+  rows:
+  - id: docs
+    label: Lecture des recommandations
+  - id: authors
+    label: Lecture des auteurs
+  - id: orgs
+    label: Lecture des organisations
+- id: steps
+  type: order
+  title: L'algorithme `Expand`
+  prompt: Remets les étapes de la version groupée dans l'ordre.
+  items:
+  - id: read
+    label: Lire les documents demandés en une requête
+  - id: collect
+    label: Collecter les identifiants référencés, sans doublon, pour chaque champ
+  - id: fetch
+    label: Lire chaque collection cible en une requête
+  - id: index
+    label: Indexer les documents lus par identifiant
+  - id: replace
+    label: Remplacer chaque référence par le document correspondant, sur une copie
+- id: shape
+  type: match
+  title: Embarquer ou référencer ?
+  prompt: Où ranger chaque donnée dans un modèle documentaire ?
+  items:
+  - id: addr
+    label: L'adresse de livraison d'un utilisateur (une seule, jamais partagée)
+  - id: org
+    label: Une organisation partagée par 10 000 personnes
+  - id: jobs
+    label: La liste des postes d'un CV
+  - id: author
+    label: L'auteur d'un article cité par des milliers de recommandations
+  categories:
+  - id: embed
+    label: Embarquer dans le document
+  - id: ref
+    label: Référencer par identifiant

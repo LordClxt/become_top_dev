@@ -1,0 +1,156 @@
+id: ddia-ch02-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: En quoi un index secondaire diffère-t-il d'un index primaire ?
+  choices:
+  - Ses clés ne sont pas uniques
+  - Il est toujours plus rapide
+  - Il stocke toujours la ligne entière
+  - Il n'est jamais trié
+  answer: 0
+  explanation: Plusieurs lignes peuvent avoir la même valeur indexée.
+  concept: ddia-secondary-index
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Comment gère-t-on des clés non uniques dans un index secondaire ?
+  choices:
+  - Liste d'identifiants par valeur, ou clé rendue unique en lui ajoutant l'identifiant de la ligne
+  - On interdit les doublons
+  - On garde une seule ligne
+  - On trie au hasard
+  answer: 0
+  explanation: B-trees et index log-structurés conviennent tous les deux.
+  concept: ddia-secondary-index
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Qu'est-ce qu'un heap file ?
+  choices:
+  - Un fichier où les lignes sont stockées sans ordre ; les index y renvoient plutôt que de dupliquer les données
+  - Un index en mémoire
+  - Un type de WAL
+  - Une file de priorité
+  answer: 0
+  explanation: 'Avantage : pas de duplication quand il y a plusieurs index secondaires.'
+  concept: ddia-heap-clustered-covering
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Qu'est-ce qu'un index clustered ?
+  choices:
+  - La ligne entière est stockée dans l'index, évitant le saut vers le heap
+  - Un index sur plusieurs colonnes
+  - Un index compressé
+  - Un index en mémoire
+  answer: 0
+  explanation: Dans InnoDB, la clé primaire est toujours clustered et les index secondaires renvoient à la clé primaire.
+  concept: ddia-heap-clustered-covering
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Qu'est-ce qu'un index couvrant ?
+  choices:
+  - Un index qui stocke certaines colonnes de la table et peut répondre seul à certaines requêtes
+  - Un index sur toutes les colonnes
+  - Un index temporaire
+  - Un index spatial
+  answer: 0
+  explanation: Compromis entre clustered (tout) et non clustered (références seulement), au prix d'espace et d'écritures plus lentes.
+  concept: ddia-heap-clustered-covering
+  difficulty: 2
+- id: q6
+  type: code-output
+  prompt: 'Qu''affiche ce programme ? (annuaire trié par « nom|prénom » : préfixe contre suffixe)'
+  code: |
+    keys := []string{"Dupont|Jean", "Dupont|Marie", "Durand|Marie"}
+    n := 0
+    for _, k := range keys {
+        if strings.HasPrefix(k, "Dupont|") {
+            n++
+        }
+    }
+    m := 0
+    for _, k := range keys {
+        if strings.HasSuffix(k, "|Marie") {
+            m++
+        }
+    }
+    fmt.Println(n, m)
+  answer: 2 2
+  explanation: 'Les deux comptes valent 2, mais le préfixe (nom) se trouve par bisection puis un petit balayage contigu ; le suffixe (prénom) oblige à parcourir toute la liste : les « Marie » sont dispersées.'
+  concept: ddia-concatenated-index
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: L'index concaténé sur (nom, prénom) sert à rechercher…
+  choices:
+  - Par nom, ou par nom et prénom, mais pas par prénom seul
+  - Par prénom seul
+  - Par n'importe quelle colonne
+  - Seulement par nom et prénom ensemble
+  answer: 0
+  explanation: 'Règle du préfixe : on peut utiliser les colonnes de tête, dans l''ordre.'
+  concept: ddia-concatenated-index
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Pourquoi un B-tree ordinaire ne répond-il pas bien à une requête sur latitude ET longitude ?
+  choices:
+  - Il donne un intervalle sur une dimension à la fois, pas les deux simultanément
+  - Il ne gère pas les nombres décimaux
+  - Il est trop lent
+  - Il n'accepte que des chaînes
+  answer: 0
+  explanation: Il faut un index spatial (R-tree) ou une courbe de remplissage de l'espace.
+  concept: ddia-multidim-index
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Quel autre usage les index multidimensionnels ont-ils ?
+  choices:
+  - Chercher dans une plage de couleurs (rouge, vert, bleu) ou (date, température)
+  - Compresser du texte
+  - Trier des chaînes
+  - Chiffrer les données
+  answer: 0
+  explanation: Ils ne sont pas réservés à la géographie.
+  concept: ddia-multidim-index
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Que permet la distance d'édition dans Lucene ?
+  choices:
+  - Trouver des mots proches malgré des fautes de frappe (une lettre ajoutée, retirée ou remplacée = distance 1)
+  - Trier les documents
+  - Compresser les termes
+  - Chiffrer l'index
+  answer: 0
+  explanation: Elle repose sur un automate de Levenshtein dérivé d'un automate à états finis sur les clés.
+  concept: ddia-fulltext-fuzzy
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: Pourquoi une base en mémoire est-elle plus rapide ?
+  choices:
+  - Parce qu'elle évite d'encoder les structures en mémoire dans un format écrivable sur disque, pas parce qu'elle évite les lectures disque
+  - Parce qu'elle n'écrit jamais sur disque
+  - Parce qu'elle n'a pas d'index
+  - Parce qu'elle est plus petite
+  answer: 0
+  explanation: 'Même un moteur sur disque n''y touche pas s''il a assez de mémoire : l''OS met les blocs en cache.'
+  concept: ddia-in-memory-db
+  difficulty: 2
+- id: q12
+  type: single
+  prompt: Comment une base en mémoire peut-elle être durable ?
+  choices:
+  - Journal des changements, snapshots périodiques, réplication ou RAM sur batterie
+  - Elle ne peut pas
+  - En écrivant chaque requête dans un fichier texte
+  - En doublant la RAM
+  answer: 0
+  explanation: Le disque sert alors d'ajout seul pour la durabilité, les lectures viennent de la RAM.
+  concept: ddia-in-memory-db
+  difficulty: 1

@@ -1,0 +1,1 @@
+Un B-tree accepte **au plus 3 clés par page**. Insère successivement `10, 20, 30, 40, 50, 60, 70, 80, 90, 100` et dessine l'arbre final : une page par bloc, ses clés dans le panneau de droite, une flèche du parent vers chaque enfant. Les enfants se lisent **de gauche à droite**.

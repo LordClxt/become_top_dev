@@ -1,0 +1,180 @@
+id: ddia-ch01-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle structure de données est le modèle hiérarchique d'IMS ?
+  choices:
+  - Un graphe quelconque
+  - Un arbre d'enregistrements imbriqués, proche de JSON
+  - Des tables à plat
+  - Un fichier texte
+  answer: 1
+  explanation: Comme les bases de documents, il gère bien l'un-à-plusieurs et mal le plusieurs-à-plusieurs.
+  concept: ddia-hierarchical-network
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Dans le modèle réseau CODASYL, qu'est-ce qu'un chemin d'accès ?
+  choices:
+  - Un index secondaire
+  - La chaîne de liens à suivre depuis un enregistrement racine pour atteindre un autre, que le programmeur doit connaître
+  - Une jointure déclarée
+  - Le chemin d'un fichier
+  answer: 1
+  explanation: Plusieurs chemins pouvant mener au même enregistrement, le programmeur devait tous les garder en tête.
+  concept: ddia-hierarchical-network
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Pourquoi le code CODASYL était-il difficile à faire évoluer ?
+  choices:
+  - Parce qu'il ne supportait pas les index
+  - 'Parce que les chemins d''accès étaient écrits à la main dans le code : changer le modèle imposait de réécrire les requêtes'
+  - Parce qu'il était trop lent en lecture
+  - Parce qu'il n'avait pas de disque
+  answer: 1
+  explanation: Le code de requête et de mise à jour dépendait de la structure des liens.
+  concept: ddia-hierarchical-network
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Qu'apporte l'optimiseur de requêtes du modèle relationnel ?
+  choices:
+  - Il choisit automatiquement l'ordre d'exécution et les index, c'est-à-dire les chemins d'accès
+  - Il supprime le besoin de schéma
+  - Il remplace les transactions
+  - Il compresse les données
+  answer: 0
+  explanation: On construit l'optimiseur une fois et toutes les applications en profitent. Déclarer un nouvel index suffit à accélérer des requêtes sans les modifier.
+  concept: ddia-relational-optimizer
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pour les relations plusieurs-à-un, quelle est la différence fondamentale entre relationnel et document ?
+  choices:
+  - 'Aucune : dans les deux cas l''élément lié est désigné par un identifiant résolu à la lecture'
+  - Le document n'a aucune référence
+  - Le relationnel n'a pas de jointure
+  - Le document les résout à l'écriture
+  answer: 0
+  explanation: Clé étrangère d'un côté, référence de document de l'autre, avec résolution par jointure ou requête supplémentaire.
+  concept: ddia-relational-optimizer
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Vos données sont un arbre toujours chargé en entier. Quel modèle simplifie le plus le code ?
+  choices:
+  - Un document
+  - Un graphe
+  - Des tables fortement éclatées
+  - Un réseau CODASYL
+  answer: 0
+  explanation: Le shredding en plusieurs tables alourdirait schéma et code pour rien.
+  concept: ddia-model-choice
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Les données sont fortement interconnectées (tout peut être lié à tout). Quel classement du livre ?
+  choices:
+  - Document naturel, relationnel pénible, graphe impossible
+  - Document maladroit, relationnel acceptable, graphe le plus naturel
+  - Tous équivalents
+  - Relationnel impossible
+  answer: 1
+  explanation: Plus les relations plusieurs-à-plusieurs dominent, plus on va vers le graphe.
+  concept: ddia-model-choice
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pourquoi dit-on que « schemaless » est trompeur ?
+  choices:
+  - Parce que les bases de documents ont toujours un schéma strict
+  - 'Parce que le code qui lit les données suppose une structure : il y a un schéma implicite, non vérifié par la base'
+  - Parce que SQL n'a pas de schéma
+  - Parce que le JSON n'a pas de types
+  answer: 1
+  explanation: Le terme précis est schema-on-read, par opposition à schema-on-write.
+  concept: ddia-schema-on-read
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Quelle analogie relie schema-on-read et schema-on-write aux langages ?
+  choices:
+  - Typage dynamique (à l'exécution) et typage statique (à la compilation)
+  - Interprété et compilé
+  - Fonctionnel et objet
+  - Synchrone et asynchrone
+  answer: 0
+  explanation: Il n'y a pas de bonne réponse absolue, comme dans le débat sur le typage.
+  concept: ddia-schema-on-read
+  difficulty: 1
+- id: q10
+  type: code-output
+  prompt: Qu'affiche ce programme ? (lecture d'un document v1 « name »)
+  code: |
+    doc := map[string]any{"name": "Ludwig van Beethoven"}
+    first, rest, _ := strings.Cut(doc["name"].(string), " ")
+    fmt.Printf("%q %q\n", first, rest)
+  answer: '"Ludwig" "van Beethoven"'
+  explanation: 'strings.Cut coupe au premier séparateur : tout le reste va dans le second résultat. C''est l''équivalent Go du code de lecture « Documents écrits avant le… n''ont pas first_name ».'
+  concept: ddia-schema-on-read
+  difficulty: 2
+- id: q11
+  type: code-output
+  prompt: Qu'affiche ce programme ? (le document n'a pas de champ « name » de type chaîne)
+  code: |
+    doc := map[string]any{"age": 3}
+    _, ok := doc["name"].(string)
+    fmt.Println(ok)
+  answer: 'false'
+  explanation: Avec un schéma à la lecture, c'est le code qui vérifie la présence et le type d'un champ, là où une base à schéma l'aurait refusé à l'écriture.
+  concept: ddia-schema-on-read
+  difficulty: 1
+- id: q12
+  type: single
+  prompt: Pourquoi l'UPDATE d'une migration peut-il être évité dans une base relationnelle ?
+  choices:
+  - Il ne peut pas être évité
+  - On peut laisser la nouvelle colonne à NULL et la remplir à la lecture, comme avec un document
+  - On remplace la table par un fichier
+  - On supprime l'ancienne colonne seulement
+  answer: 1
+  explanation: L'ALTER TABLE est rapide dans la plupart des moteurs (MySQL excepté) ; c'est l'UPDATE qui réécrit chaque ligne.
+  concept: ddia-schema-on-read
+  difficulty: 3
+- id: q13
+  type: single
+  prompt: Quel inconvénient de la localité d'un document est cité par le livre ?
+  choices:
+  - Il faut charger tout le document même pour en lire une petite partie, et le réécrire en entier à chaque mise à jour
+  - Il ne peut pas être indexé
+  - Il ne peut pas contenir de listes
+  - Il est toujours plus lent à lire
+  answer: 0
+  explanation: D'où le conseil de garder les documents petits et d'éviter les écritures qui les font grossir.
+  concept: ddia-data-locality
+  difficulty: 2
+- id: q14
+  type: single
+  prompt: Quel est l'intérêt de l'entrelacement (interleaving) de Spanner ?
+  choices:
+  - Il offre la localité des documents dans un modèle relationnel, en imbriquant les lignes d'une table dans celles de sa parente
+  - Il chiffre les données
+  - Il répartit les lignes au hasard
+  - Il supprime les index
+  answer: 0
+  explanation: 'La localité n''est pas propre au modèle document : Oracle, Bigtable (column families) l''offrent aussi.'
+  concept: ddia-data-locality
+  difficulty: 3
+- id: q15
+  type: single
+  prompt: Quel phénomène montre que relationnel et document se ressemblent de plus en plus ?
+  choices:
+  - PostgreSQL, MySQL et DB2 prennent en charge JSON, et RethinkDB offre des jointures
+  - Les bases de documents ont supprimé les index
+  - Les bases relationnelles ont supprimé SQL
+  - Plus aucune différence n'existe
+  answer: 0
+  explanation: Un hybride permet d'utiliser le modèle qui convient à chaque donnée.
+  concept: ddia-convergence
+  difficulty: 1

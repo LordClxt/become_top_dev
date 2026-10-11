@@ -1,0 +1,86 @@
+intro: |2
+
+  Un LSM-tree vide, dont la memtable part en **SSTable** dès qu'elle contient **3 clés distinctes** (pierres tombales comprises). On exécute, dans l'ordre :
+
+  ```
+  Put(a, 1)  Put(b, 1)  Put(a, 2)  Put(c, 1)      // 3 clés : flush
+  Delete(b)  Put(d, 1)  Put(e, 1)                 // 3 clés : flush
+  ```
+
+  Une lecture consulte la memtable, puis les segments **du plus récent au plus ancien**, et s'arrête à la première occurrence de la clé.
+blocks:
+- id: segments
+  type: number
+  title: Combien de segments ?
+  prompt: Combien de SSTables existent après ces opérations ? (La memtable est vide.)
+  unit: segments
+- id: lectures
+  type: table
+  title: Segments examinés par lecture
+  prompt: Pour chaque `Get`, combien de segments sont consultés avant de conclure ? (Une pierre tombale conclut aussi.)
+  columns:
+  - id: n
+    label: Segments consultés
+  rows:
+  - id: gb
+    label: Get(b)
+  - id: ga
+    label: Get(a)
+  - id: gz
+    label: Get(z), clé jamais écrite
+- id: scan
+  type: multi
+  title: Scan(a, e)
+  prompt: Quelles clés vivantes renvoie `Scan(a, e)` ? (borne basse incluse, haute exclue)
+  options:
+  - id: a
+    label: a
+  - id: b
+    label: b
+  - id: c
+    label: c
+  - id: d
+    label: d
+  - id: e
+    label: e
+- id: compact
+  type: number
+  title: Après `Compact()`
+  prompt: Combien d'entrées contient l'unique SSTable obtenue (sans pierres tombales ni anciennes versions) ?
+  unit: entrées
+- id: tomb
+  type: choice
+  title: Pourquoi la pierre tombale de `b` disparaît-elle ?
+  prompt: La compaction a fusionné **tous** les segments. Pourquoi peut-elle retirer la pierre tombale de `b` ?
+  options:
+  - id: all
+    label: 'Plus aucun segment plus ancien ne contient `b` : rien n''est à masquer'
+    hint: Condition de suppression d'une pierre tombale
+  - id: time
+    label: Parce qu'elle a plus d'une minute
+  - id: mem
+    label: Parce que la memtable est vide
+- id: bloom
+  type: number
+  title: L'apport d'un filtre de Bloom
+  prompt: Avec **8 segments** et un filtre à **1 % de faux positifs** devant chacun, combien de segments sont lus **en moyenne** pour une clé
+    absente ?
+  unit: segments
+- id: mem
+  type: match
+  title: Mémoire ou disque ?
+  prompt: Où vit chaque structure ?
+  items:
+  - id: memtable
+    label: Memtable
+  - id: wal
+    label: Journal
+  - id: sstable
+    label: SSTable
+  - id: bloom
+    label: Filtre de Bloom
+  categories:
+  - id: ram
+    label: En mémoire
+  - id: disk
+    label: Sur disque

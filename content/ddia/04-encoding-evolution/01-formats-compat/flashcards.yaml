@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Mise à jour progressive (rolling upgrade) ?
+  back: 'Déployer sur quelques nœuds à la fois, vérifier, avancer : pas d''interruption, versions plus fréquentes.'
+  concept: ddia-rolling-upgrade
+- id: fc2
+  front: Rétrocompatibilité ?
+  back: Le code récent lit les données écrites par l'ancien code.
+  concept: ddia-backward-forward
+- id: fc3
+  front: Compatibilité ascendante ?
+  back: Le code ancien lit les données écrites par le code récent (il ignore ce qu'il ne connaît pas).
+  concept: ddia-backward-forward
+- id: fc4
+  front: Encoder / décoder ?
+  back: Mémoire vers octets / octets vers mémoire (sérialisation, marshalling ; sans rapport avec le chiffrement).
+  concept: ddia-encoding-decoding
+- id: fc5
+  front: Pourquoi éviter le format de son langage ?
+  back: Lié à un langage, failles de désérialisation, versionnement et performance négligés.
+  concept: ddia-language-specific-formats
+- id: fc6
+  front: Défauts de JSON ?
+  back: Pas de distinction entier/flottant, ni précision ; entiers > 2^53 inexacts en JavaScript ; pas de chaînes binaires (Base64, +33 %).
+  concept: ddia-textual-formats
+- id: fc7
+  front: CSV ?
+  back: Aucun schéma ; format flou (virgules, sauts de ligne) ; l'application interprète les colonnes.
+  concept: ddia-textual-formats
+- id: fc8
+  front: MessagePack vs JSON ?
+  back: '66 octets contre 81 pour l''exemple : gain mince car les noms de champs restent dans les octets.'
+  concept: ddia-textual-formats

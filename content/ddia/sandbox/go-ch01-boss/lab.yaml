@@ -1,0 +1,13 @@
+id: ddia-sandbox-go-ch01-boss
+title: "TP Go : Boss : un évaluateur Datalog"
+kind: code
+language: go
+difficulty: 5
+xp: 280
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["datalog.go"]
+concepts: [ddia-datalog-rules, ddia-variable-length-traversal, ddia-triple-store, ddia-declarative-vs-imperative]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

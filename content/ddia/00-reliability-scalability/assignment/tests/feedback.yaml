@@ -1,0 +1,33 @@
+blocks:
+  trace:
+    options:
+      r2.start: 'La requête 2 arrive à 2 ms mais le serveur ne se libère qu''à 10 ms : début = max(arrivée, libération).'
+      r1.resp: Réponse = fin − arrivée. La requête 1 arrive à 0 et finit à 10.
+      r5.resp: 'La requête 5 arrive à 8 ms et finit à 14 ms : 6 ms, dont 5 d''attente.'
+  moy:
+    options:
+      open.mean: Somme des réponses (10 + 9 + 8 + 7 + 6) divisée par 5.
+      closed.mean: 'Sans file, le temps de réponse est le temps de service : (10 + 1 + 1 + 1 + 1) / 5.'
+      closed.p50: 'En boucle fermée, les temps valent 10, 1, 1, 1, 1 : la médiane est la 3ᵉ valeur triée.'
+  why:
+    options:
+      cpu: 'La consommation de CPU n''explique pas l''écart : c''est la file qui manque.'
+      avg: 'Le type d''agrégat n''est pas en cause : c''est ce qui est mesuré qui est faussé.'
+  slo:
+    options:
+      p99: 'Le p99 vaut 10 ms, c''est-à-dire sous 12 : pas de dépassement.'
+      both: Le p99 respecte son objectif.
+      none: La médiane vaut 8 ms, au-dessus de 5.
+  budget:
+    tolerance:
+      abs: 0.1
+    wrong: 30 jours × 24 h × 60 min = 43 200 min, dont 0,1 % = 43,2 min.
+  reste:
+    tolerance:
+      abs: 0.1
+    wrong: Budget total (43,2 min) moins l'incident (25 min).
+  charge:
+    goals:
+      util: 'Pas assez de serveurs : à plus de 70 %, la file commence à grossir vite.'
+      att: 'La file est trop longue : ajoute un serveur.'
+      cost: 'Trop de serveurs : le budget est dépassé.'

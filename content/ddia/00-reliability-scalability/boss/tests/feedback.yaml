@@ -1,0 +1,31 @@
+blocks:
+  appels:
+    tolerance:
+      rel: 0.001
+    wrong: 600 requêtes/s × 20 appels par requête.
+  capa:
+    tolerance:
+      rel: 0.001
+    wrong: 12 000 appels/s × 0,025 s de service = 300 workers occupés en permanence.
+  part:
+    tolerance:
+      abs: 0.1
+    wrong: '1 − (1 − 0,005)²⁰ : la probabilité qu''aucun des 20 appels ne soit lent.'
+  hol:
+    options:
+      tail: Le fan-out décrit le nombre d'appels déclenchés, pas l'attente derrière une requête lente.
+      cold: Le démarrage à froid concerne le premier appel d'un service, pas la file.
+  dash:
+    options:
+      measure: Il faut d'abord des mesures honnêtes, avant tout calcul.
+      sum: 'Les histogrammes à tranches communes s''additionnent : c''est l''étape clé pour un cluster.'
+      slo: On ne compare à l'objectif qu'une fois le percentile du cluster connu.
+  agg:
+    options:
+      avg99: 'Moyenner des percentiles n''a pas de sens : on ne retrouve pas le p99 de l''ensemble.'
+      max99: 'Le maximum des p99 est un majorant prudent : le p99 global ne peut pas le dépasser.'
+  plan:
+    goals:
+      util: 'Trop peu de workers : au-delà de 70 % d''utilisation, la file commence à gonfler.'
+      cost: Trop de workers pour le budget.
+      slow: 'Avec 20 appels par requête, même 0,5 % d''appels lents touche presque 10 % des utilisateurs : réduis la proportion d''appels lents.'

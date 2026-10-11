@@ -1,0 +1,12 @@
+id: ddia-sandbox-go-ch00-assignment
+title: "TP Go : Mesurer une file d'attente sans se mentir"
+kind: code
+language: go
+difficulty: 3
+xp: 120
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["queue.go"]
+concepts: [ddia-percentiles, ddia-response-time, ddia-slo-sla]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

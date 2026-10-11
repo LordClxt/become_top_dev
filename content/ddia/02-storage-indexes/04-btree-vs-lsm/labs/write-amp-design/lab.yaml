@@ -1,0 +1,17 @@
+id: ddia-ch02-l04-lab-write-amp-design
+title: 'B-tree ou LSM : chiffrer avant de choisir'
+difficulty: 3
+xp: 75
+concepts:
+- ddia-write-amplification
+- ddia-lsm-advantages
+- ddia-compaction-interference
+- ddia-measure-workload
+source:
+  chapter: 3
+  pages: 83-85
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

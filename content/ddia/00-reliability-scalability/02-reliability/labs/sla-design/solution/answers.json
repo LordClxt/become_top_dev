@@ -1,0 +1,7 @@
+{
+  "serie": 99.7,
+  "arret": 525.6,
+  "parallele": "p99",
+  "correle": ["bug", "rack", "deploy"],
+  "reglage": { "n": 3, "a": 99 }
+}

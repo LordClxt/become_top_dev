@@ -1,0 +1,32 @@
+{
+  "trace": {
+    "r1.start": 0,
+    "r1.end": 10,
+    "r1.resp": 10,
+    "r2.start": 10,
+    "r2.end": 11,
+    "r2.resp": 9,
+    "r3.start": 11,
+    "r3.end": 12,
+    "r3.resp": 8,
+    "r4.start": 12,
+    "r4.end": 13,
+    "r4.resp": 7,
+    "r5.start": 13,
+    "r5.end": 14,
+    "r5.resp": 6
+  },
+  "moy": {
+    "open.mean": 8,
+    "open.p50": 8,
+    "closed.mean": 2.8,
+    "closed.p50": 1
+  },
+  "why": "hol",
+  "slo": "p50",
+  "budget": 43.2,
+  "reste": 18.2,
+  "charge": {
+    "c": 6
+  }
+}

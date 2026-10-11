@@ -1,0 +1,58 @@
+checks:
+- id: lucy-born
+  label: Lucy est née en Idaho
+  rule: link
+  source: Lucy
+  target: Idaho
+  value: born_in
+- id: alain-born
+  label: Alain est né à Beaune
+  rule: link
+  source: Alain
+  target: Beaune
+  value: born_in
+- id: lucy-lives
+  label: Lucy vit à Londres
+  rule: link
+  source: Lucy
+  target: London
+  value: lives_in
+- id: alain-lives
+  label: Alain vit à Londres
+  rule: link
+  source: Alain
+  target: London
+  value: lives_in
+- id: idaho-usa
+  label: L'Idaho est dans les États-Unis
+  rule: link
+  source: Idaho
+  target: United States
+  value: within
+- id: beaune-france
+  label: Beaune est en France
+  rule: link
+  source: Beaune
+  target: France
+  value: within
+- id: france-europe
+  label: La France est en Europe
+  rule: link
+  source: France
+  target: Europe
+  value: within
+- id: london-uk
+  label: Londres est au Royaume-Uni
+  rule: link
+  source: London
+  target: United Kingdom
+  value: within
+- id: uk-europe
+  label: Le Royaume-Uni est en Europe
+  rule: link
+  source: United Kingdom
+  target: Europe
+  value: within
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

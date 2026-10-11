@@ -1,0 +1,15 @@
+id: ddia-ch02-l02-lab-bloom-design
+title: Régler un filtre de Bloom
+difficulty: 3
+xp: 70
+concepts:
+- ddia-bloom-filter
+- ddia-lsm-tree
+source:
+  chapter: 3
+  pages: '79'
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

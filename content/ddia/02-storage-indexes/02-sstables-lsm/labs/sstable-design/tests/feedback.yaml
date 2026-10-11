@@ -1,0 +1,20 @@
+blocks:
+  fusion:
+    options:
+      a.v: '`a` a une pierre tombale dans S3, le segment le plus récent : elle gagne sur `a=1`.'
+      c.v: 'S3 est le plus récent : sa valeur gagne sur celles de S1 et S2.'
+  tombstone:
+    options:
+      oui: 'Si on jette la pierre tombale, `a=1` de S1 redevient visible : la suppression est annulée.'
+      memtable: 'La memtable n''a rien à voir : c''est la présence de `a` dans un segment plus ancien qui compte.'
+  index:
+    options:
+      idx.n: '10 000 ÷ 64, arrondi au supérieur : la dernière entrée d''index couvre un bloc incomplet.'
+  ecriture:
+    options:
+      mem: 'Le journal d''abord : sans lui, un crash perd les écritures de la memtable.'
+      trunc: On ne jette le journal qu'une fois la SSTable écrite.
+  memoire:
+    options:
+      wal: 'Le journal est sur disque : c''est lui qui permet de reconstruire la memtable après un crash.'
+      sstable: Les segments sont des fichiers immuables.

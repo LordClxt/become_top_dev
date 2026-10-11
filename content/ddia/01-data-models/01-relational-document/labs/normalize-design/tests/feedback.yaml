@@ -1,0 +1,20 @@
+blocks:
+  tables:
+    options:
+      orgnom: 'Le nom d''une organisation décrit l''organisation : il ne se répète pas dans chaque poste.'
+      orgid: 'C''est la clé étrangère : elle vit côté poste et renvoie à l''organisation.'
+      logo: 'Le logo décrit l''organisation, pas le poste : mis en entité, l''organisation a ses propres attributs.'
+      titre: Le titre appartient à ce poste précis.
+      dates: Les dates appartiennent à ce poste précis.
+      nom: Une personne, une ligne.
+  cout:
+    options:
+      doc.n: 'Chaque copie du nom doit être réécrite : autant d''écritures que de CV, avec le risque d''en oublier.'
+  reco:
+    options:
+      imbrique: 'L''auteur doit rester à jour (nom, photo) : une copie imbriquée serait périmée dès qu''il change de photo.'
+      impossible: 'On peut très bien le stocker : c''est le coût de lecture et de code qui change.'
+  identifiants:
+    options:
+      moins: 'Pas toujours : une jointure ou une requête supplémentaire est parfois nécessaire à la lecture.'
+      sens: 'C''est l''inverse : l''identifiant n''a aucun sens humain, donc il n''a jamais besoin de changer.'

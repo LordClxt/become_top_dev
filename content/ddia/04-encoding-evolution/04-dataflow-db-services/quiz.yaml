@@ -1,0 +1,146 @@
+id: ddia-ch04-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que veut dire « les données survivent au code » ?
+  choices:
+  - Le code se remplace en minutes, mais les données d'une base gardent l'encodage de leur écriture
+  - Le code ne change jamais
+  - Les données sont supprimées à chaque déploiement
+  - Les données sont toujours migrées automatiquement
+  answer: 0
+  explanation: Une base contient des valeurs écrites il y a cinq ans comme il y a cinq millisecondes.
+  concept: ddia-data-outlives-code
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi une base partagée exige-t-elle les deux sens de compatibilité ?
+  choices:
+  - Des instances de versions différentes lisent et écrivent les mêmes données
+  - Parce que SQL l'impose
+  - Parce que les bases sont lentes
+  - Parce que le schéma est fixe
+  answer: 0
+  explanation: 'Écrit par du code récent, relu par du code ancien : il faut aussi la compatibilité ascendante.'
+  concept: ddia-data-outlives-code
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Un ancien service lit un enregistrement avec un champ inconnu, le modifie et le réécrit. Que souhaite-t-on ?
+  choices:
+  - Qu'il conserve le champ inconnu intact
+  - Qu'il le supprime
+  - Qu'il le convertisse en chaîne
+  - Qu'il refuse la lecture
+  answer: 0
+  explanation: Sinon un ancien service efface les données ajoutées par le nouveau.
+  concept: ddia-unknown-fields
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Comment perd-on le champ inconnu ?
+  choices:
+  - En décodant en objets du modèle puis en les ré-encodant
+  - Par une panne de disque
+  - Par la compression
+  - Par un conflit d'index
+  answer: 0
+  explanation: Le modèle de l'ancien code n'a pas de place pour ce champ.
+  concept: ddia-unknown-fields
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Que fait une base relationnelle quand on ajoute une colonne avec défaut null ?
+  choices:
+  - Elle remplit null à la lecture des anciennes lignes, sans les réécrire
+  - Elle réécrit toutes les lignes toujours
+  - Elle refuse
+  - Elle supprime les anciennes lignes
+  answer: 0
+  explanation: L'évolution de schéma donne l'impression d'un seul schéma pour toute la base.
+  concept: ddia-data-outlives-code
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Qu'est-ce que REST ?
+  choices:
+  - 'Une philosophie de conception fondée sur HTTP : URL, formats simples, fonctions HTTP'
+  - Un protocole XML
+  - Un langage de requête
+  - Un format binaire
+  answer: 0
+  explanation: Une API qui en suit les principes est dite RESTful.
+  concept: ddia-rest-vs-soap
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Qu'est-ce que SOAP ?
+  choices:
+  - Un protocole XML d'appels réseau décrit par WSDL, avec la famille de standards WS-*
+  - Un format de messages binaire
+  - Un équivalent de SQL
+  - Une philosophie fondée sur les URL
+  answer: 0
+  explanation: Il survit surtout dans les grandes entreprises.
+  concept: ddia-rest-vs-soap
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Quel est le défaut fondamental du RPC fondé sur la transparence de localisation ?
+  choices:
+  - 'Un appel réseau n''est pas un appel de fonction : perte, délai dépassé, latence variable, types différents'
+  - Il est trop rapide
+  - Il ne marche qu'en Java
+  - Il interdit les paramètres
+  answer: 0
+  explanation: Mieux vaut ne pas cacher qu'on utilise un réseau.
+  concept: ddia-rpc-problems
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Que peut-on ignorer après un délai dépassé sur un appel réseau ?
+  choices:
+  - Si la requête est arrivée et a été exécutée
+  - La date
+  - Le nom du serveur
+  - Rien
+  answer: 0
+  explanation: C'est une issue qui n'existe pas pour un appel local.
+  concept: ddia-rpc-problems
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Pourquoi l'idempotence est-elle nécessaire en cas de nouvel essai ?
+  choices:
+  - La réponse a pu se perdre alors que l'action a été exécutée ; sans déduplication, elle serait répétée
+  - Pour accélérer les appels
+  - Pour réduire la taille des messages
+  - Pour chiffrer la requête
+  answer: 0
+  explanation: Un paiement réessayé sans clé d'idempotence est débité plusieurs fois.
+  concept: ddia-rpc-problems
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: Si tous les serveurs sont mis à jour avant les clients, quelle compatibilité faut-il ?
+  choices:
+  - Rétrocompatibilité sur les requêtes, compatibilité ascendante sur les réponses
+  - Aucune
+  - Ascendante sur les requêtes, rétro sur les réponses
+  - Rétrocompatibilité sur les deux
+  answer: 0
+  explanation: Le serveur neuf lit les requêtes des anciens clients ; l'ancien client lit les réponses du serveur neuf.
+  concept: ddia-service-evolution
+  difficulty: 2
+- id: q12
+  type: single
+  prompt: Qu'est-ce qui domine les API publiques ?
+  choices:
+  - REST, pour son écosystème et sa simplicité d'exploration (curl, navigateur)
+  - CORBA
+  - DCOM
+  - RMI
+  answer: 0
+  explanation: Le RPC sert surtout entre services d'une même organisation.
+  concept: ddia-rest-vs-soap
+  difficulty: 1

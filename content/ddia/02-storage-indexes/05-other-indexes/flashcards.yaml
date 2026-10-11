@@ -1,0 +1,49 @@
+cards:
+- id: fc1
+  front: Index primaire vs secondaire ?
+  back: 'Primaire : clé unique d''une ligne/document/sommet. Secondaire : autre colonne, clés non uniques (CREATE INDEX).'
+  concept: ddia-secondary-index
+- id: fc2
+  front: Deux façons de gérer des clés non uniques ?
+  back: Liste d'identifiants par valeur (comme une postings list), ou clé + identifiant de ligne pour la rendre unique.
+  concept: ddia-secondary-index
+- id: fc3
+  front: Heap file ?
+  back: Stockage des lignes sans ordre ; plusieurs index secondaires y renvoient sans dupliquer les données.
+  concept: ddia-heap-clustered-covering
+- id: fc4
+  front: Index clustered ?
+  back: 'Ligne entière stockée dans l''index (clé primaire d''InnoDB) : pas de saut vers le heap.'
+  concept: ddia-heap-clustered-covering
+- id: fc5
+  front: Index couvrant ?
+  back: 'Stocke quelques colonnes dans l''index : certaines requêtes se résolvent sans lire la ligne.'
+  concept: ddia-heap-clustered-covering
+- id: fc6
+  front: Coût de clustered et couvrant ?
+  back: Espace supplémentaire, écritures plus lentes, effort pour garder les transactions cohérentes.
+  concept: ddia-heap-clustered-covering
+- id: fc7
+  front: Index concaténé ?
+  back: Plusieurs champs concaténés en une clé, dans l'ordre déclaré (annuaire nom, prénom).
+  concept: ddia-concatenated-index
+- id: fc8
+  front: Règle du préfixe ?
+  back: Un index sur (a, b, c) sert pour a, a+b, a+b+c, jamais pour b ou c seuls.
+  concept: ddia-concatenated-index
+- id: fc9
+  front: Index multidimensionnel ?
+  back: 'Intervalle sur plusieurs colonnes à la fois : R-tree (PostGIS) ou courbe de remplissage + B-tree.'
+  concept: ddia-multidim-index
+- id: fc10
+  front: Recherche floue dans Lucene ?
+  back: Distance d'édition via un automate de Levenshtein ; dictionnaire de termes de type SSTable.
+  concept: ddia-fulltext-fuzzy
+- id: fc11
+  front: Pourquoi les bases en mémoire sont-elles rapides ?
+  back: 'Pas d''encodage vers un format disque. Pas parce qu''elles évitent les lectures : l''OS cache déjà les blocs.'
+  concept: ddia-in-memory-db
+- id: fc12
+  front: Durabilité d'une base en mémoire ?
+  back: Journal, snapshots, réplication ou matériel spécial (RAM sur batterie).
+  concept: ddia-in-memory-db

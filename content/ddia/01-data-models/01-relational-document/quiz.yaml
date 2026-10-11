@@ -1,0 +1,122 @@
+id: ddia-ch01-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi chaque modèle de données impose-t-il des choix à l'application ?
+  choices:
+  - 'Parce qu''il embarque des hypothèses d''usage : certaines opérations sont naturelles, d''autres maladroites ou lentes'
+  - Parce qu'il dicte le langage de programmation
+  - Parce qu'il interdit les index
+  - Parce qu'il ne fonctionne que sur un serveur
+  answer: 0
+  explanation: Chaque couche cache celle du dessous mais en fixe les possibles. Mieux vaut choisir le modèle d'après la forme de ses données.
+  concept: ddia-data-model-layers
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Qu'appelle-t-on décalage d'impédance (impedance mismatch) ?
+  choices:
+  - Un conflit entre deux bases de données
+  - Le désaccord entre le modèle objet du code et le modèle tables/lignes/colonnes, qui impose une couche de traduction
+  - Un retard réseau entre client et serveur
+  - Une erreur de type SQL
+  answer: 1
+  explanation: Les ORM réduisent le code répétitif mais ne cachent pas complètement cette différence.
+  concept: ddia-impedance-mismatch
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Quelle relation forme naturellement un arbre que le format JSON rend explicite ?
+  choices:
+  - Plusieurs-à-plusieurs
+  - Un-à-plusieurs (un profil et ses postes)
+  - Plusieurs-à-un uniquement
+  - Aucune
+  answer: 1
+  explanation: 'Les postes, formations et contacts d''un profil appartiennent à un seul profil : c''est un arbre, stocké d''un bloc dans un document.'
+  concept: ddia-one-to-many-tree
+  difficulty: 1
+- id: q4
+  type: code-output
+  prompt: Qu'affiche ce programme ? (les trois utilisateurs référencent la région par son identifiant)
+  code: |
+    regions := map[int]string{1: "Paris"}
+    users := []int{1, 1, 1}
+    regions[1] = "Lutèce"
+    fmt.Println(regions[users[0]], regions[users[1]], regions[users[2]])
+  answer: Lutèce Lutèce Lutèce
+  explanation: 'Le nom n''est stocké qu''à un endroit : une seule écriture corrige tous les utilisateurs. Avec du texte dupliqué dans chaque enregistrement, il faudrait en réécrire trois.'
+  concept: ddia-normalization
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pourquoi stocker region_id plutôt que le texte « Greater Seattle Area » dans chaque profil ?
+  choices:
+  - Pour gagner quelques octets uniquement
+  - Parce que l'identifiant n'a pas de sens humain, donc n'a jamais besoin de changer, et l'information lisible n'est stockée qu'une fois
+  - Parce que les chaînes sont interdites en JSON
+  - Parce que cela supprime les jointures
+  answer: 1
+  explanation: Ce qui a du sens pour un humain peut changer. Si c'est copié partout, il faut tout mettre à jour, avec un risque d'incohérence.
+  concept: ddia-normalization
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Quelle règle pratique indique qu'un schéma n'est pas normalisé ?
+  choices:
+  - Il contient plus de trois tables
+  - Il duplique des valeurs qui pourraient n'être stockées qu'à un seul endroit
+  - Il utilise des clés étrangères
+  - Il contient des index
+  answer: 1
+  explanation: 'Le livre juge les distinctions fines entre formes normales peu utiles en pratique : la duplication évitable est le critère.'
+  concept: ddia-normalization
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pourquoi ajouter des « recommandations » entre utilisateurs complique-t-il le modèle document ?
+  choices:
+  - Parce qu'un document ne peut pas contenir de texte
+  - 'Parce que c''est une relation plusieurs-à-plusieurs : la recommandation doit référencer le profil de l''auteur, ce qui exige une jointure'
+  - Parce que JSON interdit les références
+  - Parce que cela supprime l'imbrication
+  answer: 1
+  explanation: 'Le nom et la photo de l''auteur doivent suivre ses mises à jour : on référence son profil au lieu de le copier.'
+  concept: ddia-many-to-many
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Si la base de documents ne gère pas les jointures, que doit faire le développeur pour résoudre une référence ?
+  choices:
+  - Rien, la base le fait
+  - Émuler la jointure dans le code applicatif avec des requêtes supplémentaires
+  - Supprimer la référence
+  - Passer à XML
+  answer: 1
+  explanation: Le travail de jointure passe de la base au code, avec plus de complexité et souvent plus de lenteur.
+  concept: ddia-many-to-many
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Un système n'a que des profils auto-contenus, lus en entier, avec très peu de références entre eux. Quel modèle est le plus adapté ?
+  choices:
+  - Un document
+  - Un graphe
+  - Un modèle réseau CODASYL
+  - Aucun
+  answer: 0
+  explanation: 'Peu de relations entre enregistrements et une structure arborescente : c''est le cas d''usage du document.'
+  concept: ddia-one-to-many-tree
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Que signifie « polyglot persistence » ?
+  choices:
+  - Une base qui parle plusieurs langues
+  - Utiliser plusieurs types de bases côte à côte, chacune pour son cas d'usage
+  - Écrire du SQL dans plusieurs langages
+  - Répliquer une base sur plusieurs continents
+  answer: 1
+  explanation: Relationnelles et non relationnelles devraient coexister dans les années à venir.
+  concept: ddia-data-model-layers
+  difficulty: 1

@@ -1,0 +1,68 @@
+intro: Une enseigne de supermarchés exploite des caisses, un site web, un système de stocks… et sa direction veut des tableaux de bord. Tu décides
+  quelle charge va où, et tu chiffres l'entrepôt qui va recevoir l'historique.
+blocks:
+- id: charges
+  type: match
+  title: Chaque requête dans son monde
+  prompt: 'Classe ces requêtes : transactionnelles (OLTP) ou analytiques (OLAP) ?'
+  items:
+  - id: profil
+    label: Afficher la page de profil d'un client
+  - id: panier
+    label: Ajouter un article au panier
+  - id: ca
+    label: Chiffre d'affaires de chaque magasin en janvier
+  - id: promo
+    label: Combien de bananes de plus que d'habitude pendant la promotion ?
+  - id: adresse
+    label: Mettre à jour l'adresse de livraison
+  - id: couples
+    label: Quelle marque est le plus souvent achetée avec telle marque de couches ?
+  categories:
+  - id: oltp
+    label: OLTP
+  - id: olap
+    label: OLAP
+- id: pourquoi
+  type: choice
+  title: Pourquoi un entrepôt séparé ?
+  prompt: Un analyste veut lancer une requête qui parcourt la moitié de l'historique des ventes. Pourquoi ne pas la lancer sur la base de production
+    ?
+  options:
+  - id: perf
+    label: Elle ralentirait les transactions en cours, que l'activité de l'entreprise exige rapides
+    hint: Production protégée
+  - id: sql
+    label: La base de production ne comprend pas SQL
+  - id: acid
+    label: L'analyse viole les propriétés ACID
+- id: etl
+  type: order
+  title: Alimenter l'entrepôt
+  prompt: Remets dans l'ordre les trois étapes de l'ETL.
+  items:
+  - id: extract
+    label: Extraire les données des bases de production (export périodique ou flux de mises à jour)
+  - id: transform
+    label: Les transformer vers un schéma adapté à l'analyse et les nettoyer
+  - id: load
+    label: Les charger dans l'entrepôt
+- id: vrai
+  type: multi
+  title: Ce qui est vrai d'un entrepôt
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: copy
+    label: Il contient une copie en lecture seule des bases de production
+  - id: sql
+    label: Son modèle est le plus souvent relationnel
+  - id: same
+    label: Il utilise exactement les mêmes structures de stockage que les bases OLTP
+  - id: hist
+    label: Il garde l'historique des événements, pas seulement l'état courant
+- id: taille
+  type: number
+  title: Dimensionner l'historique
+  prompt: Les caisses produisent **50 millions d'événements par jour**, chacun de **120 octets** une fois stocké. Quelle taille cela fait-il sur
+    **un an** (365 jours) ? Réponds en téraoctets (1 To = 10¹² octets), avec deux décimales.
+  unit: To

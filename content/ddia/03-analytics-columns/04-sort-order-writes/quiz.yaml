@@ -1,0 +1,142 @@
+id: ddia-ch03-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Dans quel ordre stocke-t-on les lignes par défaut dans un stockage en colonnes ?
+  choices:
+  - Dans l'ordre d'insertion
+  - Triées par clé primaire
+  - Au hasard
+  - Triées par taille
+  answer: 0
+  explanation: Insérer une ligne revient à ajouter une valeur à la fin de chaque fichier de colonne.
+  concept: ddia-column-sort-order
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi ne trie-t-on jamais chaque colonne indépendamment ?
+  choices:
+  - On ne saurait plus quelles valeurs appartiennent à la même ligne
+  - Le tri est trop lent
+  - SQL l'interdit
+  - Cela doublerait l'espace
+  answer: 0
+  explanation: La reconstitution d'une ligne repose sur la position commune dans chaque colonne.
+  concept: ddia-column-sort-order
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Qui choisit les colonnes de tri ?
+  choices:
+  - L'administrateur, d'après les requêtes courantes
+  - Le système, au hasard
+  - L'utilisateur final à chaque requête
+  - Elles sont fixées par le standard SQL
+  answer: 0
+  explanation: Si les requêtes ciblent des plages de dates, la date est une bonne première clé.
+  concept: ddia-column-sort-order
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: À quoi sert la deuxième clé de tri ?
+  choices:
+  - Départager les lignes qui ont la même première valeur
+  - Compresser davantage la première colonne
+  - Supprimer les doublons
+  - Remplacer la première clé
+  answer: 0
+  explanation: 'Ex. date puis produit : les ventes d''un produit un même jour sont regroupées.'
+  concept: ddia-column-sort-order
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Quelle colonne se compresse le mieux après tri ?
+  choices:
+  - La première clé de tri
+  - La dernière colonne
+  - Toutes de la même façon
+  - Aucune
+  answer: 0
+  explanation: Elle forme de longues séquences de valeurs identiques, parfaites pour le RLE.
+  concept: ddia-sort-compression
+  difficulty: 1
+- id: q6
+  type: code-output
+  prompt: Qu'affiche ce programme ? (nombre de séquences dans une colonne triée ou non)
+  code: |
+    runs := func(v []int) int {
+        n := 0
+        for i := range v {
+            if i == 0 || v[i] != v[i-1] {
+                n++
+            }
+        }
+        return n
+    }
+    a := []int{1, 2, 1, 2, 1, 2}
+    b := []int{1, 1, 1, 2, 2, 2}
+    fmt.Println(runs(a), runs(b))
+  answer: 6 2
+  explanation: 'Une séquence commence quand la valeur change : l''ordre trié ne contient que deux séquences.'
+  concept: ddia-sort-compression
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Que permet un ordre de tri multiple (C-Store, Vertica) ?
+  choices:
+  - Stocker les mêmes données triées différemment dans des copies déjà nécessaires pour la réplication
+  - Trier une seule colonne de plusieurs façons
+  - Supprimer la réplication
+  - Éviter les écritures
+  answer: 0
+  explanation: À la requête, on utilise la version qui convient le mieux.
+  concept: ddia-multiple-sort-orders
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: En quoi cela diffère-t-il de plusieurs index secondaires en stockage par lignes ?
+  choices:
+  - 'Pas de pointeurs : seulement des colonnes de valeurs, alors qu''un index secondaire pointe vers la ligne unique'
+  - Il y a plus de copies dans le stockage par lignes
+  - Il n'y a aucune différence
+  - Les index secondaires n'existent pas en colonnes
+  answer: 0
+  explanation: Le stockage par lignes garde chaque ligne à un seul endroit.
+  concept: ddia-multiple-sort-orders
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Pourquoi la mise à jour sur place est-elle impossible avec des colonnes compressées et triées ?
+  choices:
+  - Insérer au milieu obligerait à réécrire tous les fichiers de colonnes
+  - Les colonnes sont en lecture seule matérielle
+  - Le disque refuse
+  - Les bitmaps sont chiffrés
+  answer: 0
+  explanation: 'Les lignes sont identifiées par leur position : l''insertion doit modifier toutes les colonnes de façon cohérente.'
+  concept: ddia-column-writes
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Comment écrit-on dans un stockage en colonnes (Vertica) ?
+  choices:
+  - En mémoire dans une structure triée, puis fusion en bloc avec les fichiers de colonnes, comme un LSM-tree
+  - Directement dans les fichiers, ligne par ligne
+  - Par mise à jour de pages sur place
+  - Par un journal sans fusion
+  answer: 0
+  explanation: Les écritures s'accumulent en mémoire puis sont fusionnées et écrites dans de nouveaux fichiers.
+  concept: ddia-column-writes
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: Une requête lit des données récemment écrites. Où doit-elle chercher ?
+  choices:
+  - Dans les colonnes sur disque ET dans les écritures récentes en mémoire
+  - Seulement sur disque
+  - Seulement en mémoire
+  - Dans un index externe
+  answer: 0
+  explanation: 'L''optimiseur masque cette distinction : l''analyste voit immédiatement les modifications.'
+  concept: ddia-column-writes
+  difficulty: 2

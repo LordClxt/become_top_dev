@@ -1,0 +1,64 @@
+id: ddia-ch03-boss
+title: 'Boss : la chaîne analytique, de la caisse au tableau de bord'
+difficulty: 5
+xp: 280
+time_limit_min: 90
+concepts:
+- ddia-data-warehouse
+- ddia-etl
+- ddia-column-writes
+- ddia-multiple-sort-orders
+- ddia-data-cube
+source:
+  chapter: 3
+  pages: 90-104
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: shop
+  component: service
+  label: Caisses et site web
+  hint: Les systèmes qui enregistrent les ventes.
+- type: oltp
+  component: postgres
+  label: Base transactionnelle
+  hint: 'PostgreSQL : l''état courant.'
+- type: etl
+  component: worker
+  label: ETL
+  hint: Extrait, transforme, charge.
+- type: wh
+  component: zone
+  label: Entrepôt de données
+  hint: Tout ce qui sert l'analyse.
+- type: mem
+  component: memtable
+  label: Écritures récentes
+  hint: Structure triée en mémoire, comme un LSM-tree.
+- type: bydate
+  component: sstable
+  label: Colonnes triées par date
+  hint: Copie triée d'abord par date.
+- type: byproduct
+  component: sstable
+  label: Colonnes triées par produit
+  hint: Copie triée d'abord par produit.
+- type: cube
+  component: index
+  label: Cube de données
+  hint: Grille d'agrégats précalculés.
+- type: analyst
+  component: browser
+  label: Analyste
+  hint: Pose des questions à l'entrepôt.
+- type: redis
+  component: redis
+  label: Cache Redis
+  hint: Un cache d'application.
+- type: doc
+  component: mongo
+  label: Base de documents
+  hint: Un modèle transactionnel.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

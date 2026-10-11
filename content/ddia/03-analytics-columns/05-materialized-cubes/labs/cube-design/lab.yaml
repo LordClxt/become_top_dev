@@ -1,0 +1,16 @@
+id: ddia-ch03-l05-lab-cube-design
+title: 'Précalculer : vues et cubes'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-materialized-view
+- ddia-virtual-view
+- ddia-data-cube
+source:
+  chapter: 3
+  pages: 101-104
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

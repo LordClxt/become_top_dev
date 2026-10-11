@@ -1,0 +1,3 @@
+**Deux profils d'accès, deux moteurs.** Les requêtes transactionnelles cherchent peu d'enregistrements par clé et écrivent au fil des actions des utilisateurs ; les requêtes analytiques parcourent énormément de lignes pour calculer des agrégats. Séparer les deux protège la production : une requête d'analyse qui balaie la moitié de l'historique pourrait ralentir les transactions en cours.
+
+L'entrepôt est alimenté par **ETL** (extraire, transformer, charger). Et il est gros : 50 millions d'événements de 120 octets par jour font `50e6 × 120 × 365 ≈ 2,19 To` par an. C'est pour cela que son stockage mérite un moteur dédié, détaillé dans les leçons suivantes.

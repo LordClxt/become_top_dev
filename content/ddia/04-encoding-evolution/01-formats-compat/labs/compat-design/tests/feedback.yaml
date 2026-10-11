@@ -1,0 +1,22 @@
+blocks:
+  sens:
+    options:
+      old-data: 'Le code récent doit comprendre les données du passé : c''est la rétrocompatibilité.'
+      msg: 'Un nœud ancien lit un message écrit par du code plus récent : compatibilité ascendante.'
+      archive: 'Du code récent relit des données anciennes : rétrocompatibilité.'
+  rolling:
+    options:
+      watch: On ne continue qu'après avoir vérifié que la nouvelle version fonctionne.
+      all: 'L''étape finale : tous les nœuds ont été remplacés.'
+  pickle:
+    options:
+      slow: La vitesse n'est pas l'argument principal.
+      text: Ces formats sont binaires, et c'est leur lien avec un langage qui pose problème.
+  json:
+    options:
+      bin: Il faut passer par Base64, ce qui gonfle les données de 33 %.
+      big: Au-delà de 2⁵³, un flottant à double précision perd l'exactitude.
+  base64:
+    tolerance:
+      rel: 0.01
+    wrong: 6 Mo × 4/3 = 8 Mo.

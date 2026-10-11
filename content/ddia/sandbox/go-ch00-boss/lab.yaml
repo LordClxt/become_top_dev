@@ -1,0 +1,13 @@
+id: ddia-sandbox-go-ch00-boss
+title: "TP Go : Boss : combien de workers pour tenir le p99 ?"
+kind: code
+language: go
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["sim.go"]
+concepts: [ddia-response-time, ddia-percentiles, ddia-tail-amplification, ddia-slo-sla]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

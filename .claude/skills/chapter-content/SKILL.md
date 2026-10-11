@@ -15,13 +15,14 @@ Pré-requis : plan validé (`content/<book>/course.yaml` existe), livre extrait 
    - Aller plus loin que le livre quand utile (perf, internals, idiomes pro) — marqué clairement.
    - Rappels vers les concepts des chapitres précédents (révision espacée).
    - Glossaire + `concepts` avec IDs stables.
-4. **TP** : via le skill `lab-authoring` (obligatoire — c'est lui qui valide les tests).
+4. **TP** : via le skill `lab-authoring` (obligatoire — c'est lui qui valide). Cours pratique de langage (Go) : TP de code. Cours de conception ou de systèmes (DDIA, architecture) : **TP de leçon = `diagram` ou `worksheet`** (le code Go du livre va dans l'Atelier). **Devoir et boss = `diagram` ou `worksheet` aussi** ; seul le projet fil rouge (Tinybase) reste du code Go testé.
 5. **Devoir** (`assignment/`) : problème plus ouvert que les TP, `rubric.yaml` mêlant critères `tests` et `ai`.
 6. **Quiz** : 5–10 questions par leçon, mélange de types, chacune liée à un `concept`, explication pour chaque réponse. Inclure des `code-output` pour les livres pratiques et des scénarios de trade-off pour les livres conceptuels.
 7. **Flashcards** : 5–15 par leçon, une idée par carte.
 8. **Projet** de fin de chapitre : 2–4 jalons testés, réutilise les concepts de plusieurs leçons.
 9. **Boss fight** (`boss/`) : lab plus dur combinant tout le chapitre, via `lab-authoring`.
 10. **Visuels** : pour chaque concept difficile, un `visual.yaml` (`status: idea` au minimum) via `concept-visual`. Idées de simulations via `simulation-design`.
+    **Jamais de schéma en texte** (ASCII, box-drawing, flèches en code fencé) dans une leçon : tout schéma d'architecture, de flux, de mémoire ou de structure devient un visuel `hyperframes` (skill `hyperframes-animation`, voir `concept-visual`), référencé par `::visual{id}`. Les formules et le code restent en texte.
 
 ## Récap à présenter à l'utilisateur
 ```
@@ -39,4 +40,5 @@ Puis **STOP** et attendre la validation avant le chapitre suivant.
 - [ ] `verify_quiz.py` : toutes les réponses `code-output` sont correctes
 - [ ] Aucun long passage recopié ; `source.pages` sur chaque leçon
 - [ ] Tous les concepts du quiz existent dans les `concepts` des leçons
+- [ ] Aucun schéma en texte dans les `lesson.md` (blocs fencés sans langage contenant `│ ─ ▶ ┌`, `+--+`, flèches) : chacun est remplacé par un visuel
 - [ ] Contenu conforme à `content-format`

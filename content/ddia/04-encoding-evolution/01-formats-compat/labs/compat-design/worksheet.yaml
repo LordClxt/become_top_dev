@@ -1,0 +1,65 @@
+intro: Ton équipe déploie une nouvelle version d'un service **nœud par nœud**. Pendant quelques heures, l'ancien et le nouveau code coexistent,
+  et la base contient des données écrites par les deux. Tu raisonnes sur ce qui doit marcher.
+blocks:
+- id: sens
+  type: match
+  title: Rétro ou ascendante ?
+  prompt: Quelle compatibilité chaque scénario exige-t-il ?
+  items:
+  - id: old-data
+    label: Le nouveau service lit les lignes écrites l'an dernier
+  - id: new-data
+    label: Un ancien service lit un enregistrement écrit par la nouvelle version
+  - id: msg
+    label: Pendant la mise à jour, un nœud ancien reçoit un message d'un nœud déjà mis à jour
+  - id: archive
+    label: Une nouvelle application ouvre un fichier archivé en 2021
+  categories:
+  - id: backward
+    label: 'Rétrocompatibilité : le nouveau code lit l''ancien format'
+  - id: forward
+    label: 'Compatibilité ascendante : l''ancien code lit le nouveau format'
+- id: rolling
+  type: order
+  title: Une mise à jour progressive
+  prompt: Remets les étapes dans l'ordre.
+  items:
+  - id: few
+    label: Déployer la nouvelle version sur quelques nœuds
+  - id: watch
+    label: Vérifier qu'elle tourne bien
+  - id: more
+    label: Avancer nœud après nœud
+  - id: all
+    label: Toute la flotte exécute la nouvelle version
+- id: pickle
+  type: choice
+  title: Stocker avec `pickle`
+  prompt: Pourquoi éviter l'encodage intégré du langage (pickle, Serializable) pour des données conservées des années ?
+  options:
+  - id: lang
+    label: Il enferme dans un langage, peut instancier des classes arbitraires au décodage (faille) et ne prévoit pas la compatibilité
+    hint: Lié au langage, risqué, sans versionnement
+  - id: slow
+    label: Il est toujours plus lent que JSON
+  - id: text
+    label: Il produit du texte illisible par les machines
+- id: json
+  type: multi
+  title: Les défauts de JSON
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: intfloat
+    label: JSON ne distingue pas les entiers des flottants
+  - id: bin
+    label: JSON gère nativement les suites d'octets
+  - id: big
+    label: Un entier de plus de 2⁵³ reste exact dans un programme JavaScript
+  - id: strnum
+    label: JSON distingue une chaîne d'un nombre
+- id: base64
+  type: number
+  title: Le prix du Base64
+  prompt: Pour mettre des octets dans du JSON, on les encode en Base64, qui gonfle les données de 33 %. Un fichier de **6 Mo** devient combien
+    de Mo ?
+  unit: Mo

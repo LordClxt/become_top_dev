@@ -1,0 +1,16 @@
+id: ddia-ch01-assignment
+title: Émuler une jointure sans le piège N+1
+difficulty: 3
+xp: 120
+concepts:
+- ddia-many-to-many
+- ddia-impedance-mismatch
+- ddia-normalization
+source:
+  chapter: 2
+  pages: 52-60
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

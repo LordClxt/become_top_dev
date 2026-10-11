@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Vue virtuelle ?
+  back: 'Raccourci d''écriture : le moteur déplie la requête à chaque lecture.'
+  concept: ddia-virtual-view
+- id: fc2
+  front: Vue matérialisée ?
+  back: Copie réelle des résultats d'une requête, écrite sur disque, à mettre à jour.
+  concept: ddia-materialized-view
+- id: fc3
+  front: Coût d'une vue matérialisée ?
+  back: 'Écritures plus chères : la copie dénormalisée doit être maintenue.'
+  concept: ddia-materialized-view
+- id: fc4
+  front: Cube de données ?
+  back: Grille d'agrégats groupés par dimensions (date × produit × magasin…).
+  concept: ddia-data-cube
+- id: fc5
+  front: Avantage d'un cube ?
+  back: 'Requêtes précalculées : lecture directe des totaux sans balayer des millions de lignes.'
+  concept: ddia-data-cube
+- id: fc6
+  front: Limite d'un cube ?
+  back: 'Pas de souplesse : seulement les dimensions prévues (ex. impossible de filtrer sur le prix).'
+  concept: ddia-data-cube
+- id: fc7
+  front: Bonne pratique ?
+  back: Garder les données brutes et utiliser les cubes comme accélérateur.
+  concept: ddia-data-cube
+- id: fc8
+  front: Bilan du chapitre 3 ?
+  back: 'OLTP : LSM-trees et B-trees. OLAP : stockage en colonnes, compression, tri, agrégats matérialisés.'
+  concept: ddia-olap-oltp-summary

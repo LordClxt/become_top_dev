@@ -1,0 +1,47 @@
+id: ddia-ch02-boss
+title: 'Boss : un B-tree qui survit aux crashs'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-btree-pages
+- ddia-btree-split
+- ddia-btree-wal
+- ddia-branching-factor
+source:
+  chapter: 3
+  pages: 82-90
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: service
+  label: Application
+  hint: Le code qui appelle le moteur.
+- type: wal
+  component: wal
+  label: Journal (WAL)
+  hint: 'Journal d''ajout seul : un batch y est écrit avant les pages.'
+- type: page
+  component: btree-page
+  label: Page B-tree
+  hint: Une page de l'arbre. Renseigne ses clés dans le panneau de droite.
+- type: recovery
+  component: cron
+  label: Reprise au démarrage
+  hint: Rejoue le journal après un crash.
+- type: disk
+  component: zone
+  label: Disque durable
+  hint: Tout ce qui survit à un crash.
+- type: redis
+  component: redis
+  label: Cache Redis
+  hint: Un cache externe, volatile.
+- type: memtable
+  component: memtable
+  label: Memtable
+  hint: La structure en mémoire d'un LSM-tree.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

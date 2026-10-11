@@ -1,0 +1,23 @@
+id: ddia-ch02
+title: "Stockage et index"
+subtitle: "Log, SSTables, LSM-trees et B-trees : comment un moteur range et retrouve vos données"
+source: { chapter: 3, pages: "69-90" }
+objectives:
+  - "Expliquer pourquoi un log en ajout seul écrit vite et lit lentement, et ce que l'index change"
+  - "Construire un moteur à log segmenté avec index de hachage, pierres tombales, checksums et compaction"
+  - "Décrire SSTable, memtable, WAL, filtre de Bloom et compaction d'un LSM-tree, et implémenter fusion et recherche avec index creux"
+  - "Insérer dans un B-tree, expliquer l'éclatement des pages et le rôle du WAL pour survivre à un crash"
+  - "Chiffrer l'amplification en écriture et comparer B-tree et LSM-tree avec leurs vrais compromis"
+  - "Choisir entre index secondaire, clustered, couvrant, concaténé, spatial et base en mémoire"
+mastery_threshold: 0.8
+prerequisites: [ddia-ch00]
+lessons:
+  - "01-log-hash-index"
+  - "02-sstables-lsm"
+  - "03-btrees"
+  - "04-btree-vs-lsm"
+  - "05-other-indexes"
+xp: { assignment: 130, project: 240, boss: 300 }
+boss: boss
+assignment: assignment
+project: project

@@ -1,0 +1,17 @@
+id: ddia-ch04-l02-lab-tags-design
+title: Faire évoluer un schéma à numéros de champ
+difficulty: 3
+xp: 70
+concepts:
+- ddia-field-tags
+- ddia-varint
+- ddia-protobuf-evolution
+- ddia-repeated-field
+source:
+  chapter: 4
+  pages: 116-121
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,3 @@
+**Dimensionner un entrepôt, c'est compter ce qu'on lit.** Sur 120 colonnes dont 5 utiles, le stockage par colonnes lit 40 Go au lieu de 960 : 24 fois moins. Les bitmaps conviennent à une colonne à faible cardinalité (« pays » : 25 Go non compressés) ; pour 100 000 produits ils explosent (12,5 To) et ne se tiennent que compressés par RLE.
+
+Le tri est le levier le plus fort : avec la date en première clé, la colonne « date » se réduit à 365 paires, soit 4 380 octets pour un milliard de lignes. Enfin, un cube accélère certaines questions mais se paie en cases (`365 × 1 000 × 50 × 8 ≈ 146 Mo`) et en souplesse : on garde les faits bruts.

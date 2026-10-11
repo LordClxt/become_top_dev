@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Écrire, lire et rejouer"
+    goal: "Set/Get/Delete sur le segment actif, reconstruction de l'index à l'ouverture, pierres tombales rejouées, fin de segment partielle tronquée."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Faire tourner les segments"
+    goal: "Fermer le segment actif à MaxSegmentBytes, lire à travers tous les segments, rejouer plusieurs segments, refuser un segment fermé corrompu."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Compacter"
+    goal: "Fusionner les segments fermés en un seul en ne gardant que les valeurs courantes, sans perdre de clé ni ressusciter une suppression, y compris après réouverture."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Dans Compact, pourquoi peut-on abandonner les pierres tombales des segments fermés alors que celle d'un segment actif doit rester ? Que se passerait-il si on ne fusionnait qu'un sous-ensemble des segments fermés ?"

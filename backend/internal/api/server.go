@@ -60,6 +60,8 @@ func New(svc *service.Service, cfg Config) http.Handler {
 		"POST /api/exercises/{id}/reset":              s.reset,
 		"POST /api/exercises/{id}/hints":              s.revealHint,
 		"POST /api/exercises/{id}/run":                s.run,
+		"POST /api/exercises/{id}/preview":            s.preview,
+		"GET /api/diagram/catalog":                    s.diagramCatalog,
 		"GET /api/quizzes/{id}":                       s.quiz,
 		"POST /api/quizzes/{id}/questions/{question}": s.answer,
 		"GET /api/progress":                           s.progress,

@@ -1,0 +1,14 @@
+id: ddia-ch01-project
+title: "Tinybase — le magasin de documents versionnés"
+pitch: "Tinybase stocke ses premières données : des documents JSON dont le schéma évolue. Tu construis une collection qui range, met à niveau à la lecture, retrouve par chemin et migre en arrière-plan."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 220
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["collection.go"]
+concepts: [ddia-schema-on-read, ddia-data-locality, ddia-model-choice, ddia-normalization]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

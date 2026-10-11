@@ -1,0 +1,19 @@
+{
+  "tot": {
+    "p1.v": 25,
+    "p2.v": 25,
+    "p3.v": 30,
+    "d1.v": 35,
+    "d2.v": 45,
+    "all.v": 80
+  },
+  "vues": {
+    "replay": "virtual",
+    "write": "mat",
+    "copy": "mat",
+    "nogain": "virtual"
+  },
+  "cells": 18250000,
+  "limite": "prix",
+  "garde": "garder"
+}

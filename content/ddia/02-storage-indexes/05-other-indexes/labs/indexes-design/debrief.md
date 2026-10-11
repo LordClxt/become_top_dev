@@ -1,0 +1,3 @@
+**Un index se choisit par sa forme d'accès.** Sur `(nom, prénom, ville)`, la règle du préfixe donne 1, 2, 0 et 1 colonne utilisable : un annuaire papier ne retrouve pas « tous les Marie ». Pour des intervalles sur plusieurs dimensions, il faut un R-tree ; pour éviter un saut vers le heap, un index clustered ou couvrant.
+
+Chaque index est **de la duplication** : il accélère certaines lectures au prix de **chaque écriture** et d'espace. Et si une base en mémoire est rapide, ce n'est pas parce qu'elle évite le disque, c'est parce qu'elle évite l'**encodage** de ses structures vers un format disque.

@@ -1,0 +1,17 @@
+id: ddia-ch02-l02-lab-sstable-design
+title: Fusionner des SSTables à la main
+difficulty: 3
+xp: 75
+concepts:
+- ddia-sstable
+- ddia-merge-sorted
+- ddia-sparse-index
+- ddia-memtable-wal
+source:
+  chapter: 3
+  pages: 76-79
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

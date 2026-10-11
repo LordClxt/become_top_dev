@@ -1,0 +1,17 @@
+id: ddia-ch01-l03-lab-mapreduce-design
+title: Dérouler un MapReduce à la main
+difficulty: 3
+xp: 65
+concepts:
+- ddia-mapreduce-model
+- ddia-pure-functions
+- ddia-declarative-vs-imperative
+- ddia-aggregation-pipeline
+source:
+  chapter: 2
+  pages: 42-48
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

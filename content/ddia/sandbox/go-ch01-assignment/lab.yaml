@@ -1,0 +1,12 @@
+id: ddia-sandbox-go-ch01-assignment
+title: "TP Go : Émuler une jointure sans le piège N+1"
+kind: code
+language: go
+difficulty: 3
+xp: 120
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["expand.go"]
+concepts: [ddia-many-to-many, ddia-normalization, ddia-relational-optimizer]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

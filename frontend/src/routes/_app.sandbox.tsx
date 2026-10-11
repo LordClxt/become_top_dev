@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Check, Code2, Workflow } from 'lucide-react'
+import { Check, ClipboardList, Code2, Workflow } from 'lucide-react'
 import { GridZone } from '@/components/Backdrop'
 import { ErrorState } from '@/components/states'
 import { sandboxQuery } from '@/features/courses/queries'
@@ -19,6 +19,16 @@ const KIND: Record<string, { label: string; icon: typeof Workflow; text: string 
     label: 'Kata de diagramme',
     icon: Workflow,
     text: 'Pose des blocs, relie-les, puis vérifie : chaque règle dit ce qui manque.',
+  },
+  worksheet: {
+    label: 'Fiche interactive',
+    icon: ClipboardList,
+    text: 'Calcule, choisis, remets en ordre : chaque réponse est corrigée avec son explication.',
+  },
+  code: {
+    label: 'TP de code',
+    icon: Code2,
+    text: 'Le TP en Go du cours, en bonus : tests, sandbox et XP, sans compter pour la maîtrise du module.',
   },
 }
 const FALLBACK = { label: 'Exercice', icon: Code2, text: 'Un exercice libre, hors module.' }

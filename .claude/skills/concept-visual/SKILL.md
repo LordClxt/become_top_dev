@@ -16,6 +16,7 @@ description: Concevoir et produire un visuel d'illustration pour un concept diff
 En cas de doute, préférer `interactive` : comprendre en manipulant > regarder.
 
 ## 2. Produire
+- **Règle** : un schéma ne s'écrit jamais en texte dans une leçon (ASCII, box-drawing, flèches dans un bloc de code). Dès qu'un concept se dessine (architecture, flux de requêtes, mémoire, en-tête de slice, courbe), on produit un visuel ; sans autre besoin d'interaction, `hyperframes` est le choix par défaut.
 - **Le visuel doit être fidèle au mécanisme réel** (ordre des événements, états intermédiaires). Simuler la logique dans un petit modèle pur (fonction `step(state) → state`) puis animer la trace — jamais d'animation « à la main » qui pourrait mentir.
 - `remotion` : composition React dans `visuals/<id>/`, 10–30 s, 30 fps, étapes annotées en français, lue via `@remotion/player`.
 - `hyperframes` : `visuals/<id>/scene.html` autonome (skill `hyperframes-animation`) : `<meta name="visual-id">`, racine `data-composition-id` / `data-duration` / `data-width=1920` / `data-height=1080`, **une** timeline GSAP en pause sur `window.__timelines`, état = fonction pure du temps. Tokens de couleur de l'app recopiés, avec `html.light` pour le thème clair (le lecteur synchronise la classe). Texte ≥ 30 px (la scène est réduite à ~40 %). Le `<script>` GSAP du CDN est remplacé par la copie npm au build. Vérifier quelques instants clés en capture (deux thèmes) avant de livrer.

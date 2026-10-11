@@ -1,0 +1,49 @@
+cards:
+- id: fc1
+  front: Qu'est-ce qu'un log au sens du livre ?
+  back: Une suite d'enregistrements en ajout seul, pas forcément lisible par un humain (peut être binaire).
+  concept: ddia-log-append-only
+- id: fc2
+  front: Coût d'écriture et de lecture d'un log sans index ?
+  back: Écriture O(1) (ajout en fin de fichier) ; lecture O(n) (parcours complet).
+  concept: ddia-log-append-only
+- id: fc3
+  front: Compromis des index ?
+  back: Les lectures s'accélèrent, chaque écriture ralentit car l'index doit être mis à jour.
+  concept: ddia-index-tradeoff
+- id: fc4
+  front: Principe de Bitcask ?
+  back: Table de hachage en RAM clé → offset dans un log en ajout seul ; une lecture = un seek.
+  concept: ddia-hash-index
+- id: fc5
+  front: Quand Bitcask convient-il ?
+  back: 'Beaucoup d''écritures par clé mais peu de clés distinctes (compteur de lectures de vidéos) : toutes les clés tiennent en RAM.'
+  concept: ddia-hash-index
+- id: fc6
+  front: Deux limites de l'index de hachage ?
+  back: La table doit tenir en mémoire ; les requêtes par intervalle sont inefficaces.
+  concept: ddia-hash-index
+- id: fc7
+  front: Compaction ?
+  back: Jeter les clés en double d'un segment et ne garder que la valeur la plus récente de chacune.
+  concept: ddia-segments-compaction
+- id: fc8
+  front: Comment fusionne-t-on sans bloquer les lectures ?
+  back: En arrière-plan, dans un nouveau fichier ; on bascule les lectures une fois terminé, puis on supprime les anciens segments.
+  concept: ddia-segments-compaction
+- id: fc9
+  front: Pourquoi l'ajout seul plutôt que l'écrasement sur place ?
+  back: Écritures séquentielles plus rapides, concurrence et reprise plus simples, pas de fragmentation.
+  concept: ddia-segments-compaction
+- id: fc10
+  front: Comment supprimer une clé dans un log ?
+  back: Ajouter une pierre tombale ; la fusion jette alors les anciennes valeurs de la clé.
+  concept: ddia-tombstone-recovery
+- id: fc11
+  front: Comment reconstruire l'index après un crash ?
+  back: Relire les segments en notant l'offset de la dernière valeur de chaque clé, ou charger un instantané de la table.
+  concept: ddia-tombstone-recovery
+- id: fc12
+  front: Comment gérer un enregistrement partiel ?
+  back: 'Un checksum par enregistrement : on détecte et on ignore la fin corrompue du log.'
+  concept: ddia-tombstone-recovery

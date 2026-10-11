@@ -1,0 +1,92 @@
+intro: 'Voici **20 temps de réponse** d''un service, en millisecondes : `15 12 14 13 11 16 12 18 14 13 15 17 12 14 16 13 15 950 14 1200`. Tu les
+  lis comme le ferait un tableau de bord honnête.'
+blocks:
+- id: stats
+  type: table
+  title: Résumer l'échantillon
+  prompt: 'Trie les 20 valeurs. Les percentiles se lisent au **rang le plus proche** : le p95 est la valeur de rang `⌈0,95 × 20⌉` dans la liste
+    triée. Donne la moyenne arithmétique avec une décimale.'
+  columns:
+  - id: v
+    label: Valeur (ms)
+  rows:
+  - id: p50
+    label: Médiane (p50)
+  - id: p95
+    label: p95
+  - id: p99
+    label: p99
+  - id: mean
+    label: Moyenne
+- id: typique
+  type: choice
+  title: Le temps de réponse « typique »
+  prompt: 'Un collègue dit : « notre temps de réponse typique est de 120 ms ». Quel chiffre décrit réellement un utilisateur typique ?'
+  options:
+  - id: moyenne
+    label: 'La moyenne : 120 ms'
+    hint: Elle résume tout en un seul nombre
+  - id: mediane
+    label: 'La médiane : 14 ms'
+    hint: La moitié des requêtes est plus rapide
+  - id: max
+    label: 'Le maximum : 1 200 ms'
+    hint: Le pire cas
+- id: amplification
+  type: number
+  title: L'amplification de la latence de queue
+  prompt: 1 % des appels backend sont lents. Une requête utilisateur fait **100 appels** en parallèle et attend le plus lent. Quelle part des
+    requêtes est touchée par au moins un appel lent ?
+  unit: '%'
+- id: agregats
+  type: match
+  title: Agréger sans se mentir
+  prompt: Range chaque façon de combiner des mesures.
+  items:
+  - id: hist
+    label: Additionner les histogrammes de deux serveurs, puis lire le p99
+  - id: avgp99
+    label: Moyenner les p99 de dix serveurs
+  - id: raw
+    label: Calculer le p99 sur toutes les mesures brutes de la fenêtre
+  - id: avgp50
+    label: Moyenner les médianes de chaque minute pour obtenir la médiane de l'heure
+  - id: closed
+    label: Générer la charge de test en attendant chaque réponse avant d'envoyer la suivante
+  categories:
+  - id: ok
+    label: Valable
+  - id: bad
+    label: À éviter
+- id: reglage
+  type: tuner
+  title: Combien d'appels peut-on se permettre ?
+  prompt: Règle la proportion d'appels lents et le nombre d'appels par requête pour que **moins de 10 %** des requêtes utilisateur soient lentes,
+    sans réduire le nombre d'appels sous 20 (c'est le besoin fonctionnel).
+  params:
+  - id: p
+    label: Appels lents
+    unit: '%'
+    min: 0.01
+    max: 5
+    step: 0.01
+    default: 1
+  - id: n
+    label: Appels par requête
+    unit: ''
+    min: 1
+    max: 200
+    step: 1
+    default: 100
+  metrics:
+  - id: part
+    label: Requêtes touchées
+    expr: 1 - pow(1 - p / 100, n)
+    format: percent
+  goals:
+  - id: ok
+    label: Moins de 10 % de requêtes lentes
+    expr: part < 0.1
+  - id: besoin
+    label: Au moins 20 appels par requête
+    expr: n >= 20

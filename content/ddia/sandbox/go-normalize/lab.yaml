@@ -1,0 +1,12 @@
+id: ddia-ch01-l01-lab-normalize
+title: "TP Go : Éclater un CV en tables, puis le rejoindre"
+kind: code
+language: go
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["normalize.go"]
+concepts: [ddia-normalization, ddia-many-to-many, ddia-one-to-many-tree]
+verified: { at: 2026-10-10, solution: pass, starter: fail }

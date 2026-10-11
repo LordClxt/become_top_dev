@@ -1,0 +1,18 @@
+id: ddia-ch00-boss
+title: 'Boss : combien de workers pour tenir le p99 ?'
+difficulty: 4
+xp: 250
+time_limit_min: 60
+concepts:
+- ddia-response-time
+- ddia-percentiles
+- ddia-tail-amplification
+- ddia-slo-sla
+source:
+  chapter: 1
+  pages: 32-46
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,139 @@
+id: ddia-ch04-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qui remplace les noms de champs dans l'encodage Thrift ou Protocol Buffers ?
+  choices:
+  - Les numéros de champ du schéma
+  - Des hachages de noms
+  - Des positions fixes
+  - 'Rien : l''ordre suffit'
+  answer: 0
+  explanation: Ces numéros sont des alias compacts des champs.
+  concept: ddia-field-tags
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Peut-on renommer un champ Protocol Buffers sans casser les données ?
+  choices:
+  - Oui, car les octets ne contiennent jamais le nom du champ
+  - Non, jamais
+  - Seulement s'il est optionnel
+  - Seulement avec un alias
+  answer: 0
+  explanation: Seul le numéro de champ compte dans les octets.
+  concept: ddia-field-tags
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Peut-on changer le numéro d'un champ ?
+  choices:
+  - 'Non : toutes les données déjà encodées deviendraient invalides'
+  - Oui, si le nouveau numéro est libre
+  - Oui, pour un champ optionnel
+  - Oui, avec une migration automatique
+  answer: 0
+  explanation: Le numéro est le contrat entre données écrites et code.
+  concept: ddia-field-tags
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Que fait l'ancien code face à un numéro de champ inconnu ?
+  choices:
+  - Il l'ignore, l'annotation de type lui dit combien d'octets sauter
+  - Il échoue
+  - Il le traite comme un champ optionnel vide
+  - Il redemande le schéma
+  answer: 0
+  explanation: C'est la compatibilité ascendante.
+  concept: ddia-protobuf-evolution
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pourquoi un champ ajouté après le déploiement ne peut-il pas être required ?
+  choices:
+  - 'Les anciennes données ne l''ont pas : le nouveau code échouerait à les lire'
+  - Cela alourdirait l'encodage
+  - required n'existe plus
+  - Les anciens codes ne le comprendraient pas
+  answer: 0
+  explanation: Tout champ ajouté doit être optionnel ou avoir une valeur par défaut.
+  concept: ddia-protobuf-evolution
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Que faut-il savoir en retirant un champ ?
+  choices:
+  - Il doit être optionnel et son numéro ne doit jamais être réutilisé
+  - On peut réutiliser son numéro immédiatement
+  - Il faut aussi migrer les données
+  - Un required peut toujours être retiré
+  answer: 0
+  explanation: D'anciennes données peuvent encore contenir ce numéro.
+  concept: ddia-protobuf-evolution
+  difficulty: 2
+- id: q7
+  type: code-output
+  prompt: Qu'affiche ce programme ? (nombre d'octets d'un entier en longueur variable à 7 bits par octet)
+  code: |
+    size := func(n uint64) int {
+        c := 1
+        for n >= 128 {
+            n >>= 7
+            c++
+        }
+        return c
+    }
+    fmt.Println(size(100), size(128), size(300), size(16384))
+  answer: 1 2 2 3
+  explanation: 'Chaque octet porte 7 bits utiles : 128 en demande 8, donc deux octets ; 16 384 = 2^14 en demande trois.'
+  concept: ddia-varint
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Combien d'octets l'enregistrement du livre fait-il en Protocol Buffers ?
+  choices:
+  - '33'
+  - '81'
+  - '66'
+  - '59'
+  answer: 0
+  explanation: Contre 34 pour Thrift CompactProtocol, 59 pour BinaryProtocol, 66 pour MessagePack et 81 pour JSON.
+  concept: ddia-schema-binary-encoding
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Que se passe-t-il si un entier 32 bits devient 64 bits et que l'ancien code lit une grande valeur ?
+  choices:
+  - Elle est tronquée
+  - Elle est lue exactement
+  - L'ancien code plante toujours
+  - Elle devient zéro
+  answer: 0
+  explanation: L'ancien code garde une variable de 32 bits.
+  concept: ddia-protobuf-evolution
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Que permet le marqueur repeated de Protocol Buffers ?
+  choices:
+  - 'Passer d''un champ optionnel à multivalué : l''ancien code ne voit que le dernier élément'
+  - Répéter un message à chaque envoi
+  - Éviter la compression
+  - Dupliquer un champ pour la redondance
+  answer: 0
+  explanation: L'encodage répète simplement le numéro de champ.
+  concept: ddia-repeated-field
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: Que change required par rapport à optional dans les octets ?
+  choices:
+  - 'Rien : seule une vérification à l''exécution est ajoutée'
+  - Un bit d'obligation est ajouté
+  - Le champ est écrit en premier
+  - Le champ n'est pas compressé
+  answer: 0
+  explanation: Elle échoue si le champ n'est pas renseigné, ce qui aide à débusquer des bogues.
+  concept: ddia-schema-binary-encoding
+  difficulty: 2

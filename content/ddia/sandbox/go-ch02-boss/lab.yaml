@@ -1,0 +1,13 @@
+id: ddia-sandbox-go-ch02-boss
+title: "TP Go : Boss : un B-tree qui survit aux crashs"
+kind: code
+language: go
+difficulty: 5
+xp: 300
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["tree.go"]
+concepts: [ddia-btree-pages, ddia-btree-split, ddia-btree-wal, ddia-branching-factor]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

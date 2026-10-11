@@ -1,0 +1,177 @@
+id: ddia-ch01-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quels éléments composent une arête d'un graphe de propriétés ?
+  choices:
+  - Identifiant, sommet de queue, sommet de tête, étiquette, propriétés
+  - Seulement deux sommets
+  - Un schéma et un index
+  - Un sujet, un prédicat et un objet
+  answer: 0
+  explanation: Le sommet, lui, a un identifiant, des arêtes entrantes et sortantes, et des propriétés.
+  concept: ddia-property-graph
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi indexe-t-on à la fois tail_vertex et head_vertex dans la représentation relationnelle d'un graphe ?
+  choices:
+  - 'Pour parcourir le graphe dans les deux sens : trouver arêtes sortantes et entrantes'
+  - Pour économiser de l'espace
+  - Parce que SQL l'exige
+  - Pour trier les arêtes
+  answer: 0
+  explanation: Un graphe se traverse en avant comme en arrière.
+  concept: ddia-property-graph
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Que signifie :WITHIN*0.. en Cypher ?
+  choices:
+  - Suivre une arête WITHIN zéro fois ou plus
+  - Suivre exactement zéro arête
+  - Supprimer les arêtes WITHIN
+  - Suivre au plus une arête
+  answer: 0
+  explanation: 'Comme l''étoile d''une expression régulière : la profondeur de la hiérarchie n''est pas connue d''avance.'
+  concept: ddia-variable-length-traversal
+  difficulty: 1
+- id: q4
+  type: code-output
+  prompt: Qu'affiche ce programme ? (on remonte une hiérarchie WITHIN jusqu'à la racine)
+  code: |
+    within := map[string]string{"idaho": "usa", "usa": "namerica"}
+    place, hops := "idaho", 0
+    for {
+        next, ok := within[place]
+        if !ok {
+            break
+        }
+        place = next
+        hops++
+    }
+    fmt.Println(place, hops)
+  answer: namerica 2
+  explanation: 'Le nombre de sauts dépend des données (ici 2). C''est ce qui rend les jointures SQL classiques insuffisantes : leur nombre est fixé à l''écriture de la requête.'
+  concept: ddia-variable-length-traversal
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi une requête de graphe est-elle difficile à écrire en SQL classique ?
+  choices:
+  - Parce que le nombre de jointures n'est pas fixé d'avance, il faut une récursion
+  - Parce que SQL ne supporte pas les jointures
+  - Parce que les graphes n'ont pas d'identifiants
+  - Parce que les arêtes n'ont pas d'étiquettes
+  answer: 0
+  explanation: Depuis SQL:1999, WITH RECURSIVE permet les chemins de longueur variable, mais la syntaxe est lourde.
+  concept: ddia-recursive-cte
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: La requête « émigrés » prend 4 lignes en Cypher et 29 en SQL. Quelle leçon en tire le livre ?
+  choices:
+  - Que SQL est mauvais
+  - Que différents modèles de données conviennent à différents cas d'usage ; il faut choisir celui de son application
+  - Que Cypher est toujours plus rapide
+  - Qu'il faut éviter les graphes
+  answer: 1
+  explanation: Un modèle peut émuler un autre, mais souvent de façon maladroite.
+  concept: ddia-recursive-cte
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Dans un triple-store, que représente le triplet (lucy, age, 33) ?
+  choices:
+  - Une propriété du sommet lucy
+  - Une arête entre lucy et 33
+  - Un nouveau sommet
+  - Une règle Datalog
+  answer: 0
+  explanation: Quand l'objet est une valeur primitive, prédicat et objet sont la clé et la valeur d'une propriété.
+  concept: ddia-triple-store
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Et (lucy, marriedTo, alain) ?
+  choices:
+  - Une arête étiquetée marriedTo de lucy vers alain
+  - Une propriété de lucy
+  - Une règle
+  - Une erreur
+  answer: 0
+  explanation: Quand l'objet est un autre sommet, le prédicat est l'étiquette d'une arête.
+  concept: ddia-triple-store
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Pourquoi les prédicats RDF sont-ils souvent des URI ?
+  choices:
+  - 'Pour pouvoir combiner ses données avec celles d''autrui sans conflit de sens : chaque URI joue le rôle d''espace de noms'
+  - Parce que RDF exige un serveur web
+  - Pour compresser les données
+  - Parce que SPARQL l'impose
+  answer: 0
+  explanation: Une URI n'a pas besoin de se résoudre à quoi que ce soit ; c'est un espace de noms.
+  concept: ddia-triple-store
+  difficulty: 3
+- id: q10
+  type: single
+  prompt: Lequel de ces points distingue un graphe de CODASYL ?
+  choices:
+  - Un sommet peut avoir une arête vers n'importe quel autre, sans schéma d'imbrication
+  - Les graphes imposent un ordre aux enfants
+  - On atteint un sommet uniquement via un chemin d'accès
+  - Les requêtes sont toujours impératives
+  answer: 0
+  explanation: 'Autres différences : accès direct par identifiant ou index, pas d''ordre, langages déclaratifs.'
+  concept: ddia-graph-vs-network
+  difficulty: 2
+- id: q11
+  type: single
+  prompt: En Datalog, que fait une règle `a(X) :- b(X), c(X).` ?
+  choices:
+  - Si b(X) et c(X) existent pour une même valeur de X, a(X) est ajouté à la base
+  - Elle supprime b et c
+  - Elle exécute b puis c en séquence impérative
+  - Elle déclare un index
+  answer: 0
+  explanation: La partie gauche est dérivée quand tout le côté droit trouve une correspondance.
+  concept: ddia-datalog-rules
+  difficulty: 2
+- id: q12
+  type: single
+  prompt: Quand arrête-t-on d'appliquer les règles Datalog ?
+  choices:
+  - 'Au point fixe : une nouvelle application ne produit aucun fait nouveau'
+  - Après exactement trois passes
+  - Quand la base est vide
+  - Jamais
+  answer: 0
+  explanation: Pour la hiérarchie finie des lieux, within_recursive atteint un point fixe.
+  concept: ddia-datalog-rules
+  difficulty: 2
+- id: q13
+  type: single
+  prompt: Dans une règle Datalog, comment distingue-t-on une variable d'une constante ?
+  choices:
+  - Une variable commence par une majuscule
+  - Une variable commence par une minuscule
+  - Une variable est entre guillemets
+  - Une variable finit par un point d'interrogation
+  answer: 0
+  explanation: Location, Name, Person sont des variables ; usa, born_in sont des constantes et prédicats.
+  concept: ddia-datalog-rules
+  difficulty: 1
+- id: q14
+  type: single
+  prompt: Quand un graphe n'est-il pas le bon choix ?
+  choices:
+  - Quand les données sont un arbre d'un-à-plusieurs avec peu de références entre enregistrements
+  - Quand tout est relié à tout
+  - Quand on parcourt des chemins
+  - Quand les relations varient
+  answer: 0
+  explanation: Un document ou quelques tables suffisent, avec moins de machinerie.
+  concept: ddia-graph-vs-network
+  difficulty: 2

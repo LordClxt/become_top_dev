@@ -1,0 +1,20 @@
+blocks:
+  serie:
+    tolerance: { abs: 0.02 }
+    wrong: "En série, on multiplie les disponibilités : 0,999 × 0,999 × 0,999. Chaque composant ajouté fait perdre un peu."
+  arret:
+    tolerance: { rel: 0.01 }
+    wrong: "L'indisponibilité vaut (1 − 0,999) × 365 × 24 × 60 minutes."
+  parallele:
+    options:
+      p90: "Avoir deux serveurs ne change rien ? Alors la redondance ne servirait à rien : il faut qu'une panne simultanée soit rare."
+      p81: "Tu as multiplié les disponibilités, ce qui vaut pour des composants en série. Ici un seul suffit : ce sont les pannes qu'on multiplie."
+      p95: "Une moyenne n'a pas de sens ici. Les deux serveurs ne tombent en panne ensemble qu'avec la probabilité 0,1 × 0,1."
+  correle:
+    options:
+      lots: "Des lots différents rendent les pannes de disque plus indépendantes, pas moins."
+      zones: "Deux zones distinctes réduisent justement la corrélation (alimentation, réseau)."
+  reglage:
+    goals:
+      sla: "Les réplicas seuls ne suffisent pas à dépasser le composant en série : essaie d'ajouter un réplica ou d'en choisir de plus fiables."
+      cout: "Au-delà de 3 réplicas, la disponibilité gagnée est négligeable : le répartiteur devient le maillon faible."

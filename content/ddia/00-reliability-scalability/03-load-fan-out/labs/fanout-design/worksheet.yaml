@@ -1,0 +1,75 @@
+intro: 'Une plateforme de microblogging doit produire le **fil d''accueil** de ses utilisateurs. Tu chiffres le coût de chaque stratégie avant
+  de choisir, avec les nombres de Twitter en 2012 : **4 600 tweets/s**, **300 000 lectures de fil/s**, **75 abonnés** en moyenne.'
+blocks:
+- id: ecritures
+  type: number
+  title: Écritures par seconde avec préparation à l'écriture
+  prompt: Chaque nouveau tweet est copié dans le fil de **chacun de ses abonnés**. Combien d'écritures par seconde le système doit-il absorber
+    ?
+  unit: écritures/s
+- id: recherches
+  type: number
+  title: Recherches par seconde avec assemblage à la lecture
+  prompt: À l'inverse, chaque lecture de fil cherche les tweets de **chacun des 75 comptes suivis**. Combien de recherches par seconde ?
+  unit: recherches/s
+- id: profils
+  type: match
+  title: Chaque charge sa stratégie
+  prompt: Range chaque situation dans la stratégie qui lui convient le mieux.
+  items:
+  - id: journal
+    label: 'Un journal de bord : beaucoup d''écritures, presque jamais relu'
+  - id: social
+    label: 'Un fil d''actualité : 65 lectures pour 1 écriture'
+  - id: stars
+    label: Un réseau où quelques comptes ont 30 millions d'abonnés, les autres une centaine
+  categories:
+  - id: read
+    label: Assembler à la lecture
+  - id: write
+    label: Préparer à l'écriture
+  - id: hybrid
+    label: Hybride
+- id: celebrite
+  type: number
+  title: Le tweet d'une célébrité
+  prompt: Avec la préparation à l'écriture, combien d'écritures **un seul** tweet d'un compte à 30 millions d'abonnés déclenche-t-il ?
+  unit: écritures
+- id: seuil
+  type: tuner
+  title: Où placer le seuil de célébrité ?
+  prompt: '5 000 tweets/s, 300 000 lectures/s. **99 %** des tweets viennent de comptes à 100 abonnés, **1 %** de célébrités à 3 millions. Un compte
+    au-dessus du **seuil** n''est plus copié dans les fils : on le fusionne à la lecture (chaque lecteur suit 2 célébrités).'
+  params:
+  - id: seuil
+    label: Seuil de célébrité
+    unit: abonnés
+    min: 100000
+    max: 10000000
+    step: 100000
+    default: 10000000
+  metrics:
+  - id: celeb
+    label: Célébrités traitées à part
+    expr: seuil < 3000000
+    format: number
+  - id: pic
+    label: Pic d'un seul tweet
+    expr: celeb * 100 + (1 - celeb) * 3000000
+    unit: écritures
+    format: number
+  - id: ecr
+    label: Écritures par seconde
+    expr: 5000 * (0.99 * 100 + 0.01 * (celeb * 1 + (1 - celeb) * 3000000))
+    format: number
+  - id: total
+    label: Opérations par seconde au total
+    expr: ecr + 300000 * (1 + 2 * celeb)
+    format: number
+  goals:
+  - id: pic
+    label: Un tweet déclenche moins de 10 000 écritures
+    expr: pic < 10000
+  - id: total
+    label: Moins de 1,5 million d'opérations par seconde
+    expr: total < 1500000

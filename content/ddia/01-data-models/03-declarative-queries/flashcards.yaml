@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Requête déclarative ?
+  back: 'Spécifie le motif des données voulues, pas l''algorithme. Exemples : SQL, CSS, XPath.'
+  concept: ddia-declarative-vs-imperative
+- id: fc2
+  front: Requête impérative ?
+  back: 'Suite d''instructions dans un ordre précis (boucles, variables mutées). Exemples : IMS, CODASYL, DOM.'
+  concept: ddia-declarative-vs-imperative
+- id: fc3
+  front: Trois avantages du déclaratif ?
+  back: Concision, liberté d'optimisation pour la base (index, stockage), parallélisation facile.
+  concept: ddia-declarative-benefits
+- id: fc4
+  front: Pourquoi SQL, plus limité, est-il plus optimisable ?
+  back: Moins de fonctionnalités, donc moins d'hypothèses cachées (comme l'ordre des résultats) à respecter.
+  concept: ddia-declarative-benefits
+- id: fc5
+  front: Que fait map dans MapReduce ?
+  back: Appelée une fois par document, elle émet des paires (clé, valeur).
+  concept: ddia-mapreduce-model
+- id: fc6
+  front: Que fait reduce ?
+  back: Appelée une fois par clé avec toutes ses valeurs, elle les agrège (somme, compte…).
+  concept: ddia-mapreduce-model
+- id: fc7
+  front: Fonction pure ?
+  back: 'N''utilise que ses arguments, sans effet de bord ni requête : exécutable n''importe où et relançable.'
+  concept: ddia-pure-functions
+- id: fc8
+  front: Pipeline d'agrégation ?
+  back: Langage déclaratif JSON de MongoDB ($match, $group…), comparable à un sous-ensemble de SQL.
+  concept: ddia-aggregation-pipeline
+- id: fc9
+  front: map/reduce portent aussi un autre nom ?
+  back: map = collect ; reduce = fold ou inject en programmation fonctionnelle.
+  concept: ddia-mapreduce-model

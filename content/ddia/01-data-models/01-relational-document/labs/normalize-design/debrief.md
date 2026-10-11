@@ -1,0 +1,3 @@
+**Normaliser, c'est ne stocker qu'une fois ce qui a du sens pour un humain.** Le nom d'une organisation, son logo, sa description vivent dans `organizations` ; chaque poste n'en garde qu'un identifiant. Un renommage coûte alors **1 écriture au lieu de 3 000**, et aucun CV ne peut rester avec l'ancien nom.
+
+Le prix à payer : la lecture d'un CV demande une jointure (ou des requêtes supplémentaires). Pour un arbre de relations un-à-plusieurs lu d'un bloc, le document garde l'avantage. Dès que des **références** apparaissent (organisations comme entités, recommandations), on retrouve le problème historique de la jointure, que le relationnel résout nativement.

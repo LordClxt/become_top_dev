@@ -1,0 +1,19 @@
+id: ddia-ch02-l01-lab-bitcask-design
+title: "Dessine le moteur Bitcask"
+kind: diagram
+difficulty: 3
+xp: 80
+entrypoint: starter/
+files_editable: ["diagram.json"]
+concepts: [ddia-hash-index, ddia-segments-compaction, ddia-log-append-only]
+source: { chapter: 3, pages: "72-75" }
+palette:
+  - { type: app, component: service, label: "Application", hint: "Le code qui appelle le moteur de stockage." }
+  - { type: hash, component: hash-index, label: "Index de hachage", hint: "Table clé → (segment, offset), gardée en mémoire." }
+  - { type: active, component: log, label: "Segment actif", hint: "Le seul fichier où l'on écrit : toujours en ajout." }
+  - { type: closed, component: log, label: "Segment fermé", hint: "Un ancien segment : immuable, lisible seulement." }
+  - { type: compaction, component: compaction, label: "Compaction", hint: "Tâche de fond qui fusionne des segments fermés." }
+  - { type: merged, component: log, label: "Segment fusionné", hint: "Le résultat d'une compaction : une valeur par clé." }
+  - { type: redis, component: redis, label: "Cache Redis", hint: "Un cache externe." }
+  - { type: postgres, component: postgres, label: "PostgreSQL", hint: "Une base relationnelle." }
+verified: { at: 2026-10-11, solution: pass, starter: fail }

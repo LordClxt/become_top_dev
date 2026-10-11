@@ -1,0 +1,53 @@
+cards:
+  - id: fc1
+    front: "Latence vs temps de réponse ?"
+    back: "Temps de réponse = ce que voit le client (traitement + réseau + file). Latence = durée d'attente avant la prise en charge."
+    concept: ddia-response-time
+  - id: fc2
+    front: "Pourquoi le temps de réponse est-il une distribution ?"
+    back: "Même requête répétée, durée différente : changement de contexte, paquet perdu, pause du GC, défaut de page… On le mesure donc par des percentiles."
+    concept: ddia-response-time
+  - id: fc3
+    front: "Que dit la médiane (p50) ?"
+    back: "La moitié des requêtes est plus rapide, l'autre plus lente. Elle décrit une requête typique, pas une session de plusieurs requêtes."
+    concept: ddia-percentiles
+  - id: fc4
+    front: "Que signifie p99 = 1 s ?"
+    back: "99 % des requêtes sont servies en 1 s ou moins ; 1 % prennent plus."
+    concept: ddia-percentiles
+  - id: fc5
+    front: "Pourquoi s'intéresser à la latence de queue (p99, p999) ?"
+    back: "Elle touche souvent les clients les plus précieux (ceux qui ont le plus de données). Amazon : +100 ms ≈ −1 % de ventes."
+    concept: ddia-percentiles
+  - id: fc6
+    front: "Pourquoi ne pas viser le p99,99 ?"
+    back: "Il dépend d'événements aléatoires hors de contrôle ; le coût d'optimisation dépasse le gain."
+    concept: ddia-percentiles
+  - id: fc7
+    front: "Exemple de SLO exprimé en percentiles ?"
+    back: "« Médiane < 200 ms, p99 < 1 s, disponible au moins 99,9 % du temps. »"
+    concept: ddia-slo-sla
+  - id: fc8
+    front: "SLO vs SLA ?"
+    back: "SLO = objectif interne de niveau de service ; SLA = contrat avec le client, qui peut ouvrir droit à remboursement."
+    concept: ddia-slo-sla
+  - id: fc9
+    front: "Qu'est-ce que le head-of-line blocking ?"
+    back: "Quelques requêtes lentes bloquent celles qui suivent dans la file : celles-ci paraissent lentes même si rapides à traiter."
+    concept: ddia-response-time
+  - id: fc10
+    front: "Boucle ouverte vs fermée pour un test de charge ?"
+    back: "Ouverte : le client envoie sans attendre les réponses (réaliste). Fermée : il attend chaque réponse, ce qui garde les files courtes et fausse les mesures."
+    concept: ddia-response-time
+  - id: fc11
+    front: "Formule de l'amplification de la latence de queue ?"
+    back: "P(au moins un appel lent) = 1 − (1 − p)ⁿ. Avec p = 1 % et n = 100 : 63 %."
+    concept: ddia-tail-amplification
+  - id: fc12
+    front: "Comment agréger des temps de réponse de plusieurs machines ?"
+    back: "En additionnant leurs histogrammes tranche par tranche, jamais en moyennant des percentiles."
+    concept: ddia-merge-histograms
+  - id: fc13
+    front: "Trois algorithmes d'approximation des percentiles ?"
+    back: "Forward decay, t-digest, HdrHistogram : bonne approximation à coût minimal."
+    concept: ddia-merge-histograms
