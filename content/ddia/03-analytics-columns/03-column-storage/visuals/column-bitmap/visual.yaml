@@ -1,0 +1,7 @@
+id: ddia-ch03-column-bitmap
+concept: ddia-bitmap-encoding
+format: hyperframes
+justification: "Comparer ce que chaque disposition charge, puis voir chaque ligne poser son bit et les séries se réduire à des longueurs : une transformation pas à pas, plus claire en mouvement qu'en tableau."
+entry: scene.html
+duration_s: 14
+status: built

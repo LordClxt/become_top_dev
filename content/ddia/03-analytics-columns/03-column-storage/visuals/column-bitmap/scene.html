@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="ddia-ch03-column-bitmap" />
+    <title>Stockage en colonnes et bitmaps</title>
+    <!--
+      Choreography (14 s) :
+        0.0 – 0.6   décor : extrait de fact_sales (9 lignes, 5 colonnes sur 100+)
+        0.7 – 2.7   stockage en lignes : la requête charge des lignes entières (45 valeurs)
+        2.9 – 4.8   stockage en colonnes : un fichier par colonne, 3 fichiers lus (27 valeurs)
+        5.0 – 9.2   product_sk → un bitmap par valeur distincte, un bit par ligne
+        9.4 – 14    run-length : 110000100 → 0, 2, 4, 1, 2
+      Bitmaps et longueurs calculés à partir de la colonne (exemple de la leçon).
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0e1b26; --surface: #15283a; --surface-2: #1c3349; --line: #2a4560;
+        --text: #e6edf2; --muted: #9fb3c4; --accent: #00add8; --pass: #6fbf8e; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f4f7f9; --surface: #ffffff; --surface-2: #e9eff3; --line: #cfdbe4;
+        --text: #0e1b26; --muted: #4d6273; --accent: #007d9c; --pass: #2f8a55; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 48px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .caption b { color: var(--fail); }
+      .label { position: absolute; font-size: 30px; color: var(--muted); white-space: nowrap; }
+
+      .col { position: absolute; top: 230px; width: 196px; }
+      .col .h { height: 60px; font-size: 26px; color: var(--muted); display: flex; align-items: center; justify-content: center;
+        border-bottom: 3px solid var(--line); }
+      .col.q .h { color: var(--accent); font-weight: 600; }
+      .c { position: relative; height: 62px; font-size: 32px; display: flex; align-items: center; justify-content: center;
+        border-bottom: 2px solid var(--line); background: var(--surface); }
+      .c .hl { position: absolute; inset: 0; background: var(--accent); opacity: 0; }
+      .c span { position: relative; }
+      .file { position: absolute; top: 222px; width: 206px; height: 642px; margin-left: -5px; border-radius: 16px; border: 4px solid var(--line); opacity: 0; }
+      .file.q { border-color: var(--accent); }
+
+      .meter { position: absolute; left: 1320px; top: 330px; width: 520px; opacity: 0; }
+      .meter .mode { font-size: 40px; font-weight: 700; margin-bottom: 18px; }
+      .meter .num { font-size: 110px; font-weight: 700; color: var(--accent); line-height: 1; }
+      .meter .lbl { font-size: 32px; color: var(--muted); margin-top: 8px; }
+      .meter .sub { font-size: 30px; color: var(--muted); margin-top: 26px; }
+
+      .bm { position: absolute; left: 520px; height: 90px; display: flex; align-items: center; gap: 0; opacity: 0; }
+      .bm .v { width: 150px; font-size: 40px; font-weight: 700; }
+      .bit { position: relative; width: 96px; height: 80px; margin-right: 10px; border-radius: 12px; border: 3px solid var(--line); background: var(--surface);
+        font-size: 44px; font-weight: 600; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+      .bit.one { color: var(--ink); background: var(--accent); border-color: var(--accent); }
+      .bit .run { position: absolute; left: -8px; right: -8px; top: -8px; bottom: -8px; border-radius: 16px; border: 4px solid var(--fail); opacity: 0; }
+      .idx { position: absolute; top: 330px; font-size: 26px; color: var(--muted); width: 96px; text-align: center; opacity: 0; }
+      .rle { position: absolute; left: 670px; top: 830px; font-size: 52px; font-weight: 700; opacity: 0; }
+      .rle .n { color: var(--fail); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="14" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Requête : <em>3 colonnes</em> sur plus de 100</div>
+      <div class="caption" id="c2">En lignes : on charge <b>chaque ligne entière</b></div>
+      <div class="caption" id="c3">En colonnes : <em>un fichier par colonne</em>, on ne lit que les 3 utiles</div>
+      <div class="caption" id="c4">product_sk : <em>un bitmap par valeur</em>, un bit par ligne</div>
+      <div class="caption" id="c5">Run-length : on ne garde que <em>la longueur des séries</em></div>
+
+      <div id="table"></div>
+      <div class="label" id="more" style="left: 120px; top: 880px">… et plus de 100 autres colonnes dans la vraie table</div>
+
+      <div class="meter" id="meter">
+        <div class="mode" id="mode">stockage en lignes</div>
+        <div class="num mono" id="num">0</div>
+        <div class="lbl">valeurs chargées</div>
+        <div class="sub mono">SELECT date_key, product_sk,<br />&nbsp;&nbsp;SUM(quantity) …</div>
+      </div>
+
+      <div id="bitmaps"></div>
+      <div class="rle mono" id="rle">29 → <span class="n" id="rlen"></span></div>
+    </div>
+
+    <script>
+      const DURATION = 14;
+      const tl = gsap.timeline({ paused: true });
+      const NF = { immediateRender: false };
+
+      // --- Données (extrait de fact_sales) ----------------------------------------------------
+      const COLS = [
+        { name: "date_key", q: true, v: [140102, 140102, 140102, 140103, 140103, 140103, 140103, 140104, 140104] },
+        { name: "product_sk", q: true, v: [29, 29, 69, 69, 69, 69, 29, 31, 31] },
+        { name: "store_sk", q: false, v: [4, 5, 5, 3, 2, 3, 3, 8, 3] },
+        { name: "quantity", q: true, v: [1, 3, 1, 5, 1, 1, 1, 1, 1] },
+        { name: "net_price", q: false, v: ["2.49", "14.99", "14.99", "0.99", "0.99", "0.99", "2.49", "0.89", "0.89"] },
+      ];
+      const N = 9, CW = 196, X0 = 120, GAP = 34, ROW = 62, Y0 = 290;
+      const product = COLS[1].v;
+      const DISTINCT = [...new Set(product)].sort((a, b) => a - b); // 29, 31, 69
+      const BITMAPS = Object.fromEntries(DISTINCT.map((d) => [d, product.map((p) => (p === d ? 1 : 0))]));
+      function runLengths(bits) { // alterne zéros, uns, zéros… en commençant par les zéros
+        const out = [];
+        let cur = 0, n = 0;
+        for (const b of bits) {
+          if (b === cur) n++;
+          else { out.push(n); cur = b; n = 1; }
+        }
+        out.push(n);
+        return out;
+      }
+      const RLE29 = runLengths(BITMAPS[29]); // [0, 2, 4, 1, 2]
+
+      // --- DOM --------------------------------------------------------------------------------
+      const table = document.getElementById("table");
+      COLS.forEach((c, j) => {
+        const f = document.createElement("div");
+        f.className = "file" + (c.q ? " q" : "");
+        f.id = "file" + j;
+        f.style.left = X0 + j * (CW + GAP) + "px";
+        table.appendChild(f);
+        const el = document.createElement("div");
+        el.className = "col mono" + (c.q ? " q" : "");
+        el.id = "col" + j;
+        el.style.left = X0 + j * CW + "px";
+        el.innerHTML = `<div class="h">${c.name}</div>` + c.v.map((v, i) => `<div class="c" id="c${j}-${i}"><i class="hl"></i><span>${v}</span></div>`).join("");
+        table.appendChild(el);
+      });
+      const bms = document.getElementById("bitmaps");
+      DISTINCT.forEach((d, b) => {
+        const row = document.createElement("div");
+        row.className = "bm mono";
+        row.id = "bm" + d;
+        row.style.top = 400 + b * 130 + "px";
+        row.innerHTML = `<div class="v">${d}</div>` + BITMAPS[d].map((_, i) => `<div class="bit" id="b${d}-${i}"><i class="run"></i><span></span></div>`).join("");
+        bms.appendChild(row);
+      });
+      for (let i = 0; i < N; i++) {
+        const el = document.createElement("div");
+        el.className = "idx mono";
+        el.style.left = 670 + i * 106 + "px";
+        el.textContent = "l" + (i + 1);
+        bms.appendChild(el);
+      }
+
+      // --- État en fonction du temps ----------------------------------------------------------
+      const T_ROWS = 0.9, T_COLS = 3.0, STEP = 0.18;
+      const T_BIT = (i) => 5.6 + i * 0.36;
+      const num = document.getElementById("num");
+      function render(t) {
+        // valeurs chargées
+        let loaded = 0, mode = "stockage en lignes";
+        if (t >= T_COLS) {
+          mode = "stockage en colonnes";
+          const rows = Math.max(0, Math.min(N, Math.floor((t - T_COLS - 0.4) / STEP) + 1));
+          loaded = rows * 3;
+        } else {
+          const rows = Math.max(0, Math.min(N, Math.floor((t - T_ROWS) / STEP) + 1));
+          loaded = t >= T_ROWS ? rows * COLS.length : 0;
+        }
+        num.textContent = loaded;
+        document.getElementById("mode").textContent = mode;
+        // bits
+        DISTINCT.forEach((d) => BITMAPS[d].forEach((bit, i) => {
+          const el = document.getElementById(`b${d}-${i}`);
+          const on = t >= T_BIT(i);
+          el.querySelector("span").textContent = on ? bit : "";
+          el.classList.toggle("one", on && bit === 1);
+        }));
+        const shown = RLE29.filter((_, k) => t >= 10.0 + k * 0.6).length;
+        document.getElementById("rlen").textContent = RLE29.slice(0, shown).join(", ");
+      }
+      const driver = { t: 0 };
+      tl.to(driver, { t: DURATION, duration: DURATION, ease: "none", onUpdate: () => render(driver.t) }, 0);
+
+      // --- Mouvement ----------------------------------------------------------------------------
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", ...NF }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      captions([["#c1", 0.3, 0.9], ["#c2", 0.9, 2.9], ["#c3", 2.9, 5.0], ["#c4", 5.0, 9.4], ["#c5", 9.4, DURATION + 1]]);
+      tl.fromTo(".col, #more", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "power3.out" }, 0);
+      tl.fromTo("#meter", { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, 0.6);
+
+      // Lignes : chaque ligne s'allume en entier.
+      for (let i = 0; i < N; i++) {
+        tl.fromTo(COLS.map((_, j) => `#c${j}-${i} .hl`).join(","), { opacity: 0 }, { opacity: 0.25, duration: 0.12, ...NF }, T_ROWS + i * STEP);
+      }
+      tl.to(".c .hl", { opacity: 0, duration: 0.25 }, T_COLS - 0.3);
+      // Colonnes : elles s'écartent en fichiers ; seules les 3 utiles s'allument.
+      COLS.forEach((c, j) => {
+        tl.to("#col" + j, { x: j * GAP, duration: 0.4, ease: "power2.inOut" }, T_COLS);
+        tl.fromTo("#file" + j, { opacity: 0 }, { opacity: 1, duration: 0.3, ...NF }, T_COLS + 0.2);
+        if (!c.q) tl.to("#col" + j, { opacity: 0.3, duration: 0.3 }, T_COLS + 0.2);
+      });
+      tl.to("#file2, #file4", { opacity: 0.3, duration: 0.3 }, T_COLS + 0.3);
+      for (let i = 0; i < N; i++) {
+        tl.fromTo(COLS.filter((c) => c.q).map((c) => `#c${COLS.indexOf(c)}-${i} .hl`).join(","), { opacity: 0 }, { opacity: 0.25, duration: 0.12, ...NF }, T_COLS + 0.4 + i * STEP);
+      }
+
+      // Bitmaps : seule product_sk reste, ramenée à gauche.
+      tl.to("#meter, #more, #col0, #col2, #col3, #col4, #file0, #file2, #file3, #file4, #file1", { opacity: 0, duration: 0.35 }, 5.0);
+      tl.to(".c .hl", { opacity: 0, duration: 0.3 }, 5.0);
+      tl.to("#col1", { x: -CW + 20, duration: 0.5, ease: "power2.inOut" }, 5.1);
+      tl.fromTo(".bm, .idx", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.03, ...NF }, 5.3);
+      for (let i = 0; i < N; i++) {
+        tl.fromTo(`#c1-${i} .hl`, { opacity: 0 }, { keyframes: { opacity: [0, 0.35, 0.35, 0] }, duration: 0.4, ...NF }, T_BIT(i) - 0.05);
+      }
+
+      // Run-length sur le bitmap de 29.
+      tl.to("#bm31, #bm69", { opacity: 0.25, duration: 0.3 }, 9.5);
+      tl.fromTo("#rle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ...NF }, 9.8);
+      let pos = 0;
+      RLE29.forEach((len, k) => {
+        for (let i = pos; i < pos + len; i++) {
+          tl.fromTo(`#b29-${i} .run`, { opacity: 0 }, { keyframes: { opacity: [0, 1, 1, 0.0] }, duration: 0.6, ...NF }, 10.0 + k * 0.6);
+        }
+        pos += len;
+      });
+
+      tl.set({}, {}, DURATION);
+      render(0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

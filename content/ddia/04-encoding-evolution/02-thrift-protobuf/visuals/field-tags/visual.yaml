@@ -1,0 +1,7 @@
+id: ddia-ch04-field-tags
+concept: ddia-protobuf-evolution
+format: hyperframes
+justification: "Suivre l'ancien décodeur champ par champ, jusqu'au numéro inconnu qu'il saute grâce à sa longueur, rend concrète la compatibilité ascendante ; c'est un parcours séquentiel des octets."
+entry: scene.html
+duration_s: 13
+status: built
