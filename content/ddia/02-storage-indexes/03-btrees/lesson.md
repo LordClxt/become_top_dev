@@ -31,7 +31,7 @@ glossary:
     definition: "Verrou léger qui protège les structures du B-tree contre des accès concurrents incohérents."
   - term: "copy-on-write"
     definition: "Au lieu d'écraser une page, on écrit la version modifiée ailleurs et on crée une nouvelle version des pages parentes qui pointe vers elle (LMDB)."
-visuals: []
+visuals: [ddia-ch02-btree-split]
 labs: [ddia-ch02-l03-lab-btree-design]
 xp: 35
 ---
@@ -68,6 +68,8 @@ mid := len(keys) / 2
 left, right := keys[:mid], keys[mid:]
 promoted := right[0] // la plus petite clé de la page de droite monte dans le parent
 ```
+
+::visual{id="ddia-ch02-btree-split"}
 
 ## Rendre le B-tree fiable
 

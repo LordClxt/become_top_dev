@@ -25,7 +25,7 @@ glossary:
     definition: "N'utilise que ses arguments et n'a aucun effet de bord : on peut l'exécuter n'importe où, dans n'importe quel ordre, et la relancer après une panne."
   - term: "pipeline d'agrégation"
     definition: "Langage déclaratif à base de JSON (MongoDB) enchaînant $match, $group… : un sous-ensemble de SQL en syntaxe différente."
-visuals: []
+visuals: [ddia-ch01-mapreduce-sharks]
 labs: [ddia-ch01-l03-lab-mapreduce-design]
 xp: 25
 ---
@@ -90,6 +90,8 @@ func MapReduce[In, V, Out any](
     reduceFn func(key string, values []V) Out,
 ) map[string]Out
 ```
+
+::visual{id="ddia-ch01-mapreduce-sharks"}
 
 ### Des fonctions pures
 

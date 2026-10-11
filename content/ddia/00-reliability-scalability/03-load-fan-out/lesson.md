@@ -21,7 +21,7 @@ glossary:
     definition: "Liste des messages publiés par les comptes qu'un utilisateur suit, du plus récent au plus ancien."
   - term: "approche en lecture / en écriture"
     definition: "Faire le travail au moment où l'utilisateur lit (assembler à la demande) ou au moment où l'auteur écrit (préparer à l'avance)."
-visuals: []
+visuals: [ddia-ch00-timeline-fanout]
 labs: [ddia-ch00-l03-lab-fanout-design]
 xp: 30
 ---
@@ -95,6 +95,8 @@ Maintenant que l'approche 2 est robuste, Twitter évolue vers un **mélange** de
 - pour une petite poignée de comptes à très grand nombre d'abonnés (les célébrités), **on ne fait pas le fan-out**. Leurs tweets sont récupérés à part et fusionnés dans le fil **à la lecture**, comme dans l'approche 1.
 
 Cette approche hybride donne de bonnes performances de façon constante. L'idée générale : **quand une approche est excellente pour la majorité et catastrophique pour une minorité, traite la minorité à part.**
+
+::visual{id="ddia-ch00-timeline-fanout"}
 
 ## Comment raisonner sur sa propre charge
 

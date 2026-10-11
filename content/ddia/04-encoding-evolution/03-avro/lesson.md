@@ -27,7 +27,7 @@ glossary:
     definition: "Nom alternatif d'un champ dans le schéma du lecteur, qui permet de renommer un champ."
   - term: "fichier conteneur d'objets Avro"
     definition: "Format de fichier qui écrit le schéma de l'écrivain une seule fois en tête, suivi de millions d'enregistrements."
-visuals: []
+visuals: [ddia-ch04-avro-resolution]
 labs: [ddia-ch04-l03-lab-avro-design]
 xp: 40
 ---
@@ -61,6 +61,8 @@ L'idée clé : les deux schémas **n'ont pas besoin d'être identiques, seulemen
 - l'**ordre des champs** peut différer : la résolution apparie les champs **par leur nom** ;
 - un champ présent chez l'écrivain mais **absent chez le lecteur** est **ignoré** ;
 - un champ attendu par le lecteur mais **absent chez l'écrivain** est rempli par la **valeur par défaut** déclarée dans le schéma du lecteur.
+
+::visual{id="ddia-ch04-avro-resolution"}
 
 ## Règles d'évolution
 

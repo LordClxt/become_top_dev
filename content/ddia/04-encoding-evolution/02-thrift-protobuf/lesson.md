@@ -23,7 +23,7 @@ glossary:
     definition: "Entier codé sur 1 à plusieurs octets selon sa valeur ; le bit de poids fort de chaque octet signale qu'un octet suit."
   - term: "génération de code"
     definition: "Outil qui transforme le schéma en classes d'un langage, que l'application appelle pour encoder et décoder."
-visuals: []
+visuals: [ddia-ch04-field-tags]
 labs: [ddia-ch04-l02-lab-tags-design]
 xp: 35
 ---
@@ -78,6 +78,8 @@ Un enregistrement encodé est la **concaténation de ses champs**. Chaque champ 
 **Rétrocompatibilité** (le nouveau code lit l'ancien) : tant que chaque champ a un numéro unique, les numéros gardent leur sens. Un seul détail : un champ ajouté après le déploiement initial **ne peut pas être `required`**, sinon le nouveau code échouerait à lire les anciennes données qui ne l'ont pas écrit. Tout champ ajouté doit être **optionnel ou avoir une valeur par défaut**.
 
 **Retirer un champ** : même logique, sens inversé. Seul un champ optionnel peut être retiré (jamais un `required`), et **on ne réutilise jamais son numéro** : des données écrites ailleurs peuvent encore le contenir, et le nouveau code doit continuer à l'ignorer.
+
+::visual{id="ddia-ch04-field-tags"}
 
 ### Changer le type d'un champ
 

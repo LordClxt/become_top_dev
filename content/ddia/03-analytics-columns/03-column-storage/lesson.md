@@ -27,7 +27,7 @@ glossary:
     definition: "Opérateurs qui travaillent directement sur des blocs de colonne compressés, dans une boucle sans appels de fonction."
   - term: "famille de colonnes (Bigtable)"
     definition: "Dans Cassandra et HBase : toutes les colonnes d'une ligne sont stockées ensemble sans compression de colonnes ; le modèle reste donc surtout orienté lignes."
-visuals: []
+visuals: [ddia-ch03-column-bitmap]
 labs: [ddia-ch03-l03-lab-column-design]
 xp: 40
 ---
@@ -76,6 +76,8 @@ Pourquoi c'est si utile en entrepôt ?
 - `WHERE product_sk = 31 AND store_sk = 3` : on charge deux bitmaps et on fait un **ET bit à bit**. Ça marche parce que toutes les colonnes contiennent les lignes **dans le même ordre** : le k-ième bit d'un bitmap correspond à la même ligne que le k-ième bit d'un autre.
 
 Il existe d'autres schémas de compression selon les données ; le principe reste de profiter de la répétition.
+
+::visual{id="ddia-ch03-column-bitmap"}
 
 ## Bande passante mémoire et traitement vectoriel
 
