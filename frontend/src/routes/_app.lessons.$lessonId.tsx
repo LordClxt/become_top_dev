@@ -46,34 +46,31 @@ function LessonPage() {
 
   return (
     <main className="relative isolate overflow-x-clip">
-      {/* L'en-tête partage la grille du corps : le titre s'aligne sur la colonne de lecture. */}
-      <header className="mx-auto grid max-w-[1400px] px-6 pt-10 pb-12 xl:grid-cols-[200px_minmax(0,1fr)_280px] xl:gap-12">
-        <div className="xl:col-start-2">
-          <Link
-            to="/chapters/$chapterId"
-            params={{ chapterId: lesson.chapter.id }}
-            className="inline-flex items-center gap-1 text-sm text-muted hover:text-text"
-          >
-            <ChevronLeft className="size-4" />
-            {lesson.chapter.title}
-            {position >= 0 && `, leçon ${position + 1} sur ${lessons.length}`}
-          </Link>
-          <h1 className="mt-4 max-w-[24ch] font-read text-4xl leading-[1.1] font-semibold tracking-tight text-balance md:text-5xl">
-            {lesson.title}
-          </h1>
-          <div className="mt-5 flex flex-wrap gap-2 text-sm">
-            <Chip icon={<Clock className="size-3.5" />}>{lesson.duration_min} min de lecture</Chip>
-            <Chip icon={<Sparkles className="size-3.5 text-accent" />}>{lesson.xp} XP</Chip>
-            <Chip icon={<BookOpen className="size-3.5" />}>Livre, p. {lesson.source.pages}</Chip>
-            {lesson.extra && <Chip>Au-delà du livre</Chip>}
-            {done && (
-              <Chip icon={<Check className="size-3.5 text-pass" />} className="text-pass">
-                Terminée
-              </Chip>
-            )}
-          </div>
-          {lessons.length > 0 && <ChapterSteps lessons={lessons} currentId={lesson.id} />}
+      <header className="mx-auto max-w-[1400px] px-6 pt-10 pb-12">
+        <Link
+          to="/chapters/$chapterId"
+          params={{ chapterId: lesson.chapter.id }}
+          className="inline-flex items-center gap-1 text-sm text-muted hover:text-text"
+        >
+          <ChevronLeft className="size-4" />
+          {lesson.chapter.title}
+          {position >= 0 && `, leçon ${position + 1} sur ${lessons.length}`}
+        </Link>
+        <h1 className="mt-4 max-w-[24ch] font-read text-4xl leading-[1.1] font-semibold tracking-tight text-balance md:text-5xl">
+          {lesson.title}
+        </h1>
+        <div className="mt-5 flex flex-wrap gap-2 text-sm">
+          <Chip icon={<Clock className="size-3.5" />}>{lesson.duration_min} min de lecture</Chip>
+          <Chip icon={<Sparkles className="size-3.5 text-accent" />}>{lesson.xp} XP</Chip>
+          <Chip icon={<BookOpen className="size-3.5" />}>Livre, p. {lesson.source.pages}</Chip>
+          {lesson.extra && <Chip>Au-delà du livre</Chip>}
+          {done && (
+            <Chip icon={<Check className="size-3.5 text-pass" />} className="text-pass">
+              Terminée
+            </Chip>
+          )}
         </div>
+        {lessons.length > 0 && <ChapterSteps lessons={lessons} currentId={lesson.id} />}
       </header>
 
       <div className="mx-auto grid max-w-[1400px] gap-10 px-6 pb-24 xl:grid-cols-[200px_minmax(0,1fr)_280px] xl:gap-12">
