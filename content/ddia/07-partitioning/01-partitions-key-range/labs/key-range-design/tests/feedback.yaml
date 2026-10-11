@@ -1,0 +1,29 @@
+blocks:
+  stockage:
+    tolerance:
+      rel: 0.01
+    wrong: 6 To × 3 copies = 18 To, répartis sur 9 nœuds.
+  bornes:
+    options:
+      hugo.p: '`hugo` est entre `g` (inclus) et `n` (exclu).'
+      zoe.p: '`zoé` est après `t` : dernière partition.'
+      alice.p: '`alice` est avant `g`.'
+      gaston.p: 'La borne basse est incluse : `gaston` commence après `g`, donc dans la partition qui débute à `g`.'
+      nina.p: '`nina` est après `n` (inclus) et avant `t`.'
+  chaud:
+    tolerance:
+      rel: 0.01
+    wrong: Toutes les clés récentes tombent dans la même plage horaire, donc la même partition reçoit tout le flux.
+  corrige:
+    tolerance:
+      rel: 0.01
+    wrong: 24 000 écritures/s réparties sur 8 partitions.
+  cle:
+    options:
+      ts: 'Toutes les écritures de l''instant présent vont dans une seule partition : point chaud.'
+      uuid: 'Les écritures se répartissent, mais les mesures d''un capteur sont éparpillées : plus de scan d''intervalle possible.'
+      ts-sensor: 'Le temps reste en tête : les écritures récentes s''accumulent toujours dans la même plage.'
+  vrai:
+    options:
+      no-repl: Sans copie, la perte d'un nœud fait perdre ses partitions. On réplique chaque partition.
+      random: Au hasard, on ne sait pas où est une clé ; il faudrait interroger tous les nœuds.

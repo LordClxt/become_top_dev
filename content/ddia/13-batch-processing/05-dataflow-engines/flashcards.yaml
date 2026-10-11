@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Trois coûts de la matérialisation MapReduce ?
+  back: Attente du traînard, mappers redondants, réplication d'un état temporaire.
+  concept: ddia-batch-materialization
+- id: fc2
+  front: Moteurs de dataflow ?
+  back: Spark, Flink, Tez ; un graphe d'opérateurs, intermédiaire en mémoire ou sur disque local, tri seulement si nécessaire.
+  concept: ddia-batch-dataflow-engines
+- id: fc3
+  front: Trois façons de relier deux opérateurs ?
+  back: Repartitionner et trier ; repartitionner sans trier ; diffuser (broadcast).
+  concept: ddia-batch-dataflow-engines
+- id: fc4
+  front: Reprise sur panne de Spark et de Flink ?
+  back: 'Spark : recalcul à partir de la lignée des RDD. Flink : point de contrôle de l''état des opérateurs.'
+  concept: ddia-batch-recompute-lineage
+- id: fc5
+  front: Quand matérialiser malgré tout ?
+  back: Quand l'intermédiaire est bien plus petit que l'entrée ou très coûteux en CPU à recalculer.
+  concept: ddia-batch-recompute-lineage
+- id: fc6
+  front: Sources de non-déterminisme ?
+  back: Itération sur une table de hachage, aléatoire sans graine, horloge système, source externe.
+  concept: ddia-batch-determinism
+- id: fc7
+  front: Modèle Pregel (BSP) ?
+  back: Par itération, chaque sommet lit ses messages, met à jour son état en mémoire, envoie des messages livrés à l'itération suivante.
+  concept: ddia-batch-pregel-bsp
+- id: fc8
+  front: Limite de Pregel ?
+  back: Partitionnement par identifiant arbitraire, beaucoup de messages réseau ; un graphe qui tient sur une machine va souvent plus vite en local.
+  concept: ddia-batch-pregel-bsp
+- id: fc9
+  front: Pourquoi des API déclaratives ?
+  back: L'optimiseur choisit la jointure, on lit seulement les colonnes utiles, l'exécution vectorisée accélère le CPU.
+  concept: ddia-batch-high-level-apis

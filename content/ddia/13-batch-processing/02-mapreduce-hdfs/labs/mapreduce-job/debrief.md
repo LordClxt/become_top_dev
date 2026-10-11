@@ -1,0 +1,3 @@
+**Un job MapReduce, c'est quatre mouvements de données.** L'ordonnanceur demande au NameNode où sont les blocs et lance chaque tâche map sur une machine qui en détient une réplique : le calcul va vers les données, pas l'inverse. Chaque mapper lit son bloc, partitionne ses paires par hachage de la clé et les écrit **triées sur son disque local**. Les reducers téléchargent leur partition chez chaque mapper (le shuffle) et la fusionnent : toutes les valeurs d'une clé deviennent adjacentes. Enfin chaque reducer écrit sa partie de la sortie dans HDFS.
+
+Rien ne va dans la base de production pendant le job, et rien ne repose sur une baie partagée : la tolérance aux pannes vient de la réplication des blocs et de la possibilité de relancer une tâche.

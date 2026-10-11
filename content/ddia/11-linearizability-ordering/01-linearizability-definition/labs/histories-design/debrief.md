@@ -1,0 +1,3 @@
+**Une base linéarisable se comporte comme une copie unique.** Chaque opération prend effet en un point de son intervalle, et la suite de ces points doit être une exécution valide d'un registre. D'où la règle pratique : une lecture qui chevauche l'écriture est libre, *sauf* si une lecture terminée avant son début a déjà vu la nouvelle valeur — la valeur ne peut jamais rebasculer en arrière.
+
+Après la fin d'une écriture, aucune fenêtre d'obsolescence n'est tolérée : **0 ms**. C'est ce qui sépare la linéarisabilité d'une simple cohérence à terme, et aussi de la sérialisabilité, qui accepte un ordre sériel différent de l'ordre réel.

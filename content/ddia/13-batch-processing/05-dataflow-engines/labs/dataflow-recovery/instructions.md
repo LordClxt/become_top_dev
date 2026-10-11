@@ -1,0 +1,1 @@
+Ton équipe migre un workflow MapReduce vers un moteur de dataflow. Chiffre ce que coûte la matérialisation, choisis comment relier les opérateurs, traque le non-déterminisme et décide quand matérialiser malgré tout.

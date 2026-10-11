@@ -1,0 +1,7 @@
+{
+  "lectures": {"b": "ok", "d": "ko", "e": "ok", "f": "ok", "g": "ko"},
+  "cas": "notlin",
+  "retard": 0,
+  "garantie": {"snap": "ser", "fresh": "lin", "both": "strict"},
+  "vrai": ["overlap", "before"]
+}

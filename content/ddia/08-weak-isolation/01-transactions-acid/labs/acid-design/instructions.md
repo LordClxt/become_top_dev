@@ -1,0 +1,1 @@
+Range des incidents d'une messagerie sous la bonne lettre d'ACID, puis règle la politique de nouvel essai : quelles erreurs réessayer, combien de temps attendre, et ce qui se répète quand on réessaie.

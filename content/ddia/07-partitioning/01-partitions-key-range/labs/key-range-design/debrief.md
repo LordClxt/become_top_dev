@@ -1,0 +1,3 @@
+**Partitionner, c'est décider quelle requête sera bon marché.** 6 To répliqués 3 fois font 18 To à loger : 2 To par nœud sur 9 nœuds. Les bornes `g`, `n`, `t` envoient chaque clé dans une seule partition, et la borne basse est incluse : `gaston` est en P2.
+
+Avec l'horodatage en tête, les 24 000 écritures/s tombent toutes dans la partition de l'instant présent : 7 partitions sur 8 dorment. En préfixant par le capteur, chacune en reçoit 3 000. La lecture d'un capteur sur une semaine reste un seul scan ; c'est la lecture de **tous** les capteurs sur une période qui devient plus chère (un scan par capteur).

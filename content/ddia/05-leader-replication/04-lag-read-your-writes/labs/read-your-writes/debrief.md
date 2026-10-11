@@ -1,0 +1,3 @@
+**Le retard n'est pas une constante : il s'accumule pendant un pic et se résorbe ensuite.** 1 000 changements de retard par seconde pendant 90 s donnent 90 000 changements, qu'il faut 45 s à résorber. Pendant ces deux minutes et quart, un utilisateur qui relit sur ce follower ne voit pas ce qu'il vient d'écrire.
+
+Read-your-writes se garantit **à moindre coût** : seul ce que l'utilisateur a pu modifier va au leader. Avec une fenêtre, la règle de correction est `retard max ≤ fenêtre` ; avec une position de log (LSN), elle devient exacte : un réplica ne sert la lecture que s'il a atteint la position de la dernière écriture. Entre appareils, cette position doit vivre **côté serveur**, et l'utilisateur doit passer par **un même datacenter**.

@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Jointure sort-merge côté reduce ?
+  back: Deux mappers émettent les deux entrées sous la même clé ; le shuffle les rassemble ; le reducer joint, sans requête réseau.
+  concept: ddia-batch-sort-merge-join
+- id: fc2
+  front: Pourquoi joindre une copie de la base ?
+  back: Pas de requêtes aléatoires lentes, pas de base de production submergée, et un résultat déterministe.
+  concept: ddia-batch-sort-merge-join
+- id: fc3
+  front: Tri secondaire ?
+  back: Trier sur une clé composée (user_id + type + date) mais partitionner et regrouper sur user_id seul.
+  concept: ddia-batch-secondary-sort
+- id: fc4
+  front: GROUP BY en MapReduce ?
+  back: Le mapper émet la clé de regroupement ; le reducer combine (compter, sommer, top k).
+  concept: ddia-batch-group-by
+- id: fc5
+  front: Clé chaude (linchpin object) ?
+  back: Une clé qui concentre une énorme part des données ; son reducer ralentit tout le job.
+  concept: ddia-batch-skew-hot-keys
+- id: fc6
+  front: Remèdes aux clés chaudes ?
+  back: Skewed join (Pig, échantillonnage), sharded join (Crunch), clés déclarées (Hive), agrégation en deux temps.
+  concept: ddia-batch-skew-hot-keys
+- id: fc7
+  front: Broadcast hash join ?
+  back: La petite entrée est chargée en table de hachage dans chaque mapper ; la grande défile. Pas de tri, pas de reducer.
+  concept: ddia-batch-broadcast-hash-join
+- id: fc8
+  front: Partitioned hash join ?
+  back: Deux entrées partitionnées pareil ; chaque mapper ne charge que la partition correspondante (Hive bucketed map join).
+  concept: ddia-batch-partitioned-hash-join
+- id: fc9
+  front: Map-side merge join ?
+  back: Entrées partitionnées ET triées pareil ; le mapper les fusionne comme un reducer.
+  concept: ddia-batch-map-side-merge-join
+- id: fc10
+  front: Rangement de la sortie d'une jointure ?
+  back: 'Côté reduce : par la clé de jointure. Côté map : comme la grande entrée.'
+  concept: ddia-batch-map-side-merge-join

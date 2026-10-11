@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Verrous partagés et exclusifs"
+    goal: "Accorder ou mettre en attente chaque demande selon la compatibilité, gérer la montée de verrou, servir la file dans l'ordre et tout relâcher au commit ou à l'abandon."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Le graphe d'attente"
+    goal: "Calculer qui attend qui, et refuser la demande qui fermerait un cycle en désignant le demandeur comme victime."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Le validateur SSI"
+    goal: "Suivre lectures et écritures de transactions concurrentes, abandonner au commit celle qui a écrit sur une prémisse périmée, laisser passer les lectures seules, et oublier ce qui ne sert plus."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Compare ton gestionnaire 2PL et ton validateur SSI sur le scénario des deux médecins de garde : à quel moment chacun intervient-il, qui attend, qui est abandonné, et quel travail est perdu ? Dans quelles conditions de charge préférerais-tu l'un ou l'autre pour Tinybase ?"

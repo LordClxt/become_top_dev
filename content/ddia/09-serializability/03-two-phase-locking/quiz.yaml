@@ -1,0 +1,99 @@
+id: ddia-ch09-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Sous 2PL, la transaction A a lu la ligne `stock:42`. B veut l'écrire. Que se passe-t-il ?
+  choices:
+  - B attend que A valide ou abandonne
+  - B écrit une nouvelle version et A continue de lire l'ancienne
+  - A est abandonnée immédiatement
+  - B écrit et A sera abandonnée au commit
+  answer: 0
+  explanation: 'Les lecteurs bloquent les écrivains : A détient un verrou partagé jusqu''à sa fin. Écrire une nouvelle version pendant que A lit l''ancienne, c''est la snapshot isolation.'
+  concept: ddia-2pl-rule
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Quelles combinaisons de verrous peuvent coexister sur un même objet, détenues par deux transactions différentes ?
+  choices:
+  - Exclusif + partagé
+  - Partagé + partagé
+  - Partagé + exclusif
+  - Exclusif + exclusif
+  answer:
+  - 1
+  explanation: Seuls deux verrous partagés sont compatibles ; un exclusif exclut tout autre verrou.
+  concept: ddia-2pl-shared-exclusive
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: T1 détient un verrou partagé sur `x` et veut maintenant l'écrire. T2 détient aussi un partagé sur `x`. Que se passe-t-il pour T1 ?
+  choices:
+  - Elle obtient l'exclusif tout de suite, car elle détient déjà un verrou
+  - Elle écrit sans verrou exclusif
+  - T2 est automatiquement abandonnée
+  - Elle doit attendre que T2 relâche son verrou partagé
+  answer: 3
+  explanation: Monter en exclusif suppose qu'aucune autre transaction ne détienne de verrou. Si T2 veut aussi monter, c'est l'interblocage.
+  concept: ddia-2pl-lock-upgrade
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Pourquoi le 2PL garde-t-il les verrous de lecture jusqu'à la fin de la transaction ?
+  choices:
+  - Pour économiser le coût de libération
+  - Parce que la transaction a pu prendre une décision sur ce qu'elle a lu ; un changement entre-temps ouvrirait la porte au write skew
+  - Parce que les verrous ne peuvent pas être libérés individuellement
+  - Pour faciliter la réplication
+  answer: 1
+  explanation: Relâcher tôt laisserait la prémisse changer pendant que la transaction agit encore dessus.
+  concept: ddia-2pl-two-phases
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Graphe d''attente : T1 → T2, T2 → T3, T3 → T1, T4 → T2. Quelles transactions sont en interblocage ?'
+  choices:
+  - T1, T2, T3 et T4
+  - T1 et T2 seulement
+  - T1, T2 et T3
+  - Aucune, il n'y a pas d'interblocage
+  answer: 2
+  explanation: 'Le cycle est T1 → T2 → T3 → T1. T4 attend T2 sans faire partie du cycle : elle avancera une fois le cycle cassé et T2 terminée.'
+  concept: ddia-2pl-deadlock
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Que doit faire l'application quand sa transaction est choisie comme victime d'un interblocage ?
+  choices:
+  - La relancer, car la base l'a abandonnée et a libéré ses verrous
+  - Rien, la base la relance toujours seule
+  - Passer en read uncommitted
+  - Redémarrer la base
+  answer: 0
+  explanation: Sous 2PL, l'abandon pour interblocage est normal ; c'est à l'application de réessayer.
+  concept: ddia-2pl-deadlock
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Sous 2PL, un rapport de 4 s lit toute la table `comptes`. Les virements durent normalement 5 ms. Qu'observe-t-on ?
+  choices:
+  - Les virements restent à 5 ms grâce au MVCC
+  - Le rapport est abandonné automatiquement
+  - Les virements lisent une ancienne version
+  - La médiane reste correcte, mais les virements qui touchent la table attendent jusqu'à 4 s ; le p99 explose
+  answer: 3
+  explanation: 'Le rapport détient des verrous partagés sur ce qu''il a lu jusqu''à la fin : tout écrivain attend.'
+  concept: ddia-2pl-performance
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Quel est le lien entre 2PL et 2PC ?
+  choices:
+  - 2PC est la version distribuée de 2PL
+  - Aucun, à part le nom ; 2PL sert l'isolation, 2PC l'atomicité d'un commit réparti
+  - 2PL est obligatoire pour faire du 2PC
+  - Ce sont deux noms du même algorithme
+  answer: 1
+  explanation: Deux mécanismes complètement différents, que le nom fait souvent confondre.
+  concept: ddia-2pl-rule
+  difficulty: 1

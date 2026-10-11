@@ -1,0 +1,1 @@
+Une écriture confirmée a disparu dans une base répliquée en last write wins. Choisis la bonne horloge pour chaque usage, chiffre la dérive d'un nœud coupé de NTP, recalcule les horodatages des deux écritures et la fenêtre de perte, puis raisonne sur les intervalles de confiance de Spanner.

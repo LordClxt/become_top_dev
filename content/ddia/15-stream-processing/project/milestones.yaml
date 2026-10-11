@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Placer un événement dans ses fenêtres"
+    goal: "Calculer la fenêtre tumbling et les fenêtres hopping qui contiennent un horodatage, intervalles semi-ouverts et temps négatifs compris."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Le watermark décide"
+    goal: "Agréger par clé et par fenêtre en temps de l'événement, émettre chaque fenêtre quand le watermark dépasse sa fin, compter à part les retardataires, et rester déterministe."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Sessions et reprise sans doublon"
+    goal: "Découper l'activité en sessions avec un écart d'inactivité, puis additionner un flux partitionné en ignorant tout message déjà appliqué après une reprise sur checkpoint."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Pourquoi le checkpoint doit-il contenir à la fois les totaux et les offsets, copiés ensemble ? Que se passerait-il si l'on sauvegardait les offsets dans un fichier séparé, quelques millisecondes après les totaux, et que le processus plantait entre les deux ?"

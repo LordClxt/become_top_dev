@@ -1,0 +1,101 @@
+id: ddia-ch05-l01-quiz
+questions:
+- id: q1
+  type: multiple
+  prompt: Pour quelles raisons réplique-t-on une base ?
+  choices:
+  - Rapprocher les données des utilisateurs pour réduire la latence
+  - Se protéger d'un `DELETE` lancé par erreur
+  - Continuer à servir si une machine tombe
+  - Augmenter le nombre de lectures servies par seconde
+  answer:
+  - 0
+  - 2
+  - 3
+  explanation: Latence, disponibilité et débit de lecture. Une suppression erronée est répliquée fidèlement sur tous les followers ; contre elle, il faut une sauvegarde.
+  concept: ddia-replication-goals
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Ton service reçoit 36 000 lectures par seconde ; un nœud en tient 5 000. Combien de réplicas faut-il au minimum pour servir les lectures ?
+  choices:
+  - '6'
+  - '7'
+  - '8'
+  - '36'
+  answer: 2
+  explanation: 36 000 / 5 000 = 7,2, donc 8 réplicas. C'est l'usage « débit de lecture » de la réplication.
+  concept: ddia-replication-goals
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Dans une réplication avec leader, où un client envoie-t-il une écriture ?
+  choices:
+  - Au follower le plus proche, qui la transmet aux autres
+  - Au leader uniquement
+  - À tous les réplicas en parallèle
+  - À n'importe quel réplica, au hasard
+  answer: 1
+  explanation: Seul le leader accepte les écritures ; les followers sont en lecture seule pour les clients.
+  concept: ddia-leader-follower
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Pourquoi deux followers qui reçoivent le même log de réplication finissent-ils avec les mêmes données ?
+  choices:
+  - Parce qu'ils comparent régulièrement leurs disques
+  - Parce que le leader leur envoie une copie complète à chaque écriture
+  - Parce qu'ils appliquent les mêmes changements dans le même ordre
+  - Parce qu'ils votent sur chaque écriture
+  answer: 2
+  explanation: Comme un log rejoué du début, la même suite ordonnée de changements produit le même état.
+  concept: ddia-replication-change-stream
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Leader à Paris (écriture locale 3 ms), follower A à 1 ms d'aller-retour, follower B à Montréal à 85 ms. Seul B est synchrone. Quelle latence d'écriture le client observe-t-il, environ ?
+  choices:
+  - 4 ms
+  - 88 ms
+  - 3 ms
+  - 170 ms
+  answer: 1
+  explanation: Le leader attend l'accusé du follower synchrone, donc environ 3 + 85 ms. A, asynchrone, ne compte pas.
+  concept: ddia-leader-sync-replication
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: En réplication entièrement asynchrone, le leader confirme une écriture puis meurt définitivement une demi-seconde plus tard. Que risque-t-on ?
+  choices:
+  - Rien, les followers ont reçu l'écriture avant la confirmation
+  - Que l'écriture soit appliquée deux fois
+  - Que les followers refusent toute nouvelle écriture
+  - Que cette écriture confirmée soit perdue
+  answer: 3
+  explanation: Le leader n'attend aucun follower ; si l'écriture ne leur était pas encore parvenue, elle disparaît avec lui.
+  concept: ddia-leader-async-replication
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: 'Une équipe hésite : 5 followers tous synchrones, ou semi-synchrone. Quel argument tranche ?'
+  choices:
+  - Tout-synchrone, une seule panne de follower bloque toutes les écritures ; semi-synchrone garde 2 copies sans dépendre de tous
+  - Tout-synchrone est plus rapide car les accusés arrivent en parallèle
+  - Semi-synchrone ne garantit aucune copie hors du leader
+  - Les deux sont équivalents pour la durabilité et la disponibilité
+  answer: 0
+  explanation: Avec 5 followers à 1 % d'indisponibilité, le tout-synchrone bloque ≈ 4,9 % du temps. Semi-synchrone remplace le follower synchrone défaillant.
+  concept: ddia-leader-semi-sync
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Remets dans l'ordre une écriture en semi-synchrone. Choisis la bonne séquence.
+  choices:
+  - Le follower asynchrone applique le changement, un peu plus tard → Le leader confirme au client → Le follower synchrone accuse réception → Le leader l'applique à son stockage local → Le client envoie l'écriture au leader
+  - Le client envoie l'écriture au leader → Le leader l'applique à son stockage local → Le leader confirme au client → Le follower synchrone accuse réception → Le follower asynchrone applique le changement, un peu plus tard
+  - Le client envoie l'écriture au leader → Le leader l'applique à son stockage local → Le follower synchrone accuse réception → Le leader confirme au client → Le follower asynchrone applique le changement, un peu plus tard
+  - Le leader l'applique à son stockage local → Le follower synchrone accuse réception → Le leader confirme au client → Le follower asynchrone applique le changement, un peu plus tard → Le client envoie l'écriture au leader
+  answer: 2
+  explanation: La confirmation attend le seul follower synchrone ; les asynchrones suivent après.
+  concept: ddia-leader-semi-sync
+  difficulty: 2

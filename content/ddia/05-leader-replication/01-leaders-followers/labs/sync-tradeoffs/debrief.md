@@ -1,0 +1,3 @@
+**Le synchrone se paie deux fois : en latence et en disponibilité.** Le leader attend le follower synchrone le plus lent (88 ms au lieu de 3 ms si Montréal est synchrone), et une seule panne bloque toutes les écritures : avec trois followers à 2 %, c'est près de 6 % du temps. Le **semi-synchrone** garde deux copies de chaque écriture confirmée tout en remplaçant un follower défaillant : on ne bloque que si tous les candidats sont absents (0,04 %).
+
+L'**asynchrone** est rapide et toujours disponible, mais il affaiblit la durabilité : tout ce qui était confirmé et pas encore transmis disparaît avec le leader. Formule à garder : **écritures perdues ≈ débit × retard** (1 200 × 0,25 = 300).

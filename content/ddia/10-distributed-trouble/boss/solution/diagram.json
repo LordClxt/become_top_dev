@@ -1,0 +1,34 @@
+{
+  "nodes": [
+    { "id": "app", "type": "app", "x": 0, "y": 220 },
+    { "id": "leader", "type": "leader", "x": 300, "y": 120 },
+    { "id": "standby", "type": "standby", "x": 300, "y": 360 },
+    { "id": "zone", "type": "coordzone", "x": 560, "y": -160, "w": 420, "h": 240, "label": "Coordination" },
+    { "id": "k1", "type": "coord", "x": 590, "y": -120, "parent": "zone" },
+    { "id": "k2", "type": "coord", "x": 790, "y": -120, "parent": "zone" },
+    { "id": "k3", "type": "coord", "x": 690, "y": 0, "parent": "zone" },
+    { "id": "store", "type": "storage", "x": 900, "y": 220 },
+    { "id": "det", "type": "detector", "x": 600, "y": 380 },
+    { "id": "ntp1", "type": "ntp", "x": 1100, "y": -160, "label": "NTP A" },
+    { "id": "ntp2", "type": "ntp", "x": 1100, "y": -20, "label": "NTP B" },
+    { "id": "mon", "type": "clockmon", "x": 1100, "y": 120 }
+  ],
+  "edges": [
+    { "id": "e1", "source": "app", "target": "leader", "kind": "sync", "label": "écritures" },
+    { "id": "e2", "source": "leader", "target": "k1", "kind": "sync", "label": "renouvelle le bail" },
+    { "id": "e3", "source": "standby", "target": "k1", "kind": "sync", "label": "demande le bail" },
+    { "id": "r1", "source": "k1", "target": "k2", "kind": "replication" },
+    { "id": "r2", "source": "k2", "target": "k3", "kind": "replication" },
+    { "id": "r3", "source": "k3", "target": "k1", "kind": "replication" },
+    { "id": "e4", "source": "leader", "target": "store", "kind": "write", "label": "écrit avec son jeton" },
+    { "id": "e5", "source": "standby", "target": "store", "kind": "write", "label": "écrit avec son jeton (après bascule)" },
+    { "id": "e6", "source": "leader", "target": "det", "kind": "async", "label": "battements de cœur" },
+    { "id": "e7", "source": "det", "target": "standby", "kind": "async", "label": "leader soupçonné" },
+    { "id": "e8", "source": "k1", "target": "ntp1", "kind": "read" },
+    { "id": "e9", "source": "k2", "target": "ntp2", "kind": "read" },
+    { "id": "e10", "source": "k3", "target": "ntp1", "kind": "read" },
+    { "id": "e11", "source": "mon", "target": "k1", "kind": "read", "label": "décalage" },
+    { "id": "e12", "source": "mon", "target": "k2", "kind": "read", "label": "décalage" },
+    { "id": "e13", "source": "mon", "target": "k3", "kind": "read", "label": "décalage" }
+  ]
+}

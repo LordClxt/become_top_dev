@@ -1,0 +1,7 @@
+{
+  "paires": {"q-l": "causal", "r1-r2": "conc", "r2-l": "conc", "r1-l": "causal"},
+  "forme": "dag",
+  "appliquer": {"w1": "apply", "w2": "wait", "w3": "apply", "w4": "wait"},
+  "modele": "causal",
+  "force": ["eventual", "causal", "lin"]
+}

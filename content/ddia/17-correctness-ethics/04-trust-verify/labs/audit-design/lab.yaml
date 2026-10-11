@@ -1,0 +1,62 @@
+id: ddia-ch17-l04-lab-audit-design
+title: Un registre de soldes qui s'audite lui-même
+difficulty: 3
+xp: 70
+concepts:
+- ddia-correct-auditability-by-design
+- ddia-correct-e2e-integrity-check
+- ddia-correct-auditing
+- ddia-correct-crypto-audit
+source:
+  chapter: 12
+  pages: 530-533
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: api
+  component: service
+  label: Service de virements
+  hint: Reçoit les virements identifiés.
+- type: events
+  component: kafka
+  label: Log d'événements immuable
+  hint: Source de vérité ; jamais modifié.
+- type: deriver
+  component: stream-processor
+  label: Processeur de soldes
+  hint: Dérive les soldes du log, de façon déterministe.
+- type: balances
+  component: postgres
+  label: Base des soldes
+  hint: État dérivé, lu par l'application.
+- type: auditor
+  component: cron
+  label: Auditeur nocturne
+  hint: Rejoue le log, recalcule les soldes et compare.
+- type: merkle
+  component: index
+  label: Arbre de Merkle du log
+  hint: Hachages qui prouvent que le log n'a pas été réécrit.
+- type: alerts
+  component: monitoring
+  label: Alertes
+  hint: Prévient l'équipe d'un écart.
+- type: backup
+  component: object-store
+  label: Sauvegardes
+  hint: Copies des soldes et du log.
+- type: restore
+  component: cron
+  label: Test de restauration
+  hint: Restaure régulièrement une sauvegarde pour prouver qu'elle marche.
+- type: inplace
+  component: mysql
+  label: Table de soldes mise à jour en place
+  hint: Des UPDATE directs, sans événement conservé.
+- type: disk-only
+  component: disk
+  label: Contrôle SMART du disque seul
+  hint: Vérifie un seul maillon de la chaîne.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

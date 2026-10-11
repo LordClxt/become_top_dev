@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Le détecteur de pannes adaptatif"
+    goal: "Garder par nœud les derniers intervalles entre battements de cœur, en déduire un timeout moyenne + k × écart-type avec un plancher, et soupçonner un nœud dont le silence dépasse strictement ce timeout."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Le service de baux"
+    goal: "Accorder un seul bail valide à la fois, avec un jeton strictement croissant à chaque nouvelle attribution, renouveler sans changer de jeton, refuser de renouveler un bail expiré, et rester correct quand 20 clients demandent en même temps."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Le stockage qui ferme la porte aux zombies"
+    goal: "Retenir par clé le plus grand jeton accepté, rejeter les jetons plus petits et les écritures sans jeton, puis rejouer la bascule du livre : un leader figé dont l'écriture tardive est rejetée."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Dans TestM3FailoverWithDetector, le détecteur soupçonne A bien avant que son bail expire. Pourquoi ne pas laisser B devenir leader dès ce soupçon ? Et pourquoi le stockage, plutôt que A lui-même, doit-il vérifier le jeton : quelle ligne de A ne pourrait jamais être rendue sûre, même en relisant l'horloge juste avant d'écrire ?"

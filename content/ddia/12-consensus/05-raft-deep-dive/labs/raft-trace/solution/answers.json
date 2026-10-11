@@ -1,0 +1,8 @@
+{
+  "votes": { "a": "grant", "b": "refuse", "d": "grant", "e": "refuse" },
+  "count": 3,
+  "backtrack": 6,
+  "commit": 15,
+  "oldterm": "stay",
+  "follower": ["term", "check", "truncate", "append", "commit"]
+}

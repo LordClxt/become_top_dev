@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Transaction ?
+  back: 'Lectures et écritures regroupées en une unité : tout validé (commit) ou tout abandonné (abort).'
+  concept: ddia-transaction-abstraction
+- id: fc2
+  front: Atomicité au sens ACID ?
+  back: Une transaction interrompue est annulée entièrement ; Kleppmann préfère « abandonnabilité ».
+  concept: ddia-acid-atomicity
+- id: fc3
+  front: Cohérence au sens ACID ?
+  back: Des invariants de l'application ; la base les préserve seulement si les transactions sont correctes.
+  concept: ddia-acid-consistency
+- id: fc4
+  front: Isolation, version manuel ?
+  back: 'Sérialisabilité : même résultat que si les transactions s''exécutaient une par une. Rarement le réglage par défaut.'
+  concept: ddia-acid-isolation
+- id: fc5
+  front: Durabilité ?
+  back: Ce qui est validé n'est pas perdu (WAL, réplicas, sauvegardes) — un risque réduit, jamais nul.
+  concept: ddia-acid-durability
+- id: fc6
+  front: Trois raisons d'avoir des transactions multi-objets ?
+  back: Clés étrangères, dénormalisation (compteur et données), index secondaires.
+  concept: ddia-multi-object-txn
+- id: fc7
+  front: Mono-objet ?
+  back: 'Atomicité (WAL) et isolation (verrou) d''une seule clé ; plus incrément ou compare-and-set : pas des transactions au sens habituel.'
+  concept: ddia-multi-object-txn
+- id: fc8
+  front: Cinq pièges du nouvel essai ?
+  back: Commit réussi mais accusé perdu, surcharge, erreur permanente, effets de bord externes, client qui meurt.
+  concept: ddia-txn-retry-pitfalls
+- id: fc9
+  front: BASE ?
+  back: Basically Available, Soft state, Eventual consistency — « pas ACID », encore plus flou.
+  concept: ddia-transaction-abstraction

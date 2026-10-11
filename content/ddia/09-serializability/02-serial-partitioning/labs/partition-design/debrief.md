@@ -1,0 +1,3 @@
+**Chaque partition est une petite base en série.** Le routeur envoie chaque appel de procédure à la partition qui possède la clé ; comme chaque partition a son propre thread, le débit croît avec les cœurs tant que les transactions restent locales. Les réplicas rejouent les mêmes procédures déterministes dans le même ordre, et les rapports lisent ces réplicas : leurs longues lectures ne bloquent pas la boucle.
+
+Le coordinateur est le point faible assumé : une transaction multi-partitions bloque toutes les partitions qu'elle touche, et son débit (de l'ordre de 1 000 par seconde chez VoltDB) ne monte pas avec les machines. Il doit rester l'exception. Un verrou global, une lecture disque en pleine transaction ou une session interactive ruineraient chacun le modèle.

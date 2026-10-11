@@ -1,0 +1,101 @@
+id: ddia-ch07-l04-quiz
+questions:
+- id: q1
+  type: multiple
+  prompt: Coche les exigences minimales d'un rééquilibrage.
+  choices:
+  - Répartir équitablement la charge après l'opération
+  - Arrêter les écritures le temps du transfert
+  - Continuer à servir lectures et écritures pendant l'opération
+  - Ne déplacer que les données nécessaires
+  answer:
+  - 0
+  - 2
+  - 3
+  explanation: Un rééquilibrage qui coupe le service n'est pas acceptable.
+  concept: ddia-rebalancing-requirements
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Avec `hash mod N`, tu passes de 4 à 5 nœuds. Quelle part des clés change de nœud ?
+  choices:
+  - 20 %
+  - 25 %
+  - 80 %
+  - 100 %
+  answer: 2
+  explanation: 'Une clé reste si h mod 4 = h mod 5 : seuls 4 restes sur 20. Il suffirait pourtant d''en déplacer 1/5.'
+  concept: ddia-hash-mod-n-pitfall
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: 1 000 partitions fixes sur 10 nœuds. Un 11ᵉ nœud arrive. Que change le rééquilibrage ?
+  choices:
+  - Les clés sont re-hachées vers de nouvelles partitions
+  - Le nouveau nœud vole environ 91 partitions entières ; l'affectation clé → partition ne change pas
+  - On découpe toutes les partitions en deux
+  - Le nombre de partitions passe à 1 100
+  answer: 1
+  explanation: Seule l'affectation partition → nœud change ; 1 000 / 11 ≈ 91 partitions bougent, soit environ 9 % des données.
+  concept: ddia-fixed-partition-count
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Pourquoi ne pas créer 1 million de partitions fixes « pour être tranquille » ?
+  choices:
+  - Chaque partition a un coût de gestion fixe ; trop de partitions, c'est du gaspillage
+  - Une base ne peut pas dépasser 1 000 partitions
+  - Le hachage ne marche plus au-delà
+  - Les partitions deviendraient trop grosses
+  answer: 0
+  explanation: Le nombre doit couvrir la croissance prévue sans multiplier les frais de gestion.
+  concept: ddia-fixed-partition-count
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: HBase découpe une partition quand elle dépasse 10 Go. Une table grossit à 1 To. Combien de partitions au minimum ?
+  choices:
+  - '10'
+  - '100'
+  - '1'
+  - 1 000
+  answer: 1
+  explanation: '1 000 Go / 10 Go = 100 : le nombre de partitions suit le volume.'
+  concept: ddia-dynamic-partitioning
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Tu crées une base HBase vide et y charges 2 To le premier jour. Quel est le risque, et la parade ?
+  choices:
+  - Aucun risque, le découpage est instantané
+  - Les données sont perdues ; il faut répliquer
+  - Il faut passer à hash mod N
+  - Tout va sur une seule partition, donc un seul nœud, au début ; on pré-découpe avec des bornes estimées
+  answer: 3
+  explanation: Une base vide n'a qu'une partition tant qu'elle n'a pas atteint le seuil.
+  concept: ddia-dynamic-partitioning
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: 'Cassandra : que fait un nouveau nœud qui rejoint le cluster ?'
+  choices:
+  - Il choisit au hasard des partitions existantes, les coupe en deux et en prend une moitié
+  - Il attend qu'un administrateur lui affecte des partitions entières
+  - Il re-hache toutes les clés
+  - Il crée des partitions vides
+  answer: 0
+  explanation: 'Nombre fixe de partitions par nœud (256 par défaut) : la taille des partitions reste stable quand la flotte grandit.'
+  concept: ddia-partitions-per-node
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Remets dans l'ordre la cascade que peut provoquer un rééquilibrage automatique. Choisis la bonne séquence.
+  choices:
+  - Un nœud surchargé répond lentement → Les autres nœuds le déclarent mort → Le système déplace automatiquement ses partitions → D'autres nœuds ralentissent et sont déclarés morts à leur tour → Le transfert ajoute de la charge au réseau et aux nœuds
+  - Un nœud surchargé répond lentement → Les autres nœuds le déclarent mort → Le système déplace automatiquement ses partitions → Le transfert ajoute de la charge au réseau et aux nœuds → D'autres nœuds ralentissent et sont déclarés morts à leur tour
+  - D'autres nœuds ralentissent et sont déclarés morts à leur tour → Le transfert ajoute de la charge au réseau et aux nœuds → Le système déplace automatiquement ses partitions → Les autres nœuds le déclarent mort → Un nœud surchargé répond lentement
+  - Un nœud surchargé répond lentement → Le système déplace automatiquement ses partitions → Les autres nœuds le déclarent mort → Le transfert ajoute de la charge au réseau et aux nœuds → D'autres nœuds ralentissent et sont déclarés morts à leur tour
+  answer: 1
+  explanation: D'où l'intérêt d'un humain qui valide le plan de rééquilibrage (Couchbase, Riak, Voldemort).
+  concept: ddia-automatic-rebalancing-risk
+  difficulty: 2

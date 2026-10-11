@@ -1,0 +1,29 @@
+id: ddia-ch12
+title: Consensus
+subtitle: 'Commit atomique, validation en deux phases, Paxos et Raft, ZooKeeper : comment des nœuds faillibles se mettent d''accord'
+source:
+  chapter: 9
+  pages: 352-373
+objectives:
+- "Dérouler la validation en deux phases (2PC), situer ses deux points de non-retour et expliquer pourquoi une panne du coordinateur bloque les participants en doute"
+- "Évaluer le coût réel des transactions distribuées hétérogènes (XA) : verrous tenus, transactions orphelines, coordinateur point unique de défaillance"
+- "Énoncer les quatre propriétés du consensus et relier consensus, diffusion à ordre total et élection de leader"
+- "Raisonner sur les époques et les quorums qui se chevauchent pour dire quelle panne un cluster de consensus tolère, et à quel prix"
+- "Utiliser un service de coordination (ZooKeeper, etcd) pour l'élection, l'allocation de partitions, la découverte de services et l'appartenance"
+- "Dérouler une élection et une réplication Raft (termes, règle de vote, vérification de cohérence, commitIndex) sur un exemple chiffré"
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch11
+lessons:
+- 01-atomic-commit-2pc
+- 02-distributed-tx-practice
+- 03-fault-tolerant-consensus
+- 04-coordination-services
+- 05-raft-deep-dive
+xp:
+  assignment: 130
+  project: 260
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

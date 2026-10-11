@@ -1,0 +1,3 @@
+**La majorité est la seule chose qui compte.** 2f + 1 nœuds tolèrent f pannes : un nombre pair n'achète rien (4 nœuds tolèrent 1 panne, comme 3). Pour survivre à la perte d'une zone, il faut qu'aucune zone ne contienne assez de nœuds pour emporter la majorité : 5 nœuds répartis 2-2-1 cochent tout, avec des écritures qui n'attendent que 3 réponses.
+
+Les quorums se chevauchent (ici d'au moins 5 + 4 − 7 = **2** nœuds) : c'est par ce chevauchement qu'un leader d'époque 8 apprend qu'une époque 9 existe et s'efface. Et chaque bogue a son nom : deux décisions = accord, changer d'avis = intégrité, valeur inventée = validité, blocage avec une majorité vivante = terminaison.

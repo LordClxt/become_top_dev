@@ -1,0 +1,3 @@
+**Chaque fonction mérite sa garantie, pas la plus forte par défaut.** Pseudos, sièges et élection du leader exigent la linéarisabilité ; l'ordre des messages d'une conversation n'exige que la causalité, qui reste rapide et disponible pendant une coupure ; un compteur de vues se contente de la convergence.
+
+Là où la linéarisabilité est nécessaire, on paie en latence : depuis la Virginie, réserver un pseudo coûte au moins 90 + 25 = **115 ms** (aller-retour vers le leader, puis vers la majorité). Un quorum `w + r > n` recoupe bien au moins **1** réplique, mais ne suffit pas à rendre un compare-and-set linéarisable : il faut un log à ordre total — c'est-à-dire du consensus — et le séquenceur unique n'en est qu'une version fragile.

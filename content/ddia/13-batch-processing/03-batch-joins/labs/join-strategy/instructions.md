@@ -1,0 +1,1 @@
+Quatre jointures à planifier sur le cluster d'un réseau social, une clé chaude à dompter et un tri secondaire à vérifier. Pour chaque jointure, regarde la taille et le rangement des entrées avant de choisir.

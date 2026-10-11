@@ -1,0 +1,20 @@
+id: ddia-ch06-assignment
+title: Le panier qui accepte toujours les ajouts
+difficulty: 4
+xp: 130
+concepts:
+- ddia-multi-leader-multi-dc
+- ddia-quorum-condition
+- ddia-quorum-edge-cases
+- ddia-sloppy-quorum
+- ddia-hinted-handoff
+- ddia-version-vectors
+- ddia-siblings-merge
+source:
+  chapter: 5
+  pages: 168-197
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,1 @@
+Dessine un consommateur qui traite chaque message « commande payée » **exactement une fois** : l'écriture en base et l'acquittement du message sont validés dans une même transaction XA. Place le coordinateur et son journal là où XA les met vraiment.

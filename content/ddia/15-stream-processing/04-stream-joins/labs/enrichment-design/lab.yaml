@@ -1,0 +1,61 @@
+id: ddia-ch15-l04-lab-enrichment-design
+title: 'Enrichir un flux sans écraser la base'
+difficulty: 3
+xp: 80
+concepts:
+- ddia-sp-stream-table-join
+- ddia-sp-stream-stream-join
+- ddia-sp-join-time-dependence
+source:
+  chapter: 11
+  pages: 473-476
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: mobile
+  label: Application mobile
+  hint: Produit 50 000 événements d'activité par seconde.
+- type: activity
+  component: kafka
+  label: Flux d'activité
+  hint: Log partitionné des événements « ajout au panier », « vue produit »…
+- type: profiles
+  component: service
+  label: Service profils
+  hint: Le seul à écrire dans la base des profils.
+- type: db
+  component: postgres
+  label: Base des profils
+  hint: Âge, pays, segment de chaque client.
+- type: cdc
+  component: topic
+  label: Changelog des profils (CDC)
+  hint: Chaque modification de la base, dans l'ordre.
+- type: proc
+  component: stream-processor
+  label: Opérateur d'enrichissement
+  hint: Joint chaque événement d'activité au profil de son utilisateur.
+- type: local
+  component: index
+  label: Copie locale des profils
+  hint: Table de hachage ou index sur disque, dans l'opérateur.
+- type: out
+  component: topic
+  label: Flux enrichi
+  hint: Les événements d'activité, complétés par le profil.
+- type: wh
+  component: warehouse
+  label: Entrepôt analytique
+  hint: Consomme le flux enrichi.
+- type: lookup
+  component: external
+  label: Requête SQL par événement
+  hint: Un SELECT sur la base pour chaque événement reçu.
+- type: snapshot
+  component: file
+  label: Export figé des profils
+  hint: Un dump de la table, pris une fois au démarrage du job.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

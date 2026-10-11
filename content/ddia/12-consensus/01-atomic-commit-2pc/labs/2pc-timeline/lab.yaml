@@ -1,0 +1,17 @@
+id: ddia-ch12-l01-lab-2pc-timeline
+title: 'Chronologies de pannes en 2PC'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-2pc-protocol
+- ddia-2pc-points-of-no-return
+- ddia-2pc-coordinator-failure
+- ddia-atomic-commit-distributed
+source:
+  chapter: 9
+  pages: 352-359
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

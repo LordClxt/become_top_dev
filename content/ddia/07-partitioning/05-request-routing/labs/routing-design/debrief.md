@@ -1,0 +1,3 @@
+**Une seule source faisant autorité pour l'affectation.** Les nœuds s'enregistrent dans ZooKeeper, qui garde la correspondance partition → nœud ; la couche de routage s'y abonne et est notifiée à chaque changement. Le client, lui, ne connaît que l'adresse de la couche de routage (trouvée par DNS) : un rééquilibrage ne le concerne pas.
+
+Une liste d'adresses figée dans le client serait fausse au premier déplacement de partition. Les alternatives existent (Cassandra et Riak bavardent entre nœuds et acceptent les requêtes partout), mais le principe reste : tout le monde doit être d'accord sur qui possède quoi.

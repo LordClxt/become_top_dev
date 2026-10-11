@@ -1,0 +1,3 @@
+**Chaque dépendance synchrone se paie.** Deux services à 99,9 % et 99,5 % donnent un paiement à 99,4 %, soit environ 259 minutes d'indisponibilité par mois, et 15 ms de plus sur chaque paiement. En s'abonnant au flux des taux et en lisant une table locale, le service d'achats ne dépend plus que de lui-même pour payer (21 ms), au prix d'un taux qui peut avoir quelques secondes de retard.
+
+Cette table locale est une **donnée dérivée** : elle n'est juste que si le transport garde l'ordre par devise, ne perd rien et que l'application est idempotente. Et comme c'est une jointure flux-table, elle dépend du temps : pour rejouer six mois d'achats, il faut le taux **en vigueur au moment de chaque achat**.

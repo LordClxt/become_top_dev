@@ -1,0 +1,86 @@
+id: ddia-ch11-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi le verrou qui sert à élire un leader doit-il être linéarisable ?
+  choices:
+  - Pour que l'élection soit plus rapide
+  - Pour que tous les nœuds s'accordent sur un seul détenteur ; sinon deux nœuds peuvent se croire leaders
+  - Pour que le verrou survive à un redémarrage
+  - Parce que les leaders écrivent sur disque
+  answer: 1
+  explanation: Un verrou à cohérence à terme laisse deux candidats lire « libre » et se proclamer leaders (split brain).
+  concept: ddia-lin-locks-leader-election
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Lesquelles de ces règles exigent une valeur unique et à jour, donc la linéarisabilité, pour être garanties sans compensation ?
+  choices:
+  - Deux comptes ne peuvent pas avoir le même pseudo
+  - Un solde ne descend jamais sous zéro
+  - Un siège d'avion n'est vendu qu'une fois
+  - Une clé étrangère pointe vers une ligne qui existe
+  answer: [0, 1, 2]
+  explanation: 'Les trois premières sont des contraintes d''unicité ou de borne sur une valeur partagée. L''intégrité référentielle peut se passer de linéarisabilité.'
+  concept: ddia-lin-uniqueness-constraints
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: 'Un serveur web écrit une photo dans un stockage répliqué de façon asynchrone, puis publie « redimensionne la photo 42 » dans une file. Le worker lit parfois l''ancienne photo. Pourquoi ?'
+  choices:
+  - La file perd des messages
+  - Le worker est trop lent
+  - "La file est plus rapide que la réplication du stockage : deux canaux font la course"
+  - La photo est trop grosse pour la file
+  answer: 2
+  explanation: Le message arrive par un chemin, les données par un autre ; sans stockage linéarisable, le worker peut lire une réplique en retard.
+  concept: ddia-lin-cross-channel-timing
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Quelle méthode de réplication est linéarisable par construction ?
+  choices:
+  - Un algorithme de consensus (ZooKeeper, etcd, Raft)
+  - La réplication multi-leader
+  - La réplication sans leader avec « dernière écriture gagne »
+  - Un leader unique avec lectures sur des réplicas asynchrones
+  answer: 0
+  explanation: Le consensus empêche le split brain et les réplicas obsolètes. Le leader unique n'est que potentiellement linéarisable.
+  concept: ddia-lin-replication-methods
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pourquoi la réplication multi-leader n'est-elle pas linéarisable ?
+  choices:
+  - Parce qu'elle n'a pas de journal
+  - Parce que plusieurs nœuds acceptent des écritures concurrentes sur la même clé et les répliquent de façon asynchrone
+  - Parce qu'elle n'utilise pas de disque
+  - Parce qu'elle refuse les lectures
+  answer: 1
+  explanation: Les conflits à résoudre après coup sont impossibles avec une copie unique.
+  concept: ddia-lin-replication-methods
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: 'n = 3, w = 3, r = 2. L''écriture x = 1 n''a encore atteint qu''une réplique. A lit sur cette réplique et une autre et voit 1 ; juste après, B lit sur les deux autres et voit 0. Que conclure ?'
+  choices:
+  - Impossible, car w + r > n
+  - C'est linéarisable, car l'écriture n'est pas terminée
+  - C'est une anomalie due aux horloges
+  - Le quorum est respecté mais l'historique n'est pas linéarisable
+  answer: 3
+  explanation: 'B commence après A qui a déjà vu 1 : voir 0 fait reculer la valeur. Les délais variables suffisent à casser un quorum strict.'
+  concept: ddia-lin-quorums-not-linearizable
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Avec réparation à la lecture synchrone et lecture d'un quorum par l'écrivain, que reste-t-il impossible dans un système sans leader ?
+  choices:
+  - Un compare-and-set linéarisable, qui demande un consensus
+  - Une lecture simple linéarisable
+  - Une écriture simple linéarisable
+  - Une lecture de ses propres écritures
+  answer: 0
+  explanation: Ces deux techniques rendent les lectures et écritures simples linéarisables, au prix des performances, mais pas les opérations conditionnelles.
+  concept: ddia-lin-quorums-not-linearizable
+  difficulty: 3

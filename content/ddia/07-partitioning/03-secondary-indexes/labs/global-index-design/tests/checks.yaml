@@ -1,0 +1,53 @@
+checks:
+- id: write
+  label: Le service annonces écrit dans les partitions de données
+  rule: edge_kind
+  source: listings
+  target: part
+  kind: write
+- id: parts
+  label: Les données sont réparties sur au moins deux partitions
+  rule: count
+  source: part
+  min: 2
+- id: gparts
+  label: L'index global est lui-même partitionné par terme (au moins deux tranches)
+  rule: count
+  source: gidx
+  min: 2
+- id: async
+  label: Les partitions de données mettent l'index à jour de façon asynchrone
+  rule: edge_kind
+  source: part
+  target: gidx
+  kind: async
+- id: no-direct
+  label: Le service annonces écrit une seule fois ; c'est la base qui propage vers l'index
+  rule: no_edge
+  source: listings
+  target: gidx
+- id: lookup
+  label: La recherche lit la partition d'index du terme
+  rule: edge_kind
+  source: search
+  target: gidx
+  kind: read
+- id: fetch
+  label: Puis elle lit les annonces trouvées dans les partitions de données
+  rule: edge_kind
+  source: search
+  target: part
+  kind: read
+- id: no-solo
+  label: Pas d'index global sur une seule machine
+  rule: count
+  source: solo
+  max: 0
+- id: no-scatter
+  label: Pas de diffusion de chaque recherche à toutes les partitions
+  rule: count
+  source: broadcast
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

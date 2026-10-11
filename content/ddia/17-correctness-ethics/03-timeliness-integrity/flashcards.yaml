@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Opportunité (timeliness) ?
+  back: Les lectures reflètent un état à jour ; une violation est temporaire (« cohérence à terme »).
+  concept: ddia-correct-timeliness
+- id: fc2
+  front: Intégrité ?
+  back: Pas de donnée perdue, contradictoire ou fausse ; une violation est permanente (« incohérence perpétuelle »).
+  concept: ddia-correct-integrity
+- id: fc3
+  front: Laquelle compte le plus, en général ?
+  back: L'intégrité. Un relevé en retard est normal ; un solde faux ne l'est jamais.
+  concept: ddia-correct-integrity
+- id: fc4
+  front: ACID et ces deux exigences ?
+  back: ACID fournit les deux ; les systèmes de flux les découplent (intégrité oui, opportunité non).
+  concept: ddia-correct-dataflow-integrity
+- id: fc5
+  front: Les 4 ingrédients d'intégrité d'un système de flux ?
+  back: Une écriture = un message ; dérivation déterministe ; identifiant transmis partout ; messages immuables et retraitables.
+  concept: ddia-correct-dataflow-integrity
+- id: fc6
+  front: Contrainte souple ?
+  back: Écrire d'abord, vérifier ensuite, compenser par une excuse si le coût est acceptable (décision métier).
+  concept: ddia-correct-apologies
+- id: fc7
+  front: Exemples d'excuses déjà prévues par le métier ?
+  back: Surréservation aérienne, réassort après rupture de stock, agios sur découvert.
+  concept: ddia-correct-apologies
+- id: fc8
+  front: Système sans coordination ?
+  back: Intégrité sans commit atomique ni linéarisabilité ; multi-datacenter possible ; coordination synchrone seulement là où l'excuse est impossible.
+  concept: ddia-correct-coordination-avoidance
+- id: fc9
+  front: Coordination et excuses ?
+  back: Plus de coordination = moins d'excuses pour conflit, mais moins de performance et de disponibilité. On cherche le meilleur compromis.
+  concept: ddia-correct-coordination-avoidance

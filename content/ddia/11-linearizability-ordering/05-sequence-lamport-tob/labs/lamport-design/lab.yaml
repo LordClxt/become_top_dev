@@ -1,0 +1,18 @@
+id: ddia-ch11-l05-lab-lamport-design
+title: 'Lamport à la main, puis le log qui tranche'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-lamport-timestamps
+- ddia-noncausal-seq-generators
+- ddia-timestamp-ordering-insufficient
+- ddia-total-order-broadcast-def
+- ddia-tob-linearizable-storage
+source:
+  chapter: 9
+  pages: 343-351
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

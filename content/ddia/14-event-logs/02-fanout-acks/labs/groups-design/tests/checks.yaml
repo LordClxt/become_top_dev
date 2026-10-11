@@ -1,0 +1,69 @@
+checks:
+- id: publish
+  label: Le service commandes publie de façon asynchrone dans le broker
+  rule: edge_kind
+  source: shop
+  target: queue
+  kind: async
+- id: deliver-billing
+  label: Le broker livre les commandes aux workers de facturation
+  rule: edge_kind
+  source: queue
+  target: billing
+  kind: async
+- id: deliver-mail
+  label: '…et au worker e-mail : chaque groupe reçoit tout le flux'
+  rule: edge_kind
+  source: queue
+  target: mail
+  kind: async
+- id: ack-billing
+  label: Les workers de facturation acquittent auprès du broker
+  rule: edge_kind
+  source: billing
+  target: queue
+  kind: sync
+- id: ack-mail
+  label: Le worker e-mail acquitte aussi
+  rule: edge_kind
+  source: mail
+  target: queue
+  kind: sync
+- id: scale
+  label: 600 factures/s à 2 ms chacune (1,2 s de travail par seconde) ne tiennent pas sur un seul worker
+  rule: count
+  source: billing
+  min: 2
+- id: billing-zone
+  label: Les workers de facturation forment un même groupe
+  rule: in_zone
+  source: billing
+  target: billing-group
+- id: mail-zone
+  label: Le worker e-mail est dans son propre groupe
+  rule: in_zone
+  source: mail
+  target: mail-group
+- id: via-broker
+  label: Tout ce qui arrive à la facturation passe par le broker
+  rule: inbound_via
+  target: billing
+  via: queue
+- id: decoupled
+  label: Le service commandes n'appelle pas l'e-mail directement
+  rule: no_edge
+  source: shop
+  target: mail
+- id: no-poll
+  label: Pas de sondage de la base
+  rule: count
+  source: poller
+  max: 0
+- id: no-webhook
+  label: Pas de webhook direct, qui perd les commandes quand le worker est arrêté
+  rule: count
+  source: webhook
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

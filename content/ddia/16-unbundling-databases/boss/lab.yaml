@@ -1,0 +1,89 @@
+id: ddia-ch16-boss
+title: 'Boss : la boutique entièrement dégroupée'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-dataflow-reasoning
+- ddia-index-as-stream
+- ddia-gradual-view-migration
+- ddia-unbundling-async-log
+- ddia-stream-vs-rpc-services
+- ddia-push-to-clients
+source:
+  chapter: 12
+  pages: 489-514
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: mobile
+  label: App mobile
+  hint: Les clients, parfois hors ligne.
+- type: api
+  component: service
+  label: Service commandes
+  hint: Reçoit les commandes et calcule le prix en euros.
+- type: db
+  component: postgres
+  label: Base de référence
+  hint: Le système de référence des commandes.
+- type: log
+  component: kafka
+  label: Log de changements
+  hint: L'ordre unique des écritures, rejouable.
+- type: snapshot
+  component: object-store
+  label: Instantané + offset
+  hint: Copie cohérente de la table pour amorcer un nouveau dérivé.
+- type: indexer
+  component: stream-processor
+  label: Indexeur
+  hint: Maintient la recherche à partir du log.
+- type: search
+  component: search
+  label: Index de recherche
+  hint: Dérivé, reconstructible.
+- type: viewv1
+  component: stream-processor
+  label: Dérivation v1 (commandes par ville)
+  hint: L'ancienne vue, encore lue.
+- type: storev1
+  component: redis
+  label: Vue v1
+  hint: Stockage de l'ancienne vue.
+- type: viewv2
+  component: stream-processor
+  label: Dérivation v2 (CA par pays et semaine)
+  hint: La nouvelle vue, construite en parallèle.
+- type: storev2
+  component: redis
+  label: Vue v2
+  hint: Stockage de la nouvelle vue.
+- type: push
+  component: service
+  label: Service de push
+  hint: Envoie les changements de la vue aux clients.
+- type: rates
+  component: topic
+  label: Flux des taux de change
+  hint: Les mises à jour de taux, publiées par l'équipe finance.
+- type: ratestable
+  component: sqlite
+  label: Table locale des taux
+  hint: Le dernier taux de chaque devise, gardé par le service commandes.
+- type: xa
+  component: consensus
+  label: Coordinateur XA
+  hint: Validation atomique entre systèmes hétérogènes.
+- type: ratesrpc
+  component: external
+  label: API de taux (appel synchrone)
+  hint: Interroger le service de taux à chaque commande.
+- type: poll
+  component: cron
+  label: Interrogation périodique
+  hint: Les clients redemandent tout l'état régulièrement.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,98 @@
+id: ddia-ch13-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Chaque nuit, un job recalcule les recommandations de 30 millions de clients à partir des achats de la veille. De quelle famille de système s'agit-il, et sur quoi le juge-t-on ?
+  choices:
+  - Un service, jugé à son temps de réponse au 99e percentile
+  - Un traitement par lots, jugé à son débit sur une entrée bornée
+  - Un traitement de flux, jugé à sa latence événement par événement
+  - Une base OLTP, jugée à son nombre de transactions par seconde
+  answer: 1
+  explanation: Personne n'attend la réponse ; l'entrée (les achats de la veille) est bornée ; ce qui compte est de finir le travail en un temps raisonnable.
+  concept: ddia-batch-three-system-kinds
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Qu'est-ce qui distingue fondamentalement un traitement de flux d'un traitement par lots ?
+  choices:
+  - Le flux tourne toujours sur une seule machine
+  - Le lot ne peut pas écrire dans une base
+  - Le flux consomme une entrée non bornée, peu après l'arrivée des événements
+  - Le lot répond à des requêtes d'utilisateurs
+  answer: 2
+  explanation: Les deux consomment des entrées et produisent des sorties sans répondre à une requête ; la différence est la nature de l'entrée, bornée ou non.
+  concept: ddia-batch-three-system-kinds
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: 'Dans `awk ''{print $7}'' | sort | uniq -c | sort -r -n | head -n 5`, pourquoi faut-il un premier `sort` avant `uniq -c` ?'
+  choices:
+  - uniq ne compte que les lignes identiques consécutives
+  - sort supprime les lignes vides
+  - uniq exige une entrée triée par ordre décroissant
+  - sort convertit les URL en nombres
+  answer: 0
+  explanation: uniq fusionne des lignes adjacentes ; le tri rassemble toutes les occurrences d'une URL pour qu'elles se suivent.
+  concept: ddia-batch-unix-log-analysis
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Un log de 400 Go contient 30 000 URL distinctes. Ta machine a 16 Go de RAM. Quelle approche pour compter les visites par URL ?
+  choices:
+  - Le tri externe, car le fichier dépasse la mémoire
+  - Un cluster Hadoop, obligatoire au-delà de 100 Go
+  - Une table de hachage en mémoire, car seules les 30 000 clés distinctes doivent y tenir
+  - Charger tout le fichier en mémoire avant de compter
+  answer: 2
+  explanation: L'ensemble de travail d'un comptage est le nombre de clés distinctes, pas la taille du fichier ; 30 000 entrées tiennent en quelques Mo.
+  concept: ddia-batch-sort-vs-hashmap
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi `sort` supporte-t-il des données plus grosses que la mémoire ?
+  choices:
+  - Il compresse les lignes en mémoire
+  - Il trie des morceaux, les écrit sur disque, puis fusionne les fichiers triés
+  - Il ne garde que les lignes uniques
+  - Il utilise un index B-tree temporaire
+  answer: 1
+  explanation: Tri externe par fusion, avec des accès séquentiels ; la même idée que la fusion de segments SSTable.
+  concept: ddia-batch-sort-vs-hashmap
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Quelles propriétés font qu'on peut brancher presque n'importe quel outil Unix sur n'importe quel autre ?
+  choices:
+  - Tous lisent et écrivent une simple suite d'octets (souvent des lignes)
+  - Chaque programme connaît le programme qui le suit
+  - Le programme lit stdin et écrit stdout ; le shell fait le câblage
+  - Les données circulent dans un format binaire avec schéma
+  answer: [0, 2]
+  explanation: Interface uniforme et séparation de la logique et du câblage ; le programme ignore d'où viennent et où vont ses données.
+  concept: ddia-batch-unix-uniform-interface
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Quelle limite de la séparation logique/câblage par pipes MapReduce cherche-t-il notamment à lever ?
+  choices:
+  - Les programmes Unix ne savent pas lire de texte
+  - Un pipe ne peut pas transporter plus de 4 Ko
+  - Une chaîne de pipes s'exécute sur une seule machine et gère mal plusieurs entrées ou sorties
+  - Les pipes modifient les fichiers d'entrée
+  answer: 2
+  explanation: MapReduce garde l'esprit Unix mais répartit le travail sur de nombreuses machines, avec plusieurs entrées et sorties.
+  concept: ddia-batch-logic-wiring
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Ta chaîne de 6 commandes donne un résultat étrange. Qu'est-ce qui rend le débogage facile ?
+  choices:
+  - Les entrées sont immuables et tu peux couper la chaîne à n'importe quelle étape pour regarder ce qui passe
+  - Unix journalise chaque octet dans un WAL
+  - Les commandes vérifient un schéma à chaque étape
+  - Le shell rejoue automatiquement la dernière étape
+  answer: 0
+  explanation: Relancer ne coûte rien car on ne détruit pas l'entrée ; un `| less` après n'importe quelle étape montre les données intermédiaires.
+  concept: ddia-batch-unix-transparency
+  difficulty: 1

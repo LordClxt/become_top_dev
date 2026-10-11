@@ -1,0 +1,19 @@
+id: ddia-ch08-assignment
+title: La billetterie qui vend deux fois la même place
+difficulty: 3
+xp: 125
+concepts:
+- ddia-read-skew
+- ddia-mvcc-visibility-rules
+- ddia-lost-update
+- ddia-write-skew-anomaly
+- ddia-phantom-writes
+- ddia-snapshot-isolation
+source:
+  chapter: 7
+  pages: 221-251
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

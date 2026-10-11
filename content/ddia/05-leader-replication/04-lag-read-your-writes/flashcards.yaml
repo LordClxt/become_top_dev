@@ -1,0 +1,29 @@
+cards:
+- id: fc1
+  front: Retard de réplication ?
+  back: Le délai entre une écriture sur le leader et son application sur un follower. En général une fraction de seconde, parfois des minutes.
+  concept: ddia-replication-lag
+- id: fc2
+  front: Cohérence à terme ?
+  back: Si les écritures s'arrêtent, les réplicas finissent par converger. Aucune borne sur le délai.
+  concept: ddia-lag-eventual-consistency
+- id: fc3
+  front: Read-your-writes ?
+  back: Un utilisateur voit toujours ses propres écritures après les avoir soumises. Rien n'est promis sur celles des autres.
+  concept: ddia-lag-read-your-writes
+- id: fc4
+  front: Technique 1 pour read-your-writes ?
+  back: Lire au leader ce que l'utilisateur a pu modifier (son profil), le reste sur un follower.
+  concept: ddia-lag-ryw-techniques
+- id: fc5
+  front: Technique 2 pour read-your-writes ?
+  back: Pendant une fenêtre (ex. 1 min) après la dernière écriture, lire au leader ; ou écarter les followers trop en retard.
+  concept: ddia-lag-ryw-techniques
+- id: fc6
+  front: Technique 3 pour read-your-writes ?
+  back: Le client retient la position (LSN) de sa dernière écriture ; on ne lit que sur un réplica qui l'a atteinte.
+  concept: ddia-lag-ryw-techniques
+- id: fc7
+  front: Read-your-writes entre appareils ?
+  back: Centraliser la position de la dernière écriture côté serveur et router tous les appareils de l'utilisateur vers le même datacenter.
+  concept: ddia-lag-cross-device

@@ -1,0 +1,20 @@
+id: ddia-ch17-assignment
+title: Un service de paiement correct de bout en bout
+difficulty: 4
+xp: 130
+concepts:
+- ddia-correct-operation-id
+- ddia-correct-uniqueness-log
+- ddia-correct-conflict-routing
+- ddia-correct-multi-partition
+- ddia-correct-apologies
+- ddia-correct-e2e-integrity-check
+- ddia-ethics-accountability
+source:
+  chapter: 12
+  pages: 515-546
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

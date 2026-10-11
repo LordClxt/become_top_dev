@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Exactly-once, vraiment ?
+  back: Effectively-once — l'effet est celui d'un traitement unique, même si des messages ont été retraités.
+  concept: ddia-sp-exactly-once
+- id: fc2
+  front: Micro-batching ?
+  back: Découper le flux en lots d'environ 1 s traités comme des mini-jobs batch (Spark Streaming).
+  concept: ddia-sp-microbatching
+- id: fc3
+  front: Le compromis de la taille des micro-lots ?
+  back: Petits lots = plus de surcoût de coordination ; gros lots = plus de latence.
+  concept: ddia-sp-microbatching
+- id: fc4
+  front: Checkpoint à la Flink ?
+  back: Instantanés périodiques de l'état des opérateurs sur stockage durable, déclenchés par des barrières dans le flux.
+  concept: ddia-sp-checkpointing
+- id: fc5
+  front: Ce que les checkpoints ne protègent pas ?
+  back: 'Les effets de bord sortis du framework (écriture externe, e-mail) : ils sont refaits au rejeu.'
+  concept: ddia-sp-checkpointing
+- id: fc6
+  front: Transactions atomiques en flux ?
+  back: Sorties, changements d'état et avancement de l'offset validés ensemble, à l'intérieur du framework ; surcoût amorti sur plusieurs messages.
+  concept: ddia-sp-atomic-commit
+- id: fc7
+  front: Rendre `total += x` idempotent ?
+  back: Stocker avec le total l'offset du dernier message appliqué, dans la même écriture, et ignorer tout offset inférieur ou égal.
+  concept: ddia-sp-idempotent-writes
+- id: fc8
+  front: Hypothèses de l'idempotence par offset ?
+  back: Rejeu dans le même ordre (broker log), traitement déterministe, pas d'écrivain concurrent (fencing).
+  concept: ddia-sp-idempotent-writes
+- id: fc9
+  front: Trois façons de reconstruire l'état d'un opérateur ?
+  back: Instantanés durables (Flink), changelog compacté de l'état (Samza, Kafka Streams), ou rejeu de l'entrée pour une fenêtre courte.
+  concept: ddia-sp-state-recovery
+- id: fc10
+  front: État local ou distant ?
+  back: Pas de règle universelle ; ça dépend des latences et débits relatifs du réseau et du disque.
+  concept: ddia-sp-state-recovery

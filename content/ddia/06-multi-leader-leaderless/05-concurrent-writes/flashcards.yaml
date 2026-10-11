@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Pourquoi écraser à l'arrivée fait-il diverger ?
+  back: Chaque réplica reçoit les écritures dans un ordre différent ; la dernière arrivée diffère d'un réplica à l'autre.
+  concept: ddia-concurrent-writes
+- id: fc2
+  front: LWW ?
+  back: On impose un ordre par horodatage et on jette les plus anciennes ; converge, perd des écritures acquittées.
+  concept: ddia-lww-data-loss
+- id: fc3
+  front: LWW sans perte ?
+  back: Seulement si chaque clé n'est écrite qu'une fois (clé UUID) puis immuable.
+  concept: ddia-lww-data-loss
+- id: fc4
+  front: Happens-before ?
+  back: A arrive avant B si B connaît A, en dépend ou s'appuie dessus.
+  concept: ddia-happens-before
+- id: fc5
+  front: Concurrentes ?
+  back: Aucune des deux n'arrive avant l'autre ; ce n'est pas une question d'heure.
+  concept: ddia-happens-before
+- id: fc6
+  front: Écriture avec la version n ?
+  back: Le serveur écrase les valeurs de version ≤ n et garde les plus grandes (concurrentes).
+  concept: ddia-version-numbers
+- id: fc7
+  front: Sibling ?
+  back: Une valeur concurrente conservée pour une clé, que l'application doit fusionner.
+  concept: ddia-siblings-merge
+- id: fc8
+  front: Pierre tombale ?
+  back: Marqueur versionné de suppression, pour que l'union ne fasse pas réapparaître l'élément retiré.
+  concept: ddia-siblings-merge
+- id: fc9
+  front: Vecteur de versions ?
+  back: Un numéro de version par réplica pour une clé ; renvoyé au client à la lecture et rendu à l'écriture.
+  concept: ddia-version-vectors
+- id: fc10
+  front: Contexte causal de Riak ?
+  back: Le vecteur de versions encodé en chaîne, que le client transporte de la lecture à l'écriture.
+  concept: ddia-version-vectors

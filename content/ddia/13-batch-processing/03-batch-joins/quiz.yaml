@@ -1,0 +1,110 @@
+id: ddia-ch13-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi joindre les événements à une COPIE des profils dans HDFS plutôt qu'interroger la base de profils pour chaque événement ?
+  choices:
+  - Parce que HDFS est plus rapide qu'une base pour une lecture aléatoire
+  - Parce que les requêtes ligne à ligne limitent le débit, surchargent la base et rendent le job non déterministe
+  - Parce que les mappers n'ont pas accès au réseau
+  - Parce que la base ne sait pas faire de jointure
+  answer: 1
+  explanation: Une copie (instantané extrait par ETL) rend tout local, rapide et rejouable.
+  concept: ddia-batch-sort-merge-join
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Dans une jointure sort-merge côté reduce, combien de profils le reducer garde-t-il en mémoire à un instant donné ?
+  choices:
+  - Tous les profils de sa partition
+  - Aucun, il les relit dans la base
+  - Un seul, celui de l'utilisateur en cours
+  - Tous les profils du cluster
+  answer: 2
+  explanation: Grâce au tri secondaire, le profil arrive avant les événements du même utilisateur ; on passe ensuite au suivant.
+  concept: ddia-batch-sort-merge-join
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Comment obtient-on le tri secondaire (profil d'abord, puis événements par date) ?
+  choices:
+  - En triant sur une clé composée, mais en partitionnant et regroupant sur le seul user_id
+  - En demandant au reducer de trier ses valeurs en mémoire
+  - En lançant un second job de tri
+  - En donnant aux profils une priorité réseau plus haute
+  answer: 0
+  explanation: La partie user_id fixe le reducer et le groupe ; le reste de la clé ordonne les valeurs dans le groupe.
+  concept: ddia-batch-secondary-sort
+  difficulty: 3
+- id: q4
+  type: single
+  prompt: Tu veux reconstituer les sessions de chaque utilisateur à partir de logs venant de 40 serveurs web. Que doit émettre le mapper comme clé ?
+  choices:
+  - Le nom du serveur web
+  - L'URL visitée
+  - L'identifiant de session ou d'utilisateur
+  - Un nombre aléatoire pour équilibrer la charge
+  answer: 2
+  explanation: La clé de regroupement devient la clé émise ; le shuffle rassemble les actions d'un même utilisateur, quel que soit le serveur.
+  concept: ddia-batch-group-by
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: 'Un GROUP BY compte les interactions par compte ; une célébrité en porte 25 %. Quelle technique évite le reducer traînard ?'
+  choices:
+  - Augmenter la mémoire de tous les reducers
+  - Agréger en deux temps - d'abord sur des reducers choisis au hasard, puis combiner les résultats partiels
+  - Supprimer les événements de la célébrité
+  - Passer à un seul reducer
+  answer: 1
+  explanation: La première étape étale la clé chaude ; la seconde ne combine que quelques résultats partiels par clé.
+  concept: ddia-batch-skew-hot-keys
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Dans la jointure asymétrique (skewed join) de Pig, que se passe-t-il pour une clé chaude ?
+  choices:
+  - Un job d'échantillonnage la repère à l'avance
+  - Ses enregistrements vont à l'un de plusieurs reducers, choisi au hasard
+  - L'autre entrée de la jointure, pour cette clé, est répliquée sur tous ces reducers
+  - Ses enregistrements sont ignorés
+  answer: [0, 1, 2]
+  explanation: On répartit le travail de la clé chaude au prix d'une copie de l'autre côté de la jointure.
+  concept: ddia-batch-skew-hot-keys
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Tu joins 8 To de ventes à un catalogue de 150 000 produits (60 Mo). Quel algorithme ?
+  choices:
+  - Map-side merge join
+  - Partitioned hash join
+  - Sort-merge côté reduce
+  - Broadcast hash join
+  answer: 3
+  explanation: Le catalogue tient en mémoire de chaque mapper ; aucun tri ni shuffle des 8 To n'est nécessaire.
+  concept: ddia-batch-broadcast-hash-join
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Événements et profils sont découpés en 32 fichiers par hachage de user_id. Que fait le mapper de la partition 7 dans un partitioned hash join ?
+  choices:
+  - Il charge en mémoire la partition 7 des profils seulement, puis lit la partition 7 des événements
+  - Il charge tous les profils
+  - Il envoie ses événements aux 32 reducers
+  - Il trie les deux partitions avant de les fusionner
+  answer: 0
+  explanation: Même clé, même fonction, même nombre de partitions ; les correspondances ne peuvent être que dans la même partition.
+  concept: ddia-batch-partitioned-hash-join
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Quelle propriété supplémentaire, par rapport au partitioned hash join, permet un map-side merge join ?
+  choices:
+  - Une des entrées tient en mémoire
+  - Les deux entrées sont aussi triées par la clé de jointure dans chaque partition
+  - Les entrées sont compressées
+  - Il y a autant de mappers que de reducers
+  answer: 1
+  explanation: Triées pareil, elles se fusionnent en un seul passage, sans rien charger en mémoire.
+  concept: ddia-batch-map-side-merge-join
+  difficulty: 2

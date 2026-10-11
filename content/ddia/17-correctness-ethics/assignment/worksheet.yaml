@@ -1,0 +1,101 @@
+intro: |
+  **PayLite** permet de s'envoyer de l'argent entre amis. Les comptes et les pseudos sont partitionnés, les virements passent par un log. L'application mobile réessaie toute requête sans réponse après 5 secondes.
+blocks:
+- id: reessais
+  type: table
+  title: Combien de débits ?
+  prompt: Pour chaque scénario, combien de fois le compte est-il débité, sans identifiant puis avec un identifiant généré à l'affichage du formulaire et renvoyé à chaque essai ?
+  columns:
+  - id: without
+    label: Sans identifiant
+  - id: with
+    label: Avec identifiant
+  rows:
+  - id: lost
+    label: Les deux premières réponses se perdent après le COMMIT, la troisième arrive
+  - id: failed
+    label: Le premier essai échoue avant le COMMIT, le second réussit
+  - id: double-tap
+    label: L'utilisateur tape deux fois sur « Payer » ; les deux envois sont validés
+- id: partitions
+  type: number
+  title: Dimensionner le log des pseudos
+  prompt: Au pic, **120 000** demandes de pseudo par seconde. Un processeur décide une demande en **0,4 ms** et on ne veut pas dépasser **50 %** d'occupation par partition. Combien de partitions au minimum ?
+  unit: partitions
+- id: cle
+  type: choice
+  title: La clé de partition des pseudos
+  prompt: Les pseudos sont insensibles à la casse et aux espaces autour. Quelle clé de partition choisir ?
+  options:
+  - id: raw
+    label: Le pseudo tel que saisi
+  - id: user
+    label: L'identifiant de l'utilisateur qui le demande
+  - id: norm
+    label: Le pseudo normalisé (minuscules, espaces retirés)
+    hint: Les demandes en conflit doivent aller au même endroit
+  - id: random
+    label: Une partition au hasard, pour équilibrer la charge
+- id: strategies
+  type: match
+  title: Une stratégie par contrainte
+  prompt: Comment imposer chaque contrainte ?
+  items:
+  - id: pseudo
+    label: Pseudo unique, utilisé pour recevoir de l'argent
+  - id: iban
+    label: Numéro de compte attribué à chaque nouveau portefeuille
+  - id: goodies
+    label: Stock de 500 cartes cadeaux promotionnelles
+  - id: webinar
+    label: Places d'un webinaire gratuit limité à 1 000 personnes
+  categories:
+  - id: log
+    label: Partition du log par la valeur, décision séquentielle avant confirmation
+  - id: apology
+    label: Écrire d'abord, vérifier après, compenser
+- id: virement
+  type: order
+  title: Le virement multi-partitions
+  prompt: Remets les étapes dans l'ordre.
+  items:
+  - id: id
+    label: L'application génère l'identifiant du virement
+  - id: check
+    label: Le vérificateur de fonds, partitionné par payeur, valide la demande
+  - id: log
+    label: La demande valide est ajoutée au log des requêtes
+  - id: split
+    label: Le répartiteur émet un débit et un crédit portant l'identifiant
+  - id: apply
+    label: Chaque processeur de compte déduplique par identifiant et applique
+- id: detection
+  type: multi
+  title: Qui voit le crédit appliqué deux fois ?
+  prompt: Un bug fait appliquer deux fois certains crédits. Quels contrôles le détectent ?
+  options:
+  - id: replay
+    label: Un auditeur qui rejoue le log des requêtes, recalcule les soldes et compare
+  - id: smart
+    label: La surveillance SMART des disques
+  - id: tls
+    label: La vérification des certificats TLS
+  - id: sum
+    label: Un contrôle que la somme de tous les soldes reste égale à la somme des dépôts
+  - id: merkle
+    label: L'arbre de Merkle du log des requêtes
+- id: score
+  type: multi
+  title: Un score de fraude automatique
+  prompt: PayLite veut bloquer automatiquement les comptes jugés frauduleux par un modèle. Quelles conditions faut-il exiger ?
+  options:
+  - id: explain
+    label: Dire à la personne bloquée pourquoi, en termes compréhensibles
+  - id: appeal
+    label: Offrir un recours examiné par un humain
+  - id: errors
+    label: Mesurer les faux positifs, y compris par groupe de population
+  - id: keep-all
+    label: Conserver tout l'historique sans limite pour améliorer le modèle
+  - id: resell
+    label: Revendre les scores à des courtiers de données

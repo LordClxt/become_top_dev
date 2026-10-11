@@ -1,0 +1,87 @@
+checks:
+- id: entry
+  label: Les utilisateurs entrent par l'API gateway
+  rule: edge_kind
+  source: app
+  target: gw
+  kind: sync
+- id: route
+  label: La gateway appelle le service de réservation
+  rule: edge_kind
+  source: gw
+  target: svc
+  kind: sync
+- id: no-direct
+  label: Le navigateur ne parle jamais à la base
+  rule: no_edge
+  source: app
+  target: pg
+- id: write
+  label: Le service écrit les réservations dans la table sérialisable
+  rule: edge_kind
+  source: svc
+  target: pg
+  kind: write
+- id: premise
+  label: Le service lit sa prémisse (le créneau) par l'index, dans la même base
+  rule: edge_kind
+  source: svc
+  target: idx
+  kind: read
+- id: idx-in-db
+  label: L'index vit dans le nœud PostgreSQL
+  rule: in_zone
+  source: idx
+  target: dbzone
+- id: pg-in-db
+  label: La table aussi
+  rule: in_zone
+  source: pg
+  target: dbzone
+- id: one-db
+  label: Une seule base pour les réservations
+  rule: count
+  source: pg
+  min: 1
+  max: 1
+- id: quota
+  label: Le service appelle les scripts de quota (exécution en série)
+  rule: edge_kind
+  source: svc
+  target: quota
+  kind: sync
+- id: quota-role
+  label: Redis est la source de vérité des quotas, pas un cache
+  rule: prop
+  source: quota
+  prop: role
+  value: primary-store
+- id: reports
+  label: Les rapports lisent la base sur un snapshot, sans écrire
+  rule: edge_kind
+  source: reports
+  target: pg
+  kind: read
+- id: no-lock
+  label: Pas de verrou global
+  rule: count
+  source: biglock
+  max: 0
+- id: no-session
+  label: Pas de transaction ouverte pendant une action humaine
+  rule: count
+  source: session
+  max: 0
+- id: no-cache
+  label: Pas de décision sur une copie périmée
+  rule: count
+  source: cache
+  max: 0
+- id: no-weak
+  label: Pas de seconde base en isolation faible
+  rule: count
+  source: weak
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

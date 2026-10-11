@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Causalité, en une phrase ?
+  back: 'La cause précède l''effet : question avant réponse, création avant mise à jour, lecture avant l''écriture qu''elle motive.'
+  concept: ddia-causal-order
+- id: fc2
+  front: Cohérent avec la causalité ?
+  back: Un système qui ne montre jamais un effet sans sa cause (ex. un instantané qui contient la réponse contient la question).
+  concept: ddia-causal-order
+- id: fc3
+  front: Ordre total vs ordre partiel ?
+  back: 'Total : deux éléments toujours comparables. Partiel : certains incomparables (événements concurrents).'
+  concept: ddia-total-vs-partial-order
+- id: fc4
+  front: Quel ordre impose la linéarisabilité ? la causalité ?
+  back: 'Linéarisabilité : total (une seule ligne de temps). Causalité : partiel (branches qui se séparent et se rejoignent, comme Git).'
+  concept: ddia-total-vs-partial-order
+- id: fc5
+  front: Linéarisabilité et causalité ?
+  back: La linéarisabilité implique la causalité, mais on peut respecter la causalité sans linéarisabilité.
+  concept: ddia-lin-implies-causal
+- id: fc6
+  front: Pourquoi la cohérence causale est-elle précieuse ?
+  back: Modèle le plus fort qui reste rapide malgré les délais réseau et disponible pendant une coupure.
+  concept: ddia-causal-consistency
+- id: fc7
+  front: Que faut-il connaître pour respecter la causalité ?
+  back: Quelle version chaque écrivain a lue ; la réplique attend d'avoir appliqué tout ce qui précède causalement.
+  concept: ddia-capturing-causal-deps
+- id: fc8
+  front: Outil pour suivre les dépendances causales ?
+  back: Les vecteurs de versions, étendus à toute la base ; coûteux avec beaucoup de clients et de répliques.
+  concept: ddia-capturing-causal-deps

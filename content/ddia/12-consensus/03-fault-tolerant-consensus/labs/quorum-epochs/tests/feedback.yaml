@@ -1,0 +1,31 @@
+blocks:
+  sizes:
+    options:
+      n3.maj: 'Majorité = moitié arrondie à l''inférieur, plus un.'
+      n4.maj: 'Avec 4 nœuds, 2 ne suffisent pas : deux moitiés de 2 pourraient décider chacune.'
+      n4.tol: 'Une majorité de 3 sur 4 ne survit qu''à une panne : le 4e nœud n''apporte rien.'
+      n6.maj: '6 / 2 + 1.'
+      n6.tol: 'Il reste au moins 4 nœuds après 2 pannes, pas après 3.'
+      n7.tol: '7 = 2 × 3 + 1.'
+      n3.tol: '3 = 2 × 1 + 1.'
+      n7.maj: '7 / 2 arrondi à l''inférieur, plus un.'
+  zones:
+    goals:
+      two: 'Pour 2 pannes, il faut au moins 2 × 2 + 1 nœuds.'
+      zone: 'La plus grosse zone emporte trop de nœuds : ce qui reste n''atteint plus la majorité.'
+      latency: 'Trop de nœuds : chaque écriture attend une majorité plus grande, donc plus lente.'
+  overlap:
+    tolerance:
+      abs: 0
+    wrong: 'Deux ensembles de 5 et 4 nœuds parmi 7 partagent au moins 5 + 4 − 7 nœuds.'
+  stale:
+    options:
+      accept: 'C connaît une époque plus haute : accepter laisserait deux leaders décider.'
+      ignore: 'Se taire ralentit tout : le refus avec l''époque connue permet au vieux leader de s''effacer tout de suite.'
+      elect: 'Rien n''indique que le leader de l''époque 9 est mort : pas de raison d''élire.'
+  props:
+    options:
+      split: 'Deux décisions différentes : c''est l''accord qui est rompu.'
+      twice: 'Un nœud ne décide qu''une fois : changer d''avis viole l''intégrité.'
+      invent: 'La valeur décidée doit avoir été proposée : c''est la validité.'
+      stuck: 'Une majorité vit et communique : le système devrait finir par décider (terminaison).'

@@ -1,0 +1,41 @@
+id: ddia-ch07-l03-lab-global-index-design
+title: 'Chercher les voitures rouges sans tout interroger'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-global-term-index
+- ddia-global-index-async-updates
+- ddia-scatter-gather
+source:
+  chapter: 6
+  pages: 206-209
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: listings
+  component: service
+  label: Service annonces
+  hint: Publie et modifie les annonces.
+- type: search
+  component: service
+  label: Service recherche
+  hint: Répond à « toutes les voitures rouges ».
+- type: part
+  component: partition
+  label: Partition de données
+  hint: Une tranche des annonces, choisie par l'identifiant.
+- type: gidx
+  component: index
+  label: Partition de l'index global
+  hint: 'Une tranche des termes, par exemple color:a → color:r.'
+- type: solo
+  component: index
+  label: Index global sur un seul nœud
+  hint: Tout l'index sur une machine.
+- type: broadcast
+  component: load-balancer
+  label: Diffusion à toutes les partitions
+  hint: Envoie chaque recherche partout et combine.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

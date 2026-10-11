@@ -1,0 +1,19 @@
+id: ddia-ch15-l01-lab-uses-design
+title: 'Le bon usage pour chaque flux'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-sp-cep
+- ddia-sp-analytics
+- ddia-sp-probabilistic
+- ddia-sp-maintain-views
+- ddia-sp-search-streams
+- ddia-sp-vs-actors
+source:
+  chapter: 11
+  pages: 464-468
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

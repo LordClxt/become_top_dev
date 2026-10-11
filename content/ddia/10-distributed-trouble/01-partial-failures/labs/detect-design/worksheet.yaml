@@ -1,0 +1,78 @@
+intro: |
+  Tu es d'astreinte pour un service de paiement réparti sur une centaine de machines. Une alerte tombe : le service
+  **comptes** ne répond plus à certains appels. Avant d'agir, tu fais le tri entre ce que tu **sais** et ce que tu **supposes**.
+blocks:
+- id: silence
+  type: multi
+  title: Un silence de 10 secondes
+  prompt: Le service **paiements** a envoyé « débite 50 € du compte 42 » et n'a rien reçu en 10 s. Coche les explications **compatibles** avec ce silence.
+  options:
+  - id: lost
+    label: La requête s'est perdue avant d'arriver
+  - id: queued
+    label: La requête attend dans une file et sera traitée plus tard
+  - id: gc
+    label: Le service comptes est figé par une longue pause de ramasse-miettes
+  - id: done
+    label: Le débit a été fait, mais la réponse s'est perdue
+  - id: tcp
+    label: 'TCP a signalé l''échec : la requête n''a sûrement pas été traitée'
+  - id: refused
+    label: Le service comptes a renvoyé un refus de connexion
+- id: retry
+  type: choice
+  title: Réessayer ?
+  prompt: Ton collègue veut renvoyer immédiatement « débite 50 € ». Quelle est la bonne décision ?
+  options:
+  - id: idem
+    label: Ne réessayer que si la requête porte une clé d'idempotence que le service comptes déduplique
+    hint: Le débit a peut-être déjà eu lieu
+  - id: always
+    label: 'Réessayer tout de suite : un timeout prouve que la requête a échoué'
+  - id: never
+    label: Ne jamais réessayer et annuler le paiement côté client
+- id: fanout
+  type: number
+  title: Toujours quelque chose de cassé
+  prompt: |
+    Une page de paiement appelle **40 machines** différentes. Chacune est indisponible **0,2 %** du temps, de façon indépendante.
+    Quelle est la probabilité, en pourcentage, qu'au moins une des 40 soit indisponible pendant une requête ? (une décimale)
+  unit: '%'
+- id: signals
+  type: match
+  title: Signal ou soupçon ?
+  prompt: Pour chaque observation, dis si elle constitue un **signal explicite** de panne, ou seulement un **soupçon** qui exige un timeout.
+  items:
+  - id: rst
+    label: La machine répond, mais l'OS renvoie un refus de connexion sur le port du service
+  - id: script
+    label: Un script local détecte la mort du processus et prévient les autres nœuds
+  - id: icmp
+    label: Un routeur renvoie ICMP Destination Unreachable pour l'adresse du nœud
+  - id: nothing
+    label: Aucun paquet ne revient, ni réponse ni erreur
+  - id: slow
+    label: Les réponses arrivent, mais dix fois plus lentement que d'habitude
+  categories:
+  - id: explicit
+    label: Signal explicite de panne
+  - id: suspicion
+    label: Simple soupçon, il faut attendre un timeout
+- id: strategy
+  type: match
+  title: Arrêter tout ou tolérer ?
+  prompt: Quelle stratégie de panne convient à chaque système ?
+  items:
+  - id: weather
+    label: Simulation météo de 3 jours sur 2 000 nœuds, résultat attendu en fin de calcul
+  - id: payments
+    label: API de paiement utilisée jour et nuit
+  - id: chat
+    label: Messagerie répartie sur trois régions
+  - id: molecular
+    label: Calcul de dynamique moléculaire sur un réseau torique spécialisé
+  categories:
+  - id: checkpoint
+    label: Points de reprise ; une panne arrête tout le calcul
+  - id: tolerate
+    label: Tolérer les pannes partielles et rester en ligne

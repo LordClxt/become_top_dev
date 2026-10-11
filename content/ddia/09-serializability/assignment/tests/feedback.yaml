@@ -1,0 +1,43 @@
+blocks:
+  core:
+    tolerance:
+      abs: 1
+    wrong: 'Un cœur fait 1 / 25 µs = 40 000 transactions/s ; 30 000 / 40 000 = 75 %.'
+  partitions:
+    tolerance:
+      rel: 0.02
+    options:
+      p02.max: '1 000 / 0,002 = 500 000, mais les partitions ne font que 8 × 40 000 = 320 000 : c''est elles qui plafonnent.'
+      p1.max: '1 000 / 0,01 = 100 000 transactions/s.'
+      p5.max: '1 000 / 0,05 = 20 000 transactions/s.'
+      p20.max: '1 000 / 0,2 = 5 000 transactions/s.'
+  locks:
+    options:
+      ss: 'Deux verrous partagés sont compatibles.'
+      sx: 'Un exclusif est incompatible avec le partagé de T1 : T2 attend.'
+      upgrade: 'Personne d''autre ne détient de verrou : la montée réussit.'
+      double: 'T1 attend T2 et T2 attend T1 : c''est un cycle.'
+      xs: 'Un partagé est incompatible avec l''exclusif de T1 : T2 attend.'
+  phantom:
+    options:
+      rows: 'Une recherche vide ne trouve aucune ligne : rien ne bloquerait l''insertion d''un fantôme.'
+      table: 'Sûr, mais toutes les écritures de la table attendraient, alors qu''un index permet de viser la plage.'
+      predicate: 'Exact, mais chaque écriture devrait être comparée à tous les prédicats actifs : trop lent.'
+  ssi:
+    options:
+      c42: 'La première à valider réussit : l''écriture de l''autre n''a pas encore pris effet.'
+      c43: 'Au commit de T43, l''écriture conflictuelle de T42 est déjà validée.'
+      retry: 'La relance vient en dernier et relit la prémisse.'
+  truths:
+    options:
+      wr: 'C''est la snapshot isolation : en 2PL, écrivains et lecteurs se bloquent mutuellement.'
+      machines: 'Leur débit ne monte pas avec les machines.'
+      ro: 'Les lectures seules lisent un snapshot, sans verrou.'
+      core: 'Chaque partition a un seul thread.'
+      commit: 'C''est le principe optimiste.'
+      overlock: 'Le verrou couvre un sur-ensemble du prédicat.'
+  retry:
+    options:
+      last: 'La prémisse a pu changer : il faut tout relire.'
+      lower: 'On perd la garantie : la double réservation redevient possible.'
+      ignore: 'La transaction a été abandonnée : rien n''a été écrit.'

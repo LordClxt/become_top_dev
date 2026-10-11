@@ -1,0 +1,3 @@
+**Le quorum lâche échange une garantie de lecture contre de la disponibilité.** Le nœud voisin accepte l'écriture destinée au nœud coupé, en notant pour qui elle est (l'indice). Quand le réseau revient, il la lui transmet : c'est le **hinted handoff**. Pendant ce temps, l'écriture est bien durable, mais une lecture qui n'interroge que les nœuds d'origine peut ne pas la voir : avec un quorum lâche, w + r > n ne garantit plus rien sur la fraîcheur.
+
+D'où la supervision : sans ordre global des écritures, on ne lit pas un retard dans un journal ; il faut mesurer explicitement l'écart entre réplicas. Et aucun leader dans ce schéma : n'importe quel nœud joignable peut accepter l'écriture.

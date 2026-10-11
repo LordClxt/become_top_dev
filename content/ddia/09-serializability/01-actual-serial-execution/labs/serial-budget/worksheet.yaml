@@ -1,0 +1,52 @@
+intro: |
+  Ta billetterie vend des places pour des concerts. Une réservation **lit** le stock restant, **vérifie** qu'il en reste, puis **écrit** la vente : 40 µs de travail réel dans une base en mémoire. Le réseau entre l'application et la base coûte **0,8 ms** par aller-retour.
+
+  Tu envisages une base à **exécution réellement en série** : un seul thread, une transaction à la fois.
+blocks:
+- id: interactive
+  type: number
+  title: En transaction interactive
+  prompt: L'application envoie la lecture, la vérification et l'écriture en **3 requêtes successives**, chacune avec son aller-retour. Combien de réservations par seconde le thread unique peut-il traiter, au maximum ?
+  unit: transactions/s
+- id: procedure
+  type: number
+  title: En procédure stockée
+  prompt: La même logique est envoyée en **un seul appel** de procédure stockée. Combien de réservations par seconde, au maximum ?
+  unit: transactions/s
+- id: charges
+  type: match
+  title: Où placer chaque charge ?
+  prompt: Pour chaque traitement, dis s'il a sa place dans la boucle en série, à côté sur un snapshot, ou nulle part dans ce système.
+  items:
+  - id: stock
+    label: Décrémenter le stock d'un concert (3 lignes, 40 µs), 15 000 fois par seconde
+  - id: rapport
+    label: Rapport mensuel qui parcourt 200 millions de ventes en lecture seule
+  - id: confirm
+    label: Transaction qui garde la place pendant que l'utilisateur confirme son paiement
+  - id: froid
+    label: 'Historique de 40 To, dont on relit au hasard des années anciennes à chaque vente'
+  - id: score
+    label: Incrémenter le compteur de vues d'un concert (10 µs)
+  categories:
+  - id: serial
+    label: Dans la boucle en série
+  - id: snapshot
+    label: Hors de la boucle, en lecture sur un snapshot
+  - id: unfit
+    label: Ne convient pas à ce système
+- id: determinisme
+  type: multi
+  title: Rejouer la procédure sur les réplicas
+  prompt: Les réplicas ré-exécutent la même procédure stockée. Quelles instructions risquent de faire diverger leurs états ?
+  options:
+  - id: now
+    label: Horodater la vente avec l'heure système du nœud
+  - id: rand
+    label: Tirer au sort un gagnant parmi les acheteurs avec `random()`
+  - id: iter
+    label: Attribuer des sièges en parcourant une table de hachage dont l'ordre d'itération varie
+  - id: param
+    label: Écrire le nombre de places passé en paramètre de l'appel
+  - id: read
+    label: Lire le stock restant avant de le décrémenter

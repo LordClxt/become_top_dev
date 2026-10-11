@@ -1,0 +1,1 @@
+Audite la billetterie d'une salle de concert : compare ce que garantissent read committed et le snapshot isolation, diagnostique les incidents, choisis les parades et chiffre ce que coûte une transaction longue.

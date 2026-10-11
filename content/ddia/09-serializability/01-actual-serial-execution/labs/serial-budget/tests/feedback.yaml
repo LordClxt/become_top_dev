@@ -1,0 +1,23 @@
+blocks:
+  interactive:
+    tolerance:
+      rel: 0.03
+    wrong: 'Le thread est occupé 3 × 0,8 ms + 0,04 ms = 2,44 ms par transaction : 1 / 0,00244 ≈ 410.'
+  procedure:
+    tolerance:
+      rel: 0.03
+    wrong: 'Le thread ne travaille que 40 µs ; l''aller-retour de l''appel ne l''occupe pas : 1 / 0,00004 = 25 000.'
+  charges:
+    options:
+      stock: 'Court, en mémoire, et le débit tient dans un cœur : c''est le cas idéal de la boucle en série.'
+      rapport: 'Une lecture de 200 millions de lignes bloquerait toutes les ventes ; en lecture seule, elle peut lire un snapshot cohérent à part.'
+      confirm: 'Une transaction qui attend un humain occupe le thread pendant des secondes : aucune autre vente ne passe.'
+      froid: 'Les données actives doivent tenir en mémoire ; une lecture disque à chaque vente bloquerait le thread.'
+      score: 'Une écriture de 10 µs est exactement ce que la boucle sait faire vite.'
+  determinisme:
+    options:
+      now: 'Chaque nœud a sa propre horloge : les réplicas enregistreraient des heures différentes.'
+      rand: 'Chaque nœud tirerait un nombre différent, donc un gagnant différent.'
+      iter: 'Si l''ordre d''itération diffère entre nœuds, les sièges attribués diffèrent aussi.'
+      param: 'Le paramètre est le même pour tous les réplicas : aucun risque.'
+      read: 'Tous les réplicas partent du même état et appliquent les procédures dans le même ordre : la lecture donne la même valeur partout.'

@@ -1,0 +1,9 @@
+{
+  "wallet": 180,
+  "kinds": {"reserve": "command", "reserved": "event", "refund": "command", "refunded": "event", "rename": "command"},
+  "double": "sync",
+  "compact": "snapshot",
+  "churn": 7200000,
+  "views": ["map", "hesit", "revenue"],
+  "gdpr": ["notenough", "rewrite", "copies"]
+}

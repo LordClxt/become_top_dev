@@ -1,0 +1,3 @@
+**Le chemin d'écriture va maintenant jusqu'au téléphone.** Une action de l'utilisateur est écrite dans la base de référence, publiée dans le log, transformée en tableau de bord par le mainteneur de vue, puis poussée par WebSocket jusqu'à la base locale de l'app. Le chemin de lecture se réduit à lire l'appareil : l'état local est un cache de l'état serveur, l'écran une vue matérialisée de cet état.
+
+Sans push, chaque client interrogerait le serveur toutes les 10 secondes, même quand rien n'a changé. Et si l'app passe trois heures hors ligne, elle se comporte comme un consommateur de log : elle repart de son dernier offset.

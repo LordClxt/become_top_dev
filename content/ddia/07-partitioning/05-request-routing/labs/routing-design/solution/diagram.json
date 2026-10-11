@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {"id": "client", "type": "client", "x": 0, "y": 200},
+    {"id": "router", "type": "router", "x": 300, "y": 200},
+    {"id": "a", "type": "node", "x": 640, "y": 0, "label": "Nœud A (P0, P3)"},
+    {"id": "b", "type": "node", "x": 640, "y": 200, "label": "Nœud B (P1, P4)"},
+    {"id": "c", "type": "node", "x": 640, "y": 400, "label": "Nœud C (P2, P5)"},
+    {"id": "zk", "type": "zk", "x": 980, "y": 200}
+  ],
+  "edges": [
+    {"id": "e1", "source": "client", "target": "router", "kind": "sync", "label": "get user:42"},
+    {"id": "e2", "source": "router", "target": "a", "kind": "sync"},
+    {"id": "e3", "source": "router", "target": "b", "kind": "sync", "label": "P4 → B"},
+    {"id": "e4", "source": "router", "target": "c", "kind": "sync"},
+    {"id": "e5", "source": "a", "target": "zk", "kind": "write", "label": "s'enregistre"},
+    {"id": "e6", "source": "b", "target": "zk", "kind": "write", "label": "s'enregistre"},
+    {"id": "e7", "source": "c", "target": "zk", "kind": "write", "label": "s'enregistre"},
+    {"id": "e8", "source": "router", "target": "zk", "kind": "read", "label": "s'abonne"}
+  ]
+}

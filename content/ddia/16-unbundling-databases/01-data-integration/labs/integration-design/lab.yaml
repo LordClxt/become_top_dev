@@ -1,0 +1,17 @@
+id: ddia-ch16-l01-lab-integration-design
+title: 'Garder la base et l''index d''accord'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-dataflow-reasoning
+- ddia-derived-vs-distributed-tx
+- ddia-total-order-limits
+- ddia-causal-event-ordering
+source:
+  chapter: 12
+  pages: 490-494
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

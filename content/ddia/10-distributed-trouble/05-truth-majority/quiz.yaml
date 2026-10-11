@@ -1,0 +1,113 @@
+id: ddia-ch10-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un nœud reçoit tout mais ses messages sortants sont perdus. Le quorum le déclare mort. Que doit-il faire ?
+  choices:
+  - Continuer, puisqu'il sait qu'il fonctionne
+  - Lancer une contre-élection avec son propre vote
+  - Se considérer comme mort et s'effacer, car la décision du quorum fait foi
+  - Ignorer le quorum tant qu'il reçoit des messages
+  answer: 2
+  explanation: Un nœud ne peut pas se fier à son propre jugement ; la vérité est ce que décide la majorité.
+  concept: ddia-truth-by-majority
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Ton cluster a 4 nœuds avec un quorum majoritaire. Combien de pannes simultanées tolère-t-il ?
+  choices:
+  - 1
+  - 2
+  - 3
+  - 0
+  answer: 0
+  explanation: 'La majorité de 4 est 3 : on ne peut perdre qu''un nœud, comme avec 3 nœuds. D''où les clusters impairs.'
+  concept: ddia-truth-by-majority
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Pourquoi une décision à la majorité évite-t-elle deux décisions contradictoires ?
+  choices:
+  - Parce que les majorités sont plus rapides
+  - Parce que la majorité a toujours raison
+  - Parce que le réseau ne se partitionne jamais en deux
+  - Parce que deux majorités disjointes ne peuvent pas exister
+  answer: 3
+  explanation: Deux majorités ont toujours au moins un nœud en commun.
+  concept: ddia-truth-by-majority
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Remets dans l'ordre le scénario du verrou corrompu (sans jeton de clôture). Choisis la bonne séquence.
+  choices:
+  - Le client 1 se fige (pause GC) et son bail expire → Le client 1 obtient le bail → Le client 2 obtient le bail et écrit le fichier → Le client 1 se réveille et écrit à son tour, corrompant le fichier
+  - Le client 1 obtient le bail → Le client 2 obtient le bail et écrit le fichier → Le client 1 se fige (pause GC) et son bail expire → Le client 1 se réveille et écrit à son tour, corrompant le fichier
+  - Le client 1 se fige (pause GC) et son bail expire → Le client 2 obtient le bail et écrit le fichier → Le client 1 se réveille et écrit à son tour, corrompant le fichier → Le client 1 obtient le bail
+  - Le client 1 obtient le bail → Le client 1 se fige (pause GC) et son bail expire → Le client 2 obtient le bail et écrit le fichier → Le client 1 se réveille et écrit à son tour, corrompant le fichier
+  answer: 3
+  explanation: 'Le client 1 n''a pas vu le temps passer : il agit en zombie avec un droit expiré.'
+  concept: ddia-zombie-lock-holder
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Le stockage a déjà accepté une écriture avec le jeton 34. Une écriture arrive avec le jeton 33. Que fait-il ?
+  choices:
+  - Il l'accepte si elle arrive moins d'une seconde après
+  - Il la rejette, car un jeton plus récent a déjà été vu
+  - Il l'accepte et remet son compteur à 33
+  - Il demande au service de verrous si le client 1 est vivant
+  answer: 1
+  explanation: 'C''est tout le principe : la ressource retient le plus grand jeton et refuse les plus petits.'
+  concept: ddia-fencing-token
+  difficulty: 1
+- id: q6
+  type: multiple
+  prompt: Lesquels de ces choix conviennent comme jeton de clôture ?
+  choices:
+  - Le zxid de ZooKeeper attribué à l'acquisition du verrou
+  - L'heure murale du client au moment où il obtient le verrou
+  - Un compteur incrémenté par le service de verrous à chaque attribution
+  - Un UUID aléatoire tiré par le client
+  answer:
+  - 0
+  - 2
+  explanation: Il faut un nombre strictement croissant attribué par le service ; ni une horloge de client ni un aléa ne sont ordonnés.
+  concept: ddia-fencing-token
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Une équipe veut un protocole byzantin entre ses 5 serveurs de base, dans son propre datacentre, « au cas où ». Quel est l'argument principal contre ?
+  choices:
+  - Les protocoles byzantins sont interdits dans un datacentre
+  - Ils exigent moins de nœuds honnêtes que les protocoles classiques
+  - Tous les nœuds exécutent le même code, donc partagent les mêmes bugs ; le coût est élevé pour une menace absente
+  - Ils empêchent l'authentification
+  answer: 2
+  explanation: Dans un environnement contrôlé, on suppose les nœuds honnêtes ; authentification, contrôle d'accès et validation des entrées protègent mieux.
+  concept: ddia-byzantine-fault
+  difficulty: 3
+- id: q8
+  type: multiple
+  prompt: Pour un service de jetons de clôture, quelles propriétés sont des propriétés de sûreté ?
+  choices:
+  - Deux demandes ne reçoivent jamais le même jeton
+  - Un client qui ne plante pas finit par recevoir un jeton
+  - Si x se termine avant que y commence, le jeton de x est plus petit que celui de y
+  answer:
+  - 0
+  - 2
+  explanation: Unicité et séquence croissante sont des sûretés (violation datée, irréparable) ; « finit par recevoir » est une vivacité.
+  concept: ddia-safety-liveness
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Quel modèle de système le livre juge-t-il le plus utile pour les vrais systèmes ?
+  choices:
+  - Partiellement synchrone avec crash-recovery
+  - Synchrone avec crash-stop
+  - Asynchrone avec fautes byzantines
+  - Synchrone avec fautes byzantines
+  answer: 0
+  explanation: Les délais respectent des bornes la plupart du temps mais pas toujours, et les nœuds redémarrent avec leur stockage durable.
+  concept: ddia-system-model
+  difficulty: 2

@@ -1,0 +1,26 @@
+{
+  "nodes": [
+    { "id": "client", "type": "client", "x": 0, "y": 200 },
+    { "id": "lb", "type": "lb", "x": 280, "y": 200 },
+    { "id": "n1", "type": "node", "x": 600, "y": 60, "label": "Nœud 1" },
+    { "id": "n2", "type": "node", "x": 600, "y": 200, "label": "Nœud 2" },
+    { "id": "n3", "type": "node", "x": 600, "y": 340, "label": "Nœud 3" },
+    { "id": "restart", "type": "restart", "x": 600, "y": 500 },
+    { "id": "db", "type": "db", "x": 920, "y": 200 }
+  ],
+  "edges": [
+    { "id": "e1", "source": "client", "target": "lb", "kind": "sync", "label": "requêtes" },
+    { "id": "e2", "source": "lb", "target": "n1", "kind": "sync" },
+    { "id": "e3", "source": "lb", "target": "n2", "kind": "sync" },
+    { "id": "e4", "source": "lb", "target": "n3", "kind": "sync" },
+    { "id": "e5", "source": "n1", "target": "lb", "kind": "async", "label": "GC imminent : retire-moi" },
+    { "id": "e6", "source": "n2", "target": "lb", "kind": "async", "label": "GC imminent : retire-moi" },
+    { "id": "e7", "source": "n3", "target": "lb", "kind": "async", "label": "GC imminent : retire-moi" },
+    { "id": "e8", "source": "restart", "target": "n1", "kind": "sync", "label": "redémarre" },
+    { "id": "e9", "source": "restart", "target": "n2", "kind": "sync", "label": "redémarre" },
+    { "id": "e10", "source": "restart", "target": "n3", "kind": "sync", "label": "redémarre" },
+    { "id": "e11", "source": "n1", "target": "db", "kind": "write" },
+    { "id": "e12", "source": "n2", "target": "db", "kind": "write" },
+    { "id": "e13", "source": "n3", "target": "db", "kind": "write" }
+  ]
+}

@@ -1,0 +1,78 @@
+intro: |
+  Ton réseau social a un leader et six followers asynchrones qui servent les lectures. En temps normal, le retard est inférieur à une seconde. Pendant les pics, il grimpe.
+
+  Un utilisateur poste un commentaire, la page se recharge, lit sur un follower en retard… et le commentaire n'y est pas.
+blocks:
+- id: retard
+  type: number
+  title: Le retard s'accumule
+  prompt: Pendant un pic de **90 s**, le leader produit **5 000** changements par seconde ; un follower n'en applique que **4 000**. Combien de changements de retard a-t-il à la fin du pic ?
+  unit: changements
+- id: rattrapage
+  type: number
+  title: Le temps de rattraper
+  prompt: Après le pic, le leader retombe à **2 000** changements par seconde et le follower continue d'en appliquer **4 000**. Combien de secondes lui faut-il pour rattraper son retard ?
+  unit: s
+- id: pages
+  type: match
+  title: Où lire chaque page ?
+  prompt: Pour garantir read-your-writes au moindre coût, où lis-tu chaque page de l'utilisateur connecté ?
+  items:
+  - id: monprofil
+    label: Mon profil, que je viens de modifier
+  - id: autre
+    label: Le profil d'un autre utilisateur
+  - id: tendances
+    label: La page « tendances » globale
+  - id: parametres
+    label: Mes paramètres de notification, juste après les avoir enregistrés
+  categories:
+  - id: leader
+    label: Leader
+  - id: follower
+    label: Follower
+- id: politique
+  type: tuner
+  title: Régler la politique de lecture
+  prompt: 'Deux réglages. Pendant `fenêtre` secondes après sa dernière écriture, un utilisateur lit au leader. Ensuite, il lit sur un follower, mais on **écarte** tout follower dont le retard dépasse `retard max`. Trouve un réglage correct qui ménage le leader et garde les followers utilisables pendant un pic modéré.'
+  params:
+  - id: fenetre
+    label: Fenêtre après écriture
+    unit: s
+    min: 0
+    max: 120
+    step: 5
+    default: 0
+  - id: retardmax
+    label: Retard max d'un follower
+    unit: s
+    min: 0
+    max: 120
+    step: 5
+    default: 120
+  metrics:
+  - id: part
+    label: Part des lectures envoyées au leader
+    expr: 0.002 * fenetre
+    format: percent
+  goals:
+  - id: correct
+    label: 'Read-your-writes garanti : un follower utilisé après la fenêtre contient forcément l''écriture'
+    expr: retardmax <= fenetre
+  - id: charge
+    label: Le leader reçoit au plus 10 % des lectures
+    expr: part <= 0.1
+  - id: pic
+    label: 'Pendant un pic modéré (retard de 20 s), les followers restent utilisables'
+    expr: retardmax >= 20
+- id: appareils
+  type: choice
+  title: Le téléphone et l'ordinateur
+  prompt: L'utilisateur poste depuis son téléphone (réseau mobile) puis ouvre la page sur son ordinateur (fibre). La date de sa dernière écriture est gardée dans un cookie. Que faut-il changer ?
+  options:
+  - id: central
+    label: Garder la position de la dernière écriture côté serveur et router tous ses appareils vers le même datacenter
+  - id: cookie
+    label: Allonger la durée de vie du cookie
+  - id: sync
+    label: Rendre tous les followers synchrones

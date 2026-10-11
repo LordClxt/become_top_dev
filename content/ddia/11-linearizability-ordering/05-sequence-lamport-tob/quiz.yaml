@@ -1,0 +1,101 @@
+id: ddia-ch11-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi une base à leader unique obtient-elle « gratuitement » un ordre total cohérent avec la causalité ?
+  choices:
+  - Parce que ses horloges sont synchronisées par NTP
+  - Parce que le journal de réplication du leader ordonne toutes les écritures, et les followers l'appliquent dans cet ordre
+  - Parce qu'elle refuse les écritures concurrentes
+  - Parce qu'elle utilise des vecteurs de versions
+  answer: 1
+  explanation: Le leader incrémente un compteur par opération ; un follower en retard reste dans un état causalement cohérent.
+  concept: ddia-sequence-number-ordering
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: 'Deux nœuds sans leader : l''un produit les numéros pairs, l''autre les impairs. Le nœud pair est dix fois plus actif. Quel problème ?'
+  choices:
+  - Les numéros ne sont plus uniques
+  - Le nœud impair va manquer de numéros
+  - Une opération peut recevoir un numéro plus petit que celui de sa cause
+  - Les numéros deviennent négatifs
+  answer: 2
+  explanation: Le compteur impair est en retard ; une cause paire à 180 peut produire un effet impair à 21. Uniques, mais pas causaux.
+  concept: ddia-noncausal-seq-generators
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Le nœud 1 est à 2, le nœud 2 est à 5. Un client écrit sur le nœud 2 et obtient (6, 2), puis écrit sur le nœud 1 en transmettant 6. Quel horodatage reçoit-il ?
+  choices:
+  - (3, 1)
+  - (6, 1)
+  - (8, 1)
+  - (7, 1)
+  answer: 3
+  explanation: 'Le nœud 1 saute à max(2, 6) + 1 = 7 : l''effet (7, 1) dépasse sa cause (6, 2).'
+  concept: ddia-lamport-timestamps
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Range ces horodatages de Lamport du plus ancien au plus récent. Choisis la bonne séquence.
+  choices:
+  - (2, 9) → (1, 5) → (3, 1) → (3, 2)
+  - (2, 9) → (3, 1) → (3, 2) → (1, 5)
+  - (1, 5) → (2, 9) → (3, 2) → (3, 1)
+  - (1, 5) → (2, 9) → (3, 1) → (3, 2)
+  answer: 3
+  explanation: 'Compteur d''abord : 1, 2, puis les deux à 3, départagés par l''identifiant de nœud (1 avant 2).'
+  concept: ddia-lamport-timestamps
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Que ne permet PAS un horodatage de Lamport, contrairement à un vecteur de versions ?
+  choices:
+  - Savoir si deux opérations étaient concurrentes
+  - Ordonner totalement les opérations
+  - Respecter la causalité
+  - Tenir en deux nombres
+  answer: 0
+  explanation: Il impose toujours un ordre total, même entre opérations concurrentes ; il ne peut donc pas les reconnaître.
+  concept: ddia-lamport-timestamps
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Pourquoi les horodatages de Lamport ne suffisent-ils pas à garantir l'unicité d'un pseudo ?
+  choices:
+  - Parce qu'ils ne sont pas uniques
+  - Parce que pour répondre tout de suite, un nœud devrait savoir qu'aucune demande au plus petit horodatage n'est en cours ailleurs, donc joindre tous les nœuds
+  - Parce qu'ils dépendent des horloges murales
+  - Parce qu'ils sont trop gros pour être stockés
+  answer: 1
+  explanation: 'L''ordre total n''est connu qu''après coup. Il faut savoir quand il est figé : c''est le rôle de la diffusion à ordre total.'
+  concept: ddia-timestamp-ordering-insufficient
+  difficulty: 3
+- id: q7
+  type: multiple
+  prompt: Quelles propriétés définissent la diffusion à ordre total ?
+  choices:
+  - Aucun message n'est perdu ; livré à un nœud, il l'est à tous
+  - Tous les nœuds livrent les messages dans le même ordre
+  - Les messages sont livrés dans l'ordre de leurs horloges murales
+  - Un nœud ne peut pas insérer un message avant ceux qu'il a déjà livrés
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: Livraison fiable et totalement ordonnée, et l'ordre est figé au moment de la livraison. Les horloges murales n'y jouent aucun rôle.
+  concept: ddia-total-order-broadcast-def
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pour réserver `ada` avec un log à ordre total, un nœud ajoute « je réclame ada ». Que fait-il ensuite ?
+  choices:
+  - Il valide immédiatement
+  - Il compare l'horloge murale de chaque réclamation
+  - Il attend que son message revienne dans le log ; si la première réclamation de ada est la sienne, il valide, sinon il annule
+  - Il demande l'accord de chaque autre nœud
+  answer: 2
+  explanation: Tous les nœuds voient le même ordre et désignent donc le même gagnant ; les écritures deviennent linéarisables.
+  concept: ddia-tob-linearizable-storage
+  difficulty: 2

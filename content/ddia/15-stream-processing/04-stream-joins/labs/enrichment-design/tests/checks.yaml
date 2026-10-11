@@ -1,0 +1,76 @@
+checks:
+- id: publish
+  label: L'application publie son activité sur le flux, de façon asynchrone
+  rule: edge_kind
+  source: app
+  target: activity
+  kind: async
+- id: writer
+  label: Le service profils écrit dans la base
+  rule: edge_kind
+  source: profiles
+  target: db
+  kind: write
+- id: cdc-out
+  label: Les changements de la base sortent par un changelog (CDC)
+  rule: edge_kind
+  source: db
+  target: cdc
+  kind: async
+- id: activity-in
+  label: L'opérateur consomme le flux d'activité
+  rule: edge_kind
+  source: activity
+  target: proc
+  kind: async
+- id: cdc-in
+  label: '…et le changelog des profils : une jointure entre deux flux'
+  rule: edge_kind
+  source: cdc
+  target: proc
+  kind: async
+- id: via-cdc
+  label: Tout ce qui va de la base à l'opérateur passe par le changelog
+  rule: path
+  source: db
+  target: proc
+  via: cdc
+- id: no-query
+  label: 'Aucune requête de l''opérateur vers la base : 50 000 lectures/s la feraient tomber'
+  rule: no_edge
+  source: proc
+  target: db
+- id: local-copy
+  label: L'opérateur tient une copie locale des profils
+  rule: path
+  source: proc
+  target: local
+- id: local-owner
+  label: Seul l'opérateur alimente la copie locale
+  rule: inbound_via
+  target: local
+  via: proc
+- id: out
+  label: L'opérateur produit le flux enrichi
+  rule: edge_kind
+  source: proc
+  target: out
+  kind: async
+- id: wh
+  label: L'entrepôt consomme le flux enrichi
+  rule: path
+  source: out
+  target: wh
+- id: no-lookup
+  label: Pas de requête SQL par événement
+  rule: count
+  source: lookup
+  max: 0
+- id: no-snapshot
+  label: 'Pas d''export figé : la copie doit suivre les changements'
+  rule: count
+  source: snapshot
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

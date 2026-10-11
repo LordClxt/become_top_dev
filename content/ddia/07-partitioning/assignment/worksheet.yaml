@@ -1,0 +1,87 @@
+intro: |
+  Tu conçois la base d'une plateforme de **petites annonces** : 30 To d'annonces, des millions de vendeurs, des recherches par catégorie et par ville. La base est partitionnée par **hachage**, chaque partition est répliquée **3 fois**.
+blocks:
+- id: noeuds
+  type: number
+  title: Combien de nœuds ?
+  prompt: Un nœud stocke au plus **2 To**. Combien de nœuds faut-il au minimum pour 30 To répliqués 3 fois ?
+  unit: nœuds
+- id: cle
+  type: choice
+  title: La clé des annonces
+  prompt: 'Requête la plus fréquente : « les annonces d''un vendeur, des plus récentes aux plus anciennes ». Quelle clé primaire (première colonne hachée, suivantes triées) ?'
+  options:
+  - id: seller-date
+    label: '`(seller_id, created_at)`'
+  - id: date-seller
+    label: '`(created_at, seller_id)`'
+  - id: ad-id
+    label: '`ad_id` seul'
+  - id: city
+    label: '`(city, created_at)`'
+- id: sel
+  type: number
+  title: La grande enseigne
+  prompt: Un vendeur professionnel publie et met à jour **45 000** annonces par seconde pendant les soldes ; une partition encaisse **8 000** écritures/s. Combien de sous-clés au minimum pour ce vendeur ?
+  unit: sous-clés
+- id: queue
+  type: number
+  title: Le prix du scatter/gather
+  prompt: Avec un index local, une recherche par catégorie interroge **20** partitions. Chacune dépasse 200 ms dans **1 %** des cas, indépendamment. Quel pourcentage des recherches dépasse 200 ms ? (une décimale)
+  unit: '%'
+- id: index
+  type: match
+  title: Local ou global ?
+  prompt: Pour chaque besoin, quel index secondaire choisis-tu ?
+  items:
+  - id: search
+    label: 'Recherche par catégorie, 50 000 requêtes/s, quelques secondes de retard acceptables'
+  - id: logs
+    label: 'Journal de modération : 100 000 écritures/s, filtré par un analyste deux fois par jour'
+  - id: fresh
+    label: 'Le vendeur doit voir son annonce dans le filtre « mes brouillons » immédiatement après l''écriture, et toutes ses annonces sont dans la même partition'
+  categories:
+  - id: local
+    label: Index local (par document)
+  - id: global
+    label: Index global (par terme)
+- id: deplace
+  type: table
+  title: Ce qui déménage
+  prompt: 'On passe de 9 à 10 nœuds. Quel pourcentage des données change de nœud ?'
+  columns:
+  - id: pct
+    label: '% déplacé'
+  rows:
+  - id: modn
+    label: hash mod N
+  - id: fixed
+    label: Nombre fixe de partitions (900 partitions)
+- id: routage
+  type: order
+  title: Le routage pendant un rééquilibrage
+  prompt: Remets dans l'ordre le déplacement d'une partition vers un nouveau nœud, avec ZooKeeper et une couche de routage.
+  items:
+  - id: register
+    label: Le nouveau nœud s'enregistre dans ZooKeeper
+  - id: plan
+    label: Un administrateur valide le plan de rééquilibrage proposé
+  - id: copy
+    label: La partition est copiée vers le nouveau nœud, l'ancien continuant de servir
+  - id: switch
+    label: L'affectation partition → nœud est mise à jour dans ZooKeeper
+  - id: notify
+    label: La couche de routage est notifiée et envoie les requêtes au nouveau nœud
+- id: auto
+  type: multi
+  title: Automatique ?
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: cascade
+    label: Un rééquilibrage automatique déclenché par la détection de panne peut transformer un nœud lent en panne en cascade
+  - id: human
+    label: Couchbase, Riak et Voldemort proposent une affectation mais attendent la validation d'un humain
+  - id: free
+    label: Un rééquilibrage ne coûte rien au réseau, puisque seules les métadonnées changent
+  - id: stop
+    label: Pendant le rééquilibrage, la base doit refuser les écritures

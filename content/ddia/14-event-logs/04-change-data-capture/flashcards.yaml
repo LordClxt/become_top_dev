@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Le log de réplication d'une base, vu autrement ?
+  back: Un flux d'événements d'écriture ; le rejouer dans le même ordre donne le même état.
+  concept: ddia-replication-log-as-stream
+- id: fc2
+  front: Pourquoi les doubles écritures divergent-elles ?
+  back: Deux écritures concurrentes peuvent arriver dans des ordres différents dans chaque système, et l'une peut échouer pendant que l'autre réussit.
+  concept: ddia-dual-writes-problem
+- id: fc3
+  front: CDC ?
+  back: Observer toutes les écritures d'une base et les publier, dans l'ordre, comme un flux pour les systèmes dérivés.
+  concept: ddia-change-data-capture
+- id: fc4
+  front: Système de référence ?
+  back: Celui qui détient la version qui fait foi ; avec la CDC, la base est le leader, les autres sont des suiveurs.
+  concept: ddia-change-data-capture
+- id: fc5
+  front: Deux façons d'implémenter la CDC ?
+  back: Des déclencheurs (fragiles, coûteux) ou la lecture du log de réplication (plus robuste).
+  concept: ddia-change-data-capture
+- id: fc6
+  front: Que faut-il pour amorcer un nouveau système dérivé ?
+  back: Un snapshot cohérent associé à une position précise du log des changements.
+  concept: ddia-cdc-initial-snapshot
+- id: fc7
+  front: Compaction de log ?
+  back: Ne garder que la dernière valeur de chaque clé ; une tombstone (valeur nulle) fait disparaître la clé.
+  concept: ddia-log-compaction-keyed
+- id: fc8
+  front: De quoi dépend la taille d'un sujet compacté ?
+  back: Du contenu actuel (nombre de clés vivantes), pas du nombre d'écritures passées.
+  concept: ddia-log-compaction-keyed
+- id: fc9
+  front: Kafka Connect ?
+  back: Des connecteurs qui amènent les changements de nombreuses bases vers Kafka, puis vers des index et des entrepôts.
+  concept: ddia-change-stream-apis

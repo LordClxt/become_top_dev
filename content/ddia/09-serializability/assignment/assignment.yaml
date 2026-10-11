@@ -1,0 +1,20 @@
+id: ddia-ch09-assignment
+title: Rendre sérialisable un service de réservation
+difficulty: 3
+xp: 130
+concepts:
+- ddia-serial-exec-single-thread
+- ddia-cross-partition-tx-cost
+- ddia-2pl-shared-exclusive
+- ddia-2pl-deadlock
+- ddia-index-range-lock
+- ddia-ssi-write-after-read
+- ddia-ssi-performance
+source:
+  chapter: 7
+  pages: 251-266
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

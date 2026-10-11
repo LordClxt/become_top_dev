@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Index de recherche par lots ?
+  back: Mappers partitionnent les documents, chaque reducer indexe sa partition, fichiers d'index immuables dans HDFS.
+  concept: ddia-batch-output-search-index
+- id: fc2
+  front: Pourquoi ne pas écrire dans la base depuis un job ?
+  back: Lent (une requête par enregistrement), submerge la base, et une relance laisse des effets de bord partiels.
+  concept: ddia-batch-output-kv-files
+- id: fc3
+  front: Bonne façon de publier une base clé-valeur ?
+  back: Construire des fichiers neufs dans le job, les charger d'un bloc (Voldemort, Terrapin, ElephantDB, bulk load HBase).
+  concept: ddia-batch-output-kv-files
+- id: fc4
+  front: Que permet la bascule atomique de Voldemort ?
+  back: Servir l'ancienne version pendant le chargement, puis rebasculer si la nouvelle est mauvaise.
+  concept: ddia-batch-output-kv-files
+- id: fc5
+  front: Tolérance aux erreurs humaines ?
+  back: Entrées immuables + sortie remplacée ; on revient au bon code et on relance (minimiser l'irréversibilité).
+  concept: ddia-batch-immutable-rerun
+- id: fc6
+  front: Principe du sushi ?
+  back: Les données brutes, c'est meilleur ; on déverse tel quel et on interprète à la lecture (data lake).
+  concept: ddia-batch-hadoop-vs-mpp
+- id: fc7
+  front: Hadoop vs base MPP ?
+  back: 'MPP : système SQL intégré. Hadoop : quasi système d''exploitation, stockage brut et traitements variés.'
+  concept: ddia-batch-hadoop-vs-mpp
+- id: fc8
+  front: Base MPP qui perd une machine ?
+  back: Elle annule et relance toute la requête ; MapReduce ne relance que la tâche perdue.
+  concept: ddia-batch-task-level-recovery
+- id: fc9
+  front: Pourquoi MapReduce écrit-il autant sur disque ?
+  back: Pour survivre à la préemption de tâches basse priorité (environ 5 % de risque par heure chez Google), pas à cause du matériel.
+  concept: ddia-batch-task-level-recovery

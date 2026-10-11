@@ -1,0 +1,14 @@
+id: ddia-ch17-project
+title: "Tinybase — des virements corrects de bout en bout"
+pitch: "Un service de virements qui ne débite jamais deux fois : identifiant de requête dédupliqué de bout en bout, débit et crédit dérivés d'un log, pseudos uniques par partition, et un auditeur qui recalcule tout pour prouver que rien n'a été corrompu."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 240
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["transfer.go"]
+concepts: [ddia-correct-operation-id, ddia-correct-exactly-once, ddia-correct-multi-partition, ddia-correct-uniqueness-log, ddia-correct-conflict-routing, ddia-correct-auditability-by-design, ddia-correct-e2e-integrity-check]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

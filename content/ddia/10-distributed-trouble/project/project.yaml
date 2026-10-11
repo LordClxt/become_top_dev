@@ -1,0 +1,14 @@
+id: ddia-ch10-project
+title: "Tinybase — baux, jetons de clôture et détecteur de pannes"
+pitch: "Tinybase élit un leader qui peut se figer à tout moment : un détecteur de pannes qui apprend la gigue de chaque nœud, un service de baux qui numérote chaque attribution, et un stockage qui ferme la porte aux zombies."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 250
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["fencing.go"]
+concepts: [ddia-adaptive-timeout, ddia-lease-check-race, ddia-fencing-token, ddia-zombie-lock-holder, ddia-wall-vs-monotonic]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

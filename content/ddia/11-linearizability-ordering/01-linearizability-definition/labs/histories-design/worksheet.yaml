@@ -1,0 +1,72 @@
+intro: |
+  Un registre `x` vaut **0**. Le client **A** écrit `x = 1` : sa requête part à **t = 0**, la réponse arrive à **t = 10**. Le client **C** lit `x` entre **t = 2** et **t = 4** et obtient **1**.
+
+  Pour chaque autre lecture ci-dessous, examinée **seule** avec l'écriture de A et la lecture de C, demande-toi : une base qui se comporte comme une copie unique aurait-elle pu la produire ?
+blocks:
+- id: lectures
+  type: match
+  title: Autorisée ou interdite ?
+  prompt: Classe chaque lecture (intervalle, puis valeur obtenue).
+  items:
+  - id: b
+    label: B lit entre t = 1 et t = 3 et obtient 0
+  - id: d
+    label: D lit entre t = 5 et t = 6 et obtient 0
+  - id: e
+    label: E lit entre t = 3 et t = 7 et obtient 0
+  - id: f
+    label: F lit entre t = 11 et t = 12 et obtient 1
+  - id: g
+    label: G lit entre t = 11 et t = 12 et obtient 0
+  categories:
+  - id: ok
+    label: Autorisée sous linéarisabilité
+  - id: ko
+    label: Interdite sous linéarisabilité
+- id: cas
+  type: choice
+  title: Deux réservations du même siège
+  prompt: 'Le siège 12A est libre (`seat = 0`). Deux clients envoient en même temps `cas(seat, 0, "Ana")` et `cas(seat, 0, "Léo")`. La base répond « succès » aux deux. Quel est ton verdict ?'
+  options:
+  - id: notlin
+    label: Non linéarisable — avec une copie unique, le second cas aurait trouvé « Ana » ou « Léo » et échoué
+  - id: lin
+    label: Linéarisable — les deux requêtes étaient concurrentes, donc tout est permis
+  - id: lww
+    label: Linéarisable si la base applique « la dernière écriture gagne »
+- id: retard
+  type: number
+  title: La fenêtre tolérée
+  prompt: 'Une écriture reçoit sa réponse à t = 200 ms. Sous linéarisabilité, pendant combien de millisecondes **après** cet instant une nouvelle lecture peut-elle encore renvoyer l''ancienne valeur ?'
+  unit: ms
+- id: garantie
+  type: match
+  title: Quelle garantie ?
+  prompt: Associe chaque situation à la garantie qu'elle illustre.
+  items:
+  - id: snap
+    label: Une transaction en lecture seule lit un instantané cohérent qui ignore une écriture validée 50 ms plus tôt — et c'est accepté
+  - id: fresh
+    label: Une lecture qui commence après la réponse d'une écriture voit toujours la valeur écrite
+  - id: both
+    label: Les transactions semblent exécutées une par une, dans l'ordre où elles se sont réellement produites
+  categories:
+  - id: ser
+    label: Sérialisabilité seule
+  - id: lin
+    label: Linéarisabilité
+  - id: strict
+    label: Sérialisabilité stricte
+- id: vrai
+  type: multi
+  title: Ce qui reste vrai
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: overlap
+    label: Deux opérations dont les intervalles se chevauchent peuvent prendre effet dans n'importe quel ordre
+  - id: start
+    label: Les opérations doivent prendre effet dans l'ordre de leurs heures de début
+  - id: before
+    label: Si P se termine avant que Q commence, P prend effet avant Q
+  - id: replica
+    label: Une base est linéarisable dès qu'elle a plusieurs répliques synchrones

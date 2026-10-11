@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Mise à jour perdue ?
+  back: Deux cycles lire-modifier-écrire concurrents ; le second écrase le premier sans l'avoir vu.
+  concept: ddia-lost-update
+- id: fc2
+  front: Meilleure parade quand c'est possible ?
+  back: 'Une opération atomique de la base : UPDATE … SET n = n + 1.'
+  concept: ddia-atomic-write-ops
+- id: fc3
+  front: Le piège ORM ?
+  back: '`obj.n += 1; obj.save()` cache un cycle lire-modifier-écrire.'
+  concept: ddia-atomic-write-ops
+- id: fc4
+  front: SELECT … FOR UPDATE ?
+  back: Verrouille les lignes lues jusqu'à la fin de la transaction ; marche, mais un seul oubli suffit à tout casser.
+  concept: ddia-explicit-locking
+- id: fc5
+  front: Détection automatique des mises à jour perdues ?
+  back: PostgreSQL (repeatable read), Oracle (serializable), SQL Server (snapshot) l'ont ; MySQL InnoDB (repeatable read) non.
+  concept: ddia-lost-update-detection
+- id: fc6
+  front: Compare-and-set ?
+  back: N'écrire que si la valeur est toujours celle lue ; sinon recommencer. Attention à un WHERE évalué sur un vieil instantané.
+  concept: ddia-compare-and-set
+- id: fc7
+  front: Mises à jour perdues en multi-leader ou sans leader ?
+  back: Ni verrou ni CAS ; versions concurrentes (siblings) à fusionner, opérations commutatives.
+  concept: ddia-replicated-lost-updates
+- id: fc8
+  front: LWW et mises à jour perdues ?
+  back: Dernière écriture gagnante, défaut fréquent en réplication, perd par construction les écritures concurrentes.
+  concept: ddia-replicated-lost-updates

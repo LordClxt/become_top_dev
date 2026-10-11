@@ -1,0 +1,19 @@
+id: ddia-ch08-l04-lab-lost-update-fixes
+title: 'Une parade pour chaque mise à jour perdue'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-lost-update
+- ddia-atomic-write-ops
+- ddia-explicit-locking
+- ddia-lost-update-detection
+- ddia-compare-and-set
+- ddia-replicated-lost-updates
+source:
+  chapter: 7
+  pages: 242-246
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

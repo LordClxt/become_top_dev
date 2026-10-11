@@ -1,0 +1,1 @@
+Des utilisateurs se plaignent : leur commentaire disparaît juste après l'avoir posté. Tu mesures le retard des followers, tu décides où lire chaque page, puis tu règles une politique de lecture qui garantit read-your-writes sans écraser le leader.

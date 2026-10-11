@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {"id": "users", "type": "users", "x": 0, "y": 160},
+    {"id": "booking", "type": "booking", "x": 300, "y": 160},
+    {"id": "slots", "type": "slots", "x": 640, "y": 20},
+    {"id": "bookings", "type": "bookings", "x": 640, "y": 300},
+    {"id": "filler", "type": "filler", "x": 960, "y": 20}
+  ],
+  "edges": [
+    {"id": "e1", "source": "users", "target": "booking", "kind": "sync", "label": "réserver"},
+    {"id": "e2", "source": "booking", "target": "slots", "kind": "write", "label": "FOR UPDATE"},
+    {"id": "e3", "source": "booking", "target": "bookings", "kind": "write", "label": "INSERT"},
+    {"id": "e4", "source": "filler", "target": "slots", "kind": "write", "label": "créneaux à 6 mois"}
+  ]
+}

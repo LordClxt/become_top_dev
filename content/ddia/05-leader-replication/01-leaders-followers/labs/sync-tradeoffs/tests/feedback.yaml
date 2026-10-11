@@ -1,0 +1,31 @@
+blocks:
+  latence:
+    options:
+      async.ms: 'Personne n''est attendu : seule l''écriture locale du leader compte.'
+      semia.ms: 'Écriture locale + aller-retour vers A : 3 + 1.'
+      semic.ms: 'Écriture locale + aller-retour vers C : 3 + 12.'
+      all.ms: 'Les accusés arrivent en parallèle : on attend le plus lent, B (85 ms), pas la somme.'
+  blocage:
+    tolerance:
+      abs: 0.05
+    wrong: 'Les écritures passent seulement si les trois sont là : 0,98³ ≈ 0,9412. Bloquées : 1 − 0,9412 ≈ 5,88 %.'
+  semi:
+    tolerance:
+      abs: 0.005
+    wrong: 'Il faut que A et C soient absents ensemble : 0,02 × 0,02 = 0,0004, soit 0,04 %.'
+  perte:
+    tolerance:
+      rel: 0.01
+    wrong: '1 200 écritures/s × 0,25 s de retard = 300 écritures confirmées jamais transmises.'
+  usages:
+    options:
+      catalogue: 'Trente followers lointains : en attendre un seul ajouterait des dizaines de millisecondes, et ces données tolèrent un léger retard.'
+      paiements: 'Deux copies garanties, mais un follower défaillant est remplacé par un autre : c''est la définition du semi-synchrone.'
+      reporting: 'Une heure de retard est acceptable : inutile de ralentir les écritures pour ce réplica.'
+      rack: 'Avec un seul follower, attendre son accusé est le seul moyen de ne rien perdre ; l''équipe accepte explicitement le blocage.'
+  vrai:
+    options:
+      durable: 'En asynchrone, le leader confirme sans attendre : l''écriture peut n''exister que chez lui.'
+      backup: 'Un DELETE erroné est répliqué partout en moins d''une seconde : la réplication ne protège pas des erreurs humaines.'
+      continue: C'est justement l'avantage de l'asynchrone.
+      retard: Le retard est généralement faible, mais rien ne le borne.

@@ -1,0 +1,70 @@
+intro: |
+  Ton tableau de bord affiche « commandes par ville », une vue dérivée du log des commandes. Le produit veut désormais « chiffre d'affaires par pays et par semaine ». Le log garde tout l'historique depuis trois ans. Tu planifies la nouvelle vue, sa bascule et le choix du moteur.
+blocks:
+- id: reproc
+  type: number
+  title: Le coût du retraitement
+  prompt: L'historique du log pèse **4,8 To**. Le moteur fait tourner **40 tâches** en parallèle, chacune lisant **50 Mo/s**. Combien de **minutes** faut-il pour relire tout l'historique (1 To = 10⁶ Mo) ?
+  unit: min
+- id: storage
+  type: number
+  title: Deux vues en parallèle
+  prompt: L'ancienne vue occupe **120 Go**, la nouvelle en occupera **200 Go**. Pendant la transition, les deux sont maintenues. Quel espace faut-il prévoir au total ?
+  unit: Go
+- id: rollout
+  type: order
+  title: La bascule
+  prompt: Remets dans l'ordre la migration progressive.
+  items:
+  - id: backfill
+    label: Dériver la nouvelle vue en relisant le log depuis l'offset 0
+  - id: parallel
+    label: La maintenir ensuite depuis le flux, à côté de l'ancienne
+  - id: canary
+    label: Envoyer 5 % des lectures vers la nouvelle vue et comparer les chiffres
+  - id: all
+    label: Envoyer 100 % des lectures vers la nouvelle vue
+  - id: retire
+    label: Arrêter de maintenir l'ancienne vue et libérer ses 120 Go
+- id: bug
+  type: choice
+  title: Un bug à 50 %
+  prompt: La moitié des lectures va vers la nouvelle vue quand un analyste remarque des chiffres faux pour la Belgique. Que fais-tu ?
+  options:
+  - id: back
+    label: Renvoyer toutes les lectures vers l'ancienne vue, toujours maintenue, corriger la dérivation et la relancer depuis l'offset 0
+  - id: patch
+    label: Corriger à la main les lignes belges dans la nouvelle vue
+  - id: restore
+    label: Restaurer la sauvegarde de la nuit dernière
+  - id: forward
+    label: Basculer quand même à 100 % et corriger plus tard
+- id: engine
+  type: match
+  title: Lambda ou moteur unifié ?
+  prompt: À quelle approche chaque description correspond-elle ?
+  items:
+  - id: twocode
+    label: Le même calcul de chiffre d'affaires écrit pour Storm et pour Hadoop
+  - id: replay
+    label: Une seconde instance du même job relit le log depuis le début dans une nouvelle table de sortie
+  - id: approx
+    label: Un chiffre approximatif en journée, remplacé la nuit par le chiffre exact
+  - id: eventtime
+    label: Un seul moteur, exactly-once, fenêtres sur le temps de l'événement
+  categories:
+  - id: lambda
+    label: Architecture lambda
+  - id: unified
+    label: Lots et flux unifiés
+- id: window
+  type: choice
+  title: Fenêtrer le retraitement
+  prompt: Le retraitement relit trois ans de commandes en 40 minutes. Sur quel temps faut-il calculer les semaines ?
+  options:
+  - id: proc
+    label: Le temps de traitement, plus simple
+  - id: event
+    label: Le temps de l'événement (date de la commande)
+  - id: ingest
+    label: L'heure d'écriture dans le log du retraitement

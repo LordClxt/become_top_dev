@@ -1,0 +1,74 @@
+intro: |
+  Le serveur web de ta boutique a produit **500 Go** de logs d'accès (une ligne par requête, l'IP en champ 1, l'URL en champ 7). Tu disposes d'une machine de **32 Go de RAM**. Avant de réclamer un cluster, tu vérifies ce qu'une seule machine sait faire.
+blocks:
+- id: pipeline
+  type: order
+  title: Les 5 IP les plus actives
+  prompt: Remets les étapes de la chaîne dans l'ordre pour afficher les 5 adresses IP qui envoient le plus de requêtes.
+  items:
+  - id: awk
+    label: "awk '{print $1}' access.log"
+  - id: sort1
+    label: sort
+  - id: uniq
+    label: uniq -c
+  - id: sort2
+    label: sort -r -n
+  - id: head
+    label: head -n 5
+- id: hashmem
+  type: number
+  title: La table de hachage
+  prompt: Le site a **2 millions** d'URL distinctes. Une entrée de la table (URL + compteur + surcoût) occupe environ **120 octets**. Combien de **Mo** pour la table complète ?
+  unit: Mo
+- id: sessions
+  type: choice
+  title: Compter par session
+  prompt: On veut maintenant compter les requêtes par identifiant de session. Il y a **3 milliards** de sessions distinctes, à **60 octets** par entrée. Que fais-tu ?
+  options:
+  - id: hash
+    label: Une table de hachage en mémoire, comme pour les URL
+  - id: extsort
+    label: Un tri externe (morceaux triés écrits sur disque puis fusionnés), puis un comptage des lignes adjacentes
+  - id: load
+    label: Charger les 500 Go en mémoire puis trier
+  - id: sample
+    label: Échantillonner 1 % des lignes pour que tout tienne en mémoire
+- id: runs
+  type: number
+  title: Combien de morceaux ?
+  prompt: Le tri externe utilise **8 Go** de mémoire par morceau. En combien de morceaux triés les **500 Go** sont-ils découpés avant la fusion ?
+  unit: morceaux
+- id: kinds
+  type: match
+  title: Service, lot ou flux ?
+  prompt: Classe chaque système de la boutique.
+  items:
+  - id: page
+    label: La page produit, qui doit s'afficher en moins de 200 ms
+  - id: reco
+    label: Le recalcul nocturne des recommandations à partir des achats de la veille
+  - id: fraud
+    label: Une alerte levée quelques secondes après une série de paiements suspects
+  - id: top
+    label: Le classement des pages les plus vues du mois dernier
+  categories:
+  - id: service
+    label: Service en ligne
+  - id: batch
+    label: Traitement par lots
+  - id: stream
+    label: Traitement de flux
+- id: safe
+  type: multi
+  title: Expérimenter sans risque
+  prompt: Quelles pratiques gardent ta chaîne d'analyse sûre et facile à déboguer ?
+  options:
+  - id: immutable
+    label: Ne jamais modifier les fichiers de log d'entrée
+  - id: less
+    label: Couper la chaîne après une étape et regarder la sortie avec less
+  - id: inplace
+    label: Réécrire access.log en place avec le résultat filtré pour gagner de la place
+  - id: tmp
+    label: Écrire la sortie d'une étape coûteuse dans un fichier pour relancer seulement la suite

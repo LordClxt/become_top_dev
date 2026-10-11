@@ -1,0 +1,41 @@
+blocks:
+  volumes:
+    tolerance:
+      rel: 0.02
+    options:
+      prod-reduce: 'Les deux entrées passent par le shuffle une fois : 3 000 Go d''événements + 40 Go de produits.'
+      prod-bcast: Chacune des 1 500 tâches map lit les 40 Go de produits.
+      cat-reduce: 3 000 Go d'événements + 0,02 Go de catégories, soit environ 3 000 Go.
+      cat-bcast: 1 500 tâches × 20 Mo = 30 000 Mo.
+  prodjoin:
+    options:
+      bcast: 40 Go ne tiennent pas dans les 8 Go d'un mapper, et les diffuser coûterait 60 000 Go de lectures.
+      query: Des milliards d'appels réseau, une API submergée, et un résultat qui change pendant le job.
+  hot:
+    tolerance:
+      rel: 0.02
+    wrong: '12 % de 2 000 millions = 240 millions pour la console, plus sa part du reste : 1 760 millions / 200 = 8,8 millions.'
+  tune:
+    goals:
+      load: Le reducer le plus chargé dépasse 20 millions ; augmente k pour étaler la console, ou R pour alléger la part du reste.
+      cap: Le cluster ne peut pas lancer plus de 400 reducers.
+      fit: k ne peut pas dépasser le nombre total de reducers.
+  flow:
+    options:
+      snapshot: On joint une copie figée, jamais la base vivante ; elle doit exister avant la jointure.
+      join: La jointure enrichit les événements avant tout comptage.
+      pairs: On compte les paires à partir des événements enrichis.
+      build: La base neuve s'écrit dans HDFS, pas dans les serveurs.
+      check: On contrôle la sortie avant de la montrer aux utilisateurs.
+      swap: La bascule est la toute dernière étape, réversible si besoin.
+  replay:
+    options:
+      upsert: Des écritures ligne à ligne laissent des effets de bord partiels ou en double si une tâche est relancée.
+      livecat: Une source externe lue pendant le job change entre deux exécutions.
+      immutable: Sans entrées intactes, impossible de rejouer.
+      refdate: L'horloge donne une autre valeur à chaque exécution.
+      sortout: L'ordre d'une table de hachage change d'une exécution à l'autre.
+  memory:
+    options:
+      sort: Le reducer n'a que 1/200 des paires ; c'est l'ensemble de travail de sa partition qui compte, pas le total.
+      single: Un seul reducer devrait garder 360 Go de compteurs et ferait tout le travail seul.

@@ -1,0 +1,21 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 200},
+    {"id": "db", "type": "db", "x": 260, "y": 200, "props": {"role": "primary"}},
+    {"id": "log", "type": "log", "x": 520, "y": 200},
+    {"id": "snapshot", "type": "snapshot", "x": 520, "y": 20},
+    {"id": "indexer", "type": "indexer", "x": 780, "y": 100},
+    {"id": "search", "type": "search", "x": 1040, "y": 100},
+    {"id": "cacher", "type": "cacher", "x": 780, "y": 320},
+    {"id": "cache", "type": "cache", "x": 1040, "y": 320, "props": {"role": "cache"}}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "db", "kind": "write", "label": "UPDATE"},
+    {"id": "e2", "source": "db", "target": "log", "kind": "async", "label": "CDC"},
+    {"id": "e3", "source": "log", "target": "indexer", "kind": "async", "label": "changements"},
+    {"id": "e4", "source": "indexer", "target": "search", "kind": "write", "label": "documents"},
+    {"id": "e5", "source": "log", "target": "cacher", "kind": "async", "label": "changements"},
+    {"id": "e6", "source": "cacher", "target": "cache", "kind": "write", "label": "fiches"},
+    {"id": "e7", "source": "snapshot", "target": "indexer", "kind": "read", "label": "amorçage"}
+  ]
+}

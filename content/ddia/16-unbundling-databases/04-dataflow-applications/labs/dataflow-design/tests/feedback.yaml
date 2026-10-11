@@ -1,0 +1,27 @@
+blocks:
+  avail:
+    tolerance:
+      abs: 0.05
+    wrong: 'Les deux doivent répondre : 0,999 × 0,995 = 0,994 0, soit 99,4 %.'
+  downtime:
+    tolerance:
+      rel: 0.02
+    wrong: '30 × 24 × 60 = 43 200 min ; 43 200 × 0,005 995 ≈ 259 min, plus de 4 heures.'
+  latency:
+    options:
+      rpc.ms: 'L''appel réseau est sur le chemin critique : 20 + 15 = 35 ms.'
+      flow.ms: 'Une lecture locale remplace l''appel : 20 + 1 = 21 ms.'
+  derive:
+    options:
+      btree: 'Choisir une colonne et trier : toutes les bases le font avec CREATE INDEX.'
+      replica: 'La base dérive le réplica de son propre log de réplication.'
+      stem: 'La racinisation et surtout les synonymes métier sont propres à ton domaine.'
+      model: 'Extraction de caractéristiques et entraînement : du code applicatif.'
+      card: 'La forme exacte de l''écran dépend entièrement de ton interface.'
+  transport:
+    options:
+      shuffle: 'Si l''ancien taux arrive après le nouveau, la table garde l''ancien : seul compte le dernier dans l''ordre d''émission, pas d''arrivée.'
+  replay:
+    options:
+      today: 'Un retraitement avec l''état d''aujourd''hui donne des montants que personne n''a payés.'
+      avg: 'Aucun client n''a payé au taux moyen : le résultat serait faux pour chaque achat.'

@@ -1,0 +1,28 @@
+blocks:
+  letters:
+    options:
+      half: 'Une transaction interrompue au milieu doit être annulée en entier : c''est la possibilité d''abandon.'
+      peek: 'Voir l''état intermédiaire d''une transaction en cours est un défaut d''isolation, pas d''atomicité.'
+      reboot: 'Survivre à un redémarrage après un commit, c''est la durabilité.'
+      rule: 'Un invariant défini par l''équipe est une propriété de l''application : la cohérence.'
+      race: 'Deux transactions concurrentes qui s''écrasent : c''est l''isolation qui manque.'
+  retry:
+    options:
+      unique: 'Une adresse déjà prise le restera : l''erreur est permanente.'
+      check: 'La contrainte sera violée à nouveau : erreur permanente.'
+      deadlock: Un interblocage est transitoire ; le prochain essai a de bonnes chances de passer.
+      failover: Une bascule de leader est transitoire.
+      conflict: Un conflit de concurrence est précisément le cas où réessayer a un sens.
+  backoff:
+    tolerance:
+      abs: 1
+    wrong: 'Quatre attentes avant le 5ᵉ essai : 50 + 100 + 200 + 400.'
+  timeout:
+    options:
+      blind: Si le premier commit a réussi, le paiement passe deux fois.
+      fail: Le commit a peut-être réussi ; l'utilisateur serait débité sans le savoir.
+      replica: Un réplica asynchrone peut être en retard ; une absence n'y prouve rien.
+  mails:
+    tolerance:
+      abs: 0
+    wrong: Un abort n'annule que les écritures dans la base ; l'e-mail part à chaque essai.

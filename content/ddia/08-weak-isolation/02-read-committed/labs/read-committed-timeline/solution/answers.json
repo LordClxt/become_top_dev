@@ -1,0 +1,7 @@
+{
+  "timeline": {"s2.ru": 300, "s2.rc": 500, "s4.ru": 300, "s4.rc": 300, "s6.ru": 700, "s6.rc": 300, "s8.ru": 300, "s8.rc": 300},
+  "anomalies": {"unread": "yes", "car": "yes", "counter": "no", "backup": "no"},
+  "lock": "block",
+  "memory": 500,
+  "counter": 11
+}

@@ -1,0 +1,3 @@
+**Matérialiser un conflit, c'est créer l'objet qu'on n'avait pas à verrouiller.** Sans `room_slots`, la vérification ne renvoie aucune ligne et deux réservations du même créneau se croisent : un fantôme qui produit un write skew. Avec une ligne par salle et par créneau de 15 minutes, générée d'avance, la transaction verrouille les créneaux demandés avant d'insérer : la seconde attend, puis voit la première réservation.
+
+La vérification doit vivre **dans** la transaction : un cache ou un contrôle côté navigateur lit un état qui peut changer avant l'écriture. Et le prix est réel : une table sans information à générer et prolonger, un mécanisme de concurrence qui fuit dans le modèle de données. Quand la base offre la sérialisabilité, c'est elle qu'il faut préférer.

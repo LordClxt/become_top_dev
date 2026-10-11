@@ -1,0 +1,74 @@
+intro: |
+  Le job lit la partition 0 du sujet `paiements` et tient, dans une base externe, une ligne par marchand : `(total, offset)`. Pour le marchand 42 :
+
+  | Offset | 100 | 101 | 102 | 103 | 104 | 105 |
+  |---|---|---|---|---|---|---|
+  | Montant | +10 € | +20 € | +30 € | +40 € | +50 € | +60 € |
+
+  Le total vaut 0 € avant l'offset 100. Le job applique les messages 100 à 103 en base, mais n'a **validé son offset de consommateur** qu'après le 101 (il relira donc à partir de 102). Il plante, redémarre, puis traite tout jusqu'à 105.
+blocks:
+- id: replayed
+  type: number
+  title: Combien de messages relus ?
+  prompt: Combien de messages le job relit-il après son redémarrage, jusqu'à l'offset 105 inclus ?
+  unit: messages
+- id: totals
+  type: table
+  title: Le total final du marchand 42
+  prompt: Quel total (en €) contient la ligne après la reprise, selon la façon d'écrire ?
+  columns:
+  - id: eur
+    label: Total (€)
+  rows:
+  - id: naive
+    label: '`total += montant`, sans métadonnée'
+  - id: dedup
+    label: '`total += montant` seulement si offset > offset stocké, offset écrit dans la même écriture'
+  - id: truth
+    label: Le total exact (chaque paiement une fois)
+- id: tuning
+  type: tuner
+  title: Régler l'intervalle de checkpoint
+  prompt: 'Le flux débite **8 000 messages/s** et l''état du job pèse **2 000 Mo**, écrit en entier à chaque checkpoint. Le stockage durable accepte au plus **100 Mo/s** pour les checkpoints, et l''équipe veut rejouer au plus **200 000 messages** après une panne.'
+  params:
+  - id: interval
+    label: Intervalle entre checkpoints
+    unit: s
+    min: 5
+    max: 120
+    step: 1
+    default: 60
+  metrics:
+  - id: replay
+    label: Messages rejoués au pire
+    expr: interval * 8000
+    format: number
+  - id: bandwidth
+    label: Débit d'écriture des checkpoints (Mo/s)
+    expr: 2000 / interval
+    format: number
+  goals:
+  - id: replay
+    label: Au plus 200 000 messages rejoués
+    expr: replay <= 200000
+  - id: bandwidth
+    label: Au plus 100 Mo/s vers le stockage durable
+    expr: bandwidth <= 100
+- id: effects
+  type: match
+  title: Quelle protection pour chaque effet ?
+  prompt: Le job a plusieurs effets. Quelle technique garantit que chacun reste unique après un rejeu ?
+  items:
+  - id: state
+    label: Les compteurs internes de l'opérateur
+  - id: transfer
+    label: Un virement envoyé à l'API d'une banque
+  - id: output
+    label: Le message publié sur le sujet `paiements-agrégés`, avec l'avancement de l'offset d'entrée
+  categories:
+  - id: checkpoint
+    label: Suffisant avec les checkpoints du framework
+  - id: idem
+    label: Une clé d'idempotence acceptée par le système externe
+  - id: atomic
+    label: Une transaction atomique interne au framework

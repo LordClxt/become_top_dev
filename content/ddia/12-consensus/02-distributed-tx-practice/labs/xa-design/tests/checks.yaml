@@ -1,0 +1,81 @@
+checks:
+- id: deliver
+  label: Le broker livre le message au consommateur
+  rule: edge_kind
+  source: broker
+  target: consumer
+  kind: async
+- id: write
+  label: Le consommateur écrit la commande en base
+  rule: edge_kind
+  source: consumer
+  target: db
+  kind: write
+- id: begin
+  label: Le consommateur ouvre et valide la transaction via le coordinateur
+  rule: edge_kind
+  source: consumer
+  target: coord
+  kind: sync
+- id: prep-db
+  label: Le coordinateur pilote la base (prepare puis commit)
+  rule: edge_kind
+  source: coord
+  target: db
+  kind: sync
+- id: prep-broker
+  label: '…et le broker : l''acquittement fait partie de la même transaction'
+  rule: edge_kind
+  source: coord
+  target: broker
+  kind: sync
+- id: log
+  label: Le coordinateur journalise sa décision avant de la diffuser
+  rule: edge_kind
+  source: coord
+  target: txlog
+  kind: write
+- id: z-coord
+  label: Le coordinateur XA vit dans le processus applicatif
+  rule: in_zone
+  source: coord
+  target: app
+- id: z-consumer
+  label: Le consommateur est ce processus applicatif
+  rule: in_zone
+  source: consumer
+  target: app
+- id: z-log
+  label: Le journal est sur le disque local du serveur d'application
+  rule: in_zone
+  source: txlog
+  target: app
+- id: no-peer
+  label: 'Les participants ne se parlent pas : tout passe par le coordinateur'
+  rule: no_edge
+  source: db
+  target: broker
+- id: only-coord-logs
+  label: Seul le coordinateur écrit dans son journal
+  rule: no_edge
+  source: consumer
+  target: txlog
+- id: one-coord
+  label: Un seul coordinateur pour cette transaction
+  rule: count
+  source: coord
+  min: 1
+  max: 1
+- id: no-memlog
+  label: 'Pas de journal en mémoire : la décision doit survivre à un crash'
+  rule: count
+  source: memlog
+  max: 0
+- id: no-heur
+  label: Pas de décisions heuristiques automatiques
+  rule: count
+  source: heur
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

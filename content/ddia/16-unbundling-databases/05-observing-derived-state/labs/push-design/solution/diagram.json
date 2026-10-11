@@ -1,0 +1,22 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 220},
+    {"id": "local", "type": "local", "x": 0, "y": 420},
+    {"id": "api", "type": "api", "x": 260, "y": 60},
+    {"id": "db", "type": "db", "x": 520, "y": 60, "props": {"role": "primary"}},
+    {"id": "log", "type": "log", "x": 780, "y": 60},
+    {"id": "viewer", "type": "viewer", "x": 780, "y": 260},
+    {"id": "view", "type": "view", "x": 520, "y": 260, "props": {"role": "primary-store"}},
+    {"id": "push", "type": "push", "x": 260, "y": 260}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "api", "kind": "sync", "label": "action"},
+    {"id": "e2", "source": "api", "target": "db", "kind": "write", "label": "écrit"},
+    {"id": "e3", "source": "db", "target": "log", "kind": "async", "label": "CDC"},
+    {"id": "e4", "source": "log", "target": "viewer", "kind": "async", "label": "changements"},
+    {"id": "e5", "source": "viewer", "target": "view", "kind": "write", "label": "tableau de bord"},
+    {"id": "e6", "source": "view", "target": "push", "kind": "async", "label": "abonnement"},
+    {"id": "e7", "source": "push", "target": "app", "kind": "async", "label": "WebSocket"},
+    {"id": "e8", "source": "app", "target": "local", "kind": "write", "label": "applique"}
+  ]
+}

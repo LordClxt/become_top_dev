@@ -1,0 +1,18 @@
+id: ddia-ch06-l05-lab-version-design
+title: Qui a vu quoi ?
+difficulty: 4
+xp: 70
+concepts:
+- ddia-version-numbers
+- ddia-version-vectors
+- ddia-happens-before
+- ddia-siblings-merge
+- ddia-lww-data-loss
+source:
+  chapter: 5
+  pages: 184-192
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

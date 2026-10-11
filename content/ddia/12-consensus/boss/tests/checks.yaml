@@ -1,0 +1,89 @@
+checks:
+- id: five
+  label: 'Cinq votants etcd : le cluster survit à deux pannes'
+  rule: count
+  source: etcd
+  min: 5
+  max: 5
+- id: in-ensemble
+  label: Tous les votants sont dans l'ensemble etcd
+  rule: in_zone
+  source: etcd
+  target: ensemble
+- id: raft
+  label: Les votants se répliquent le log entre eux
+  rule: edge_kind
+  source: etcd
+  target: etcd
+  kind: replication
+- id: lease-a
+  label: Le leader de A tient son rôle par un bail dans etcd
+  rule: edge_kind
+  source: leaderA
+  target: etcd
+  kind: write
+- id: lease-b
+  label: …le leader de B aussi
+  rule: edge_kind
+  source: leaderB
+  target: etcd
+  kind: write
+- id: repl-a
+  label: Le leader de A réplique vers son réplica
+  rule: edge_kind
+  source: leaderA
+  target: followerA
+  kind: replication
+- id: repl-b
+  label: Le leader de B réplique vers son réplica
+  rule: edge_kind
+  source: leaderB
+  target: followerB
+  kind: replication
+- id: map
+  label: Le routeur lit la carte des partitions dans etcd
+  rule: edge_kind
+  source: router
+  target: etcd
+  kind: read
+- id: prep-a
+  label: Le coordinateur pilote le leader de A (prepare puis commit)
+  rule: edge_kind
+  source: coord
+  target: leaderA
+  kind: sync
+- id: prep-b
+  label: …et le leader de B
+  rule: edge_kind
+  source: coord
+  target: leaderB
+  kind: sync
+- id: log
+  label: Le coordinateur écrit sa décision dans un journal durable
+  rule: edge_kind
+  source: coord
+  target: txlog
+  kind: write
+- id: no-peer
+  label: 'Les participants ne se parlent pas : tout passe par le coordinateur'
+  rule: no_edge
+  source: leaderA
+  target: leaderB
+- id: no-memlog
+  label: Pas de journal de décisions en mémoire
+  rule: count
+  source: memlog
+  max: 0
+- id: no-heur
+  label: Pas de décisions heuristiques automatiques
+  rule: count
+  source: heur
+  max: 0
+- id: no-manual
+  label: 'Pas de bascule manuelle : les leaders sont élus automatiquement'
+  rule: count
+  source: manual
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

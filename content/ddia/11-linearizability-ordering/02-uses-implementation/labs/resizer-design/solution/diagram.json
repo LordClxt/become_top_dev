@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {"id": "browser", "type": "browser", "x": 0, "y": 160},
+    {"id": "web", "type": "web", "x": 280, "y": 160},
+    {"id": "coord", "type": "coord", "x": 280, "y": -60},
+    {"id": "store", "type": "store", "x": 600, "y": 320},
+    {"id": "queue", "type": "queue", "x": 600, "y": 40},
+    {"id": "resizer", "type": "resizer", "x": 900, "y": 160},
+    {"id": "thumbs", "type": "thumbs", "x": 1180, "y": 160}
+  ],
+  "edges": [
+    {"id": "e1", "source": "browser", "target": "web", "kind": "sync", "label": "inscription, photo"},
+    {"id": "e2", "source": "web", "target": "coord", "kind": "sync", "label": "cas(pseudo)"},
+    {"id": "e3", "source": "web", "target": "store", "kind": "write", "label": "photo 42"},
+    {"id": "e4", "source": "web", "target": "queue", "kind": "async", "label": "redimensionner 42"},
+    {"id": "e5", "source": "queue", "target": "resizer", "kind": "async"},
+    {"id": "e6", "source": "resizer", "target": "store", "kind": "read", "label": "lit 42"},
+    {"id": "e7", "source": "resizer", "target": "thumbs", "kind": "write", "label": "vignette"}
+  ]
+}

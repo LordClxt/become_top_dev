@@ -1,0 +1,71 @@
+checks:
+- id: entry
+  label: Le navigateur appelle l'application web
+  rule: edge_kind
+  source: browser
+  target: web
+  kind: sync
+- id: serve
+  label: L'application lit les recommandations sur les serveurs clé-valeur
+  rule: edge_kind
+  source: web
+  target: kv
+  kind: read
+- id: export
+  label: La base de production est exportée vers un instantané dans HDFS
+  rule: path
+  source: proddb
+  target: snapshot
+- id: read-snapshot
+  label: Le workflow lit l'instantané des profils
+  rule: edge_kind
+  source: job
+  target: snapshot
+  kind: read
+- id: read-logs
+  label: Le workflow lit les logs bruts
+  rule: edge_kind
+  source: job
+  target: logs
+  kind: read
+- id: no-prod-read
+  label: Le workflow n'interroge jamais la base de production
+  rule: no_edge
+  source: job
+  target: proddb
+- id: write-files
+  label: Le workflow écrit des fichiers de base neufs
+  rule: edge_kind
+  source: job
+  target: files
+  kind: write
+- id: no-direct-write
+  label: Le workflow n'écrit pas directement dans les serveurs clé-valeur
+  rule: no_edge
+  source: job
+  target: kv
+- id: bulk-load
+  label: Les serveurs chargent les nouveaux fichiers d'un bloc
+  rule: edge_kind
+  source: kv
+  target: files
+  kind: read
+- id: rollback
+  label: Les serveurs gardent la version précédente pour rebasculer
+  rule: edge_kind
+  source: kv
+  target: prev
+  kind: read
+- id: no-hdfs-from-web
+  label: L'application web ne lit pas HDFS directement
+  rule: no_edge
+  source: web
+  target: files
+- id: no-inplace
+  label: Aucun stockage modifié en place par le job
+  rule: count
+  source: inplace
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

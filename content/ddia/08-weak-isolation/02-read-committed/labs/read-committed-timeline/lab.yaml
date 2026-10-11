@@ -1,0 +1,17 @@
+id: ddia-ch08-l02-lab-read-committed-timeline
+title: 'Ce que voit chaque transaction'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-dirty-read
+- ddia-dirty-write
+- ddia-read-committed-impl
+- ddia-read-committed-limits
+source:
+  chapter: 7
+  pages: 233-237
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

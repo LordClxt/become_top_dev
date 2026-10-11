@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Identifiants et versions"
+    goal: "Démarrer des transactions aux identifiants croissants, écrire des versions en attente (created_by), marquer l'ancienne version deleted_by au commit, et gérer abandon et transaction close."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Les règles de visibilité du snapshot"
+    goal: "Lire ses propres écritures, ignorer les transactions en cours au démarrage, abandonnées ou plus récentes, et produire un Scan cohérent : ni lecture sale, ni read skew."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Premier qui valide gagne"
+    goal: "Refuser au commit une transaction dont une clé écrite a été validée par une transaction concurrente, laisser passer le write skew, et nettoyer les versions que plus personne ne peut voir."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Pourquoi Vacuum ne peut-il pas se contenter de comparer DeletedBy au plus petit identifiant en cours ? Et pourquoi ton détecteur de conflits ne voit-il rien dans l'exemple des médecins de garde ? Que faudrait-il suivre en plus pour l'attraper ?"

@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Isolation sérialisable ?
+  back: Le résultat est celui d'une exécution des transactions une par une, dans un certain ordre, même si elles ont tourné en parallèle.
+  concept: ddia-serializable-one-at-a-time
+- id: fc2
+  front: Exécution réellement en série ?
+  back: 'Un seul thread exécute les transactions une à une : aucun verrou, sérialisabilité par construction.'
+  concept: ddia-serial-exec-single-thread
+- id: fc3
+  front: Pourquoi l'exécution en série est-elle viable depuis ~2007 ?
+  back: Données actives en mémoire (RAM bon marché) et transactions OLTP courtes ; l'analytique lit un snapshot à part.
+  concept: ddia-serial-exec-why-now
+- id: fc4
+  front: Limite de débit d'une base mono-thread ?
+  back: Un cœur de CPU. 20 µs par transaction ≈ 50 000 transactions/s, pas plus.
+  concept: ddia-serial-exec-single-thread
+- id: fc5
+  front: Pourquoi bannir les transactions interactives en mono-thread ?
+  back: Chaque aller-retour réseau bloque le seul thread ; 4 × 0,5 ms d'attente pour 20 µs de travail font tomber le débit à ~500/s.
+  concept: ddia-interactive-tx-roundtrips
+- id: fc6
+  front: Procédure stockée dans une base en série ?
+  back: Toute la transaction est envoyée d'avance ; la base l'exécute d'un bloc, sans attendre le réseau ni le disque.
+  concept: ddia-stored-procedure-tx
+- id: fc7
+  front: Reproches faits aux procédures stockées ?
+  back: Langage propre à l'éditeur, code difficile à tester et versionner, et une procédure lente pénalise toute la base.
+  concept: ddia-stored-procedure-tradeoffs
+- id: fc8
+  front: Langages des procédures dans VoltDB, Datomic, Redis ?
+  back: Java ou Groovy ; Java ou Clojure ; Lua.
+  concept: ddia-stored-procedure-tradeoffs
+- id: fc9
+  front: 'Répliquer en ré-exécutant une procédure : condition ?'
+  back: Elle doit être déterministe (pas d'heure système ni d'aléa non fixés par la base).
+  concept: ddia-deterministic-procedure-replication

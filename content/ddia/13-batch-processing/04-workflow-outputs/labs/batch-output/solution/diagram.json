@@ -1,0 +1,123 @@
+{
+  "nodes": [
+    {
+      "id": "browser",
+      "type": "browser",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "web",
+      "type": "web",
+      "x": 260,
+      "y": 0
+    },
+    {
+      "id": "kv",
+      "type": "kv",
+      "x": 560,
+      "y": 0
+    },
+    {
+      "id": "files",
+      "type": "files",
+      "x": 860,
+      "y": -120
+    },
+    {
+      "id": "prev",
+      "type": "prev",
+      "x": 860,
+      "y": 120
+    },
+    {
+      "id": "job",
+      "type": "job",
+      "x": 1160,
+      "y": -120
+    },
+    {
+      "id": "logs",
+      "type": "logs",
+      "x": 1460,
+      "y": -260
+    },
+    {
+      "id": "snapshot",
+      "type": "snapshot",
+      "x": 1460,
+      "y": 0
+    },
+    {
+      "id": "proddb",
+      "type": "proddb",
+      "x": 1160,
+      "y": 240
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "browser",
+      "target": "web",
+      "kind": "sync",
+      "label": "HTTPS"
+    },
+    {
+      "id": "e2",
+      "source": "web",
+      "target": "kv",
+      "kind": "read",
+      "label": "get(user_id)"
+    },
+    {
+      "id": "e3",
+      "source": "kv",
+      "target": "files",
+      "kind": "read",
+      "label": "chargement en masse"
+    },
+    {
+      "id": "e4",
+      "source": "kv",
+      "target": "prev",
+      "kind": "read",
+      "label": "rebascule si besoin"
+    },
+    {
+      "id": "e5",
+      "source": "job",
+      "target": "files",
+      "kind": "write",
+      "label": "nouvelle version"
+    },
+    {
+      "id": "e6",
+      "source": "job",
+      "target": "logs",
+      "kind": "read",
+      "label": ""
+    },
+    {
+      "id": "e7",
+      "source": "job",
+      "target": "snapshot",
+      "kind": "read",
+      "label": ""
+    },
+    {
+      "id": "e8",
+      "source": "proddb",
+      "target": "snapshot",
+      "kind": "async",
+      "label": "export ETL"
+    },
+    {
+      "id": "e9",
+      "source": "web",
+      "target": "proddb",
+      "kind": "write",
+      "label": "profils"
+    }
+  ]
+}

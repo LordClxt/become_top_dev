@@ -1,0 +1,29 @@
+blocks:
+  timeline:
+    options:
+      s2.ru: Read uncommitted voit l'écriture non validée de T1.
+      s2.rc: Read committed ne voit que des données validées ; T1 n'a pas encore validé.
+      s4.ru: T1 a validé ; les deux niveaux voient désormais sa valeur.
+      s4.rc: 'T1 a validé à l''étape 3 : sa valeur devient visible.'
+      s6.ru: Read uncommitted voit l'écriture en cours de T3.
+      s6.rc: 'T3 n''a pas validé : on lit la dernière valeur validée.'
+      s8.ru: 'T3 a abandonné : son écriture est annulée pour tout le monde.'
+      s8.rc: L'écriture de T3 n'a jamais été validée.
+  anomalies:
+    options:
+      unread: 'Voir un état à moitié fait d''une transaction en cours : c''est une lecture sale.'
+      car: 'Écrire par-dessus une valeur non validée : c''est une écriture sale.'
+      counter: La seconde écriture arrive après le commit de la première ; ce n'est pas une écriture sale.
+      backup: Chaque lecture voit des données validées ; read committed ne garantit pas un instant unique.
+  lock:
+    options:
+      dirty: Un verrou de lecture empêcherait au contraire la lecture sale ; le problème est ailleurs.
+      durable: La durabilité ne concerne pas les verrous.
+  memory:
+    tolerance:
+      rel: 0.01
+    wrong: 2 000 000 × 250 octets, puis divise par 10⁶.
+  counter:
+    tolerance:
+      abs: 0
+    wrong: Les deux transactions ont lu la même valeur avant d'écrire.

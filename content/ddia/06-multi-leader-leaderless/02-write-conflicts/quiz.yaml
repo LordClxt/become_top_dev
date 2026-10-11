@@ -1,0 +1,98 @@
+id: ddia-ch06-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi ne peut-on pas simplement demander à l'utilisateur de réessayer quand un conflit multi-leader est détecté ?
+  choices:
+  - Parce que les leaders n'ont pas de journal de réplication
+  - Parce que les deux écritures ont déjà été acquittées quand la réplication asynchrone révèle le conflit
+  - Parce que le conflit est détecté avant l'écriture
+  - Parce que les clients sont toujours hors ligne
+  answer: 1
+  explanation: 'La détection est asynchrone : la rendre synchrone ferait perdre l''intérêt du multi-leader.'
+  concept: ddia-write-conflict-detection
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Chaque utilisateur est rattaché à son datacenter « maison », où sont routées toutes les écritures de son profil. Quand cette stratégie d'évitement casse-t-elle ?
+  choices:
+  - Quand deux utilisateurs différents écrivent en même temps
+  - Quand le profil contient plus de dix champs
+  - Quand il faut changer de leader désigné (panne du datacenter, déménagement de l'utilisateur)
+  - Jamais, l'évitement est une garantie absolue
+  answer: 2
+  explanation: Pendant la bascule, deux leaders peuvent recevoir des écritures concurrentes pour le même enregistrement.
+  concept: ddia-conflict-avoidance
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Le leader 1 reçoit « titre = B » puis « titre = C » ; le leader 2 reçoit C puis B. Chacun applique les écritures dans l'ordre d'arrivée. Que se passe-t-il ?
+  choices:
+  - Les deux leaders finissent sur C
+  - Les deux leaders finissent sur B
+  - La base détecte l'erreur et refuse la seconde écriture
+  - Le leader 1 finit sur C, le leader 2 sur B, et ils divergent pour toujours
+  answer: 3
+  explanation: 'Sans ordre défini, appliquer dans l''ordre d''arrivée ne converge pas : il faut une règle convergente.'
+  concept: ddia-conflict-convergence
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: 'Un service reçoit 50 000 écritures par jour sur des enregistrements partagés ; 0,2 % sont en conflit et la base applique LWW. Que se passe-t-il ?'
+  choices:
+  - Rien, LWW garde toutes les écritures
+  - Environ 100 écritures acquittées sont perdues chaque jour, sans erreur
+  - Environ 100 écritures sont refusées avec une erreur au client
+  - La base passe en lecture seule
+  answer: 1
+  explanation: '50 000 × 0,2 % = 100 conflits ; LWW en garde une et jette l''autre en silence.'
+  concept: ddia-conflict-convergence
+  difficulty: 2
+- id: q5
+  type: multiple
+  prompt: Quelles stratégies sont convergentes (tous les réplicas finissent sur la même valeur) ?
+  choices:
+  - Garder l'écriture à l'identifiant unique le plus grand (LWW si c'est un horodatage)
+  - Appliquer les écritures dans l'ordre où chaque leader les reçoit
+  - Trier et concaténer les valeurs (« B/C »)
+  - Conserver toutes les versions et laisser l'application résoudre
+  answer: [0, 2, 3]
+  explanation: L'ordre d'arrivée diffère d'un leader à l'autre ; les trois autres règles donnent le même résultat partout (LWW au prix de pertes).
+  concept: ddia-conflict-convergence
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Tu veux que l'utilisateur choisisse lui-même entre deux versions en conflit d'un document. Où placer la résolution ?
+  choices:
+  - À la lecture, comme CouchDB qui renvoie toutes les versions à l'application
+  - À l'écriture, dans un gestionnaire qui tourne en arrière-plan
+  - Dans un trigger qui s'exécute sur chaque leader
+  - Nulle part, LWW suffit
+  answer: 0
+  explanation: Un gestionnaire à l'écriture tourne en arrière-plan et ne peut pas interroger l'utilisateur.
+  concept: ddia-custom-conflict-resolution
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Sur un anneau de 4 leaders (1 → 2 → 3 → 4 → 1), le nœud 2 tombe. Quel est l'effet ?
+  choices:
+  - Aucun, l'anneau se répare tout seul
+  - Seules les écritures du nœud 2 sont perdues
+  - Les écritures du nœud 1 n'atteignent plus 3 ni 4 tant qu'on n'a pas reconfiguré l'anneau
+  - Les écritures tournent en boucle indéfiniment
+  answer: 2
+  explanation: 'En circulaire et en étoile, un nœud en panne coupe la propagation ; l''all-to-all a plusieurs chemins.'
+  concept: ddia-replication-topologies
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: En all-to-all, le leader 2 reçoit la mise à jour d'une ligne avant son insertion. Quelle solution le livre propose-t-il ?
+  choices:
+  - Utiliser les horodatages des leaders
+  - Passer en topologie circulaire
+  - Retenter l'insertion jusqu'au succès
+  - Des vecteurs de versions pour capturer la causalité
+  answer: 3
+  explanation: 'Les horloges ne sont pas assez synchronisées pour ordonner ces messages : il faut suivre la causalité.'
+  concept: ddia-topology-causality
+  difficulty: 3

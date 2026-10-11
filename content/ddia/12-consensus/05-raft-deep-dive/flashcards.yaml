@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Les trois rôles de Raft ?
+  back: 'Follower (passif), candidat (se présente), leader (reçoit les commandes et réplique).'
+  concept: ddia-raft-terms-roles
+- id: fc2
+  front: Que fait un nœud qui reçoit un terme plus grand ?
+  back: 'Il adopte ce terme et redevient follower. Un terme plus petit est refusé.'
+  concept: ddia-raft-terms-roles
+- id: fc3
+  front: Déclenchement d'une élection ?
+  back: 'Timeout aléatoire sans battement de cœur → terme + 1, candidat, vote pour soi, RequestVote à tous.'
+  concept: ddia-raft-election
+- id: fc4
+  front: Les deux conditions pour accorder sa voix ?
+  back: 'Pas encore voté pour un autre dans ce terme ; log du candidat au moins aussi à jour.'
+  concept: ddia-raft-vote-restriction
+- id: fc5
+  front: « Au moins aussi à jour » ?
+  back: 'Dernier terme plus grand ; à dernier terme égal, log au moins aussi long.'
+  concept: ddia-raft-vote-restriction
+- id: fc6
+  front: Vérification de cohérence d'AppendEntries ?
+  back: 'Le follower doit avoir une entrée à prevLogIndex de terme prevLogTerm, sinon il refuse.'
+  concept: ddia-raft-log-matching
+- id: fc7
+  front: Propriété de correspondance des logs ?
+  back: 'Même index et même terme dans deux logs → logs identiques jusqu''à cet index.'
+  concept: ddia-raft-log-matching
+- id: fc8
+  front: Que fait le leader après un refus ?
+  back: 'Il décrémente nextIndex pour ce follower et réessaie, puis écrase les entrées divergentes.'
+  concept: ddia-raft-log-matching
+- id: fc9
+  front: Quand commitIndex avance-t-il ?
+  back: 'Quand une majorité (leader compris) détient une entrée du terme courant ; les précédentes sont validées avec elle.'
+  concept: ddia-raft-commit-index

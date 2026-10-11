@@ -1,0 +1,50 @@
+id: ddia-ch14-l02-lab-groups-design
+title: Deux groupes, un seul flux de commandes
+difficulty: 3
+xp: 70
+concepts:
+- ddia-consumer-load-balancing
+- ddia-consumer-fan-out
+- ddia-consumer-groups
+- ddia-ack-redelivery
+source:
+  chapter: 11
+  pages: 444-446
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: shop
+  component: service
+  label: Service commandes
+  hint: Publie chaque commande payée.
+- type: queue
+  component: rabbit
+  label: Broker AMQP (sujet « commandes »)
+  hint: Livre les messages et attend les accusés de réception.
+- type: billing-group
+  component: zone
+  label: Groupe « facturation »
+  hint: Les membres se partagent les commandes.
+- type: billing
+  component: worker
+  label: Worker de facturation
+  hint: Émet la facture d'une commande. Il en faut plusieurs pour tenir la charge.
+- type: mail-group
+  component: zone
+  label: Groupe « e-mail »
+  hint: Reçoit lui aussi toutes les commandes.
+- type: mail
+  component: worker
+  label: Worker e-mail
+  hint: Envoie la confirmation au client.
+- type: poller
+  component: cron
+  label: Sondage de la table orders
+  hint: Interroge la base toutes les 200 ms.
+- type: webhook
+  component: external
+  label: Webhook direct vers la facturation
+  hint: Appel HTTP du service commandes vers un worker.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

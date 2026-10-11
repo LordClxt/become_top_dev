@@ -1,0 +1,3 @@
+**Chaque format de log fait un compromis entre compacité et fidélité.** L'instruction est minuscule (80 octets pour 40 000 lignes), mais elle est **réexécutée** : NOW(), RAND(), l'auto-incrément ou un trigger peuvent donner un autre résultat sur chaque follower. Le WAL est fidèle et gratuit, mais il parle **octets et blocs disque** : il enchaîne la réplication à une version du moteur.
+
+Le log **logique** paie la fidélité en volume (40 001 enregistrements, 4,8 Mo) mais il porte des **valeurs finales** dans un format indépendant du moteur : versions mixtes possibles, et lisible par d'autres systèmes (capture des changements). Les **triggers** rendent la main à ton code quand tu as besoin de filtrer ou de résoudre des conflits.

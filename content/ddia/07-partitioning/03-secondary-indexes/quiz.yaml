@@ -1,0 +1,98 @@
+id: ddia-ch07-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi un index secondaire pose-t-il un problème dans une base partitionnée par clé primaire ?
+  choices:
+  - 'Il ne correspond pas aux partitions : les documents ayant la même valeur sont répartis sur plusieurs partitions'
+  - Il est interdit dans les bases distribuées
+  - Il double toujours la taille des données
+  - Il ne fonctionne qu'avec le hachage
+  answer: 0
+  explanation: 'Les voitures rouges sont réparties selon leur identifiant, pas selon leur couleur.'
+  concept: ddia-secondary-index-partitioning
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: 'Index local (par document) : que coûte l''ajout d''une annonce de voiture rouge ?'
+  choices:
+  - Une écriture dans toutes les partitions
+  - Une écriture dans la partition d'index du terme « rouge », puis dans celle des données
+  - Une écriture dans la seule partition de l'annonce, données et index ensemble
+  - Une transaction distribuée
+  answer: 2
+  explanation: 'Chaque partition indexe ses propres documents : tout reste local.'
+  concept: ddia-local-document-index
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: 'Chaque partition dépasse 200 ms dans 1 % des cas. Une requête scatter/gather attend 20 partitions. Quelle proportion des requêtes dépasse 200 ms ?'
+  choices:
+  - Environ 1 %
+  - Environ 18 %
+  - Environ 20 %
+  - 100 %
+  answer: 1
+  explanation: '1 − 0,99²⁰ ≈ 0,18 : il suffit qu''une partition soit lente pour que la requête le soit.'
+  concept: ddia-scatter-gather
+  difficulty: 3
+- id: q4
+  type: single
+  prompt: Tu passes de 10 à 40 partitions avec un index local. Que devient le débit des recherches par couleur ?
+  choices:
+  - Il est multiplié par 4
+  - 'Il ne grandit pas : chaque recherche mobilise toutes les partitions'
+  - Il est divisé par 4 parce que l'index est plus petit
+  - Il devient infini
+  answer: 1
+  explanation: 'Le scatter/gather sollicite chaque partition pour chaque requête : ajouter des partitions ne libère pas de capacité pour ces requêtes.'
+  concept: ddia-scatter-gather
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Index global partitionné par terme : comment se lit « toutes les voitures rouges » ?'
+  choices:
+  - On interroge toutes les partitions de données
+  - On interroge toutes les partitions d'index
+  - On lit l'index sur le nœud central unique
+  - On va sur la partition d'index qui contient `color:rouge`, puis on lit les documents trouvés
+  answer: 3
+  explanation: 'Le terme détermine la partition de l''index : pas de scatter/gather.'
+  concept: ddia-global-term-index
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Pourquoi ne pas garder l'index global sur un seul nœud ?
+  choices:
+  - Il deviendrait le goulot d'étranglement et annulerait l'intérêt de partitionner
+  - Parce qu'un nœud ne sait pas trier
+  - Parce que les index ne peuvent pas être répliqués
+  - Parce que c'est plus lent à lire
+  answer: 0
+  explanation: 'Toutes les mises à jour et toutes les recherches convergeraient vers lui.'
+  concept: ddia-global-term-index
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Un utilisateur publie une annonce de Peugeot rouge dans une base à index global. Coche ce qui est vrai.
+  choices:
+  - L'écriture peut toucher une partition d'index pour la couleur et une autre pour la marque
+  - Juste après, une recherche « rouge » peut ne pas encore la voir
+  - La mise à jour de l'index est souvent asynchrone
+  - L'index est garanti à jour au moment où l'écriture est confirmée
+  answer: [0, 1, 2]
+  explanation: 'Rendre l''index synchrone exigerait une transaction distribuée ; DynamoDB met ses index globaux à jour en général en une fraction de seconde, plus en cas de panne.'
+  concept: ddia-global-index-async-updates
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: 'Un service de journalisation écrit 200 000 événements/s ; des analystes filtrent par niveau quelques fois par jour. Quel index secondaire ?'
+  choices:
+  - Global partitionné par terme
+  - Local partitionné par document
+  - Un index global sur un seul nœud
+  - Aucun index n'est possible
+  answer: 1
+  explanation: 'Écritures massives, lectures rares et tolérantes : on garde les écritures locales et on paie le scatter/gather de temps en temps.'
+  concept: ddia-local-document-index
+  difficulty: 3

@@ -1,0 +1,66 @@
+id: ddia-ch07-boss
+title: 'Boss : un cluster partitionné qui grandit sans trembler'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-partition-replication-combo
+- ddia-fixed-partition-count
+- ddia-global-term-index
+- ddia-global-index-async-updates
+- ddia-zookeeper-partition-metadata
+- ddia-automatic-rebalancing-risk
+- ddia-hash-mod-n-pitfall
+source:
+  chapter: 6
+  pages: 199-218
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Client
+  hint: Ne connaît que l'adresse de la couche de routage.
+- type: router
+  component: proxy
+  label: Couche de routage
+  hint: Transmet chaque requête au leader de la bonne partition.
+- type: zk
+  component: consensus
+  label: ZooKeeper
+  hint: Affectation partition → nœud faisant autorité.
+- type: node
+  component: zone
+  label: Nœud
+  hint: Une machine du cluster ; pose des partitions dedans.
+- type: primary
+  component: leader
+  label: Partition (leader)
+  hint: Reçoit les écritures de sa partition.
+- type: replica
+  component: follower
+  label: Partition (réplica)
+  hint: Copie d'une partition, sur un autre nœud que son leader.
+- type: gidx
+  component: index
+  label: Partition de l'index global
+  hint: Une tranche des termes (catégorie, ville…).
+- type: search
+  component: service
+  label: Service de recherche
+  hint: Cherche par catégorie.
+- type: admin
+  component: cron
+  label: Rééquilibreur validé par un humain
+  hint: Propose un plan ; un administrateur le valide avant de le publier.
+- type: modn
+  component: function
+  label: Routage hash mod N
+  hint: Nœud = hachage modulo le nombre de nœuds.
+- type: auto
+  component: monitoring
+  label: Rééquilibrage automatique sur détection de panne
+  hint: Déplace des partitions dès qu'un nœud semble mort.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Pourquoi une vue dérivée se recalcule-t-elle sans danger ?
+  back: C'est une fonction déterministe d'un historique immuable.
+  concept: ddia-derived-state-functional
+- id: fc2
+  front: Pourquoi dériver de façon asynchrone ?
+  back: Une panne de consommateur reste locale ; le synchrone propage les pannes.
+  concept: ddia-derived-state-functional
+- id: fc3
+  front: Flux vs lot pour l'évolution ?
+  back: 'Flux : refléter vite les changements. Lot : retraiter l''historique pour bâtir une vue restructurée.'
+  concept: ddia-reprocessing-evolution
+- id: fc4
+  front: Migration progressive d'une vue ?
+  back: Nouvelle vue dérivée à côté de l'ancienne, lecteurs déplacés graduellement, ancienne retirée en dernier.
+  concept: ddia-gradual-view-migration
+- id: fc5
+  front: L'image des chemins de fer ?
+  back: Une troisième rail pour faire rouler deux écartements pendant la transition, puis on retire l'ancien.
+  concept: ddia-gradual-view-migration
+- id: fc6
+  front: Architecture lambda ?
+  back: Événements immuables traités par une couche lots exacte et une couche flux rapide mais approximative.
+  concept: ddia-lambda-architecture
+- id: fc7
+  front: Défauts de lambda ?
+  back: Logique en double, fusion difficile des sorties, retraitement coûteux ou lots incrémentaux fragiles.
+  concept: ddia-lambda-architecture
+- id: fc8
+  front: Les trois capacités d'un moteur unifié ?
+  back: Rejouer l'historique, exactly-once, fenêtres sur le temps de l'événement.
+  concept: ddia-unified-batch-stream

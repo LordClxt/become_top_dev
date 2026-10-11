@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Le moteur : map, partition, tri, reduce"
+    goal: "Partitionner par hachage FNV-1a, trier chaque partition de façon stable, appeler Reduce une fois par clé, et refuser un job sans reducer ou sans fonction."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "La jointure sort-merge côté reduce"
+    goal: "Séparer clé de partition, clé de groupe et clé de tri pour obtenir un tri secondaire, puis joindre profils et événements sans aucune requête aléatoire."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Côté map, et toujours le même résultat"
+    goal: "Écrire une jointure broadcast hash sans tri ni reducer, prouver qu'elle rend les mêmes lignes que la jointure côté reduce quel que soit le nombre de tâches, et mesurer le déséquilibre d'une clé chaude."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Ta jointure côté reduce rend-elle exactement la même sortie avec 1, 3 ou 7 reducers, et d'une exécution à l'autre ? Qu'est-ce qui, dans ton code, garantit ce déterminisme (tri stable, pas d'itération sur une map Go pour produire la sortie…) et pourquoi un moteur comme Spark en a-t-il besoin pour recalculer une partition perdue ? Quand choisirais-tu la jointure broadcast plutôt que la jointure côté reduce ?"

@@ -1,0 +1,25 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 200},
+    {"id": "check", "type": "check", "x": 260, "y": 200},
+    {"id": "reqlog", "type": "reqlog", "x": 520, "y": 200},
+    {"id": "split", "type": "split", "x": 780, "y": 200},
+    {"id": "debits", "type": "debits", "x": 1040, "y": 60},
+    {"id": "credits", "type": "credits", "x": 1040, "y": 340},
+    {"id": "payer", "type": "payer", "x": 1300, "y": 60},
+    {"id": "payee", "type": "payee", "x": 1300, "y": 340},
+    {"id": "bal-a", "type": "bal-a", "x": 1560, "y": 60},
+    {"id": "bal-b", "type": "bal-b", "x": 1560, "y": 340}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "check", "kind": "sync", "label": "virement + id"},
+    {"id": "e2", "source": "check", "target": "reqlog", "kind": "async", "label": "demande valide"},
+    {"id": "e3", "source": "reqlog", "target": "split", "kind": "async"},
+    {"id": "e4", "source": "split", "target": "debits", "kind": "async", "label": "débit (id)"},
+    {"id": "e5", "source": "split", "target": "credits", "kind": "async", "label": "crédit (id)"},
+    {"id": "e6", "source": "debits", "target": "payer", "kind": "async"},
+    {"id": "e7", "source": "credits", "target": "payee", "kind": "async"},
+    {"id": "e8", "source": "payer", "target": "bal-a", "kind": "write", "label": "dédup + applique"},
+    {"id": "e9", "source": "payee", "target": "bal-b", "kind": "write", "label": "dédup + applique"}
+  ]
+}

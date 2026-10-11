@@ -1,0 +1,98 @@
+id: ddia-ch15-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Ton équipe fraude veut être alertée quand une même carte paie dans deux pays différents en moins de 30 minutes. Quel usage du traitement de flux est-ce ?
+  choices:
+  - Maintenir une vue matérialisée
+  - Recherche plein texte sur flux
+  - 'Traitement d''événements complexes (CEP) : un motif d''événements stocké, testé contre chaque événement qui passe'
+  - Un job batch nocturne
+  answer: 2
+  explanation: On décrit une séquence d'événements à reconnaître ; le moteur garde la requête et émet un événement complexe quand le motif apparaît. Un job nocturne arriverait bien trop tard.
+  concept: ddia-sp-cep
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: En quoi un moteur CEP inverse-t-il le fonctionnement d'une base de données ?
+  choices:
+  - Il stocke les données et jette les requêtes
+  - Les requêtes sont stockées longtemps et les événements défilent devant elles
+  - Il n'utilise pas de mémoire
+  - Il ne fonctionne qu'avec SQL
+  answer: 1
+  explanation: Dans une base, la donnée persiste et la requête est éphémère. En CEP (comme dans la recherche sur flux), la question persiste et la donnée passe.
+  concept: ddia-sp-cep
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Tu dois afficher le nombre de visiteurs uniques par jour pour 300 sites, avec 50 millions de visiteurs par site, et une erreur de 2 % est acceptable. Quelle approche ?
+  choices:
+  - Garder un ensemble exact des identifiants par site
+  - Un filtre de Bloom par site
+  - Compter tous les événements sans dédupliquer
+  - Un HyperLogLog par site et par jour, de quelques kilo-octets chacun
+  answer: 3
+  explanation: HyperLogLog estime une cardinalité avec une mémoire minuscule et une erreur de l'ordre du pour cent. Un ensemble exact coûterait des gigaoctets ; un Bloom répond à « est-il présent ? », pas « combien de distincts ? ».
+  concept: ddia-sp-probabilistic
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: « Un système de flux donne forcément des résultats approximatifs. » Vrai ou faux ?
+  choices:
+  - 'Faux : les algorithmes probabilistes sont une optimisation choisie, pas une propriété du modèle'
+  - Vrai, car le flux est infini
+  - Vrai, car les messages arrivent dans le désordre
+  - Vrai sauf avec Kafka
+  answer: 0
+  explanation: On peut calculer des agrégats exacts sur un flux ; on choisit l'approximation quand la mémoire ou la latence l'imposent.
+  concept: ddia-sp-probabilistic
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Un consommateur maintient la table des profils clients dans un cache, à partir du flux de CDC de la base. Quelle « fenêtre » de temps lui faut-il ?
+  choices:
+  - Les 5 dernières minutes
+  - La dernière heure, comme un tableau de bord
+  - Tout l'historique depuis le début (compacté pour ne garder que la dernière valeur par clé)
+  - Aucune, il ne garde aucun état
+  answer: 2
+  explanation: Un profil modifié il y a deux ans est toujours valable. Pour une vue matérialisée, la fenêtre remonte au début des temps ; la compaction de log évite de tout garder.
+  concept: ddia-sp-maintain-views
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Un site d'annonces stocke 2 millions d'alertes de recherche et reçoit 50 annonces par seconde. Comment trouver vite les alertes concernées par chaque annonce ?
+  choices:
+  - Tester chaque annonce contre les 2 millions d'alertes, une par une
+  - Indexer les requêtes elles-mêmes (comme le percolateur) pour ne tester que les candidates
+  - Relancer toutes les alertes toutes les nuits sur l'index des annonces
+  - Envoyer toutes les annonces à tous les utilisateurs
+  answer: 1
+  explanation: 100 millions de tests par seconde seraient trop coûteux. Indexer les requêtes permet de ne tester que celles qui peuvent correspondre ; le batch nocturne perdrait l'intérêt du temps réel.
+  concept: ddia-sp-search-streams
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Qu'est-ce qui distingue un pipeline de traitement de flux d'un système d'acteurs ?
+  choices:
+  - Les flux reposent sur des logs d'événements durables, lisibles par plusieurs abonnés
+  - Les pipelines de flux sont généralement acycliques
+  - Les acteurs ne peuvent pas échanger de messages
+  - Les acteurs servent surtout à gérer la concurrence, le flux à gérer des données
+  answer: [0, 1, 3]
+  explanation: Les acteurs communiquent par messages, souvent éphémères et un à un, avec des cycles possibles. Le traitement de flux est une technique de gestion de données sur des logs durables.
+  concept: ddia-sp-vs-actors
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Un job lit le flux « paiements », calcule un flux « paiements enrichis » et l'écrit sur un nouveau sujet. Dans quelle catégorie tombe cette sortie ?
+  choices:
+  - Écrire dans un système de stockage
+  - Pousser vers un humain
+  - Aucune des trois
+  - 'Produire un autre flux : c''est un opérateur dans un pipeline'
+  answer: 3
+  explanation: Les trois destinations sont stockage, humain, autre flux. Ici, la sortie est un flux consommé par d'autres jobs.
+  concept: ddia-sp-three-outputs
+  difficulty: 1

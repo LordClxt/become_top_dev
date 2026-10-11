@@ -1,0 +1,84 @@
+checks:
+- id: eu-local
+  label: Les Européens écrivent dans le leader européen
+  rule: edge_kind
+  source: usereu
+  target: leadereu
+  kind: sync
+- id: us-local
+  label: Les Américains écrivent dans le leader américain
+  rule: edge_kind
+  source: userus
+  target: leaderus
+  kind: sync
+- id: no-cross-write
+  label: Aucun Américain n'écrit à travers l'Atlantique
+  rule: no_edge
+  source: userus
+  target: leadereu
+- id: no-cross-write-eu
+  label: Aucun Européen non plus
+  rule: no_edge
+  source: usereu
+  target: leaderus
+- id: eu-to-us
+  label: Le leader européen transmet ses changements à l'américain, de façon asynchrone
+  rule: edge_kind
+  source: leadereu
+  target: leaderus
+  kind: async
+- id: us-to-eu
+  label: …et inversement
+  rule: edge_kind
+  source: leaderus
+  target: leadereu
+  kind: async
+- id: eu-follow
+  label: Le suiveur européen suit son leader local
+  rule: edge_kind
+  source: leadereu
+  target: followereu
+  kind: replication
+- id: us-follow
+  label: Le suiveur américain suit son leader local
+  rule: edge_kind
+  source: leaderus
+  target: followerus
+  kind: replication
+- id: eu-owner
+  label: Le suiveur européen n'a qu'une source
+  rule: single_owner
+  target: followereu
+- id: in-eu
+  label: Le leader européen est dans le datacenter Europe
+  rule: in_zone
+  source: leadereu
+  target: dceu
+- id: in-eu-f
+  label: Son suiveur aussi
+  rule: in_zone
+  source: followereu
+  target: dceu
+- id: in-us
+  label: Le leader américain est dans le datacenter États-Unis
+  rule: in_zone
+  source: leaderus
+  target: dcus
+- id: in-us-f
+  label: Son suiveur aussi
+  rule: in_zone
+  source: followerus
+  target: dcus
+- id: no-lock
+  label: Pas de verrou global synchrone
+  rule: count
+  source: lock
+  max: 0
+- id: no-seq
+  label: Pas de séquence d'identifiants partagée
+  rule: count
+  source: sequence
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

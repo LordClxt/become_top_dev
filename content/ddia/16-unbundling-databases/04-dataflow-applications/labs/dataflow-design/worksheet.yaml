@@ -1,0 +1,69 @@
+intro: |
+  Ta place de marché affiche des prix en dollars et encaisse en euros. Aujourd'hui, le **service d'achats** appelle en synchrone le **service de taux** à chaque paiement. Une collègue propose que le service d'achats **s'abonne** au flux des mises à jour de taux et garde le dernier taux de chaque devise dans une table locale. Tu chiffres les deux options.
+blocks:
+- id: avail
+  type: number
+  title: Disponibilité du chemin synchrone
+  prompt: Le service d'achats est disponible **99,9 %** du temps, le service de taux **99,5 %**, indépendamment. Avec l'appel synchrone, un paiement exige les deux. Quelle est la disponibilité du paiement, en % (une décimale) ?
+  unit: '%'
+- id: downtime
+  type: number
+  title: Ce que ça coûte par mois
+  prompt: Sur un mois de **30 jours**, combien de **minutes** le paiement est-il indisponible avec le chemin synchrone (indisponibilité = 100 % − la disponibilité exacte, 0,5995 %) ?
+  unit: min
+- id: latency
+  type: table
+  title: La latence du paiement
+  prompt: Le traitement propre d'un paiement prend **20 ms**. Un appel au service de taux ajoute **15 ms** ; une lecture dans la table locale **1 ms**. Quelle latence pour chaque approche ?
+  columns:
+  - id: ms
+    label: Latence (ms)
+  rows:
+  - id: rpc
+    label: Appel synchrone au service de taux
+  - id: flow
+    label: Abonnement + table locale
+- id: derive
+  type: match
+  title: Fonction standard ou code applicatif ?
+  prompt: Pour chaque donnée dérivée de la place de marché, la fonction de dérivation est-elle fournie par la base ou est-ce ton code ?
+  items:
+  - id: btree
+    label: Un index B-tree sur la colonne `seller_id`
+  - id: replica
+    label: Un réplica en lecture de la base des commandes
+  - id: stem
+    label: Un index de recherche avec racinisation française et synonymes métier (« sneakers » = « baskets »)
+  - id: model
+    label: Un modèle « les clients ont aussi acheté » entraîné sur les paniers
+  - id: card
+    label: La fiche produit précalculée exactement comme l'affiche l'app
+  categories:
+  - id: builtin
+    label: Fonction standard intégrée à la base
+  - id: app
+    label: Code applicatif
+- id: transport
+  type: multi
+  title: Transporter les taux
+  prompt: Que doit garantir le transport des mises à jour de taux pour que la table locale reste juste ?
+  options:
+  - id: order
+    label: Les mises à jour d'une même devise arrivent dans l'ordre où elles ont été émises
+  - id: noloss
+    label: Aucune mise à jour n'est perdue, même en cas de panne
+  - id: idem
+    label: Appliquer deux fois la même mise à jour ne change rien
+  - id: shuffle
+    label: Une relivraison dans le désordre est acceptable puisque seul le dernier taux compte
+- id: replay
+  type: choice
+  title: Rejouer six mois d'achats
+  prompt: Un bug d'arrondi oblige à recalculer six mois de paiements. Quel taux faut-il appliquer à chaque achat ?
+  options:
+  - id: today
+    label: Le taux de la table locale aujourd'hui
+  - id: versioned
+    label: Le taux en vigueur au moment de l'achat, grâce à l'identifiant de version du taux enregistré dans l'événement d'achat
+  - id: avg
+    label: La moyenne des taux sur six mois

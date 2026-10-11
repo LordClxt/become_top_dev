@@ -1,0 +1,8 @@
+{
+  "usages": {"fraud": "cep", "dash": "analytics", "cache": "view", "alert": "search"},
+  "exact": 800,
+  "hll": 3.6,
+  "naive": 100,
+  "forever": ["profile", "balance", "index"],
+  "actors": "log"
+}

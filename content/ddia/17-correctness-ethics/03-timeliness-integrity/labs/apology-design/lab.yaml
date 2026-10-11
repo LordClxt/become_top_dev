@@ -1,0 +1,18 @@
+id: ddia-ch17-l03-lab-apology-design
+title: 'S''excuser ou coordonner ?'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-correct-timeliness
+- ddia-correct-integrity
+- ddia-correct-apologies
+- ddia-correct-coordination-avoidance
+- ddia-correct-dataflow-integrity
+source:
+  chapter: 12
+  pages: 524-530
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

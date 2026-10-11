@@ -1,0 +1,36 @@
+{
+  "nodes": [
+    { "id": "ensemble", "type": "ensemble", "x": 300, "y": -330, "label": "Ensemble etcd", "w": 980, "h": 220 },
+    { "id": "etcd1", "type": "etcd", "x": 340, "y": -270, "parent": "ensemble" },
+    { "id": "etcd2", "type": "etcd", "x": 530, "y": -270, "parent": "ensemble" },
+    { "id": "etcd3", "type": "etcd", "x": 720, "y": -270, "parent": "ensemble" },
+    { "id": "etcd4", "type": "etcd", "x": 910, "y": -270, "parent": "ensemble" },
+    { "id": "etcd5", "type": "etcd", "x": 1100, "y": -270, "parent": "ensemble" },
+    { "id": "client", "type": "client", "x": 0, "y": 260 },
+    { "id": "router", "type": "router", "x": 260, "y": 260 },
+    { "id": "coord", "type": "coord", "x": 560, "y": 460 },
+    { "id": "txlog", "type": "txlog", "x": 560, "y": 660 },
+    { "id": "leaderA", "type": "leaderA", "x": 860, "y": 80 },
+    { "id": "followerA", "type": "followerA", "x": 1160, "y": 80 },
+    { "id": "leaderB", "type": "leaderB", "x": 860, "y": 380 },
+    { "id": "followerB", "type": "followerB", "x": 1160, "y": 380 }
+  ],
+  "edges": [
+    { "id": "e1", "source": "etcd1", "target": "etcd2", "kind": "replication", "label": "Raft" },
+    { "id": "e2", "source": "etcd1", "target": "etcd3", "kind": "replication", "label": "Raft" },
+    { "id": "e3", "source": "etcd1", "target": "etcd4", "kind": "replication", "label": "Raft" },
+    { "id": "e4", "source": "etcd1", "target": "etcd5", "kind": "replication", "label": "Raft" },
+    { "id": "e5", "source": "client", "target": "router", "kind": "sync" },
+    { "id": "e6", "source": "router", "target": "etcd2", "kind": "read", "label": "carte des partitions" },
+    { "id": "e7", "source": "router", "target": "leaderA", "kind": "sync" },
+    { "id": "e8", "source": "router", "target": "leaderB", "kind": "sync" },
+    { "id": "e9", "source": "router", "target": "coord", "kind": "sync", "label": "transaction A + B" },
+    { "id": "e10", "source": "coord", "target": "txlog", "kind": "write", "label": "décision" },
+    { "id": "e11", "source": "coord", "target": "leaderA", "kind": "sync", "label": "prepare / commit" },
+    { "id": "e12", "source": "coord", "target": "leaderB", "kind": "sync", "label": "prepare / commit" },
+    { "id": "e13", "source": "leaderA", "target": "followerA", "kind": "replication" },
+    { "id": "e14", "source": "leaderB", "target": "followerB", "kind": "replication" },
+    { "id": "e15", "source": "leaderA", "target": "etcd3", "kind": "write", "label": "bail de leader (époque)" },
+    { "id": "e16", "source": "leaderB", "target": "etcd4", "kind": "write", "label": "bail de leader (époque)" }
+  ]
+}

@@ -1,0 +1,18 @@
+id: ddia-ch07-l04-lab-rebalance-design
+title: 'Ajouter un nœud sans tout déménager'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-hash-mod-n-pitfall
+- ddia-fixed-partition-count
+- ddia-dynamic-partitioning
+- ddia-partitions-per-node
+- ddia-automatic-rebalancing-risk
+source:
+  chapter: 6
+  pages: 209-214
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

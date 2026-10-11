@@ -1,0 +1,17 @@
+id: ddia-ch17-l01-lab-dedup-design
+title: 'Le virement qui part deux fois'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-correct-exactly-once
+- ddia-correct-dedup-layers
+- ddia-correct-operation-id
+- ddia-correct-end-to-end-argument
+source:
+  chapter: 12
+  pages: 515-519
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,65 @@
+id: ddia-ch17-l02-lab-transfer-log-design
+title: Un virement sans commit atomique
+difficulty: 3
+xp: 70
+concepts:
+- ddia-correct-multi-partition
+- ddia-correct-funds-check
+- ddia-correct-conflict-routing
+source:
+  chapter: 12
+  pages: 521-524
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: client
+  label: Application client
+  hint: Génère l'identifiant unique du virement.
+- type: check
+  component: stream-processor
+  label: Vérificateur de fonds
+  hint: Partitionné par compte payeur ; tient les soldes et valide chaque demande.
+- type: reqlog
+  component: kafka
+  label: Log des requêtes
+  hint: Partitionné par identifiant de requête ; l'écriture unique qui rend le virement atomique.
+- type: split
+  component: stream-processor
+  label: Répartiteur débit / crédit
+  hint: Lit une requête, émet une instruction de débit et une de crédit portant l'identifiant.
+- type: debits
+  component: kafka
+  label: Partition du compte payeur
+  hint: Reçoit les instructions de débit du compte A.
+- type: credits
+  component: kafka
+  label: Partition du compte bénéficiaire
+  hint: Reçoit les instructions de crédit du compte B.
+- type: payer
+  component: worker
+  label: Processeur du compte payeur
+  hint: Déduplique par identifiant et applique le débit.
+- type: payee
+  component: worker
+  label: Processeur du compte bénéficiaire
+  hint: Déduplique par identifiant et applique le crédit.
+- type: bal-a
+  component: database
+  label: Soldes de la partition A
+  hint: État dérivé des débits.
+- type: bal-b
+  component: database
+  label: Soldes de la partition B
+  hint: État dérivé des crédits.
+- type: twopc
+  component: consensus
+  label: Coordinateur de commit à deux phases
+  hint: Transaction distribuée entre les partitions.
+- type: lock
+  component: external
+  label: Verrou global des comptes
+  hint: Un verrou unique pris pour chaque virement.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

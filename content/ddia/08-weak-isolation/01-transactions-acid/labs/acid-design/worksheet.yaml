@@ -1,0 +1,66 @@
+intro: |
+  Tu maintiens une messagerie : chaque nouveau message insère une ligne dans `emails` et incrémente `unread_count` dans la ligne de l'utilisateur. La base est transactionnelle. Le support te remonte des incidents, et l'équipe veut une politique de nouvel essai propre.
+blocks:
+- id: letters
+  type: match
+  title: Quelle lettre d'ACID ?
+  prompt: Chaque incident est évité (ou causé) par quelle garantie ?
+  items:
+  - id: half
+    label: L'insertion du message réussit, l'incrément du compteur échoue (disque plein) ; le message doit disparaître lui aussi
+  - id: peek
+    label: Pendant qu'une transaction ajoute un message, un autre écran voit le nouveau message mais l'ancien compteur
+  - id: reboot
+    label: La base confirme un message, le serveur redémarre, le message doit toujours être là
+  - id: rule
+    label: L'équipe décide que `unread_count` doit toujours égaler le nombre de messages non lus
+  - id: race
+    label: Deux livraisons simultanées lisent `unread_count = 4` et écrivent toutes deux 5
+  categories:
+  - id: a
+    label: Atomicité
+  - id: c
+    label: Cohérence
+  - id: i
+    label: Isolation
+  - id: d
+    label: Durabilité
+- id: retry
+  type: multi
+  title: Quelles erreurs réessayer ?
+  prompt: Coche les erreurs pour lesquelles un nouvel essai automatique a un sens.
+  options:
+  - id: deadlock
+    label: Interblocage détecté, la base a abandonné la transaction
+  - id: unique
+    label: Violation de la contrainte d'unicité sur l'adresse e-mail
+  - id: failover
+    label: Bascule de leader pendant le commit
+  - id: check
+    label: Contrainte `CHECK (unread_count >= 0)` violée
+  - id: conflict
+    label: Conflit de concurrence signalé par la base (« could not serialize access »)
+- id: backoff
+  type: number
+  title: Le backoff exponentiel
+  prompt: Première attente **50 ms**, doublée à chaque nouvel essai. Combien de millisecondes d'attente cumulée **avant le 5ᵉ essai** (le 1ᵉʳ essai part sans attendre) ?
+  unit: ms
+- id: timeout
+  type: choice
+  title: L'accusé qui n'arrive pas
+  prompt: Le client envoie COMMIT pour un paiement de 30 €, puis reçoit un délai dépassé. Que faire ?
+  options:
+  - id: idem
+    label: Réessayer avec la même clé d'idempotence, que la base retient avec le paiement
+    hint: Le commit a peut-être réussi
+  - id: blind
+    label: Réessayer immédiatement la même transaction
+  - id: fail
+    label: Annoncer à l'utilisateur que le paiement a échoué
+  - id: replica
+    label: Relire la ligne sur un réplica asynchrone pour savoir si elle existe
+- id: mails
+  type: number
+  title: L'effet de bord
+  prompt: La transaction d'inscription envoie l'e-mail de bienvenue **avant** son COMMIT. Elle est abandonnée deux fois pour conflit, puis réussit au 3ᵉ essai. Combien d'e-mails l'utilisateur reçoit-il ?
+  unit: e-mails

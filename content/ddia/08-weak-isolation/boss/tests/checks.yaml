@@ -1,0 +1,88 @@
+checks:
+- id: entry
+  label: L'application passe par l'API gateway
+  rule: edge_kind
+  source: app
+  target: gw
+  kind: sync
+- id: via
+  label: Tout paiement atteint la base en passant par le service
+  rule: path
+  source: app
+  target: ledger
+  via: pay
+- id: lock-zone
+  label: Le verrou du compte est dans la transaction de paiement
+  rule: in_zone
+  source: lockacct
+  target: txn
+- id: debit-zone
+  label: Le débit est dans la même transaction
+  rule: in_zone
+  source: debit
+  target: txn
+- id: order
+  label: On ne débite qu'après avoir verrouillé le compte
+  rule: path
+  source: pay
+  target: debit
+  via: lockacct
+- id: lock-write
+  label: Le verrou porte sur une ligne de la base (FOR UPDATE)
+  rule: edge_kind
+  source: lockacct
+  target: ledger
+  kind: write
+- id: debit-write
+  label: Le débit écrit dans la base
+  rule: edge_kind
+  source: debit
+  target: ledger
+  kind: write
+- id: publish
+  label: Le service publie « paiement validé » de façon asynchrone
+  rule: edge_kind
+  source: pay
+  target: queue
+  kind: async
+- id: mail-after
+  label: L'e-mail ne part que depuis la file, après le commit
+  rule: inbound_via
+  target: mail
+  via: queue
+- id: backup-read
+  label: La sauvegarde lit son instantané
+  rule: edge_kind
+  source: backup
+  target: ledger
+  kind: read
+- id: backup-store
+  label: La sauvegarde écrit sa copie dans le stockage
+  rule: edge_kind
+  source: backup
+  target: store
+  kind: write
+- id: audit-read
+  label: Le contrôle d'intégrité lit un instantané cohérent
+  rule: edge_kind
+  source: audit
+  target: ledger
+  kind: read
+- id: no-cache
+  label: Pas de solde lu hors transaction dans un cache
+  rule: count
+  source: cache
+  max: 0
+- id: no-lww
+  label: Pas de dernière écriture gagnante sur un solde
+  rule: count
+  source: lww
+  max: 0
+- id: no-orm
+  label: Pas de cycle lire-modifier-écrire dans l'application
+  rule: count
+  source: orm
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

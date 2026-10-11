@@ -1,0 +1,14 @@
+{
+  "tools": {
+    "seats": "internal",
+    "ack": "xa",
+    "scheduler": "lease",
+    "webfront": "dns",
+    "username": "lease"
+  },
+  "availability": 99.6,
+  "latency": 12,
+  "session": { "t": 6 },
+  "store": ["assign", "members", "flags"],
+  "runbook": ["find", "evidence", "decide", "apply", "postmortem"]
+}

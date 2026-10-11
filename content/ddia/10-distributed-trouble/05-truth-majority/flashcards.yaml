@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Pourquoi un nœud ne peut-il pas se fier à son jugement ?
+  back: Il peut être coupé dans un sens, figé, ou déclaré mort sans le savoir ; seul un quorum décide.
+  concept: ddia-truth-by-majority
+- id: fc2
+  front: Pourquoi un quorum majoritaire ?
+  back: Il n'existe qu'une majorité à la fois, donc pas de décisions contradictoires.
+  concept: ddia-truth-by-majority
+- id: fc3
+  front: Zombie ?
+  back: Un client ou leader qui, sorti d'une pause, croit encore détenir un verrou ou un bail expiré et agit.
+  concept: ddia-zombie-lock-holder
+- id: fc4
+  front: Jeton de clôture ?
+  back: Numéro croissant à chaque attribution du verrou, joint à chaque écriture ; la ressource rejette un jeton plus petit qu'un jeton déjà vu.
+  concept: ddia-fencing-token
+- id: fc5
+  front: Qui vérifie le jeton de clôture ?
+  back: La ressource elle-même (côté serveur), jamais le client seul.
+  concept: ddia-fencing-token
+- id: fc6
+  front: Faute byzantine ?
+  back: Un nœud qui ment ou envoie des messages arbitraires ; la tolérer exige plus des deux tiers de nœuds corrects.
+  concept: ddia-byzantine-fault
+- id: fc7
+  front: Où les fautes byzantines comptent-elles ?
+  back: Aérospatial (radiations) et systèmes à plusieurs organisations qui peuvent tricher (blockchains).
+  concept: ddia-byzantine-fault
+- id: fc8
+  front: Trois modèles de temps ?
+  back: Synchrone (bornes garanties), partiellement synchrone (bornes le plus souvent), asynchrone (aucune hypothèse).
+  concept: ddia-system-model
+- id: fc9
+  front: Trois modèles de panne ?
+  back: Crash-stop (ne revient pas), crash-recovery (revient, disque gardé, mémoire perdue), byzantine (n'importe quoi).
+  concept: ddia-system-model
+- id: fc10
+  front: Sûreté contre vivacité ?
+  back: Sûreté = rien de mal n'arrive (violation datée, irréparable), toujours exigée. Vivacité = quelque chose de bien finit par arriver, sous conditions.
+  concept: ddia-safety-liveness

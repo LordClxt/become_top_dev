@@ -1,0 +1,1 @@
+Un site laisse ses utilisateurs créer un compte (pseudo unique) puis envoyer une photo de profil, réduite en vignette par un worker. La file est souvent **plus rapide** que la réplication du stockage. Dessine l'architecture pour que le worker lise toujours la bonne photo et qu'un pseudo n'ait jamais deux propriétaires.

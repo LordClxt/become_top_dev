@@ -1,0 +1,223 @@
+{
+  "nodes": [
+    {
+      "id": "proddb",
+      "type": "proddb",
+      "x": 0,
+      "y": 420
+    },
+    {
+      "id": "snapshot",
+      "type": "snapshot",
+      "x": 300,
+      "y": 420
+    },
+    {
+      "id": "logs",
+      "type": "logs",
+      "x": 300,
+      "y": 0
+    },
+    {
+      "id": "cats",
+      "type": "cats",
+      "x": 300,
+      "y": 210
+    },
+    {
+      "id": "m1",
+      "type": "mapper",
+      "x": 620,
+      "y": 90
+    },
+    {
+      "id": "m2",
+      "type": "mapper",
+      "x": 620,
+      "y": 330
+    },
+    {
+      "id": "s1",
+      "type": "spill",
+      "x": 920,
+      "y": 90
+    },
+    {
+      "id": "s2",
+      "type": "spill",
+      "x": 920,
+      "y": 330
+    },
+    {
+      "id": "r1",
+      "type": "reducer",
+      "x": 1220,
+      "y": 90
+    },
+    {
+      "id": "r2",
+      "type": "reducer",
+      "x": 1220,
+      "y": 330
+    },
+    {
+      "id": "out",
+      "type": "out",
+      "x": 1520,
+      "y": 210
+    },
+    {
+      "id": "prev",
+      "type": "prev",
+      "x": 1520,
+      "y": 460
+    },
+    {
+      "id": "kv",
+      "type": "kv",
+      "x": 1820,
+      "y": 330
+    },
+    {
+      "id": "app",
+      "type": "app",
+      "x": 2120,
+      "y": 330
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "proddb",
+      "target": "snapshot",
+      "kind": "async",
+      "label": "export nocturne"
+    },
+    {
+      "id": "e2",
+      "source": "m1",
+      "target": "logs",
+      "kind": "read",
+      "label": "bloc"
+    },
+    {
+      "id": "e3",
+      "source": "m2",
+      "target": "logs",
+      "kind": "read",
+      "label": "bloc"
+    },
+    {
+      "id": "e4",
+      "source": "m1",
+      "target": "snapshot",
+      "kind": "read",
+      "label": ""
+    },
+    {
+      "id": "e5",
+      "source": "m2",
+      "target": "snapshot",
+      "kind": "read",
+      "label": ""
+    },
+    {
+      "id": "e6",
+      "source": "m1",
+      "target": "cats",
+      "kind": "read",
+      "label": "broadcast"
+    },
+    {
+      "id": "e7",
+      "source": "m2",
+      "target": "cats",
+      "kind": "read",
+      "label": "broadcast"
+    },
+    {
+      "id": "e8",
+      "source": "m1",
+      "target": "s1",
+      "kind": "write",
+      "label": "partitionne, trie"
+    },
+    {
+      "id": "e9",
+      "source": "m2",
+      "target": "s2",
+      "kind": "write",
+      "label": "partitionne, trie"
+    },
+    {
+      "id": "e10",
+      "source": "r1",
+      "target": "s1",
+      "kind": "read",
+      "label": "shuffle"
+    },
+    {
+      "id": "e11",
+      "source": "r1",
+      "target": "s2",
+      "kind": "read",
+      "label": "shuffle"
+    },
+    {
+      "id": "e12",
+      "source": "r2",
+      "target": "s1",
+      "kind": "read",
+      "label": "shuffle"
+    },
+    {
+      "id": "e13",
+      "source": "r2",
+      "target": "s2",
+      "kind": "read",
+      "label": "shuffle"
+    },
+    {
+      "id": "e14",
+      "source": "r1",
+      "target": "out",
+      "kind": "write",
+      "label": "part-0"
+    },
+    {
+      "id": "e15",
+      "source": "r2",
+      "target": "out",
+      "kind": "write",
+      "label": "part-1"
+    },
+    {
+      "id": "e16",
+      "source": "kv",
+      "target": "out",
+      "kind": "read",
+      "label": "chargement en masse"
+    },
+    {
+      "id": "e17",
+      "source": "kv",
+      "target": "prev",
+      "kind": "read",
+      "label": "rebascule"
+    },
+    {
+      "id": "e18",
+      "source": "app",
+      "target": "kv",
+      "kind": "read",
+      "label": "get(user_id)"
+    },
+    {
+      "id": "e19",
+      "source": "app",
+      "target": "proddb",
+      "kind": "write",
+      "label": "comptes"
+    }
+  ]
+}

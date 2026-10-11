@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Lectures monotones ?
+  back: Après avoir vu un état, l'utilisateur ne voit jamais un état plus ancien. Plus fort que la cohérence à terme, plus faible que la cohérence forte.
+  concept: ddia-lag-monotonic-reads
+- id: fc2
+  front: Technique des lectures monotones ?
+  back: Chaque utilisateur lit toujours sur le même réplica, choisi par hachage de son identifiant (pas au hasard).
+  concept: ddia-lag-monotonic-reads
+- id: fc3
+  front: Préfixe cohérent ?
+  back: Des écritures produites dans un ordre sont lues dans ce même ordre (pas de réponse avant la question).
+  concept: ddia-lag-consistent-prefix
+- id: fc4
+  front: Exemple de violation du préfixe cohérent ?
+  back: Mme Cake répond à M. Poons ; l'observateur lit la réponse via un follower rapide avant la question passée par un follower lent.
+  concept: ddia-lag-consistent-prefix
+- id: fc5
+  front: Pourquoi le préfixe cohérent casse-t-il entre partitions ?
+  back: Chaque partition a son log et avance indépendamment ; il n'y a pas d'ordre global.
+  concept: ddia-lag-prefix-partitions
+- id: fc6
+  front: Remède au préfixe incohérent ?
+  back: Écrire les données causalement liées dans la même partition ; sinon suivre explicitement les dépendances causales.
+  concept: ddia-lag-prefix-partitions
+- id: fc7
+  front: La question à se poser face au retard ?
+  back: Que se passe-t-il si le retard atteint des minutes ou des heures ? Ne jamais faire comme si l'asynchrone était synchrone.
+  concept: ddia-lag-design-mindset
+- id: fc8
+  front: Pourquoi des transactions ?
+  back: Pour que la base fournisse des garanties fortes, plutôt que chaque développeur les reconstruise dans l'application.
+  concept: ddia-lag-design-mindset

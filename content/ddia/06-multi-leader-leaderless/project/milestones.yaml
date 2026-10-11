@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Vecteurs de versions"
+    goal: "Comparer deux vecteurs (avant, après, égal, concurrent), les fusionner, et ne remplacer une version que si l'écrivain suivant l'avait vue."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Quorums et read repair"
+    goal: "Écrire vers tous les réplicas disponibles en exigeant w accusés, lire r réplicas, fusionner leurs réponses et réparer ceux qui étaient en retard."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Siblings, fusion et anti-entropie"
+    goal: "Conserver les écritures concurrentes comme siblings, les fusionner par union côté application, et aligner les réplicas en tâche de fond."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Pourquoi Prune décide-t-il qu'une version en remplace une autre grâce au contexte (Seen) de l'écrivain, et non en comparant simplement les deux Clock ? Donne le scénario qui casserait sinon. Ensuite : UnionMerge ne sait pas gérer la suppression d'un article du panier ; que faudrait-il stocker pour qu'un article retiré ne réapparaisse pas ?"

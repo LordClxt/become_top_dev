@@ -1,0 +1,98 @@
+id: ddia-ch12-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: 'Laquelle de ces transactions est une transaction distribuée hétérogène ?'
+  choices:
+  - Une transaction qui touche deux partitions d'un même cluster VoltDB
+  - Une transaction sur une seule base PostgreSQL avec deux tables
+  - Une transaction qui écrit dans PostgreSQL et acquitte un message dans IBM MQ
+  - Une transaction lue sur un réplica en lecture seule
+  answer: 2
+  explanation: 'Hétérogène = des technologies différentes. Deux partitions VoltDB exécutent le même logiciel : transaction interne.'
+  concept: ddia-dtx-internal-vs-heterogeneous
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: D'où vient surtout la lenteur des transactions distribuées ?
+  choices:
+  - Des écritures forcées sur disque (fsync) supplémentaires pour la reprise après crash
+  - De la compression des journaux
+  - Des allers-retours réseau supplémentaires
+  - Du parsing SQL répété sur chaque nœud
+  answer: [0, 2]
+  explanation: 'Le vote et la décision doivent être durables, et chaque phase coûte un aller-retour.'
+  concept: ddia-dtx-internal-vs-heterogeneous
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: 'Un consommateur écrit en base puis acquitte le message, dans une transaction XA. La base accepte mais le broker refuse la préparation. Que se passe-t-il ?'
+  choices:
+  - La ligne reste en base, le message sera redélivré
+  - Les deux sont annulés ; le message sera redélivré et retraité sans doublon
+  - Le message est acquitté, la ligne est perdue
+  - Le consommateur doit supprimer la ligne à la main
+  answer: 1
+  explanation: 'Atomicité : soit les deux, soit aucun. L''annulation rend le nouvel essai sûr.'
+  concept: ddia-dtx-exactly-once-messages
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: 'Le traitement du message envoie aussi un e-mail via un serveur SMTP sans support de 2PC. Que garantit XA pour cet e-mail ?'
+  choices:
+  - "Rien : en cas de nouvel essai, l'e-mail peut partir deux fois"
+  - Qu'il est envoyé exactement une fois
+  - Qu'il n'est envoyé qu'après le commit
+  - Qu'il est annulé si la transaction est annulée
+  answer: 0
+  explanation: 'Seuls les systèmes qui parlent le protocole de commit atomique participent.'
+  concept: ddia-dtx-exactly-once-messages
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Où vit le coordinateur dans une configuration XA typique ?
+  choices:
+  - Dans la base de données principale
+  - Dans le broker de messages
+  - Dans un cluster de consensus dédié, toujours répliqué
+  - Dans le processus de l'application, avec son journal sur le disque local du serveur
+  answer: 3
+  explanation: 'XA est une API : le coordinateur est une bibliothèque. Si le serveur meurt, le coordinateur aussi.'
+  concept: ddia-xa-standard
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Une transaction est en doute depuis une heure sur ta base. Un collègue propose de redémarrer la base pour libérer les verrous. Que se passe-t-il ?'
+  choices:
+  - Les verrous sont libérés et la transaction annulée
+  - La transaction est validée au redémarrage
+  - La transaction préparée et ses verrous survivent au redémarrage
+  - La base refuse de redémarrer
+  answer: 2
+  explanation: 'Une implémentation correcte conserve les transactions préparées à travers les redémarrages ; sinon elle romprait sa promesse.'
+  concept: ddia-dtx-orphaned-heuristic
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pourquoi une décision heuristique est-elle dangereuse ?
+  choices:
+  - Elle est lente
+  - Elle laisse un participant trancher seul, ce qui peut casser l'atomicité
+  - Elle efface le journal du coordinateur
+  - Elle oblige à redémarrer toutes les bases
+  answer: 1
+  explanation: '« Heuristique » est un euphémisme : le participant peut valider ce qui a été annulé ailleurs.'
+  concept: ddia-dtx-orphaned-heuristic
+  difficulty: 2
+- id: q8
+  type: multiple
+  prompt: Quelles sont des limites des transactions distribuées XA ?
+  choices:
+  - Le coordinateur non répliqué est un point unique de défaillance
+  - XA ne détecte pas les interblocages entre systèmes
+  - Une seule panne de participant fait échouer la transaction
+  - XA interdit d'utiliser plus de deux participants
+  answer: [0, 1, 2]
+  explanation: 'Plus petit dénominateur commun et amplification des pannes. Le nombre de participants n''est pas limité à deux.'
+  concept: ddia-dtx-limitations
+  difficulty: 2

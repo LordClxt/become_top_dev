@@ -1,0 +1,21 @@
+id: ddia-ch05-assignment
+title: Exploiter une base répliquée sans mentir aux utilisateurs
+difficulty: 3
+xp: 130
+concepts:
+- ddia-follower-bootstrap
+- ddia-leader-failover
+- ddia-failover-lost-writes
+- ddia-failover-timeout
+- ddia-repl-log-logical
+- ddia-lag-read-your-writes
+- ddia-lag-monotonic-reads
+- ddia-lag-consistent-prefix
+source:
+  chapter: 5
+  pages: 151-167
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

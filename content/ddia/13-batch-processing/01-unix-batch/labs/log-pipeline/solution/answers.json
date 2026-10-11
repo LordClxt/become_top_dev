@@ -1,0 +1,8 @@
+{
+  "pipeline": ["awk", "sort1", "uniq", "sort2", "head"],
+  "hashmem": 240,
+  "sessions": "extsort",
+  "runs": 63,
+  "kinds": {"page": "service", "reco": "batch", "fraud": "stream", "top": "batch"},
+  "safe": ["immutable", "less", "tmp"]
+}

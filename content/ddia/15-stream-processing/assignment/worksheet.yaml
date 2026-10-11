@@ -1,0 +1,96 @@
+intro: |
+  Roulio : 400 zones, **3 000 demandes de course par seconde** en pointe. Les applications enregistrent l'heure de chaque événement et les renvoient dès que le réseau revient. Mesure des délais d'arrivée au pipeline : **95 %** des événements arrivent en moins de 10 s, **99 %** en moins de 60 s, **99,9 %** en moins de 5 min, le reste plus tard encore (on compte 0,01 % au-delà).
+blocks:
+- id: clock
+  type: choice
+  title: Quelle horloge pour « courses terminées par zone » ?
+  prompt: Le tableau affiche le nombre de courses terminées par zone et par tranche de temps. Sur quelle heure fenêtrer ?
+  options:
+  - id: event
+    label: L'heure de fin de course inscrite dans l'événement (temps de l'événement), corrigée du décalage de l'appareil
+  - id: processing
+    label: L'heure à laquelle le job traite l'événement
+  - id: broker
+    label: L'heure d'écriture dans le broker
+- id: watermark
+  type: tuner
+  title: Le délai du watermark
+  prompt: 'Watermark = plus grand horodatage vu − délai. Une fenêtre est émise quand le watermark dépasse sa fin ; ce qui arrive après est retardataire. On veut **au plus 0,1 %** de retardataires et un tableau **au plus 120 s** en retard sur la fin de chaque fenêtre.'
+  params:
+  - id: delay
+    label: Délai toléré
+    unit: s
+    min: 0
+    max: 600
+    step: 5
+    default: 5
+  metrics:
+  - id: late
+    label: Retardataires (%)
+    expr: (delay < 10) * 5 + (delay >= 10 && delay < 60) * 1 + (delay >= 60 && delay < 300) * 0.1 + (delay >= 300) * 0.01
+    format: number
+  - id: lag
+    label: Retard d'émission après la fin de la fenêtre (s)
+    expr: delay
+    format: number
+  goals:
+  - id: late
+    label: Au plus 0,1 % de retardataires
+    expr: late <= 0.1
+  - id: lag
+    label: Émission au plus 120 s après la fin de la fenêtre
+    expr: lag <= 120
+- id: hopping
+  type: number
+  title: Combien de fenêtres par course ?
+  prompt: Le tableau montre les courses des **15 dernières minutes**, rafraîchi **toutes les 5 minutes** (fenêtres hopping). Dans combien de fenêtres chaque course compte-t-elle ?
+  unit: fenêtres
+- id: joins
+  type: match
+  title: Quelle jointure pour quel besoin ?
+  prompt: Range chaque besoin dans le type de jointure qui lui correspond.
+  items:
+  - id: accept
+    label: Mesurer le délai entre « course demandée » et « course acceptée » (au plus 2 minutes, sinon la demande expire)
+  - id: rating
+    label: Ajouter à chaque course terminée la note moyenne actuelle du chauffeur, tenue dans PostgreSQL
+  - id: favorites
+    label: Tenir pour chaque passager la liste des chauffeurs favoris actuellement disponibles, à partir des changelogs « favoris » et « disponibilités »
+  categories:
+  - id: ss
+    label: Flux-flux (fenêtrée)
+  - id: st
+    label: Flux-table (enrichissement)
+  - id: tt
+    label: Table-table (vue matérialisée)
+- id: state
+  type: number
+  title: L'état de la jointure demande-acceptation
+  prompt: 'Côté demandes, l''opérateur garde 2 minutes d''événements : 3 000 demandes/s, 300 octets chacune. Combien de **Mo** (1 Mo = 1 000 000 octets) ?'
+  unit: Mo
+- id: surge
+  type: choice
+  title: Le tarif dynamique
+  prompt: Le multiplicateur de tarif d'une zone change toutes les minutes. Un bogue oblige à retraiter les courses de la semaine pour recalculer les factures. Comment garantir le même montant qu'à l'origine ?
+  options:
+  - id: version
+    label: Chaque événement de course porte l'identifiant de la version du multiplicateur appliqué ; on joint sur cet identifiant
+  - id: current
+    label: Joindre chaque course au multiplicateur courant de sa zone
+  - id: faster
+    label: Retraiter assez vite pour que les multiplicateurs n'aient pas changé
+- id: payout
+  type: multi
+  title: Payer chaque chauffeur exactement une fois
+  prompt: Le job calcule le gain de chaque course et crédite le chauffeur via l'API de paiement. Quelles mesures garantissent un paiement unique malgré les reprises ?
+  options:
+  - id: key
+    label: Envoyer une clé d'idempotence (identifiant de la course) que l'API de paiement utilise pour ignorer un doublon
+  - id: offset
+    label: Écrire le solde du chauffeur avec l'offset du dernier message appliqué, dans la même écriture
+  - id: atomic
+    label: Valider la sortie publiée et l'avancement de l'offset d'entrée dans une même transaction du framework
+  - id: often
+    label: Prendre des checkpoints plus souvent, ce qui suffit à éviter tout doublon
+  - id: proc
+    label: Fenêtrer en temps de traitement pour éviter les retardataires

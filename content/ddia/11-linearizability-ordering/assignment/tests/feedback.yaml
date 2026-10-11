@@ -1,0 +1,32 @@
+blocks:
+  garanties:
+    options:
+      pseudo: 'Une contrainte d''unicité exige une valeur à jour unique : une garantie plus faible laisse deux comptes obtenir le nom.'
+      leader: 'C''est un verrou ou une élection : deux détenteurs, et chaque notification part deux fois.'
+      thread: 'Seul l''ordre cause → effet compte ; inutile de payer la linéarisabilité, mais la convergence seule ne l''assure pas.'
+      views: 'Un compteur approximatif tolère retard et ordre arbitraire.'
+      profile: 'Un retard est accepté et aucune dépendance causale n''est en jeu.'
+  recoupe:
+    tolerance:
+      abs: 0
+    wrong: 'w + r − n = 3 + 3 − 5.'
+  quorum:
+    options:
+      yes: 'Avec des délais variables, un lecteur peut voir la nouvelle valeur puis un autre l''ancienne ; et le quorum ne fournit pas de compare-and-set.'
+      lww: '« La dernière écriture gagne » choisit après coup et efface un des deux comptes.'
+  latence:
+    tolerance:
+      abs: 1
+    wrong: 'Aller-retour Virginie → Francfort (90 ms), puis le leader attend le follower le plus proche pour faire une majorité (Dublin, 25 ms).'
+  lamport:
+    options:
+      r1.c: 'X était à 10, rien n''est transmis : + 1.'
+      r2.c: 'Y était à 3 et reçoit 11 : max(3, 11) + 1.'
+      r3.c: 'Y vient de passer à 12 : + 1.'
+  equiv:
+    options:
+      lamport: 'Les horodatages de Lamport donnent un ordre après coup, mais ne disent pas quand il est figé : ils ne permettent pas de décider.'
+  sequenceur:
+    options:
+      gaps: 'Un séquenceur donne justement des numéros consécutifs, sans trou.'
+      causal: 'Une cause est numérotée avant qu''un client puisse la voir et y réagir : l''ordre d''un séquenceur unique respecte la causalité.'

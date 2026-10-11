@@ -1,0 +1,54 @@
+id: ddia-ch09-l02-lab-partition-design
+title: Une base en série sur plusieurs cœurs
+difficulty: 3
+xp: 70
+concepts:
+- ddia-serial-partition-per-core
+- ddia-cross-partition-tx-cost
+- ddia-serial-exec-constraints
+- ddia-deterministic-procedure-replication
+source:
+  chapter: 7
+  pages: 252-256
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Application
+  hint: Appelle des procédures stockées, jamais de transaction interactive.
+- type: router
+  component: load-balancer
+  label: Routeur par clé de partition
+  hint: Envoie chaque appel à la partition qui possède la clé.
+- type: part
+  component: partition
+  label: Partition (un thread)
+  hint: Exécute ses transactions une par une, sans verrou.
+- type: replica
+  component: follower
+  label: Réplica (rejoue les procédures)
+  hint: Ré-exécute les mêmes procédures déterministes, dans le même ordre.
+- type: coord
+  component: service
+  label: Coordinateur multi-partitions
+  hint: Exécute en lock-step une transaction qui touche plusieurs partitions.
+- type: reports
+  component: worker
+  label: Rapports analytiques
+  hint: Longues lectures, en lecture seule.
+- type: biglock
+  component: postgres
+  label: Base unique sous verrou global
+  hint: Toutes les transactions derrière un seul verrou.
+- type: disk
+  component: disk
+  label: Lecture disque en pleine transaction
+  hint: Aller chercher une donnée froide pendant que le thread attend.
+- type: session
+  component: external
+  label: Session interactive
+  hint: L'utilisateur garde la transaction ouverte entre deux clics.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

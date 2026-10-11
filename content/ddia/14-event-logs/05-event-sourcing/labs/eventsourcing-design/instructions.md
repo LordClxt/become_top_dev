@@ -1,0 +1,1 @@
+Une billetterie stocke toutes ses actions comme des événements immuables. Rejoue un porte-monnaie, distingue commandes et événements, empêche un siège d'être vendu deux fois, chiffre la croissance du log et traite une demande d'effacement.

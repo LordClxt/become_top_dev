@@ -1,0 +1,98 @@
+id: ddia-ch16-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Parmi ces données dérivées, laquelle repose sur la fonction de dérivation la plus spécifique à l'application ?
+  choices:
+  - Un index B-tree sur une colonne
+  - Un modèle de recommandation entraîné sur les clics
+  - Un réplica en lecture
+  - Un index de hachage sur la clé primaire
+  answer: 1
+  explanation: Extraction de caractéristiques et statistiques propres au domaine ; l'index sur colonne est intégré à toutes les bases.
+  concept: ddia-derivation-function
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Pourquoi le livre trouve-t-il les procédures stockées et déclencheurs mal adaptés au code de dérivation ?
+  choices:
+  - Ils sont plus lents que tout autre code
+  - Ils sont interdits en SQL standard
+  - Ils s'intègrent mal au versionnement, au déploiement, à la supervision et à la montée en charge
+  - Ils ne peuvent lire qu'une seule table
+  answer: 2
+  explanation: Ils ont été ajoutés après coup ; les outils modernes de déploiement sont faits pour le code, pas pour la base.
+  concept: ddia-derivation-function
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Dans le modèle « serveurs sans état + base », quel est le défaut que souligne le livre ?
+  choices:
+  - La base est une variable partagée qu'on peut lire et écrire, mais pas observer ; il faut interroger en boucle
+  - Les serveurs perdent les données au redémarrage
+  - La base ne supporte pas plusieurs clients
+  - Les serveurs sans état ne montent pas en charge
+  answer: 0
+  explanation: On voudrait s'abonner aux changements, comme les formules d'un tableur qui se recalculent seules.
+  concept: ddia-code-state-separation
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Quelle analogie le livre utilise-t-il pour le dataflow ?
+  choices:
+  - Une pile d'appels
+  - Un tableur dont les formules se recalculent quand une cellule change
+  - Un verrou tournant
+  - Une compaction de log
+  answer: 1
+  explanation: Les dérivés devraient se mettre à jour seuls quand leurs entrées changent.
+  concept: ddia-code-state-separation
+  difficulty: 1
+- id: q5
+  type: multiple
+  prompt: Pourquoi maintenir des données dérivées exige-t-il plus qu'une file de messages classique ?
+  choices:
+  - L'ordre des changements doit être stable, alors qu'une file peut relivrer dans le désordre
+  - Un message perdu rend le dérivé faux pour toujours
+  - Les messages doivent être chiffrés
+  - Il faut un traitement dont le résultat est le même qu'en l'absence de panne
+  answer: [0, 1, 3]
+  explanation: Ordre stable et tolérance aux pannes (idempotence, exactly-once) ; un log partitionné les fournit.
+  concept: ddia-state-change-dataflow
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Le service d'achats appelle en synchrone le service de taux de change à chaque paiement. Le service de taux tombe 20 minutes. Que se passe-t-il ?
+  choices:
+  - Rien, l'appel est réessayé plus tard
+  - Les paiements continuent avec le taux d'hier
+  - Les paiements échouent ou bloquent pendant 20 minutes
+  - Le service d'achats bascule automatiquement en dataflow
+  answer: 2
+  explanation: Une dépendance synchrone sur le chemin critique propage la panne.
+  concept: ddia-stream-vs-rpc-services
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Avantages de l'approche où le service d'achats s'abonne au flux des taux et les garde localement ?
+  choices:
+  - Pas d'aller-retour réseau sur le chemin critique
+  - La panne du service de taux ne bloque pas les achats
+  - Le taux local est toujours exactement le plus récent
+  - Le service de taux n'a plus besoin de connaître ses consommateurs
+  answer: [0, 1, 3]
+  explanation: Le taux local peut avoir un léger retard ; c'est le prix de l'asynchronisme.
+  concept: ddia-stream-vs-rpc-services
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Tu retraites six mois d'achats pour corriger un calcul. Avec quel taux de change faut-il joindre chaque achat ?
+  choices:
+  - Le taux valable au moment de l'achat, d'où l'historique des taux ou l'identifiant de version dans l'événement
+  - Le taux d'aujourd'hui
+  - La moyenne des six mois
+  - Le premier taux connu
+  answer: 0
+  explanation: Une jointure flux-table dépend du temps ; rejouer avec l'état d'aujourd'hui change le résultat.
+  concept: ddia-stream-vs-rpc-services
+  difficulty: 3

@@ -1,0 +1,80 @@
+intro: |
+  Une base **SSI** gère le planning des médecins de garde et un stock. Dans chaque déroulé, T1 et T2 sont **concurrentes** sauf mention contraire, et on s'intéresse au **commit de T2**, qui arrive en dernier.
+blocks:
+- id: verdicts
+  type: match
+  title: Le verdict au commit de T2
+  prompt: T2 valide-t-elle ou est-elle abandonnée ?
+  items:
+  - id: doctors
+    label: 'T1 et T2 lisent `alice` et `bob` (tous deux de garde). T1 retire `alice`, T2 retire `bob`. T1 valide, puis T2.'
+  - id: readonly
+    label: 'T1 écrit `alice` sans valider. T2 lit `alice` (ancienne version), n''écrit rien. T1 valide, puis T2.'
+  - id: aborted
+    label: 'T1 écrit `alice`, puis abandonne. T2 lit `alice` et écrit `carol`. T2 valide.'
+  - id: before
+    label: 'T1 écrit `alice` et valide. Ensuite seulement, T2 commence, lit `alice` et écrit `bob`. T2 valide.'
+  - id: stock
+    label: 'T2 lit `stock:42` (il reste 1 article) et insère une commande. T1 écrit `stock:42` et valide. Puis T2 valide.'
+  categories:
+  - id: commit
+    label: T2 valide
+  - id: abort
+    label: T2 est abandonnée
+- id: duration
+  type: number
+  title: La durée se paie
+  prompt: 'Dans ta charge, chaque seconde passée dans une transaction d''écriture donne **3 %** de risque qu''une prémisse soit invalidée. Quelle probabilité d''abandon pour une transaction d''écriture de **10 secondes** ?'
+  unit: '%'
+- id: batch
+  type: tuner
+  title: La bonne taille de lot
+  prompt: 'Un traitement met à jour **100 000 lignes** sous SSI, en transactions de `b` lignes. Chaque ligne prend **2 ms** ; le risque d''invalidation est de **1 % par seconde**. Trop gros, les lots sont souvent abandonnés ; trop petits, ils multiplient les commits. Trouve un réglage qui garde l''abandon **≤ 2 %** avec **500 transactions au plus**.'
+  params:
+  - id: b
+    label: Lignes par transaction
+    unit: lignes
+    min: 100
+    max: 5000
+    step: 100
+    default: 5000
+  metrics:
+  - id: dur
+    label: Durée d'une transaction
+    expr: b * 0.002
+    format: duration-s
+  - id: p
+    label: Probabilité d'abandon
+    expr: 1 - pow(0.99, dur)
+    format: percent
+  - id: n
+    label: Nombre de transactions
+    expr: ceil(100000 / b)
+    format: number
+  goals:
+  - id: aborts
+    label: Abandon de 2 % au plus
+    expr: p <= 0.02
+  - id: commits
+    label: 500 transactions au plus
+    expr: n <= 500
+- id: technique
+  type: match
+  title: Quelle technique ?
+  prompt: Pour chaque système, quelle façon d'obtenir la sérialisabilité convient le mieux ?
+  items:
+  - id: tickets
+    label: Billetterie en mémoire, procédures de quelques dizaines de µs, débit qui tient dans un cœur
+  - id: reports
+    label: PostgreSQL avec de longs rapports en lecture et peu de conflits d'écriture, latence p99 surveillée
+  - id: hot
+    label: Quelques lignes extrêmement disputées, base proche de la saturation ; attendre coûte moins que relancer
+  - id: distributed
+    label: Base répartie sur 40 machines qui doit rester sérialisable d'une partition à l'autre
+  categories:
+  - id: serial
+    label: Exécution réellement en série
+  - id: tpl
+    label: Verrouillage à deux phases (2PL)
+  - id: ssi
+    label: Sérialisabilité par snapshot (SSI)

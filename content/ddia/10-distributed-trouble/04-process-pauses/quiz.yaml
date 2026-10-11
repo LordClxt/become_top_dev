@@ -1,0 +1,103 @@
+id: ddia-ch10-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un leader vérifie que son bail est valide, puis subit une pause GC de 15 s avant d'écrire. Le bail durait 10 s. Que se passe-t-il ?
+  choices:
+  - L'écriture échoue car le runtime détecte la pause
+  - Le bail est prolongé automatiquement pendant la pause
+  - Il écrit alors qu'un autre nœud est peut-être devenu leader entre-temps
+  - Rien, la vérification a eu lieu avant la pause
+  answer: 2
+  explanation: 'Vérifier puis agir est une course : le thread ne voit pas qu''il a été figé, et le bail a expiré pendant la pause.'
+  concept: ddia-lease-check-race
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Quel autre défaut a la boucle de bail qui compare l'échéance du bail à l'horloge locale ?
+  choices:
+  - L'échéance a été fixée par une autre machine, dont l'horloge peut être décalée
+  - Elle renouvelle le bail trop souvent
+  - Elle utilise trop de mémoire
+  - Elle empêche le GC de tourner
+  answer: 0
+  explanation: Comparer une heure fixée ailleurs à l'horloge locale revient à se fier à des horloges synchronisées.
+  concept: ddia-lease-check-race
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Lesquelles de ces causes peuvent figer un processus pendant des secondes ?
+  choices:
+  - Une pause stop-the-world du ramasse-miettes
+  - La migration à chaud de la VM vers un autre hôte
+  - Un accès mémoire qui déclenche une lecture depuis le swap
+  - Un SIGSTOP envoyé par erreur par un opérateur
+  - L'utilisation d'une horloge monotone
+  answer:
+  - 0
+  - 1
+  - 2
+  - 3
+  explanation: L'horloge monotone ne fige rien ; les autres causes, si.
+  concept: ddia-process-pause
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Pourquoi est-ce plus difficile que la programmation multithread sur une seule machine ?
+  choices:
+  - Il n'y a ni mémoire partagée, ni mutex, ni compteur atomique, seulement des messages sur un réseau peu fiable
+  - Les threads distribués sont plus lents
+  - Les langages ne supportent pas les threads distribués
+  - Le GC est désactivé en distribué
+  answer: 0
+  explanation: Les outils de synchronisation locaux n'existent pas entre machines.
+  concept: ddia-process-pause
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Un service Java charge une classe pour la première fois depuis un volume réseau. Quel est le risque ?
+  choices:
+  - Aucun, le chargement est asynchrone
+  - Une corruption de la classe
+  - Une E/S synchrone cachée qui bloque le thread pendant la latence du réseau de stockage
+  - Un SIGSTOP automatique
+  answer: 2
+  explanation: Le thread attend une lecture disque qui, sur un volume réseau, a la latence du réseau.
+  concept: ddia-process-pause
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Que faut-il pour garantir qu'un airbag réagit avant son échéance ?
+  choices:
+  - Un serveur plus rapide avec beaucoup de RAM
+  - Un timeout adaptatif
+  - Un GC concurrent
+  - Un système temps réel strict (RTOS, pire temps d'exécution connu, allocation restreinte, tests poussés)
+  answer: 3
+  explanation: Le temps réel strict privilégie les échéances, souvent au prix du débit ; pour un serveur web, ce n'est pas rentable.
+  concept: ddia-realtime-guarantees
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Remets dans l'ordre la technique « GC comme panne planifiée ». Choisis la bonne séquence.
+  choices:
+  - Le répartiteur cesse d'envoyer de nouvelles requêtes au nœud → Le runtime prévient qu'une pause GC approche → Les requêtes en cours se terminent → Le GC tourne pendant que le nœud ne sert personne → Le nœud est remis dans le trafic
+  - Le runtime prévient qu'une pause GC approche → Le répartiteur cesse d'envoyer de nouvelles requêtes au nœud → Les requêtes en cours se terminent → Le GC tourne pendant que le nœud ne sert personne → Le nœud est remis dans le trafic
+  - Le répartiteur cesse d'envoyer de nouvelles requêtes au nœud → Les requêtes en cours se terminent → Le GC tourne pendant que le nœud ne sert personne → Le nœud est remis dans le trafic → Le runtime prévient qu'une pause GC approche
+  - Le runtime prévient qu'une pause GC approche → Le répartiteur cesse d'envoyer de nouvelles requêtes au nœud → Les requêtes en cours se terminent → Le nœud est remis dans le trafic → Le GC tourne pendant que le nœud ne sert personne
+  answer: 1
+  explanation: Les clients ne voient jamais la pause, ce qui fait baisser les percentiles élevés.
+  concept: ddia-gc-pause-mitigation
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Ton service tourne sur 2 nœuds à 50 % de charge. Tu veux retirer un nœud du trafic pendant chaque GC. Quel est le problème ?
+  choices:
+  - Aucun, la charge reste à 50 %
+  - L'autre nœud passe à 100 % de charge pendant le GC ; il faut plus de marge ou plus de nœuds
+  - Le GC dure plus longtemps sans trafic
+  - Le répartiteur ne peut pas retirer un nœud
+  answer: 1
+  explanation: 'Retirer un nœud reporte sa charge sur les autres : avec 6 nœuds à 50 %, les 5 restants passeraient à 60 %.'
+  concept: ddia-gc-pause-mitigation
+  difficulty: 3

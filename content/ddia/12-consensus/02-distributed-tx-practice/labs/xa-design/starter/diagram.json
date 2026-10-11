@@ -1,0 +1,6 @@
+{
+  "nodes": [
+    { "id": "broker", "type": "broker", "x": 0, "y": 160 }
+  ],
+  "edges": []
+}

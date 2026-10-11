@@ -1,0 +1,70 @@
+intro: |
+  Une table contient une seule ligne, `x = 500`. Plusieurs transactions s'entrelacent dans l'ordre ci-dessous :
+
+  1. T1 écrit `x = 300` (pas encore validée).
+  2. T2 lit `x`.
+  3. T1 valide.
+  4. T2 relit `x`.
+  5. T3 écrit `x = 700` (pas encore validée).
+  6. T4 lit `x`.
+  7. T3 abandonne.
+  8. T4 relit `x`.
+blocks:
+- id: timeline
+  type: table
+  title: Ce que lisent T2 et T4
+  prompt: Remplis la valeur lue à chaque lecture, selon le niveau d'isolation.
+  columns:
+  - id: ru
+    label: Read uncommitted
+  - id: rc
+    label: Read committed
+  rows:
+  - id: s2
+    label: '2. T2 lit x'
+  - id: s4
+    label: '4. T2 relit x'
+  - id: s6
+    label: '6. T4 lit x'
+  - id: s8
+    label: '8. T4 relit x'
+- id: anomalies
+  type: match
+  title: Empêché ou pas ?
+  prompt: Read committed empêche-t-il chacune de ces situations ?
+  items:
+  - id: unread
+    label: Un écran voit le nouveau message mais l'ancien compteur de non-lus, pendant la transaction de livraison
+  - id: car
+    label: L'annonce d'une voiture finit au nom de Bob et la facture au nom d'Alice
+  - id: counter
+    label: Deux transactions lisent un compteur à 10 et écrivent toutes deux 11
+  - id: backup
+    label: Une sauvegarde lit le compte A avant un virement et le compte B après
+  categories:
+  - id: yes
+    label: Empêché par read committed
+  - id: no
+    label: Possible en read committed
+- id: lock
+  type: choice
+  title: Pourquoi pas de verrou de lecture ?
+  prompt: Pourquoi la plupart des bases servent-elles l'ancienne valeur au lieu de faire attendre le lecteur derrière le verrou de l'écrivain ?
+  options:
+  - id: block
+    label: Une seule transaction d'écriture longue bloquerait toutes les lectures des lignes qu'elle touche
+    hint: Les lecteurs ne doivent pas attendre les écrivains
+  - id: dirty
+    label: Un verrou de lecture provoquerait des lectures sales
+  - id: durable
+    label: Les verrous de lecture ne sont pas durables
+- id: memory
+  type: number
+  title: Le prix des anciennes valeurs
+  prompt: Une migration met à jour **2 000 000** lignes de **250 octets** dans une seule transaction. Combien de Mo d'anciennes valeurs validées la base doit-elle garder jusqu'au commit ? (1 Mo = 10⁶ octets)
+  unit: Mo
+- id: counter
+  type: number
+  title: Le compteur
+  prompt: Un compteur vaut **10**. En read committed, T5 et T6 lisent toutes deux le compteur, puis T5 écrit lu + 1 et valide, puis T6 écrit lu + 1 et valide. Valeur finale ?
+  unit: ''

@@ -1,0 +1,3 @@
+**Une demande d'exclusif attend tous les détenteurs ; une demande partagée n'attend que les exclusifs.** T1 attend T2 (X sur `b`) ; T2 attend T3 et T4 (S sur `c`) ; T3 attend T1 et T5 (S sur `a`) ; T4 attend T5 (X sur `d`). T5, elle, avance.
+
+Le cycle **T1 → T2 → T3 → T1** est un interblocage : même quand T5 aura validé, T3 attendra toujours T1. La base doit abandonner une victime parmi T1, T2 et T3 (souvent celle qui a fait le moins de travail, ou la plus récente) ; ses verrous sont libérés, les autres avancent, et l'application relance la victime. T4 n'est pas dans le cycle : elle attend seulement que T5 finisse.

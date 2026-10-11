@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {"id": "api", "type": "api", "x": 0, "y": 200},
+    {"id": "events", "type": "events", "x": 280, "y": 200},
+    {"id": "deriver", "type": "deriver", "x": 560, "y": 200},
+    {"id": "balances", "type": "balances", "x": 840, "y": 200},
+    {"id": "merkle", "type": "merkle", "x": 280, "y": 420},
+    {"id": "auditor", "type": "auditor", "x": 560, "y": -40},
+    {"id": "alerts", "type": "alerts", "x": 840, "y": -40},
+    {"id": "backup", "type": "backup", "x": 1120, "y": 200},
+    {"id": "restore", "type": "restore", "x": 1120, "y": 420}
+  ],
+  "edges": [
+    {"id": "e1", "source": "api", "target": "events", "kind": "write", "label": "virement (id)"},
+    {"id": "e2", "source": "events", "target": "deriver", "kind": "async"},
+    {"id": "e3", "source": "deriver", "target": "balances", "kind": "write"},
+    {"id": "e4", "source": "events", "target": "merkle", "kind": "async", "label": "hache"},
+    {"id": "e5", "source": "auditor", "target": "events", "kind": "read", "label": "rejoue"},
+    {"id": "e6", "source": "auditor", "target": "balances", "kind": "read", "label": "compare"},
+    {"id": "e7", "source": "auditor", "target": "alerts", "kind": "async", "label": "écart"},
+    {"id": "e8", "source": "balances", "target": "backup", "kind": "async", "label": "sauvegarde"},
+    {"id": "e9", "source": "restore", "target": "backup", "kind": "read", "label": "restaure"}
+  ]
+}

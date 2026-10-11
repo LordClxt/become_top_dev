@@ -1,0 +1,28 @@
+id: ddia-ch05
+title: Réplication avec leader
+subtitle: 'Un leader, des followers, un log : copier les données sans perdre d''écritures ni tromper les lecteurs'
+source:
+  chapter: 5
+  pages: 151-167
+objectives:
+- Dire pourquoi on réplique (latence, disponibilité, débit de lecture) et décrire le rôle du leader, des followers et du flux de changements
+- Choisir entre réplication synchrone, asynchrone et semi-synchrone en chiffrant la latence d'écriture et le risque de perdre des écritures confirmées
+- Ajouter un follower par snapshot et position dans le log, et dérouler un rattrapage puis un failover en anticipant écritures perdues, split brain et mauvais délais
+- Comparer les formats de log de réplication (instructions, WAL, logique par ligne, triggers) et leurs conséquences sur le déterminisme, les mises à jour et la capture de changements
+- Repérer les anomalies dues au retard de réplication et garantir read-your-writes, lectures monotones et préfixe cohérent par le routage des lectures
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch04
+lessons:
+- 01-leaders-followers
+- 02-followers-failover
+- 03-replication-logs
+- 04-lag-read-your-writes
+- 05-monotonic-prefix
+xp:
+  assignment: 130
+  project: 250
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

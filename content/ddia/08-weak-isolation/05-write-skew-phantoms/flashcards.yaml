@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Write skew ?
+  back: Deux transactions lisent les mêmes objets puis écrivent des objets différents ; l'invariant vérifié par chacune tombe.
+  concept: ddia-write-skew-anomaly
+- id: fc2
+  front: Write skew vs mise à jour perdue ?
+  back: Même objet écrit = mise à jour perdue (ou écriture sale) ; objets différents = write skew.
+  concept: ddia-write-skew-anomaly
+- id: fc3
+  front: Parade au write skew sans sérialisabilité ?
+  back: SELECT … FOR UPDATE sur les lignes dont la décision dépend — si elles existent.
+  concept: ddia-write-skew-anomaly
+- id: fc4
+  front: Cinq exemples de write skew ?
+  back: Médecins de garde, réservation de salle, pièces d'un jeu, nom d'utilisateur, double dépense.
+  concept: ddia-write-skew-examples
+- id: fc5
+  front: Le motif du write skew ?
+  back: SELECT vérifie une condition → l'application décide → une écriture change cette condition.
+  concept: ddia-write-skew-check-then-act
+- id: fc6
+  front: Fantôme ?
+  back: Une écriture d'une transaction change le résultat d'une recherche d'une autre transaction.
+  concept: ddia-phantom-writes
+- id: fc7
+  front: Pourquoi FOR UPDATE échoue face à un fantôme ?
+  back: La condition porte sur l'absence de lignes ; rien n'est renvoyé, donc rien n'est verrouillé.
+  concept: ddia-phantom-writes
+- id: fc8
+  front: Matérialiser les conflits ?
+  back: Créer des lignes (salle × créneau) uniquement pour les verrouiller ; dernier recours, la sérialisabilité est préférable.
+  concept: ddia-materialize-conflicts

@@ -1,0 +1,98 @@
+id: ddia-ch12-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: 'Un algorithme décide toujours la valeur `null`, quelles que soient les propositions. Quelle propriété viole-t-il ?'
+  choices:
+  - L'accord uniforme
+  - L'intégrité
+  - La validité
+  - La terminaison
+  answer: 2
+  explanation: 'Tout le monde décide pareil, une seule fois, et rapidement ; mais null n''a été proposée par personne.'
+  concept: ddia-consensus-properties
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: 'Quelle propriété du consensus la validation en deux phases ne satisfait-elle pas ?'
+  choices:
+  - La terminaison, car si le coordinateur tombe les participants attendent indéfiniment
+  - L'accord uniforme
+  - L'intégrité
+  - La validité
+  answer: 0
+  explanation: '2PC est un consensus de type « dictateur » : sans lui, plus de progrès.'
+  concept: ddia-consensus-properties
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: 'Ton équipe veut tolérer la panne simultanée de 2 nœuds de consensus. Combien de nœuds au minimum ?'
+  choices:
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+  answer: 2
+  explanation: '2f + 1 = 5 ; la majorité de 5 est 3, qui survit à 2 pannes.'
+  concept: ddia-consensus-majority
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: 'Un cluster de 4 nœuds est coupé en deux moitiés de 2 par une panne réseau. Que se passe-t-il ?'
+  choices:
+  - Chaque moitié élit son leader et continue
+  - La moitié avec le plus petit identifiant continue
+  - Les deux moitiés continuent en lecture et en écriture, puis fusionnent
+  - "Aucune moitié n'a de majorité (3) : le cluster s'arrête, sans rien décider de faux"
+  answer: 3
+  explanation: 'La sûreté est préservée même sans majorité ; seule la vivacité est perdue.'
+  concept: ddia-consensus-majority
+  difficulty: 2
+- id: q5
+  type: multiple
+  prompt: 'Quelles correspondances entre diffusion à ordre total et propriétés du consensus sont justes ?'
+  choices:
+  - Accord → tous délivrent les mêmes messages dans le même ordre
+  - Intégrité → aucun message dupliqué
+  - Terminaison → aucun message perdu
+  - Validité → les messages arrivent en moins de 100 ms
+  answer: [0, 1, 2]
+  explanation: 'La validité signifie qu''aucun message n''est inventé ou corrompu ; elle ne dit rien des délais.'
+  concept: ddia-consensus-total-order-broadcast
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Le leader de l''époque 4 sort d''une longue pause GC et tente une écriture, alors qu''un leader d''époque 5 a été élu. Qu''est-ce qui l''empêche de décider ?'
+  choices:
+  - Son horloge locale lui indique qu'il est en retard
+  - Sa proposition doit être approuvée par un quorum, qui chevauche le quorum ayant élu le leader de l'époque 5
+  - Le nouveau leader lui envoie un message de démission qu'il est obligé de lire avant tout
+  - Les époques paires sont prioritaires
+  answer: 1
+  explanation: 'Au moins un nœud du quorum connaît l''époque 5 et refuse : le vieux leader découvre qu''il a été remplacé.'
+  concept: ddia-consensus-quorum-overlap
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: 'Un cluster etcd est réparti sur trois régions distantes avec des timeouts d''élection de 100 ms. Quel risque principal ?'
+  choices:
+  - Des élections intempestives à répétition, le système passant plus de temps à élire qu'à travailler
+  - Une perte de données confirmées
+  - Deux leaders dans la même époque
+  - Des fautes byzantines
+  answer: 0
+  explanation: 'Les délais réseau variables déclenchent de fausses détections de panne.'
+  concept: ddia-consensus-limits
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: 'Pourquoi la réplication avec leader à basculement automatique est-elle un problème de consensus ?'
+  choices:
+  - Parce que les followers doivent compresser le log
+  - Parce que tous les nœuds doivent s'accorder sur le nouveau leader, sinon c'est le split brain
+  - Parce que le leader doit être choisi par un humain
+  - Parce que la réplication est toujours synchrone
+  answer: 1
+  explanation: 'Élire un leader est un consensus ; les algorithmes en sortent grâce aux époques.'
+  concept: ddia-consensus-leader-paradox
+  difficulty: 2

@@ -1,0 +1,14 @@
+{
+  "trois-essais": 33,
+  "par-jour": 2400,
+  "couche": "request-id",
+  "flux": ["gen", "send", "begin", "apply", "commit"],
+  "maillon": {
+    "tcp-seq": "link",
+    "eth-crc": "link",
+    "tls": "link",
+    "e2e-sum": "e2e",
+    "req-id": "e2e"
+  },
+  "vrai": ["rare", "idem"]
+}

@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Dégrouper la base ?
+  back: Faire entre systèmes spécialisés les dérivations qu'une base fait en interne (index, vues, réplicas), reliées par un log.
+  concept: ddia-unbundled-database
+- id: fc2
+  front: Unix vs base relationnelle ?
+  back: 'Unix : abstraction basse, composition d''outils. Base : abstraction haute (SQL, transactions) qui cache la complexité.'
+  concept: ddia-unbundled-database
+- id: fc3
+  front: Les étapes d'un CREATE INDEX ?
+  back: Instantané cohérent, parcours et tri, application du retard, maintenance continue.
+  concept: ddia-index-as-stream
+- id: fc4
+  front: Créer un index ressemble à…
+  back: 'Ajouter un réplica ou amorcer un CDC vers un nouvel index : instantané + rattrapage du log + suivi.'
+  concept: ddia-index-as-stream
+- id: fc5
+  front: Fédération vs dégroupement ?
+  back: 'Fédération : unifier les lectures (une interface de requête). Dégroupement : unifier les écritures (un log).'
+  concept: ddia-federated-vs-unbundled
+- id: fc6
+  front: Couplage faible au niveau système ?
+  back: Le log met en tampon ; un consommateur en panne rattrape plus tard sans bloquer les autres.
+  concept: ddia-unbundling-async-log
+- id: fc7
+  front: Couplage faible au niveau humain ?
+  back: Les équipes évoluent indépendamment ; elles ne partagent qu'un format d'événements.
+  concept: ddia-unbundling-async-log
+- id: fc8
+  front: Quand ne pas dégrouper ?
+  back: Quand un seul produit couvre les besoins ; l'intégré est plus prévisible et plus simple à exploiter.
+  concept: ddia-unbundled-vs-integrated
+- id: fc9
+  front: Ce qui manque au dégroupement ?
+  back: Un langage déclaratif de composition, un « mysql | elasticsearch » qui installe instantané, CDC et maintenance.
+  concept: ddia-unbundled-vs-integrated

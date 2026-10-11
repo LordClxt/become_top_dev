@@ -1,0 +1,1 @@
+Rédige le post-mortem d'un double débit causé par une pause GC sur un leader à bail : reconstitue la chronologie, nomme la cause racine, simule une base qui vérifie des jetons de clôture, dimensionne le service de verrous, classe les garanties en sûreté et vivacité, choisis le modèle de système et les actions correctives qui ferment vraiment la faille.

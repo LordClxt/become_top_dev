@@ -1,0 +1,1 @@
+Deux workers écrivent dans un même fichier du stockage, protégé par un verrou. Le client 1 est sujet à de longues pauses GC. Dessine l'architecture qui empêche un client « zombie » de corrompre le fichier : un service de verrous majoritaire qui attribue des baux avec des jetons croissants, et un stockage qui vérifie ces jetons. Écarte les fausses bonnes idées.

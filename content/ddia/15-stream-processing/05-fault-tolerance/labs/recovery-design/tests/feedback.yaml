@@ -1,0 +1,19 @@
+blocks:
+  replayed:
+    tolerance:
+      abs: 0
+    wrong: Le job repart de l'offset 102 et va jusqu'au 105 inclus.
+  totals:
+    options:
+      naive.eur: 'Avant la panne, la ligne vaut déjà 10 + 20 + 30 + 40 €. Au rejeu, chaque message de 102 à 105 est ajouté, y compris ceux déjà appliqués.'
+      dedup.eur: 'La ligne a l''offset 103 : 102 et 103 sont ignorés, seuls 104 et 105 sont ajoutés.'
+      truth.eur: Additionne chaque montant une seule fois.
+  tuning:
+    goals:
+      replay: 'Trop long : à 8 000 messages/s, l''intervalle multiplié par le débit dépasse 200 000 messages.'
+      bandwidth: 'Trop court : écrire 2 000 Mo à chaque checkpoint dépasse 100 Mo/s.'
+  effects:
+    options:
+      state: 'L''état interne est restauré depuis le checkpoint et les messages rejoués le reconstruisent : c''est le périmètre du framework.'
+      transfer: 'Le virement a quitté le framework : un checkpoint ne peut pas le reprendre, et la banque ne fait pas partie d''une transaction interne. Elle doit reconnaître le doublon.'
+      output: 'Sortie et offset doivent être validés ensemble : sinon on publie sans avancer (doublon) ou on avance sans publier (perte).'

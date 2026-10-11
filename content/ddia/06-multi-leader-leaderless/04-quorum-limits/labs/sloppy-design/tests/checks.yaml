@@ -1,0 +1,82 @@
+checks:
+- id: entry
+  label: Le client passe par le coordinateur
+  rule: edge_kind
+  source: client
+  target: coord
+  kind: sync
+- id: two-reach
+  label: Deux nœuds d'origine joignables
+  rule: count
+  source: reach
+  min: 2
+  max: 2
+- id: one-cut
+  label: Un nœud d'origine coupé
+  rule: count
+  source: cut
+  min: 1
+  max: 1
+- id: write-home
+  label: Le coordinateur écrit sur les nœuds d'origine joignables
+  rule: edge_kind
+  source: coord
+  target: reach
+  kind: write
+- id: unreachable
+  label: Aucune écriture directe vers le nœud coupé
+  rule: no_edge
+  source: coord
+  target: cut
+- id: write-neighbor
+  label: Le coordinateur confie une copie au voisin (quorum lâche)
+  rule: edge_kind
+  source: coord
+  target: neighbor
+  kind: write
+- id: one-neighbor
+  label: Un seul nœud voisin
+  rule: count
+  source: neighbor
+  min: 1
+  max: 1
+- id: handoff
+  label: Le voisin rend l'écriture au nœud d'origine (hinted handoff)
+  rule: edge_kind
+  source: neighbor
+  target: cut
+  kind: replication
+- id: handoff-only
+  label: Le nœud coupé ne reçoit l'écriture que par le hinted handoff
+  rule: inbound_via
+  target: cut
+  via: neighbor
+- id: home-reach
+  label: Les nœuds joignables sont des nœuds d'origine
+  rule: in_zone
+  source: reach
+  target: home
+- id: home-cut
+  label: Le nœud coupé aussi
+  rule: in_zone
+  source: cut
+  target: home
+- id: monitor
+  label: La péremption est mesurée sur les nœuds d'origine
+  rule: edge_kind
+  source: monitor
+  target: reach
+  kind: read
+- id: no-leader
+  label: Pas de leader dans une base sans leader
+  rule: count
+  source: leader
+  max: 0
+- id: no-reject
+  label: Le quorum lâche accepte l'écriture au lieu de la rejeter
+  rule: count
+  source: reject
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

@@ -1,0 +1,45 @@
+id: ddia-ch05-l05-lab-read-routing
+title: Un routeur de lectures qui ne remonte pas le temps
+difficulty: 3
+xp: 70
+concepts:
+- ddia-lag-monotonic-reads
+- ddia-lag-read-your-writes
+- ddia-leader-follower
+source:
+  chapter: 5
+  pages: 162-165
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: alice
+  component: browser
+  label: Alice
+  hint: Utilisatrice ; hash("alice") mod 2 = 0.
+- type: bob
+  component: browser
+  label: Bob
+  hint: Utilisateur ; hash("bob") mod 2 = 1.
+- type: router
+  component: proxy
+  label: Routeur par hachage de l'ID utilisateur
+  hint: Envoie les écritures au leader et chaque utilisateur vers un réplica fixe.
+- type: leader
+  component: leader
+  label: Leader
+  hint: Reçoit toutes les écritures.
+- type: r0
+  component: follower
+  label: Réplica 0
+  hint: Sert les lectures des utilisateurs dont le hachage vaut 0.
+- type: r1
+  component: follower
+  label: Réplica 1
+  hint: Sert les lectures des utilisateurs dont le hachage vaut 1.
+- type: rr
+  component: load-balancer
+  label: Répartiteur aléatoire (round-robin)
+  hint: Envoie chaque lecture à un follower différent.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

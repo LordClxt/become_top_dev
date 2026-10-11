@@ -1,0 +1,69 @@
+intro: |
+  La transaction **A** vérifie qu'une salle est libre avant de la réserver :
+
+  ```sql
+  SELECT * FROM bookings
+  WHERE room_id = 7 AND end_time > '14:00' AND start_time < '15:00';
+  ```
+
+  Elle ne trouve aucune ligne et n'a pas encore validé. La base est en 2PL sérialisable avec des **verrous de plage d'index**. On note un conflit **vrai** si l'écriture changerait le résultat de la recherche de A, **faux** si elle est bloquée sans le changer.
+blocks:
+- id: room-index
+  type: match
+  title: Avec l'index `room_id`
+  prompt: La base attache le verrou partagé de A à l'entrée `7` de l'index `room_id`. Que devient chaque écriture concurrente ?
+  items:
+  - id: same
+    label: Insérer une réservation de la salle 7 de 14 h 30 à 15 h 30
+  - id: evening
+    label: Insérer une réservation de la salle 7 de 18 h à 19 h
+  - id: other
+    label: Insérer une réservation de la salle 9 de 14 h 30 à 15 h 30
+  - id: move
+    label: Déplacer une réservation de la salle 9 vers la salle 7, de 10 h à 11 h
+  categories:
+  - id: real
+    label: Bloquée, conflit vrai
+  - id: fake
+    label: Bloquée, faux conflit
+  - id: pass
+    label: Passe sans attendre
+- id: time-index
+  type: match
+  title: Avec l'index `start_time`
+  prompt: Cette fois, la base attache le verrou à la plage 14 h–15 h de l'index `start_time` (toutes salles). Que deviennent les mêmes écritures ?
+  items:
+  - id: same
+    label: Insérer une réservation de la salle 7 de 14 h 30 à 15 h 30
+  - id: evening
+    label: Insérer une réservation de la salle 7 de 18 h à 19 h
+  - id: other
+    label: Insérer une réservation de la salle 9 de 14 h 30 à 15 h 30
+  categories:
+  - id: real
+    label: Bloquée, conflit vrai
+  - id: fake
+    label: Bloquée, faux conflit
+  - id: pass
+    label: Passe sans attendre
+- id: exact-cost
+  type: number
+  title: Le prix du prédicat exact
+  prompt: Avec de vrais verrous de prédicat, chaque insertion doit être comparée à tous les prédicats actifs. En pointe, **1 500** prédicats sont actifs et une comparaison coûte **2 µs**. Combien de millisecondes chaque insertion passe-t-elle à vérifier les prédicats ?
+  unit: ms
+- id: false-rate
+  type: number
+  title: Le prix de l'approximation
+  prompt: 'La salle 7 reçoit des réservations d''une heure, réparties uniformément sur une journée de 10 h ouvrées. Avec le verrou sur l''entrée `room_id = 7`, quelle part des écritures de la salle 7 bloquées pendant A sont des faux conflits ?'
+  unit: '%'
+- id: no-index
+  type: choice
+  title: Pas d'index
+  prompt: Une autre transaction cherche les réservations dont `organizer_email = 'lea@ex.fr'`, colonne **sans index**. Que verrouille la base ?
+  options:
+  - id: table
+    label: Un verrou partagé sur toute la table `bookings`
+  - id: none
+    label: Rien, puisqu'aucun index ne correspond
+  - id: rows
+    label: Seulement les lignes trouvées

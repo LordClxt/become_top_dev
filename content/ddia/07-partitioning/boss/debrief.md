@@ -1,0 +1,3 @@
+**Un cluster qui grandit sans trembler repose sur des partitions fixes, une affectation faisant autorité et un humain dans la boucle.** Avec plus de partitions que de nœuds, ajouter une machine revient à lui confier quelques partitions entières : l'affectation clé → partition ne change jamais, contrairement à hash mod N qui ferait tout déménager. Chaque partition a un leader et un réplica sur un autre nœud : un nœud est leader des unes, suiveur des autres.
+
+Le client ne voit que la couche de routage, qui suit ZooKeeper ; le rééquilibreur y publie l'affectation **après** validation humaine, pour qu'un nœud lent ne déclenche pas une cascade. L'index global, découpé par terme et alimenté en asynchrone, donne des recherches ciblées au prix d'un léger retard.

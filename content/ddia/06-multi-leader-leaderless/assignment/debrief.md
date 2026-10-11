@@ -1,0 +1,5 @@
+**« Toujours accepter un ajout » est la raison d'être de Dynamo.** Un leader unique ou une réplication synchrone entre sites bloquent les écritures à la première panne ou coupure ; une base sans leader, avec un quorum **local** et un quorum **lâche**, continue d'écrire tant que w nœuds quelconques répondent. Le prix : la lecture n'est plus garantie à jour dans les cas limites (quorum lâche, écriture partielle non annulée, restauration, lecture concurrente) ; pour un panier, c'est acceptable.
+
+Pendant une coupure de 15 minutes, le voisin accumule **360 000** écritures avec indice et met **180 s** à les rendre : la fin d'une coupure n'est pas la fin de l'incident, d'où l'intérêt de superviser la péremption.
+
+Enfin, rien ne se perd si le client suit le protocole : lire, fusionner les siblings par union (avec pierres tombales), ajouter, écrire avec le contexte `{A: 3, B: 2, C: 1}`. LWW, lui, aurait jeté des ajouts acquittés. Plusieurs réglages satisfont le quorum demandé (n = 4, w = 2, r = 3 ou n = 5, w = 3, r = 3, par exemple) : ce qui compte est le raisonnement n − w, n − r et w + r > n.

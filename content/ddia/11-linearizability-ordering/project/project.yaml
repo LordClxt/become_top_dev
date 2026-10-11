@@ -1,0 +1,14 @@
+id: ddia-ch11-project
+title: "Tinybase — l'horloge, le juge et le séquenceur"
+pitch: "Tinybase apprend à ordonner : des horloges de Lamport pour un ordre total cohérent avec la causalité, un vérificateur qui dit si un historique est linéarisable, et une diffusion à ordre total qui attribue chaque nom d'utilisateur à un seul propriétaire."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 240
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["ordering.go"]
+concepts: [ddia-lamport-timestamps, ddia-linearizability-definition, ddia-linearizability-cas-register, ddia-total-order-broadcast-def, ddia-tob-linearizable-storage]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

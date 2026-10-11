@@ -1,0 +1,28 @@
+blocks:
+  pairs:
+    tolerance:
+      abs: 0
+    wrong: 'Chaque paire de cycles lit la même valeur et n''ajoute qu''un seul : 100 cycles, 50 paires.'
+  fix:
+    options:
+      views: 'Le calcul s''exprime en SQL : laisse la base le faire, sans cycle dans l''application.'
+      game: 'Une règle trop complexe pour une requête : on verrouille la pièce le temps de vérifier.'
+      wiki: 'Sans transactions, on n''écrit que si la page n''a pas changé depuis la lecture.'
+      cart: 'Deux réplicas acceptent des écritures : ni verrou ni CAS ne s''appliquent, il faut fusionner.'
+      lazy: 'L''équipe ne veut rien gérer : c''est à la base de détecter et d''abandonner la perdante.'
+  dbs:
+    options:
+      innodb: Le repeatable read d'InnoDB ne détecte pas les mises à jour perdues.
+      rc: Read committed ne détecte rien ; la seconde écriture écrase simplement la première.
+  orm:
+    options:
+      atomic: 'L''ORM lit, l''application calcule, l''ORM écrit : c''est un cycle, pas une opération atomique.'
+      dirty: Toutes les lectures portent sur des données validées ; le problème est l'écrasement.
+  cas:
+    tolerance:
+      abs: 0
+    wrong: 'Tour 1 : 10 tentatives, tour 2 : 9… jusqu''à 1. Additionne.'
+  lww:
+    tolerance:
+      abs: 0
+    wrong: LWW ne garde qu'une des trois écritures, qui vaut toutes lu + 1.

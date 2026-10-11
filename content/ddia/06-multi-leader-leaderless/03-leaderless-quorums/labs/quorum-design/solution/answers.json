@@ -1,0 +1,12 @@
+{
+  "tolere": {
+    "a.w": 1, "a.r": 1, "a.q": 1,
+    "b.w": 2, "b.r": 2, "b.q": 1,
+    "c.w": 0, "c.r": 2, "c.q": 1,
+    "d.w": 3, "d.r": 3, "d.q": 0
+  },
+  "reglage": {"n": 5, "w": 3, "r": 3},
+  "latence": 6,
+  "repare": {"hot": "rr", "cold": "ae", "soon": "rr"},
+  "lecture": ["send", "wait", "compare", "repair"]
+}

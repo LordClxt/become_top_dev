@@ -1,0 +1,63 @@
+intro: |
+  Tu conçois le stockage d'un parc de **capteurs industriels**. Chaque capteur envoie une mesure par seconde ; l'équipe veut surtout afficher la courbe **d'un capteur sur une semaine**. La base partitionne **par plage de clés** et réplique chaque partition.
+blocks:
+- id: stockage
+  type: number
+  title: Le volume par nœud
+  prompt: Le jeu de données fait **6 To**, chaque partition est répliquée **3 fois**, et les copies sont réparties équitablement sur **9 nœuds**. Combien de To stocke chaque nœud ?
+  unit: To
+- id: bornes
+  type: table
+  title: Où vit chaque clé ?
+  prompt: 'Une table annexe (les techniciens) est partitionnée par nom avec les bornes `g`, `n`, `t` : P1 = [a, g), P2 = [g, n), P3 = [n, t), P4 = [t, fin). Donne le numéro de partition (1 à 4) de chaque clé.'
+  columns:
+  - id: p
+    label: Partition (1 à 4)
+  rows:
+  - id: hugo
+    label: hugo
+  - id: zoe
+    label: zoé
+  - id: alice
+    label: alice
+  - id: gaston
+    label: gaston
+  - id: nina
+    label: nina
+- id: chaud
+  type: number
+  title: Le point chaud
+  prompt: Les mesures ont pour clé l'**horodatage** seul. 8 partitions, **24 000 écritures/s** au total. Combien d'écritures par seconde reçoit la partition la plus chargée ?
+  unit: écritures/s
+- id: corrige
+  type: number
+  title: Après correction
+  prompt: On préfixe la clé par l'identifiant du capteur (des milliers de capteurs, bien répartis). Combien d'écritures par seconde reçoit maintenant chaque partition, en moyenne ?
+  unit: écritures/s
+- id: cle
+  type: choice
+  title: La bonne clé
+  prompt: Quelle clé sert le mieux « la courbe d'un capteur sur une semaine » tout en répartissant les écritures ?
+  options:
+  - id: ts
+    label: '`horodatage`'
+  - id: sensor-ts
+    label: '`capteur/horodatage`'
+    hint: Le capteur d'abord, le temps ensuite
+  - id: uuid
+    label: Un UUID aléatoire par mesure
+  - id: ts-sensor
+    label: '`horodatage/capteur`'
+- id: vrai
+  type: multi
+  title: Partitionner et répliquer
+  prompt: Coche les affirmations vraies pour ce cluster.
+  options:
+  - id: lead-follow
+    label: Un nœud peut être leader de certaines partitions et suiveur d'autres
+  - id: one-part
+    label: Chaque mesure appartient à exactement une partition
+  - id: no-repl
+    label: Partitionner suffit à survivre à la perte d'un nœud
+  - id: random
+    label: Placer chaque mesure sur un nœud au hasard permettrait de relire une clé sur un seul nœud

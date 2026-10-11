@@ -1,0 +1,36 @@
+id: ddia-ch07-l05-lab-routing-design
+title: 'Une couche de routage qui suit ZooKeeper'
+difficulty: 3
+xp: 70
+concepts:
+- ddia-request-routing-approaches
+- ddia-zookeeper-partition-metadata
+source:
+  chapter: 6
+  pages: 214-218
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Client
+  hint: Ne connaît pas l'affectation des partitions.
+- type: router
+  component: proxy
+  label: Couche de routage
+  hint: Équilibreur conscient des partitions ; transmet sans traiter.
+- type: node
+  component: partition
+  label: Nœud de la base
+  hint: Porte plusieurs partitions.
+- type: zk
+  component: consensus
+  label: ZooKeeper
+  hint: Affectation partition → nœud faisant autorité.
+- type: static
+  component: file
+  label: Liste d'adresses figée dans le client
+  hint: Fichier de configuration qu'on modifie à la main.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,9 @@
+{
+  "volumes": {"prod-reduce.go": 3040, "prod-bcast.go": 60000, "cat-reduce.go": 3000, "cat-bcast.go": 30},
+  "prodjoin": "reduce",
+  "hot": 248.8,
+  "tune": {"r": 200, "k": 25},
+  "flow": ["snapshot", "join", "pairs", "build", "check", "swap"],
+  "replay": ["immutable", "refdate", "sortout"],
+  "memory": "hash"
+}

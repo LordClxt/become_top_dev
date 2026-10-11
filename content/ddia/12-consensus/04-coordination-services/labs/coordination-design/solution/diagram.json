@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    { "id": "ensemble", "type": "ensemble", "x": 520, "y": -260, "label": "Ensemble ZooKeeper", "w": 560, "h": 220 },
+    { "id": "zk1", "type": "zk", "x": 560, "y": -200, "parent": "ensemble" },
+    { "id": "zk2", "type": "zk", "x": 740, "y": -200, "parent": "ensemble" },
+    { "id": "zk3", "type": "zk", "x": 920, "y": -200, "parent": "ensemble" },
+    { "id": "client", "type": "client", "x": 0, "y": 200 },
+    { "id": "router", "type": "router", "x": 260, "y": 200 },
+    { "id": "rebal", "type": "rebal", "x": 1200, "y": -120 },
+    { "id": "s1", "type": "storage", "x": 620, "y": 120, "label": "Stockage A" },
+    { "id": "s2", "type": "storage", "x": 620, "y": 320, "label": "Stockage B" }
+  ],
+  "edges": [
+    { "id": "e1", "source": "zk1", "target": "zk2", "kind": "replication", "label": "Zab" },
+    { "id": "e2", "source": "zk1", "target": "zk3", "kind": "replication", "label": "Zab" },
+    { "id": "e3", "source": "client", "target": "router", "kind": "sync" },
+    { "id": "e4", "source": "router", "target": "zk1", "kind": "read", "label": "/partitions (watch)" },
+    { "id": "e5", "source": "router", "target": "s1", "kind": "sync" },
+    { "id": "e6", "source": "router", "target": "s2", "kind": "sync" },
+    { "id": "e7", "source": "s1", "target": "zk2", "kind": "write", "label": "éphémère /members/a" },
+    { "id": "e8", "source": "s2", "target": "zk3", "kind": "write", "label": "éphémère /members/b" },
+    { "id": "e9", "source": "rebal", "target": "zk3", "kind": "sync", "label": "watch /members + CAS /partitions" }
+  ]
+}

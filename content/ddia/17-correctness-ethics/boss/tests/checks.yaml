@@ -1,0 +1,89 @@
+checks:
+- id: validated
+  label: Le vérificateur de fonds publie les demandes valides dans le log des requêtes
+  rule: edge_kind
+  source: check
+  target: reqlog
+  kind: async
+- id: no-bypass
+  label: La gateway n'écrit pas dans le log des requêtes sans vérification des fonds
+  rule: no_edge
+  source: gw
+  target: reqlog
+- id: money-path
+  label: Tout chemin de la gateway vers les soldes passe par le répartiteur
+  rule: path
+  source: gw
+  target: balances
+  via: split
+- id: instructions
+  label: Le répartiteur publie les instructions dans le log partitionné par compte
+  rule: edge_kind
+  source: split
+  target: acctlog
+  kind: async
+- id: no-shortcut
+  label: Le répartiteur n'écrit jamais les soldes directement
+  rule: no_edge
+  source: split
+  target: balances
+- id: apply
+  label: Le processeur de comptes écrit les soldes
+  rule: edge_kind
+  source: acctproc
+  target: balances
+  kind: write
+- id: names-log
+  label: Les demandes de pseudo sont ajoutées au log des pseudos
+  rule: edge_kind
+  source: gw
+  target: namelog
+  kind: async
+- id: names-owner
+  label: Le processeur d'unicité attribue les pseudos dans l'annuaire
+  rule: edge_kind
+  source: nameproc
+  target: users
+  kind: write
+- id: outcome
+  label: La décision revient au client par le flux des décisions
+  rule: path
+  source: nameproc
+  target: gw
+  via: outcomes
+- id: audit-log
+  label: L'auditeur rejoue le log des requêtes
+  rule: edge_kind
+  source: auditor
+  target: reqlog
+  kind: read
+- id: audit-state
+  label: …et lit les soldes pour comparer
+  rule: edge_kind
+  source: auditor
+  target: balances
+  kind: read
+- id: purge
+  label: La purge de rétention s'applique à l'entrepôt
+  rule: edge_kind
+  source: purge
+  target: warehouse
+  kind: write
+- id: no-2pc
+  label: Pas de commit atomique distribué
+  rule: count
+  source: twopc
+  max: 0
+- id: no-broker
+  label: Aucune donnée vendue à un courtier
+  rule: count
+  source: databroker
+  max: 0
+- id: no-mm
+  label: Pas de pseudos acceptés en multi-leader sans coordination
+  rule: count
+  source: mm-names
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

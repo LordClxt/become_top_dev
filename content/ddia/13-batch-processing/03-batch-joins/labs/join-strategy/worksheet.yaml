@@ -1,0 +1,66 @@
+intro: |
+  Le réseau social stocke dans HDFS **5 To** d'événements de la semaine (`user_id`, date, URL) et un instantané de **800 Go** de profils (`user_id`, âge, pays). Le cluster a 1 000 machines de 64 Go de RAM. Tu planifies les jobs de la semaine.
+blocks:
+- id: strategy
+  type: match
+  title: Quelle jointure ?
+  prompt: Pour chaque situation, choisis l'algorithme le plus efficace qui reste correct.
+  items:
+  - id: countries
+    label: Joindre les 5 To d'événements à une table de 250 pays (10 Ko)
+  - id: raw
+    label: Joindre les événements aux profils, deux jeux de fichiers sans rangement particulier
+  - id: buckets
+    label: Événements et profils sont tous deux découpés en 64 fichiers par hachage de user_id, non triés
+  - id: sorted
+    label: Événements et profils sont découpés en 64 fichiers par hachage de user_id, et triés par user_id dans chaque fichier
+  categories:
+  - id: reduce
+    label: Sort-merge côté reduce
+  - id: broadcast
+    label: Broadcast hash join
+  - id: partitioned
+    label: Partitioned hash join
+  - id: merge
+    label: Map-side merge join
+- id: partmem
+  type: number
+  title: La mémoire d'un mapper
+  prompt: Les profils (800 Go) sont découpés en **1 000** partitions par hachage de user_id, comme les événements. Avec un partitioned hash join, combien de **Mo** de profils chaque mapper charge-t-il en mémoire ?
+  unit: Mo
+- id: hotload
+  type: number
+  title: La célébrité
+  prompt: Un job de regroupement traite **1 milliard** d'événements avec **100** reducers. Le compte d'une célébrité en porte **30 %** ; le reste se répartit également. Combien de **millions** d'événements reçoit le reducer de la célébrité ?
+  unit: millions
+- id: spread
+  type: number
+  title: Répartir la clé chaude
+  prompt: Avec une jointure asymétrique, les événements de la célébrité sont envoyés au hasard à l'un de **10** reducers, et son profil est copié sur chacun. Combien de **millions** d'événements de la célébrité chaque reducer reçoit-il, en moyenne ?
+  unit: millions
+- id: secondary
+  type: order
+  title: Ce que voit le reducer
+  prompt: 'Avec le tri secondaire, dans quel ordre le reducer reçoit-il les valeurs de l''utilisateur u7 ?'
+  items:
+  - id: profile
+    label: Le profil de u7
+  - id: e0900
+    label: Clic de u7 à 09:00
+  - id: e0905
+    label: Clic de u7 à 09:05
+  - id: e1230
+    label: Clic de u7 à 12:30
+- id: naive
+  type: multi
+  title: Interroger la base depuis le mapper ?
+  prompt: Un collègue propose que chaque mapper interroge la base de profils de production pour chaque événement. Quels problèmes cela pose-t-il ?
+  options:
+  - id: slow
+    label: Des milliards d'allers-retours réseau limitent le débit du job
+  - id: overload
+    label: La base de production risque d'être submergée
+  - id: nondet
+    label: Le résultat dépend des modifications faites dans la base pendant le job
+  - id: wrong-sort
+    label: Les événements arriveraient au reducer dans le désordre

@@ -1,0 +1,1 @@
+Dessine une boutique entièrement dégroupée : une base de référence dont le log alimente l'index de recherche (amorcé par un instantané), deux versions d'une vue en cours de migration, un push jusqu'aux clients, et un service commandes qui s'abonne aux taux de change au lieu de les demander.

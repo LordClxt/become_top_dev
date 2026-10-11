@@ -1,0 +1,39 @@
+blocks:
+  race:
+    options:
+      db.price: La base applique la dernière écriture qu'elle reçoit.
+      dual.price: 'L''index applique lui aussi la dernière écriture qu''il reçoit : regarde dans quel ordre elles lui arrivent.'
+      cdc.price: Avec la CDC, l'index applique les changements dans l'ordre de la base.
+  kept:
+    tolerance:
+      abs: 0.5
+    wrong: Une seule entrée par clé survit, celle de plus grand offset, même si c'est une tombstone. Compte les clés distinctes.
+  purged:
+    tolerance:
+      abs: 0.5
+    wrong: Retire maintenant les clés dont la dernière valeur est nulle.
+  view:
+    options:
+      a.value: Prends le message de plus grand offset pour la clé a.
+      c.value: Prends le message de plus grand offset pour la clé c.
+      d.value: La clé d n'a été écrite qu'une fois.
+  bootstrap:
+    options:
+      snap: 'Sans offset associé au snapshot, on ne sait pas d''où reprendre : on rate ou on double des changements.'
+      apply: Les changements à appliquer sont ceux postérieurs au snapshot, pas depuis le début du log.
+      switch: Basculer avant d'avoir rattrapé le retard ferait voir des données périmées.
+  sizing:
+    goals:
+      marge: 'Le débit est plafonné par le plus petit des deux : partitions ou consommateurs. Il en faut au moins 18 de chaque.'
+      inactifs: 'Au-delà du nombre de partitions, un consommateur n''a rien à lire.'
+      coord: Trop de partitions coûtent en coordination et en fichiers ouverts ; reste sous 20.
+  retention:
+    tolerance:
+      rel: 0.02
+    wrong: 40 × 10⁶ octets/s × 86 400 s × 7 jours, puis divise par 10¹².
+  tools:
+    options:
+      pdf: 'Des tâches lentes et indépendantes : on veut répartir message par message, sans blocage de partition.'
+      search: La base existe déjà et l'on ne touche pas au code ; on extrait ses changements de son log de réplication.
+      bank: 'Audit et recalcul : il faut l''historique des actions métier comme source de vérité.'
+      clicks: Gros débit, ordre par clé et plusieurs lecteurs indépendants qui ne s'effacent pas mutuellement les messages.

@@ -1,0 +1,93 @@
+intro: |
+  Ton cluster clé-valeur, partitionné par hachage, tourne sur **10 nœuds** et va recevoir un **11ᵉ**. Tu compares ce que chaque stratégie de rééquilibrage déplace, puis tu choisis une stratégie pour d'autres situations.
+blocks:
+- id: modn
+  type: number
+  title: hash mod N
+  prompt: Chaque clé va au nœud `hash mod N`. On passe de 10 à 11 nœuds. Quel pourcentage des clés change de nœud ? (une décimale suffit)
+  unit: '%'
+- id: fixe
+  type: number
+  title: Nombre fixe de partitions
+  prompt: Le cluster a plutôt **1 000 partitions** fixes, réparties équitablement. Combien de partitions entières le 11ᵉ nœud prend-il, environ ?
+  unit: partitions
+- id: reglage
+  type: tuner
+  title: Fixer le nombre de partitions une fois pour toutes
+  prompt: 'Une nouvelle base démarre sur **10 nœuds** et pourrait grandir jusqu''à **200 nœuds** et **100 To**. Règle le nombre de partitions : au moins 5 partitions par nœud à 200 nœuds (pour équilibrer), au plus 150 partitions par nœud au départ (coût de gestion), et des partitions d''au plus 100 Go à 100 To.'
+  params:
+  - id: p
+    label: Partitions
+    unit: partitions
+    min: 100
+    max: 5000
+    step: 100
+    default: 100
+  metrics:
+  - id: maxnodes
+    label: Partitions par nœud à 200 nœuds
+    expr: p / 200
+    format: number
+  - id: start
+    label: Partitions par nœud au départ
+    expr: p / 10
+    format: number
+  - id: size
+    label: Taille d'une partition à 100 To (Go)
+    expr: 100000 / p
+    format: number
+  goals:
+  - id: balance
+    label: Au moins 5 partitions par nœud à 200 nœuds
+    expr: maxnodes >= 5
+  - id: overhead
+    label: Au plus 150 partitions par nœud au départ
+    expr: start <= 150
+  - id: size
+    label: Partitions de 100 Go au plus à 100 To
+    expr: size <= 100
+- id: strategie
+  type: match
+  title: Quelle stratégie ?
+  prompt: Associe chaque situation à la stratégie de rééquilibrage la plus adaptée.
+  items:
+  - id: unknown
+    label: Clés triées pour des scans d'intervalle, volume qui passera de 10 Go à 50 To sans qu'on sache quand
+  - id: known
+    label: Clés hachées, volume prévisible, on accepte de fixer le nombre de partitions à la création
+  - id: grow
+    label: Clés hachées ; on veut que la taille des partitions reste stable quand la flotte grandit avec les données
+  categories:
+  - id: dynamic
+    label: Partitionnement dynamique (découpage / fusion)
+  - id: fixed
+    label: Nombre fixe de partitions
+  - id: pernode
+    label: Nombre fixe de partitions par nœud
+- id: cascade
+  type: order
+  title: La cascade
+  prompt: Le rééquilibrage est automatique et branché sur la détection de panne. Remets la cascade dans l'ordre.
+  items:
+  - id: slow
+    label: Un nœud surchargé répond lentement
+  - id: dead
+    label: Les autres nœuds le déclarent mort
+  - id: move
+    label: Ses partitions sont déplacées automatiquement
+  - id: load
+    label: Le transfert charge le réseau et les autres nœuds
+  - id: more
+    label: D'autres nœuds ralentissent et sont déclarés morts
+- id: vide
+  type: choice
+  title: Le premier jour
+  prompt: Une base HBase **vide** (partitionnement dynamique) va recevoir 2 To dès son ouverture. Que fais-tu ?
+  options:
+  - id: presplit
+    label: Pré-découper la table avec des bornes estimées
+    hint: Plusieurs partitions dès le départ
+  - id: wait
+    label: Rien, le découpage automatique suffit dès la première écriture
+  - id: modn
+    label: Passer à hash mod N le temps du chargement

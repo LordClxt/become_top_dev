@@ -1,0 +1,88 @@
+checks:
+- id: entry
+  label: L'application envoie ses écritures au leader
+  rule: edge_kind
+  source: app
+  target: leader
+  kind: sync
+- id: no-app-write
+  label: 'L''application n''écrit jamais directement dans le stockage : elle n''a pas de jeton'
+  rule: no_edge
+  source: app
+  target: storage
+- id: lease
+  label: Le leader renouvelle son bail auprès du service de coordination
+  rule: edge_kind
+  source: leader
+  target: coord
+  kind: sync
+- id: standby-lease
+  label: Le remplaçant ne prend la main qu'en obtenant le bail, lui aussi auprès du service
+  rule: edge_kind
+  source: standby
+  target: coord
+  kind: sync
+- id: majority
+  label: 'Au moins 3 nœuds de coordination : une majorité survit à la panne de l''un d''eux'
+  rule: count
+  source: coord
+  min: 3
+  max: 7
+- id: zone
+  label: Les nœuds de coordination sont posés dans la zone du service
+  rule: in_zone
+  source: coord
+  target: coordzone
+- id: replicate
+  label: Les nœuds de coordination se répliquent l'état des baux
+  rule: edge_kind
+  source: coord
+  target: coord
+  kind: replication
+- id: fenced
+  label: Le leader écrit dans le stockage avec son jeton de clôture
+  rule: edge_kind
+  source: leader
+  target: storage
+  kind: write
+- id: heartbeat
+  label: Le leader envoie ses battements de cœur au détecteur adaptatif, sans attendre de réponse
+  rule: edge_kind
+  source: leader
+  target: detector
+  kind: async
+- id: suspect
+  label: Le détecteur prévient le remplaçant quand le leader devient suspect
+  rule: edge_kind
+  source: detector
+  target: standby
+  kind: async
+- id: ntp-many
+  label: Au moins deux serveurs NTP, pour mettre une source fausse en minorité
+  rule: count
+  source: ntp
+  min: 2
+- id: clock-monitor
+  label: Une supervision mesure le décalage d'horloge des nœuds de coordination
+  rule: edge_kind
+  source: clockmon
+  target: coord
+  kind: read
+- id: no-single
+  label: 'Pas de verrou sur un nœud unique : il tombe seul et ne donne pas de jeton croissant'
+  rule: count
+  source: single
+  max: 0
+- id: no-lww
+  label: 'Pas de last write wins : il perd des écritures dès que les horloges divergent'
+  rule: count
+  source: lww
+  max: 0
+- id: no-swap
+  label: 'Pas de swap sur le leader : une source de pauses longues'
+  rule: count
+  source: swap
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

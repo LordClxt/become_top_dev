@@ -1,0 +1,90 @@
+id: ddia-ch15-boss
+title: 'Boss : la fraude en temps réel d''une néobanque'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-sp-cep
+- ddia-sp-event-vs-processing-time
+- ddia-sp-stream-table-join
+- ddia-sp-checkpointing
+- ddia-sp-idempotent-writes
+- ddia-sp-state-recovery
+- ddia-sp-maintain-views
+source:
+  chapter: 11
+  pages: 464-488
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: mobile
+  label: Application bancaire
+  hint: Les clients paient depuis leur téléphone.
+- type: gw
+  component: gateway
+  label: API gateway
+  hint: Point d'entrée des paiements.
+- type: pay
+  component: service
+  label: Service paiements
+  hint: Enregistre chaque paiement et publie un événement.
+- type: ledger
+  component: postgres
+  label: Grand livre
+  hint: La base des paiements, système de référence.
+- type: tx
+  component: kafka
+  label: Flux des transactions
+  hint: Log partitionné par compte, horodaté à la création du paiement.
+- type: custdb
+  component: postgres
+  label: Base des clients
+  hint: Pays de résidence, plafond, niveau de risque.
+- type: cdc
+  component: topic
+  label: Changelog des clients (CDC)
+  hint: Chaque modification de la base des clients.
+- type: fraud
+  component: stream-processor
+  label: Opérateur de fraude (CEP)
+  hint: Cherche des motifs (deux pays en 30 min, 5 paiements en 1 min) sur des fenêtres en temps de l'événement.
+- type: local
+  component: index
+  label: Copie locale des clients
+  hint: L'état de jointure de l'opérateur.
+- type: ckpt
+  component: object-store
+  label: Checkpoints
+  hint: Instantanés périodiques de l'état des opérateurs.
+- type: alerts
+  component: topic
+  label: Sujet des alertes
+  hint: Une alerte par motif reconnu, identifiée de façon unique.
+- type: notify
+  component: email
+  label: Notification client
+  hint: Envoie un SMS ou un e-mail par alerte ; ignore une alerte déjà envoyée.
+- type: agg
+  component: stream-processor
+  label: Opérateur d'agrégats
+  hint: Volume par marchand sur des fenêtres de 5 minutes.
+- type: dash
+  component: redis
+  label: Tableau de bord
+  hint: Une ligne par marchand et par fenêtre, écrite avec l'offset du dernier message.
+- type: lookup
+  component: external
+  label: Requête SQL par transaction
+  hint: Un SELECT sur la base des clients pour chaque paiement.
+- type: timer
+  component: cron
+  label: Minuteur sur l'horloge du job
+  hint: Ferme les fenêtres selon l'heure de la machine qui traite.
+- type: snapshot
+  component: file
+  label: Export nocturne des clients
+  hint: Un dump de la base, chargé une fois par jour.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

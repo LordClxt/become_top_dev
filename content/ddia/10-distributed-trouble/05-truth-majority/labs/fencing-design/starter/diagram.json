@@ -1,0 +1,7 @@
+{
+  "nodes": [
+    { "id": "c1", "type": "client", "x": 0, "y": 80, "label": "Client 1" },
+    { "id": "store", "type": "storage", "x": 700, "y": 200 }
+  ],
+  "edges": []
+}

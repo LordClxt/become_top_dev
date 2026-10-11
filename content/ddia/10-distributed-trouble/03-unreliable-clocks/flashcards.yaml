@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Horloge murale ?
+  back: Date et heure selon le calendrier (depuis 1970 UTC), synchronisée par NTP ; peut reculer ou sauter.
+  concept: ddia-wall-vs-monotonic
+- id: fc2
+  front: Horloge monotone ?
+  back: Avance toujours ; sert aux durées et timeouts ; sa valeur absolue n'a pas de sens, ni entre machines.
+  concept: ddia-wall-vs-monotonic
+- id: fc3
+  front: Que fait NTP à l'horloge monotone ?
+  back: Il peut ajuster sa fréquence (environ 0,05 % au plus), jamais la faire sauter.
+  concept: ddia-wall-vs-monotonic
+- id: fc4
+  front: Dérive de 200 ppm ?
+  back: 6 ms si resynchronisé toutes les 30 s, environ 17 s si resynchronisé une fois par jour.
+  concept: ddia-ntp-drift
+- id: fc5
+  front: Limite de précision de NTP ?
+  back: Le délai réseau (environ 35 ms au mieux via Internet dans une expérience, pics vers 1 s).
+  concept: ddia-ntp-drift
+- id: fc6
+  front: Comment atteindre 100 µs de l'UTC (MiFID II) ?
+  back: Récepteurs GPS, PTP, déploiement soigné et supervision continue.
+  concept: ddia-ntp-drift
+- id: fc7
+  front: Danger de last write wins ?
+  back: Un nœud en retard ne peut pas écraser la valeur d'un nœud en avance tant que l'écart dure ; des écritures disparaissent sans erreur.
+  concept: ddia-lww-clock-skew
+- id: fc8
+  front: Que faire si on dépend d'horloges synchronisées ?
+  back: Surveiller le décalage de toutes les machines et exclure un nœud qui dérive trop.
+  concept: ddia-lww-clock-skew
+- id: fc9
+  front: Intervalle de confiance d'une horloge ?
+  back: Dérive depuis la dernière synchro + incertitude du serveur NTP + aller-retour ; l'heure réelle est quelque part dedans.
+  concept: ddia-clock-confidence
+- id: fc10
+  front: Commit wait de Spanner ?
+  back: Attendre la durée de l'intervalle TrueTime avant de valider, pour que l'ordre avec les lectures suivantes soit certain.
+  concept: ddia-truetime-snapshots

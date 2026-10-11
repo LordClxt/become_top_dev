@@ -1,0 +1,1 @@
+Une base 2PL sérialisable protège la recherche d'une transaction de réservation. Pour chaque écriture concurrente, prédis si elle est bloquée à raison, bloquée à tort, ou libre, selon l'index utilisé ; puis chiffre le coût des verrous de prédicat exacts et des faux conflits.

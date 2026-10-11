@@ -1,0 +1,13 @@
+{
+  "reproc": 40,
+  "storage": 320,
+  "rollout": ["backfill", "parallel", "canary", "all", "retire"],
+  "bug": "back",
+  "engine": {
+    "twocode": "lambda",
+    "replay": "unified",
+    "approx": "lambda",
+    "eventtime": "unified"
+  },
+  "window": "event"
+}

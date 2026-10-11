@@ -1,0 +1,3 @@
+**Tout se joue sur deux promesses.** Tant qu'aucun participant n'a voté oui, une panne se règle par un abort local. Dès qu'un participant a voté oui, il ne peut plus trancher seul : il est **en doute**, garde ses verrous, et attend le coordinateur. Le journal du coordinateur décide de la suite : décision écrite → elle est renvoyée jusqu'à acquittement ; rien d'écrit → abort.
+
+Le prix est concret : 45 minutes × 120 commandes/min = **5 400 commandes** bloquées sur une seule ligne. C'est pour cela que 2PC est dit bloquant, et que la disponibilité du coordinateur compte autant que celle des bases.

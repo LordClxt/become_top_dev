@@ -1,0 +1,66 @@
+id: ddia-ch11-boss
+title: 'Boss : un pseudo, un propriétaire, sur trois continents'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-lin-uniqueness-constraints
+- ddia-lin-locks-leader-election
+- ddia-lin-cross-channel-timing
+- ddia-total-order-broadcast-def
+- ddia-tob-linearizable-storage
+- ddia-lin-replication-methods
+- ddia-noncausal-seq-generators
+source:
+  chapter: 9
+  pages: 321-351
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: mobile
+  label: Application
+  hint: L'utilisateur choisit son pseudo.
+- type: api
+  component: service
+  label: Service d'inscription
+  hint: Reçoit la demande de pseudo.
+- type: seq
+  component: leader
+  label: Séquenceur (leader élu)
+  hint: Numérote chaque réclamation, sans trou.
+- type: log
+  component: wal
+  label: Log à ordre total
+  hint: Les réclamations, dans un ordre identique pour tous.
+- type: rep
+  component: follower
+  label: Réplique qui rejoue le log
+  hint: Applique les messages dans l'ordre des numéros.
+- type: lock
+  component: consensus
+  label: Service de coordination (bail du leader)
+  hint: Stockage linéarisable par consensus ; un seul détenteur du bail.
+- type: queue
+  component: queue
+  label: File « compte créé »
+  hint: Prévient les services en aval.
+- type: mailer
+  component: worker
+  label: E-mail de bienvenue
+  hint: Lit le compte pour personnaliser l'e-mail.
+- type: lww
+  component: cassandra
+  label: Base sans leader « dernière écriture gagne »
+  hint: Départage les conflits par horodatage.
+- type: wall
+  component: cron
+  label: Horodatage par horloge murale
+  hint: Numérote avec l'heure de chaque nœud.
+- type: multi
+  component: database
+  label: Leader local par région (multi-leader)
+  hint: Accepte les écritures dans chaque région.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

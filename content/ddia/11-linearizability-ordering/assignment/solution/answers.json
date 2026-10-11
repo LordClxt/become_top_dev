@@ -1,0 +1,9 @@
+{
+  "garanties": {"pseudo": "lin", "leader": "lin", "thread": "causal", "views": "eventual", "profile": "eventual"},
+  "recoupe": 1,
+  "quorum": "no",
+  "latence": 115,
+  "lamport": {"r1.c": 11, "r2.c": 12, "r3.c": 13},
+  "equiv": ["tob", "cas", "incr"],
+  "sequenceur": "spof"
+}

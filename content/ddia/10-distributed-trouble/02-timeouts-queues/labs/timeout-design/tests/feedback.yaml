@@ -1,0 +1,28 @@
+blocks:
+  bounded:
+    tolerance:
+      abs: 0.5
+    wrong: 'Une réponse fait l''aller (3 ms), le traitement (50 ms) et le retour (3 ms) : 2d + r.'
+  cascade:
+    tolerance:
+      abs: 0.2
+    wrong: 'Chaque survivant reçoit un tiers de 80 % en plus de ses propres 80 % : 80 + 80 / 3.'
+  cascade-next:
+    options:
+      stable: Le nœud accusé n'est pas « revenu » pour le cluster ; ses voisins sont désormais au-delà de leur capacité.
+      faster: Moins de nœuds pour la même charge, c'est plus de file d'attente sur chacun, pas moins.
+  queues:
+    options:
+      incast: Plusieurs émetteurs, un seul lien de sortie vers le client.
+      vm: La VM ne peut rien consommer tant qu'elle est en pause ; quelqu'un garde ses paquets.
+      backpressure: Les données attendent avant même d'entrer sur le réseau.
+      cpu: 'La requête est arrivée sur la machine, mais l''application n''a pas encore la main.'
+  tuning:
+    goals:
+      quiet: Trop de fausses alertes. Allonge le timeout (chaque 40 ms divise le risque par e ≈ 2,7) ou espace les battements.
+      fast: 'Une panne est vue au pire un intervalle plus un timeout après : réduis l''un ou l''autre.'
+      cheap: Des battements trop rapprochés coûtent du réseau et du CPU sur tous les nœuds.
+  adaptive:
+    options:
+      global: Un timeout commun est soit trop nerveux pour le nœud irrégulier, soit trop lent pour les autres.
+      udp: 'UDP supprime la retransmission, pas les files : la gigue reste.'

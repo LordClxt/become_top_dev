@@ -1,0 +1,37 @@
+id: ddia-ch09-l03-lab-wait-for
+title: Le graphe d'attente
+difficulty: 3
+xp: 70
+concepts:
+- ddia-2pl-shared-exclusive
+- ddia-2pl-deadlock
+- ddia-2pl-rule
+source:
+  chapter: 7
+  pages: 257-259
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: t1
+  component: service
+  label: T1
+  hint: Transaction T1.
+- type: t2
+  component: service
+  label: T2
+  hint: Transaction T2.
+- type: t3
+  component: service
+  label: T3
+  hint: Transaction T3.
+- type: t4
+  component: service
+  label: T4
+  hint: Transaction T4.
+- type: t5
+  component: service
+  label: T5
+  hint: Transaction T5.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

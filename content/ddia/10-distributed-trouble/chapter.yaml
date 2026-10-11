@@ -1,0 +1,29 @@
+id: ddia-ch10
+title: Quand le réseau ment
+subtitle: 'Pannes partielles, délais sans borne, horloges qui dérivent et pauses invisibles : ce qu''un nœud ne peut jamais savoir'
+source:
+  chapter: 8
+  pages: 273-311
+objectives:
+- Expliquer pourquoi une panne partielle rend un système distribué non déterministe, et ce qui sépare l'approche cloud du calcul haute performance
+- Dire pourquoi une absence de réponse ne prouve rien, et régler un timeout à partir de la distribution des délais plutôt que d'une constante
+- Choisir entre horloge monotone et horloge murale, chiffrer la dérive d'un quartz et repérer les écritures perdues par last write wins
+- Montrer comment une pause de processus (GC, VM suspendue, swap) casse un bail vérifié localement, et comment limiter ces pauses
+- Protéger une ressource par un verrou majoritaire et des jetons de clôture vérifiés côté serveur
+- Situer un algorithme dans un modèle de système (synchrone partiel, crash-recovery, byzantin) et distinguer sûreté et vivacité
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch09
+lessons:
+- 01-partial-failures
+- 02-timeouts-queues
+- 03-unreliable-clocks
+- 04-process-pauses
+- 05-truth-majority
+xp:
+  assignment: 130
+  project: 250
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

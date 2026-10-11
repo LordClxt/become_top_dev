@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Bases façon Dynamo ?
+  back: Riak, Cassandra, Voldemort, inspirées du Dynamo interne d'Amazon (pas DynamoDB).
+  concept: ddia-leaderless-replication
+- id: fc2
+  front: Pourquoi lire plusieurs réplicas sans leader ?
+  back: Un réplica qui a manqué une écriture répond une valeur périmée ; les numéros de version désignent la plus récente.
+  concept: ddia-leaderless-replication
+- id: fc3
+  front: Read repair ?
+  back: Le lecteur réécrit la valeur récente sur les réplicas qui ont répondu une version périmée ; efficace pour les valeurs souvent lues.
+  concept: ddia-read-repair
+- id: fc4
+  front: Anti-entropie ?
+  back: Processus de fond qui compare les réplicas et copie les données manquantes, sans ordre et avec délai.
+  concept: ddia-anti-entropy
+- id: fc5
+  front: Condition de quorum ?
+  back: w + r > n ; les réplicas écrits et lus se chevauchent.
+  concept: ddia-quorum-condition
+- id: fc6
+  front: Que signifient w et r si les requêtes partent vers n réplicas ?
+  back: Le nombre de réponses à attendre ; les requêtes partent toujours vers les n.
+  concept: ddia-quorum-condition
+- id: fc7
+  front: Pannes tolérées par un quorum ?
+  back: n − w en écriture, n − r en lecture ; en dessous, erreur.
+  concept: ddia-quorum-tuning
+- id: fc8
+  front: Réglage courant ?
+  back: n impair (3 ou 5), w = r = (n + 1) / 2 arrondi au supérieur.
+  concept: ddia-quorum-tuning
+- id: fc9
+  front: w = n, r = 1 ?
+  back: Lectures rapides, mais une seule panne bloque toutes les écritures.
+  concept: ddia-quorum-tuning

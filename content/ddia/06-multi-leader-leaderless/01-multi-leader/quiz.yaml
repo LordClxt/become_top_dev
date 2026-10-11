@@ -1,0 +1,104 @@
+id: ddia-ch06-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Dans une configuration multi-leader, que fait chaque leader en plus d'accepter les écritures de ses clients ?
+  choices:
+  - Il refuse les écritures des autres leaders pour éviter les conflits
+  - Il transmet ses changements aux autres leaders et applique les leurs, comme un suiveur
+  - Il attend l'accord de tous les autres leaders avant de valider
+  - Il délègue la lecture à un leader central
+  answer: 1
+  explanation: Chaque leader est aussi le suiveur des autres ; la réplication entre leaders est presque toujours asynchrone.
+  concept: ddia-multi-leader-replication
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Qu'apporte un leader par datacenter par rapport à un leader unique, pour une application servie depuis l'Europe et les États-Unis ?
+  choices:
+  - Des écritures traitées localement, sans aller-retour transatlantique
+  - L'absence totale de conflits d'écriture
+  - Chaque site continue d'écrire si l'autre tombe
+  - Une meilleure tolérance aux perturbations du lien Internet entre sites
+  answer:
+  - 0
+  - 2
+  - 3
+  explanation: Latence, panne de site et coupures réseau sont mieux tolérées. Mais les conflits apparaissent justement à cause de ce dispositif.
+  concept: ddia-multi-leader-multi-dc
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Un parcours d'achat fait 5 écritures séquentielles. Le leader unique est à 100 ms d'aller-retour d'un client ; un leader local serait à 2 ms. Combien de millisecondes de réseau le leader local fait-il gagner ?
+  choices:
+  - 98 ms
+  - 490 ms
+  - 500 ms
+  - 10 ms
+  answer: 1
+  explanation: 5 × 100 = 500 ms contre 5 × 2 = 10 ms, soit 490 ms de moins.
+  concept: ddia-multi-leader-multi-dc
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Ton équipe veut passer en multi-leader à l'intérieur d'un seul datacenter « pour être plus disponible ». Ton avis ?
+  choices:
+  - Excellent choix, c'est le cas d'usage principal du multi-leader
+  - Indispensable dès qu'on a plus de deux suiveurs
+  - Peu pertinent ; on paie les conflits sans gain de latence, un leader avec basculement suffit en général
+  - Obligatoire pour supporter des clients mobiles
+  answer: 2
+  explanation: Dans un seul datacenter, la complexité ajoutée dépasse rarement le bénéfice.
+  concept: ddia-multi-leader-replication
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi une application d'agenda utilisable sans réseau est-elle un système multi-leader ?
+  choices:
+  - Parce qu'elle met en cache les données du serveur
+  - Parce que le serveur la considère comme un suiveur en lecture seule
+  - Parce qu'elle utilise un protocole de consensus
+  - Parce que chaque appareil a une base locale qui accepte les écritures, synchronisée plus tard avec les autres
+  answer: 3
+  explanation: 'Chaque appareil est un leader et un « datacenter » relié par un réseau très peu fiable : le délai de réplication peut se compter en jours.'
+  concept: ddia-offline-client-sync
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Dans un éditeur collaboratif, quel choix ramène au cas d'un leader unique ?
+  choices:
+  - Verrouiller le document (ou le passage) avant chaque modification
+  - Propager chaque frappe dès qu'elle est tapée
+  - Appliquer les frappes localement sans attendre le serveur
+  - Réduire l'unité de changement à une frappe
+  answer: 0
+  explanation: 'Le verrou impose un seul éditeur à la fois : plus fluide = unité minuscule, sans verrou, donc conflits multi-leader.'
+  concept: ddia-collaborative-editing
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Quelles fonctionnalités cassent souvent quand on ajoute après coup une réplication multi-leader ?
+  choices:
+  - Les clés auto-incrémentées
+  - Les triggers
+  - Les contraintes d'intégrité comme l'unicité
+  - La lecture d'une ligne par sa clé primaire
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Deux leaders peuvent attribuer le même identifiant, exécuter un trigger chacun, et valider chacun une ligne qui viole l'unicité une fois réunies.
+  concept: ddia-multi-leader-dangers
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Remets dans l'ordre le trajet d'une écriture faite par un client européen dans une configuration un leader par datacenter. Choisis la bonne séquence.
+  choices:
+  - Le client envoie l'écriture au leader de son datacenter → Le leader européen valide l'écriture et répond au client → Le leader américain l'applique et la réplique à ses suiveurs → Le leader européen transmet le changement de façon asynchrone au leader américain
+  - Le client envoie l'écriture au leader de son datacenter → Le leader européen transmet le changement de façon asynchrone au leader américain → Le leader européen valide l'écriture et répond au client → Le leader américain l'applique et la réplique à ses suiveurs
+  - Le leader européen valide l'écriture et répond au client → Le leader européen transmet le changement de façon asynchrone au leader américain → Le leader américain l'applique et la réplique à ses suiveurs → Le client envoie l'écriture au leader de son datacenter
+  - Le client envoie l'écriture au leader de son datacenter → Le leader européen valide l'écriture et répond au client → Le leader européen transmet le changement de façon asynchrone au leader américain → Le leader américain l'applique et la réplique à ses suiveurs
+  answer: 3
+  explanation: L'écriture est validée localement d'abord ; la réplication inter-sites se fait ensuite, en arrière-plan.
+  concept: ddia-multi-leader-multi-dc
+  difficulty: 2

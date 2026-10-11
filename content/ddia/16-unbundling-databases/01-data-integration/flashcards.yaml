@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Pourquoi combine-t-on plusieurs outils de données ?
+  back: Chaque outil fait un compromis qui sert bien certains schémas d'accès ; des usages variés exigent des outils variés.
+  concept: ddia-data-integration-tools
+- id: fc2
+  front: Système de référence ?
+  back: La source qui fait foi et reçoit les écritures en premier ; tout le reste en est dérivé.
+  concept: ddia-dataflow-reasoning
+- id: fc3
+  front: Le danger de la double écriture ?
+  back: Deux systèmes appliquent les écritures dans des ordres différents et divergent pour toujours, sans erreur.
+  concept: ddia-dataflow-reasoning
+- id: fc4
+  front: Recette pour garder des systèmes d'accord ?
+  back: Un ordre unique des écritures (log) et des dérivations déterministes appliquées dans cet ordre.
+  concept: ddia-dataflow-reasoning
+- id: fc5
+  front: Ce qu'offre XA et pas le log ?
+  back: La lecture de ses propres écritures (linéarisable) ; le dérivé par log est asynchrone, donc en retard.
+  concept: ddia-derived-vs-distributed-tx
+- id: fc6
+  front: Ce qu'offre le log et pas XA ?
+  back: L'isolation des pannes ; un consommateur lent prend du retard sans bloquer les autres.
+  concept: ddia-derived-vs-distributed-tx
+- id: fc7
+  front: Pourquoi un ordre total passe-t-il mal à l'échelle ?
+  back: Il faut un nœud unique (ou du consensus) qui voie tous les événements ; partitions, continents, microservices et clients hors ligne le cassent.
+  concept: ddia-total-order-limits
+- id: fc8
+  front: Capturer la causalité sans ordre total ?
+  back: Horodatages logiques, identifiant de l'état lu enregistré avec la décision, résolution de conflits (pour l'état seulement).
+  concept: ddia-causal-event-ordering

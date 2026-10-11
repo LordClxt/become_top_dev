@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Pourquoi les hypothèses d'un modèle de système ne sont-elles que probables ?
+  back: 'Corruption mémoire, bits qui basculent, bugs des bases mûres : rare n''est pas impossible à grande échelle.'
+  concept: ddia-correct-system-model-assumptions
+- id: fc2
+  front: Auditer ?
+  back: Relire les données et vérifier qu'elles sont intactes et que les données dérivées correspondent à leur source.
+  concept: ddia-correct-auditing
+- id: fc3
+  front: Exemple de système qui ne fait pas confiance à ses disques ?
+  back: HDFS et S3 relisent en arrière-plan, comparent aux répliques et déplacent les données.
+  concept: ddia-correct-auditing
+- id: fc4
+  front: Sauvegardes ?
+  back: Essaie régulièrement de les restaurer ; sinon ce n'est qu'une hypothèse.
+  concept: ddia-correct-auditing
+- id: fc5
+  front: Culture de la vérification ?
+  back: Des systèmes auto-audités qui vérifient en continu leur intégrité au lieu de croire leurs promesses.
+  concept: ddia-correct-verification-culture
+- id: fc6
+  front: Pourquoi les événements facilitent-ils l'audit ?
+  back: Entrées immuables + dérivation déterministe = on recalcule l'état et on compare ; on peut aussi rejouer pour déboguer.
+  concept: ddia-correct-auditability-by-design
+- id: fc7
+  front: Vérification d'intégrité de bout en bout ?
+  back: Plus elle englobe de composants, moins une corruption passe inaperçue ; elle couvre implicitement matériel, réseau et code.
+  concept: ddia-correct-e2e-integrity-check
+- id: fc8
+  front: Arbre de Merkle ?
+  back: Arbre de hachages ; prouve l'appartenance d'un élément avec environ log₂(n) hachages.
+  concept: ddia-correct-crypto-audit
+- id: fc9
+  front: Avis du livre sur les blockchains ?
+  back: 'Sceptique : tolérance byzantine coûteuse, preuve de travail gaspilleuse, débit faible ; les journaux Merkle sont plus prometteurs.'
+  concept: ddia-correct-crypto-audit

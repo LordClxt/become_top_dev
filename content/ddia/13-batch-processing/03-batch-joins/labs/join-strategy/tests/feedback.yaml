@@ -1,0 +1,31 @@
+blocks:
+  strategy:
+    options:
+      countries: 10 Ko tiennent dans la mémoire de chaque mapper ; inutile de trier 5 To pour une si petite table.
+      raw: Sans rangement connu ni petite entrée, aucune jointure côté map n'est possible ; il faut le shuffle.
+      buckets: Même partitionnement des deux côtés, mais pas de tri ; chaque mapper peut charger une seule partition en mémoire.
+      sorted: Partitionnées et triées de la même façon, les entrées se fusionnent sans rien charger en mémoire.
+  partmem:
+    tolerance:
+      rel: 0.02
+    wrong: 800 Go / 1 000 partitions = 0,8 Go = 800 Mo ; chaque mapper ne charge que la partition qui correspond à son morceau d'événements.
+  hotload:
+    tolerance:
+      rel: 0.02
+    wrong: 'La célébrité : 30 % de 1 000 millions = 300 millions, plus sa part du reste : 700 millions / 100 reducers = 7 millions.'
+  spread:
+    tolerance:
+      rel: 0.02
+    wrong: Les 300 millions d'événements de la célébrité sont répartis au hasard sur 10 reducers.
+  secondary:
+    options:
+      profile: Le profil passe en premier pour que le reducer le garde en mémoire avant de voir les événements.
+      e0900: Les événements suivent, par date croissante.
+      e0905: Les événements suivent, par date croissante.
+      e1230: Le clic le plus tardif vient en dernier.
+  naive:
+    options:
+      wrong-sort: L'ordre d'arrivée au reducer est fixé par le tri du framework, pas par les requêtes à la base ; le vrai problème est ailleurs.
+      slow: C'est bien un problème ; le débit serait limité par l'aller-retour réseau.
+      overload: C'est bien un problème ; un job parallèle peut submerger la base.
+      nondet: C'est bien un problème ; le job ne serait plus rejouable.

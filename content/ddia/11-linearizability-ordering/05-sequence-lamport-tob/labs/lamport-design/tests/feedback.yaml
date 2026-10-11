@@ -1,0 +1,32 @@
+blocks:
+  lamport:
+    options:
+      r1.c: 'A part de 0 : un événement local fait + 1.'
+      r2.c: 'Trois événements locaux depuis 0.'
+      r3.c: 'A était à 1 ; l''envoi est un événement : + 1.'
+      r4.c: 'B était à 3 et reçoit 2 : max(3, 2) + 1.'
+      r5.c: 'L''envoi par B est un nouvel événement : + 1 sur sa valeur précédente.'
+      r6.c: 'C était à 0 et reçoit le compteur de l''envoi de B : max(0, 5) + 1.'
+  tri:
+    options:
+      t42: 'À compteur égal, l''identifiant de nœud départage : 2 vient après 1.'
+      t21: 'Compare d''abord les compteurs : 2 vient après 1.'
+      t41: 'Compteur 4, identifiant 1 : avant (4, 2).'
+      t13: 'Le plus petit compteur, peu importe l''identifiant 3.'
+  generateur:
+    options:
+      oddeven: 'Uniques, mais si un nœud est plus actif, son compteur avance plus vite : un effet peut recevoir un numéro plus petit que sa cause.'
+      wall: 'Les horloges dérivent : un effet peut être horodaté avant sa cause.'
+      blocks: 'Une opération du second bloc peut causer une opération du premier, numérotée plus bas.'
+  trou:
+    tolerance:
+      abs: 0
+    wrong: 'Elle livre 1 et 2, puis attend le 3 ; 4, 5 et 6 restent en attente.'
+  unicite:
+    options:
+      yes: 'L''horodatage est unique, mais le gagnant est celui au plus petit horodatage, qu''il ne connaît peut-être pas encore.'
+      wait: 'Les horloges de Lamport ne se synchronisent pas, et aucune attente fixe ne garantit d''avoir tout vu.'
+  cas:
+    options:
+      check: 'On ne peut juger qu''après avoir vu son propre message revenir, avec tout ce qui le précède.'
+      decide: 'La décision vient en dernier, une fois l''ordre figé.'

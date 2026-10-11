@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    { "id": "zk", "type": "lockzone", "x": 250, "y": -40, "w": 380, "h": 260, "label": "Service de verrous" },
+    { "id": "z1", "type": "locknode", "x": 280, "y": 0, "parent": "zk" },
+    { "id": "z2", "type": "locknode", "x": 460, "y": 0, "parent": "zk" },
+    { "id": "z3", "type": "locknode", "x": 370, "y": 130, "parent": "zk" },
+    { "id": "c1", "type": "client", "x": 0, "y": 80, "label": "Client 1" },
+    { "id": "c2", "type": "client", "x": 0, "y": 320, "label": "Client 2" },
+    { "id": "store", "type": "storage", "x": 700, "y": 200 }
+  ],
+  "edges": [
+    { "id": "r1", "source": "z1", "target": "z2", "kind": "replication" },
+    { "id": "r2", "source": "z2", "target": "z3", "kind": "replication" },
+    { "id": "r3", "source": "z3", "target": "z1", "kind": "replication" },
+    { "id": "a1", "source": "c1", "target": "z1", "kind": "sync", "label": "bail → jeton 33" },
+    { "id": "a2", "source": "c2", "target": "z1", "kind": "sync", "label": "bail → jeton 34" },
+    { "id": "w1", "source": "c1", "target": "store", "kind": "write", "label": "écrit (33) : rejeté" },
+    { "id": "w2", "source": "c2", "target": "store", "kind": "write", "label": "écrit (34)" }
+  ]
+}

@@ -1,0 +1,98 @@
+id: ddia-ch12-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un leader du terme 3 sort d'une pause de 2 secondes et reçoit une réponse portant le terme 5. Que fait-il ?
+  choices:
+  - Il ignore la réponse, puisqu'il est leader
+  - Il lance une élection au terme 4
+  - Il adopte le terme 5 et redevient follower
+  - Il force le terme 5 à revenir au terme 3
+  answer: 2
+  explanation: 'Un terme plus grand l''emporte toujours : l''ancien leader s''efface.'
+  concept: ddia-raft-terms-roles
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi le timeout d'élection de Raft est-il tiré au hasard ?
+  choices:
+  - Pour qu'en général un seul follower se présente en premier et gagne avant les autres
+  - Pour économiser la batterie
+  - Pour chiffrer les votes
+  - Parce que les horloges ne sont pas synchronisées
+  answer: 0
+  explanation: Des timeouts identiques déclencheraient des candidatures simultanées et des votes partagés.
+  concept: ddia-raft-election
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Remets dans l'ordre ce que fait un follower qui ne reçoit plus de battements de cœur. Choisis la bonne séquence.
+  choices:
+  - Il incrémente son terme et devient candidat → Il vote pour lui-même → Il envoie RequestVote aux autres nœuds → Il devient leader s'il obtient une majorité → Son timeout d'élection expire
+  - Son timeout d'élection expire → Il incrémente son terme et devient candidat → Il vote pour lui-même → Il devient leader s'il obtient une majorité → Il envoie RequestVote aux autres nœuds
+  - Son timeout d'élection expire → Il incrémente son terme et devient candidat → Il vote pour lui-même → Il envoie RequestVote aux autres nœuds → Il devient leader s'il obtient une majorité
+  - Il incrémente son terme et devient candidat → Son timeout d'élection expire → Il vote pour lui-même → Il envoie RequestVote aux autres nœuds → Il devient leader s'il obtient une majorité
+  answer: 2
+  explanation: Le vote pour soi compte dans la majorité.
+  concept: ddia-raft-election
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: A a pour dernière entrée (index 7, terme 3). Le candidat B a (index 9, terme 2) et demande la voix de A pour le terme 4. A n'a pas encore voté dans ce terme. Que répond A ?
+  choices:
+  - Oui, le log de B est plus long
+  - Oui, car A n'a pas encore voté
+  - Non, car B a un index plus grand
+  - Non, car le dernier terme de B (2) est plus ancien que le sien (3)
+  answer: 3
+  explanation: On compare d'abord le terme de la dernière entrée, puis la longueur.
+  concept: ddia-raft-vote-restriction
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Que garantit la règle « log au moins aussi à jour » ?
+  choices:
+  - Que les élections sont plus rapides
+  - Que tout leader élu possède toutes les entrées déjà validées
+  - Que les logs ont tous la même longueur
+  - Que les followers ne refusent jamais AppendEntries
+  answer: 1
+  explanation: Une entrée validée est sur une majorité ; tout quorum de vote contient un nœud qui la détient et refuse un candidat qui ne l'a pas.
+  concept: ddia-raft-vote-restriction
+  difficulty: 3
+- id: q6
+  type: single
+  prompt: Un follower reçoit AppendEntries(prevLogIndex 6, prevLogTerm 4). Son entrée 6 porte le terme 3. Que fait-il ?
+  choices:
+  - Il refuse ; le leader réessaiera avec un prevLogIndex plus petit
+  - Il accepte et ajoute les entrées à la suite
+  - Il remplace le terme de son entrée 6 par 4
+  - Il lance une élection
+  answer: 0
+  explanation: La vérification de cohérence échoue ; le leader recule nextIndex jusqu'au point d'accord.
+  concept: ddia-raft-log-matching
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Cluster de 5 nœuds. Le leader a 12 entrées (toutes de son terme) ; les matchIndex des followers valent 12, 9, 7 et 4. Que vaut commitIndex ?
+  choices:
+  - '12'
+  - '9'
+  - '7'
+  - '4'
+  answer: 1
+  explanation: 'L''index 9 est détenu par le leader, le follower à 12 et celui à 9 : 3 sur 5. L''index 10 ne l''est que par 2.'
+  concept: ddia-raft-commit-index
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Un nouveau leader du terme 5 constate qu'une entrée du terme 3 est présente sur une majorité. Peut-il la déclarer validée en comptant les réplicas ?
+  choices:
+  - Oui, une majorité suffit toujours
+  - Oui, si elle est la plus récente
+  - Non, seules les entrées du terme courant se valident par comptage ; les anciennes le sont par ricochet
+  - Non, il doit d'abord tout effacer
+  answer: 2
+  explanation: Une ancienne entrée peut encore être écrasée par un leader de terme plus récent ; c'est pourquoi un nouveau leader ajoute souvent une entrée vide.
+  concept: ddia-raft-commit-index
+  difficulty: 3

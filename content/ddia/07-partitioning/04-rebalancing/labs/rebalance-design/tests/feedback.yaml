@@ -1,0 +1,27 @@
+blocks:
+  modn:
+    tolerance:
+      abs: 0.6
+    wrong: 'Une clé reste si h mod 10 = h mod 11 : sur les 110 restes de h mod 110, seuls 0 à 9 conviennent. Reste 10/110 ≈ 9,1 %, le reste bouge.'
+  fixe:
+    tolerance:
+      abs: 1
+    wrong: 1 000 partitions / 11 nœuds ≈ 91 partitions chacun après rééquilibrage.
+  reglage:
+    goals:
+      balance: Trop peu de partitions pour 200 nœuds ; une partition ne se partage pas entre deux nœuds.
+      overhead: 'Chaque partition a un coût de gestion fixe : au départ, chaque nœud en gère trop.'
+      size: 'Des partitions trop grosses rendent rééquilibrage et reprise lents : augmente leur nombre.'
+  strategie:
+    options:
+      unknown: 'Avec des plages de clés et un volume imprévisible, des bornes fixes seraient vite mauvaises.'
+      known: 'Si l''on accepte de fixer le nombre dès la création, rien de plus simple : seule l''affectation change.'
+      grow: 'Un nombre fixe par nœud fait grandir le nombre de partitions avec la flotte, pas avec le volume.'
+  cascade:
+    options:
+      dead: 'D''abord la lenteur, puis la fausse détection de panne.'
+      load: 'Le transfert est la conséquence du rééquilibrage, pas sa cause.'
+  vide:
+    options:
+      wait: 'Une base vide n''a qu''une partition tant qu''elle n''atteint pas le seuil : un seul nœud reçoit tout.'
+      modn: 'hash mod N fera déménager presque tout au prochain changement de flotte, et HBase partitionne par plage.'

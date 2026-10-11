@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Réplication multi-leader ?
+  back: Plusieurs nœuds acceptent les écritures ; chacun transmet ses changements aux autres et applique les leurs (master-master, active/active).
+  concept: ddia-multi-leader-replication
+- id: fc2
+  front: Multi-leader dans un seul datacenter ?
+  back: Rarement utile ; la complexité des conflits dépasse le bénéfice.
+  concept: ddia-multi-leader-replication
+- id: fc3
+  front: Trois atouts d'un leader par datacenter ?
+  back: Écritures locales (latence), chaque site continue si l'autre tombe, meilleure tolérance aux coupures du lien entre sites.
+  concept: ddia-multi-leader-multi-dc
+- id: fc4
+  front: Outils de multi-leader cités ?
+  back: Tungsten Replicator (MySQL), BDR (PostgreSQL), GoldenGate (Oracle).
+  concept: ddia-multi-leader-multi-dc
+- id: fc5
+  front: Client hors ligne et réplication ?
+  back: Chaque appareil a une base locale qui est un leader ; la synchronisation est du multi-leader asynchrone, avec un délai pouvant atteindre des jours.
+  concept: ddia-offline-client-sync
+- id: fc6
+  front: Base conçue pour le mode hors ligne ?
+  back: CouchDB.
+  concept: ddia-offline-client-sync
+- id: fc7
+  front: Édition collaborative sans verrou ?
+  back: Chaque frappe est appliquée localement puis propagée ; c'est du multi-leader, avec conflits à résoudre.
+  concept: ddia-collaborative-editing
+- id: fc8
+  front: Ce qui casse quand on greffe du multi-leader ?
+  back: Clés auto-incrémentées, triggers, contraintes d'intégrité (vérifiées localement seulement).
+  concept: ddia-multi-leader-dangers

@@ -1,0 +1,1 @@
+Tu évalues le passage d'un service de billetterie sur une base à exécution en série. Calcule le débit d'un seul thread avec et sans procédure stockée, trie les charges qui y ont leur place, et repère ce qui casse la réplication par ré-exécution.

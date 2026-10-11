@@ -1,0 +1,61 @@
+checks:
+- id: entry
+  label: Les clients passent par le répartiteur de charge
+  rule: edge_kind
+  source: client
+  target: lb
+  kind: sync
+- id: via
+  label: 'Toute requête atteint un nœud via le répartiteur : c''est lui qui peut détourner le trafic'
+  rule: path
+  source: client
+  target: node
+  via: lb
+- id: no-direct
+  label: Aucun client n'appelle un nœud en direct
+  rule: no_edge
+  source: client
+  target: node
+- id: route
+  label: Le répartiteur envoie les requêtes aux nœuds
+  rule: edge_kind
+  source: lb
+  target: node
+  kind: sync
+- id: spare
+  label: Au moins 3 nœuds, pour qu'un nœud en pause GC ne sature pas les autres
+  rule: count
+  source: node
+  min: 3
+  max: 8
+- id: notify
+  label: Un nœud prévient le répartiteur, sans l'attendre, avant sa pause GC
+  rule: edge_kind
+  source: node
+  target: lb
+  kind: async
+- id: rolling
+  label: Un redémarrage roulant relance les nœuds avant la collecte complète
+  rule: edge_kind
+  source: restart
+  target: node
+  kind: sync
+- id: write
+  label: Les nœuds écrivent dans la base
+  rule: edge_kind
+  source: node
+  target: db
+  kind: write
+- id: no-swap
+  label: 'Pas de swap : un accès mémoire ne doit jamais attendre le disque'
+  rule: count
+  source: swap
+  max: 0
+- id: no-netdisk
+  label: Pas de chargement de code à la demande depuis un disque réseau (E/S synchrones cachées)
+  rule: count
+  source: netdisk
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

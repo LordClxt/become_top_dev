@@ -1,0 +1,7 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 200},
+    {"id": "ledger", "type": "ledger", "x": 1260, "y": 200}
+  ],
+  "edges": []
+}

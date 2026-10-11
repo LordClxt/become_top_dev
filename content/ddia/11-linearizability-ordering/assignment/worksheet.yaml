@@ -1,0 +1,84 @@
+intro: |
+  La messagerie a des utilisateurs en Europe et en Amérique. Elle stocke ses métadonnées critiques dans un cluster **etcd à 3 nœuds** : le leader à **Francfort**, un follower à **Dublin** (aller-retour Francfort-Dublin : **25 ms**), un follower en **Virginie** (aller-retour Francfort-Virginie : **90 ms**). Les messages des conversations sont stockés dans une base répliquée séparée.
+blocks:
+- id: garanties
+  type: match
+  title: La bonne garantie pour chaque fonction
+  prompt: Choisis la garantie **la moins coûteuse** qui reste correcte.
+  items:
+  - id: pseudo
+    label: Deux personnes ne peuvent pas obtenir le même pseudo
+  - id: leader
+    label: Un seul nœud à la fois distribue les notifications push
+  - id: thread
+    label: Une réponse ne s'affiche jamais avant le message auquel elle répond
+  - id: views
+    label: Le compteur « vu par 1 234 personnes », approximatif
+  - id: profile
+    label: La photo de profil d'un contact, quelques secondes de retard acceptables
+  categories:
+  - id: lin
+    label: Linéarisabilité
+  - id: causal
+    label: Cohérence causale
+  - id: eventual
+    label: Cohérence à terme
+- id: recoupe
+  type: number
+  title: Le recouvrement d'un quorum
+  prompt: La base des messages a **n = 5** répliques, avec **w = 3** et **r = 3**. Combien de répliques, au minimum, un ensemble de lecture et un ensemble d'écriture ont-ils en commun ?
+  unit: répliques
+- id: quorum
+  type: choice
+  title: Un quorum suffit-il pour les pseudos ?
+  prompt: Un collègue propose de réserver les pseudos dans la base des messages, avec ce quorum. Ton avis ?
+  options:
+  - id: no
+    label: Non — un quorum strict peut donner des lectures non linéarisables, et un compare-and-set exige de toute façon un consensus
+  - id: yes
+    label: Oui — w + r > n garantit qu'on lit toujours la dernière valeur
+  - id: lww
+    label: Oui, si l'on ajoute « la dernière écriture gagne » pour départager
+- id: latence
+  type: number
+  title: Le prix d'un pseudo depuis la Virginie
+  prompt: 'Un client en Virginie réserve un pseudo : sa requête va au leader de Francfort, qui doit faire confirmer l''écriture par une majorité avant de répondre. Durée minimale, en ignorant le temps de calcul ?'
+  unit: ms
+- id: lamport
+  type: table
+  title: Le maximum transporté par le client
+  prompt: 'Le nœud X est à **10**, le nœud Y à **3**. Donne le compteur de Lamport attribué à chaque écriture (réception d''une requête : `max(local, transmis) + 1`, sans valeur transmise : `local + 1`).'
+  columns:
+  - id: c
+    label: Compteur
+  rows:
+  - id: r1
+    label: Le client K écrit sur X, sans valeur transmise
+  - id: r2
+    label: K écrit ensuite sur Y en transmettant le compteur obtenu
+  - id: r3
+    label: Un autre client écrit sur Y, sans valeur transmise
+- id: equiv
+  type: multi
+  title: Ce qui équivaut au consensus
+  prompt: Coche les mécanismes qui, rendus tolérants aux pannes, sont équivalents au consensus.
+  options:
+  - id: tob
+    label: La diffusion à ordre total
+  - id: cas
+    label: Un registre linéarisable avec compare-and-set
+  - id: lamport
+    label: Les horodatages de Lamport
+  - id: incr
+    label: Un compteur linéarisable à incrémentation-et-lecture atomique
+- id: sequenceur
+  type: choice
+  title: Le séquenceur unique
+  prompt: Pour ordonner les réclamations de pseudo, l'équipe envisage un séquenceur unique qui numérote chaque message. Quel est le vrai risque ?
+  options:
+  - id: spof
+    label: S'il tombe, plus rien n'est ordonné ; le remplacer sans risquer deux séquenceurs demande un consensus
+  - id: gaps
+    label: Ses numéros ont des trous, donc les répliques ne savent pas quand attendre
+  - id: causal
+    label: Ses numéros ne respectent pas la causalité

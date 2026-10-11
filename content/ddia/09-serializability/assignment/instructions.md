@@ -1,0 +1,1 @@
+Un service de réservation de salles doit devenir sérialisable. Dimensionne une exécution en série, prédis le comportement d'un gestionnaire de verrous 2PL, choisis le bon verrou contre les fantômes, reconstitue une détection SSI, puis tranche entre les trois techniques.

@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Le coordinateur 2PC"
+    goal: "Recueillir les votes, journaliser la décision avant de la diffuser, n'écrire « end » qu'après tous les acquittements, et reprendre après un crash : annuler ce qui n'a pas de décision, renvoyer ce qui en a une."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "L'élection Raft"
+    goal: "Appliquer la règle des termes, accorder au plus une voix par terme à un candidat dont le log est au moins aussi à jour, et élire un leader avec une majorité du cluster."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Réplication et validation"
+    goal: "Vérifier la cohérence d'AppendEntries, tronquer au premier conflit, reculer nextIndex jusqu'au point d'accord, et avancer commitIndex quand une majorité détient une entrée du terme courant."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Pourquoi Replicate refuse-t-il de valider par comptage une entrée d'un terme précédent, même présente sur une majorité ? Décris un scénario sur 5 nœuds où la valider ferait perdre une écriture confirmée au client. Et dans Run, que se passerait-il si la décision était envoyée avant d'être écrite au journal ?"

@@ -1,0 +1,3 @@
+**Chaque lettre d'ACID répond à un incident différent.** Une écriture faite à moitié : atomicité (tout est annulé). Une transaction qui voit l'état intermédiaire d'une autre : isolation. Un commit perdu au redémarrage : durabilité. Un invariant métier (« pas de solde négatif ») : cohérence, qui appartient à l'**application**.
+
+Réessayer est le grand avantage d'une transaction, mais avec méthode : seulement les erreurs **transitoires**, avec un **backoff exponentiel** (50 + 100 + 200 + 400 = **750 ms** d'attente avant le 5ᵉ essai) et une **clé d'idempotence** quand l'issue du commit est inconnue. Et un effet de bord externe se répète à chaque essai : 3 essais, **3 e-mails**. On l'envoie après le commit, ou via une file d'attente.

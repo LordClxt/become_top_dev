@@ -1,0 +1,29 @@
+blocks:
+  risques:
+    options:
+      zip: Le quartier est corrélé à des attributs protégés ; c'est la discrimination par la bande.
+      fewer-rides: Le score modifie les données qui le nourrissent et s'auto-confirme.
+      tos: Conditions non négociées, illisibles et sans alternative ne font pas un choix libre.
+      no-appeal: Sans explication ni recours, la décision échappe à toute redevabilité.
+  faux-positifs:
+    tolerance:
+      abs: 0.5
+    wrong: (1 500 − 600) / 1 500 = 900 / 1 500 = 60 %.
+  retention:
+    options:
+      fare: Une course de 20 jours sert la facturation et les litiges (90 jours).
+      gps-old: Au-delà de 90 jours, la trace précise ne sert plus la finalité ; c'est un risque pur.
+      contacts: Ils ne servent ni la facturation ni les litiges, et concernent des tiers qui n'ont rien accepté.
+      heatmap: Une statistique agrégée sert la planification sans identifier personne.
+  effacement:
+    options:
+      flag: L'événement reste lisible ; rien n'a été effacé.
+      backup: Les sauvegardes contiennent aussi la donnée ; il faut les couvrir (expiration ou clés détruites).
+      crypto-shred: Sans la clé, les événements chiffrés deviennent illisibles partout, y compris dans les copies.
+      compaction: La compaction retire réellement les anciennes valeurs d'une clé.
+      derived: Les vues dérivées gardent sinon une copie.
+  posture:
+    options:
+      neutral: Le livre rejette précisément l'idée d'une technologie neutre.
+      legal: La loi est un minimum ; le livre appelle à aller au-delà par l'autorégulation.
+      users: L'asymétrie d'information rend cette réponse insuffisante.

@@ -1,0 +1,25 @@
+blocks:
+  offsets:
+    options:
+      a.min: 'Compare les deux horloges au même instant, l''envoi : 10:32 côté serveur contre 10:20 côté téléphone.'
+      b.min: 'Le serveur reçoit à 17:57 un message que le téléphone dit avoir envoyé à 18:00 : le téléphone avance, le décalage est négatif.'
+      c.min: 'Réception 11:00, envoi 10:58 : le téléphone retarde légèrement.'
+  windows:
+    options:
+      a: 'Le téléphone de A retarde : ajoute son décalage à 09:50 avant de choisir la fenêtre.'
+      b: 'L''heure de réception décrit le moment du réseau retrouvé, pas la remise du colis : corrige 13:05 avec le décalage de B.'
+      c: '10:58 + le décalage de C fait passer la remise dans l''heure suivante.'
+  spike:
+    tolerance:
+      abs: 1
+    wrong: Six minutes d'arriéré (6 × 2 400) plus la minute courante (2 400) tombent toutes dans la minute de traitement 10 h 06.
+  close:
+    options:
+      w41: 'Le serveur le plus lent n''a garanti que jusqu''à 10:41:55 : il peut encore envoyer un événement de 10:41:58.'
+      w42: 'Aucun seuil n''est la garantie de tous les serveurs au-delà de 10:41:55, et cette fenêtre se termine à 10:43.'
+      w40: 'Même le serveur le plus lent a dépassé 10:41 : cette fenêtre est complète.'
+  stragglers:
+    options:
+      billing: 'Une facture doit être exacte : un retardataire ignoré est une livraison non facturée.'
+      ops: 'Une minute de salle de contrôle n''a plus d''intérêt cinq minutes après ; corriger le passé ne sert à rien, mais un taux de retardataires en hausse signale une panne.'
+      payroll: 'La prime est de l''argent dû : on ne peut pas oublier une livraison parce que le téléphone était hors ligne.'

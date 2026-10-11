@@ -1,0 +1,19 @@
+{
+  "nodes": [
+    {"id": "app", "type": "app", "x": 0, "y": 200},
+    {"id": "db", "type": "db", "x": 300, "y": 200},
+    {"id": "cdc", "type": "cdc", "x": 600, "y": 200},
+    {"id": "log", "type": "log", "x": 900, "y": 200},
+    {"id": "search", "type": "search", "x": 1200, "y": 40},
+    {"id": "cache", "type": "cache", "x": 1200, "y": 200},
+    {"id": "wh", "type": "wh", "x": 1200, "y": 360}
+  ],
+  "edges": [
+    {"id": "e1", "source": "app", "target": "db", "kind": "write", "label": "UPDATE"},
+    {"id": "e2", "source": "db", "target": "cdc", "kind": "async", "label": "WAL"},
+    {"id": "e3", "source": "cdc", "target": "log", "kind": "async", "label": "changements"},
+    {"id": "e4", "source": "log", "target": "search", "kind": "async"},
+    {"id": "e5", "source": "log", "target": "cache", "kind": "async"},
+    {"id": "e6", "source": "log", "target": "wh", "kind": "async"}
+  ]
+}

@@ -1,0 +1,30 @@
+blocks:
+  silence:
+    options:
+      lost: Une requête perdue produit exactement ce silence.
+      queued: Un réseau ou un nœud surchargé met les paquets en file ; la réponse viendra peut-être trop tard.
+      gc: Un nœud figé ne répond pas, puis reprend comme si de rien n'était.
+      done: 'C''est le cas le plus dangereux : l''action a eu lieu, seule la confirmation manque.'
+      tcp: TCP ne sait pas si l'application distante a traité la requête ; il ne signale qu'un délai dépassé.
+      refused: 'Un refus de connexion est une réponse : ce ne serait plus un silence.'
+  retry:
+    options:
+      always: Le timeout ne dit pas si le débit a eu lieu ; renvoyer peut débiter deux fois.
+      never: Abandonner sans savoir laisse peut-être un débit fait sans paiement enregistré ; il faut pouvoir rejouer sans risque.
+  fanout:
+    tolerance:
+      abs: 0.2
+    wrong: 'P(au moins une indisponible) = 1 − P(toutes disponibles) = 1 − 0,998⁴⁰.'
+  signals:
+    options:
+      rst: 'L''OS répond à la place du processus : personne n''écoute ce port. C''est un signal, même s''il ne dit pas ce qui a été traité.'
+      script: Un script qui voit le processus mourir peut prévenir les autres sans attendre de timeout (HBase le fait).
+      icmp: Le routeur affirme que l'adresse est injoignable ; c'est une information explicite.
+      nothing: 'Un nœud débranché n''envoie rien : seul le temps qui passe peut faire conclure.'
+      slow: Lent n'est pas mort ; le déclarer en panne serait une décision, pas une observation.
+  strategy:
+    options:
+      weather: Un calcul hors ligne peut s'arrêter et repartir d'un point de reprise.
+      payments: Un service en ligne ne peut pas tout arrêter à chaque panne d'un nœud.
+      chat: Sur trois régions, quelque chose est toujours en panne quelque part.
+      molecular: C'est le cas typique du calcul haute performance, qui ressemble à un gros ordinateur unique.

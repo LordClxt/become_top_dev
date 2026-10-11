@@ -1,0 +1,98 @@
+id: ddia-ch11-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que promet exactement la cohérence à terme ?
+  choices:
+  - Qu'une lecture voit toute écriture terminée depuis plus d'une seconde
+  - Que deux lectures successives ne se contredisent jamais
+  - Que, si l'on cesse d'écrire, les répliques finiront par converger, sans délai garanti
+  - Que les écritures sont appliquées dans l'ordre réel
+  answer: 2
+  explanation: 'C''est une promesse de convergence : rien sur le délai, rien sur ce qu''on lit en attendant. Deux lectures peuvent même se contredire.'
+  concept: ddia-eventual-consistency-weakness
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Bob rafraîchit sa page après qu'Alice lui a annoncé le score final, et voit encore « match en cours ». Qu'est-ce qui rend cette lecture non linéarisable ?
+  choices:
+  - Bob a lu sur un réplica, ce qui est interdit
+  - Sa lecture commence après une lecture (celle d'Alice) qui a déjà vu la nouvelle valeur
+  - La page de Bob affiche une valeur périmée de plus de 100 ms
+  - Alice et Bob utilisent deux téléphones différents
+  answer: 1
+  explanation: Si Bob avait lu avant qu'Alice parle, voir l'ancien score aurait été permis. Le problème vient de l'ordre réel entre les deux lectures.
+  concept: ddia-linearizable-read-visibility
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: 'x vaut 0. A écrit x = 1 entre t=0 et t=10. C lit 1 entre t=2 et t=4. D lit entre t=5 et t=6. Quelles valeurs D peut-il lire sous linéarisabilité ?'
+  choices:
+  - 0 ou 1, puisque sa lecture chevauche l'écriture
+  - Seulement 0, l'écriture n'est pas terminée
+  - Seulement 1
+  - Aucune, il doit attendre la fin de l'écriture
+  answer: 2
+  explanation: 'D commence après la fin de la lecture de C, qui a déjà vu 1 : revenir à 0 ferait basculer la valeur en arrière.'
+  concept: ddia-linearizable-read-visibility
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Comment décide-t-on qu'un historique d'opérations est linéarisable ?
+  choices:
+  - Il existe, dans l'intervalle de chaque opération, un point où elle prend effet, et ces points rangés dans l'ordre forment une exécution valide d'un registre unique
+  - Toutes les opérations sont triées selon leur heure de début
+  - Chaque client voit ses propres écritures
+  - Toutes les répliques ont la même valeur à la fin
+  answer: 0
+  explanation: 'La définition : un point atomique par opération, compris entre la requête et la réponse, et une ligne de temps qui ne revient jamais en arrière.'
+  concept: ddia-linearizability-definition
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Deux clients lancent en même temps cas(x, 0, "A") et cas(x, 0, "B") sur une base linéarisable où x vaut 0. Que se passe-t-il ?
+  choices:
+  - Les deux réussissent, la dernière écriture gagne
+  - Les deux échouent pour éviter le conflit
+  - Le résultat dépend de l'horloge de chaque client
+  - Un seul réussit, l'autre échoue sans rien modifier
+  answer: 3
+  explanation: Avec une seule copie apparente, la première opération à prendre effet change x ; la seconde ne voit plus 0 et échoue.
+  concept: ddia-linearizability-cas-register
+  difficulty: 1
+- id: q6
+  type: multiple
+  prompt: Coche les affirmations vraies.
+  choices:
+  - La sérialisabilité porte sur des transactions qui touchent plusieurs objets
+  - La sérialisabilité garantit qu'une lecture voit toute écriture validée avant elle en temps réel
+  - L'isolation par instantané sérialisable (SSI) n'est pas linéarisable
+  - Sérialisabilité plus linéarisabilité s'appelle sérialisabilité stricte
+  answer: [0, 2, 3]
+  explanation: 'La sérialisabilité accepte n''importe quel ordre sériel, même différent de l''ordre réel. SSI lit un instantané qui peut ignorer une écriture récente validée.'
+  concept: ddia-linearizability-vs-serializability
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pourquoi les bogues liés à la cohérence à terme sont-ils dangereux ?
+  choices:
+  - Ils provoquent toujours une perte de données
+  - Ils n'apparaissent qu'en cas de panne ou de forte concurrence, donc rarement en test
+  - Ils ne concernent que les bases sans leader
+  - Ils sont détectés par le compilateur
+  answer: 1
+  explanation: Le comportement diffère de celui d'une variable mono-thread, et l'écart ne se voit que dans des conditions rares.
+  concept: ddia-eventual-consistency-weakness
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: 'x vaut 0. A écrit 1 entre t=0 et t=2. B fait cas(x, 1, 2) entre t=3 et t=5 et la base répond « échec ». Aucune autre opération. Verdict ?'
+  choices:
+  - Linéarisable, car le cas peut échouer à tout moment
+  - Linéarisable si B est sur un autre réplica
+  - Non linéarisable, x valait forcément 1 au début du cas
+  - On ne peut rien conclure sans horloge
+  answer: 2
+  explanation: 'L''écriture est terminée avant que le cas commence, et rien d''autre n''a modifié x : il valait 1, le cas devait réussir.'
+  concept: ddia-linearizability-cas-register
+  difficulty: 3

@@ -1,0 +1,11 @@
+{
+  "nodes": [
+    {
+      "id": "browser",
+      "type": "browser",
+      "x": 0,
+      "y": 0
+    }
+  ],
+  "edges": []
+}

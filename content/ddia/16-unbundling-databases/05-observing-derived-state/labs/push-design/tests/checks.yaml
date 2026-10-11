@@ -1,0 +1,74 @@
+checks:
+- id: action
+  label: L'app envoie ses actions à l'API
+  rule: edge_kind
+  source: app
+  target: api
+  kind: sync
+- id: write
+  label: L'API écrit dans la base de référence
+  rule: edge_kind
+  source: api
+  target: db
+  kind: write
+- id: cdc
+  label: La base publie ses changements dans le log
+  rule: edge_kind
+  source: db
+  target: log
+  kind: async
+- id: viewer-in
+  label: Le mainteneur de vue consomme le log
+  rule: edge_kind
+  source: log
+  target: viewer
+  kind: async
+- id: viewer-out
+  label: 'Il écrit la vue matérialisée : le travail est fait sur le chemin d''écriture'
+  rule: edge_kind
+  source: viewer
+  target: view
+  kind: write
+- id: push-in
+  label: Le service de push lit la vue matérialisée à jour
+  rule: edge_kind
+  source: view
+  target: push
+  kind: async
+- id: push-out
+  label: Le push envoie les changements à l'app, de façon asynchrone
+  rule: edge_kind
+  source: push
+  target: app
+  kind: async
+- id: local
+  label: L'app applique les changements dans sa base locale
+  rule: edge_kind
+  source: app
+  target: local
+  kind: write
+- id: end-to-end
+  label: Le chemin d'écriture va de l'API jusqu'à la base locale de l'app
+  rule: path
+  source: api
+  target: local
+  via: log
+- id: no-direct
+  label: L'app ne lit pas la base de référence directement
+  rule: no_edge
+  source: app
+  target: db
+- id: no-poll
+  label: Pas d'interrogation périodique
+  rule: count
+  source: poll
+  max: 0
+- id: one-push
+  label: Un seul service de push
+  rule: count
+  source: push
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

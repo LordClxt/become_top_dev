@@ -1,0 +1,1 @@
+Tu participes à la revue d'un produit de VTC qui veut ajouter un score de « fiabilité » des chauffeurs et des passagers. Identifie les risques, chiffre l'erreur individuelle d'un modèle et décide quelles données garder.

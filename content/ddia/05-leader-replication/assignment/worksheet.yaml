@@ -1,0 +1,90 @@
+intro: |
+  La base de ta boutique a un leader et quatre followers **asynchrones**. Le leader produit en moyenne **1 500 changements par seconde**, et chaque follower peut en appliquer **6 000 par seconde**.
+
+  Ta semaine d'astreinte : ajouter un cinquième follower, préparer le prochain failover, faire une mise à jour de version sans arrêt et répondre aux plaintes des utilisateurs.
+blocks:
+- id: arriere
+  type: number
+  title: L'arriéré du nouveau follower
+  prompt: Tu prends un snapshot cohérent du leader au LSN 8 400 000. Sa copie sur le nouveau nœud dure **2 heures**. Combien de changements le nouveau follower devra-t-il demander au leader à la fin de la copie ?
+  unit: changements
+- id: rattrapage
+  type: number
+  title: Le temps de rattraper
+  prompt: Le follower applique 6 000 changements par seconde pendant que le leader continue d'en produire 1 500. Combien de **minutes** lui faut-il pour rattraper l'arriéré ?
+  unit: min
+- id: perdues
+  type: number
+  title: Les écritures que le failover va jeter
+  prompt: Le leader meurt pendant un pic à **2 000 écritures par seconde**. Le follower le plus avancé a **0,6 s** de retard. Combien d'écritures confirmées seront jetées par le failover, au plus ?
+  unit: écritures
+- id: etapes
+  type: order
+  title: Le déroulé du failover
+  prompt: Remets dans l'ordre le failover automatique.
+  items:
+  - id: detect
+    label: Le leader ne répond plus pendant tout le délai de détection ; il est déclaré mort
+  - id: choose
+    label: Le follower au LSN le plus élevé est choisi comme nouveau leader
+  - id: reconfig
+    label: Les clients et les autres followers sont redirigés vers le nouveau leader
+  - id: demote
+    label: L'ancien leader revient, devient follower et ses écritures non répliquées sont jetées
+- id: delai
+  type: choice
+  title: Le délai de détection
+  prompt: Sous forte charge, le leader met parfois **8 s** à répondre (p99,9). Les coupures réseau observées durent au plus **2 s**. Quel délai de détection choisis-tu ?
+  options:
+  - id: d3
+    label: 3 secondes
+  - id: d15
+    label: 15 secondes
+  - id: d300
+    label: 5 minutes
+- id: upgrade
+  type: choice
+  title: Mettre à jour sans arrêt
+  prompt: Tu veux passer à la version majeure suivante, qui change le format disque, en mettant d'abord à jour les followers puis en faisant un failover. Quel log de réplication le permet ?
+  options:
+  - id: logical
+    label: Un log logique, par ligne, indépendant du format de stockage
+  - id: wal
+    label: L'expédition du WAL physique
+  - id: statement
+    label: La réplication par instructions avec NOW() et des auto-incréments
+- id: plaintes
+  type: match
+  title: Diagnostiquer les plaintes
+  prompt: Quelle garantie manque dans chaque plainte ?
+  items:
+  - id: photo
+    label: Je change ma photo, je recharge, l'ancienne photo s'affiche
+  - id: likes
+    label: En rafraîchissant, le nombre d'avis passe de 120 à 97, puis à 125
+  - id: thread
+    label: Une réponse s'affiche avant la question à laquelle elle répond
+  - id: panier
+    label: J'ajoute un article à mon panier, la page suivante affiche un panier vide
+  - id: virement
+    label: Un tableau de bord montre le crédit d'un virement sur B avant son débit sur A ; les deux comptes sont dans deux partitions différentes
+  categories:
+  - id: ryw
+    label: Read-your-writes
+  - id: mono
+    label: Lectures monotones
+  - id: prefix
+    label: Préfixe cohérent
+- id: routage
+  type: multi
+  title: Quels followers peuvent servir Léa ?
+  prompt: 'Le routeur retient pour Léa la position de sa dernière écriture (**7 300**) et la plus haute position qu''elle a déjà lue (**7 350**). Coche les followers qui peuvent servir sa prochaine lecture sans casser read-your-writes ni les lectures monotones.'
+  options:
+  - id: f1
+    label: Follower 1, position 7 290
+  - id: f2
+    label: Follower 2, position 7 340
+  - id: f3
+    label: Follower 3, position 7 360
+  - id: f4
+    label: Follower 4, position 7 512

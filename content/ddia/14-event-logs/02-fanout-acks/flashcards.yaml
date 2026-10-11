@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Répartition de charge ?
+  back: Chaque message va à un seul consommateur ; utile quand chaque message coûte cher à traiter.
+  concept: ddia-consumer-load-balancing
+- id: fc2
+  front: Fan-out ?
+  back: Chaque message va à tous les abonnés, qui le traitent indépendamment.
+  concept: ddia-consumer-fan-out
+- id: fc3
+  front: Groupes de consommateurs ?
+  back: Fan-out entre groupes, répartition à l'intérieur de chaque groupe.
+  concept: ddia-consumer-groups
+- id: fc4
+  front: Quand le broker efface-t-il un message ?
+  back: Quand le consommateur l'a explicitement acquitté.
+  concept: ddia-ack-redelivery
+- id: fc5
+  front: Que fait le broker si la connexion se ferme sans accusé ?
+  back: Il suppose que le message n'a pas été traité et le redistribue à un autre consommateur.
+  concept: ddia-ack-redelivery
+- id: fc6
+  front: Pourquoi un message peut-il être traité deux fois malgré les accusés ?
+  back: Le traitement a réussi mais l'accusé s'est perdu ; le broker redistribue.
+  concept: ddia-ack-redelivery
+- id: fc7
+  front: Pourquoi la redistribution réordonne-t-elle les messages ?
+  back: Pendant qu'un consommateur plante sur m3, un autre a déjà traité m4 ; m3 arrive ensuite.
+  concept: ddia-redelivery-reordering
+- id: fc8
+  front: Comment éviter ce réordonnancement dans un broker classique ?
+  back: Une file séparée par consommateur, donc sans répartition de charge pour ces messages.
+  concept: ddia-redelivery-reordering

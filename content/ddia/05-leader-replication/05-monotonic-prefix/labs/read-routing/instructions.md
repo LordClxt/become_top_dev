@@ -1,0 +1,1 @@
+Dessine le chemin des requêtes de deux utilisateurs dans une base avec un leader et deux followers. Les écritures doivent atteindre le leader ; chaque utilisateur doit lire **toujours** sur le même réplica (hachage de son identifiant), pour ne jamais voir le temps reculer.

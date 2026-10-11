@@ -1,0 +1,81 @@
+id: ddia-ch08-boss
+title: 'Boss : le portefeuille qui ne perd pas un centime'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-transaction-abstraction
+- ddia-snapshot-isolation
+- ddia-lost-update
+- ddia-write-skew-anomaly
+- ddia-txn-retry-pitfalls
+- ddia-read-skew
+source:
+  chapter: 7
+  pages: 221-251
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: mobile
+  label: Application mobile
+  hint: Les utilisateurs paient depuis leur portefeuille.
+- type: gw
+  component: gateway
+  label: API gateway
+  hint: Authentification et clé d'idempotence.
+- type: pay
+  component: service
+  label: Service de paiement
+  hint: Ouvre la transaction, la réessaie si la base l'abandonne.
+- type: txn
+  component: zone
+  label: Transaction de paiement
+  hint: Tout ce qui est dedans est validé ou abandonné ensemble.
+- type: lockacct
+  component: index
+  label: Verrou du compte (SELECT … FOR UPDATE)
+  hint: Verrouille la ligne du compte avant de vérifier le solde.
+- type: debit
+  component: log
+  label: Débit et écriture comptable
+  hint: UPDATE du solde et INSERT dans le grand livre.
+- type: ledger
+  component: postgres
+  label: PostgreSQL — comptes et grand livre
+  hint: En repeatable read (snapshot isolation).
+- type: queue
+  component: queue
+  label: File « paiement validé »
+  hint: Reçoit un message après le commit.
+- type: mail
+  component: email
+  label: E-mails de confirmation
+  hint: Un effet de bord hors de la base.
+- type: backup
+  component: cron
+  label: Sauvegarde (transaction en lecture seule)
+  hint: Copie la base dans son instantané.
+- type: store
+  component: object-store
+  label: Stockage des sauvegardes
+  hint: Reçoit la copie.
+- type: audit
+  component: worker
+  label: Contrôle « la somme des comptes est constante »
+  hint: Doit lire un état cohérent.
+- type: cache
+  component: redis
+  label: Cache des soldes pour autoriser les paiements
+  hint: Une copie du solde, consultée hors transaction.
+- type: lww
+  component: cassandra
+  label: Solde répliqué en dernière écriture gagnante
+  hint: Plusieurs réplicas acceptent des débits, le plus récent l'emporte.
+- type: orm
+  component: worker
+  label: Batch « solde += montant » via l'ORM
+  hint: Lit le solde, ajoute dans le code, réécrit.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,105 @@
+id: ddia-ch10-l02-quiz
+questions:
+- id: q1
+  type: multiple
+  prompt: Ton équipe passe le timeout de détection de panne du leader de 10 s à 500 ms pour basculer plus vite. Quels risques augmentent ?
+  choices:
+  - Déclarer mort un leader simplement ralenti par un pic de charge
+  - Exécuter deux fois une action que l'ancien leader avait commencée
+  - Transférer sa charge à des nœuds déjà surchargés, jusqu'à la panne en cascade
+  - Attendre plus longtemps avant de détecter une vraie panne
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Un timeout court détecte plus vite (le dernier choix est l'inverse) mais multiplie les fausses accusations et leurs conséquences.
+  concept: ddia-timeout-tradeoff
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Un réseau garantirait un délai maximal d = 4 ms et un serveur un traitement en au plus r = 12 ms. Quel timeout serait alors sûr ?
+  choices:
+  - 20 ms
+  - 16 ms
+  - 8 ms
+  - 28 ms
+  answer: 0
+  explanation: Aller (d) + traitement (r) + retour (d) = 2 × 4 + 12 = 20 ms. Mais ces garanties n'existent pas dans un réseau asynchrone.
+  concept: ddia-unbounded-delay
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Pourquoi aucun timeout n'est-il « correct » dans un datacentre classique ?
+  choices:
+  - Parce que les horloges des machines ne sont pas synchronisées
+  - Parce que TCP interdit les timeouts au-delà d'une seconde
+  - Parce que les paquets ne sont jamais perdus
+  - Parce que le réseau et les serveurs ne garantissent aucun délai maximal
+  answer: 3
+  explanation: Les délais sont non bornés ; tout timeout est un compromis entre attente et fausses alertes.
+  concept: ddia-unbounded-delay
+  difficulty: 1
+- id: q4
+  type: multiple
+  prompt: Où un paquet peut-il attendre dans une file avant d'être traité ?
+  choices:
+  - Dans un switch, quand plusieurs nœuds envoient vers la même destination
+  - Dans l'OS du destinataire, quand tous ses cœurs sont occupés
+  - Dans l'hyperviseur, pendant que la VM destinataire est en pause
+  - Chez l'émetteur, à cause du contrôle de flux TCP
+  answer:
+  - 0
+  - 1
+  - 2
+  - 3
+  explanation: Toutes ces files grandissent près de la saturation et produisent la variabilité des délais.
+  concept: ddia-network-queueing
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Une application de visioconférence passe de TCP à UDP. Qu'est-ce qui change ?
+  choices:
+  - Les délais deviennent bornés
+  - Les paquets perdus ne sont plus retransmis, ce qui évite d'accumuler du retard, mais les files des switchs restent
+  - Les paquets ne peuvent plus être perdus
+  - Le contrôle de flux devient plus strict
+  answer: 1
+  explanation: Un paquet audio en retard est inutile ; UDP préfère le perdre. La variabilité due aux files demeure.
+  concept: ddia-network-queueing
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Deux nœuds envoient des battements de cœur. A a des intervalles de 100 ± 5 ms, B de 150 ± 80 ms. Que fait un détecteur adaptatif ?
+  choices:
+  - Il applique le même timeout aux deux pour être équitable
+  - Il déclare B mort, car ses intervalles varient trop
+  - Il donne un timeout plus long à B, car un silence de 200 ms y est banal, et plus court à A
+  - Il ignore la gigue et ne regarde que la moyenne
+  answer: 2
+  explanation: 'Le timeout suit la distribution observée : moyenne et gigue. C''est l''idée du détecteur phi accrual.'
+  concept: ddia-adaptive-timeout
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Pourquoi les datacentres n'utilisent-ils pas la commutation de circuits, qui borne les délais ?
+  choices:
+  - Elle gaspille la capacité pour un trafic en rafales, dont le débit nécessaire n'est pas connu à l'avance
+  - Elle est techniquement impossible sur de la fibre
+  - Elle perd plus de paquets que la commutation de paquets
+  - Elle exige des horloges atomiques
+  answer: 0
+  explanation: 'Délai borné contre utilisation des ressources : les délais variables sont un choix économique, pas une loi physique.'
+  concept: ddia-circuit-vs-packet
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Un appel RNIS reçoit 16 bits dans chacune des 4 000 trames par seconde. Quel débit lui est réservé dans chaque sens ?
+  choices:
+  - 64 kbit/s
+  - 16 kbit/s
+  - 4 kbit/s
+  - 128 kbit/s
+  answer: 0
+  explanation: 16 × 4 000 = 64 000 bits par seconde, réservés même quand personne ne parle.
+  concept: ddia-circuit-vs-packet
+  difficulty: 1

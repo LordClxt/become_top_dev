@@ -1,0 +1,1 @@
+Tu conçois **PayLite**, un portefeuille de paiement entre particuliers. Compte les débits selon les scénarios de réessai, dimensionne le log d'unicité des pseudos, choisis la stratégie de chaque contrainte, ordonne le virement multi-partitions, choisis ce qui détecte un bug, et pose les conditions d'un score de fraude automatique.

@@ -1,0 +1,14 @@
+id: ddia-ch13-project
+title: "Tinybase — le moteur de lots"
+pitch: "Tinybase apprend à recalculer ses données dérivées : un mini-moteur MapReduce en mémoire, une jointure sort-merge côté reduce avec tri secondaire, une jointure broadcast côté map, et la preuve que les deux donnent le même résultat, à chaque fois."
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 240
+timeout_s: 60
+entrypoint: starter/
+test_command: "go test ./..."
+files_editable: ["mapreduce.go"]
+concepts: [ddia-batch-mr-job-execution, ddia-batch-mr-shuffle, ddia-batch-secondary-sort, ddia-batch-sort-merge-join, ddia-batch-broadcast-hash-join, ddia-batch-skew-hot-keys, ddia-batch-determinism]
+verified: { at: 2026-10-11, solution: pass, starter: fail }

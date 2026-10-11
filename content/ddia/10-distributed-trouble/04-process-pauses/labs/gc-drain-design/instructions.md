@@ -1,0 +1,1 @@
+Un service à ramasse-miettes souffre de pauses de plusieurs centaines de millisecondes qui font exploser son p99. Dessine l'architecture qui cache ces pauses aux clients : un répartiteur que les nœuds préviennent avant leur GC, assez de nœuds pour absorber l'absence de l'un d'eux, et un redémarrage roulant. Écarte ce qui ajoute des pauses.

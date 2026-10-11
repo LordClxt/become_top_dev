@@ -1,0 +1,1 @@
+Une messagerie mondiale veut des pseudos uniques, des conversations qui ne s'affichent jamais dans le désordre et une latence raisonnable sur trois continents. Tu choisis la garantie de chaque fonction, tu chiffres le coût de la linéarisabilité, et tu justifies l'architecture d'ordre.

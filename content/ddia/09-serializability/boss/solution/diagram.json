@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    { "id": "app", "type": "app", "x": 0, "y": 200 },
+    { "id": "gw", "type": "gw", "x": 240, "y": 200 },
+    { "id": "svc", "type": "svc", "x": 480, "y": 200 },
+    { "id": "db", "type": "dbzone", "x": 760, "y": 60, "w": 380, "h": 330, "label": "Nœud PostgreSQL" },
+    { "id": "idx", "type": "idx", "x": 800, "y": 110, "parent": "db" },
+    { "id": "pg", "type": "pg", "x": 800, "y": 270, "parent": "db" },
+    { "id": "quota", "type": "quota", "x": 480, "y": 440, "props": { "role": "primary-store" } },
+    { "id": "reports", "type": "reports", "x": 1240, "y": 270 }
+  ],
+  "edges": [
+    { "id": "e1", "source": "app", "target": "gw", "kind": "sync" },
+    { "id": "e2", "source": "gw", "target": "svc", "kind": "sync" },
+    { "id": "e3", "source": "svc", "target": "idx", "kind": "read", "label": "créneau libre ?" },
+    { "id": "e4", "source": "svc", "target": "pg", "kind": "write", "label": "INSERT réservation" },
+    { "id": "e5", "source": "svc", "target": "quota", "kind": "sync", "label": "EVALSHA quota" },
+    { "id": "e6", "source": "reports", "target": "pg", "kind": "read", "label": "snapshot" }
+  ]
+}

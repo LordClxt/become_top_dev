@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: HDFS en une phrase ?
+  back: Système de fichiers distribué sans partage ; blocs répliqués ou à code d'effacement ; un NameNode sait où est chaque bloc.
+  concept: ddia-batch-hdfs
+- id: fc2
+  front: Les 4 étapes d'un job MapReduce ?
+  back: Lire et découper l'entrée, map (extraire clé et valeur), trier par clé, reduce (combiner les valeurs d'une clé).
+  concept: ddia-batch-mr-job-execution
+- id: fc3
+  front: Mapper ?
+  back: Appelé une fois par enregistrement, sans état, émet zéro, une ou plusieurs paires clé-valeur.
+  concept: ddia-batch-mr-job-execution
+- id: fc4
+  front: Reducer ?
+  back: Appelé une fois par clé avec un itérateur sur toutes les valeurs de cette clé.
+  concept: ddia-batch-mr-job-execution
+- id: fc5
+  front: Qui choisit le nombre de tâches map et reduce ?
+  back: 'Map : le nombre de blocs ou fichiers d''entrée. Reduce : l''auteur du job.'
+  concept: ddia-batch-mr-shuffle
+- id: fc6
+  front: Le shuffle ?
+  back: Les reducers téléchargent leur partition (triée) chez chaque mapper et fusionnent ; rien d'aléatoire.
+  concept: ddia-batch-mr-shuffle
+- id: fc7
+  front: Amener le calcul près des données ?
+  back: Lancer chaque tâche map sur une machine qui détient une réplique de son bloc, pour éviter le réseau.
+  concept: ddia-batch-data-locality
+- id: fc8
+  front: Quand un job d'un workflow peut-il démarrer ?
+  back: Quand tous les jobs dont il lit la sortie ont réussi ; une sortie partielle n'est pas valide.
+  concept: ddia-batch-mr-workflows
+- id: fc9
+  front: Ordonnanceurs de workflows Hadoop ?
+  back: Oozie, Azkaban, Luigi, Airflow, Pinball ; outils de plus haut niveau, Pig, Hive, Cascading, Crunch, FlumeJava.
+  concept: ddia-batch-mr-workflows

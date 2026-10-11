@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Les quatre propriétés du consensus ?
+  back: 'Accord uniforme, intégrité, validité (sûreté) ; terminaison (vivacité).'
+  concept: ddia-consensus-properties
+- id: fc2
+  front: À quoi sert la propriété de validité ?
+  back: 'À exclure les solutions triviales : la valeur décidée doit avoir été proposée par un nœud.'
+  concept: ddia-consensus-properties
+- id: fc3
+  front: Combien de pannes tolèrent 2f + 1 nœuds ?
+  back: 'f pannes : 3 nœuds → 1, 5 nœuds → 2. Un 4e nœud n''ajoute rien.'
+  concept: ddia-consensus-majority
+- id: fc4
+  front: Que se passe-t-il si la majorité est perdue ?
+  back: 'Le système s''arrête (vivacité perdue) mais ne décide rien de faux (sûreté conservée).'
+  concept: ddia-consensus-majority
+- id: fc5
+  front: Algorithmes de consensus connus ?
+  back: 'VSR, Paxos (Multi-Paxos), Raft, Zab : tous décident une suite de valeurs, donc font de la diffusion à ordre total.'
+  concept: ddia-consensus-total-order-broadcast
+- id: fc6
+  front: Le paradoxe du leader ?
+  back: 'Élire un leader demande un consensus, et le consensus utilise un leader. Solution : un leader unique par époque.'
+  concept: ddia-consensus-leader-paradox
+- id: fc7
+  front: Numéro d'époque ?
+  back: 'Ballot (Paxos), view (VSR), term (Raft) : croissant à chaque élection ; l''époque la plus haute l''emporte.'
+  concept: ddia-consensus-epochs
+- id: fc8
+  front: Les deux tours de vote ?
+  back: 'Élire le leader (quorum), puis faire approuver chaque proposition (quorum). Les quorums se chevauchent.'
+  concept: ddia-consensus-quorum-overlap
+- id: fc9
+  front: Consensus vs 2PC ?
+  back: 'Leader élu (pas fixe), majorité (pas unanimité), procédure de reprise après changement de leader.'
+  concept: ddia-consensus-quorum-overlap
+- id: fc10
+  front: Limites du consensus ?
+  back: 'Votes synchrones, majorité stricte, membres fixes, timeouts (élections intempestives), sensibilité à un lien instable.'
+  concept: ddia-consensus-limits

@@ -1,0 +1,29 @@
+blocks:
+  backlog:
+    tolerance:
+      rel: 0.01
+    wrong: 'Le retard grandit de (1 200 − 800) = 400 messages par seconde, pendant 10 × 60 = 600 s.'
+  memory:
+    tolerance:
+      rel: 0.02
+    wrong: Multiplie le nombre de messages en attente par 2 Ko, puis divise par 1 000.
+  drain:
+    tolerance:
+      rel: 0.02
+    wrong: 'Le consommateur ne rattrape que la différence : 800 − 500 = 300 messages par seconde. Divise le retard par ce rythme.'
+  strategy:
+    options:
+      temp: 'Un relevé de plus ou de moins ne change pas une moyenne sur 60 : inutile de payer la durabilité ou de freiner les capteurs.'
+      orders: 'Chaque commande compte et le service de commandes ne doit pas être bloqué : il faut garder les messages, sur disque.'
+      export: Un pipe Unix a un petit tampon fixe ; quand il est plein, l'écrivain attend. Rien n'est perdu et la mémoire reste bornée.
+      video: 'Une image de surveillance qui arrive avec 30 secondes de retard ne sert plus à rien : mieux vaut passer à la suivante.'
+  statsd:
+    options:
+      queued: 'UDP n''a ni accusé de réception ni retransmission : un paquet envoyé à un collecteur absent est perdu.'
+      blocked: UDP n'a pas de contrôle de flux ; c'est TCP qui freine l'émetteur.
+  broker:
+    options:
+      history: Un broker classique supprime le message dès qu'il est livré ; il ne sert pas d'archive.
+      query: Un broker ne répond pas à des requêtes arbitraires et n'a pas d'index secondaires.
+      offline: Le broker garde les messages sur disque pendant l'absence du consommateur.
+      async: Le producteur attend seulement que le broker confirme la mise en tampon.

@@ -1,0 +1,3 @@
+**Tu ne fais pas confiance, tu vérifies.** Le service écrit un événement immuable ; les soldes en sont dérivés de façon déterministe. L'auditeur exploite exactement cette propriété : il rejoue le log, recalcule et compare à la base. Son contrôle est **de bout en bout** : il couvre le disque, le réseau, le processeur de flux et la base en une seule comparaison, là où un contrôle SMART ne voit qu'un maillon.
+
+L'arbre de Merkle prouve que le log lui-même n'a pas été réécrit, et le test de restauration transforme la sauvegarde d'hypothèse en garantie. Une table mise à jour en place détruirait le « pourquoi » des soldes et rendrait le recalcul impossible.

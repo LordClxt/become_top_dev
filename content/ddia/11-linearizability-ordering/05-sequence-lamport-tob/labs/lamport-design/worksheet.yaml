@@ -1,0 +1,80 @@
+intro: |
+  Trois nœuds **A** (id 1), **B** (id 2) et **C** (id 3) démarrent avec un compteur de Lamport à **0**. Règles : un événement local ou un envoi fait `compteur + 1` ; une réception fait `max(local, reçu) + 1`.
+
+  Les événements arrivent dans l'ordre des lignes du tableau.
+blocks:
+- id: lamport
+  type: table
+  title: Fais tourner les horloges
+  prompt: Donne la valeur du compteur du nœud concerné **juste après** chaque événement.
+  columns:
+  - id: c
+    label: Compteur
+  rows:
+  - id: r1
+    label: A fait une écriture locale
+  - id: r2
+    label: B fait trois écritures locales (valeur après la 3e)
+  - id: r3
+    label: A envoie un message à B
+  - id: r4
+    label: B reçoit le message de A
+  - id: r5
+    label: B envoie un message à C
+  - id: r6
+    label: C reçoit le message de B
+- id: tri
+  type: order
+  title: L'ordre total
+  prompt: Range ces horodatages `(compteur, id)` du plus ancien au plus récent.
+  items:
+  - id: t42
+    label: (4, 2)
+  - id: t21
+    label: (2, 1)
+  - id: t41
+    label: (4, 1)
+  - id: t13
+    label: (1, 3)
+- id: generateur
+  type: choice
+  title: Choisir un générateur
+  prompt: Une base sans leader doit numéroter des opérations de façon unique, et un effet doit toujours recevoir un plus grand numéro que sa cause. Que choisis-tu ?
+  options:
+  - id: lamport
+    label: Des horodatages de Lamport, en transmettant le maximum vu avec chaque requête
+  - id: oddeven
+    label: Un compteur par nœud, pairs pour l'un, impairs pour l'autre
+  - id: wall
+    label: L'horloge murale de chaque nœud, à la microseconde
+  - id: blocks
+    label: Des blocs pré-alloués (1 à 1 000 pour A, 1 001 à 2 000 pour B)
+- id: trou
+  type: number
+  title: La réplique qui attend
+  prompt: 'Une réplique de diffusion à ordre total a reçu, dans le désordre, les messages numérotés **6, 1, 4, 2, 5**. Combien de messages a-t-elle livrés ?'
+  unit: messages
+- id: unicite
+  type: choice
+  title: Décider seul ?
+  prompt: Le nœud B reçoit une demande pour le pseudo `ada`, horodatée (7, 2). Il ne connaît aucune autre demande pour `ada`. Peut-il valider seul, en s'appuyant sur Lamport ?
+  options:
+  - id: no
+    label: Non — un autre nœud traite peut-être une demande pour ada au plus petit horodatage, et B ne le saura qu'en interrogeant tout le monde
+  - id: yes
+    label: Oui — son horodatage est unique, donc la demande l'est aussi
+  - id: wait
+    label: Oui, s'il attend une seconde que les horloges se synchronisent
+- id: cas
+  type: order
+  title: Réserver ada avec un log
+  prompt: Remets dans l'ordre la réservation d'un pseudo par un log à ordre total.
+  items:
+  - id: append
+    label: Ajouter au log « je réclame ada »
+  - id: wait
+    label: Lire le log jusqu'à voir revenir son propre message
+  - id: check
+    label: Regarder si la première réclamation de ada dans le log est la sienne
+  - id: decide
+    label: Valider la création du compte, ou l'annuler

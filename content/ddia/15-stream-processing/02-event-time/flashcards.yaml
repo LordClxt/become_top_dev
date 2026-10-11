@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Temps de l'événement ?
+  back: L'instant où l'événement s'est produit, inscrit dans l'événement lui-même.
+  concept: ddia-sp-event-vs-processing-time
+- id: fc2
+  front: Temps de traitement ?
+  back: L'instant où l'opérateur traite l'événement, selon l'horloge locale de sa machine.
+  concept: ddia-sp-event-vs-processing-time
+- id: fc3
+  front: Pourquoi un redémarrage crée-t-il un faux pic ?
+  back: En temps de traitement, tout l'arriéré dépilé tombe dans la minute de reprise, alors qu'il appartient aux minutes de la panne.
+  concept: ddia-sp-processing-lag-artifacts
+- id: fc4
+  front: Les deux façons de traiter un retardataire ?
+  back: L'ignorer (en comptant les retardataires et en alertant s'ils augmentent) ou publier une correction de la fenêtre.
+  concept: ddia-sp-stragglers
+- id: fc5
+  front: Que signifie un watermark à t ?
+  back: Plus aucun événement d'horodatage antérieur à t n'arrivera ; les fenêtres qui finissent avant t peuvent être émises.
+  concept: ddia-sp-watermark
+- id: fc6
+  front: Plusieurs producteurs, chacun avec son seuil ?
+  back: Le consommateur les suit séparément et n'avance que jusqu'au minimum.
+  concept: ddia-sp-watermark
+- id: fc7
+  front: Watermark « désordre borné » ?
+  back: Plus grand horodatage vu − délai toléré. Plus le délai est grand, plus le résultat est complet mais tardif.
+  concept: ddia-sp-watermark
+- id: fc8
+  front: Les trois horodatages d'un événement mobile ?
+  back: Événement (horloge de l'appareil), envoi (horloge de l'appareil), réception (horloge du serveur).
+  concept: ddia-sp-three-timestamps
+- id: fc9
+  front: Comment corriger l'horloge de l'appareil ?
+  back: Décalage = réception serveur − envoi appareil ; instant réel ≈ heure de l'événement + décalage (si le trajet réseau est négligeable).
+  concept: ddia-sp-three-timestamps

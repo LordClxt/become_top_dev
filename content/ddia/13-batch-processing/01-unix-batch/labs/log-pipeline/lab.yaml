@@ -1,0 +1,17 @@
+id: ddia-ch13-l01-lab-log-pipeline
+title: 'Analyser 500 Go de logs sur une seule machine'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-batch-three-system-kinds
+- ddia-batch-unix-log-analysis
+- ddia-batch-sort-vs-hashmap
+- ddia-batch-unix-transparency
+source:
+  chapter: 10
+  pages: 389-397
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

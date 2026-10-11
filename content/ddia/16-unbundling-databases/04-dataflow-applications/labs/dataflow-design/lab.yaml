@@ -1,0 +1,16 @@
+id: ddia-ch16-l04-lab-dataflow-design
+title: 'Le taux de change : appeler ou s''abonner ?'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-derivation-function
+- ddia-state-change-dataflow
+- ddia-stream-vs-rpc-services
+source:
+  chapter: 12
+  pages: 504-509
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

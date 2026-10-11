@@ -1,0 +1,32 @@
+blocks:
+  diverge:
+    options:
+      both-c: Montréal a appliqué C en premier, puis B ; il finit sur B.
+      both-b: Paris a appliqué B en premier, puis C ; il finit sur C.
+      error: 'Chaque écriture a été validée localement : aucun leader ne refuse quoi que ce soit, il n''y a pas d''ordre global.'
+  perdus:
+    tolerance:
+      rel: 0.01
+    wrong: '12 000 × 0,5 % = 60 écritures en conflit par jour, soit 30 conflits deux à deux ; LWW en jette une par conflit : 30 × 30 jours.'
+  strategie:
+    options:
+      profil: 'Un seul écrivain principal, rattaché à un site : router ses écritures vers un leader « maison » évite le conflit.'
+      tags: 'Ajouter un tag ne doit jamais en effacer un autre : l''union des ensembles fusionne sans perte.'
+      vue: 'Perdre une valeur est sans gravité : LWW converge simplement.'
+      contrat: 'Ni fusion automatique ni perte acceptables sur un texte juridique : on garde les versions et un humain tranche.'
+  moment:
+    options:
+      bucardo: 'Le gestionnaire est appelé dès la détection, dans le flux répliqué : c''est à l''écriture.'
+      couch: 'CouchDB garde les versions et les rend à la lecture.'
+      user: 'Seule la lecture passe par l''application, qui peut interroger l''utilisateur.'
+      background: 'Un gestionnaire en arrière-plan, sans interface : résolution à l''écriture.'
+  salle:
+    options:
+      none: 'Aucune ligne n''écrase l''autre, mais la règle « une réservation par créneau » est violée : c''est un conflit.'
+      lww: 'LWW ne s''applique qu''aux écritures sur le même enregistrement ; ici, deux lignes différentes survivent.'
+  topo:
+    options:
+      cut: 'Dans un anneau, chaque écriture n''a qu''un chemin : il passe par Montréal.'
+      tags: C'est le mécanisme anti-boucle des topologies circulaire et en étoile.
+      clock: 'Les horloges des leaders ne sont pas assez synchronisées : il faut des vecteurs de versions.'
+      overtake: 'Les liens n''ont pas la même vitesse : un message peut en doubler un autre.'

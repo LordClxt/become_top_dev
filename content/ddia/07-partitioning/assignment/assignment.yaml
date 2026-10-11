@@ -1,0 +1,22 @@
+id: ddia-ch07-assignment
+title: Partitionner une plateforme de petites annonces
+difficulty: 3
+xp: 130
+concepts:
+- ddia-partition-replication-combo
+- ddia-hot-key-salting
+- ddia-scatter-gather
+- ddia-local-document-index
+- ddia-global-term-index
+- ddia-hash-mod-n-pitfall
+- ddia-fixed-partition-count
+- ddia-zookeeper-partition-metadata
+- ddia-automatic-rebalancing-risk
+source:
+  chapter: 6
+  pages: 199-218
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

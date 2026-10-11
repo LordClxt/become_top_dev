@@ -1,0 +1,57 @@
+id: ddia-ch13-l04-lab-batch-output
+title: Publier des recommandations sans toucher à la production
+difficulty: 3
+xp: 70
+concepts:
+- ddia-batch-output-kv-files
+- ddia-batch-immutable-rerun
+- ddia-batch-hadoop-vs-mpp
+source:
+  chapter: 10
+  pages: 411-419
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: browser
+  component: browser
+  label: Navigateur
+  hint: L'utilisateur qui affiche « Personnes que tu pourrais connaître ».
+- type: web
+  component: service
+  label: Application web
+  hint: Sert les pages ; lit les recommandations.
+- type: proddb
+  component: postgres
+  label: Base de profils (production)
+  hint: La base OLTP que l'application modifie en continu.
+- type: snapshot
+  component: object-store
+  label: Instantané des profils (HDFS)
+  hint: Copie extraite de la production, immuable.
+- type: logs
+  component: object-store
+  label: Logs d'activité (HDFS)
+  hint: Les événements bruts, déversés tels quels.
+- type: job
+  component: worker
+  label: Workflow de recommandation
+  hint: Les jobs MapReduce qui calculent les suggestions.
+- type: files
+  component: sstable
+  label: Fichiers de base neufs (HDFS)
+  hint: La base clé-valeur construite par le job, triée et immuable.
+- type: prev
+  component: sstable
+  label: Fichiers de la version précédente
+  hint: La sortie d'hier, gardée pour rebasculer.
+- type: kv
+  component: database
+  label: Serveurs clé-valeur en lecture seule
+  hint: Chargent les fichiers d'un bloc et les servent (façon Voldemort).
+- type: inplace
+  component: redis
+  label: Cache modifié en place par le job
+  hint: Le job y écrirait chaque recommandation, une par une.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

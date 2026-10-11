@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {"id": "dceu", "type": "dceu", "x": 260, "y": 0, "label": "Datacenter Europe", "w": 380, "h": 300},
+    {"id": "dcus", "type": "dcus", "x": 760, "y": 0, "label": "Datacenter États-Unis", "w": 380, "h": 300},
+    {"id": "usereu", "type": "usereu", "x": 0, "y": 120},
+    {"id": "userus", "type": "userus", "x": 1260, "y": 120},
+    {"id": "leadereu", "type": "leadereu", "x": 300, "y": 60, "parent": "dceu"},
+    {"id": "followereu", "type": "followereu", "x": 300, "y": 200, "parent": "dceu"},
+    {"id": "leaderus", "type": "leaderus", "x": 800, "y": 60, "parent": "dcus"},
+    {"id": "followerus", "type": "followerus", "x": 800, "y": 200, "parent": "dcus"}
+  ],
+  "edges": [
+    {"id": "e1", "source": "usereu", "target": "leadereu", "kind": "sync", "label": "écrit"},
+    {"id": "e2", "source": "userus", "target": "leaderus", "kind": "sync", "label": "écrit"},
+    {"id": "e3", "source": "leadereu", "target": "leaderus", "kind": "async", "label": "réplication asynchrone"},
+    {"id": "e4", "source": "leaderus", "target": "leadereu", "kind": "async", "label": "réplication asynchrone"},
+    {"id": "e5", "source": "leadereu", "target": "followereu", "kind": "replication"},
+    {"id": "e6", "source": "leaderus", "target": "followerus", "kind": "replication"}
+  ]
+}

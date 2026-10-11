@@ -1,0 +1,91 @@
+id: ddia-ch09-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Comment une base à exécution en série dépasse-t-elle le débit d'un cœur ?
+  choices:
+  - En ajoutant des verrous fins sur chaque ligne
+  - En exécutant chaque transaction sur plusieurs threads à la fois
+  - En passant en snapshot isolation
+  - En donnant à chaque partition son propre thread, indépendant des autres
+  answer: 3
+  explanation: Chaque partition reste en série en interne ; tant que les transactions ne touchent qu'une partition, le débit croît avec les cœurs.
+  concept: ddia-serial-partition-per-core
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Une base partitionnée plafonne à 1 000 transactions multi-partitions par seconde. 4 % des transactions sont multi-partitions. Quel débit total maximal ?
+  choices:
+  - 40 000 transactions/s
+  - 25 000 transactions/s
+  - 1 000 transactions/s
+  - 250 000 transactions/s
+  answer: 1
+  explanation: '1 000 / 0,04 = 25 000 : au-delà, la part multi-partitions dépasserait son plafond, quelle que soit la capacité des partitions.'
+  concept: ddia-cross-partition-tx-cost
+  difficulty: 3
+- id: q3
+  type: single
+  prompt: Le débit des transactions multi-partitions est insuffisant. Ton collègue propose de doubler le nombre de machines. Qu'en penser ?
+  choices:
+  - Bonne idée, le débit doublera
+  - Bonne idée si on passe aussi à des transactions interactives
+  - 'Inutile, voire contre-productif : la coordination implique toutes les partitions concernées, pas plus vite avec plus de machines'
+  - Inutile car les transactions multi-partitions sont interdites
+  answer: 2
+  explanation: Les multi-partitions s'exécutent en lock-step sur les partitions qu'elles touchent ; ajouter des machines ne les accélère pas. Il faut revoir la clé de partition.
+  concept: ddia-cross-partition-tx-cost
+  difficulty: 2
+- id: q4
+  type: multiple
+  prompt: Quelles charges se partitionnent bien pour une exécution en série ?
+  choices:
+  - Des virements entre deux comptes tirés au hasard
+  - Un magasin clé-valeur où chaque transaction touche une seule clé
+  - Un panier par utilisateur, partitionné par identifiant d'utilisateur
+  - Une table avec cinq index secondaires interrogés à chaque transaction
+  answer:
+  - 1
+  - 2
+  explanation: Les index secondaires et les relations entre entités quelconques transforment beaucoup de transactions en multi-partitions.
+  concept: ddia-partitionable-workload
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi les index secondaires compliquent-ils l'exécution en série partitionnée ?
+  choices:
+  - Ils ne tiennent pas en mémoire
+  - Ils interdisent les procédures stockées
+  - Ils doivent être reconstruits à chaque transaction
+  - Partitionnés par document ou par terme, ils obligent une lecture ou une écriture à toucher plusieurs partitions
+  answer: 3
+  explanation: Par document, une lecture par l'index interroge toutes les partitions ; par terme, une écriture touche plusieurs partitions de l'index.
+  concept: ddia-partitionable-workload
+  difficulty: 3
+- id: q6
+  type: single
+  prompt: Remets dans l'ordre le déroulé de l'anti-caching. Choisis la bonne séquence.
+  choices:
+  - La transaction a besoin d'une donnée froide, absente de la mémoire → La base abandonne la transaction → La donnée est chargée en mémoire de façon asynchrone, pendant que les autres transactions continuent → La transaction est relancée et trouve la donnée en mémoire
+  - La base abandonne la transaction → La transaction a besoin d'une donnée froide, absente de la mémoire → La donnée est chargée en mémoire de façon asynchrone, pendant que les autres transactions continuent → La transaction est relancée et trouve la donnée en mémoire
+  - La transaction a besoin d'une donnée froide, absente de la mémoire → La base abandonne la transaction → La transaction est relancée et trouve la donnée en mémoire → La donnée est chargée en mémoire de façon asynchrone, pendant que les autres transactions continuent
+  - La base abandonne la transaction → La donnée est chargée en mémoire de façon asynchrone, pendant que les autres transactions continuent → La transaction est relancée et trouve la donnée en mémoire → La transaction a besoin d'une donnée froide, absente de la mémoire
+  answer: 0
+  explanation: 'Le thread ne s''arrête jamais pour le disque : c''est la transaction qui recommence plus tard.'
+  concept: ddia-anti-caching
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Quelles conditions rendent l'exécution en série viable ?
+  choices:
+  - Des transactions interactives avec l'utilisateur
+  - Des transactions petites et rapides
+  - Des données actives qui tiennent en mémoire
+  - Un débit d'écriture qui tient dans un cœur, ou des transactions qui restent dans une partition
+  answer:
+  - 1
+  - 2
+  - 3
+  explanation: Une transaction qui attend l'utilisateur bloquerait tout le thread.
+  concept: ddia-serial-exec-constraints
+  difficulty: 1

@@ -1,0 +1,28 @@
+blocks:
+  tranche:
+    tolerance:
+      abs: 0.01
+    wrong: Une partition couvre 2³² / 4 = 1 073 741 824 valeurs ; 3 000 000 000 / 1 073 741 824 ≈ 2,79, donc après la 2ᵉ tranche.
+  requetes:
+    options:
+      one: 'Une valeur précise de la clé : on calcule son hachage et on va droit à une partition.'
+      range: 'Les clés 100 à 200 ont des hachages éparpillés : il faut tout interroger.'
+      count: 'Toutes les lignes sont concernées, réparties partout.'
+      update: 'Une écriture sur une clé précise ne touche que sa partition.'
+  modele:
+    options:
+      ts-first: 'La date serait hachée : les publications d''un utilisateur seraient éparpillées.'
+      post-id: 'Chaque publication irait dans une partition différente : la requête par utilisateur interrogerait tout.'
+      random: 'Aucune requête d''intervalle possible, et aucune localité par utilisateur.'
+  fonction:
+    options:
+      maphash: 'Il est aléatoire à chaque exécution : deux nœuds enverraient la même clé à des partitions différentes.'
+      sha: 'Pas besoin d''une fonction cryptographique pour partitionner : la stabilité et la répartition suffisent.'
+  sel:
+    tolerance:
+      abs: 0.01
+    wrong: 45 000 / 8 000 = 5,6 ; il faut un nombre entier de sous-clés, arrondi au-dessus.
+  prix:
+    options:
+      all-keys: 'On ne découpe que les clés brûlantes : pour les autres, ce serait du coût de lecture sans bénéfice.'
+      order: 'C''est l''inverse : la clé est répartie sur plusieurs partitions.'

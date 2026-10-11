@@ -1,0 +1,29 @@
+blocks:
+  votes:
+    options:
+      a: 'Même dernier terme et même longueur : le log de C est « au moins aussi à jour ».'
+      b: 'À dernier terme égal, le log le plus long l''emporte : B est plus à jour que C.'
+      d: 'On compare d''abord le dernier terme : 3 bat 2, peu importe que D ait un log plus long.'
+      e: 'Le dernier terme de E (4) est plus récent que celui de C (3) : E a peut-être une entrée validée que C n''a pas.'
+  count:
+    tolerance:
+      abs: 0
+    wrong: 'Compte la voix de C pour lui-même, puis celles des nœuds dont le log n''est pas plus à jour que le sien.'
+  backtrack:
+    tolerance:
+      abs: 0
+    wrong: 'Liste les prevLogIndex essayés à partir de 10 : refus tant que le follower n''a pas l''entrée ou qu''elle porte un autre terme ; le premier succès est sur l''index 4.'
+  commit:
+    tolerance:
+      abs: 0
+    wrong: 'Trie les 7 valeurs (le leader compte pour 20) et prends la 4ᵉ plus grande : c''est le plus grand index détenu par une majorité de 4.'
+  oldterm:
+    options:
+      fourteen: 'Une entrée d''un ancien terme sur une majorité peut encore être écrasée par un futur leader : on ne la valide pas en comptant.'
+      fifteen: 'L''entrée 15 n''est que sur 2 nœuds sur 5 : pas de majorité.'
+      thirteen: 'Même raisonnement que pour 14 : terme 5, donc pas de validation par comptage.'
+  follower:
+    options:
+      term: 'Le terme se règle d''abord : un vieux leader doit être éconduit avant tout le reste.'
+      truncate: 'On ne tronque qu''après avoir vérifié la cohérence, et seulement en cas de conflit.'
+      commit: 'Le commitIndex avance en dernier, une fois les entrées en place.'

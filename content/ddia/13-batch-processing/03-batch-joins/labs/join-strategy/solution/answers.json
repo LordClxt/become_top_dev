@@ -1,0 +1,8 @@
+{
+  "strategy": {"countries": "broadcast", "raw": "reduce", "buckets": "partitioned", "sorted": "merge"},
+  "partmem": 800,
+  "hotload": 307,
+  "spread": 30,
+  "secondary": ["profile", "e0900", "e0905", "e1230"],
+  "naive": ["slow", "overload", "nondet"]
+}

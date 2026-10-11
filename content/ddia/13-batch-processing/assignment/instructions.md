@@ -1,0 +1,1 @@
+Tu conçois le workflow nocturne qui calcule les « produits souvent achetés ensemble » d'une boutique en ligne : chiffre le volume transféré par chaque jointure, règle le nombre de reducers face à un produit star, ordonne le workflow et sa publication, et rends-le rejouable.

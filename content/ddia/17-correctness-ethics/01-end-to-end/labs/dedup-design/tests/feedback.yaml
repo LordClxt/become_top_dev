@@ -1,0 +1,32 @@
+blocks:
+  trois-essais:
+    tolerance:
+      abs: 0.01
+    wrong: 'Trois essais ont été validés : 3 × 11 € = 33 €. Une réponse perdue ne veut pas dire que le COMMIT a échoué.'
+  par-jour:
+    tolerance:
+      rel: 0.01
+    wrong: 2 000 000 × 0,003 = 6 000 réessais ; 6 000 × 0,4 = 2 400 doubles débits.
+  couche:
+    options:
+      tcp: TCP ne déduplique que dans une connexion ; le réessai en ouvre une nouvelle.
+      serializable: La sérialisabilité isole des transactions concurrentes, mais deux transactions successives de même contenu sont toutes deux légitimes pour la base.
+      server-id: Chaque essai recevrait un identifiant neuf ; aucun doublon ne serait jamais reconnu.
+  flux:
+    options:
+      gen: L'identifiant doit exister avant le premier envoi, sinon les réessais ne le partagent pas.
+      begin: L'insertion de l'identifiant fait partie de la transaction, avant les mises à jour de soldes.
+      commit: La validation vient en dernier ; c'est là que la contrainte d'unicité protège les essais suivants.
+  maillon:
+    options:
+      tcp-seq: TCP ne voit qu'une connexion ; il ignore les renvois de l'utilisateur.
+      eth-crc: Elle détecte une corruption sur un lien, pas un bug logiciel ni un disque abîmé.
+      tls: TLS protège du réseau, pas d'un serveur compromis ni d'un bug applicatif.
+      e2e-sum: Calculée et vérifiée par les extrémités, elle couvre le réseau, les logiciels et les disques entre les deux.
+      req-id: Il relie l'intention de l'utilisateur à l'écriture finale.
+  vrai:
+    options:
+      tx-enough: Un réessai est une nouvelle transaction, tout aussi valide que la première.
+      same-key: Une même clé désigne une même opération ; un contenu différent trahit un bug à refuser.
+      rare: Rare n'est pas jamais.
+      idem: Sans mémoire de ce qui a été appliqué, on ne peut pas ignorer un doublon.

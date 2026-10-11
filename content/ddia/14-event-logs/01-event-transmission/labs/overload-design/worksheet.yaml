@@ -1,0 +1,62 @@
+intro: |
+  Une boutique en ligne publie un événement à chaque ajout au panier. Le service de recommandations les consomme. Pendant le pic du Black Friday, le producteur envoie **1 200 événements/s** pendant **10 minutes**, alors que le consommateur n'en traite que **800/s**. Chaque événement pèse **2 Ko** et le broker les garde en mémoire. Tu chiffres le retard, puis tu choisis une stratégie pour chaque flux de la boutique.
+blocks:
+- id: backlog
+  type: number
+  title: Le retard accumulé
+  prompt: Combien de messages attendent dans la file à la fin des 10 minutes de pic ?
+  unit: messages
+- id: memory
+  type: number
+  title: La mémoire du broker
+  prompt: Combien de **Mo** cette file occupe-t-elle (1 Mo = 1 000 Ko) ?
+  unit: Mo
+- id: drain
+  type: number
+  title: Le temps du rattrapage
+  prompt: Après le pic, le producteur retombe à **500 événements/s**. Combien de **secondes** faut-il au consommateur (toujours 800/s) pour vider la file ?
+  unit: s
+- id: strategy
+  type: match
+  title: Chaque flux sa stratégie
+  prompt: Pour chaque flux, quelle réponse à un consommateur trop lent choisis-tu ?
+  items:
+  - id: temp
+    label: Température des entrepôts, relevée chaque seconde et moyennée par minute
+  - id: orders
+    label: Commandes payées, à transmettre à la facturation
+  - id: export
+    label: Un script d'export qui lit la base et écrit dans un fichier compressé via un pipe
+  - id: video
+    label: Images d'une caméra en direct, affichées sur un écran de surveillance
+  categories:
+  - id: drop
+    label: Perdre l'excédent
+  - id: buffer
+    label: Tampon durable
+  - id: backpressure
+    label: Contre-pression
+- id: statsd
+  type: choice
+  title: Le collecteur StatsD redémarre
+  prompt: Tes services envoient leurs compteurs à StatsD par UDP. Le collecteur redémarre pendant 30 secondes. Que se passe-t-il ?
+  options:
+  - id: lost
+    label: Les paquets envoyés pendant le redémarrage sont perdus ; les compteurs sont un peu sous-estimés, ce qui est accepté pour des métriques
+  - id: queued
+    label: UDP met les paquets en file chez l'émetteur et les renvoie au retour du collecteur
+  - id: blocked
+    label: Les services sont bloqués 30 secondes par la contre-pression d'UDP
+- id: broker
+  type: multi
+  title: Ce que le broker change
+  prompt: L'équipe remplace les webhooks vers la facturation par un broker classique (AMQP) avec écriture sur disque. Coche ce qui devient vrai.
+  options:
+  - id: offline
+    label: La facturation peut être arrêtée une heure sans que les commandes soient perdues
+  - id: async
+    label: Le service de commandes n'attend plus que la facturation ait traité la commande
+  - id: history
+    label: Dans six mois, on pourra relire toutes les commandes livrées depuis le broker
+  - id: query
+    label: On pourra chercher dans le broker toutes les commandes d'un client donné

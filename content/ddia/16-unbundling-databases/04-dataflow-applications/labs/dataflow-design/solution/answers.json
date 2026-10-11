@@ -1,0 +1,17 @@
+{
+  "avail": 99.4,
+  "downtime": 259,
+  "latency": {
+    "rpc.ms": 35,
+    "flow.ms": 21
+  },
+  "derive": {
+    "btree": "builtin",
+    "replica": "builtin",
+    "stem": "app",
+    "model": "app",
+    "card": "app"
+  },
+  "transport": ["order", "noloss", "idem"],
+  "replay": "versioned"
+}

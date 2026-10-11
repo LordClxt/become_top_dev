@@ -1,0 +1,3 @@
+**Un leader par datacenter rend les écritures locales.** L'utilisateur américain n'attend plus 90 ms par écriture : son leader valide tout de suite, et la réplication vers l'Europe se fait en arrière-plan. Si un site tombe, l'autre continue ; si le lien transatlantique flanche, chaque côté continue d'écrire et rattrape plus tard.
+
+Le prix, c'est que les deux leaders peuvent modifier la même ligne au même moment : la réplication asynchrone dans les deux sens fabrique des **conflits**, que la prochaine leçon apprend à résoudre. Et un verrou global ou une séquence d'identifiants partagée ramèneraient exactement la coordination synchrone qu'on voulait éviter : préfère des UUID ou des plages d'identifiants par leader.

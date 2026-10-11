@@ -1,0 +1,68 @@
+checks:
+- id: write
+  label: Le service écrit dans la base de référence
+  rule: edge_kind
+  source: app
+  target: db
+  kind: write
+- id: one-writer
+  label: 'Un seul leader : rien d''autre que le service n''écrit dans la base'
+  rule: single_owner
+  target: db
+- id: wal
+  label: Le connecteur CDC reçoit le flux de changements de la base (WAL)
+  rule: edge_kind
+  source: db
+  target: cdc
+  kind: async
+- id: publish
+  label: Le connecteur publie les changements dans le sujet
+  rule: edge_kind
+  source: cdc
+  target: log
+  kind: async
+- id: no-dual-search
+  label: Plus de double écriture vers l'index de recherche
+  rule: no_edge
+  source: app
+  target: search
+- id: no-dual-cache
+  label: Plus de double écriture vers le cache
+  rule: no_edge
+  source: app
+  target: cache
+- id: search-follows
+  label: L'index n'est alimenté que par le sujet
+  rule: inbound_via
+  target: search
+  via: log
+- id: cache-follows
+  label: Le cache n'est alimenté que par le sujet
+  rule: inbound_via
+  target: cache
+  via: log
+- id: warehouse
+  label: L'entrepôt reçoit lui aussi les changements, en passant par le sujet
+  rule: path
+  source: db
+  target: wh
+  via: log
+- id: one-log
+  label: Un seul sujet de changements, pour un seul ordre
+  rule: count
+  source: log
+  min: 1
+  max: 1
+- id: no-trigger
+  label: Pas de déclencheur SQL (une écriture en coûterait deux)
+  rule: count
+  source: trigger
+  max: 0
+- id: no-poll
+  label: Pas de sondage de la table
+  rule: count
+  source: poller
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

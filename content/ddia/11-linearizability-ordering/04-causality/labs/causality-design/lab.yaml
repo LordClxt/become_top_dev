@@ -1,0 +1,18 @@
+id: ddia-ch11-l04-lab-causality-design
+title: 'Un forum causal : qui dépend de qui ?'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-causal-order
+- ddia-total-vs-partial-order
+- ddia-causal-consistency
+- ddia-capturing-causal-deps
+- ddia-lin-implies-causal
+source:
+  chapter: 9
+  pages: 339-343
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

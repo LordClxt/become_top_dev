@@ -1,0 +1,29 @@
+blocks:
+  reproc:
+    tolerance:
+      rel: 0.02
+    wrong: 'Débit total 40 × 50 Mo/s = 2 000 Mo/s ; 4,8 × 10⁶ Mo / 2 000 Mo/s = 2 400 s = 40 min.'
+  storage:
+    tolerance:
+      rel: 0.01
+    wrong: 'Les deux vues existent en même temps : 120 + 200 = 320 Go.'
+  rollout:
+    options:
+      parallel: 'Après le rattrapage, la nouvelle vue doit suivre le flux comme l''ancienne, sinon elle prend du retard.'
+      canary: 'On compare sur une petite part avant de tout basculer : c''est ce qui rend l''erreur peu coûteuse.'
+      retire: 'Retirer l''ancienne vue en dernier : c''est elle qui garantit la réversibilité.'
+  bug:
+    options:
+      patch: 'Une correction à la main ne survivrait pas au prochain retraitement : c''est la dérivation qu''il faut corriger.'
+      restore: 'Inutile : l''ancienne vue est toujours là et à jour, et le log garde tout.'
+      forward: 'Tu perdrais la réversibilité au moment précis où elle sert.'
+  engine:
+    options:
+      twocode: 'Deux frameworks, deux codes : c''est le défaut principal de lambda.'
+      replay: 'Même moteur, même code, on relit simplement le log : c''est l''approche unifiée.'
+      approx: 'Couche flux approximative corrigée par la couche lots : la définition de lambda.'
+      eventtime: Ces trois capacités sont justement ce qui permet de se passer de la couche lots séparée.
+  window:
+    options:
+      proc: 'Trois ans de commandes tomberaient dans une seule semaine de traitement.'
+      ingest: 'C''est encore un temps de traitement : il ne dit rien de la date réelle de la commande.'

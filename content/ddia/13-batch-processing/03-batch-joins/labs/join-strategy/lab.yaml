@@ -1,0 +1,19 @@
+id: ddia-ch13-l03-lab-join-strategy
+title: Choisir sa jointure, dompter une célébrité
+difficulty: 3
+xp: 70
+concepts:
+- ddia-batch-sort-merge-join
+- ddia-batch-secondary-sort
+- ddia-batch-skew-hot-keys
+- ddia-batch-broadcast-hash-join
+- ddia-batch-partitioned-hash-join
+- ddia-batch-map-side-merge-join
+source:
+  chapter: 10
+  pages: 403-411
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

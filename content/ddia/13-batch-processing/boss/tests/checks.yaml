@@ -1,0 +1,88 @@
+checks:
+- id: two-maps
+  label: Au moins deux tâches map
+  rule: count
+  source: mapper
+  min: 2
+- id: export
+  label: La base de production est exportée vers un instantané HDFS
+  rule: path
+  source: proddb
+  target: snapshot
+- id: read-logs
+  label: Les mappers lisent les logs bruts
+  rule: edge_kind
+  source: mapper
+  target: logs
+  kind: read
+- id: read-snapshot
+  label: Les mappers lisent l'instantané des comptes
+  rule: edge_kind
+  source: mapper
+  target: snapshot
+  kind: read
+- id: broadcast
+  label: 'Broadcast : les mappers chargent la petite table des catégories'
+  rule: edge_kind
+  source: mapper
+  target: cats
+  kind: read
+- id: no-prod
+  label: Aucune tâche n'interroge la base de production
+  rule: no_edge
+  source: mapper
+  target: proddb
+- id: spill
+  label: Les mappers écrivent leur sortie triée sur disque local
+  rule: edge_kind
+  source: mapper
+  target: spill
+  kind: write
+- id: shuffle
+  label: 'Shuffle : les reducers lisent les sorties triées des mappers'
+  rule: edge_kind
+  source: reducer
+  target: spill
+  kind: read
+- id: write-out
+  label: Les reducers écrivent des fichiers de base neufs
+  rule: edge_kind
+  source: reducer
+  target: out
+  kind: write
+- id: no-push
+  label: Les reducers n'écrivent pas dans les serveurs
+  rule: no_edge
+  source: reducer
+  target: kv
+- id: bulk-load
+  label: Les serveurs chargent les nouveaux fichiers d'un bloc
+  rule: edge_kind
+  source: kv
+  target: out
+  kind: read
+- id: rollback
+  label: Les serveurs gardent la version d'hier pour rebasculer
+  rule: edge_kind
+  source: kv
+  target: prev
+  kind: read
+- id: serve
+  label: L'application lit les suggestions sur les serveurs clé-valeur
+  rule: edge_kind
+  source: app
+  target: kv
+  kind: read
+- id: no-inplace
+  label: Aucun cache mis à jour ligne à ligne
+  rule: count
+  source: inplace
+  max: 0
+- id: no-api
+  label: Aucune source vivante lue pendant le calcul (le job doit être rejouable)
+  rule: count
+  source: api
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

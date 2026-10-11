@@ -1,0 +1,73 @@
+id: ddia-ch13-boss
+title: 'Boss : le workflow de nuit, de la base de production à la bascule du matin'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-batch-mr-shuffle
+- ddia-batch-sort-merge-join
+- ddia-batch-broadcast-hash-join
+- ddia-batch-output-kv-files
+- ddia-batch-immutable-rerun
+- ddia-batch-determinism
+source:
+  chapter: 10
+  pages: 389-436
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: proddb
+  component: postgres
+  label: Base des comptes (production)
+  hint: La base OLTP, modifiée en continu par l'application.
+- type: snapshot
+  component: object-store
+  label: Instantané des comptes (HDFS)
+  hint: Copie figée exportée chaque nuit.
+- type: logs
+  component: object-store
+  label: Logs d'activité bruts (HDFS)
+  hint: Les clics de la journée, déversés tels quels.
+- type: cats
+  component: file
+  label: Table des catégories (20 Mo)
+  hint: Petite table de référence.
+- type: mapper
+  component: worker
+  label: Tâche map
+  hint: Lit un bloc d'entrée, enrichit, émet des paires par user_id.
+- type: spill
+  component: sstable
+  label: Sortie map triée (disque local)
+  hint: Paires partitionnées par reducer et triées par clé.
+- type: reducer
+  component: worker
+  label: Tâche reduce (jointure)
+  hint: Reçoit le compte puis ses événements (tri secondaire).
+- type: out
+  component: sstable
+  label: Fichiers de base neufs (HDFS)
+  hint: La sortie du workflow, triée et immuable.
+- type: prev
+  component: sstable
+  label: Version d'hier
+  hint: La sortie précédente, gardée intacte.
+- type: kv
+  component: database
+  label: Serveurs clé-valeur en lecture seule
+  hint: Chargent une version complète et basculent atomiquement.
+- type: app
+  component: service
+  label: Application
+  hint: Affiche les suggestions aux utilisateurs.
+- type: inplace
+  component: redis
+  label: Cache mis à jour ligne à ligne
+  hint: Les reducers y écriraient chaque résultat.
+- type: api
+  component: external
+  label: API des comptes en direct
+  hint: Interrogée pour chaque événement.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

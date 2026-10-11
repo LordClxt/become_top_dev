@@ -1,0 +1,18 @@
+id: ddia-ch08-l01-lab-acid-design
+title: 'ACID en situation : qui garantit quoi'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-acid-atomicity
+- ddia-acid-consistency
+- ddia-acid-isolation
+- ddia-acid-durability
+- ddia-txn-retry-pitfalls
+source:
+  chapter: 7
+  pages: 221-233
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: La règle du 2PL en une phrase ?
+  back: Les écrivains bloquent les lecteurs et les lecteurs bloquent les écrivains, jusqu'à la fin de la transaction.
+  concept: ddia-2pl-rule
+- id: fc2
+  front: 2PL vs snapshot isolation ?
+  back: En snapshot isolation, lecteurs et écrivains ne se bloquent jamais ; en 2PL, ils se bloquent mutuellement.
+  concept: ddia-2pl-rule
+- id: fc3
+  front: Verrou partagé ?
+  back: Pris pour lire ; compatible avec d'autres partagés, pas avec un exclusif.
+  concept: ddia-2pl-shared-exclusive
+- id: fc4
+  front: Verrou exclusif ?
+  back: Pris pour écrire ; aucune autre transaction ne peut détenir de verrou sur l'objet.
+  concept: ddia-2pl-shared-exclusive
+- id: fc5
+  front: Montée de verrou ?
+  back: Lire puis écrire fait passer le partagé en exclusif ; il faut que plus personne d'autre ne détienne de verrou.
+  concept: ddia-2pl-lock-upgrade
+- id: fc6
+  front: Pourquoi « deux phases » ?
+  back: On acquiert des verrous pendant la transaction, on les relâche tous à la fin (commit ou abandon).
+  concept: ddia-2pl-two-phases
+- id: fc7
+  front: Détecter un interblocage ?
+  back: Chercher un cycle dans le graphe d'attente (T1 → T2 = T1 attend un verrou de T2), puis abandonner une victime.
+  concept: ddia-2pl-deadlock
+- id: fc8
+  front: Interblocage de montée de verrou ?
+  back: 'Deux transactions lisent la même ligne (partagés) puis veulent l''écrire ; chacune attend l''autre. Parade : SELECT … FOR UPDATE.'
+  concept: ddia-2pl-lock-upgrade
+- id: fc9
+  front: Pourquoi le 2PL est-il lent ?
+  back: Coût des verrous, concurrence réduite, transactions sans durée limite, p99 instable, interblocages gaspillés.
+  concept: ddia-2pl-performance

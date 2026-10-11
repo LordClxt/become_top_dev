@@ -1,0 +1,17 @@
+id: ddia-ch16-l02-lab-evolution-design
+title: 'Changer de vue sans rien casser'
+difficulty: 3
+xp: 60
+concepts:
+- ddia-reprocessing-evolution
+- ddia-gradual-view-migration
+- ddia-lambda-architecture
+- ddia-unified-batch-stream
+source:
+  chapter: 12
+  pages: 494-499
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

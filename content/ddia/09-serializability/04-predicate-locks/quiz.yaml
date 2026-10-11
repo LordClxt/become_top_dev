@@ -1,0 +1,86 @@
+id: ddia-ch09-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: A cherche les réservations de la salle 7 entre 14 h et 15 h et n'en trouve aucune. Avec des verrous sur les seuls objets lus, que peut faire B en parallèle ?
+  choices:
+  - Rien, A a verrouillé la salle
+  - Seulement lire
+  - Insérer une réservation de la salle 7 à 14 h, car A n'a verrouillé aucune ligne
+  - Insérer, mais seulement après le commit de A
+  answer: 2
+  explanation: 'Une recherche vide ne verrouille aucun objet existant : c''est le trou par lequel passe le fantôme.'
+  concept: ddia-2pl-phantom-gap
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Sur quoi porte un verrou de prédicat ?
+  choices:
+  - Sur tous les objets qui satisfont une condition, y compris ceux qui n'existent pas encore
+  - Sur une ligne précise, identifiée par sa clé
+  - Sur une page du B-tree
+  - Sur la table entière
+  answer: 0
+  explanation: C'est ce qui lui permet de bloquer l'insertion d'une ligne qui aurait fait partie du résultat.
+  concept: ddia-predicate-lock
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: B veut modifier une réservation pour la déplacer de 9 h à 14 h dans la salle 7. A détient un verrou de prédicat sur « salle 7, 14 h–15 h ». Que vérifie la base ?
+  choices:
+  - L'ancienne ou la nouvelle valeur ; la nouvelle (14 h) correspond, donc B attend
+  - 'Seulement l''ancienne valeur (9 h), qui ne correspond pas : B passe'
+  - Rien, les verrous de prédicat ne concernent que les insertions
+  - Seulement la nouvelle valeur, et B est abandonnée
+  answer: 0
+  explanation: Une modification qui fait entrer (ou sortir) un objet du prédicat change le résultat de la recherche de A.
+  concept: ddia-predicate-lock
+  difficulty: 3
+- id: q4
+  type: single
+  prompt: Pourquoi les bases n'implémentent-elles presque jamais les verrous de prédicat tels quels ?
+  choices:
+  - Ils ne garantissent pas la sérialisabilité
+  - Ils sont interdits par le standard SQL
+  - Chaque écriture doit être comparée à tous les prédicats actifs, ce qui coûte de plus en plus cher avec la charge
+  - Ils ne bloquent pas les insertions
+  answer: 2
+  explanation: 'Corrects mais lents : d''où l''approximation par les verrous de plage d''index.'
+  concept: ddia-predicate-lock-cost
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: La table `bookings` a un index sur `room_id` seulement. A cherche « salle 7, 14 h–15 h ». Quel verrou de plage d'index la base peut-elle prendre ?
+  choices:
+  - Un verrou sur la plage 14 h–15 h de l'index temporel
+  - Aucun, il faut un verrou de prédicat exact
+  - Un verrou exclusif sur toute la table
+  - Un verrou partagé sur l'entrée 7 de l'index `room_id`, qui couvre toutes les réservations de la salle 7
+  answer: 3
+  explanation: 'Sans index temporel, on approxime par « salle 7 à toute heure » : plus large, donc sûr.'
+  concept: ddia-index-range-lock
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: 'Même situation : C veut réserver la salle 7 à 18 h pendant que A est en cours. Que se passe-t-il ?'
+  choices:
+  - C passe, 18 h ne chevauche pas 14 h–15 h
+  - C attend, car le verrou porte sur toute l'entrée « salle 7 » de l'index ; c'est un faux conflit
+  - C est abandonnée immédiatement
+  - A est abandonnée
+  answer: 1
+  explanation: Le verrou de plage verrouille plus que le prédicat ; c'est le prix de l'approximation.
+  concept: ddia-index-range-lock
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Une recherche filtre sur `organizer_email`, colonne sans index. Que fait une base 2PL sérialisable ?
+  choices:
+  - Elle ne verrouille rien
+  - Elle crée l'index automatiquement
+  - Elle prend un verrou partagé sur toute la table
+  - Elle passe en snapshot isolation
+  answer: 2
+  explanation: Sans index où accrocher le verrou, seul un verrou de table couvre sûrement le prédicat ; toutes les écritures attendront.
+  concept: ddia-lock-table-fallback
+  difficulty: 2

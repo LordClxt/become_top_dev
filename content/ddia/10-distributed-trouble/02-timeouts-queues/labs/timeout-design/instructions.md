@@ -1,0 +1,1 @@
+Calcule le timeout d'un monde idéal, mesure l'effet d'une fausse alerte sur un cluster chargé, localise les files d'attente, puis règle l'intervalle des battements de cœur et le timeout pour détecter vite sans accuser à tort.

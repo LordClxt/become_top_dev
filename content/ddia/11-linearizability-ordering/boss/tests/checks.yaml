@@ -1,0 +1,87 @@
+checks:
+- id: entry
+  label: L'application appelle le service d'inscription
+  rule: edge_kind
+  source: app
+  target: api
+  kind: sync
+- id: claim
+  label: Chaque réclamation est envoyée au séquenceur
+  rule: edge_kind
+  source: api
+  target: seq
+  kind: sync
+- id: one-seq
+  label: Un seul séquenceur
+  rule: count
+  source: seq
+  min: 1
+  max: 1
+- id: append
+  label: Le séquenceur écrit dans le log à ordre total
+  rule: edge_kind
+  source: seq
+  target: log
+  kind: write
+- id: one-writer
+  label: Le séquenceur est le seul à écrire dans le log
+  rule: single_owner
+  target: log
+- id: replay
+  label: Les répliques suivent le log par réplication
+  rule: edge_kind
+  source: log
+  target: rep
+  kind: replication
+- id: replicas
+  label: Au moins deux répliques rejouent le log
+  rule: count
+  source: rep
+  min: 2
+- id: lease
+  label: Le séquenceur tient son bail du service de coordination
+  rule: edge_kind
+  source: seq
+  target: lock
+  kind: sync
+- id: event
+  label: Le service d'inscription publie « compte créé » dans la file
+  rule: edge_kind
+  source: api
+  target: queue
+  kind: async
+- id: deliver
+  label: La file prévient le worker d'e-mail
+  rule: edge_kind
+  source: queue
+  target: mailer
+  kind: async
+- id: fresh-read
+  label: Le worker lit le compte de façon linéarisable, via le séquenceur
+  rule: edge_kind
+  source: mailer
+  target: seq
+  kind: read
+- id: no-stale
+  label: 'Le worker ne lit pas une réplique : la file pourrait la doubler'
+  rule: no_edge
+  source: mailer
+  target: rep
+- id: no-lww
+  label: Pas de « dernière écriture gagne » pour l'unicité
+  rule: count
+  source: lww
+  max: 0
+- id: no-wall
+  label: Pas de numérotation par horloge murale
+  rule: count
+  source: wall
+  max: 0
+- id: no-multi
+  label: Pas de leader par région
+  rule: count
+  source: multi
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

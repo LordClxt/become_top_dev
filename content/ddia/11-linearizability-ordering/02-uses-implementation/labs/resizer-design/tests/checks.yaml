@@ -1,0 +1,67 @@
+checks:
+- id: upload
+  label: Le navigateur appelle le serveur web
+  rule: edge_kind
+  source: browser
+  target: web
+  kind: sync
+- id: write
+  label: Le serveur web écrit la photo dans le stockage
+  rule: edge_kind
+  source: web
+  target: store
+  kind: write
+- id: notify
+  label: Le serveur publie l'identifiant de la photo dans la file
+  rule: edge_kind
+  source: web
+  target: queue
+  kind: async
+- id: deliver
+  label: La file livre le message au worker
+  rule: edge_kind
+  source: queue
+  target: resizer
+  kind: async
+- id: only-queue
+  label: Le worker n'est déclenché que par la file
+  rule: inbound_via
+  target: resizer
+  via: queue
+- id: read
+  label: Le worker lit la photo dans le stockage linéarisable
+  rule: edge_kind
+  source: resizer
+  target: store
+  kind: read
+- id: thumbs
+  label: Le worker écrit la vignette
+  rule: edge_kind
+  source: resizer
+  target: thumbs
+  kind: write
+- id: no-stale
+  label: 'Aucune réplique asynchrone : la file pourrait la doubler'
+  rule: count
+  source: stale
+  max: 0
+- id: claim
+  label: Le pseudo est réservé par un appel au service de coordination
+  rule: edge_kind
+  source: web
+  target: coord
+  kind: sync
+- id: no-lww
+  label: Pas de « dernière écriture gagne » pour une contrainte d'unicité
+  rule: count
+  source: lww
+  max: 0
+- id: one-store
+  label: Un seul stockage de photos
+  rule: count
+  source: store
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

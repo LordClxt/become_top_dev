@@ -1,0 +1,18 @@
+{
+  "silence": ["lost", "queued", "gc", "done"],
+  "retry": "idem",
+  "fanout": 7.7,
+  "signals": {
+    "rst": "explicit",
+    "script": "explicit",
+    "icmp": "explicit",
+    "nothing": "suspicion",
+    "slow": "suspicion"
+  },
+  "strategy": {
+    "weather": "checkpoint",
+    "payments": "tolerate",
+    "chat": "tolerate",
+    "molecular": "checkpoint"
+  }
+}

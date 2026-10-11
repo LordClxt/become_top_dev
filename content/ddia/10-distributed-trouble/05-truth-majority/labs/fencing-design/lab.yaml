@@ -1,0 +1,41 @@
+id: ddia-ch10-l05-lab-fencing-design
+title: Un verrou qui résiste aux zombies
+difficulty: 3
+xp: 70
+concepts:
+- ddia-fencing-token
+- ddia-zombie-lock-holder
+- ddia-truth-by-majority
+source:
+  chapter: 8
+  pages: 300-304
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: worker
+  label: Client du verrou
+  hint: Un worker qui doit détenir le verrou pour écrire. Pose-en deux.
+- type: locknode
+  component: consensus
+  label: Nœud de verrous
+  hint: Un membre du service de verrous ; les décisions se prennent à la majorité.
+- type: lockzone
+  component: zone
+  label: Service de verrous (ZooKeeper)
+  hint: Regroupe les nœuds qui accordent les baux et les jetons.
+- type: storage
+  component: object-store
+  label: Stockage qui vérifie les jetons
+  hint: Retient le plus grand jeton vu et rejette les plus petits.
+- type: redis
+  component: redis
+  label: Verrou sur un seul Redis
+  hint: Un SET NX avec expiration sur une instance unique.
+- type: walltoken
+  component: cron
+  label: Jeton = heure murale du client
+  hint: Le client horodate lui-même ses écritures.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

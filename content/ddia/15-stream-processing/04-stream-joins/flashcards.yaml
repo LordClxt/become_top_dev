@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Jointure flux-flux ?
+  back: Apparier deux flux d'événements par clé dans une fenêtre de temps (clic dans l'heure qui suit la recherche).
+  concept: ddia-sp-stream-stream-join
+- id: fc2
+  front: État d'une jointure fenêtrée ?
+  back: Tous les événements de la fenêtre, des deux côtés, indexés par clé de jointure ; on émet les appariements et les expirations.
+  concept: ddia-sp-stream-stream-join
+- id: fc3
+  front: Pourquoi ne pas interroger la base à chaque événement pour enrichir ?
+  back: Un aller-retour réseau par événement est lent, et le débit du flux peut surcharger la base.
+  concept: ddia-sp-stream-table-join
+- id: fc4
+  front: Garder à jour la copie locale d'une table dans un opérateur ?
+  back: S'abonner au changelog de la table (CDC) en plus du flux d'activité.
+  concept: ddia-sp-stream-table-join
+- id: fc5
+  front: Jointure table-table ?
+  back: Joindre les changelogs de deux tables pour maintenir une vue matérialisée de leur jointure (le fil d'actualité).
+  concept: ddia-sp-table-table-join
+- id: fc6
+  front: Règle du produit et jointure de flux ?
+  back: (u·v)′ = u′v + uv′ — chaque changement d'une table est joint à l'état courant de l'autre.
+  concept: ddia-sp-table-table-join
+- id: fc7
+  front: Pourquoi une jointure de flux peut-elle être non déterministe ?
+  back: L'ordre n'est garanti que dans une partition ; entre deux flux, l'ordre de traitement d'événements proches varie d'une exécution à l'autre.
+  concept: ddia-sp-join-time-dependence
+- id: fc8
+  front: Slowly changing dimension ?
+  back: Table de référence qui change lentement (taux de TVA) ; on joint sur l'identifiant de la version en vigueur pour rester déterministe.
+  concept: ddia-sp-versioned-join
+- id: fc9
+  front: Le prix des identifiants de version ?
+  back: Plus de compaction de log possible, puisque toutes les versions doivent être conservées.
+  concept: ddia-sp-versioned-join

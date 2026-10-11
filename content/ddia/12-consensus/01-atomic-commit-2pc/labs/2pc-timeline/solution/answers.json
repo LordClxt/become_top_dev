@@ -1,0 +1,14 @@
+{
+  "outcome": {
+    "vote-no": "abort",
+    "crash-before-prepare": "abort",
+    "timeout-prepare": "abort",
+    "crash-after-log": "doubt-commit",
+    "crash-before-log": "doubt-abort",
+    "retry-commit": "commit"
+  },
+  "prepare": "durable",
+  "doubt": ["wait", "keep-locks", "survive-restart"],
+  "blocked": 5400,
+  "recovery": ["read", "classify", "abort-undecided", "resend"]
+}

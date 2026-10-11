@@ -1,0 +1,28 @@
+id: ddia-ch06
+title: Multi-leader et sans leader
+subtitle: 'Plusieurs nœuds acceptent les écritures : conflits, quorums, read repair et vecteurs de versions'
+source:
+  chapter: 5
+  pages: 168-197
+objectives:
+- Dire quand la réplication multi-leader se justifie (plusieurs datacenters, clients hors ligne, édition collaborative) et ce qu'elle casse
+- Choisir une stratégie de conflit (éviter, LWW, fusion, résolution à l'écriture ou à la lecture) et une topologie de réplication en connaissant leurs défauts
+- Régler n, w et r d'une base sans leader et expliquer le rôle du read repair et de l'anti-entropie
+- Reconnaître les cas où un quorum renvoie quand même une valeur périmée, et ce que changent quorum lâche et hinted handoff
+- Distinguer causalité et concurrence, et détecter les écritures concurrentes avec numéros et vecteurs de versions, siblings et fusion
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch05
+lessons:
+- 01-multi-leader
+- 02-write-conflicts
+- 03-leaderless-quorums
+- 04-quorum-limits
+- 05-concurrent-writes
+xp:
+  assignment: 130
+  project: 240
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

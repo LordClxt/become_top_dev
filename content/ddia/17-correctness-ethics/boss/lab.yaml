@@ -1,0 +1,98 @@
+id: ddia-ch17-boss
+title: 'Boss : une plateforme de paiement correcte, auditable et respectueuse'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-correct-operation-id
+- ddia-correct-uniqueness-log
+- ddia-correct-multi-partition
+- ddia-correct-funds-check
+- ddia-correct-coordination-avoidance
+- ddia-correct-e2e-integrity-check
+- ddia-ethics-regulation
+source:
+  chapter: 12
+  pages: 515-546
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: mobile
+  label: Application PayLite
+  hint: Génère un identifiant pour chaque virement et chaque demande de pseudo.
+- type: gw
+  component: gateway
+  label: API gateway
+  hint: Point d'entrée des requêtes identifiées.
+- type: check
+  component: stream-processor
+  label: Vérificateur de fonds
+  hint: Partitionné par compte payeur ; valide avant le log des requêtes.
+- type: reqlog
+  component: kafka
+  label: Log des requêtes de virement
+  hint: L'écriture unique d'où tout découle.
+- type: split
+  component: stream-processor
+  label: Répartiteur débit / crédit
+  hint: Dérive deux instructions porteuses de l'identifiant.
+- type: acctlog
+  component: kafka
+  label: Log des instructions (partitionné par compte)
+  hint: Chaque compte a sa partition, lue dans l'ordre.
+- type: acctproc
+  component: worker
+  label: Processeur de comptes
+  hint: Déduplique par identifiant et applique.
+- type: balances
+  component: postgres
+  label: Soldes
+  hint: État dérivé des instructions.
+- type: namelog
+  component: kafka
+  label: Log des pseudos (partitionné par pseudo normalisé)
+  hint: Toutes les demandes d'un même pseudo tombent dans la même partition.
+- type: nameproc
+  component: stream-processor
+  label: Processeur d'unicité des pseudos
+  hint: Premier arrivé dans le log gagne.
+- type: users
+  component: database
+  label: Annuaire des pseudos
+  hint: Pseudos attribués.
+- type: outcomes
+  component: topic
+  label: Flux des décisions
+  hint: Succès ou refus, que le client attend.
+- type: auditor
+  component: cron
+  label: Auditeur de bout en bout
+  hint: Rejoue le log des requêtes et compare aux soldes.
+- type: alerts
+  component: monitoring
+  label: Alertes
+  hint: Prévient l'équipe d'un écart.
+- type: warehouse
+  component: warehouse
+  label: Entrepôt analytique agrégé
+  hint: Statistiques sans identifier personne.
+- type: purge
+  component: cron
+  label: Purge de rétention
+  hint: Supprime ce qui ne sert plus la finalité déclarée.
+- type: twopc
+  component: consensus
+  label: Coordinateur de commit à deux phases
+  hint: Transaction distribuée entre partitions.
+- type: databroker
+  component: external
+  label: Courtier de données
+  hint: Achète et revend des profils.
+- type: mm-names
+  component: cassandra
+  label: Pseudos en multi-leader asynchrone
+  hint: Chaque région accepte les pseudos sans se coordonner.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

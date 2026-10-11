@@ -1,0 +1,8 @@
+{
+  "written": 18,
+  "connect": {"sum": "hash", "smj": "sorted", "dim": "bcast"},
+  "nondet": ["maporder", "clock", "api"],
+  "checkpoint": "materialize",
+  "pregel": ["receive", "update", "send", "barrier"],
+  "graphsize": "single"
+}

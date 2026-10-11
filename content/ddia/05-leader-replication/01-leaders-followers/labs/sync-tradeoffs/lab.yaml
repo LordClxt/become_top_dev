@@ -1,0 +1,17 @@
+id: ddia-ch05-l01-lab-sync-tradeoffs
+title: 'Synchrone, semi-synchrone ou asynchrone : chiffrer le choix'
+difficulty: 2
+xp: 60
+concepts:
+- ddia-leader-sync-replication
+- ddia-leader-async-replication
+- ddia-leader-semi-sync
+- ddia-replication-goals
+source:
+  chapter: 5
+  pages: 151-155
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,21 @@
+id: ddia-ch15-assignment
+title: 'Le tableau de bord temps réel d''une plateforme de VTC'
+difficulty: 4
+xp: 130
+concepts:
+- ddia-sp-event-vs-processing-time
+- ddia-sp-watermark
+- ddia-sp-window-hopping
+- ddia-sp-stream-stream-join
+- ddia-sp-stream-table-join
+- ddia-sp-table-table-join
+- ddia-sp-versioned-join
+- ddia-sp-idempotent-writes
+source:
+  chapter: 11
+  pages: 464-488
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

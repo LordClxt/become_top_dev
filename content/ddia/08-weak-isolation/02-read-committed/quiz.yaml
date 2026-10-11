@@ -1,0 +1,98 @@
+id: ddia-ch08-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: x vaut 500. T1 écrit x = 300 sans valider. En read committed, que lit T2 ?
+  choices:
+  - '300'
+  - '500'
+  - T2 est bloquée jusqu'au commit de T1
+  - Une erreur
+  answer: 1
+  explanation: 'Pas de lecture sale : T2 voit l''ancienne valeur validée, sans attendre.'
+  concept: ddia-dirty-read
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Pourquoi interdire les lectures sales ?
+  choices:
+  - Pour ne pas voir une transaction multi-objets à moitié faite
+  - Pour ne pas décider sur une écriture qui sera annulée
+  - Pour empêcher les mises à jour perdues
+  - Pour accélérer les écritures
+  answer: [0, 1]
+  explanation: Les mises à jour perdues ne sont pas empêchées par read committed.
+  concept: ddia-dirty-read
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Alice et Bob achètent la même voiture ; chaque achat écrit l'annonce puis la facture. Quelle garantie empêche une annonce au nom de Bob et une facture au nom d'Alice ?
+  choices:
+  - L'absence de lecture sale
+  - La durabilité
+  - L'absence d'écriture sale
+  - La réplication synchrone
+  answer: 2
+  explanation: Le second écrivain attend le commit du premier ; les deux écritures d'un achat restent groupées.
+  concept: ddia-dirty-write
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Comment la plupart des bases empêchent-elles les lectures sales ?
+  choices:
+  - Un verrou de lecture pris pour chaque ligne lue
+  - En gardant l'ancienne valeur validée et en la servant aux lecteurs tant que l'écrivain n'a pas validé
+  - En sérialisant toutes les transactions
+  - En refusant les écritures pendant les lectures
+  answer: 1
+  explanation: 'Les verrous de lecture feraient attendre tous les lecteurs derrière une longue écriture.'
+  concept: ddia-read-committed-impl
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Une migration met à jour un million de lignes pendant deux minutes. Si la base empêchait les lectures sales avec des verrous de lecture, que se passerait-il ?
+  choices:
+  - Rien, les verrous de lecture sont gratuits
+  - La migration irait plus vite
+  - Les lectures seraient sales
+  - Toutes les lectures de ces lignes attendraient jusqu'à la fin de la migration
+  answer: 3
+  explanation: C'est la raison pour laquelle on sert l'ancienne valeur au lieu de verrouiller.
+  concept: ddia-read-committed-impl
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Deux transactions lisent un compteur à 42, ajoutent 1 et écrivent 43 l'une après l'autre. Read committed l'empêche-t-il ?
+  choices:
+  - Oui, c'est une écriture sale
+  - Non, la seconde écrit après le commit de la première ; l'incrément est perdu
+  - Oui, grâce aux verrous de lecture
+  - Non, mais la durabilité corrige le compteur
+  answer: 1
+  explanation: 'Une mise à jour perdue n''est pas une écriture sale : elle écrase une valeur validée.'
+  concept: ddia-read-committed-limits
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Pourquoi le conseil « prends une base ACID pour des données financières » ne suffit-il pas ?
+  choices:
+  - Parce que beaucoup de bases ACID tournent par défaut à un niveau d'isolation faible
+  - Parce que les bases ACID ne sont pas durables
+  - Parce que les bases ACID n'ont pas de transactions
+  - Parce que le C d'ACID est mal implémenté
+  answer: 0
+  explanation: Il faut connaître les anomalies que ton niveau laisse passer.
+  concept: ddia-weak-isolation-levels
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Que garantit read uncommitted ?
+  choices:
+  - Rien
+  - Pas de lecture sale, mais des écritures sales possibles
+  - Pas d'écriture sale, mais des lectures sales possibles
+  - La sérialisabilité
+  answer: 2
+  explanation: 'Read uncommitted est en dessous de read committed : il ne protège que les écritures.'
+  concept: ddia-weak-isolation-levels
+  difficulty: 1

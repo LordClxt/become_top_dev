@@ -1,0 +1,30 @@
+{
+  "nodes": [
+    { "id": "client", "type": "client", "x": 0, "y": 220 },
+    { "id": "router", "type": "router", "x": 260, "y": 220 },
+    { "id": "p1", "type": "part", "x": 560, "y": 40, "label": "Partition 1" },
+    { "id": "p2", "type": "part", "x": 560, "y": 220, "label": "Partition 2" },
+    { "id": "p3", "type": "part", "x": 560, "y": 400, "label": "Partition 3" },
+    { "id": "r1", "type": "replica", "x": 860, "y": 40 },
+    { "id": "r2", "type": "replica", "x": 860, "y": 220 },
+    { "id": "r3", "type": "replica", "x": 860, "y": 400 },
+    { "id": "coord", "type": "coord", "x": 260, "y": 520 },
+    { "id": "reports", "type": "reports", "x": 1140, "y": 220 }
+  ],
+  "edges": [
+    { "id": "e1", "source": "client", "target": "router", "kind": "sync", "label": "CALL" },
+    { "id": "e2", "source": "router", "target": "p1", "kind": "sync" },
+    { "id": "e3", "source": "router", "target": "p2", "kind": "sync" },
+    { "id": "e4", "source": "router", "target": "p3", "kind": "sync" },
+    { "id": "e5", "source": "p1", "target": "r1", "kind": "replication" },
+    { "id": "e6", "source": "p2", "target": "r2", "kind": "replication" },
+    { "id": "e7", "source": "p3", "target": "r3", "kind": "replication" },
+    { "id": "e8", "source": "router", "target": "coord", "kind": "sync", "label": "multi-partitions" },
+    { "id": "e9", "source": "coord", "target": "p1", "kind": "sync" },
+    { "id": "e10", "source": "coord", "target": "p2", "kind": "sync" },
+    { "id": "e11", "source": "coord", "target": "p3", "kind": "sync" },
+    { "id": "e12", "source": "reports", "target": "r1", "kind": "read" },
+    { "id": "e13", "source": "reports", "target": "r2", "kind": "read" },
+    { "id": "e14", "source": "reports", "target": "r3", "kind": "read" }
+  ]
+}

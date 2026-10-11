@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Le log et le rattrapage"
+    goal: "Numéroter chaque écriture du leader, servir les entrées qui suivent une position, créer un follower depuis un snapshot et le faire rattraper en refusant les trous et en ignorant les doublons."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Le failover et l'époque"
+    goal: "Promouvoir le follower le plus avancé avec une époque plus grande, reprendre le log là où il s'arrête, rejeter tout ce qu'envoie l'ancien leader et lister les écritures perdues."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Le routeur de lectures"
+    goal: "Envoyer les écritures au leader, garder chaque utilisateur sur un réplica fixe, et ne lire sur ce réplica que s'il a atteint la plus haute position écrite ou lue par l'utilisateur."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Ton routeur compare des positions de log plutôt que d'envoyer au leader toutes les lectures pendant une minute après une écriture. Quels avantages et quelles limites cela a-t-il, notamment si l'utilisateur change d'appareil ou si le réplica de son hachage tombe en panne ?"

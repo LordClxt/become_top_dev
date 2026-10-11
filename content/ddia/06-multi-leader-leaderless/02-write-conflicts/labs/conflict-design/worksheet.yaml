@@ -1,0 +1,85 @@
+intro: |
+  Ton wiki d'entreprise tourne sur **trois leaders** (Paris, Montréal, Singapour) en réplication asynchrone. Les utilisateurs écrivent dans le leader le plus proche. Tu dois décider comment chaque type de donnée gère ses conflits, et vérifier ce que la topologie fait en cas de panne.
+blocks:
+- id: diverge
+  type: choice
+  title: Appliquer dans l'ordre d'arrivée
+  prompt: Le titre d'une page vaut « A ». Paris reçoit « B » puis « C » ; Montréal reçoit « C » puis « B ». Chaque leader applique simplement les écritures dans l'ordre où il les reçoit. État final ?
+  options:
+  - id: both-c
+    label: Les deux leaders affichent « C »
+  - id: diverge
+    label: Paris affiche « C », Montréal affiche « B », et cela ne changera plus
+  - id: both-b
+    label: Les deux leaders affichent « B »
+  - id: error
+    label: La base rejette la seconde écriture sur chaque leader
+- id: perdus
+  type: number
+  title: Le coût du LWW
+  prompt: Le wiki reçoit **12 000** modifications par jour, dont **0,5 %** entrent en conflit deux à deux (chaque conflit oppose deux écritures). Avec LWW, combien d'écritures **acquittées** sont perdues en **30 jours** ?
+  unit: écritures
+- id: strategie
+  type: match
+  title: Une stratégie par donnée
+  prompt: Pour chaque donnée, quelle stratégie choisis-tu ?
+  items:
+  - id: profil
+    label: Le profil d'un employé, modifié surtout par lui-même depuis son bureau
+  - id: tags
+    label: Les tags d'une page (chaque tag ajouté doit être conservé)
+  - id: vue
+    label: Le compteur « dernière consultation » d'une page (perdre une valeur est sans gravité)
+  - id: contrat
+    label: Le texte d'une procédure juridique, édité hors ligne par deux juristes
+  categories:
+  - id: avoid
+    label: Éviter le conflit (un leader « maison » par enregistrement)
+  - id: lww
+    label: LWW (le plus grand horodatage gagne)
+  - id: merge
+    label: Fusion automatique (union des valeurs)
+  - id: keep
+    label: Conserver les versions et faire choisir l'utilisateur
+- id: moment
+  type: match
+  title: À l'écriture ou à la lecture ?
+  prompt: Où s'exécute chaque logique de résolution ?
+  items:
+  - id: bucardo
+    label: Un bout de Perl appelé dès qu'un conflit apparaît dans le flux répliqué
+  - id: couch
+    label: Toutes les versions sont stockées et renvoyées à la prochaine lecture
+  - id: user
+    label: L'application montre les deux versions et demande laquelle garder
+  - id: background
+    label: Un gestionnaire rapide qui tourne en arrière-plan, sans interface
+  categories:
+  - id: write
+    label: À l'écriture
+  - id: read
+    label: À la lecture
+- id: salle
+  type: choice
+  title: Un conflit qui ne se voit pas
+  prompt: Alice réserve la salle Turing de 14 h à 15 h via Paris ; Bob la réserve de 14 h 30 à 15 h 30 via Montréal. Ce sont deux lignes distinctes. Que se passe-t-il ?
+  options:
+  - id: none
+    label: Rien, deux lignes distinctes ne peuvent pas être en conflit
+  - id: lww
+    label: LWW garde une seule des deux réservations
+  - id: conflict
+    label: Chaque leader a vérifié localement que la salle était libre ; une fois répliquées, les deux réservations se chevauchent et violent la règle métier
+- id: topo
+  type: multi
+  title: Topologies
+  prompt: Les trois leaders sont reliés en **anneau** (Paris → Montréal → Singapour → Paris). Coche les affirmations vraies.
+  options:
+  - id: cut
+    label: Si Montréal tombe, les écritures de Paris n'atteignent plus Singapour tant qu'on ne reconfigure pas l'anneau
+  - id: tags
+    label: Chaque écriture porte la liste des nœuds traversés pour ne pas tourner en boucle
+  - id: clock
+    label: En passant en all-to-all, les horodatages des leaders suffisent à remettre les messages dans l'ordre causal
+  - id: overtake
+    label: En all-to-all, une mise à jour peut arriver sur un leader avant l'insertion de la ligne qu'elle modifie

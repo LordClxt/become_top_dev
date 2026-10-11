@@ -1,0 +1,1 @@
+D'astreinte sur un sujet Kafka de clics, calcule la rétention que permet le disque, lis le retard de chaque partition, mesure l'effet d'un ajout de consommateurs et d'un crash, puis ordonne la reprise après un bug grâce au rejeu.

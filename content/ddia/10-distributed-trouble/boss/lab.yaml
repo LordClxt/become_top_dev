@@ -1,0 +1,69 @@
+id: ddia-ch10-boss
+title: 'Boss : un leader qui survit aux mensonges du réseau'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-truth-by-majority
+- ddia-fencing-token
+- ddia-adaptive-timeout
+- ddia-lww-clock-skew
+- ddia-ntp-drift
+- ddia-process-pause
+source:
+  chapter: 8
+  pages: 273-311
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: service
+  label: Application
+  hint: Envoie ses requêtes d'écriture au leader.
+- type: leader
+  component: leader
+  label: Leader (détient le bail)
+  hint: Seul autorisé à écrire, tant que son bail et son jeton sont les plus récents.
+- type: standby
+  component: follower
+  label: Remplaçant
+  hint: Prêt à demander le bail si le leader est soupçonné mort.
+- type: coord
+  component: consensus
+  label: Nœud de coordination
+  hint: Membre du service qui accorde baux et jetons à la majorité.
+- type: coordzone
+  component: zone
+  label: Service de coordination (etcd, ZooKeeper)
+  hint: Regroupe les nœuds de coordination.
+- type: storage
+  component: object-store
+  label: Stockage partagé
+  hint: Vérifie le jeton de chaque écriture et rejette les jetons périmés.
+- type: detector
+  component: monitoring
+  label: Détecteur de pannes adaptatif
+  hint: Reçoit les battements de cœur et adapte son timeout à leur distribution (phi accrual).
+- type: ntp
+  component: external
+  label: Serveur NTP
+  hint: Source de temps pour l'horloge murale.
+- type: clockmon
+  component: monitoring
+  label: Supervision des décalages d'horloge
+  hint: Mesure l'écart de chaque nœud et exclut ceux qui dérivent.
+- type: single
+  component: redis
+  label: Verrou sur un seul nœud
+  hint: Un verrou avec expiration posé sur une instance unique.
+- type: lww
+  component: index
+  label: Résolution last write wins
+  hint: Garde l'écriture au plus grand horodatage.
+- type: swap
+  component: disk
+  label: Swap activé sur le leader
+  hint: De la mémoire en plus, sur le disque.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

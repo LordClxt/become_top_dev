@@ -1,0 +1,8 @@
+{
+  "lamport": {"r1.c": 1, "r2.c": 3, "r3.c": 2, "r4.c": 4, "r5.c": 5, "r6.c": 6},
+  "tri": ["t13", "t21", "t41", "t42"],
+  "generateur": "lamport",
+  "trou": 2,
+  "unicite": "no",
+  "cas": ["append", "wait", "check", "decide"]
+}

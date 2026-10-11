@@ -1,0 +1,29 @@
+id: ddia-ch09
+title: Sérialisabilité
+subtitle: 'Exécution en série, verrouillage à deux phases et sérialisabilité par snapshot : trois façons d''obtenir la garantie la plus forte, et ce que chacune coûte'
+source:
+  chapter: 7
+  pages: 251-266
+objectives:
+- Dire quand une exécution réellement en série sur un seul thread est viable (transactions courtes en procédures stockées, données en mémoire, débit d'un cœur) et quand elle ne l'est plus
+- Évaluer l'effet du partitionnement et du taux de transactions multi-partitions sur le débit d'une base à exécution en série
+- Appliquer les règles du verrouillage à deux phases (verrous partagés/exclusifs, montée de verrou, libération au commit) et repérer un interblocage dans un graphe d'attente
+- Expliquer comment les verrous de prédicat et leur approximation par plages d'index empêchent les fantômes, et ce qui se passe sans index adapté
+- Décrire comment la sérialisabilité par snapshot (SSI) détecte une prémisse périmée, par lecture MVCC périmée ou par écriture après lecture, et pourquoi elle abandonne au commit
+- Choisir entre exécution en série, 2PL et SSI selon la charge, la contention, la durée des transactions et le besoin de passer à l'échelle
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch08
+lessons:
+- 01-actual-serial-execution
+- 02-serial-partitioning
+- 03-two-phase-locking
+- 04-predicate-locks
+- 05-ssi
+xp:
+  assignment: 130
+  project: 250
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

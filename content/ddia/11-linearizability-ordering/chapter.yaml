@@ -1,0 +1,29 @@
+id: ddia-ch11
+title: Linéarisabilité et ordre
+subtitle: 'Donner l''illusion d''une seule copie, savoir ce qu''elle coûte, et ordonner les événements sans horloge fiable'
+source:
+  chapter: 9
+  pages: 321-351
+objectives:
+- Définir la linéarisabilité, décider si un historique de lectures et d'écritures la respecte, et la distinguer de la sérialisabilité
+- Reconnaître les situations qui l'exigent (verrou et élection de leader, contrainte d'unicité, canaux de communication multiples)
+- Dire quelles méthodes de réplication peuvent être linéarisables et pourquoi un quorum strict ne suffit pas
+- Énoncer correctement le théorème CAP et chiffrer le coût en latence et en disponibilité d'une garantie linéarisable
+- Distinguer ordre causal et ordre total, et expliquer pourquoi la cohérence causale est le modèle fort qui reste disponible
+- Calculer des horodatages de Lamport, montrer pourquoi ils ne suffisent pas pour l'unicité, et relier diffusion à ordre total et linéarisabilité
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch10
+lessons:
+- 01-linearizability-definition
+- 02-uses-implementation
+- 03-cost-cap
+- 04-causality
+- 05-sequence-lamport-tob
+xp:
+  assignment: 130
+  project: 240
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

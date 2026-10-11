@@ -1,0 +1,35 @@
+blocks:
+  rejeu:
+    options:
+      s1.v: Le numéro de version est incrémenté à chaque écriture, en partant de 1.
+      s1.n: Une seule valeur existe.
+      s2.v: Deuxième écriture sur la clé.
+      s2.n: 'Sans version, Bruno n''écrase rien : `[jazz]` et `[rock]` coexistent.'
+      s3.v: Troisième écriture.
+      s3.n: 'Ana avait vu la version 1 : `[jazz]` est écrasé, `[rock]` (version 2) est gardé.'
+      s4.v: Quatrième écriture.
+      s4.n: 'Chloé envoie la version 2 : tout ce qui est ≤ 2 disparaît ; `[jazz, soul]` (v3) lui est concurrent et reste.'
+      s5.v: Cinquième écriture.
+      s5.n: 'Sans version, Bruno n''écrase rien : v3, v4 et v5 coexistent.'
+  relation:
+    options:
+      p1: 'Partout ≥ et strictement plus grand sur A : il arrive après.'
+      p2: 'Chacun est plus grand quelque part : concurrents.'
+      p3: 'Une entrée absente vaut 0 : {A: 1, C: 0} est partout ≤ et plus petit sur C.'
+      p4: 'B: 0 et B absent, c''est pareil.'
+      p5: 'Plus grand sur B, plus petit sur A (0 < 1) : concurrents.'
+  causal:
+    options:
+      incr: 'Bruno s''appuie sur la valeur d''Ana : dépendance causale.'
+      three: 'L''intervalle de temps ne compte pas : aucun n''a vu l''autre.'
+      reply: 'La réponse connaît le commentaire : il arrive avant.'
+      same: 'Même milliseconde ou non, c''est la connaissance mutuelle qui compte : aucune.'
+  fusion:
+    options:
+      lww: 'LWW ne garde qu''une version : on perd `soul` ou `funk`, des ajouts légitimes.'
+      inter: 'L''intersection perdrait tous les ajouts qui ne figurent que dans un sibling.'
+      drop: 'Une absence ne se distingue pas d''un « jamais ajouté » : l''union le fera revenir depuis l''autre sibling.'
+  lww:
+    tolerance:
+      abs: 0
+    wrong: 'La valeur finale `[pop]` ne connaît aucune autre écriture : les étapes 1 à 4 sont toutes perdues.'

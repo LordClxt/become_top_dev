@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Le log partitionné"
+    goal: "Ajouter des messages à la partition de leur clé avec des offsets croissants par partition, écrire des tombstones, et lire une fenêtre d'offsets en refusant les positions hors du log."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Les groupes de consommateurs"
+    goal: "Valider l'offset de chaque groupe par partition, lire sans avancer, mesurer le retard, revenir en arrière pour rejouer, et répartir les partitions entre les membres d'un groupe."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Compaction et vue dérivée"
+    goal: "Compacter une partition par clé en gardant les offsets d'origine, purger les tombstones, maintenir une vue par rattrapage incrémental et la reconstruire à l'identique depuis l'offset 0 du log compacté."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Pourquoi Compact conserve-t-il les offsets d'origine (avec des trous) plutôt que de renuméroter les messages à partir de 0 ? Que deviendraient l'offset validé d'un groupe et son retard si l'on renumérotait ? Et pourquoi cette compaction serait-elle fausse pour un log d'événements métier comme « 50 € déposés » ?"

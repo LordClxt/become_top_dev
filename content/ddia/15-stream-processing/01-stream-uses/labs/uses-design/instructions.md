@@ -1,0 +1,1 @@
+Tu rejoins l'équipe données d'une place de marché immobilière. Six demandes arrivent le même jour : classe-les par usage du traitement de flux, chiffre ce que coûte l'exactitude, et repère les besoins qui imposent de garder l'état depuis le début.

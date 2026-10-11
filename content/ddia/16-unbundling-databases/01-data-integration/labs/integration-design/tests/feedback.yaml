@@ -1,0 +1,31 @@
+blocks:
+  dual:
+    options:
+      db.price: 'PostgreSQL applique A (50) puis B (45) : la dernière écriture qu''il voit fixe le prix.'
+      search.price: 'Elasticsearch applique B (45) puis A (50) : c''est l''ordre inverse, donc l''autre valeur reste.'
+  approach:
+    options:
+      ryw: 'Un dérivé alimenté par un log est asynchrone : il a forcément un peu de retard. Seule une validation atomique synchrone garantit de relire tout de suite.'
+      slow: 'Avec 2PC, un participant indisponible bloque la validation : c''est l''amplification des pannes de XA.'
+      newsys: 'Avec XA, il faudrait ajouter le nouveau système à chaque transaction du service. Un nouvel abonné au log ne demande rien au producteur.'
+      hetero: 'XA exige que tous les participants parlent le même protocole de validation ; le log ne demande que de savoir lire des événements.'
+  backlog:
+    tolerance:
+      rel: 0.01
+    wrong: 1 500 changements/s × 600 s = 900 000 changements.
+  catchup:
+    tolerance:
+      rel: 0.02
+    wrong: 'Le retard ne se résorbe qu''à la vitesse nette 2 000 − 1 500 = 500 changements/s : 900 000 / 500 = 1 800 s = 30 min.'
+  total:
+    options:
+      single: 'Un seul nœud qui suffit au débit ordonne tout sans difficulté : c''est le cas facile.'
+      geo: 'Deux leaders ordonnent chacun leurs écritures ; l''ordre entre continents n''est pas défini.'
+      micro: Chaque service a son propre état et son propre ordre ; il n'existe pas d'ordre commun.
+      mobile: Le client et le serveur voient les événements dans des ordres différents.
+      part: L'ordre ne vaut qu'à l'intérieur d'une partition.
+  causal:
+    options:
+      lww: 'La dernière écriture gagne règle un état, pas un effet : la notification serait déjà partie.'
+      cache: Un cache ajoute du retard, il n'apporte aucune information de causalité.
+      more: Partitionner ne crée aucun lien entre le message et l'état d'amitié dont il dépend.

@@ -1,0 +1,67 @@
+checks:
+- id: entry
+  label: Les clients passent par le service bancaire
+  rule: edge_kind
+  source: users
+  target: app
+  kind: sync
+- id: only-app
+  label: Toute écriture des clients vers la base passe par le service
+  rule: path
+  source: users
+  target: db
+  via: app
+- id: app-write
+  label: Le service écrit dans la base (virements)
+  rule: edge_kind
+  source: app
+  target: db
+  kind: write
+- id: backup-read
+  label: La sauvegarde lit la base de production dans son instantané
+  rule: edge_kind
+  source: backup
+  target: db
+  kind: read
+- id: audit-read
+  label: Le contrôle d'intégrité lit lui aussi un instantané
+  rule: edge_kind
+  source: audit
+  target: db
+  kind: read
+- id: archive
+  label: La sauvegarde écrit sa copie dans le stockage des sauvegardes
+  rule: edge_kind
+  source: backup
+  target: archive
+  kind: write
+- id: vacuum
+  label: Le ramasse-miettes nettoie les versions dans la base
+  rule: edge_kind
+  source: vacuum
+  target: db
+  kind: write
+- id: no-pause
+  label: La sauvegarde n'a pas à arrêter le service
+  rule: no_edge
+  source: backup
+  target: app
+- id: one-db
+  label: Une seule base, celle de production
+  rule: count
+  source: db
+  min: 1
+  max: 1
+- id: no-lock
+  label: 'Pas de verrou global : les lecteurs ne bloquent pas les écrivains'
+  rule: count
+  source: lock
+  max: 0
+- id: no-hotcopy
+  label: Pas de copie de fichiers sans instantané (read skew permanent)
+  rule: count
+  source: hotcopy
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

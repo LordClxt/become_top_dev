@@ -1,0 +1,21 @@
+{
+  "nodes": [
+    {"id": "home", "type": "home", "x": 560, "y": -20, "label": "Nœuds d'origine de panier:42", "w": 320, "h": 440},
+    {"id": "client", "type": "client", "x": 0, "y": 160},
+    {"id": "coord", "type": "coord", "x": 280, "y": 160},
+    {"id": "a", "type": "reach", "x": 600, "y": 20, "label": "Nœud A", "parent": "home"},
+    {"id": "b", "type": "reach", "x": 600, "y": 160, "label": "Nœud B", "parent": "home"},
+    {"id": "c", "type": "cut", "x": 600, "y": 300, "label": "Nœud C (coupé)", "parent": "home"},
+    {"id": "d", "type": "neighbor", "x": 280, "y": 420, "label": "Nœud D"},
+    {"id": "mon", "type": "monitor", "x": 980, "y": 90}
+  ],
+  "edges": [
+    {"id": "e1", "source": "client", "target": "coord", "kind": "sync", "label": "PUT panier:42"},
+    {"id": "e2", "source": "coord", "target": "a", "kind": "write"},
+    {"id": "e3", "source": "coord", "target": "b", "kind": "write"},
+    {"id": "e4", "source": "coord", "target": "d", "kind": "write", "label": "indice : pour C"},
+    {"id": "e5", "source": "d", "target": "c", "kind": "replication", "label": "hinted handoff"},
+    {"id": "e6", "source": "mon", "target": "a", "kind": "read"},
+    {"id": "e7", "source": "mon", "target": "b", "kind": "read"}
+  ]
+}

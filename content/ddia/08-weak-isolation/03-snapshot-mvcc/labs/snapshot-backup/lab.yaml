@@ -1,0 +1,53 @@
+id: ddia-ch08-l03-lab-snapshot-backup
+title: Sauvegarder sans arrêter la banque
+difficulty: 3
+xp: 60
+concepts:
+- ddia-snapshot-isolation
+- ddia-read-skew
+- ddia-mvcc-versions
+source:
+  chapter: 7
+  pages: 237-242
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: users
+  component: browser
+  label: Clients de la banque
+  hint: Consultent leurs comptes et font des virements.
+- type: app
+  component: service
+  label: Service bancaire
+  hint: Exécute les virements dans des transactions.
+- type: db
+  component: postgres
+  label: PostgreSQL (snapshot isolation)
+  hint: Garde plusieurs versions de chaque ligne.
+- type: backup
+  component: cron
+  label: Sauvegarde nocturne
+  hint: Copie toute la base pendant six heures, dans une seule transaction en lecture seule.
+- type: audit
+  component: worker
+  label: Contrôle d'intégrité
+  hint: Vérifie que la somme de tous les comptes ne change pas.
+- type: vacuum
+  component: compaction
+  label: Ramasse-miettes (vacuum)
+  hint: Supprime les versions que plus personne ne peut voir.
+- type: archive
+  component: object-store
+  label: Stockage des sauvegardes
+  hint: Reçoit la copie cohérente.
+- type: lock
+  component: external
+  label: Verrou global pendant la sauvegarde
+  hint: Bloque toutes les écritures le temps de la copie.
+- type: hotcopy
+  component: file
+  label: Copie des fichiers à chaud, sans instantané
+  hint: Lit les fichiers de la base pendant qu'ils changent.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,67 @@
+intro: |
+  Tu travailles pour **Toit&Moi**, une place de marché immobilière : 50 millions de visiteurs par jour sur chacun de ses 300 sites partenaires, 50 nouvelles annonces par seconde, 2 millions d'alertes de recherche enregistrées par les clients.
+blocks:
+- id: usages
+  type: match
+  title: Quel usage pour chaque demande ?
+  prompt: Range chaque demande dans l'usage du traitement de flux qui lui correspond.
+  items:
+  - id: fraud
+    label: Signaler un compte qui publie plus de 20 annonces en 10 minutes puis change d'adresse IP
+  - id: dash
+    label: Afficher le nombre de visites par minute et le comparer à la même minute hier
+  - id: cache
+    label: Garder à jour, dans Redis, la fiche de chaque agence lue depuis la base PostgreSQL
+  - id: alert
+    label: Prévenir un client dès qu'un T3 à moins de 400 000 € apparaît à Nantes
+  categories:
+  - id: cep
+    label: Traitement d'événements complexes (motif d'événements)
+  - id: analytics
+    label: Analytique de flux (agrégats sur fenêtre)
+  - id: view
+    label: Maintien d'une vue matérialisée
+  - id: search
+    label: Recherche sur flux (requêtes stockées)
+- id: exact
+  type: number
+  title: Le prix de l'exactitude
+  prompt: Pour compter exactement les visiteurs uniques d'un site sur une journée, on garde l'ensemble de leurs identifiants (16 octets chacun). Combien de **Mo** (1 Mo = 1 000 000 octets) pour 50 millions de visiteurs ?
+  unit: Mo
+- id: hll
+  type: number
+  title: La même chose en HyperLogLog
+  prompt: Un HyperLogLog occupe 12 Ko (12 000 octets) quel que soit le nombre de visiteurs. Combien de **Mo** pour les 300 sites ?
+  unit: Mo
+- id: naive
+  type: number
+  title: La recherche sur flux naïve
+  prompt: Si chaque nouvelle annonce est testée contre chacune des 2 millions d'alertes, combien de tests par seconde (en **millions**) faut-il faire ?
+  unit: millions/s
+- id: forever
+  type: multi
+  title: Qui a besoin de tout l'historique ?
+  prompt: Quels consommateurs doivent garder l'état construit depuis le **tout premier** événement (compacté), et pas seulement une fenêtre récente ?
+  options:
+  - id: profile
+    label: Le cache des fiches d'agences alimenté par la CDC
+  - id: balance
+    label: Le solde des crédits de publication de chaque agence, reconstruit depuis ses événements (event sourcing)
+  - id: rate
+    label: Le nombre d'erreurs 500 par minute
+  - id: fraud
+    label: La détection « 20 annonces en 10 minutes »
+  - id: index
+    label: L'index de recherche des annonces en ligne
+- id: actors
+  type: choice
+  title: Acteurs ou flux ?
+  prompt: Trois équipes (facturation, conformité, data science) doivent relire toutes les transactions de paiement, chacune à son rythme, et pouvoir rejouer le dernier mois après un bogue. Que choisis-tu ?
+  options:
+  - id: log
+    label: Un log d'événements durable et partitionné, consommé par trois jobs de flux indépendants
+    hint: Plusieurs abonnés, relecture possible
+  - id: actor
+    label: Un framework d'acteurs où le service de paiement envoie un message à un acteur par équipe
+  - id: rpc
+    label: Trois appels RPC synchrones depuis le service de paiement

@@ -1,0 +1,3 @@
+**Le bon outil dépend de l'ensemble de travail, pas de la taille du fichier.** 2 millions d'URL × 120 octets = 240 Mo : une table de hachage tient sans peine, même pour 500 Go de logs. Mais 3 milliards de sessions × 60 octets = 180 Go : la table déborde des 32 Go, et le tri externe prend le relais : 500 Go / 8 Go = 62,5, donc **63 morceaux triés** puis fusionnés en lectures séquentielles.
+
+La chaîne `awk | sort | uniq -c | sort -rn | head` est un vrai job de lots : entrée immuable, étapes inspectables, rejouable à volonté. Un job de lots se juge au débit ; un service au temps de réponse ; un flux à sa capacité à suivre une entrée qui ne s'arrête jamais.

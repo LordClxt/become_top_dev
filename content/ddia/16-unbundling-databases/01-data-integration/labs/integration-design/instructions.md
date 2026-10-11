@@ -1,0 +1,1 @@
+Trace une double écriture qui diverge, choisis entre log et transaction distribuée selon l'exigence, chiffre le retard d'un index alimenté par CDC, puis repère où l'ordre total et la causalité posent problème.

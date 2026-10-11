@@ -1,0 +1,33 @@
+blocks:
+  clock:
+    options:
+      processing: 'Une application qui retrouve le réseau après 10 minutes ferait compter ses courses dans la mauvaise tranche, et chaque redémarrage du job créerait un faux pic.'
+      broker: 'L''heure d''écriture dans le broker mesure l''arrivée des données, pas la fin de la course : même défaut que le temps de traitement.'
+  watermark:
+    goals:
+      late: 'Délai trop court : trop d''événements arrivent après la fermeture de leur fenêtre.'
+      lag: 'Délai trop long : le tableau attend trop avant d''émettre chaque fenêtre.'
+  hopping:
+    tolerance:
+      abs: 0
+    wrong: Taille de la fenêtre / pas.
+  joins:
+    options:
+      accept: 'Deux flux d''événements appariés par identifiant de course dans une fenêtre de temps, avec émission des demandes expirées.'
+      rating: 'Un flux enrichi par une table : copie locale de la table, tenue à jour par CDC.'
+      favorites: 'Deux tables (favoris, disponibilités) dont on joint les changelogs pour tenir une vue à jour.'
+  state:
+    tolerance:
+      abs: 1
+    wrong: 3 000 × 120 s × 300 octets = 108 000 000 octets.
+  surge:
+    options:
+      current: 'Le multiplicateur a changé des milliers de fois depuis : la facture recalculée serait fausse.'
+      faster: 'Aucune vitesse ne remonte le temps : l''ordre entre le flux des courses et celui des tarifs n''est pas garanti, et la jointure serait non déterministe.'
+  payout:
+    options:
+      key: 'L''API de paiement est hors du framework : seul un identifiant qu''elle reconnaît lui permet d''écarter un doublon.'
+      offset: 'Sans offset dans la même écriture, un rejeu ajoute deux fois le gain au solde.'
+      atomic: 'Si la sortie et l''offset ne sont pas validés ensemble, on publie deux fois ou on perd un paiement.'
+      often: 'Un checkpoint plus fréquent réduit le rejeu sans le supprimer, et ne reprend pas un paiement déjà envoyé.'
+      proc: 'L''horloge du job n''a rien à voir avec les doublons, et elle range mal les courses.'

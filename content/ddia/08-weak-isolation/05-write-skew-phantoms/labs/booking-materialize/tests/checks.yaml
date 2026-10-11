@@ -1,0 +1,60 @@
+checks:
+- id: entry
+  label: Les utilisateurs appellent le service de réservation
+  rule: edge_kind
+  source: users
+  target: booking
+  kind: sync
+- id: via
+  label: Toute réservation passe par le service (et sa transaction)
+  rule: path
+  source: users
+  target: bookings
+  via: booking
+- id: lock
+  label: Le service verrouille les créneaux matérialisés (FOR UPDATE)
+  rule: edge_kind
+  source: booking
+  target: slots
+  kind: write
+- id: insert
+  label: Puis il insère la réservation
+  rule: edge_kind
+  source: booking
+  target: bookings
+  kind: write
+- id: owner
+  label: Seul le service écrit dans bookings
+  rule: inbound_via
+  target: bookings
+  via: booking
+- id: fill
+  label: Les créneaux sont créés d'avance par le générateur
+  rule: edge_kind
+  source: filler
+  target: slots
+  kind: write
+- id: no-direct
+  label: Les utilisateurs ne touchent pas directement aux créneaux
+  rule: no_edge
+  source: users
+  target: slots
+- id: one-slots
+  label: Une seule table de créneaux
+  rule: count
+  source: slots
+  min: 1
+  max: 1
+- id: no-cache
+  label: Pas de cache de disponibilités (il lit un état qui peut changer avant l'écriture)
+  rule: count
+  source: cache
+  max: 0
+- id: no-js
+  label: Pas de vérification hors transaction, dans le navigateur
+  rule: count
+  source: jscheck
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

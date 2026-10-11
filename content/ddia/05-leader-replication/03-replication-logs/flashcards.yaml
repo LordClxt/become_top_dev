@@ -1,0 +1,29 @@
+cards:
+- id: fc1
+  front: Réplication par instructions ?
+  back: Le leader journalise chaque INSERT/UPDATE/DELETE et les followers les réexécutent. Compact mais fragile.
+  concept: ddia-repl-log-statement
+- id: fc2
+  front: Trois pièges de la réplication par instructions ?
+  back: Fonctions non déterministes (NOW, RAND), dépendance à l'ordre (auto-incrément, UPDATE … WHERE), effets de bord (triggers, procédures).
+  concept: ddia-repl-log-statement
+- id: fc3
+  front: Expédition du WAL ?
+  back: Envoyer aux followers le journal du moteur (quels octets dans quels blocs). Utilisé par PostgreSQL et Oracle.
+  concept: ddia-repl-log-wal-shipping
+- id: fc4
+  front: Défaut majeur de l'expédition du WAL ?
+  back: Couplée au format de stockage ; leader et followers de versions différentes ne peuvent souvent pas coexister, donc mise à jour avec arrêt.
+  concept: ddia-repl-log-engine-coupling
+- id: fc5
+  front: Log logique, contenu d'une insertion / suppression / mise à jour ?
+  back: Toutes les nouvelles valeurs / la clé primaire (ou toutes les colonnes) / la clé plus les nouvelles valeurs. Puis un enregistrement de commit.
+  concept: ddia-repl-log-logical
+- id: fc6
+  front: Deux avantages du log logique ?
+  back: Découplé du moteur (versions mixtes possibles) et lisible par d'autres systèmes (capture des changements).
+  concept: ddia-repl-log-logical
+- id: fc7
+  front: Réplication par triggers ?
+  back: Un trigger copie le changement dans une table lue par un processus externe (Databus, Bucardo). Souple, mais coûteux et fragile.
+  concept: ddia-repl-log-trigger

@@ -1,0 +1,98 @@
+id: ddia-ch14-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Lequel de ces objets est un événement au sens du traitement de flux ?
+  choices:
+  - La table `carts` telle qu'elle est en ce moment
+  - Une requête SQL qui calcule le total des paniers
+  - « L'utilisateur 42 a ajouté le produit 981 à son panier à 10:14:03 »
+  - Le schéma Avro de la table des paniers
+  answer: 2
+  explanation: Un événement est un petit objet immuable qui décrit ce qui s'est passé à un instant donné. Une table décrit un état courant, pas un fait daté.
+  concept: ddia-event-stream-basics
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Ton tableau de bord sonde 40 tables toutes les 250 ms pour détecter les nouveautés. Quel est le vrai problème ?
+  choices:
+  - Le sondage est interdit par SQL
+  - Des centaines de requêtes par seconde, presque toutes vides, et une latence qui ne descend jamais sous l'intervalle de sondage
+  - Les tables vont se verrouiller définitivement
+  - Rien, c'est la méthode recommandée pour la faible latence
+  answer: 1
+  explanation: 40 × 4 = 160 requêtes par seconde pour très peu de nouveautés. Mieux vaut que le consommateur soit notifié quand un événement arrive.
+  concept: ddia-polling-vs-notification
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Un producteur envoie plus vite que son consommateur ne traite. Quelles réponses un système de messagerie peut-il apporter ?
+  choices:
+  - Perdre les messages en trop
+  - Les mettre en tampon dans une file
+  - Bloquer le producteur (contre-pression)
+  - Accélérer le consommateur automatiquement
+  answer: [0, 1, 2]
+  explanation: Il n'y a que trois options. Ajouter des consommateurs est une décision d'exploitation, pas un comportement du système de messagerie.
+  concept: ddia-producer-overload-choices
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: '`cat gros.log | gzip > out.gz` : `gzip` compresse moins vite que `cat` ne lit. Que se passe-t-il ?'
+  choices:
+  - Le pipe jette les octets que gzip n'a pas pu lire
+  - Le pipe stocke tout le fichier en mémoire
+  - '`cat` plante avec une erreur de dépassement'
+  - Le tampon du pipe se remplit et `cat` est bloqué jusqu'à ce que gzip ait lu
+  answer: 3
+  explanation: Un pipe Unix a un petit tampon fixe et exerce une contre-pression, comme TCP.
+  concept: ddia-producer-overload-choices
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pour lequel de ces flux une perte occasionnelle de messages est-elle acceptable ?
+  choices:
+  - Des relevés de température envoyés chaque seconde et agrégés en moyennes par minute
+  - Des paiements par carte
+  - Des inscriptions à un concours, comptées pour un tirage au sort
+  - Des changements de mot de passe
+  answer: 0
+  explanation: Une moyenne sur 60 relevés ne bouge presque pas s'il en manque un ; un événement compté ou une action utilisateur, si.
+  concept: ddia-message-durability-tradeoff
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Ton service appelle le webhook d'un partenaire à chaque commande. Le serveur du partenaire est en maintenance 20 minutes. Que deviennent ces commandes ?
+  choices:
+  - Le webhook les stocke automatiquement chez le partenaire
+  - Elles sont perdues pour lui, sauf si ton service les garde et les renvoie, et elles le seront aussi si ton service plante entre-temps
+  - HTTP les remet en file tout seul
+  - Elles arrivent dans le désordre mais toutes
+  answer: 1
+  explanation: La messagerie directe suppose que les deux côtés sont en ligne ; la tolérance aux pannes repose sur le code de l'application.
+  concept: ddia-direct-messaging
+  difficulty: 2
+- id: q7
+  type: multiple
+  prompt: Quelles affirmations décrivent un broker classique (JMS/AMQP) par opposition à une base de données ?
+  choices:
+  - Il supprime un message une fois qu'il est livré
+  - Il suppose des files courtes ; si elles grossissent, le débit chute
+  - Il offre des index secondaires pour chercher dans les messages
+  - Il notifie les clients quand de nouvelles données arrivent
+  answer: [0, 1, 3]
+  explanation: Les index secondaires et les requêtes arbitraires sont l'affaire des bases ; un broker livre, notifie et oublie.
+  concept: ddia-broker-vs-database
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Avec un broker, qu'attend le producteur avant de continuer ?
+  choices:
+  - Que tous les consommateurs aient traité le message
+  - Que le consommateur réponde sur une file de réponse
+  - Que le broker confirme avoir mis le message en tampon
+  - Rien du tout, jamais
+  answer: 2
+  explanation: La consommation devient asynchrone ; le producteur ne dépend plus de la vitesse ni de la disponibilité du consommateur.
+  concept: ddia-broker-vs-database
+  difficulty: 1

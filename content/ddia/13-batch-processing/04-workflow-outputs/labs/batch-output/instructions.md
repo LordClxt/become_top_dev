@@ -1,0 +1,1 @@
+Chaque nuit, un workflow calcule les suggestions d'amis à partir des logs et des profils. Dessine le chemin des données, de la base de production jusqu'au navigateur, de façon qu'un job raté ne puisse **jamais** abîmer ce que voient les utilisateurs et qu'on puisse revenir à la version d'hier.

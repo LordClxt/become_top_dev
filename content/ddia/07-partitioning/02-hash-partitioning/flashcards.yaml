@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Partitionnement par hachage ?
+  back: On hache la clé ; chaque partition reçoit une plage de hachages. Répartition uniforme.
+  concept: ddia-hash-partitioning
+- id: fc2
+  front: Ce que le hachage fait perdre ?
+  back: 'L''ordre des clés : un scan d''intervalle sur la clé interroge toutes les partitions.'
+  concept: ddia-hash-partitioning
+- id: fc3
+  front: Exigence clé sur la fonction de hachage ?
+  back: Stable entre processus et machines (MD5, FNV) ; pas besoin d'être cryptographique.
+  concept: ddia-partition-hash-function
+- id: fc4
+  front: Pourquoi pas Object.hashCode ou le hash des map Go ?
+  back: Leur valeur peut changer d'un processus ou d'une exécution à l'autre.
+  concept: ddia-partition-hash-function
+- id: fc5
+  front: Hachage cohérent, à l'origine ?
+  back: Répartition de cache type CDN avec bornes aléatoires (Karger, 1997) ; rien à voir avec la cohérence des données.
+  concept: ddia-consistent-hashing-term
+- id: fc6
+  front: Clé composée Cassandra ?
+  back: 1re colonne hachée → partition ; colonnes suivantes → tri dans la partition.
+  concept: ddia-compound-primary-key
+- id: fc7
+  front: Bon usage de la clé composée ?
+  back: '(user_id, timestamp) : toutes les publications d''un utilisateur dans une partition, triées par date.'
+  concept: ddia-compound-primary-key
+- id: fc8
+  front: Découper une clé brûlante ?
+  back: 'Suffixe aléatoire (ex. 00–99) : les écritures se répartissent ; les lectures doivent tout relire et combiner.'
+  concept: ddia-hot-key-salting

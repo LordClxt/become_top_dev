@@ -1,0 +1,100 @@
+id: ddia-ch12-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un virement touche deux partitions. On envoie simplement « commit » aux deux. La partition A valide, la partition B rencontre une violation de contrainte. Pourquoi A ne peut-elle pas simplement annuler ?
+  choices:
+  - Parce que le WAL de A a déjà été compacté
+  - 'Parce qu''une transaction validée a pu être lue par d''autres : la défaire exige une transaction de compensation, distincte'
+  - Parce que B va de toute façon réessayer jusqu'à valider
+  - Parce que les annulations sont interdites en read committed
+  answer: 1
+  explanation: Une fois validées, les données sont visibles et d'autres ont pu agir dessus. Une compensation est une nouvelle transaction, pas un retour en arrière.
+  concept: ddia-atomic-commit-distributed
+  difficulty: 2
+- id: q2
+  type: single
+  prompt: Remets dans l'ordre les étapes de 2PC pour une transaction qui sera validée. Choisis la bonne séquence.
+  choices:
+  - Le coordinateur attribue un identifiant global de transaction → L'application lit et écrit sur chaque participant sous cet identifiant → Le coordinateur envoie « prepare » et chaque participant vote oui après avoir tout écrit sur disque → Le coordinateur envoie « commit » et réessaie jusqu'au succès → Le coordinateur écrit « commit » dans son journal
+  - Le coordinateur envoie « commit » et réessaie jusqu'au succès → Le coordinateur écrit « commit » dans son journal → Le coordinateur envoie « prepare » et chaque participant vote oui après avoir tout écrit sur disque → L'application lit et écrit sur chaque participant sous cet identifiant → Le coordinateur attribue un identifiant global de transaction
+  - Le coordinateur attribue un identifiant global de transaction → L'application lit et écrit sur chaque participant sous cet identifiant → Le coordinateur envoie « prepare » et chaque participant vote oui après avoir tout écrit sur disque → Le coordinateur écrit « commit » dans son journal → Le coordinateur envoie « commit » et réessaie jusqu'au succès
+  - L'application lit et écrit sur chaque participant sous cet identifiant → Le coordinateur attribue un identifiant global de transaction → Le coordinateur envoie « prepare » et chaque participant vote oui après avoir tout écrit sur disque → Le coordinateur écrit « commit » dans son journal → Le coordinateur envoie « commit » et réessaie jusqu'au succès
+  answer: 2
+  explanation: 'La décision est journalisée AVANT d''être envoyée : c''est le point de commit.'
+  concept: ddia-2pc-protocol
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Quels sont les deux points de non-retour de 2PC ?
+  choices:
+  - Le participant répond oui à « prepare »
+  - L'application ouvre sa transaction locale
+  - Le coordinateur écrit sa décision sur disque
+  - Le coordinateur attribue l'identifiant de transaction
+  answer:
+  - 0
+  - 2
+  explanation: Le participant renonce à annuler en votant oui ; le coordinateur rend la décision définitive en la journalisant.
+  concept: ddia-2pc-points-of-no-return
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: La partition 8 a voté oui. Le coordinateur ne répond plus depuis 30 secondes. Que doit-elle faire ?
+  choices:
+  - Annuler, puisque le délai est dépassé
+  - Valider, puisqu'elle a voté oui
+  - Demander à l'application de trancher
+  - Attendre la reprise du coordinateur, en gardant la transaction en doute
+  answer: 3
+  explanation: Annuler peut contredire un commit déjà appliqué ailleurs ; valider peut contredire un abort. Seul le coordinateur connaît la décision.
+  concept: ddia-2pc-coordinator-failure
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Le coordinateur redémarre et trouve dans son journal la transaction tx-77 sans aucune décision. Que fait-il ?
+  choices:
+  - Il l'annule
+  - Il la valide, car des participants ont peut-être voté oui
+  - Il redemande les votes
+  - Il la laisse en doute indéfiniment
+  answer: 0
+  explanation: 'Sans décision écrite, aucun commit n''a pu être envoyé : annuler est sûr.'
+  concept: ddia-2pc-coordinator-failure
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Le coordinateur envoie « commit » aux participants, PUIS écrit la décision dans son journal. Il plante entre les deux. Que se passe-t-il ?
+  choices:
+  - Rien de grave, les participants ont reçu la décision
+  - Les participants annulent d'eux-mêmes
+  - À sa reprise il annule (pas de décision écrite) alors qu'un participant a peut-être déjà validé
+  - Il relance automatiquement les « prepare »
+  answer: 2
+  explanation: 'L''ordre est inversé : la décision doit être durable avant d''être diffusée.'
+  concept: ddia-2pc-points-of-no-return
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Pourquoi la validation en trois phases n'a-t-elle pas remplacé 2PC ?
+  choices:
+  - Elle demande trois fois plus de disque
+  - Elle n'est non bloquante qu'avec des délais réseau bornés et un détecteur de pannes parfait, ce qu'un vrai réseau n'offre pas
+  - Elle ne fonctionne qu'avec deux participants
+  - Elle est brevetée
+  answer: 1
+  explanation: Avec des délais illimités et des pauses de processus, un timeout ne prouve pas une panne.
+  concept: ddia-3pc-nonblocking
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Que dit exactement le résultat FLP ?
+  choices:
+  - Le consensus est impossible dans tout système réel
+  - Il faut au moins 3 nœuds pour un consensus
+  - Dans un modèle asynchrone sans horloge, aucun algorithme ne garantit toujours le consensus si un nœud peut tomber
+  - 2PC est le seul algorithme correct
+  answer: 2
+  explanation: Avec des timeouts ou de l'aléatoire, le consensus redevient soluble en pratique.
+  concept: ddia-consensus-problem
+  difficulty: 2

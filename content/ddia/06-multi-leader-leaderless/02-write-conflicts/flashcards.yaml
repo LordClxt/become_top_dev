@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Pourquoi un conflit multi-leader est-il découvert trop tard ?
+  back: La réplication est asynchrone ; les deux écritures ont déjà été acquittées.
+  concept: ddia-write-conflict-detection
+- id: fc2
+  front: Éviter les conflits ?
+  back: Router toutes les écritures d'un enregistrement vers le même leader ; casse quand ce leader doit changer.
+  concept: ddia-conflict-avoidance
+- id: fc3
+  front: Convergence ?
+  back: Une fois tous les changements répliqués, tous les réplicas ont la même valeur.
+  concept: ddia-conflict-convergence
+- id: fc4
+  front: LWW ?
+  back: Garde l'écriture au plus grand horodatage ; converge, mais perd des écritures acquittées.
+  concept: ddia-conflict-convergence
+- id: fc5
+  front: Résolution à l'écriture vs à la lecture ?
+  back: À l'écriture, un gestionnaire tourne en arrière-plan (Bucardo) ; à la lecture, l'application reçoit toutes les versions (CouchDB) et peut demander à l'utilisateur.
+  concept: ddia-custom-conflict-resolution
+- id: fc6
+  front: Granularité de la résolution de conflits ?
+  back: Par enregistrement (ligne, document), pas par transaction.
+  concept: ddia-custom-conflict-resolution
+- id: fc7
+  front: Trois topologies multi-leader ?
+  back: Circulaire, en étoile, all-to-all ; les deux premières sont coupées par la panne d'un nœud.
+  concept: ddia-replication-topologies
+- id: fc8
+  front: Comment éviter les boucles en topologie circulaire ?
+  back: Chaque écriture porte les identifiants des nœuds traversés ; un nœud ignore celles qui portent le sien.
+  concept: ddia-replication-topologies
+- id: fc9
+  front: Piège de l'all-to-all ?
+  back: Des messages se doublent ; une mise à jour peut arriver avant l'insertion. Remède — vecteurs de versions.
+  concept: ddia-topology-causality

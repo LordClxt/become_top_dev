@@ -1,0 +1,24 @@
+{
+  "nature": {
+    "stale-feed": "timeliness",
+    "lost-credit": "integrity",
+    "index-miss": "integrity",
+    "replica-lag": "timeliness",
+    "double-charge": "integrity"
+  },
+  "couts": {
+    "names.conflicts": 200,
+    "names.cost": 200,
+    "stock.conflicts": 300,
+    "stock.cost": 3600
+  },
+  "overbook": 196,
+  "strategie": {
+    "username": "apology",
+    "icu-bed": "sync",
+    "flight": "apology",
+    "drug": "sync",
+    "stock": "apology"
+  },
+  "garde-fous": ["no-loss", "once", "compensate"]
+}

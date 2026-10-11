@@ -1,0 +1,83 @@
+id: ddia-ch05-boss
+title: 'Boss : une base répliquée sur deux datacenters'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-leader-follower
+- ddia-leader-semi-sync
+- ddia-follower-bootstrap
+- ddia-leader-failover
+- ddia-failover-split-brain
+- ddia-repl-log-logical
+- ddia-lag-read-your-writes
+- ddia-lag-monotonic-reads
+source:
+  chapter: 5
+  pages: 151-167
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: service
+  label: Serveur d'application
+  hint: Toutes les requêtes des utilisateurs passent par lui.
+- type: router
+  component: proxy
+  label: Routeur de lectures (read-your-writes, affinité)
+  hint: Retient la position de log de chaque utilisateur et choisit où lire.
+- type: leader
+  component: leader
+  label: Leader
+  hint: Reçoit toutes les écritures.
+- type: sync
+  component: follower
+  label: Follower synchrone
+  hint: Le leader attend son accusé avant de confirmer.
+- type: async
+  component: follower
+  label: Follower asynchrone (lecture)
+  hint: Sert les lectures, avec un peu de retard.
+- type: newf
+  component: follower
+  label: Nouveau follower
+  hint: En cours d'ajout au cluster.
+- type: snap
+  component: object-store
+  label: Snapshot cohérent (avec son LSN)
+  hint: Image de la base à une position précise du log.
+- type: monitor
+  component: monitoring
+  label: Détecteur de pannes
+  hint: Surveille le leader et reconfigure le routage s'il tombe.
+- type: cdc
+  component: stream-processor
+  label: Lecteur du log logique (CDC)
+  hint: Lit les changements ligne par ligne.
+- type: dwh
+  component: warehouse
+  label: Entrepôt de données
+  hint: Reçoit chaque ligne modifiée pour l'analytique.
+- type: dc1
+  component: zone
+  label: Datacenter 1 (Paris)
+  hint: Le datacenter principal.
+- type: dc2
+  component: zone
+  label: Datacenter 2 (Montréal)
+  hint: Un datacenter lointain, à 85 ms.
+- type: stmt
+  component: log
+  label: Log par instructions (NOW(), RAND())
+  hint: Rejoue le texte des requêtes sur chaque réplica.
+- type: dual
+  component: leader
+  label: Second leader actif
+  hint: Un autre nœud qui accepte aussi des écritures.
+- type: rr
+  component: load-balancer
+  label: Répartiteur aléatoire des lectures
+  hint: Envoie chaque lecture à un follower au hasard.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

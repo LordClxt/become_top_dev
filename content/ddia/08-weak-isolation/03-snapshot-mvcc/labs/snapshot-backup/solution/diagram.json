@@ -1,0 +1,19 @@
+{
+  "nodes": [
+    {"id": "users", "type": "users", "x": 0, "y": 160},
+    {"id": "app", "type": "app", "x": 280, "y": 160},
+    {"id": "db", "type": "db", "x": 580, "y": 160},
+    {"id": "backup", "type": "backup", "x": 880, "y": 20},
+    {"id": "archive", "type": "archive", "x": 1180, "y": 20},
+    {"id": "audit", "type": "audit", "x": 880, "y": 300},
+    {"id": "vacuum", "type": "vacuum", "x": 580, "y": 420}
+  ],
+  "edges": [
+    {"id": "e1", "source": "users", "target": "app", "kind": "sync", "label": "virement"},
+    {"id": "e2", "source": "app", "target": "db", "kind": "write", "label": "transaction"},
+    {"id": "e3", "source": "backup", "target": "db", "kind": "read", "label": "instantané"},
+    {"id": "e4", "source": "audit", "target": "db", "kind": "read", "label": "instantané"},
+    {"id": "e5", "source": "backup", "target": "archive", "kind": "write", "label": "copie"},
+    {"id": "e6", "source": "vacuum", "target": "db", "kind": "write", "label": "nettoie"}
+  ]
+}

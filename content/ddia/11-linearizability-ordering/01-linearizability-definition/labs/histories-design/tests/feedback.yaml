@@ -1,0 +1,25 @@
+blocks:
+  lectures:
+    options:
+      b: 'B chevauche l''écriture et commence avant la fin de la lecture de C : on peut placer B, puis l''écriture, puis C.'
+      d: 'D commence après t = 4 : C avait déjà vu 1, la valeur ne peut plus revenir à 0.'
+      e: 'E commence à t = 3, avant la fin de la lecture de C : son point d''effet peut précéder celui de l''écriture.'
+      f: 'Après la fin de l''écriture, 1 est exactement ce qu''il faut lire.'
+      g: 'L''écriture est terminée à t = 10 : toute lecture commencée ensuite doit voir 1.'
+  cas:
+    options:
+      lin: 'Concurrent ne veut pas dire « tout est permis » : il faut un ordre unique, et dans cet ordre le second cas ne trouve plus 0.'
+      lww: '« La dernière écriture gagne » perd silencieusement une réservation : c''est justement ce qu''un cas linéarisable doit empêcher.'
+  retard:
+    tolerance:
+      abs: 0.5
+    wrong: 'Sous linéarisabilité, une écriture terminée est visible par toute lecture qui commence ensuite : la fenêtre d''obsolescence est nulle.'
+  garantie:
+    options:
+      snap: 'Un ordre sériel peut ignorer l''ordre réel : c''est permis par la sérialisabilité (SSI), pas par la linéarisabilité.'
+      fresh: 'C''est la garantie de fraîcheur, portée par un objet : la linéarisabilité.'
+      both: 'Ordre sériel des transactions ET respect du temps réel : les deux garanties réunies.'
+  vrai:
+    options:
+      start: 'Seul compte le chevauchement des intervalles : une opération commencée plus tôt peut prendre effet plus tard.'
+      replica: 'Même la réplication synchrone peut servir des lectures obsolètes, par exemple sur un réplica isolé ; la linéarisabilité se juge sur l''historique.'

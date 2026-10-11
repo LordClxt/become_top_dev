@@ -1,0 +1,28 @@
+id: ddia-ch14
+title: Logs et flux d'événements
+subtitle: 'Brokers, logs partitionnés, capture des changements et event sourcing : quand la base de données devient un flux'
+source:
+  chapter: 11
+  pages: 439-464
+objectives:
+- Choisir face à un producteur trop rapide entre perdre des messages, les mettre en tampon ou exercer une contre-pression, et dire ce qu'un broker change par rapport à la messagerie directe
+- Combiner répartition de charge et fan-out avec des groupes de consommateurs, et prévoir le réordonnancement causé par les accusés de réception et la redistribution
+- Raisonner sur un log partitionné (Kafka) avec ses offsets de consommateur, sa rétention en tampon circulaire, le retard des consommateurs lents et le rejeu
+- Remplacer les doubles écritures par la capture des changements (CDC), avec snapshot initial et compaction de log par clé
+- Distinguer commandes et événements, dériver l'état et plusieurs vues d'un log immuable (event sourcing, CQRS) et mesurer les limites de l'immuabilité
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch13
+lessons:
+- 01-event-transmission
+- 02-fanout-acks
+- 03-partitioned-logs
+- 04-change-data-capture
+- 05-event-sourcing
+xp:
+  assignment: 130
+  project: 250
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

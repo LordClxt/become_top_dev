@@ -1,0 +1,3 @@
+**Un consommateur trop lent ne laisse que trois issues.** Pendant le pic, la file grossit de 400 messages/s : 240 000 messages et 480 Mo au bout de 10 minutes. Après le pic, elle ne se vide qu'au rythme de 300 messages/s, soit 800 s. Le retard se rattrape toujours **plus lentement** qu'il ne s'est accumulé quand le producteur ne s'arrête pas.
+
+Le choix dépend du prix d'une perte : on jette un relevé de température ou une image périmée, on garde sur disque une commande payée, et on freine un producteur qui peut attendre (le pipe d'un export). Un broker classique rend la consommation asynchrone et survit à l'absence du consommateur, mais il **supprime** ce qu'il a livré et ne répond pas aux requêtes : ce n'est ni une archive ni une base.

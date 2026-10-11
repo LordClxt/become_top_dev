@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Pourquoi des niveaux d'isolation faibles ?
+  back: La sérialisabilité coûte en performance ; les bases offrent moins par défaut, et ces anomalies causent de vrais bogues.
+  concept: ddia-weak-isolation-levels
+- id: fc2
+  front: Les deux garanties de read committed ?
+  back: Pas de lecture sale (on ne lit que du validé) et pas d'écriture sale (on n'écrase que du validé).
+  concept: ddia-dirty-read
+- id: fc3
+  front: Lecture sale ?
+  back: Voir une écriture non validée — état à moitié fait, ou données qui seront annulées.
+  concept: ddia-dirty-read
+- id: fc4
+  front: Écriture sale ?
+  back: Écraser une valeur non validée ; exemple de la voiture achetée par Alice et Bob (annonce et facture mélangées).
+  concept: ddia-dirty-write
+- id: fc5
+  front: Empêcher l'écriture sale ?
+  back: Verrou de ligne pris par l'écrivain et gardé jusqu'au commit ou à l'abort.
+  concept: ddia-read-committed-impl
+- id: fc6
+  front: Empêcher la lecture sale sans verrou ?
+  back: Garder l'ancienne valeur validée et la servir tant que l'écrivain n'a pas validé.
+  concept: ddia-read-committed-impl
+- id: fc7
+  front: Ce que read committed laisse passer ?
+  back: Les mises à jour perdues (compteur) et les lectures incohérentes dans le temps (read skew).
+  concept: ddia-read-committed-limits
+- id: fc8
+  front: Read committed par défaut ?
+  back: Oracle 11g, PostgreSQL, SQL Server 2012, MemSQL et bien d'autres.
+  concept: ddia-weak-isolation-levels

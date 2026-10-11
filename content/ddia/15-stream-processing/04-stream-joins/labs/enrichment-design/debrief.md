@@ -1,0 +1,3 @@
+**L'enrichissement est une jointure flux-table, et la table vit dans l'opérateur.** Interroger PostgreSQL à chaque événement ferait 50 000 lectures par seconde pour une base qui en tient 2 000 ; un export figé servirait des profils de plus en plus faux à mesure que le job tourne.
+
+La copie locale est tenue à jour par le **changelog** de la base : l'opérateur consomme deux flux, l'activité (sans fenêtre) et les changements de profils (fenêtre « depuis toujours », la dernière version de chaque clé écrasant la précédente). Reste une subtilité : entre ces deux flux, aucun ordre n'est garanti, donc un événement émis juste après un changement de profil peut encore voir l'ancienne version. Si cela compte (facturation), il faut joindre sur une version explicite.

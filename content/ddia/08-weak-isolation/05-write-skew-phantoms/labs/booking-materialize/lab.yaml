@@ -1,0 +1,45 @@
+id: ddia-ch08-l05-lab-booking-materialize
+title: Matérialiser les conflits de réservation
+difficulty: 3
+xp: 60
+concepts:
+- ddia-phantom-writes
+- ddia-materialize-conflicts
+- ddia-write-skew-check-then-act
+source:
+  chapter: 7
+  pages: 246-251
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: users
+  component: browser
+  label: Utilisateurs
+  hint: Réservent des salles de réunion.
+- type: booking
+  component: service
+  label: Service de réservation
+  hint: Exécute la transaction de réservation.
+- type: bookings
+  component: postgres
+  label: Table bookings
+  hint: Les réservations (salle, début, fin, personne).
+- type: slots
+  component: postgres
+  label: Table room_slots (salle × créneau de 15 min)
+  hint: Des lignes sans information, créées d'avance pour porter les verrous.
+- type: filler
+  component: cron
+  label: Générateur de créneaux à 6 mois
+  hint: Ajoute chaque nuit les lignes de créneaux à venir.
+- type: cache
+  component: cache
+  label: Cache des disponibilités
+  hint: Une copie des salles libres, mise à jour en arrière-plan.
+- type: jscheck
+  component: function
+  label: Vérification de disponibilité dans le navigateur
+  hint: Du JavaScript qui regarde si la salle semble libre.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Pourquoi un verrou d'objet ne suffit-il pas contre les fantômes ?
+  back: Une recherche vide ne lit aucune ligne, donc ne verrouille rien ; une insertion ultérieure change son résultat.
+  concept: ddia-2pl-phantom-gap
+- id: fc2
+  front: Verrou de prédicat ?
+  back: Verrou sur tous les objets qui satisfont une condition de recherche, même ceux qui n'existent pas encore.
+  concept: ddia-predicate-lock
+- id: fc3
+  front: Avant d'écrire, que vérifie une transaction face aux verrous de prédicat ?
+  back: Si l'ancienne ou la nouvelle valeur de l'objet satisfait un prédicat verrouillé par une autre transaction ; si oui, elle attend.
+  concept: ddia-predicate-lock
+- id: fc4
+  front: Défaut des verrous de prédicat ?
+  back: 'Lents : chaque écriture est comparée à tous les prédicats actifs.'
+  concept: ddia-predicate-lock-cost
+- id: fc5
+  front: Verrou de plage d'index (next-key locking) ?
+  back: Approximer le prédicat par une entrée ou une plage d'un index ; plus large, donc sûr, et presque gratuit à vérifier.
+  concept: ddia-index-range-lock
+- id: fc6
+  front: Pourquoi élargir un prédicat est-il sûr ?
+  back: Tout ce qui correspond au prédicat d'origine correspond aussi au prédicat élargi ; on bloque plus, jamais moins.
+  concept: ddia-index-range-lock
+- id: fc7
+  front: Prix du verrou de plage d'index ?
+  back: 'Des faux conflits : une écriture sans rapport (même salle, autre heure) attend quand même.'
+  concept: ddia-index-range-lock
+- id: fc8
+  front: Pas d'index adapté à la recherche ?
+  back: Verrou partagé sur toute la table ; toute écriture attend la fin de la transaction.
+  concept: ddia-lock-table-fallback

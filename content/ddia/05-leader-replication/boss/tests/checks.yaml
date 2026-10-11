@@ -1,0 +1,89 @@
+checks:
+- id: entry
+  label: Le serveur d'application passe par le routeur
+  rule: edge_kind
+  source: app
+  target: router
+  kind: sync
+- id: writes
+  label: Le routeur envoie les écritures au leader
+  rule: edge_kind
+  source: router
+  target: leader
+  kind: write
+- id: reads
+  label: Le routeur lit sur le follower asynchrone
+  rule: edge_kind
+  source: router
+  target: async
+  kind: read
+- id: semi-sync
+  label: Le leader réplique vers le follower synchrone
+  rule: edge_kind
+  source: leader
+  target: sync
+  kind: replication
+- id: async-repl
+  label: …et vers le follower asynchrone
+  rule: edge_kind
+  source: leader
+  target: async
+  kind: replication
+- id: sync-near
+  label: Le follower synchrone est à Paris, avec le leader (pas 85 ms par écriture)
+  rule: in_zone
+  source: sync
+  target: dc1
+- id: async-far
+  label: Le follower de lecture est à Montréal, près de ses lecteurs
+  rule: in_zone
+  source: async
+  target: dc2
+- id: bootstrap
+  label: Le nouveau follower part du snapshot
+  rule: edge_kind
+  source: newf
+  target: snap
+  kind: read
+- id: catchup
+  label: Puis il rattrape le log du leader depuis la position du snapshot
+  rule: edge_kind
+  source: leader
+  target: newf
+  kind: replication
+- id: heartbeat
+  label: Le détecteur de pannes surveille le leader
+  rule: edge_kind
+  source: monitor
+  target: leader
+  kind: read
+- id: failover
+  label: Le détecteur reconfigure le routeur au failover
+  rule: edge_kind
+  source: monitor
+  target: router
+  kind: write
+- id: cdc
+  label: Le log logique alimente l'entrepôt de données via la capture des changements
+  rule: path
+  source: leader
+  target: dwh
+  via: cdc
+- id: no-dual
+  label: 'Aucun second leader actif : pas de split brain'
+  rule: count
+  source: dual
+  max: 0
+- id: no-stmt
+  label: Pas de log par instructions (non-déterminisme)
+  rule: count
+  source: stmt
+  max: 0
+- id: no-random
+  label: Pas de répartition aléatoire des lectures (lectures monotones)
+  rule: count
+  source: rr
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

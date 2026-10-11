@@ -1,0 +1,12 @@
+{
+  "interactive": 410,
+  "procedure": 25000,
+  "charges": {
+    "stock": "serial",
+    "rapport": "snapshot",
+    "confirm": "unfit",
+    "froid": "unfit",
+    "score": "serial"
+  },
+  "determinisme": ["now", "rand", "iter"]
+}

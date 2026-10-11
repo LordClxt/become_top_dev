@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "L'index secondaire, fonction du log"
+    goal: "Maintenir un index valeur → clés à partir des changements, en retirant l'ancienne entrée d'un document, en ignorant les offsets déjà appliqués et en refusant les événements invalides."
+    tests: "go test ./... -run TestM1"
+    review: false
+  - id: m2
+    title: "Compteurs et reconstruction"
+    goal: "Maintenir une vue de compteurs par groupe, rattraper un log à partir de l'offset d'une vue, et prouver qu'une reconstruction complète donne exactement l'état incrémental, même avec des relivraisons."
+    tests: "go test ./... -run TestM2"
+    review: false
+  - id: m3
+    title: "Deux vues en parallèle, puis bascule"
+    goal: "Dériver une nouvelle vue à côté de l'ancienne, la faire rattraper sans sauter d'offset, basculer les lectures, pouvoir revenir en arrière, puis retirer l'ancienne."
+    tests: "go test ./... -run TestM3"
+    review: true
+    prompt: "Pourquoi Migration.Apply ne transmet-il pas les événements en direct à une nouvelle vue encore en retard ? Que se passerait-il avec l'idempotence par offset si elle les recevait avant Backfill ? Et à quel moment précis la migration cesse-t-elle d'être réversible ?"

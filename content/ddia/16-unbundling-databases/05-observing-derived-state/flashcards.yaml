@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Chemin d'écriture ?
+  back: Le travail anticipé fait quand la donnée arrive (index, caches, vues), qu'on la lise ou non.
+  concept: ddia-write-read-path
+- id: fc2
+  front: Chemin de lecture ?
+  back: Le travail paresseux fait seulement quand quelqu'un demande.
+  concept: ddia-write-read-path
+- id: fc3
+  front: Où se rencontrent les deux chemins ?
+  back: Dans le jeu de données dérivé (l'index, la vue, le cache).
+  concept: ddia-write-read-path
+- id: fc4
+  front: Que font index, cache et vue matérialisée ?
+  back: Ils déplacent la frontière vers l'écriture ; rentable quand on lit bien plus qu'on n'écrit.
+  concept: ddia-materialized-view-cache-tradeoff
+- id: fc5
+  front: L'état local d'une app mobile ?
+  back: Un cache de l'état serveur ; l'écran en est une vue matérialisée.
+  concept: ddia-offline-clients
+- id: fc6
+  front: Pousser l'état aux clients ?
+  back: Server-sent events ou WebSockets ; on prolonge le chemin d'écriture jusqu'à l'utilisateur.
+  concept: ddia-push-to-clients
+- id: fc7
+  front: Un client qui revient en ligne ?
+  back: Comme un consommateur de log, il repart de son dernier offset.
+  concept: ddia-push-to-clients
+- id: fc8
+  front: Les lectures comme événements ?
+  back: Une jointure flux-table requêtes × base ; permet de tracer ce que l'utilisateur a vu, au prix de stockage.
+  concept: ddia-reads-as-events
+- id: fc9
+  front: Deux requêtes multi-partitions du livre ?
+  back: Portée d'une URL sur Twitter (union d'abonnés) et score de fraude (réputations partitionnées différemment).
+  concept: ddia-multi-partition-dataflow

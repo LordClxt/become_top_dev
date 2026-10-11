@@ -1,0 +1,15 @@
+{
+  "pick": {
+    "latency": "monotonic",
+    "invoice": "wall",
+    "lease": "monotonic",
+    "order": "logical"
+  },
+  "firewall": 4.32,
+  "stamps": { "old.ts": 2080, "new.ts": 2025 },
+  "winner": "old",
+  "window": 95,
+  "intervals": "disjoint",
+  "wait": 100,
+  "fixes": ["monitor", "versions", "multi-ntp"]
+}

@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Risques d'un timeout trop court ?
+  back: Accuser à tort un nœud lent, exécuter deux fois une action, surcharger les autres jusqu'à la cascade.
+  concept: ddia-timeout-tradeoff
+- id: fc2
+  front: Risque d'un timeout trop long ?
+  back: Les utilisateurs attendent ou voient des erreurs tant que la panne n'est pas déclarée.
+  concept: ddia-timeout-tradeoff
+- id: fc3
+  front: Timeout idéal avec délai réseau max d et traitement max r ?
+  back: 2d + r. Mais ni le réseau asynchrone ni un serveur ordinaire ne garantissent ces bornes.
+  concept: ddia-unbounded-delay
+- id: fc4
+  front: Délai non borné ?
+  back: Le réseau essaie de livrer vite mais ne fixe aucune limite au temps d'arrivée.
+  concept: ddia-unbounded-delay
+- id: fc5
+  front: Quatre files qui créent la variabilité des délais ?
+  back: Switch (plusieurs émetteurs, une sortie), OS du destinataire (CPU occupés), hyperviseur (VM en pause), émetteur (contrôle de flux TCP).
+  concept: ddia-network-queueing
+- id: fc6
+  front: Pourquoi la voix sur IP utilise-t-elle UDP ?
+  back: Un paquet en retard est inutile ; mieux vaut le perdre que l'attendre (pas de retransmission).
+  concept: ddia-network-queueing
+- id: fc7
+  front: Détecteur phi accrual ?
+  back: Mesure l'historique des battements de cœur et calcule à quel point le silence actuel est anormal ; le timeout s'adapte (Akka, Cassandra).
+  concept: ddia-adaptive-timeout
+- id: fc8
+  front: Comment choisir un timeout fixe ?
+  back: Mesurer la distribution des allers-retours sur longtemps et sur beaucoup de machines, puis arbitrer détection contre fausses alertes.
+  concept: ddia-adaptive-timeout
+- id: fc9
+  front: Circuit contre paquets ?
+  back: Circuit = bande fixe réservée, pas de file, délai borné, capacité gaspillée. Paquets = rafales, capacité optimisée, délais variables.
+  concept: ddia-circuit-vs-packet
+- id: fc10
+  front: Les délais variables sont-ils inévitables ?
+  back: Non, ils sont le prix d'un choix économique (partage dynamique des ressources).
+  concept: ddia-circuit-vs-packet

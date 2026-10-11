@@ -1,0 +1,82 @@
+intro: |
+  Une billetterie de concerts passe en **event sourcing** : chaque action validée devient un événement immuable dans un log, et toutes les pages sont des vues dérivées de ce log. Tu rejoues un porte-monnaie, tu tries commandes et événements, tu chiffres la croissance de l'historique et tu règles deux cas difficiles.
+blocks:
+- id: wallet
+  type: number
+  title: Rejouer un porte-monnaie
+  prompt: |
+    Voici les événements du porte-monnaie du client 42, dans l'ordre du log : `PorteMonnaieOuvert` (solde 0) ; `Crédité 300` ; `BilletAcheté 85` ; `BilletAcheté 85` ; `Crédité 50` ; `FraisPrélevés 12` ; `FraisRemboursés 12` (les frais avaient été prélevés par erreur). Quel est le solde ?
+  unit: €
+- id: kinds
+  type: match
+  title: Commande ou événement ?
+  prompt: Range chaque message.
+  items:
+  - id: reserve
+    label: Réserver le siège F12 pour le concert du 3 mai
+  - id: reserved
+    label: Siège F12 du concert du 3 mai réservé par le client 42
+  - id: refund
+    label: Rembourser mon billet
+  - id: refunded
+    label: Billet 7781 remboursé au client 42
+  - id: rename
+    label: Changer mon pseudo en `ada`
+  categories:
+  - id: command
+    label: Commande (peut encore échouer)
+  - id: event
+    label: Événement (un fait, immuable)
+- id: double
+  type: choice
+  title: Le siège vendu deux fois
+  prompt: Deux clients cliquent sur « Réserver F12 » à 20 ms d'intervalle. Comment éviter que deux événements « F12 réservé » entrent dans le log ?
+  options:
+  - id: sync
+    label: Valider la commande de façon synchrone, en vérifiant que F12 est libre et en ajoutant l'événement de façon atomique (par exemple un seul consommateur des commandes de ce concert)
+  - id: consumer
+    label: Publier les deux événements, puis laisser la vue des places rejeter le second
+  - id: delete
+    label: Publier les deux, puis supprimer le second événement du log
+- id: compact
+  type: choice
+  title: Faire maigrir le log
+  prompt: Le log des porte-monnaie grossit. Un collègue propose la compaction par clé (garder le dernier événement de chaque client). Qu'en penses-tu ?
+  options:
+  - id: snapshot
+    label: 'Non : chaque événement est une action qui ne remplace pas la précédente ; on stocke plutôt des instantanés périodiques du solde'
+  - id: yes
+    label: 'Oui : le dernier événement contient le solde'
+  - id: tombstone
+    label: 'Oui, à condition d''utiliser des tombstones'
+- id: churn
+  type: number
+  title: La croissance de l'historique
+  prompt: La salle a **4 000** places. Pendant la mise en vente, chaque place change d'état (réservée, libérée, payée…) en moyenne **30 fois par jour**, sur une période de vente de **60 jours**. Combien d'événements de place le log contient-il à la fin, pour seulement 4 000 places vivantes ?
+  unit: événements
+- id: views
+  type: multi
+  title: Les vues que le log permet
+  prompt: Le log contient `SiègeRéservé`, `SiègeLibéré` et `BilletPayé`. Quelles vues peux-tu construire à partir de ce seul log, sans toucher aux autres ?
+  options:
+  - id: map
+    label: Le plan de salle avec les places libres
+  - id: hesit
+    label: Les places les plus souvent réservées puis libérées sans paiement
+  - id: revenue
+    label: Le chiffre d'affaires par jour
+  - id: mood
+    label: L'humeur des clients pendant le concert
+- id: gdpr
+  type: multi
+  title: Le droit à l'effacement
+  prompt: Un client ferme son compte et demande l'effacement de ses données personnelles, présentes dans des événements. Coche ce qui est vrai.
+  options:
+  - id: notenough
+    label: Ajouter un événement « données effacées » ne suffit pas, l'ancien événement contient toujours les données
+  - id: rewrite
+    label: Il faut réécrire l'historique pour retirer ces données (comme l'excision de Datomic), puis reconstruire les vues
+  - id: copies
+    label: Même alors, des copies peuvent subsister dans les sauvegardes ou les blocs d'un SSD
+  - id: impossible
+    label: L'event sourcing rend l'effacement juridiquement impossible, donc on peut l'ignorer

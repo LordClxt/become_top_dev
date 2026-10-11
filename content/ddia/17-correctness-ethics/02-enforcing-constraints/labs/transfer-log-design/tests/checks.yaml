@@ -1,0 +1,87 @@
+checks:
+- id: ask
+  label: Le client soumet sa demande au vérificateur de fonds
+  rule: edge_kind
+  source: app
+  target: check
+  kind: sync
+- id: validated
+  label: Le vérificateur publie les demandes valides dans le log des requêtes
+  rule: edge_kind
+  source: check
+  target: reqlog
+  kind: async
+- id: only-valid
+  label: Rien n'entre dans le log des requêtes sans passer par le vérificateur
+  rule: inbound_via
+  target: reqlog
+  via: check
+- id: read-requests
+  label: Le répartiteur consomme le log des requêtes
+  rule: edge_kind
+  source: reqlog
+  target: split
+  kind: async
+- id: debit
+  label: Il publie l'instruction de débit dans la partition du payeur
+  rule: edge_kind
+  source: split
+  target: debits
+  kind: async
+- id: credit
+  label: …et l'instruction de crédit dans celle du bénéficiaire
+  rule: edge_kind
+  source: split
+  target: credits
+  kind: async
+- id: no-direct-a
+  label: Le répartiteur n'écrit pas les soldes lui-même
+  rule: no_edge
+  source: split
+  target: bal-a
+- id: no-direct-b
+  label: Ni ceux du bénéficiaire
+  rule: no_edge
+  source: split
+  target: bal-b
+- id: consume-a
+  label: Le processeur du payeur lit sa partition
+  rule: edge_kind
+  source: debits
+  target: payer
+  kind: async
+- id: consume-b
+  label: Le processeur du bénéficiaire lit la sienne
+  rule: edge_kind
+  source: credits
+  target: payee
+  kind: async
+- id: apply-a
+  label: Le processeur du payeur écrit les soldes de A
+  rule: edge_kind
+  source: payer
+  target: bal-a
+  kind: write
+- id: apply-b
+  label: Le processeur du bénéficiaire écrit les soldes de B
+  rule: edge_kind
+  source: payee
+  target: bal-b
+  kind: write
+- id: owner-a
+  label: Un seul écrivain pour les soldes de A
+  rule: single_owner
+  target: bal-a
+- id: no-2pc
+  label: Pas de commit atomique distribué
+  rule: count
+  source: twopc
+  max: 0
+- id: no-lock
+  label: Pas de verrou global
+  rule: count
+  source: lock
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

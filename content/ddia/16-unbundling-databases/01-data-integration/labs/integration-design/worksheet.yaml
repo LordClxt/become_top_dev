@@ -1,0 +1,72 @@
+intro: |
+  Ta boutique garde ses produits dans **PostgreSQL** et les rend cherchables dans **Elasticsearch**. Aujourd'hui, le service écrit lui-même dans les deux. Tu analyses ce qui casse, tu chiffres le retard d'un index alimenté par CDC, puis tu tranches les cas où un ordre total ou la causalité posent problème.
+blocks:
+- id: dual
+  type: table
+  title: Une double écriture qui diverge
+  prompt: |
+    Le client A règle le prix d'un produit à **50 €**, le client B à **45 €**, presque en même temps. PostgreSQL reçoit A puis B. À cause d'un délai réseau, Elasticsearch reçoit B puis A. Quel prix final chaque système affiche-t-il ?
+  columns:
+  - id: price
+    label: Prix final (€)
+  rows:
+  - id: db
+    label: PostgreSQL
+  - id: search
+    label: Elasticsearch
+- id: approach
+  type: match
+  title: Log ou transaction distribuée ?
+  prompt: Pour chaque exigence, quelle approche d'intégration convient le mieux ?
+  items:
+  - id: ryw
+    label: Après avoir modifié un produit, l'administrateur doit le retrouver immédiatement dans la recherche, sans aucun retard
+  - id: slow
+    label: Un index de recherche en maintenance ne doit jamais bloquer la prise de commandes
+  - id: newsys
+    label: Ajouter demain un 4ᵉ système dérivé (recommandations) sans modifier le service produits
+  - id: hetero
+    label: Les systèmes viennent de fournisseurs différents et ne parlent pas un protocole de validation commun
+  categories:
+  - id: log
+    label: Log ordonné (CDC) + données dérivées
+  - id: xa
+    label: Transaction distribuée (2PC / XA)
+- id: backlog
+  type: number
+  title: L'index tombe en panne
+  prompt: Le log reçoit **1 500 changements/s**. Le consommateur qui alimente l'index s'arrête **10 minutes**. Combien de changements attendent dans le log à son redémarrage ?
+  unit: changements
+- id: catchup
+  type: number
+  title: Le temps de rattrapage
+  prompt: Au redémarrage, le consommateur traite **2 000 changements/s**, tandis que le log continue de recevoir 1 500 changements/s. En combien de **minutes** rattrape-t-il son retard ?
+  unit: min
+- id: total
+  type: multi
+  title: Où l'ordre total coince
+  prompt: Dans quels cas un ordre total unique de tous les événements est-il difficile à obtenir ?
+  options:
+  - id: geo
+    label: Un leader par continent, pour que chaque utilisateur écrive près de chez lui
+  - id: single
+    label: Une base mono-nœud qui encaisse sans peine 300 écritures/s
+  - id: micro
+    label: Douze microservices, chacun avec sa propre base
+  - id: mobile
+    label: Une app mobile qui modifie son état local en mode avion
+  - id: part
+    label: Un log de 64 partitions parce qu'un seul nœud ne suffit plus
+- id: causal
+  type: choice
+  title: Le message que Bob n'aurait pas dû voir
+  prompt: Alice retire Bob de ses amis, puis publie un message pour « ses amis ». Amitiés et messages vivent dans deux services ; le service de notifications lit les deux flux. Quelle mesure empêche Bob d'être notifié ?
+  options:
+  - id: lww
+    label: Résoudre les conflits avec « la dernière écriture gagne »
+  - id: readstate
+    label: Enregistrer avec le message l'offset de l'état d'amitié qu'Alice avait sous les yeux ; le notifieur attend d'avoir appliqué cet offset
+  - id: cache
+    label: Mettre un cache devant le service d'amitiés
+  - id: more
+    label: Partitionner les messages par identifiant de message
