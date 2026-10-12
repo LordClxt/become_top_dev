@@ -174,7 +174,7 @@ function PathStep({ node, icon: Icon, current }: { node: PathNode; icon: LucideI
           <span className="mt-1 block text-sm text-muted">Maîtrise le module précédent pour l'ouvrir</span>
         ) : (
           <>
-            <span className="mt-1 block text-sm leading-snug text-muted">{chapter.subtitle}</span>
+            <span className="mt-1 line-clamp-2 text-sm leading-snug text-muted">{chapter.subtitle}</span>
             <SliceMeter
               len={chapter.mastery.lessons_done}
               cap={chapter.mastery.lessons_total}

@@ -5,7 +5,7 @@ import type { Course, CourseChapter } from '@/lib/api'
 export const PATH_WIDTH = 600
 const CENTER = PATH_WIDTH / 2
 const AMPLITUDE = 150
-const STEP = 132
+const STEP = 184
 const CAMP_GAP = 84
 const TOP = 24
 

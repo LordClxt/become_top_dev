@@ -44,7 +44,7 @@ func (s *Service) ChapterMastery(ctx context.Context) (map[string]*ChapterMaster
 		previousMastered := true
 		for _, id := range course.ChapterIDs {
 			m := s.mastery(s.Content.Chapters[id], exercises, first, done)
-			m.Unlocked = previousMastered
+			m.Unlocked = previousMastered || s.unlockAll
 			previousMastered = m.Mastered
 			out[id] = m
 		}

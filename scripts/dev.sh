@@ -12,7 +12,7 @@ fi
 
 trap 'kill 0' EXIT
 (cd runner && RUNNER_ADDR=127.0.0.1:8001 go run .) &
-(cd backend && BTD_ADDR=127.0.0.1:8000 go run ./cmd/btd serve) &  # applique les migrations au démarrage
+(cd backend && BTD_UNLOCK_ALL=1 BTD_ADDR=127.0.0.1:8000 go run ./cmd/btd serve) &  # applique les migrations au démarrage
 (cd frontend && pnpm dev) &
 echo "→ http://localhost:3000  (mot de passe de dev : dev)"
 wait

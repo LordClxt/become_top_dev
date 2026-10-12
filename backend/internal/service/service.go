@@ -3,6 +3,7 @@ package service
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"time"
 
@@ -37,10 +38,12 @@ type Service struct {
 	store   *repository.Store
 	runner  Runner
 	now     func() time.Time
+	// unlockAll débloque tous les chapitres (BTD_UNLOCK_ALL=1, usage local pour tester le contenu).
+	unlockAll bool
 }
 
 func New(idx *content.Index, store *repository.Store, runner Runner) *Service {
-	return &Service{Content: idx, store: store, runner: runner, now: time.Now}
+	return &Service{Content: idx, store: store, runner: runner, now: time.Now, unlockAll: os.Getenv("BTD_UNLOCK_ALL") == "1"}
 }
 
 // SetRunner remplace le runner (tests).

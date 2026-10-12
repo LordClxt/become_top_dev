@@ -43,9 +43,6 @@ export function SliceMeter({
           />
         ))}
       </div>
-      <span className="font-code text-xs text-muted tabular-nums">
-        len={len} cap={cap}
-      </span>
     </div>
   )
 }

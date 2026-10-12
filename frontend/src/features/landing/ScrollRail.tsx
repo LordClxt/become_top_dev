@@ -52,9 +52,6 @@ export function ScrollRail({ sections }: { sections: { id: string; label: string
           </li>
         ))}
       </ol>
-      <span className="font-code text-[10px] leading-tight text-muted tabular-nums [writing-mode:vertical-rl]">
-        len={len} cap={sections.length}
-      </span>
     </nav>
   )
 }
