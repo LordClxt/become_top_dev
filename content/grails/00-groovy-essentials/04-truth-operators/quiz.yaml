@@ -1,0 +1,79 @@
+id: grails-ch00-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def values = [0, '', [], [:], null, 'a', 1, [0]]
+      println values.collect { it ? 'T' : 'F' }.join()
+    answer: "FFFFFTTT"
+    explanation: "0, chaîne vide, liste vide, map vide et null sont faux. [0] est une liste non vide, donc vraie."
+    concept: grails-groovy-truth
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def kind(x) {
+          switch (x) {
+              case Number: return 'nombre'
+              case 1..9:   return 'chiffre'
+              default:     return 'autre'
+          }
+      }
+      println kind(5)
+      println kind('a')
+    answer: "nombre\nautre"
+    explanation: "Le premier case qui correspond gagne : 5 est un Number, le case 1..9 n'est jamais atteint pour un entier."
+    concept: grails-groovy-switch-iscase
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def p = [address: null]
+      println p?.address?.city
+      println p?.address?.city ?: 'inconnue'
+    answer: "null\ninconnue"
+    explanation: "?. renvoie null dès qu'un maillon est null ; ?: fournit alors la valeur par défaut."
+    concept: grails-groovy-safe-nav
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class V {
+          int n
+          V plus(V o) { new V(n: n + o.n) }
+          String toString() { "V($n)" }
+      }
+      println new V(n: 1) + new V(n: 2)
+      println([1, 'a', 2.5, 'b'].grep(String))
+    answer: "V(3)\n[a, b]"
+    explanation: "Le + appelle plus(). grep utilise isCase de la classe String : il garde les éléments de ce type."
+    concept: grails-groovy-operator-overloading
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Un utilisateur envoie max=0 et tu écris `def max = params.max ?: 10`. Que se passe-t-il ?"
+    choices:
+      - "max vaut 0"
+      - "max vaut 10, car 0 est faux au sens Groovy"
+      - "Une exception est levée"
+      - "max vaut null"
+    answer: 1
+    explanation: "Elvis teste la vérité Groovy : 0 est faux. Si 0 est valide, compare explicitement à null. (Dans Grails, params contient des textes : '0' est vrai, mais le raisonnement vaut pour toute valeur numérique.)"
+    concept: grails-groovy-truth
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Quelles écritures appellent la méthode isCase ?"
+    choices:
+      - "switch (x) { case Number: … }"
+      - "x in 1..10"
+      - "list.grep(String)"
+      - "x.equals(y)"
+    answer: [0, 1, 2]
+    explanation: "switch, in et grep utilisent tous isCase. equals est un test d'égalité ordinaire."
+    concept: grails-groovy-switch-iscase
+    difficulty: 2

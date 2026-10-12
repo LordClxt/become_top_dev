@@ -1,0 +1,21 @@
+id: grails-ch01
+title: "Closures et DSL"
+subtitle: "Déclarer, capturer, rediriger : le mécanisme derrière static constraints, mapping et withTransaction"
+source: { book: groovy-in-action, chapter: 5, pages: "117-144" }
+objectives:
+  - "Déclarer, stocker, passer et appeler une closure, et adapter une méthode à l'arité de la closure reçue"
+  - "Expliquer ce que capture une closure et prédire qui répond (this, owner, delegate) selon la resolveStrategy"
+  - "Fabriquer des closures avec curry, composition, memoize et trampoline"
+  - "Écrire un DSL minimal à base de builder, delegate et methodMissing (le bloc constraints de GORM)"
+  - "Concevoir un routeur à DSL avec groupes imbriqués, en gérant l'ordre des arguments nommés"
+mastery_threshold: 0.8
+prerequisites: [grails-ch00]
+lessons:
+  - "01-closures-callbacks"
+  - "02-closures-scope"
+  - "03-closures-functional"
+  - "04-closures-dsl"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

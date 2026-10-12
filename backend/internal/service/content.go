@@ -49,6 +49,7 @@ type CourseOverview struct {
 	Kind           string                  `json:"kind"`
 	Summary        string                  `json:"summary"`
 	Book           *content.Book           `json:"book"`
+	Books          []content.Book          `json:"books"`
 	RunningProject *content.RunningProject `json:"running_project"`
 	Requires       []Requirement           `json:"requires"`
 	Tracks         []TrackView             `json:"tracks"`
@@ -127,7 +128,7 @@ func (s *Service) courseOverview(course *content.Course, mastery map[string]*Cha
 	}
 	return CourseOverview{
 		ID: course.ID, Slug: course.Slug, Title: course.Title, Kind: course.Kind, Summary: course.Summary,
-		Book: course.Book, RunningProject: course.RunningProject, Requires: requires, Tracks: tracks,
+		Book: course.Book, Books: nonNilBooks(course.Books), RunningProject: course.RunningProject, Requires: requires, Tracks: tracks,
 	}
 }
 
@@ -412,4 +413,11 @@ func optional(s string) *string {
 		return nil
 	}
 	return &s
+}
+
+func nonNilBooks(b []content.Book) []content.Book {
+	if b == nil {
+		return []content.Book{}
+	}
+	return b
 }

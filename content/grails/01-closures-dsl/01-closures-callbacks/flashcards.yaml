@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'une closure, pour la JVM ?"
+    back: "Un objet comme un autre, instance de groovy.lang.Closure, qui emballe un bloc de code."
+    concept: grails-closure-object
+  - id: fc2
+    front: "Quelles sont les trois façons de déclarer une closure ?"
+    back: "Abrégée (en dernier argument d'un appel), par affectation à une variable, par référence de méthode (obj.&methode)."
+    concept: grails-closure-object
+  - id: fc3
+    front: "Comment une méthode lit-elle le nombre de paramètres de la closure reçue ?"
+    back: "Avec closure.getMaximumNumberOfParameters() (et getParameterTypes() pour les types). Map.each s'en sert."
+    concept: grails-closure-arity
+  - id: fc4
+    front: "Que fait `return` dans la closure passée à `each` ?"
+    back: "Il termine seulement cette exécution de la closure ; each passe à l'élément suivant."
+    concept: grails-closure-return
+  - id: fc5
+    front: "Comment sortir d'une boucle avant la fin ?"
+    back: "Avec un for … in (return ou break), ou find / any / every. Pas avec each."
+    concept: grails-closure-return
+  - id: fc6
+    front: "À quoi sert le protocole de ressource avec une closure ?"
+    back: "La méthode ouvre et ferme (dans un finally) une seule fois ; la closure ne fait que le travail. Exemples : eachLine, withTransaction."
+    concept: grails-closure-resource-protocol

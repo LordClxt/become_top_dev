@@ -1,0 +1,12 @@
+id: grails-ch01-l01-lab-callbacks
+title: "Des méthodes qui rappellent ta closure"
+kind: code
+language: groovy
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Callbacks.groovy"]
+concepts: [grails-closure-arity, grails-closure-resource-protocol, grails-closure-return]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

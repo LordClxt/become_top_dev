@@ -1,0 +1,13 @@
+id: grails-ch01-boss
+title: "Boss : le routeur de Minigrails"
+kind: code
+language: groovy
+difficulty: 5
+xp: 250
+timeout_s: 60
+time_limit_min: 60
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Router.groovy"]
+concepts: [grails-closure-owner-delegate, grails-closure-resolve-strategy, grails-dsl-method-missing, grails-dsl-builder-delegate, grails-dsl-command-syntax]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

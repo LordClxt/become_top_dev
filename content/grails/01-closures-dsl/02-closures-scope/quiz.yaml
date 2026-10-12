@@ -1,0 +1,64 @@
+id: grails-ch01-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def foo(n) { return { n += it } }
+      def acc = foo(1)
+      println acc(2)
+      println acc(1)
+    answer: "3\n4"
+    explanation: "La closure garde une référence au paramètre n de foo et le modifie à chaque appel : 1+2 = 3, puis 3+1 = 4."
+    concept: grails-closure-capture
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class A { String who = 'owner'; Closure make() { return { who } } }
+      def c = new A().make()
+      println c()
+      c.delegate = [who: 'delegate']
+      println c()
+      c.resolveStrategy = Closure.DELEGATE_FIRST
+      println c()
+    answer: "owner\nowner\ndelegate"
+    explanation: "Par défaut (OWNER_FIRST) l'owner A a une propriété who et masque le delegate. Seule DELEGATE_FIRST donne la priorité à la map."
+    concept: grails-closure-resolve-strategy
+    difficulty: 3
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def m = [:]
+      m.with { a = 1; b = 2 }
+      println m
+    answer: "[a:1, b:2]"
+    explanation: "with fixe la map comme delegate : a = 1 devient m.a = 1."
+    concept: grails-closure-owner-delegate
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Dans une closure déclarée dans la méthode d'une classe Foo, que vaut `this` ?"
+    choices:
+      - "La closure elle-même"
+      - "L'instance de Foo qui contient la méthode"
+      - "Le delegate"
+      - "null"
+    answer: 1
+    explanation: "this désigne la classe englobante, jamais la closure. C'est owner et delegate qui servent à la redirection."
+    concept: grails-closure-owner-delegate
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi `User.mapping()` lève-t-il une MissingMethodException si on l'appelle à la main ?"
+    choices:
+      - "Parce que mapping est privé"
+      - "Parce que version, table et password ne sont pas des méthodes de User, et qu'aucun delegate n'a été fixé"
+      - "Parce que static ne peut pas contenir de closure"
+      - "Parce que GORM interdit l'appel direct"
+    answer: 1
+    explanation: "Les noms sont résolus sur l'owner (la classe User). Grails fixe normalement un builder comme delegate avant d'exécuter la closure."
+    concept: grails-closure-owner-delegate
+    difficulty: 2

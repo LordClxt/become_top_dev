@@ -81,6 +81,7 @@ type CourseMeta = {
   kind: 'practical' | 'conceptual'
   summary: string
   book: { title: string; authors: string[]; slug: string }
+  books?: { title: string; authors: string[]; slug: string }[]
   running_project: { id: string; title: string; pitch: string } | null
   requires: CourseRequirement[]
 }

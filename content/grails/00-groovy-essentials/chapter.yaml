@@ -1,0 +1,21 @@
+id: grails-ch00
+title: "Groovy essentiel pour lire Grails"
+subtitle: "Propriétés, GString, collections, vérité et opérateurs : tout ce que Grails suppose que tu sais"
+source: { book: groovy-in-action, chapter: 2, pages: "28-116" }
+objectives:
+  - "Écrire des classes Groovy idiomatiques : propriétés, constructeurs nommés, transformations (@ToString, @Canonical)"
+  - "Manipuler chaînes, GString paresseux, regex et nombres (BigDecimal par défaut) sans pièges"
+  - "Utiliser listes, maps, ranges, spread et GPath, en distinguant copie et modification du receveur"
+  - "Appliquer la vérité Groovy, l'opérateur Elvis, ?. et la surcharge d'opérateurs"
+  - "Lier des paramètres texte à un objet typé, comme le fait le data binding de Grails"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-syntax-beans"
+  - "02-strings-numbers"
+  - "03-collections"
+  - "04-truth-operators"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

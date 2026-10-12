@@ -11,6 +11,8 @@ book:
   title: "Learning Go, 2nd Edition"
   authors: ["Jon Bodner"]
   slug: learning-go                     # = .cache/books/<slug>
+books:                                  # optional — extra books when the course is built on several
+  - { title: "…", authors: ["…"], slug: groovy-in-action }
 summary: "Le langage, de la première…"   # required — 1-2 sentences, shown on the home page and dashboard
 order: 1                                # position in the catalog (default 100)
 kind: practical                         # required — practical | conceptual
@@ -29,7 +31,7 @@ tracks:                                 # required
 ```yaml
 id: go-ch02                             # required
 title: "Types prédéclarés et déclarations"  # required
-source: { chapter: 2, pages: "17-38" }  # required
+source: { chapter: 2, pages: "17-38" }  # required — add `book: <slug>` if the course has several books
 objectives:                             # required — "be able to…"
   - "Choisir entre var, := et const selon le contexte"
 mastery_threshold: 0.8                  # required — minimum score to unlock what follows

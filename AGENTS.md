@@ -10,6 +10,7 @@ A single user. Goal: become a top 1 % developer.
 - Current books:
   - `learning-go` — *Learning Go, 2nd ed.* (Bodner) → labs coded in Go, tested.
   - `software-architecture` — *Fundamentals of Software Architecture* (Richards & Ford) → conceptual labs (katas, ADRs, diagrams) graded by rubric + AI review.
+  - `programming-grails` (EPUB, Grails 2.2) + `groovy-in-action` (2nd ed., Groovy 2.4) → **one course** (`content/grails/`) built on both books; labs in Groovy 4 / JDK 17 (target: Grails 7). A course may list extra books in `course.yaml` (`books:`) and a `source.book` slug per lesson. The books are older than the target: gaps are marked `extra`.
 
 ## Workflow (mandatory, in order)
 1. Read the book **in full** (`book-ingest`), then propose the course plan, content format, and MVP/v2/v3 features (`course-plan`). **STOP — wait for approval.**
@@ -44,7 +45,7 @@ content/<book>/            generated courses (see the content-format skill)
 backend/                   Go API (cmd/btd, internal/)
 runner/                    execution service (only Docker access)
 frontend/                  TanStack Start
-sandbox/images/<lang>/     runner Dockerfiles (go, python…)
+sandbox/images/<lang>/     runner Dockerfiles (go, groovy…)
 design-system/             shared UI + visual tokens (colors, typography, motion)
 ```
 

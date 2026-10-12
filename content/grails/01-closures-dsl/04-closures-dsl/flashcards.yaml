@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Que fait Groovy quand on appelle une méthode inexistante sur un objet qui définit methodMissing ?"
+    back: "Il appelle methodMissing(nom, arguments) au lieu de lever MissingMethodException."
+    concept: grails-dsl-method-missing
+  - id: fc2
+    front: "Comment se lit `name blank: false, size: 2..10` ?"
+    back: "name([blank: false, size: 2..10]) : appel de méthode sans parenthèses, les arguments nommés forment une Map."
+    concept: grails-dsl-command-syntax
+  - id: fc3
+    front: "Quels sont les trois ingrédients d'un DSL à closure ?"
+    back: "Un builder qui accepte les noms libres (methodMissing), fixé comme delegate (DELEGATE_FIRST), puis l'exécution de la closure."
+    concept: grails-dsl-builder-delegate
+  - id: fc4
+    front: "Pourquoi fixer resolveStrategy sur DELEGATE_FIRST dans un DSL ?"
+    back: "Pour que le builder prime sur l'owner quand un nom existe des deux côtés."
+    concept: grails-dsl-builder-delegate
+  - id: fc5
+    front: "Que signifie `\"$field.nullable\"` dans une GString ?"
+    back: "La propriété nullable de la variable field, pas le texte « field.nullable ». Écris \"${field}.nullable\"."
+    concept: grails-dsl-command-syntax

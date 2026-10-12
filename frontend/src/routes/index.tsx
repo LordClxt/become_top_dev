@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { CourseBooks } from '@/components/CourseBooks'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Clapperboard } from 'lucide-react'
 import type { CSSProperties, ReactNode } from 'react'
@@ -193,7 +194,7 @@ function CatalogRow({ course, rank }: { course: CatalogCourse; rank: number }) {
       <div>
         <h3 className="font-read text-2xl font-semibold tracking-tight">{course.title}</h3>
         <p className="mt-1 text-sm text-muted">
-          D'après <em className="font-read">{course.book.title}</em>, {course.book.authors.join(' et ')}
+          <CourseBooks course={course} />
         </p>
         <p className="mt-4 max-w-[52ch] leading-relaxed">{course.summary}</p>
         {course.requires.map((req) => (

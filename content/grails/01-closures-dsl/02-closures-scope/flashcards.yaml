@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Une closure capture-t-elle une copie ou une référence des variables locales ?"
+    back: "Une référence : elle peut lire et modifier la variable d'origine."
+    concept: grails-closure-capture
+  - id: fc2
+    front: "Que désigne `this` dans une closure ?"
+    back: "La classe englobante (l'instance où le code est écrit), pas la closure elle-même."
+    concept: grails-closure-owner-delegate
+  - id: fc3
+    front: "Quelle différence entre owner et delegate ?"
+    back: "L'owner (le conteneur) est fixe. Le delegate vaut l'owner par défaut mais on peut le remplacer pour rediriger les appels."
+    concept: grails-closure-owner-delegate
+  - id: fc4
+    front: "Quelle resolveStrategy utilise-t-on dans un DSL, et pourquoi ?"
+    back: "DELEGATE_FIRST : le builder (delegate) doit avoir priorité sur l'owner."
+    concept: grails-closure-resolve-strategy
+  - id: fc5
+    front: "Que fait `obj.with { … }` ?"
+    back: "Il exécute la closure en prenant obj pour delegate : les noms inconnus sont résolus sur obj."
+    concept: grails-closure-owner-delegate

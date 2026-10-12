@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "list.sort() modifie-t-il la liste ?"
+    back: "Oui, en place, et il renvoie la même liste. Pour une copie : sort(false) ou toSorted()."
+    concept: grails-groovy-copy-vs-mutate
+  - id: fc2
+    front: "Comment écrire une map vide ? Une clé dynamique ?"
+    back: "[:] pour la map vide ; [(variable): valeur] pour que la clé soit la valeur de la variable."
+    concept: grails-groovy-list-map
+  - id: fc3
+    front: "Que fait liste*.propriete ?"
+    back: "Lit la propriété sur chaque élément et rassemble les résultats dans une liste."
+    concept: grails-groovy-spread-gpath
+  - id: fc4
+    front: "Différence entre 1..5 et 1..<5 ?"
+    back: "Le second exclut la borne haute : [1, 2, 3, 4]."
+    concept: grails-groovy-range
+  - id: fc5
+    front: "À quoi sert withDefault sur une map ?"
+    back: "À fabriquer la valeur d'une clé absente (par exemple []), ce qui évite le test d'existence."
+    concept: grails-groovy-list-map
+  - id: fc6
+    front: "Pourquoi modifier une liste dans un each la concernant est-il dangereux ?"
+    back: "ConcurrentModificationException, même sans thread. Construis une nouvelle liste ou utilise removeAll."
+    concept: grails-groovy-copy-vs-mutate

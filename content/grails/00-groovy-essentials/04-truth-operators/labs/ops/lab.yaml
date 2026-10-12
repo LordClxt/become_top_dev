@@ -1,0 +1,12 @@
+id: grails-ch00-l04-lab-ops
+title: "Money : opérateurs, vérité et switch"
+kind: code
+language: groovy
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Money.groovy", "Ops.groovy"]
+concepts: [grails-groovy-operator-overloading, grails-groovy-truth, grails-groovy-switch-iscase, grails-groovy-safe-nav]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

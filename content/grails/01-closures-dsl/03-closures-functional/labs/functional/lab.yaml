@@ -1,0 +1,12 @@
+id: grails-ch01-l03-lab-functional
+title: "Un petit atelier de fonctions"
+kind: code
+language: groovy
+difficulty: 3
+xp: 60
+timeout_s: 45
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Fn.groovy"]
+concepts: [grails-closure-curry, grails-closure-compose, grails-closure-memoize]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

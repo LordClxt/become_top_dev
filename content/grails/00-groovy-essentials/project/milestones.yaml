@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Convertir une valeur texte"
+    goal: "Binder.convert transforme un texte en String, Integer, Long, BigDecimal ou Boolean, après trim ; une chaîne vide devient null ; une conversion impossible lève IllegalArgumentException."
+    tests: "groovy Test.groovy M1"
+    review: false
+  - id: m2
+    title: "Lier une map à un objet"
+    goal: "Binder.bind affecte les propriétés typées de l'objet à partir de params, ignore les clés inconnues, les propriétés statiques et non typées, et renvoie les erreurs typeMismatch sans s'arrêter."
+    tests: "groovy Test.groovy M2"
+    review: false
+  - id: m3
+    title: "Se protéger de l'affectation de masse"
+    goal: "Les options include et exclude limitent les propriétés liées, comme bindData de Grails."
+    tests: "groovy Test.groovy M3"
+    review: true

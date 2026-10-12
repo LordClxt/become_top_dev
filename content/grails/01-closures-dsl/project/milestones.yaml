@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Valider une instance"
+    goal: "Lire le bloc static constraints de la classe de l'objet, appliquer les règles sur ses propriétés, sans modifier la closure partagée."
+    tests: "groovy Test.groovy M1"
+    review: false
+  - id: m2
+    title: "Validateurs personnalisés"
+    goal: "Ajouter la contrainte validator: avec une closure à 1, 2 ou 3 paramètres, comme dans GORM (true/null valide, false donne champ.validator, une String est le code d'erreur)."
+    tests: "groovy Test.groovy M2"
+    review: false
+  - id: m3
+    title: "Valider des listes"
+    goal: "validateAll renvoie index -> erreurs pour les objets invalides seulement ; valid garde les objets valides."
+    tests: "groovy Test.groovy M3"
+    review: true

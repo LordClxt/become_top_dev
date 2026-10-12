@@ -7,6 +7,7 @@ import "time"
 type Source struct {
 	Chapter int    `yaml:"chapter" json:"chapter"`
 	Pages   string `yaml:"pages" json:"pages"`
+	Book    string `yaml:"book,omitempty" json:"book,omitempty"` // slug du livre si le cours en cite plusieurs
 }
 
 type Concept struct {
@@ -299,6 +300,7 @@ type Course struct {
 	Title          string              `yaml:"title"`
 	Kind           string              `yaml:"kind"` // practical | conceptual
 	Book           *Book               `yaml:"book"`
+	Books          []Book              `yaml:"books"` // livres complémentaires (cours construit sur plusieurs livres)
 	Summary        string              `yaml:"summary"`
 	Order          *int                `yaml:"order"` // position dans le catalogue (100 par défaut)
 	RunningProject *RunningProject     `yaml:"running_project"`

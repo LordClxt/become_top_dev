@@ -497,6 +497,9 @@ func (c *Course) validate(file string) error {
 		c.PlannedTitles = map[string]string{}
 	}
 	c.Book.Authors = nonNil(c.Book.Authors)
+	for i := range c.Books {
+		c.Books[i].Authors = nonNil(c.Books[i].Authors)
+	}
 	return oneOf(file, "kind", c.Kind, "practical", "conceptual")
 }
 

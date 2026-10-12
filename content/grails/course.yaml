@@ -1,0 +1,81 @@
+id: grails
+title: "Groovy & Grails sous le capot"
+book:
+  title: "Programming Grails"
+  authors: ["Burt Beckwith"]
+  slug: programming-grails
+books:
+  - title: "Groovy in Action, 2nd Edition"
+    authors: ["Dierk Koenig", "Paul King", "Guillaume Laforge", "Hamlet D'Arcy", "Cédric Champeau", "Erik Pragt", "Jon Skeet"]
+    slug: groovy-in-action
+summary: "Groovy d'abord, puis Grails : closures, MOP, conventions, GORM, Spring. Chaque mécanisme est reconstruit en petit pour comprendre ce que le framework fait à ta place."
+order: 3
+kind: practical
+language: groovy
+runtime: "jdk17 + groovy4"   # cible : Grails 7 (Java 17+, Groovy 4, Spring Boot 3.5, Jakarta EE 10, Gradle). Les livres décrivent Groovy 2.4 / Grails 2.2 : écarts signalés en `extra`.
+pilot: "01-closures-dsl"
+running_project:
+  id: minigrails
+  title: "Minigrails — un mini-framework en Groovy"
+  pitch: "Scanner de conventions, DSL de contraintes, conteneur d'injection, proxy transactionnel, simulateur de Session : chaque module ajoute une pièce."
+
+tracks:
+  - id: grails-foundations
+    title: "Les bases"
+    chapters:
+      - "00-groovy-essentials"        # GiA ch2-4 + PG ch1
+      - "01-closures-dsl"             # GiA ch5 + PG ch1 — pilote
+      - "02-oop-groovy-style"         # GiA ch6-7 (beans, paramètres nommés, traits, multiméthodes)
+      - "03-metaprogramming-mop"      # GiA ch8 + PG ch1
+      - "04-grails-conventions"       # PG ch2
+      - "05-gorm-domain"              # PG ch3 (1re moitié)
+      - "06-gorm-queries"             # PG ch3 (2e moitié)
+      - "07-spring-injection"         # PG ch4
+      - "08-transactional-services"   # PG ch4
+  - id: groovy-advanced
+    title: "Groovy avancé"
+    chapters:
+      - "09-ast-transformations"      # GiA ch9
+      - "10-static-groovy"            # GiA ch10
+      - "11-builders"                 # GiA ch11
+      - "12-dsl"                      # GiA ch19
+      - "13-testing-spock"            # GiA ch17
+  - id: grails-under-the-hood
+    title: "Sous le capot"
+    chapters:
+      - "14-hibernate-session"        # PG ch5
+      - "15-collections-performance"  # PG ch5
+      - "16-security-owasp"           # PG ch9
+      - "17-aop"                      # PG ch11
+      - "18-config-plugins"           # PG ch7-8
+  - id: groovy-toolbox
+    title: "Boîte à outils (optionnel)"
+    optional: true
+    chapters:
+      - "19-gdk-io-templates"         # GiA ch12
+      - "20-sql-json-xml"             # GiA ch13-14
+      - "21-integration"              # GiA ch16
+      - "22-concurrency"              # GiA ch18
+
+planned_titles:
+  "02-oop-groovy-style": "Objets à la mode Groovy"
+  "03-metaprogramming-mop": "Métaprogrammation et MOP"
+  "04-grails-conventions": "Les conventions de Grails"
+  "05-gorm-domain": "Modéliser avec GORM"
+  "06-gorm-queries": "Interroger avec GORM"
+  "07-spring-injection": "Spring : injection de dépendances"
+  "08-transactional-services": "Services transactionnels"
+  "09-ast-transformations": "Transformations AST"
+  "10-static-groovy": "Groovy statique"
+  "11-builders": "Builders"
+  "12-dsl": "Écrire un DSL"
+  "13-testing-spock": "Tester avec Spock"
+  "14-hibernate-session": "La Session Hibernate"
+  "15-collections-performance": "Performance des collections"
+  "16-security-owasp": "Sécurité : l'OWASP appliqué"
+  "17-aop": "Programmation orientée aspects"
+  "18-config-plugins": "Configuration et plugins"
+  "19-gdk-io-templates": "GDK, fichiers et templates"
+  "20-sql-json-xml": "SQL, JSON et XML"
+  "21-integration": "Intégrer Groovy"
+  "22-concurrency": "Concurrence"

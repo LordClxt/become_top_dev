@@ -1,0 +1,12 @@
+id: grails-ch01-assignment
+title: "La boîte à outils de Minigrails"
+kind: code
+language: groovy
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Toolbox.groovy"]
+concepts: [grails-closure-arity, grails-closure-capture, grails-closure-resource-protocol, grails-closure-return]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

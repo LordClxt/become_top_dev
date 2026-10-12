@@ -3,8 +3,10 @@
 
 Usage: python3 verify_quiz.py <chapter_dir> [--image golang:1]
 
-Each snippet is wrapped in `func main()` with the imports it uses, executed in a
-throwaway Docker container (no network), and its stdout compared to `answer`
+The language is read from the course.yaml next to the chapter folder (default: go).
+Go: each snippet is wrapped in `func main()` with the imports it uses. Groovy: each
+snippet is a script run with `groovy` (image btd-runner-groovy). Executed in a
+throwaway Docker container (no network); stdout is compared to `answer`
 (trailing whitespace ignored). Exit code 1 if any answer is wrong.
 """
 import argparse
@@ -44,8 +46,14 @@ def wrap(code: str) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("chapter", type=Path)
-    ap.add_argument("--image", default="golang:1")
+    ap.add_argument("--image")
     args = ap.parse_args()
+    course = args.chapter.resolve().parent / "course.yaml"
+    language = (yaml.safe_load(course.read_text()).get("language") if course.exists() else None) or "go"
+    if language == "groovy":
+        args.image = args.image or "btd-runner-groovy"
+    else:
+        args.image = args.image or "golang:1"
 
     questions = []
     for quiz in sorted(args.chapter.glob("*/quiz.yaml")):
@@ -58,9 +66,13 @@ def main() -> int:
         for i, (_, q) in enumerate(questions):
             d = root / f"q{i}"
             d.mkdir()
-            (d / "go.mod").write_text("module q\n\ngo 1.23\n")
-            (d / "main.go").write_text(wrap(q["code"]))
-        script = "for d in /work/q*; do printf \"\\n=== %s\\n\" $(basename $d); (cd $d && go run . 2>&1); done"
+            if language == "groovy":
+                (d / "main.groovy").write_text(q["code"].rstrip() + "\n")
+            else:
+                (d / "go.mod").write_text("module q\n\ngo 1.23\n")
+                (d / "main.go").write_text(wrap(q["code"]))
+        run = "groovy main.groovy 2>&1" if language == "groovy" else "go run . 2>&1"
+        script = f"for d in /work/q*; do printf \"\\n=== %s\\n\" $(basename $d); (cd $d && {run}); done"
         out = subprocess.run(
             ["docker", "run", "--rm", "--network", "none", "-e", "GOTOOLCHAIN=local", "-e", "HOME=/tmp",
              "-v", f"{root}:/work", args.image, "sh", "-c", script],

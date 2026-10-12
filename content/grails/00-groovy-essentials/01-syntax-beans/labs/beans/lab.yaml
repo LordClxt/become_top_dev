@@ -1,0 +1,12 @@
+id: grails-ch00-l01-lab-beans
+title: "Un bean Groovy qui se défend"
+kind: code
+language: groovy
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Product.groovy"]
+concepts: [grails-groovy-bean, grails-groovy-named-ctor, grails-groovy-assert]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

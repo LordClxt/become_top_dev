@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Comment rendre une GString paresseuse ?"
+    back: "Avec une closure : \"${-> variable}\". Elle est alors relue à chaque conversion en String."
+    concept: grails-groovy-gstring-lazy
+  - id: fc2
+    front: "=~ contre ==~ ?"
+    back: "=~ cherche un morceau (renvoie un Matcher) ; ==~ exige que toute la chaîne corresponde (renvoie un boolean)."
+    concept: grails-groovy-regex
+  - id: fc3
+    front: "Quel est le type du littéral 3.5 ?"
+    back: "BigDecimal. 0.1 + 0.2 == 0.3 est donc vrai."
+    concept: grails-groovy-bigdecimal
+  - id: fc4
+    front: "Que donne 1 / 2 en Groovy ? Comment obtenir 0 ?"
+    back: "0.5 (BigDecimal). Pour la division entière : 1.intdiv(2)."
+    concept: grails-groovy-bigdecimal
+  - id: fc5
+    front: "Pourquoi écrire une regex entre /…/ ?"
+    back: "Les antislashs n'ont pas besoin d'être doublés : /\\d+/ au lieu de \"\\\\d+\"."
+    concept: grails-groovy-string-literals
+  - id: fc6
+    front: "Quel piège avec une GString comme clé de map ?"
+    back: "Son hashCode diffère de celui de la String équivalente : utilise .toString()."
+    concept: grails-groovy-gstring-lazy

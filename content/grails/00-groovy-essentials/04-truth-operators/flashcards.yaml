@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Quelles valeurs sont fausses en Groovy ?"
+    back: "null, 0, '' (chaîne vide), collection ou map vide, Boolean false, Matcher sans résultat. Le reste est vrai."
+    concept: grails-groovy-truth
+  - id: fc2
+    front: "Que fait `a ?: b` ?"
+    back: "Renvoie a s'il est vrai au sens Groovy, sinon b (opérateur Elvis)."
+    concept: grails-groovy-truth
+  - id: fc3
+    front: "Que fait `a?.b` ?"
+    back: "Renvoie null si a est null, sans évaluer b ; sinon a.b."
+    concept: grails-groovy-safe-nav
+  - id: fc4
+    front: "Quelle méthode appellent switch, in et grep ?"
+    back: "isCase(valeur) du classificateur : classe, range, collection, regex, closure…"
+    concept: grails-groovy-switch-iscase
+  - id: fc5
+    front: "Comment faire marcher l'opérateur + sur ta classe ?"
+    back: "Définir une méthode plus(autre) qui renvoie un nouvel objet."
+    concept: grails-groovy-operator-overloading
+  - id: fc6
+    front: "Comment une classe choisit-elle sa vérité Groovy ?"
+    back: "En définissant boolean asBoolean()."
+    concept: grails-groovy-truth

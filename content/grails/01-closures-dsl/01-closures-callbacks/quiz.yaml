@@ -1,0 +1,72 @@
+id: grails-ch01-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def adder = { x, y = 5 -> x + y }
+      println adder(4, 3)
+      println adder(7)
+    answer: "7\n12"
+    explanation: "Le second paramètre a une valeur par défaut : adder(7) vaut 7 + 5."
+    concept: grails-closure-arity
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def seen = []
+      [1, 2, 3].each { if (it == 2) return; seen << it }
+      println seen
+    answer: "[1, 3]"
+    explanation: "return ne quitte que la closure pour l'élément 2 ; each la rappelle ensuite pour 3."
+    concept: grails-closure-return
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def arity = { Closure c -> c.maximumNumberOfParameters }
+      println arity { }
+      println arity { a, b -> }
+      println arity { -> }
+    answer: "1\n2\n0"
+    explanation: "Sans flèche, la closure a le paramètre implicite it (arité 1). Avec « -> » et rien à gauche, elle n'en a aucun."
+    concept: grails-closure-arity
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi `list.each { … }` est-il valide sans parenthèses ?"
+    choices:
+      - "Parce que each est un mot-clé du langage"
+      - "Parce qu'une closure passée en dernier argument peut sortir des parenthèses"
+      - "Parce que Groovy ignore les parenthèses autour des accolades"
+      - "Parce que each n'est pas une méthode"
+    answer: 1
+    explanation: "each est une méthode ordinaire qui reçoit la closure en dernier argument ; Groovy autorise à l'écrire après les parenthèses."
+    concept: grails-closure-object
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Tu veux arrêter une recherche dès qu'un élément convient. Quelle écriture fonctionne vraiment ?"
+    choices:
+      - "items.each { if (it > 8) return it }"
+      - "for (x in items) { if (x > 8) return x }"
+      - "items.each { if (it > 8) break }"
+      - "items.each { if (it > 8) exit }"
+    answer: 1
+    explanation: "Le corps d'un for n'est pas une closure : return quitte la méthode. Avec each, return ne quitte que la closure et break n'existe pas."
+    concept: grails-closure-return
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Parmi ces cas, lesquels suivent le « protocole de ressource » ?"
+    choices:
+      - "new File('a.txt').eachLine { … }"
+      - "Book.withTransaction { … }"
+      - "def x = { … }"
+      - "Book.withSession { session -> … }"
+    answer: [0, 1, 3]
+    explanation: "Dans les trois cas la méthode gère l'ouverture et la fermeture (fichier, transaction, session) et la closure fait le travail. Une simple déclaration n'appelle rien."
+    concept: grails-closure-resource-protocol
+    difficulty: 2

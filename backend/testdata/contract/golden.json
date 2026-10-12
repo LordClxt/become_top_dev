@@ -38,6 +38,7 @@
      "slug": "learning-go",
      "title": "Learning Go, 2nd Edition"
     },
+    "books": [],
     "id": "go",
     "kind": "practical",
     "requires": [],
@@ -184,6 +185,7 @@
      "slug": "ddia",
      "title": "Designing Data-Intensive Applications"
     },
+    "books": [],
     "id": "ddia",
     "kind": "practical",
     "requires": [
@@ -353,12 +355,193 @@
    {
     "book": {
      "authors": [
+      "Burt Beckwith"
+     ],
+     "slug": "programming-grails",
+     "title": "Programming Grails"
+    },
+    "books": [
+     {
+      "authors": [
+       "Dierk Koenig",
+       "Paul King",
+       "Guillaume Laforge",
+       "Hamlet D'Arcy",
+       "Cédric Champeau",
+       "Erik Pragt",
+       "Jon Skeet"
+      ],
+      "slug": "groovy-in-action",
+      "title": "Groovy in Action, 2nd Edition"
+     }
+    ],
+    "id": "grails",
+    "kind": "practical",
+    "requires": [],
+    "running_project": {
+     "id": "minigrails",
+     "pitch": "Scanner de conventions, DSL de contraintes, conteneur d'injection, proxy transactionnel, simulateur de Session : chaque module ajoute une pièce.",
+     "title": "Minigrails — un mini-framework en Groovy"
+    },
+    "slug": "grails",
+    "summary": "Groovy d'abord, puis Grails : closures, MOP, conventions, GORM, Spring. Chaque mécanisme est reconstruit en petit pour comprendre ce que le framework fait à ta place.",
+    "title": "Groovy & Grails sous le capot",
+    "tracks": [
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "00-groovy-essentials",
+        "title": "Groovy essentiel"
+       },
+       {
+        "available": false,
+        "slug": "01-closures-dsl",
+        "title": "Closures et DSL"
+       },
+       {
+        "available": false,
+        "slug": "02-oop-groovy-style",
+        "title": "Objets à la mode Groovy"
+       },
+       {
+        "available": false,
+        "slug": "03-metaprogramming-mop",
+        "title": "Métaprogrammation et MOP"
+       },
+       {
+        "available": false,
+        "slug": "04-grails-conventions",
+        "title": "Les conventions de Grails"
+       },
+       {
+        "available": false,
+        "slug": "05-gorm-domain",
+        "title": "Modéliser avec GORM"
+       },
+       {
+        "available": false,
+        "slug": "06-gorm-queries",
+        "title": "Interroger avec GORM"
+       },
+       {
+        "available": false,
+        "slug": "07-spring-injection",
+        "title": "Spring : injection de dépendances"
+       },
+       {
+        "available": false,
+        "slug": "08-transactional-services",
+        "title": "Services transactionnels"
+       }
+      ],
+      "id": "grails-foundations",
+      "optional": false,
+      "title": "Les bases"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "09-ast-transformations",
+        "title": "Transformations AST"
+       },
+       {
+        "available": false,
+        "slug": "10-static-groovy",
+        "title": "Groovy statique"
+       },
+       {
+        "available": false,
+        "slug": "11-builders",
+        "title": "Builders"
+       },
+       {
+        "available": false,
+        "slug": "12-dsl",
+        "title": "Écrire un DSL"
+       },
+       {
+        "available": false,
+        "slug": "13-testing-spock",
+        "title": "Tester avec Spock"
+       }
+      ],
+      "id": "groovy-advanced",
+      "optional": false,
+      "title": "Groovy avancé"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "14-hibernate-session",
+        "title": "La Session Hibernate"
+       },
+       {
+        "available": false,
+        "slug": "15-collections-performance",
+        "title": "Performance des collections"
+       },
+       {
+        "available": false,
+        "slug": "16-security-owasp",
+        "title": "Sécurité : l'OWASP appliqué"
+       },
+       {
+        "available": false,
+        "slug": "17-aop",
+        "title": "Programmation orientée aspects"
+       },
+       {
+        "available": false,
+        "slug": "18-config-plugins",
+        "title": "Configuration et plugins"
+       }
+      ],
+      "id": "grails-under-the-hood",
+      "optional": false,
+      "title": "Sous le capot"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "19-gdk-io-templates",
+        "title": "GDK, fichiers et templates"
+       },
+       {
+        "available": false,
+        "slug": "20-sql-json-xml",
+        "title": "SQL, JSON et XML"
+       },
+       {
+        "available": false,
+        "slug": "21-integration",
+        "title": "Intégrer Groovy"
+       },
+       {
+        "available": false,
+        "slug": "22-concurrency",
+        "title": "Concurrence"
+       }
+      ],
+      "id": "groovy-toolbox",
+      "optional": true,
+      "title": "Boîte à outils (optionnel)"
+     }
+    ]
+   },
+   {
+    "book": {
+     "authors": [
       "Mark Richards",
       "Neal Ford"
      ],
      "slug": "software-architecture",
      "title": "Fundamentals of Software Architecture"
     },
+    "books": [],
     "id": "arch",
     "kind": "conceptual",
     "requires": [
@@ -551,6 +734,7 @@
      "slug": "learning-go",
      "title": "Learning Go, 2nd Edition"
     },
+    "books": [],
     "id": "go",
     "kind": "practical",
     "requires": [],
@@ -781,6 +965,7 @@
      "slug": "ddia",
      "title": "Designing Data-Intensive Applications"
     },
+    "books": [],
     "id": "ddia",
     "kind": "practical",
     "requires": [
@@ -1082,12 +1267,193 @@
    {
     "book": {
      "authors": [
+      "Burt Beckwith"
+     ],
+     "slug": "programming-grails",
+     "title": "Programming Grails"
+    },
+    "books": [
+     {
+      "authors": [
+       "Dierk Koenig",
+       "Paul King",
+       "Guillaume Laforge",
+       "Hamlet D'Arcy",
+       "Cédric Champeau",
+       "Erik Pragt",
+       "Jon Skeet"
+      ],
+      "slug": "groovy-in-action",
+      "title": "Groovy in Action, 2nd Edition"
+     }
+    ],
+    "id": "grails",
+    "kind": "practical",
+    "requires": [],
+    "running_project": {
+     "id": "minigrails",
+     "pitch": "Scanner de conventions, DSL de contraintes, conteneur d'injection, proxy transactionnel, simulateur de Session : chaque module ajoute une pièce.",
+     "title": "Minigrails — un mini-framework en Groovy"
+    },
+    "slug": "grails",
+    "summary": "Groovy d'abord, puis Grails : closures, MOP, conventions, GORM, Spring. Chaque mécanisme est reconstruit en petit pour comprendre ce que le framework fait à ta place.",
+    "title": "Groovy & Grails sous le capot",
+    "tracks": [
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "00-groovy-essentials",
+        "title": "Groovy essentiel"
+       },
+       {
+        "available": false,
+        "slug": "01-closures-dsl",
+        "title": "Closures et DSL"
+       },
+       {
+        "available": false,
+        "slug": "02-oop-groovy-style",
+        "title": "Objets à la mode Groovy"
+       },
+       {
+        "available": false,
+        "slug": "03-metaprogramming-mop",
+        "title": "Métaprogrammation et MOP"
+       },
+       {
+        "available": false,
+        "slug": "04-grails-conventions",
+        "title": "Les conventions de Grails"
+       },
+       {
+        "available": false,
+        "slug": "05-gorm-domain",
+        "title": "Modéliser avec GORM"
+       },
+       {
+        "available": false,
+        "slug": "06-gorm-queries",
+        "title": "Interroger avec GORM"
+       },
+       {
+        "available": false,
+        "slug": "07-spring-injection",
+        "title": "Spring : injection de dépendances"
+       },
+       {
+        "available": false,
+        "slug": "08-transactional-services",
+        "title": "Services transactionnels"
+       }
+      ],
+      "id": "grails-foundations",
+      "optional": false,
+      "title": "Les bases"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "09-ast-transformations",
+        "title": "Transformations AST"
+       },
+       {
+        "available": false,
+        "slug": "10-static-groovy",
+        "title": "Groovy statique"
+       },
+       {
+        "available": false,
+        "slug": "11-builders",
+        "title": "Builders"
+       },
+       {
+        "available": false,
+        "slug": "12-dsl",
+        "title": "Écrire un DSL"
+       },
+       {
+        "available": false,
+        "slug": "13-testing-spock",
+        "title": "Tester avec Spock"
+       }
+      ],
+      "id": "groovy-advanced",
+      "optional": false,
+      "title": "Groovy avancé"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "14-hibernate-session",
+        "title": "La Session Hibernate"
+       },
+       {
+        "available": false,
+        "slug": "15-collections-performance",
+        "title": "Performance des collections"
+       },
+       {
+        "available": false,
+        "slug": "16-security-owasp",
+        "title": "Sécurité : l'OWASP appliqué"
+       },
+       {
+        "available": false,
+        "slug": "17-aop",
+        "title": "Programmation orientée aspects"
+       },
+       {
+        "available": false,
+        "slug": "18-config-plugins",
+        "title": "Configuration et plugins"
+       }
+      ],
+      "id": "grails-under-the-hood",
+      "optional": false,
+      "title": "Sous le capot"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "19-gdk-io-templates",
+        "title": "GDK, fichiers et templates"
+       },
+       {
+        "available": false,
+        "slug": "20-sql-json-xml",
+        "title": "SQL, JSON et XML"
+       },
+       {
+        "available": false,
+        "slug": "21-integration",
+        "title": "Intégrer Groovy"
+       },
+       {
+        "available": false,
+        "slug": "22-concurrency",
+        "title": "Concurrence"
+       }
+      ],
+      "id": "groovy-toolbox",
+      "optional": true,
+      "title": "Boîte à outils (optionnel)"
+     }
+    ]
+   },
+   {
+    "book": {
+     "authors": [
       "Mark Richards",
       "Neal Ford"
      ],
      "slug": "software-architecture",
      "title": "Fundamentals of Software Architecture"
     },
+    "books": [],
     "id": "arch",
     "kind": "conceptual",
     "requires": [
@@ -52167,6 +52533,7 @@
      "slug": "learning-go",
      "title": "Learning Go, 2nd Edition"
     },
+    "books": [],
     "id": "go",
     "kind": "practical",
     "requires": [],
@@ -52397,6 +52764,7 @@
      "slug": "ddia",
      "title": "Designing Data-Intensive Applications"
     },
+    "books": [],
     "id": "ddia",
     "kind": "practical",
     "requires": [
@@ -52698,12 +53066,193 @@
    {
     "book": {
      "authors": [
+      "Burt Beckwith"
+     ],
+     "slug": "programming-grails",
+     "title": "Programming Grails"
+    },
+    "books": [
+     {
+      "authors": [
+       "Dierk Koenig",
+       "Paul King",
+       "Guillaume Laforge",
+       "Hamlet D'Arcy",
+       "Cédric Champeau",
+       "Erik Pragt",
+       "Jon Skeet"
+      ],
+      "slug": "groovy-in-action",
+      "title": "Groovy in Action, 2nd Edition"
+     }
+    ],
+    "id": "grails",
+    "kind": "practical",
+    "requires": [],
+    "running_project": {
+     "id": "minigrails",
+     "pitch": "Scanner de conventions, DSL de contraintes, conteneur d'injection, proxy transactionnel, simulateur de Session : chaque module ajoute une pièce.",
+     "title": "Minigrails — un mini-framework en Groovy"
+    },
+    "slug": "grails",
+    "summary": "Groovy d'abord, puis Grails : closures, MOP, conventions, GORM, Spring. Chaque mécanisme est reconstruit en petit pour comprendre ce que le framework fait à ta place.",
+    "title": "Groovy & Grails sous le capot",
+    "tracks": [
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "00-groovy-essentials",
+        "title": "Groovy essentiel"
+       },
+       {
+        "available": false,
+        "slug": "01-closures-dsl",
+        "title": "Closures et DSL"
+       },
+       {
+        "available": false,
+        "slug": "02-oop-groovy-style",
+        "title": "Objets à la mode Groovy"
+       },
+       {
+        "available": false,
+        "slug": "03-metaprogramming-mop",
+        "title": "Métaprogrammation et MOP"
+       },
+       {
+        "available": false,
+        "slug": "04-grails-conventions",
+        "title": "Les conventions de Grails"
+       },
+       {
+        "available": false,
+        "slug": "05-gorm-domain",
+        "title": "Modéliser avec GORM"
+       },
+       {
+        "available": false,
+        "slug": "06-gorm-queries",
+        "title": "Interroger avec GORM"
+       },
+       {
+        "available": false,
+        "slug": "07-spring-injection",
+        "title": "Spring : injection de dépendances"
+       },
+       {
+        "available": false,
+        "slug": "08-transactional-services",
+        "title": "Services transactionnels"
+       }
+      ],
+      "id": "grails-foundations",
+      "optional": false,
+      "title": "Les bases"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "09-ast-transformations",
+        "title": "Transformations AST"
+       },
+       {
+        "available": false,
+        "slug": "10-static-groovy",
+        "title": "Groovy statique"
+       },
+       {
+        "available": false,
+        "slug": "11-builders",
+        "title": "Builders"
+       },
+       {
+        "available": false,
+        "slug": "12-dsl",
+        "title": "Écrire un DSL"
+       },
+       {
+        "available": false,
+        "slug": "13-testing-spock",
+        "title": "Tester avec Spock"
+       }
+      ],
+      "id": "groovy-advanced",
+      "optional": false,
+      "title": "Groovy avancé"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "14-hibernate-session",
+        "title": "La Session Hibernate"
+       },
+       {
+        "available": false,
+        "slug": "15-collections-performance",
+        "title": "Performance des collections"
+       },
+       {
+        "available": false,
+        "slug": "16-security-owasp",
+        "title": "Sécurité : l'OWASP appliqué"
+       },
+       {
+        "available": false,
+        "slug": "17-aop",
+        "title": "Programmation orientée aspects"
+       },
+       {
+        "available": false,
+        "slug": "18-config-plugins",
+        "title": "Configuration et plugins"
+       }
+      ],
+      "id": "grails-under-the-hood",
+      "optional": false,
+      "title": "Sous le capot"
+     },
+     {
+      "chapters": [
+       {
+        "available": false,
+        "slug": "19-gdk-io-templates",
+        "title": "GDK, fichiers et templates"
+       },
+       {
+        "available": false,
+        "slug": "20-sql-json-xml",
+        "title": "SQL, JSON et XML"
+       },
+       {
+        "available": false,
+        "slug": "21-integration",
+        "title": "Intégrer Groovy"
+       },
+       {
+        "available": false,
+        "slug": "22-concurrency",
+        "title": "Concurrence"
+       }
+      ],
+      "id": "groovy-toolbox",
+      "optional": true,
+      "title": "Boîte à outils (optionnel)"
+     }
+    ]
+   },
+   {
+    "book": {
+     "authors": [
       "Mark Richards",
       "Neal Ford"
      ],
      "slug": "software-architecture",
      "title": "Fundamentals of Software Architecture"
     },
+    "books": [],
     "id": "arch",
     "kind": "conceptual",
     "requires": [

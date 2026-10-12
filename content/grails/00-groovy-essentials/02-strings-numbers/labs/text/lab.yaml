@@ -1,0 +1,12 @@
+id: grails-ch00-l02-lab-text
+title: "Texte, regex et BigDecimal"
+kind: code
+language: groovy
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Text.groovy"]
+concepts: [grails-groovy-gstring-lazy, grails-groovy-regex, grails-groovy-bigdecimal]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

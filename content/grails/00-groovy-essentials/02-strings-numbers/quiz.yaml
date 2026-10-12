@@ -1,0 +1,73 @@
+id: grails-ch00-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def n = 1
+      def eager = "n = ${n}"
+      def lazy = "n = ${-> n}"
+      n = 2
+      println eager
+      println lazy
+    answer: "n = 1\nn = 2"
+    explanation: "La valeur est lue à la création de la GString, sauf si l'expression est une closure (${-> n}), relue à chaque conversion."
+    concept: grails-groovy-gstring-lazy
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      println 'Grails 7.0' =~ /\d+/ ? 'trouvé' : 'rien'
+      println 'Grails 7.0' ==~ /\d+/ ? 'trouvé' : 'rien'
+    answer: "trouvé\nrien"
+    explanation: "=~ cherche un morceau ; ==~ exige que la regex couvre toute la chaîne."
+    concept: grails-groovy-regex
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      println 1 / 2
+      println 7.intdiv(2)
+      println 0.1 + 0.2 == 0.3
+      println 3.5.getClass().simpleName
+    answer: "0.5\n3\ntrue\nBigDecimal"
+    explanation: "La division de deux entiers donne un BigDecimal ; intdiv fait la division entière ; les littéraux décimaux sont des BigDecimal exacts."
+    concept: grails-groovy-bigdecimal
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def m = 'a1 b22' =~ /([a-z])(\d+)/
+      println m.size()
+      println m[1][2]
+    answer: "2\n22"
+    explanation: "Deux correspondances ; m[1] est la deuxième, sous forme de liste [texte entier, groupe 1, groupe 2]."
+    concept: grails-groovy-regex
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Quelle chaîne est la plus adaptée pour une regex contenant plusieurs \\d ?"
+    choices:
+      - "'\\d+'"
+      - "\"\\\\d+\""
+      - "/\\d+/"
+      - "'''\\d+'''"
+    answer: 2
+    explanation: "La slashy string évite de doubler les antislashs."
+    concept: grails-groovy-string-literals
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Pourquoi `def key = \"${x}\"` peut-il poser problème comme clé de map ?"
+    choices:
+      - "Une GString n'a pas de toString"
+      - "Une GString et la String de même texte n'ont pas le même hashCode : containsKey ou du code Java ne la retrouvent pas"
+      - "Les clés de map doivent être des symboles"
+      - "La GString est évaluée à chaque recherche et change de valeur"
+    answer: 1
+    explanation: "Convertis la GString avec .toString() avant de l'utiliser comme clé."
+    concept: grails-groovy-gstring-lazy
+    difficulty: 3

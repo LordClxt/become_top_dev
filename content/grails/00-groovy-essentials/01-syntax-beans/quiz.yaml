@@ -1,0 +1,79 @@
+id: grails-ch00-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Temp {
+          int degrees
+          void setDegrees(int d) { this.@degrees = d < -273 ? -273 : d }
+      }
+      def t = new Temp(degrees: -500)
+      println t.degrees
+    answer: "-273"
+    explanation: "Le constructeur nommé appelle setDegrees : le setter personnalisé s'applique aussi à la construction."
+    concept: grails-groovy-named-ctor
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Box {
+          List items = [1, 2]
+          int getSize() { items.size() * 10 }
+      }
+      def b = new Box()
+      println b.size
+      println b.items.size()
+    answer: "20\n2"
+    explanation: "b.size appelle getSize(), un getter qui crée la propriété size. items.size() est la méthode de List."
+    concept: grails-groovy-bean
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def a = 3.50
+      def b = 3.5
+      println a == b
+      println a.is(b)
+    answer: "true\nfalse"
+    explanation: "== compare avec compareTo/equals : 3.50 et 3.5 sont égaux. is() compare l'identité des objets, qui sont deux instances distinctes."
+    concept: grails-groovy-assert
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Que fait réellement `new Person(name: 'Ada')` ?"
+    choices:
+      - "Appelle un constructeur généré qui prend une Map"
+      - "Crée l'objet avec le constructeur vide, puis appelle setName('Ada')"
+      - "Affecte directement le champ privé name"
+      - "Est une syntaxe réservée aux classes annotées @Canonical"
+    answer: 1
+    explanation: "C'est le constructeur sans argument suivi des setters. Un setter personnalisé est donc toujours appliqué."
+    concept: grails-groovy-named-ctor
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Dans un setter personnalisé `void setPrice(BigDecimal v)`, quelle écriture affecte le champ sans repasser par le setter ?"
+    choices:
+      - "price = v"
+      - "this.price = v"
+      - "this.@price = v"
+      - "setPrice(v)"
+    answer: 2
+    explanation: "L'opérateur .@ accède directement au champ. Les autres écritures peuvent rappeler le setter et boucler."
+    concept: grails-groovy-bean
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Parmi ces éléments, lesquels sont optionnels en Groovy ?"
+    choices:
+      - "Le point-virgule en fin de ligne"
+      - "Les accolades du corps d'une méthode"
+      - "Le mot-clé return pour la dernière expression"
+      - "Les parenthèses d'un appel avec au moins un argument"
+    answer: [0, 2, 3]
+    explanation: "Les accolades de classe et de méthode restent obligatoires ; le reste est facultatif."
+    concept: grails-groovy-optional-syntax
+    difficulty: 1

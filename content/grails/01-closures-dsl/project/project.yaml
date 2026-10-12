@@ -1,0 +1,14 @@
+id: grails-ch01-project
+title: "Minigrails, jalon 1 : valider un objet"
+pitch: "Minigrails doit valider un objet comme le fait GORM : lire le bloc `static constraints` de sa classe, appliquer les règles (dont des validateurs personnalisés à 1, 2 ou 3 paramètres) et valider des listes. Tu réutilises ton DSL du lab et tu le branches sur de vraies classes."
+running_project: minigrails
+kind: code
+language: groovy
+difficulty: 4
+xp: 250
+timeout_s: 60
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Domain.groovy", "Validator.groovy"]
+concepts: [grails-closure-owner-delegate, grails-closure-arity, grails-dsl-builder-delegate, grails-closure-capture]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

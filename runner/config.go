@@ -26,7 +26,7 @@ func LoadConfig() (Config, error) {
 	c := Config{
 		Addr:              env("RUNNER_ADDR", ":8001"),
 		Token:             env("RUNNER_TOKEN", "dev-runner-token"),
-		Images:            map[string]string{"go": "btd-runner-go"},
+		Images:            map[string]string{"go": "btd-runner-go", "groovy": "btd-runner-groovy"},
 		MaxConcurrentRuns: 4,
 		CPUs:              1.0,
 		PidsLimit:         256,

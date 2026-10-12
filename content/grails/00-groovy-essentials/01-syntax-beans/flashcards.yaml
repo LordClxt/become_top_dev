@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Que génère Groovy pour `String title` dans une classe ?"
+    back: "Un champ privé, getTitle() et setTitle(). Un champ sans modificateur de visibilité est une propriété."
+    concept: grails-groovy-bean
+  - id: fc2
+    front: "Que fait `new Person(name: 'Ada')` ?"
+    back: "Constructeur vide, puis setName('Ada'). Un setter personnalisé s'applique donc à la construction."
+    concept: grails-groovy-named-ctor
+  - id: fc3
+    front: "Comment écrire dans le champ d'une propriété sans repasser par le setter ?"
+    back: "Avec l'opérateur d'accès direct : this.@champ = valeur."
+    concept: grails-groovy-bean
+  - id: fc4
+    front: "Qu'apporte le power assert ?"
+    back: "En cas d'échec, l'arbre des sous-expressions avec la valeur de chacune : on voit quelle partie est fausse."
+    concept: grails-groovy-assert
+  - id: fc5
+    front: "Quelle différence entre == et is() ?"
+    back: "== appelle equals (ou compareTo) ; is() compare l'identité de l'objet."
+    concept: grails-groovy-assert
+  - id: fc6
+    front: "Pourquoi @ToString affiche-t-il parfois des propriétés qui ne sont pas des champs ?"
+    back: "Parce qu'il liste les propriétés, et un getXxx() sans champ en crée une. On les retire avec excludes."
+    concept: grails-groovy-bean

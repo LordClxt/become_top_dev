@@ -1,0 +1,12 @@
+id: grails-ch01-l04-lab-constraints
+title: "Ton propre bloc constraints"
+kind: code
+language: groovy
+difficulty: 4
+xp: 90
+timeout_s: 45
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Validator.groovy"]
+concepts: [grails-dsl-method-missing, grails-dsl-builder-delegate, grails-dsl-command-syntax]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

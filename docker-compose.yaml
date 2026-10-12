@@ -10,15 +10,23 @@ services:
     command: ["true"]
     restart: "no"
 
+  sandbox-groovy:
+    build: ./sandbox/images/groovy
+    image: btd-runner-groovy
+    command: ["true"]
+    restart: "no"
+
   runner:
     build: ./runner
     environment:
       RUNNER_TOKEN: ${RUNNER_TOKEN:?définir RUNNER_TOKEN}
-      RUNNER_IMAGES: '{"go": "btd-runner-go"}'
+      RUNNER_IMAGES: '{"go": "btd-runner-go", "groovy": "btd-runner-groovy"}'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       sandbox-go:
+        condition: service_completed_successfully
+      sandbox-groovy:
         condition: service_completed_successfully
     restart: unless-stopped
 

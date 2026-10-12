@@ -1,4 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
+import { CourseBooks } from '@/components/CourseBooks'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { GridZone } from '@/components/Backdrop'
 import { CoursePath } from '@/components/CoursePath'
@@ -49,7 +50,7 @@ function CoursePage() {
             {course.title}
           </h1>
           <p className="mt-3 text-sm text-muted">
-            D'après <em className="font-read">{course.book.title}</em>, {course.book.authors.join(' et ')}
+            <CourseBooks course={course} />
           </p>
           <p className="mt-5 max-w-[46ch] font-read text-lg leading-relaxed text-muted">{course.summary}</p>
 

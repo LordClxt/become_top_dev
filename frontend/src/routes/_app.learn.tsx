@@ -1,4 +1,5 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
+import { CourseBooks } from '@/components/CourseBooks'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Check, Lock, LockOpen } from 'lucide-react'
 import { ActivityGraph } from '@/components/ActivityGraph'
@@ -196,7 +197,7 @@ function CourseRow({ course, summary }: { course: Course; summary: ReturnType<ty
           </p>
         </div>
         <p className="-mt-2 text-sm text-muted">
-          D'après <em className="font-read">{course.book.title}</em>
+          <CourseBooks course={course} withAuthors={false} />
         </p>
         <ModuleStrip course={course} chapters={chapters} />
         {course.requires.map((req) => (

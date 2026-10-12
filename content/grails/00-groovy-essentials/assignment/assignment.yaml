@@ -1,0 +1,12 @@
+id: grails-ch00-assignment
+title: "Rapport de ventes"
+kind: code
+language: groovy
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Report.groovy"]
+concepts: [grails-groovy-list-map, grails-groovy-bigdecimal, grails-groovy-regex, grails-groovy-copy-vs-mutate]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

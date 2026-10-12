@@ -1,0 +1,6 @@
+id: grails-ch01-closure-scope
+concept: grails-closure-resolve-strategy
+format: interactive
+justification: "Cocher qui possède `name` et changer la resolveStrategy en voyant l'ordre de recherche et le gagnant fait comprendre en dix secondes pourquoi un DSL impose DELEGATE_FIRST."
+entry: ClosureScope.tsx
+status: built

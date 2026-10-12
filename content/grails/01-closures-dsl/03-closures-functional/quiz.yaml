@@ -1,0 +1,60 @@
+id: grails-ch01-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def mult = { x, y -> x * y }
+      def twoTimes = mult.curry(2)
+      println twoTimes(5)
+      println mult(3, 3)
+    answer: "10\n9"
+    explanation: "curry fabrique une copie : twoTimes fixe x à 2, la closure d'origine reste intacte."
+    concept: grails-closure-curry
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def plusOne = { it + 1 }
+      def timesTwo = { it * 2 }
+      println((plusOne >> timesTwo)(3))
+      println((plusOne << timesTwo)(3))
+    answer: "8\n7"
+    explanation: ">> applique plusOne puis timesTwo : (3+1)*2. << applique timesTwo puis plusOne : (3*2)+1."
+    concept: grails-closure-compose
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Combien de fois « calcul » s'affiche-t-il ?"
+    code: |
+      def f = { n -> println 'calcul'; n * 2 }.memoize()
+      f(2); f(2); f(3); f(2)
+    answer: "calcul\ncalcul"
+    explanation: "Un affichage pour l'argument 2 (première fois), un pour 3. Les appels suivants lisent le cache."
+    concept: grails-closure-memoize
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Lequel de ces calculs récursifs peut utiliser trampoline ?"
+    choices:
+      - "fact = { n -> n <= 1 ? 1 : n * fact(n - 1) }"
+      - "fib = { n -> n < 2 ? n : fib(n - 1) + fib(n - 2) }"
+      - "last = { l -> l.size() == 1 ? l[0] : last(l.tail()) }"
+      - "aucun, trampoline ne marche que sur des méthodes"
+    answer: 2
+    explanation: "Seul le dernier cas a l'appel récursif en position terminale (rien à faire après l'appel). Dans les deux premiers, on multiplie ou additionne après."
+    concept: grails-closure-memoize
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Pourquoi memoize est-il dangereux sur une closure qui écrit dans un fichier ?"
+    choices:
+      - "Il est trop lent"
+      - "Il ne mémorise pas les exceptions"
+      - "L'écriture ne se produira qu'à la première évaluation pour un argument donné"
+      - "Il interdit les paramètres"
+    answer: 2
+    explanation: "memoize suppose une closure pure : les évaluations suivantes ne ré-exécutent pas le corps, donc pas d'effet de bord."
+    concept: grails-closure-memoize
+    difficulty: 2

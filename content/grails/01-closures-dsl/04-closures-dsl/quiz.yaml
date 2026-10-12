@@ -1,0 +1,68 @@
+id: grails-ch01-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Pretender {
+          def methodMissing(String name, Object args) { "appelé $name avec $args" }
+      }
+      println new Pretender().hello('monde', 42)
+    answer: "appelé hello avec [monde, 42]"
+    explanation: "Les arguments arrivent dans un tableau, affiché comme une liste."
+    concept: grails-dsl-method-missing
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Spy {
+          List calls = []
+          def methodMissing(String name, Object args) { calls << [name, args[0]] }
+      }
+      def spy = new Spy()
+      def spec = { color inList: ['Red'];  size 5 }
+      spec.delegate = spy
+      spec.resolveStrategy = Closure.DELEGATE_FIRST
+      spec()
+      println spy.calls
+    answer: "[[color, [inList:[Red]]], [size, 5]]"
+    explanation: "Chaque ligne du DSL devient un appel capturé par methodMissing : la première reçoit une Map (arguments nommés), la seconde la valeur 5."
+    concept: grails-dsl-builder-delegate
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Dans `static constraints = { email unique: true }`, qui reçoit l'appel `email(...)` ?"
+    choices:
+      - "La classe de domaine, qui possède une méthode email()"
+      - "Le delegate de la closure : un builder fixé par Grails avant l'exécution"
+      - "Le compilateur Groovy, à la compilation"
+      - "Un fichier de configuration externe"
+    answer: 1
+    explanation: "Grails fixe un ConstrainedPropertyBuilder comme delegate puis exécute la closure ; ses appels inconnus deviennent des règles de validation."
+    concept: grails-dsl-builder-delegate
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Quel est le danger d'un builder qui accepte absolument tous les noms de contraintes ?"
+    choices:
+      - "Il est plus lent"
+      - "Une faute de frappe (`blnak: false`) passe sans erreur et n'a aucun effet"
+      - "Il ne peut pas avoir de delegate"
+      - "Il interdit les arguments nommés"
+    answer: 1
+    explanation: "Un DSL doit refuser ce qu'il ne connaît pas. D'où le contrôle des contraintes connues dans le lab."
+    concept: grails-dsl-method-missing
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Par défaut, dans GORM, une propriété peut-elle être null ?"
+    choices:
+      - "Oui"
+      - "Non : nullable: false est implicite"
+      - "Seulement pour les Strings"
+      - "Seulement en production"
+    answer: 1
+    explanation: "Les propriétés persistantes sont considérées comme non nulles ; il faut écrire nullable: true pour l'autoriser."
+    concept: grails-dsl-builder-delegate
+    difficulty: 1

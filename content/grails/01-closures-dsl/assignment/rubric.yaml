@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.6
+    source: tests
+  - id: closures
+    label: "Usage idiomatique des closures"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "L'état (done, valeur) est capturé dans la closure renvoyée ; aucun champ statique ni classe auxiliaire ; return utilisé au bon endroit (dans une boucle for, pas dans each)"
+      2: "Fonctionne mais l'état est stocké ailleurs (champ statique, classe) ou une boucle each est contournée"
+      0: "Les closures sont évitées ou mal comprises"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes, noms parlants, aucune duplication"
+      2: "Lisible mais duplications ou noms génériques"
+      0: "Difficile à suivre"

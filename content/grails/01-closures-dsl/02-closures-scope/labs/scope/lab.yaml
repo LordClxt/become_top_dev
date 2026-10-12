@@ -1,0 +1,12 @@
+id: grails-ch01-l02-lab-scope
+title: "Capturer un état, rediriger les appels"
+kind: code
+language: groovy
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Scope.groovy"]
+concepts: [grails-closure-capture, grails-closure-owner-delegate, grails-closure-resolve-strategy]
+verified: { at: 2026-10-12, solution: pass, starter: fail }

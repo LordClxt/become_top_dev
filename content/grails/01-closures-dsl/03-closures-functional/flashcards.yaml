@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Que renvoie `c.curry(2)` ?"
+    back: "Une nouvelle closure, copie de c avec son premier paramètre fixé à 2. La closure d'origine n'est pas modifiée ni appelée."
+    concept: grails-closure-curry
+  - id: fc2
+    front: "Quelle différence entre curry, rcurry et ncurry ?"
+    back: "curry fixe les premiers paramètres (gauche), rcurry les derniers (droite), ncurry le n-ième."
+    concept: grails-closure-curry
+  - id: fc3
+    front: "Dans quel ordre s'exécutent f >> g et f << g ?"
+    back: "f >> g : f puis g. f << g : g puis f."
+    concept: grails-closure-compose
+  - id: fc4
+    front: "Quand peut-on utiliser memoize sans risque ?"
+    back: "Sur une closure pure : même argument, même résultat, aucun effet de bord."
+    concept: grails-closure-memoize
+  - id: fc5
+    front: "Pourquoi trampoline ?"
+    back: "La JVM n'élimine pas la récursion terminale : trampoline transforme les appels imbriqués d'une closure en boucle pour éviter le StackOverflowError."
+    concept: grails-closure-memoize

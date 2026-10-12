@@ -1,0 +1,68 @@
+id: grails-ch00-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def l = [3, 1, 2]
+      def s = l.sort()
+      println l
+      println s.is(l)
+    answer: "[1, 2, 3]\ntrue"
+    explanation: "sort() trie la liste en place et renvoie ce même objet."
+    concept: grails-groovy-copy-vs-mutate
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def l = [3, 1, 2]
+      def s = l.sort(false)
+      println l
+      println s
+    answer: "[3, 1, 2]\n[1, 2, 3]"
+    explanation: "L'argument false demande une copie triée : la liste d'origine est intacte."
+    concept: grails-groovy-copy-vs-mutate
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def k = 'x'
+      println([k: 1].keySet())
+      println([(k): 1].keySet())
+    answer: "[k]\n[x]"
+    explanation: "Une clé sans parenthèses est un littéral String. Avec des parenthèses, c'est la valeur de la variable."
+    concept: grails-groovy-list-map
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def orders = [[id: 1, items: [[price: 5], [price: 7]]],
+                    [id: 2, items: [[price: 3]]]]
+      println orders*.id
+      println orders.items.price.flatten().sum()
+    answer: "[1, 2]\n15"
+    explanation: "*. et la notation pointée sur une liste appliquent la propriété à chaque élément ; flatten aplatit les listes imbriquées."
+    concept: grails-groovy-spread-gpath
+    difficulty: 3
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      println((1..<5).toList())
+      println((5..3).toList())
+      println(3 in 1..5)
+    answer: "[1, 2, 3, 4]\n[5, 4, 3]\ntrue"
+    explanation: "..< exclut la borne haute ; un range inversé se parcourt à rebours ; in utilise isCase du range."
+    concept: grails-groovy-range
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Quelle écriture crée une map vide ?"
+    choices: ["[]", "{}", "[:]", "new Map()"]
+    answer: 2
+    explanation: "[] est une liste vide, {} une closure, et Map est une interface qu'on ne peut pas instancier."
+    concept: grails-groovy-list-map
+    difficulty: 1

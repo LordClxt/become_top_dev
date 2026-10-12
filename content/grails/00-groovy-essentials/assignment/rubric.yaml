@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.6
+    source: tests
+  - id: idiom
+    label: "Usage idiomatique du GDK"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "groupBy / collect / sum / sort / collectEntries à la place des boucles et accumulateurs manuels ; BigDecimal partout pour l'argent ; aucune mutation de l'entrée"
+      2: "Fonctionne mais des boucles for manuelles remplacent le GDK, ou un double apparaît quelque part"
+      0: "Code Java transcrit mot à mot, ou état global"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Méthodes courtes, noms parlants, aucune duplication entre les fonctions"
+      2: "Lisible mais duplications ou noms génériques"
+      0: "Difficile à suivre"
