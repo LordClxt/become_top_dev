@@ -1,0 +1,113 @@
+id: go-ch10-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qu'une goroutine ?
+  choices:
+  - Une fonction exécutée de façon concurrente et planifiée par le runtime de Go
+  - Un thread du système d'exploitation
+  - Un processus séparé
+  - Un type de channel
+  answer: 0
+  explanation: Elle est gérée par le runtime, au-dessus d'un petit nombre de threads.
+  concept: go-goroutines
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Pourquoi une goroutine coûte-t-elle moins cher qu'un thread ?
+  choices:
+  - Sa pile initiale est petite et grandit à la demande
+  - Sa création est très rapide
+  - Le changement de contexte se fait dans le runtime, sans noyau
+  - Elle s'exécute toujours sur un cœur dédié
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: 'La dernière proposition est fausse : les goroutines se partagent les cœurs.'
+  concept: go-goroutines
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Que se passe-t-il à la fin de main alors que des goroutines tournent encore ?
+  choices:
+  - Le programme s'arrête et les goroutines sont abandonnées
+  - Le programme attend la fin de toutes les goroutines
+  - Une erreur est levée
+  - Les goroutines passent en arrière-plan
+  answer: 0
+  explanation: 'main est une goroutine particulière : quand elle termine, le processus se termine.'
+  concept: go-main-exit
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Que devient la valeur de retour d'une fonction lancée avec go ?
+  choices:
+  - Elle est ignorée
+  - Elle est envoyée au channel par défaut
+  - Elle est stockée dans une variable globale
+  - Le programme refuse de compiler
+  answer: 0
+  explanation: Il faut un channel ou une variable synchronisée pour récupérer un résultat.
+  concept: go-go-keyword
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Que représente GOMAXPROCS ?
+  choices:
+  - 'Le nombre de P : le maximum de goroutines exécutées réellement en parallèle'
+  - Le nombre maximal de goroutines
+  - La taille maximale de la pile
+  - Le nombre de threads du système
+  answer: 0
+  explanation: Par défaut c'est le nombre de cœurs.
+  concept: go-scheduler-mpg
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Dans l'ordre de recherche d'un P qui veut une goroutine, quel est le dernier recours ?
+  choices:
+  - Voler la moitié de la file d'un autre P
+  - Créer une nouvelle goroutine
+  - Attendre un signal du système
+  - Arrêter le programme
+  answer: 0
+  explanation: Il regarde runnext, sa file locale, la file globale, puis vole.
+  concept: go-scheduler-mpg
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Que fait une goroutine bloquée sur un channel pour le planificateur ?
+  choices:
+  - Elle est garée hors de tout P, qui peut exécuter une autre goroutine
+  - Elle occupe son thread jusqu'à son réveil
+  - Elle fait planter le P
+  - Elle est tuée
+  answer: 0
+  explanation: Le cœur reste utilisé par d'autres goroutines.
+  concept: go-scheduler-mpg
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Depuis Go 1.22, que se passe-t-il avec la variable de boucle capturée dans une goroutine ?
+  choices:
+  - Chaque itération a sa propre copie
+  - Toutes les goroutines voient la dernière valeur
+  - Le code ne compile plus
+  - La variable est partagée mais protégée
+  answer: 0
+  explanation: Le piège classique n'existe plus dans le code récent.
+  concept: go-goroutine-closure
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Pourquoi garder la logique métier dans des fonctions ordinaires, hors de la goroutine ?
+  choices:
+  - On peut la tester sans concurrence ; la goroutine n'est que la colle
+  - Les goroutines ne peuvent pas appeler de fonctions
+  - Pour éviter d'utiliser des channels
+  - Parce que go n'accepte que des fonctions anonymes
+  answer: 0
+  explanation: 'Go n''a pas de fonctions colorées : c''est l''appelant qui décide de lancer en goroutine.'
+  concept: go-goroutine-closure
+  difficulty: 2

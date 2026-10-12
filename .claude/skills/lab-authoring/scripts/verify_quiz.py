@@ -27,6 +27,10 @@ KNOWN_IMPORTS = {
     "errors.": "errors",
     "sort.": "sort",
     "math.": "math",
+    "sync.": "sync",
+    "atomic.": "sync/atomic",
+    "time.": "time",
+    "context.": "context",
 }
 
 

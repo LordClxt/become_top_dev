@@ -1,0 +1,7 @@
+id: go-ch10-unbuffered-rendezvous
+concept: go-chan-unbuffered
+format: remotion
+justification: "Le rendez-vous d'un channel sans tampon (l'un attend l'autre, la valeur passe en main propre) est une séquence d'attentes et de déblocages qu'il suffit de regarder."
+entry: UnbufferedRendezvous.tsx
+duration_s: 16
+status: built

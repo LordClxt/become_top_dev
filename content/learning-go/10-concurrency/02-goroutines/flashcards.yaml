@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Goroutine ?
+  back: Fonction concurrente planifiée par le runtime ; légère (petite pile, création rapide).
+  concept: go-goroutines
+- id: fc2
+  front: Que fait `go f()` ?
+  back: Lance f dans une nouvelle goroutine ; l'appelant continue sans attendre ; le retour est ignoré.
+  concept: go-go-keyword
+- id: fc3
+  front: Que se passe-t-il quand main se termine ?
+  back: Le programme s'arrête, goroutines en cours comprises.
+  concept: go-main-exit
+- id: fc4
+  front: G, M, P ?
+  back: Goroutine, thread système, processeur logique (porte la file de goroutines prêtes).
+  concept: go-scheduler-mpg
+- id: fc5
+  front: GOMAXPROCS ?
+  back: 'Nombre de P = parallélisme maximal réel (par défaut : nombre de cœurs).'
+  concept: go-scheduler-mpg
+- id: fc6
+  front: Vol de travail ?
+  back: Un P inactif prend la moitié de la file d'un autre P.
+  concept: go-scheduler-mpg
+- id: fc7
+  front: Idiome pour lancer du code ?
+  back: Une fonction anonyme qui enveloppe la logique métier ordinaire.
+  concept: go-goroutine-closure
+- id: fc8
+  front: Piège de l'ordre ?
+  back: Aucun ordre d'exécution n'est garanti entre goroutines.
+  concept: go-goroutines

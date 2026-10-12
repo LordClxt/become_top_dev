@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: WaitGroup ?
+  back: 'Compteur : Add avant go, defer Done à la fin, Wait attend zéro.'
+  concept: go-waitgroup
+- id: fc2
+  front: Où appeler Add ?
+  back: Dans la goroutine appelante, avant le go.
+  concept: go-wg-pitfalls
+- id: fc3
+  front: Copier un WaitGroup ?
+  back: 'Interdit : la copie a son propre compteur ; passer un pointeur ou capturer.'
+  concept: go-wg-pitfalls
+- id: fc4
+  front: Plusieurs écrivains, qui ferme ?
+  back: 'Une goroutine moniteur : wg.Wait() puis close(out).'
+  concept: go-close-monitor
+- id: fc5
+  front: Fermer pendant que d'autres écrivent ?
+  back: panic chez les écrivains restants.
+  concept: go-close-monitor
+- id: fc6
+  front: errgroup ?
+  back: WaitGroup + première erreur + annulation (golang.org/x/sync).
+  concept: go-errgroup
+- id: fc7
+  front: sync.Once ?
+  back: Exécute une fonction une seule fois, même appelée par plusieurs goroutines.
+  concept: go-once
+- id: fc8
+  front: OnceValue ?
+  back: Calcule une valeur au premier appel et la renvoie ensuite (Go 1.21).
+  concept: go-once

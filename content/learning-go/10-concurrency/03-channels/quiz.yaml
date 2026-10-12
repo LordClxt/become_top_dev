@@ -1,0 +1,117 @@
+id: go-ch10-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que fait un envoi sur un channel sans tampon quand aucune goroutine ne lit ?
+  choices:
+  - Il bloque jusqu'à l'arrivée d'un récepteur
+  - Il échoue avec une erreur
+  - Il perd la valeur
+  - Il crée un tampon
+  answer: 0
+  explanation: 'C''est le rendez-vous : envoi et réception se terminent ensemble.'
+  concept: go-chan-unbuffered
+  difficulty: 1
+- id: q2
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: 'ch := make(chan int, 2)
+
+    ch <- 1
+
+    ch <- 2
+
+    fmt.Println(len(ch), cap(ch))'
+  answer: 2 2
+  explanation: len compte les valeurs en attente (2), cap est la capacité (2).
+  concept: go-chan-buffered
+  difficulty: 1
+- id: q3
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: 'ch := make(chan string)
+
+    go func() { ch <- "ping" }()
+
+    fmt.Println(<-ch)'
+  answer: ping
+  explanation: 'La réception bloque jusqu''à l''envoi de la goroutine : le rendez-vous livre « ping ».'
+  concept: go-chan-unbuffered
+  difficulty: 1
+- id: q4
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: 'ch := make(chan int, 3)
+
+    ch <- 7
+
+    close(ch)
+
+    v, ok := <-ch
+
+    w, ok2 := <-ch
+
+    fmt.Println(v, ok, w, ok2)'
+  answer: 7 true 0 false
+  explanation: Les valeurs restantes sont lues d'abord ; ensuite, le channel fermé donne la valeur zéro avec ok = false.
+  concept: go-chan-close
+  difficulty: 2
+- id: q5
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "ch := make(chan int, 3)\nfor i := 1; i <= 3; i++ {\n\tch <- i\n}\nclose(ch)\nsum := 0\nfor v := range ch {\n\tsum += v\n}\nfmt.Println(sum)"
+  answer: '6'
+  explanation: 'range lit les 3 valeurs restantes puis s''arrête à la fermeture : 1 + 2 + 3.'
+  concept: go-chan-close
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Qui doit fermer un channel ?
+  choices:
+  - L'écrivain (celui qui envoie), une seule fois
+  - Le lecteur
+  - N'importe quelle goroutine, autant de fois que nécessaire
+  - Le ramasse-miettes
+  answer: 0
+  explanation: Fermer deux fois ou écrire après fermeture provoque un panic ; seul l'écrivain sait qu'il a fini.
+  concept: go-chan-close
+  difficulty: 1
+- id: q7
+  type: multiple
+  prompt: Quelles opérations provoquent un panic ?
+  choices:
+  - Écrire sur un channel fermé
+  - Fermer un channel déjà fermé
+  - Fermer un channel nil
+  - Lire un channel fermé
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Lire un channel fermé est toujours sûr.
+  concept: go-chan-states
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Que fait une lecture sur un channel nil ?
+  choices:
+  - Elle bloque pour toujours
+  - Elle renvoie la valeur zéro
+  - Elle panique
+  - Elle crée le channel
+  answer: 0
+  explanation: Un channel jamais initialisé bloque lecture et écriture sans fin.
+  concept: go-chan-states
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: À quoi sert le type <-chan int dans la signature d'une fonction ?
+  choices:
+  - Il restreint l'usage du channel à la lecture, vérifié à la compilation
+  - Il rend le channel plus rapide
+  - Il ferme automatiquement le channel
+  - Il ajoute un tampon
+  answer: 0
+  explanation: C'est de la documentation que le compilateur applique.
+  concept: go-chan-directions
+  difficulty: 1

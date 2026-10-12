@@ -1,0 +1,7 @@
+id: go-ch10-amdahl
+concept: go-amdahl
+format: remotion
+justification: "Voir la part séquentielle d'un travail borner le gain quand on ajoute des cœurs se comprend mieux en regardant les barres de temps raccourcir puis plafonner."
+entry: Amdahl.tsx
+duration_s: 12
+status: built

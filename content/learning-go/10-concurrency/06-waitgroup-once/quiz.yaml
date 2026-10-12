@@ -1,0 +1,101 @@
+id: go-ch10-l06-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Où doit-on appeler wg.Add(1) ?
+  choices:
+  - Dans la goroutine appelante, avant le go
+  - Dans la goroutine lancée, au début
+  - Après wg.Wait()
+  - N'importe où
+  answer: 0
+  explanation: Sinon Wait peut s'exécuter avant l'Add et rendre la main trop tôt.
+  concept: go-wg-pitfalls
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi écrire defer wg.Done() ?
+  choices:
+  - Pour que le compteur soit décrémenté même en cas de retour anticipé ou de panic
+  - Pour que Done s'exécute plus vite
+  - Pour copier le WaitGroup
+  - Pour fermer le channel
+  answer: 0
+  explanation: Un Done oublié bloque Wait pour toujours.
+  concept: go-waitgroup
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que se passe-t-il si on passe un WaitGroup par valeur à une fonction ?
+  choices:
+  - 'La copie a son propre compteur : Wait ne se débloquera jamais'
+  - Rien de particulier
+  - Le compteur double
+  - Go refuse de compiler
+  answer: 0
+  explanation: go vet signale cette copie.
+  concept: go-wg-pitfalls
+  difficulty: 2
+- id: q4
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "var wg sync.WaitGroup\nresults := make([]int, 3)\nfor i := 0; i < 3; i++ {\n\twg.Add(1)\n\tgo func() {\n\t\tdefer wg.Done()\n\t\tresults[i]\
+    \ = i * 10\n\t}()\n}\nwg.Wait()\nfmt.Println(results)"
+  answer: '[0 10 20]'
+  explanation: Chaque goroutine écrit dans sa propre case, et chaque itération a sa propre variable i (Go 1.22) ; Wait garantit la fin avant l'affichage.
+  concept: go-waitgroup
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi une goroutine moniteur ferme-t-elle le channel de sortie ?
+  choices:
+  - Aucun écrivain ne peut le fermer sans risquer un panic chez les autres ; le moniteur attend qu'ils aient tous fini
+  - Parce que close est réservé aux goroutines sans travail
+  - Pour accélérer le range
+  - Parce que main ne peut pas fermer
+  answer: 0
+  explanation: wg.Wait() puis close(out), une seule fois.
+  concept: go-close-monitor
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Que se passe-t-il si un écrivain ferme out pendant que les autres écrivent ?
+  choices:
+  - Les autres paniquent en écrivant sur un channel fermé
+  - Les écritures sont ignorées
+  - Le channel se rouvre
+  - Le WaitGroup se réinitialise
+  answer: 0
+  explanation: Écrire sur un channel fermé provoque un panic.
+  concept: go-close-monitor
+  difficulty: 2
+- id: q7
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "var once sync.Once\nfor i := 0; i < 3; i++ {\n\tonce.Do(func() { fmt.Println(\"init\", i) })\n}"
+  answer: init 0
+  explanation: Seul le premier appel exécute la fonction ; les suivants l'ignorent.
+  concept: go-once
+  difficulty: 1
+- id: q8
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "v := sync.OnceValue(func() int {\n\tfmt.Println(\"calcul\")\n\treturn 42\n})\nfmt.Println(v(), v())"
+  answer: 'calcul
+
+    42 42'
+  explanation: Le calcul n'a lieu qu'une fois ; les deux appels renvoient la même valeur.
+  concept: go-once
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Que apporte errgroup par rapport à un WaitGroup ?
+  choices:
+  - La première erreur et, avec WithContext, l'annulation des autres goroutines
+  - Plus de vitesse
+  - Des channels sans tampon
+  - La fermeture automatique des channels
+  answer: 0
+  explanation: Il est dans golang.org/x/sync, pas dans la bibliothèque standard.
+  concept: go-errgroup
+  difficulty: 2

@@ -1,0 +1,32 @@
+id: go-ch10
+title: Concurrence
+subtitle: 'Goroutines, channels, select, WaitGroup, mutex : écrire du code concurrent sûr, qui s''arrête proprement'
+source:
+  chapter: 12
+  pages: 311-342
+objectives:
+- Distinguer concurrence et parallélisme, et chiffrer le gain possible avec la loi d'Amdahl avant de paralléliser
+- Lancer des goroutines, expliquer le modèle G, M, P du planificateur et ne pas dépendre de l'ordre d'exécution
+- Utiliser des channels (sans tampon, tamponnés, directions, fermeture) et connaître leur comportement dans chaque état
+- Combiner plusieurs channels avec select (hasard, default, for-select, channel nil) et reconnaître un deadlock
+- Éviter les fuites de goroutines (annulation par contexte), borner la charge avec des jetons et limiter une durée
+- Attendre un groupe avec WaitGroup, fermer un channel partagé via un moniteur et initialiser une fois avec sync.Once
+- Choisir entre mutex et channels, détecter les courses de données avec -race, et assembler un pipeline avec fan-out et fan-in
+mastery_threshold: 0.8
+prerequisites:
+- go-ch05
+lessons:
+- 01-when-concurrency
+- 02-goroutines
+- 03-channels
+- 04-select
+- 05-patterns-leaks
+- 06-waitgroup-once
+- 07-mutex-vs-channels
+xp:
+  assignment: 140
+  project: 300
+  boss: 330
+boss: boss
+assignment: assignment
+project: project

@@ -1,0 +1,41 @@
+cards:
+- id: fc1
+  front: Créer un channel ?
+  back: make(chan T) sans tampon ; make(chan T, n) avec tampon de n.
+  concept: go-channel-basics
+- id: fc2
+  front: Valeur zéro d'un channel ?
+  back: 'nil : lecture et écriture bloquent pour toujours.'
+  concept: go-channel-basics
+- id: fc3
+  front: '`<-chan T` ?'
+  back: Channel en lecture seule (type de retour courant d'un producteur).
+  concept: go-chan-directions
+- id: fc4
+  front: '`chan<- T` ?'
+  back: Channel en écriture seule.
+  concept: go-chan-directions
+- id: fc5
+  front: Channel sans tampon ?
+  back: 'Rendez-vous : envoi et réception bloquent jusqu''à l''autre et se terminent ensemble.'
+  concept: go-chan-unbuffered
+- id: fc6
+  front: Channel tamponné ?
+  back: Envoi bloque si plein, réception si vide ; len = en attente, cap = capacité ; ordre FIFO.
+  concept: go-chan-buffered
+- id: fc7
+  front: Qui ferme, et combien de fois ?
+  back: L'écrivain, une seule fois.
+  concept: go-chan-close
+- id: fc8
+  front: Lire un channel fermé ?
+  back: Valeurs restantes, puis zéro avec ok = false (idiome comma ok).
+  concept: go-chan-close
+- id: fc9
+  front: Écrire sur un channel fermé ?
+  back: panic.
+  concept: go-chan-states
+- id: fc10
+  front: range sur un channel ?
+  back: Lit jusqu'à la fermeture puis sort ; bloque pour toujours si on ne ferme jamais.
+  concept: go-chan-close

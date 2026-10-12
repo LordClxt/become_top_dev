@@ -115,7 +115,7 @@ export function SchedulerComposition() {
         <Token key={g} g={g} from={placeOf(prev ?? cur, g)} to={placeOf(cur, g)!} t={t} />
       ))}
 
-      <div className="absolute right-10 bottom-8 left-10 flex items-start gap-6" style={{ opacity: textIn }}>
+      <div className="absolute right-10 bottom-[78px] left-10 flex items-start gap-6" style={{ opacity: textIn }}>
         <span className="pt-1.5 font-code text-[20px] tabular-nums" style={{ color: 'var(--text-muted)' }}>
           {String(k + 1).padStart(2, '0')}/{STEPS.length}
         </span>

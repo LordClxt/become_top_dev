@@ -1,0 +1,99 @@
+id: go-ch10-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que fait select quand plusieurs cases sont prêtes ?
+  choices:
+  - Il en choisit une au hasard
+  - Il prend la première écrite
+  - Il prend la dernière écrite
+  - Il exécute toutes les cases prêtes
+  answer: 0
+  explanation: 'Le hasard évite la famine : aucune case n''est favorisée.'
+  concept: go-select-random
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que se passe-t-il quand aucune case n'est prête et qu'il n'y a pas de default ?
+  choices:
+  - select bloque jusqu'à ce qu'une case soit prête
+  - select exécute la première case
+  - Le programme panique
+  - select renvoie immédiatement
+  answer: 0
+  explanation: 'C''est le comportement par défaut : attendre.'
+  concept: go-select
+  difficulty: 1
+- id: q3
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "ch := make(chan int, 1)\nselect {\ncase v := <-ch:\n\tfmt.Println(\"reçu\", v)\ndefault:\n\tfmt.Println(\"rien\")\n}"
+  answer: rien
+  explanation: 'Le channel est vide : la case de réception n''est pas prête, default s''exécute tout de suite.'
+  concept: go-select-default
+  difficulty: 1
+- id: q4
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "ch := make(chan int, 1)\nch <- 5\nselect {\ncase v := <-ch:\n\tfmt.Println(\"reçu\", v)\ndefault:\n\tfmt.Println(\"rien\")\n}"
+  answer: reçu 5
+  explanation: 'Une valeur attend dans le tampon : la case de réception est prête, elle est choisie à la place de default.'
+  concept: go-select-default
+  difficulty: 1
+- id: q5
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "var a chan int\nb := make(chan int, 1)\nb <- 9\nselect {\ncase v := <-a:\n\tfmt.Println(\"a\", v)\ncase v := <-b:\n\tfmt.Println(\"b\"\
+    , v)\n}"
+  answer: b 9
+  explanation: 'Le channel a est nil : sa case n''est jamais prête. Seule la case b peut s''exécuter.'
+  concept: go-nil-channel-select
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Pourquoi mettre un channel à nil dans un for-select ?
+  choices:
+  - Pour désactiver sa case une fois la source terminée
+  - Pour libérer sa mémoire
+  - Pour le fermer
+  - Pour le rendre plus rapide
+  answer: 0
+  explanation: 'Une case sur un channel nil n''est jamais prête : elle est ignorée, et on évite de relire un channel fermé en boucle.'
+  concept: go-nil-channel-select
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Quel est le défaut d'un default dans un for ?
+  choices:
+  - La boucle ne dort jamais et consomme 100 % d'un cœur
+  - Il provoque un deadlock
+  - Il ferme les channels
+  - Il est interdit par le compilateur
+  answer: 0
+  explanation: C'est de l'attente active.
+  concept: go-select-default
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Quand le runtime Go détecte-t-il un deadlock ?
+  choices:
+  - Quand toutes les goroutines sont endormies sans issue
+  - Dès qu'une goroutine est bloquée
+  - Jamais, il faut un outil externe
+  - Quand deux channels sont nil
+  answer: 0
+  explanation: 'Si une goroutine peut encore tourner (serveur, ticker), aucune détection : le blocage est silencieux.'
+  concept: go-deadlock
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Pourquoi un for-select doit-il avoir une case de sortie (done ou ctx.Done()) ?
+  choices:
+  - Sans elle, la goroutine ne peut jamais s'arrêter
+  - Pour accélérer la boucle
+  - Pour que select soit non bloquant
+  - Parce que le compilateur l'exige
+  answer: 0
+  explanation: Sans condition d'arrêt, la goroutine tourne ou reste bloquée pour toujours (fuite).
+  concept: go-for-select
+  difficulty: 2

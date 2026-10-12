@@ -1,0 +1,7 @@
+id: go-ch10-goroutine-leak
+concept: go-goroutine-leak
+format: remotion
+justification: "Une fuite de goroutine est invisible dans le code : la voir s'accumuler appel après appel, puis disparaître avec l'annulation, rend le mécanisme et le correctif concrets."
+entry: GoroutineLeak.tsx
+duration_s: 17
+status: built

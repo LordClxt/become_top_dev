@@ -1,0 +1,16 @@
+id: go-ch10-l01-lab-speedup-math
+title: Chiffrer le gain avant de paralléliser
+difficulty: 2
+xp: 45
+concepts:
+- go-amdahl
+- go-when-concurrency
+- go-measure-first
+timeout_s: 30
+kind: code
+language: go
+entrypoint: starter/
+test_command: go test -race ./...
+files_editable:
+- speedup.go
+verified: { at: 2026-10-12, solution: pass, starter: fail }

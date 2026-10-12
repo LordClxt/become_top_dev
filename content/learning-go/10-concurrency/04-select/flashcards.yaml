@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: select ?
+  back: Attend plusieurs opérations de channel et exécute la première prête.
+  concept: go-select
+- id: fc2
+  front: Plusieurs cases prêtes ?
+  back: 'Choix aléatoire : aucune priorité, pas de famine.'
+  concept: go-select-random
+- id: fc3
+  front: Aucune case prête, pas de default ?
+  back: select bloque.
+  concept: go-select
+- id: fc4
+  front: default dans select ?
+  back: 'S''exécute immédiatement si aucune case n''est prête : non bloquant.'
+  concept: go-select-default
+- id: fc5
+  front: default dans un for ?
+  back: 'Boucle active : 100 % d''un cœur.'
+  concept: go-select-default
+- id: fc6
+  front: for-select ?
+  back: Boucle qui traite plusieurs sources jusqu'à une condition d'arrêt (done, ctx.Done()).
+  concept: go-for-select
+- id: fc7
+  front: Désactiver une case ?
+  back: 'Mettre son channel à nil : il n''est jamais prêt.'
+  concept: go-nil-channel-select
+- id: fc8
+  front: Deadlock détecté par le runtime ?
+  back: 'Seulement si toutes les goroutines sont endormies : « all goroutines are asleep ».'
+  concept: go-deadlock
+- id: fc9
+  front: Deadlock partiel ?
+  back: 'Une goroutine active suffit à masquer la détection : blocage silencieux.'
+  concept: go-deadlock

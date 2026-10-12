@@ -1,0 +1,103 @@
+id: go-ch10-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi une goroutine bloquée sur un channel n'est-elle pas libérée par le ramasse-miettes ?
+  choices:
+  - 'Elle est considérée comme vivante : elle pourrait être réveillée un jour'
+  - Le ramasse-miettes ne gère pas les goroutines
+  - Elle est protégée par un mutex
+  - Elle est dans le tas
+  answer: 0
+  explanation: Le GC libère la mémoire inaccessible, pas les goroutines bloquées.
+  concept: go-goroutine-leak
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quelle règle évite les fuites de goroutines ?
+  choices:
+  - Chaque goroutine démarrée a une condition d'arrêt claire
+  - Toujours utiliser des channels sans tampon
+  - Ne jamais utiliser select
+  - Lancer le moins de goroutines possible
+  answer: 0
+  explanation: Annulation lue dans un select, fin naturelle de la boucle… mais jamais d'attente éternelle.
+  concept: go-goroutine-leak
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que contient ctx.Done() ?
+  choices:
+  - Un channel fermé quand le contexte est annulé
+  - Un booléen
+  - Une erreur
+  - Un mutex
+  answer: 0
+  explanation: La fermeture réveille tous les select qui l'écoutent.
+  concept: go-context-cancel
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Quel est un bon usage d'un channel tamponné ?
+  choices:
+  - Collecter les résultats de N goroutines dont le nombre est connu
+  - Réparer un deadlock sans en chercher la cause
+  - Éviter d'utiliser select
+  - Rendre le programme parallèle
+  answer: 0
+  explanation: Avec un tampon de N, aucune goroutine ne reste bloquée sur son envoi.
+  concept: go-buffer-choice
+  difficulty: 2
+- id: q5
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "sem := make(chan struct{}, 2)\nfor i := 0; i < 3; i++ {\n\tselect {\n\tcase sem <- struct{}{}:\n\t\tfmt.Print(\"ok \")\n\tdefault:\n\t\
+    \tfmt.Print(\"refusé \")\n\t}\n}"
+  answer: ok ok refusé
+  explanation: 'Le tampon a 2 places : les deux premiers envois passent, le troisième tombe sur default.'
+  concept: go-backpressure
+  difficulty: 2
+- id: q6
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "done := make(chan struct{})\nclose(done)\nselect {\ncase <-done:\n\tfmt.Println(\"arrêt\")\ndefault:\n\tfmt.Println(\"continue\")\n}"
+  answer: arrêt
+  explanation: 'Lire un channel fermé est toujours prêt : c''est le principe du signal d''annulation.'
+  concept: go-context-cancel
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pourquoi le channel de résultat d'un timeLimit a-t-il une capacité de 1 ?
+  choices:
+  - Pour que la goroutine de travail puisse écrire et se terminer même si plus personne ne lit
+  - Pour accélérer la lecture
+  - Pour fermer automatiquement le channel
+  - Pour ordonner les résultats
+  answer: 0
+  explanation: 'Sans tampon, la goroutine resterait bloquée sur l''envoi après l''expiration du délai : fuite.'
+  concept: go-timeout-pattern
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Que ne fait pas un timeLimit ?
+  choices:
+  - 'Interrompre le calcul : il cesse seulement de l''attendre'
+  - Renvoyer une erreur au bout du délai
+  - Renvoyer le résultat s'il arrive à temps
+  - Utiliser select
+  answer: 0
+  explanation: Le travail continue en arrière-plan sauf s'il observe lui-même un contexte annulable.
+  concept: go-timeout-pattern
+  difficulty: 3
+- id: q9
+  type: single
+  prompt: Quelle est la meilleure forme d'API publique pour récupérer plusieurs ressources en parallèle ?
+  choices:
+  - Une fonction synchrone qui renvoie un résultat et une erreur, la concurrence restant interne
+  - Une fonction qui renvoie un channel que l'appelant doit fermer
+  - Une fonction qui demande à l'appelant un mutex
+  - Une fonction qui lance des goroutines sans jamais les attendre
+  answer: 0
+  explanation: La concurrence est un détail d'implémentation.
+  concept: go-api-no-concurrency
+  difficulty: 2

@@ -1,0 +1,7 @@
+id: go-ch10-channel-states
+concept: go-chan-states
+format: remotion
+justification: "Le tableau des comportements d'un channel (ouvert, fermé, nil, avec ou sans tampon) se construit ligne par ligne : la dévoiler peu à peu aide à le retenir."
+entry: ChannelStates.tsx
+duration_s: 14
+status: built

@@ -57,7 +57,6 @@ planned_titles:
   "07-generics": "Generics"
   "08-errors": "Erreurs"
   "09-modules-tooling": "Modules et outillage"
-  "10-concurrency": "Concurrence"
   "11-standard-library": "La bibliothèque standard"
   "12-context": "Le context"
   "13-testing": "Écrire des tests"

@@ -1,0 +1,1 @@
+Assemble un vrai pipeline : une source annulable, un fan-out qui ne laisse rien derrière lui, un chaînage d'étapes, un « premier succès » qui annule les autres, et une orchestration sous délai global. Aucune goroutine ne doit survivre à l'annulation, même si personne ne lit plus les résultats.

@@ -1,0 +1,116 @@
+id: go-ch10-l07-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qu'une course de données ?
+  choices:
+  - Des accès concurrents à la même variable, dont une écriture, sans synchronisation
+  - Un deadlock entre deux goroutines
+  - Un channel fermé deux fois
+  - Une goroutine plus rapide qu'une autre
+  answer: 0
+  explanation: Le résultat dépend de l'entrelacement exact des opérations.
+  concept: go-data-race
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Comment détecter une course de données en Go ?
+  choices:
+  - go test -race
+  - go vet uniquement
+  - En lisant les logs
+  - Elle plante toujours le programme
+  answer: 0
+  explanation: Le détecteur de courses instrumente le programme.
+  concept: go-data-race
+  difficulty: 1
+- id: q3
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "var mu sync.Mutex\nvar wg sync.WaitGroup\ncounter := 0\nfor i := 0; i < 100; i++ {\n\twg.Add(1)\n\tgo func() {\n\t\tdefer wg.Done()\n\
+    \t\tmu.Lock()\n\t\tcounter++\n\t\tmu.Unlock()\n\t}()\n}\nwg.Wait()\nfmt.Println(counter)"
+  answer: '100'
+  explanation: 'Le mutex sérialise les incréments : aucune mise à jour n''est perdue.'
+  concept: go-mutex
+  difficulty: 1
+- id: q4
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "var n atomic.Int64\nvar wg sync.WaitGroup\nfor i := 0; i < 50; i++ {\n\twg.Add(1)\n\tgo func() {\n\t\tdefer wg.Done()\n\t\tn.Add(2)\n\
+    \t}()\n}\nwg.Wait()\nfmt.Println(n.Load())"
+  answer: '100'
+  explanation: 'Add est atomique : 50 incréments de 2.'
+  concept: go-atomic
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Un mutex Go est-il réentrant ?
+  choices:
+  - 'Non : verrouiller deux fois dans la même goroutine bloque pour toujours'
+  - Oui, il compte les verrouillages
+  - Oui, mais seulement avec defer
+  - Seulement un RWMutex
+  answer: 0
+  explanation: Il faut structurer le code pour ne pas reverrouiller.
+  concept: go-mutex
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Quand un RWMutex est-il pertinent ?
+  choices:
+  - Quand les lectures sont bien plus fréquentes que les écritures
+  - Quand il n'y a qu'une seule goroutine
+  - Quand on veut éviter les channels
+  - Quand les écritures dominent
+  answer: 0
+  explanation: Plusieurs lecteurs peuvent partager le verrou, un écrivain l'a seul.
+  concept: go-rwmutex
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pour protéger un cache partagé par plusieurs goroutines, le plus direct est…
+  choices:
+  - Un mutex à côté des données du cache
+  - Un channel par entrée
+  - Une goroutine par requête
+  - Un select avec default
+  answer: 0
+  explanation: Un état partagé simple se protège avec un verrou, caché dans le type.
+  concept: go-channels-vs-mutex
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pour répartir 1 000 tâches entre 8 workers et collecter les résultats, le plus naturel est…
+  choices:
+  - Des channels (fan-out puis fan-in)
+  - Un seul mutex global autour de tout
+  - Des variables globales
+  - Un RWMutex
+  answer: 0
+  explanation: 'On transmet des données entre goroutines : c''est le rôle des channels.'
+  concept: go-pipeline
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Que signifie « partage la mémoire en communiquant » ?
+  choices:
+  - Transmettre la donnée (et sa responsabilité) par channel plutôt que la modifier depuis plusieurs goroutines
+  - Ne jamais utiliser de variables
+  - Toujours utiliser un RWMutex
+  - Copier chaque donnée avant de l'utiliser
+  answer: 0
+  explanation: Une seule goroutine possède la donnée à un instant donné.
+  concept: go-share-by-communicating
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: Quel est le risque de copier une struct qui contient un sync.Mutex ?
+  choices:
+  - 'La copie a son propre verrou : plus rien n''est protégé'
+  - Le verrou double de vitesse
+  - Le programme ne compile pas
+  - Le verrou est libéré automatiquement
+  answer: 0
+  explanation: go vet signale cette copie.
+  concept: go-mutex
+  difficulty: 2

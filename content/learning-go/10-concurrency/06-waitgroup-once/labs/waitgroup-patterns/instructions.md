@@ -1,0 +1,1 @@
+Fusionne des flux avec un moniteur de fermeture, répartis un travail sur un nombre borné de workers en gardant l'ordre, collecte la première erreur d'un groupe et initialise une valeur une seule fois.

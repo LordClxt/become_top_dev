@@ -1,0 +1,7 @@
+id: go-ch10-deadlock
+concept: go-deadlock
+format: remotion
+justification: "Un deadlock se comprend en regardant les goroutines s'endormir une à une jusqu'à ce que le runtime constate que plus rien ne peut avancer : c'est une séquence d'attentes."
+entry: Deadlock.tsx
+duration_s: 16
+status: built
