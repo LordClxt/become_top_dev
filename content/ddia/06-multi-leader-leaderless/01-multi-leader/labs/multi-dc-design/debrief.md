@@ -1,0 +1,1 @@
+**Chaque leader est aussi le follower de l'autre.** Les écritures sont locales, la réplication entre sites est asynchrone, et c'est précisément ce qui rend les conflits possibles : l'objet de la leçon suivante.

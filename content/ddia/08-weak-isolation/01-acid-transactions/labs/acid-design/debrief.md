@@ -1,0 +1,1 @@
+**ACID n'est pas un bloc : chaque lettre répond à un type de faute différent.** Le A défait, le I masque la concurrence, le D survit aux pannes, et le C reste l'affaire de l'application. Réessayer est sûr à condition de distinguer erreurs transitoires et permanentes, et de dédupliquer.

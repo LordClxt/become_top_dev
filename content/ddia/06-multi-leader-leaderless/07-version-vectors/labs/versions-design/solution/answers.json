@@ -1,0 +1,28 @@
+{
+  "etat": {
+    "s1.ver": 1,
+    "s1.vals": 1,
+    "s2.ver": 2,
+    "s2.vals": 2,
+    "s3.ver": 3,
+    "s3.vals": 2,
+    "s4.ver": 4,
+    "s4.vals": 2,
+    "s5.ver": 5,
+    "s5.vals": 2
+  },
+  "vv": {
+    "p1": "before",
+    "p2": "conc",
+    "p3": "eq",
+    "p4": "after"
+  },
+  "tomb": "back",
+  "ordre": [
+    "read",
+    "merge",
+    "write",
+    "resp"
+  ],
+  "count": 2
+}

@@ -1,0 +1,1 @@
+**Le candidat le plus à jour minimise les pertes, mais il ne les annule pas** : en asynchrone, 3 écritures confirmées disparaissent ici. Le timeout est un compromis : un blocage normal de 8 s impose de rester au-dessus, un objectif de reprise de 20 s impose de rester en dessous.

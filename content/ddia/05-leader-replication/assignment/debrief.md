@@ -1,0 +1,1 @@
+**Un bon runbook se déroule dans cet ordre : fencing, promotion, reconfiguration, audit, remise en état.** Le follower synchrone garantit zéro perte ; sans lui, chaque ligne de retard est une écriture confirmée qui disparaît (ici 300, soit 1,5 s de trafic). Et le fencing passe avant tout, sinon un split brain guette.

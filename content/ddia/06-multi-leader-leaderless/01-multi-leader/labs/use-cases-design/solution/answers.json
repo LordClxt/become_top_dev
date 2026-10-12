@@ -1,0 +1,19 @@
+{
+  "lat-single": 185,
+  "lat-multi": 5,
+  "choix": {
+    "cal": "multi",
+    "bank": "single",
+    "docs": "multi",
+    "geo": "multi"
+  },
+  "panne": {
+    "single": "ko",
+    "multi": "ok"
+  },
+  "cout": [
+    "conflict",
+    "auto",
+    "lag"
+  ]
+}

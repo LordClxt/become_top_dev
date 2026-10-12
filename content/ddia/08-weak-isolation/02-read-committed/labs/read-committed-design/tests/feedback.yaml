@@ -1,0 +1,22 @@
+blocks:
+  reads:
+    options:
+      s2.x: Tant que T1 n'a pas validé, T2 reçoit l'ancienne valeur validée.
+      s4.x: Après le commit de T1, T2 voit la nouvelle valeur.
+  dirty:
+    options:
+      same: Avec une lecture sale, T2 voit la valeur non validée.
+      err: 'Il n''y a pas d''erreur : une lecture sale est permise dans ce scénario.'
+  sale:
+    options:
+      annonce.who: 'Bob écrit l''annonce en dernier : c''est lui qui gagne cette table.'
+      facture.who: 'Alice écrit la facture en dernier : la vente va à Bob, la facture à Alice.'
+  fix:
+    options:
+      overwrite: C'est précisément l'écriture sale que read committed interdit.
+      abort: La transaction d'Alice n'est pas affectée.
+  pourquoi:
+    options:
+      nolock: Ils sont possibles mais coûteux.
+  counter:
+    wrong: 'Les deux écrivent 42 + 1 = 43 : une mise à jour perdue.'

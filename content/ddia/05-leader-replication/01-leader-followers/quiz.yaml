@@ -1,0 +1,102 @@
+id: ddia-ch05-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Dans la réplication par leader, où un client peut-il écrire ?
+  choices:
+  - Uniquement sur le leader
+  - Sur n'importe quel réplica
+  - Uniquement sur les followers
+  - Sur le leader ou sur le follower synchrone
+  answer: 0
+  explanation: Les écritures sont acceptées par le leader seul ; pour le client, les followers sont en lecture seule.
+  concept: ddia-leader-follower
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi les followers appliquent-ils les écritures dans le même ordre que le leader ?
+  choices:
+  - Pour que leurs données restent identiques à celles du leader
+  - Pour réduire la taille du log
+  - Parce que le réseau garantit l'ordre
+  - Pour pouvoir écrire à leur tour
+  answer: 0
+  explanation: Sans le même ordre, des écritures qui dépendent les unes des autres donneraient des états différents d'un réplica à l'autre.
+  concept: ddia-leader-follower
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que se passe-t-il quand le follower synchrone cesse de répondre ?
+  choices:
+  - Le leader doit bloquer les écritures jusqu'à son retour (ou promouvoir un autre follower en synchrone)
+  - Le leader continue sans rien changer
+  - Les lectures s'arrêtent partout
+  - Le follower asynchrone le plus lent est supprimé
+  answer: 0
+  explanation: 'C''est l''inconvénient du synchrone : une écriture ne peut aboutir sans sa confirmation. En semi-synchrone, un follower asynchrone
+    devient synchrone.'
+  concept: ddia-sync-async
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Pourquoi n'active-t-on pas la réplication synchrone sur tous les followers ?
+  choices:
+  - Une seule panne suffirait à bloquer toutes les écritures
+  - Les followers synchrones ne peuvent pas servir de lectures
+  - Le réseau interdit plusieurs connexions
+  - Cela casse l'ordre des écritures
+  answer: 0
+  explanation: Plus il y a de nœuds synchrones, plus il est probable que l'un d'eux tombe, et chacun bloque les écritures.
+  concept: ddia-semi-sync
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Que garantit la configuration semi-synchrone ?
+  choices:
+  - Une copie à jour sur au moins deux nœuds (le leader et le follower synchrone)
+  - Une copie à jour sur tous les nœuds
+  - Aucune perte de données, jamais
+  - Des lectures toujours fraîches sur tous les followers
+  answer: 0
+  explanation: 'Seul un follower est synchrone : on a deux copies à jour, pas toutes.'
+  concept: ddia-semi-sync
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Avec une réplication totalement asynchrone, le leader tombe définitivement. Qu'arrive-t-il aux écritures non répliquées ?
+  choices:
+  - Elles sont perdues, même si le client a reçu une confirmation
+  - Elles sont rejouées automatiquement par les followers
+  - Elles sont conservées sur le disque du client
+  - Le leader les écrit à son retour dans tous les cas
+  answer: 0
+  explanation: 'La durabilité n''est pas garantie : la confirmation ne prouvait pas que la donnée existe ailleurs.'
+  concept: ddia-async-durability
+  difficulty: 1
+- id: q7
+  type: multiple
+  prompt: Quelles raisons justifient de répliquer des données ?
+  choices:
+  - Rapprocher les données des utilisateurs
+  - Continuer à fonctionner en cas de panne
+  - Répartir les lectures
+  - Remplacer les sauvegardes
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: 'Latence, disponibilité et débit en lecture. Un réplica copie aussi les erreurs : ce n''est pas une sauvegarde.'
+  concept: ddia-replication-purpose
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Un site lit principalement des données et en écrit peu. Quelle architecture exploite le mieux la réplication par leader ?
+  choices:
+  - Beaucoup de followers asynchrones pour répartir les lectures
+  - Un unique follower synchrone pour toutes les lectures
+  - 'Aucun follower : lire et écrire sur le leader'
+  - Un leader par utilisateur
+  answer: 0
+  explanation: Ajouter des followers augmente la capacité de lecture ; le synchrone sur tous serait trop fragile.
+  concept: ddia-leader-follower
+  difficulty: 2

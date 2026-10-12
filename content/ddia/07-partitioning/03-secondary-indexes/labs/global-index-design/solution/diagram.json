@@ -1,0 +1,95 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 160,
+      "label": "Client"
+    },
+    {
+      "id": "d1",
+      "type": "doc",
+      "x": 420,
+      "y": 0,
+      "label": "Documents 0"
+    },
+    {
+      "id": "d2",
+      "type": "doc",
+      "x": 420,
+      "y": 300,
+      "label": "Documents 1"
+    },
+    {
+      "id": "i1",
+      "type": "gidx",
+      "x": 860,
+      "y": 0,
+      "label": "Index a–r"
+    },
+    {
+      "id": "i2",
+      "type": "gidx",
+      "x": 860,
+      "y": 300,
+      "label": "Index s–z"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "client",
+      "target": "d1",
+      "kind": "write"
+    },
+    {
+      "id": "e2",
+      "source": "client",
+      "target": "d2",
+      "kind": "write"
+    },
+    {
+      "id": "e3",
+      "source": "d1",
+      "target": "i1",
+      "kind": "async",
+      "label": "mise à jour"
+    },
+    {
+      "id": "e4",
+      "source": "d1",
+      "target": "i2",
+      "kind": "async",
+      "label": "mise à jour"
+    },
+    {
+      "id": "e5",
+      "source": "d2",
+      "target": "i1",
+      "kind": "async",
+      "label": "mise à jour"
+    },
+    {
+      "id": "e6",
+      "source": "d2",
+      "target": "i2",
+      "kind": "async",
+      "label": "mise à jour"
+    },
+    {
+      "id": "e7",
+      "source": "client",
+      "target": "i1",
+      "kind": "read",
+      "label": "recherche"
+    },
+    {
+      "id": "e8",
+      "source": "client",
+      "target": "i2",
+      "kind": "read",
+      "label": "recherche"
+    }
+  ]
+}

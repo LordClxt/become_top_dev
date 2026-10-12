@@ -1,0 +1,58 @@
+intro: Une application a des utilisateurs en **Europe** et en **Amérique**. La latence réseau entre les deux continents est de **90 ms** aller
+  simple (un aller-retour coûte donc 180 ms). Une écriture locale au datacenter coûte **5 ms**.
+blocks:
+- id: lat-single
+  type: number
+  title: Mono-leader en Europe
+  prompt: Un utilisateur américain écrit. Le leader est en Europe. Latence d'une écriture (aller-retour + écriture locale) ?
+  unit: ms
+- id: lat-multi
+  type: number
+  title: Multi-leader
+  prompt: Le même utilisateur écrit sur le leader américain, répliqué en asynchrone. Latence perçue ?
+  unit: ms
+- id: choix
+  type: match
+  title: Quelle architecture ?
+  prompt: Associe chaque situation à l'architecture la plus naturelle.
+  items:
+  - id: cal
+    label: Un agenda utilisable dans l'avion
+  - id: bank
+    label: Un petit service en un seul datacenter avec des transactions strictes
+  - id: docs
+    label: Édition collaborative simultanée sans verrou
+  - id: geo
+    label: Une application mondiale dont les écritures doivent rester rapides partout
+  categories:
+  - id: single
+    label: Un leader
+  - id: multi
+    label: Plusieurs leaders
+- id: panne
+  type: match
+  title: Quand le lien inter-datacenters est coupé
+  prompt: Que deviennent les écritures des utilisateurs de chaque site ?
+  items:
+  - id: single
+    label: Mono-leader en Europe, écritures depuis l'Amérique
+  - id: multi
+    label: Multi-leader avec réplication asynchrone
+  categories:
+  - id: ok
+    label: Elles continuent
+  - id: ko
+    label: Elles échouent ou sont bloquées
+- id: cout
+  type: multi
+  title: Le prix du multi-leader
+  prompt: Coche les difficultés propres au multi-leader.
+  options:
+  - id: conflict
+    label: Deux datacenters peuvent modifier la même donnée en même temps
+  - id: auto
+    label: Les clés auto-incrémentées peuvent entrer en collision
+  - id: order
+    label: Il n'y a plus qu'un ordre unique des écritures
+  - id: lag
+    label: La réplication entre sites reste asynchrone, donc en retard

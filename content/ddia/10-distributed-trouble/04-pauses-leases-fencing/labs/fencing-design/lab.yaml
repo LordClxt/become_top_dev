@@ -1,0 +1,18 @@
+id: ddia-ch10-l04-lab-fencing-design
+title: Rejouer le scénario du jeton de clôture
+difficulty: 4
+xp: 90
+concepts:
+- ddia-process-pause
+- ddia-lease-bug
+- ddia-majority-truth
+- ddia-fencing-token
+- ddia-fencing-check-resource
+source:
+  chapter: 8
+  pages: 303-310
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

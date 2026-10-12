@@ -1,0 +1,17 @@
+blocks:
+  besoin:
+    options:
+      upgrade: Il faut un log indépendant du format de stockage pour que deux versions cohabitent.
+      dw: 'Un format par ligne, facile à lire de l''extérieur : c''est le change data capture.'
+      subset: 'Il faut du code applicatif : un trigger peut filtrer et résoudre.'
+      exact: Rejouer les octets du moteur exige la même version partout.
+  cassent:
+    options:
+      const: 'Une constante est déterministe : même résultat partout.'
+      seq: 'Ce n''est pas l''instruction qui est en cause, mais son ordre : les réplicas doivent rejouer dans le même ordre.'
+  delete:
+    options:
+      table: Sans identifiant de la ligne, le follower ne sait pas laquelle supprimer.
+      ts: Une date n'identifie pas la ligne.
+  ecrit:
+    wrong: 3 + 2 + 1 enregistrements de lignes, plus 1 enregistrement de commit.

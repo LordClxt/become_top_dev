@@ -1,0 +1,56 @@
+intro: 'Un site d''annonces de voitures est partitionné en **8 partitions** par identifiant d''annonce. Il a deux index secondaires : `color`
+  et `make`. Une annonce a donc 2 termes à indexer (par exemple `color:red` et `make:Ford`), supposés répartis sur 2 partitions d''index distinctes
+  dans l''index global.'
+blocks:
+- id: cout
+  type: table
+  title: Le coût d'une écriture et d'une lecture
+  prompt: Combien de partitions concerne chaque opération ?
+  columns:
+  - id: local
+    label: Index local
+  - id: global
+    label: Index global
+  rows:
+  - id: write
+    label: Ajouter une annonce (partitions touchées, partition du document comprise)
+  - id: read
+    label: Chercher les annonces `color:red`
+- id: ratio
+  type: number
+  title: Charge de lecture
+  prompt: Le site reçoit 2 000 recherches par seconde. Avec un index local, combien de requêtes par seconde les partitions reçoivent-elles au
+    total (une requête par partition par recherche) ?
+  unit: req/s
+- id: queue
+  type: number
+  title: Latence de queue
+  prompt: 'Chaque partition renvoie sa réponse en moins de 50 ms dans 99 % des cas. Un scatter/gather sur 8 partitions : quelle est la probabilité
+    (en %) que les **8** répondent toutes en moins de 50 ms ? (0,99⁸, une décimale.)'
+  unit: '%'
+- id: choix
+  type: match
+  title: Quel index ?
+  prompt: Associe chaque contexte à l'index le mieux adapté.
+  items:
+  - id: write-heavy
+    label: Très peu de recherches, énormément d'écritures, requêtes contenant la clé de partition
+  - id: read-heavy
+    label: Beaucoup de recherches par couleur et marque, peu d'écritures
+  categories:
+  - id: local
+    label: Index local
+  - id: global
+    label: Index global
+- id: retard
+  type: choice
+  title: Lire après écrire
+  prompt: L'index global est mis à jour de façon asynchrone. Un vendeur publie une annonce rouge puis lance tout de suite la recherche des voitures
+    rouges. Que voit-il ?
+  options:
+  - id: maybe
+    label: 'Peut-être pas encore son annonce : l''index n''est pas à jour'
+  - id: always
+    label: Toujours son annonce
+  - id: dup
+    label: Son annonce en double

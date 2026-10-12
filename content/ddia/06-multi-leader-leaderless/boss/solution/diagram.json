@@ -1,0 +1,218 @@
+{
+  "nodes": [
+    {
+      "id": "zeu",
+      "type": "eu",
+      "x": 400,
+      "y": -20,
+      "w": 440,
+      "h": 640,
+      "label": "Datacenter Europe"
+    },
+    {
+      "id": "zus",
+      "type": "us",
+      "x": 1000,
+      "y": -20,
+      "w": 440,
+      "h": 640,
+      "label": "Datacenter États-Unis"
+    },
+    {
+      "id": "ueu",
+      "type": "ueu",
+      "x": 0,
+      "y": 120,
+      "label": "Clients Europe"
+    },
+    {
+      "id": "uus",
+      "type": "uus",
+      "x": 1560,
+      "y": 120,
+      "label": "Clients États-Unis"
+    },
+    {
+      "id": "ceu",
+      "type": "ceu",
+      "x": 120,
+      "y": 280,
+      "label": "Coordinateur Europe"
+    },
+    {
+      "id": "cus",
+      "type": "cus",
+      "x": 1480,
+      "y": 280,
+      "label": "Coordinateur États-Unis"
+    },
+    {
+      "id": "e1",
+      "type": "neu",
+      "x": 460,
+      "y": 20,
+      "parent": "zeu",
+      "label": "EU 1"
+    },
+    {
+      "id": "e2",
+      "type": "neu",
+      "x": 460,
+      "y": 220,
+      "parent": "zeu",
+      "label": "EU 2"
+    },
+    {
+      "id": "e3",
+      "type": "neu",
+      "x": 460,
+      "y": 420,
+      "parent": "zeu",
+      "label": "EU 3"
+    },
+    {
+      "id": "u1",
+      "type": "nus",
+      "x": 1060,
+      "y": 20,
+      "parent": "zus",
+      "label": "US 1"
+    },
+    {
+      "id": "u2",
+      "type": "nus",
+      "x": 1060,
+      "y": 220,
+      "parent": "zus",
+      "label": "US 2"
+    },
+    {
+      "id": "u3",
+      "type": "nus",
+      "x": 1060,
+      "y": 420,
+      "parent": "zus",
+      "label": "US 3"
+    },
+    {
+      "id": "merger",
+      "type": "merger",
+      "x": 640,
+      "y": 540,
+      "parent": "zeu",
+      "label": "Fusion"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "ueu",
+      "target": "ceu",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "uus",
+      "target": "cus",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "ceu",
+      "target": "e1",
+      "kind": "sync",
+      "label": "w=2 / r=2"
+    },
+    {
+      "id": "e4",
+      "source": "ceu",
+      "target": "e2",
+      "kind": "sync"
+    },
+    {
+      "id": "e5",
+      "source": "ceu",
+      "target": "e3",
+      "kind": "sync"
+    },
+    {
+      "id": "e6",
+      "source": "cus",
+      "target": "u1",
+      "kind": "sync",
+      "label": "w=2 / r=2"
+    },
+    {
+      "id": "e7",
+      "source": "cus",
+      "target": "u2",
+      "kind": "sync"
+    },
+    {
+      "id": "e8",
+      "source": "cus",
+      "target": "u3",
+      "kind": "sync"
+    },
+    {
+      "id": "e9",
+      "source": "e1",
+      "target": "u1",
+      "kind": "replication",
+      "label": "async"
+    },
+    {
+      "id": "e10",
+      "source": "e2",
+      "target": "u2",
+      "kind": "replication",
+      "label": "async"
+    },
+    {
+      "id": "e11",
+      "source": "e3",
+      "target": "u3",
+      "kind": "replication",
+      "label": "async"
+    },
+    {
+      "id": "e12",
+      "source": "u1",
+      "target": "e1",
+      "kind": "replication",
+      "label": "async"
+    },
+    {
+      "id": "e13",
+      "source": "u2",
+      "target": "e2",
+      "kind": "replication",
+      "label": "async"
+    },
+    {
+      "id": "e14",
+      "source": "u3",
+      "target": "e3",
+      "kind": "replication",
+      "label": "async"
+    },
+    {
+      "id": "e15",
+      "source": "merger",
+      "target": "e1",
+      "kind": "sync"
+    },
+    {
+      "id": "e16",
+      "source": "merger",
+      "target": "e2",
+      "kind": "sync"
+    },
+    {
+      "id": "e17",
+      "source": "merger",
+      "target": "e3",
+      "kind": "sync"
+    }
+  ]
+}

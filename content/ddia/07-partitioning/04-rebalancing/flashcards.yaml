@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Trois exigences du rééquilibrage ?
+  back: Répartition équitable ; lectures/écritures continuent ; déplacer le minimum de données.
+  concept: ddia-rebalancing
+- id: fc2
+  front: Pourquoi pas hash mod N ?
+  back: Si N change, presque toutes les clés changent de nœud (≈ 91 % de 10 à 11 nœuds).
+  concept: ddia-hash-mod-n
+- id: fc3
+  front: Nombre fixe de partitions ?
+  back: Beaucoup plus de partitions que de nœuds ; un nouveau nœud vole des partitions entières.
+  concept: ddia-fixed-partitions
+- id: fc4
+  front: Limite du nombre fixe ?
+  back: Il plafonne le nombre de nœuds et fixe la taille des partitions à celle du volume.
+  concept: ddia-fixed-partitions
+- id: fc5
+  front: Partitionnement dynamique ?
+  back: Découpe d'une partition qui dépasse une taille (10 Go HBase), fusion des petites.
+  concept: ddia-dynamic-partitioning
+- id: fc6
+  front: Pré-découpage ?
+  back: Partitions initiales sur une base vide pour ne pas tout écrire sur un nœud.
+  concept: ddia-dynamic-partitioning
+- id: fc7
+  front: Partitions proportionnelles aux nœuds ?
+  back: 'Nombre fixe de partitions par nœud (Cassandra : 256) ; un nouveau nœud en découpe au hasard.'
+  concept: ddia-proportional-partitioning
+- id: fc8
+  front: Automatique ou manuel ?
+  back: Un humain dans la boucle évite les pannes en cascade avec détection automatique de pannes.
+  concept: ddia-auto-vs-manual

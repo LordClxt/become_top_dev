@@ -1,0 +1,61 @@
+intro: Tu relies **6 leaders** (L1 à L6). Une « liaison » est un flux unidirectionnel de réplication entre deux nœuds.
+blocks:
+- id: liens
+  type: table
+  title: Nombre de liaisons
+  prompt: 'Pour 6 leaders, combien de liaisons dans chaque topologie ? Étoile : un nœud racine relié dans les deux sens à chacun des 5 autres.'
+  columns:
+  - id: n
+    label: Liaisons
+  rows:
+  - id: ring
+    label: Circulaire (un sens)
+  - id: star
+    label: Étoile (deux sens)
+  - id: all
+    label: Tous-vers-tous
+- id: sauts
+  type: number
+  title: Sauts maximum dans l'anneau
+  prompt: 'Dans l''anneau à 6 nœuds, à sens unique, une écriture de L1 doit atteindre L6 : combien de sauts ?'
+  unit: sauts
+- id: panne
+  type: match
+  title: Un nœud tombe
+  prompt: Un nœud (qui n'est pas la racine pour l'étoile) tombe. La circulation entre les autres continue-t-elle ?
+  items:
+  - id: ring
+    label: Circulaire
+  - id: star-leaf
+    label: 'Étoile : une feuille tombe'
+  - id: star-root
+    label: 'Étoile : la racine tombe'
+  - id: all
+    label: Tous-vers-tous
+  categories:
+  - id: ok
+    label: Elle continue
+  - id: ko
+    label: Elle est interrompue
+- id: loop
+  type: choice
+  title: Boucle
+  prompt: Dans l'anneau, un changement de L1 revient jusqu'à L1. Que fait L1 ?
+  options:
+  - id: ignore
+    label: 'Il l''ignore : le changement porte déjà son identifiant'
+  - id: again
+    label: Il le rejoue et le renvoie
+  - id: crash
+    label: Il s'arrête
+- id: ordre
+  type: order
+  title: Messages qui se doublent
+  prompt: Remets dans l'ordre ce qui se passe sur le leader 2.
+  items:
+  - id: upd
+    label: Il reçoit une mise à jour d'une ligne qu'il ne connaît pas
+  - id: ins
+    label: Il reçoit ensuite l'insertion de cette ligne
+  - id: bug
+    label: Il ne peut pas appliquer correctement la mise à jour

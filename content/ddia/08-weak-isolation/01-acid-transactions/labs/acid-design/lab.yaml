@@ -1,0 +1,18 @@
+id: ddia-ch08-l01-lab-acid-design
+title: Quelle lettre d'ACID ?
+difficulty: 2
+xp: 60
+concepts:
+- ddia-atomicity
+- ddia-acid-consistency
+- ddia-isolation-def
+- ddia-durability
+- ddia-retry
+source:
+  chapter: 7
+  pages: 223-232
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

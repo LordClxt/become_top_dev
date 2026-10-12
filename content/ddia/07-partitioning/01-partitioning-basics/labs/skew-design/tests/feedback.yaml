@@ -1,0 +1,18 @@
+blocks:
+  ideal:
+    wrong: 10 × 5 000.
+  hot:
+    wrong: 'Le nœud chaud reçoit 40 % de la charge totale T : 0,4 × T = 5 000, donc T = 12 500.'
+  perte:
+    tolerance:
+      abs: 0.5
+    wrong: 1 − 12 500 / 50 000 = 75 %.
+  terme:
+    options:
+      a: Le skew décrit la répartition injuste de manière générale.
+      b: Un hot spot est la partition surchargée.
+      c: Une partition réseau est une panne, pas un choix de conception.
+  random:
+    options:
+      skew: 'Au contraire : le hasard répartit plutôt bien.'
+      repl: La réplication est indépendante du schéma de partitionnement.

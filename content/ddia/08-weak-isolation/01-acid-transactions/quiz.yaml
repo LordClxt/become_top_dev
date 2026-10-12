@@ -1,0 +1,125 @@
+id: ddia-ch08-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que garantit l'atomicité au sens d'ACID ?
+  choices:
+  - Si une faute survient en cours de route, toutes les écritures de la transaction sont annulées
+  - Aucun autre thread ne voit un état intermédiaire
+  - Les données sont répliquées
+  - Les invariants sont préservés par la base
+  answer: 0
+  explanation: 'Ce n''est pas de la concurrence : c''est l''abortabilité.'
+  concept: ddia-atomicity
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Dans ACID, quelle lettre est une propriété de l'application plutôt que de la base ?
+  choices:
+  - Le C (cohérence)
+  - Le A
+  - Le I
+  - Le D
+  answer: 0
+  explanation: Les invariants sont définis par l'application.
+  concept: ddia-acid-consistency
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que signifie l'isolation ?
+  choices:
+  - Les transactions concurrentes ne se marchent pas sur les pieds, comme si elles étaient seules
+  - Les données sont sur des disques séparés
+  - Chaque transaction a sa propre base
+  - Les réseaux sont isolés
+  answer: 0
+  explanation: La forme idéale est la sérialisabilité.
+  concept: ddia-isolation-def
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: 'Le niveau « serializable » d''Oracle 11g est en réalité :'
+  choices:
+  - De l'isolation par instantané (snapshot isolation)
+  - De la sérialisabilité stricte
+  - De la lecture sale
+  - De la lecture validée
+  answer: 0
+  explanation: Plus faible que la sérialisabilité.
+  concept: ddia-isolation-def
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Que veut dire durabilité pour une base répliquée ?
+  choices:
+  - Les données ont été copiées sur un certain nombre de nœuds avant de confirmer la validation
+  - Les données ne peuvent jamais être supprimées
+  - Les données sont chiffrées
+  - La base ne tombe jamais
+  answer: 0
+  explanation: La durabilité parfaite n'existe pas.
+  concept: ddia-durability
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Pourquoi les transactions multi-objets sont-elles utiles avec des index secondaires ?
+  choices:
+  - Sans isolation, un enregistrement peut apparaître dans un index et pas dans un autre
+  - Pour accélérer les index
+  - Pour supprimer les index
+  - Ce n'est pas utile
+  answer: 0
+  explanation: Les index sont des objets distincts du point de vue de la transaction.
+  concept: ddia-multi-object
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Un client fait un multi-put sur un store clé-valeur. Que peut-il arriver ?
+  choices:
+  - Réussir pour certaines clés et échouer pour d'autres
+  - Réussir ou échouer en bloc
+  - Être toujours annulé
+  - Être isolé
+  answer: 0
+  explanation: Multi-put n'implique pas une sémantique de transaction.
+  concept: ddia-multi-object
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: 'Réessayer une transaction annulée est approprié après :'
+  choices:
+  - Une erreur transitoire comme un interblocage
+  - Une violation de contrainte d'unicité
+  - Une erreur de syntaxe
+  - Un mot de passe incorrect
+  answer: 0
+  explanation: Après une erreur permanente, la reprise serait inutile.
+  concept: ddia-retry
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Quel risque pose la reprise d'une transaction dont la confirmation s'est perdue ?
+  choices:
+  - La transaction s'exécute deux fois
+  - La base s'arrête
+  - La transaction est ignorée
+  - Rien
+  answer: 0
+  explanation: Il faut une déduplication applicative.
+  concept: ddia-retry
+  difficulty: 1
+- id: q10
+  type: multiple
+  prompt: Quels effets a-t-on à craindre en réessayant après une surcharge ?
+  choices:
+  - Aggraver la surcharge
+  - Il faut limiter le nombre d'essais
+  - Un recul exponentiel aide
+  - La base devient plus rapide
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Éviter les boucles de rétroaction.
+  concept: ddia-retry
+  difficulty: 2

@@ -1,0 +1,23 @@
+{
+  "candidat": {
+    "f1.lost": 20,
+    "f2.lost": 3,
+    "f3.lost": 50
+  },
+  "meilleur": "f2",
+  "etapes": [
+    "detect",
+    "elect",
+    "promote",
+    "route",
+    "demote"
+  ],
+  "pieges": {
+    "keys": "lag",
+    "two": "split",
+    "flap": "timeout"
+  },
+  "timeout": {
+    "t": 12
+  }
+}

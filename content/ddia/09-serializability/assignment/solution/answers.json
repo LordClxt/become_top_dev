@@ -1,0 +1,19 @@
+{
+  "choose": {
+    "stock": "serial",
+    "pay": "ssi",
+    "report": "snap"
+  },
+  "partitions": {
+    "p": 5
+  },
+  "cross": 2000,
+  "ok": "no",
+  "abort": 20,
+  "ro": "fine",
+  "weak": [
+    "ws",
+    "phantom",
+    "overspend"
+  ]
+}

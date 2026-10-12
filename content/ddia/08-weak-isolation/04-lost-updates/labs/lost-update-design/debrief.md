@@ -1,0 +1,1 @@
+**Dans le pire cas, 99 incréments sur 100 disparaissent.** La parade la plus simple est de ne plus faire le cycle soi-même (opération atomique). À défaut : verrou, CAS ou détection automatique, selon ce que permet la logique et ce que fournit la base.

@@ -1,0 +1,114 @@
+id: ddia-ch10-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle est la seule preuve qu'une requête a réussi ?
+  choices:
+  - Une réponse positive de l'application
+  - Un paquet TCP FIN
+  - Un ping qui répond
+  - L'absence d'erreur réseau
+  answer: 0
+  explanation: Les signaux de niveau réseau ne disent pas si l'application a traité la requête.
+  concept: ddia-fault-detection
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Un timeout trop court provoque surtout…
+  choices:
+  - 'Des faux positifs : nœuds lents déclarés morts, actions doublées'
+  - Une détection plus lente
+  - Une meilleure disponibilité
+  - Rien de grave
+  answer: 0
+  explanation: Le travail est transféré et peut être exécuté deux fois, voire déclencher une cascade.
+  concept: ddia-timeout-choice
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Un timeout trop long provoque surtout…
+  choices:
+  - Une reconnaissance tardive de la panne et des utilisateurs qui attendent
+  - Des faux positifs
+  - Des doublons
+  - Un plantage du réseau
+  answer: 0
+  explanation: C'est le compromis du choix du délai.
+  concept: ddia-timeout-choice
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Avec un délai de livraison maximal d = 10 ms et un traitement maximal r = 5 ms, quel est le timeout exact ?
+  choices:
+  - 25 ms
+  - 15 ms
+  - 10 ms
+  - 50 ms
+  answer: 0
+  explanation: Aller (d) + retour (d) + traitement (r) = 2d + r = 25.
+  concept: ddia-unbounded-delay
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi ce calcul 2d + r n'est-il pas applicable en pratique ?
+  choices:
+  - Aucune borne garantie sur d ni sur r en réseau asynchrone
+  - Parce que d est toujours nul
+  - Parce que r est négatif
+  - Parce que TCP l'interdit
+  answer: 0
+  explanation: Les files rendent ces délais non bornés.
+  concept: ddia-unbounded-delay
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Quelles sont des sources de files d'attente qui font varier le délai ?
+  choices:
+  - Les commutateurs réseau saturés
+  - Les CPU occupés ou les VM suspendues
+  - Le contrôle de flux et la retransmission TCP
+  - Un voisin bruyant sur la même machine physique
+  answer:
+  - 0
+  - 1
+  - 2
+  - 3
+  explanation: Les quatre ajoutent de la variabilité.
+  concept: ddia-queueing
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pourquoi la commutation de paquets accepte-t-elle des délais variables ?
+  choices:
+  - Elle optimise l'utilisation pour le trafic en rafales, à moindre coût
+  - Elle est obligatoire par la loi
+  - Elle borne mieux les délais
+  - Elle évite toute file d'attente
+  answer: 0
+  explanation: C'est un compromis coût/utilisation, pas une loi de la nature.
+  concept: ddia-sync-vs-packet
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Quel est l'intérêt d'un détecteur Phi Accrual ?
+  choices:
+  - Il adapte le seuil à la distribution mesurée des intervalles et renvoie un niveau de soupçon
+  - Il évite tout faux positif
+  - Il remplace TCP
+  - Il fonctionne sans aucun message
+  answer: 0
+  explanation: Il s'ajuste aux conditions réelles du réseau.
+  concept: ddia-adaptive-timeout
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Pourquoi la défaillance en cascade est-elle dangereuse ?
+  choices:
+  - La charge d'un nœud déclaré mort surcharge les autres, qui sont à leur tour déclarés morts
+  - Elle copie les données en double
+  - Elle chiffre le trafic
+  - Elle supprime les logs
+  answer: 0
+  explanation: Un faux positif peut amplifier la panne au lieu de la corriger.
+  concept: ddia-timeout-choice
+  difficulty: 3

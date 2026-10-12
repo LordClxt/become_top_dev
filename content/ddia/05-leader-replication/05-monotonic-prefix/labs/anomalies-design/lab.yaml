@@ -1,0 +1,16 @@
+id: ddia-ch05-l05-lab-anomalies-design
+title: Quelle anomalie, quelle garantie ?
+difficulty: 3
+xp: 70
+concepts:
+- ddia-read-your-writes
+- ddia-monotonic-reads
+- ddia-consistent-prefix
+source:
+  chapter: 5
+  pages: 162-167
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

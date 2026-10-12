@@ -1,0 +1,149 @@
+{
+  "nodes": [
+    {
+      "id": "zA",
+      "type": "regA",
+      "x": 300,
+      "y": -20,
+      "w": 520,
+      "h": 560,
+      "label": "Région A"
+    },
+    {
+      "id": "zB",
+      "type": "regB",
+      "x": 920,
+      "y": -20,
+      "w": 520,
+      "h": 560,
+      "label": "Région B"
+    },
+    {
+      "id": "users",
+      "type": "users",
+      "x": 0,
+      "y": 240,
+      "label": "Utilisateurs"
+    },
+    {
+      "id": "router",
+      "type": "router",
+      "x": 330,
+      "y": 240,
+      "parent": "zA",
+      "label": "Routeur"
+    },
+    {
+      "id": "leader",
+      "type": "leader",
+      "x": 330,
+      "y": 20,
+      "parent": "zA",
+      "label": "Leader"
+    },
+    {
+      "id": "fsync",
+      "type": "fsync",
+      "x": 560,
+      "y": 20,
+      "parent": "zA",
+      "label": "Follower synchrone"
+    },
+    {
+      "id": "fa1",
+      "type": "fa1",
+      "x": 960,
+      "y": 20,
+      "parent": "zB",
+      "label": "Follower B1"
+    },
+    {
+      "id": "fa2",
+      "type": "fa2",
+      "x": 960,
+      "y": 280,
+      "parent": "zB",
+      "label": "Follower B2"
+    },
+    {
+      "id": "cdc",
+      "type": "cdc",
+      "x": 560,
+      "y": 400,
+      "parent": "zA",
+      "label": "CDC"
+    },
+    {
+      "id": "dw",
+      "type": "dw",
+      "x": 1500,
+      "y": 400,
+      "label": "Entrepôt"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "users",
+      "target": "router",
+      "kind": "sync",
+      "label": "requêtes"
+    },
+    {
+      "id": "e2",
+      "source": "router",
+      "target": "leader",
+      "kind": "write",
+      "label": "écritures"
+    },
+    {
+      "id": "e3",
+      "source": "router",
+      "target": "fa1",
+      "kind": "read",
+      "label": "lectures"
+    },
+    {
+      "id": "e4",
+      "source": "router",
+      "target": "fa2",
+      "kind": "read",
+      "label": "lectures"
+    },
+    {
+      "id": "e5",
+      "source": "leader",
+      "target": "fsync",
+      "kind": "replication",
+      "label": "synchrone"
+    },
+    {
+      "id": "e6",
+      "source": "leader",
+      "target": "fa1",
+      "kind": "replication",
+      "label": "asynchrone"
+    },
+    {
+      "id": "e7",
+      "source": "leader",
+      "target": "fa2",
+      "kind": "replication",
+      "label": "asynchrone"
+    },
+    {
+      "id": "e8",
+      "source": "leader",
+      "target": "cdc",
+      "kind": "async",
+      "label": "log logique"
+    },
+    {
+      "id": "e9",
+      "source": "cdc",
+      "target": "dw",
+      "kind": "write",
+      "label": "changements"
+    }
+  ]
+}

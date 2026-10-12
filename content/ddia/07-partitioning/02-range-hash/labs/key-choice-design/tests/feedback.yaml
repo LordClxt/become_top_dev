@@ -1,0 +1,23 @@
+blocks:
+  capteurs:
+    options:
+      ts: 'Toutes les écritures vont à la partition de la période en cours : hot spot.'
+      ts-sensor: L'horodatage en tête reproduit le hot spot de l'horodatage seul.
+  touche:
+    options:
+      hash-get: La partition de la clé suffit.
+      hash-range: 'Les clés voisines sont dispersées : toutes les partitions.'
+      compound: Seule la partition de l'utilisateur est concernée.
+  salt:
+    wrong: Une lecture doit lire les 100 sous-clés.
+  hotwrite:
+    wrong: 20 000 ÷ 100.
+  regle:
+    options:
+      scan: 'Il faut un ordre : plage.'
+      even: Sans plage, le hachage répartit mieux.
+      timeline: Utilisateur haché, temps trié.
+  faux:
+    options:
+      hot: Une clé unique très chaude reste sur une seule partition.
+      salt-all: 'Le sel ajoute un coût de lecture : réservé aux clés chaudes.'

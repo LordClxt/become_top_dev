@@ -1,0 +1,98 @@
+id: ddia-ch06-l06-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Deux clients écrivent la clé X sans se connaître. Que se passe-t-il si chaque nœud écrase la valeur à la réception ?
+  choices:
+  - Les réplicas restent durablement incohérents
+  - Ils convergent toujours
+  - L'écriture est refusée
+  - Le premier gagne
+  answer: 0
+  explanation: Le nœud 2 pensera B, les autres A.
+  concept: ddia-concurrent-writes
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quel est le prix de LWW ?
+  choices:
+  - Des écritures concurrentes confirmées sont silencieusement jetées
+  - Plus de latence
+  - Une clé de plus
+  - Un leader
+  answer: 0
+  explanation: Une seule des écritures concurrentes survit.
+  concept: ddia-lww-leaderless
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: LWW peut-il perdre des écritures non concurrentes ?
+  choices:
+  - Oui, à cause du décalage des horloges
+  - Non, jamais
+  - Seulement en multi-datacenter
+  - Seulement avec un leader
+  answer: 0
+  explanation: Une écriture plus récente peut avoir un horodatage plus petit.
+  concept: ddia-lww-leaderless
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Dans quel cas LWW est-il sûr ?
+  choices:
+  - Quand chaque clé n'est écrite qu'une fois (par exemple un UUID par opération)
+  - Quand n est impair
+  - Quand w = 1
+  - Jamais
+  answer: 0
+  explanation: Pas d'écritures concurrentes sur la même clé.
+  concept: ddia-lww-leaderless
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quand une opération A « se produit-elle avant » B ?
+  choices:
+  - Quand B connaît A, dépend de A ou s'appuie sur A
+  - Quand son horodatage est plus petit
+  - Quand elle a été envoyée plus tôt
+  - Quand elle est sur un autre nœud
+  answer: 0
+  explanation: C'est une relation de causalité, pas de temps physique.
+  concept: ddia-happens-before
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quand deux opérations sont-elles concurrentes ?
+  choices:
+  - Quand aucune ne connaît l'autre
+  - Quand elles ont lieu à la même milliseconde
+  - Quand elles visent des nœuds différents
+  - Quand elles sont dans le même datacenter
+  answer: 0
+  explanation: L'ignorance mutuelle suffit.
+  concept: ddia-concurrency-relativity
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: A insère une ligne, B l'incrémente après l'avoir lue. Quelle relation ?
+  choices:
+  - A se produit avant B
+  - Concurrentes
+  - B se produit avant A
+  - Aucune
+  answer: 0
+  explanation: B s'appuie sur la valeur écrite par A.
+  concept: ddia-happens-before
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Deux opérations espacées de dix minutes peuvent-elles être concurrentes ?
+  choices:
+  - Oui, si une coupure réseau les a empêchées de se connaître
+  - Non, jamais
+  - Seulement avec des horloges synchronisées
+  - Seulement en LWW
+  answer: 0
+  explanation: Ce qui compte est la connaissance mutuelle, pas l'intervalle.
+  concept: ddia-concurrency-relativity
+  difficulty: 2

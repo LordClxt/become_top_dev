@@ -1,0 +1,18 @@
+id: ddia-ch08-l04-lab-lost-update-design
+title: Quelle défense contre la mise à jour perdue ?
+difficulty: 3
+xp: 80
+concepts:
+- ddia-lost-update
+- ddia-atomic-write
+- ddia-explicit-lock
+- ddia-auto-detect
+- ddia-compare-and-set
+source:
+  chapter: 7
+  pages: 242-246
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

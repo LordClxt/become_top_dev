@@ -1,0 +1,21 @@
+blocks:
+  lat-async:
+    wrong: 'Le leader n''attend personne : seule l''écriture locale compte.'
+  lat-semi:
+    wrong: Écriture locale (2 ms) puis attente de F1 seulement (2 ms). F2 n'est pas attendu.
+  lat-sync:
+    wrong: 'Écriture locale (2 ms), puis on attend le plus lent des deux, qui partent en parallèle : 2 + max(2, 80).'
+  copies:
+    options:
+      async.n: Seul le leader a la donnée quand le client reçoit OK.
+      semi.n: Le leader et le follower synchrone, pas plus.
+      sync.n: Le leader et les deux followers.
+  panne:
+    options:
+      async: 'Le leader n''attend personne : il continue.'
+      semi: 'F2 est asynchrone : le leader ne l''attend pas. Seul F1 compte, et il est vivant.'
+      sync: 'Le leader attend la confirmation de F2 : sans elle, l''écriture n''aboutit pas.'
+  crash:
+    options:
+      semi: 'F1 a confirmé avant le « OK » : la donnée existe encore ailleurs.'
+      both: En semi-synchrone, au moins une autre copie existe au moment de la confirmation.

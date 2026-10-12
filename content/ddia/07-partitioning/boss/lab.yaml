@@ -1,0 +1,52 @@
+id: ddia-ch07-boss
+title: 'Boss : une base d''annonces partitionnée de bout en bout'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-partition-replication
+- ddia-global-index
+- ddia-routing-approaches
+- ddia-coordination-service
+- ddia-fixed-partitions
+source:
+  chapter: 6
+  pages: 199-217
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: browser
+  label: Application web
+  hint: Publie et recherche des annonces.
+- type: router
+  component: gateway
+  label: Couche de routage
+  hint: Conscient des partitions.
+- type: zk
+  component: consensus
+  label: Service de coordination
+  hint: Affectation autoritaire.
+- type: lead
+  component: partition
+  label: Partition (leader)
+  hint: Leader d'une partition de documents.
+- type: fol
+  component: follower
+  label: Réplica de partition
+  hint: Follower d'une autre partition.
+- type: gidx
+  component: index
+  label: Partition de l'index global
+  hint: Index par terme.
+- type: scatter
+  component: worker
+  label: Scatter/gather sur toutes les partitions
+  hint: Interroge toutes les partitions pour chaque recherche.
+- type: mod
+  component: function
+  label: Placement par hash mod N
+  hint: Choisit le nœud avec hash mod N.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

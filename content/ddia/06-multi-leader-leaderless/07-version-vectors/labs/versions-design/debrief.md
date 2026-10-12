@@ -1,0 +1,1 @@
+**Le serveur n'a jamais besoin de comprendre la valeur** : il raisonne uniquement sur les numéros de version pour savoir si une écriture en écrase une autre ou lui est concurrente. Le client, lui, doit lire, fusionner puis écrire en renvoyant la version lue.

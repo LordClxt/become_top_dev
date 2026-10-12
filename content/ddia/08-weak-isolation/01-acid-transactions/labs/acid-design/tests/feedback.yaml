@@ -1,0 +1,23 @@
+blocks:
+  lettre:
+    options:
+      crash: 'Une faute en cours de route : si tout est annulé, la boîte et le compteur restent d''accord.'
+      dirty: 'Une transaction qui en voit une autre à mi-chemin : c''est l''isolation.'
+      lost: 'Une transaction validée qui disparaît : c''est la durabilité.'
+      inv: Seule l'application sait qu'un compteur ne peut pas être négatif.
+  owner:
+    options:
+      a: L'atomicité, l'isolation et la durabilité sont des propriétés de la base.
+      c: Les invariants sont ceux de l'application.
+  atomic:
+    options:
+      thread: C'est le sens de la programmation concurrente ; en ACID cela relève de l'isolation.
+      fast: Le nombre d'instructions n'a rien à voir.
+  retry:
+    options:
+      deadlock: 'Transitoire : on réessaie.'
+      unique: 'Permanente : une reprise donnerait la même erreur.'
+      net: Transitoire.
+      overload: Réessayer sans frein transforme la surcharge en effondrement.
+  dup:
+    wrong: Deux exécutions, 2 × 100 €.

@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Preuve de succès d'une requête ?
+  back: Seulement une réponse positive de l'application.
+  concept: ddia-fault-detection
+- id: fc2
+  front: Timeout trop court ?
+  back: Faux positifs, doublons d'actions, risque de cascade.
+  concept: ddia-timeout-choice
+- id: fc3
+  front: Timeout trop long ?
+  back: Panne reconnue tardivement, utilisateurs qui attendent.
+  concept: ddia-timeout-choice
+- id: fc4
+  front: Timeout théorique avec bornes ?
+  back: 2d + r (aller, retour, traitement). Il n'existe pas en réseau asynchrone.
+  concept: ddia-unbounded-delay
+- id: fc5
+  front: Cause principale de délais variables ?
+  back: 'Les files d''attente : commutateurs, CPU, VM, TCP.'
+  concept: ddia-queueing
+- id: fc6
+  front: Voisin bruyant ?
+  back: Un autre locataire qui sature une ressource partagée et dégrade tes délais.
+  concept: ddia-queueing
+- id: fc7
+  front: Circuit contre paquets ?
+  back: 'Circuit : délai borné mais capacité réservée. Paquets : meilleure utilisation, délai variable.'
+  concept: ddia-sync-vs-packet
+- id: fc8
+  front: Phi Accrual ?
+  back: Détecteur qui renvoie un niveau de soupçon calculé sur la distribution des intervalles.
+  concept: ddia-adaptive-timeout
+- id: fc9
+  front: Timeout adaptatif simple ?
+  back: Moyenne des délais récents + k écarts-types.
+  concept: ddia-adaptive-timeout

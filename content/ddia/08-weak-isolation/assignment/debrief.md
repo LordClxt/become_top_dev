@@ -1,0 +1,1 @@
+**Chaque niveau d'isolation ferme certaines portes et laisse les autres ouvertes** : read committed (pas de lecture/écriture sale), instantané (lecture cohérente, parfois détection des mises à jour perdues), sérialisable (tout). Le reste est du choix de défense par fonction.

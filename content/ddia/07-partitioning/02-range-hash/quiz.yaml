@@ -1,0 +1,134 @@
+id: ddia-ch07-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi les bornes d'un partitionnement par plage ne sont-elles pas régulières ?
+  choices:
+  - 'Les données ne sont pas réparties uniformément : les bornes s''adaptent aux données'
+  - Pour compliquer les requêtes
+  - Parce que les clés sont aléatoires
+  - Pour économiser de la mémoire
+  answer: 0
+  explanation: Un volume par paire de lettres donnerait des volumes très inégaux.
+  concept: ddia-range-partitioning
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quel est l'avantage principal du partitionnement par plage ?
+  choices:
+  - Les requêtes de plage sont efficaces
+  - La répartition est toujours uniforme
+  - Il n'y a jamais de hot spot
+  - On n'a pas besoin de connaître les bornes
+  answer: 0
+  explanation: Les clés triées permettent de lire une plage continue.
+  concept: ddia-range-partitioning
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Clé = horodatage, une partition par jour. Que se passe-t-il ?
+  choices:
+  - 'Toutes les écritures du jour vont à la même partition : hot spot'
+  - Les écritures se répartissent bien
+  - Les lectures sont lentes
+  - Il n'y a plus de partition le soir
+  answer: 0
+  explanation: Les mesures sont écrites au fur et à mesure qu'elles ont lieu.
+  concept: ddia-range-partitioning
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Comment atténuer le hot spot du capteur ?
+  choices:
+  - Préfixer l'horodatage par le nom du capteur
+  - Utiliser un horodatage plus précis
+  - Doubler le nombre de nœuds
+  - Écrire moins souvent
+  answer: 0
+  explanation: On partitionne d'abord par capteur, puis par temps.
+  concept: ddia-range-partitioning
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quel est le prix du préfixe par capteur ?
+  choices:
+  - Lire plusieurs capteurs sur une plage de temps exige une requête de plage par capteur
+  - Les écritures deviennent lentes
+  - Il n'y a plus de tri
+  - Il faut un hachage cryptographique
+  answer: 0
+  explanation: On perd la plage globale sur le temps.
+  concept: ddia-range-partitioning
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Pourquoi ne pas utiliser le hashCode de Java pour partitionner ?
+  choices:
+  - Une même clé peut donner un hachage différent dans des processus différents
+  - Il est trop lent
+  - Il n'est pas uniforme
+  - Il est protégé par licence
+  answer: 0
+  explanation: Il faut une fonction stable, comme MD5 ou FNV.
+  concept: ddia-hash-partitioning
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Quelle propriété perd-on en hachant la clé ?
+  choices:
+  - Les requêtes de plage efficaces
+  - La répartition uniforme
+  - La réplication
+  - Les écritures
+  answer: 0
+  explanation: Les clés voisines sont dispersées sur toutes les partitions.
+  concept: ddia-hash-partitioning
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Dans Cassandra, avec la clé composée (user_id, update_timestamp), que peut-on faire efficacement ?
+  choices:
+  - Lire les mises à jour d'un utilisateur dans un intervalle de temps
+  - Lire tous les utilisateurs entre deux identifiants
+  - Lire les mises à jour de tout le site entre deux dates
+  - Rien
+  answer: 0
+  explanation: Seul user_id est haché ; update_timestamp trie à l'intérieur de la partition.
+  concept: ddia-compound-key
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Pourquoi dit-on d'éviter « consistent hashing » ?
+  choices:
+  - Le terme prête à confusion et la technique originale convient mal aux bases de données
+  - Il est trop long
+  - Il n'existe plus
+  - Il implique la cohérence forte
+  answer: 0
+  explanation: Il n'a rien à voir avec la cohérence des réplicas ni avec ACID.
+  concept: ddia-consistent-hashing-term
+  difficulty: 1
+- id: q10
+  type: single
+  prompt: Un compte de célébrité reçoit des millions d'écritures. Le hachage résout-il le problème ?
+  choices:
+  - 'Non : le hachage d''une même clé est toujours le même'
+  - Oui, le hachage répartit tout
+  - Oui, avec MD5
+  - Non, mais le tri le résout
+  answer: 0
+  explanation: Il faut éclater la clé, par exemple avec un sel.
+  concept: ddia-hot-key
+  difficulty: 1
+- id: q11
+  type: single
+  prompt: Quel est le coût du sel ajouté à une clé chaude ?
+  choices:
+  - Les lectures doivent lire toutes les sous-clés et fusionner, et il faut mémoriser quelles clés sont éclatées
+  - Les écritures sont plus lentes
+  - Les clés deviennent indexables
+  - Aucun
+  answer: 0
+  explanation: Réserver le sel aux clés chaudes.
+  concept: ddia-hot-key
+  difficulty: 1

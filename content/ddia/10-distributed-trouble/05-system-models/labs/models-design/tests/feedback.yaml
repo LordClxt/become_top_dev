@@ -1,0 +1,21 @@
+blocks:
+  props:
+    options:
+      uniq: 'Une violation est datable : c''est le moment du doublon.'
+      mono: Une inversion d'ordre est datable et irréversible.
+      avail: Le mot « finalement » signale la vivacité.
+      mutex: 'Deux détenteurs simultanés : le mal est fait.'
+      eventual: Finalement = vivacité.
+  model:
+    options:
+      sync: Les pauses et la congestion violent les bornes.
+      async: On a quand même un comportement synchrone la plupart du temps.
+      byz: Rien ici ne parle de nœuds menteurs.
+  nodes:
+    options:
+      lie: Mentir est l'hypothèse byzantine.
+  nodeprop:
+    options:
+      unplug: 'Redémarrage avec stockage durable : crash-recovery.'
+      dead: 'Le nœud ne revient jamais : crash-stop.'
+      mal: 'Des votes contradictoires : faute byzantine.'

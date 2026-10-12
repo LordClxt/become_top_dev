@@ -1,0 +1,17 @@
+{
+  "which": {
+    "timeout": "mono",
+    "display": "wall",
+    "lease": "mono",
+    "order": "logical"
+  },
+  "drift": 17.28,
+  "lww": "one",
+  "intervals": {
+    "i1": "before",
+    "i2": "unknown",
+    "i3": "after",
+    "i4": "unknown"
+  },
+  "wait": 14
+}

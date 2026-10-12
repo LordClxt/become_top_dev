@@ -1,0 +1,40 @@
+id: ddia-ch06-l05-lab-hinted-handoff-design
+title: Le canapé du voisin
+difficulty: 3
+xp: 60
+concepts:
+- ddia-sloppy-quorum
+- ddia-hinted-handoff
+source:
+  chapter: 5
+  pages: 183-184
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Client
+  hint: Coupé du nœud 3.
+- type: home1
+  component: cassandra
+  label: Nœud désigné 1
+  hint: Joignable.
+- type: home2
+  component: cassandra
+  label: Nœud désigné 2
+  hint: Joignable.
+- type: home3
+  component: cassandra
+  label: Nœud désigné 3
+  hint: Injoignable pour le client.
+- type: standin
+  component: cassandra
+  label: Nœud de dépannage
+  hint: Hors des trois nœuds désignés, accepte l'écriture à la place du nœud 3.
+- type: leader
+  component: leader
+  label: Leader
+  hint: Un nœud qui impose l'ordre.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

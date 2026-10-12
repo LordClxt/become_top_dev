@@ -1,0 +1,24 @@
+blocks:
+  sauts:
+    options:
+      any.n: 'Client → nœud quelconque → bon nœud : 2 sauts.'
+      tier.n: 'Client → couche → bon nœud : 2 sauts.'
+      client.n: 'Client → bon nœud : 1 saut.'
+  quand:
+    options:
+      cass: Cassandra et Riak propagent l'état par gossip.
+      hbase: Ils s'appuient sur ZooKeeper.
+      mongo: Il a ses serveurs de configuration et ses démons mongos.
+  stale:
+    options:
+      ok: L'ancien propriétaire peut ne plus avoir la partition.
+      dns: Le DNS ne connaît que les adresses, pas l'affectation.
+  ordre:
+    options:
+      join: Le nœud doit d'abord exister dans la coordination.
+      notify: La notification suit le changement.
+      route: Le routage final suit la notification.
+  dns:
+    options:
+      map: L'affectation vit dans le service de coordination.
+      enc: Le DNS ne chiffre pas les requêtes.

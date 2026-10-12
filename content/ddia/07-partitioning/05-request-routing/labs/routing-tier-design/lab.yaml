@@ -1,0 +1,36 @@
+id: ddia-ch07-l05-lab-routing-tier-design
+title: Une couche de routage abonnée à ZooKeeper
+difficulty: 3
+xp: 70
+concepts:
+- ddia-routing-approaches
+- ddia-coordination-service
+source:
+  chapter: 6
+  pages: 214-216
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Client
+  hint: ''
+- type: router
+  component: gateway
+  label: Couche de routage
+  hint: Répartiteur conscient des partitions.
+- type: zk
+  component: consensus
+  label: Service de coordination (ZooKeeper)
+  hint: Tient l'affectation autoritaire.
+- type: node
+  component: service
+  label: Nœud de données
+  hint: Possède des partitions.
+- type: direct
+  component: external
+  label: Client qui connaît les partitions
+  hint: Se connecte lui-même aux nœuds.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

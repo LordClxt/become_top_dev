@@ -1,0 +1,17 @@
+id: ddia-ch08-l05-lab-write-skew-design
+title: Repérer le write skew
+difficulty: 4
+xp: 90
+concepts:
+- ddia-write-skew
+- ddia-phantom
+- ddia-write-skew-defense
+- ddia-materializing-conflicts
+source:
+  chapter: 7
+  pages: 246-251
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

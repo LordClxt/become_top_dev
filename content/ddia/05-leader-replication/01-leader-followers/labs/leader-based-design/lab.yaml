@@ -1,0 +1,41 @@
+id: ddia-ch05-l01-lab-leader-based-design
+title: Dessine la réplication par leader
+difficulty: 2
+xp: 60
+concepts:
+- ddia-leader-follower
+- ddia-sync-async
+- ddia-semi-sync
+source:
+  chapter: 5
+  pages: 152-155
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: client
+  label: Application
+  hint: Envoie des écritures et des lectures.
+- type: leader
+  component: leader
+  label: Leader
+  hint: Seul à accepter les écritures.
+- type: f1
+  component: follower
+  label: Follower 1
+  hint: Même région que le leader.
+- type: f2
+  component: follower
+  label: Follower 2
+  hint: Copie asynchrone.
+- type: master2
+  component: leader
+  label: Second leader
+  hint: Un deuxième nœud qui accepte aussi les écritures.
+- type: cache
+  component: redis
+  label: Cache Redis
+  hint: Stocke temporairement des valeurs.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

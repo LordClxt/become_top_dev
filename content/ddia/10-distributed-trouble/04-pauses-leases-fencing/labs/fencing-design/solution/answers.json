@@ -1,0 +1,23 @@
+{
+  "order": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5"
+  ],
+  "writes": {
+    "w1.ok": 1,
+    "w2.ok": 1,
+    "w3.ok": 0,
+    "w4.ok": 1,
+    "w5.ok": 0
+  },
+  "why": "pause",
+  "quorum": 4,
+  "claims": [
+    "stale",
+    "monotone",
+    "storage"
+  ]
+}

@@ -1,0 +1,71 @@
+checks:
+- id: c-g
+  label: Les acheteurs passent par la gateway
+  rule: edge_kind
+  source: client
+  target: gw
+  kind: sync
+- id: g-inv
+  label: La gateway envoie les mouvements de stock au service stocks
+  rule: edge_kind
+  source: gw
+  target: inv
+  kind: sync
+- id: g-pay
+  label: …et les paiements au service paiements
+  rule: edge_kind
+  source: gw
+  target: pay
+  kind: sync
+- id: inv-db
+  label: Le service stocks soumet des procédures à Redis
+  rule: edge_kind
+  source: inv
+  target: invdb
+  kind: sync
+- id: pay-db
+  label: Le service paiements utilise PostgreSQL en serializable
+  rule: edge_kind
+  source: pay
+  target: paydb
+  kind: sync
+- id: repl
+  label: Les paiements sont répliqués vers le réplica d'analyse
+  rule: edge_kind
+  source: paydb
+  target: replica
+  kind: replication
+- id: rep-r
+  label: Le reporting lit sur le réplica d'analyse
+  rule: edge_kind
+  source: rep
+  target: replica
+  kind: read
+- id: rep-no
+  label: Le reporting ne touche jamais la base transactionnelle
+  rule: no_edge
+  source: rep
+  target: paydb
+- id: rep-no2
+  label: …ni Redis
+  rule: no_edge
+  source: rep
+  target: invdb
+- id: no-direct
+  label: Le client n'accède pas directement aux bases
+  rule: no_edge
+  source: client
+  target: paydb
+- id: no-lm
+  label: Pas de gestionnaire de verrous global
+  rule: count
+  source: lockmgr
+  max: 0
+- id: no-inter
+  label: Pas de transaction interactive avec saisie utilisateur
+  rule: count
+  source: interactive
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

@@ -1,0 +1,56 @@
+intro: Un client envoie « débiter 10 € » à un serveur de paiement et n'obtient **aucune réponse** avant son délai d'attente. Tu raisonnes sur
+  ce que le client peut savoir, puis tu chiffres l'effet des pannes partielles à grande échelle.
+blocks:
+- id: cases
+  type: table
+  title: Quatre causes du silence
+  prompt: 'Pour chaque cause, indique 1 si le débit a été exécuté côté serveur, 0 sinon. Dernière colonne : 1 si le client voit un délai d''attente.'
+  columns:
+  - id: done
+    label: Débit exécuté ?
+  - id: seen
+    label: Le client voit un timeout ?
+  rows:
+  - id: lost-req
+    label: La requête est perdue en route
+  - id: crash
+    label: Le serveur est tombé avant de traiter
+  - id: lost-resp
+    label: Le serveur a traité, la réponse est perdue
+  - id: slow
+    label: Le serveur est en pause longue, il traitera à son réveil
+- id: retry
+  type: choice
+  title: Réessayer ?
+  prompt: Le client réessaie le débit sans précaution après le timeout. Quel est le risque principal ?
+  options:
+  - id: double
+    label: Le débit peut être appliqué deux fois si la première réponse s'était perdue
+  - id: never
+    label: Le serveur refusera toujours la seconde requête
+  - id: lost
+    label: Le débit sera forcément perdu
+  - id: none
+    label: 'Aucun : TCP déduplique les requêtes applicatives'
+- id: scale
+  type: number
+  title: Les pannes à grande échelle
+  prompt: Dans un cluster de 100 machines, chacune a 1 % de chances d'être en panne à un instant donné, indépendamment des autres. Quelle probabilité
+    (en %) qu'**au moins une** machine soit en panne ?
+  unit: '%'
+- id: philo
+  type: match
+  title: Quelle stratégie ?
+  prompt: Associe chaque situation à la stratégie de panne qui convient.
+  items:
+  - id: sim
+    label: Une simulation météo de 3 jours sur un superordinateur
+  - id: shop
+    label: Un site de vente en ligne ouvert 24 h/24
+  - id: rolling
+    label: Une mise à jour logicielle sans interruption du service
+  categories:
+  - id: stop
+    label: Arrêt global et reprise au checkpoint
+  - id: tolerate
+    label: Tolérer les pannes partielles en continu

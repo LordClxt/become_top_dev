@@ -1,0 +1,68 @@
+intro: Tu choisis les horloges d'un service, tu chiffres leur dérive, tu rejoues une perte d'écriture par LWW et tu compares des intervalles de
+  confiance.
+blocks:
+- id: which
+  type: match
+  title: Quelle horloge ?
+  prompt: Associe chaque besoin à la bonne sorte d'horloge.
+  items:
+  - id: timeout
+    label: Mesurer combien de temps une requête a duré sur ce serveur
+  - id: display
+    label: Afficher à l'utilisateur la date d'un message
+  - id: lease
+    label: Savoir si mon propre bail local a expiré
+  - id: order
+    label: Décider laquelle de deux écritures venues de deux serveurs est la plus récente
+  categories:
+  - id: mono
+    label: Monotone
+  - id: wall
+    label: Murale
+  - id: logical
+    label: Logique ou intervalle (ni l'une ni l'autre seule)
+- id: drift
+  type: number
+  title: Dérive d'une journée
+  prompt: Une horloge dérive de 200 ppm. De combien de secondes aura-t-elle divergé après 24 heures sans resynchronisation ?
+  unit: s
+- id: lww
+  type: choice
+  title: Qui gagne ?
+  prompt: Le nœud 1 (horloge exacte) enregistre x = 1 à 100 ms. Le client lit x = 1, puis écrit x = 2 sur le nœud 2, dont l'horloge retarde de
+    5 ms ; l'horodatage de cette écriture est donc 98 ms. Avec LWW, quelle valeur survit ?
+  options:
+  - id: one
+    label: x = 1, parce que 100 > 98
+  - id: two
+    label: x = 2, parce qu'elle est causalement plus récente
+  - id: both
+    label: Les deux valeurs sont gardées
+  - id: err
+    label: La base signale un conflit
+- id: intervals
+  type: match
+  title: Comparer des intervalles
+  prompt: Pour chaque paire d'intervalles TrueTime (A puis B), peut-on ordonner les événements ?
+  items:
+  - id: i1
+    label: A = [10, 17] ; B = [20, 27]
+  - id: i2
+    label: A = [10, 17] ; B = [15, 22]
+  - id: i3
+    label: A = [30, 37] ; B = [12, 19]
+  - id: i4
+    label: A = [10, 17] ; B = [17, 24]
+  categories:
+  - id: before
+    label: A est sûrement avant B
+  - id: after
+    label: B est sûrement avant A
+  - id: unknown
+    label: Impossible à ordonner
+- id: wait
+  type: number
+  title: Commit-wait
+  prompt: L'incertitude de l'horloge est de ±7 ms (intervalle [t−7, t+7]). Combien de ms faut-il attendre avant de valider pour que l'horodatage
+    choisi (le plus grand, t+7) soit sûrement passé ?
+  unit: ms

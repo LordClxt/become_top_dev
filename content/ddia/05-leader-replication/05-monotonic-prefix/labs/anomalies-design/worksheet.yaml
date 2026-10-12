@@ -1,0 +1,69 @@
+intro: Trois utilisateurs, un leader et trois followers asynchrones. Pour chaque scénario, tu identifies l'anomalie observée puis la garantie
+  qui la supprimerait.
+blocks:
+- id: anomalie
+  type: match
+  title: Nommer l'anomalie
+  prompt: Associe chaque observation à l'anomalie.
+  items:
+  - id: photo
+    label: 'Je change ma photo de profil, je recharge : l''ancienne photo est affichée'
+  - id: vanish
+    label: 'Un commentaire apparaît, je rafraîchis : il a disparu'
+  - id: reply
+    label: Je lis une réponse « 10 secondes » avant la question « jusqu'où voyez-vous ? »
+  categories:
+  - id: ryw
+    label: Écriture perdue pour son auteur (read-your-writes)
+  - id: mono
+    label: Retour dans le temps (lectures monotones)
+  - id: prefix
+    label: Causalité violée (préfixe cohérent)
+- id: garantie
+  type: match
+  title: La garantie correspondante
+  prompt: Quelle technique supprime chaque anomalie ?
+  items:
+  - id: g1
+    label: Lire son propre profil sur le leader
+  - id: g2
+    label: Router les lectures d'un utilisateur par hachage de son identifiant vers un réplica fixe
+  - id: g3
+    label: Écrire la question et sa réponse dans la même partition
+  categories:
+  - id: ryw
+    label: Lire ses écritures
+  - id: mono
+    label: Lectures monotones
+  - id: prefix
+    label: Préfixe cohérent
+- id: hash
+  type: number
+  title: Réplica fixe par hachage
+  prompt: Il y a 3 followers numérotés 0, 1, 2 et on choisit le follower `identifiant mod 3`. À quel numéro de follower sont routées les lectures
+    de l'utilisateur 2345 ?
+  unit: follower
+- id: panne
+  type: choice
+  title: Le réplica fixe tombe
+  prompt: Le follower 2 tombe. Que doit-on faire pour les utilisateurs qui lui étaient affectés ?
+  options:
+  - id: reroute
+    label: Les re-router vers un autre réplica, en acceptant que la garantie puisse s'affaiblir un instant
+  - id: none
+    label: 'Rien : les lectures échouent définitivement'
+  - id: random
+    label: Passer à un choix aléatoire pour tous
+- id: faux
+  type: multi
+  title: Vrai ou faux ?
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: weak
+    label: Lectures monotones est plus fort que la cohérence à terme
+  - id: strong
+    label: Lectures monotones équivaut à la cohérence forte
+  - id: part
+    label: Le préfixe cohérent est un problème fréquent des bases partitionnées
+  - id: sync
+    label: Supposer que l'asynchrone se comporte comme du synchrone est sans danger

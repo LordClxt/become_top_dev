@@ -1,0 +1,43 @@
+checks:
+- id: ab
+  label: A envoie à B
+  rule: edge_kind
+  source: a
+  target: b
+  kind: replication
+- id: bc
+  label: B envoie à C
+  rule: edge_kind
+  source: b
+  target: c
+  kind: replication
+- id: cd
+  label: C envoie à D
+  rule: edge_kind
+  source: c
+  target: d
+  kind: replication
+- id: da
+  label: 'D envoie à A : l''anneau se referme'
+  rule: edge_kind
+  source: d
+  target: a
+  kind: replication
+- id: no-chord-ac
+  label: Pas de raccourci A → C
+  rule: no_edge
+  source: a
+  target: c
+- id: no-chord-bd
+  label: Pas de raccourci B → D
+  rule: no_edge
+  source: b
+  target: d
+- id: no-hub
+  label: Pas de hub central
+  rule: count
+  source: hub
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

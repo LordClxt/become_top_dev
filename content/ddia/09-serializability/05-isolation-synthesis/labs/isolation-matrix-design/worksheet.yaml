@@ -1,0 +1,74 @@
+intro: Pour chaque anomalie, tu indiques si le niveau la prévient **par définition** (1 = oui, 0 = non). Pour l'isolation par instantané, on ne
+  compte pas la détection de mises à jour perdues propre à certaines bases.
+blocks:
+- id: matrix
+  type: table
+  title: La matrice
+  prompt: Remplis les neuf cases.
+  columns:
+  - id: rc
+    label: Read committed
+  - id: si
+    label: Instantané
+  - id: ser
+    label: Sérialisable
+  rows:
+  - id: dirtyr
+    label: Lecture sale
+  - id: readskew
+    label: Read skew
+  - id: ws
+    label: Write skew
+- id: fix
+  type: match
+  title: Quelle parade manuelle ?
+  prompt: Sous isolation par instantané, associe chaque anomalie à la parade.
+  items:
+  - id: lu
+    label: Mise à jour perdue d'un compteur
+  - id: ws
+    label: Write skew sur des lignes lues
+  - id: phantom
+    label: Fantôme dans une réservation
+  - id: name
+    label: Doublon de nom d'utilisateur
+  categories:
+  - id: atomic
+    label: Opération atomique
+  - id: forupdate
+    label: SELECT FOR UPDATE sur les lignes lues
+  - id: mat
+    label: Matérialiser les conflits, ou sérialisabilité
+  - id: uniq
+    label: Contrainte d'unicité
+- id: pick
+  type: match
+  title: Quelle technique de sérialisabilité ?
+  prompt: Associe chaque contexte à la technique.
+  items:
+  - id: voltdb
+    label: Transactions d'une milliseconde sur des données en mémoire, mono-partition
+  - id: legacy
+    label: Application relationnelle historique sous MySQL InnoDB serializable
+  - id: pg
+    label: Charge très lue avec écritures courtes et peu de contention, PostgreSQL serializable
+  categories:
+  - id: serial
+    label: Exécution en série
+  - id: 2pl
+    label: 2PL
+  - id: ssi
+    label: SSI
+- id: retry
+  type: multi
+  title: Toutes ces techniques annulent
+  prompt: Coche ce qui est vrai.
+  options:
+  - id: abort
+    label: Il faut prévoir une reprise après annulation
+  - id: idem
+    label: Une déduplication est nécessaire si le commit a pu aboutir
+  - id: never
+    label: Une base sérialisable n'annule jamais
+  - id: limit
+    label: On limite le nombre d'essais avec un recul exponentiel

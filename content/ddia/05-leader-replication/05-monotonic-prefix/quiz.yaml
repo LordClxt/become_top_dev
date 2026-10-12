@@ -1,0 +1,113 @@
+id: ddia-ch05-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un utilisateur voit un commentaire à la première lecture, puis plus à la seconde. Quelle anomalie est-ce ?
+  choices:
+  - Une violation des lectures monotones
+  - Une violation du préfixe cohérent
+  - Un split brain
+  - Un conflit d'écriture
+  answer: 0
+  explanation: La seconde lecture observe le système à un instant plus ancien que la première.
+  concept: ddia-monotonic-reads
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quelle technique simple donne des lectures monotones ?
+  choices:
+  - Chaque utilisateur lit toujours sur le même réplica, choisi par hachage de son identifiant
+  - Choisir un réplica au hasard à chaque requête
+  - Lire toujours sur le follower le plus lent
+  - Désactiver les caches
+  answer: 0
+  explanation: Chaque utilisateur observe une même ligne de temps ; si le réplica tombe, il faut le router ailleurs.
+  concept: ddia-monotonic-reads
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Quelle est la différence entre « lire ses écritures » et « lectures monotones » ?
+  choices:
+  - La première concerne ce que l'utilisateur a écrit, la seconde ce qu'il a déjà lu
+  - Aucune
+  - La première concerne les lectures, la seconde les écritures
+  - La seconde implique des transactions
+  answer: 0
+  explanation: Deux garanties distinctes, souvent combinées.
+  concept: ddia-monotonic-reads
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: M. Poons pose une question, Mme Cake répond. Un observateur lit la réponse avant la question. Quelle garantie manque ?
+  choices:
+  - Le préfixe cohérent
+  - Les lectures monotones
+  - La durabilité
+  - L'isolation
+  answer: 0
+  explanation: 'La réponse dépend causalement de la question : l''ordre d''apparition doit être respecté.'
+  concept: ddia-consistent-prefix
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Dans quels systèmes l'anomalie du préfixe cohérent est-elle la plus fréquente ?
+  choices:
+  - Dans les bases partitionnées dont les partitions s'appliquent indépendamment
+  - Dans une base mono-nœud
+  - Dans un fichier CSV
+  - Dans un cache local
+  answer: 0
+  explanation: Sans ordre global des écritures, certaines partitions sont plus en retard que d'autres.
+  concept: ddia-causality-partitions
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quelle solution permet d'éviter l'anomalie du préfixe quand c'est faisable ?
+  choices:
+  - Écrire les opérations causalement liées dans la même partition
+  - Doubler le nombre de followers
+  - Utiliser un horodatage client
+  - Réduire la taille des messages
+  answer: 0
+  explanation: 'Une partition applique ses écritures dans l''ordre : le préfixe est cohérent.'
+  concept: ddia-causality-partitions
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Que recommande-t-on de se demander face à un système éventuellement cohérent ?
+  choices:
+  - Que se passe-t-il si le retard monte à plusieurs minutes ?
+  - Combien de followers acheter ?
+  - Quelle est la version du driver ?
+  - Comment supprimer le leader ?
+  answer: 0
+  explanation: Si ce n'est pas acceptable, il faut une garantie plus forte.
+  concept: ddia-lag-solutions
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Pourquoi les transactions existent-elles, selon ce chapitre ?
+  choices:
+  - Pour que la base fournisse des garanties plus fortes et que l'application reste simple
+  - Pour accélérer les lectures
+  - Pour remplacer la réplication
+  - Pour compresser les logs
+  answer: 0
+  explanation: Gérer ces subtilités dans le code applicatif est complexe et facile à rater.
+  concept: ddia-lag-solutions
+  difficulty: 1
+- id: q9
+  type: multiple
+  prompt: Quelles garanties peut-on demander pour limiter les anomalies du retard de réplication ?
+  choices:
+  - Lire ses écritures
+  - Lectures monotones
+  - Préfixe cohérent
+  - Synchronisation des disques durs
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Ce sont les trois garanties du chapitre ; la dernière n'a aucun rapport.
+  concept: ddia-lag-solutions
+  difficulty: 2

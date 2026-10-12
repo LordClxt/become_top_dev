@@ -1,0 +1,115 @@
+intro: Une banque en ligne tourne sur une base en **isolation par instantané** (repeatable read de type PostgreSQL). Un audit relève cinq bugs
+  de production. Pour chacun tu identifies l'anomalie, tu dis si la base les prévient, tu choisis la parade et tu chiffres un cas.
+blocks:
+- id: trace
+  type: table
+  title: Rejouer un virement concurrent
+  prompt: 'Versions de la table `comptes` : **(1)** A=500 créée par 5 ; **(2)** B=500 créée par 5, supprimée par 13 ; **(3)** A=400 créée par
+    13 ; **(4)** B=600 créée par 13. La 13 a validé. La transaction 12 (instantané) a démarré **avant** la 13 ; la 20 démarre **après**. Donne
+    les soldes vus et leur somme.'
+  columns:
+  - id: a
+    label: A
+  - id: b
+    label: B
+  - id: sum
+    label: Somme
+  rows:
+  - id: t12
+    label: Transaction 12
+  - id: t20
+    label: Transaction 20
+- id: qualify
+  type: match
+  title: Nommer les bugs
+  prompt: Associe chaque bug de production à son anomalie.
+  items:
+  - id: b1
+    label: Le relevé mensuel affiche 900 € alors que le client a 1 000 € (lu pendant un virement)
+  - id: b2
+    label: 'Deux prélèvements simultanés lisent un solde de 100 €, chacun écrit 100 − 30 = 70 : le solde devrait être 40'
+  - id: b3
+    label: Deux employés autorisent chacun un découvert, en vérifiant que la somme des autorisations reste sous le plafond ; le plafond est dépassé
+  - id: b4
+    label: Deux clients créent le même identifiant de compte ; la banque en voit deux
+  categories:
+  - id: readskew
+    label: Read skew (lecture non répétable)
+  - id: lost
+    label: Mise à jour perdue
+  - id: skew
+    label: Write skew
+  - id: phantom
+    label: Fantôme sur une absence (nom unique)
+- id: protege
+  type: match
+  title: L'instantané les prévient-il ?
+  prompt: La base est en isolation par instantané avec détection automatique des mises à jour perdues.
+  items:
+  - id: b1
+    label: Read skew du relevé
+  - id: b2
+    label: Mise à jour perdue sur un même solde
+  - id: b3
+    label: Write skew sur le plafond
+  - id: b4
+    label: Doublon d'identifiant de compte
+  categories:
+  - id: 'yes'
+    label: Oui
+  - id: 'no'
+    label: Non
+- id: parade
+  type: match
+  title: La parade
+  prompt: Choisis la parade la plus simple pour chaque bug.
+  items:
+  - id: p1
+    label: Plafond dépassé
+  - id: p2
+    label: Doublon d'identifiant
+  - id: p3
+    label: Solde décrémenté par deux prélèvements (si la base ne détectait pas)
+  categories:
+  - id: ser
+    label: Sérialisabilité ou FOR UPDATE sur les lignes lues
+  - id: uniq
+    label: Contrainte d'unicité
+  - id: atomic
+    label: UPDATE solde = solde − 30 (atomique)
+- id: lost
+  type: number
+  title: Perte chiffrée
+  prompt: Le solde est de 100 €. Cinq prélèvements de 30 € lisent tous 100 puis écrivent 70. Quel est le solde final et combien d'argent de prélèvements
+    a-t-on « perdu » (30 € × prélèvements non pris en compte) ? Donne le montant perdu.
+  unit: €
+- id: plafond
+  type: number
+  title: Le plafond dépassé
+  prompt: Le plafond total de découvert autorisé est de 1 000 €. Il y a déjà 800 € d'autorisations. Deux employés vérifient chacun « 800 + 150
+    ≤ 1 000 », puis chacun enregistre 150 €. Quel total d'autorisations obtient-on ?
+  unit: €
+- id: retry
+  type: multi
+  title: Reprise
+  prompt: Après une annulation pour conflit, coche les bonnes pratiques.
+  options:
+  - id: limit
+    label: Limiter le nombre d'essais et utiliser un recul exponentiel
+  - id: idem
+    label: Prévoir une déduplication si le commit a pu aboutir
+  - id: transient
+    label: Ne réessayer qu'après une erreur transitoire
+  - id: forever
+    label: Réessayer indéfiniment sans délai
+- id: acid
+  type: choice
+  title: « Notre base est ACID »
+  prompt: Un fournisseur affirme « notre base est ACID, donc vos données financières sont sûres ». Quelle réponse est juste ?
+  options:
+  - id: which
+    label: 'ACID est surtout un terme commercial : il faut demander quel niveau d''isolation exact et quelles anomalies il permet'
+  - id: 'yes'
+    label: 'Oui : ACID garantit la sérialisabilité'
+  - id: 'no'
+    label: 'Non : ACID n''a aucune signification'

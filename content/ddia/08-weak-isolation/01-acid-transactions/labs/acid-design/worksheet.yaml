@@ -1,0 +1,76 @@
+intro: Une messagerie garde dans un compteur le nombre de messages non lus de chaque utilisateur. À chaque message reçu, il faut insérer le message
+  ET incrémenter le compteur.
+blocks:
+- id: lettre
+  type: match
+  title: Quelle garantie ?
+  prompt: Associe chaque symptôme à la garantie ACID qui le préviendrait.
+  items:
+  - id: crash
+    label: 'Le serveur plante après avoir inséré le message mais avant d''incrémenter le compteur : boîte et compteur divergent'
+  - id: dirty
+    label: L'utilisateur voit un message non lu mais le compteur affiche 0 parce que l'incrément n'a pas encore eu lieu
+  - id: lost
+    label: Le courant est coupé juste après la confirmation du commit ; au redémarrage, le message n'existe plus
+  - id: inv
+    label: Un bug applicatif écrit un compteur négatif
+  categories:
+  - id: a
+    label: Atomicité
+  - id: c
+    label: Cohérence (invariant applicatif)
+  - id: i
+    label: Isolation
+  - id: d
+    label: Durabilité
+- id: owner
+  type: match
+  title: Qui en est responsable ?
+  prompt: Pour chaque lettre, qui doit assurer la propriété ?
+  items:
+  - id: a
+    label: A, I, D
+  - id: c
+    label: C (invariants applicatifs)
+  categories:
+  - id: db
+    label: La base de données
+  - id: app
+    label: L'application (la base peut aider avec des contraintes simples)
+- id: atomic
+  type: choice
+  title: Deux sens d'« atomique »
+  prompt: Que signifie « atomique » dans ACID ?
+  options:
+  - id: abort
+    label: 'Si une faute survient, toutes les écritures de la transaction sont défaites : on peut réessayer'
+  - id: thread
+    label: Un autre thread ne peut jamais voir un état à moitié écrit
+  - id: fast
+    label: La transaction tient en une seule instruction
+- id: retry
+  type: match
+  title: Réessayer ?
+  prompt: Après un abort, faut-il réessayer ?
+  items:
+  - id: deadlock
+    label: Interblocage détecté par la base
+  - id: unique
+    label: Violation d'une contrainte d'unicité
+  - id: net
+    label: Coupure réseau passagère
+  - id: overload
+    label: La base répond « trop de charge » (réessayer sans limite aggraverait)
+  categories:
+  - id: 'yes'
+    label: Oui
+  - id: limit
+    label: Oui, mais avec recul exponentiel et limite d'essais
+  - id: 'no'
+    label: 'Non : l''erreur est permanente'
+- id: dup
+  type: number
+  title: Le commit perdu
+  prompt: Le commit d'un virement de 100 € a réussi, mais l'accusé de réception s'est perdu. Le client réessaie sans déduplication. De combien
+    le compte est-il débité au total ?
+  unit: €

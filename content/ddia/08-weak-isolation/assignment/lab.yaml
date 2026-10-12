@@ -1,0 +1,18 @@
+id: ddia-ch08-assignment
+title: Quel niveau d'isolation pour quelle application ?
+difficulty: 4
+xp: 140
+concepts:
+- ddia-read-committed
+- ddia-snapshot-isolation
+- ddia-lost-update
+- ddia-write-skew
+- ddia-phantom
+source:
+  chapter: 7
+  pages: 221-251
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,23 @@
+blocks:
+  anomalie:
+    options:
+      counter: 'Même objet lu puis réécrit : mise à jour perdue.'
+      doctors: Objets différents après lecture des mêmes lignes.
+      dirty: Écraser du non validé.
+      booking: 'Il n''y avait aucune ligne à verrouiller : fantôme.'
+  forupdate:
+    options:
+      doctors: 'Les lignes lues existent : FOR UPDATE les verrouille.'
+      booking: Pas de ligne à verrouiller quand rien ne chevauche.
+      username: 'Aucun résultat : rien à verrouiller (utiliser une contrainte d''unicité).'
+  unique:
+    options:
+      retry: Une double vérification reste vulnérable à la même course.
+      delay: Un délai ne règle pas la concurrence.
+  slots:
+    wrong: 12 salles × (12 h × 4 créneaux par heure = 48) × 30 jours.
+  mat:
+    options:
+      auto: 'Au contraire : difficile et source d''erreurs.'
+  outcome:
+    wrong: 'Les deux se retirent : 2 − 2 = 0.'

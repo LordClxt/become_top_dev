@@ -1,0 +1,1 @@
+**Plus w est grand, moins l'écriture tolère de pannes ; plus r est grand, moins la lecture en tolère ; leur somme doit dépasser n.** La majorité (3,3 sur 5) est le meilleur équilibre quand on veut les deux.

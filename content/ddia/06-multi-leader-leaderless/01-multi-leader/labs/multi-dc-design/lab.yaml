@@ -1,0 +1,52 @@
+id: ddia-ch06-l01-lab-multi-dc-design
+title: Un leader par datacenter
+difficulty: 3
+xp: 70
+concepts:
+- ddia-multi-leader
+- ddia-multi-dc
+source:
+  chapter: 5
+  pages: 168-170
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: dc1
+  component: zone
+  label: Datacenter 1
+  hint: Un site.
+- type: dc2
+  component: zone
+  label: Datacenter 2
+  hint: Un autre site.
+- type: l1
+  component: leader
+  label: Leader DC1
+  hint: Accepte les écritures du site 1.
+- type: l2
+  component: leader
+  label: Leader DC2
+  hint: Accepte les écritures du site 2.
+- type: f1
+  component: follower
+  label: Follower DC1
+  hint: Réplique le leader de son site.
+- type: f2
+  component: follower
+  label: Follower DC2
+  hint: Réplique le leader de son site.
+- type: u1
+  component: browser
+  label: Utilisateurs 1
+  hint: Proches du site 1.
+- type: u2
+  component: browser
+  label: Utilisateurs 2
+  hint: Proches du site 2.
+- type: sync
+  component: external
+  label: Verrou global synchrone
+  hint: Impose une confirmation inter-sites pour chaque écriture.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

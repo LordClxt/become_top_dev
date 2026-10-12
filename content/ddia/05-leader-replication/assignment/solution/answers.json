@@ -1,0 +1,29 @@
+{
+  "choix": "s",
+  "perte": {
+    "a1.lost": 60,
+    "a2.lost": 300
+  },
+  "secondes": 1.5,
+  "ordre": [
+    "fence",
+    "promote",
+    "repoint",
+    "reconcile",
+    "rebuild"
+  ],
+  "github": [
+    "keys",
+    "split",
+    "dur"
+  ],
+  "ryw": "dur",
+  "log": {
+    "wal": "bad",
+    "logical": "good",
+    "stmt": "bad"
+  },
+  "timeout": {
+    "i": 5
+  }
+}

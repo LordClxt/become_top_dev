@@ -1,0 +1,113 @@
+id: ddia-ch06-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Avec w + r > n, une lecture renvoie-t-elle toujours la dernière valeur ?
+  choices:
+  - 'Non : écritures concurrentes, quorum relâché, échec partiel, restauration ou timing peuvent renvoyer du périmé'
+  - Oui, toujours
+  - Oui, sauf en multi-datacenter
+  - Non, jamais
+  answer: 0
+  explanation: w et r ajustent une probabilité, pas une garantie absolue.
+  concept: ddia-quorum-limits
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Une écriture réussit sur 1 réplica sur 3 (w = 2) et est déclarée échec. Que devient la copie ?
+  choices:
+  - 'Elle n''est pas annulée : une lecture peut la renvoyer'
+  - Elle est effacée aussitôt
+  - Elle devient la valeur officielle
+  - Elle est répliquée de force
+  answer: 0
+  explanation: Pas de rollback sur les réplicas où elle a réussi.
+  concept: ddia-quorum-limits
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Quel risque après la restauration d'un nœud depuis une copie ancienne ?
+  choices:
+  - Le nombre de réplicas à jour peut tomber sous w et casser la condition de quorum
+  - Les clés sont renumérotées
+  - Le nœud devient leader
+  - L'anti-entropie s'arrête
+  answer: 0
+  explanation: La dernière valeur peut alors manquer d'un recoupement.
+  concept: ddia-quorum-limits
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Pourquoi surveiller le retard est-il plus difficile sans leader ?
+  choices:
+  - Il n'y a pas d'ordre fixe d'application ni de position de log à comparer
+  - Il n'y a pas de réseau
+  - Il n'y a pas de métriques
+  - Les nœuds sont chiffrés
+  answer: 0
+  explanation: Avec un leader, on soustrait des positions du log.
+  concept: ddia-staleness-monitoring
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Qu'est-ce qu'un quorum relâché ?
+  choices:
+  - Les w et r réponses peuvent venir de nœuds hors des n désignés pour la valeur
+  - Un quorum à moins de 3 nœuds
+  - Un quorum avec w = 0
+  - Un quorum à l'unanimité
+  answer: 0
+  explanation: On accepte l'écriture sur des nœuds joignables quand le quorum strict est inaccessible.
+  concept: ddia-sloppy-quorum
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Qu'est-ce que le hinted handoff ?
+  choices:
+  - Renvoyer aux nœuds d'origine les écritures acceptées temporairement par un voisin
+  - Choisir un leader
+  - Compresser les logs
+  - Chiffrer les écritures
+  answer: 0
+  explanation: 'Le canapé du voisin : on rentre chez soi une fois la clé retrouvée.'
+  concept: ddia-hinted-handoff
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Quel est le gain d'un quorum relâché ?
+  choices:
+  - 'Plus de disponibilité en écriture : tant que w nœuds sont joignables, on écrit'
+  - Des lectures toujours fraîches
+  - Moins de nœuds
+  - Zéro conflit
+  answer: 0
+  explanation: 'Au prix de la fraîcheur : c''est une assurance de durabilité.'
+  concept: ddia-sloppy-quorum
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Dans Cassandra, que doit attendre le client en multi-datacenter ?
+  choices:
+  - Le quorum de son datacenter local, les autres sites étant souvent asynchrones
+  - La confirmation de tous les sites
+  - Un seul nœud au hasard
+  - Aucune confirmation
+  answer: 0
+  explanation: Pour ne pas subir les délais du lien inter-sites.
+  concept: ddia-leaderless-multi-dc
+  difficulty: 1
+- id: q9
+  type: multiple
+  prompt: Quels cas rendent possible une lecture périmée malgré w + r > n ?
+  choices:
+  - Quorum relâché
+  - Écritures concurrentes tranchées par LWW
+  - Écriture simultanée à la lecture
+  - Cluster de plus de 10 nœuds
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: La taille du cluster n'est pas en cause.
+  concept: ddia-quorum-limits
+  difficulty: 2

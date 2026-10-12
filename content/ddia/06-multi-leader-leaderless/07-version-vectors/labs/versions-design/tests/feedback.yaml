@@ -1,0 +1,25 @@
+blocks:
+  etat:
+    options:
+      s1.ver: 'Première écriture : version 1.'
+      s1.vals: 'Une seule valeur : [lait].'
+      s2.ver: Version 2.
+      s2.vals: 'Écriture sans version : ne remplace rien, donc [lait] et [œufs].'
+      s3.ver: Version 3.
+      s3.vals: 'Version reçue 1 : écrase [lait] (v1), garde [œufs] (v2).'
+      s4.ver: Version 4.
+      s4.vals: 'Version reçue 2 : écrase [œufs] (v2), garde [lait, farine] (v3).'
+      s5.ver: Version 5.
+      s5.vals: 'Version reçue 3 : écrase [lait, farine] (v3), garde [œufs, lait, jambon] (v4).'
+  vv:
+    options:
+      p1: Tous les compteurs du premier sont ≤ à ceux du second.
+      p2: Chacun est supérieur sur un compteur.
+      p3: Mêmes compteurs.
+      p4: Le second est dépassé sur tous les compteurs.
+  tomb:
+    options:
+      gone: Sans marqueur, l'union ne sait pas qu'un retrait a eu lieu.
+      crash: La fusion réussit, mais avec un mauvais résultat.
+  count:
+    wrong: 'Après l''étape 5 : [œufs, lait, jambon] (v4) et [lait, farine, œufs, bacon] (v5).'

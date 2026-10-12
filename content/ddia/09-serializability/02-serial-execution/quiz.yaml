@@ -1,0 +1,125 @@
+id: ddia-ch09-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi l'exécution en série est-elle sérialisable ?
+  choices:
+  - Il n'y a plus de concurrence, donc plus de conflit à détecter
+  - Les transactions sont isolées par des verrous
+  - Elle utilise des instantanés
+  - Elle réplique les données
+  answer: 0
+  explanation: Par définition, les transactions s'exécutent l'une après l'autre.
+  concept: ddia-serial-execution
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quelles évolutions ont rendu possible l'exécution monothread vers 2007 ?
+  choices:
+  - RAM bon marché et transactions OLTP courtes
+  - Des disques plus lents
+  - Des réseaux plus rapides
+  - Des processeurs multicœurs
+  answer: 0
+  explanation: Les analyses vont sur un instantané hors de la boucle.
+  concept: ddia-why-serial-feasible
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi les transactions interactives sont-elles incompatibles avec l'exécution série ?
+  choices:
+  - La base passerait son temps à attendre l'instruction suivante
+  - Elles utilisent trop de mémoire
+  - Elles sont chiffrées
+  - Elles ne sont pas SQL
+  answer: 0
+  explanation: Il faut soumettre toute la transaction à l'avance.
+  concept: ddia-stored-procedures
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Qu'est-ce qu'une procédure stockée dans ce contexte ?
+  choices:
+  - Le code de la transaction soumis à l'avance à la base
+  - Une sauvegarde
+  - Un index
+  - Un journal
+  answer: 0
+  explanation: Elle s'exécute sans réseau ni disque.
+  concept: ddia-stored-procedures
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quel reproche fait-on aux procédures stockées traditionnelles ?
+  choices:
+  - Langages archaïques, code difficile à gérer, base sensible aux performances
+  - Elles sont trop rapides
+  - Elles ne marchent pas en mémoire
+  - Elles sont interdites par SQL
+  answer: 0
+  explanation: Atténué par l'usage de Java, Lua, Clojure.
+  concept: ddia-stored-proc-tradeoffs
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quel langage utilise Redis pour ses procédures ?
+  choices:
+  - Lua
+  - PL/SQL
+  - T-SQL
+  - Groovy
+  answer: 0
+  explanation: VoltDB utilise Java/Groovy, Datomic Java/Clojure.
+  concept: ddia-stored-proc-tradeoffs
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Pourquoi VoltDB exige-t-il des procédures déterministes ?
+  choices:
+  - Il exécute la même procédure sur chaque réplica au lieu de copier les écritures
+  - Pour la sécurité
+  - Pour le chiffrement
+  - Pour accélérer les index
+  answer: 0
+  explanation: Il faut le même résultat sur chaque nœud.
+  concept: ddia-stored-proc-tradeoffs
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Comment passer à l'échelle en écriture en exécution série ?
+  choices:
+  - 'Partitionner : un thread par partition, si les transactions sont mono-partition'
+  - Ajouter des disques
+  - Ajouter des verrous
+  - Augmenter le timeout
+  answer: 0
+  explanation: Le débit croît avec le nombre de cœurs.
+  concept: ddia-serial-partitioning
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Quel est l'ordre de grandeur des écritures inter-partitions de VoltDB ?
+  choices:
+  - Environ 1 000 par seconde
+  - Environ 1 000 000 par seconde
+  - Environ 10 par seconde
+  - Illimité
+  answer: 0
+  explanation: Bien inférieur au débit mono-partition, et pas extensible par des machines.
+  concept: ddia-serial-partitioning
+  difficulty: 1
+- id: q10
+  type: multiple
+  prompt: Quelles sont des limites de l'exécution en série ?
+  choices:
+  - Chaque transaction doit être courte
+  - Le jeu actif doit tenir en mémoire
+  - Le débit d'écriture est borné par un cœur (sans partitionnement)
+  - Elle exige des verrous de prédicat
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Elle n'utilise aucun verrou.
+  concept: ddia-serial-limits
+  difficulty: 2

@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Mise à jour perdue ?
+  back: 'Deux cycles lire-modifier-écrire concurrents : la seconde écriture écrase la première.'
+  concept: ddia-lost-update
+- id: fc2
+  front: Défense n°1 ?
+  back: Opération atomique (UPDATE … SET value = value + 1).
+  concept: ddia-atomic-write
+- id: fc3
+  front: Défense n°2 ?
+  back: 'Verrou explicite SELECT … FOR UPDATE : séquence les cycles, mais facile à oublier.'
+  concept: ddia-explicit-lock
+- id: fc4
+  front: Défense n°3 ?
+  back: 'Détection automatique avec l''isolation par instantané : la base annule la transaction fautive.'
+  concept: ddia-auto-detect
+- id: fc5
+  front: Qui détecte automatiquement ?
+  back: PostgreSQL (repeatable read), Oracle (serializable), SQL Server (snapshot) ; pas MySQL/InnoDB.
+  concept: ddia-auto-detect
+- id: fc6
+  front: Défense n°4 ?
+  back: 'Compare-and-set : écrire seulement si la valeur n''a pas changé ; attention aux WHERE sur vieil instantané.'
+  concept: ddia-compare-and-set
+- id: fc7
+  front: En réplication multi-leader ?
+  back: Siblings + fusion ; opérations commutatives ; LWW perd des mises à jour.
+  concept: ddia-lost-update-replicated
+- id: fc8
+  front: Opération commutative ?
+  back: On peut l'appliquer dans n'importe quel ordre avec le même résultat (compteur, ensemble).
+  concept: ddia-lost-update-replicated

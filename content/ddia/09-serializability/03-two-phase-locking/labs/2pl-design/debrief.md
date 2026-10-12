@@ -1,0 +1,1 @@
+**2PL enchaîne verrous partagés et exclusifs jusqu'à la fin de la transaction** : la compatibilité (seul S-S passe), l'attente et la détection de cycle suffisent à expliquer son comportement. Les approximations de prédicat doivent toujours couvrir plus, jamais moins.

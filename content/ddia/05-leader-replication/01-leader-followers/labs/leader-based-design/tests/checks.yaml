@@ -1,0 +1,49 @@
+checks:
+- id: w
+  label: Les écritures vont au leader
+  rule: edge_kind
+  source: app
+  target: leader
+  kind: write
+- id: r1
+  label: Les lectures peuvent aller à un follower
+  rule: edge_kind
+  source: app
+  target: f1
+  kind: read
+- id: rep1
+  label: Le leader envoie son log au follower 1
+  rule: edge_kind
+  source: leader
+  target: f1
+  kind: replication
+- id: rep2
+  label: …et au follower 2
+  rule: edge_kind
+  source: leader
+  target: f2
+  kind: replication
+- id: single
+  label: Un seul leader
+  rule: count
+  source: leader
+  min: 1
+  max: 1
+- id: one-source
+  label: Un follower ne reçoit ses changements que du leader
+  rule: inbound_via
+  target: f2
+  via: leader
+- id: no-master2
+  label: 'Pas de second leader : ce n''est pas la réplication par leader'
+  rule: count
+  source: master2
+  max: 0
+- id: no-cache
+  label: Le cache n'a pas de rôle dans la réplication
+  rule: count
+  source: cache
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

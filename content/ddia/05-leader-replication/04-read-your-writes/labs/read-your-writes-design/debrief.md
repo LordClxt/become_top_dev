@@ -1,0 +1,1 @@
+**Un jeton de position (le LSN) suffit à reconnaître un réplica assez à jour** : F1 convient (497 ≥ 495), F2 non (480 < 495). Le jeton doit vivre côté serveur pour suivre l'utilisateur d'un appareil à l'autre. La fenêtre « une minute » est une approximation plus grossière du même besoin.

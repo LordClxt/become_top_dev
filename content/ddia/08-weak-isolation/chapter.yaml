@@ -1,0 +1,29 @@
+id: ddia-ch08
+title: Isolation faible et MVCC
+subtitle: Transactions, ACID et les anomalies que les niveaux d'isolation courants laissent passer
+source:
+  chapter: 7
+  pages: 221-251
+objectives:
+- Distinguer les quatre lettres d'ACID, dire ce que chacune garantit réellement et ce qui relève de l'application
+- 'Rejouer une exécution concurrente et nommer l''anomalie : lecture sale, écriture sale, lecture non répétable, mise à jour perdue, write skew,
+  fantôme'
+- Expliquer comment read committed et l'isolation par instantané (MVCC) fonctionnent, avec les règles de visibilité par identifiant de transaction
+- Choisir une défense contre les mises à jour perdues (opération atomique, verrou explicite, détection automatique, compare-and-set)
+- Reconnaître un write skew et un fantôme, et savoir pourquoi l'isolation par instantané ne suffit pas
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch07
+lessons:
+- 01-acid-transactions
+- 02-read-committed
+- 03-snapshot-isolation
+- 04-lost-updates
+- 05-write-skew
+xp:
+  assignment: 140
+  project: 280
+  boss: 320
+boss: boss
+assignment: assignment
+project: project

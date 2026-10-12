@@ -1,0 +1,43 @@
+id: ddia-ch07-project
+title: Tinybase — partitionner, rééquilibrer, router
+pitch: 'Tinybase se découpe : des partitionneurs par plage et par hachage, un rééquilibrage qui ne déplace que des partitions entières, deux sortes
+  d''index secondaires et un routeur qui refuse les tables périmées.'
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 260
+timeout_s: 60
+entrypoint: starter/
+test_command: go test ./...
+files_editable:
+- partitioning.go
+concepts:
+- ddia-range-partitioning
+- ddia-hash-partitioning
+- ddia-fixed-partitions
+- ddia-local-index
+- ddia-global-index
+- ddia-routing-approaches
+milestones:
+- id: m1
+  title: Où vit une clé ?
+  goal: Partitionner par hachage (tranches de l'espace des hachages) et par plages de clés avec une recherche binaire, répondre à une requête
+    de plage et éclater une clé chaude avec un sel.
+  tests: go test ./... -run TestM1
+  review: false
+- id: m2
+  title: Rééquilibrer
+  goal: Mesurer la part de clés déplacées par hash mod N, affecter des partitions fixes aux nœuds, ajouter et retirer un nœud en déplaçant le
+    minimum de partitions entières.
+  tests: go test ./... -run TestM2
+  review: false
+- id: m3
+  title: Index secondaires et routage
+  goal: Implémenter un index local (scatter/gather) et un index global (partitionné par terme), compter les partitions touchées, et router avec
+    une table versionnée qui refuse les tables plus anciennes.
+  tests: go test ./... -run TestM3
+  review: true
+  prompt: Dans quel cas préférerais-tu l'index local à l'index global pour Tinybase, et que perdrait un utilisateur qui lit juste après une écriture
+    avec un index global mis à jour de façon asynchrone ?
+verified: { at: 2026-10-11, solution: pass, starter: fail }

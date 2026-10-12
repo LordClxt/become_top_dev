@@ -1,0 +1,58 @@
+{
+  "nodes": [
+    {
+      "id": "a",
+      "type": "a",
+      "x": 0,
+      "y": 0,
+      "label": "A"
+    },
+    {
+      "id": "b",
+      "type": "b",
+      "x": 400,
+      "y": 0,
+      "label": "B"
+    },
+    {
+      "id": "c",
+      "type": "c",
+      "x": 400,
+      "y": 300,
+      "label": "C"
+    },
+    {
+      "id": "d",
+      "type": "d",
+      "x": 0,
+      "y": 300,
+      "label": "D"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "a",
+      "target": "b",
+      "kind": "replication"
+    },
+    {
+      "id": "e2",
+      "source": "b",
+      "target": "c",
+      "kind": "replication"
+    },
+    {
+      "id": "e3",
+      "source": "c",
+      "target": "d",
+      "kind": "replication"
+    },
+    {
+      "id": "e4",
+      "source": "d",
+      "target": "a",
+      "kind": "replication"
+    }
+  ]
+}

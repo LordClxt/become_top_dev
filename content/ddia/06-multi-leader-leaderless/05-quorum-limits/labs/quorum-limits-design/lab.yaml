@@ -1,0 +1,16 @@
+id: ddia-ch06-l05-lab-quorum-limits-design
+title: Quand le quorum ne protège plus
+difficulty: 3
+xp: 80
+concepts:
+- ddia-quorum-limits
+- ddia-sloppy-quorum
+- ddia-leaderless-multi-dc
+source:
+  chapter: 5
+  pages: 181-184
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

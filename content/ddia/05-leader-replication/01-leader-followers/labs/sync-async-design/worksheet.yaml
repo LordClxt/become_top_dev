@@ -1,0 +1,61 @@
+intro: 'Un leader est dans la région **A**. Il écrit en local en **2 ms**. Le follower **F1** est dans la même région : l''aller-retour de confirmation
+  coûte **2 ms**. Le follower **F2** est dans la région **B** : la confirmation coûte **80 ms**. Les envois aux followers partent **en parallèle**,
+  une fois l''écriture locale terminée. Tu mesures le temps d''une écriture vue du client.'
+blocks:
+- id: lat-async
+  type: number
+  title: Tout asynchrone
+  prompt: Le leader répond au client dès son écriture locale. Latence d'écriture ?
+  unit: ms
+- id: lat-semi
+  type: number
+  title: Semi-synchrone
+  prompt: F1 est synchrone, F2 asynchrone. Latence d'écriture ?
+  unit: ms
+- id: lat-sync
+  type: number
+  title: Tout synchrone
+  prompt: F1 et F2 sont tous deux synchrones. Latence d'écriture ?
+  unit: ms
+- id: copies
+  type: table
+  title: Copies à jour au moment de la confirmation
+  prompt: Combien de nœuds (leader compris) détiennent l'écriture quand le client reçoit « OK » ?
+  columns:
+  - id: n
+    label: Nœuds à jour
+  rows:
+  - id: async
+    label: Tout asynchrone
+  - id: semi
+    label: Semi-synchrone (F1)
+  - id: sync
+    label: Tout synchrone
+- id: panne
+  type: match
+  title: Quand F2 tombe en panne
+  prompt: Que devient l'écriture dans chaque configuration quand F2 (région B) ne répond plus ?
+  items:
+  - id: async
+    label: Tout asynchrone
+  - id: semi
+    label: Semi-synchrone avec F1 synchrone
+  - id: sync
+    label: Tout synchrone
+  categories:
+  - id: ok
+    label: Les écritures continuent
+  - id: block
+    label: Les écritures sont bloquées
+- id: crash
+  type: choice
+  title: Le leader brûle
+  prompt: Le disque du leader est détruit juste après avoir confirmé une écriture. Dans quelle configuration cette écriture peut-elle disparaître
+    ?
+  options:
+  - id: async
+    label: Tout asynchrone, si aucun follower ne l'avait encore reçue
+  - id: semi
+    label: 'Semi-synchrone : F1 l''a forcément reçue, donc jamais'
+  - id: both
+    label: Dans toutes les configurations

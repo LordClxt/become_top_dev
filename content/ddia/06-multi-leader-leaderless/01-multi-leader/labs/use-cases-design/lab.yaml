@@ -1,0 +1,16 @@
+id: ddia-ch06-l01-lab-use-cases-design
+title: Un leader ou plusieurs ?
+difficulty: 2
+xp: 60
+concepts:
+- ddia-multi-leader
+- ddia-multi-dc
+- ddia-offline-clients
+source:
+  chapter: 5
+  pages: 168-171
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

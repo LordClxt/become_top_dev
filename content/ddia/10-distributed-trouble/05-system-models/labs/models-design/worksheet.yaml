@@ -1,0 +1,67 @@
+intro: 'Tu spécifies un service de verrou : le modèle sous lequel on le prouve et les propriétés qu''on lui demande.'
+blocks:
+- id: props
+  type: match
+  title: Sûreté ou vivacité ?
+  prompt: Classe chaque propriété du service de verrou.
+  items:
+  - id: uniq
+    label: Deux clients ne reçoivent jamais le même jeton
+  - id: mono
+    label: Les jetons croissent avec l'ordre des demandes
+  - id: avail
+    label: Un client correct qui demande un jeton en reçoit finalement un
+  - id: mutex
+    label: Au plus un client détient le verrou à un instant donné
+  - id: eventual
+    label: Les réplicas convergent finalement vers la même valeur
+  categories:
+  - id: safety
+    label: Sûreté
+  - id: liveness
+    label: Vivacité
+- id: model
+  type: choice
+  title: Le modèle de temps
+  prompt: Le réseau est congestionné de temps en temps et les processus subissent des pauses de GC occasionnelles. Quel modèle de temps décrit
+    le mieux ce service ?
+  options:
+  - id: sync
+    label: 'Synchrone : toutes les bornes sont connues et respectées'
+  - id: partial
+    label: 'Partiellement synchrone : bornes respectées la plupart du temps'
+  - id: async
+    label: 'Asynchrone : jamais d''horloge'
+  - id: byz
+    label: Byzantin
+- id: nodes
+  type: multi
+  title: Les nœuds
+  prompt: Coche les hypothèses du modèle crash-recovery.
+  options:
+  - id: restart
+    label: Un nœud peut redémarrer après un crash
+  - id: disk
+    label: Son stockage durable est conservé
+  - id: mem
+    label: Sa mémoire volatile est perdue
+  - id: lie
+    label: Un nœud peut envoyer délibérément de fausses informations
+- id: nodeprop
+  type: match
+  title: Quel modèle de nœud ?
+  prompt: Associe chaque situation à l'hypothèse de panne qui la décrit.
+  items:
+  - id: unplug
+    label: Un serveur redémarre après une coupure d'alimentation et retrouve ses fichiers
+  - id: dead
+    label: Un nœud défaillant est remplacé et on suppose qu'il ne reviendra jamais
+  - id: mal
+    label: Un nœud compromis envoie des votes contradictoires
+  categories:
+  - id: recovery
+    label: Crash-recovery
+  - id: stop
+    label: Crash-stop
+  - id: byzantine
+    label: Byzantin

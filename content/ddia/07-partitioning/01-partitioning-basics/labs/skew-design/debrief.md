@@ -1,0 +1,1 @@
+**Un seul hot spot divise ici la capacité du cluster par quatre** (12 500 req/s au lieu de 50 000) : neuf nœuds sur dix restent sous-utilisés. L'enjeu du partitionnement n'est pas seulement de découper, c'est de répartir équitablement.

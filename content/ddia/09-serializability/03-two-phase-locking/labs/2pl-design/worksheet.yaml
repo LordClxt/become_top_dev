@@ -1,0 +1,78 @@
+intro: Un gestionnaire de verrous 2PL reçoit des demandes dans cet ordre. Un verrou est accordé s'il est compatible avec les détenteurs et si
+  personne n'attend déjà ; sinon la transaction attend, sauf si l'attente crée un cycle (interblocage).
+blocks:
+- id: sched
+  type: match
+  title: L'ordonnancement
+  prompt: Pour chaque demande, quelle réponse ?
+  items:
+  - id: s1
+    label: 1. T1 demande S(x)
+  - id: s2
+    label: 2. T2 demande S(x)
+  - id: s3
+    label: 3. T1 demande X(x) (promotion)
+  - id: s4
+    label: 4. T2 demande X(x) (promotion)
+  - id: s5
+    label: 5. T3 demande X(y)
+  - id: s6
+    label: 6. T3 demande S(y) (déjà détenu en exclusif)
+  categories:
+  - id: granted
+    label: Accordé
+  - id: wait
+    label: En attente
+  - id: dead
+    label: Interblocage
+- id: compat
+  type: table
+  title: Compatibilité des verrous
+  prompt: Deux transactions différentes peuvent-elles détenir ces modes sur le même objet ? 1 = oui, 0 = non.
+  columns:
+  - id: s
+    label: Si l'autre détient S
+  - id: x
+    label: Si l'autre détient X
+  rows:
+  - id: want-s
+    label: Je demande S
+  - id: want-x
+    label: Je demande X
+- id: approx
+  type: match
+  title: Approximer un prédicat
+  prompt: 'Prédicat : « réservations de la salle 123 entre 12 h et 13 h ». Quelle approximation est sûre ?'
+  items:
+  - id: a1
+    label: Verrouiller toutes les réservations de la salle 123, à toute heure
+  - id: a2
+    label: Verrouiller toutes les salles entre 12 h et 13 h
+  - id: a3
+    label: Verrouiller la salle 123 de 12 h 30 à 13 h seulement
+  - id: a4
+    label: Verrouiller toute la table
+  categories:
+  - id: safe
+    label: Sûre (couvre le prédicat)
+  - id: unsafe
+    label: Dangereuse (manque des écritures)
+- id: perf
+  type: multi
+  title: Les coûts de 2PL
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: wait
+    label: Une transaction lente peut faire attendre toutes celles qui lui demandent un verrou
+  - id: dead
+    label: Les interblocages sont plus fréquents qu'avec read committed
+  - id: readers
+    label: Les lecteurs ne bloquent jamais les écrivains
+  - id: tail
+    label: La latence aux percentiles élevés est instable en cas de contention
+- id: wasted
+  type: number
+  title: Travail perdu
+  prompt: Une transaction de 40 ms est annulée par un interblocage à 30 ms, puis réessayée. Combien de ms de travail (30 perdus + 40 refaits)
+    ont été consommés pour cette transaction ?
+  unit: ms

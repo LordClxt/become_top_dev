@@ -1,0 +1,69 @@
+intro: 'La valeur validée de **x** vaut **2**. Voici l''enchaînement : (1) T1 écrit x = 3 ; (2) T2 lit x ; (3) T1 valide ; (4) T2 lit x de nouveau.
+  Les deux transactions sont en read committed.'
+blocks:
+- id: reads
+  type: table
+  title: Ce que lit T2
+  prompt: Quelle valeur T2 lit-elle aux étapes 2 et 4 ?
+  columns:
+  - id: x
+    label: x lu par T2
+  rows:
+  - id: s2
+    label: Étape 2 (avant le commit de T1)
+  - id: s4
+    label: Étape 4 (après le commit de T1)
+- id: dirty
+  type: choice
+  title: Si les lectures sales étaient permises
+  prompt: À l'étape 2, quelle valeur T2 aurait-elle lue ? Et que risque-t-elle si T1 est ensuite annulée ?
+  options:
+  - id: ghost
+    label: '3 : T2 aurait vu une valeur qui n''a jamais été validée'
+  - id: same
+    label: '2 : rien ne change'
+  - id: err
+    label: Une erreur
+- id: sale
+  type: table
+  title: La vente de voiture
+  prompt: Alice et Bob exécutent chacun deux écritures (annonce puis facture). Alice écrit l'annonce, Bob écrit l'annonce, Bob écrit la facture,
+    Alice écrit la facture. **Sans** protection contre les écritures sales, à qui revient chaque table (dernière écriture) ? Écris 1 pour Alice,
+    2 pour Bob.
+  columns:
+  - id: who
+    label: Gagnant (1 = Alice, 2 = Bob)
+  rows:
+  - id: annonce
+    label: Table des annonces
+  - id: facture
+    label: Table des factures
+- id: fix
+  type: choice
+  title: Avec read committed
+  prompt: Bob tente d'écrire l'annonce alors qu'Alice n'a pas validé. Que se passe-t-il ?
+  options:
+  - id: wait
+    label: L'écriture de Bob attend la fin de la transaction d'Alice
+  - id: overwrite
+    label: L'écriture de Bob écrase celle d'Alice
+  - id: abort
+    label: La transaction d'Alice est annulée
+- id: pourquoi
+  type: multi
+  title: Pourquoi pas de verrous de lecture ?
+  prompt: Coche les raisons pour lesquelles la plupart des bases n'utilisent pas de verrou de lecture.
+  options:
+  - id: slow
+    label: Une transaction d'écriture longue ferait attendre beaucoup de lectures seules
+  - id: knock
+    label: Un ralentissement dans une partie de l'application se propage ailleurs
+  - id: old
+    label: Garder l'ancienne valeur validée suffit à servir les lecteurs
+  - id: nolock
+    label: Les verrous de lecture sont impossibles à implémenter
+- id: counter
+  type: number
+  title: Le compteur
+  prompt: Le compteur vaut 42. Deux transactions read committed lisent 42, ajoutent 1 et écrivent. Quelle valeur finale ?
+  unit: ''

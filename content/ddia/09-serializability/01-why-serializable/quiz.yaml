@@ -1,0 +1,89 @@
+id: ddia-ch09-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que garantit l'isolation sérialisable ?
+  choices:
+  - Le résultat est le même que si les transactions s'exécutaient l'une après l'autre
+  - Les transactions s'exécutent réellement l'une après l'autre
+  - Les lectures voient des données plus récentes
+  - Les transactions sont plus rapides
+  answer: 0
+  explanation: Même si elles s'exécutent en parallèle.
+  concept: ddia-serializable-def
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: x vaut 10. T1 fait x = x + 1, T2 fait x = x × 2. Quels résultats sont sérialisables ?
+  choices:
+  - 21 et 22
+  - 11 et 20
+  - 10 et 22
+  - 11 et 21
+  answer: 0
+  explanation: T1 puis T2 donne 22, T2 puis T1 donne 21.
+  concept: ddia-serializable-def
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi un résultat de 11 n'est-il pas sérialisable dans l'exemple précédent ?
+  choices:
+  - Une mise à jour (le doublement) a été perdue
+  - 11 est impair
+  - T1 s'exécute en premier
+  - Il est inférieur à 21
+  answer: 0
+  explanation: Aucun ordre série ne donne 11.
+  concept: ddia-serializable-def
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Quelle est la réponse des chercheurs aux niveaux d'isolation faibles depuis les années 1970 ?
+  choices:
+  - Utiliser l'isolation sérialisable
+  - Éviter les transactions
+  - Ajouter des réplicas
+  - Utiliser des horloges
+  answer: 0
+  explanation: Elle empêche toutes les conditions de course.
+  concept: ddia-isolation-mess
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pourquoi est-il difficile de tester les problèmes de concurrence ?
+  choices:
+  - Ils ne se produisent que si l'on a la malchance d'un certain timing
+  - Les tests sont interdits
+  - Les bases refusent les tests
+  - Ils sont toujours évidents
+  answer: 0
+  explanation: Non déterministes et rares.
+  concept: ddia-isolation-mess
+  difficulty: 1
+- id: q6
+  type: multiple
+  prompt: Quelles sont les trois techniques qui implémentent la sérialisabilité ?
+  choices:
+  - Exécution en série
+  - Verrouillage en deux phases
+  - Contrôle optimiste (SSI)
+  - Réplication synchrone
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: La réplication n'est pas une technique d'isolation.
+  concept: ddia-three-techniques
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: '« Serializable » dans Oracle 11g est en réalité :'
+  choices:
+  - De l'isolation par instantané
+  - Une vraie sérialisabilité
+  - Une lecture sale
+  - Un verrou global
+  answer: 0
+  explanation: Le nom varie d'une base à l'autre.
+  concept: ddia-isolation-mess
+  difficulty: 1

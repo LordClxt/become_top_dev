@@ -1,0 +1,17 @@
+id: ddia-ch07-l03-lab-index-cost-design
+title: Combien de partitions touche-t-on ?
+difficulty: 3
+xp: 80
+concepts:
+- ddia-local-index
+- ddia-global-index
+- ddia-scatter-gather
+- ddia-async-global-index
+source:
+  chapter: 6
+  pages: 206-209
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

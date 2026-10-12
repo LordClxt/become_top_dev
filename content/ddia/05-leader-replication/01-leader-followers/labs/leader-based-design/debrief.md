@@ -1,0 +1,1 @@
+La réplication par leader a **une seule porte d'entrée pour les écritures** et un flux qui en sort : le log de réplication. Les lectures sont libres de passer par les followers, au prix du retard de réplication qu'on étudie dans les leçons 4 et 5.

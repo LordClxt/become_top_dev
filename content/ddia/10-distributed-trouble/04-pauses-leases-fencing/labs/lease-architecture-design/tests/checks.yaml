@@ -1,0 +1,26 @@
+checks:
+- id: lock-w
+  label: Le travailleur demande le bail au service de verrou
+  rule: edge_kind
+  source: worker
+  target: lock
+  kind: sync
+- id: w-store
+  label: Le travailleur écrit dans le stockage vérifiant
+  rule: edge_kind
+  source: worker
+  target: store
+  kind: write
+- id: no-plain
+  label: Aucun disque sans vérification
+  rule: count
+  source: plain
+  max: 0
+- id: no-clock
+  label: Pas d'horloge locale pour juger du bail
+  rule: count
+  source: clock
+  max: 0
+- id: conn
+  label: Aucun bloc isolé
+  rule: connected

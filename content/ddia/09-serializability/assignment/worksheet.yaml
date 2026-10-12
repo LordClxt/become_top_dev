@@ -1,0 +1,94 @@
+intro: 'Une place de marché a trois services : le **stock** (millions de petites mises à jour), les **paiements** (transactions courtes mais avec
+  des règles croisées entre comptes) et le **reporting** (requêtes longues en lecture). Tu choisis la technique de sérialisabilité de chacun et
+  tu chiffres leurs limites.'
+blocks:
+- id: choose
+  type: match
+  title: Quelle technique ?
+  prompt: Associe chaque service à la technique la plus adaptée.
+  items:
+  - id: stock
+    label: 'Stock : 100 000 petites mises à jour par seconde sur des clés indépendantes, tout tient en mémoire'
+  - id: pay
+    label: 'Paiements : transactions courtes, règles qui lisent plusieurs comptes, contention modérée, base PostgreSQL'
+  - id: report
+    label: 'Reporting : requêtes qui scannent beaucoup de données pendant des minutes'
+  categories:
+  - id: serial
+    label: Exécution en série partitionnée
+  - id: ssi
+    label: SSI
+  - id: snap
+    label: Instantané en lecture seule (hors boucle série)
+- id: partitions
+  type: tuner
+  title: Partitionner le stock
+  prompt: Chaque partition mono-thread traite **20 000 transactions/s**. Le trafic est de **100 000 tps**, uniforme. Le budget impose **au plus
+    8 cœurs**. Choisis le nombre de partitions.
+  params:
+  - id: p
+    label: Partitions
+    unit: ''
+    min: 1
+    max: 16
+    step: 1
+    default: 1
+  metrics:
+  - id: cap
+    label: Capacité (tps)
+    expr: p * 20000
+    format: number
+  goals:
+  - id: g1
+    label: Capacité ≥ 100 000 tps
+    expr: cap >= 100000
+  - id: g2
+    label: Au plus 8 partitions
+    expr: p <= 8
+- id: cross
+  type: number
+  title: Transactions inter-partitions
+  prompt: Dans le stock, 2 % des transactions touchent deux partitions. À 100 000 tps, combien de transactions inter-partitions par seconde ?
+    Le système en supporte environ 1 000.
+  unit: tps
+- id: ok
+  type: choice
+  title: Est-ce viable ?
+  prompt: Avec ce taux de transactions inter-partitions, le stock en exécution série partitionnée est-il viable ?
+  options:
+  - id: 'no'
+    label: 'Non : 2 000 tps dépassent largement les 1 000 supportés'
+  - id: 'yes'
+    label: 'Oui : le partitionnement supprime toute limite'
+  - id: maybe
+    label: Oui, car les transactions inter-partitions sont plus rapides
+- id: abort
+  type: number
+  title: Le prix de l'optimisme
+  prompt: Dans les paiements, 1 000 transactions par seconde tentent de valider ; 2 % sont annulées par un conflit de sérialisation et réessayées
+    une fois. Combien de transactions supplémentaires par seconde doit traiter la base à cause des reprises ?
+  unit: tps
+- id: ro
+  type: choice
+  title: Le rapport mensuel
+  prompt: Le reporting scanne les comptes pendant 10 minutes sur PostgreSQL serializable (SSI). Que lui arrive-t-il ?
+  options:
+  - id: fine
+    label: Il lit un instantané cohérent sans verrou et n'est pas annulé (lecture seule)
+  - id: block
+    label: Il bloque les paiements pendant 10 minutes
+  - id: abort
+    label: Il est annulé dès qu'un paiement valide
+- id: weak
+  type: multi
+  title: Pourquoi ne pas rester en instantané ?
+  prompt: Coche les risques des paiements sous simple isolation par instantané.
+  options:
+  - id: ws
+    label: 'Le write skew : deux paiements autorisés sur la foi d''un solde que l''autre a modifié'
+  - id: phantom
+    label: Des fantômes sur une règle d'absence de ligne
+  - id: dirty
+    label: Des lectures sales
+  - id: overspend
+    label: Une double dépense possible sans verrou ni sérialisabilité

@@ -1,0 +1,17 @@
+id: ddia-ch09-l02-lab-serial-execution-design
+title: Combien de transactions par seconde ?
+difficulty: 3
+xp: 80
+concepts:
+- ddia-serial-execution
+- ddia-stored-procedures
+- ddia-serial-partitioning
+- ddia-serial-limits
+source:
+  chapter: 7
+  pages: 252-256
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,19 @@
+id: ddia-ch10-assignment
+title: Post-mortem d'un split brain
+difficulty: 4
+xp: 140
+concepts:
+- ddia-process-pause
+- ddia-lease-bug
+- ddia-fencing-token
+- ddia-clock-drift
+- ddia-timeout-choice
+- ddia-safety-liveness
+source:
+  chapter: 8
+  pages: 273-312
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,74 @@
+intro: Un wiki est répliqué sur deux leaders. À t = 0, le titre est « A ». Le leader 1 le change en « B » (horodatage local 10:00:01.200). Le
+  leader 2 le change en « C » (horodatage local 10:00:01.150). Les horloges sont **supposées exactes**, sauf mention contraire.
+blocks:
+- id: lww
+  type: choice
+  title: Dernier écrivain gagne
+  prompt: Avec LWW et les horloges exactes, quelle valeur finale ?
+  options:
+  - id: b
+    label: B
+  - id: c
+    label: C
+  - id: bc
+    label: B/C
+- id: skew
+  type: choice
+  title: Horloge en avance
+  prompt: L'horloge du leader 2 avance de 200 ms. Il estampille donc son écriture 10:00:01.350 alors qu'elle a eu lieu après l'autre. Quel est
+    le résultat ?
+  options:
+  - id: c
+    label: C gagne, alors que l'écriture a eu lieu après B
+  - id: b
+    label: B gagne comme prévu
+  - id: none
+    label: Les deux sont conservées
+- id: perte
+  type: number
+  title: Combien d'écritures perdues ?
+  prompt: Cent clients écrivent concurrement la même clé, toutes confirmées. Avec LWW, combien d'écritures sont silencieusement jetées ?
+  unit: écritures
+- id: strat
+  type: match
+  title: Quelle stratégie perd des données ?
+  prompt: Pour chaque stratégie de convergence, indique si elle perd des écritures concurrentes.
+  items:
+  - id: lww
+    label: Le plus grand horodatage gagne
+  - id: replica
+    label: Le réplica au plus grand numéro gagne
+  - id: merge
+    label: Fusionner les valeurs (« B/C »)
+  - id: keep
+    label: Conserver les deux versions pour résolution ultérieure
+  categories:
+  - id: loses
+    label: Perd des données
+  - id: keeps
+    label: Préserve l'information
+- id: evite
+  type: choice
+  title: Éviter les conflits
+  prompt: Un utilisateur européen est servi toujours par le datacenter d'Europe. Que se passe-t-il quand ce datacenter tombe et qu'il est basculé
+    vers l'Amérique ?
+  options:
+  - id: break
+    label: 'L''évitement s''effondre : des écritures concurrentes sur des leaders différents redeviennent possibles'
+  - id: ok
+    label: 'Rien : les conflits sont impossibles par construction'
+  - id: lost
+    label: Toutes ses données sont perdues
+- id: salle
+  type: multi
+  title: Réservation de salle
+  prompt: Deux utilisateurs réservent la même salle à la même heure, sur deux leaders différents. Coche ce qui est vrai.
+  options:
+  - id: check
+    label: Chacun a vérifié la disponibilité sur sa copie locale, et la salle semblait libre
+  - id: same
+    label: Les deux écritures modifient exactement le même champ
+  - id: conflict
+    label: C'est quand même un conflit, détecté plus tard
+  - id: lww
+    label: LWW résout correctement ce cas sans perte

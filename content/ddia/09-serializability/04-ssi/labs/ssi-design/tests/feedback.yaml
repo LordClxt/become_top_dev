@@ -1,0 +1,24 @@
+blocks:
+  who:
+    options:
+      doctors: 'Bob a lu l''enregistrement d''Alice qu''elle a modifié : prémisse périmée.'
+      disjoint: Aucune lecture de T2 n'a été modifiée.
+      ro: 'Une transaction en lecture seule ne peut pas faire de write skew : jamais annulée.'
+      blind: 'T2 n''a rien lu : aucune prémisse.'
+      phantom: U2 avait cherché les réservations de midi, et U1 en a inséré une.
+  rate:
+    wrong: 10 − 1.
+  pct:
+    wrong: 9 sur 10.
+  comm:
+    wrong: 'Aucune lecture, donc aucune prémisse : zéro annulation.'
+  compare:
+    options:
+      wait: C'est la caractéristique de 2PL.
+      abort: 'Optimiste : on vérifie à la validation.'
+      single: Pas de concurrence.
+      tail: Comme l'isolation par instantané.
+  readonly:
+    options:
+      abort: Les lectures seules ne sont pas annulées.
+      block: SSI ne bloque pas.

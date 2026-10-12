@@ -1,0 +1,29 @@
+id: ddia-ch09
+title: Sérialisabilité
+subtitle: 'Le niveau d''isolation qui empêche toutes les anomalies : exécution en série, verrouillage en deux phases, SSI'
+source:
+  chapter: 7
+  pages: 251-268
+objectives:
+- Définir la sérialisabilité et expliquer pourquoi elle est la réponse de la recherche aux niveaux d'isolation faibles
+- Expliquer l'exécution en série (procédures stockées, mémoire, partitionnement) et ses limites
+- Dérouler le verrouillage en deux phases (verrous partagés et exclusifs, interblocage, verrous de prédicat et d'intervalle d'index) et chiffrer
+  son coût
+- Expliquer la sérialisabilité par instantané (SSI), son approche optimiste et la détection de prémisses périmées
+- Choisir une technique et un niveau d'isolation selon l'application, et associer chaque anomalie à ce qui la prévient
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch08
+lessons:
+- 01-why-serializable
+- 02-serial-execution
+- 03-two-phase-locking
+- 04-ssi
+- 05-isolation-synthesis
+xp:
+  assignment: 140
+  project: 280
+  boss: 320
+boss: boss
+assignment: assignment
+project: project

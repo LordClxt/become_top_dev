@@ -1,0 +1,16 @@
+{
+  "lat-async": 2,
+  "lat-semi": 4,
+  "lat-sync": 82,
+  "copies": {
+    "async.n": 1,
+    "semi.n": 2,
+    "sync.n": 3
+  },
+  "panne": {
+    "async": "ok",
+    "semi": "ok",
+    "sync": "block"
+  },
+  "crash": "async"
+}

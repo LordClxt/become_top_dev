@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Write skew ?
+  back: 'Deux transactions lisent les mêmes objets, puis écrivent des objets différents : l''invariant est violé.'
+  concept: ddia-write-skew
+- id: fc2
+  front: Exemple canonique ?
+  back: 'Alice et Bob quittent la garde en même temps : plus aucun médecin de garde.'
+  concept: ddia-write-skew
+- id: fc3
+  front: Le write skew est une généralisation de... ?
+  back: La mise à jour perdue (quand les objets écrits sont les mêmes).
+  concept: ddia-write-skew
+- id: fc4
+  front: Défenses contre le write skew ?
+  back: Sérialisabilité ; contraintes multi-objets ; SELECT FOR UPDATE sur les lignes lues.
+  concept: ddia-write-skew-defense
+- id: fc5
+  front: Autres exemples ?
+  back: Réservation de salle, partie multijoueur, nom d'utilisateur, double dépense.
+  concept: ddia-write-skew-examples
+- id: fc6
+  front: Schéma commun ?
+  back: SELECT vérifie une condition ; l'application décide ; l'écriture change la condition.
+  concept: ddia-phantom
+- id: fc7
+  front: Fantôme ?
+  back: Une écriture change le résultat d'une recherche d'une autre transaction ; rien à verrouiller si l'absence est testée.
+  concept: ddia-phantom
+- id: fc8
+  front: Matérialiser les conflits ?
+  back: Créer des lignes uniquement pour porter des verrous ; dernier recours.
+  concept: ddia-materializing-conflicts

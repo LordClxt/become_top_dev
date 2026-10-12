@@ -1,0 +1,32 @@
+blocks:
+  choix:
+    options:
+      a1: A1 perd 60 écritures confirmées alors que S n'en perd aucune.
+      a2: 'L''espace disque n''entre pas dans le choix : A2 est le plus en retard.'
+  perte:
+    options:
+      a1.lost: 90 000 − 89 940.
+      a2.lost: 90 000 − 89 700.
+  secondes:
+    wrong: 300 écritures ÷ 200 par seconde.
+  ordre:
+    options:
+      fence: D'abord empêcher deux leaders.
+      reconcile: L'audit suit la reprise du service.
+      rebuild: La remise en état de l'ancien leader est la dernière étape.
+  github:
+    options:
+      disk: Le follower synchrone sert des lectures normalement.
+  ryw:
+    options:
+      mono: 'Ici, ce ne sont pas des lectures qui reculent : des écritures confirmées ont disparu.'
+      prefix: Il n'y a pas de dépendance causale entre messages ici.
+  log:
+    options:
+      wal: Couplé au moteur et illisible hors de ce moteur.
+      stmt: Non déterministe, mal adapté à un export fiable.
+      logical: 'C''est le format de CDC : lisible, indépendant du moteur.'
+  timeout:
+    goals:
+      gel: Moins de 10 s, un gel de sauvegarde ordinaire provoquerait un failover inutile.
+      obj: Au-delà de 30 s la reprise est trop lente.

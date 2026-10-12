@@ -1,0 +1,26 @@
+blocks:
+  matrix:
+    options:
+      dirtyr.rc: Read committed empêche les lectures sales.
+      dirtyr.si: L'instantané aussi.
+      dirtyr.ser: Le sérialisable aussi.
+      readskew.rc: Read committed laisse passer le read skew.
+      readskew.si: L'instantané donne un instantané cohérent.
+      readskew.ser: Le sérialisable aussi.
+      ws.rc: Read committed ne l'empêche pas.
+      ws.si: L'instantané non plus.
+      ws.ser: Seul le sérialisable l'empêche.
+  fix:
+    options:
+      lu: Une opération atomique supprime le cycle.
+      ws: 'Les lignes lues existent : on les verrouille.'
+      phantom: 'Rien à verrouiller : matérialiser ou sérialisabilité.'
+      name: Une contrainte d'unicité suffit.
+  pick:
+    options:
+      voltdb: 'Court et en mémoire : l''exécution en série.'
+      legacy: InnoDB utilise 2PL pour serializable.
+      pg: PostgreSQL utilise SSI.
+  retry:
+    options:
+      never: Toutes ces techniques peuvent annuler (interblocage, conflit de sérialisation).

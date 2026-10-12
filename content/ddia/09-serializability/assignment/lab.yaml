@@ -1,0 +1,18 @@
+id: ddia-ch09-assignment
+title: Choisir la sérialisabilité de trois services
+difficulty: 4
+xp: 140
+concepts:
+- ddia-serial-execution
+- ddia-2pl
+- ddia-ssi
+- ddia-predicate-locks
+- ddia-stored-procedures
+source:
+  chapter: 7
+  pages: 251-268
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

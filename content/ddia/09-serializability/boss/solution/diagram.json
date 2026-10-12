@@ -1,0 +1,108 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 240,
+      "label": "Acheteurs"
+    },
+    {
+      "id": "gw",
+      "type": "gw",
+      "x": 300,
+      "y": 240,
+      "label": "Gateway"
+    },
+    {
+      "id": "inv",
+      "type": "inv",
+      "x": 700,
+      "y": 0,
+      "label": "Stocks"
+    },
+    {
+      "id": "pay",
+      "type": "pay",
+      "x": 700,
+      "y": 240,
+      "label": "Paiements"
+    },
+    {
+      "id": "rep",
+      "type": "rep",
+      "x": 700,
+      "y": 480,
+      "label": "Reporting"
+    },
+    {
+      "id": "invdb",
+      "type": "invdb",
+      "x": 1100,
+      "y": 0,
+      "label": "Redis (Lua)"
+    },
+    {
+      "id": "paydb",
+      "type": "paydb",
+      "x": 1100,
+      "y": 240,
+      "label": "PostgreSQL SSI"
+    },
+    {
+      "id": "replica",
+      "type": "replica",
+      "x": 1100,
+      "y": 480,
+      "label": "Réplica d'analyse"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "client",
+      "target": "gw",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "gw",
+      "target": "inv",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "gw",
+      "target": "pay",
+      "kind": "sync"
+    },
+    {
+      "id": "e4",
+      "source": "inv",
+      "target": "invdb",
+      "kind": "sync",
+      "label": "procédure Lua"
+    },
+    {
+      "id": "e5",
+      "source": "pay",
+      "target": "paydb",
+      "kind": "sync",
+      "label": "serializable"
+    },
+    {
+      "id": "e6",
+      "source": "paydb",
+      "target": "replica",
+      "kind": "replication",
+      "label": "log"
+    },
+    {
+      "id": "e7",
+      "source": "rep",
+      "target": "replica",
+      "kind": "read",
+      "label": "instantané"
+    }
+  ]
+}

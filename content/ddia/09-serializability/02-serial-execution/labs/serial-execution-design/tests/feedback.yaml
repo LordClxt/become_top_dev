@@ -1,0 +1,22 @@
+blocks:
+  interactive:
+    wrong: 5 × (0,5 + 0,02) = 2,6 ms.
+  proc:
+    wrong: 0,5 + 5 × 0,02 = 0,6 ms.
+  tps:
+    tolerance:
+      abs: 20
+    wrong: 1 000 ms / 0,6 ms ≈ 1 667 tps.
+  scale:
+    tolerance:
+      abs: 160
+    wrong: 8 × 1 667 ≈ 13 333 tps.
+  cross:
+    goals:
+      cap: Au-delà de 12,5 %, on dépasse 1 000 transactions inter-partitions par seconde.
+      useful: Il faut au moins 5 % pour répondre au métier.
+  fit:
+    options:
+      redis: 'Court et en mémoire : c''est le cas idéal.'
+      report: 'Une transaction longue bloquerait tout : à faire sur un instantané ailleurs.'
+      booking: Pas d'attente utilisateur dans une transaction en série.

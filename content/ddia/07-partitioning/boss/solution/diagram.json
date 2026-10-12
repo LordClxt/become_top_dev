@@ -1,0 +1,200 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 240,
+      "label": "Application"
+    },
+    {
+      "id": "router",
+      "type": "router",
+      "x": 300,
+      "y": 240,
+      "label": "Routage"
+    },
+    {
+      "id": "zk",
+      "type": "zk",
+      "x": 300,
+      "y": 560,
+      "label": "Coordination"
+    },
+    {
+      "id": "l1",
+      "type": "lead",
+      "x": 700,
+      "y": 0,
+      "label": "Partition 1"
+    },
+    {
+      "id": "l2",
+      "type": "lead",
+      "x": 700,
+      "y": 200,
+      "label": "Partition 2"
+    },
+    {
+      "id": "l3",
+      "type": "lead",
+      "x": 700,
+      "y": 400,
+      "label": "Partition 3"
+    },
+    {
+      "id": "f1",
+      "type": "fol",
+      "x": 1060,
+      "y": 0,
+      "label": "Réplica 1"
+    },
+    {
+      "id": "f2",
+      "type": "fol",
+      "x": 1060,
+      "y": 200,
+      "label": "Réplica 2"
+    },
+    {
+      "id": "f3",
+      "type": "fol",
+      "x": 1060,
+      "y": 400,
+      "label": "Réplica 3"
+    },
+    {
+      "id": "i1",
+      "type": "gidx",
+      "x": 1420,
+      "y": 60,
+      "label": "Index a–m"
+    },
+    {
+      "id": "i2",
+      "type": "gidx",
+      "x": 1420,
+      "y": 340,
+      "label": "Index n–z"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "client",
+      "target": "router",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "router",
+      "target": "l1",
+      "kind": "write"
+    },
+    {
+      "id": "e3",
+      "source": "router",
+      "target": "l2",
+      "kind": "write"
+    },
+    {
+      "id": "e4",
+      "source": "router",
+      "target": "l3",
+      "kind": "write"
+    },
+    {
+      "id": "e5",
+      "source": "router",
+      "target": "i1",
+      "kind": "sync",
+      "label": "recherche"
+    },
+    {
+      "id": "e6",
+      "source": "router",
+      "target": "i2",
+      "kind": "sync",
+      "label": "recherche"
+    },
+    {
+      "id": "e7",
+      "source": "router",
+      "target": "zk",
+      "kind": "read",
+      "label": "abonné"
+    },
+    {
+      "id": "e8",
+      "source": "l1",
+      "target": "zk",
+      "kind": "write"
+    },
+    {
+      "id": "e9",
+      "source": "l2",
+      "target": "zk",
+      "kind": "write"
+    },
+    {
+      "id": "e10",
+      "source": "l3",
+      "target": "zk",
+      "kind": "write"
+    },
+    {
+      "id": "e11",
+      "source": "l1",
+      "target": "f1",
+      "kind": "replication"
+    },
+    {
+      "id": "e12",
+      "source": "l2",
+      "target": "f2",
+      "kind": "replication"
+    },
+    {
+      "id": "e13",
+      "source": "l3",
+      "target": "f3",
+      "kind": "replication"
+    },
+    {
+      "id": "e14",
+      "source": "l1",
+      "target": "i1",
+      "kind": "async"
+    },
+    {
+      "id": "e15",
+      "source": "l1",
+      "target": "i2",
+      "kind": "async"
+    },
+    {
+      "id": "e16",
+      "source": "l2",
+      "target": "i1",
+      "kind": "async"
+    },
+    {
+      "id": "e17",
+      "source": "l2",
+      "target": "i2",
+      "kind": "async"
+    },
+    {
+      "id": "e18",
+      "source": "l3",
+      "target": "i1",
+      "kind": "async"
+    },
+    {
+      "id": "e19",
+      "source": "l3",
+      "target": "i2",
+      "kind": "async"
+    }
+  ]
+}

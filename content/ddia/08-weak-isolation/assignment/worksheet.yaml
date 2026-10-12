@@ -1,0 +1,127 @@
+intro: Une plateforme de billetterie doit choisir ses niveaux d'isolation. Tu qualifies les anomalies, ce que chaque niveau prévient, et la défense
+  adaptée à chaque fonction.
+blocks:
+- id: qualify
+  type: match
+  title: Nommer l'anomalie
+  prompt: Associe chaque incident à l'anomalie.
+  items:
+  - id: i1
+    label: Un client voit une commande « payée » dans sa liste mais son solde n'est pas encore débité (l'autre transaction n'a pas validé)
+  - id: i2
+    label: 'Deux clients paient la dernière place : la caisse en vend deux (chacun a vérifié qu''il en restait une avant d''écrire)'
+  - id: i3
+    label: Le rapport mensuel additionne des soldes lus à des instants différents ; le total est faux de 100 €
+  - id: i4
+    label: 'Deux employés ajoutent chacun 1 au stock lu à 42 : le stock vaut 43'
+  - id: i5
+    label: L'annonce va à Bob, la facture à Alice
+  categories:
+  - id: dirtyr
+    label: Lecture sale
+  - id: skew
+    label: Write skew / fantôme
+  - id: readskew
+    label: Lecture non répétable (read skew)
+  - id: lost
+    label: Mise à jour perdue
+  - id: dirtyw
+    label: Écriture sale
+- id: rc
+  type: multi
+  title: Read committed prévient…
+  prompt: Coche ce que read committed empêche.
+  options:
+  - id: dr
+    label: Les lectures sales
+  - id: dw
+    label: Les écritures sales
+  - id: rs
+    label: La lecture non répétable
+  - id: lu
+    label: La mise à jour perdue
+  - id: ws
+    label: Le write skew
+- id: si
+  type: multi
+  title: Isolation par instantané prévient…
+  prompt: Coche ce que l'isolation par instantané empêche par sa définition (hors détection propre à certaines bases).
+  options:
+  - id: dr
+    label: Les lectures sales
+  - id: dw
+    label: Les écritures sales
+  - id: rs
+    label: La lecture non répétable
+  - id: lu
+    label: La mise à jour perdue (seulement si la base la détecte)
+  - id: ws
+    label: Le write skew
+- id: defense
+  type: match
+  title: La défense par fonction
+  prompt: Associe chaque fonction à la défense la plus simple.
+  items:
+  - id: stock
+    label: Décrémenter le stock d'un article
+  - id: seat
+    label: Vendre la dernière place d'une salle sans surréservation (écriture d'une nouvelle ligne conditionnée à une absence)
+  - id: backup
+    label: Exporter toute la base pour une sauvegarde
+  - id: username
+    label: Créer un compte avec un nom unique
+  categories:
+  - id: atomic
+    label: Opération atomique
+  - id: snap
+    label: Instantané cohérent
+  - id: uniq
+    label: Contrainte d'unicité
+  - id: ser
+    label: Sérialisabilité (ou conflits matérialisés)
+- id: slots
+  type: number
+  title: Conflits matérialisés
+  prompt: Pour la billetterie, on matérialise les conflits avec une ligne par séance. Il y a 6 salles, 5 séances par jour, 14 jours. Combien de
+    lignes de verrou ?
+  unit: lignes
+- id: retry
+  type: tuner
+  title: Reprise après abort
+  prompt: 'Les mises à jour en conflit sont annulées puis réessayées avec un recul exponentiel : le délai avant l''essai k vaut 50 ms × 2^(k−1).
+    Tu veux au plus **5** essais et un délai cumulé maximal avant le dernier essai inférieur à **1 s** (somme des délais des essais 2 à n, soit
+    50 × (2^(n−1) − 1) ms).'
+  params:
+  - id: n
+    label: Nombre d'essais
+    unit: ''
+    min: 1
+    max: 10
+    step: 1
+    default: 1
+  metrics:
+  - id: cum
+    label: Délai cumulé (ms)
+    expr: 50 * (pow(2, n - 1) - 1)
+    format: number
+  goals:
+  - id: g1
+    label: Au moins 3 essais
+    expr: n >= 3
+  - id: g2
+    label: Au plus 5 essais
+    expr: n <= 5
+  - id: g3
+    label: Délai cumulé inférieur à 1 000 ms
+    expr: cum < 1000
+- id: side
+  type: choice
+  title: Effets de bord
+  prompt: La transaction envoie aussi un e-mail de confirmation. Elle échoue puis est réessayée. Que risque-t-on ?
+  options:
+  - id: dup
+    label: 'Envoyer l''e-mail plusieurs fois : les effets externes ne sont pas annulés par l''abort'
+  - id: none
+    label: 'Rien : l''abort annule les e-mails'
+  - id: lost
+    label: Perdre la réservation

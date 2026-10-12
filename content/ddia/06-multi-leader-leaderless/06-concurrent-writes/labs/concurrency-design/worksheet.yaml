@@ -1,0 +1,62 @@
+intro: Pour chaque scénario, tu détermines la relation entre les opérations, puis tu mesures ce que LWW détruit.
+blocks:
+- id: relation
+  type: match
+  title: Quelle relation ?
+  prompt: Classe chaque scénario.
+  items:
+  - id: s1
+    label: A écrit « lait ». B lit le panier (qui contient « lait ») puis écrit « lait, œufs »
+  - id: s2
+    label: A et B écrivent la même clé, chacun sans avoir lu l'écriture de l'autre
+  - id: s3
+    label: A écrit à 10:00, B à 10:10 depuis un téléphone resté hors-ligne depuis 9:00
+  - id: s4
+    label: B répond à un message de A qu'il a reçu
+  categories:
+  - id: before
+    label: A se produit avant B
+  - id: conc
+    label: Concurrentes
+- id: lww
+  type: table
+  title: LWW avec horloges décalées
+  prompt: Trois écritures concurrentes sur la clé X. Recopie l'horodatage effectivement attaché à chaque écriture (horloge locale, éventuellement
+    décalée).
+  columns:
+  - id: ts
+    label: Horodatage local
+  rows:
+  - id: w1
+    label: 'W1 (réellement en 1er), horloge exacte : 100'
+  - id: w2
+    label: 'W2 (réellement en 2e), horloge en retard de 30 : 80 → horodatage'
+  - id: w3
+    label: 'W3 (réellement en 3e), horloge en retard de 40 : 90 → horodatage'
+- id: survivor
+  type: choice
+  title: Qui survit ?
+  prompt: Avec les horodatages 100, 80 et 90, quelle écriture survit ?
+  options:
+  - id: w1
+    label: 'W1 : la plus ancienne en vrai'
+  - id: w2
+    label: W2
+  - id: w3
+    label: 'W3 : la plus récente en vrai'
+- id: lost
+  type: number
+  title: Pertes
+  prompt: Combien de ces trois écritures confirmées sont silencieusement perdues ?
+  unit: écritures
+- id: uuid
+  type: choice
+  title: Clés
+  prompt: Comment utiliser LWW sans perdre de données ?
+  options:
+  - id: uuid
+    label: Une clé unique (UUID) par écriture, jamais modifiée ensuite
+  - id: same
+    label: Toujours la même clé, avec le plus gros horodatage possible
+  - id: w1
+    label: Mettre w = 1

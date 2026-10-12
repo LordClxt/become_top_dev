@@ -1,0 +1,113 @@
+id: ddia-ch08-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelles sont les deux garanties de read committed ?
+  choices:
+  - Pas de lecture sale et pas d'écriture sale
+  - Pas de mise à jour perdue et pas de write skew
+  - Lectures répétables et sérialisabilité
+  - Durabilité et atomicité
+  answer: 0
+  explanation: On ne lit et n'écrase que du validé.
+  concept: ddia-read-committed
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Qu'est-ce qu'une lecture sale ?
+  choices:
+  - Lire des données écrites par une transaction pas encore validée
+  - Lire une donnée trop ancienne
+  - Lire deux fois la même donnée
+  - Lire sans verrou
+  answer: 0
+  explanation: Elles peuvent être annulées par la suite.
+  concept: ddia-dirty-read
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi empêcher les lectures sales ?
+  choices:
+  - Une transaction pourrait voir un état partiel ou des données qui seront annulées
+  - Pour accélérer les lectures
+  - Pour économiser de la mémoire
+  - Pour le chiffrement
+  answer: 0
+  explanation: Raisonner sur de telles données devient impossible.
+  concept: ddia-dirty-read
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Qu'est-ce qu'une écriture sale ?
+  choices:
+  - Écraser une valeur écrite par une transaction pas encore validée
+  - Écrire deux fois la même valeur
+  - Écrire sans transaction
+  - Écrire trop vite
+  answer: 0
+  explanation: Typiquement, la seconde écriture est retardée.
+  concept: ddia-dirty-write
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Dans la vente de voiture, que provoque une écriture sale ?
+  choices:
+  - La voiture va à Bob mais la facture à Alice
+  - La voiture disparaît
+  - Les deux sont facturés
+  - La base plante
+  answer: 0
+  explanation: Chacun gagne une des deux écritures.
+  concept: ddia-dirty-write
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Read committed empêche-t-il la perte d'un incrément de compteur concurrent ?
+  choices:
+  - 'Non : la seconde écriture suit la validation de la première'
+  - Oui
+  - Seulement en PostgreSQL
+  - Seulement avec un index
+  answer: 0
+  explanation: Ce n'est pas une écriture sale mais une mise à jour perdue.
+  concept: ddia-read-committed
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Comment les bases empêchent-elles généralement les écritures sales ?
+  choices:
+  - Par des verrous de ligne gardés jusqu'à la fin de la transaction
+  - Par des horloges
+  - Par une file de messages
+  - Par un index
+  answer: 0
+  explanation: La deuxième transaction attend.
+  concept: ddia-rc-implementation
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Comment empêchent-elles les lectures sales sans verrous de lecture ?
+  choices:
+  - Elles servent l'ancienne valeur validée tant que la nouvelle n'est pas validée
+  - Elles refusent les lectures
+  - Elles lisent sur un réplica
+  - Elles retardent les écritures
+  answer: 0
+  explanation: Sinon une transaction longue bloquerait les lecteurs.
+  concept: ddia-rc-implementation
+  difficulty: 1
+- id: q9
+  type: multiple
+  prompt: Quelles bases utilisent read committed par défaut ?
+  choices:
+  - Oracle 11g
+  - PostgreSQL
+  - SQL Server 2012
+  - Aucune
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: C'est un niveau très répandu.
+  concept: ddia-weak-isolation
+  difficulty: 2

@@ -1,0 +1,17 @@
+id: ddia-ch08-l03-lab-mvcc-visibility-design
+title: Que voit chaque transaction ?
+difficulty: 4
+xp: 90
+concepts:
+- ddia-mvcc
+- ddia-visibility-rules
+- ddia-snapshot-isolation
+- ddia-read-skew
+source:
+  chapter: 7
+  pages: 237-242
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,17 @@
+id: ddia-ch07-l04-lab-rebalancing-design
+title: Combien de données bougent ?
+difficulty: 4
+xp: 90
+concepts:
+- ddia-hash-mod-n
+- ddia-fixed-partitions
+- ddia-dynamic-partitioning
+- ddia-auto-vs-manual
+source:
+  chapter: 6
+  pages: 209-214
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

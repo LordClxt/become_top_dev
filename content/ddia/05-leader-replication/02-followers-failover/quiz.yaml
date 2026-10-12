@@ -1,0 +1,126 @@
+id: ddia-ch05-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi ne suffit-il pas de copier les fichiers du leader pour créer un follower ?
+  choices:
+  - 'Les données changent pendant la copie : elle verrait des parties à des instants différents'
+  - Les fichiers sont chiffrés
+  - Un follower ne peut pas lire les fichiers du leader
+  - La copie est trop lente pour un disque moderne
+  answer: 0
+  explanation: Il faut un instantané cohérent, associé à une position dans le log.
+  concept: ddia-new-follower
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: À quoi sert la position (LSN, coordonnées du binlog) associée à l'instantané ?
+  choices:
+  - À savoir exactement à partir d'où réclamer les changements pour se rattraper
+  - À chiffrer l'instantané
+  - À choisir le futur leader
+  - À mesurer la latence du réseau
+  answer: 0
+  explanation: Sans position exacte, le follower pourrait manquer des écritures ou en appliquer deux fois.
+  concept: ddia-new-follower
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Un follower redémarre après dix minutes de coupure réseau. Que fait-il ?
+  choices:
+  - Il redemande au leader tout ce qui suit sa dernière entrée du log, l'applique, puis suit le flux
+  - Il repart d'un nouvel instantané complet
+  - Il se déclare leader
+  - Il efface ses données
+  answer: 0
+  explanation: 'Chaque follower garde son log : il sait où il s''est arrêté.'
+  concept: ddia-follower-catch-up
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Dans quel ordre se déroule un failover automatique ?
+  choices:
+  - Détecter la panne, choisir un nouveau leader, reconfigurer le système
+  - Choisir le leader, détecter la panne, reconfigurer
+  - Reconfigurer, détecter, élire
+  - Élire, reconfigurer, détecter
+  answer: 0
+  explanation: On ne peut pas élire avant d'avoir décidé que le leader est mort, ni reconfigurer avant d'avoir un nouveau leader.
+  concept: ddia-failover
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quel follower est le meilleur candidat pour devenir leader ?
+  choices:
+  - Celui qui a reçu le plus de changements de l'ancien leader
+  - Celui dont le nom est le plus petit
+  - Le plus récemment ajouté
+  - Le plus éloigné géographiquement
+  answer: 0
+  explanation: Le plus à jour minimise les écritures perdues.
+  concept: ddia-failover
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Un follower asynchrone en retard est promu. L'ancien leader revient avec des écritures jamais répliquées. Que fait-on le plus souvent
+    ?
+  choices:
+  - On les jette
+  - On les ajoute à la fin du log du nouveau leader sans vérification
+  - On rejoue tout le log depuis le début
+  - On redevient leader
+  answer: 0
+  explanation: Le plus souvent elles sont ignorées, ce qui viole les attentes de durabilité des clients.
+  concept: ddia-failover-pitfalls
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Dans l'incident GitHub, qu'est-ce qui a provoqué la divulgation de données privées ?
+  choices:
+  - Un follower en retard promu a réutilisé des clés primaires déjà utilisées dans Redis
+  - Un split brain a copié des tables entières
+  - Un timeout trop long a gelé la base
+  - Un cache a expiré trop tôt
+  answer: 0
+  explanation: 'L''auto-incrément du nouveau leader était en retard : mêmes identifiants pour d''autres lignes, d''où l''incohérence MySQL / Redis.'
+  concept: ddia-failover-pitfalls
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Qu'est-ce que le split brain ?
+  choices:
+  - Deux nœuds qui se croient leader et acceptent des écritures
+  - Un follower qui lit deux logs
+  - Un partitionnement en deux parties égales
+  - Un nœud qui tourne sur deux machines
+  answer: 0
+  explanation: Sans résolution de conflit, des données sont perdues ou corrompues.
+  concept: ddia-failover-pitfalls
+  difficulty: 1
+- id: q9
+  type: multiple
+  prompt: Quels sont les effets d'un timeout de détection trop court ?
+  choices:
+  - Failovers inutiles lors d'un pic de charge
+  - Risque d'aggraver une situation déjà surchargée
+  - Reprise plus rapide après une vraie panne
+  - Impossibilité de choisir un leader
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Court = reprise rapide mais faux positifs ; long = reprise lente. Il n'y a pas de bonne valeur universelle.
+  concept: ddia-failover-pitfalls
+  difficulty: 2
+- id: q10
+  type: single
+  prompt: À quoi sert le fencing (STONITH) ?
+  choices:
+  - Empêcher l'ancien leader de continuer à écrire en l'éteignant
+  - Chiffrer les connexions
+  - Limiter le débit des clients
+  - Compresser le log
+  answer: 0
+  explanation: 'Un mécanisme mal conçu peut éteindre les deux nœuds : c''est un filet de sécurité délicat.'
+  concept: ddia-fencing-stonith
+  difficulty: 1

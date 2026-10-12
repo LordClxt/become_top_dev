@@ -1,0 +1,15 @@
+{
+  "besoin": {
+    "upgrade": "logical",
+    "dw": "logical",
+    "subset": "trigger",
+    "exact": "wal"
+  },
+  "cassent": [
+    "now",
+    "rand",
+    "seq"
+  ],
+  "delete": "all",
+  "ecrit": 7
+}

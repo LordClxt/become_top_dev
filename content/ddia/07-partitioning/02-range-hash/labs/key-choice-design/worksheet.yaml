@@ -1,0 +1,72 @@
+intro: Trois charges de travail et leurs clés possibles. Tu raisonnes sur les hot spots et sur les requêtes qui deviennent faciles ou coûteuses.
+blocks:
+- id: capteurs
+  type: choice
+  title: 'Capteurs : quelle clé ?'
+  prompt: 1 000 capteurs écrivent une mesure par seconde. Les requêtes lisent « un capteur sur un intervalle de temps ». La base est partitionnée
+    par plage. Quelle clé ?
+  options:
+  - id: ts
+    label: horodatage seul
+  - id: sensor-ts
+    label: (capteur, horodatage)
+  - id: ts-sensor
+    label: (horodatage, capteur)
+- id: touche
+  type: table
+  title: Partitions touchées par une requête
+  prompt: Il y a 16 partitions. Pour chaque couple (stratégie, requête), combien de partitions au **maximum** la requête doit-elle interroger
+    ?
+  columns:
+  - id: n
+    label: Partitions
+  rows:
+  - id: hash-get
+    label: Hachage — lire une clé
+  - id: hash-range
+    label: Hachage — lire une plage de clés
+  - id: compound
+    label: Clé composée (user, temps) — lire un utilisateur sur un intervalle
+- id: salt
+  type: number
+  title: Clé éclatée
+  prompt: Une clé célèbre est éclatée avec un sel à 2 chiffres (100 sous-clés). Combien de clés une lecture doit-elle consulter pour reconstituer
+    toutes ses données ?
+  unit: clés
+- id: hotwrite
+  type: number
+  title: Charge d'écriture après éclatement
+  prompt: La clé reçoit 20 000 écritures par seconde. Éclatée en 100 sous-clés réparties uniformément, combien d'écritures par seconde reçoit
+    chaque sous-clé ?
+  unit: écritures/s
+- id: regle
+  type: match
+  title: Quel schéma ?
+  prompt: Associe chaque besoin au schéma de partitionnement le plus adapté.
+  items:
+  - id: scan
+    label: Parcourir efficacement les articles par ordre alphabétique de titre
+  - id: even
+    label: Répartir uniformément des identifiants d'utilisateurs, sans requête de plage
+  - id: timeline
+    label: Lire la ligne de temps d'un utilisateur, triée par date
+  categories:
+  - id: range
+    label: Plage de clés
+  - id: hash
+    label: Hachage de la clé
+  - id: compound
+    label: Clé composée
+- id: faux
+  type: multi
+  title: Vrai ou faux ?
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: stable
+    label: Une fonction de hachage de partitionnement doit donner le même résultat dans tous les processus
+  - id: range-hash
+    label: Avec un hachage, une requête de plage doit souvent interroger toutes les partitions
+  - id: hot
+    label: Hacher la clé empêche tout hot spot
+  - id: salt-all
+    label: Il faut saler toutes les clés pour éviter les hot spots

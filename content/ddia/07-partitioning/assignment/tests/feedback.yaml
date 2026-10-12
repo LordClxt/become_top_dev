@@ -1,0 +1,26 @@
+blocks:
+  cle:
+    options:
+      ts: Toutes les écritures vont à la partition de la période en cours.
+      ts-sensor: L'horodatage en tête reproduit le hot spot.
+  debit:
+    wrong: 2 000 écritures par seconde ÷ 20 partitions.
+  hotkey:
+    wrong: 500 ÷ 100.
+  index:
+    options:
+      reads: 'Beaucoup de lectures : une lecture sur une seule partition d''index coûte moins.'
+      writes: 'Beaucoup d''écritures : chaque écriture ne doit toucher qu''une partition.'
+  cout:
+    options:
+      local.n: Scatter/gather sur toutes les partitions.
+      global.n: Une seule partition d'index.
+  taille:
+    goals:
+      g1: 'Trop peu de partitions : une partition dépasserait 30 Go dans trois ans.'
+      g2: Au-delà de 500, le surcoût de gestion explose.
+  ajout:
+    wrong: 200 ÷ 9 = 22,2, arrondi inférieur.
+  auto:
+    options:
+      order: 'Les clés ne changent pas de partition : c''est le propre du nombre fixe de partitions.'

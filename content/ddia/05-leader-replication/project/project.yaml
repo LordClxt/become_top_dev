@@ -1,0 +1,42 @@
+id: ddia-ch05-project
+title: Tinybase — la réplication par leader
+pitch: 'Tinybase se duplique : un leader numérote ses écritures dans un log, des followers l''appliquent dans l''ordre, un nouveau follower démarre
+  d''un instantané, un failover promeut le plus avancé, et un routeur garantit que chacun lit ses écritures.'
+running_project: tinybase
+kind: code
+language: go
+difficulty: 4
+xp: 240
+timeout_s: 60
+entrypoint: starter/
+test_command: go test ./...
+files_editable:
+- replication.go
+concepts:
+- ddia-leader-follower
+- ddia-new-follower
+- ddia-failover
+- ddia-read-your-writes
+- ddia-monotonic-reads
+milestones:
+- id: m1
+  title: Le log et le follower
+  goal: Numéroter les écritures du leader (LSN), appliquer le log dans l'ordre sur un follower (trou refusé, rejeu ignoré) et se rattraper depuis
+    sa dernière position.
+  tests: go test ./... -run TestM1
+  review: false
+- id: m2
+  title: Instantané, retard et failover
+  goal: Créer un follower depuis un instantané cohérent, mesurer le retard, choisir le follower le plus avancé, le promouvoir sans casser la numérotation
+    et compter les écritures perdues.
+  tests: go test ./... -run TestM2
+  review: false
+- id: m3
+  title: Un routeur qui respecte la session
+  goal: Router les écritures au leader et les lectures vers un follower assez avancé pour que l'utilisateur lise ses écritures et ne recule jamais
+    ; sinon lire au leader.
+  tests: go test ./... -run TestM3
+  review: true
+  prompt: Pourquoi la session retient-elle un numéro de position (LSN) plutôt qu'un horodatage de l'horloge, et que faudrait-il changer pour que
+    la garantie tienne aussi entre deux appareils d'un même utilisateur ?
+verified: { at: 2026-10-11, solution: pass, starter: fail }

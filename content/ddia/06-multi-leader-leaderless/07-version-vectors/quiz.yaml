@@ -1,0 +1,125 @@
+id: ddia-ch06-l07-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Dans l'algorithme du panier, que fait le serveur à la réception d'une écriture avec la version v ?
+  choices:
+  - Il écrase les valeurs de version ≤ v et garde celles de version supérieure
+  - Il écrase toutes les valeurs
+  - Il refuse l'écriture
+  - Il garde uniquement la plus récente
+  answer: 0
+  explanation: Les valeurs de version supérieure sont concurrentes de l'écriture.
+  concept: ddia-version-algorithm
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Un client écrit sans numéro de version. Quel effet ?
+  choices:
+  - L'écriture est concurrente de toutes les autres et n'écrase rien
+  - Elle écrase tout
+  - Elle est refusée
+  - Elle devient la version 0
+  answer: 0
+  explanation: Elle sera renvoyée comme un sibling.
+  concept: ddia-version-algorithm
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que renvoie le serveur à la lecture ?
+  choices:
+  - Toutes les valeurs non écrasées et le dernier numéro de version
+  - Seulement la plus récente
+  - Seulement la version
+  - Un diff
+  answer: 0
+  explanation: Le client doit les fusionner avant d'écrire.
+  concept: ddia-version-algorithm
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Qu'est-ce qu'un sibling ?
+  choices:
+  - Une valeur concurrente conservée à côté d'une autre
+  - Un réplica
+  - Un nœud de dépannage
+  - Une sauvegarde
+  answer: 0
+  explanation: Riak appelle ainsi les valeurs concurrentes.
+  concept: ddia-siblings
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pourquoi faut-il un tombstone pour supprimer un article d'un panier ?
+  choices:
+  - Sinon l'article réapparaît à la fusion par union des siblings
+  - Pour économiser de l'espace
+  - Pour accélérer les lectures
+  - Pour chiffrer la suppression
+  answer: 0
+  explanation: Le marqueur porte une version et indique le retrait.
+  concept: ddia-tombstone
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Pourquoi un seul numéro de version ne suffit-il plus avec plusieurs réplicas sans leader ?
+  choices:
+  - 'Plusieurs réplicas acceptent des écritures concurrentes : il faut un compteur par réplica'
+  - Les numéros dépasseraient la mémoire
+  - Les réplicas n'ont pas d'horloge
+  - Les clients ne peuvent pas lire
+  answer: 0
+  explanation: L'ensemble de ces compteurs est le vecteur de version.
+  concept: ddia-version-vector
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: 'Comparer {A:2, B:1} et {A:1, B:2} donne :'
+  choices:
+  - Concurrents
+  - Le premier avant le second
+  - Le second avant le premier
+  - Égaux
+  answer: 0
+  explanation: Chacun est supérieur sur un compteur.
+  concept: ddia-version-vector
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: 'Comparer {A:1} et {A:2, B:1} donne :'
+  choices:
+  - Le premier s'est produit avant le second
+  - Concurrents
+  - Le second avant le premier
+  - Égaux
+  answer: 0
+  explanation: Tous les compteurs du premier sont ≤ à ceux du second.
+  concept: ddia-version-vector
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Qu'apportent les CRDT ?
+  choices:
+  - Une fusion automatique des siblings, y compris les suppressions
+  - Un leader
+  - Un chiffrement
+  - Un quorum plus petit
+  answer: 0
+  explanation: Riak 2.0 fournit des types de données basés dessus.
+  concept: ddia-crdt-merge
+  difficulty: 1
+- id: q10
+  type: multiple
+  prompt: Quelles précautions évitent de perdre des données avec des siblings ?
+  choices:
+  - Lire avant d'écrire
+  - Fusionner toutes les valeurs reçues
+  - Renvoyer le contexte causal
+  - Choisir la valeur au hasard
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Choisir au hasard perd des données.
+  concept: ddia-siblings
+  difficulty: 2

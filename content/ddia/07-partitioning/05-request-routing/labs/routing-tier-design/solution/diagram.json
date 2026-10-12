@@ -1,0 +1,82 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 160,
+      "label": "Client"
+    },
+    {
+      "id": "router",
+      "type": "router",
+      "x": 360,
+      "y": 160,
+      "label": "Routage"
+    },
+    {
+      "id": "n1",
+      "type": "node",
+      "x": 760,
+      "y": 0,
+      "label": "Nœud 1"
+    },
+    {
+      "id": "n2",
+      "type": "node",
+      "x": 760,
+      "y": 320,
+      "label": "Nœud 2"
+    },
+    {
+      "id": "zk",
+      "type": "zk",
+      "x": 1140,
+      "y": 160,
+      "label": "ZooKeeper"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "client",
+      "target": "router",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "router",
+      "target": "n1",
+      "kind": "sync",
+      "label": "requête"
+    },
+    {
+      "id": "e3",
+      "source": "router",
+      "target": "n2",
+      "kind": "sync",
+      "label": "requête"
+    },
+    {
+      "id": "e4",
+      "source": "n1",
+      "target": "zk",
+      "kind": "write",
+      "label": "enregistre"
+    },
+    {
+      "id": "e5",
+      "source": "n2",
+      "target": "zk",
+      "kind": "write",
+      "label": "enregistre"
+    },
+    {
+      "id": "e6",
+      "source": "router",
+      "target": "zk",
+      "kind": "read",
+      "label": "abonné"
+    }
+  ]
+}

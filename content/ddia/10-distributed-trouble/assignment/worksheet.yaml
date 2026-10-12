@@ -1,0 +1,112 @@
+intro: '**Incident.** Un service de génération de factures n''autorise qu''un seul worker à écrire dans le fichier du jour. Un service de verrou
+  accorde un bail de **10 s**. À 14:00:00, le worker A prend le bail. À 14:00:03 il entame une longue pause de ramasse-miettes qui dure **15 s**.
+  À 14:00:10 son bail expire. À 14:00:11 le worker B prend le bail et écrit. À 14:00:18 A se réveille, croit toujours avoir le bail (il l''avait
+  vérifié à 14:00:02 avec son horloge locale) et écrit. Le fichier est corrompu. Tu écris le post-mortem : chronologie, causes, parades.'
+blocks:
+- id: window
+  type: number
+  title: La fenêtre de danger
+  prompt: Pendant combien de secondes A et B ont-ils pu tous deux croire détenir le verrou (entre l'expiration du bail de A et le réveil de A)
+    ?
+  unit: s
+- id: causes
+  type: multi
+  title: Causes racines
+  prompt: Coche les causes réelles de l'incident.
+  options:
+  - id: gc
+    label: Une pause de processus a suspendu A entre la vérification et l'action
+  - id: check
+    label: A a vérifié son bail puis agi, sans que le stockage puisse refuser
+  - id: nofence
+    label: Aucun jeton de clôture n'était joint aux écritures
+  - id: net
+    label: Le réseau était coupé pendant 15 secondes
+  - id: disk
+    label: Le disque était défaillant
+- id: fixes
+  type: match
+  title: Quelle parade pour quel problème ?
+  prompt: Associe chaque mesure à ce qu'elle apporte.
+  items:
+  - id: fence
+    label: Un jeton de clôture croissant vérifié par le stockage
+  - id: ttl
+    label: Allonger le bail à 60 s
+  - id: tune
+    label: Surveiller les pauses de GC et réduire la taille du tas
+  - id: mono
+    label: Mesurer l'expiration locale avec l'horloge monotone
+  categories:
+  - id: safe
+    label: Garantit la sûreté (empêche la corruption)
+  - id: reduce
+    label: Réduit la probabilité, sans garantie
+- id: writes
+  type: table
+  title: Rejouer avec des jetons
+  prompt: Avec les jetons A = 41 et B = 42, le stockage voit les écritures dans cet ordre. 1 = acceptée, 0 = rejetée.
+  columns:
+  - id: ok
+    label: Acceptée ?
+  rows:
+  - id: b
+    label: 14:00:11 — B écrit avec 42
+  - id: a
+    label: 14:00:18 — A écrit avec 41
+- id: tuner
+  type: tuner
+  title: Régler le bail sans croire qu'il suffit
+  prompt: La pause maximale observée est de 20 s. Règle la durée du bail pour qu'elle **dépasse la pause maximale** tout en gardant le **temps
+    de bascule** (durée du bail) sous 30 s.
+  params:
+  - id: ttl
+    label: Durée du bail
+    unit: s
+    min: 5
+    max: 60
+    step: 1
+    default: 10
+  metrics:
+  - id: margin
+    label: Marge sur la pause maximale
+    expr: ttl - 20
+    format: duration-s
+  - id: failover
+    label: Temps de bascule maximal
+    expr: ttl
+    format: duration-s
+  goals:
+  - id: above
+    label: Le bail dépasse la pause maximale
+    expr: ttl > 20
+  - id: quick
+    label: Bascule en 30 s au plus
+    expr: ttl <= 30
+- id: still
+  type: choice
+  title: Et si le bail est assez long ?
+  prompt: Le bail est réglé à 25 s. Le problème est-il définitivement résolu ?
+  options:
+  - id: 'no'
+    label: 'Non : une pause plus longue que prévu reste possible, seule la vérification par le stockage garantit la sûreté'
+  - id: 'yes'
+    label: 'Oui : aucune pause ne dépassera jamais 20 s'
+  - id: mostly
+    label: Oui, tant que le réseau est rapide
+  - id: clock
+    label: Oui, si on utilise l'horloge murale pour vérifier
+- id: props
+  type: match
+  title: Quelle famille de propriété ?
+  prompt: Classe les exigences du service de verrou.
+  items:
+  - id: excl
+    label: Au plus un worker écrit à la fois
+  - id: progress
+    label: Un worker correct qui demande le bail finit par l'obtenir
+  categories:
+  - id: safety
+    label: Sûreté
+  - id: liveness
+    label: Vivacité

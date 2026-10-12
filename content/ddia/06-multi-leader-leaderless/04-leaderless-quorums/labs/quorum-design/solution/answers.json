@@ -1,0 +1,20 @@
+{
+  "table": {
+    "c1.tw": 1,
+    "c1.tr": 1,
+    "c2.tw": 2,
+    "c2.tr": 2,
+    "c3.tw": 0,
+    "c3.tr": 4
+  },
+  "recoupe": [
+    "a",
+    "c",
+    "d"
+  ],
+  "repair": "write",
+  "reglage": {
+    "w": 3,
+    "r": 3
+  }
+}

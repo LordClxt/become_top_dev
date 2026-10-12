@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Modèle synchrone ?
+  back: Délais, pauses et dérive ont des bornes connues. Irréaliste.
+  concept: ddia-timing-models
+- id: fc2
+  front: Modèle partiellement synchrone ?
+  back: Synchrone la plupart du temps, avec des dépassements ponctuels. Réaliste.
+  concept: ddia-timing-models
+- id: fc3
+  front: Modèle asynchrone ?
+  back: Aucune hypothèse de temps, pas de timeout.
+  concept: ddia-timing-models
+- id: fc4
+  front: Crash-stop ?
+  back: Un nœud défaillant s'arrête pour toujours.
+  concept: ddia-node-models
+- id: fc5
+  front: Crash-recovery ?
+  back: 'Le nœud redémarre : stockage durable conservé, mémoire perdue.'
+  concept: ddia-node-models
+- id: fc6
+  front: Modèle réaliste ?
+  back: Partiellement synchrone + crash-recovery.
+  concept: ddia-realistic-model
+- id: fc7
+  front: Sûreté ?
+  back: Rien de mauvais n'arrive ; violation datable et irréversible.
+  concept: ddia-safety-liveness
+- id: fc8
+  front: Vivacité ?
+  back: Du bien finit par arriver (« finalement ») ; jamais violée à un instant donné.
+  concept: ddia-safety-liveness
+- id: fc9
+  front: Limites d'un modèle ?
+  back: 'Il simplifie : disque corrompu, firmware buggé. Preuve + tests empiriques.'
+  concept: ddia-model-vs-reality

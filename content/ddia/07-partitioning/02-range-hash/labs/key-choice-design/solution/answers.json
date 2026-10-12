@@ -1,0 +1,19 @@
+{
+  "capteurs": "sensor-ts",
+  "touche": {
+    "hash-get.n": 1,
+    "hash-range.n": 16,
+    "compound.n": 1
+  },
+  "salt": 100,
+  "hotwrite": 200,
+  "regle": {
+    "scan": "range",
+    "even": "hash",
+    "timeline": "compound"
+  },
+  "faux": [
+    "stable",
+    "range-hash"
+  ]
+}

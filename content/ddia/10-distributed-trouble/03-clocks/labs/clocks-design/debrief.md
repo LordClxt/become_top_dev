@@ -1,0 +1,1 @@
+**Une horloge n'est jamais un point.** Durée → monotone, affichage → murale, ordre entre machines → logique ou intervalle. Un décalage de 5 ms suffit pour que LWW jette une écriture causalement plus récente, et le commit-wait de Spanner paie la largeur de l'intervalle en latence pour que l'ordre soit sûr.

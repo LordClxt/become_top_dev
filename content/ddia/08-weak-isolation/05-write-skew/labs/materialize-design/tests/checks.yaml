@@ -1,0 +1,43 @@
+checks:
+- id: c-s
+  label: Le client passe par le service
+  rule: edge_kind
+  source: client
+  target: svc
+  kind: sync
+- id: lock
+  label: Le service verrouille d'abord les créneaux (FOR UPDATE)
+  rule: edge_kind
+  source: svc
+  target: slots
+  kind: sync
+- id: write
+  label: …puis écrit la réservation
+  rule: edge_kind
+  source: svc
+  target: bookings
+  kind: write
+- id: no-direct
+  label: Le client n'écrit pas directement dans les tables
+  rule: no_edge
+  source: client
+  target: bookings
+- id: no-cache
+  label: Pas de cache de disponibilité dans ce schéma
+  rule: count
+  source: cache
+  max: 0
+- id: no-mq
+  label: Pas de file asynchrone
+  rule: count
+  source: mq
+  max: 0
+- id: two-tables
+  label: 'Deux tables PostgreSQL : verrous et réservations'
+  rule: count
+  source: slots
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

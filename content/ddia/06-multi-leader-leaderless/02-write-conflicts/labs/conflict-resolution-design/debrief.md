@@ -1,0 +1,1 @@
+**LWW converge mais jette des écritures confirmées**, et il dépend d'horloges qu'on ne peut pas croire (module 10). Fusionner ou conserver les versions préserve l'information, au prix de code applicatif. La meilleure stratégie reste d'éviter les conflits.

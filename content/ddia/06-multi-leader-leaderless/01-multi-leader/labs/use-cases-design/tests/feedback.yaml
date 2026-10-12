@@ -1,0 +1,18 @@
+blocks:
+  lat-single:
+    wrong: 180 ms d'aller-retour + 5 ms d'écriture.
+  lat-multi:
+    wrong: 'L''écriture est traitée sur le leader américain : 5 ms. La réplication vers l''Europe se fait en arrière-plan.'
+  choix:
+    options:
+      cal: Chaque appareil doit accepter les écritures hors-ligne.
+      bank: Dans un seul datacenter, un leader suffit et évite les conflits.
+      docs: 'Éditions simultanées : chaque éditeur est un leader local.'
+      geo: Un leader par région cache la latence inter-continentale.
+  panne:
+    options:
+      single: Les écritures américaines doivent atteindre le leader d'Europe.
+      multi: Chaque site écrit localement, la réplication rattrapera.
+  cout:
+    options:
+      order: 'Au contraire : il n''y a plus d''ordre unique, c''est ce qui crée les conflits.'

@@ -1,0 +1,125 @@
+id: ddia-ch09-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle anomalie seul le niveau sérialisable empêche-t-il ?
+  choices:
+  - Le write skew
+  - La lecture sale
+  - L'écriture sale
+  - Le read skew
+  answer: 0
+  explanation: Les autres sont empêchées par des niveaux plus faibles.
+  concept: ddia-anomaly-catalog
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quel niveau empêche le read skew ?
+  choices:
+  - L'isolation par instantané
+  - Read committed
+  - Read uncommitted
+  - Aucun
+  answer: 0
+  explanation: Via MVCC.
+  concept: ddia-isolation-matrix
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: 'Presque toutes les implémentations de transactions empêchent :'
+  choices:
+  - Les écritures sales
+  - Le write skew
+  - Les fantômes
+  - Les mises à jour perdues
+  answer: 0
+  explanation: Avec des verrous d'écriture.
+  concept: ddia-isolation-matrix
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Comment la mise à jour perdue est-elle gérée en instantané ?
+  choices:
+  - Parfois par détection automatique, sinon par verrou manuel (SELECT FOR UPDATE)
+  - Elle est impossible
+  - Par un cache
+  - Par un index
+  answer: 0
+  explanation: Cela dépend de l'implémentation.
+  concept: ddia-anomaly-catalog
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: 'Les fantômes d''un write skew nécessitent :'
+  choices:
+  - Un traitement spécial, comme des verrous d'intervalle d'index
+  - Rien
+  - Un cache
+  - Un autre schéma
+  answer: 0
+  explanation: L'instantané n'empêche que les fantômes simples en lecture.
+  concept: ddia-anomaly-catalog
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quand l'exécution en série est-elle une bonne option ?
+  choices:
+  - Transactions très rapides et débit d'écriture assez bas pour un cœur
+  - Transactions longues interactives
+  - Gros jeu de données sur disque
+  - Forte contention inter-partitions
+  answer: 0
+  explanation: Simple et efficace dans ce cadre.
+  concept: ddia-choose-technique
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Quel est le principal défaut reproché à 2PL ?
+  choices:
+  - Ses performances et latences instables
+  - Il ne prévient pas le write skew
+  - Il est optimiste
+  - Il n'utilise pas de verrous
+  answer: 0
+  explanation: Pourtant il est sérialisable.
+  concept: ddia-choose-technique
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Que fait une transaction SSI qui détecte une prémisse périmée ?
+  choices:
+  - Elle est annulée à la validation et doit être réessayée
+  - Elle attend
+  - Elle écrase l'autre
+  - Elle continue
+  answer: 0
+  explanation: Optimiste.
+  concept: ddia-choose-technique
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Les transactions sont-elles utiles seulement en relationnel ?
+  choices:
+  - 'Non : quel que soit le modèle de données'
+  - Oui
+  - Seulement en graphe
+  - Seulement en documents
+  answer: 0
+  explanation: Le chapitre utilise des exemples relationnels par commodité.
+  concept: ddia-transactions-value
+  difficulty: 1
+- id: q10
+  type: multiple
+  prompt: Qu'apportent les transactions à l'application ?
+  choices:
+  - Réduction de nombreux cas d'erreur à une annulation
+  - Moins de désynchronisation des données dénormalisées
+  - Raisonnement plus simple sur les accès complexes
+  - Zéro latence
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Aucune garantie de latence.
+  concept: ddia-transactions-value
+  difficulty: 2

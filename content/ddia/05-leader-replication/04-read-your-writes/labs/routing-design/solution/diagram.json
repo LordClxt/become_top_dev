@@ -1,0 +1,97 @@
+{
+  "nodes": [
+    {
+      "id": "app",
+      "type": "app",
+      "x": 0,
+      "y": 200,
+      "label": "Application"
+    },
+    {
+      "id": "router",
+      "type": "router",
+      "x": 300,
+      "y": 200,
+      "label": "Routeur"
+    },
+    {
+      "id": "sessions",
+      "type": "sessions",
+      "x": 300,
+      "y": 440,
+      "label": "Sessions (LSN)"
+    },
+    {
+      "id": "leader",
+      "type": "leader",
+      "x": 640,
+      "y": 20,
+      "label": "Leader"
+    },
+    {
+      "id": "f1",
+      "type": "f1",
+      "x": 960,
+      "y": 20,
+      "label": "Follower 1"
+    },
+    {
+      "id": "f2",
+      "type": "f2",
+      "x": 960,
+      "y": 340,
+      "label": "Follower 2"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "app",
+      "target": "router",
+      "kind": "sync",
+      "label": "requête"
+    },
+    {
+      "id": "e2",
+      "source": "router",
+      "target": "leader",
+      "kind": "write",
+      "label": "écritures + lectures récentes"
+    },
+    {
+      "id": "e3",
+      "source": "router",
+      "target": "f1",
+      "kind": "read",
+      "label": "lectures"
+    },
+    {
+      "id": "e4",
+      "source": "router",
+      "target": "f2",
+      "kind": "read",
+      "label": "lectures"
+    },
+    {
+      "id": "e5",
+      "source": "leader",
+      "target": "f1",
+      "kind": "replication",
+      "label": "log"
+    },
+    {
+      "id": "e6",
+      "source": "leader",
+      "target": "f2",
+      "kind": "replication",
+      "label": "log"
+    },
+    {
+      "id": "e7",
+      "source": "router",
+      "target": "sessions",
+      "kind": "read",
+      "label": "LSN"
+    }
+  ]
+}

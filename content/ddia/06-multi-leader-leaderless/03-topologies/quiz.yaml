@@ -1,0 +1,89 @@
+id: ddia-ch06-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Dans quelle topologie chaque leader envoie-t-il ses écritures à tous les autres ?
+  choices:
+  - Tous-vers-tous
+  - Circulaire
+  - Étoile
+  - Arbre
+  answer: 0
+  explanation: C'est la plus générale.
+  concept: ddia-topology
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Comment évite-t-on les boucles infinies de réplication ?
+  choices:
+  - Chaque écriture est marquée des identifiants des nœuds traversés ; un nœud ignore ce qui porte déjà le sien
+  - En limitant à 3 nœuds
+  - En supprimant les logs
+  - Avec un horodatage
+  answer: 0
+  explanation: Le nœud sait qu'il a déjà traité ce changement.
+  concept: ddia-loop-prevention
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Qu'arrive-t-il dans un anneau quand un nœud tombe ?
+  choices:
+  - La circulation des messages entre les autres est interrompue
+  - Rien, les messages le contournent automatiquement
+  - Les données sont effacées
+  - Un nouveau leader est élu
+  answer: 0
+  explanation: La reconfiguration est le plus souvent manuelle.
+  concept: ddia-topology-fault
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Pourquoi le tous-vers-tous est-il plus tolérant aux pannes ?
+  choices:
+  - 'Plusieurs chemins existent : pas de point de défaillance unique'
+  - Il utilise moins de nœuds
+  - Il est synchrone
+  - Il n'a pas de réseau
+  answer: 0
+  explanation: Les messages peuvent emprunter des chemins différents.
+  concept: ddia-topology-fault
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quel problème survient dans un tous-vers-tous avec un lien lent ?
+  choices:
+  - Une mise à jour peut arriver avant l'insertion qu'elle suppose
+  - Les données sont dupliquées
+  - Le leader 1 devient follower
+  - Les horloges s'arrêtent
+  answer: 0
+  explanation: 'Les messages en doublent d''autres : violation de la causalité.'
+  concept: ddia-message-overtaking
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Pourquoi un horodatage ne suffit-il pas à ordonner insertion et mise à jour ?
+  choices:
+  - Les horloges des nœuds ne sont pas assez synchronisées
+  - Un horodatage n'a pas de date
+  - Il pèse trop d'octets
+  - Il est refusé par SQL
+  answer: 0
+  explanation: On utilise des vecteurs de version.
+  concept: ddia-message-overtaking
+  difficulty: 1
+- id: q7
+  type: multiple
+  prompt: Quelles topologies sont sensibles à la panne d'un seul nœud ?
+  choices:
+  - Circulaire
+  - Étoile
+  - Tous-vers-tous
+  - Arbre
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: Dans le tous-vers-tous, les messages empruntent d'autres chemins.
+  concept: ddia-topology-fault
+  difficulty: 2

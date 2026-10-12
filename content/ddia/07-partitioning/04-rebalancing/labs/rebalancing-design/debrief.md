@@ -1,0 +1,1 @@
+**9,1 To contre 0,9 To : un ordre de grandeur d'écart** pour le même ajout de nœud. Le nombre de partitions, lui, est un compromis : assez petit pour que chaque partition se déplace vite, assez grand pour autoriser la croissance, assez petit pour ne pas noyer la gestion.

@@ -1,0 +1,64 @@
+intro: Une transaction fait **5 lectures/écritures**. Le calcul sur le serveur coûte **0,02 ms** par instruction. Un aller-retour réseau applicatif
+  coûte **0,5 ms**.
+blocks:
+- id: interactive
+  type: number
+  title: Transaction interactive
+  prompt: 'Mode interactif : chaque instruction coûte un aller-retour + son calcul. Durée totale de la transaction ?'
+  unit: ms
+- id: proc
+  type: number
+  title: Procédure stockée
+  prompt: 'En procédure stockée : un seul aller-retour pour soumettre la procédure, puis 5 calculs. Durée totale ?'
+  unit: ms
+- id: tps
+  type: number
+  title: Débit en série
+  prompt: Si une transaction à la fois s'exécute, quel débit maximal (transactions par seconde) en mode procédure stockée ? (arrondi à l'entier)
+  unit: tps
+- id: scale
+  type: number
+  title: Partitionnement
+  prompt: Avec 8 partitions mono-partition parfaitement réparties, une partition par cœur, quel débit total ?
+  unit: tps
+- id: cross
+  type: tuner
+  title: Part de transactions inter-partitions
+  prompt: Le système fait au plus **1 000** transactions inter-partitions par seconde. Le trafic total est de **8 000 tps**. Quelle part maximale
+    de transactions peut être inter-partitions ?
+  params:
+  - id: f
+    label: Part inter-partitions
+    unit: '%'
+    min: 0
+    max: 100
+    step: 1
+    default: 50
+  metrics:
+  - id: x
+    label: Transactions inter-partitions/s
+    expr: 8000 * f / 100
+    format: number
+  goals:
+  - id: cap
+    label: Au plus 1 000 transactions inter-partitions/s
+    expr: x <= 1000
+  - id: useful
+    label: Au moins 5 % inter-partitions (le métier l'exige)
+    expr: f >= 5
+- id: fit
+  type: match
+  title: Convient-il ?
+  prompt: L'exécution en série convient-elle ?
+  items:
+  - id: redis
+    label: Un compteur de likes en mémoire, transactions de 2 opérations
+  - id: report
+    label: Un rapport analytique qui scanne 2 To pendant 10 minutes (sur la boucle série)
+  - id: booking
+    label: Une réservation qui attend la validation de l'utilisateur sur son téléphone en pleine transaction
+  categories:
+  - id: ok
+    label: Convient
+  - id: 'no'
+    label: Ne convient pas

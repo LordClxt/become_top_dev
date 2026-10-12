@@ -1,0 +1,112 @@
+{
+  "nodes": [
+    {
+      "id": "z1",
+      "type": "dc1",
+      "x": 200,
+      "y": -20,
+      "w": 520,
+      "h": 460,
+      "label": "Datacenter 1"
+    },
+    {
+      "id": "z2",
+      "type": "dc2",
+      "x": 800,
+      "y": -20,
+      "w": 520,
+      "h": 460,
+      "label": "Datacenter 2"
+    },
+    {
+      "id": "u1",
+      "type": "u1",
+      "x": 0,
+      "y": 180,
+      "label": "Utilisateurs 1"
+    },
+    {
+      "id": "l1",
+      "type": "l1",
+      "x": 260,
+      "y": 40,
+      "parent": "z1",
+      "label": "Leader 1"
+    },
+    {
+      "id": "f1",
+      "type": "f1",
+      "x": 260,
+      "y": 280,
+      "parent": "z1",
+      "label": "Follower 1"
+    },
+    {
+      "id": "l2",
+      "type": "l2",
+      "x": 860,
+      "y": 40,
+      "parent": "z2",
+      "label": "Leader 2"
+    },
+    {
+      "id": "f2",
+      "type": "f2",
+      "x": 860,
+      "y": 280,
+      "parent": "z2",
+      "label": "Follower 2"
+    },
+    {
+      "id": "u2",
+      "type": "u2",
+      "x": 1400,
+      "y": 180,
+      "label": "Utilisateurs 2"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "u1",
+      "target": "l1",
+      "kind": "write",
+      "label": "écritures"
+    },
+    {
+      "id": "e2",
+      "source": "u2",
+      "target": "l2",
+      "kind": "write",
+      "label": "écritures"
+    },
+    {
+      "id": "e3",
+      "source": "l1",
+      "target": "l2",
+      "kind": "replication",
+      "label": "async"
+    },
+    {
+      "id": "e4",
+      "source": "l2",
+      "target": "l1",
+      "kind": "replication",
+      "label": "async"
+    },
+    {
+      "id": "e5",
+      "source": "l1",
+      "target": "f1",
+      "kind": "replication",
+      "label": "log"
+    },
+    {
+      "id": "e6",
+      "source": "l2",
+      "target": "f2",
+      "kind": "replication",
+      "label": "log"
+    }
+  ]
+}

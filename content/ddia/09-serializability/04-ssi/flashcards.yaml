@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: SSI ?
+  back: 'Instantané + détection de prémisses périmées à la validation : sérialisable sans bloquer.'
+  concept: ddia-ssi
+- id: fc2
+  front: Pessimiste contre optimiste ?
+  back: 'Pessimiste (2PL) : on attend en cas de risque. Optimiste (SSI) : on continue, on vérifie à la validation.'
+  concept: ddia-optimistic-pessimistic
+- id: fc3
+  front: Quand l'optimiste souffre ?
+  back: 'En forte contention : trop d''annulations ; marche bien avec de la capacité en réserve.'
+  concept: ddia-optimistic-pessimistic
+- id: fc4
+  front: Prémisse périmée ?
+  back: Un fait vu au début de la transaction qui n'est plus vrai à la validation.
+  concept: ddia-outdated-premise
+- id: fc5
+  front: Cas 1 de détection ?
+  back: 'Lecture MVCC périmée : une écriture ignorée par l''instantané a été validée depuis.'
+  concept: ddia-stale-mvcc-read
+- id: fc6
+  front: Cas 2 de détection ?
+  back: 'Une écriture qui affecte une lecture antérieure : tripwire sur l''index, sans blocage.'
+  concept: ddia-write-affects-read
+- id: fc7
+  front: Pourquoi vérifier à la validation ?
+  back: Une transaction en lecture seule n'a pas à être annulée ; l'écriture ignorée peut s'annuler.
+  concept: ddia-stale-mvcc-read
+- id: fc8
+  front: Atouts de SSI ?
+  back: Pas d'attente de verrou, latences prévisibles, lectures seules sans verrou, pas limité à un cœur.
+  concept: ddia-ssi-performance

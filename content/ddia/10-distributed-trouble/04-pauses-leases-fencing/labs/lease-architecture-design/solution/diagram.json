@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "worker",
+      "type": "worker",
+      "x": 0,
+      "y": 120,
+      "label": "Travailleur"
+    },
+    {
+      "id": "lock",
+      "type": "lock",
+      "x": 400,
+      "y": 0,
+      "label": "Service de verrou"
+    },
+    {
+      "id": "store",
+      "type": "store",
+      "x": 400,
+      "y": 240,
+      "label": "Stockage à jetons"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "worker",
+      "target": "lock",
+      "kind": "sync",
+      "label": "bail + jeton"
+    },
+    {
+      "id": "e2",
+      "source": "worker",
+      "target": "store",
+      "kind": "write",
+      "label": "écriture + jeton"
+    }
+  ]
+}

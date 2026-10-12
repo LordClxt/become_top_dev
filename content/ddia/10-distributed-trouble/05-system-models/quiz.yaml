@@ -1,0 +1,98 @@
+id: ddia-ch10-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Un modèle de temps « partiellement synchrone » signifie que…
+  choices:
+  - Le système est synchrone la plupart du temps mais dépasse parfois les bornes
+  - Il n'y a aucune horloge
+  - Les délais sont toujours bornés
+  - Un seul nœud est synchrone
+  answer: 0
+  explanation: C'est le modèle réaliste.
+  concept: ddia-timing-models
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que suppose le modèle crash-recovery ?
+  choices:
+  - Un nœud peut redémarrer, son stockage durable survit et sa mémoire est perdue
+  - Un nœud défaillant ne revient jamais
+  - Un nœud peut mentir
+  - Tous les nœuds redémarrent ensemble
+  answer: 0
+  explanation: Plus proche de la réalité que crash-stop.
+  concept: ddia-node-models
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Quel est le modèle le plus réaliste en pratique ?
+  choices:
+  - Partiellement synchrone et nœuds crash-recovery
+  - Synchrone et crash-stop
+  - Asynchrone et byzantin
+  - Synchrone et byzantin
+  answer: 0
+  explanation: Il tolère des violations ponctuelles du temps et des redémarrages.
+  concept: ddia-realistic-model
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: L'unicité d'un jeton de clôture est une propriété de…
+  choices:
+  - Sûreté
+  - Vivacité
+  - Les deux
+  - Aucune
+  answer: 0
+  explanation: Une violation est datable (le moment du doublon) et irréversible.
+  concept: ddia-safety-liveness
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: « Une requête de jeton finit par recevoir une réponse » est une propriété de…
+  choices:
+  - Vivacité
+  - Sûreté
+  - Unicité
+  - Monotonie
+  answer: 0
+  explanation: Elle dit qu'une chose bonne arrive finalement.
+  concept: ddia-safety-liveness
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: La cohérence à terme (eventual consistency) est une propriété de…
+  choices:
+  - Vivacité
+  - Sûreté
+  - Isolation
+  - Durabilité
+  answer: 0
+  explanation: Le mot « finalement » est typique de la vivacité.
+  concept: ddia-safety-liveness
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Pourquoi exige-t-on la sûreté dans tous les cas, mais la vivacité sous conditions ?
+  choices:
+  - Une violation de sûreté est irréversible, alors que la vivacité peut attendre le retour du réseau
+  - Parce que la vivacité est inutile
+  - Parce que la sûreté est facile
+  - Parce que c'est écrit dans TCP
+  answer: 0
+  explanation: On protège d'abord contre le mal irréparable.
+  concept: ddia-correctness-properties
+  difficulty: 3
+- id: q8
+  type: single
+  prompt: Pourquoi des tests empiriques malgré une preuve ?
+  choices:
+  - Le modèle simplifie la réalité (firmware, disque qui oublie)
+  - La preuve est toujours fausse
+  - Les tests remplacent la preuve
+  - Les nœuds sont byzantins
+  answer: 0
+  explanation: Les deux démarches se complètent.
+  concept: ddia-model-vs-reality
+  difficulty: 2

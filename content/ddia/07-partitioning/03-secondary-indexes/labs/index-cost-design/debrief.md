@@ -1,0 +1,1 @@
+**Un index secondaire déplace un coût : soit sur la lecture (local), soit sur l'écriture (global).** Le scatter/gather multiplie la charge par le nombre de partitions (16 000 req/s ici) et la probabilité de rencontrer une partition lente (≈ 7,7 % de requêtes touchées).

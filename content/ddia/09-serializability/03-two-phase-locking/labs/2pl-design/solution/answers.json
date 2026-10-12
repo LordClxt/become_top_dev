@@ -1,0 +1,28 @@
+{
+  "sched": {
+    "s1": "granted",
+    "s2": "granted",
+    "s3": "wait",
+    "s4": "dead",
+    "s5": "granted",
+    "s6": "granted"
+  },
+  "compat": {
+    "want-s.s": 1,
+    "want-s.x": 0,
+    "want-x.s": 0,
+    "want-x.x": 0
+  },
+  "approx": {
+    "a1": "safe",
+    "a2": "safe",
+    "a3": "unsafe",
+    "a4": "safe"
+  },
+  "perf": [
+    "wait",
+    "dead",
+    "tail"
+  ],
+  "wasted": 70
+}

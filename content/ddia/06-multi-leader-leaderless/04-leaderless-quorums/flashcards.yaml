@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Qu'est-ce qu'une base Dynamo-style ?
+  back: 'Sans leader : Riak, Cassandra, Voldemort, inspirées de Dynamo d''Amazon.'
+  concept: ddia-leaderless
+- id: fc2
+  front: Écrire quand un nœud est en panne ?
+  back: On envoie aux n réplicas en parallèle ; w confirmations suffisent, sans failover.
+  concept: ddia-leaderless
+- id: fc3
+  front: Read repair ?
+  back: Le client qui lit sur plusieurs nœuds réécrit la valeur récente sur ceux qui sont en retard.
+  concept: ddia-read-repair
+- id: fc4
+  front: Anti-entropie ?
+  back: Processus de fond qui copie ce qui manque entre réplicas, sans ordre particulier.
+  concept: ddia-anti-entropy
+- id: fc5
+  front: Condition de quorum ?
+  back: w + r > n.
+  concept: ddia-quorum
+- id: fc6
+  front: (3,2,2) et (5,3,3) tolèrent combien de pannes ?
+  back: 1 panne pour (3,2,2), 2 pannes pour (5,3,3).
+  concept: ddia-quorum-tolerance
+- id: fc7
+  front: Pourquoi w = n, r = 1 ?
+  back: Lectures très rapides, mais une seule panne bloque les écritures.
+  concept: ddia-quorum-tolerance
+- id: fc8
+  front: Choix courant de w et r ?
+  back: n impair et w = r = (n+1)/2 arrondi au-dessus.
+  concept: ddia-quorum

@@ -1,0 +1,16 @@
+{
+  "t1t2": 22,
+  "t2t1": 21,
+  "conc": {
+    "r22": "yes",
+    "r21": "yes",
+    "r11": "no",
+    "r20": "no"
+  },
+  "doctors": "one",
+  "orders": 24,
+  "faux": [
+    "exist",
+    "all"
+  ]
+}

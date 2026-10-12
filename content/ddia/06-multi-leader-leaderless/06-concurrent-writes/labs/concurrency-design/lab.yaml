@@ -1,0 +1,16 @@
+id: ddia-ch06-l06-lab-concurrency-design
+title: Avant, après ou concurrent ?
+difficulty: 3
+xp: 70
+concepts:
+- ddia-happens-before
+- ddia-concurrency-relativity
+- ddia-lww-leaderless
+source:
+  chapter: 5
+  pages: 184-187
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

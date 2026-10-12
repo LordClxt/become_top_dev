@@ -1,0 +1,1 @@
+**Le format du log décide de ce que ton système sait faire** : le WAL est précis mais verrouille les versions, le log logique ouvre sur la mise à jour sans arrêt et le CDC, les instructions sont compactes mais fragiles, les triggers laissent le contrôle à l'application. Le log logique est le choix par défaut des systèmes modernes.

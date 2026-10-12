@@ -1,0 +1,20 @@
+blocks:
+  vis12:
+    options:
+      v3: 'La création par 13 est postérieure : invisible pour la 12.'
+      v4: 'Créée par une transaction annulée : ignorée.'
+  sum12:
+    wrong: 500 + 500.
+  vis20:
+    options:
+      v2: 'Supprimée par la 13, validée : invisible.'
+      v4: 'Annulée : ignorée.'
+  sum20:
+    wrong: 500 + 400.
+  regle:
+    options:
+      r3: Identifiant plus grand que celui du lecteur.
+      r2: Écritures des transactions annulées ignorées.
+      r1: Les transactions en cours au début sont ignorées.
+  rc:
+    wrong: 'En read committed, chaque lecture prend un nouvel instantané : le solde est 400.'

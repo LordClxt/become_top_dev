@@ -1,0 +1,86 @@
+intro: Le leader d'un cluster **asynchrone** vient de tomber. Au moment de la panne, son log était au **LSN 1 200**. Trois followers survivent,
+  avec les positions ci-dessous.
+blocks:
+- id: candidat
+  type: table
+  title: Choisir le candidat
+  prompt: Pour chaque follower, indique le nombre d'écritures **perdues** s'il devient leader (LSN 1 200 moins sa position).
+  columns:
+  - id: lost
+    label: Écritures perdues
+  rows:
+  - id: f1
+    label: F1 (position 1 180)
+  - id: f2
+    label: F2 (position 1 197)
+  - id: f3
+    label: F3 (position 1 150)
+- id: meilleur
+  type: choice
+  title: Qui promouvoir ?
+  prompt: Quel follower promeus-tu ?
+  options:
+  - id: f1
+    label: F1
+  - id: f2
+    label: F2
+  - id: f3
+    label: 'F3 : c''est celui qui a le plus de disque libre'
+- id: etapes
+  type: order
+  title: Le failover
+  prompt: Remets les étapes dans l'ordre.
+  items:
+  - id: detect
+    label: Constater que le leader ne répond plus (timeout)
+  - id: elect
+    label: Choisir le follower le plus à jour
+  - id: promote
+    label: Le promouvoir en leader
+  - id: route
+    label: Rediriger les clients et faire suivre les autres followers
+  - id: demote
+    label: Quand l'ancien leader revient, le rétrograder en follower
+- id: pieges
+  type: match
+  title: Quel piège ?
+  prompt: Associe chaque symptôme à la cause.
+  items:
+  - id: keys
+    label: Des identifiants déjà attribués sont distribués une seconde fois
+  - id: two
+    label: Deux nœuds acceptent des écritures en même temps
+  - id: flap
+    label: En plein pic de charge, le leader est déclaré mort alors qu'il était juste lent
+  categories:
+  - id: lag
+    label: Le nouveau leader était en retard (compteur d'auto-incrément)
+  - id: split
+    label: Split brain
+  - id: timeout
+    label: Timeout trop court
+- id: timeout
+  type: tuner
+  title: Régler le timeout
+  prompt: Le leader se bloque jusqu'à **8 s** lors d'un pic de charge (GC, disque) et une vraie panne doit être détectée en **moins de 20 s**.
+    Choisis le timeout de détection.
+  params:
+  - id: t
+    label: Timeout
+    unit: s
+    min: 1
+    max: 60
+    step: 1
+    default: 3
+  metrics:
+  - id: tt
+    label: Timeout
+    expr: t
+    format: duration-s
+  goals:
+  - id: faux
+    label: Pas de faux failover sur un blocage de 8 s
+    expr: t > 8
+  - id: rapide
+    label: Reprise en moins de 20 s
+    expr: t < 20

@@ -1,0 +1,1 @@
+Ce schéma réunit tout le module : **un leader**, **un follower synchrone proche** (zéro perte au failover local), des **followers asynchrones lointains** pour la latence de lecture, un **routeur** qui tient le LSN de chaque session pour lire ses écritures, et un **log logique** pour alimenter l'entrepôt sans coupler à un moteur.

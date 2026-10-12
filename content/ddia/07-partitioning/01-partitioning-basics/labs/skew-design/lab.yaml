@@ -1,0 +1,15 @@
+id: ddia-ch07-l01-lab-skew-design
+title: Combien vaut un cluster déséquilibré ?
+difficulty: 2
+xp: 60
+concepts:
+- ddia-skew-hotspot
+- ddia-partitioning
+source:
+  chapter: 6
+  pages: 200-201
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

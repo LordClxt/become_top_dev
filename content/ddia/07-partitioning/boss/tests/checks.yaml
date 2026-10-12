@@ -1,0 +1,79 @@
+checks:
+- id: in
+  label: L'application passe par la couche de routage
+  rule: edge_kind
+  source: client
+  target: router
+  kind: sync
+- id: route
+  label: La couche de routage envoie les écritures aux partitions
+  rule: edge_kind
+  source: router
+  target: lead
+  kind: write
+- id: zk-read
+  label: La couche de routage s'abonne au service de coordination
+  rule: edge_kind
+  source: router
+  target: zk
+  kind: read
+- id: zk-write
+  label: Chaque partition s'enregistre auprès de la coordination
+  rule: edge_kind
+  source: lead
+  target: zk
+  kind: write
+- id: no-direct
+  label: L'application ne contacte jamais une partition directement
+  rule: no_edge
+  source: client
+  target: lead
+- id: search
+  label: L'application cherche via l'index global (une partition d'index)
+  rule: path
+  source: client
+  target: gidx
+  via: router
+- id: idx-fresh
+  label: Les partitions de documents mettent à jour l'index global en asynchrone
+  rule: edge_kind
+  source: lead
+  target: gidx
+  kind: async
+- id: repl
+  label: Chaque partition est répliquée vers un follower
+  rule: edge_kind
+  source: lead
+  target: fol
+  kind: replication
+- id: three-l
+  label: Trois partitions leaders
+  rule: count
+  source: lead
+  min: 3
+  max: 3
+- id: three-f
+  label: Trois réplicas
+  rule: count
+  source: fol
+  min: 3
+  max: 3
+- id: two-i
+  label: Deux partitions d'index
+  rule: count
+  source: gidx
+  min: 2
+  max: 2
+- id: no-scatter
+  label: Pas de scatter/gather
+  rule: count
+  source: scatter
+  max: 0
+- id: no-mod
+  label: Pas de hash mod N
+  rule: count
+  source: mod
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

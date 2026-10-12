@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Partitionnement (sharding) ?
+  back: Découper la base en morceaux ; chaque enregistrement appartient à une seule partition.
+  concept: ddia-partitioning
+- id: fc2
+  front: Synonymes de partition ?
+  back: Shard (MongoDB, ES), region (HBase), tablet (Bigtable), vnode (Cassandra, Riak), vBucket (Couchbase).
+  concept: ddia-partition-vs-network
+- id: fc3
+  front: Partition de données contre partition réseau ?
+  back: 'Rien à voir : l''une est un choix de conception, l''autre une panne du réseau.'
+  concept: ddia-partition-vs-network
+- id: fc4
+  front: Pourquoi partitionner ?
+  back: 'Scalabilité : répartir données et charge sur des nœuds shared-nothing.'
+  concept: ddia-partitioning
+- id: fc5
+  front: Partitionnement et réplication ensemble ?
+  back: Chaque partition est répliquée ; un nœud est leader de certaines partitions et follower d'autres.
+  concept: ddia-partition-replication
+- id: fc6
+  front: Skew ?
+  back: Répartition injuste des données ou de la charge entre partitions.
+  concept: ddia-skew-hotspot
+- id: fc7
+  front: Hot spot ?
+  back: 'Partition avec une charge disproportionnée : le goulot du cluster.'
+  concept: ddia-skew-hotspot
+- id: fc8
+  front: 'Répartition aléatoire : défaut ?'
+  back: Aucun moyen de retrouver une clé sans interroger tous les nœuds.
+  concept: ddia-skew-hotspot

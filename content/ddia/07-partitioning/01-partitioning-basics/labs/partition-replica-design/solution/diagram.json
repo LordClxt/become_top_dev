@@ -1,0 +1,102 @@
+{
+  "nodes": [
+    {
+      "id": "a",
+      "type": "n1",
+      "x": 0,
+      "y": 0,
+      "w": 340,
+      "h": 300,
+      "label": "Nœud 1"
+    },
+    {
+      "id": "b",
+      "type": "n2",
+      "x": 460,
+      "y": 0,
+      "w": 340,
+      "h": 300,
+      "label": "Nœud 2"
+    },
+    {
+      "id": "c",
+      "type": "n3",
+      "x": 920,
+      "y": 0,
+      "w": 340,
+      "h": 300,
+      "label": "Nœud 3"
+    },
+    {
+      "id": "l1",
+      "type": "l1",
+      "x": 40,
+      "y": 40,
+      "parent": "a",
+      "label": "Leader P1"
+    },
+    {
+      "id": "f3",
+      "type": "f3",
+      "x": 40,
+      "y": 180,
+      "parent": "a",
+      "label": "Follower P3"
+    },
+    {
+      "id": "l2",
+      "type": "l2",
+      "x": 500,
+      "y": 40,
+      "parent": "b",
+      "label": "Leader P2"
+    },
+    {
+      "id": "f1",
+      "type": "f1",
+      "x": 500,
+      "y": 180,
+      "parent": "b",
+      "label": "Follower P1"
+    },
+    {
+      "id": "l3",
+      "type": "l3",
+      "x": 960,
+      "y": 40,
+      "parent": "c",
+      "label": "Leader P3"
+    },
+    {
+      "id": "f2",
+      "type": "f2",
+      "x": 960,
+      "y": 180,
+      "parent": "c",
+      "label": "Follower P2"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "l1",
+      "target": "f1",
+      "kind": "replication",
+      "label": "P1"
+    },
+    {
+      "id": "e2",
+      "source": "l2",
+      "target": "f2",
+      "kind": "replication",
+      "label": "P2"
+    },
+    {
+      "id": "e3",
+      "source": "l3",
+      "target": "f3",
+      "kind": "replication",
+      "label": "P3"
+    }
+  ]
+}

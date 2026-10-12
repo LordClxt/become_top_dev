@@ -1,0 +1,60 @@
+id: ddia-ch09-boss
+title: 'Boss : l''architecture transactionnelle d''une place de marché'
+difficulty: 5
+xp: 320
+time_limit_min: 90
+concepts:
+- ddia-serial-execution
+- ddia-stored-procedures
+- ddia-ssi
+- ddia-2pl
+- ddia-snapshot-isolation
+source:
+  chapter: 7
+  pages: 251-268
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: browser
+  label: Application
+  hint: Les acheteurs.
+- type: gw
+  component: gateway
+  label: API gateway
+  hint: Point d'entrée.
+- type: inv
+  component: service
+  label: Service stocks
+  hint: Mises à jour courtes et nombreuses.
+- type: pay
+  component: service
+  label: Service paiements
+  hint: Transactions courtes avec règles croisées.
+- type: rep
+  component: service
+  label: Service reporting
+  hint: Requêtes longues en lecture.
+- type: invdb
+  component: redis
+  label: Redis (procédures Lua en série)
+  hint: Exécution monothread, procédures stockées, en mémoire.
+- type: paydb
+  component: postgres
+  label: PostgreSQL serializable (SSI)
+  hint: Sérialisabilité par instantané.
+- type: replica
+  component: follower
+  label: Réplica d'analyse
+  hint: Instantané pour les requêtes longues.
+- type: lockmgr
+  component: external
+  label: Gestionnaire de verrous global 2PL
+  hint: Verrous sur toutes les données.
+- type: interactive
+  component: external
+  label: Transaction interactive avec saisie utilisateur
+  hint: Garde une transaction ouverte pendant que l'humain décide.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

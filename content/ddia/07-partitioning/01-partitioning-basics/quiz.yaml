@@ -1,0 +1,98 @@
+id: ddia-ch07-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle est la raison principale de partitionner ?
+  choices:
+  - 'La scalabilité : répartir données et requêtes sur plusieurs nœuds'
+  - La sécurité
+  - Réduire la latence réseau
+  - Avoir des sauvegardes
+  answer: 0
+  explanation: Chaque nœud traite sa partition indépendamment.
+  concept: ddia-partitioning
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Le mot « shard » (MongoDB, Elasticsearch) correspond à quoi dans HBase et Bigtable ?
+  choices:
+  - Une région (HBase) et un tablet (Bigtable)
+  - Un index
+  - Un réplica
+  - Une transaction
+  answer: 0
+  explanation: Ce sont des synonymes de partition.
+  concept: ddia-partition-vs-network
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Le partitionnement de données est-il la même chose qu'une partition réseau (netsplit) ?
+  choices:
+  - 'Non : l''une découpe volontairement la base, l''autre est une panne du réseau'
+  - Oui
+  - Seulement dans Cassandra
+  - Seulement avec la réplication
+  answer: 0
+  explanation: Deux notions distinctes qui portent le même mot.
+  concept: ddia-partition-vs-network
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Dans un cluster qui combine partitionnement et réplication, comment se répartissent les rôles ?
+  choices:
+  - Un nœud est leader de certaines partitions et follower d'autres
+  - Un nœud est leader de toutes ses partitions
+  - Un nœud n'a qu'une partition
+  - Les leaders sont tous sur le même nœud
+  answer: 0
+  explanation: Le leader de chaque partition est sur un nœud, ses followers sur d'autres.
+  concept: ddia-partition-replication
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Qu'est-ce qu'un hot spot ?
+  choices:
+  - Une partition qui reçoit une charge disproportionnée
+  - Un nœud en surchauffe
+  - Une clé dupliquée
+  - Un index global
+  answer: 0
+  explanation: Il peut ramener le cluster à la capacité d'un seul nœud.
+  concept: ddia-skew-hotspot
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quel est le défaut d'une répartition totalement aléatoire des enregistrements ?
+  choices:
+  - 'On ne sait pas sur quel nœud lire un élément : il faut interroger tous les nœuds'
+  - Les données sont déséquilibrées
+  - Elle ne permet pas la réplication
+  - Elle est interdite
+  answer: 0
+  explanation: Équilibré, mais introuvable.
+  concept: ddia-skew-hotspot
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: 'Avec 10 nœuds et un skew extrême (toute la charge sur une partition), le débit obtenu est celui de :'
+  choices:
+  - Un seul nœud
+  - Dix nœuds
+  - Cinq nœuds
+  - Zéro
+  answer: 0
+  explanation: Les neuf autres sont inactifs.
+  concept: ddia-skew-hotspot
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Que veut dire shared-nothing ?
+  choices:
+  - Chaque nœud a son CPU, sa mémoire et ses disques, et les nœuds communiquent par le réseau
+  - Les nœuds partagent un disque
+  - Les nœuds partagent la mémoire
+  - Les nœuds n'ont pas de réseau
+  answer: 0
+  explanation: C'est l'architecture typique des bases partitionnées.
+  concept: ddia-partitioning
+  difficulty: 1

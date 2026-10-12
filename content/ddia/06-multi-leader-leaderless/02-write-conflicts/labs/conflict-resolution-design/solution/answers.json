@@ -1,0 +1,16 @@
+{
+  "lww": "b",
+  "skew": "c",
+  "perte": 99,
+  "strat": {
+    "lww": "loses",
+    "replica": "loses",
+    "merge": "keeps",
+    "keep": "keeps"
+  },
+  "evite": "break",
+  "salle": [
+    "check",
+    "conflict"
+  ]
+}

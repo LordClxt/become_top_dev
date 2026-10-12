@@ -1,0 +1,1 @@
+**Le bon outil dépend de la forme de la charge.** La série partitionnée brille sur des petites transactions mono-partition (mais s'effondre avec 2 % de transactions croisées ici), SSI convient aux règles croisées à contention modérée, l'instantané suffit aux longues lectures.

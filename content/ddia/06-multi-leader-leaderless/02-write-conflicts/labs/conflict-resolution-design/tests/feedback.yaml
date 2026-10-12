@@ -1,0 +1,25 @@
+blocks:
+  lww:
+    options:
+      c: 'Le plus grand horodatage est .200 (leader 1) : B gagne.'
+      bc: 'LWW ne fusionne pas : il choisit une seule valeur.'
+  skew:
+    options:
+      b: 'Avec 200 ms d''avance, l''horodatage de C est plus grand : C l''emporte.'
+      none: LWW garde une seule valeur.
+  perte:
+    wrong: Une seule écriture survit sur les 100.
+  strat:
+    options:
+      lww: Une seule valeur survit.
+      replica: Les écritures des réplicas de plus petit numéro disparaissent.
+      merge: Les deux valeurs se retrouvent dans le résultat.
+      keep: Toute l'information est conservée.
+  evite:
+    options:
+      ok: Quand le datacenter change, il peut y avoir des écritures concurrentes.
+      lost: Les données sont répliquées ; elles ne sont pas perdues.
+  salle:
+    options:
+      same: 'Ce sont deux enregistrements différents : le conflit est sémantique, pas un même champ.'
+      lww: LWW garderait une seule réservation et en jetterait une autre sans prévenir.

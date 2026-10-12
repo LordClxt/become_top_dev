@@ -1,0 +1,20 @@
+{
+  "sauts": {
+    "any.n": 2,
+    "tier.n": 2,
+    "client.n": 1
+  },
+  "quand": {
+    "cass": "gossip",
+    "hbase": "zk",
+    "mongo": "own"
+  },
+  "stale": "wrong",
+  "ordre": [
+    "join",
+    "assign",
+    "notify",
+    "route"
+  ],
+  "dns": "slow"
+}

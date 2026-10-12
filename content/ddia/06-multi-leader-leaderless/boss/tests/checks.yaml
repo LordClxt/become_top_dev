@@ -1,0 +1,88 @@
+checks:
+- id: e-in
+  label: Les clients européens passent par leur coordinateur
+  rule: edge_kind
+  source: ueu
+  target: ceu
+  kind: sync
+- id: u-in
+  label: Les clients américains passent par le leur
+  rule: edge_kind
+  source: uus
+  target: cus
+  kind: sync
+- id: e-q
+  label: Le coordinateur européen interroge les réplicas européens (quorum local)
+  rule: edge_kind
+  source: ceu
+  target: neu
+  kind: sync
+- id: u-q
+  label: Le coordinateur américain interroge les réplicas américains
+  rule: edge_kind
+  source: cus
+  target: nus
+  kind: sync
+- id: e-local
+  label: Le coordinateur européen n'attend pas les réplicas américains
+  rule: no_edge
+  source: ceu
+  target: nus
+- id: u-local
+  label: …et réciproquement
+  rule: no_edge
+  source: cus
+  target: neu
+- id: e-count
+  label: Trois réplicas en Europe
+  rule: count
+  source: neu
+  min: 3
+  max: 3
+- id: u-count
+  label: Trois réplicas aux États-Unis
+  rule: count
+  source: nus
+  min: 3
+  max: 3
+- id: e-zone
+  label: Les réplicas européens sont dans le datacenter européen
+  rule: in_zone
+  source: neu
+  target: eu
+- id: u-zone
+  label: Les réplicas américains sont dans le datacenter américain
+  rule: in_zone
+  source: nus
+  target: us
+- id: x-eu
+  label: L'Europe réplique vers les États-Unis (asynchrone entre sites)
+  rule: edge_kind
+  source: neu
+  target: nus
+  kind: replication
+- id: x-us
+  label: …et les États-Unis vers l'Europe
+  rule: edge_kind
+  source: nus
+  target: neu
+  kind: replication
+- id: merge
+  label: Un worker fusionne les siblings des réplicas européens
+  rule: edge_kind
+  source: merger
+  target: neu
+  kind: sync
+- id: no-leader
+  label: Pas de leader global
+  rule: count
+  source: leader
+  max: 0
+- id: no-lww
+  label: 'Pas de LWW : il jetterait des ajouts concurrents'
+  rule: count
+  source: clock
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

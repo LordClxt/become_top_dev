@@ -1,0 +1,1 @@
+**Plus la topologie est dense, plus elle coûte de liaisons (30) mais moins elle dépend d'un nœud.** L'anneau est économique (6) et fragile ; l'étoile dépend de sa racine ; le tous-vers-tous résiste mais expose aux messages dans le désordre.

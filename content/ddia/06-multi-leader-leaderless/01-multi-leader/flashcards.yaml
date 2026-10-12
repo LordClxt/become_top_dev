@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Multi-leader ?
+  back: Plusieurs nœuds acceptent les écritures et se répliquent mutuellement ; chaque leader est follower des autres.
+  concept: ddia-multi-leader
+- id: fc2
+  front: Pourquoi un leader par datacenter ?
+  back: Latence d'écriture locale, tolérance à la panne d'un site, réplication asynchrone entre sites.
+  concept: ddia-multi-dc
+- id: fc3
+  front: Inconvénient principal du multi-leader ?
+  back: Des écritures concurrentes sur la même donnée créent des conflits à résoudre.
+  concept: ddia-multi-leader-danger
+- id: fc4
+  front: Pourquoi les clients hors-ligne sont-ils un cas multi-leader ?
+  back: Chaque appareil a une base locale qui accepte les écritures et se synchronise plus tard.
+  concept: ddia-offline-clients
+- id: fc5
+  front: Retard typique en mode hors-ligne ?
+  back: Des heures, voire des jours, selon l'accès à Internet.
+  concept: ddia-offline-clients
+- id: fc6
+  front: Édition collaborative sans conflit ?
+  back: 'Verrou sur le document : équivalent au mono-leader avec transactions.'
+  concept: ddia-collab-editing
+- id: fc7
+  front: Édition collaborative rapide ?
+  back: Unité de changement minuscule, pas de verrou, donc résolution de conflits.
+  concept: ddia-collab-editing
+- id: fc8
+  front: Pièges de configuration du multi-leader ?
+  back: Clés auto-incrémentées, triggers et contraintes d'intégrité.
+  concept: ddia-multi-leader-danger

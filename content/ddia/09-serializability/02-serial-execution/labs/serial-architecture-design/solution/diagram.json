@@ -1,0 +1,101 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 200,
+      "label": "Application"
+    },
+    {
+      "id": "router",
+      "type": "router",
+      "x": 320,
+      "y": 200,
+      "label": "Routeur"
+    },
+    {
+      "id": "e1",
+      "type": "exec",
+      "x": 700,
+      "y": 0,
+      "label": "Exécuteur P1"
+    },
+    {
+      "id": "e2",
+      "type": "exec",
+      "x": 700,
+      "y": 400,
+      "label": "Exécuteur P2"
+    },
+    {
+      "id": "m1",
+      "type": "mem",
+      "x": 1060,
+      "y": 0,
+      "label": "Mémoire P1"
+    },
+    {
+      "id": "m2",
+      "type": "mem",
+      "x": 1060,
+      "y": 400,
+      "label": "Mémoire P2"
+    },
+    {
+      "id": "dw",
+      "type": "reporting",
+      "x": 1420,
+      "y": 200,
+      "label": "Analyse"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "client",
+      "target": "router",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "router",
+      "target": "e1",
+      "kind": "sync",
+      "label": "procédure"
+    },
+    {
+      "id": "e3",
+      "source": "router",
+      "target": "e2",
+      "kind": "sync",
+      "label": "procédure"
+    },
+    {
+      "id": "e4",
+      "source": "e1",
+      "target": "m1",
+      "kind": "write"
+    },
+    {
+      "id": "e5",
+      "source": "e2",
+      "target": "m2",
+      "kind": "write"
+    },
+    {
+      "id": "e6",
+      "source": "m1",
+      "target": "dw",
+      "kind": "replication",
+      "label": "instantané"
+    },
+    {
+      "id": "e7",
+      "source": "m2",
+      "target": "dw",
+      "kind": "replication",
+      "label": "instantané"
+    }
+  ]
+}

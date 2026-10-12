@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Exécution en série ?
+  back: Un seul thread exécute une transaction à la fois ; sérialisable par construction.
+  concept: ddia-serial-execution
+- id: fc2
+  front: Deux évolutions qui l'ont permise ?
+  back: RAM bon marché (données actives en mémoire) et transactions OLTP courtes.
+  concept: ddia-why-serial-feasible
+- id: fc3
+  front: Pourquoi des procédures stockées ?
+  back: 'On soumet la transaction entière à l''avance : pas d''allers-retours réseau ni d''attente utilisateur.'
+  concept: ddia-stored-procedures
+- id: fc4
+  front: Langages modernes de procédures ?
+  back: Lua (Redis), Java/Groovy (VoltDB), Java/Clojure (Datomic).
+  concept: ddia-stored-proc-tradeoffs
+- id: fc5
+  front: Réplication par procédures ?
+  back: 'VoltDB exécute la même procédure sur chaque réplica : elle doit être déterministe.'
+  concept: ddia-stored-proc-tradeoffs
+- id: fc6
+  front: Passer à l'échelle ?
+  back: Un thread par partition si les transactions sont mono-partition.
+  concept: ddia-serial-partitioning
+- id: fc7
+  front: Coût d'une transaction inter-partitions ?
+  back: 'Coordination en parallèle strict : ~1 000 écritures/s, non extensible.'
+  concept: ddia-serial-partitioning
+- id: fc8
+  front: Limites ?
+  back: Transactions courtes, données en mémoire, écriture limitée à un cœur ou mono-partition.
+  concept: ddia-serial-limits

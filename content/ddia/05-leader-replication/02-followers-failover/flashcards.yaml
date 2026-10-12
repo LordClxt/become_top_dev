@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Les 4 étapes pour ajouter un follower ?
+  back: Instantané cohérent, copie, demande des changements depuis la position de l'instantané, rattrapage puis flux en direct.
+  concept: ddia-new-follower
+- id: fc2
+  front: Qu'est-ce qu'un LSN ?
+  back: 'La position exacte d''une entrée dans le log de réplication (PostgreSQL) ; MySQL : coordonnées du binlog.'
+  concept: ddia-new-follower
+- id: fc3
+  front: Comment un follower se remet-il d'une coupure ?
+  back: Il reprend depuis la dernière entrée de son propre log (catch-up).
+  concept: ddia-follower-catch-up
+- id: fc4
+  front: Les 3 étapes d'un failover automatique ?
+  back: Détecter la panne (timeout), choisir un nouveau leader (le plus à jour), reconfigurer clients et followers.
+  concept: ddia-failover
+- id: fc5
+  front: Pourquoi un failover asynchrone perd-il des données ?
+  back: Le nouveau leader peut ne pas avoir reçu toutes les écritures de l'ancien.
+  concept: ddia-failover-pitfalls
+- id: fc6
+  front: Incident GitHub en une phrase ?
+  back: Un follower en retard promu a réutilisé des clés auto-incrémentées déjà présentes dans Redis, exposant des données privées.
+  concept: ddia-failover-pitfalls
+- id: fc7
+  front: Qu'est-ce qu'un split brain ?
+  back: Deux nœuds se croient leader et acceptent des écritures en même temps.
+  concept: ddia-failover-pitfalls
+- id: fc8
+  front: Dilemme du timeout de failover ?
+  back: 'Long : reprise lente ; court : failovers inutiles qui peuvent aggraver une surcharge.'
+  concept: ddia-failover-pitfalls
+- id: fc9
+  front: Que fait STONITH ?
+  back: Éteint l'ancien leader pour qu'il n'écrive plus (fencing) ; mal fait, il peut éteindre les deux.
+  concept: ddia-fencing-stonith

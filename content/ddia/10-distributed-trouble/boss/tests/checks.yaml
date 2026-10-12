@@ -1,0 +1,78 @@
+checks:
+- id: a-s
+  label: La gateway envoie les demandes au planificateur
+  rule: edge_kind
+  source: api
+  target: sched
+  kind: sync
+- id: s-l
+  label: Le planificateur obtient son bail auprès du service de verrou
+  rule: edge_kind
+  source: sched
+  target: lock
+  kind: sync
+- id: s-q
+  label: Le planificateur publie les tâches dans la file
+  rule: edge_kind
+  source: sched
+  target: queue
+  kind: async
+- id: q-w
+  label: La file alimente les exécuteurs
+  rule: edge_kind
+  source: queue
+  target: worker
+  kind: async
+- id: w-st
+  label: Les exécuteurs écrivent dans la base avec leur jeton
+  rule: edge_kind
+  source: worker
+  target: store
+  kind: write
+- id: s-st
+  label: Le planificateur écrit son état dans la base avec son jeton
+  rule: edge_kind
+  source: sched
+  target: store
+  kind: write
+- id: m-s
+  label: Le détecteur observe le planificateur
+  rule: edge_kind
+  source: mon
+  target: sched
+  kind: read
+- id: m-w
+  label: …et les exécuteurs
+  rule: edge_kind
+  source: mon
+  target: worker
+  kind: read
+- id: no-a-st
+  label: La gateway n'accède jamais à la base
+  rule: no_edge
+  source: api
+  target: store
+- id: no-a-l
+  label: …ni au service de verrou
+  rule: no_edge
+  source: api
+  target: lock
+- id: lock1
+  label: Un seul service de verrou
+  rule: count
+  source: lock
+  min: 1
+  max: 1
+- id: no-wall
+  label: Pas de verrou basé sur l'horloge murale
+  rule: count
+  source: wall
+  max: 0
+- id: no-fixed
+  label: Pas de timeout fixe copié
+  rule: count
+  source: fixed
+  max: 0
+- id: conn
+  label: Aucun bloc isolé
+  rule: connected

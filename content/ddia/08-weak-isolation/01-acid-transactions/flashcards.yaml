@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Transaction ?
+  back: 'Groupe de lectures et d''écritures exécuté comme une unité : commit ou abort, avec reprise possible.'
+  concept: ddia-transaction
+- id: fc2
+  front: 'ACID : de quand, et que vaut-il ?'
+  back: '1983 (Härder et Reuter) ; surtout un terme marketing : sens variable d''une base à l''autre.'
+  concept: ddia-acid-meaning
+- id: fc3
+  front: Atomicité ACID ?
+  back: Tout ou rien si une faute survient en cours de route (abortabilité) ; rien à voir avec la concurrence.
+  concept: ddia-atomicity
+- id: fc4
+  front: Cohérence ACID ?
+  back: Les invariants de l'application restent vrais ; propriété de l'application, pas de la base.
+  concept: ddia-acid-consistency
+- id: fc5
+  front: Isolation ?
+  back: Chaque transaction se comporte comme si elle était seule ; idéal = sérialisabilité, rarement utilisé.
+  concept: ddia-isolation-def
+- id: fc6
+  front: Durabilité ?
+  back: 'Une transaction validée n''est pas oubliée : disque, réplication, sauvegardes, sans garantie absolue.'
+  concept: ddia-durability
+- id: fc7
+  front: Pourquoi des transactions multi-objets ?
+  back: Clés étrangères, dénormalisation, index secondaires à garder en phase.
+  concept: ddia-multi-object
+- id: fc8
+  front: Quand réessayer ?
+  back: Après une erreur transitoire, avec recul, limite et déduplication ; pas après une erreur permanente.
+  concept: ddia-retry
+- id: fc9
+  front: Effet de bord hors base ?
+  back: Un e-mail peut partir même si la transaction est annulée ; la validation en deux phases peut aider.
+  concept: ddia-retry

@@ -1,0 +1,32 @@
+blocks:
+  window:
+    tolerance:
+      abs: 0.1
+    wrong: A croit détenir le bail de l'expiration (14:00:10) à son réveil (14:00:18).
+  causes:
+    options:
+      net: 'Rien dans l''incident n''indique une coupure réseau : A était simplement suspendu.'
+      disk: Le fichier est corrompu par deux écrivains, pas par un disque.
+  fixes:
+    options:
+      fence: La ressource rejette l'écriture périmée quoi qu'il arrive.
+      ttl: Une pause plus longue reste possible.
+      tune: Réduit la fréquence des pauses, sans les supprimer.
+      mono: Corrige la mesure du bail, mais pas la pause entre vérification et action.
+  writes:
+    options:
+      b.ok: 42 est le plus grand jeton vu.
+      a.ok: '41 < 42 : jeton périmé.'
+  tuner:
+    goals:
+      above: Il faut un bail strictement plus long que la pause maximale connue.
+      quick: Un bail trop long retarde la bascule en cas de vraie panne.
+  still:
+    options:
+      'yes': Une pause de 21 s ou plus reste possible.
+      mostly: La vitesse du réseau ne limite pas les pauses de processus.
+      clock: L'horloge murale a ses propres décalages.
+  props:
+    options:
+      excl: 'Deux écrivains = mal irréparable : sûreté.'
+      progress: Le mot « finit par » signale la vivacité.

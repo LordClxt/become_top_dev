@@ -1,0 +1,1 @@
+**Le write skew et les fantômes sont les deux anomalies qui survivent à l'isolation par instantané** : ici le plafond dépassé (1 100 €) et le doublon d'identifiant. On les règle par une contrainte quand on peut, un verrou sur les lignes lues sinon, ou par la sérialisabilité (module 09).

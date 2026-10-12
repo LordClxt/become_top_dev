@@ -1,0 +1,44 @@
+id: ddia-ch05-l04-lab-routing-design
+title: Un routeur qui respecte les écritures
+difficulty: 3
+xp: 70
+concepts:
+- ddia-read-your-writes
+- ddia-leader-follower
+source:
+  chapter: 5
+  pages: 162-164
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: app
+  component: browser
+  label: Application web
+  hint: Les utilisateurs.
+- type: router
+  component: gateway
+  label: Routeur de requêtes
+  hint: Décide si une lecture va au leader ou à un follower, selon la dernière écriture de l'utilisateur.
+- type: sessions
+  component: redis
+  label: Session (LSN de la dernière écriture)
+  hint: Garde le LSN par utilisateur, partagé entre appareils.
+- type: leader
+  component: leader
+  label: Leader
+  hint: Reçoit les écritures.
+- type: f1
+  component: follower
+  label: Follower 1
+  hint: Sert des lectures.
+- type: f2
+  component: follower
+  label: Follower 2
+  hint: Sert des lectures.
+- type: direct
+  component: external
+  label: Accès direct du client à la base
+  hint: Contourne le routeur.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

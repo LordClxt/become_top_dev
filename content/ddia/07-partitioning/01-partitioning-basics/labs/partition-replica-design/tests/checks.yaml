@@ -1,0 +1,57 @@
+checks:
+- id: z1
+  label: Le leader 1 vit sur le nœud 1
+  rule: in_zone
+  source: l1
+  target: n1
+- id: z2
+  label: Le leader 2 vit sur le nœud 2
+  rule: in_zone
+  source: l2
+  target: n2
+- id: z3
+  label: Le leader 3 vit sur le nœud 3
+  rule: in_zone
+  source: l3
+  target: n3
+- id: fz1
+  label: Le follower de la partition 1 vit sur le nœud 2 (jamais avec son leader)
+  rule: in_zone
+  source: f1
+  target: n2
+- id: fz2
+  label: Le follower de la partition 2 vit sur le nœud 3
+  rule: in_zone
+  source: f2
+  target: n3
+- id: fz3
+  label: Le follower de la partition 3 vit sur le nœud 1
+  rule: in_zone
+  source: f3
+  target: n1
+- id: r1
+  label: Le leader 1 réplique vers son follower
+  rule: edge_kind
+  source: l1
+  target: f1
+  kind: replication
+- id: r2
+  label: Le leader 2 réplique vers son follower
+  rule: edge_kind
+  source: l2
+  target: f2
+  kind: replication
+- id: r3
+  label: Le leader 3 réplique vers son follower
+  rule: edge_kind
+  source: l3
+  target: f3
+  kind: replication
+- id: no-mono
+  label: Pas de base unique non partitionnée
+  rule: count
+  source: mono
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

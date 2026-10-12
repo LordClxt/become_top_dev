@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 160,
+      "label": "Client"
+    }
+  ],
+  "edges": []
+}

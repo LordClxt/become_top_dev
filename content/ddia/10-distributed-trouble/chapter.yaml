@@ -1,0 +1,30 @@
+id: ddia-ch10
+title: Quand le réseau ment
+subtitle: Pannes partielles, délais non bornés, horloges qui dérivent, pauses de processus, jetons de clôture et modèles de système
+source:
+  chapter: 8
+  pages: 273-312
+objectives:
+- Expliquer pourquoi un système distribué subit des pannes partielles non déterministes et ce que cela change par rapport à une machine unique
+- Décrire un réseau asynchrone, les six causes indiscernables d'une requête sans réponse et les limites d'un délai d'attente
+- Choisir et régler un timeout (ou un détecteur adaptatif) en pesant faux positifs et délai de détection
+- Distinguer horloge murale et horloge monotone, expliquer la dérive et la perte d'écriture par LWW, et utiliser horloges logiques ou intervalles
+  de confiance
+- Expliquer pauses de processus, baux et jetons de clôture, et pourquoi la vérité se décide à la majorité
+- Énoncer un modèle de système (temps, nœuds) et classer des propriétés en sûreté ou vivacité
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch09
+lessons:
+- 01-partial-failures
+- 02-timeouts-delays
+- 03-clocks
+- 04-pauses-leases-fencing
+- 05-system-models
+xp:
+  assignment: 140
+  project: 280
+  boss: 320
+boss: boss
+assignment: assignment
+project: project

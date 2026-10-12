@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Horloge murale ?
+  back: Date et heure ; peut reculer ou sauter (NTP). Pour afficher, pas pour mesurer.
+  concept: ddia-clock-types
+- id: fc2
+  front: Horloge monotone ?
+  back: Ne recule jamais ; seule la différence entre deux lectures locales a un sens.
+  concept: ddia-clock-types
+- id: fc3
+  front: Dérive du quartz ?
+  back: '~200 ppm : environ 17 s par jour.'
+  concept: ddia-clock-drift
+- id: fc4
+  front: Précision de NTP sur Internet ?
+  back: Rarement mieux que quelques dizaines de ms ; pire en cas de congestion.
+  concept: ddia-clock-drift
+- id: fc5
+  front: Danger d'une horloge fausse ?
+  back: 'Silencieux : l''ordre des données est corrompu sans erreur.'
+  concept: ddia-clock-silent-failure
+- id: fc6
+  front: Défaut de LWW avec horloges réelles ?
+  back: Perd des écritures causalement récentes si l'horloge retarde ; ne distingue pas concurrent et séquentiel.
+  concept: ddia-lww-timestamps
+- id: fc7
+  front: Horloge de Lamport ?
+  back: 'Compteur : +1 à chaque événement, max(local, reçu) + 1 à la réception.'
+  concept: ddia-logical-clocks
+- id: fc8
+  front: Lecture d'horloge honnête ?
+  back: Un intervalle de confiance [earliest, latest], pas un point.
+  concept: ddia-clock-confidence-interval
+- id: fc9
+  front: Commit-wait ?
+  back: Attendre ≈ la largeur de l'intervalle avant de valider pour garantir l'ordre.
+  concept: ddia-commit-wait

@@ -1,0 +1,1 @@
+**La visibilité est une pure question d'identifiants** : créateur visible, suppresseur invisible. La transaction 12 voit 1 000 € (instantané cohérent), la 20 voit 900 € parce qu'elle voit le virement de la 13 *et* le compte 1 inchangé (la 14 a échoué).

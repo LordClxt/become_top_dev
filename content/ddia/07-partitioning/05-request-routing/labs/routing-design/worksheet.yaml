@@ -1,0 +1,69 @@
+intro: Trois façons de router une requête vers le bon nœud. Tu compares leurs sauts réseau et leur dépendance à un service externe.
+blocks:
+- id: sauts
+  type: table
+  title: Sauts réseau
+  prompt: Combien de sauts réseau (client compris) pour une requête, dans le cas où le nœud contacté n'est pas le bon pour l'approche 1 ?
+  columns:
+  - id: n
+    label: Sauts jusqu'au nœud responsable
+  rows:
+  - id: any
+    label: Nœud quelconque (qui transmet)
+  - id: tier
+    label: Couche de routage
+  - id: client
+    label: Client conscient des partitions
+- id: quand
+  type: match
+  title: Quel système ?
+  prompt: Associe chaque système à son mode de suivi du cluster.
+  items:
+  - id: cass
+    label: Cassandra et Riak
+  - id: hbase
+    label: HBase, SolrCloud, Kafka
+  - id: mongo
+    label: MongoDB
+  categories:
+  - id: gossip
+    label: Gossip entre nœuds, requête à un nœud quelconque
+  - id: zk
+    label: ZooKeeper
+  - id: own
+    label: Serveurs de configuration + couche mongos
+- id: stale
+  type: choice
+  title: Une table de routage périmée
+  prompt: Un client conscient des partitions a gardé une affectation obsolète après un rééquilibrage. Que se passe-t-il ?
+  options:
+  - id: wrong
+    label: Il envoie la requête à l'ancien propriétaire, qui ne possède plus la partition
+  - id: ok
+    label: Rien, la requête aboutit toujours
+  - id: dns
+    label: Le DNS corrige tout seul
+- id: ordre
+  type: order
+  title: Un rééquilibrage vu de la coordination
+  prompt: Remets les événements dans l'ordre.
+  items:
+  - id: join
+    label: Un nœud s'enregistre dans ZooKeeper
+  - id: assign
+    label: L'affectation partitions → nœuds est modifiée
+  - id: notify
+    label: ZooKeeper notifie la couche de routage
+  - id: route
+    label: La couche de routage envoie les requêtes au nouveau propriétaire
+- id: dns
+  type: choice
+  title: Et les adresses ?
+  prompt: Pourquoi le DNS suffit-il souvent pour trouver les adresses des nœuds ou de la couche de routage ?
+  options:
+  - id: slow
+    label: Les adresses changent bien moins vite que l'affectation des partitions
+  - id: map
+    label: Le DNS connaît l'affectation des partitions
+  - id: enc
+    label: Le DNS chiffre les requêtes

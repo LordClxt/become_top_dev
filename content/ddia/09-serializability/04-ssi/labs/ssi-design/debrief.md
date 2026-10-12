@@ -1,0 +1,1 @@
+**La question à poser à une transaction qui veut valider : a-t-elle lu quelque chose que d'autres ont changé depuis ?** Si oui, sa décision repose sur du périmé. Le write skew et le fantôme tombent sous ce critère ; les lectures seules et les écritures sans lecture non.

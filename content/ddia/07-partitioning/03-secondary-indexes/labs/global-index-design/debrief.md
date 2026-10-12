@@ -1,0 +1,1 @@
+L'index global **déplace le coût vers l'écriture** : chaque partition de documents peut écrire dans plusieurs partitions d'index, de façon asynchrone. En contrepartie, le client lit en une seule requête.

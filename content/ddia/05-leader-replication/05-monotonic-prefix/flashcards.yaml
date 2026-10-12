@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Anomalie des lectures monotones ?
+  back: 'Voir une donnée récente, puis une plus ancienne : le temps recule (suite à un follower plus en retard).'
+  concept: ddia-monotonic-reads
+- id: fc2
+  front: Comment garantir les lectures monotones ?
+  back: Même réplica pour un utilisateur (hachage de son id), ou position minimale retenue par la session.
+  concept: ddia-monotonic-reads
+- id: fc3
+  front: Anomalie du préfixe cohérent ?
+  back: 'Voir la réponse avant la question : une violation de la causalité.'
+  concept: ddia-consistent-prefix
+- id: fc4
+  front: Garantie du préfixe cohérent ?
+  back: Des écritures arrivées dans un ordre sont vues dans cet ordre par tout lecteur.
+  concept: ddia-consistent-prefix
+- id: fc5
+  front: Où le préfixe cohérent pose-t-il surtout problème ?
+  back: Dans les bases partitionnées, car il n'y a pas d'ordre global des écritures.
+  concept: ddia-causality-partitions
+- id: fc6
+  front: Contournement du préfixe cohérent ?
+  back: Écrire les opérations causalement liées dans la même partition.
+  concept: ddia-causality-partitions
+- id: fc7
+  front: Question à se poser pour un système éventuellement cohérent ?
+  back: Et si le retard montait à plusieurs minutes ou heures ?
+  concept: ddia-lag-solutions
+- id: fc8
+  front: Pourquoi remonter aux transactions ?
+  back: Pour que la base garantisse ce que l'application peine à garantir seule.
+  concept: ddia-lag-solutions

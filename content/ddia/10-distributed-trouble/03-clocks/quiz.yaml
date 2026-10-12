@@ -1,0 +1,110 @@
+id: ddia-ch10-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle horloge utiliser pour mesurer le temps de réponse d'une requête sur une machine ?
+  choices:
+  - L'horloge monotone
+  - L'horloge murale
+  - Celle d'un autre serveur
+  - Le dernier horodatage reçu
+  answer: 0
+  explanation: Elle ne recule jamais, contrairement à l'horloge murale resynchronisée par NTP.
+  concept: ddia-clock-types
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que signifie la valeur absolue d'une horloge monotone ?
+  choices:
+  - 'Rien : seule la différence de deux lectures sur la même machine compte'
+  - L'heure de Paris
+  - Le nombre de secondes depuis 1970
+  - Le nombre de requêtes servies
+  answer: 0
+  explanation: Souvent des secondes depuis le démarrage.
+  concept: ddia-clock-types
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Une dérive de 200 ppm représente environ…
+  choices:
+  - 17 secondes par jour
+  - 200 ms par jour
+  - 1 heure par jour
+  - 0,2 ms par jour
+  answer: 0
+  explanation: 200 × 10⁻⁶ × 86 400 s ≈ 17,3 s.
+  concept: ddia-clock-drift
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Pourquoi une horloge fausse est-elle dangereuse ?
+  choices:
+  - Elle ne plante rien et corrompt silencieusement l'ordre des données
+  - Elle fait planter le processeur
+  - Elle est toujours détectée
+  - Elle ralentit le réseau
+  answer: 0
+  explanation: Le système continue de tourner avec des horodatages faux.
+  concept: ddia-clock-silent-failure
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Avec LWW, une écriture causalement plus récente peut être perdue si…
+  choices:
+  - L'horloge de son nœud retarde sur celle de l'écriture précédente
+  - Le disque est plein
+  - Le réseau est rapide
+  - Les deux écritures ont lieu sur le même nœud
+  answer: 0
+  explanation: 'Son horodatage est plus petit : la base garde l''ancienne valeur.'
+  concept: ddia-lww-timestamps
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Une horloge de Lamport sert à…
+  choices:
+  - Ordonner les événements de façon cohérente avec la causalité, sans mesurer le temps
+  - Mesurer des durées précisément
+  - Synchroniser les horloges murales
+  - Détecter toute concurrence
+  answer: 0
+  explanation: Elle ordonne ; elle ne dit pas si deux événements sont concurrents.
+  concept: ddia-logical-clocks
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: TrueTime renvoie…
+  choices:
+  - Un intervalle [earliest, latest]
+  - Un seul instant exact
+  - Un identifiant unique
+  - Un nombre de millisecondes depuis le démarrage
+  answer: 0
+  explanation: L'incertitude de l'horloge est exposée à l'application.
+  concept: ddia-clock-confidence-interval
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: 'Deux intervalles [100, 107] et [105, 112] : que peut-on dire ?'
+  choices:
+  - On ne peut pas ordonner les deux événements
+  - Le premier est sûrement avant
+  - Le second est sûrement avant
+  - Ils sont simultanés
+  answer: 0
+  explanation: Ils se chevauchent (107 ≥ 105).
+  concept: ddia-clock-confidence-interval
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Que fait le commit-wait de Spanner ?
+  choices:
+  - Attend environ la largeur de l'intervalle avant de valider
+  - Valide immédiatement et corrige après
+  - Désactive les horloges
+  - Rejoue la transaction
+  answer: 0
+  explanation: Pour que les intervalles de transactions successives ne se chevauchent pas.
+  concept: ddia-commit-wait
+  difficulty: 3

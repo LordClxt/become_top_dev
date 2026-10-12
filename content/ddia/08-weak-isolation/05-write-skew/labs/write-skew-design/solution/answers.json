@@ -1,0 +1,21 @@
+{
+  "anomalie": {
+    "counter": "lost",
+    "doctors": "skew",
+    "dirty": "dirtyw",
+    "booking": "phantom"
+  },
+  "forupdate": {
+    "doctors": "yes",
+    "booking": "no",
+    "username": "no"
+  },
+  "unique": "constraint",
+  "slots": 17280,
+  "mat": [
+    "lock",
+    "last",
+    "leak"
+  ],
+  "outcome": 0
+}

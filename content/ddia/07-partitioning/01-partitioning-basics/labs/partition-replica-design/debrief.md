@@ -1,0 +1,1 @@
+Chaque nœud joue deux rôles : **leader d'une partition et follower d'une autre**. Ainsi la charge d'écriture se répartit (trois leaders sur trois nœuds) et la panne d'un nœud ne fait perdre aucune partition.

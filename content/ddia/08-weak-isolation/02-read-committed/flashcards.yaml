@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Read committed ?
+  back: 'Pas de lecture sale, pas d''écriture sale : on ne lit et n''écrase que du validé.'
+  concept: ddia-read-committed
+- id: fc2
+  front: Lecture sale ?
+  back: Voir les écritures d'une transaction pas encore validée.
+  concept: ddia-dirty-read
+- id: fc3
+  front: Écriture sale ?
+  back: Écraser une écriture pas encore validée ; peut mélanger deux transactions.
+  concept: ddia-dirty-write
+- id: fc4
+  front: Comment évite-t-on l'écriture sale ?
+  back: Verrou de ligne tenu jusqu'à la fin de la transaction ; le second écrivain attend.
+  concept: ddia-rc-implementation
+- id: fc5
+  front: Comment évite-t-on la lecture sale ?
+  back: On sert l'ancienne valeur validée tant que la nouvelle n'est pas validée.
+  concept: ddia-rc-implementation
+- id: fc6
+  front: Pourquoi pas des verrous de lecture ?
+  back: Une écriture longue ferait attendre beaucoup de lectures seules.
+  concept: ddia-rc-implementation
+- id: fc7
+  front: Read committed protège-t-il un compteur ?
+  back: 'Non : deux incréments validés successivement perdent une mise à jour.'
+  concept: ddia-read-committed
+- id: fc8
+  front: Les bugs d'isolation faible sont-ils réels ?
+  back: 'Oui : pertes financières, audits, données corrompues.'
+  concept: ddia-weak-isolation

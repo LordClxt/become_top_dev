@@ -1,0 +1,21 @@
+blocks:
+  t1t2:
+    wrong: (10 + 1) × 2.
+  t2t1:
+    wrong: (10 × 2) + 1.
+  conc:
+    options:
+      r22: C'est l'ordre T1 puis T2.
+      r21: C'est l'ordre T2 puis T1.
+      r11: 'Aucun ordre série ne donne 11 : la mise à jour de T2 est perdue.'
+      r20: 'Aucun ordre série ne donne 20 : la mise à jour de T1 est perdue.'
+  doctors:
+    options:
+      zero: 'Aucun ordre série ne laisse zéro médecin : le second voit le premier parti.'
+      two: Ce n'est pas un ordre série possible.
+  orders:
+    wrong: 4! = 24.
+  faux:
+    options:
+      real: Seul le résultat est équivalent.
+      tests: Les bugs de timing passent à travers les tests.

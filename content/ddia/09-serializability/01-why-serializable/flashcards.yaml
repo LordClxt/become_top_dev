@@ -1,0 +1,21 @@
+cards:
+- id: fc1
+  front: Sérialisable ?
+  back: Résultat identique à une exécution en série, même si les transactions s'exécutent en parallèle.
+  concept: ddia-serializable-def
+- id: fc2
+  front: Faut-il un ordre série précis ?
+  back: 'Non : il suffit qu''un ordre série équivalent existe.'
+  concept: ddia-serializable-def
+- id: fc3
+  front: Pourquoi les niveaux faibles posent problème ?
+  back: Difficiles à comprendre, incohérents entre bases, aucun outil pour détecter les courses.
+  concept: ddia-isolation-mess
+- id: fc4
+  front: Trois techniques de sérialisabilité ?
+  back: Exécution en série ; verrouillage en deux phases (2PL) ; SSI (optimiste).
+  concept: ddia-three-techniques
+- id: fc5
+  front: 'x = 10 ; T1 : x+1 ; T2 : x×2 ?'
+  back: 'Résultats sérialisables : 22 (T1 puis T2) ou 21 (T2 puis T1).'
+  concept: ddia-serializable-def

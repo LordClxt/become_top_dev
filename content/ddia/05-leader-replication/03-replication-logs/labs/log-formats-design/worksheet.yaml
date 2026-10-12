@@ -1,0 +1,55 @@
+intro: 'Tu choisis le format du log de réplication pour plusieurs besoins. Rappel des quatre options : **instructions**, **WAL**, **log logique**,
+  **triggers**.'
+blocks:
+- id: besoin
+  type: match
+  title: Le bon format
+  prompt: Associe chaque besoin au format le mieux adapté.
+  items:
+  - id: upgrade
+    label: Mettre à jour la base de la version N à N+1 sans arrêter le service
+  - id: dw
+    label: Alimenter un entrepôt de données et un moteur de recherche à partir des changements
+  - id: subset
+    label: Ne répliquer qu'un sous-ensemble des tables, avec une résolution de conflits maison
+  - id: exact
+    label: Un réplica octet pour octet identique, versions identiques garanties
+  categories:
+  - id: logical
+    label: Log logique
+  - id: trigger
+    label: Triggers
+  - id: wal
+    label: WAL shipping
+  - id: stmt
+    label: Instructions
+- id: cassent
+  type: multi
+  title: Qui diverge en réplication par instructions ?
+  prompt: Coche les instructions qui rendent les réplicas différents.
+  options:
+  - id: now
+    label: INSERT INTO log(at) VALUES (NOW())
+  - id: const
+    label: INSERT INTO log(at) VALUES ('2026-10-11')
+  - id: rand
+    label: UPDATE users SET token = RAND() WHERE id = 7
+  - id: seq
+    label: Deux UPDATE sur la même ligne exécutés dans un ordre différent sur un follower
+- id: delete
+  type: choice
+  title: Supprimer une ligne
+  prompt: Une table n'a pas de clé primaire. Que doit contenir l'enregistrement logique d'une suppression ?
+  options:
+  - id: all
+    label: Les anciennes valeurs de toutes les colonnes
+  - id: table
+    label: Seulement le nom de la table
+  - id: ts
+    label: L'horodatage de la suppression
+- id: ecrit
+  type: number
+  title: Enregistrements d'une transaction
+  prompt: Une transaction insère 3 lignes, en modifie 2 et en supprime 1. En log logique, combien d'enregistrements au total, sachant qu'un enregistrement
+    de validation (commit) clôt la transaction ?
+  unit: enregistrements

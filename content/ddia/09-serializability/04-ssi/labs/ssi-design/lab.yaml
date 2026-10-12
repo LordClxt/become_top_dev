@@ -1,0 +1,17 @@
+id: ddia-ch09-l04-lab-ssi-design
+title: Qui est annulé à la validation ?
+difficulty: 4
+xp: 90
+concepts:
+- ddia-ssi
+- ddia-outdated-premise
+- ddia-optimistic-pessimistic
+- ddia-ssi-performance
+source:
+  chapter: 7
+  pages: 261-266
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,35 @@
+id: ddia-ch06-l03-lab-ring-design
+title: Un anneau de quatre leaders
+difficulty: 2
+xp: 50
+concepts:
+- ddia-topology
+source:
+  chapter: 5
+  pages: 175-176
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: a
+  component: leader
+  label: Leader A
+  hint: ''
+- type: b
+  component: leader
+  label: Leader B
+  hint: ''
+- type: c
+  component: leader
+  label: Leader C
+  hint: ''
+- type: d
+  component: leader
+  label: Leader D
+  hint: ''
+- type: hub
+  component: gateway
+  label: Hub central
+  hint: Un point par lequel tout transiterait (étoile).
+verified: { at: 2026-10-11, solution: pass, starter: fail }

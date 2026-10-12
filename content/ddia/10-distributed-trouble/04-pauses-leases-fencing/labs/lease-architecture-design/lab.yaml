@@ -1,0 +1,38 @@
+id: ddia-ch10-l04-lab-lease-architecture-design
+title: Dessiner un verrou distribué sûr
+difficulty: 4
+xp: 90
+concepts:
+- ddia-lease-bug
+- ddia-fencing-token
+- ddia-fencing-check-resource
+- ddia-majority-truth
+source:
+  chapter: 8
+  pages: 303-310
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: worker
+  component: worker
+  label: Travailleur
+  hint: Veut écrire dans le stockage en exclusivité.
+- type: lock
+  component: consensus
+  label: Service de verrou (quorum)
+  hint: Octroie les baux et les jetons à la majorité.
+- type: store
+  component: object-store
+  label: Stockage vérifiant les jetons
+  hint: Rejette les écritures dont le jeton est périmé.
+- type: plain
+  component: disk
+  label: Disque sans vérification
+  hint: Accepte toute écriture.
+- type: clock
+  component: external
+  label: Horloge locale du client
+  hint: Utilisée pour juger de la validité du bail.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

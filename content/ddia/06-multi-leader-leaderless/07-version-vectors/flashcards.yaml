@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Règle d'écrasement du serveur de versions ?
+  back: Une écriture avec la version v écrase les valeurs de version ≤ v ; les autres, concurrentes, restent.
+  concept: ddia-version-algorithm
+- id: fc2
+  front: Écriture sans version ?
+  back: 'Concurrente de tout : elle n''écrase rien et devient un sibling.'
+  concept: ddia-version-algorithm
+- id: fc3
+  front: Sibling ?
+  back: Valeur concurrente conservée ; le client doit les fusionner.
+  concept: ddia-siblings
+- id: fc4
+  front: Fusion du panier ?
+  back: Union des siblings, avec tombstones pour que les retraits ne réapparaissent pas.
+  concept: ddia-tombstone
+- id: fc5
+  front: Tombstone ?
+  back: Marqueur de suppression versionné, qui survit à la fusion.
+  concept: ddia-tombstone
+- id: fc6
+  front: Vecteur de version ?
+  back: 'Un compteur par réplica ; comparé compteur par compteur : avant, après ou concurrent.'
+  concept: ddia-version-vector
+- id: fc7
+  front: Contexte causal (Riak) ?
+  back: Le vecteur de version encodé, renvoyé par le client lors de l'écriture.
+  concept: ddia-version-vector
+- id: fc8
+  front: CRDT et siblings ?
+  back: Des types de données qui fusionnent automatiquement, y compris les suppressions.
+  concept: ddia-crdt-merge

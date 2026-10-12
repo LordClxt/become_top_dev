@@ -1,0 +1,17 @@
+id: ddia-ch07-l02-lab-key-choice-design
+title: Choisir la clé de partition
+difficulty: 3
+xp: 80
+concepts:
+- ddia-range-partitioning
+- ddia-hash-partitioning
+- ddia-compound-key
+- ddia-hot-key
+source:
+  chapter: 6
+  pages: 202-205
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

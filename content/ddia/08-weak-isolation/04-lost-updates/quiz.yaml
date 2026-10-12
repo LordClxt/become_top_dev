@@ -1,0 +1,124 @@
+id: ddia-ch08-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quel schéma d'accès produit une mise à jour perdue ?
+  choices:
+  - Un cycle lire-modifier-écrire fait en parallèle par deux transactions
+  - Deux lectures simultanées
+  - Une seule écriture atomique
+  - Une écriture suivie d'un commit
+  answer: 0
+  explanation: La seconde écriture n'inclut pas la première.
+  concept: ddia-lost-update
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quelle est généralement la meilleure défense quand elle est applicable ?
+  choices:
+  - Une opération d'écriture atomique comme UPDATE … SET value = value + 1
+  - Un horodatage côté client
+  - Un cache
+  - Un index
+  answer: 0
+  explanation: Elle supprime le cycle lire-modifier-écrire.
+  concept: ddia-atomic-write
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi une opération atomique ne suffit-elle pas dans le jeu multijoueur ?
+  choices:
+  - Il faut aussi vérifier les règles du jeu, ce qu'on ne peut pas exprimer dans la requête
+  - Le jeu est trop rapide
+  - Les opérations atomiques n'existent pas en SQL
+  - Il y a trop de joueurs
+  answer: 0
+  explanation: On utilise un verrou explicite.
+  concept: ddia-explicit-lock
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Que fait SELECT … FOR UPDATE ?
+  choices:
+  - Verrouille les lignes renvoyées jusqu'à la fin de la transaction
+  - Met à jour les lignes
+  - Supprime les lignes
+  - Copie les lignes
+  answer: 0
+  explanation: Les autres transactions attendent.
+  concept: ddia-explicit-lock
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quel est l'inconvénient du verrouillage explicite ?
+  choices:
+  - Facile d'oublier un verrou quelque part et d'introduire une condition de course
+  - Il est interdit en production
+  - Il perd des données
+  - Il rend la base plus rapide
+  answer: 0
+  explanation: Il demande de bien réfléchir à la logique applicative.
+  concept: ddia-explicit-lock
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quelle base ne détecte PAS automatiquement les mises à jour perdues dans son repeatable read ?
+  choices:
+  - MySQL / InnoDB
+  - PostgreSQL
+  - Oracle (serializable)
+  - SQL Server (snapshot)
+  answer: 0
+  explanation: Les autres annulent la transaction fautive.
+  concept: ddia-auto-detect
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Quel avantage a la détection automatique ?
+  choices:
+  - Elle ne demande aucun code spécial et ne peut pas être oubliée
+  - Elle est toujours plus rapide
+  - Elle verrouille tout
+  - Elle fusionne les valeurs
+  answer: 0
+  explanation: La base annule la transaction qui provoque la perte.
+  concept: ddia-auto-detect
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Pourquoi un compare-and-set peut-il être faux dans une base en isolation par instantané ?
+  choices:
+  - Le WHERE peut lire un vieil instantané et rester vrai malgré une écriture concurrente
+  - Le CAS est interdit
+  - Il n'y a pas de WHERE
+  - Il verrouille tout
+  answer: 0
+  explanation: Vérifier la sémantique de la base.
+  concept: ddia-compare-and-set
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Pourquoi verrous et CAS ne s'appliquent-ils pas en réplication multi-leader ?
+  choices:
+  - Ils supposent une seule copie à jour des données
+  - Ils sont trop lents
+  - Ils sont chiffrés
+  - Ils ne sont pas répliqués
+  answer: 0
+  explanation: On fusionne plutôt les versions concurrentes.
+  concept: ddia-lost-update-replicated
+  difficulty: 1
+- id: q10
+  type: multiple
+  prompt: Quelles opérations sont commutatives et donc sûres en réplication ?
+  choices:
+  - Incrémenter un compteur
+  - Ajouter un élément à un ensemble
+  - Écraser une valeur (LWW)
+  - Éditer le texte d'un document en l'écrasant
+  answer:
+  - 0
+  - 1
+  explanation: LWW est justement sujet aux mises à jour perdues.
+  concept: ddia-lost-update-replicated
+  difficulty: 2

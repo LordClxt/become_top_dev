@@ -1,0 +1,83 @@
+intro: Un compteur de « likes » vaut 42. Cent clients l'incrémentent en même temps.
+blocks:
+- id: naive
+  type: choice
+  title: Sans protection
+  prompt: Chacun lit la valeur, ajoute 1 et réécrit. Dans le pire cas (tous lisent 42 avant que quiconque n'écrive), quelle est la valeur finale
+    ?
+  options:
+  - id: '43'
+    label: '43'
+  - id: '142'
+    label: '142'
+  - id: '42'
+    label: '42'
+- id: lost
+  type: number
+  title: Mises à jour perdues
+  prompt: Dans ce pire cas, combien d'incréments sont perdus sur les 100 ?
+  unit: incréments
+- id: defense
+  type: match
+  title: Quelle défense ?
+  prompt: Associe chaque situation à la défense la plus adaptée.
+  items:
+  - id: counter
+    label: Incrémenter un compteur
+  - id: game
+    label: Déplacer une pièce après avoir vérifié les règles du jeu (logique non exprimable en SQL)
+  - id: wiki
+    label: Deux utilisateurs éditent le même texte, l'application peut faire échouer le second pour qu'il recommence
+  - id: orm
+    label: Un ORM fait souvent l'écriture de manière non sûre ; la base le détecte pour nous
+  categories:
+  - id: atomic
+    label: Opération d'écriture atomique
+  - id: lock
+    label: Verrou explicite (FOR UPDATE)
+  - id: cas
+    label: Compare-and-set
+  - id: auto
+    label: Détection automatique (instantané)
+- id: dbs
+  type: match
+  title: Quelle base détecte ?
+  prompt: Détecte-t-elle automatiquement les mises à jour perdues dans son niveau « repeatable read » ou équivalent ?
+  items:
+  - id: pg
+    label: PostgreSQL
+  - id: mysql
+    label: MySQL / InnoDB
+  - id: oracle
+    label: Oracle (serializable)
+  - id: mssql
+    label: SQL Server (snapshot isolation)
+  categories:
+  - id: 'yes'
+    label: Oui
+  - id: 'no'
+    label: Non
+- id: cas
+  type: choice
+  title: Un CAS sûr ?
+  prompt: '`UPDATE pages SET content = ''B'' WHERE id = 1 AND content = ''A''` : quand peut-il ne pas protéger ?'
+  options:
+  - id: snap
+    label: 'Si le WHERE lit dans un vieil instantané : la condition peut rester vraie malgré une écriture concurrente'
+  - id: never
+    label: 'Jamais : il protège toujours'
+  - id: always
+    label: 'Toujours : il ne protège jamais'
+- id: replica
+  type: multi
+  title: En multi-leader
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: lock
+    label: Les verrous supposent une seule copie à jour et ne s'appliquent pas
+  - id: sib
+    label: On garde les versions concurrentes (siblings) et on les fusionne
+  - id: comm
+    label: Les opérations commutatives (compteur, ensemble) peuvent se fusionner sans perte
+  - id: lww
+    label: LWW évite toutes les mises à jour perdues

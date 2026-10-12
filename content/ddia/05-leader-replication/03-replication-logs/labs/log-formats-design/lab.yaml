@@ -1,0 +1,17 @@
+id: ddia-ch05-l03-lab-log-formats-design
+title: Quel log pour quel besoin ?
+difficulty: 2
+xp: 60
+concepts:
+- ddia-statement-replication
+- ddia-wal-shipping
+- ddia-logical-log
+- ddia-trigger-replication
+source:
+  chapter: 5
+  pages: 158-161
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

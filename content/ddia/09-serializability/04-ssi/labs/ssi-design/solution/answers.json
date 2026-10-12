@@ -1,0 +1,19 @@
+{
+  "who": {
+    "doctors": "abort",
+    "disjoint": "commit",
+    "ro": "commit",
+    "blind": "commit",
+    "phantom": "abort"
+  },
+  "rate": 9,
+  "pct": 90,
+  "comm": 0,
+  "compare": {
+    "wait": "pl",
+    "abort": "ssi",
+    "single": "serial",
+    "tail": "ssi"
+  },
+  "readonly": "fine"
+}

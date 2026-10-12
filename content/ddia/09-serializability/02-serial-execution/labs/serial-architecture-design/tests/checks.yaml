@@ -1,0 +1,48 @@
+checks:
+- id: c-r
+  label: L'application passe par le routeur
+  rule: edge_kind
+  source: client
+  target: router
+  kind: sync
+- id: r-e
+  label: Le routeur envoie la procédure à l'exécuteur de la partition concernée
+  rule: edge_kind
+  source: router
+  target: exec
+  kind: sync
+- id: e-m
+  label: Chaque exécuteur lit et écrit sa mémoire
+  rule: edge_kind
+  source: exec
+  target: mem
+  kind: write
+- id: parts
+  label: Au moins deux partitions
+  rule: count
+  source: exec
+  min: 2
+- id: mem-parts
+  label: Une mémoire par partition
+  rule: count
+  source: mem
+  min: 2
+- id: no-locks
+  label: 'Pas de verrous : l''exécution série n''en a pas besoin'
+  rule: count
+  source: locks
+  max: 0
+- id: repl
+  label: L'entrepôt est alimenté par les données d'une partition (instantané)
+  rule: edge_kind
+  source: mem
+  target: reporting
+  kind: replication
+- id: no-direct
+  label: Le client n'accède pas directement aux exécuteurs
+  rule: no_edge
+  source: client
+  target: exec
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

@@ -1,0 +1,14 @@
+{
+  "interactive": 2.6,
+  "proc": 0.6,
+  "tps": 1667,
+  "scale": 13333,
+  "cross": {
+    "f": 10
+  },
+  "fit": {
+    "redis": "ok",
+    "report": "no",
+    "booking": "no"
+  }
+}

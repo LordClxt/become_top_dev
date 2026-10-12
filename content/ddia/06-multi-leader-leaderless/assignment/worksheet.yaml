@@ -1,0 +1,107 @@
+intro: Tu conseilles trois équipes sur la réplication de leurs données. Pour chacune, tu choisis l'architecture, tu règles les paramètres et tu
+  identifies les conflits à gérer.
+blocks:
+- id: archi
+  type: match
+  title: Quelle architecture ?
+  prompt: Associe chaque produit à l'architecture la mieux adaptée.
+  items:
+  - id: bank
+    label: Un registre de comptes dans un datacenter, transactions strictes
+  - id: notes
+    label: Une application de notes utilisable hors-ligne sur trois appareils
+  - id: cart
+    label: Un panier mondial, haute disponibilité, tolérance à la cohérence à terme
+  categories:
+  - id: single
+    label: Un leader
+  - id: multi
+    label: Plusieurs leaders
+  - id: less
+    label: Sans leader (Dynamo-style)
+- id: quorum
+  type: tuner
+  title: Régler le panier
+  prompt: 'Le panier utilise **n = 5**. Exigences : lectures et écritures se recoupent, on tolère **2 pannes en écriture** et **1 panne en lecture**.'
+  params:
+  - id: w
+    label: w
+    unit: ''
+    min: 1
+    max: 5
+    step: 1
+    default: 1
+  - id: r
+    label: r
+    unit: ''
+    min: 1
+    max: 5
+    step: 1
+    default: 1
+  metrics:
+  - id: wr
+    label: w + r
+    expr: w + r
+    format: number
+  goals:
+  - id: ov
+    label: w + r > 5
+    expr: w + r > 5
+  - id: wt
+    label: 2 pannes en écriture (w ≤ 3)
+    expr: w <= 3
+  - id: rt
+    label: 1 panne en lecture (r ≤ 4)
+    expr: r <= 4
+- id: lww
+  type: choice
+  title: Résoudre les conflits de notes
+  prompt: Deux appareils modifient la même note hors-ligne. Quelle stratégie évite de perdre du texte ?
+  options:
+  - id: keep
+    label: Conserver les deux versions et laisser l'utilisateur ou l'application fusionner
+  - id: lww
+    label: 'LWW : l''horodatage le plus récent gagne'
+  - id: replica
+    label: Le plus grand identifiant d'appareil gagne
+- id: state
+  type: table
+  title: Vecteurs de version d'une note
+  prompt: Trois appareils P, T, L. La note part de {} . P écrit (P:1), T lit puis écrit (le vecteur devient {P:1, T:1}), L écrit sans rien lire.
+    Donne le compteur de chaque réplica dans le vecteur de la **dernière écriture de L** puis du **merge de {P:1, T:1} et de celle de L**.
+  columns:
+  - id: p
+    label: P
+  - id: t
+    label: T
+  - id: l
+    label: L
+  rows:
+  - id: lw
+    label: Écriture de L
+  - id: merge
+    label: Merge avec {P:1, T:1}
+- id: rel
+  type: choice
+  title: Relation
+  prompt: 'L''écriture de L ({L:1}) et celle de T ({P:1, T:1}) sont :'
+  options:
+  - id: conc
+    label: Concurrentes
+  - id: before
+    label: L'écriture de L se produit avant celle de T
+  - id: after
+    label: L'écriture de T se produit avant celle de L
+- id: pb
+  type: multi
+  title: Risques à lister
+  prompt: Coche ce qui doit figurer dans l'analyse de risques du panier.
+  options:
+  - id: sloppy
+    label: Avec des quorums relâchés, w + r > n ne garantit plus la dernière valeur
+  - id: lww
+    label: LWW perdrait des ajouts concurrents
+  - id: tomb
+    label: Sans tombstones, des articles retirés réapparaissent après fusion
+  - id: leader
+    label: Le failover d'un leader peut perdre des écritures

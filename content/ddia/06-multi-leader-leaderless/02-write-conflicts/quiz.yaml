@@ -1,0 +1,122 @@
+id: ddia-ch06-l02-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi un conflit d'écriture n'apparaît-il pas en mono-leader ?
+  choices:
+  - Le second écrivain attend ou voit sa transaction annulée
+  - Les écritures sont toujours commutatives
+  - Les horloges sont synchronisées
+  - Il n'y a qu'un client
+  answer: 0
+  explanation: Le leader sérialise les écritures.
+  concept: ddia-write-conflict
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi ne pas détecter les conflits en synchrone ?
+  choices:
+  - 'On perdrait l''avantage du multi-leader : chaque réplica accepte seul les écritures'
+  - Les conflits n'existent pas
+  - C'est impossible techniquement
+  - Le réseau ne le permet pas
+  answer: 0
+  explanation: Autant utiliser un mono-leader.
+  concept: ddia-write-conflict
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Quelle est la stratégie recommandée face aux conflits ?
+  choices:
+  - Les éviter en routant toutes les écritures d'une donnée vers le même leader
+  - Les ignorer
+  - Utiliser toujours LWW
+  - Désactiver la réplication
+  answer: 0
+  explanation: 'Chaque utilisateur a un datacenter d''origine : de son point de vue, c''est du mono-leader.'
+  concept: ddia-conflict-avoidance
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Quand l'évitement des conflits s'effondre-t-il ?
+  choices:
+  - Quand un datacenter tombe ou qu'un utilisateur change de site
+  - Quand il y a plus de 3 utilisateurs
+  - Quand la base est compressée
+  - Jamais
+  answer: 0
+  explanation: Le leader désigné d'une donnée change, donc des écritures concurrentes sont possibles.
+  concept: ddia-conflict-avoidance
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Que signifie « converger » ?
+  choices:
+  - Tous les réplicas arrivent à la même valeur finale quand tous les changements sont répliqués
+  - Tous les réplicas écrivent au même rythme
+  - Un seul réplica garde la donnée
+  - Les écritures sont triées par taille
+  answer: 0
+  explanation: Appliquer chaque écriture dans l'ordre de réception ferait diverger les réplicas.
+  concept: ddia-convergence
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quel est le principal risque de LWW ?
+  choices:
+  - Des écritures concurrentes confirmées sont silencieusement jetées
+  - Il est trop lent
+  - Il doit être écrit en Perl
+  - Il crée des clés auto-incrémentées
+  answer: 0
+  explanation: Une seule des écritures concurrentes survit.
+  concept: ddia-lww
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Dans la résolution « à la lecture », que fait la base en cas de conflit ?
+  choices:
+  - Elle stocke toutes les versions et les renvoie à l'application à la prochaine lecture
+  - Elle choisit au hasard
+  - Elle refuse l'écriture
+  - Elle verrouille la table
+  answer: 0
+  explanation: 'CouchDB fonctionne ainsi : l''application résout et réécrit.'
+  concept: ddia-custom-resolution
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Quel bug a été cité à propos du panier d'Amazon ?
+  choices:
+  - Les articles retirés réapparaissaient car la résolution gardait les ajouts mais pas les retraits
+  - Les paniers doublaient de taille
+  - Les prix étaient arrondis
+  - Les paniers s'effaçaient chaque nuit
+  answer: 0
+  explanation: Un bon exemple de logique de conflit mal conçue.
+  concept: ddia-custom-resolution
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Qu'est-ce qu'un CRDT ?
+  choices:
+  - Une structure de données qui fusionne automatiquement des modifications concurrentes
+  - Un format de log
+  - Un algorithme de chiffrement
+  - Un type de transaction
+  answer: 0
+  explanation: 'Ensembles, dictionnaires, listes, compteurs : par exemple dans Riak 2.0.'
+  concept: ddia-crdt-ot
+  difficulty: 1
+- id: q10
+  type: single
+  prompt: Pourquoi une réservation de salle peut-elle entrer en conflit même sans modifier le même champ ?
+  choices:
+  - Deux réservations validées sur deux leaders différents peuvent se chevaucher
+  - Les salles sont dupliquées
+  - Le calendrier est en lecture seule
+  - Les dates sont en UTC
+  answer: 0
+  explanation: Chaque leader a vérifié la disponibilité sur sa vue locale.
+  concept: ddia-write-conflict
+  difficulty: 2

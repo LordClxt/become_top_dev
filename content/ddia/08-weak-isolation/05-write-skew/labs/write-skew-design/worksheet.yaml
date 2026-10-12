@@ -1,0 +1,77 @@
+intro: Plusieurs fonctionnalités vérifient une condition puis écrivent, toutes sous isolation par instantané. Tu cherches lesquelles sont à risque
+  et comment les défendre.
+blocks:
+- id: anomalie
+  type: match
+  title: Quelle anomalie ?
+  prompt: Classe chaque scénario.
+  items:
+  - id: counter
+    label: Deux clients lisent un compteur à 42 et écrivent 43
+  - id: doctors
+    label: Deux médecins de garde se retirent après avoir vu l'autre de garde
+  - id: dirty
+    label: T2 écrase l'écriture non validée de T1
+  - id: booking
+    label: Deux réservations de la même salle à la même heure, après vérification d'absence de conflit
+  categories:
+  - id: lost
+    label: Mise à jour perdue
+  - id: skew
+    label: Write skew (lignes lues existantes)
+  - id: dirtyw
+    label: Écriture sale
+  - id: phantom
+    label: Write skew par fantôme (rien à verrouiller)
+- id: forupdate
+  type: match
+  title: SELECT … FOR UPDATE suffit-il ?
+  prompt: La requête de vérification peut-elle être protégée par FOR UPDATE ?
+  items:
+  - id: doctors
+    label: 'Médecins de garde : on lit les lignes des médecins de garde'
+  - id: booking
+    label: 'Réservation : on cherche l''absence de réservation qui chevauche'
+  - id: username
+    label: 'Nom d''utilisateur : on cherche s''il existe déjà'
+  categories:
+  - id: 'yes'
+    label: 'Oui : il y a des lignes à verrouiller'
+  - id: 'no'
+    label: 'Non : la requête ne renvoie aucune ligne'
+- id: unique
+  type: choice
+  title: Le nom d'utilisateur
+  prompt: Quelle solution simple évite le doublon ?
+  options:
+  - id: constraint
+    label: 'Une contrainte d''unicité sur le nom : la seconde transaction est annulée'
+  - id: retry
+    label: Vérifier deux fois
+  - id: delay
+    label: Attendre une seconde avant d'insérer
+- id: slots
+  type: number
+  title: Combien de lignes de verrou ?
+  prompt: 'Pour matérialiser les conflits d''un système de réservation de salles : 12 salles, créneaux de 15 minutes, de 8 h à 20 h, sur 30 jours.
+    Combien de lignes à créer à l''avance ?'
+  unit: lignes
+- id: mat
+  type: multi
+  title: Matérialiser les conflits
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: lock
+    label: La table de créneaux ne contient que des verrous, pas de données de réservation
+  - id: last
+    label: C'est un dernier recours ; la sérialisabilité est préférable
+  - id: leak
+    label: Il laisse un mécanisme de contrôle de concurrence fuir dans le modèle de données
+  - id: auto
+    label: Il est automatique et sans risque d'erreur
+- id: outcome
+  type: number
+  title: Le résultat du write skew
+  prompt: Deux médecins sont de garde. Chacun vérifie qu'il y en a au moins 2, puis se retire. Combien de médecins restent de garde après les
+    deux commits (sous isolation par instantané) ?
+  unit: médecins

@@ -1,0 +1,25 @@
+blocks:
+  cases:
+    options:
+      lost-req.done: 'La requête n''est jamais arrivée : rien n''a été exécuté.'
+      crash.done: Le serveur est tombé avant de traiter.
+      lost-resp.done: Le serveur a bien exécuté ; seule la réponse manque.
+      slow.done: 'La requête est en file : elle sera traitée, juste plus tard.'
+      lost-req.seen: Quel que soit le cas, le client n'a aucune réponse.
+      crash.seen: Quel que soit le cas, le client n'a aucune réponse.
+      lost-resp.seen: Quel que soit le cas, le client n'a aucune réponse.
+      slow.seen: Quel que soit le cas, le client n'a aucune réponse.
+  retry:
+    options:
+      never: Rien n'oblige le serveur à refuser.
+      lost: Au contraire, il peut y avoir un doublon.
+      none: TCP ne voit pas les requêtes applicatives, seulement des octets.
+  scale:
+    tolerance:
+      abs: 0.5
+    wrong: Calcule d'abord la probabilité qu'AUCUNE ne soit en panne, puis prends le complément.
+  philo:
+    options:
+      sim: Un calcul long avec checkpoints supporte l'arrêt global.
+      shop: Un site de vente ne peut pas s'arrêter pendant la réparation.
+      rolling: Les mises à jour en continu supposent de tolérer des nœuds momentanément absents.

@@ -1,0 +1,99 @@
+checks:
+- id: entry
+  label: Les utilisateurs passent par le routeur
+  rule: edge_kind
+  source: users
+  target: router
+  kind: sync
+- id: write
+  label: Le routeur envoie les écritures au leader
+  rule: edge_kind
+  source: router
+  target: leader
+  kind: write
+- id: one
+  label: Un seul leader
+  rule: count
+  source: leader
+  min: 1
+  max: 1
+- id: no-l2
+  label: Pas de leader en région B
+  rule: count
+  source: leader2
+  max: 0
+- id: rep-sync
+  label: Le leader réplique vers le follower de sa région
+  rule: edge_kind
+  source: leader
+  target: fsync
+  kind: replication
+- id: rep-a1
+  label: …et vers le premier follower de la région B
+  rule: edge_kind
+  source: leader
+  target: fa1
+  kind: replication
+- id: rep-a2
+  label: …et vers le second
+  rule: edge_kind
+  source: leader
+  target: fa2
+  kind: replication
+- id: zone-leader
+  label: Le leader est en région A
+  rule: in_zone
+  source: leader
+  target: regA
+- id: zone-sync
+  label: Le follower synchrone est dans la région du leader
+  rule: in_zone
+  source: fsync
+  target: regA
+- id: zone-async
+  label: Les followers asynchrones sont en région B
+  rule: in_zone
+  source: fa1
+  target: regB
+- id: zone-async2
+  label: …tous les deux
+  rule: in_zone
+  source: fa2
+  target: regB
+- id: read-b
+  label: Le routeur lit sur les followers de B
+  rule: edge_kind
+  source: router
+  target: fa1
+  kind: read
+- id: read-b2
+  label: …et sur le second
+  rule: edge_kind
+  source: router
+  target: fa2
+  kind: read
+- id: only-leader
+  label: Rien n'entre dans le leader sans passer par le routeur
+  rule: inbound_via
+  target: leader
+  via: router
+- id: cdc-in
+  label: Le leader alimente la capture de changements
+  rule: edge_kind
+  source: leader
+  target: cdc
+  kind: async
+- id: cdc-out
+  label: …et alimente l'entrepôt
+  rule: edge_kind
+  source: cdc
+  target: dw
+  kind: write
+- id: no-wal
+  label: Pas de couplage de l'entrepôt au WAL physique
+  rule: count
+  source: wal
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

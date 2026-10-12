@@ -1,0 +1,40 @@
+id: ddia-ch09-l02-lab-serial-architecture-design
+title: Une base en exécution série partitionnée
+difficulty: 3
+xp: 70
+concepts:
+- ddia-serial-partitioning
+- ddia-stored-procedures
+source:
+  chapter: 7
+  pages: 254-256
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Application
+  hint: Soumet des procédures stockées.
+- type: router
+  component: gateway
+  label: Routeur de partitions
+  hint: Envoie chaque procédure à la partition de sa clé.
+- type: exec
+  component: worker
+  label: Exécuteur mono-thread
+  hint: Exécute une procédure à la fois sur sa partition.
+- type: mem
+  component: redis
+  label: Données en mémoire d'une partition
+  hint: Le jeu actif d'une partition.
+- type: reporting
+  component: warehouse
+  label: Entrepôt d'analyse sur instantané
+  hint: Les requêtes longues vont ici.
+- type: locks
+  component: external
+  label: Gestionnaire de verrous global
+  hint: Verrous partagés/exclusifs sur tous les objets.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

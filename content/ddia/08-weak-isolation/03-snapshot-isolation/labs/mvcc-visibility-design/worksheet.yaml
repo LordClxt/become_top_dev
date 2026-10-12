@@ -1,0 +1,65 @@
+intro: 'La table `accounts` contient ces versions : **(1) compte 1, 500 €, créée par 5, jamais supprimée** · **(2) compte 2, 500 €, créée par
+  5, supprimée par 13** · **(3) compte 2, 400 €, créée par 13** · **(4) compte 1, 600 €, créée par 14**. La transaction **12** a démarré quand
+  la **11** était encore en cours (la 11 n''a rien écrit ici). Les transactions 5 et 13 sont validées ; la 14 est **annulée**. Les identifiants
+  sont croissants.'
+blocks:
+- id: vis12
+  type: multi
+  title: Ce que voit la transaction 12
+  prompt: La transaction 12 (isolation par instantané) a démarré avant que la 13 ne démarre. Quelles versions voit-elle ?
+  options:
+  - id: v1
+    label: (1) compte 1 à 500 €
+  - id: v2
+    label: (2) compte 2 à 500 €
+  - id: v3
+    label: (3) compte 2 à 400 €
+  - id: v4
+    label: (4) compte 1 à 600 €
+- id: sum12
+  type: number
+  title: Somme vue par la 12
+  prompt: Quel total des deux comptes la transaction 12 calcule-t-elle ?
+  unit: €
+- id: vis20
+  type: multi
+  title: Ce que voit une nouvelle transaction (20)
+  prompt: La transaction 20 démarre maintenant, après la validation de la 13. Quelles versions voit-elle ?
+  options:
+  - id: v1
+    label: (1) compte 1 à 500 €
+  - id: v2
+    label: (2) compte 2 à 500 €
+  - id: v3
+    label: (3) compte 2 à 400 €
+  - id: v4
+    label: (4) compte 1 à 600 €
+- id: sum20
+  type: number
+  title: Somme vue par la 20
+  prompt: Quel total des deux comptes calcule la transaction 20 ?
+  unit: €
+- id: regle
+  type: match
+  title: Quelle règle ?
+  prompt: Pour chaque version ignorée, quelle règle de visibilité s'applique ?
+  items:
+  - id: r3
+    label: Version (3) vue par la transaction 12 (la 13 a un identifiant plus grand)
+  - id: r2
+    label: Version (4) (créée par la 14, annulée)
+  - id: r1
+    label: Un écrit d'une transaction en cours au début de la 12, même validé plus tard
+  categories:
+  - id: later
+    label: Transaction plus tardive
+  - id: aborted
+    label: Transaction annulée
+  - id: inprog
+    label: Transaction en cours au début
+- id: rc
+  type: number
+  title: Et en read committed ?
+  prompt: 'La transaction 12 était en read committed à la place : une 2ᵉ lecture du compte 2 après la validation de la 13 renvoie quelle valeur
+    ?'
+  unit: €

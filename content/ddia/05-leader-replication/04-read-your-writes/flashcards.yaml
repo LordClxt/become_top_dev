@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Pourquoi des followers asynchrones pour la lecture ?
+  back: Tous synchrones, une panne bloquerait les écritures ; l'asynchrone laisse ajouter des followers.
+  concept: ddia-read-scaling
+- id: fc2
+  front: Cohérence à terme ?
+  back: Sans nouvelles écritures, les réplicas convergent finalement ; délai non borné.
+  concept: ddia-eventual-consistency
+- id: fc3
+  front: Retard de réplication typique et pire cas ?
+  back: Fraction de seconde en régime normal ; secondes à minutes sous charge ou panne.
+  concept: ddia-replication-lag
+- id: fc4
+  front: Read-your-writes ?
+  back: Un utilisateur voit toujours ce qu'il a lui-même soumis ; aucune promesse pour les autres.
+  concept: ddia-read-your-writes
+- id: fc5
+  front: Technique 1 pour la lire ?
+  back: Lire sur le leader ce que l'utilisateur peut modifier (ex. son profil), sur un follower le reste.
+  concept: ddia-read-your-writes
+- id: fc6
+  front: Technique 2 pour la lire ?
+  back: Le client retient le LSN de sa dernière écriture ; on sert la lecture depuis un réplica au moins aussi avancé.
+  concept: ddia-read-your-writes
+- id: fc7
+  front: Pourquoi un LSN plutôt qu'une horloge ?
+  back: Les horloges de machines différentes ne sont pas synchronisées ; un LSN ordonne les écritures du log.
+  concept: ddia-read-your-writes
+- id: fc8
+  front: Difficulté entre appareils ?
+  back: Centraliser la dernière écriture et router toutes les requêtes de l'utilisateur vers le même datacenter.
+  concept: ddia-cross-device

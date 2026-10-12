@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: 'Réplication par instructions : principe et faiblesses ?'
+  back: Le leader envoie les requêtes SQL ; casse avec NOW()/RAND(), l'ordre et les effets de bord.
+  concept: ddia-statement-replication
+- id: fc2
+  front: 'Expédition du WAL : principe ?'
+  back: Le leader envoie le journal du moteur ; le follower reconstruit les mêmes structures octet par octet.
+  concept: ddia-wal-shipping
+- id: fc3
+  front: Défaut majeur du WAL shipping ?
+  back: 'Couplé au format de stockage : versions différentes impossibles, donc mises à jour avec interruption.'
+  concept: ddia-wal-shipping
+- id: fc4
+  front: Log logique (row-based) ?
+  back: Changements décrits par ligne, indépendants du moteur ; binlog MySQL en mode ligne.
+  concept: ddia-logical-log
+- id: fc5
+  front: Que log-t-on pour une ligne supprimée ?
+  back: Sa clé primaire ou, à défaut, les anciennes valeurs de toutes les colonnes.
+  concept: ddia-logical-log
+- id: fc6
+  front: Qu'est-ce que le CDC ?
+  back: Exporter les changements d'une base (via son log logique) vers des systèmes externes.
+  concept: ddia-logical-log
+- id: fc7
+  front: 'Réplication par triggers : intérêt et coût ?'
+  back: Flexible (sous-ensemble, autre base, conflits) mais plus coûteux et plus bogué.
+  concept: ddia-trigger-replication
+- id: fc8
+  front: Quel log permet une mise à jour sans interruption ?
+  back: 'Un log découplé du moteur : on met à jour les followers puis on bascule.'
+  concept: ddia-zero-downtime-upgrade

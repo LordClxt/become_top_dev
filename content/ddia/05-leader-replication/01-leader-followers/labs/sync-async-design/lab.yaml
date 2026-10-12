@@ -1,0 +1,16 @@
+id: ddia-ch05-l01-lab-sync-async-design
+title: Combien coûte la durabilité ?
+difficulty: 2
+xp: 60
+concepts:
+- ddia-sync-async
+- ddia-semi-sync
+- ddia-async-durability
+source:
+  chapter: 5
+  pages: 153-155
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,76 @@
+intro: 'Un serveur à un seul réplica applique l''algorithme du panier : il attribue une version à chaque écriture, écrase les valeurs de version
+  **≤** celle reçue et garde les autres.'
+blocks:
+- id: etat
+  type: table
+  title: L'état du serveur étape par étape
+  prompt: 'Voici les écritures : (1) client 1 écrit [lait] sans version ; (2) client 2 écrit [œufs] sans version ; (3) client 1 écrit [lait, farine]
+    avec la version 1 ; (4) client 2 écrit [œufs, lait, jambon] avec la version 2 ; (5) client 1 écrit [lait, farine, œufs, bacon] avec la version
+    3. Indique, **après chaque étape**, la version du serveur et le nombre de valeurs conservées.'
+  columns:
+  - id: ver
+    label: Dernière version
+  - id: vals
+    label: Valeurs conservées
+  rows:
+  - id: s1
+    label: Après l'étape 1
+  - id: s2
+    label: Après l'étape 2
+  - id: s3
+    label: Après l'étape 3
+  - id: s4
+    label: Après l'étape 4
+  - id: s5
+    label: Après l'étape 5
+- id: vv
+  type: match
+  title: Comparer des vecteurs
+  prompt: Pour chaque paire, quelle relation ?
+  items:
+  - id: p1
+    label: '{A:1, B:0} et {A:1, B:1}'
+  - id: p2
+    label: '{A:2, B:1} et {A:1, B:2}'
+  - id: p3
+    label: '{A:3} et {A:3}'
+  - id: p4
+    label: '{A:2, B:2} et {A:1, B:1}'
+  categories:
+  - id: before
+    label: Le premier s'est produit avant le second
+  - id: after
+    label: Le second s'est produit avant le premier
+  - id: conc
+    label: Concurrents
+  - id: eq
+    label: Égaux
+- id: tomb
+  type: choice
+  title: Retirer des œufs
+  prompt: 'Deux siblings : [lait, œufs] et [lait] (œufs retiré dans le second). On fusionne par union. Que se passe-t-il sans tombstone ?'
+  options:
+  - id: back
+    label: Les œufs réapparaissent dans le panier fusionné
+  - id: gone
+    label: Les œufs disparaissent correctement
+  - id: crash
+    label: La fusion échoue
+- id: ordre
+  type: order
+  title: Le cycle d'un client
+  prompt: Remets les étapes d'une écriture correcte dans l'ordre.
+  items:
+  - id: read
+    label: 'Lire la clé : valeurs et version'
+  - id: merge
+    label: Fusionner toutes les valeurs reçues et appliquer la modification
+  - id: write
+    label: Écrire la valeur fusionnée avec la version lue
+  - id: resp
+    label: Recevoir les valeurs restantes et la nouvelle version
+- id: count
+  type: number
+  title: Siblings finaux
+  prompt: Combien de valeurs le serveur conserve-t-il à la fin des cinq étapes ?
+  unit: valeurs

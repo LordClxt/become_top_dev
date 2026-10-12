@@ -1,0 +1,17 @@
+blocks:
+  bound:
+    wrong: 'Aller + retour + traitement : 2d + r.'
+  queue:
+    tolerance:
+      abs: 0.1
+    wrong: ρ = 0,9 ; calcule ρ / (1 − ρ).
+  causes:
+    options:
+      sw: 'Plusieurs expéditeurs, un seul lien de sortie : c''est une file de commutateur.'
+      vm: 'Le processeur est pris par une autre VM : c''est l''hyperviseur.'
+      tcp: Le contrôle de flux TCP crée une file côté expéditeur, dans le réseau logique.
+      noisy: C'est une ressource partagée entre locataires.
+  tune:
+    goals:
+      fast: 'Un k trop grand repousse le timeout : à 300 ms il faut k ≤ 5.'
+      safe: 'Un k trop petit laisse trop de faux positifs : il faut 1/k² < 5 %, donc k > 4,47.'

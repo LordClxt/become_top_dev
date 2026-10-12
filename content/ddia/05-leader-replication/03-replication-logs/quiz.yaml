@@ -1,0 +1,113 @@
+id: ddia-ch05-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi `UPDATE t SET modifie = NOW()` rejoué sur chaque follower est-il problématique ?
+  choices:
+  - NOW() donne une valeur différente sur chaque réplica
+  - NOW() est interdit en SQL
+  - Un follower ne peut pas écrire une date
+  - Le leader ne peut pas logger les dates
+  answer: 0
+  explanation: Les fonctions non déterministes font diverger les réplicas en réplication par instructions.
+  concept: ddia-statement-replication
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que peut faire un leader pour contourner ce problème en réplication par instructions ?
+  choices:
+  - Remplacer l'appel non déterministe par une valeur fixe dans le log
+  - Interdire les écritures la nuit
+  - Répliquer seulement les lectures
+  - Supprimer les index
+  answer: 0
+  explanation: C'est un contournement possible, mais les cas limites restent nombreux.
+  concept: ddia-statement-replication
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: Qu'est-ce que l'expédition du WAL (WAL shipping) ?
+  choices:
+  - Envoyer aux followers le journal d'écriture du moteur de stockage
+  - Envoyer les requêtes SQL
+  - Envoyer les lignes modifiées sous forme logique
+  - Exécuter un trigger sur chaque ligne
+  answer: 0
+  explanation: Le follower rejoue le journal et reconstruit exactement les mêmes structures.
+  concept: ddia-wal-shipping
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Quel est le principal inconvénient de l'expédition du WAL ?
+  choices:
+  - Elle couple la réplication au format de stockage de la version du moteur
+  - Elle est plus lente que SQL
+  - Elle ne gère pas les suppressions
+  - Elle exige un trigger par table
+  answer: 0
+  explanation: Si le format de stockage change, leader et followers doivent tourner la même version.
+  concept: ddia-wal-shipping
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quelle impression opérationnelle une réplication découplée du moteur (log logique) apporte-t-elle ?
+  choices:
+  - 'On peut mettre à jour les followers d''abord, puis faire un failover : pas d''interruption'
+  - On n'a plus besoin de followers
+  - Les écritures deviennent synchrones
+  - Le leader n'a plus besoin de log
+  answer: 0
+  explanation: Des versions différentes cohabitent sur leader et followers.
+  concept: ddia-zero-downtime-upgrade
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Que contient le log logique pour une ligne supprimée ?
+  choices:
+  - 'De quoi l''identifier : la clé primaire, sinon les anciennes valeurs de toutes les colonnes'
+  - Uniquement le nom de la table
+  - L'instruction DELETE telle quelle
+  - Les octets du bloc modifié
+  answer: 0
+  explanation: Sans identifiant unique, le follower ne saurait pas quelle ligne retirer.
+  concept: ddia-logical-log
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Pourquoi un log logique est-il utile à un entrepôt de données externe ?
+  choices:
+  - 'Il est facile à analyser : on peut capter les changements (CDC) sans connaître le format physique'
+  - Il est compressé en colonnes
+  - Il évite d'avoir un leader
+  - Il est chiffré
+  answer: 0
+  explanation: Le format est indépendant du moteur, donc lisible par d'autres systèmes.
+  concept: ddia-logical-log
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Dans quel cas choisir la réplication par triggers ?
+  choices:
+  - Répliquer un sous-ensemble ou vers un autre type de base avec une logique applicative
+  - Quand on veut la solution la plus rapide
+  - Quand on veut éviter tout code
+  - Pour remplacer le WAL
+  answer: 0
+  explanation: Flexible, mais plus coûteux et plus sujet aux bugs que la réplication native.
+  concept: ddia-trigger-replication
+  difficulty: 1
+- id: q9
+  type: multiple
+  prompt: Quelles situations cassent la réplication par instructions ?
+  choices:
+  - Une fonction RAND()
+  - Un UPDATE dépendant de l'ordre d'exécution
+  - Un trigger non déterministe
+  - Un INSERT avec une valeur constante
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: 'Une constante est déterministe : elle ne pose pas de problème.'
+  concept: ddia-statement-replication
+  difficulty: 2

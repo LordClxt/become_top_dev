@@ -1,0 +1,76 @@
+checks:
+- id: l1-zone
+  label: Le leader 1 vit dans le datacenter 1
+  rule: in_zone
+  source: l1
+  target: dc1
+- id: l2-zone
+  label: Le leader 2 vit dans le datacenter 2
+  rule: in_zone
+  source: l2
+  target: dc2
+- id: f1-zone
+  label: Chaque follower reste dans son datacenter
+  rule: in_zone
+  source: f1
+  target: dc1
+- id: f2-zone
+  label: …y compris le follower 2
+  rule: in_zone
+  source: f2
+  target: dc2
+- id: local-1
+  label: Les utilisateurs 1 écrivent sur le leader local
+  rule: edge_kind
+  source: u1
+  target: l1
+  kind: write
+- id: local-2
+  label: Les utilisateurs 2 écrivent sur le leader local
+  rule: edge_kind
+  source: u2
+  target: l2
+  kind: write
+- id: no-cross
+  label: Les utilisateurs 1 n'écrivent jamais sur le leader distant
+  rule: no_edge
+  source: u1
+  target: l2
+- id: rep-12
+  label: Le leader 1 réplique vers le leader 2
+  rule: edge_kind
+  source: l1
+  target: l2
+  kind: replication
+- id: rep-21
+  label: '…et réciproquement : chaque leader est follower de l''autre'
+  rule: edge_kind
+  source: l2
+  target: l1
+  kind: replication
+- id: rep-f1
+  label: Réplication locale leader → follower (site 1)
+  rule: edge_kind
+  source: l1
+  target: f1
+  kind: replication
+- id: rep-f2
+  label: Réplication locale leader → follower (site 2)
+  rule: edge_kind
+  source: l2
+  target: f2
+  kind: replication
+- id: two
+  label: Exactement deux leaders
+  rule: count
+  source: l1
+  min: 1
+  max: 1
+- id: no-lock
+  label: 'Pas de verrou synchrone global : il détruirait l''intérêt'
+  rule: count
+  source: sync
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

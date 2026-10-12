@@ -1,0 +1,1 @@
+**Dès qu'une décision repose sur l'absence de lignes, `FOR UPDATE` ne verrouille rien.** On peut matérialiser les conflits (17 280 lignes de verrou ici) ou, mieux, demander la sérialisabilité, objet du module suivant.

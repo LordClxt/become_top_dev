@@ -1,0 +1,1 @@
+**La sûreté vient de la ressource, la détection vient de la mesure.** Le bail à quorum choisit un leader, mais c'est la base qui rejette les écritures périmées ; et le détecteur adaptatif évite les faux positifs d'un timeout figé.

@@ -1,0 +1,16 @@
+{
+  "cas": {
+    "plain": "ok",
+    "sloppy": "stale",
+    "failed": "stale",
+    "restore": "stale",
+    "lww": "stale"
+  },
+  "relache": "write",
+  "dc": {
+    "local.acks": 2,
+    "global.acks": 4
+  },
+  "dcdown": 3,
+  "choix": "local"
+}

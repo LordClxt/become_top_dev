@@ -1,0 +1,98 @@
+intro: 'Tu conçois le stockage de deux produits : un réseau de **2 000 capteurs** qui écrivent une mesure par seconde, et un **site d''annonces**
+  avec recherche par catégorie et par ville. Tu choisis les clés, les index et la stratégie de rééquilibrage.'
+blocks:
+- id: cle
+  type: choice
+  title: Clé des mesures
+  prompt: Les requêtes lisent un capteur sur un intervalle. Partitionnement par plage. Quelle clé évite un hot spot et garde les requêtes simples
+    ?
+  options:
+  - id: sensor-ts
+    label: (capteur, horodatage)
+  - id: ts
+    label: horodatage
+  - id: ts-sensor
+    label: (horodatage, capteur)
+- id: debit
+  type: number
+  title: Débit d'écriture par partition
+  prompt: 2 000 capteurs écrivent chacun une mesure par seconde, la clé (capteur, horodatage) répartit uniformément sur 20 partitions. Combien
+    d'écritures par seconde reçoit chaque partition ?
+  unit: écritures/s
+- id: hotkey
+  type: number
+  title: Une clé très chaude
+  prompt: Un capteur « sismique » envoie 500 mesures par seconde sur la même clé. On l'éclate avec un sel à 2 chiffres (100 sous-clés). Écritures
+    par seconde et par sous-clé ?
+  unit: écritures/s
+- id: index
+  type: match
+  title: Quel index pour les annonces ?
+  prompt: Associe chaque scénario à l'index secondaire le plus adapté.
+  items:
+  - id: reads
+    label: Des milliers de recherches par seconde par catégorie, quelques publications par minute
+  - id: writes
+    label: Des milliers de publications par seconde, recherche limitée à l'ID de l'annonce et peu fréquente
+  categories:
+  - id: global
+    label: Index global (par terme)
+  - id: local
+    label: Index local (par document)
+- id: cout
+  type: table
+  title: Coût d'une recherche
+  prompt: 'L''index est local, la base a 12 partitions. Une recherche par catégorie : partitions interrogées ? Avec un index global : partitions
+    d''index interrogées ?'
+  columns:
+  - id: n
+    label: Partitions
+  rows:
+  - id: local
+    label: Index local
+  - id: global
+    label: Index global
+- id: taille
+  type: tuner
+  title: Nombre de partitions fixes
+  prompt: Les annonces pèsent **600 Go** aujourd'hui et atteindront **6 To** (6 000 Go) dans trois ans. Choisis un nombre fixe de partitions tel
+    que, dans trois ans, une partition ne dépasse pas **30 Go**, avec au plus **500** partitions.
+  params:
+  - id: p
+    label: Partitions
+    unit: ''
+    min: 10
+    max: 1000
+    step: 10
+    default: 50
+  metrics:
+  - id: future
+    label: Taille d'une partition dans trois ans
+    expr: 6000 / p
+    format: number
+  goals:
+  - id: g1
+    label: Au plus 30 Go dans trois ans
+    expr: future <= 30
+  - id: g2
+    label: Au plus 500 partitions
+    expr: p <= 500
+- id: ajout
+  type: number
+  title: Ajouter un nœud
+  prompt: Les 200 partitions sont réparties sur 8 nœuds (25 chacun). On ajoute un 9ᵉ nœud avec partitions fixes. Combien de partitions déplace-t-on
+    au minimum pour équilibrer (⌊200 / 9⌋) ?
+  unit: partitions
+- id: auto
+  type: multi
+  title: Automatique ou manuel
+  prompt: Coche les risques d'un rééquilibrage entièrement automatique.
+  options:
+  - id: cascade
+    label: 'Un nœud lent est jugé mort, le rééquilibrage l''achève : panne en cascade'
+  - id: load
+    label: Le transfert peut saturer le réseau et dégrader les autres requêtes
+  - id: order
+    label: Les clés changent de partition à chaque ajout
+  - id: human
+    label: Aucun humain ne valide un déplacement massif

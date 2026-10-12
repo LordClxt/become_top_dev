@@ -1,0 +1,19 @@
+{
+  "eligibles": [
+    "leader",
+    "f1"
+  ],
+  "lag": {
+    "f1.lag": 3,
+    "f2.lag": 20
+  },
+  "regle": {
+    "own-profile": "leader",
+    "other-profile": "follower",
+    "own-orders": "leader"
+  },
+  "device": "server",
+  "reglage": {
+    "n": 45
+  }
+}

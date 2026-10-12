@@ -1,0 +1,77 @@
+intro: Une base sans leader garde chaque clé sur **n** réplicas. Une écriture réussit avec **w** confirmations, une lecture avec **r** réponses.
+blocks:
+- id: table
+  type: table
+  title: Analyse de trois configurations
+  prompt: Pour chaque (n, w, r), donne le nombre de pannes tolérées en **écriture** (n − w) et en **lecture** (n − r).
+  columns:
+  - id: tw
+    label: Pannes en écriture
+  - id: tr
+    label: Pannes en lecture
+  rows:
+  - id: c1
+    label: n=3, w=2, r=2
+  - id: c2
+    label: n=5, w=3, r=3
+  - id: c3
+    label: n=5, w=5, r=1
+- id: recoupe
+  type: multi
+  title: Qui recoupe ?
+  prompt: Coche les configurations où lectures et écritures se recoupent toujours (w + r > n).
+  options:
+  - id: a
+    label: n=3, w=2, r=2
+  - id: b
+    label: n=5, w=2, r=3
+  - id: c
+    label: n=5, w=3, r=3
+  - id: d
+    label: n=4, w=1, r=4
+- id: repair
+  type: choice
+  title: Lecture avec version périmée
+  prompt: 'Un client lit sur 3 nœuds : versions 7, 7 et 6. Que doit-il faire ?'
+  options:
+  - id: write
+    label: Retourner la version 7 et la réécrire sur le nœud en version 6
+  - id: six
+    label: 'Retourner la version 6 : la plus prudente'
+  - id: error
+    label: Renvoyer une erreur
+- id: reglage
+  type: tuner
+  title: Choisir w et r
+  prompt: 'Un cluster a **n = 5** réplicas. Objectifs : les lectures voient toujours la dernière écriture, on tolère **2 nœuds en panne pour lire**
+    et **1 nœud en panne pour écrire**.'
+  params:
+  - id: w
+    label: w
+    unit: ''
+    min: 1
+    max: 5
+    step: 1
+    default: 1
+  - id: r
+    label: r
+    unit: ''
+    min: 1
+    max: 5
+    step: 1
+    default: 1
+  metrics:
+  - id: wr
+    label: w + r
+    expr: w + r
+    format: number
+  goals:
+  - id: overlap
+    label: w + r > 5
+    expr: w + r > 5
+  - id: readtol
+    label: 'Lecture : 2 pannes tolérées (r ≤ 3)'
+    expr: r <= 3
+  - id: writetol
+    label: 'Écriture : 1 panne tolérée (w ≤ 4)'
+    expr: w <= 4

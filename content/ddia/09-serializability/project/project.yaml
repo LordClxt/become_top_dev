@@ -1,0 +1,43 @@
+id: ddia-ch09-project
+title: Tinybase — trois façons d'être sérialisable
+pitch: 'Tinybase implémente les trois techniques du chapitre : un exécuteur monothread de procédures stockées, un gestionnaire de verrous 2PL
+  avec détection d''interblocage, et une validation optimiste sur instantané qui attrape write skew et fantômes.'
+running_project: tinybase
+kind: code
+language: go
+difficulty: 5
+xp: 280
+timeout_s: 90
+entrypoint: starter/
+test_command: go test ./...
+files_editable:
+- serializable.go
+concepts:
+- ddia-serial-execution
+- ddia-stored-procedures
+- ddia-2pl
+- ddia-deadlock
+- ddia-ssi
+- ddia-predicate-locks
+milestones:
+- id: m1
+  title: Exécution en série
+  goal: Un exécuteur dont une goroutine traite les procédures une par une, annule les écritures d'une procédure en échec, se ferme proprement,
+    et une version partitionnée.
+  tests: go test ./... -run TestM1
+  review: false
+- id: m2
+  title: Verrouillage en deux phases
+  goal: Un gestionnaire de verrous partagés/exclusifs avec promotion, file d'attente équitable, relâchement en bloc et détection d'interblocage
+    par cycle dans le graphe d'attentes.
+  tests: go test ./... -run TestM2
+  review: false
+- id: m3
+  title: Validation optimiste sur instantané
+  goal: Des transactions qui lisent un instantané, mémorisent leurs lectures et leurs recherches par préfixe, et sont annulées à la validation
+    si une transaction validée depuis leur début a invalidé leur prémisse.
+  tests: go test ./... -run TestM3
+  review: true
+  prompt: En quoi ta validation optimiste est-elle plus stricte que la vraie SSI de PostgreSQL (quels cas annule-t-elle à tort ?), et pourquoi
+    une transaction en lecture seule n'est-elle jamais annulée ?
+verified: { at: 2026-10-11, solution: pass, starter: fail }

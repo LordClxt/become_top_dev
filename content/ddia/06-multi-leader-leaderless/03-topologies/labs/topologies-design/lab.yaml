@@ -1,0 +1,16 @@
+id: ddia-ch06-l03-lab-topologies-design
+title: Compter les liens et les pannes
+difficulty: 2
+xp: 60
+concepts:
+- ddia-topology
+- ddia-topology-fault
+- ddia-loop-prevention
+source:
+  chapter: 5
+  pages: 175-177
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

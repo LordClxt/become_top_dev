@@ -1,0 +1,122 @@
+id: ddia-ch08-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Alice et Bob se retirent chacun de leur garde en même temps ; plus personne ne reste. Quelle anomalie ?
+  choices:
+  - Write skew
+  - Lecture sale
+  - Écriture sale
+  - Mise à jour perdue
+  answer: 0
+  explanation: Deux objets différents mis à jour après avoir lu les mêmes.
+  concept: ddia-write-skew
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi n'est-ce pas une mise à jour perdue ?
+  choices:
+  - Les transactions écrivent deux objets différents
+  - Elles écrivent le même objet
+  - Il n'y a pas d'écriture
+  - Une seule transaction est validée
+  answer: 0
+  explanation: C'est une généralisation, mais pas le même cas.
+  concept: ddia-write-skew
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: L'isolation par instantané empêche-t-elle le write skew ?
+  choices:
+  - Non
+  - Oui, toujours
+  - Seulement en PostgreSQL
+  - Seulement en lecture
+  answer: 0
+  explanation: Seule une vraie sérialisabilité l'empêche automatiquement.
+  concept: ddia-write-skew-defense
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Pourquoi une opération atomique sur un objet ne suffit-elle pas ?
+  choices:
+  - Plusieurs objets sont impliqués
+  - Elle est trop lente
+  - Elle n'existe pas en SQL
+  - Elle verrouille tout
+  answer: 0
+  explanation: La condition porte sur un ensemble de lignes.
+  concept: ddia-write-skew-defense
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quelle est la deuxième meilleure option face à un write skew, sans sérialisabilité ?
+  choices:
+  - Verrouiller explicitement les lignes dont la transaction dépend
+  - Ignorer le problème
+  - Réduire le nombre d'utilisateurs
+  - Augmenter le timeout
+  answer: 0
+  explanation: SELECT … FOR UPDATE sur les lignes lues.
+  concept: ddia-write-skew-defense
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quelle solution simple règle le cas du nom d'utilisateur ?
+  choices:
+  - Une contrainte d'unicité
+  - Un cache
+  - Un index plein texte
+  - Une transaction plus longue
+  answer: 0
+  explanation: La seconde transaction est annulée à cause de la contrainte.
+  concept: ddia-write-skew-examples
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Qu'est-ce qu'un fantôme ?
+  choices:
+  - L'écriture d'une transaction change le résultat d'une recherche d'une autre
+  - Une ligne supprimée
+  - Une transaction annulée
+  - Un verrou orphelin
+  answer: 0
+  explanation: Il n'y a pas de ligne à verrouiller.
+  concept: ddia-phantom
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Pourquoi SELECT FOR UPDATE ne résout-il pas la réservation de salle ?
+  choices:
+  - 'La requête ne renvoie aucune ligne : il n''y a rien à verrouiller'
+  - Il est trop lent
+  - Il n'est pas supporté
+  - Il supprime les réservations
+  answer: 0
+  explanation: La condition vérifie l'absence de lignes.
+  concept: ddia-phantom
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Que consiste à matérialiser les conflits ?
+  choices:
+  - Créer des lignes de verrou (créneaux × salles) pour transformer le fantôme en conflit de verrou
+  - Dupliquer la table
+  - Créer un index
+  - Supprimer les réservations
+  answer: 0
+  explanation: La table ne stocke aucune réservation.
+  concept: ddia-materializing-conflicts
+  difficulty: 1
+- id: q10
+  type: single
+  prompt: Pourquoi est-ce un dernier recours ?
+  choices:
+  - Difficile à bien faire et le contrôle de concurrence fuit dans le modèle de données
+  - Trop lent
+  - Inexistant
+  - Interdit par le SQL
+  answer: 0
+  explanation: La sérialisabilité est préférable dans la plupart des cas.
+  concept: ddia-materializing-conflicts
+  difficulty: 1

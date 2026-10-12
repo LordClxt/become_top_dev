@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Six anomalies ?
+  back: Lecture sale, écriture sale, read skew, mise à jour perdue, write skew, fantômes.
+  concept: ddia-anomaly-catalog
+- id: fc2
+  front: Qui prévient le read skew ?
+  back: L'isolation par instantané (MVCC).
+  concept: ddia-isolation-matrix
+- id: fc3
+  front: Qui prévient le write skew ?
+  back: Seule l'isolation sérialisable.
+  concept: ddia-isolation-matrix
+- id: fc4
+  front: Fantômes dans un write skew ?
+  back: Demandent des verrous d'intervalle d'index (ou la sérialisabilité).
+  concept: ddia-anomaly-catalog
+- id: fc5
+  front: 'Exécution série : quand ?'
+  back: Transactions très rapides, données en mémoire, débit d'écriture bas pour un cœur.
+  concept: ddia-choose-technique
+- id: fc6
+  front: '2PL : bilan ?'
+  back: Sérialisable par verrous, mais performances instables.
+  concept: ddia-choose-technique
+- id: fc7
+  front: 'SSI : bilan ?'
+  back: Optimiste, sans blocage ; annule à la validation si la prémisse est périmée.
+  concept: ddia-choose-technique
+- id: fc8
+  front: Valeur des transactions ?
+  back: Réduisent de nombreux cas d'erreur à une annulation + réessai, quel que soit le modèle de données.
+  concept: ddia-transactions-value

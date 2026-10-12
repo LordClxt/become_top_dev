@@ -1,0 +1,34 @@
+blocks:
+  qualify:
+    options:
+      i1: 'Voir des données non validées : lecture sale.'
+      i2: La décision repose sur une condition qui change après la lecture.
+      i3: Des lectures à des instants différents d'une même transaction.
+      i4: 'Même objet lu, modifié, réécrit : mise à jour perdue.'
+      i5: 'Les deux écritures se mélangent : écriture sale.'
+  rc:
+    options:
+      rs: Read committed autorise la lecture non répétable.
+      lu: Deux incréments validés successivement se perdent.
+      ws: Read committed n'empêche pas le write skew.
+  si:
+    options:
+      ws: L'instantané laisse passer le write skew.
+      lu: Seules certaines bases détectent la mise à jour perdue.
+  defense:
+    options:
+      stock: Une décrémentation atomique suffit.
+      seat: 'Une absence de ligne ne peut pas être verrouillée : sérialisabilité ou conflits matérialisés.'
+      backup: Un export doit voir un instantané cohérent.
+      username: L'unicité est garantie par la base.
+  slots:
+    wrong: 6 × 5 × 14.
+  retry:
+    goals:
+      g1: Au moins 3 essais pour absorber les conflits.
+      g2: Pas plus de 5 essais.
+      g3: Le délai cumulé dépasse 1 s à partir de 6 essais.
+  side:
+    options:
+      none: Un e-mail déjà envoyé ne se retire pas.
+      lost: La transaction réessayée finit par aboutir.

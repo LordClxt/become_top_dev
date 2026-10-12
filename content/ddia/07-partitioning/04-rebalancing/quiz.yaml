@@ -1,0 +1,125 @@
+id: ddia-ch07-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Citez une exigence du rééquilibrage.
+  choices:
+  - Ne pas déplacer plus de données que nécessaire
+  - Arrêter les écritures pendant le transfert
+  - Doubler le nombre de nœuds
+  - Changer la clé de partition
+  answer: 0
+  explanation: Avec la disponibilité continue et l'équité.
+  concept: ddia-rebalancing
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi hash(key) mod N est-il une mauvaise idée ?
+  choices:
+  - Quand N change, presque toutes les clés changent de nœud
+  - Il est trop lent
+  - Il crée des hot spots
+  - Il interdit la réplication
+  answer: 0
+  explanation: Rééquilibrage excessivement coûteux.
+  concept: ddia-hash-mod-n
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: 'Avec hash = 123456 : sur quel nœud tombe la clé avec 10 puis 11 nœuds ?'
+  choices:
+  - 6 puis 3
+  - 3 puis 6
+  - 0 puis 3
+  - 6 puis 6
+  answer: 0
+  explanation: 123456 mod 10 = 6, 123456 mod 11 = 3.
+  concept: ddia-hash-mod-n
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Dans un schéma à nombre fixe de partitions, qu'est-ce qui change quand on ajoute un nœud ?
+  choices:
+  - 'Seule l''affectation partitions → nœuds : des partitions entières vont au nouveau nœud'
+  - Le nombre de partitions
+  - L'affectation clés → partitions
+  - La fonction de hachage
+  answer: 0
+  explanation: Le nouveau nœud vole des partitions entières aux autres.
+  concept: ddia-fixed-partitions
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quelle est la contrainte du nombre fixe de partitions ?
+  choices:
+  - 'Il est le nombre maximal de nœuds possibles : à choisir assez grand'
+  - Il doit être égal au nombre de nœuds
+  - Il doit être premier
+  - Il ne peut pas dépasser 10
+  answer: 0
+  explanation: 'Chaque partition a aussi un coût de gestion : pas trop grand non plus.'
+  concept: ddia-fixed-partitions
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quand une partition HBase dépasse 10 Go, que se passe-t-il ?
+  choices:
+  - Elle est découpée en deux
+  - Elle est supprimée
+  - Elle est dupliquée
+  - Elle bloque les écritures
+  answer: 0
+  explanation: Le partitionnement dynamique adapte le nombre de partitions au volume.
+  concept: ddia-dynamic-partitioning
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Pourquoi le pré-découpage (pre-splitting) ?
+  choices:
+  - 'Une base vide démarre avec une seule partition : tout irait sur un seul nœud'
+  - Pour économiser le disque
+  - Pour accélérer les lectures
+  - Pour éviter la réplication
+  answer: 0
+  explanation: Cela exige de connaître la distribution des clés.
+  concept: ddia-dynamic-partitioning
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Dans le schéma de Cassandra, que fait un nouveau nœud qui rejoint ?
+  choices:
+  - Il choisit au hasard des partitions existantes à découper et prend une moitié de chacune
+  - Il vole des partitions entières
+  - Il copie toutes les données
+  - Il devient leader global
+  answer: 0
+  explanation: 256 partitions par nœud par défaut.
+  concept: ddia-proportional-partitioning
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Quel est le danger d'un rééquilibrage automatique avec détection de pannes automatique ?
+  choices:
+  - 'Un nœud lent est jugé mort, le rééquilibrage le surcharge encore plus : panne en cascade'
+  - Les nœuds deviennent trop rapides
+  - Les données sont dupliquées
+  - Les clés changent
+  answer: 0
+  explanation: D'où l'intérêt d'un humain dans la boucle.
+  concept: ddia-auto-vs-manual
+  difficulty: 1
+- id: q10
+  type: multiple
+  prompt: Lesquels de ces systèmes utilisent un nombre fixe de partitions ?
+  choices:
+  - Riak
+  - Elasticsearch
+  - Couchbase
+  - HBase
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: HBase découpe dynamiquement.
+  concept: ddia-fixed-partitions
+  difficulty: 2

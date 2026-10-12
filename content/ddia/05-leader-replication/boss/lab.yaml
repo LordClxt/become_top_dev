@@ -1,0 +1,68 @@
+id: ddia-ch05-boss
+title: 'Boss : une base répliquée sur deux régions'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-leader-follower
+- ddia-semi-sync
+- ddia-failover
+- ddia-read-your-writes
+- ddia-logical-log
+source:
+  chapter: 5
+  pages: 151-167
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: users
+  component: browser
+  label: Utilisateurs
+  hint: Écrivent et lisent depuis les deux régions.
+- type: router
+  component: gateway
+  label: Routeur de requêtes
+  hint: Garde le LSN par session et choisit le réplica.
+- type: regA
+  component: zone
+  label: Région A
+  hint: Datacenter principal.
+- type: regB
+  component: zone
+  label: Région B
+  hint: Datacenter distant.
+- type: leader
+  component: leader
+  label: Leader
+  hint: Seul à accepter les écritures.
+- type: fsync
+  component: follower
+  label: Follower synchrone
+  hint: Confirme chaque écriture avant le OK.
+- type: fa1
+  component: follower
+  label: Follower asynchrone (B)
+  hint: Sert les lectures de la région B.
+- type: fa2
+  component: follower
+  label: Follower asynchrone 2 (B)
+  hint: Deuxième réplica de la région B.
+- type: cdc
+  component: stream-processor
+  label: Capture des changements
+  hint: Lit le log logique pour l'entrepôt.
+- type: dw
+  component: warehouse
+  label: Entrepôt de données
+  hint: Analytique.
+- type: leader2
+  component: leader
+  label: Leader de la région B
+  hint: Un second leader qui accepte des écritures.
+- type: wal
+  component: wal
+  label: Expédition du WAL vers l'entrepôt
+  hint: Couple l'entrepôt au format physique.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

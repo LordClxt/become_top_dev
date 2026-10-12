@@ -1,0 +1,26 @@
+{
+  "window": 8,
+  "causes": [
+    "gc",
+    "check",
+    "nofence"
+  ],
+  "fixes": {
+    "fence": "safe",
+    "ttl": "reduce",
+    "tune": "reduce",
+    "mono": "reduce"
+  },
+  "writes": {
+    "b.ok": 1,
+    "a.ok": 0
+  },
+  "tuner": {
+    "ttl": 25
+  },
+  "still": "no",
+  "props": {
+    "excl": "safety",
+    "progress": "liveness"
+  }
+}

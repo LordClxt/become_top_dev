@@ -1,0 +1,29 @@
+{
+  "qualify": {
+    "i1": "dirtyr",
+    "i2": "skew",
+    "i3": "readskew",
+    "i4": "lost",
+    "i5": "dirtyw"
+  },
+  "rc": [
+    "dr",
+    "dw"
+  ],
+  "si": [
+    "dr",
+    "dw",
+    "rs"
+  ],
+  "defense": {
+    "stock": "atomic",
+    "seat": "ser",
+    "backup": "snap",
+    "username": "uniq"
+  },
+  "slots": 420,
+  "retry": {
+    "n": 4
+  },
+  "side": "dup"
+}

@@ -1,0 +1,21 @@
+blocks:
+  table:
+    options:
+      c1.tw: 3 − 2.
+      c1.tr: 3 − 2.
+      c2.tw: 5 − 3.
+      c2.tr: 5 − 3.
+      c3.tw: 5 − 5.
+      c3.tr: 5 − 1.
+  recoupe:
+    options:
+      b: '2 + 3 = 5, pas supérieur à 5 : un nœud lu peut ne pas avoir reçu l''écriture.'
+  repair:
+    options:
+      six: 'La version 6 est périmée : les deux autres nœuds ont déjà la 7.'
+      error: 'Il y a une réponse favorable de quorum : pas d''erreur.'
+  reglage:
+    goals:
+      overlap: Il faut w + r > n pour que lectures et écritures se recoupent.
+      readtol: 'r trop grand : on ne tolère plus 2 pannes en lecture.'
+      writetol: 'w trop grand : on ne tolère plus 1 panne en écriture.'

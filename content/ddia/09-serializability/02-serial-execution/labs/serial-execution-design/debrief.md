@@ -1,0 +1,1 @@
+**Passer de 2,6 ms à 0,6 ms par transaction multiplie le débit par plus de quatre**, sans concurrence ni verrou : c'est ce qui rend l'exécution en série viable. Mais au-delà d'environ 12 % de transactions inter-partitions, le système plafonne.

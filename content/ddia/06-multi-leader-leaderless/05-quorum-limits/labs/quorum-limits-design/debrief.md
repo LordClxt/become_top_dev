@@ -1,0 +1,1 @@
+**Un seul scénario est vraiment sûr : celui où tout fonctionne.** Dès que le quorum est relâché ou que des écritures sont concurrentes, concevoir pour la cohérence à terme est la seule démarche honnête. Et le quorum local est ce qui permet à un site de continuer quand l'autre est injoignable.

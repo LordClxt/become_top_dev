@@ -1,0 +1,21 @@
+blocks:
+  anomalie:
+    options:
+      photo: 'C''est TON écriture qui disparaît : lire ses écritures.'
+      vanish: 'Tu as vu le futur, puis le passé : lectures monotones.'
+      reply: 'Une réponse avant sa question : causalité.'
+  garantie:
+    options:
+      g1: 'Ton profil est lu sur le leader : tu vois tes écritures.'
+      g2: Un réplica fixe donne une seule ligne de temps à l'utilisateur.
+      g3: Une partition applique ses écritures dans l'ordre.
+  hash:
+    wrong: '2345 mod 3 : 3 × 781 = 2343, reste 2.'
+  panne:
+    options:
+      none: Un utilisateur ne doit pas perdre le service pour autant.
+      random: L'aléatoire est précisément ce qui crée l'anomalie.
+  faux:
+    options:
+      strong: C'est une garantie intermédiaire, pas la cohérence forte.
+      sync: 'Au contraire : c''est une recette pour des ennuis.'

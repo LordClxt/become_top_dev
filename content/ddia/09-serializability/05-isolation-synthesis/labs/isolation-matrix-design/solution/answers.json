@@ -1,0 +1,29 @@
+{
+  "matrix": {
+    "dirtyr.rc": 1,
+    "dirtyr.si": 1,
+    "dirtyr.ser": 1,
+    "readskew.rc": 0,
+    "readskew.si": 1,
+    "readskew.ser": 1,
+    "ws.rc": 0,
+    "ws.si": 0,
+    "ws.ser": 1
+  },
+  "fix": {
+    "lu": "atomic",
+    "ws": "forupdate",
+    "phantom": "mat",
+    "name": "uniq"
+  },
+  "pick": {
+    "voltdb": "serial",
+    "legacy": "2pl",
+    "pg": "ssi"
+  },
+  "retry": [
+    "abort",
+    "idem",
+    "limit"
+  ]
+}

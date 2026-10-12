@@ -1,0 +1,19 @@
+id: ddia-ch07-assignment
+title: Partitionner une plateforme de capteurs et d'annonces
+difficulty: 4
+xp: 130
+concepts:
+- ddia-range-partitioning
+- ddia-hash-partitioning
+- ddia-local-index
+- ddia-global-index
+- ddia-fixed-partitions
+- ddia-hot-key
+source:
+  chapter: 6
+  pages: 199-217
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

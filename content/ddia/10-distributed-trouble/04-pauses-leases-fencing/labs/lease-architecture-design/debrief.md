@@ -1,0 +1,1 @@
+**Un verrou sûr a trois acteurs** : un service à quorum qui accorde bail et jeton, un travailleur qui joint le jeton à ses écritures, et un stockage qui rejette les jetons périmés. L'horloge locale du client n'entre pas dans la décision.

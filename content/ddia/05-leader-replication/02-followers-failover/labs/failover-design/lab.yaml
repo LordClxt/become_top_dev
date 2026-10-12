@@ -1,0 +1,16 @@
+id: ddia-ch05-l02-lab-failover-design
+title: 'Le leader est tombé : que fait-on ?'
+difficulty: 3
+xp: 80
+concepts:
+- ddia-new-follower
+- ddia-failover
+- ddia-failover-pitfalls
+source:
+  chapter: 5
+  pages: 155-158
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

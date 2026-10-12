@@ -1,0 +1,35 @@
+{
+  "trace": {
+    "t12.a": 500,
+    "t12.b": 500,
+    "t12.sum": 1000,
+    "t20.a": 400,
+    "t20.b": 600,
+    "t20.sum": 1000
+  },
+  "qualify": {
+    "b1": "readskew",
+    "b2": "lost",
+    "b3": "skew",
+    "b4": "phantom"
+  },
+  "protege": {
+    "b1": "yes",
+    "b2": "yes",
+    "b3": "no",
+    "b4": "no"
+  },
+  "parade": {
+    "p1": "ser",
+    "p2": "uniq",
+    "p3": "atomic"
+  },
+  "lost": 120,
+  "plafond": 1100,
+  "retry": [
+    "limit",
+    "idem",
+    "transient"
+  ],
+  "acid": "which"
+}

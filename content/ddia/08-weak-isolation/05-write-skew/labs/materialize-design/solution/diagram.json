@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 160,
+      "label": "Client"
+    },
+    {
+      "id": "svc",
+      "type": "svc",
+      "x": 360,
+      "y": 160,
+      "label": "Service"
+    },
+    {
+      "id": "slots",
+      "type": "slots",
+      "x": 780,
+      "y": 20,
+      "label": "Créneaux (verrous)"
+    },
+    {
+      "id": "bookings",
+      "type": "bookings",
+      "x": 780,
+      "y": 300,
+      "label": "Réservations"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "client",
+      "target": "svc",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "svc",
+      "target": "slots",
+      "kind": "sync",
+      "label": "FOR UPDATE"
+    },
+    {
+      "id": "e3",
+      "source": "svc",
+      "target": "bookings",
+      "kind": "write",
+      "label": "INSERT"
+    }
+  ]
+}

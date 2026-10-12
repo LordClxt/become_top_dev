@@ -1,0 +1,40 @@
+id: ddia-ch08-l05-lab-materialize-design
+title: Matérialiser les conflits d'une réservation
+difficulty: 4
+xp: 80
+concepts:
+- ddia-materializing-conflicts
+- ddia-phantom
+source:
+  chapter: 7
+  pages: '251'
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Client
+  hint: Réserve une salle.
+- type: svc
+  component: service
+  label: Service de réservation
+  hint: Exécute la transaction de réservation.
+- type: slots
+  component: postgres
+  label: Table des créneaux (verrous)
+  hint: Une ligne par salle et par créneau, créées à l'avance ; ne contient aucune donnée de réservation.
+- type: bookings
+  component: postgres
+  label: Table des réservations
+  hint: Les réservations.
+- type: cache
+  component: redis
+  label: Cache de disponibilité
+  hint: Garde un état de disponibilité sans garantie de cohérence.
+- type: mq
+  component: queue
+  label: File de réservations
+  hint: Sérialise les demandes de façon asynchrone.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

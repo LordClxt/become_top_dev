@@ -1,0 +1,17 @@
+id: ddia-ch10-l02-lab-timeout-design
+title: Régler un détecteur de pannes
+difficulty: 3
+xp: 75
+concepts:
+- ddia-timeout-choice
+- ddia-unbounded-delay
+- ddia-adaptive-timeout
+- ddia-queueing
+source:
+  chapter: 8
+  pages: 281-291
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

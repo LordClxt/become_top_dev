@@ -1,0 +1,1 @@
+**Le timeout est un compromis mesurable** : k grand protège des faux positifs mais retarde la détection ; k petit détecte vite mais déclare morts des nœuds lents. Mesurer la distribution (moyenne, écart-type) permet de régler le curseur au lieu de deviner une constante.

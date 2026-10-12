@@ -1,0 +1,1 @@
+**Le multi-leader achète de la latence et de l'autonomie au prix des conflits.** 185 ms contre 5 ms, et un site qui continue d'écrire pendant une coupure. Tant qu'un seul datacenter suffit, le gain n'existe pas.

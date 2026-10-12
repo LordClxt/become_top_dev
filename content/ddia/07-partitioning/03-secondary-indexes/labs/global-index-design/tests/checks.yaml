@@ -1,0 +1,42 @@
+checks:
+- id: w
+  label: Le client écrit sur la partition du document
+  rule: edge_kind
+  source: client
+  target: doc
+  kind: write
+- id: async
+  label: La partition du document met à jour l'index global de façon asynchrone
+  rule: edge_kind
+  source: doc
+  target: gidx
+  kind: async
+- id: read
+  label: Le client lit l'index global (une seule partition d'index par terme)
+  rule: edge_kind
+  source: client
+  target: gidx
+  kind: read
+- id: two-docs
+  label: Au moins deux partitions de documents
+  rule: count
+  source: doc
+  min: 2
+- id: two-idx
+  label: Au moins deux partitions d'index
+  rule: count
+  source: gidx
+  min: 2
+- id: no-scatter
+  label: 'Pas de scatter/gather : c''est l''intérêt de l''index global'
+  rule: count
+  source: nodoc
+  max: 0
+- id: no-txn
+  label: Pas de transaction distribuée synchrone
+  rule: count
+  source: txn
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

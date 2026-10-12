@@ -1,0 +1,126 @@
+id: ddia-ch07-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi un index secondaire se marie-t-il mal avec le partitionnement ?
+  choices:
+  - 'Il cherche des valeurs et n''identifie pas un enregistrement unique : il ne s''aligne pas sur la clé de partition'
+  - Il est trop gros
+  - Il n'existe pas en NoSQL
+  - Il est toujours global
+  answer: 0
+  explanation: On ne peut pas déduire la partition d'une valeur de couleur.
+  concept: ddia-secondary-index-problem
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Dans un index par document (local), où écrit-on lors de l'ajout d'une voiture ?
+  choices:
+  - Dans la seule partition qui contient le document
+  - Dans toutes les partitions
+  - Dans un index central
+  - Dans la moitié des partitions
+  answer: 0
+  explanation: Chaque partition tient son propre index.
+  concept: ddia-local-index
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Comment cherche-t-on les voitures rouges avec un index local ?
+  choices:
+  - En envoyant la requête à toutes les partitions et en fusionnant les résultats
+  - En lisant une seule partition
+  - En parcourant le disque
+  - En interrogeant le leader global
+  answer: 0
+  explanation: C'est le scatter/gather.
+  concept: ddia-scatter-gather
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Quel risque propre au scatter/gather ?
+  choices:
+  - 'L''amplification de la latence de queue : la requête dépend de la partition la plus lente'
+  - La perte de données
+  - Des conflits d'écriture
+  - Une taille d'index trop grande
+  answer: 0
+  explanation: Chaque appel supplémentaire augmente la probabilité d'en rencontrer un lent.
+  concept: ddia-scatter-gather
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Qu'est-ce qu'un index global partitionné par terme ?
+  choices:
+  - Un index couvrant tous les documents, lui-même partitionné selon le terme recherché
+  - Un index sur le leader
+  - Un index sans partition
+  - Un index temporaire
+  answer: 0
+  explanation: La partition de l'index est déterminée par le terme.
+  concept: ddia-global-index
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quel est l'avantage de l'index global ?
+  choices:
+  - Une lecture n'interroge qu'une partition de l'index
+  - Les écritures sont plus rapides
+  - Il n'est jamais en retard
+  - Il n'exige pas de réseau
+  answer: 0
+  explanation: Pas de scatter/gather.
+  concept: ddia-global-index
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Quel est son inconvénient ?
+  choices:
+  - L'écriture d'un document peut toucher plusieurs partitions d'index
+  - Il ne supporte pas les plages
+  - Il est interdit en production
+  - Il est limité à un terme
+  answer: 0
+  explanation: Chaque terme du document peut être sur une partition différente.
+  concept: ddia-global-index
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Pourquoi les index globaux sont-ils souvent mis à jour en asynchrone ?
+  choices:
+  - Les rendre synchrones exigerait une transaction distribuée sur toutes les partitions touchées
+  - Pour économiser du disque
+  - Parce que SQL l'interdit
+  - Pour éviter les doublons
+  answer: 0
+  explanation: 'DynamoDB : mise à jour en une fraction de seconde en temps normal, plus long en cas de panne.'
+  concept: ddia-async-global-index
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Un utilisateur écrit puis cherche via un index global asynchrone. Que peut-il se passer ?
+  choices:
+  - Il ne voit pas encore sa propre écriture dans les résultats
+  - Il voit sa donnée en double
+  - La recherche échoue toujours
+  - Il voit les données d'un autre
+  answer: 0
+  explanation: L'index rattrape son retard après coup.
+  concept: ddia-async-global-index
+  difficulty: 1
+- id: q10
+  type: multiple
+  prompt: Quelles bases utilisent des index secondaires par document ?
+  choices:
+  - MongoDB
+  - Cassandra
+  - Elasticsearch
+  - VoltDB
+  answer:
+  - 0
+  - 1
+  - 2
+  - 3
+  explanation: Beaucoup de bases recommandent de concevoir les requêtes pour une seule partition.
+  concept: ddia-local-index
+  difficulty: 2

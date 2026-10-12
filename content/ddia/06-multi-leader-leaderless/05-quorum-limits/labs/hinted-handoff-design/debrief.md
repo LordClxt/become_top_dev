@@ -1,0 +1,1 @@
+Le nœud de dépannage garde la valeur **en attendant** le retour du nœud 3. D'ici là, une lecture sur les trois nœuds désignés peut la manquer : c'est pour cela que le quorum relâché ne garantit que la durabilité.

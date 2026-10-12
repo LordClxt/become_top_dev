@@ -1,0 +1,36 @@
+id: ddia-ch07-l03-lab-global-index-design
+title: Un index global partitionné par terme
+difficulty: 3
+xp: 70
+concepts:
+- ddia-global-index
+- ddia-async-global-index
+source:
+  chapter: 6
+  pages: 208-209
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Client
+  hint: Écrit des annonces et les recherche.
+- type: doc
+  component: partition
+  label: Partition de documents
+  hint: Les annonces, partitionnées par identifiant.
+- type: gidx
+  component: index
+  label: Partition de l'index global
+  hint: Index partitionné par terme.
+- type: nodoc
+  component: service
+  label: Interrogation de toutes les partitions
+  hint: Un composant qui fait un scatter/gather.
+- type: txn
+  component: consensus
+  label: Transaction distribuée synchrone
+  hint: Impose un accord de toutes les partitions à chaque écriture.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,1 @@
+La table de créneaux est **un objet artificiel**, créé uniquement pour qu'il y ait quelque chose à verrouiller. Elle transforme le fantôme en conflit de verrou, au prix d'une fuite du contrôle de concurrence dans le modèle de données.

@@ -1,0 +1,98 @@
+id: ddia-ch07-l05-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle est la question fondamentale du routage des requêtes ?
+  choices:
+  - À quel nœud (IP et port) envoyer une requête sur la clé foo ?
+  - Quelle clé choisir ?
+  - Combien de réplicas ?
+  - Quelle version du driver ?
+  answer: 0
+  explanation: C'est de la découverte de service.
+  concept: ddia-service-discovery
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Dans l'approche 1, que fait un nœud qui ne possède pas la partition demandée ?
+  choices:
+  - Il transmet la requête au bon nœud et renvoie la réponse
+  - Il renvoie une erreur
+  - Il copie la partition
+  - Il refuse tous les clients
+  answer: 0
+  explanation: Le client peut contacter n'importe quel nœud.
+  concept: ddia-routing-approaches
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que fait une couche de routage ?
+  choices:
+  - Elle détermine le nœud responsable et lui transmet la requête, sans la traiter elle-même
+  - Elle stocke les données
+  - Elle exécute les index
+  - Elle gère les transactions
+  answer: 0
+  explanation: C'est un répartiteur de charge conscient des partitions.
+  concept: ddia-routing-approaches
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Quel est le point difficile commun aux trois approches ?
+  choices:
+  - Faire connaître à celui qui route les changements d'affectation des partitions
+  - Choisir la fonction de hachage
+  - Chiffrer les messages
+  - Compter les nœuds
+  answer: 0
+  explanation: Tous doivent s'accorder, sinon des requêtes vont aux mauvais nœuds.
+  concept: ddia-routing-approaches
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Quel rôle joue ZooKeeper ?
+  choices:
+  - Il garde l'affectation autoritaire partitions → nœuds et prévient les abonnés
+  - Il stocke les données des utilisateurs
+  - Il exécute les requêtes
+  - Il choisit la clé de partition
+  answer: 0
+  explanation: Chaque nœud s'y enregistre.
+  concept: ddia-coordination-service
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quel système utilise un protocole de gossip plutôt que ZooKeeper ?
+  choices:
+  - Cassandra et Riak
+  - HBase
+  - Kafka
+  - SolrCloud
+  answer: 0
+  explanation: HBase, Kafka et SolrCloud utilisent ZooKeeper.
+  concept: ddia-gossip
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Pourquoi un simple DNS suffit-il souvent pour les adresses IP ?
+  choices:
+  - Elles changent beaucoup moins vite que l'affectation des partitions
+  - DNS connaît les partitions
+  - DNS chiffre les requêtes
+  - Les adresses ne changent jamais
+  answer: 0
+  explanation: On sépare adresses et affectation.
+  concept: ddia-service-discovery
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Qu'est-ce qu'une base MPP ?
+  choices:
+  - Une base analytique qui décompose une requête en étapes exécutées en parallèle sur plusieurs nœuds
+  - Une base de messages
+  - Un cache
+  - Un système de fichiers
+  answer: 0
+  explanation: Elles gèrent jointures, filtres, regroupements en parallèle.
+  concept: ddia-mpp
+  difficulty: 1

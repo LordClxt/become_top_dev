@@ -1,0 +1,70 @@
+intro: 'On suit des transactions en isolation par instantané avec validation optimiste : à la validation, une transaction qui **écrit** est annulée
+  si une transaction validée depuis son début a écrit une donnée qu''elle avait lue. Une transaction en lecture seule n''est jamais annulée.'
+blocks:
+- id: who
+  type: match
+  title: Verdict à la validation
+  prompt: Pour chaque scénario, la transaction qui valide en second est-elle annulée ?
+  items:
+  - id: doctors
+    label: Alice et Bob lisent les deux enregistrements, écrivent chacun le leur ; Alice valide, puis Bob
+  - id: disjoint
+    label: T1 lit et écrit a ; T2 lit et écrit b ; T1 valide, puis T2
+  - id: ro
+    label: T1 lit a puis b (lecture seule) ; T2 écrit a et valide ; T1 valide
+  - id: blind
+    label: T1 et T2 écrivent a sans l'avoir lu ; T1 valide, puis T2
+  - id: phantom
+    label: U1 et U2 cherchent les réservations de midi (aucune), chacune insère une réservation à midi ; U1 valide, puis U2
+  categories:
+  - id: abort
+    label: Annulée
+  - id: commit
+    label: Validée
+- id: rate
+  type: number
+  title: Contention maximale
+  prompt: Dix transactions lisent puis écrivent la même clé en parallèle. La première à valider réussit. Combien sont annulées ?
+  unit: transactions
+- id: pct
+  type: number
+  title: Taux d'annulation
+  prompt: Quel est le taux d'annulation de ces dix transactions ? (en %)
+  unit: '%'
+- id: comm
+  type: number
+  title: Avec un compteur commutatif
+  prompt: Le même compteur est incrémenté par une opération atomique commutative (sans lecture préalable dans la transaction). Combien de ces
+    dix transactions sont annulées ?
+  unit: transactions
+- id: compare
+  type: match
+  title: Comparer les techniques
+  prompt: Associe chaque propriété à la technique.
+  items:
+  - id: wait
+    label: Les lecteurs attendent les écrivains
+  - id: abort
+    label: Annule à la validation si une prémisse est périmée
+  - id: single
+    label: Un seul thread, aucune détection de conflit
+  - id: tail
+    label: 'Latences prévisibles : personne n''attend de verrou'
+  categories:
+  - id: pl
+    label: 2PL
+  - id: ssi
+    label: SSI
+  - id: serial
+    label: Exécution en série
+- id: readonly
+  type: choice
+  title: Lectures seules
+  prompt: Une longue requête d'analyse en lecture seule s'exécute pendant que d'autres transactions écrivent. Que lui arrive-t-il en SSI ?
+  options:
+  - id: fine
+    label: Elle lit un instantané cohérent et valide sans être annulée
+  - id: abort
+    label: Elle est annulée à la première écriture concurrente
+  - id: block
+    label: Elle bloque les écrivains

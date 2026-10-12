@@ -1,0 +1,18 @@
+{
+  "reads": {
+    "s2.x": 2,
+    "s4.x": 3
+  },
+  "dirty": "ghost",
+  "sale": {
+    "annonce.who": 2,
+    "facture.who": 1
+  },
+  "fix": "wait",
+  "pourquoi": [
+    "slow",
+    "knock",
+    "old"
+  ],
+  "counter": 43
+}

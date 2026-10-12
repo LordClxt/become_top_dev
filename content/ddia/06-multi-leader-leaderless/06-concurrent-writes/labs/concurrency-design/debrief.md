@@ -1,0 +1,1 @@
+**La question à poser n'est pas « laquelle est arrivée en premier ? » mais « l'une connaissait-elle l'autre ? »**. Si oui, la plus récente écrase. Sinon, c'est un conflit : LWW le « résout » en jetant des écritures sur la foi d'horloges qu'on ne peut pas croire.

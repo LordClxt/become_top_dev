@@ -1,0 +1,134 @@
+id: ddia-ch09-l03-quiz
+questions:
+- id: q1
+  type: single
+  prompt: En 2PL, qui peut détenir un verrou sur un objet qu'une transaction veut modifier ?
+  choices:
+  - 'Personne d''autre : il faut un accès exclusif'
+  - Plusieurs lecteurs
+  - Un autre écrivain en lecture seule
+  - Tout le monde
+  answer: 0
+  explanation: Les lecteurs doivent attendre aussi.
+  concept: ddia-2pl
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Quelle est la différence fondamentale avec l'isolation par instantané ?
+  choices:
+  - En 2PL, les écrivains bloquent les lecteurs et inversement
+  - En 2PL, les lecteurs ne bloquent jamais
+  - 2PL utilise des versions multiples
+  - 2PL est asynchrone
+  answer: 0
+  explanation: Le mantra de l'instantané est l'inverse.
+  concept: ddia-2pl
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: 2PL et 2PC, c'est la même chose ?
+  choices:
+  - 'Non : 2PL est un protocole de verrous, 2PC une validation distribuée'
+  - Oui
+  - 2PC est une variante de 2PL
+  - 2PL est distribué
+  answer: 0
+  explanation: Deux notions sans rapport.
+  concept: ddia-2pl-vs-2pc
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: D'où vient le nom « deux phases » ?
+  choices:
+  - Acquisition des verrous pendant l'exécution, puis relâchement à la fin
+  - Deux types de verrous
+  - Deux transactions
+  - Deux nœuds
+  answer: 0
+  explanation: Les verrous ne sont relâchés qu'à la fin.
+  concept: ddia-2pl-implementation
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quand une transaction peut-elle promouvoir un verrou partagé en exclusif ?
+  choices:
+  - Selon les mêmes règles qu'un verrou exclusif direct
+  - Jamais
+  - Toujours
+  - Seulement en lecture seule
+  answer: 0
+  explanation: Elle attend les autres lecteurs.
+  concept: ddia-2pl-implementation
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Qu'est-ce qu'un interblocage ?
+  choices:
+  - A attend B pendant que B attend A
+  - Une transaction trop longue
+  - Un verrou perdu
+  - Un index corrompu
+  answer: 0
+  explanation: La base annule l'une des deux.
+  concept: ddia-deadlock
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Que fait la base face à un interblocage ?
+  choices:
+  - Elle le détecte et annule une transaction, qu'il faut réessayer
+  - Elle attend indéfiniment
+  - Elle redémarre
+  - Elle ignore
+  answer: 0
+  explanation: Les autres peuvent alors avancer.
+  concept: ddia-deadlock
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Pourquoi 2PL a-t-il des latences instables ?
+  choices:
+  - Il suffit d'une transaction lente ou qui verrouille beaucoup pour que les autres attendent sans limite
+  - Il est asynchrone
+  - Les verrous sont chiffrés
+  - Le réseau est lent
+  answer: 0
+  explanation: Très lent aux percentiles élevés en cas de contention.
+  concept: ddia-2pl-performance
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: Quel verrou protège contre les fantômes ?
+  choices:
+  - Un verrou de prédicat (ou d'intervalle d'index)
+  - Un verrou de ligne
+  - Un verrou de table partagé en lecture seule
+  - Aucun
+  answer: 0
+  explanation: Il s'applique aux objets qui n'existent pas encore.
+  concept: ddia-predicate-locks
+  difficulty: 1
+- id: q10
+  type: single
+  prompt: Pourquoi remplacer un verrou de prédicat par un verrou d'intervalle d'index ?
+  choices:
+  - Moins précis mais bien moins coûteux
+  - Plus précis
+  - Plus lent
+  - Pour les écritures seulement
+  answer: 0
+  explanation: Toute écriture qui correspond au prédicat correspond aussi à l'approximation.
+  concept: ddia-index-range-locks
+  difficulty: 1
+- id: q11
+  type: single
+  prompt: Sans index adapté, que fait la base pour empêcher les fantômes ?
+  choices:
+  - Un verrou partagé sur la table entière
+  - Rien
+  - Un verrou de ligne
+  - Elle refuse la requête
+  answer: 0
+  explanation: Sûr mais mauvais pour la performance.
+  concept: ddia-index-range-locks
+  difficulty: 1

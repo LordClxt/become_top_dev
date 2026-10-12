@@ -1,0 +1,62 @@
+{
+  "nodes": [
+    {
+      "id": "app",
+      "type": "app",
+      "x": 0,
+      "y": 160,
+      "label": "Application"
+    },
+    {
+      "id": "leader",
+      "type": "leader",
+      "x": 320,
+      "y": 20,
+      "label": "Leader"
+    },
+    {
+      "id": "f1",
+      "type": "f1",
+      "x": 640,
+      "y": 20,
+      "label": "Follower 1"
+    },
+    {
+      "id": "f2",
+      "type": "f2",
+      "x": 640,
+      "y": 300,
+      "label": "Follower 2"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "app",
+      "target": "leader",
+      "kind": "write",
+      "label": "écriture"
+    },
+    {
+      "id": "e2",
+      "source": "app",
+      "target": "f1",
+      "kind": "read",
+      "label": "lecture"
+    },
+    {
+      "id": "e3",
+      "source": "leader",
+      "target": "f1",
+      "kind": "replication",
+      "label": "log"
+    },
+    {
+      "id": "e4",
+      "source": "leader",
+      "target": "f2",
+      "kind": "replication",
+      "label": "log"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+intro: Un cluster de **10 nœuds** stocke **10 To**. Tu ajoutes un 11ᵉ nœud. Compare la façon de répartir les clés.
+blocks:
+- id: mod
+  type: number
+  title: hash mod N
+  prompt: Avec `hash mod N`, une clé garde le même nœud quand N passe de 10 à 11 dans environ 10 cas sur 110 (≈ 9,1 %). Quelle part des clés doit
+    être déplacée, en pourcentage ?
+  unit: '%'
+- id: mod-to
+  type: number
+  title: Volume transféré avec hash mod N
+  prompt: Quel volume de données (en To, une décimale) est transféré avec hash mod N pour ce seul ajout ?
+  unit: To
+- id: fixed
+  type: table
+  title: 1 000 partitions fixes
+  prompt: Le cluster a 1 000 partitions, 100 par nœud. Le nouveau nœud en vole assez pour en avoir `⌊1000 / 11⌋`.
+  columns:
+  - id: v
+    label: Valeur
+  rows:
+  - id: stolen
+    label: Partitions déplacées
+  - id: tb
+    label: Volume déplacé (To, une décimale), sachant que chaque partition pèse 10 To / 1 000
+- id: taille
+  type: tuner
+  title: Combien de partitions ?
+  prompt: 'Le jeu de données est de **2 000 Go** aujourd''hui. Choisis le nombre de partitions d''un schéma fixe. Contraintes : au plus **20 Go**
+    par partition (rééquilibrage rapide), au moins **50** partitions pour pouvoir aller jusqu''à 50 nœuds, et pas plus de **2 000** partitions
+    (surcoût de gestion).'
+  params:
+  - id: p
+    label: Partitions
+    unit: ''
+    min: 10
+    max: 4000
+    step: 10
+    default: 20
+  metrics:
+  - id: size
+    label: Taille d'une partition
+    expr: 2000 / p
+    format: number
+  goals:
+  - id: small
+    label: Au plus 20 Go par partition
+    expr: size <= 20
+  - id: nodes
+    label: Au moins 50 partitions
+    expr: p >= 50
+  - id: overhead
+    label: Au plus 2 000 partitions
+    expr: p <= 2000
+- id: strategie
+  type: match
+  title: Quelle stratégie ?
+  prompt: Associe chaque situation à la stratégie de rééquilibrage.
+  items:
+  - id: fixedcase
+    label: Hachage, volume prévisible, simplicité d'exploitation
+  - id: dynamic
+    label: Partitionnement par plage de clés sur un volume très variable
+  - id: prop
+    label: Un nombre de partitions qui suit le nombre de nœuds, avec des bornes aléatoires
+  categories:
+  - id: fix
+    label: Nombre fixe de partitions
+  - id: dyn
+    label: Partitionnement dynamique
+  - id: node
+    label: Proportionnel aux nœuds
+- id: cascade
+  type: order
+  title: La panne en cascade
+  prompt: Remets l'enchaînement dans l'ordre.
+  items:
+  - id: slow
+    label: Un nœud surchargé répond lentement
+  - id: dead
+    label: Les autres le déclarent mort
+  - id: rebal
+    label: Le cluster se rééquilibre automatiquement pour le délester
+  - id: worse
+    label: 'Le transfert surcharge réseau et nœuds : la situation empire'

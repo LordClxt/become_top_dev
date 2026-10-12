@@ -1,0 +1,1 @@
+**Le jeton déplace la vérification vers la ressource**, la seule à voir l'ordre réel des écritures. Le client en pause est inoffensif : au pire, son écriture est rejetée. C'est la différence entre « je crois être le leader » et « le stockage accepte mes écritures ».

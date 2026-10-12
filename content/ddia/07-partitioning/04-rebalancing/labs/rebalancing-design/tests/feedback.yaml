@@ -1,0 +1,23 @@
+blocks:
+  mod:
+    tolerance:
+      abs: 0.2
+    wrong: 100 − 9,1 = 90,9 %.
+  mod-to:
+    tolerance:
+      abs: 0.1
+    wrong: 0,909 × 10 To.
+  fixed:
+    options:
+      stolen.v: ⌊1000 / 11⌋ = 90.
+      tb.v: 90 partitions × 0,01 To.
+  taille:
+    goals:
+      small: 'Trop peu de partitions : chacune dépasse 20 Go.'
+      nodes: Il faut au moins 50 partitions pour atteindre 50 nœuds.
+      overhead: 'Trop de partitions : surcoût de gestion.'
+  strategie:
+    options:
+      fixedcase: Simple et prévisible.
+      dynamic: 'Les bornes d''une plage ne se prédisent pas : on découpe quand c''est gros.'
+      prop: C'est le modèle de Cassandra.

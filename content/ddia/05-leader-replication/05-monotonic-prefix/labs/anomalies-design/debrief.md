@@ -1,0 +1,1 @@
+**Trois garanties, trois anomalies.** Lire ses écritures protège l'auteur, les lectures monotones protègent la continuité du lecteur, le préfixe cohérent protège la causalité entre écritures. Aucune n'est offerte gratuitement par la cohérence à terme.

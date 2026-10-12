@@ -1,0 +1,1 @@
+**La clé de partition décide à la fois de la répartition de l'écriture et des requêtes bon marché.** (capteur, horodatage) répartit les écritures et garde la plage par capteur ; le hachage répartit au mieux mais sacrifie la plage ; le sel sauve une clé chaude au prix de lectures plus larges.

@@ -1,0 +1,24 @@
+blocks:
+  candidat:
+    options:
+      f1.lost: 1 200 − 1 180.
+      f2.lost: 1 200 − 1 197.
+      f3.lost: 1 200 − 1 150.
+  meilleur:
+    options:
+      f1: F1 a 20 écritures de retard ; F2 en a moins.
+      f3: 'L''espace disque ne compte pas : seule la position dans le log limite les pertes.'
+  etapes:
+    options:
+      elect: On choisit après avoir constaté la panne.
+      promote: On promeut le candidat une fois élu.
+      demote: 'C''est la dernière étape : l''ancien leader n''est de retour qu''après.'
+  pieges:
+    options:
+      keys: 'Un nouveau leader en retard a son compteur en retard : c''est l''incident GitHub.'
+      two: 'Deux nœuds qui se croient leader : split brain.'
+      flap: Un timeout inférieur à la durée d'un blocage normal.
+  timeout:
+    goals:
+      faux: Si le timeout est inférieur à la durée d'un blocage normal, un pic de charge déclenche un failover inutile.
+      rapide: Au-delà de 20 s la reprise est trop lente.

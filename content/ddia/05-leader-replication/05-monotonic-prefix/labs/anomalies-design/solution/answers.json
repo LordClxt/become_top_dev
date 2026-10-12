@@ -1,0 +1,18 @@
+{
+  "anomalie": {
+    "photo": "ryw",
+    "vanish": "mono",
+    "reply": "prefix"
+  },
+  "garantie": {
+    "g1": "ryw",
+    "g2": "mono",
+    "g3": "prefix"
+  },
+  "hash": 2,
+  "panne": "reroute",
+  "faux": [
+    "weak",
+    "part"
+  ]
+}

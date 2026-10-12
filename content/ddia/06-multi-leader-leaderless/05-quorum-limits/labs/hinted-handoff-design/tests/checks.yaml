@@ -1,0 +1,44 @@
+checks:
+- id: w1
+  label: Le client écrit sur le nœud désigné 1
+  rule: edge_kind
+  source: client
+  target: home1
+  kind: write
+- id: w2
+  label: …sur le nœud désigné 2
+  rule: edge_kind
+  source: client
+  target: home2
+  kind: write
+- id: ws
+  label: …et sur le nœud de dépannage
+  rule: edge_kind
+  source: client
+  target: standin
+  kind: write
+- id: no-home3
+  label: Le client ne parvient pas à joindre le nœud 3
+  rule: no_edge
+  source: client
+  target: home3
+- id: handoff
+  label: Le nœud de dépannage rend l'écriture au nœud 3 quand il revient
+  rule: edge_kind
+  source: standin
+  target: home3
+  kind: async
+- id: one
+  label: Un seul nœud de dépannage
+  rule: count
+  source: standin
+  min: 1
+  max: 1
+- id: no-leader
+  label: Pas de leader
+  rule: count
+  source: leader
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

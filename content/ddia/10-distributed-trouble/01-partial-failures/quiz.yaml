@@ -1,0 +1,102 @@
+id: ddia-ch10-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Qu'est-ce qui distingue le plus un système distribué d'un programme sur une seule machine ?
+  choices:
+  - Les pannes partielles non déterministes
+  - La vitesse du processeur
+  - Le langage utilisé
+  - Le nombre de lignes de code
+  answer: 0
+  explanation: Une machine unique plante franchement ou marche ; un système distribué peut être partiellement cassé sans que personne ne le sache.
+  concept: ddia-partial-failure
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi un service en ligne ne peut-il pas faire comme un superordinateur (tout arrêter et repartir du checkpoint) ?
+  choices:
+  - Les utilisateurs attendent un service disponible en continu à faible latence
+  - Le checkpoint est impossible sur le cloud
+  - Le matériel du cloud ne tombe jamais en panne
+  - Les superordinateurs n'ont pas de réseau
+  answer: 0
+  explanation: Un arrêt complet n'est pas acceptable pour un service en ligne, qui doit tolérer les pannes partielles.
+  concept: ddia-hpc-vs-cloud
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que veut dire « réseau asynchrone » ?
+  choices:
+  - Aucune borne garantie sur le délai de livraison, ni garantie de livraison
+  - Les paquets arrivent toujours dans l'ordre
+  - Les messages sont chiffrés
+  - Un seul nœud peut parler à la fois
+  answer: 0
+  explanation: 'C''est le modèle d''IP : au mieux, sans promesse de temps.'
+  concept: ddia-async-network
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Tu envoies une requête et tu n'as pas de réponse. Que peux-tu conclure ?
+  choices:
+  - 'Rien de sûr : requête perdue, nœud mort ou lent, réponse perdue sont indiscernables'
+  - Le nœud est mort
+  - La requête n'a pas été exécutée
+  - Le réseau est coupé
+  answer: 0
+  explanation: Tous ces cas produisent la même observation côté expéditeur.
+  concept: ddia-indistinguishable
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Que ne sait-on toujours pas après un délai d'attente écoulé ?
+  choices:
+  - Si la requête a été exécutée par le destinataire
+  - Si le temps est écoulé
+  - Quelle est l'adresse du destinataire
+  - Combien de temps on a attendu
+  answer: 0
+  explanation: 'La réponse a pu se perdre après l''exécution : d''où l''idempotence.'
+  concept: ddia-indistinguishable
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Quelles sont des causes courantes de panne réseau en centre de données ?
+  choices:
+  - Erreur humaine de configuration
+  - Mise à jour d'un commutateur
+  - Câble coupé ou mal branché
+  - Un lien qui ne fonctionne que dans un sens
+  answer:
+  - 0
+  - 1
+  - 2
+  - 3
+  explanation: 'Les quatre sont documentées : les pannes réseau sont banales.'
+  concept: ddia-network-faults
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Un système doit-il tolérer toutes les pannes réseau ?
+  choices:
+  - Non, mais il faut savoir et tester comment il réagit
+  - Oui, toujours
+  - Non, il suffit d'ignorer le problème
+  - Seulement dans le cloud
+  answer: 0
+  explanation: 'Gérer ne veut pas dire tolérer : on peut choisir d''afficher une erreur, mais en connaissance de cause.'
+  concept: ddia-network-faults
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: TCP rend-il la communication fiable ?
+  choices:
+  - Il offre un flux ordonné sans perte sur IP, mais ne supprime pas le délai ni ne prouve que l'autre côté est vivant
+  - Oui, totalement
+  - Non, il perd des paquets
+  - Il garantit un délai maximal
+  answer: 0
+  explanation: Fiable à partir de non fiable, avec des limites.
+  concept: ddia-reliable-from-unreliable
+  difficulty: 2

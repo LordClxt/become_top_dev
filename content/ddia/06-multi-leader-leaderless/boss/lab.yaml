@@ -1,0 +1,64 @@
+id: ddia-ch06-boss
+title: 'Boss : un panier mondial sans leader'
+difficulty: 5
+xp: 300
+time_limit_min: 90
+concepts:
+- ddia-leaderless
+- ddia-quorum
+- ddia-leaderless-multi-dc
+- ddia-siblings
+- ddia-version-vector
+source:
+  chapter: 5
+  pages: 168-192
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: ueu
+  component: browser
+  label: Clients Europe
+  hint: Utilisateurs européens.
+- type: uus
+  component: browser
+  label: Clients États-Unis
+  hint: Utilisateurs américains.
+- type: ceu
+  component: service
+  label: Coordinateur Europe
+  hint: Envoie les requêtes aux réplicas du site européen.
+- type: cus
+  component: service
+  label: Coordinateur États-Unis
+  hint: Idem pour les États-Unis.
+- type: eu
+  component: zone
+  label: Datacenter Europe
+  hint: ''
+- type: us
+  component: zone
+  label: Datacenter États-Unis
+  hint: ''
+- type: neu
+  component: cassandra
+  label: Réplica Europe
+  hint: Un des trois réplicas du site européen.
+- type: nus
+  component: cassandra
+  label: Réplica États-Unis
+  hint: Un des trois réplicas du site américain.
+- type: merger
+  component: worker
+  label: Fusion des paniers
+  hint: Lit les siblings, les fusionne (union + tombstones) et réécrit.
+- type: leader
+  component: leader
+  label: Leader global
+  hint: Un nœud qui impose un ordre unique.
+- type: clock
+  component: external
+  label: Service d'horodatage pour LWW
+  hint: Choisit le gagnant par horodatage.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

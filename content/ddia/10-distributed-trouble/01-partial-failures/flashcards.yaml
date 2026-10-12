@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Panne partielle ?
+  back: Une partie du système casse de façon imprévisible pendant que le reste tourne.
+  concept: ddia-partial-failure
+- id: fc2
+  front: Pourquoi les pannes partielles sont-elles difficiles ?
+  back: 'Elles sont non déterministes : même requête, résultat parfois différent, parfois inconnu.'
+  concept: ddia-partial-failure
+- id: fc3
+  front: HPC contre cloud face à la panne ?
+  back: 'HPC : tout arrêter et reprendre au checkpoint. Cloud : continuer à servir malgré les pannes.'
+  concept: ddia-hpc-vs-cloud
+- id: fc4
+  front: Shared-nothing ?
+  back: Machines qui ne partagent que le réseau, ni mémoire ni disque.
+  concept: ddia-async-network
+- id: fc5
+  front: Réseau asynchrone ?
+  back: Aucune garantie de délai ni de livraison.
+  concept: ddia-async-network
+- id: fc6
+  front: Pourquoi une requête sans réponse est ambiguë ?
+  back: 'Perdue, en file, nœud mort ou en pause, réponse perdue ou retardée : l''expéditeur voit la même chose.'
+  concept: ddia-indistinguishable
+- id: fc7
+  front: Que ne dit pas un timeout ?
+  back: Si l'opération a été exécutée côté destinataire.
+  concept: ddia-indistinguishable
+- id: fc8
+  front: Que faire face aux pannes réseau ?
+  back: Décider du comportement du logiciel et le tester (chaos engineering).
+  concept: ddia-network-faults

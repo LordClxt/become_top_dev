@@ -1,0 +1,1 @@
+**Il n'y a pas d'architecture universelle** : un leader pour la rigueur, plusieurs leaders pour le hors-ligne, aucun leader pour la disponibilité. À chaque choix correspond une famille de conflits et une stratégie de résolution qui ne perd rien.

@@ -1,0 +1,56 @@
+id: ddia-ch07-l01-lab-partition-replica-design
+title: Trois nœuds, trois partitions, chacun leader et follower
+difficulty: 3
+xp: 70
+concepts:
+- ddia-partition-replication
+- ddia-partitioning
+source:
+  chapter: 6
+  pages: 200-201
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: n1
+  component: zone
+  label: Nœud 1
+  hint: ''
+- type: n2
+  component: zone
+  label: Nœud 2
+  hint: ''
+- type: n3
+  component: zone
+  label: Nœud 3
+  hint: ''
+- type: l1
+  component: leader
+  label: Leader de la partition 1
+  hint: ''
+- type: l2
+  component: leader
+  label: Leader de la partition 2
+  hint: ''
+- type: l3
+  component: leader
+  label: Leader de la partition 3
+  hint: ''
+- type: f1
+  component: follower
+  label: Follower de la partition 1
+  hint: ''
+- type: f2
+  component: follower
+  label: Follower de la partition 2
+  hint: ''
+- type: f3
+  component: follower
+  label: Follower de la partition 3
+  hint: ''
+- type: mono
+  component: postgres
+  label: Base unique non partitionnée
+  hint: Toutes les données dans une seule base.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

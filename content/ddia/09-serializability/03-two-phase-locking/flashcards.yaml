@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Règle de 2PL ?
+  back: Plusieurs lecteurs ou un seul écrivain ; les écrivains bloquent les lecteurs et inversement.
+  concept: ddia-2pl
+- id: fc2
+  front: 2PL contre 2PC ?
+  back: 'Verrous de sérialisabilité (2PL) contre validation distribuée en deux phases (2PC) : sans rapport.'
+  concept: ddia-2pl-vs-2pc
+- id: fc3
+  front: Pourquoi « deux phases » ?
+  back: Acquérir les verrous pendant l'exécution, tous les relâcher à la fin.
+  concept: ddia-2pl-implementation
+- id: fc4
+  front: Modes de verrou ?
+  back: Partagé (lecture, plusieurs) et exclusif (écriture, un seul) ; promotion possible.
+  concept: ddia-2pl-implementation
+- id: fc5
+  front: Interblocage ?
+  back: A attend B et B attend A ; détecté, une transaction est annulée et réessayée.
+  concept: ddia-deadlock
+- id: fc6
+  front: Défaut de 2PL ?
+  back: Concurrence réduite, latences instables, interblocages fréquents.
+  concept: ddia-2pl-performance
+- id: fc7
+  front: Verrou de prédicat ?
+  back: 'Porte sur tous les objets qui correspondent à une condition, même futurs : empêche les fantômes.'
+  concept: ddia-predicate-locks
+- id: fc8
+  front: Verrou d'intervalle d'index ?
+  back: 'Approximation bon marché d''un verrou de prédicat, sur une plage d''index ; repli : verrou de table.'
+  concept: ddia-index-range-locks

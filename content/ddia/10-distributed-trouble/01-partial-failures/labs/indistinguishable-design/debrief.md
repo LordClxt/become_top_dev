@@ -1,0 +1,1 @@
+**Un silence n'apprend presque rien** : le client ne peut pas distinguer une requête perdue d'une réponse perdue, donc il ne peut pas réessayer sans clé d'idempotence. Et plus le cluster est grand, plus la panne partielle devient la norme : 1 − 0,99^100 ≈ 63 %.

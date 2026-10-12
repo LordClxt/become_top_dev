@@ -1,0 +1,20 @@
+blocks:
+  order:
+    wrong: Le bail est pris, puis la pause, puis l'expiration, puis un autre client, puis le réveil.
+  writes:
+    options:
+      w1.ok: 'Premier jeton vu : accepté.'
+      w2.ok: '34 > 33 : accepté.'
+      w3.ok: '33 < 34 : périmé.'
+      w4.ok: '35 > 34 : accepté.'
+      w5.ok: '34 < 35 : périmé.'
+  why:
+    options:
+      slow: La lenteur n'est pas le problème.
+      api: Le problème est la fenêtre entre test et action.
+      net: Le réseau n'interdit rien ici.
+  quorum:
+    wrong: 'Majorité stricte : ⌊7/2⌋ + 1.'
+  claims:
+    options:
+      liar: 'Un menteur peut présenter un faux jeton : c''est un autre problème (byzantin).'

@@ -1,0 +1,11 @@
+{
+  "ideal": 50000,
+  "hot": 12500,
+  "perte": 75,
+  "terme": {
+    "a": "skew",
+    "b": "hot",
+    "c": "net"
+  },
+  "random": "find"
+}

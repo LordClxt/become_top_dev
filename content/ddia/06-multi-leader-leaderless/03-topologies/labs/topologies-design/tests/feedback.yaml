@@ -1,0 +1,22 @@
+blocks:
+  liens:
+    options:
+      ring.n: 'Un nœud envoie à un seul autre : 6.'
+      star.n: 5 vers la racine + 5 depuis la racine.
+      all.n: 6 × 5.
+  sauts:
+    wrong: 'De L1 à L6 dans un anneau à sens unique : L1→L2→L3→L4→L5→L6.'
+  panne:
+    options:
+      ring: Le nœud qui tombe coupe le cercle.
+      star-leaf: Les autres communiquent toujours via la racine.
+      star-root: Tout passe par la racine.
+      all: Plusieurs chemins existent.
+  loop:
+    options:
+      again: Cela ferait tourner l'écriture indéfiniment.
+      crash: Il ignore simplement le doublon.
+  ordre:
+    options:
+      upd: Le message le plus rapide arrive d'abord.
+      ins: Le message lent arrive après.

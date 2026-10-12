@@ -1,0 +1,15 @@
+id: ddia-ch09-l01-lab-serial-equivalence-design
+title: Y a-t-il un ordre série équivalent ?
+difficulty: 2
+xp: 60
+concepts:
+- ddia-serializable-def
+- ddia-isolation-mess
+source:
+  chapter: 7
+  pages: 251-252
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

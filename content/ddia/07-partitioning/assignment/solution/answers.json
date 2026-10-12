@@ -1,0 +1,22 @@
+{
+  "cle": "sensor-ts",
+  "debit": 100,
+  "hotkey": 5,
+  "index": {
+    "reads": "global",
+    "writes": "local"
+  },
+  "cout": {
+    "local.n": 12,
+    "global.n": 1
+  },
+  "taille": {
+    "p": 200
+  },
+  "ajout": 22,
+  "auto": [
+    "cascade",
+    "load",
+    "human"
+  ]
+}

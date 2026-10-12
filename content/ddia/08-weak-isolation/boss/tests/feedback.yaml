@@ -1,0 +1,37 @@
+blocks:
+  trace:
+    options:
+      t12.a: 'La 12 ignore la 13 (démarrée après) : A=500.'
+      t12.b: B=500.
+      t12.sum: 500 + 500.
+      t20.a: 'La 20 voit la 13 : A=400.'
+      t20.b: B=600.
+      t20.sum: 400 + 600.
+  qualify:
+    options:
+      b1: Deux lectures d'un même relevé à des instants différents.
+      b2: Cycle lire-modifier-écrire sur le même objet.
+      b3: Deux objets différents après lecture des mêmes lignes.
+      b4: 'Rien à verrouiller : l''absence d''une ligne.'
+  protege:
+    options:
+      b1: L'instantané donne une lecture cohérente.
+      b2: La détection automatique annule le second.
+      b3: Le write skew passe sous l'instantané.
+      b4: 'La condition d''absence est un fantôme : l''instantané ne l''empêche pas.'
+  parade:
+    options:
+      p1: 'La décision repose sur des lignes lues : FOR UPDATE ou sérialisabilité.'
+      p2: Une contrainte d'unicité suffit.
+      p3: Une opération atomique supprime le cycle.
+  lost:
+    wrong: '5 prélèvements de 30 € = 150 € ; seul un est pris en compte (30 €) : 120 € perdus.'
+  plafond:
+    wrong: 800 + 150 + 150.
+  retry:
+    options:
+      forever: Cela aggrave la surcharge.
+  acid:
+    options:
+      'yes': ACID ne garantit pas forcément la sérialisabilité.
+      'no': Le sigle a un sens, mais beaucoup de bases l'implémentent différemment.

@@ -1,0 +1,22 @@
+blocks:
+  cas:
+    options:
+      plain: Sans anomalie, l'ensemble lu recoupe l'ensemble écrit.
+      sloppy: Les nœuds lus (les 3 désignés) ne contiennent pas encore la valeur.
+      failed: L'écriture « échouée » reste sur un nœud et peut apparaître ou non.
+      restore: Le nombre de copies de la dernière valeur peut tomber sous w.
+      lww: LWW peut jeter une écriture plus récente.
+  relache:
+    options:
+      error: C'est précisément ce que le quorum relâché évite.
+      lead: Il n'y a pas de leader dans ce modèle.
+  dc:
+    options:
+      local.acks: 'Majorité de 3 : 2.'
+      global.acks: 'Plus de la moitié de 6 : 4.'
+  dcdown:
+    wrong: 6 − 3 = 3 nœuds restants, ce qui est inférieur à w = 4.
+  choix:
+    options:
+      global: Il faudrait 4 confirmations, impossible avec 3 nœuds.
+      all: L'unanimité bloque à la moindre panne.

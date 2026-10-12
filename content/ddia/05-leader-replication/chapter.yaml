@@ -1,0 +1,29 @@
+id: ddia-ch05
+title: Réplication avec leader
+subtitle: 'Un leader, des followers : copier les écritures, survivre aux pannes, vivre avec le retard'
+source:
+  chapter: 5
+  pages: 151-167
+objectives:
+- Expliquer la réplication par leader et chiffrer le compromis entre réplication synchrone, semi-synchrone et asynchrone
+- Dérouler la mise en place d'un follower et un failover, et nommer ce qui peut mal tourner (écritures perdues, clés réutilisées, split brain,
+  timeout)
+- Comparer les quatre formats de log de réplication (instructions, WAL, logique, triggers) et dire lequel autorise une mise à jour sans interruption
+- 'Reconnaître les anomalies dues au retard de réplication et choisir la garantie qui les corrige : lire ses écritures, lectures monotones, préfixe
+  cohérent'
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch04
+lessons:
+- 01-leader-followers
+- 02-followers-failover
+- 03-replication-logs
+- 04-read-your-writes
+- 05-monotonic-prefix
+xp:
+  assignment: 130
+  project: 240
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

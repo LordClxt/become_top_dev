@@ -1,0 +1,67 @@
+intro: Un service de verrou accorde des baux de 10 s avec un jeton croissant. Le stockage retient le plus grand jeton vu et refuse les jetons
+  inférieurs. Tu rejoues ce qui se passe quand un client se met en pause.
+blocks:
+- id: order
+  type: order
+  title: Chronologie du bug
+  prompt: Remets les événements dans l'ordre pour le scénario sans jeton de clôture (corruption).
+  items:
+  - id: e1
+    label: Le client 1 obtient le bail
+  - id: e2
+    label: Le client 1 subit une pause GC de 15 s
+  - id: e3
+    label: Le bail du client 1 expire
+  - id: e4
+    label: Le client 2 obtient le bail et écrit
+  - id: e5
+    label: Le client 1 se réveille, croit avoir encore le bail et écrit
+- id: writes
+  type: table
+  title: Que décide le stockage ?
+  prompt: Le stockage reçoit ces écritures dans cet ordre. 1 = acceptée, 0 = rejetée.
+  columns:
+  - id: ok
+    label: Acceptée ?
+  rows:
+  - id: w1
+    label: 1. jeton 33 (client 1)
+  - id: w2
+    label: 2. jeton 34 (client 2)
+  - id: w3
+    label: 3. jeton 33 (client 1 réveillé)
+  - id: w4
+    label: 4. jeton 35 (client 3)
+  - id: w5
+    label: 5. jeton 34 (client 2 retardataire)
+- id: why
+  type: choice
+  title: Qui vérifie ?
+  prompt: Pourquoi le client 1 ne peut-il pas se protéger lui-même en vérifiant son propre bail avant d'écrire ?
+  options:
+  - id: pause
+    label: Une pause peut survenir juste après la vérification, avant l'écriture
+  - id: slow
+    label: Le test de bail est trop lent
+  - id: api
+    label: Aucune API ne permet de lire son bail
+  - id: net
+    label: Le réseau interdit les lectures
+- id: quorum
+  type: number
+  title: Majorité
+  prompt: Parmi 7 nœuds, combien faut-il de votes pour déclarer un nœud mort à la majorité ?
+  unit: votes
+- id: claims
+  type: multi
+  title: Ce que garantit un jeton
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: stale
+    label: Il fait rejeter les écritures d'un client resté en pause
+  - id: monotone
+    label: Il doit augmenter à chaque octroi
+  - id: liar
+    label: Il protège contre un nœud qui ment délibérément
+  - id: storage
+    label: Il suppose que la ressource sait vérifier un numéro

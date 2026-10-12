@@ -1,0 +1,16 @@
+id: ddia-ch05-l04-lab-read-your-writes-design
+title: Où lire pour ne pas perdre ses écritures ?
+difficulty: 3
+xp: 70
+concepts:
+- ddia-replication-lag
+- ddia-read-your-writes
+- ddia-cross-device
+source:
+  chapter: 5
+  pages: 161-164
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

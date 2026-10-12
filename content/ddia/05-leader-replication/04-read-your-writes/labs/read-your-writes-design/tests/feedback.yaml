@@ -1,0 +1,22 @@
+blocks:
+  eligibles:
+    options:
+      f2: 'F2 est à 480 : il n''a pas reçu l''écriture 495.'
+      f1: 'F1 est à 497, au-delà de 495 : il l''a déjà appliquée.'
+      leader: Le leader est toujours à jour.
+  lag:
+    options:
+      f1.lag: 500 − 497.
+      f2.lag: 500 − 480.
+  regle:
+    options:
+      other-profile: 'Un autre utilisateur ne modifie pas ce profil depuis ton compte : le follower suffit.'
+      own-orders: 'Ses commandes sont modifiables par lui : leader.'
+  device:
+    options:
+      browser: Le téléphone ne verrait pas cette information.
+      none: Cela marche mais annule le gain des followers pour tous les utilisateurs.
+  reglage:
+    goals:
+      retard: Une fenêtre plus courte que le retard maximal peut encore renvoyer une lecture périmée.
+      charge: Au-delà de 60 s, plus de 30 % des lectures partent au leader.

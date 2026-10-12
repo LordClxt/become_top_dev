@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Pause de processus ?
+  back: 'Suspension sans que le code le sache : GC, VM, I/O, swap, SIGSTOP.'
+  concept: ddia-process-pause
+- id: fc2
+  front: Pourquoi `if lease.isValid() { process() }` est faux ?
+  back: Une pause entre le test et l'action laisse agir avec un bail expiré.
+  concept: ddia-lease-bug
+- id: fc3
+  front: Définition de la vérité en distribué ?
+  back: 'La majorité (quorum) : une seule majorité possible.'
+  concept: ddia-majority-truth
+- id: fc4
+  front: Taille d'une majorité de n nœuds ?
+  back: ⌊n/2⌋ + 1.
+  concept: ddia-majority-truth
+- id: fc5
+  front: Jeton de clôture ?
+  back: Nombre croissant accordé avec le verrou, joint à chaque écriture.
+  concept: ddia-fencing-token
+- id: fc6
+  front: Que fait la ressource d'un jeton ?
+  back: Retient le plus grand vu, rejette les écritures avec un jeton plus petit.
+  concept: ddia-fencing-check-resource
+- id: fc7
+  front: Équivalent ZooKeeper d'un jeton ?
+  back: Le zxid ou la version du nœud.
+  concept: ddia-fencing-token
+- id: fc8
+  front: Faute byzantine ?
+  back: Nœud qui ment ou se comporte de façon arbitraire.
+  concept: ddia-byzantine
+- id: fc9
+  front: Protections modestes contre le hasard ?
+  back: Sommes de contrôle applicatives, validation des entrées, plusieurs serveurs NTP.
+  concept: ddia-byzantine

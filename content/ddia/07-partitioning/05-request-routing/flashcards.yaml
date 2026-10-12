@@ -1,0 +1,29 @@
+cards:
+- id: fc1
+  front: Trois approches de routage ?
+  back: Nœud quelconque qui transmet ; couche de routage ; client conscient des partitions.
+  concept: ddia-routing-approaches
+- id: fc2
+  front: Problème commun ?
+  back: Comment celui qui route apprend-il les changements d'affectation ? Tous doivent être d'accord.
+  concept: ddia-routing-approaches
+- id: fc3
+  front: Rôle de ZooKeeper ?
+  back: Il stocke l'affectation autoritaire partitions → nœuds et prévient les abonnés.
+  concept: ddia-coordination-service
+- id: fc4
+  front: Qui utilise ZooKeeper ?
+  back: HBase, SolrCloud, Kafka, Espresso (via Helix).
+  concept: ddia-coordination-service
+- id: fc5
+  front: Gossip ?
+  back: Les nœuds diffusent entre eux l'état du cluster (Cassandra, Riak) ; pas de service externe.
+  concept: ddia-gossip
+- id: fc6
+  front: Et les IP ?
+  back: 'Elles changent moins vite que l''affectation : le DNS suffit souvent.'
+  concept: ddia-service-discovery
+- id: fc7
+  front: MPP ?
+  back: 'Traitement massivement parallèle : une requête d''analyse est coupée en étapes parallèles sur plusieurs nœuds.'
+  concept: ddia-mpp

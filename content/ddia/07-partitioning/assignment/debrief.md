@@ -1,0 +1,1 @@
+**Chaque décision déplace un coût :** la clé décide du hot spot, l'index choisit entre le coût de lecture et d'écriture, le nombre de partitions plafonne le nombre de nœuds et la taille d'une partition. Penser les trois ensemble est l'essentiel.

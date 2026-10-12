@@ -1,0 +1,16 @@
+id: ddia-ch09-l05-lab-isolation-matrix-design
+title: La matrice anomalies × niveaux
+difficulty: 3
+xp: 70
+concepts:
+- ddia-anomaly-catalog
+- ddia-isolation-matrix
+- ddia-choose-technique
+source:
+  chapter: 7
+  pages: 266-268
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

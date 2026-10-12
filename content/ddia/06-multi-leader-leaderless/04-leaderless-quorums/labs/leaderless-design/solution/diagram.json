@@ -1,0 +1,73 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 160,
+      "label": "Client"
+    },
+    {
+      "id": "n1",
+      "type": "node",
+      "x": 400,
+      "y": 0,
+      "label": "Réplica 1"
+    },
+    {
+      "id": "n2",
+      "type": "node",
+      "x": 400,
+      "y": 160,
+      "label": "Réplica 2"
+    },
+    {
+      "id": "n3",
+      "type": "node",
+      "x": 400,
+      "y": 320,
+      "label": "Réplica 3"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "client",
+      "target": "n1",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "client",
+      "target": "n2",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "client",
+      "target": "n3",
+      "kind": "sync"
+    },
+    {
+      "id": "e4",
+      "source": "n1",
+      "target": "n2",
+      "kind": "replication",
+      "label": "anti-entropie"
+    },
+    {
+      "id": "e5",
+      "source": "n2",
+      "target": "n3",
+      "kind": "replication",
+      "label": "anti-entropie"
+    },
+    {
+      "id": "e6",
+      "source": "n3",
+      "target": "n1",
+      "kind": "replication",
+      "label": "anti-entropie"
+    }
+  ]
+}

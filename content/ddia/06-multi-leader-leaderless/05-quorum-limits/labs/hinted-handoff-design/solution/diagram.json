@@ -1,0 +1,67 @@
+{
+  "nodes": [
+    {
+      "id": "client",
+      "type": "client",
+      "x": 0,
+      "y": 200,
+      "label": "Client"
+    },
+    {
+      "id": "home1",
+      "type": "home1",
+      "x": 400,
+      "y": 0,
+      "label": "Désigné 1"
+    },
+    {
+      "id": "home2",
+      "type": "home2",
+      "x": 400,
+      "y": 180,
+      "label": "Désigné 2"
+    },
+    {
+      "id": "standin",
+      "type": "standin",
+      "x": 400,
+      "y": 360,
+      "label": "Dépannage"
+    },
+    {
+      "id": "home3",
+      "type": "home3",
+      "x": 800,
+      "y": 360,
+      "label": "Désigné 3 (en panne)"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "client",
+      "target": "home1",
+      "kind": "write"
+    },
+    {
+      "id": "e2",
+      "source": "client",
+      "target": "home2",
+      "kind": "write"
+    },
+    {
+      "id": "e3",
+      "source": "client",
+      "target": "standin",
+      "kind": "write",
+      "label": "w = 3"
+    },
+    {
+      "id": "e4",
+      "source": "standin",
+      "target": "home3",
+      "kind": "async",
+      "label": "hinted handoff"
+    }
+  ]
+}

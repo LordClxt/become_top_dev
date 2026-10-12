@@ -1,0 +1,1 @@
+**Read committed règle la visibilité (on ne lit que du validé) et l'ordre des écritures (une seule écriture non validée par objet)**, pas la logique « lire puis écrire » : deux incréments qui lisent 42 écrivent tous deux 43.

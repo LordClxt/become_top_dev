@@ -1,0 +1,79 @@
+intro: 'Un leader et deux followers asynchrones. Positions dans le log à l''instant t : **leader 500**, **F1 497**, **F2 480**. Alice vient d''écrire
+  : son écriture porte le **LSN 495**.'
+blocks:
+- id: eligibles
+  type: multi
+  title: Qui peut servir Alice ?
+  prompt: Quels nœuds peuvent servir sa prochaine lecture sans lui faire perdre son écriture ?
+  options:
+  - id: leader
+    label: Le leader (500)
+  - id: f1
+    label: F1 (497)
+  - id: f2
+    label: F2 (480)
+- id: lag
+  type: table
+  title: Retard de chaque follower
+  prompt: Retard = position du leader moins celle du follower.
+  columns:
+  - id: lag
+    label: Retard (écritures)
+  rows:
+  - id: f1
+    label: F1
+  - id: f2
+    label: F2
+- id: regle
+  type: match
+  title: Quelle règle ?
+  prompt: Pour chaque donnée, où lire selon la règle « ce que l'utilisateur peut modifier va au leader » ?
+  items:
+  - id: own-profile
+    label: Son propre profil
+  - id: other-profile
+    label: Le profil d'un autre utilisateur
+  - id: own-orders
+    label: Ses propres commandes
+  categories:
+  - id: leader
+    label: Leader
+  - id: follower
+    label: Follower
+- id: device
+  type: choice
+  title: Deux appareils
+  prompt: Alice écrit depuis son ordinateur, puis ouvre son téléphone. Où doit vivre le LSN de sa dernière écriture ?
+  options:
+  - id: server
+    label: Côté serveur, associé à son compte
+  - id: browser
+    label: Dans le navigateur de l'ordinateur uniquement
+  - id: none
+    label: 'Nulle part : le téléphone lira le leader'
+- id: reglage
+  type: tuner
+  title: Fenêtre de lecture au leader
+  prompt: Après une écriture, on lit sur le leader pendant une fenêtre de N secondes. Le retard maximal observé est de **40 s**. La charge acceptable
+    sur le leader est de **30 %** des lectures. Chaque utilisateur écrit en moyenne toutes les 200 s ; la part de lectures au leader vaut N /
+    200.
+  params:
+  - id: n
+    label: Fenêtre
+    unit: s
+    min: 0
+    max: 200
+    step: 5
+    default: 0
+  metrics:
+  - id: part
+    label: Lectures au leader
+    expr: n / 200
+    format: percent
+  goals:
+  - id: retard
+    label: La fenêtre couvre le retard maximal (40 s)
+    expr: n >= 40
+  - id: charge
+    label: Au plus 30 % de lectures au leader
+    expr: part <= 0.3

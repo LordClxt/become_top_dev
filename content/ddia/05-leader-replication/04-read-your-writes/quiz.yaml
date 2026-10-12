@@ -1,0 +1,98 @@
+id: ddia-ch05-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi la lecture sur de nombreux followers ne fonctionne-t-elle qu'en réplication asynchrone ?
+  choices:
+  - Avec tous les followers synchrones, une seule panne bloquerait les écritures
+  - Les followers synchrones n'acceptent pas de lectures
+  - Le leader ne peut parler qu'à un seul follower
+  - L'asynchrone est toujours plus cohérent
+  answer: 0
+  explanation: Plus il y a de nœuds, plus il est probable que l'un soit en panne.
+  concept: ddia-read-scaling
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Que signifie « cohérence à terme » ?
+  choices:
+  - Sans nouvelle écriture, les réplicas finissent par converger, sans délai garanti
+  - Les lectures sont toujours à jour
+  - Les écritures sont atomiques
+  - Les followers n'ont jamais de retard
+  answer: 0
+  explanation: 'Le terme « à terme » est volontairement vague : rien ne borne le délai.'
+  concept: ddia-eventual-consistency
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Un utilisateur envoie un commentaire puis recharge la page, qui lit un follower en retard. Que voit-il ?
+  choices:
+  - Son commentaire semble perdu
+  - Son commentaire en double
+  - Une erreur de transaction
+  - Le commentaire d'un autre utilisateur
+  answer: 0
+  explanation: Cette anomalie est exactement ce qu'évite la garantie de lecture de ses écritures.
+  concept: ddia-read-your-writes
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Que garantit la lecture de ses écritures (read-after-write) ?
+  choices:
+  - L'utilisateur voit toujours ses propres mises à jour, rien n'est promis pour celles des autres
+  - Tous les utilisateurs voient la même chose au même instant
+  - Aucun retard de réplication
+  - Les écritures sont durables
+  answer: 0
+  explanation: C'est une garantie par utilisateur.
+  concept: ddia-read-your-writes
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quelle règle simple d'application donne la lecture de ses écritures pour un réseau social ?
+  choices:
+  - Lire son propre profil sur le leader, ceux des autres sur un follower
+  - Lire tous les profils sur un follower
+  - Lire tous les profils sur le leader
+  - Lire le profil sur le follower le plus éloigné
+  answer: 0
+  explanation: 'Seul le propriétaire modifie son profil : on sait d''avance ce qui peut avoir changé.'
+  concept: ddia-read-your-writes
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Si la plupart des données sont modifiables par l'utilisateur, quelle technique évite de tout lire sur le leader ?
+  choices:
+  - Lire sur le leader une minute après la dernière modification, ou exiger un réplica au moins aussi avancé que la dernière écriture
+  - Désactiver la réplication
+  - Augmenter le timeout
+  - Passer en multi-leader
+  answer: 0
+  explanation: Les deux critères limitent le recours au leader au strict nécessaire.
+  concept: ddia-read-your-writes
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: Quel type de jeton choisir pour retenir la dernière écriture d'un client ?
+  choices:
+  - Un LSN (horodatage logique) du log
+  - Un horodatage de l'horloge du téléphone
+  - Le nom du follower utilisé
+  - L'adresse IP
+  answer: 0
+  explanation: Les horloges ne sont pas fiables entre machines ; un numéro de position dans le log, si.
+  concept: ddia-read-your-writes
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Pourquoi la cohérence entre appareils est-elle plus difficile ?
+  choices:
+  - Le code d'un appareil ignore les écritures de l'autre, et leurs connexions peuvent atteindre des datacenters différents
+  - Les appareils n'ont pas de réseau
+  - Un appareil ne peut pas écrire
+  - Les LSN changent de format
+  answer: 0
+  explanation: Il faut centraliser la métadonnée et router les requêtes de l'utilisateur de façon cohérente.
+  concept: ddia-cross-device
+  difficulty: 1

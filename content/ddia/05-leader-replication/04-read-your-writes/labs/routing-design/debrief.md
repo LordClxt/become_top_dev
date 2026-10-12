@@ -1,0 +1,1 @@
+Le routeur transforme une garantie de cohérence (lire ses écritures) en une règle d'aiguillage : si un follower est assez avancé, il sert ; sinon le leader. C'est ce que tu codes dans le jalon 3 du projet.

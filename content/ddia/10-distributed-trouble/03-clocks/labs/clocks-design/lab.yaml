@@ -1,0 +1,18 @@
+id: ddia-ch10-l03-lab-clocks-design
+title: Quelle horloge, quel ordre ?
+difficulty: 4
+xp: 85
+concepts:
+- ddia-clock-types
+- ddia-clock-drift
+- ddia-lww-timestamps
+- ddia-clock-confidence-interval
+- ddia-commit-wait
+source:
+  chapter: 8
+  pages: 291-303
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,17 @@
+id: ddia-ch05-assignment
+title: Le runbook de ton premier incident de réplication
+difficulty: 3
+xp: 130
+concepts:
+- ddia-failover
+- ddia-sync-async
+- ddia-read-your-writes
+- ddia-logical-log
+source:
+  chapter: 5
+  pages: 151-167
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

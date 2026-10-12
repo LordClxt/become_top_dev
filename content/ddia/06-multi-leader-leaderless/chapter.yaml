@@ -1,0 +1,29 @@
+id: ddia-ch06
+title: Multi-leader et sans leader
+subtitle: 'Quand plusieurs nœuds acceptent les écritures : conflits, quorums, versions concurrentes'
+source:
+  chapter: 5
+  pages: 168-192
+objectives:
+- Choisir entre un leader, plusieurs leaders et aucun leader pour un produit donné (multi-datacenter, hors-ligne, édition collaborative)
+- Détecter, éviter et résoudre des conflits d'écriture, et dire quelles stratégies perdent des données
+- Dimensionner un quorum (n, w, r), dire ce qu'il garantit et énumérer ses limites, y compris les quorums relâchés
+- Distinguer écritures causalement liées et concurrentes, et utiliser numéros de version, siblings, tombstones et vecteurs de version
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch05
+lessons:
+- 01-multi-leader
+- 02-write-conflicts
+- 03-topologies
+- 04-leaderless-quorums
+- 05-quorum-limits
+- 06-concurrent-writes
+- 07-version-vectors
+xp:
+  assignment: 130
+  project: 260
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

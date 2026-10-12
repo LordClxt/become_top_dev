@@ -1,0 +1,54 @@
+checks:
+- id: c-r
+  label: Le client passe par la couche de routage
+  rule: edge_kind
+  source: client
+  target: router
+  kind: sync
+- id: r-n
+  label: La couche de routage envoie chaque requête au nœud responsable
+  rule: edge_kind
+  source: router
+  target: node
+  kind: sync
+- id: n-z
+  label: Chaque nœud s'enregistre auprès du service de coordination
+  rule: edge_kind
+  source: node
+  target: zk
+  kind: write
+- id: r-z
+  label: La couche de routage s'abonne au service de coordination
+  rule: edge_kind
+  source: router
+  target: zk
+  kind: read
+- id: no-cz
+  label: Le client ne parle pas au service de coordination
+  rule: no_edge
+  source: client
+  target: zk
+- id: no-cn
+  label: Le client ne parle pas directement aux nœuds
+  rule: no_edge
+  source: client
+  target: node
+- id: nodes
+  label: Au moins deux nœuds de données
+  rule: count
+  source: node
+  min: 2
+- id: one-zk
+  label: Un service de coordination
+  rule: count
+  source: zk
+  min: 1
+  max: 1
+- id: no-direct
+  label: Pas de client conscient des partitions dans cette architecture
+  rule: count
+  source: direct
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

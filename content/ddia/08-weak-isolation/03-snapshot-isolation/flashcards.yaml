@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Read skew ?
+  back: Deux lectures d'une même transaction voient des états différents (900 € au lieu de 1 000 €).
+  concept: ddia-read-skew
+- id: fc2
+  front: Qui ne tolère pas le read skew ?
+  back: Les sauvegardes et les requêtes d'analyse ou de vérification d'intégrité.
+  concept: ddia-read-skew
+- id: fc3
+  front: Isolation par instantané ?
+  back: Chaque transaction lit l'état validé au moment de son début.
+  concept: ddia-snapshot-isolation
+- id: fc4
+  front: Principe de performance ?
+  back: Les lecteurs ne bloquent pas les écrivains et inversement.
+  concept: ddia-snapshot-isolation
+- id: fc5
+  front: MVCC ?
+  back: Plusieurs versions d'un objet, avec created_by et deleted_by ; une mise à jour = suppression + création.
+  concept: ddia-mvcc
+- id: fc6
+  front: Règles de visibilité ?
+  back: 'Ignorer : transactions en cours au début, annulées, plus tardives. Le reste est visible.'
+  concept: ddia-visibility-rules
+- id: fc7
+  front: B-tree en ajout seul ?
+  back: 'Copy-on-write : chaque écriture crée une nouvelle racine = un instantané (CouchDB, LMDB).'
+  concept: ddia-append-only-btree
+- id: fc8
+  front: Repeatable read ?
+  back: 'Nom ambigu : instantané chez PostgreSQL et MySQL, sérialisabilité chez DB2 ; serializable d''Oracle = instantané.'
+  concept: ddia-repeatable-read-naming

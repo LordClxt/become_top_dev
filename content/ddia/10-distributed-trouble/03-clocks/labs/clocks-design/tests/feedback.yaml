@@ -1,0 +1,24 @@
+blocks:
+  which:
+    options:
+      timeout: Une durée sur une machine se mesure avec la monotone.
+      display: Un humain lit une date de calendrier.
+      lease: 'Mesure d''une durée locale : monotone.'
+      order: Aucune des deux ne compare fiablement des machines différentes.
+  drift:
+    tolerance:
+      abs: 0.1
+    wrong: 200 ppm = 200 × 10⁻⁶ ; multiplie par le nombre de secondes d'une journée.
+  lww:
+    options:
+      two: Causalement oui, mais LWW ne regarde que les horodatages.
+      both: LWW garde une seule valeur.
+      err: 'LWW ne détecte aucun conflit : c''est son défaut.'
+  intervals:
+    options:
+      i1: '17 < 20 : pas de chevauchement.'
+      i2: '15 ≤ 17 : les intervalles se chevauchent.'
+      i3: B finit à 19, avant que A ne commence à 30.
+      i4: 'Il suffit d''un point commun (17) pour ne pas pouvoir trancher : A.latest < B.earliest est faux.'
+  wait:
+    wrong: 'Il faut attendre que t+7 soit sûrement passé : ça vaut la largeur de l''intervalle, 7 + 7.'

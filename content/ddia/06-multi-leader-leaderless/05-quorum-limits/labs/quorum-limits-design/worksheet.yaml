@@ -1,0 +1,63 @@
+intro: 'Un cluster sans leader : **n = 3**, **w = 2**, **r = 2**, donc w + r = 4 > 3. Tu cherches les cas où malgré cela une lecture peut être
+  périmée.'
+blocks:
+- id: cas
+  type: match
+  title: Périmée ou à jour ?
+  prompt: Dans chaque scénario, la lecture peut-elle renvoyer une valeur périmée ?
+  items:
+  - id: plain
+    label: Tout fonctionne, aucune panne, aucune écriture concurrente
+  - id: sloppy
+    label: 'Quorum relâché : l''écriture a atterri sur 2 nœuds de dépannage hors des 3 désignés'
+  - id: failed
+    label: Une écriture a réussi sur 1 nœud seulement (échec, non annulée) puis on lit
+  - id: restore
+    label: Un nœud portant la dernière valeur est restauré depuis une sauvegarde ancienne
+  - id: lww
+    label: Deux écritures concurrentes, LWW avec des horloges décalées
+  categories:
+  - id: ok
+    label: À jour (pas de risque)
+  - id: stale
+    label: Peut être périmée ou incohérente
+- id: relache
+  type: choice
+  title: Disponibilité
+  prompt: 'Le nœud X est coupé du client, qui ne peut joindre que des nœuds hors des 3 désignés. Quorum relâché activé : que se passe-t-il ?'
+  options:
+  - id: write
+    label: L'écriture réussit en s'appuyant sur des nœuds de dépannage, puis hinted handoff plus tard
+  - id: error
+    label: L'écriture échoue forcément
+  - id: lead
+    label: Un leader est élu parmi les nœuds de dépannage
+- id: dc
+  type: table
+  title: Deux datacenters
+  prompt: 'Cluster de n = 6 : 3 réplicas par datacenter. Pour chaque règle, combien de confirmations le client attend-il ?'
+  columns:
+  - id: acks
+    label: Confirmations attendues
+  rows:
+  - id: local
+    label: Quorum du datacenter local (majorité de 3)
+  - id: global
+    label: Quorum global (majorité de 6, strictement plus de la moitié)
+- id: dcdown
+  type: number
+  title: Un datacenter tombe
+  prompt: Avec un quorum global (4 sur 6), combien de nœuds restent quand un datacenter de 3 tombe ? Peut-on atteindre w = 4 ? (Réponds par le
+    nombre de nœuds restants.)
+  unit: nœuds
+- id: choix
+  type: choice
+  title: Quel quorum choisir ?
+  prompt: Pour qu'un datacenter continue d'écrire quand l'autre est injoignable, quel quorum utiliser ?
+  options:
+  - id: local
+    label: Le quorum du datacenter local
+  - id: global
+    label: Le quorum global
+  - id: all
+    label: L'unanimité des 6

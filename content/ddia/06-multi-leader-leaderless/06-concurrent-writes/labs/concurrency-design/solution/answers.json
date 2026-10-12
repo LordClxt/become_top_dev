@@ -1,0 +1,16 @@
+{
+  "relation": {
+    "s1": "before",
+    "s2": "conc",
+    "s3": "conc",
+    "s4": "before"
+  },
+  "lww": {
+    "w1.ts": 100,
+    "w2.ts": 80,
+    "w3.ts": 90
+  },
+  "survivor": "w1",
+  "lost": 2,
+  "uuid": "uuid"
+}

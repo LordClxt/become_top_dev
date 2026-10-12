@@ -1,0 +1,22 @@
+{
+  "mod": 90.9,
+  "mod-to": 9.1,
+  "fixed": {
+    "stolen.v": 90,
+    "tb.v": 0.9
+  },
+  "taille": {
+    "p": 200
+  },
+  "strategie": {
+    "fixedcase": "fix",
+    "dynamic": "dyn",
+    "prop": "node"
+  },
+  "cascade": [
+    "slow",
+    "dead",
+    "rebal",
+    "worse"
+  ]
+}

@@ -1,0 +1,26 @@
+blocks:
+  naive:
+    options:
+      '142': 'Les écritures s''écrasent : seul un incrément survit.'
+      '42': Chaque client écrit au moins 43.
+  lost:
+    wrong: 'Un incrément survit sur 100 : 99 sont perdus.'
+  defense:
+    options:
+      counter: 'Le compteur s''exprime directement : UPDATE … SET value = value + 1.'
+      game: Il faut verrouiller la ligne pendant que l'application vérifie.
+      wiki: Le CAS refuse l'écriture si le texte a changé.
+      orm: La détection automatique protège même quand le code applicatif oublie.
+  dbs:
+    options:
+      pg: PostgreSQL annule la transaction fautive.
+      mysql: InnoDB ne détecte pas la mise à jour perdue.
+      oracle: Oracle la détecte.
+      mssql: SQL Server la détecte.
+  cas:
+    options:
+      never: Cela dépend de l'implémentation.
+      always: Il peut protéger si le WHERE lit la dernière valeur.
+  replica:
+    options:
+      lww: LWW est précisément sujet aux mises à jour perdues.

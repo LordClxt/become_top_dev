@@ -1,0 +1,20 @@
+{
+  "props": {
+    "uniq": "safety",
+    "mono": "safety",
+    "avail": "liveness",
+    "mutex": "safety",
+    "eventual": "liveness"
+  },
+  "model": "partial",
+  "nodes": [
+    "restart",
+    "disk",
+    "mem"
+  ],
+  "nodeprop": {
+    "unplug": "recovery",
+    "dead": "stop",
+    "mal": "byzantine"
+  }
+}

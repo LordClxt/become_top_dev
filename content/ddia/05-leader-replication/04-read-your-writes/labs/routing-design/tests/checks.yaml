@@ -1,0 +1,56 @@
+checks:
+- id: entry
+  label: L'application passe par le routeur
+  rule: edge_kind
+  source: app
+  target: router
+  kind: sync
+- id: write
+  label: Le routeur envoie au leader les écritures (et les lectures qui exigent la dernière écriture)
+  rule: edge_kind
+  source: router
+  target: leader
+  kind: write
+- id: read-f1
+  label: …lit sur le follower 1 quand il est assez à jour
+  rule: edge_kind
+  source: router
+  target: f1
+  kind: read
+- id: read-f2
+  label: …et sur le follower 2
+  rule: edge_kind
+  source: router
+  target: f2
+  kind: read
+- id: rep1
+  label: Le leader réplique vers le follower 1
+  rule: edge_kind
+  source: leader
+  target: f1
+  kind: replication
+- id: rep2
+  label: …et vers le follower 2
+  rule: edge_kind
+  source: leader
+  target: f2
+  kind: replication
+- id: sess
+  label: Le routeur consulte les sessions (LSN) partagées
+  rule: edge_kind
+  source: router
+  target: sessions
+  kind: read
+- id: via
+  label: Rien n'atteint le leader sans passer par le routeur ou la réplication
+  rule: inbound_via
+  target: leader
+  via: router
+- id: no-direct
+  label: Pas de contournement du routeur
+  rule: count
+  source: direct
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

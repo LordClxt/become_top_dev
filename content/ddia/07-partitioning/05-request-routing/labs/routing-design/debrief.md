@@ -1,0 +1,1 @@
+**Le client conscient des partitions économise un saut, mais c'est lui qui paie la mise à jour de sa table de routage.** Une couche de routage centralise cette complexité ; le gossip la répartit entre les nœuds ; ZooKeeper l'externalise.

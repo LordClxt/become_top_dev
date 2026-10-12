@@ -1,0 +1,109 @@
+{
+  "nodes": [
+    {
+      "id": "api",
+      "type": "api",
+      "x": 0,
+      "y": 240,
+      "label": "Gateway"
+    },
+    {
+      "id": "sched",
+      "type": "sched",
+      "x": 400,
+      "y": 240,
+      "label": "Planificateur"
+    },
+    {
+      "id": "lock",
+      "type": "lock",
+      "x": 400,
+      "y": 0,
+      "label": "Verrou à quorum"
+    },
+    {
+      "id": "queue",
+      "type": "queue",
+      "x": 800,
+      "y": 240,
+      "label": "File de tâches"
+    },
+    {
+      "id": "worker",
+      "type": "worker",
+      "x": 1200,
+      "y": 240,
+      "label": "Exécuteurs"
+    },
+    {
+      "id": "store",
+      "type": "store",
+      "x": 1200,
+      "y": 480,
+      "label": "Base à jetons"
+    },
+    {
+      "id": "mon",
+      "type": "mon",
+      "x": 400,
+      "y": 480,
+      "label": "Détecteur Phi Accrual"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "api",
+      "target": "sched",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "sched",
+      "target": "lock",
+      "kind": "sync",
+      "label": "bail + jeton"
+    },
+    {
+      "id": "e3",
+      "source": "sched",
+      "target": "queue",
+      "kind": "async",
+      "label": "tâches"
+    },
+    {
+      "id": "e4",
+      "source": "queue",
+      "target": "worker",
+      "kind": "async"
+    },
+    {
+      "id": "e5",
+      "source": "worker",
+      "target": "store",
+      "kind": "write",
+      "label": "écriture + jeton"
+    },
+    {
+      "id": "e6",
+      "source": "sched",
+      "target": "store",
+      "kind": "write",
+      "label": "état + jeton"
+    },
+    {
+      "id": "e7",
+      "source": "mon",
+      "target": "sched",
+      "kind": "read",
+      "label": "battements"
+    },
+    {
+      "id": "e8",
+      "source": "mon",
+      "target": "worker",
+      "kind": "read",
+      "label": "battements"
+    }
+  ]
+}

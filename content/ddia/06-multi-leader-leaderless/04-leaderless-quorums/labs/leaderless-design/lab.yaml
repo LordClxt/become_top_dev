@@ -1,0 +1,28 @@
+id: ddia-ch06-l04-lab-leaderless-design
+title: Une base sans leader à trois réplicas
+difficulty: 2
+xp: 60
+concepts:
+- ddia-leaderless
+- ddia-anti-entropy
+source:
+  chapter: 5
+  pages: 177-180
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: client
+  component: client
+  label: Client
+  hint: Envoie ses requêtes.
+- type: node
+  component: cassandra
+  label: Réplica
+  hint: Un nœud qui accepte lectures et écritures.
+- type: leader
+  component: leader
+  label: Leader
+  hint: Un nœud qui impose l'ordre des écritures.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

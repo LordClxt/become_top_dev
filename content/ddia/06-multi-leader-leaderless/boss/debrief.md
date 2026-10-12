@@ -1,0 +1,1 @@
+Cette architecture reprend le module : **n couvre tous les sites**, mais chaque coordinateur attend un **quorum local** (2 sur 3), la réplication inter-sites est asynchrone, et les écritures concurrentes sont conservées comme siblings puis **fusionnées** (union avec tombstones) plutôt que tranchées par LWW.

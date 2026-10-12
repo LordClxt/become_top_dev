@@ -1,0 +1,22 @@
+blocks:
+  relation:
+    options:
+      s1: 'B a lu le résultat de A : B dépend de A.'
+      s2: Aucune ne connaît l'autre.
+      s3: 'Pas de connaissance mutuelle : l''heure ne compte pas.'
+      s4: B s'appuie sur ce que A a écrit.
+  lww:
+    options:
+      w1.ts: Horloge exacte.
+      w2.ts: 'Pas de calcul : l''énoncé donne 80.'
+      w3.ts: L'énoncé donne 90.
+  survivor:
+    options:
+      w2: 80 est le plus petit.
+      w3: '90 < 100 : W3 perd.'
+  lost:
+    wrong: Une seule écriture survit sur trois.
+  uuid:
+    options:
+      same: Cela revient à écraser sans cesse.
+      w1: w = 1 n'affecte pas l'ordre.

@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Quand un conflit est-il détecté en multi-leader ?
+  back: Après coup, de façon asynchrone, lors de la réplication.
+  concept: ddia-write-conflict
+- id: fc2
+  front: Première stratégie face aux conflits ?
+  back: 'Les éviter : router toutes les écritures d''une donnée vers le même leader.'
+  concept: ddia-conflict-avoidance
+- id: fc3
+  front: Qu'exige la convergence ?
+  back: Que tous les réplicas aient la même valeur finale, quel que soit l'ordre de réception.
+  concept: ddia-convergence
+- id: fc4
+  front: 'LWW : avantage et défaut ?'
+  back: Converge et c'est simple ; perd silencieusement des écritures concurrentes.
+  concept: ddia-lww
+- id: fc5
+  front: Quatre manières de converger ?
+  back: ID d'écriture (LWW), ID de réplica, fusion des valeurs, conservation du conflit pour résolution ultérieure.
+  concept: ddia-convergence
+- id: fc6
+  front: Résolution à l'écriture ?
+  back: Un gestionnaire rapide est appelé dès la détection (ex. Bucardo), sans interaction utilisateur.
+  concept: ddia-custom-resolution
+- id: fc7
+  front: Résolution à la lecture ?
+  back: Les versions conflictuelles sont stockées et rendues à l'application, qui résout puis réécrit (CouchDB).
+  concept: ddia-custom-resolution
+- id: fc8
+  front: CRDT, structures fusionnables, OT ?
+  back: 'Trois pistes de résolution automatique : types qui fusionnent, historique à la Git (3 voies), transformation d''opérations (texte).'
+  concept: ddia-crdt-ot

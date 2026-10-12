@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Pourquoi répliquer ?
+  back: Latence (copies proches), disponibilité (panne tolérée), débit en lecture. Les changements sont la vraie difficulté.
+  concept: ddia-replication-purpose
+- id: fc2
+  front: Qui accepte les écritures dans la réplication par leader ?
+  back: Le leader seul ; les followers sont en lecture seule pour les clients.
+  concept: ddia-leader-follower
+- id: fc3
+  front: Comment un follower reste-t-il identique au leader ?
+  back: Il applique le log de réplication dans le même ordre que le leader.
+  concept: ddia-leader-follower
+- id: fc4
+  front: 'Réplication synchrone : avantage et défaut ?'
+  back: Copie à jour garantie ; mais si le follower ne répond pas, l'écriture est bloquée.
+  concept: ddia-sync-async
+- id: fc5
+  front: 'Réplication asynchrone : avantage et défaut ?'
+  back: Le leader n'attend pas, donc rapide et disponible ; mais retard non borné et écritures perdables.
+  concept: ddia-sync-async
+- id: fc6
+  front: Que veut dire semi-synchrone ?
+  back: Un seul follower synchrone, les autres asynchrones ; si lui tombe, un autre le remplace.
+  concept: ddia-semi-sync
+- id: fc7
+  front: Pourquoi pas tous les followers synchrones ?
+  back: Une seule panne bloquerait toutes les écritures, et plus il y a de nœuds, plus c'est probable.
+  concept: ddia-semi-sync
+- id: fc8
+  front: Risque du tout-asynchrone ?
+  back: Si le leader meurt, les écritures non répliquées sont perdues bien que confirmées.
+  concept: ddia-async-durability
+- id: fc9
+  front: Qu'est-ce que la réplication en chaîne ?
+  back: 'Variante synchrone en chaîne de nœuds : l''écriture entre par la tête, la confirmation sort de la queue.'
+  concept: ddia-sync-async

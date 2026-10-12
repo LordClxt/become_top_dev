@@ -1,0 +1,1 @@
+**Chaque follower synchrone prête sa lenteur et sa fragilité à l'écriture.** En semi-synchrone, tu paies un aller-retour local (4 ms) et tu obtiens deux copies à jour ; en tout synchrone, la région B impose 82 ms et sa panne bloque tout. C'est pourquoi la pratique est : un follower synchrone proche, les autres asynchrones.

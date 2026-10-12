@@ -1,0 +1,1 @@
+Voici un schéma complet : **le routage** passe par une couche abonnée à la coordination, **les écritures** vont à la partition leader (répliquée), **l'index global** accélère la lecture au prix d'une mise à jour asynchrone, et le nombre de partitions est fixé pour que le rééquilibrage ne déplace que des partitions entières.

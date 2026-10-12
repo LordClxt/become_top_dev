@@ -1,0 +1,48 @@
+intro: Un cluster compte **10 nœuds**. Chaque nœud peut traiter **5 000 requêtes par seconde**. Si la charge est parfaitement équilibrée, le cluster
+  tient 50 000 requêtes par seconde. Dans la réalité, certaines partitions reçoivent plus que leur part.
+blocks:
+- id: ideal
+  type: number
+  title: Capacité idéale
+  prompt: Capacité du cluster si la charge est parfaitement répartie ?
+  unit: req/s
+- id: hot
+  type: number
+  title: Un nœud reçoit 40 % du trafic
+  prompt: Un nœud reçoit 40 % de la charge totale (les 60 % restants sont répartis sur les 9 autres). Quelle charge totale maximale le cluster
+    peut-il tenir avant que ce nœud sature ? (Il sature à 5 000 req/s.)
+  unit: req/s
+- id: perte
+  type: number
+  title: Capacité perdue
+  prompt: Quelle part de la capacité idéale perd-on à cause de ce hot spot ? Donne un pourcentage.
+  unit: '%'
+- id: terme
+  type: match
+  title: Le vocabulaire
+  prompt: Associe chaque situation à son terme.
+  items:
+  - id: a
+    label: Les enregistrements sont répartis très inégalement entre partitions
+  - id: b
+    label: Une partition reçoit presque toutes les requêtes
+  - id: c
+    label: Une panne coupe le réseau en deux groupes de nœuds
+  categories:
+  - id: skew
+    label: Skew
+  - id: hot
+    label: Hot spot
+  - id: net
+    label: Partition réseau
+- id: random
+  type: choice
+  title: La répartition aléatoire
+  prompt: Un enregistrement est placé sur un nœud tiré au hasard. Quel est son principal défaut ?
+  options:
+  - id: find
+    label: 'Pour lire un élément, on ne sait pas quel nœud interroger : il faut tous les interroger'
+  - id: skew
+    label: Elle produit forcément un skew énorme
+  - id: repl
+    label: Elle interdit la réplication

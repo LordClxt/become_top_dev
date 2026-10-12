@@ -1,0 +1,114 @@
+id: ddia-ch10-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Pourquoi vérifier `lease.isValid()` juste avant d'agir ne suffit-il pas ?
+  choices:
+  - Une pause entre le test et l'action peut laisser le bail expirer sans que le processus le sache
+  - isValid() est toujours faux
+  - Les baux n'expirent jamais
+  - Le réseau est trop rapide
+  answer: 0
+  explanation: Le thread peut être arrêté entre deux instructions.
+  concept: ddia-lease-bug
+  difficulty: 1
+- id: q2
+  type: multiple
+  prompt: Quelles sont des causes de pause d'un processus ?
+  choices:
+  - Ramasse-miettes stop-the-world
+  - Suspension ou migration de VM
+  - Swap/thrashing mémoire
+  - Un signal SIGSTOP
+  answer:
+  - 0
+  - 1
+  - 2
+  - 3
+  explanation: Toutes les quatre suspendent le processus sans qu'il le sache.
+  concept: ddia-process-pause
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi les mutex et sémaphores ne résolvent-ils pas ce problème distribué ?
+  choices:
+  - Il n'y a pas de mémoire partagée entre les nœuds
+  - Ils sont trop lents
+  - Ils n'existent pas en Go
+  - Ils sont réservés au réseau
+  answer: 0
+  explanation: Les outils du multithread supposent un état partagé.
+  concept: ddia-process-pause
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Pourquoi la vérité est-elle définie par la majorité ?
+  choices:
+  - Un nœud isolé ne peut pas juger seul, et une seule majorité peut exister
+  - Parce que c'est plus rapide
+  - Parce que c'est moins cher
+  - Parce que les nœuds sont toujours honnêtes
+  answer: 0
+  explanation: Deux majorités contradictoires sont impossibles.
+  concept: ddia-majority-truth
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Quelle est la taille d'une majorité parmi 5 nœuds ?
+  choices:
+  - '3'
+  - '2'
+  - '4'
+  - '5'
+  answer: 0
+  explanation: ⌊5/2⌋ + 1 = 3.
+  concept: ddia-majority-truth
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Un jeton de clôture est…
+  choices:
+  - Un nombre qui augmente à chaque octroi du verrou et que la ressource vérifie
+  - Un mot de passe
+  - Un identifiant aléatoire du client
+  - Une date d'expiration
+  answer: 0
+  explanation: La ressource retient le plus grand jeton et rejette les plus petits.
+  concept: ddia-fencing-token
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Le client 1 a le jeton 33, le client 2 a le 34 et a déjà écrit. Le client 1 écrit avec 33. Le stockage…
+  choices:
+  - Rejette l'écriture
+  - L'accepte
+  - Fusionne les deux
+  - Redémarre
+  answer: 0
+  explanation: '33 < 34 : jeton périmé.'
+  concept: ddia-fencing-token
+  difficulty: 2
+- id: q8
+  type: single
+  prompt: Qui doit vérifier le jeton ?
+  choices:
+  - La ressource protégée (le stockage)
+  - Le client lui-même
+  - Le répartiteur de charge
+  - Personne
+  answer: 0
+  explanation: Le client en pause ignore qu'il est périmé.
+  concept: ddia-fencing-check-resource
+  difficulty: 2
+- id: q9
+  type: single
+  prompt: Que ne couvre pas un jeton de clôture ?
+  choices:
+  - Un nœud qui ment délibérément (faute byzantine)
+  - Un client réveillé après une pause
+  - Un bail expiré
+  - Un ordre d'écriture
+  answer: 0
+  explanation: Il protège contre l'erreur involontaire, pas la malveillance.
+  concept: ddia-byzantine
+  difficulty: 2

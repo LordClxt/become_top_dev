@@ -1,0 +1,43 @@
+id: ddia-ch08-project
+title: Tinybase — le moteur multi-versions
+pitch: 'Tinybase gagne des transactions : read committed sans lecture ni écriture sale, un instantané cohérent par MVCC avec nettoyage des versions,
+  détection des mises à jour perdues et verrous explicites contre le write skew.'
+running_project: tinybase
+kind: code
+language: go
+difficulty: 5
+xp: 280
+timeout_s: 60
+entrypoint: starter/
+test_command: go test ./...
+files_editable:
+- mvcc.go
+concepts:
+- ddia-atomicity
+- ddia-read-committed
+- ddia-mvcc
+- ddia-visibility-rules
+- ddia-lost-update
+- ddia-write-skew
+milestones:
+- id: m1
+  title: Read committed
+  goal: 'Des transactions avec identifiants croissants : écritures invisibles tant qu''elles ne sont pas validées, annulation qui défait tout,
+    écriture sale refusée (ErrLocked).'
+  tests: go test ./... -run TestM1
+  review: false
+- id: m2
+  title: Instantané et MVCC
+  goal: Appliquer les règles de visibilité par identifiant de transaction pour offrir un instantané cohérent à toute la transaction, et nettoyer
+    les versions devenues invisibles (Vacuum).
+  tests: go test ./... -run TestM2
+  review: false
+- id: m3
+  title: Mises à jour perdues et write skew
+  goal: Détecter le conflit d'une transaction en instantané face à une écriture validée depuis son début (ErrConflict), poser des verrous explicites
+    (Lock) et offrir un CompareAndSet.
+  tests: go test ./... -run TestM3
+  review: true
+  prompt: Pourquoi les tests montrent-ils volontairement qu'un write skew passe sous SnapshotIsolation, et quelle fonction du moteur sert à l'empêcher
+    ? Quel autre outil (hors verrous) l'empêcherait automatiquement ?
+verified: { at: 2026-10-11, solution: pass, starter: fail }

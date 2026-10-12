@@ -1,0 +1,26 @@
+{
+  "archi": {
+    "bank": "single",
+    "notes": "multi",
+    "cart": "less"
+  },
+  "quorum": {
+    "w": 3,
+    "r": 3
+  },
+  "lww": "keep",
+  "state": {
+    "lw.p": 0,
+    "lw.t": 0,
+    "lw.l": 1,
+    "merge.p": 1,
+    "merge.t": 1,
+    "merge.l": 1
+  },
+  "rel": "conc",
+  "pb": [
+    "sloppy",
+    "lww",
+    "tomb"
+  ]
+}

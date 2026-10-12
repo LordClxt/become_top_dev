@@ -1,0 +1,29 @@
+cards:
+- id: fc1
+  front: Que se passe-t-il si chaque nœud écrase à la réception ?
+  back: Les réplicas divergent définitivement, selon l'ordre de réception.
+  concept: ddia-concurrent-writes
+- id: fc2
+  front: LWW ?
+  back: On garde l'écriture au plus grand horodatage ; convergence, mais pertes silencieuses.
+  concept: ddia-lww-leaderless
+- id: fc3
+  front: Comment utiliser LWW sans perdre de données ?
+  back: 'N''écrire chaque clé qu''une fois (UUID par opération) : jamais de modification.'
+  concept: ddia-lww-leaderless
+- id: fc4
+  front: Happens-before ?
+  back: A avant B si B connaît A, dépend de A ou s'appuie sur A.
+  concept: ddia-happens-before
+- id: fc5
+  front: Opérations concurrentes ?
+  back: Aucune ne connaît l'autre ; l'heure physique n'a pas d'importance.
+  concept: ddia-concurrency-relativity
+- id: fc6
+  front: Pourquoi pas « en même temps » ?
+  back: Les horloges ne permettent pas de le déterminer, et deux opérations éloignées dans le temps peuvent s'ignorer.
+  concept: ddia-concurrency-relativity
+- id: fc7
+  front: Trois cas pour deux opérations ?
+  back: A avant B, B avant A, ou A et B concurrentes (conflit à résoudre).
+  concept: ddia-happens-before

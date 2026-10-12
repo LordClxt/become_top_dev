@@ -1,0 +1,25 @@
+blocks:
+  choose:
+    options:
+      stock: 'Petites transactions, clés indépendantes, en mémoire : la série partitionnée.'
+      pay: 'Des règles qui lisent plusieurs comptes demandent la sérialisabilité sans bloquer : SSI.'
+      report: Une longue lecture se fait sur un instantané.
+  partitions:
+    goals:
+      g1: Il faut au moins 5 partitions pour 100 000 tps.
+      g2: Au-delà de 8, le budget de cœurs est dépassé.
+  cross:
+    wrong: 2 % de 100 000.
+  ok:
+    options:
+      'yes': Les transactions inter-partitions restent limitées à environ 1 000/s.
+      maybe: Elles sont beaucoup plus lentes.
+  abort:
+    wrong: 2 % de 1 000.
+  ro:
+    options:
+      block: SSI ne bloque pas.
+      abort: Les lectures seules ne sont pas annulées.
+  weak:
+    options:
+      dirty: L'instantané empêche les lectures sales.

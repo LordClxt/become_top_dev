@@ -1,0 +1,16 @@
+id: ddia-ch08-l02-lab-read-committed-design
+title: Rejouer deux transactions en read committed
+difficulty: 3
+xp: 70
+concepts:
+- ddia-dirty-read
+- ddia-dirty-write
+- ddia-rc-implementation
+source:
+  chapter: 7
+  pages: 234-237
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,21 @@
+blocks:
+  cout:
+    options:
+      write.local: Seule la partition du document est écrite.
+      write.global: La partition du document + les 2 partitions d'index.
+      read.local: 'Toutes les partitions : scatter/gather.'
+      read.global: Une seule partition d'index.
+  ratio:
+    wrong: 2 000 × 8.
+  queue:
+    tolerance:
+      abs: 0.2
+    wrong: 0,99⁸ ≈ 0,9227.
+  choix:
+    options:
+      write-heavy: Quand l'écriture domine, il vaut mieux qu'elle ne touche qu'une partition.
+      read-heavy: 'Beaucoup de lectures : il vaut mieux qu''une lecture ne touche qu''une partition.'
+  retard:
+    options:
+      always: Un index global asynchrone n'offre pas cette garantie.
+      dup: Le problème est l'absence, pas la duplication.

@@ -1,0 +1,1 @@
+**Écrire le modèle, c'est écrire ses hypothèses**. La sûreté doit tenir même quand le temps déraille ; la vivacité peut dépendre d'un retour à la normale. Un service qui garantit l'exclusion mutuelle (sûreté) sans jamais répondre est correct mais inutile : les deux familles sont nécessaires.

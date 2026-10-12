@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Un quorum garantit-il la dernière valeur ?
+  back: 'Non : il ajuste la probabilité de lire du périmé. Cas limites nombreux.'
+  concept: ddia-quorum-limits
+- id: fc2
+  front: Cinq cas limites des quorums ?
+  back: Quorum relâché, écritures concurrentes (LWW), écriture pendant la lecture, échec partiel non annulé, restauration depuis une vieille copie.
+  concept: ddia-quorum-limits
+- id: fc3
+  front: Retard mesurable avec un leader ?
+  back: 'Oui : différence entre les positions du log du leader et du follower.'
+  concept: ddia-staleness-monitoring
+- id: fc4
+  front: Retard mesurable sans leader ?
+  back: 'Difficilement : pas d''ordre d''application ; sans anti-entropie, aucune borne d''âge.'
+  concept: ddia-staleness-monitoring
+- id: fc5
+  front: Quorum relâché ?
+  back: w et r réponses acceptées de nœuds hors des n désignés quand le quorum strict est inaccessible.
+  concept: ddia-sloppy-quorum
+- id: fc6
+  front: Hinted handoff ?
+  back: Après la panne, les écritures laissées chez un voisin sont renvoyées aux nœuds désignés.
+  concept: ddia-hinted-handoff
+- id: fc7
+  front: Le quorum relâché est-il un vrai quorum ?
+  back: 'Non : seulement une assurance de durabilité jusqu''à la fin du handoff.'
+  concept: ddia-sloppy-quorum
+- id: fc8
+  front: Sans leader et multi-datacenter ?
+  back: n couvre tous les sites ; on n'attend que le quorum du site local ; le reste est asynchrone.
+  concept: ddia-leaderless-multi-dc

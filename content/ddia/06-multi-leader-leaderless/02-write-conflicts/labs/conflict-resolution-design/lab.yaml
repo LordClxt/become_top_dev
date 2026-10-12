@@ -1,0 +1,17 @@
+id: ddia-ch06-l02-lab-conflict-resolution-design
+title: Qui survit au conflit ?
+difficulty: 3
+xp: 70
+concepts:
+- ddia-lww
+- ddia-convergence
+- ddia-custom-resolution
+- ddia-conflict-avoidance
+source:
+  chapter: 5
+  pages: 171-175
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

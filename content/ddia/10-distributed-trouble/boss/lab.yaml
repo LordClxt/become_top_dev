@@ -1,0 +1,57 @@
+id: ddia-ch10-boss
+title: 'Boss : un planificateur de tâches à l''épreuve des pannes'
+difficulty: 5
+xp: 320
+time_limit_min: 90
+concepts:
+- ddia-fencing-token
+- ddia-majority-truth
+- ddia-timeout-choice
+- ddia-adaptive-timeout
+- ddia-lease-bug
+- ddia-safety-liveness
+source:
+  chapter: 8
+  pages: 273-312
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+palette:
+- type: api
+  component: gateway
+  label: API gateway
+  hint: Reçoit les demandes de planification.
+- type: sched
+  component: service
+  label: Planificateur (instances)
+  hint: Un seul actif à la fois, élu par bail.
+- type: lock
+  component: consensus
+  label: Service de verrou à quorum
+  hint: Octroie bail et jeton de clôture à la majorité.
+- type: queue
+  component: queue
+  label: File de tâches
+  hint: Transmet les tâches aux exécuteurs.
+- type: worker
+  component: worker
+  label: Exécuteurs
+  hint: Exécutent les tâches.
+- type: store
+  component: postgres
+  label: Base qui vérifie les jetons
+  hint: Rejette les écritures avec un jeton périmé.
+- type: mon
+  component: monitoring
+  label: Détecteur de pannes adaptatif
+  hint: Soupçonne les nœuds à partir de la distribution des battements de cœur.
+- type: wall
+  component: external
+  label: Verrou local basé sur l'horloge murale
+  hint: Compare un horodatage distant à l'heure locale.
+- type: fixed
+  component: external
+  label: Timeout fixe copié d'un autre projet
+  hint: Constante de 1 seconde.
+verified: { at: 2026-10-11, solution: pass, starter: fail }

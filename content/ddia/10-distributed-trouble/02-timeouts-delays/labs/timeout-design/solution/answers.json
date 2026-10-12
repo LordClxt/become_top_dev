@@ -1,0 +1,13 @@
+{
+  "bound": 32,
+  "queue": 9,
+  "causes": {
+    "sw": "net",
+    "vm": "host",
+    "tcp": "net",
+    "noisy": "shared"
+  },
+  "tune": {
+    "k": 5
+  }
+}

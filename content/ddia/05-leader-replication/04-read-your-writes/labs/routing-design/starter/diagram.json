@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {
+      "id": "app",
+      "type": "app",
+      "x": 0,
+      "y": 200,
+      "label": "Application"
+    }
+  ],
+  "edges": []
+}

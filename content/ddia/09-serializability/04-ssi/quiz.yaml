@@ -1,0 +1,136 @@
+id: ddia-ch09-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Quelle est la promesse de SSI ?
+  choices:
+  - Une sérialisabilité complète avec un faible surcoût par rapport à l'instantané
+  - Zéro annulation
+  - Des verrous plus gros
+  - Une exécution monothread
+  answer: 0
+  explanation: Décrit en 2008, utilisé dans PostgreSQL ≥ 9.1.
+  concept: ddia-ssi
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: 2PL est dit pessimiste. Pourquoi ?
+  choices:
+  - Au moindre risque, il attend que la situation soit sûre
+  - Il annule tout
+  - Il n'utilise pas de verrous
+  - Il lit d'anciennes données
+  answer: 0
+  explanation: Comme l'exclusion mutuelle en multi-thread.
+  concept: ddia-optimistic-pessimistic
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: SSI est dit optimiste. Pourquoi ?
+  choices:
+  - Les transactions continuent et la base vérifie à la validation
+  - Il ne vérifie rien
+  - Il suppose qu'aucune transaction n'est concurrente
+  - Il bloque d'abord
+  answer: 0
+  explanation: Annulation si l'isolation a été violée.
+  concept: ddia-optimistic-pessimistic
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Quand le contrôle optimiste se comporte-t-il mal ?
+  choices:
+  - 'En cas de forte contention : beaucoup d''annulations'
+  - Avec peu de transactions
+  - Avec des lectures seules
+  - Avec des instantanés
+  answer: 0
+  explanation: Les reprises ajoutent de la charge.
+  concept: ddia-optimistic-pessimistic
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Comment réduire la contention sur un compteur ?
+  choices:
+  - Opérations atomiques commutatives
+  - Verrouiller la table
+  - Lire plus souvent
+  - Doubler les nœuds
+  answer: 0
+  explanation: Les incréments se composent dans n'importe quel ordre.
+  concept: ddia-optimistic-pessimistic
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Qu'est-ce qu'une prémisse périmée ?
+  choices:
+  - Un fait vrai au début de la transaction mais faux à la validation
+  - Une ligne supprimée
+  - Un verrou expiré
+  - Une erreur de syntaxe
+  answer: 0
+  explanation: Le write skew en est la conséquence.
+  concept: ddia-outdated-premise
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Pourquoi SSI n'annule-t-il pas dès qu'il détecte une lecture périmée ?
+  choices:
+  - La transaction peut être en lecture seule ou l'écriture ignorée peut encore être annulée
+  - Il ne sait pas détecter
+  - Ce serait illégal
+  - Il manque de mémoire
+  answer: 0
+  explanation: Cela préserve les longues lectures sur instantané.
+  concept: ddia-stale-mvcc-read
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Que vérifie la base à la validation pour les lectures MVCC périmées ?
+  choices:
+  - Si une écriture ignorée à cause de la visibilité a maintenant été validée
+  - Si le disque est plein
+  - Si la clé existe
+  - Si l'index est trié
+  answer: 0
+  explanation: Si oui, la transaction est annulée.
+  concept: ddia-stale-mvcc-read
+  difficulty: 1
+- id: q9
+  type: single
+  prompt: En quoi les verrous de SSI diffèrent-ils de ceux de 2PL ?
+  choices:
+  - 'Ils ne bloquent personne : ils agissent comme un tripwire'
+  - Ils sont exclusifs
+  - Ils sont tenus plus longtemps
+  - Ils sont globaux
+  answer: 0
+  explanation: Ils préviennent que des données lues ont changé.
+  concept: ddia-write-affects-read
+  difficulty: 1
+- id: q10
+  type: single
+  prompt: Quel avantage a SSI sur l'exécution en série ?
+  choices:
+  - Il n'est pas limité à un cœur
+  - Il est plus simple
+  - Il n'annule jamais
+  - Il exige de la mémoire
+  answer: 0
+  explanation: FoundationDB répartit la détection sur plusieurs machines.
+  concept: ddia-ssi-performance
+  difficulty: 1
+- id: q11
+  type: multiple
+  prompt: Pour quels cas SSI est-il peu adapté ?
+  choices:
+  - Longues transactions lecture-écriture
+  - Forte contention sur la même clé
+  - Lectures seules longues
+  - Charges très lues
+  answer:
+  - 0
+  - 1
+  explanation: Les lectures seules longues conviennent.
+  concept: ddia-ssi-performance
+  difficulty: 2

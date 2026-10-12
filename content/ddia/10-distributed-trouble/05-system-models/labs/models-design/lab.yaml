@@ -1,0 +1,17 @@
+id: ddia-ch10-l05-lab-models-design
+title: Choisir un modèle et classer des propriétés
+difficulty: 3
+xp: 70
+concepts:
+- ddia-timing-models
+- ddia-node-models
+- ddia-safety-liveness
+- ddia-realistic-model
+source:
+  chapter: 8
+  pages: 310-312
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

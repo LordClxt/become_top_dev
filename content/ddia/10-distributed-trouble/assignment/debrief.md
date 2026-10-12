@@ -1,0 +1,1 @@
+**Un post-mortem sépare ce qui garantit de ce qui réduit.** Allonger le bail, surveiller le GC ou mesurer avec l'horloge monotone diminue la fréquence de l'incident ; seul le jeton de clôture vérifié par le stockage rend la corruption impossible.

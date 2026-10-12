@@ -1,0 +1,30 @@
+blocks:
+  archi:
+    options:
+      bank: 'Un seul datacenter et des transactions strictes : un leader suffit et évite les conflits.'
+      notes: 'Chaque appareil accepte des écritures hors-ligne : multi-leader.'
+      cart: 'Disponibilité et tolérance au retard : sans leader.'
+  quorum:
+    goals:
+      ov: Il faut w + r > 5 pour que lectures et écritures se recoupent.
+      wt: 'w trop grand : on ne tolère plus 2 pannes en écriture.'
+      rt: 'r trop grand : on ne tolère plus 1 panne en lecture.'
+  lww:
+    options:
+      lww: LWW jette une des deux modifications.
+      replica: L'une des deux modifications disparaît aussi.
+  state:
+    options:
+      lw.p: L n'a rien lu.
+      lw.t: Aucune connaissance de T.
+      lw.l: Un compteur à 1 pour son propre réplica.
+      merge.p: Max de 1 et 0.
+      merge.t: Max de 1 et 0.
+      merge.l: Max de 0 et 1.
+  rel:
+    options:
+      before: Aucun des deux vecteurs n'est ≤ à l'autre.
+      after: Aucun des deux vecteurs n'est ≤ à l'autre.
+  pb:
+    options:
+      leader: Il n'y a pas de leader dans cette architecture.

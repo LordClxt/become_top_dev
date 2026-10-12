@@ -1,0 +1,18 @@
+id: ddia-ch09-l03-lab-2pl-design
+title: Dérouler un ordonnancement en 2PL
+difficulty: 4
+xp: 90
+concepts:
+- ddia-2pl
+- ddia-2pl-implementation
+- ddia-deadlock
+- ddia-predicate-locks
+- ddia-index-range-locks
+source:
+  chapter: 7
+  pages: 257-261
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

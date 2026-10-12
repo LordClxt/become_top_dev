@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Partitionnement par plage ?
+  back: Chaque partition possède une plage continue de clés triées ; bornes adaptées aux données.
+  concept: ddia-range-partitioning
+- id: fc2
+  front: Force et faiblesse de la plage ?
+  back: Requêtes de plage faciles ; hot spot si les accès se concentrent sur des clés proches (horodatage).
+  concept: ddia-range-partitioning
+- id: fc3
+  front: Corriger le hot spot d'un capteur ?
+  back: Mettre le nom du capteur en tête de clé, avant l'horodatage.
+  concept: ddia-range-partitioning
+- id: fc4
+  front: Partitionnement par hachage ?
+  back: Hacher la clé ; chaque partition possède une plage de hachages ; répartition uniforme.
+  concept: ddia-hash-partitioning
+- id: fc5
+  front: Pourquoi une fonction de hachage stable ?
+  back: Le hashCode de Java ou le hash de Ruby changent d'un processus à l'autre.
+  concept: ddia-hash-partitioning
+- id: fc6
+  front: Ce que le hachage fait perdre ?
+  back: L'ordre des clés, donc les requêtes de plage efficaces.
+  concept: ddia-hash-partitioning
+- id: fc7
+  front: Clé composée de Cassandra ?
+  back: 'Première partie hachée (partition), les autres triées à l''intérieur : plage efficace à première partie fixée.'
+  concept: ddia-compound-key
+- id: fc8
+  front: 'Clé très chaude : remède ?'
+  back: 'Un sel aléatoire (100 sous-clés) : écritures réparties, lectures fusionnées, comptabilité des clés éclatées.'
+  concept: ddia-hot-key
+- id: fc9
+  front: Consistent hashing ?
+  back: Terme ambigu (Karger et al.) ; préférer « partitionnement par hachage ».
+  concept: ddia-consistent-hashing-term

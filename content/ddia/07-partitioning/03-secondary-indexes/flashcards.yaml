@@ -1,0 +1,33 @@
+cards:
+- id: fc1
+  front: Index secondaire ?
+  back: Pour chercher les occurrences d'une valeur (voitures rouges) ; n'identifie pas un enregistrement unique.
+  concept: ddia-secondary-index-problem
+- id: fc2
+  front: Index local (par document) ?
+  back: Chaque partition indexe ses propres documents.
+  concept: ddia-local-index
+- id: fc3
+  front: Coût d'un index local ?
+  back: Écriture sur 1 partition ; lecture en scatter/gather sur toutes les partitions.
+  concept: ddia-local-index
+- id: fc4
+  front: Scatter/gather ?
+  back: Envoyer la requête à toutes les partitions et fusionner ; sensible à la latence de queue.
+  concept: ddia-scatter-gather
+- id: fc5
+  front: Index global (par terme) ?
+  back: Un index sur toutes les données, partitionné selon le terme (ou son hachage).
+  concept: ddia-global-index
+- id: fc6
+  front: Coût d'un index global ?
+  back: Lecture sur 1 partition d'index ; écriture sur plusieurs.
+  concept: ddia-global-index
+- id: fc7
+  front: Index global et cohérence ?
+  back: 'Souvent mis à jour en asynchrone : une lecture après écriture peut ne pas voir le changement.'
+  concept: ddia-async-global-index
+- id: fc8
+  front: Recommandation des éditeurs pour l'index local ?
+  back: Concevoir le partitionnement pour que la requête se serve depuis une seule partition.
+  concept: ddia-local-index

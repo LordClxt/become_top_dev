@@ -1,0 +1,28 @@
+id: ddia-ch07
+title: Partitionnement
+subtitle: 'Découper un jeu de données qui ne tient plus sur une machine : clés, index, rééquilibrage, routage'
+source:
+  chapter: 6
+  pages: 199-218
+objectives:
+- Distinguer partitionnement et réplication, et combiner les deux
+- Choisir une clé de partition (plage, hachage, clé composée) selon la charge, repérer les hot spots et les atténuer
+- Comparer index secondaires locaux (par document) et globaux (par terme) par leurs coûts en lecture et en écriture
+- Rééquilibrer un cluster sans déplacer plus que nécessaire et choisir une stratégie (hash mod N à proscrire, partitions fixes, dynamiques, proportionnelles)
+- 'Expliquer comment une requête trouve la bonne partition : nœud quelconque, couche de routage ou client averti, avec un service de coordination'
+mastery_threshold: 0.8
+prerequisites:
+- ddia-ch06
+lessons:
+- 01-partitioning-basics
+- 02-range-hash
+- 03-secondary-indexes
+- 04-rebalancing
+- 05-request-routing
+xp:
+  assignment: 130
+  project: 260
+  boss: 300
+boss: boss
+assignment: assignment
+project: project

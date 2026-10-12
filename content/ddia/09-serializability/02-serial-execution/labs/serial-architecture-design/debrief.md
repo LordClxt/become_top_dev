@@ -1,0 +1,1 @@
+L'architecture sépare **OLTP court en série** (exécuteurs monothread en mémoire) et **analyse longue sur instantané** (entrepôt). Aucun verrou : la concurrence n'existe pas à l'intérieur d'une partition.

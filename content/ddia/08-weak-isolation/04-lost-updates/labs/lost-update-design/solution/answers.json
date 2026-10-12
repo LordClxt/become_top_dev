@@ -1,0 +1,22 @@
+{
+  "naive": "43",
+  "lost": 99,
+  "defense": {
+    "counter": "atomic",
+    "game": "lock",
+    "wiki": "cas",
+    "orm": "auto"
+  },
+  "dbs": {
+    "pg": "yes",
+    "mysql": "no",
+    "oracle": "yes",
+    "mssql": "yes"
+  },
+  "cas": "snap",
+  "replica": [
+    "lock",
+    "sib",
+    "comm"
+  ]
+}

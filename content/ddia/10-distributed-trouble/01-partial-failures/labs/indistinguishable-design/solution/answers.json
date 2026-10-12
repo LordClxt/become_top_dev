@@ -1,0 +1,19 @@
+{
+  "cases": {
+    "lost-req.done": 0,
+    "lost-req.seen": 1,
+    "crash.done": 0,
+    "crash.seen": 1,
+    "lost-resp.done": 1,
+    "lost-resp.seen": 1,
+    "slow.done": 1,
+    "slow.seen": 1
+  },
+  "retry": "double",
+  "scale": 63.4,
+  "philo": {
+    "sim": "stop",
+    "shop": "tolerate",
+    "rolling": "tolerate"
+  }
+}

@@ -1,0 +1,64 @@
+intro: Tu règles le détecteur de pannes d'un cluster dont le temps de réponse moyen est de **100 ms** avec un écart-type de **40 ms**. Le timeout
+  vaut moyenne + k × écart-type.
+blocks:
+- id: bound
+  type: number
+  title: Le timeout idéal
+  prompt: Si le réseau garantissait un délai de livraison maximal de 12 ms et un traitement maximal de 8 ms, quel timeout (2d + r) serait exact
+    ?
+  unit: ms
+- id: queue
+  type: number
+  title: La file qui explose
+  prompt: 'Une ressource utilisée à 90 % : en moyenne, combien de clients attendent dans le système (modèle ρ/(1−ρ), voir l''encadré « au-delà
+    du livre » de la leçon) ?'
+  unit: clients
+- id: causes
+  type: match
+  title: D'où vient le délai ?
+  prompt: Classe chaque situation selon la file d'attente qui la provoque.
+  items:
+  - id: sw
+    label: Dix serveurs envoient en même temps vers le même nœud ; le commutateur jette des paquets
+  - id: vm
+    label: Une VM est suspendue 30 ms pour laisser tourner une autre VM
+  - id: tcp
+    label: Un émetteur ralentit pour respecter la fenêtre du récepteur
+  - id: noisy
+    label: Un autre locataire sature le disque partagé
+  categories:
+  - id: net
+    label: Réseau
+  - id: host
+    label: Hôte / hyperviseur
+  - id: shared
+    label: Ressource partagée du cloud
+- id: tune
+  type: tuner
+  title: Le bon k
+  prompt: Règle k pour que le risque de faux positif soit **sous 5 %** (borne de Chebyshev 1/k²) sans que la panne soit détectée **plus tard que
+    300 ms**.
+  params:
+  - id: k
+    label: k (écarts-types)
+    unit: ''
+    min: 1
+    max: 8
+    step: 0.5
+    default: 1
+  metrics:
+  - id: timeout
+    label: Timeout
+    expr: 100 + 40 * k
+    format: number
+  - id: fp
+    label: Risque de faux positif (borne)
+    expr: 1 / (k * k)
+    format: percent
+  goals:
+  - id: fast
+    label: Détection en 300 ms ou moins
+    expr: timeout <= 300
+  - id: safe
+    label: Faux positifs sous 5 %
+    expr: fp < 0.05

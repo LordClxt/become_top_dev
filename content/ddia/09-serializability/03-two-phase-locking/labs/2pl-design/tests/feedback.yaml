@@ -1,0 +1,26 @@
+blocks:
+  sched:
+    options:
+      s1: 'Aucun détenteur : accordé.'
+      s2: Deux lecteurs coexistent.
+      s3: 'T2 détient aussi S : T1 doit attendre.'
+      s4: 'T2 attendrait T1 qui l''attend : interblocage.'
+      s5: Personne ne détient y.
+      s6: 'T3 détient déjà X : couvre la lecture.'
+  compat:
+    options:
+      want-s.s: Deux lecteurs coexistent.
+      want-s.x: Un lecteur attend un écrivain.
+      want-x.s: Un écrivain attend les lecteurs.
+      want-x.x: Deux écrivains s'excluent.
+  approx:
+    options:
+      a1: 'Plus large que le prédicat : couvre toute écriture correspondante.'
+      a2: 'Plus large : sûr.'
+      a3: 'Plus étroit : une écriture à 12 h manquerait.'
+      a4: Le plus large possible.
+  perf:
+    options:
+      readers: C'est le mantra de l'instantané, pas de 2PL.
+  wasted:
+    wrong: 30 + 40.

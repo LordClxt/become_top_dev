@@ -1,0 +1,20 @@
+id: ddia-ch08-boss
+title: 'Boss : l''audit d''une application bancaire'
+difficulty: 5
+xp: 320
+time_limit_min: 90
+concepts:
+- ddia-acid-meaning
+- ddia-read-committed
+- ddia-mvcc
+- ddia-lost-update
+- ddia-write-skew
+- ddia-phantom
+source:
+  chapter: 7
+  pages: 221-251
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

@@ -1,0 +1,27 @@
+checks:
+- id: par
+  label: Le client envoie ses requêtes aux réplicas en parallèle
+  rule: edge_kind
+  source: client
+  target: node
+  kind: sync
+- id: three
+  label: Trois réplicas
+  rule: count
+  source: node
+  min: 3
+  max: 3
+- id: no-leader
+  label: Pas de leader
+  rule: count
+  source: leader
+  max: 0
+- id: anti
+  label: Les réplicas se resynchronisent entre eux (anti-entropie)
+  rule: edge_kind
+  source: node
+  target: node
+  kind: replication
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

@@ -1,0 +1,16 @@
+id: ddia-ch06-l04-lab-quorum-design
+title: Dimensionner un quorum
+difficulty: 3
+xp: 80
+concepts:
+- ddia-quorum
+- ddia-quorum-tolerance
+- ddia-read-repair
+source:
+  chapter: 5
+  pages: 177-181
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-11, solution: pass, starter: fail }

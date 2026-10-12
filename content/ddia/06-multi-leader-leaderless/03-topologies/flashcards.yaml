@@ -1,0 +1,25 @@
+cards:
+- id: fc1
+  front: Trois topologies multi-leader ?
+  back: Tous-vers-tous, circulaire (anneau), étoile (généralisable en arbre).
+  concept: ddia-topology
+- id: fc2
+  front: Comment évite-t-on les boucles de réplication ?
+  back: En marquant chaque écriture des identifiants des nœuds traversés ; un nœud ignore les écritures qui portent le sien.
+  concept: ddia-loop-prevention
+- id: fc3
+  front: Défaut commun à l'anneau et à l'étoile ?
+  back: Un nœud en panne coupe la circulation entre les autres.
+  concept: ddia-topology-fault
+- id: fc4
+  front: Avantage du tous-vers-tous ?
+  back: Plusieurs chemins entre nœuds, donc pas de point unique de défaillance.
+  concept: ddia-topology-fault
+- id: fc5
+  front: Messages qui se doublent ?
+  back: Sur des liens inégaux, une mise à jour peut arriver avant l'insertion qu'elle suppose.
+  concept: ddia-message-overtaking
+- id: fc6
+  front: Pourquoi pas des horodatages pour l'ordre causal ?
+  back: Les horloges ne sont pas fiables ; il faut des vecteurs de version.
+  concept: ddia-message-overtaking

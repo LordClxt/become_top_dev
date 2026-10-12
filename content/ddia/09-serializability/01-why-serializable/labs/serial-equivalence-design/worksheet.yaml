@@ -1,0 +1,59 @@
+intro: '`x` vaut **10**. La transaction **T1** fait `x = x + 1`. La transaction **T2** fait `x = x × 2`. Chacune lit `x`, calcule, puis écrit.'
+blocks:
+- id: t1t2
+  type: number
+  title: T1 puis T2
+  prompt: Résultat si T1 s'exécute entièrement avant T2 ?
+  unit: ''
+- id: t2t1
+  type: number
+  title: T2 puis T1
+  prompt: Résultat si T2 s'exécute entièrement avant T1 ?
+  unit: ''
+- id: conc
+  type: match
+  title: Exécutions concurrentes
+  prompt: Pour chaque résultat final observé, l'exécution est-elle sérialisable ?
+  items:
+  - id: r22
+    label: x = 22
+  - id: r21
+    label: x = 21
+  - id: r11
+    label: x = 11 (les deux ont lu 10, T2 a écrit 20 puis T1 a écrit 11)
+  - id: r20
+    label: x = 20 (les deux ont lu 10, T1 a écrit 11 puis T2 a écrit 20)
+  categories:
+  - id: 'yes'
+    label: Sérialisable
+  - id: 'no'
+    label: Non sérialisable
+- id: doctors
+  type: choice
+  title: Les médecins de garde
+  prompt: Deux médecins quittent chacun la garde ; le résultat est 0 médecin de garde. Quel est le seul résultat sérialisable ?
+  options:
+  - id: one
+    label: 'Un médecin reste de garde : le second à s''exécuter voit que le premier est parti et refuse'
+  - id: zero
+    label: Zéro, c'est aussi un ordre série possible
+  - id: two
+    label: 'Deux : personne ne part'
+- id: orders
+  type: number
+  title: Combien d'ordres séries ?
+  prompt: Combien d'ordres séries distincts existe-t-il pour 4 transactions ?
+  unit: ordres
+- id: faux
+  type: multi
+  title: Vrai ou faux ?
+  prompt: Coche les affirmations vraies.
+  options:
+  - id: exist
+    label: Il suffit qu'un ordre série équivalent existe
+  - id: real
+    label: Les transactions s'exécutent réellement l'une après l'autre
+  - id: tests
+    label: Une suite de tests réussie prouve l'absence de condition de course
+  - id: all
+    label: La base empêche toutes les conditions de course

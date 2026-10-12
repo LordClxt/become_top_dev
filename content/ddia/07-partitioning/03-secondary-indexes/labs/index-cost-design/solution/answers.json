@@ -1,0 +1,15 @@
+{
+  "cout": {
+    "write.local": 1,
+    "write.global": 3,
+    "read.local": 8,
+    "read.global": 1
+  },
+  "ratio": 16000,
+  "queue": 92.3,
+  "choix": {
+    "write-heavy": "local",
+    "read-heavy": "global"
+  },
+  "retard": "maybe"
+}

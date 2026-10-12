@@ -1,0 +1,1 @@
+Chaque service reçoit **la technique adaptée à sa charge** : exécution en série pour le stock (petites transactions, en mémoire), SSI pour les paiements (règles croisées, sans blocage), instantané sur réplica pour le reporting (longues lectures, sans gêner l'OLTP).

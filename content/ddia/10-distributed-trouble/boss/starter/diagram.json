@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {
+      "id": "api",
+      "type": "api",
+      "x": 0,
+      "y": 240,
+      "label": "Gateway"
+    }
+  ],
+  "edges": []
+}

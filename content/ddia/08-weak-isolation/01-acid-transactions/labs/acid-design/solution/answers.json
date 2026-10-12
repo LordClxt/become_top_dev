@@ -1,0 +1,20 @@
+{
+  "lettre": {
+    "crash": "a",
+    "dirty": "i",
+    "lost": "d",
+    "inv": "c"
+  },
+  "owner": {
+    "a": "db",
+    "c": "app"
+  },
+  "atomic": "abort",
+  "retry": {
+    "deadlock": "yes",
+    "unique": "no",
+    "net": "yes",
+    "overload": "limit"
+  },
+  "dup": 200
+}

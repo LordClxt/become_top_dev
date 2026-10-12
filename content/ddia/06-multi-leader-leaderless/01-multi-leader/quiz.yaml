@@ -1,0 +1,89 @@
+id: ddia-ch06-l01-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que signifie « multi-leader » ?
+  choices:
+  - Plusieurs nœuds acceptent les écritures et se les transmettent
+  - Un leader et plusieurs followers synchrones
+  - Les clients choisissent leur leader au hasard
+  - Chaque donnée a deux copies
+  answer: 0
+  explanation: Chaque leader joue aussi le rôle de follower des autres.
+  concept: ddia-multi-leader
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Pourquoi le multi-leader améliore-t-il la latence en multi-datacenter ?
+  choices:
+  - Les écritures sont traitées localement, la réplication entre sites étant asynchrone
+  - Il supprime le réseau
+  - Il rend toutes les écritures synchrones
+  - Il utilise un seul disque
+  answer: 0
+  explanation: Le délai inter-datacenters est caché aux utilisateurs.
+  concept: ddia-multi-dc
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Que devient un datacenter dont le leader tombe en multi-leader ?
+  choices:
+  - Chaque autre datacenter continue indépendamment ; la réplication rattrape son retard au retour
+  - Tous s'arrêtent
+  - Il faut un failover obligatoire
+  - Les données sont perdues
+  answer: 0
+  explanation: C'est un avantage du multi-leader sur le mono-leader.
+  concept: ddia-multi-dc
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Dans une application d'agenda hors-ligne, qui joue le rôle de leader ?
+  choices:
+  - Chaque appareil, avec sa base locale
+  - Le serveur uniquement
+  - Le premier appareil connecté
+  - Aucun
+  answer: 0
+  explanation: La synchronisation entre appareils est une réplication multi-leader dont le retard peut durer des jours.
+  concept: ddia-offline-clients
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Comment garantir zéro conflit en édition collaborative ?
+  choices:
+  - Prendre un verrou sur le document avant d'éditer
+  - Éditer plus vite que les autres
+  - Utiliser une horloge locale
+  - Utiliser plus de leaders
+  answer: 0
+  explanation: Équivalent à un leader avec transactions, mais au prix de la fluidité.
+  concept: ddia-collab-editing
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Pourquoi le multi-leader est-il considéré comme dangereux ?
+  choices:
+  - Souvent ajouté après coup, il interagit mal avec auto-incréments, triggers et contraintes ; et il crée des conflits d'écriture
+  - Il est toujours plus lent
+  - Il n'existe dans aucune base
+  - Il perd forcément tout
+  answer: 0
+  explanation: Lire la documentation et tester réellement les garanties.
+  concept: ddia-multi-leader-danger
+  difficulty: 1
+- id: q7
+  type: multiple
+  prompt: Quels sont des usages raisonnables du multi-leader ?
+  choices:
+  - Plusieurs datacenters
+  - Clients hors-ligne
+  - Édition collaborative sans verrou
+  - Un seul datacenter pour aller plus vite
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: Dans un seul datacenter, les bénéfices sont rarement supérieurs à la complexité.
+  concept: ddia-multi-leader
+  difficulty: 2

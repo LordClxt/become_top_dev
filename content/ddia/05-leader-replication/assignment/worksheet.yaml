@@ -1,0 +1,112 @@
+intro: 'Tu es de garde. Le leader d''une base PostgreSQL de commerce en ligne vient de tomber. Configuration : **un follower synchrone (S)** dans
+  la même zone, **deux followers asynchrones (A1, A2)** dans une autre zone. Le log du leader était au **LSN 90 000**. Positions : S **90 000**,
+  A1 **89 940**, A2 **89 700**. Le trafic habituel est de **200 écritures par seconde**.'
+blocks:
+- id: choix
+  type: choice
+  title: Qui promouvoir ?
+  prompt: Quel réplica promeus-tu en leader ?
+  options:
+  - id: s
+    label: 'S : à jour, aucune écriture confirmée perdue'
+  - id: a1
+    label: 'A1 : le meilleur des asynchrones'
+  - id: a2
+    label: 'A2 : il a le plus de disque libre'
+- id: perte
+  type: table
+  title: Si le synchrone était aussi tombé
+  prompt: Dans l'hypothèse où S n'est pas disponible, combien d'écritures confirmées perd-on en promouvant chacun ?
+  columns:
+  - id: lost
+    label: Écritures perdues
+  rows:
+  - id: a1
+    label: Promotion de A1
+  - id: a2
+    label: Promotion de A2
+- id: secondes
+  type: number
+  title: Combien de secondes de trafic ?
+  prompt: À 200 écritures par seconde, combien de secondes de trafic représentent les écritures perdues si on promeut A2 ?
+  unit: s
+- id: ordre
+  type: order
+  title: Le runbook
+  prompt: Ordonne les actions.
+  items:
+  - id: fence
+    label: S'assurer que l'ancien leader ne peut plus écrire (fencing)
+  - id: promote
+    label: Promouvoir le follower choisi
+  - id: repoint
+    label: Pointer les clients et les autres followers vers le nouveau leader
+  - id: reconcile
+    label: Auditer les écritures perdues et les identifiants réutilisés avec les systèmes externes
+  - id: rebuild
+    label: Reconstruire l'ancien leader comme follower à partir d'un instantané
+- id: github
+  type: multi
+  title: Les dangers
+  prompt: Quels risques doivent figurer dans le post-mortem ?
+  options:
+  - id: keys
+    label: Des clés auto-incrémentées réutilisées par un leader en retard, déjà référencées dans un cache externe
+  - id: split
+    label: Un split brain si l'ancien leader revient en acceptant des écritures
+  - id: disk
+    label: Les followers synchrones cessent d'avoir des lectures
+  - id: dur
+    label: Des écritures confirmées au client qui n'existent plus
+- id: ryw
+  type: choice
+  title: Après le failover
+  prompt: Les utilisateurs se plaignent de ne plus voir leurs commandes passées juste avant l'incident. Quelle garantie a été violée ?
+  options:
+  - id: dur
+    label: La durabilité des écritures confirmées (en asynchrone)
+  - id: mono
+    label: Les lectures monotones uniquement
+  - id: prefix
+    label: Le préfixe cohérent
+- id: log
+  type: match
+  title: Log pour l'entrepôt
+  prompt: L'équipe data veut recevoir les changements en continu. Quel format de log convient ?
+  items:
+  - id: wal
+    label: WAL physique
+  - id: logical
+    label: Log logique par ligne
+  - id: stmt
+    label: Instructions SQL
+  categories:
+  - id: good
+    label: Adapté
+  - id: bad
+    label: Inadapté
+- id: timeout
+  type: tuner
+  title: Réglage du détecteur de panne
+  prompt: 'Le leader se fige parfois **10 s** (sauvegarde) et l''objectif de reprise est **inférieur à 30 s**, avec **3 sondes** consécutives
+    nécessaires pour déclarer la panne. Choisis l''intervalle entre sondes : temps de détection = 3 × intervalle.'
+  params:
+  - id: i
+    label: Intervalle
+    unit: s
+    min: 1
+    max: 20
+    step: 1
+    default: 1
+  metrics:
+  - id: det
+    label: Temps de détection
+    expr: 3 * i
+    format: duration-s
+  goals:
+  - id: gel
+    label: Supérieur au gel de 10 s
+    expr: det > 10
+  - id: obj
+    label: Inférieur à 30 s
+    expr: det < 30

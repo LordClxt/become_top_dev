@@ -1,0 +1,113 @@
+id: ddia-ch06-l04-quiz
+questions:
+- id: q1
+  type: single
+  prompt: Que devient le failover dans une base sans leader ?
+  choices:
+  - 'Il n''existe pas : le client écrit sur plusieurs réplicas en parallèle'
+  - Il est automatique et instantané
+  - Il est remplacé par un arbitre
+  - Il est manuel
+  answer: 0
+  explanation: Aucun nœud n'est à promouvoir.
+  concept: ddia-leaderless
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: Qu'est-ce que la réparation à la lecture ?
+  choices:
+  - Le client réécrit la version récente sur les nœuds qui ont répondu avec une valeur périmée
+  - Un redémarrage de nœud
+  - Une sauvegarde nocturne
+  - Un changement de schéma
+  answer: 0
+  explanation: Efficace pour les valeurs souvent lues.
+  concept: ddia-read-repair
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: Pourquoi l'anti-entropie est-elle nécessaire en plus ?
+  choices:
+  - Une valeur rarement lue n'est jamais réparée par la lecture
+  - La lecture est interdite
+  - Elle remplace l'écriture
+  - Elle chiffre les réplicas
+  answer: 0
+  explanation: Sans elle, ces valeurs ont une durabilité réduite.
+  concept: ddia-anti-entropy
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Avec n = 3, w = 2, r = 2, combien de pannes peut-on tolérer ?
+  choices:
+  - '1'
+  - '0'
+  - '2'
+  - '3'
+  answer: 0
+  explanation: Il reste 2 nœuds pour w et pour r.
+  concept: ddia-quorum-tolerance
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Avec n = 5, w = 3, r = 3 ?
+  choices:
+  - 2 pannes
+  - 1 panne
+  - 3 pannes
+  - Aucune
+  answer: 0
+  explanation: Il reste 3 nœuds vivants, nécessaires pour w et r.
+  concept: ddia-quorum-tolerance
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Quelle condition garantit que lecture et écriture se recoupent ?
+  choices:
+  - w + r > n
+  - w + r = n
+  - w > r
+  - r > n
+  answer: 0
+  explanation: Au moins un nœud lu a reçu la dernière écriture.
+  concept: ddia-quorum
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Quel est l'inconvénient de w = n, r = 1 ?
+  choices:
+  - Un seul nœud en panne fait échouer toutes les écritures
+  - Les lectures sont lentes
+  - La réplication est asynchrone
+  - Il faut un leader
+  answer: 0
+  explanation: Les lectures sont rapides mais les écritures fragiles.
+  concept: ddia-quorum-tolerance
+  difficulty: 1
+- id: q8
+  type: single
+  prompt: Que signifient w et r en pratique ?
+  choices:
+  - Le nombre de réponses à attendre ; les requêtes partent toujours aux n nœuds
+  - Le nombre de nœuds sollicités
+  - La taille des données
+  - Le nombre de datacenters
+  answer: 0
+  explanation: Les requêtes sont envoyées à tous les réplicas en parallèle.
+  concept: ddia-quorum
+  difficulty: 1
+- id: q9
+  type: multiple
+  prompt: Quelles raisons font qu'un nœud « ne répond pas » pour un client ?
+  choices:
+  - Nœud en panne
+  - Disque plein
+  - Coupure réseau client–nœud
+  - Valeur déjà à jour
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: 'On ne distingue pas les causes : seule compte la réponse favorable.'
+  concept: ddia-quorum
+  difficulty: 2
