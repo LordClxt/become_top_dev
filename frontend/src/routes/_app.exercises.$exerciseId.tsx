@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ChevronLeft, ClipboardList, Lightbulb, ListChecks, Play, RotateCcw, Workflow } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { CodeEditor } from '@/components/CodeEditor'
+import { CodeEditor, editorLanguage } from '@/components/CodeEditor'
 import { DiagramEditor } from '@/components/diagram/DiagramEditor'
 import { LessonBody } from '@/components/LessonBody'
 import { ErrorState, Loading } from '@/components/states'
@@ -80,6 +80,15 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
       setEditorKey((k) => k + 1)
     },
   })
+
+  // Contenu des autres fichiers pour l'autocomplétion ; stable tant qu'on ne tape que dans le fichier actif.
+  const otherFilesKey = JSON.stringify(
+    Object.entries({ ...files, ...ex.workspace.readonly })
+      .filter(([name]) => name !== active)
+      .map(([, src]) => src),
+  )
+  const otherFiles = useMemo(() => JSON.parse(otherFilesKey) as string[], [otherFilesKey])
+  const language = editorLanguage(active, ex.language)
 
   const passed = ex.workspace.passed || run.data?.passed
   const debrief = run.data?.debrief || ex.debrief
@@ -296,6 +305,8 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
           ) : editableNames.includes(active) ? (
             <CodeEditor
               value={files[active] ?? ''}
+              language={language}
+              otherFiles={otherFiles}
               onRun={runTests}
               onChange={(v) => {
                 dirty.current = true
@@ -303,7 +314,7 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
               }}
             />
           ) : (
-            <CodeEditor value={ex.workspace.readonly[active] ?? ''} readOnly />
+            <CodeEditor value={ex.workspace.readonly[active] ?? ''} language={language} readOnly />
           )}
         </div>
 
