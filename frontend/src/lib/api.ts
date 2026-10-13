@@ -328,8 +328,9 @@ export const api = {
 
   sandbox: () => request<SandboxExercise[]>('/exercises'),
   exercise: (id: string) => request<Exercise>(`/exercises/${id}`),
-  saveDraft: (id: string, files: Record<string, string>) =>
-    request<void>(`/exercises/${id}/draft`, { method: 'PUT', body: JSON.stringify({ files }) }),
+  // keepalive : la requête survit à la fermeture de l'onglet (sauvegarde de dernière seconde).
+  saveDraft: (id: string, files: Record<string, string>, keepalive = false) =>
+    request<void>(`/exercises/${id}/draft`, { method: 'PUT', body: JSON.stringify({ files }), keepalive }),
   resetExercise: (id: string) => post<void>(`/exercises/${id}/reset`),
   revealHint: (id: string) => post<{ hints: string[]; hints_total: number }>(`/exercises/${id}/hints`),
   run: (id: string, files: Record<string, string>) => post<RunReport>(`/exercises/${id}/run`, { files }),
