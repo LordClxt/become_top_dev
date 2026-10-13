@@ -5,4 +5,4 @@ Tinybase doit maintenant survivre à un réseau et à des horloges qui mentent. 
 3. **Jalon 3** : `LockService` (baux et jetons), `FencedStorage`, `Majority`, `DeclaredDead`, `CheckFencing`.
 
 Les temps sont des entiers en millisecondes fournis par l'appelant : ton code ne lit jamais l'horloge système, ce qui rend les tests déterministes.
-Commence par `go test ./... -run TestM1`.
+Lance les tests avec le bouton « Lancer les tests » : ceux de chaque jalon commencent par `TestM1`, `TestM2` ou `TestM3` dans les résultats. Commence par faire passer les `TestM1`, les suivants peuvent échouer en attendant.

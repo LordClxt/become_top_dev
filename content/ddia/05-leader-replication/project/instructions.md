@@ -4,4 +4,4 @@ Tinybase doit maintenant tenir sur plusieurs nœuds. Tu implémentes la **répli
 2. **Jalon 2** : un instantané cohérent pour créer un follower, le retard (`Lag`), le choix du plus avancé (`MostUpToDate`), la promotion (`Promote`) et les écritures perdues (`LostWrites`).
 3. **Jalon 3** : un `Router` qui envoie les écritures au leader et choisit pour chaque lecture un follower assez avancé pour la session.
 
-Tout est dans `replication.go`. Lance `go test ./... -run TestM1` pour commencer.
+Tout est dans `replication.go`. Lance les tests avec le bouton « Lancer les tests » : ceux de chaque jalon commencent par `TestM1`, `TestM2` ou `TestM3` dans les résultats. Commence par faire passer les `TestM1`, les suivants peuvent échouer en attendant.

@@ -1,0 +1,21 @@
+milestones:
+- id: m1
+  title: Des workers qui travaillent
+  goal: Démarrer un nombre borné de workers qui consomment une file de jobs, suivre l'état de chaque job (en file, en cours, terminé, échoué)
+    et garder l'erreur d'un job échoué.
+  tests: go test -race ./... -run TestM1
+  review: false
+- id: m2
+  title: Dire non plutôt qu'attendre
+  goal: Refuser tout de suite un job quand la file est pleine ou que son identifiant existe déjà, et tenir des compteurs exacts même avec beaucoup
+    de goroutines qui soumettent en même temps.
+  tests: go test -race ./... -run TestM2
+  review: false
+- id: m3
+  title: S'arrêter proprement
+  goal: Arrêter l'acceptation de jobs, laisser finir ceux en file et en cours, forcer l'arrêt par annulation de contexte si le délai expire, sans
+    panic, sans fuite, y compris si Submit et Shutdown se croisent.
+  tests: go test -race ./... -run TestM3
+  review: true
+  prompt: Pourquoi Submit et la fermeture du channel de jobs doivent-ils être protégés par le même verrou ? Que se passerait-il sans lui, et comment
+    ton Shutdown évite-t-il à la fois la double fermeture et l'envoi sur un channel fermé ?
