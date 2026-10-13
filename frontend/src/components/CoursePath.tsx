@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { Check, Flag, Lock, type LucideIcon } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { SliceMeter } from '@/components/SliceMeter'
 import { iconFor } from '@/lib/course-icons'
 import type { Course } from '@/lib/api'
@@ -12,23 +12,37 @@ import { cn } from '@/lib/utils'
 const TILE = 56
 
 export function CoursePath({ course }: { course: Course }) {
-  const layout = useMemo(() => layoutCourse(course), [course])
+  // La carte se dessine à la largeur disponible, plafonnée à PATH_WIDTH (compacte sur téléphone).
+  const box = useRef<HTMLDivElement>(null)
+  const [width, setWidth] = useState(PATH_WIDTH)
+  useEffect(() => {
+    const el = box.current
+    if (!el) return
+    const ro = new ResizeObserver(([entry]) => {
+      if (entry) setWidth(Math.min(PATH_WIDTH, Math.floor(entry.contentRect.width)))
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+  const layout = useMemo(() => layoutCourse(course, width), [course, width])
   const reduceMotion = useReducedMotion()
+  const W = layout.width
 
   return (
-    <div className="relative mx-auto" style={{ width: PATH_WIDTH, height: layout.height }}>
+    <div ref={box} className="w-full">
+    <div className="relative mx-auto" style={{ width: W, height: layout.height }}>
       <svg
         className="absolute inset-0"
-        width={PATH_WIDTH}
+        width={W}
         height={layout.height}
-        viewBox={`0 0 ${PATH_WIDTH} ${layout.height}`}
+        viewBox={`0 0 ${W} ${layout.height}`}
         aria-hidden="true"
       >
         {layout.camps.map((camp) => (
           <line
             key={camp.title}
             x1={0}
-            x2={PATH_WIDTH}
+            x2={W}
             y1={camp.y + 34}
             y2={camp.y + 34}
             className="stroke-line"
@@ -81,32 +95,58 @@ export function CoursePath({ course }: { course: Course }) {
             node={node}
             icon={iconFor(course.id, node.number)}
             current={i === layout.currentIndex}
+            width={W}
+            compact={layout.compact}
           />
         ))}
       </ol>
 
       <div
-        className="absolute flex flex-col items-center"
-        style={{ left: layout.summit.x - 100, top: layout.summit.y - 22, width: 200 }}
+        className={cn('absolute flex', layout.compact ? 'items-center gap-3' : 'flex-col items-center')}
+        style={
+          layout.compact
+            ? { left: layout.summit.x - 22, top: layout.summit.y - 22, right: 0 }
+            : { left: layout.summit.x - 100, top: layout.summit.y - 22, width: 200 }
+        }
       >
         <span className="grid size-11 place-items-center rounded-full border-2 border-accent bg-ink text-accent">
           <Flag className="size-5" />
         </span>
-        <span className="mt-2 text-center text-sm text-muted">Sommet : {course.title}</span>
+        <span className={cn('text-sm text-muted', !layout.compact && 'mt-2 text-center')}>Sommet : {course.title}</span>
       </div>
 
       {layout.optional.length > 0 && (
         <ol>
           {layout.optional.map((node) => (
-            <PathStep key={node.chapter.slug} node={node} icon={iconFor(course.id, node.number)} current={false} />
+            <PathStep
+              key={node.chapter.slug}
+              node={node}
+              icon={iconFor(course.id, node.number)}
+              current={false}
+              width={W}
+              compact={layout.compact}
+            />
           ))}
         </ol>
       )}
     </div>
+    </div>
   )
 }
 
-function PathStep({ node, icon: Icon, current }: { node: PathNode; icon: LucideIcon; current: boolean }) {
+function PathStep({
+  node,
+  icon: Icon,
+  current,
+  width,
+  compact,
+}: {
+  node: PathNode
+  icon: LucideIcon
+  current: boolean
+  width: number
+  compact: boolean
+}) {
   const { chapter, side } = node
   const mastered = chapter.available && chapter.mastery.mastered
   const locked = chapter.available && !chapter.mastery.unlocked
@@ -114,7 +154,7 @@ function PathStep({ node, icon: Icon, current }: { node: PathNode; icon: LucideI
 
   const position = {
     top: node.y - TILE / 2,
-    ...(side === 'right' ? { left: node.x - TILE / 2 } : { right: PATH_WIDTH - node.x - TILE / 2 }),
+    ...(side === 'right' ? { left: node.x - TILE / 2 } : { right: width - node.x - TILE / 2 }),
   }
 
   const tile = (
@@ -159,10 +199,15 @@ function PathStep({ node, icon: Icon, current }: { node: PathNode; icon: LucideI
   )
 
   const label = (
-    <span className={cn('w-[250px] pt-1', side === 'left' && 'text-right')}>
+    <span
+      className={cn('pt-1', side === 'left' && 'text-right')}
+      // En mode compact, le libellé prend toute la largeur restante à droite de la tuile.
+      style={{ width: compact ? width - (node.x + TILE / 2) - 16 : 250 }}
+    >
       <span
         className={cn(
-          'block font-read text-xl leading-tight font-semibold',
+          'block font-read leading-tight font-semibold',
+          compact ? 'text-lg' : 'text-xl',
           open ? 'group-hover:text-accent' : 'text-muted',
           !chapter.available && 'font-normal',
         )}

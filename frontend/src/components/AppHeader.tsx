@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate } from '@tanstack/react-router'
-import { LogOut, Moon, Settings, Sun } from 'lucide-react'
+import { FlaskConical, GraduationCap, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { StreakFlame } from '@/components/StreakFlame'
 import { LevelTile, XpBar } from '@/components/XpBar'
@@ -10,9 +10,9 @@ import { toggleTheme } from '@/lib/theme'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { to: '/learn', label: 'Mes cours' },
-  { to: '/sandbox', label: 'Atelier' },
-  { to: '/profile', label: 'Profil' },
+  { to: '/learn', label: 'Mes cours', icon: GraduationCap },
+  { to: '/sandbox', label: 'Atelier', icon: FlaskConical },
+  { to: '/profile', label: 'Profil', icon: UserRound },
 ] as const
 
 export function AppHeader() {
@@ -36,17 +36,21 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-ink/85 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between gap-6 px-6">
+      <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between gap-3 px-4 md:gap-6 md:px-6">
         <nav className="flex items-center gap-1" aria-label="Navigation principale">
-          <Link to="/learn" className="mr-5 flex items-center gap-2 font-read text-lg font-semibold tracking-tight">
+          <Link
+            to="/learn"
+            className="flex items-center gap-2 font-read text-lg font-semibold tracking-tight md:mr-5"
+            aria-label="become_top_dev, mes cours"
+          >
             <BrandMark />
-            become_top_dev
+            <span className="hidden sm:inline md:hidden lg:inline">become_top_dev</span>
           </Link>
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="rounded-md px-3 py-1.5 text-sm text-muted transition-colors duration-(--dur-fast) hover:bg-surface-2 hover:text-text"
+              className="hidden rounded-md px-3 py-1.5 text-sm text-muted transition-colors duration-(--dur-fast) hover:bg-surface-2 hover:text-text md:block"
               activeProps={{ className: 'bg-surface-2 text-text', 'aria-current': 'page' }}
             >
               {item.label}
@@ -54,7 +58,7 @@ export function AppHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 text-sm">
+        <div className="flex items-center gap-1 text-sm md:gap-2">
           {progress && (
             <>
               <Link
@@ -120,6 +124,28 @@ export function AppHeader() {
         </div>
       </div>
     </header>
+  )
+}
+
+/** Sur téléphone, la navigation principale passe dans une barre d'onglets en bas de l'écran, à portée de pouce. */
+export function MobileTabBar() {
+  return (
+    <nav
+      className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-line bg-ink/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+      aria-label="Navigation principale"
+    >
+      {NAV.map(({ to, label, icon: Icon }) => (
+        <Link
+          key={to}
+          to={to}
+          className="flex flex-col items-center gap-1 py-2 text-[11px] text-muted"
+          activeProps={{ className: 'text-accent', 'aria-current': 'page' }}
+        >
+          <Icon className="size-5" aria-hidden="true" />
+          {label}
+        </Link>
+      ))}
+    </nav>
   )
 }
 
