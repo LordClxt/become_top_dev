@@ -1,4 +1,5 @@
 import { snippetCompletion, type Completion, type CompletionContext, type CompletionSource } from '@codemirror/autocomplete'
+import { GROOVY_MEMBERS, GROOVY_STATICS } from './groovy-gdk.gen'
 import { groovyWorkspaceNames, inCommentOrString, result, wordsInDoc } from './workspace'
 
 const list = (names: string, type: string, detail?: string): Completion[] =>
@@ -41,21 +42,32 @@ const GLOBALS = [
   ...list('render redirect respond forward chain withForm bindData hasErrors', 'function', 'Grails'),
 ]
 
-/** Méthodes GDK et JDK les plus utiles, proposées après `.` (pas d'inférence de type). */
-const MEMBERS = [
-  ...list(
-    'each eachWithIndex collect collectEntries collectMany find findAll findResult findResults findIndexOf grep any every inject sum min max count countBy groupBy split withIndex indexed sort toSorted unique toUnique reverse flatten first last head tail init take drop takeWhile dropWhile join size isEmpty contains containsAll plus minus multiply intersect disjoint asImmutable asType toList toSet toArray subMap getAt putAt get put remove removeAll removeIf retainAll keySet values entrySet containsKey containsValue getOrDefault putIfAbsent computeIfAbsent merge with tap asBoolean collate chop permutations combinations transpose step upto downto times sort sum average',
-    'method',
-    'GDK',
-  ),
-  ...list(
-    'toUpperCase toLowerCase capitalize uncapitalize trim strip stripIndent stripMargin padLeft padRight center startsWith endsWith replace replaceAll replaceFirst substring indexOf lastIndexOf charAt length tokenize readLines eachLine find findAll matches isNumber isInteger isBigDecimal toInteger toLong toBigDecimal toDouble toBoolean format chars denormalize normalize expand unexpand isBlank isAllWhitespace equalsIgnoreCase compareTo hashCode equals toString getClass',
-    'method',
-    'String',
-  ),
-  ...list('call curry rcurry ncurry memoize trampoline leftShift rightShift andThen compose dehydrate rehydrate resolveStrategy delegate owner maximumNumberOfParameters parameterTypes', 'method', 'Closure'),
-  ...list('save validate delete refresh discard attach merge errors hasErrors properties id version isDirty getPersistentValue addTo removeFrom', 'method', 'GORM'),
-]
+/** Méthodes GDK et JDK après `.`, générées depuis Groovy 4 (pas d'inférence de type). */
+const ALL_MEMBERS: (Completion & { receivers: string[] })[] = GROOVY_MEMBERS.map(([label, sig, receivers]) => ({
+  label,
+  type: 'method',
+  detail: `${sig} · ${receivers.slice(0, 3).join(', ')}${receivers.length > 3 ? '…' : ''}`,
+  receivers,
+}))
+const STRING_RECEIVERS = new Set(['String', 'CharSequence', 'GString', 'Object', 'Comparable'])
+/** Après un littéral `'…'.` ou `"…".` : seulement ce qui s'applique à une chaîne. */
+const STRING_MEMBERS = ALL_MEMBERS.filter((c) => c.receivers.some((r) => STRING_RECEIVERS.has(r)))
+
+/** Méthodes d'instance GORM, absentes du GDK. */
+const GORM_MEMBERS = list(
+  'save validate delete refresh discard attach merge errors hasErrors properties id version isDirty getPersistentValue addTo removeFrom',
+  'method',
+  'GORM',
+)
+const MEMBERS = [...ALL_MEMBERS, ...GORM_MEMBERS]
+
+/** Membres statiques des classes JDK courantes (`Math.`, `Collections.`, `LocalDate.`…). */
+const STATICS = new Map(
+  Object.entries(GROOVY_STATICS).map(([cls, entries]) => [
+    cls,
+    entries.map(([label, type, detail]): Completion => ({ label, type, detail })),
+  ]),
+)
 
 /** Méthodes statiques GORM, proposées après un nom de classe (`Book.`). */
 const STATIC_GORM = [
@@ -66,7 +78,7 @@ const STATIC_GORM = [
 ]
 
 /**
- * Complétion Groovy/Grails : mots-clés, snippets, GDK, GORM et noms déclarés dans
+ * Complétion Groovy/Grails : mots-clés, snippets, tout le GDK, GORM et noms déclarés dans
  * les fichiers du TP. Pas de compilateur côté navigateur : c'est une aide lexicale.
  */
 export function groovyCompletion(otherFiles: string[]): CompletionSource {
@@ -79,6 +91,9 @@ export function groovyCompletion(otherFiles: string[]): CompletionSource {
       const recv = /^(\w+|[)\]}'"])/.exec(member.text)?.[1] ?? ''
       if (/^\d+$/.test(recv) && !/\.[A-Za-z_]/.test(member.text)) return null
       const word = context.matchBefore(/\w*$/)!
+      const statics = STATICS.get(recv)
+      if (statics) return result(word.from, statics)
+      if (recv === "'" || recv === '"') return result(word.from, STRING_MEMBERS)
       const isClass = /^[A-Z]/.test(recv)
       return result(word.from, [...ws.members, ...(isClass ? STATIC_GORM : []), ...MEMBERS])
     }
