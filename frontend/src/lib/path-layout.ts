@@ -3,9 +3,8 @@ import type { Course, CourseChapter } from '@/lib/api'
 /** Géométrie du chemin de la carte du cours (logique pure, sans React). */
 
 export const PATH_WIDTH = 600
-const CENTER = PATH_WIDTH / 2
-const AMPLITUDE = 150
-const STEP = 184
+/** En dessous, la carte passe en mode compact : sentier le long du bord gauche, libellés tous à droite. */
+export const COMPACT_BELOW = 560
 const CAMP_GAP = 84
 const TOP = 24
 
@@ -21,6 +20,8 @@ export type PathNode = Point & {
 export type Camp = { title: string; optional: boolean; count: number; y: number }
 
 export type PathLayout = {
+  width: number
+  compact: boolean
   main: PathNode[]
   optional: PathNode[]
   camps: Camp[]
@@ -49,7 +50,11 @@ function curve(points: Point[]): string {
     .join(' ')
 }
 
-export function layoutCourse(course: Course): PathLayout {
+export function layoutCourse(course: Course, width = PATH_WIDTH): PathLayout {
+  const compact = width < COMPACT_BELOW
+  const CENTER = compact ? 36 : width / 2
+  const AMPLITUDE = compact ? 12 : 150
+  const STEP = compact ? 120 : 184
   const main: PathNode[] = []
   const optional: PathNode[] = []
   const camps: Camp[] = []
@@ -58,7 +63,8 @@ export function layoutCourse(course: Course): PathLayout {
 
   const place = (ch: CourseChapter, phase: number): PathNode => {
     const x = Math.round(CENTER + AMPLITUDE * Math.sin(phase * 0.95))
-    return { chapter: ch, number: Number.parseInt(ch.slug, 10), x, y, side: x > CENTER + 20 ? 'left' : 'right' }
+    const side = !compact && x > CENTER + 20 ? 'left' : 'right'
+    return { chapter: ch, number: Number.parseInt(ch.slug, 10), x, y, side }
   }
 
   for (const track of course.tracks.filter((t) => !t.optional)) {
@@ -94,6 +100,8 @@ export function layoutCourse(course: Course): PathLayout {
   const reached = allMastered ? [...main, summit] : main.slice(0, currentIndex + 1)
 
   return {
+    width,
+    compact,
     main,
     optional,
     camps,

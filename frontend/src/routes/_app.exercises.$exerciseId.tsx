@@ -102,12 +102,13 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
   return (
     <main
       className={cn(
-        'grid h-[calc(100vh-3.5rem)] grid-cols-1',
+        // Sur petit écran, l'énoncé puis l'éditeur s'empilent et la page défile ; dès lg, les deux panneaux tiennent dans l'écran.
+        'grid grid-cols-[minmax(0,1fr)] lg:h-[calc(100vh-3.5rem)]',
         noCode ? 'lg:grid-cols-[minmax(300px,27%)_1fr]' : 'lg:grid-cols-[minmax(340px,38%)_1fr]',
       )}
     >
       {/* Énoncé */}
-      <section className="overflow-y-auto border-r border-line px-8 pt-8 pb-16">
+      <section className="border-b border-line px-4 pt-6 pb-10 sm:px-8 sm:pt-8 lg:overflow-y-auto lg:border-r lg:border-b-0 lg:pb-16">
         <Link {...backTo} className="inline-flex items-center gap-1 text-sm text-muted hover:text-text">
           <ChevronLeft className="size-4" />
           {ex.lesson_id ? 'Retour à la leçon' : inSandbox ? 'Retour à l’atelier' : 'Retour au module'}
@@ -219,11 +220,15 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
       {/* Éditeur + résultats */}
       <section
         className={cn(
-          'grid min-h-0',
-          noCode ? 'grid-rows-[auto_minmax(0,1fr)_minmax(110px,24%)]' : 'grid-rows-[auto_minmax(0,1fr)_minmax(140px,34%)]',
+          'grid min-w-0 grid-cols-[minmax(0,1fr)] lg:h-auto lg:min-h-0',
+          // Sur petit écran, une fiche se lit comme une page (pas de défilement imbriqué) ;
+          // le code et le diagramme gardent un panneau à hauteur d'écran.
+          isSheet ? 'lg:grid-rows-[auto_minmax(0,1fr)_minmax(110px,24%)]' : 'h-[calc(100svh-3.5rem-4rem)] min-h-[480px]',
+          isDiagram && 'grid-rows-[auto_minmax(0,1fr)_minmax(110px,24%)]',
+          !noCode && 'grid-rows-[auto_minmax(0,1fr)_minmax(140px,34%)]',
         )}
       >
-        <div className="flex items-center justify-between border-b border-line pr-3">
+        <div className="flex flex-wrap items-center justify-between gap-y-1 border-b border-line pr-3 lg:flex-nowrap">
           {noCode ? (
             <p className="flex items-center gap-2 px-4 py-2.5 text-sm">
               {isDiagram ? <Workflow className="size-4 text-accent" /> : <ClipboardList className="size-4 text-accent" />}
@@ -231,7 +236,7 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
               <span className="text-muted">enregistré{isDiagram ? '' : 'e'} automatiquement</span>
             </p>
           ) : (
-          <div className="flex overflow-x-auto" role="tablist" aria-label="Fichiers">
+          <div className="flex max-w-full min-w-0 overflow-x-auto" role="tablist" aria-label="Fichiers">
             {allNames.map((name) => (
               <button
                 key={name}
@@ -267,7 +272,7 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
           </div>
         </div>
 
-        <div className="min-h-0 overflow-hidden">
+        <div className={cn('min-h-0', isSheet ? 'lg:overflow-hidden' : 'overflow-hidden')}>
           {isDiagram ? (
             <DiagramEditor
               key={editorKey}
@@ -280,7 +285,7 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
               }}
             />
           ) : isSheet && ex.worksheet ? (
-            <div className="h-full overflow-y-auto">
+            <div className="lg:h-full lg:overflow-y-auto">
               <Worksheet
                 key={editorKey}
                 exerciseId={ex.id}
