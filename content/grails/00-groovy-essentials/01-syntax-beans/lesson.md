@@ -19,6 +19,8 @@ glossary:
     definition: "Un assert raté affiche la valeur de chaque sous-expression, ce qui évite d'ajouter des println pour comprendre."
   - term: "def"
     definition: "Déclare une variable sans type statique : son type est Object à la compilation, le vrai type est vérifié à l'exécution."
+  - term: "closure"
+    definition: "Bloc de code entre accolades, avec ou sans paramètres ({ x -> x * 2 }, { it * 2 }), qu'on range dans une variable ou qu'on passe à une méthode comme collect ou each."
   - term: "GDK"
     definition: "Groovy Development Kit : les méthodes que Groovy ajoute aux classes du JDK (par exemple size() sur un tableau, eachLine sur un File)."
 visuals: []
@@ -121,6 +123,25 @@ Les annotations du paquet `groovy.transform` écrivent du code à ta place, **à
 
 Attention : `@ToString` énumère aussi les propriétés **calculées** (comme `label`). Utilise `excludes` quand tu ne veux pas les voir apparaître, c'est ce que le lab te fait découvrir.
 
+## Les closures en deux minutes
+
+Les leçons suivantes de ce module utilisent sans cesse des blocs entre accolades passés à des méthodes : `list.each { … }`, `list.collect { … }`. Ce sont des **closures**. Le module 01 leur est entièrement consacré ; voici juste ce qu'il faut pour lire et écrire celles de ce module.
+
+```groovy
+def doubler = { n -> n * 2 }        // une closure : des paramètres, une flèche, un corps
+assert doubler(21) == 42            // on l'appelle comme une méthode
+
+assert [1, 2, 3].collect { n -> n * 2 } == [2, 4, 6]
+assert [1, 2, 3].collect { it * 2 } == [2, 4, 6]       // un seul paramètre : il s'appelle `it` par défaut
+assert [a: 1, b: 2].collect { k, v -> "$k$v" } == ['a1', 'b2']   // deux paramètres
+```
+
+Trois règles suffisent pour l'instant :
+
+- `{ x -> … }` déclare une closure à un paramètre `x` ; sans flèche, l'unique paramètre s'appelle `it`.
+- La valeur renvoyée est celle de la **dernière expression** du corps, comme pour une méthode.
+- Quand une closure est le **dernier argument** d'une méthode, elle sort des parenthèses : `list.collect { … }` veut dire `list.collect({ … })`, et `list.inject(0) { acc, x -> acc + x }` veut dire `list.inject(0, { acc, x -> acc + x })`.
+
 ## Pièges fréquents
 
 - **Écrire `price = value` dans le setter de `price`** : selon le contexte, ça rappelle le setter et boucle. Utilise `this.@price`.
@@ -134,5 +155,6 @@ Attention : `@ToString` énumère aussi les propriétés **calculées** (comme `
 - Un champ sans modificateur est une **propriété** ; un `getXxx()` suffit à en créer une.
 - `new X(a: 1)` = constructeur vide + setters : un setter strict protège aussi la construction.
 - Le *power assert* affiche chaque sous-expression : lis-le avant de déboguer autrement.
+- Une closure `{ x -> … }` (ou `{ … it … }`) se passe en dernier argument hors des parenthèses : `list.collect { it * 2 }`.
 
 > **Sources :** *Groovy in Action*, 2e éd., chapitre 2 (« Overture: Groovy basics », classes, scripts, GroovyBeans, assertions) et chapitre 7 (champs et propriétés) ; *Programming Grails*, chapitre 1 (Groovy pour les développeurs Java). Grails 7 : exigences de plateforme, documentation officielle de Grails (docs.grails.org).

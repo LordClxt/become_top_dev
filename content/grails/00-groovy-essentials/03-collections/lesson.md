@@ -82,7 +82,7 @@ assert m2 == [dyn: 1]
 assert [*:m, age: 37].age == 37     // spread de map : copie puis remplace
 ```
 
-Une map littérale est une `LinkedHashMap`, donc **l'ordre d'insertion est conservé**. `each` accepte une closure à une entrée ou à deux paramètres (clé, valeur) : tu l'as vu à la leçon sur les closures.
+Une map littérale est une `LinkedHashMap`, donc **l'ordre d'insertion est conservé**. `each` accepte une closure à un paramètre (l'entrée, avec `.key` et `.value`) ou à deux paramètres (clé, valeur). Le module 01 montre comment une méthode choisit entre les deux.
 
 `withDefault` évite le test « la clé existe-t-elle ? » :
 

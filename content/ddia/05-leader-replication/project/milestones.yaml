@@ -1,0 +1,21 @@
+milestones:
+- id: m1
+  title: Le log et le follower
+  goal: Numéroter les écritures du leader (LSN), appliquer le log dans l'ordre sur un follower (trou refusé, rejeu ignoré) et se rattraper depuis
+    sa dernière position.
+  tests: go test ./... -run TestM1
+  review: false
+- id: m2
+  title: Instantané, retard et failover
+  goal: Créer un follower depuis un instantané cohérent, mesurer le retard, choisir le follower le plus avancé, le promouvoir sans casser la numérotation
+    et compter les écritures perdues.
+  tests: go test ./... -run TestM2
+  review: false
+- id: m3
+  title: Un routeur qui respecte la session
+  goal: Router les écritures au leader et les lectures vers un follower assez avancé pour que l'utilisateur lise ses écritures et ne recule jamais
+    ; sinon lire au leader.
+  tests: go test ./... -run TestM3
+  review: true
+  prompt: Pourquoi la session retient-elle un numéro de position (LSN) plutôt qu'un horodatage de l'horloge, et que faudrait-il changer pour que
+    la garantie tienne aussi entre deux appareils d'un même utilisateur ?

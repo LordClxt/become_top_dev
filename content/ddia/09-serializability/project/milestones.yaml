@@ -1,0 +1,21 @@
+milestones:
+- id: m1
+  title: Exécution en série
+  goal: Un exécuteur dont une goroutine traite les procédures une par une, annule les écritures d'une procédure en échec, se ferme proprement,
+    et une version partitionnée.
+  tests: go test ./... -run TestM1
+  review: false
+- id: m2
+  title: Verrouillage en deux phases
+  goal: Un gestionnaire de verrous partagés/exclusifs avec promotion, file d'attente équitable, relâchement en bloc et détection d'interblocage
+    par cycle dans le graphe d'attentes.
+  tests: go test ./... -run TestM2
+  review: false
+- id: m3
+  title: Validation optimiste sur instantané
+  goal: Des transactions qui lisent un instantané, mémorisent leurs lectures et leurs recherches par préfixe, et sont annulées à la validation
+    si une transaction validée depuis leur début a invalidé leur prémisse.
+  tests: go test ./... -run TestM3
+  review: true
+  prompt: En quoi ta validation optimiste est-elle plus stricte que la vraie SSI de PostgreSQL (quels cas annule-t-elle à tort ?), et pourquoi
+    une transaction en lecture seule n'est-elle jamais annulée ?
