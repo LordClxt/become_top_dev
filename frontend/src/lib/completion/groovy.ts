@@ -1,4 +1,5 @@
 import { snippetCompletion, type Completion, type CompletionContext, type CompletionSource } from '@codemirror/autocomplete'
+import { GRAILS_API } from './grails-api.gen'
 import { GROOVY_MEMBERS, GROOVY_STATICS } from './groovy-gdk.gen'
 import { groovyWorkspaceNames, inCommentOrString, result, wordsInDoc } from './workspace'
 
@@ -7,6 +8,10 @@ const list = (names: string, type: string, detail?: string): Completion[] =>
     .split(/\s+/)
     .filter(Boolean)
     .map((label) => ({ label, type, detail }))
+
+/** Entrées générées depuis les sources de Grails, avec leur signature. */
+const grails = (group: keyof typeof GRAILS_API, origin: string): Completion[] =>
+  GRAILS_API[group].map(([label, type, detail]) => ({ label, type, detail: `${origin} · ${detail}` }))
 
 const KEYWORDS = list(
   'def class interface trait enum extends implements static final private protected public abstract return if else for in while do switch case default break continue try catch finally throw throws new instanceof as assert import package this super null true false void boolean int long double var record sealed permits yield',
@@ -28,6 +33,9 @@ const SNIPPETS: Completion[] = [
   snippetCompletion('static mapping = {\n\t${}\n}', { label: 'mapping', detail: 'GORM', type: 'keyword' }),
   snippetCompletion('static hasMany = [${name}: ${Type}]', { label: 'hasMany', detail: 'GORM', type: 'keyword' }),
   snippetCompletion('static belongsTo = [${name}: ${Type}]', { label: 'belongsTo', detail: 'GORM', type: 'keyword' }),
+  snippetCompletion('static hasOne = [${name}: ${Type}]', { label: 'hasOne', detail: 'GORM', type: 'keyword' }),
+  snippetCompletion("static transients = ['${name}']", { label: 'transients', detail: 'GORM', type: 'keyword' }),
+  snippetCompletion("static embedded = ['${name}']", { label: 'embedded', detail: 'GORM', type: 'keyword' }),
   snippetCompletion('println "${}"', { label: 'println', detail: 'afficher', type: 'function' }),
 ]
 
@@ -38,8 +46,9 @@ const GLOBALS = [
     'String GString Integer Long BigDecimal BigInteger Double Boolean Character Object List Map Set LinkedHashMap ArrayList HashMap HashSet TreeMap Range IntRange Closure Date LocalDate LocalDateTime Duration Optional Math Collections Arrays Pattern Matcher StringBuilder Exception RuntimeException IllegalArgumentException IllegalStateException UnsupportedOperationException ValidationException Expando ConfigObject JsonSlurper JsonOutput MarkupBuilder XmlSlurper CompileStatic TypeChecked Canonical ToString EqualsAndHashCode Immutable TupleConstructor Builder Delegate Memoized Lazy Field DelegatesTo',
     'class',
   ),
-  ...list('params flash session request response servletContext grailsApplication log', 'variable', 'Grails'),
-  ...list('render redirect respond forward chain withForm bindData hasErrors', 'function', 'Grails'),
+  // API des contrôleurs Grails (render, redirect, params…), générée depuis les sources de Grails.
+  ...grails('controller', 'Grails'),
+  { label: 'log', type: 'variable', detail: 'Grails · Logger' },
 ]
 
 /** Méthodes GDK et JDK après `.`, générées depuis Groovy 4 (pas d'inférence de type). */
@@ -53,12 +62,8 @@ const STRING_RECEIVERS = new Set(['String', 'CharSequence', 'GString', 'Object',
 /** Après un littéral `'…'.` ou `"…".` : seulement ce qui s'applique à une chaîne. */
 const STRING_MEMBERS = ALL_MEMBERS.filter((c) => c.receivers.some((r) => STRING_RECEIVERS.has(r)))
 
-/** Méthodes d'instance GORM, absentes du GDK. */
-const GORM_MEMBERS = list(
-  'save validate delete refresh discard attach merge errors hasErrors properties id version isDirty getPersistentValue addTo removeFrom',
-  'method',
-  'GORM',
-)
+/** Méthodes d'instance GORM et `Validateable` (`save`, `validate`, `errors`…), absentes du GDK. */
+const GORM_MEMBERS = [...grails('gormInstance', 'GORM'), ...grails('validateable', 'Validateable')]
 const MEMBERS = [...ALL_MEMBERS, ...GORM_MEMBERS]
 
 /** Membres statiques des classes JDK courantes (`Math.`, `Collections.`, `LocalDate.`…). */
@@ -71,10 +76,12 @@ const STATICS = new Map(
 
 /** Méthodes statiques GORM, proposées après un nom de classe (`Book.`). */
 const STATIC_GORM = [
-  ...list('get getAll read load list listOrderBy count exists findAll find where whereAny withCriteria createCriteria executeQuery executeUpdate findWhere findAllWhere withTransaction withNewSession saveAll deleteAll first last', 'method', 'GORM'),
+  ...grails('gormStatic', 'GORM'),
   snippetCompletion('findBy${Property}(${value})', { label: 'findBy…', detail: 'GORM dynamique', type: 'method' }),
   snippetCompletion('findAllBy${Property}(${value})', { label: 'findAllBy…', detail: 'GORM dynamique', type: 'method' }),
   snippetCompletion('countBy${Property}(${value})', { label: 'countBy…', detail: 'GORM dynamique', type: 'method' }),
+  snippetCompletion('findOrCreateBy${Property}(${value})', { label: 'findOrCreateBy…', detail: 'GORM dynamique', type: 'method' }),
+  snippetCompletion('listOrderBy${Property}()', { label: 'listOrderBy…', detail: 'GORM dynamique', type: 'method' }),
 ]
 
 /**
