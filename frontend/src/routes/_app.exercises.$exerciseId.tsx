@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ChevronLeft, ClipboardList, Lightbulb, ListChecks, Play, RotateCcw, Workflow } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { CodeEditor } from '@/components/CodeEditor'
+import { CodeEditor, editorLanguage } from '@/components/CodeEditor'
 import { DiagramEditor } from '@/components/diagram/DiagramEditor'
 import { LessonBody } from '@/components/LessonBody'
 import { ErrorState, Loading } from '@/components/states'
@@ -48,11 +48,36 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
 
   // Sauvegarde automatique du brouillon, 1,5 s après la dernière frappe.
   const dirty = useRef(false)
+  // Brouillon pas encore envoyé au serveur (null = rien en attente).
+  const pending = useRef<Record<string, string> | null>(null)
+  const saveDraft = useCallback(
+    (keepalive = false) => {
+      const draft = pending.current
+      if (!draft) return
+      pending.current = null
+      api.saveDraft(ex.id, draft, keepalive).catch(() => {})
+      // Le cache garde le brouillon : en revenant sur la page, on retrouve le code tel qu'on l'a laissé.
+      qc.setQueryData<Exercise>(['exercise', ex.id], (old) =>
+        old && { ...old, workspace: { ...old.workspace, editable: draft } },
+      )
+    },
+    [ex.id, qc],
+  )
   useEffect(() => {
     if (!dirty.current) return
-    const t = setTimeout(() => api.saveDraft(ex.id, files), 1500)
+    pending.current = files
+    const t = setTimeout(() => saveDraft(), 1500)
     return () => clearTimeout(t)
-  }, [ex.id, files])
+  }, [files, saveDraft])
+  // On quitte la page ou on ferme l'onglet avant la fin du délai : on envoie tout de suite.
+  useEffect(() => {
+    const flush = () => saveDraft(true)
+    window.addEventListener('pagehide', flush)
+    return () => {
+      window.removeEventListener('pagehide', flush)
+      flush()
+    }
+  }, [saveDraft])
 
   const run = useMutation({
     mutationFn: () => api.run(ex.id, files),
@@ -71,7 +96,11 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
     onSuccess: (r) => setHints(r.hints),
   })
   const reset = useMutation({
-    mutationFn: () => api.resetExercise(ex.id),
+    mutationFn: () => {
+      // Un brouillon en attente ne doit pas écraser la remise à zéro.
+      pending.current = null
+      return api.resetExercise(ex.id)
+    },
     onSuccess: async () => {
       dirty.current = false
       const fresh = await api.exercise(ex.id)
@@ -80,6 +109,15 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
       setEditorKey((k) => k + 1)
     },
   })
+
+  // Contenu des autres fichiers pour l'autocomplétion ; stable tant qu'on ne tape que dans le fichier actif.
+  const otherFilesKey = JSON.stringify(
+    Object.entries({ ...files, ...ex.workspace.readonly })
+      .filter(([name]) => name !== active)
+      .map(([, src]) => src),
+  )
+  const otherFiles = useMemo(() => JSON.parse(otherFilesKey) as string[], [otherFilesKey])
+  const language = editorLanguage(active, ex.language)
 
   const passed = ex.workspace.passed || run.data?.passed
   const debrief = run.data?.debrief || ex.debrief
@@ -301,6 +339,8 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
           ) : editableNames.includes(active) ? (
             <CodeEditor
               value={files[active] ?? ''}
+              language={language}
+              otherFiles={otherFiles}
               onRun={runTests}
               onChange={(v) => {
                 dirty.current = true
@@ -308,7 +348,7 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
               }}
             />
           ) : (
-            <CodeEditor value={ex.workspace.readonly[active] ?? ''} readOnly />
+            <CodeEditor value={ex.workspace.readonly[active] ?? ''} language={language} readOnly />
           )}
         </div>
 

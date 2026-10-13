@@ -15,6 +15,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppLearnRouteImport } from './routes/_app.learn'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppSandboxRouteImport } from './routes/_app.sandbox'
+import { Route as AppSettingsRouteImport } from './routes/_app.settings'
 import { Route as AppChaptersChapterIdRouteImport } from './routes/_app.chapters.$chapterId'
 import { Route as AppCoursesCourseIdRouteImport } from './routes/_app.courses.$courseId'
 import { Route as AppExercisesExerciseIdRouteImport } from './routes/_app.exercises.$exerciseId'
@@ -49,6 +50,11 @@ const AppSandboxRoute = AppSandboxRouteImport.update({
   path: '/sandbox',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppChaptersChapterIdRoute = AppChaptersChapterIdRouteImport.update({
   id: '/chapters/$chapterId',
   path: '/chapters/$chapterId',
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/learn': typeof AppLearnRoute
   '/profile': typeof AppProfileRoute
   '/sandbox': typeof AppSandboxRoute
+  '/settings': typeof AppSettingsRoute
   '/chapters/$chapterId': typeof AppChaptersChapterIdRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/exercises/$exerciseId': typeof AppExercisesExerciseIdRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/learn': typeof AppLearnRoute
   '/profile': typeof AppProfileRoute
   '/sandbox': typeof AppSandboxRoute
+  '/settings': typeof AppSettingsRoute
   '/chapters/$chapterId': typeof AppChaptersChapterIdRoute
   '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/exercises/$exerciseId': typeof AppExercisesExerciseIdRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/_app/learn': typeof AppLearnRoute
   '/_app/profile': typeof AppProfileRoute
   '/_app/sandbox': typeof AppSandboxRoute
+  '/_app/settings': typeof AppSettingsRoute
   '/_app/chapters/$chapterId': typeof AppChaptersChapterIdRoute
   '/_app/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/_app/exercises/$exerciseId': typeof AppExercisesExerciseIdRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/profile'
     | '/sandbox'
+    | '/settings'
     | '/chapters/$chapterId'
     | '/courses/$courseId'
     | '/exercises/$exerciseId'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/profile'
     | '/sandbox'
+    | '/settings'
     | '/chapters/$chapterId'
     | '/courses/$courseId'
     | '/exercises/$exerciseId'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/_app/learn'
     | '/_app/profile'
     | '/_app/sandbox'
+    | '/_app/settings'
     | '/_app/chapters/$chapterId'
     | '/_app/courses/$courseId'
     | '/_app/exercises/$exerciseId'
@@ -192,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSandboxRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/chapters/$chapterId': {
       id: '/_app/chapters/$chapterId'
       path: '/chapters/$chapterId'
@@ -227,6 +246,7 @@ interface AppRouteChildren {
   AppLearnRoute: typeof AppLearnRoute
   AppProfileRoute: typeof AppProfileRoute
   AppSandboxRoute: typeof AppSandboxRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppChaptersChapterIdRoute: typeof AppChaptersChapterIdRoute
   AppCoursesCourseIdRoute: typeof AppCoursesCourseIdRoute
   AppExercisesExerciseIdRoute: typeof AppExercisesExerciseIdRoute
@@ -237,6 +257,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppLearnRoute: AppLearnRoute,
   AppProfileRoute: AppProfileRoute,
   AppSandboxRoute: AppSandboxRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppChaptersChapterIdRoute: AppChaptersChapterIdRoute,
   AppCoursesCourseIdRoute: AppCoursesCourseIdRoute,
   AppExercisesExerciseIdRoute: AppExercisesExerciseIdRoute,
