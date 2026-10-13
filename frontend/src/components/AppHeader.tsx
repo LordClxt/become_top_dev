@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate } from '@tanstack/react-router'
-import { LogOut, Moon, Sun } from 'lucide-react'
+import { LogOut, Moon, Settings, Sun } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { StreakFlame } from '@/components/StreakFlame'
 import { LevelTile, XpBar } from '@/components/XpBar'
@@ -98,6 +98,15 @@ export function AppHeader() {
           >
             {theme === 'dark' ? <Sun className="size-4" /> : <Moon className="size-4" />}
           </button>
+          <Link
+            to="/settings"
+            className="rounded-md p-2 text-muted transition-colors duration-(--dur-fast) hover:bg-surface-2 hover:text-text"
+            activeProps={{ className: 'bg-surface-2 text-text', 'aria-current': 'page' }}
+            aria-label="Paramètres"
+            title="Paramètres"
+          >
+            <Settings className="size-4" />
+          </Link>
           <button
             type="button"
             onClick={() => logout.mutate()}

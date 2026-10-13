@@ -6,6 +6,7 @@ import { classHighlighter } from '@lezer/highlight'
 import CodeMirror from '@uiw/react-codemirror'
 import { useMemo } from 'react'
 import { goCompletion } from '@/lib/completion/go'
+import { useSettings } from '@/lib/settings'
 import { groovyCompletion } from '@/lib/completion/groovy'
 
 const theme = EditorView.theme({
@@ -56,6 +57,7 @@ export function CodeEditor({
   /** Contenu des autres fichiers du TP, dont les noms déclarés sont proposés en complétion. */
   otherFiles?: string[]
 }) {
+  const { autocomplete } = useSettings()
   const extensions = useMemo(
     () => [
       ...languageSupport(language, otherFiles),
@@ -75,7 +77,7 @@ export function CodeEditor({
       height="100%"
       className="h-full"
       extensions={extensions}
-      basicSetup={{ foldGutter: false, highlightActiveLine: !readOnly, tabSize: 4, autocompletion: !readOnly }}
+      basicSetup={{ foldGutter: false, highlightActiveLine: !readOnly, tabSize: 4, autocompletion: autocomplete && !readOnly }}
     />
   )
 }
