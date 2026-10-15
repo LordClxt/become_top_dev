@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=800, height=560" />
+    <meta name="poster-time" content="4.6" />
+    <title>Lire : une leçon tirée du livre</title>
+    <!--
+      Choreography (6.5 s, en boucle) :
+        0.1 – 0.8   le livre s'ouvre depuis la reliure (pages en scaleX)
+        0.8 – 1.4   les lignes s'écrivent (stagger plafonné à 0.5 s)
+        1.8 – 2.3   le surligneur citron passe sur une phrase
+        2.5 – 2.9   l'étiquette « ch. 6 · p. 142 » saute : la source est citée
+        3.2 – 3.6   +30 XP
+        5.6 – 6.1   tout se retire ; 6.1 – 6.5 vide, puis la boucle reprend
+      Fond transparent : la scène se pose sur la carte de la page d'accueil.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&family=JetBrains+Mono:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 800px;
+        height: 560px;
+        overflow: hidden;
+        background: transparent;
+      }
+      #root {
+        position: absolute;
+        inset: 0;
+      }
+      .page {
+        position: absolute;
+        top: 120px;
+        width: 290px;
+        height: 340px;
+        padding: 40px 34px;
+        background: #f4f4ef;
+        opacity: 0;
+        will-change: transform;
+      }
+      #pl {
+        left: 110px;
+        border-radius: 22px 4px 4px 22px;
+        transform-origin: 100% 50%;
+        background: linear-gradient(to left, #dcdbd2, #f4f4ef 18%);
+      }
+      #pr {
+        left: 400px;
+        border-radius: 4px 22px 22px 4px;
+        transform-origin: 0% 50%;
+        background: linear-gradient(to right, #dcdbd2, #f4f4ef 18%);
+      }
+      .ln {
+        position: relative;
+        height: 12px;
+        margin-bottom: 22px;
+        border-radius: 6px;
+        background: #c4c3b9;
+        transform-origin: 0 50%;
+      }
+      .ln.h {
+        background: #0c0d12;
+      }
+      /* Sous la 3e ligne (padding 40 + 2 × 34) : placé avant les lignes, il est peint dessous. */
+      #hl {
+        position: absolute;
+        left: 26px;
+        top: 99px;
+        width: 225px;
+        height: 30px;
+        border-radius: 8px;
+        background: #d6ff3d;
+        transform-origin: 0 50%;
+      }
+      .chip {
+        position: absolute;
+        opacity: 0;
+        border-radius: 999px;
+        will-change: transform;
+      }
+      #tag {
+        left: 470px;
+        top: 52px;
+        padding: 14px 26px;
+        background: #0c0d12;
+        color: #f4f4ef;
+        border: 3px solid #d6ff3d;
+        font: 600 28px "JetBrains Mono", ui-monospace, monospace;
+      }
+      #xp {
+        left: 60px;
+        top: 440px;
+        padding: 10px 24px 4px;
+        background: #d6ff3d;
+        color: #0c0d12;
+        font: 900 52px "Big Shoulders Display", "Arial Narrow", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6.5" data-width="800" data-height="560">
+      <div class="page" id="pl">
+        <div class="ln" style="width: 92%"></div>
+        <div class="ln" style="width: 100%"></div>
+        <div class="ln" style="width: 78%"></div>
+        <div class="ln" style="width: 96%"></div>
+        <div class="ln" style="width: 64%"></div>
+        <div class="ln" style="width: 88%"></div>
+        <div class="ln" style="width: 40%"></div>
+      </div>
+      <div class="page" id="pr">
+        <div id="hl"></div>
+        <div class="ln" style="width: 100%"></div>
+        <div class="ln" style="width: 84%"></div>
+        <div class="ln h" style="width: 94%"></div>
+        <div class="ln h" style="width: 70%"></div>
+        <div class="ln" style="width: 90%"></div>
+        <div class="ln" style="width: 76%"></div>
+        <div class="ln" style="width: 52%"></div>
+      </div>
+      <div class="chip" id="tag">ch. 6 · p. 142</div>
+      <div class="chip" id="xp">+30 XP</div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#pl, #pr", { opacity: 0, scaleX: 0.05 }, { opacity: 1, scaleX: 1, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.fromTo(".ln", { scaleX: 0 }, { scaleX: 1, duration: 0.4, stagger: 0.035, ease: "power2.out" }, 0.8);
+      tl.fromTo("#hl", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 1.8);
+      tl.fromTo("#tag", { opacity: 0, scale: 0.4, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(2.2)" }, 2.5);
+      tl.fromTo("#xp", { opacity: 0, scale: 0.4, rotation: -10 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.4)" }, 3.2);
+
+      tl.fromTo("#pl, #pr, #tag, #xp", { opacity: 1, y: 0 }, { opacity: 0, y: 24, duration: 0.45, stagger: 0.04, ease: "power2.in", immediateRender: false }, 5.6);
+      tl.set({}, {}, 6.5);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

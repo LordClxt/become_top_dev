@@ -19,6 +19,9 @@ const (
 	TooLarge
 	Unsupported
 	Unavailable
+	Unauthorized
+	Conflict
+	TooManyRequests
 )
 
 // Error est une erreur destinée à l'utilisateur ; l'API la traduit en statut HTTP.

@@ -21,5 +21,5 @@ up: ## Déploiement local avec Docker Compose (.env requis)
 down:
 	docker compose down
 
-reset-progress: ## Remettre la progression locale à zéro (base de dev)
+reset-progress: ## Remettre à zéro la progression de tous les comptes locaux (base de dev)
 	docker exec btd-db psql -U btd -c "TRUNCATE xp_events, lesson_progress, exercise_progress, exercise_runs, quiz_answers"

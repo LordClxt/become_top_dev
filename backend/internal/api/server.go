@@ -2,7 +2,6 @@
 package api
 
 import (
-	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -18,22 +17,23 @@ import (
 const maxJSONBody = 8 << 20
 
 type Config struct {
-	AppPassword   string
-	SessionSecret string
 	SecureCookies bool
 }
 
 type Server struct {
-	svc      *service.Service
-	password string
-	sessions sessions
+	svc     *service.Service
+	cookies cookies
+	// Par IP : connexions (devine un mot de passe) et inscriptions (devine un code d'invitation).
+	loginLimit  *limiter
+	signupLimit *limiter
 }
 
 func New(svc *service.Service, cfg Config) http.Handler {
 	s := &Server{
-		svc:      svc,
-		password: cfg.AppPassword,
-		sessions: sessions{secret: []byte(cfg.SessionSecret), secure: cfg.SecureCookies, now: time.Now},
+		svc:         svc,
+		cookies:     cookies{secure: cfg.SecureCookies},
+		loginLimit:  newLimiter(10, 10*time.Minute),
+		signupLimit: newLimiter(10, time.Hour),
 	}
 	mux := http.NewServeMux()
 
@@ -42,6 +42,7 @@ func New(svc *service.Service, cfg Config) http.Handler {
 		writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 	})
 	mux.HandleFunc("POST /api/auth/login", s.login)
+	mux.HandleFunc("POST /api/auth/signup", s.signup)
 	mux.HandleFunc("POST /api/auth/logout", s.logout)
 	mux.HandleFunc("GET /api/auth/me", s.me)
 	mux.HandleFunc("GET /api/catalog", func(w http.ResponseWriter, _ *http.Request) {
@@ -50,6 +51,7 @@ func New(svc *service.Service, cfg Config) http.Handler {
 
 	// Connecté
 	protected := map[string]http.HandlerFunc{
+		"PUT /api/auth/password":                      s.changePassword,
 		"GET /api/courses":                            s.courses,
 		"GET /api/chapters/{id}":                      s.chapter,
 		"GET /api/lessons/{id}":                       s.lesson,
@@ -75,51 +77,157 @@ func New(svc *service.Service, cfg Config) http.Handler {
 	for pattern, h := range protected {
 		mux.HandleFunc(pattern, s.requireAuth(h))
 	}
+
+	// Admin
+	admin := map[string]http.HandlerFunc{
+		"GET /api/admin/invites":           s.invites,
+		"POST /api/admin/invites":          s.createInvite,
+		"DELETE /api/admin/invites/{code}": s.revokeInvite,
+		"GET /api/admin/members":           s.members,
+	}
+	for pattern, h := range admin {
+		mux.HandleFunc(pattern, s.requireAuth(requireAdmin(h)))
+	}
+
 	mux.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 		writeError(w, http.StatusNotFound, "Not Found")
 	})
 	return logRequests(mux)
 }
 
+// requireAuth charge le compte de la session et le pose dans le contexte de la requête.
 func (s *Server) requireAuth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if !s.sessions.authenticated(r) {
+		token := s.cookies.token(r)
+		user, err := s.svc.SessionUser(r.Context(), token)
+		if err != nil {
+			fail(w, err)
+			return
+		}
+		if user == nil {
 			writeError(w, http.StatusUnauthorized, "non connecté")
 			return
 		}
-		s.sessions.issue(w) // session glissante
+		s.cookies.set(w, token) // session glissante
+		next(w, withUser(r, user))
+	}
+}
+
+func requireAdmin(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if !currentUser(r).IsAdmin {
+			writeError(w, http.StatusForbidden, "réservé à l'administrateur")
+			return
+		}
 		next(w, r)
 	}
 }
 
 // --- Auth --------------------------------------------------------------------
 
+type meResponse struct {
+	Authenticated bool              `json:"authenticated"`
+	User          *service.UserView `json:"user"`
+}
+
 func (s *Server) login(w http.ResponseWriter, r *http.Request) {
 	var body struct {
+		Email    *string `json:"email"`
 		Password *string `json:"password"`
 	}
 	if !decodeJSON(w, r, &body) {
 		return
 	}
-	if body.Password == nil {
-		writeError(w, http.StatusUnprocessableEntity, "password requis")
+	if body.Email == nil || body.Password == nil {
+		writeError(w, http.StatusUnprocessableEntity, "email et password requis")
 		return
 	}
-	if subtle.ConstantTimeCompare([]byte(*body.Password), []byte(s.password)) != 1 {
-		writeError(w, http.StatusUnauthorized, "mot de passe incorrect")
+	if !s.loginLimit.allow(clientIP(r)) {
+		writeError(w, http.StatusTooManyRequests, "trop de tentatives : réessaie dans quelques minutes")
 		return
 	}
-	s.sessions.issue(w)
-	writeJSON(w, http.StatusOK, map[string]bool{"authenticated": true})
+	token, user, err := s.svc.Login(r.Context(), *body.Email, *body.Password)
+	if err != nil {
+		fail(w, err)
+		return
+	}
+	s.cookies.set(w, token)
+	writeJSON(w, http.StatusOK, meResponse{true, user})
 }
 
-func (s *Server) logout(w http.ResponseWriter, _ *http.Request) {
-	s.sessions.clear(w)
-	writeJSON(w, http.StatusOK, map[string]bool{"authenticated": false})
+func (s *Server) signup(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Code        string `json:"code"`
+		Email       string `json:"email"`
+		DisplayName string `json:"display_name"`
+		Password    string `json:"password"`
+	}
+	if !decodeJSON(w, r, &body) {
+		return
+	}
+	if !s.signupLimit.allow(clientIP(r)) {
+		writeError(w, http.StatusTooManyRequests, "trop de tentatives : réessaie plus tard")
+		return
+	}
+	token, user, err := s.svc.Signup(r.Context(), service.SignupInput{
+		Code: body.Code, Email: body.Email, DisplayName: body.DisplayName, Password: body.Password,
+	})
+	if err != nil {
+		fail(w, err)
+		return
+	}
+	s.cookies.set(w, token)
+	writeJSON(w, http.StatusOK, meResponse{true, user})
+}
+
+func (s *Server) logout(w http.ResponseWriter, r *http.Request) {
+	if err := s.svc.Logout(r.Context(), s.cookies.token(r)); err != nil {
+		fail(w, err)
+		return
+	}
+	s.cookies.clear(w)
+	writeJSON(w, http.StatusOK, meResponse{false, nil})
 }
 
 func (s *Server) me(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, http.StatusOK, map[string]bool{"authenticated": s.sessions.authenticated(r)})
+	user, err := s.svc.SessionUser(r.Context(), s.cookies.token(r))
+	if err != nil {
+		fail(w, err)
+		return
+	}
+	writeJSON(w, http.StatusOK, meResponse{user != nil, user})
+}
+
+func (s *Server) changePassword(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Current string `json:"current"`
+		New     string `json:"new"`
+	}
+	if !decodeJSON(w, r, &body) {
+		return
+	}
+	noContent(w, s.svc.ChangePassword(r.Context(), currentUser(r).ID, s.cookies.token(r), body.Current, body.New))
+}
+
+// --- Admin -------------------------------------------------------------------
+
+func (s *Server) invites(w http.ResponseWriter, r *http.Request) {
+	v, err := s.svc.Invites(r.Context())
+	respond(w, v, err)
+}
+
+func (s *Server) createInvite(w http.ResponseWriter, r *http.Request) {
+	v, err := s.svc.CreateInvite(r.Context(), currentUser(r).ID)
+	respond(w, v, err)
+}
+
+func (s *Server) revokeInvite(w http.ResponseWriter, r *http.Request) {
+	noContent(w, s.svc.RevokeInvite(r.Context(), r.PathValue("code")))
+}
+
+func (s *Server) members(w http.ResponseWriter, r *http.Request) {
+	v, err := s.svc.Members(r.Context())
+	respond(w, v, err)
 }
 
 // --- Réponses ----------------------------------------------------------------
@@ -137,11 +245,14 @@ func writeError(w http.ResponseWriter, status int, detail string) {
 }
 
 var statusOf = map[service.Kind]int{
-	service.NotFound:    http.StatusNotFound,
-	service.Invalid:     http.StatusBadRequest,
-	service.TooLarge:    http.StatusRequestEntityTooLarge,
-	service.Unsupported: http.StatusUnsupportedMediaType,
-	service.Unavailable: http.StatusServiceUnavailable,
+	service.NotFound:        http.StatusNotFound,
+	service.Invalid:         http.StatusBadRequest,
+	service.TooLarge:        http.StatusRequestEntityTooLarge,
+	service.Unsupported:     http.StatusUnsupportedMediaType,
+	service.Unavailable:     http.StatusServiceUnavailable,
+	service.Unauthorized:    http.StatusUnauthorized,
+	service.Conflict:        http.StatusConflict,
+	service.TooManyRequests: http.StatusTooManyRequests,
 }
 
 // respond écrit le résultat d'un appel au service, ou l'erreur traduite en statut HTTP.

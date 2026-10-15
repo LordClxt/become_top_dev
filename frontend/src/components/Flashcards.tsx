@@ -199,7 +199,7 @@ function Face({ side, hidden, children }: { side: 'front' | 'back'; hidden: bool
       )}
     >
       {side === 'back' && (
-        <span className="glow-cyan pointer-events-none absolute -top-24 left-1/2 -z-10 size-56 -translate-x-1/2 rounded-full" aria-hidden="true" />
+        <span className="glow-accent pointer-events-none absolute -top-24 left-1/2 -z-10 size-56 -translate-x-1/2 rounded-full" aria-hidden="true" />
       )}
       {children}
     </span>
@@ -216,7 +216,7 @@ function DeckLayer({ depth }: { depth: 1 | 2 }) {
   )
 }
 
-/** Une case par carte du tour : cyan si sue, ambre si à revoir, contour pour la carte affichée. */
+/** Une case par carte du tour : accent si sue, ambre si à revoir, contour pour la carte affichée. */
 function Tally({ queue, ratings, current }: { queue: string[]; ratings: Record<string, Rating>; current: number | null }) {
   const known = queue.filter((id) => ratings[id] === 'known').length
   const review = queue.filter((id) => ratings[id] === 'review').length

@@ -74,7 +74,7 @@ export function MultiBlock({ block, value, onChange }: Props<string[]>) {
             <span
               className={cn(
                 'mt-0.5 grid size-4 shrink-0 place-items-center rounded-[5px] border',
-                chosen.has(o.id) ? 'border-accent bg-accent text-ink' : 'border-muted',
+                chosen.has(o.id) ? 'border-accent bg-accent text-accent-ink' : 'border-muted',
               )}
               aria-hidden="true"
             >

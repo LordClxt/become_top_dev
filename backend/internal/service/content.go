@@ -84,8 +84,8 @@ func (s *Service) Catalog() []CourseOverview {
 }
 
 // Courses est le catalogue avec la progression de l'utilisateur.
-func (s *Service) Courses(ctx context.Context) ([]CourseOverview, error) {
-	mastery, err := s.ChapterMastery(ctx)
+func (s *Service) Courses(ctx context.Context, uid int64) ([]CourseOverview, error) {
+	mastery, err := s.ChapterMastery(ctx, uid)
 	if err != nil {
 		return nil, err
 	}
@@ -179,8 +179,8 @@ func (s *Service) labSummaries(labs []string, passed map[string]bool) []*Exercis
 	return out
 }
 
-func (s *Service) passedExercises(ctx context.Context) (map[string]bool, error) {
-	all, err := s.repos().Progress.AllExerciseProgress(ctx)
+func (s *Service) passedExercises(ctx context.Context, uid int64) (map[string]bool, error) {
+	all, err := s.repos().Progress(uid).AllExerciseProgress(ctx)
 	passed := map[string]bool{}
 	for id, p := range all {
 		if p.PassedAt != nil {
@@ -214,20 +214,20 @@ type ChapterView struct {
 	Mastery          *ChapterMastery  `json:"mastery"`
 }
 
-func (s *Service) Chapter(ctx context.Context, id string) (*ChapterView, error) {
+func (s *Service) Chapter(ctx context.Context, uid int64, id string) (*ChapterView, error) {
 	ch := s.Content.Chapters[id]
 	if ch == nil {
 		return nil, errorf(NotFound, "chapitre introuvable")
 	}
-	passed, err := s.passedExercises(ctx)
+	passed, err := s.passedExercises(ctx, uid)
 	if err != nil {
 		return nil, err
 	}
-	done, err := s.repos().Progress.CompletedLessons(ctx)
+	done, err := s.repos().Progress(uid).CompletedLessons(ctx)
 	if err != nil {
 		return nil, err
 	}
-	mastery, err := s.ChapterMastery(ctx)
+	mastery, err := s.ChapterMastery(ctx, uid)
 	if err != nil {
 		return nil, err
 	}
@@ -274,18 +274,18 @@ type LessonView struct {
 	NextID      *string                    `json:"next_id"`
 }
 
-func (s *Service) Lesson(ctx context.Context, id string) (*LessonView, error) {
+func (s *Service) Lesson(ctx context.Context, uid int64, id string) (*LessonView, error) {
 	l := s.Content.Lessons[id]
 	if l == nil {
 		return nil, errorf(NotFound, "leçon introuvable")
 	}
 	ch := s.Content.Chapters[l.ChapterID]
 	pos := slices.Index(ch.LessonIDs, l.ID)
-	passed, err := s.passedExercises(ctx)
+	passed, err := s.passedExercises(ctx, uid)
 	if err != nil {
 		return nil, err
 	}
-	done, err := s.repos().Progress.CompletedLessons(ctx)
+	done, err := s.repos().Progress(uid).CompletedLessons(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -312,18 +312,18 @@ type XPAwarded struct {
 	XPAwarded int `json:"xp_awarded"`
 }
 
-func (s *Service) CompleteLesson(ctx context.Context, id string) (*XPAwarded, error) {
+func (s *Service) CompleteLesson(ctx context.Context, uid int64, id string) (*XPAwarded, error) {
 	l := s.Content.Lessons[id]
 	if l == nil {
 		return nil, errorf(NotFound, "leçon introuvable")
 	}
 	var xp int
 	err := s.store.InTx(ctx, func(r repository.Repos) error {
-		if err := r.Progress.CompleteLesson(ctx, l.ID); err != nil {
+		if err := r.Progress(uid).CompleteLesson(ctx, l.ID); err != nil {
 			return err
 		}
 		var err error
-		xp, err = r.Progress.AwardXP(ctx, "lesson", l.ID, l.XP)
+		xp, err = r.Progress(uid).AwardXP(ctx, "lesson", l.ID, l.XP)
 		return err
 	})
 	return &XPAwarded{xp}, err
@@ -345,12 +345,12 @@ type QuizView struct {
 	Questions []QuestionView `json:"questions"`
 }
 
-func (s *Service) Quiz(ctx context.Context, id string) (*QuizView, error) {
+func (s *Service) Quiz(ctx context.Context, uid int64, id string) (*QuizView, error) {
 	quiz := s.Content.Quizzes[id]
 	if quiz == nil {
 		return nil, errorf(NotFound, "quiz introuvable")
 	}
-	first, err := s.repos().Progress.FirstAttempts(ctx)
+	first, err := s.repos().Progress(uid).FirstAttempts(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -373,7 +373,7 @@ type AnswerResult struct {
 }
 
 // Answer corrige une réponse. Seule la première tentative par question rapporte de l'XP.
-func (s *Service) Answer(ctx context.Context, quizID, questionID string, answer any) (*AnswerResult, error) {
+func (s *Service) Answer(ctx context.Context, uid int64, quizID, questionID string, answer any) (*AnswerResult, error) {
 	quiz := s.Content.Quizzes[quizID]
 	if quiz == nil {
 		return nil, errorf(NotFound, "quiz introuvable")
@@ -389,17 +389,17 @@ func (s *Service) Answer(ctx context.Context, quizID, questionID string, answer 
 	}
 	xp := 0
 	err = s.store.InTx(ctx, func(r repository.Repos) error {
-		answered, err := r.Progress.HasAnswered(ctx, quiz.ID, q.ID)
+		answered, err := r.Progress(uid).HasAnswered(ctx, quiz.ID, q.ID)
 		if err != nil {
 			return err
 		}
-		err = r.Progress.AddAnswer(ctx, model.QuizAnswer{
+		err = r.Progress(uid).AddAnswer(ctx, model.QuizAnswer{
 			QuizID: quiz.ID, QuestionID: q.ID, Answer: answer, Correct: correct, FirstAttempt: !answered,
 		})
 		if err != nil || !correct || answered {
 			return err
 		}
-		xp, err = r.Progress.AwardXP(ctx, "quiz", quiz.ID+"/"+q.ID, QuizXPPerQuestion)
+		xp, err = r.Progress(uid).AwardXP(ctx, "quiz", quiz.ID+"/"+q.ID, QuizXPPerQuestion)
 		return err
 	})
 	if err != nil {

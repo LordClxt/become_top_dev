@@ -9,17 +9,17 @@ import (
 	"btd/backend/internal/model"
 )
 
-const profileID = 1 // un seul utilisateur : une seule ligne
-
+// ProfileRepo lit et écrit le profil d'un seul utilisateur (uid).
 type ProfileRepo struct {
-	db DBTX
+	db  DBTX
+	uid int64
 }
 
 // Get renvoie le profil, ou nil s'il n'a jamais été enregistré.
 func (r *ProfileRepo) Get(ctx context.Context) (*model.Profile, error) {
 	var p model.Profile
 	var ctype *string
-	err := r.db.QueryRow(ctx, `SELECT avatar, avatar_type, avatar_updated_at FROM profile WHERE id = $1`, profileID).
+	err := r.db.QueryRow(ctx, `SELECT avatar, avatar_type, avatar_updated_at FROM profile WHERE user_id = $1`, r.uid).
 		Scan(&p.Avatar, &ctype, &p.AvatarUpdatedAt)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil, nil
@@ -37,10 +37,10 @@ func (r *ProfileRepo) SetAvatar(ctx context.Context, data []byte, contentType st
 		ctype = &contentType
 	}
 	_, err := r.db.Exec(ctx, `
-		INSERT INTO profile (id, avatar, avatar_type, avatar_updated_at)
+		INSERT INTO profile (user_id, avatar, avatar_type, avatar_updated_at)
 		VALUES ($1, $2, $3, CASE WHEN $4 THEN now() END)
-		ON CONFLICT (id) DO UPDATE SET avatar = EXCLUDED.avatar, avatar_type = EXCLUDED.avatar_type,
+		ON CONFLICT (user_id) DO UPDATE SET avatar = EXCLUDED.avatar, avatar_type = EXCLUDED.avatar_type,
 			avatar_updated_at = EXCLUDED.avatar_updated_at`,
-		profileID, data, ctype, data != nil)
+		r.uid, data, ctype, data != nil)
 	return err
 }

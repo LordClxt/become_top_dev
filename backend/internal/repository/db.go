@@ -26,14 +26,20 @@ type DBTX interface {
 }
 
 // Repos regroupe les repositories liés à une même connexion (pool ou transaction).
+// L'état d'apprentissage n'est accessible que par utilisateur : Progress(uid), Profile(uid).
 type Repos struct {
-	Progress *ProgressRepo
-	Profile  *ProfileRepo
+	Users *UserRepo
+	db    DBTX
 }
 
 func newRepos(db DBTX) Repos {
-	return Repos{Progress: &ProgressRepo{db: db}, Profile: &ProfileRepo{db: db}}
+	return Repos{Users: &UserRepo{db: db}, db: db}
 }
+
+// Progress renvoie la progression d'un utilisateur : chaque requête est filtrée par uid.
+func (r Repos) Progress(uid int64) *ProgressRepo { return &ProgressRepo{db: r.db, uid: uid} }
+
+func (r Repos) Profile(uid int64) *ProfileRepo { return &ProfileRepo{db: r.db, uid: uid} }
 
 type Store struct {
 	pool *pgxpool.Pool

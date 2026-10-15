@@ -1,7 +1,7 @@
 # AGENTS.md — become_top_dev
 
 Personal platform for learning to code (inspired by boot.dev, more beautiful, deeper).
-A single user. Goal: become a top 1 % developer.
+Invite-only, several users (the owner is the admin). Goal: become a top 1 % developer.
 
 ## Core principle
 - Courses are built **by the agent** from the books in `books/`. The app imports no books.
@@ -31,10 +31,10 @@ A single user. Goal: become a top 1 % developer.
 
 ## Architecture decisions (approved at step 2)
 - Content = `content/` files (source of truth), loaded and validated by the backend at startup. The React visuals in `content/` are imported by the front end at build time.
-- PostgreSQL = user state only (XP, attempts, progress, coach), referenced by the content `id`s.
+- PostgreSQL = accounts + user state only (XP, attempts, progress, coach), referenced by the content `id`s.
 - Code execution: a separate `runner/` service, the only one that talks to Docker; one throwaway container per run (`--network none`, CPU/mem/pids/time limits). The backend never touches the Docker socket.
 - Editor: CodeMirror 6. Remotion: `@remotion/player` client-side only (no SSR); server-side mp4 rendering deferred to v3.
-- Auth: single password + session cookie (a single user).
+- Auth: email + password accounts (argon2id), sessions stored in DB (cookie = random token, DB keeps its SHA-256), sign-up only with a single-use invite code created by the admin. All user state is keyed by `user_id`; repositories are user-scoped (`Repos.Progress(uid)`). Runner runs are limited per user, login/sign-up per IP.
 - AI coach (v2): Claude API from the backend, streamed responses.
 
 ## Target tree
@@ -75,15 +75,16 @@ design-system/             shared UI + visual tokens (colors, typography, motion
 | `backend-api` | Work in `backend/` |
 
 ## Commands
-- `make dev` — run everything locally: Postgres (Docker, port 5433), runner :8001, backend :8000, frontend http://localhost:3000 (dev password: `dev`)
+- `make dev` — run everything locally: Postgres (Docker, port 5433), runner :8001, backend :8000, frontend http://localhost:3000 (dev account: `dev@btd.local` / `dev`)
 - `make test` — backend + runner tests + front-end type check
 - `make lint` — gofmt + go vet (backend, runner)
 - `make validate-content` — replays every lab (code, diagram, worksheet: solution passes, starter fails) and every "code-output" quiz
 - `make up` / `make down` — full stack via Docker Compose (create `.env` from `.env.example`)
-- `make reset-progress` — resets local progress to zero
+- `make reset-progress` — resets local progress to zero (all accounts)
+- `cd backend && go run ./cmd/btd reset-password <email>` — new password read from stdin, closes the account's sessions
 - `python3 .claude/skills/book-ingest/scripts/extract_book.py <pdf> --slug <slug>` — extract a book
 - `.claude/skills/lab-authoring/scripts/verify_lab.sh <dir>` — validate an exercise
 - `python3 .claude/skills/lab-authoring/scripts/verify_quiz.py <chapter>` — validate a chapter's quizzes
 
 ## Deployment (Coolify)
-`docker-compose.yaml` at the root. Point the domain at the `proxy` service (port 80); Caddy sends `/api/*` to the backend and everything else to the front end. The local host port is published only through `docker-compose.override.yaml`. PostgreSQL is external to the stack: the backend connects to it through `DATABASE_URL`. Variables: see `.env.example`. The `runner` mounts the host's Docker socket: never expose it.
+`docker-compose.yaml` at the root. Point the domain at the `proxy` service (port 80); Caddy sends `/api/*` to the backend and everything else to the front end. The local host port is published only through `docker-compose.override.yaml`. PostgreSQL is external to the stack: the backend connects to it through `DATABASE_URL`. Variables: see `.env.example` (`ADMIN_EMAIL` / `ADMIN_PASSWORD` claim the owner account on first start, then are ignored). The `runner` mounts the host's Docker socket: never expose it.

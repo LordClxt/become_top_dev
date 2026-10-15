@@ -37,8 +37,9 @@ services:
     environment:
       # Base PostgreSQL externe (instance Coolify existante), ex. postgres://btd:…@hôte:5432/btd?sslmode=require
       BTD_DATABASE_URL: ${DATABASE_URL:?définir DATABASE_URL}
-      BTD_SESSION_SECRET: ${SESSION_SECRET:?définir SESSION_SECRET}
-      BTD_APP_PASSWORD: ${APP_PASSWORD:?définir APP_PASSWORD}
+      # Compte administrateur, créé au premier démarrage puis ignoré (mot de passe modifiable dans l'app).
+      BTD_ADMIN_EMAIL: ${ADMIN_EMAIL:?définir ADMIN_EMAIL}
+      BTD_ADMIN_PASSWORD: ${ADMIN_PASSWORD:?définir ADMIN_PASSWORD}
       BTD_SECURE_COOKIES: ${SECURE_COOKIES:-true}
       BTD_RUNNER_URL: http://runner:8001
       BTD_RUNNER_TOKEN: ${RUNNER_TOKEN}

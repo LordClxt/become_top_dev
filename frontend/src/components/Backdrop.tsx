@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 
-/** Zone de quadrillage avec sa lueur cyan, posée derrière le contenu (statique, décorative). */
+/** Zone de quadrillage avec sa lueur d'accent, posée derrière le contenu (statique, décorative). */
 export function GridZone({
   style,
   size = 520,
@@ -19,7 +19,7 @@ export function GridZone({
       aria-hidden="true"
     >
       <div
-        className="glow-cyan absolute rounded-full"
+        className="glow-accent absolute rounded-full"
         style={{
           width: size * 0.6,
           height: size * 0.6,

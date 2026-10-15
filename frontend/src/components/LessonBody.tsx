@@ -89,7 +89,7 @@ function VisualSlot({ visual, id }: { visual?: Visual; id: string }) {
   return (
     <figure className="relative isolate my-10 overflow-hidden rounded-2xl border border-line bg-surface">
       <div className="bg-grid pointer-events-none absolute -top-24 -right-24 -z-10 size-80" aria-hidden="true" />
-      <div className="glow-cyan pointer-events-none absolute -top-16 -right-10 -z-10 size-48 rounded-full" aria-hidden="true" />
+      <div className="glow-accent pointer-events-none absolute -top-16 -right-10 -z-10 size-48 rounded-full" aria-hidden="true" />
       <div className="flex items-center gap-2 border-b border-line px-5 py-3 text-sm">
         {scene ? <Clapperboard className="size-4 text-accent" /> : <MousePointerClick className="size-4 text-accent" />}
         <span className="font-medium">{scene ? 'Animation' : 'Visuel interactif'}</span>

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=800, height=560" />
+    <meta name="poster-time" content="4.6" />
+    <title>Coder : l'exercice s'exécute pour de vrai</title>
+    <!--
+      Choreography (6.5 s, en boucle) :
+        0.0 – 0.5   l'éditeur entre
+        0.4 – 2.6   le programme s'écrit (discrete text)
+        2.7 – 3.4   le curseur rejoint « Lancer »
+        3.45        clic : le bouton s'enfonce, onde
+        3.8 – 4.2   la sortie apparaît : Bonjour, Go !
+        5.6 – 6.1   tout se retire ; la boucle reprend sur une scène vide
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 800px;
+        height: 560px;
+        overflow: hidden;
+        background: transparent;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+      #root {
+        position: absolute;
+        inset: 0;
+      }
+      .a {
+        position: absolute;
+        opacity: 0;
+        will-change: transform, opacity;
+      }
+      #win {
+        left: 70px;
+        top: 50px;
+        width: 660px;
+        height: 330px;
+        border-radius: 24px;
+        background: #0c0d12;
+        border: 3px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 34px 70px -30px rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+      }
+      .bar {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        height: 50px;
+        padding: 0 22px;
+        background: #171923;
+        border-bottom: 3px solid #2b2e40;
+      }
+      .bar i {
+        width: 12px;
+        height: 12px;
+        border-radius: 99px;
+        background: #2b2e40;
+      }
+      .bar span {
+        margin-left: 12px;
+        color: #8d90a6;
+        font-size: 19px;
+      }
+      #code {
+        padding: 20px 28px;
+        font-size: 25px;
+        line-height: 40px;
+        color: #f4f4ef;
+        white-space: pre;
+      }
+      .kw {
+        color: #d6ff3d;
+      }
+      .st {
+        color: #ffb36b;
+      }
+      .pu {
+        color: #8d90a6;
+      }
+      .caret {
+        display: inline-block;
+        width: 12px;
+        height: 28px;
+        margin-bottom: -6px;
+        background: #d6ff3d;
+      }
+      #run {
+        left: 500px;
+        top: 410px;
+        width: 230px;
+        height: 84px;
+        border-radius: 999px;
+        background: #d6ff3d;
+        color: #0c0d12;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        font: 700 32px "Schibsted Grotesk", system-ui, sans-serif;
+      }
+      #ripple {
+        left: 555px;
+        top: 392px;
+        width: 120px;
+        height: 120px;
+        border-radius: 999px;
+        border: 4px solid #d6ff3d;
+      }
+      #out {
+        left: 70px;
+        top: 410px;
+        width: 400px;
+        height: 84px;
+        border-radius: 22px;
+        background: #0c0d12;
+        border: 3px solid rgba(255, 255, 255, 0.14);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 26px;
+        color: #f4f4ef;
+        font-size: 26px;
+      }
+      #out b {
+        color: #d6ff3d;
+      }
+      #cursor {
+        left: 0;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6.5" data-width="800" data-height="560">
+      <div class="a" id="win">
+        <div class="bar"><i></i><i></i><i></i><span>main.go</span></div>
+        <div id="code"></div>
+      </div>
+      <div class="a" id="out"><b>›</b> Bonjour, Go !</div>
+      <div class="a" id="ripple"></div>
+      <div class="a" id="run">
+        Lancer
+        <svg width="22" height="24" viewBox="0 0 22 24"><path d="M2 2 L20 12 L2 22 Z" fill="#0c0d12" /></svg>
+      </div>
+      <svg class="a" id="cursor" width="44" height="52" viewBox="0 0 44 52">
+        <path d="M4 4 L4 42 L14 32 L21 48 L29 44 L22 29 L36 29 Z" fill="#ffffff" stroke="#0c0d12" stroke-width="3" stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      const LINES = [
+        [["package", "kw"], [" main", ""]],
+        [],
+        [["func", "kw"], [" main() {", "pu"]],
+        [["    fmt.Println(", ""], ['"Bonjour, Go !"', "st"], [")", ""]],
+        [["}", "pu"]],
+      ];
+      const TOTAL = LINES.reduce((n, l) => n + l.reduce((m, [s]) => m + s.length, 0) + 1, 0);
+      const code = document.getElementById("code");
+      let last = -1;
+      function renderCode(n) {
+        if (n === last) return;
+        last = n;
+        let left = n;
+        let html = "";
+        for (const [li, line] of LINES.entries()) {
+          if (left <= 0) break;
+          for (const [s, cls] of line) {
+            if (left <= 0) break;
+            const part = s.slice(0, left);
+            left -= part.length;
+            html += cls ? `<span class="${cls}">${part}</span>` : part;
+          }
+          if (left > 0 && li < LINES.length - 1) {
+            left -= 1;
+            html += "\n";
+          }
+        }
+        code.innerHTML = html + '<span class="caret"></span>';
+      }
+      const driver = { t: 0 };
+      tl.to(driver, { t: 6.5, duration: 6.5, ease: "none", onUpdate: () => renderCode(Math.max(0, Math.min(TOTAL, Math.floor(((driver.t - 0.4) / 2.2) * TOTAL)))) }, 0);
+
+      tl.fromTo("#win", { opacity: 0, y: 40, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 0);
+      tl.fromTo("#run", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.25);
+
+      // Le curseur entre par le bas à droite et se pose sur le bouton.
+      tl.fromTo("#cursor", { opacity: 0, x: 760, y: 560 }, { opacity: 1, x: 640, y: 470, duration: 0.3, ease: "power2.out" }, 2.7);
+      tl.fromTo("#cursor", { x: 640, y: 470 }, { x: 610, y: 440, duration: 0.45, ease: "power2.inOut", immediateRender: false }, 3.0);
+      tl.fromTo("#run", { scale: 1 }, { keyframes: { scale: [1, 0.9, 1.04, 1] }, duration: 0.4, ease: "none", immediateRender: false }, 3.45);
+      tl.fromTo("#cursor", { scale: 1 }, { keyframes: { scale: [1, 0.85, 1] }, duration: 0.25, ease: "none", immediateRender: false }, 3.45);
+      tl.fromTo("#ripple", { opacity: 0.9, scale: 0.5 }, { opacity: 0, scale: 2.4, duration: 0.7, ease: "power2.out", immediateRender: false }, 3.5);
+      tl.fromTo("#out", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.8)" }, 3.8);
+
+      tl.fromTo("#win, #out, #run, #cursor", { opacity: 1 }, { opacity: 0, duration: 0.4, stagger: 0.04, ease: "power2.in", immediateRender: false }, 5.6);
+      tl.set({}, {}, 6.5);
+
+      renderCode(0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

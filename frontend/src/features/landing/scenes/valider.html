@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=800, height=560" />
+    <meta name="poster-time" content="4.6" />
+    <title>Valider : les tests passent, la suite s'ouvre</title>
+    <!--
+      Choreography (6.5 s, en boucle) :
+        0.1 – 0.6   la liste des tests et l'anneau entrent
+        1.0 – 2.5   quatre tests passent l'un après l'autre ; l'anneau gagne 25 % à chaque fois
+        2.8 – 3.2   +50 XP
+        3.3 – 3.9   « Suite ouverte » glisse, le cadenas s'ouvre
+        5.6 – 6.1   tout se retire ; la boucle reprend sur une scène vide
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&family=JetBrains+Mono:wght@400&family=Schibsted+Grotesk:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 800px;
+        height: 560px;
+        overflow: hidden;
+        background: transparent;
+      }
+      #root {
+        position: absolute;
+        inset: 0;
+      }
+      .a {
+        position: absolute;
+        opacity: 0;
+        will-change: transform, opacity;
+      }
+      #list {
+        left: 50px;
+        top: 60px;
+        width: 450px;
+        height: 420px;
+        padding: 30px 30px;
+        border-radius: 26px;
+        background: #0c0d12;
+        border: 3px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 34px 70px -30px rgba(0, 0, 0, 0.6);
+        font: 400 24px "JetBrains Mono", ui-monospace, monospace;
+      }
+      #list .head {
+        color: #8d90a6;
+        font-size: 20px;
+        margin-bottom: 26px;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        height: 70px;
+        color: #8d90a6;
+      }
+      .dot {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+      }
+      .dot > * {
+        position: absolute;
+        inset: 0;
+        border-radius: 999px;
+      }
+      .dot .ring {
+        border: 4px solid #2b2e40;
+      }
+      .dot .fill {
+        background: #d6ff3d;
+      }
+      #ring {
+        left: 530px;
+        top: 50px;
+        width: 230px;
+        height: 230px;
+      }
+      #pct {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: #f4f4ef;
+        font: 900 70px "Big Shoulders Display", "Arial Narrow", sans-serif;
+      }
+      #xp {
+        left: 562px;
+        top: 304px;
+        padding: 10px 26px 4px;
+        border-radius: 999px;
+        background: #d6ff3d;
+        color: #0c0d12;
+        font: 900 54px "Big Shoulders Display", "Arial Narrow", sans-serif;
+      }
+      #unlock {
+        left: 520px;
+        top: 404px;
+        width: 250px;
+        height: 76px;
+        border-radius: 22px;
+        background: #f4f4ef;
+        color: #0c0d12;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 20px;
+        font: 700 25px "Schibsted Grotesk", system-ui, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6.5" data-width="800" data-height="560">
+      <div class="a" id="list">
+        <div class="head">$ go test -run TestSomme</div>
+        <div id="rows"></div>
+      </div>
+      <div class="a" id="ring">
+        <svg width="230" height="230" viewBox="0 0 230 230">
+          <circle cx="115" cy="115" r="96" fill="#0c0d12" stroke="#2b2e40" stroke-width="16" />
+          <circle id="arc" cx="115" cy="115" r="96" fill="none" stroke="#d6ff3d" stroke-width="16" stroke-linecap="round" transform="rotate(-90 115 115)" />
+        </svg>
+        <div id="pct">0%</div>
+      </div>
+      <div class="a" id="xp">+50 XP</div>
+      <div class="a" id="unlock">
+        <svg width="34" height="38" viewBox="0 0 44 48" fill="none" stroke="#0c0d12" stroke-width="5" stroke-linecap="round">
+          <path id="shackle" d="M11 22 V14 a11 11 0 0 1 22 0 V22" />
+          <rect x="4" y="22" width="36" height="24" rx="6" fill="#0c0d12" stroke="none" />
+        </svg>
+        Suite ouverte
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const TESTS = ["vide", "un élément", "plusieurs", "négatifs"];
+      const PASS_AT = TESTS.map((_, i) => 1.0 + i * 0.45);
+
+      // Lignes construites une fois ; chaque coche est un tracé mesuré à la construction.
+      const rows = document.getElementById("rows");
+      TESTS.forEach((name, i) => {
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
+          <div class="dot">
+            <div class="ring"></div>
+            <div class="fill"></div>
+            <svg width="40" height="40" viewBox="0 0 40 40">
+              <path class="tick" d="M11 21 L17.5 27 L29 14" fill="none" stroke="#0c0d12" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <span class="name">${name}</span>`;
+        rows.appendChild(row);
+        const fill = row.querySelector(".fill");
+        const tick = row.querySelector(".tick");
+        const len = tick.getTotalLength();
+        tick.style.strokeDasharray = String(len);
+        const at = PASS_AT[i];
+        tl.fromTo(row, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 0.2 + i * 0.08);
+        tl.fromTo(fill, { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2.4)" }, at);
+        tl.fromTo(tick, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, at + 0.12);
+        tl.fromTo(row.querySelector(".name"), { color: "#8d90a6" }, { color: "#f4f4ef", duration: 0.2 }, at);
+      });
+
+      // Anneau : un pilote, le pourcentage n'est réécrit qu'au changement d'entier.
+      const arc = document.getElementById("arc");
+      const pct = document.getElementById("pct");
+      const CIRC = 2 * Math.PI * 96;
+      arc.style.strokeDasharray = String(CIRC);
+      const prog = { p: 0 };
+      let shown = -1;
+      const renderRing = () => {
+        arc.style.strokeDashoffset = String(CIRC * (1 - prog.p));
+        const v = Math.round(prog.p * 100);
+        if (v !== shown) pct.textContent = (shown = v) + "%";
+      };
+      PASS_AT.forEach((at, i) => {
+        tl.fromTo(prog, { p: i / 4 }, { p: (i + 1) / 4, duration: 0.35, ease: "power2.out", onUpdate: renderRing, immediateRender: false }, at);
+      });
+
+      tl.fromTo("#list", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.05);
+      tl.fromTo("#ring", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.2);
+      tl.fromTo("#ring", { scale: 1 }, { keyframes: { scale: [1, 1.08, 1] }, duration: 0.4, ease: "none", immediateRender: false }, 2.7);
+      tl.fromTo("#xp", { opacity: 0, scale: 0.3, rotation: -10 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.4)" }, 2.8);
+      tl.fromTo("#unlock", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 3.3);
+      tl.fromTo("#shackle", { y: 0, rotation: 0 }, { y: -5, rotation: -28, svgOrigin: "33 22", duration: 0.35, ease: "back.out(2)", immediateRender: false }, 3.7);
+
+      tl.fromTo("#list, #ring, #xp, #unlock", { opacity: 1 }, { opacity: 0, duration: 0.4, stagger: 0.05, ease: "power2.in", immediateRender: false }, 5.6);
+      // L'anneau revient à zéro pendant qu'il est invisible.
+      tl.fromTo(prog, { p: 1 }, { p: 0, duration: 0.01, onUpdate: renderRing, immediateRender: false }, 6.2);
+      tl.set({}, {}, 6.5);
+
+      renderRing();
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

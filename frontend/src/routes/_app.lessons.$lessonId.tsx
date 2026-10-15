@@ -255,7 +255,7 @@ function FinishPanel({
   return (
     <section className="relative isolate mt-14 overflow-hidden rounded-2xl border border-line bg-surface p-6 md:p-8">
       <div className="bg-grid pointer-events-none absolute -bottom-32 -left-24 -z-10 size-96" aria-hidden="true" />
-      <div className="glow-cyan pointer-events-none absolute -bottom-20 left-10 -z-10 size-56 rounded-full" aria-hidden="true" />
+      <div className="glow-accent pointer-events-none absolute -bottom-20 left-10 -z-10 size-56 rounded-full" aria-hidden="true" />
       <h2 className="font-read text-2xl font-semibold">{done ? 'Leçon terminée' : 'Tu as tout lu ?'}</h2>
       <p className="mt-1 text-muted">
         {done

@@ -1,5 +1,5 @@
 /**
- * Client de l'API FastAPI. Dans le navigateur, tout passe par /api (proxy Vite en dev, même domaine en prod).
+ * Client de l'API Go. Dans le navigateur, tout passe par /api (proxy Vite en dev, même domaine en prod).
  * Pendant le rendu serveur, on appelle le backend en direct et on relaie le cookie de session.
  */
 
@@ -313,12 +313,36 @@ export type ActivityEvent = {
   ok: number
 }
 
+export type User = { id: number; email: string; display_name: string; is_admin: boolean }
+
+export type Me = { authenticated: boolean; user: User | null }
+
+export type Invite = {
+  code: string
+  created_at: string
+  expires_at: string
+  status: 'pending' | 'used' | 'expired'
+  used_by: string | null
+  used_at: string | null
+}
+
+export type Member = User & { created_at: string; xp: number }
+
 // --- Endpoints ---------------------------------------------------------------
 
 export const api = {
-  me: () => request<{ authenticated: boolean }>('/auth/me'),
-  login: (password: string) => post<{ authenticated: boolean }>('/auth/login', { password }),
+  me: () => request<Me>('/auth/me'),
+  login: (email: string, password: string) => post<Me>('/auth/login', { email, password }),
+  signup: (body: { code: string; email: string; display_name: string; password: string }) =>
+    post<Me>('/auth/signup', body),
   logout: () => post('/auth/logout'),
+  changePassword: (current: string, next: string) =>
+    request<void>('/auth/password', { method: 'PUT', body: JSON.stringify({ current, new: next }) }),
+
+  invites: () => request<Invite[]>('/admin/invites'),
+  createInvite: () => post<Invite>('/admin/invites'),
+  revokeInvite: (code: string) => request<void>(`/admin/invites/${code}`, { method: 'DELETE' }),
+  members: () => request<Member[]>('/admin/members'),
 
   catalog: () => request<CatalogCourse[]>('/catalog'),
   courses: () => request<Course[]>('/courses'),

@@ -29,10 +29,12 @@ const scenes = import.meta.glob<string>('../../../content/**/visuals/*/*.html', 
 const VISUAL_ID = /<meta\s+name="visual-id"\s+content="([^"]+)"/
 const GSAP_CDN = /<script\s+src="[^"]*gsap[^"]*"><\/script>/
 
+export const withLocalGsap = (html: string) => html.replace(GSAP_CDN, () => `<script>${gsapSource}</script>`)
+
 export const hyperframesScenes: Record<string, string> = Object.fromEntries(
   Object.values(scenes).flatMap((html) => {
     const id = VISUAL_ID.exec(html)?.[1]
     if (!id) return []
-    return [[id, html.replace(GSAP_CDN, () => `<script>${gsapSource}</script>`)]]
+    return [[id, withLocalGsap(html)]]
   }),
 )

@@ -25,8 +25,8 @@ type ChapterMastery struct {
 }
 
 // ChapterMastery calcule la maîtrise de chaque chapitre. Un chapitre est débloqué quand le précédent est maîtrisé.
-func (s *Service) ChapterMastery(ctx context.Context) (map[string]*ChapterMastery, error) {
-	r := s.repos().Progress
+func (s *Service) ChapterMastery(ctx context.Context, uid int64) (map[string]*ChapterMastery, error) {
+	r := s.repos().Progress(uid)
 	exercises, err := r.AllExerciseProgress(ctx)
 	if err != nil {
 		return nil, err
@@ -98,8 +98,8 @@ type ProgressSummary struct {
 	Chapters          map[string]*ChapterMastery `json:"chapters"`
 }
 
-func (s *Service) Summary(ctx context.Context, today time.Time, tz string) (*ProgressSummary, error) {
-	r := s.repos().Progress
+func (s *Service) Summary(ctx context.Context, uid int64, today time.Time, tz string) (*ProgressSummary, error) {
+	r := s.repos().Progress(uid)
 	xp, err := r.TotalXP(ctx)
 	if err != nil {
 		return nil, err
@@ -108,7 +108,7 @@ func (s *Service) Summary(ctx context.Context, today time.Time, tz string) (*Pro
 	if err != nil {
 		return nil, err
 	}
-	mastery, err := s.ChapterMastery(ctx)
+	mastery, err := s.ChapterMastery(ctx, uid)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ type ActivityDay struct {
 }
 
 // Activity renvoie une entrée par jour, du lundi de la plus ancienne semaine jusqu'à aujourd'hui.
-func (s *Service) Activity(ctx context.Context, today time.Time, weeks int, tz string) ([]ActivityDay, error) {
+func (s *Service) Activity(ctx context.Context, uid int64, today time.Time, weeks int, tz string) ([]ActivityDay, error) {
 	since := ActivityStart(today, weeks)
 	var out []ActivityDay
 	index := map[time.Time]int{}
@@ -140,7 +140,7 @@ func (s *Service) Activity(ctx context.Context, today time.Time, weeks int, tz s
 		out = append(out, ActivityDay{Date: isoDate(d)})
 	}
 
-	r := s.repos().Progress
+	r := s.repos().Progress(uid)
 	events, err := r.XPEventsSince(ctx, since, tz)
 	if err != nil {
 		return nil, err
@@ -203,7 +203,7 @@ type FeedEvent struct {
 
 // Feed est le journal façon git log : leçons et TP réussis, exécutions et quiz regroupés par jour.
 // day non nul : seulement ce jour-là.
-func (s *Service) Feed(ctx context.Context, today time.Time, tz string, day *time.Time, limit int) ([]FeedEvent, error) {
+func (s *Service) Feed(ctx context.Context, uid int64, today time.Time, tz string, day *time.Time, limit int) ([]FeedEvent, error) {
 	since := addDays(today, -365)
 	if day != nil {
 		since = *day
@@ -221,7 +221,7 @@ func (s *Service) Feed(ctx context.Context, today time.Time, tz string, day *tim
 	}
 	quizXP := map[quizDay]int{}
 
-	r := s.repos().Progress
+	r := s.repos().Progress(uid)
 	xpEvents, err := r.XPEventsSince(ctx, since, tz)
 	if err != nil {
 		return nil, err

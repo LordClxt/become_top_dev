@@ -25,6 +25,7 @@
   "method": "POST",
   "path": "/api/auth/login",
   "json": {
+   "email": "admin@test.local",
    "password": "faux"
   }
  },
@@ -38,6 +39,7 @@
   "method": "POST",
   "path": "/api/auth/login",
   "json": {
+   "email": "admin@test.local",
    "password": "secret-test"
   }
  },

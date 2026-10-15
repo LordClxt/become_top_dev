@@ -1,4 +1,8 @@
+import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
+import { InvitesPanel } from '@/features/admin/InvitesPanel'
+import { AccountPanel } from '@/features/auth/AccountPanel'
+import { meQuery } from '@/features/auth/queries'
 import { type Settings, updateSettings, useSettings } from '@/lib/settings'
 import { cn } from '@/lib/utils'
 
@@ -9,15 +13,25 @@ export const Route = createFileRoute('/_app/settings')({
 
 function SettingsPage() {
   const settings = useSettings()
+  const { data: me } = useQuery(meQuery)
   return (
     <main className="mx-auto max-w-[760px] px-6 pt-14 pb-24">
       <h1 className="font-read text-4xl font-semibold tracking-tight">Paramètres</h1>
-      <p className="mt-2 text-sm text-muted">Enregistrés dans ce navigateur.</p>
 
-      <section className="mt-10" aria-labelledby="editor-title">
+      <section className="mt-10" aria-labelledby="account-title">
+        <h2 id="account-title" className="font-read text-2xl font-semibold">
+          Compte
+        </h2>
+        <div className="mt-4">
+          <AccountPanel />
+        </div>
+      </section>
+
+      <section className="mt-12" aria-labelledby="editor-title">
         <h2 id="editor-title" className="font-read text-2xl font-semibold">
           Éditeur de code
         </h2>
+        <p className="mt-1 text-sm text-muted">Enregistré dans ce navigateur.</p>
         <div className="mt-4 divide-y divide-line rounded-2xl border border-line bg-surface">
           <Toggle
             settings={settings}
@@ -27,6 +41,17 @@ function SettingsPage() {
           />
         </div>
       </section>
+
+      {me?.user?.is_admin && (
+        <section className="mt-12" aria-labelledby="invites-title">
+          <h2 id="invites-title" className="font-read text-2xl font-semibold">
+            Invitations
+          </h2>
+          <div className="mt-4">
+            <InvitesPanel />
+          </div>
+        </section>
+      )}
     </main>
   )
 }

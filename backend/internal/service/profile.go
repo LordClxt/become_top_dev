@@ -24,16 +24,16 @@ type ProfileView struct {
 	AvatarVersion *int64 `json:"avatar_version"`
 }
 
-func (s *Service) Profile(ctx context.Context) (*ProfileView, error) {
-	p, err := s.repos().Profile.Get(ctx)
+func (s *Service) Profile(ctx context.Context, uid int64) (*ProfileView, error) {
+	p, err := s.repos().Profile(uid).Get(ctx)
 	if err != nil || p == nil || p.Avatar == nil || p.AvatarUpdatedAt == nil {
 		return &ProfileView{}, err
 	}
 	return &ProfileView{AvatarVersion: new(p.AvatarUpdatedAt.UnixMilli())}, nil
 }
 
-func (s *Service) Avatar(ctx context.Context) ([]byte, string, error) {
-	p, err := s.repos().Profile.Get(ctx)
+func (s *Service) Avatar(ctx context.Context, uid int64) ([]byte, string, error) {
+	p, err := s.repos().Profile(uid).Get(ctx)
 	if err != nil {
 		return nil, "", err
 	}
@@ -43,7 +43,7 @@ func (s *Service) Avatar(ctx context.Context) ([]byte, string, error) {
 	return p.Avatar, p.AvatarType, nil
 }
 
-func (s *Service) SetAvatar(ctx context.Context, data []byte) error {
+func (s *Service) SetAvatar(ctx context.Context, uid int64, data []byte) error {
 	if len(data) == 0 {
 		return errorf(Invalid, "fichier vide")
 	}
@@ -54,9 +54,9 @@ func (s *Service) SetAvatar(ctx context.Context, data []byte) error {
 	if ctype == "" {
 		return errorf(Unsupported, "format non pris en charge (PNG, JPEG ou WebP)")
 	}
-	return s.repos().Profile.SetAvatar(ctx, data, ctype)
+	return s.repos().Profile(uid).SetAvatar(ctx, data, ctype)
 }
 
-func (s *Service) RemoveAvatar(ctx context.Context) error {
-	return s.repos().Profile.SetAvatar(ctx, nil, "")
+func (s *Service) RemoveAvatar(ctx context.Context, uid int64) error {
+	return s.repos().Profile(uid).SetAvatar(ctx, nil, "")
 }
