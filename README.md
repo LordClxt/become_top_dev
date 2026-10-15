@@ -5,7 +5,7 @@ A personal platform for learning to code deeply, in the spirit of boot.dev, with
 Invite-only, for a handful of learners. One goal: become a top 1% developer.
 
 <p align="center">
-  <img src="docs/screenshots/landing.png" alt="Landing page: electric blue poster, lime headline and an animated illustration of the learn-code-validate loop" width="900">
+  <img src="docs/screenshots/landing-hero.gif" alt="Landing page hero: lime headline on electric blue, the code is typed, tests pass, +50 XP, the level goes up and the next module unlocks" width="900">
 </p>
 
 ## Highlights
@@ -17,6 +17,18 @@ Invite-only, for a handful of learners. One goal: become a top 1% developer.
 - **Progression that matters.** XP, levels, streaks, an activity graph, and modules that unlock only once the previous one is mastered (80%).
 - **Invite-only accounts.** Email and password sign-up with a single-use invite code created by the admin. Each learner keeps their own progress.
 - **Poster-style design.** Ink, lime and electric blue, shared by the landing page and the whole app. Dark by default, light theme available (blue takes over the accent there), desktop-first.
+
+## Landing page
+
+A poster in ink, lime and electric blue. Headlines rise word by word, two marquees cross under the hero, and each step of the method has its own looping HyperFrames illustration.
+
+<p align="center">
+  <img src="docs/screenshots/landing-method.gif" alt="Method cards: a book opens and its source is cited, a program runs, four tests pass and the next module unlocks" width="900">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/landing-scroll.gif" alt="Scrolling through the landing page: marquees, method, why, courses, visuals and progress sections" width="640">
+</p>
 
 ## Tour
 
@@ -30,10 +42,10 @@ The current quest, level, streak and activity graph, then every course with its 
 
 ### Lessons
 
-Long-form reading with a table of contents, a glossary, key concepts and the book pages each lesson comes from. Animated visuals explain the hard concepts.
+Long-form reading with a table of contents, a glossary, key concepts and the book pages each lesson comes from. Interactive and animated visuals explain the hard concepts, step by step.
 
 <p align="center">
-  <img src="docs/screenshots/lesson.png" alt="Lesson page about Go slices" width="900">
+  <img src="docs/screenshots/lesson.png" alt="Lesson about Go slices with an interactive visual of a sub-slice overwriting its parent" width="900">
 </p>
 
 ### Chapters
@@ -49,7 +61,7 @@ Each chapter is a path of lessons with their labs, XP, mastery ring, objectives 
 A CodeMirror editor next to the brief. Tests run in the sandbox and report per-test results with precise failure messages.
 
 <p align="center">
-  <img src="docs/screenshots/exercise.png" alt="Go lab with failing test output" width="900">
+  <img src="docs/screenshots/exercise.png" alt="Go lab with per-test results after a run" width="900">
 </p>
 
 ### Architecture katas
@@ -58,6 +70,22 @@ Conceptual exercises are drawn on a canvas (React Flow) and checked against a ru
 
 <p align="center">
   <img src="docs/screenshots/kata.png" alt="Architecture kata diagram editor" width="900">
+</p>
+
+### Profile
+
+Level, total XP, streaks, badges with their progress, and a year of activity.
+
+<p align="center">
+  <img src="docs/screenshots/profile.png" alt="Profile page with level, badges and activity graph" width="900">
+</p>
+
+### Light theme
+
+Warm paper instead of ink; electric blue takes over the accent.
+
+<p align="center">
+  <img src="docs/screenshots/light.png" alt="Course page in the light theme" width="900">
 </p>
 
 ## Courses
