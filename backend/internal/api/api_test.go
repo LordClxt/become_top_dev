@@ -5,15 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
-	"time"
 )
 
 func login(t *testing.T, client *http.Client, base string) {
 	t.Helper()
-	resp, err := client.Post(base+"/api/auth/login", "application/json", strings.NewReader(`{"password":"secret-test"}`))
+	body := fmt.Sprintf(`{"email":%q,"password":%q}`, adminEmail, adminPassword)
+	resp, err := client.Post(base+"/api/auth/login", "application/json", strings.NewReader(body))
 	if err != nil || resp.StatusCode != http.StatusOK {
 		t.Fatalf("connexion : %v %v", err, resp)
 	}
@@ -39,35 +39,6 @@ func TestAvatarRejectsOversizedUpload(t *testing.T) {
 	png := append([]byte("\x89PNG\r\n\x1a\n"), make([]byte, 2*1024*1024)...)
 	if resp := do(t, client, http.MethodPut, srv.URL+"/api/profile/avatar", png); resp.StatusCode != http.StatusRequestEntityTooLarge {
 		t.Errorf("avatar de plus de 2 Mo : statut %d", resp.StatusCode)
-	}
-}
-
-func TestSessionRejectsTamperedAndExpiredCookies(t *testing.T) {
-	s := sessions{secret: []byte("k"), now: time.Now}
-	rec := httptest.NewRecorder()
-	s.issue(rec)
-	cookie := rec.Result().Cookies()[0]
-
-	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	req.AddCookie(cookie)
-	if !s.authenticated(req) {
-		t.Fatal("le cookie émis doit être accepté")
-	}
-
-	tampered := httptest.NewRequest(http.MethodGet, "/", nil)
-	tampered.AddCookie(&http.Cookie{Name: sessionCookie, Value: cookie.Value + "x"})
-	if s.authenticated(tampered) {
-		t.Error("une signature modifiée doit être refusée")
-	}
-
-	other := sessions{secret: []byte("autre"), now: time.Now}
-	if other.authenticated(req) {
-		t.Error("un cookie signé avec un autre secret doit être refusé")
-	}
-
-	later := sessions{secret: []byte("k"), now: func() time.Time { return time.Now().Add(31 * 24 * time.Hour) }}
-	if later.authenticated(req) {
-		t.Error("un cookie de plus de 30 jours doit être refusé")
 	}
 }
 
@@ -109,4 +80,13 @@ func TestRequestValidation(t *testing.T) {
 			t.Errorf("%s %s : statut %d, attendu %d", c.method, c.path, resp.StatusCode, c.want)
 		}
 	}
+}
+
+func mustURL(t *testing.T, raw string) *url.URL {
+	t.Helper()
+	u, err := url.Parse(raw)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return u
 }

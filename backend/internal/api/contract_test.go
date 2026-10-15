@@ -63,6 +63,8 @@ func (f *fakeRunner) Run(_ context.Context, language string, files map[string]st
 	return service.RunResult{ExitCode: f.exitCode, Output: f.output, DurationMs: 42}, nil
 }
 
+const adminEmail, adminPassword = "admin@test.local", "secret-test"
+
 // newTestServer démarre l'API complète sur une base vide, avec le vrai contenu et un faux runner.
 func newTestServer(t *testing.T) (*httptest.Server, *fakeRunner) {
 	t.Helper()
@@ -72,7 +74,10 @@ func newTestServer(t *testing.T) (*httptest.Server, *fakeRunner) {
 	}
 	runner := &fakeRunner{}
 	svc := service.New(idx, testdb.Fresh(t), runner)
-	srv := httptest.NewServer(New(svc, Config{AppPassword: "secret-test", SessionSecret: "test-secret"}))
+	if _, err := svc.EnsureOwner(context.Background(), adminEmail, adminPassword); err != nil {
+		t.Fatal(err)
+	}
+	srv := httptest.NewServer(New(svc, Config{}))
 	t.Cleanup(srv.Close)
 	return srv, runner
 }

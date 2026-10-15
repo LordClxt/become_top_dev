@@ -1,8 +1,19 @@
 # Point d'entrée unique : même domaine pour le site et l'API (cookies de session sans CORS).
+{
+	servers {
+		# Coolify place son proxy (Traefik) devant : on lui fait confiance pour l'IP du client.
+		trusted_proxies static private_ranges
+		trusted_proxies_strict
+	}
+}
+
 :80 {
 	encode zstd gzip
 	handle /api/* {
-		reverse_proxy backend:8000
+		reverse_proxy backend:8000 {
+			# IP réelle du client, pour limiter les tentatives de connexion. Écrase toute valeur envoyée par le client.
+			header_up X-Real-IP {client_ip}
+		}
 	}
 	handle {
 		reverse_proxy frontend:3000

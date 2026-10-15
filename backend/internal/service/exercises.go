@@ -98,12 +98,12 @@ type ExerciseView struct {
 	Workspace    Workspace             `json:"workspace"`
 }
 
-func (s *Service) Exercise(ctx context.Context, id string) (*ExerciseView, error) {
+func (s *Service) Exercise(ctx context.Context, uid int64, id string) (*ExerciseView, error) {
 	ex, err := s.exercise(id)
 	if err != nil {
 		return nil, err
 	}
-	ws, err := s.workspace(ctx, ex)
+	ws, err := s.workspace(ctx, uid, ex)
 	if err != nil {
 		return nil, err
 	}
@@ -127,8 +127,8 @@ func (s *Service) Exercise(ctx context.Context, id string) (*ExerciseView, error
 }
 
 // workspace est ce que l'IDE affiche : fichiers modifiables (brouillon ou starter) et fichiers en lecture seule.
-func (s *Service) workspace(ctx context.Context, ex *content.Exercise) (*Workspace, error) {
-	progress, err := s.repos().Progress.ExerciseProgress(ctx, ex.ID, false)
+func (s *Service) workspace(ctx context.Context, uid int64, ex *content.Exercise) (*Workspace, error) {
+	progress, err := s.repos().Progress(uid).ExerciseProgress(ctx, ex.ID, false)
 	if err != nil {
 		return nil, err
 	}
@@ -180,8 +180,8 @@ type SandboxItem struct {
 }
 
 // Sandbox liste les exercices de l'atelier, avec l'état de chacun.
-func (s *Service) Sandbox(ctx context.Context) ([]SandboxItem, error) {
-	progress, err := s.repos().Progress.AllExerciseProgress(ctx)
+func (s *Service) Sandbox(ctx context.Context, uid int64) ([]SandboxItem, error) {
+	progress, err := s.repos().Progress(uid).AllExerciseProgress(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -199,20 +199,20 @@ func (s *Service) Sandbox(ctx context.Context) ([]SandboxItem, error) {
 }
 
 // updateProgress verrouille la progression de l'exercice, la modifie et l'enregistre.
-func (s *Service) updateProgress(ctx context.Context, id string, fn func(r repository.Repos, p *model.ExerciseProgress) error) error {
+func (s *Service) updateProgress(ctx context.Context, uid int64, id string, fn func(r repository.Repos, p *model.ExerciseProgress) error) error {
 	return s.store.InTx(ctx, func(r repository.Repos) error {
-		p, err := r.Progress.ExerciseProgress(ctx, id, true)
+		p, err := r.Progress(uid).ExerciseProgress(ctx, id, true)
 		if err != nil {
 			return err
 		}
 		if err := fn(r, &p); err != nil {
 			return err
 		}
-		return r.Progress.SaveExerciseProgress(ctx, p)
+		return r.Progress(uid).SaveExerciseProgress(ctx, p)
 	})
 }
 
-func (s *Service) SaveDraft(ctx context.Context, id string, files map[string]string) error {
+func (s *Service) SaveDraft(ctx context.Context, uid int64, id string, files map[string]string) error {
 	ex, err := s.exercise(id)
 	if err != nil {
 		return err
@@ -220,18 +220,18 @@ func (s *Service) SaveDraft(ctx context.Context, id string, files map[string]str
 	if err := editableOnly(ex, files); err != nil {
 		return err
 	}
-	return s.updateProgress(ctx, ex.ID, func(_ repository.Repos, p *model.ExerciseProgress) error {
+	return s.updateProgress(ctx, uid, ex.ID, func(_ repository.Repos, p *model.ExerciseProgress) error {
 		p.Draft = files
 		return nil
 	})
 }
 
-func (s *Service) Reset(ctx context.Context, id string) error {
+func (s *Service) Reset(ctx context.Context, uid int64, id string) error {
 	ex, err := s.exercise(id)
 	if err != nil {
 		return err
 	}
-	return s.updateProgress(ctx, ex.ID, func(_ repository.Repos, p *model.ExerciseProgress) error {
+	return s.updateProgress(ctx, uid, ex.ID, func(_ repository.Repos, p *model.ExerciseProgress) error {
 		p.Draft = nil
 		return nil
 	})
@@ -242,13 +242,13 @@ type Hints struct {
 	HintsTotal int      `json:"hints_total"`
 }
 
-func (s *Service) RevealHint(ctx context.Context, id string) (*Hints, error) {
+func (s *Service) RevealHint(ctx context.Context, uid int64, id string) (*Hints, error) {
 	ex, err := s.exercise(id)
 	if err != nil {
 		return nil, err
 	}
 	revealed := 0
-	err = s.updateProgress(ctx, ex.ID, func(_ repository.Repos, p *model.ExerciseProgress) error {
+	err = s.updateProgress(ctx, uid, ex.ID, func(_ repository.Repos, p *model.ExerciseProgress) error {
 		if p.HintsRevealed < len(ex.Hints) {
 			p.HintsRevealed++
 		}
@@ -268,7 +268,7 @@ type RunReport struct {
 }
 
 // Run exécute les tests sur le code soumis et enregistre la tentative.
-func (s *Service) Run(ctx context.Context, id string, files map[string]string) (*RunReport, error) {
+func (s *Service) Run(ctx context.Context, uid int64, id string, files map[string]string) (*RunReport, error) {
 	ex, err := s.exercise(id)
 	if err != nil {
 		return nil, err
@@ -287,6 +287,9 @@ func (s *Service) Run(ctx context.Context, id string, files map[string]string) (
 			return nil, err
 		}
 	default:
+		if err := s.checkRunQuota(ctx, uid); err != nil {
+			return nil, err
+		}
 		starter, err := readDir(filepath.Join(ex.Path, "starter"))
 		if err != nil {
 			return nil, err
@@ -306,7 +309,7 @@ func (s *Service) Run(ctx context.Context, id string, files map[string]string) (
 	}
 
 	xp := 0
-	err = s.updateProgress(ctx, ex.ID, func(r repository.Repos, p *model.ExerciseProgress) error {
+	err = s.updateProgress(ctx, uid, ex.ID, func(r repository.Repos, p *model.ExerciseProgress) error {
 		p.Attempts++
 		p.Draft = files
 		if report.Passed {
@@ -314,11 +317,11 @@ func (s *Service) Run(ctx context.Context, id string, files map[string]string) (
 				p.PassedAt = new(s.now())
 			}
 			var err error
-			if xp, err = r.Progress.AwardXP(ctx, "exercise", ex.ID, ExerciseXP(ex.XP, p.HintsRevealed)); err != nil {
+			if xp, err = r.Progress(uid).AwardXP(ctx, "exercise", ex.ID, ExerciseXP(ex.XP, p.HintsRevealed)); err != nil {
 				return err
 			}
 		}
-		return r.Progress.AddRun(ctx, model.ExerciseRun{
+		return r.Progress(uid).AddRun(ctx, model.ExerciseRun{
 			ExerciseID: ex.ID, Passed: report.Passed, DurationMs: report.DurationMs, Files: files, Report: report,
 		})
 	})
@@ -330,6 +333,17 @@ func (s *Service) Run(ctx context.Context, id string, files map[string]string) (
 		debrief = ex.Debrief
 	}
 	return &RunReport{TestReport: report, XPAwarded: xp, Debrief: debrief}, nil
+}
+
+// RunsPerMinute borne les exécutions dans le runner par compte : chaque exécution lance un conteneur.
+const RunsPerMinute = 10
+
+func (s *Service) checkRunQuota(ctx context.Context, uid int64) error {
+	n, err := s.repos().Progress(uid).RunsSince(ctx, s.now().Add(-time.Minute))
+	if err == nil && n >= RunsPerMinute {
+		return errorf(TooManyRequests, "trop d'exécutions : attends une minute avant de relancer les tests")
+	}
+	return err
 }
 
 // checkWorksheet : une fiche ne s'exécute pas, on corrige ses réponses sans passer par le runner.

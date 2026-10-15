@@ -10,25 +10,28 @@ import (
 	"btd/backend/internal/service"
 )
 
+// uid est le compte connecté : toute la progression lue ou écrite est la sienne.
+func uid(r *http.Request) int64 { return currentUser(r).ID }
+
 // --- Contenu -----------------------------------------------------------------
 
 func (s *Server) courses(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.Courses(r.Context())
+	v, err := s.svc.Courses(r.Context(), uid(r))
 	respond(w, v, err)
 }
 
 func (s *Server) chapter(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.Chapter(r.Context(), r.PathValue("id"))
+	v, err := s.svc.Chapter(r.Context(), uid(r), r.PathValue("id"))
 	respond(w, v, err)
 }
 
 func (s *Server) lesson(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.Lesson(r.Context(), r.PathValue("id"))
+	v, err := s.svc.Lesson(r.Context(), uid(r), r.PathValue("id"))
 	respond(w, v, err)
 }
 
 func (s *Server) completeLesson(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.CompleteLesson(r.Context(), r.PathValue("id"))
+	v, err := s.svc.CompleteLesson(r.Context(), uid(r), r.PathValue("id"))
 	respond(w, v, err)
 }
 
@@ -52,33 +55,33 @@ func readFiles(w http.ResponseWriter, r *http.Request) (map[string]string, bool)
 }
 
 func (s *Server) sandbox(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.Sandbox(r.Context())
+	v, err := s.svc.Sandbox(r.Context(), uid(r))
 	respond(w, v, err)
 }
 
 func (s *Server) exercise(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.Exercise(r.Context(), r.PathValue("id"))
+	v, err := s.svc.Exercise(r.Context(), uid(r), r.PathValue("id"))
 	respond(w, v, err)
 }
 
 func (s *Server) saveDraft(w http.ResponseWriter, r *http.Request) {
 	if files, ok := readFiles(w, r); ok {
-		noContent(w, s.svc.SaveDraft(r.Context(), r.PathValue("id"), files))
+		noContent(w, s.svc.SaveDraft(r.Context(), uid(r), r.PathValue("id"), files))
 	}
 }
 
 func (s *Server) reset(w http.ResponseWriter, r *http.Request) {
-	noContent(w, s.svc.Reset(r.Context(), r.PathValue("id")))
+	noContent(w, s.svc.Reset(r.Context(), uid(r), r.PathValue("id")))
 }
 
 func (s *Server) revealHint(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.RevealHint(r.Context(), r.PathValue("id"))
+	v, err := s.svc.RevealHint(r.Context(), uid(r), r.PathValue("id"))
 	respond(w, v, err)
 }
 
 func (s *Server) run(w http.ResponseWriter, r *http.Request) {
 	if files, ok := readFiles(w, r); ok {
-		v, err := s.svc.Run(r.Context(), r.PathValue("id"), files)
+		v, err := s.svc.Run(r.Context(), uid(r), r.PathValue("id"), files)
 		respond(w, v, err)
 	}
 }
@@ -98,7 +101,7 @@ func (s *Server) diagramCatalog(w http.ResponseWriter, _ *http.Request) {
 // --- Quiz --------------------------------------------------------------------
 
 func (s *Server) quiz(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.Quiz(r.Context(), r.PathValue("id"))
+	v, err := s.svc.Quiz(r.Context(), uid(r), r.PathValue("id"))
 	respond(w, v, err)
 }
 
@@ -115,7 +118,7 @@ func (s *Server) answer(w http.ResponseWriter, r *http.Request) {
 	}
 	var answer any
 	_ = json.Unmarshal(body.Answer, &answer) // déjà validé par le décodage du corps
-	v, err := s.svc.Answer(r.Context(), r.PathValue("id"), r.PathValue("question"), answer)
+	v, err := s.svc.Answer(r.Context(), uid(r), r.PathValue("id"), r.PathValue("question"), answer)
 	respond(w, v, err)
 }
 
@@ -142,7 +145,7 @@ func userDay(w http.ResponseWriter, r *http.Request) (today time.Time, tz string
 
 func (s *Server) progress(w http.ResponseWriter, r *http.Request) {
 	if today, tz, ok := userDay(w, r); ok {
-		v, err := s.svc.Summary(r.Context(), today, tz)
+		v, err := s.svc.Summary(r.Context(), uid(r), today, tz)
 		respond(w, v, err)
 	}
 }
@@ -153,7 +156,7 @@ func (s *Server) activity(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if today, tz, ok := userDay(w, r); ok {
-		v, err := s.svc.Activity(r.Context(), today, weeks, tz)
+		v, err := s.svc.Activity(r.Context(), uid(r), today, weeks, tz)
 		respond(w, v, err)
 	}
 }
@@ -173,7 +176,7 @@ func (s *Server) feed(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if today, tz, ok := userDay(w, r); ok {
-		v, err := s.svc.Feed(r.Context(), today, tz, day, limit)
+		v, err := s.svc.Feed(r.Context(), uid(r), today, tz, day, limit)
 		respond(w, v, err)
 	}
 }
@@ -181,12 +184,12 @@ func (s *Server) feed(w http.ResponseWriter, r *http.Request) {
 // --- Profil ------------------------------------------------------------------
 
 func (s *Server) profile(w http.ResponseWriter, r *http.Request) {
-	v, err := s.svc.Profile(r.Context())
+	v, err := s.svc.Profile(r.Context(), uid(r))
 	respond(w, v, err)
 }
 
 func (s *Server) avatar(w http.ResponseWriter, r *http.Request) {
-	data, ctype, err := s.svc.Avatar(r.Context())
+	data, ctype, err := s.svc.Avatar(r.Context(), uid(r))
 	if err != nil {
 		fail(w, err)
 		return
@@ -209,9 +212,9 @@ func (s *Server) putAvatar(w http.ResponseWriter, r *http.Request) {
 		fail(w, err)
 		return
 	}
-	noContent(w, s.svc.SetAvatar(r.Context(), data))
+	noContent(w, s.svc.SetAvatar(r.Context(), uid(r), data))
 }
 
 func (s *Server) deleteAvatar(w http.ResponseWriter, r *http.Request) {
-	noContent(w, s.svc.RemoveAvatar(r.Context()))
+	noContent(w, s.svc.RemoveAvatar(r.Context(), uid(r)))
 }

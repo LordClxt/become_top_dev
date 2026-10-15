@@ -50,9 +50,38 @@ type DayCount struct {
 	Last  time.Time
 }
 
-// Profile porte les réglages de l'utilisateur unique. L'avatar est petit, on le garde en base.
+// Profile porte les réglages d'un utilisateur. L'avatar est petit, on le garde en base.
 type Profile struct {
 	Avatar          []byte
 	AvatarType      string
 	AvatarUpdatedAt *time.Time
+}
+
+// User est un compte. PasswordHash vide : compte du propriétaire pas encore réclamé.
+type User struct {
+	ID           int64
+	Email        string
+	DisplayName  string
+	PasswordHash string
+	IsAdmin      bool
+	CreatedAt    time.Time
+}
+
+// Invite est un code d'invitation à usage unique.
+type Invite struct {
+	Code      string
+	CreatedAt time.Time
+	ExpiresAt time.Time
+	UsedBy    *string // nom de la personne inscrite avec ce code
+	UsedAt    *time.Time
+}
+
+// Member est un compte vu par l'admin, avec son XP totale.
+type Member struct {
+	ID          int64
+	Email       string
+	DisplayName string
+	IsAdmin     bool
+	CreatedAt   time.Time
+	XP          int
 }
