@@ -4,10 +4,6 @@ A personal platform for learning to code deeply, in the spirit of boot.dev, with
 
 Invite-only, for a handful of learners. One goal: become a top 1% developer.
 
-<p align="center">
-  <img src="docs/screenshots/landing-hero.gif" alt="Landing page hero: lime headline on electric blue, the code is typed, tests pass, +50 XP, the level goes up and the next module unlocks" width="720">
-</p>
-
 ## Highlights
 
 - **Courses written from books, not copied from them.** An agent reads each book in full, then rewrites it as lessons with page references. There are no long excerpts.
@@ -21,14 +17,6 @@ Invite-only, for a handful of learners. One goal: become a top 1% developer.
 ## Landing page
 
 A poster in ink, lime and electric blue. Headlines rise word by word, two marquees cross under the hero, and each step of the method has its own looping HyperFrames illustration.
-
-<p align="center">
-  <img src="docs/screenshots/landing-method.gif" alt="Method cards: a book opens and its source is cited, a program runs, four tests pass and the next module unlocks" width="720">
-</p>
-
-<p align="center">
-  <img src="docs/screenshots/landing-scroll.gif" alt="Scrolling through the landing page: marquees, method, why, courses, visuals and progress sections" width="520">
-</p>
 
 ## Tour
 
