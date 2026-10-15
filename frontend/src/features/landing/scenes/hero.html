@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1000, height=1000" />
+    <meta name="poster-time" content="6.9" />
+    <title>La boucle : coder, tester, gagner, ouvrir la suite</title>
+    <!--
+      Choreography (9 s, jouée en boucle par la page d'accueil) :
+        0.0 – 0.7   l'éditeur entre
+        0.6 – 3.1   le code s'écrit (discrete text : un état par caractère)
+        3.2 – 3.9   le terminal entre, « go test » s'écrit
+        4.0 – 4.6   trois tests passent, badge PASS
+        4.6 – 5.2   +50 XP saute, éclats
+        5.0 – 6.0   l'anneau de niveau se remplit, 7 → 8
+        6.1 – 6.6   la carte « module ouvert » glisse, le cadenas s'ouvre
+        7.9 – 8.5   tout se retire : la scène revient à son état de départ (boucle sans saut)
+      L'étoile tourne de 180° sur la durée : symétrique d'ordre 4, la boucle ne se voit pas.
+      Mise en page en constantes ; seuls x / y / scale / rotation / opacity sont animés.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0c0d12;
+        --ink-2: #171923;
+        --line: #2b2e40;
+        --paper: #f4f4ef;
+        --muted: #8d90a6;
+        --lime: #d6ff3d;
+        --violet: #a5a8ff;
+        --orange: #ffb36b;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1000px;
+        height: 1000px;
+        overflow: hidden;
+        background: transparent;
+        color: var(--paper);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif;
+      }
+      #root {
+        position: absolute;
+        inset: 0;
+      }
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      }
+      .display {
+        font-family: "Big Shoulders Display", "Arial Narrow", sans-serif;
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 0.9;
+      }
+      /* .pos porte la place et l'inclinaison fixes ; les enfants seuls sont animés. */
+      .pos {
+        position: absolute;
+      }
+      .anim {
+        will-change: transform, opacity;
+        opacity: 0;
+      }
+
+      .win {
+        border-radius: 28px;
+        background: var(--ink);
+        border: 3px solid var(--line);
+        box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.55);
+        overflow: hidden;
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 58px;
+        padding: 0 24px;
+        border-bottom: 3px solid var(--line);
+        background: var(--ink-2);
+      }
+      .bar i {
+        width: 14px;
+        height: 14px;
+        border-radius: 99px;
+        background: var(--line);
+      }
+      .bar i:first-child {
+        background: var(--lime);
+      }
+      .bar span {
+        margin-left: 14px;
+        font-size: 22px;
+        color: var(--muted);
+      }
+
+      #code {
+        padding: 22px 30px;
+        font-size: 26px;
+        line-height: 40px;
+        white-space: pre;
+        color: var(--paper);
+      }
+      .kw {
+        color: var(--lime);
+      }
+      .fn {
+        color: #ffffff;
+        font-weight: 600;
+      }
+      .ty {
+        color: var(--violet);
+      }
+      .nu {
+        color: var(--orange);
+      }
+      .pu {
+        color: var(--muted);
+      }
+      .caret {
+        display: inline-block;
+        width: 13px;
+        height: 30px;
+        margin-bottom: -6px;
+        background: var(--lime);
+      }
+
+      #term .body {
+        padding: 18px 26px;
+        font-size: 23px;
+        line-height: 38px;
+        white-space: pre;
+      }
+      #term .ok {
+        color: var(--lime);
+      }
+      #pass {
+        position: absolute;
+        right: 22px;
+        bottom: 22px;
+        padding: 6px 20px 2px;
+        border-radius: 14px;
+        background: var(--lime);
+        color: var(--ink);
+        font-size: 46px;
+      }
+
+      #xp {
+        padding: 16px 34px 8px;
+        border-radius: 999px;
+        background: var(--lime);
+        color: var(--ink);
+        font-size: 84px;
+        box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.5);
+      }
+      .spark {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+        background: var(--lime);
+        opacity: 0;
+      }
+
+      #lvl {
+        width: 230px;
+        height: 230px;
+        border-radius: 999px;
+        background: var(--ink);
+        border: 3px solid var(--line);
+        box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.55);
+      }
+      #lvl svg {
+        position: absolute;
+        inset: 0;
+      }
+      #lvl .lbl {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 58px;
+        text-align: center;
+        font-size: 26px;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+      }
+      #lvl .num {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 86px;
+        text-align: center;
+        font-size: 96px;
+      }
+
+      #unlock {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        width: 390px;
+        height: 124px;
+        padding: 0 28px;
+        border-radius: 26px;
+        background: var(--paper);
+        color: var(--ink);
+        box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.5);
+      }
+      #unlock .t {
+        font-size: 30px;
+        font-weight: 700;
+      }
+      #unlock .d {
+        font-size: 22px;
+        color: #5b5d6e;
+        margin-top: 2px;
+      }
+      #lock {
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        width: 76px;
+        height: 76px;
+        border-radius: 22px;
+        background: var(--ink);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="9" data-width="1000" data-height="1000">
+      <div class="pos" style="left: 800px; top: 280px; width: 130px; height: 130px">
+        <svg id="star" width="130" height="130" viewBox="0 0 100 100">
+          <path d="M50 0 C54 34 66 46 100 50 C66 54 54 66 50 100 C46 66 34 54 0 50 C34 46 46 34 50 0 Z" fill="#d6ff3d" />
+        </svg>
+      </div>
+
+      <div class="pos" style="left: 90px; top: 165px; transform: rotate(-4deg)">
+        <div class="float" id="f1">
+          <div class="win anim" id="editor" style="width: 660px; height: 430px">
+            <div class="bar mono"><i></i><i></i><i></i><span>somme.go</span></div>
+            <div class="mono" id="code"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pos" style="left: 330px; top: 560px; transform: rotate(3deg)">
+        <div class="float" id="f2">
+          <div class="win anim" id="term" style="width: 580px; height: 220px; position: relative">
+            <div class="body mono" id="termBody"></div>
+            <div class="display anim" id="pass">PASS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pos" style="left: 560px; top: 70px; transform: rotate(5deg)">
+        <div class="display anim" id="xp">+50 XP</div>
+      </div>
+      <div class="pos" id="sparks" style="left: 710px; top: 125px"></div>
+
+      <div class="pos" style="left: 40px; top: 620px">
+        <div class="anim" id="lvl" style="position: relative">
+          <svg width="230" height="230" viewBox="0 0 230 230">
+            <circle cx="115" cy="115" r="92" fill="none" stroke="#2b2e40" stroke-width="14" />
+            <circle id="ring" cx="115" cy="115" r="92" fill="none" stroke="#d6ff3d" stroke-width="14" stroke-linecap="round" transform="rotate(-90 115 115)" />
+          </svg>
+          <div class="lbl mono">NIVEAU</div>
+          <div class="num display" id="n7">7</div>
+          <div class="num display" id="n8" style="opacity: 0; color: var(--lime)">8</div>
+        </div>
+      </div>
+
+      <div class="pos" style="left: 560px; top: 820px; transform: rotate(-2deg)">
+        <div class="anim" id="unlock">
+          <div id="lock">
+            <svg width="44" height="48" viewBox="0 0 44 48" fill="none" stroke="#d6ff3d" stroke-width="5" stroke-linecap="round">
+              <path id="shackle" d="M11 22 V14 a11 11 0 0 1 22 0 V22" />
+              <rect x="4" y="22" width="36" height="24" rx="6" fill="#d6ff3d" stroke="none" />
+            </svg>
+          </div>
+          <div>
+            <div class="t">Module suivant ouvert</div>
+            <div class="d">Pointeurs et mémoire</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const DURATION = 9;
+      const tl = gsap.timeline({ paused: true });
+
+      // --- Code tapé : jetons colorés, rendus jusqu'au n-ième caractère ------------------------
+      const LINES = [
+        [["func ", "kw"], ["Somme", "fn"], ["(xs []", "pu"], ["int", "ty"], [") ", "pu"], ["int", "ty"], [" {", "pu"]],
+        [["    total := ", ""], ["0", "nu"]],
+        [["    ", ""], ["for", "kw"], [" _, x := ", ""], ["range", "kw"], [" xs {", "pu"]],
+        [["        total += x", ""]],
+        [["    }", "pu"]],
+        [["    ", ""], ["return", "kw"], [" total", ""]],
+        [["}", "pu"]],
+      ];
+      const TOTAL = LINES.reduce((n, l) => n + l.reduce((m, [s]) => m + s.length, 0) + 1, 0);
+      const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+      const code = document.getElementById("code");
+      let lastN = -1;
+      function renderCode(n) {
+        if (n === lastN) return;
+        lastN = n;
+        let left = n;
+        let html = "";
+        for (const [li, line] of LINES.entries()) {
+          if (left <= 0) break;
+          for (const [s, cls] of line) {
+            if (left <= 0) break;
+            const part = s.slice(0, left);
+            left -= part.length;
+            html += cls ? `<span class="${cls}">${esc(part)}</span>` : esc(part);
+          }
+          if (left > 0 && li < LINES.length - 1) {
+            left -= 1;
+            html += "\n";
+          }
+        }
+        code.innerHTML = html + '<span class="caret"></span>';
+      }
+
+      // --- Terminal : lignes affichées à des instants fixes ------------------------------------
+      const CMD = "$ go test ./...";
+      const TERM = [
+        [4.0, '<span class="ok">✓</span> TestSomme/vide'],
+        [4.15, '<span class="ok">✓</span> TestSomme/plusieurs'],
+        [4.3, '<span class="ok">✓</span> TestSomme/négatifs'],
+      ];
+      const termBody = document.getElementById("termBody");
+      let lastTerm = "";
+      function renderTerm(t) {
+        const typed = Math.max(0, Math.min(CMD.length, Math.floor((t - 3.4) / 0.03)));
+        let html = `<span class="pu">${CMD.slice(0, typed)}</span>`;
+        for (const [at, line] of TERM) if (t >= at) html += "\n" + line;
+        if (html !== lastTerm) {
+          lastTerm = html;
+          termBody.innerHTML = html;
+        }
+      }
+
+      // --- Niveau : un seul pilote pour l'anneau ---------------------------------------------
+      const ring = document.getElementById("ring");
+      const CIRC = 2 * Math.PI * 92;
+      ring.style.strokeDasharray = String(CIRC);
+      const level = { p: 0.62 };
+      const renderRing = () => (ring.style.strokeDashoffset = String(CIRC * (1 - level.p)));
+
+      const driver = { t: 0 };
+      function render(t) {
+        renderCode(Math.max(0, Math.min(TOTAL, Math.floor(((t - 0.6) / 2.5) * TOTAL))));
+        renderTerm(t);
+        renderRing();
+      }
+      tl.to(driver, { t: DURATION, duration: DURATION, ease: "none", onUpdate: () => render(driver.t) }, 0);
+
+      // --- Ambiance : l'étoile tourne, les fenêtres flottent -----------------------------------
+      tl.fromTo("#star", { rotation: 0 }, { rotation: 180, duration: DURATION, ease: "none", transformOrigin: "50% 50%" }, 0);
+      tl.fromTo("#f1", { y: 0 }, { keyframes: { y: [0, -12, 0] }, duration: DURATION, ease: "sine.inOut" }, 0);
+      tl.fromTo("#f2", { y: 0 }, { keyframes: { y: [0, 10, 0] }, duration: DURATION, ease: "sine.inOut" }, 0);
+
+      // --- Entrées --------------------------------------------------------------------------
+      tl.fromTo("#editor", { opacity: 0, y: 50, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 0.05);
+      tl.fromTo("#term", { opacity: 0, y: 40, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, 3.2);
+      tl.fromTo("#pass", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.4)" }, 4.45);
+
+      tl.fromTo("#xp", { opacity: 0, scale: 0.3, rotation: -12 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.55, ease: "back.out(2.2)" }, 4.65);
+      const sparks = document.getElementById("sparks");
+      for (let i = 0; i < 10; i++) {
+        const s = document.createElement("div");
+        s.className = "spark";
+        sparks.appendChild(s);
+        const a = (i / 10) * Math.PI * 2 + 0.3;
+        const r = 170 + (i % 3) * 40;
+        tl.fromTo(s, { opacity: 0, x: 0, y: 0, scale: 1, rotation: 0 }, { opacity: 1, duration: 0.08, immediateRender: false }, 4.7);
+        tl.fromTo(
+          s,
+          { x: 0, y: 0, scale: 1, rotation: 0 },
+          { x: Math.cos(a) * r, y: Math.sin(a) * r * 0.7, scale: 0.3, rotation: 90, duration: 0.6, ease: "power3.out", immediateRender: false },
+          4.7,
+        );
+        tl.fromTo(s, { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 5.05);
+      }
+
+      tl.fromTo("#lvl", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 4.85);
+      tl.fromTo(level, { p: 0.62 }, { p: 1, duration: 0.9, ease: "power2.inOut", immediateRender: false }, 5.1);
+      tl.fromTo("#n7", { opacity: 1, y: 0 }, { opacity: 0, y: -30, duration: 0.2, ease: "power2.in", immediateRender: false }, 5.95);
+      tl.fromTo("#n8", { opacity: 0, y: 30, scale: 1 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)", immediateRender: false }, 6.1);
+      tl.fromTo("#lvl", { scale: 1 }, { keyframes: { scale: [1, 1.08, 1] }, duration: 0.4, ease: "none", immediateRender: false }, 6.05);
+
+      tl.fromTo("#unlock", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 6.15);
+      tl.fromTo("#shackle", { y: 0, rotation: 0 }, { y: -5, rotation: -28, svgOrigin: "33 22", duration: 0.35, ease: "back.out(2)", immediateRender: false }, 6.6);
+
+      // --- Sortie : retour exact à l'état de départ --------------------------------------------
+      const OUT = ["#editor", "#term", "#xp", "#lvl", "#unlock"];
+      OUT.forEach((sel, i) => {
+        tl.fromTo(sel, { opacity: 1, y: 0 }, { opacity: 0, y: 30, duration: 0.45, ease: "power2.in", immediateRender: false }, 7.9 + i * 0.06);
+      });
+
+      render(0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

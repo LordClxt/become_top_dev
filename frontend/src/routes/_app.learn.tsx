@@ -90,7 +90,7 @@ function Quest({ course, chapter }: { course: Course; chapter: OpenChapter }) {
       aria-labelledby="next-step"
       className="relative isolate overflow-hidden rounded-2xl border border-line bg-surface/80 p-7 backdrop-blur md:p-9"
     >
-      <div className="glow-cyan pointer-events-none absolute -top-24 -left-16 -z-10 size-72 rounded-full" aria-hidden="true" />
+      <div className="glow-accent pointer-events-none absolute -top-24 -left-16 -z-10 size-72 rounded-full" aria-hidden="true" />
       <div className="flex items-start gap-5">
         <span className="relative hidden size-16 shrink-0 sm:block">
           <span className="node-pulse absolute inset-0 rounded-2xl bg-accent" aria-hidden="true" />

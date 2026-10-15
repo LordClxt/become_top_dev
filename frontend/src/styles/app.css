@@ -4,29 +4,35 @@
 /* Le thème sombre est le défaut ; .light sur <html> bascule en clair. */
 @custom-variant light (&:where(.light, .light *));
 
-:root {
-  /* Encre marine, reliée à la couleur officielle de Go, plutôt qu'un quasi-noir neutre. */
-  --ink: #0e1b26;
-  --surface: #15283a;
-  --surface-2: #1c3349;
-  --line: #2a4560;
-  --text: #e6edf2;
-  --text-muted: #9fb3c4;
-  --accent: #00add8; /* cyan Go */
-  --accent-ink: #062330;
-  --pass: #6fbf8e;
+:root,
+.lp-ink {
+  /* Palette d'affiche : encre presque noire, citron pour l'action, bleu électrique pour la marque. */
+  --brand-blue: #3a3dff;
+  --brand-blue-deep: #2427c4;
+  --brand-lime: #d6ff3d;
+  --brand-on-lime: #0c0d12;
+  --brand-paper: #ecebe4;
+  --ink: #0c0d12;
+  --surface: #15161e;
+  --surface-2: #1d1f2b;
+  --line: #2b2e40;
+  --text: #f4f4ef;
+  --text-muted: #a3a5b8;
+  --accent: var(--brand-lime);
+  --accent-ink: #0c0d12;
+  --pass: #5be49b;
   --fail: #e3a93c; /* ambre : échec, débordement de capacité */
-  --cell-empty: #22394f;
-  --glow-opacity: 0.2;
+  --cell-empty: #262838;
+  --glow-opacity: 0.16;
   --grid-opacity: 0.55;
   /* familles de couleur des composants d'architecture (éditeur de diagrammes) */
   --c-sky: #4cc2f0;
   --c-violet: #a99bff;
-  --c-blue: #6fa3ff;
+  --c-blue: #7b7eff;
   --c-red: #ff7a8a;
   --c-orange: #ffa14d;
   --c-teal: #3fd6c0;
-  --c-slate: #9fb3c4;
+  --c-slate: #a3a5b8;
   --c-pink: #ff86c0;
   /* Mouvement : courtes pour l'UI, lentes seulement pour ce qui raconte un changement d'état. */
   --dur-fast: 160ms;
@@ -37,27 +43,30 @@
   color-scheme: dark;
 }
 
-:root.light {
-  --ink: #f4f7f9;
+/* Thème clair : papier chaud ; le citron, illisible sur fond clair, cède l'accent au bleu. */
+:root.light,
+:root.light .lp-ink {
+  --brand-paper: #e4e2d8;
+  --ink: #f3f2ec;
   --surface: #ffffff;
-  --surface-2: #e9eff3;
-  --line: #cfdbe4;
-  --text: #0e1b26;
-  --text-muted: #4d6273;
-  --accent: #007d9c;
+  --surface-2: #e9e8e0;
+  --line: #d9d7cc;
+  --text: #0c0d12;
+  --text-muted: #5b5d6e;
+  --accent: var(--brand-blue);
   --accent-ink: #ffffff;
-  --pass: #2f8a55;
+  --pass: #1f8a50;
   --fail: #a86b00;
-  --cell-empty: #dbe5ec;
+  --cell-empty: #e2e1d8;
   --glow-opacity: 0.1;
   --grid-opacity: 0.7;
   --c-sky: #0a7aa8;
   --c-violet: #6a4ccf;
-  --c-blue: #2c5fc6;
+  --c-blue: #2c2fd0;
   --c-red: #c42b43;
   --c-orange: #b8590a;
   --c-teal: #0b8a7a;
-  --c-slate: #53687a;
+  --c-slate: #5b5d6e;
   --c-pink: #b5307f;
   color-scheme: light;
 }
@@ -76,6 +85,8 @@
   --color-cell-empty: var(--cell-empty);
 
   --font-read: 'Literata', Georgia, serif;
+  /* Affiche de la page d'accueil uniquement : capitales très condensées. */
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
   --font-ui: 'Schibsted Grotesk', system-ui, sans-serif;
   --font-code: 'JetBrains Mono', ui-monospace, monospace;
 
@@ -114,7 +125,7 @@ body {
   mask-image: radial-gradient(closest-side, black 30%, transparent);
 }
 
-.glow-cyan {
+.glow-accent {
   background: var(--accent);
   filter: blur(120px);
   opacity: var(--glow-opacity);
@@ -292,10 +303,11 @@ pre,
 @keyframes run-vanish {
   to { opacity: 0; }
 }
+/* --cell-on / --cell-off : couleurs d'une cellule pleine / vide, remplaçables sur fond d'accent. */
 @keyframes run-cell {
-  from { background: var(--cell-empty); transform: scale(0.6); }
+  from { background: var(--cell-off, var(--cell-empty)); transform: scale(0.6); }
   60% { transform: scale(1.15); }
-  to { background: var(--accent); transform: scale(1); }
+  to { background: var(--cell-on, var(--accent)); transform: scale(1); }
 }
 .run-appear {
   animation: run-appear 220ms ease-out var(--d, 0s) both;
@@ -373,7 +385,7 @@ pre,
    [data-shown] est posé par useReveal() ; sans JS, l'état final s'affiche. */
 
 [data-shown='false'] .reveal-cell {
-  background: var(--cell-empty);
+  background: var(--cell-off, var(--cell-empty));
 }
 [data-shown='true'] .reveal-cell {
   animation: run-cell 300ms var(--ease-out) var(--d, 0s) both;
@@ -400,39 +412,9 @@ pre,
   transition: transform 1.2s var(--ease-out) var(--d, 0s);
 }
 
-/* La boucle d'un module : un jeton parcourt les quatre étapes, chacune s'allume à son passage. */
-@keyframes loop-token {
-  0% { left: 0%; opacity: 0; animation-timing-function: var(--ease-out); }
-  5% { left: 0%; opacity: 1; animation-timing-function: var(--ease-out); }
-  27% { left: 33.333%; }
-  35% { left: 33.333%; animation-timing-function: var(--ease-out); }
-  57% { left: 66.667%; }
-  65% { left: 66.667%; animation-timing-function: var(--ease-out); }
-  87% { left: 100%; opacity: 1; }
-  100% { left: 100%; opacity: 0; }
-}
-[data-shown='true'] .loop-token {
-  animation: loop-token 3.6s linear 0.2s both;
-}
-[data-shown='false'] .loop-token {
-  opacity: 0;
-}
-@keyframes station-on {
-  from { border-color: var(--line); color: var(--text-muted); background: var(--ink); }
-  to { border-color: var(--accent); color: var(--accent); background: var(--surface); }
-}
-[data-shown='false'] .loop-station {
-  border-color: var(--line);
-  color: var(--text-muted);
-  background: var(--ink);
-}
-[data-shown='true'] .loop-station {
-  animation: station-on var(--dur-base) var(--ease-out) var(--d, 0s) both;
-}
 @media (prefers-reduced-motion: reduce) {
   [data-shown] .reveal-cell,
-  [data-shown] .reveal-fade,
-  [data-shown] .loop-station {
+  [data-shown] .reveal-fade {
     animation-delay: 0s !important;
   }
   [data-shown] .reveal-draw {
@@ -440,9 +422,6 @@ pre,
   }
   [data-shown] .reveal-grow {
     transform: none;
-  }
-  [data-shown] .loop-token {
-    display: none;
   }
 }
 
@@ -845,4 +824,116 @@ pre,
 .ws-slider:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 6px;
+}
+
+/* --- Accueil : bandeau défilant et titre géant -------------------------------- */
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Mot-symbole du pied de page : seulement le contour des lettres. */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--line);
+}
+
+/* --- Accueil : blocs d'affiche ---------------------------------------------------
+ * Bleu, papier et citron redéfinissent les jetons de l'app : les composants partagés s'y
+ * accordent sans variante (.lp-ink les rétablit à l'intérieur d'un bloc). Contrastes :
+ * citron sur bleu ≈ 6,6:1, blanc sur bleu ≈ 7,4:1, encre sur citron ≈ 16:1.
+ */
+.lp {
+  --lp-spark: var(--accent);
+}
+.lp-ink {
+  background: var(--ink);
+  color: var(--text);
+}
+/* Les blocs bleu, papier et citron gardent leur couleur dans les deux thèmes. */
+.lp .lp-blue {
+  --lp-spark: var(--brand-lime);
+  --text: #ffffff;
+  --text-muted: rgb(255 255 255 / 0.76);
+  --line: rgb(255 255 255 / 0.24);
+  --surface: var(--brand-blue-deep);
+  --surface-2: #1d20a8;
+  --accent: var(--brand-lime);
+  --accent-ink: #0c0d12;
+  --cell-empty: rgb(255 255 255 / 0.3);
+  background: var(--brand-blue);
+  color: var(--text);
+}
+.lp .lp-paper {
+  --lp-spark: var(--brand-blue);
+  --text: #0c0d12;
+  --text-muted: #55576a;
+  --line: rgb(12 13 18 / 0.14);
+  --surface: #ffffff;
+  --surface-2: #f5f4ef;
+  --accent: var(--brand-blue);
+  --accent-ink: #ffffff;
+  --pass: #1f8a50;
+  --cell-empty: #d8d6cc;
+  background: var(--brand-paper);
+  color: var(--text);
+}
+.lp .lp-lime {
+  --lp-spark: var(--brand-on-lime);
+  --text: #0c0d12;
+  --text-muted: rgb(12 13 18 / 0.7);
+  --line: rgb(12 13 18 / 0.2);
+  --accent: #0c0d12;
+  --accent-ink: var(--brand-lime);
+  background: var(--brand-lime);
+  color: var(--text);
+}
+
+/* Quadrillage du hero bleu, effacé vers les bords. */
+.lp-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.09) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent);
+}
+/* Lueur derrière l'illustration du hero. */
+.lp-halo {
+  background: radial-gradient(closest-side, rgb(214 255 61 / 0.35), transparent);
+  filter: blur(30px);
+}
+
+.text-stroke-lime {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--brand-lime);
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+@media (prefers-reduced-motion: reduce) {
+  .spin-slow {
+    animation: none;
+  }
 }
