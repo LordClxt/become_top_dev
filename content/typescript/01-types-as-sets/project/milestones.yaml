@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Singletons"
+    goal: "literal accepte exactement une valeur et cite la valeur attendue dans le message."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Unions"
+    goal: "union essaie les schémas dans l'ordre, cumule les raisons en cas d'échec, relance les erreurs inattendues."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Tableaux"
+    goal: "array valide chaque élément et rapporte l'indice dans le chemin ($.points[1].x)."
+    tests: "tstest M3"
+    review: true

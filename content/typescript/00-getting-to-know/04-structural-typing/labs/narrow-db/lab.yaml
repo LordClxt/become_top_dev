@@ -1,0 +1,12 @@
+id: ts-ch00-l04-lab-narrow-db
+title: "Une interface étroite plutôt qu'un mock"
+kind: code
+language: typescript
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["authors.ts"]
+concepts: [ts-structural-typing, ts-open-types, ts-narrow-interface]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

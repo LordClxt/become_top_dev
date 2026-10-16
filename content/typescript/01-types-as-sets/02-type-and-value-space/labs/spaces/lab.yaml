@@ -1,0 +1,12 @@
+id: ts-ch01-l02-lab-spaces
+title: "Dériver les types des valeurs"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["spaces.ts"]
+concepts: [ts-two-spaces, ts-typeof-two-meanings, ts-indexed-access-type, ts-class-both-spaces]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

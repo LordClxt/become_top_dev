@@ -1,11 +1,11 @@
 ## Hint 1
-`HashPartition` : multiplie le hachage (sur 64 bits) par le nombre de partitions puis décale de 32 bits vers la droite. Chaque partition reçoit une tranche contiguë.
+`hashPartition` : `Math.floor(hash(key) * parts / 2 ** 32)`. Chaque partition reçoit une tranche contiguë de l'espace des hachages.
 
 ## Hint 2
-`Locate` : la partition d'une clé est le nombre de bornes inférieures ou égales à la clé (`sort.Search`).
+`locate` : la partition d'une clé est le nombre de bornes inférieures ou égales à la clé (recherche binaire sur `bounds`).
 
 ## Hint 3
-`AddNode` : tant que le nouveau nœud a moins de `len(a) / (nœuds+1)` partitions, prends la partition de plus grand numéro du nœud le plus chargé (à égalité, le plus petit nom).
+`addNode` : tant que le nouveau nœud a moins de `floor(taille / (nœuds + 1))` partitions, prends la partition de plus grand numéro du nœud le plus chargé (`pickMost`, à égalité le plus petit nom).
 
 ## Hint 4
-Index global : `Put` touche la partition du document plus les partitions d'index **distinctes** de ses termes ; `Query` ne lit que la partition du terme.
+Index global : `put` touche la partition du document plus les partitions d'index **distinctes** de ses termes (un `Set`) ; `query` ne lit que la partition du terme.

@@ -8,6 +8,7 @@ type Source struct {
 	Chapter int    `yaml:"chapter" json:"chapter"`
 	Pages   string `yaml:"pages" json:"pages"`
 	Book    string `yaml:"book,omitempty" json:"book,omitempty"` // slug du livre si le cours en cite plusieurs
+	URL     string `yaml:"url,omitempty" json:"url,omitempty"`   // page de documentation citée (cours construit sur une doc)
 }
 
 type Concept struct {
@@ -298,7 +299,8 @@ type CourseRequirement struct {
 type Course struct {
 	ID             string              `yaml:"id"`
 	Title          string              `yaml:"title"`
-	Kind           string              `yaml:"kind"` // practical | conceptual
+	Kind           string              `yaml:"kind"`     // practical | conceptual
+	Language       string              `yaml:"language"` // langage des TP et des extraits de code
 	Book           *Book               `yaml:"book"`
 	Books          []Book              `yaml:"books"` // livres complémentaires (cours construit sur plusieurs livres)
 	Summary        string              `yaml:"summary"`

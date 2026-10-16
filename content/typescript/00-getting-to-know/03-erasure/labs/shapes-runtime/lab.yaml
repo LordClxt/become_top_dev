@@ -1,0 +1,12 @@
+id: ts-ch00-l03-lab-shapes-runtime
+title: "Des types qui disparaissent"
+kind: code
+language: typescript
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["shapes.ts"]
+concepts: [ts-type-erasure, ts-tagged-union, ts-assertion-no-conversion, ts-runtime-vs-declared]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

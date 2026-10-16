@@ -1,0 +1,12 @@
+id: nest-ch00-l03-lab-fix-esm
+title: "Réparer un projet ESM cassé"
+kind: code
+language: nestjs
+difficulty: 2
+xp: 50
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["catalog.service.ts", "catalog.controller.ts", "app.module.ts", "client.ts"]
+concepts: [nest-esm-imports, nest-esm-globals, nest-cjs-interop, nest-injection-token]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

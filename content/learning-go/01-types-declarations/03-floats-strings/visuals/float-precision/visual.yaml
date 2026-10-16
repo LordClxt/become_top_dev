@@ -1,6 +1,0 @@
-id: go-ch01-float-precision
-concept: go-float-precision
-format: interactive
-justification: "Voir les chiffres que le processeur stocke vraiment derrière 0.1 et 0.2 est le seul moyen de comprendre pourquoi leur somme n'est pas 0.3."
-entry: FloatPrecision.tsx
-status: built

@@ -1,0 +1,17 @@
+id: nest-ch00
+title: "Premiers pas avec Nest"
+subtitle: "L'architecture, les décorateurs et leurs métadonnées, ESM et l'outillage"
+source: { chapter: 2, pages: "/first-steps", url: "https://docs.nestjs.com/first-steps" }
+objectives:
+  - "Décrire ce que Nest ajoute à Express : modules, contrôleurs, providers et le conteneur d'injection"
+  - "Câbler une fonctionnalité (module + contrôleur + service) et la tester de bout en bout avec @nestjs/testing et supertest"
+  - "Expliquer comment emitDecoratorMetadata permet l'injection par type, et diagnostiquer une dépendance non résolue"
+  - "Écrire un projet Nest en ESM sans piège : extensions .js, import type, import.meta.dirname, interop CommonJS"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-architecture"
+  - "02-decorators-metadata"
+  - "03-esm-tooling"
+xp: { project: 220 }
+project: project

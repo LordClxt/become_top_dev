@@ -1,0 +1,12 @@
+id: nest-ch01-l02-lab-search-params
+title: "Recherche paginée et création validée"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["books.controller.ts"]
+concepts: [nest-param-decorators, nest-strings-from-url, nest-parse-pipes, nest-schema-validation]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

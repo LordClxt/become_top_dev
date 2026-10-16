@@ -1,0 +1,12 @@
+id: nest-ch00-l02-lab-mini-injector
+title: "Écris ton propre conteneur d'injection"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["injector.ts"]
+concepts: [nest-decorator-metadata, nest-design-paramtypes, nest-injection-token]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

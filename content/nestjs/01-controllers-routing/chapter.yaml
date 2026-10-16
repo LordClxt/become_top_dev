@@ -1,0 +1,20 @@
+id: nest-ch01
+title: "Contrôleurs et routage"
+subtitle: "Routes, réponses, paramètres, conflits de routes, versioning et préfixes"
+source: { chapter: 3, pages: "/controllers", url: "https://docs.nestjs.com/controllers" }
+objectives:
+  - "Concevoir les routes d'une ressource REST avec les bons verbes et les bons codes de statut (201, 204, 404…)"
+  - "Choisir entre réponse standard et objet de réponse de la plateforme, et utiliser passthrough sans perdre les intercepteurs"
+  - "Extraire et convertir paramètres, query et corps, et valider un corps avec un schéma Standard Schema"
+  - "Prévoir l'ordre de résolution des routes, détecter les routes masquées et les doublons avec routeConflictPolicy"
+  - "Versionner une API et organiser ses préfixes sans casser les sondes de santé"
+mastery_threshold: 0.8
+prerequisites: [nest-ch00]
+lessons:
+  - "01-routes-responses"
+  - "02-params-validation"
+  - "03-route-conflicts"
+  - "04-versioning-prefixes"
+xp: { assignment: 150, project: 260 }
+assignment: assignment
+project: project

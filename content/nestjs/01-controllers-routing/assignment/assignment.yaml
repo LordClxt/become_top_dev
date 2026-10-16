@@ -1,0 +1,12 @@
+id: nest-ch01-assignment
+title: "Le contrat de l'API des commandes"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 150
+timeout_s: 90
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["orders.controller.ts"]
+concepts: [nest-rest-semantics, nest-status-codes, nest-parse-pipes, nest-schema-validation, nest-standard-response]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

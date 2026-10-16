@@ -1,7 +1,0 @@
-id: go-ch10-select-random
-concept: go-select-random
-format: remotion
-justification: "Voir six select successifs choisir sans ordre entre deux channels prêts, puis le cas d'un seul prêt, de aucun et de default, montre la règle mieux qu'une phrase."
-entry: SelectRandom.tsx
-duration_s: 19
-status: built

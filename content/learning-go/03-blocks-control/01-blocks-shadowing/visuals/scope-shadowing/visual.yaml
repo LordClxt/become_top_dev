@@ -1,6 +1,0 @@
-id: go-ch03-scope-shadowing
-concept: go-shadowing
-format: interactive
-justification: "Voir la pile de blocs se remplir et se vider ligne après ligne, et quelle variable chaque nom désigne, rend le shadowing visible au lieu de le deviner."
-entry: ScopeShadowing.tsx
-status: built

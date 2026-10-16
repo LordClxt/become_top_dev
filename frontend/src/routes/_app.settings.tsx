@@ -37,7 +37,7 @@ function SettingsPage() {
             settings={settings}
             name="autocomplete"
             label="Autocomplétion"
-            description="Propose les fonctions, méthodes et noms du TP pendant la frappe (Go, Groovy, Grails). Désactivée, Ctrl+Espace ne propose plus rien non plus."
+            description="Propose les fonctions, méthodes et noms du TP pendant la frappe (Go, Groovy, Grails, Java). Désactivée, Ctrl+Espace ne propose plus rien non plus."
           />
         </div>
       </section>

@@ -67,9 +67,9 @@ func TestRequestValidation(t *testing.T) {
 		body         string
 		want         int
 	}{
-		{http.MethodPut, "/api/exercises/go-ch02-l03-lab-chunk/draft", string(tooMany), http.StatusUnprocessableEntity},
-		{http.MethodPut, "/api/exercises/go-ch02-l03-lab-chunk/draft", `{"files": {"chunk.go": 3}}`, http.StatusUnprocessableEntity},
-		{http.MethodPost, "/api/quizzes/go-ch02-l03-quiz/questions/q1", `{}`, http.StatusUnprocessableEntity},
+		{http.MethodPut, "/api/exercises/java-ch01-l01-lab-http-status/draft", string(tooMany), http.StatusUnprocessableEntity},
+		{http.MethodPut, "/api/exercises/java-ch01-l01-lab-http-status/draft", `{"files": {"HttpStatus.java": 3}}`, http.StatusUnprocessableEntity},
+		{http.MethodPost, "/api/quizzes/java-ch01-l01-quiz/questions/q1", `{}`, http.StatusUnprocessableEntity},
 		{http.MethodPost, "/api/auth/login", `{}`, http.StatusUnprocessableEntity},
 		{http.MethodGet, "/api/activity/feed?day=hier", "", http.StatusUnprocessableEntity},
 		{http.MethodGet, "/api/activity?tz=Local", "", http.StatusBadRequest},

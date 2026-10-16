@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce que le typage structurel ?"
+    back: "Une valeur convient à un type dès qu'elle a les propriétés requises, quelle que soit sa classe ou sa déclaration."
+    concept: ts-structural-typing
+  - id: fc2
+    front: "Pourquoi un `Vector3D` passe-t-il pour un `Vector2D` ?"
+    back: "Il a au moins x et y : les types sont ouverts, les propriétés en plus sont permises. Une fonction qui attend un Vector2D ignorera z."
+    concept: ts-open-types
+  - id: fc3
+    front: "Pourquoi `Object.keys(obj)` renvoie-t-il `string[]` ?"
+    back: "Parce que l'objet peut avoir d'autres clés que celles de son type (types ouverts)."
+    concept: ts-open-types
+  - id: fc4
+    front: "Une classe garantit-elle ses invariants au niveau du type ?"
+    back: "Non. Un littéral objet de la même forme est accepté sans passer par le constructeur."
+    concept: ts-structural-typing
+  - id: fc5
+    front: "Comment tester une fonction qui dépend d'une grosse classe, sans mock ?"
+    back: "Déclarer une interface étroite qui ne contient que ce que la fonction utilise, puis passer un objet littéral conforme."
+    concept: ts-narrow-interface
+  - id: fc6
+    front: "Comment distinguer un Vector2D d'un Vector3D à l'exécution ?"
+    back: "`'z' in v` : une vérification de propriété qui existe à l'exécution et qui affine aussi le type."
+    concept: ts-open-types

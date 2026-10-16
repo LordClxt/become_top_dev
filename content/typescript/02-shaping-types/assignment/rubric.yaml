@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: immutability
+    label: "Immuabilité et types dérivés"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Aucune mutation ; readonly partout où c'est possible ; Inventory, ItemPatch et Transform sont dérivés ou nommés sans duplication"
+      2: "Fonctionne mais des types sont recopiés, ou une copie superficielle partage un objet"
+      0: "Mutations d'arguments, ou types écrits à la main qui divergent de Item"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes, messages d'erreur utiles, aucune duplication"
+      2: "Lisible mais duplications"
+      0: "Difficile à suivre"

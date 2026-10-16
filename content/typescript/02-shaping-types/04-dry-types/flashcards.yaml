@@ -1,0 +1,22 @@
+cards:
+
+  - id: fc1
+    front: "Que fait `Pick<T, K>` ?"
+    back: "Construit un type avec seulement les clés K de T, en gardant leurs types : { [P in K]: T[P] }."
+    concept: ts-pick-mapped
+  - id: fc2
+    front: "Qu'est-ce qu'un type mappé homomorphe ?"
+    back: "De la forme [K in keyof T] : il conserve readonly, ? et la documentation des propriétés de T."
+    concept: ts-partial-homomorphic
+  - id: fc3
+    front: "Comment obtenir le type de retour d'une fonction existante ?"
+    back: "ReturnType<typeof f>."
+    concept: ts-typeof-returntype-derive
+  - id: fc4
+    front: "Comment obtenir l'union des valeurs de la propriété type d'une union d'actions ?"
+    back: "`Action['type']` (accès indexé), pas Pick<Action, 'type'> qui donne un objet."
+    concept: ts-typeof-returntype-derive
+  - id: fc5
+    front: "Quand ne faut-il PAS factoriser un type ?"
+    back: "Quand deux types ne se ressemblent que par accident : ils évolueront séparément."
+    concept: ts-dry-overdo

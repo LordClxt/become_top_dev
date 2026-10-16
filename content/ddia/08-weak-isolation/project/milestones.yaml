@@ -2,20 +2,20 @@ milestones:
 - id: m1
   title: Read committed
   goal: 'Des transactions avec identifiants croissants : écritures invisibles tant qu''elles ne sont pas validées, annulation qui défait tout,
-    écriture sale refusée (ErrLocked).'
-  tests: go test ./... -run TestM1
+    écriture sale refusée (`LockedError`).'
+  tests: "tstest M1"
   review: false
 - id: m2
   title: Instantané et MVCC
   goal: Appliquer les règles de visibilité par identifiant de transaction pour offrir un instantané cohérent à toute la transaction, et nettoyer
-    les versions devenues invisibles (Vacuum).
-  tests: go test ./... -run TestM2
+    les versions devenues invisibles (`vacuum`).
+  tests: "tstest M2"
   review: false
 - id: m3
   title: Mises à jour perdues et write skew
-  goal: Détecter le conflit d'une transaction en instantané face à une écriture validée depuis son début (ErrConflict), poser des verrous explicites
-    (Lock) et offrir un CompareAndSet.
-  tests: go test ./... -run TestM3
+  goal: Détecter le conflit d'une transaction en instantané face à une écriture validée depuis son début (`ConflictError`), poser des verrous explicites
+    (`lock`) et offrir un `compareAndSet`.
+  tests: "tstest M3"
   review: true
-  prompt: Pourquoi les tests montrent-ils volontairement qu'un write skew passe sous SnapshotIsolation, et quelle fonction du moteur sert à l'empêcher
+  prompt: Pourquoi les tests montrent-ils volontairement qu'un write skew passe sous l'isolation par instantané, et quelle fonction du moteur sert à l'empêcher
     ? Quel autre outil (hors verrous) l'empêcherait automatiquement ?

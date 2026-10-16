@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Que fait le type any ?"
+    back: "Il désactive la vérification pour toute valeur et expression qu'il touche : assignable depuis et vers tout, toutes les opérations permises."
+    concept: ts-any-no-safety
+  - id: fc2
+    front: "Pourquoi `age = '12' as any; age += 1` donne-t-il '121' ?"
+    back: "Aucune vérification : à l'exécution age est une chaîne, donc += 1 concatène."
+    concept: ts-any-no-safety
+  - id: fc3
+    front: "Comment any casse-t-il le contrat d'une fonction ?"
+    back: "Un argument ou un retour de mauvais type passe sans erreur : la signature n'engage plus personne."
+    concept: ts-any-contracts
+  - id: fc4
+    front: "Quels services d'éditeur perd-on avec any ?"
+    back: "Autocomplétion, détection des fautes de frappe, aide au survol, renommage fiable."
+    concept: ts-any-language-services
+  - id: fc5
+    front: "Pourquoi any masque-t-il les bugs lors d'une refactorisation ?"
+    back: "Changer la forme d'un type n'est pas signalé aux endroits qui utilisent any : ils compilent encore et cassent à l'exécution."
+    concept: ts-any-masks-refactoring
+  - id: fc6
+    front: "Si tu dois utiliser any, comment limiter les dégâts ?"
+    back: "Le confiner à la plus petite portée, le commenter, et préférer unknown quand le type est réellement inconnu."
+    concept: ts-any-hides-design

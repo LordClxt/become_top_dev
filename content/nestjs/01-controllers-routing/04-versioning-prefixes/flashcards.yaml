@@ -1,0 +1,17 @@
+cards:
+  - id: fc1
+    front: "Les quatre types de versioning de Nest ?"
+    back: "URI (/v2/…), HEADER (en-tête nommé), MEDIA_TYPE (Accept ;v=2), CUSTOM (fonction extractor)."
+    concept: nest-versioning
+  - id: fc2
+    front: "À quoi sert VERSION_NEUTRAL ?"
+    back: "À servir une route quelle que soit la version, et sans version : typiquement /health."
+    concept: nest-default-version
+  - id: fc3
+    front: "Ordre des segments avec préfixe global et version URI ?"
+    back: "/<préfixe>/v<version>/<route>, par exemple /api/v2/books."
+    concept: nest-global-prefix
+  - id: fc4
+    front: "Que fait RouterModule ?"
+    back: "Il préfixe toutes les routes d'un module (et de ses modules enfants), par exemple /admin/reports."
+    concept: nest-router-module

@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Défaut principal des constructeurs télescopiques ?"
+    back: "Illisibles au-delà de quelques paramètres, et deux paramètres de même type inversés compilent sans erreur."
+    concept: java-telescoping-ctor
+  - id: fc2
+    front: "Deux défauts du patron JavaBeans (constructeur vide + setters) ?"
+    back: "L'objet est incohérent pendant sa construction, et il ne peut pas être immuable (donc thread-safety à gérer)."
+    concept: java-javabeans-inconsistent
+  - id: fc3
+    front: "Où vont les paramètres obligatoires dans un Builder ?"
+    back: "Dans le constructeur (ou la fabrique) du builder, en champs final. Les options ont des méthodes chaînées et des valeurs par défaut."
+    concept: java-builder
+  - id: fc4
+    front: "Pourquoi le constructeur de la classe construite est-il privé ?"
+    back: "Pour que build() soit le seul chemin : tout objet obtenu est complet et validé."
+    concept: java-builder
+  - id: fc5
+    front: "Que doit faire build() avec les collections du builder ?"
+    back: "Les copier (List.copyOf, Set.copyOf) : sinon continuer à utiliser le builder modifie les objets déjà construits."
+    concept: java-builder
+  - id: fc6
+    front: "Où vérifier un invariant qui porte sur plusieurs paramètres ?"
+    back: "Dans build() ou le constructeur privé, sur les champs copiés de l'objet final ; lever IllegalArgumentException en nommant les paramètres fautifs."
+    concept: java-builder-validation
+  - id: fc7
+    front: "À partir de combien de paramètres un Builder vaut-il le coup ?"
+    back: "Environ quatre, surtout s'ils sont optionnels ou de même type, ou si la classe va grossir."
+    concept: java-builder
+  - id: fc8
+    front: "Qu'est-ce que l'idiome du self-type simulé ?"
+    back: "Builder<T extends Builder<T>> avec une méthode abstraite T self() : les méthodes du builder parent renvoient le builder concret, sans cast."
+    concept: java-builder-hierarchy
+  - id: fc9
+    front: "Qu'est-ce qu'un type de retour covariant ?"
+    back: "Une redéfinition qui déclare un type de retour plus précis : Email.Builder.build() renvoie Email alors que Message.Builder.build() renvoie Message."
+    concept: java-builder-hierarchy
+  - id: fc10
+    front: "Builder ou record (Java 16+) ?"
+    back: "Record pour une petite valeur aux champs tous obligatoires (validation dans le constructeur compact) ; builder dès que les options s'accumulent."
+    concept: java-builder

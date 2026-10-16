@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { announceXp } from '@/features/xp/xp-events'
 import { api, type Exercise } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { docLabel } from '@/lib/source'
 
 export const Route = createFileRoute('/_app/exercises/$exerciseId')({ component: ExercisePage })
 
@@ -250,7 +251,16 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
 
         {ex.source && (
           <p className="mt-10 text-xs text-muted">
-            Source : chapitre {ex.source.chapter}, pages {ex.source.pages}
+            {ex.source.url ? (
+              <>
+                Source :{' '}
+                <a className="underline" href={ex.source.url} target="_blank" rel="noreferrer">
+                  {docLabel(ex.source)}
+                </a>
+              </>
+            ) : (
+              <>Source : chapitre {ex.source.chapter}, pages {ex.source.pages}</>
+            )}
           </p>
         )}
       </section>

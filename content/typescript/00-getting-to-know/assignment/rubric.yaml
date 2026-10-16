@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: boundary
+    label: "Validation à la frontière sans any ni assertion"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "unknown en entrée, gardes de type réutilisables (isRecord, text), aucun any, aucun as ; le switch sur la balise affine chaque branche"
+      2: "Fonctionne mais répète les mêmes tests partout, ou utilise un as ponctuel"
+      0: "Repose sur any ou sur des assertions pour faire taire le vérificateur"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes, messages d'erreur utiles, noms parlants"
+      2: "Lisible mais duplications"
+      0: "Difficile à suivre"

@@ -1,0 +1,12 @@
+id: ts-ch02-l04-lab-dry-types
+title: "Dériver plutôt que recopier"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["derived.ts"]
+concepts: [ts-pick-mapped, ts-partial-homomorphic, ts-typeof-returntype-derive, ts-dry-named-extends]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

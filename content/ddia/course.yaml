@@ -13,10 +13,7 @@ running_project:
   id: tinybase
   title: "Tinybase — un mini-système de données"
   pitch: "Un moteur clé-valeur en Go qui grandit module après module : log, index, réplication, partitions, transactions, consensus, flux."
-requires:
-  - course: go
-    through: "10-concurrency"
-    reason: "Les TP manipulent goroutines, channels et verrous dès la réplication."
+requires: []
 
 tracks:
   - id: ddia-single-node

@@ -1,0 +1,6 @@
+id: java-ch01-twr-suppressed
+concept: java-suppressed-exceptions
+format: interactive
+justification: "Choisir quelles opérations échouent et comparer, côte à côte, l'exception qui remonte avec try/finally et avec try-with-resources montre en un clic pourquoi la vraie cause se perd."
+entry: TwrSuppressed.tsx
+status: built

@@ -1,6 +1,0 @@
-id: go-ch00-semicolon-insertion
-concept: go-semicolon-insertion
-format: interactive
-justification: "Taper soi-même une ligne et voir le point-virgule apparaître ou non rend la règle évidente, là où une liste de tokens reste abstraite."
-entry: SemicolonInsertion.tsx
-status: built

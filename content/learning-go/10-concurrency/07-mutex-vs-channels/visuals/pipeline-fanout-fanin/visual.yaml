@@ -1,7 +1,0 @@
-id: go-ch10-pipeline-fanout-fanin
-concept: go-pipeline
-format: remotion
-justification: "Des jobs distribués à plusieurs workers puis regroupés dans un seul channel montrent, tick après tick, pourquoi l'ordre de sortie diffère de l'ordre d'entrée : c'est un flux à regarder."
-entry: PipelineFanoutFanin.tsx
-duration_s: 16
-status: built

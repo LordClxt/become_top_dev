@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Tuples"
+    goal: "tuple valide un tableau de longueur fixe, un schéma par position, avec un type de sortie en tuple."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Dictionnaires"
+    goal: "record valide un objet aux clés inconnues et produit une Map."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Schémas dérivés"
+    goal: "pick et partial dérivent un schéma d'un autre, sans le modifier ni le réécrire."
+    tests: "tstest M3"
+    review: true

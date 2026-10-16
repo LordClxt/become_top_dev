@@ -1,0 +1,13 @@
+id: ts-ch01-boss
+title: "Boss : les permissions comme ensembles"
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["access.ts"]
+concepts: [ts-type-as-set, ts-union-intersection-sets, ts-indexed-access-type, ts-typeof-two-meanings, ts-assignable-subset]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

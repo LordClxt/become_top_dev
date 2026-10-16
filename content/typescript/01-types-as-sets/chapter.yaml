@@ -1,0 +1,21 @@
+id: ts-ch01
+title: "Les types sont des ensembles de valeurs"
+subtitle: "Explorer le système de types, ensembles, espaces des types et des valeurs, annotations contre assertions, propriétés en trop"
+source: { chapter: 2, pages: "27-56" }
+objectives:
+  - "Interroger le système de types depuis l'éditeur et lire ce qu'il a déduit"
+  - "Raisonner sur les types comme des ensembles de valeurs (union, intersection, never, unknown, assignabilité)"
+  - "Distinguer l'espace des types de l'espace des valeurs et lire un symbole ambigu"
+  - "Préférer une annotation à une assertion, et éviter les types enveloppes (String, Number…)"
+  - "Distinguer la vérification des propriétés en trop de l'assignabilité"
+mastery_threshold: 0.8
+prerequisites: [ts-ch00]
+lessons:
+  - "01-sets-of-values"
+  - "02-type-and-value-space"
+  - "03-annotations-assertions"
+  - "04-excess-properties"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

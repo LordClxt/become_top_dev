@@ -1,0 +1,75 @@
+id: ts-ch02-l02-quiz
+questions:
+
+  - id: q1
+    type: multiple
+    prompt: "Que ne peut-on exprimer qu'avec `type` (et non `interface`) ?"
+    choices:
+      - "Une union de littéraux ('a' | 'b')"
+      - "Un tuple [number, number]"
+      - "Un objet avec propriétés"
+      - "Un type calculé avec keyof"
+    answer: [0, 1, 3]
+    explanation: "Les objets s'écrivent avec les deux. Unions, tuples et types calculés exigent type."
+    concept: ts-union-needs-type
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "`interface Student extends Person { age: string }` quand Person a `age: number` : que se passe-t-il ?"
+    choices:
+      - "Rien : la dernière définition gagne"
+      - "Erreur : l'interface étendue est incompatible avec Person"
+      - "Student a age: string | number"
+      - "L'erreur n'apparaît qu'à l'exécution"
+    answer: 1
+    explanation: "extends vérifie la compatibilité des propriétés redéclarées. Avec une intersection (&), aucune erreur ne serait signalée."
+    concept: ts-interface-extends-checks
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Deux déclarations `interface Config { a: string }` et `interface Config { b: number }` dans le même fichier :"
+    choices:
+      - "C'est une erreur de duplication"
+      - "Elles fusionnent : Config a a ET b"
+      - "La seconde remplace la première"
+      - "Seule la première est utilisée"
+    answer: 1
+    explanation: "C'est le declaration merging, propre aux interfaces. Avec `type Config`, ce serait une erreur de duplication."
+    concept: ts-declaration-merging
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Pourquoi `type Student2 = Person & { age: string }` est-il piégeux quand Person a `age: number` ?"
+    choices:
+      - "Il refuse de compiler"
+      - "Il compile, mais age devient never (number & string), sans avertissement"
+      - "Il ignore la propriété age de Person"
+      - "Il est plus lent"
+    answer: 1
+    explanation: "L'intersection n'est pas vérifiée contre une redéclaration incompatible : tu obtiens un type inutilisable en silence."
+    concept: ts-interface-extends-checks
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Quel choix est le plus défendable pour un type objet NOUVEAU dans un projet sans convention ?"
+    choices:
+      - "type, car il est plus puissant"
+      - "interface, recommandée par le guide officiel pour les objets, avec des erreurs d'extension vérifiées"
+      - "Alterner pour garder de la variété"
+      - "class, toujours"
+    answer: 1
+    explanation: "Pour de nouveaux objets, interface offre des vérifications d'extension et des messages plus lisibles ; la règle d'or reste la cohérence avec le projet."
+    concept: ts-type-interface-similar
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Quelle est la raison d'être du declaration merging ?"
+    choices:
+      - "Accélérer la compilation"
+      - "Permettre d'enrichir un type existant (par exemple les types globaux de la bibliothèque standard)"
+      - "Remplacer les classes"
+      - "Fusionner deux fichiers"
+    answer: 1
+    explanation: "C'est l'augmentation de types : lib.es5.d.ts et lib.es2015.d.ts ajoutent ainsi des membres à Array, et les bibliothèques ajoutent des propriétés à Window."
+    concept: ts-declaration-merging
+    difficulty: 2

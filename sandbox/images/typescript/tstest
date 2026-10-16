@@ -1,0 +1,12 @@
+#!/bin/sh
+# tstest [préfixes…] : vérifie les types de tout le dossier avec tsc, puis lance test.ts (copié depuis tests/) avec Node.
+# Les deux étapes tournent toujours (le JavaScript s'exécute même si les types sont faux, comme avec tsc) ;
+# le code de sortie vaut 1 si l'une échoue. Les arguments filtrent les tests par préfixe (ex. `tstest M1`).
+cd /work || exit 2
+[ -f package.json ] || printf '{"type":"module"}\n' > package.json
+tsc -p /opt/tstest/tsconfig.json --pretty false > /tmp/tsc.txt 2>&1
+types=$?
+node /opt/tstest/report-tsc.mjs /tmp/tsc.txt
+node test.ts "$@"
+tests=$?
+[ "$types" -eq 0 ] && [ "$tests" -eq 0 ]

@@ -1,7 +1,0 @@
-id: go-ch10-waitgroup-close-monitor
-concept: go-waitgroup-close
-format: remotion
-justification: "Le compteur du WaitGroup qui descend jusqu'à zéro, et le moniteur qui ferme alors le channel de sortie, forment une séquence d'événements ordonnée : elle se regarde."
-entry: WaitgroupCloseMonitor.tsx
-duration_s: 16
-status: built

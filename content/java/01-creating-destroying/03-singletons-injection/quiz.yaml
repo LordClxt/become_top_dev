@@ -1,0 +1,107 @@
+id: java-ch01-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static class Elvis {
+              static final Elvis INSTANCE = new Elvis();
+              private Elvis() { }
+          }
+
+          public static void main(String[] args) throws Exception {
+              var ctor = Elvis.class.getDeclaredConstructor();
+              ctor.setAccessible(true);
+              Elvis impostor = ctor.newInstance();
+              System.out.println(impostor == Elvis.INSTANCE);
+          }
+      }
+    answer: "false"
+    explanation: "Le constructeur privé n'arrête pas la réflexion : setAccessible(true) permet d'en créer un second exemplaire. L'enum à un élément est la seule forme garantie contre cette attaque."
+    concept: java-singleton-field-factory
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          enum Elvis { INSTANCE }
+
+          public static void main(String[] args) throws Exception {
+              var ctor = Elvis.class.getDeclaredConstructors()[0];
+              ctor.setAccessible(true);
+              try {
+                  ctor.newInstance("INSTANCE", 0);
+                  System.out.println("deux Elvis");
+              } catch (IllegalArgumentException e) {
+                  System.out.println(e.getMessage());
+              }
+          }
+      }
+    answer: "Cannot reflectively create enum objects"
+    explanation: "La JVM refuse explicitement de créer une constante d'enum par réflexion : un singleton enum ne peut pas être dupliqué."
+    concept: java-singleton-enum
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "Une classe `SpellChecker` dépend d'un dictionnaire. Quelle conception permet d'avoir un correcteur français, un anglais et un faux pour les tests ?"
+    choices:
+      - "Une classe utilitaire avec un champ static final Lexicon"
+      - "Un singleton avec une méthode setDictionary(Lexicon)"
+      - "Un constructeur SpellChecker(Lexicon dictionary)"
+      - "Une sous-classe par langue qui redéfinit un champ static"
+    answer: 2
+    explanation: "Chaque instance reçoit la ressource voulue par son client : c'est l'injection de dépendances. Le setter sur un singleton est fragile et faux entre threads."
+    concept: java-dependency-injection
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Pourquoi déclarer `Mosaic create(Supplier<? extends Tile> tileFactory)` plutôt que `Supplier<Tile>` ?"
+    choices:
+      - "Pour accepter une fabrique de n'importe quel sous-type de Tile, comme RoundTile::new"
+      - "Pour que la méthode puisse ajouter des tuiles dans le Supplier"
+      - "Parce que Supplier<Tile> ne compile pas"
+      - "Pour éviter l'autoboxing"
+    answer: 0
+    explanation: "Les génériques sont invariants : un Supplier<RoundTile> n'est pas un Supplier<Tile>. Le joker borné ? extends Tile accepte les fabriques de sous-types (module 5)."
+    concept: java-supplier-factory
+    difficulty: 2
+  - id: q5
+    type: multiple
+    prompt: "Quels sont des avantages de la forme « fabrique statique » (getInstance) sur le champ public final ?"
+    choices:
+      - "On peut cesser plus tard d'être un singleton sans changer l'API"
+      - "La méthode peut servir de Supplier (Registry::getInstance)"
+      - "Elle protège contre la réflexion"
+      - "Elle rend la sérialisation sûre automatiquement"
+    answer: [0, 1]
+    explanation: "Souplesse et référence de méthode sont les avantages. Aucune des deux formes à constructeur privé ne protège contre la réflexion ou la sérialisation : c'est l'apport de l'enum."
+    concept: java-singleton-field-factory
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Ta méthode `isExpired()` appelle `Instant.now()`. Quel est le principal problème ?"
+    choices:
+      - "Instant.now() est lent"
+      - "L'heure courante est une dépendance cachée : impossible de tester l'expiration sans attendre"
+      - "Instant n'est pas thread-safe"
+      - "Instant.now() renvoie l'heure locale"
+    answer: 1
+    explanation: "Le temps est une ressource comme une autre. Injecte un java.time.Clock : Clock.systemUTC() en production, une horloge fixe ou pilotable dans les tests."
+    concept: java-dependency-injection
+    difficulty: 1
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      Supplier<List<String>> factory = ArrayList::new;
+      List<String> a = factory.get();
+      List<String> b = factory.get();
+      a.add("x");
+      System.out.println(a == b);
+      System.out.println(b);
+    answer: "false\n[]"
+    explanation: "Une fabrique crée un nouvel objet à chaque appel de get() : a et b sont deux listes distinctes."
+    concept: java-supplier-factory
+    difficulty: 1

@@ -87,12 +87,12 @@ func TestProgressIsPerUser(t *testing.T) {
 	login(t, admin, srv.URL)
 	ada := signup(t, srv.URL, invite(t, admin, srv.URL), "ada@example.com")
 
-	do(t, admin, http.MethodPost, srv.URL+"/api/lessons/go-ch02-l03/complete", nil)
-	do(t, admin, http.MethodPut, srv.URL+"/api/exercises/go-ch02-l03-lab-chunk/draft",
-		jsonBody(map[string]any{"files": map[string]string{"chunk.go": "brouillon de l'admin"}}))
+	do(t, admin, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l01/complete", nil)
+	do(t, admin, http.MethodPut, srv.URL+"/api/exercises/java-ch01-l01-lab-http-status/draft",
+		jsonBody(map[string]any{"files": map[string]string{"HttpStatus.java": "brouillon de l'admin"}}))
 	runner.output = `{"Action":"pass","Test":"TestChunkValues"}`
-	do(t, admin, http.MethodPost, srv.URL+"/api/exercises/go-ch02-l03-lab-chunk/run",
-		jsonBody(map[string]any{"files": map[string]string{"chunk.go": "package lab"}}))
+	do(t, admin, http.MethodPost, srv.URL+"/api/exercises/java-ch01-l01-lab-http-status/run",
+		jsonBody(map[string]any{"files": map[string]string{"HttpStatus.java": "package lab"}}))
 
 	type progress struct{ XP int }
 	if p := decode[progress](t, do(t, admin, http.MethodGet, srv.URL+"/api/progress", nil)); p.XP == 0 {
@@ -107,14 +107,14 @@ func TestProgressIsPerUser(t *testing.T) {
 			Attempts int
 			Passed   bool
 		}
-	}](t, do(t, ada, http.MethodGet, srv.URL+"/api/exercises/go-ch02-l03-lab-chunk", nil))
-	if ws := ex.Workspace; ws.Passed || ws.Attempts != 0 || ws.Editable["chunk.go"] == "package lab" {
+	}](t, do(t, ada, http.MethodGet, srv.URL+"/api/exercises/java-ch01-l01-lab-http-status", nil))
+	if ws := ex.Workspace; ws.Passed || ws.Attempts != 0 || ws.Editable["HttpStatus.java"] == "package lab" {
 		t.Errorf("Ada voit le TP de l'admin : %+v", ex)
 	}
 	// La même leçon rapporte de l'XP à chacun : l'unicité de l'XP est par compte.
 	got := decode[struct {
 		XPAwarded int `json:"xp_awarded"`
-	}](t, do(t, ada, http.MethodPost, srv.URL+"/api/lessons/go-ch02-l03/complete", nil))
+	}](t, do(t, ada, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l01/complete", nil))
 	if got.XPAwarded == 0 {
 		t.Error("Ada doit gagner l'XP d'une leçon déjà terminée par l'admin")
 	}
@@ -189,13 +189,13 @@ func TestRunsAreRateLimitedPerUser(t *testing.T) {
 	client := newClient(t)
 	login(t, client, srv.URL)
 	runner.output = `{"Action":"fail","Test":"TestChunkValues"}`
-	body := jsonBody(map[string]any{"files": map[string]string{"chunk.go": "package lab"}})
+	body := jsonBody(map[string]any{"files": map[string]string{"HttpStatus.java": "package lab"}})
 	for i := range 10 {
-		if resp := do(t, client, http.MethodPost, srv.URL+"/api/exercises/go-ch02-l03-lab-chunk/run", body); resp.StatusCode != http.StatusOK {
+		if resp := do(t, client, http.MethodPost, srv.URL+"/api/exercises/java-ch01-l01-lab-http-status/run", body); resp.StatusCode != http.StatusOK {
 			t.Fatalf("exécution %d : statut %d", i+1, resp.StatusCode)
 		}
 	}
-	if resp := do(t, client, http.MethodPost, srv.URL+"/api/exercises/go-ch02-l03-lab-chunk/run", body); resp.StatusCode != http.StatusTooManyRequests {
+	if resp := do(t, client, http.MethodPost, srv.URL+"/api/exercises/java-ch01-l01-lab-http-status/run", body); resp.StatusCode != http.StatusTooManyRequests {
 		t.Errorf("11e exécution dans la minute : statut %d", resp.StatusCode)
 	}
 	if len(runner.calls) != 10 {

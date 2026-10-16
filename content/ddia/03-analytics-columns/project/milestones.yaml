@@ -2,16 +2,16 @@ milestones:
   - id: m1
     title: "Ranger par colonne"
     goal: "Ajouter des lignes dans des colonnes séparées, reconstituer une ligne par position, refuser une ligne de mauvaise taille sans rien ajouter."
-    tests: "go test ./... -run TestM1"
+    tests: "tstest M1"
     review: false
   - id: m2
     title: "Bitmaps et compression"
     goal: "Construire le bitmap d'une valeur, combiner par ET et OU, encoder et décoder en séquences alternées en commençant par les zéros."
-    tests: "go test ./... -run TestM2"
+    tests: "tstest M2"
     review: false
   - id: m3
     title: "Trier et interroger"
     goal: "Trier des lignes entières de façon stable selon plusieurs colonnes, compter les séquences par colonne, additionner une mesure avec des filtres combinés par bitmaps."
-    tests: "go test ./... -run TestM3"
+    tests: "tstest M3"
     review: true
-    prompt: "Pourquoi SortBy calcule-t-il une permutation unique appliquée à toutes les colonnes, au lieu de trier chaque colonne ? Et pourquoi seule la première clé de tri donne-t-elle des colonnes qui se compressent fortement ?"
+    prompt: "Pourquoi sortBy calcule-t-il une permutation unique appliquée à toutes les colonnes, au lieu de trier chaque colonne ? Et pourquoi seule la première clé de tri donne-t-elle des colonnes qui se compressent fortement ?"

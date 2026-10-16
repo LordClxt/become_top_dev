@@ -1,0 +1,77 @@
+id: ts-ch02-l04-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Quelle écriture est équivalente à `Pick<State, 'a' | 'b'>` ?"
+    choices:
+      - "`{ [K in 'a' | 'b']: State[K] }`"
+      - "`{ [K in keyof State]?: State[K] }`"
+      - "`State['a' | 'b']`"
+      - "`keyof State`"
+    answer: 0
+    explanation: "Pick est le type mappé qui parcourt les clés listées et reprend le type de chaque propriété de State."
+    concept: ts-pick-mapped
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Que vaut `Action['type']` pour `type Action = { type: 'save'; payload: string } | { type: 'load'; id: number }` ?"
+    choices:
+      - "'type'"
+      - "'save' | 'load'"
+      - "{ type: 'save' | 'load' }"
+      - "string"
+    answer: 1
+    explanation: "L'accès indexé sur une union donne l'union des types de la propriété pour chaque variante. Pick<Action, 'type'> donnerait un objet."
+    concept: ts-typeof-returntype-derive
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Pourquoi `Partial<number>` vaut-il `number` ?"
+    choices:
+      - "Parce que number n'a pas de propriétés à rendre optionnelles : un type mappé homomorphe sur une primitive la renvoie telle quelle"
+      - "Parce que Partial ne marche que sur les unions"
+      - "C'est une erreur"
+      - "Parce que number est un objet enveloppe"
+    answer: 0
+    explanation: "Les types mappés homomorphes sur un type primitif renvoient ce primitif inchangé."
+    concept: ts-partial-homomorphic
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Quelle déclaration évite de dupliquer la forme d'une constante `INIT_OPTIONS` ?"
+    choices:
+      - "`interface Options { width: number; height: number … }`"
+      - "`type Options = typeof INIT_OPTIONS`"
+      - "`type Options = INIT_OPTIONS`"
+      - "`const Options = INIT_OPTIONS`"
+    answer: 1
+    explanation: "typeof en position de type dérive le type de la valeur : une seule source de vérité."
+    concept: ts-typeof-returntype-derive
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi ne faut-il pas créer un type `NamedAndIdentified { id; name }` partagé entre Product et Customer ?"
+    choices:
+      - "Parce que c'est interdit"
+      - "Parce qu'ils se ressemblent par hasard : les lier crée un couplage qui coûtera quand l'un évoluera seul"
+      - "Parce que ça ralentit la compilation"
+      - "Parce que TypeScript ne supporte pas extends deux fois"
+    answer: 1
+    explanation: "Factorise ce qui est conceptuellement la même chose, pas ce qui ressemble à la même chose."
+    concept: ts-dry-overdo
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Les types sont effacés : qu'affiche ce programme ?"
+    code: |
+      function getUserInfo(userId: string) {
+        return { userId, name: 'Ada', age: 36 };
+      }
+      type UserInfo = ReturnType<typeof getUserInfo>;
+      const info: UserInfo = getUserInfo('u1');
+      console.log(Object.keys(info).join(), typeof info.age);
+    answer: "userId,name,age number"
+    explanation: "ReturnType<typeof getUserInfo> ne change pas le JavaScript : c'est le type { userId: string; name: string; age: number } qui sert à annoter info."
+    concept: ts-typeof-returntype-derive
+    difficulty: 2

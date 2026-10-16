@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: boundary
+    label: "Validation à la frontière"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Chaque entrée est validée par un pipe ou un schéma avant le handler ; les règles métier (état de la commande) restent dans le service ; aucun cast ni any"
+      2: "Validation correcte mais mélangée à la logique, ou dupliquée entre routes"
+      0: "Entrées utilisées sans validation, ou validation faite à la main champ par champ"
+  - id: http-semantics
+    label: "Sémantique HTTP"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Statuts justes et explicites (201 + Location, 404, 409, annulation idempotente), réponse standard conservée (passthrough), erreurs par exceptions"
+      2: "Statuts justes mais obtenus par des contournements (@Res() manuel, codes fixés à la main)"
+      0: "Erreurs renvoyées comme des succès, ou statuts incohérents"

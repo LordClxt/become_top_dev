@@ -1,0 +1,12 @@
+id: ts-ch02-l03-lab-readonly
+title: "Rendre la non-mutation explicite"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["pure.ts"]
+concepts: [ts-readonly-array-param, ts-readonly-subtype, ts-readonly-shallow, ts-readonly-vs-const]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

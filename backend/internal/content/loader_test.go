@@ -12,11 +12,11 @@ func TestLoadRealContent(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if idx.Chapters["go-ch02"] == nil || len(idx.Chapters["go-ch02"].LessonIDs) != 6 {
-		t.Fatal("go-ch02 et ses 6 leçons attendus")
+	if idx.Chapters["grails-ch01"] == nil || len(idx.Chapters["grails-ch01"].LessonIDs) != 4 {
+		t.Fatal("grails-ch01 et ses 4 leçons attendus")
 	}
-	if idx.Chapters["go-ch02"].BossID != "go-ch02-boss" {
-		t.Errorf("boss = %q", idx.Chapters["go-ch02"].BossID)
+	if idx.Chapters["grails-ch01"].BossID != "grails-ch01-boss" {
+		t.Errorf("boss = %q", idx.Chapters["grails-ch01"].BossID)
 	}
 	if len(idx.Sandbox) == 0 || idx.Exercises[idx.Sandbox[0]].CourseID == "" {
 		t.Error("les exercices de l'atelier doivent connaître leur cours")
@@ -25,9 +25,9 @@ func TestLoadRealContent(t *testing.T) {
 	if kata == nil || len(kata.DiagramChecks) != 8 {
 		t.Fatal("kata diagram avec 8 règles attendu")
 	}
-	lab := idx.Exercises["go-ch02-l03-lab-chunk"]
-	if lab.LessonID != "go-ch02-l03" || len(lab.Hints) != 3 {
-		t.Errorf("TP chunk : lesson %q, %d indices", lab.LessonID, len(lab.Hints))
+	lab := idx.Exercises["grails-ch01-l01-lab-callbacks"]
+	if lab.LessonID != "grails-ch01-l01" || len(lab.Hints) != 3 {
+		t.Errorf("TP callbacks : lesson %q, %d indices", lab.LessonID, len(lab.Hints))
 	}
 }
 

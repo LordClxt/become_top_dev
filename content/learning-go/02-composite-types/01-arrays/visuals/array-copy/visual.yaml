@@ -1,6 +1,0 @@
-id: go-ch02-array-copy
-concept: go-array-value-semantics
-format: interactive
-justification: "Avancer soi-même dans b := a et dans un appel de fonction montre que chaque array a ses propres cases, ce qu'un schéma figé ne fait pas sentir."
-entry: ArrayCopy.tsx
-status: built

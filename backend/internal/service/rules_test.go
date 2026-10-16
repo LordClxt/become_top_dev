@@ -81,20 +81,20 @@ func TestQuizGrading(t *testing.T) {
 		t.Fatal(err)
 	}
 	byID := map[string]content.QuizQuestion{}
-	for _, q := range idx.Quizzes["go-ch02-l03-quiz"].Questions {
+	for _, q := range idx.Quizzes["java-ch01-l01-quiz"].Questions {
 		byID[q.ID] = q
 	}
-	multiple := idx.Quizzes["go-ch02-l01-quiz"].Questions[4]
+	multiple := byID["q6"]
 	cases := []struct {
 		q      content.QuizQuestion
 		answer any
 		want   bool
 	}{
-		{byID["q2"], "[a b z d]", true},
-		{byID["q2"], "  [a b z d]\n", true},
-		{byID["q2"], "[a b c d]", false},
-		{byID["q6"], 1.0, true},
-		{multiple, []any{2.0, 0.0}, true},
+		{byID["q2"], "true\ntrue", true},
+		{byID["q2"], "  true\ntrue\n", true},
+		{byID["q2"], "true\nfalse", false},
+		{byID["q5"], 1.0, true},
+		{multiple, []any{1.0, 0.0}, true},
 		{multiple, []any{0.0}, false},
 		{multiple, "pas une liste", false},
 	}

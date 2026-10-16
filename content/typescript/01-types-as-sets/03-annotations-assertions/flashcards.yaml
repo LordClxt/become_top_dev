@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Annotation ou assertion : laquelle vérifie la valeur ?"
+    back: "L'annotation (`: T`). L'assertion (`as T`) fait taire le vérificateur, y compris sur les propriétés manquantes ou en trop."
+    concept: ts-annotation-vs-assertion
+  - id: fc2
+    front: "Comment typer le retour d'une flèche dans un map ?"
+    back: "`arr.map((x): T => ({ … }))` : le retour est vérifié, contrairement à `({ … } as T)`."
+    concept: ts-annotation-vs-assertion
+  - id: fc3
+    front: "Quand une assertion est-elle acceptable ?"
+    back: "Quand tu sais mieux que le vérificateur (ex. e.currentTarget est un bouton) ; commente la raison."
+    concept: ts-assertion-comparable
+  - id: fc4
+    front: "À quoi sert `as unknown as T` ?"
+    back: "À forcer une assertion entre types non comparables. C'est l'échappatoire ultime : à éviter ou à justifier."
+    concept: ts-assertion-comparable
+  - id: fc5
+    front: "Que promet le suffixe `!` ?"
+    back: "Que la valeur n'est ni null ni undefined. Si c'est faux, erreur à l'exécution."
+    concept: ts-non-null-assertion
+  - id: fc6
+    front: "Pourquoi écrire string et non String ?"
+    back: "String est le type de l'objet enveloppe. Une string est assignable à String mais pas l'inverse ; les primitifs en minuscules sont ceux qu'on utilise."
+    concept: ts-wrapper-types

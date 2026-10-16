@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Pourquoi ne jamais écrire new String(\"x\") ?"
+    back: "Ça crée un objet neuf à chaque exécution alors que le littéral \"x\" est déjà une instance partagée par toute la JVM."
+    concept: java-reuse-expensive-objects
+  - id: fc2
+    front: "Que coûte String.matches(regex) dans une boucle ?"
+    back: "Une compilation de Pattern (un automate) à chaque appel. Garde une Pattern compilée dans un champ static final."
+    concept: java-reuse-expensive-objects
+  - id: fc3
+    front: "Faut-il créer un pool pour éviter d'allouer de petits objets ?"
+    back: "Non : l'allocation et le ramassage des petits objets éphémères sont très bon marché. Un pool ne se justifie que pour des objets lourds (connexions à une base)."
+    concept: java-reuse-expensive-objects
+  - id: fc4
+    front: "Quel est le piège de Long sum = 0L dans une boucle ?"
+    back: "Chaque sum += i déballe puis réemballe : un nouvel objet Long par tour. Déclare sum en long."
+    concept: java-autoboxing-cost
+  - id: fc5
+    front: "Qu'est-ce qu'une référence obsolète ?"
+    back: "Une référence qui ne sera plus jamais suivie mais reste stockée : l'objet (et tout ce qu'il référence) ne peut pas être ramassé."
+    concept: java-obsolete-reference
+  - id: fc6
+    front: "Quand doit-on mettre une référence à null explicitement ?"
+    back: "Quand une classe gère sa propre mémoire (ex. le tableau d'une pile) : elle efface les cases qu'elle libère. Ailleurs, laisse la variable sortir de sa portée."
+    concept: java-obsolete-reference
+  - id: fc7
+    front: "Quelles sont les trois sources classiques de rétention involontaire ?"
+    back: "Une classe qui gère sa propre mémoire, les caches, les écouteurs/callbacks jamais désabonnés."
+    concept: java-cache-retention
+  - id: fc8
+    front: "Comment borner un cache LRU avec le JDK seul ?"
+    back: "LinkedHashMap(capacité, 0.75f, true) en ordre d'accès, et redéfinir removeEldestEntry pour renvoyer size() > max."
+    concept: java-cache-retention
+  - id: fc9
+    front: "Quand utiliser une WeakHashMap comme cache ?"
+    back: "Quand la durée de vie utile d'une entrée suit celle de sa clé, référencée ailleurs. L'entrée disparaît quand la clé n'est plus référencée."
+    concept: java-cache-retention
+  - id: fc10
+    front: "Comment trouve-t-on une rétention en production ?"
+    back: "Par revue de code ou avec un profileur de tas (heap dump analysé dans VisualVM, Eclipse MAT ou JDK Mission Control)."
+    concept: java-cache-retention

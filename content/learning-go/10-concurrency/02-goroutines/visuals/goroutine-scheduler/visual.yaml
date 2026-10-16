@@ -1,7 +1,0 @@
-id: go-ch10-goroutine-scheduler
-concept: go-goroutines
-format: remotion
-justification: "Le passage des goroutines entre runnext, files locales, file globale et attente est une séquence ordonnée : il suffit de la regarder, pas à pas."
-entry: GoroutineScheduler.tsx
-duration_s: 32
-status: built

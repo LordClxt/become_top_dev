@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Le point de santé"
+    goal: "HealthModule expose GET /health → 200 { status: 'ok', uptimeS } ; uptimeS vient d'une horloge injectée (Clock), remplaçable en test."
+    tests: "nesttest M1"
+    review: false
+  - id: m2
+    title: "Le catalogue"
+    goal: "CatalogModule expose GET /books (triés par titre) et GET /books/count ; BooksService est exporté pour être réutilisé."
+    tests: "nesttest M2"
+    review: false
+  - id: m3
+    title: "Une seule fabrique d'application"
+    goal: "createApp() construit l'application avec le préfixe global /api (sauf /health) : main.ts et les tests passent par la même fonction."
+    tests: "nesttest M3"
+    review: true

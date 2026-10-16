@@ -1,0 +1,84 @@
+id: ts-ch02-l03-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme (c'est le bug du livre) ?"
+    code: |
+      function arraySum(arr: number[]) {
+        let sum = 0;
+        let num: number | undefined;
+        while ((num = arr.pop()) !== undefined) sum += num;
+        return sum;
+      }
+      const nums: number[] = [];
+      const out: number[] = [];
+      for (let i = 0; i < 5; i++) {
+        nums.push(i);
+        out.push(arraySum(nums));
+      }
+      console.log(out.join(' '), nums.length);
+    answer: "0 1 2 3 4 0"
+    explanation: "arraySum vide le tableau avec pop() : à chaque tour il ne reste que l'élément qu'on vient d'ajouter. Avec un paramètre readonly number[], pop serait refusé."
+    concept: ts-readonly-array-param
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Peut-on passer un `number[]` à une fonction qui attend `readonly number[]` ?"
+    choices:
+      - "Non, les types sont incompatibles"
+      - "Oui : number[] est un sous-type de readonly number[]"
+      - "Oui, mais avec un avertissement"
+      - "Seulement avec une assertion"
+    answer: 1
+    explanation: "La lecture seule retire des droits : tout tableau modifiable convient là où l'on n'a besoin que de lire."
+    concept: ts-readonly-subtype
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Et l'inverse : passer un `readonly number[]` là où `number[]` est attendu ?"
+    choices:
+      - "Accepté"
+      - "Refusé : la fonction pourrait modifier un tableau qu'on voulait protéger"
+      - "Accepté sauf pour pop"
+      - "Dépend de strict"
+    answer: 1
+    explanation: "readonly T[] n'est pas assignable à T[] : cela ouvrirait une porte dérobée à la mutation."
+    concept: ts-readonly-subtype
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      interface Outer { inner: { x: number } }
+      const o: Readonly<Outer> = { inner: { x: 0 } };
+      o.inner.x = 5;
+      console.log(o.inner.x);
+    answer: "5"
+    explanation: "Readonly<T> est superficiel : o.inner ne peut pas être réaffecté, mais l'objet inner reste modifiable."
+    concept: ts-readonly-shallow
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quelle est la différence entre `const nums = [1, 2]` et `const nums: readonly number[] = [1, 2]` ?"
+    choices:
+      - "Aucune"
+      - "Le premier interdit de réaffecter nums ; le second interdit en plus de modifier son contenu (push, pop…)"
+      - "Le second est plus rapide"
+      - "Le premier est constant à l'exécution"
+    answer: 1
+    explanation: "const protège la variable ; readonly protège les éléments, au niveau des types."
+    concept: ts-readonly-vs-const
+    difficulty: 1
+  - id: q6
+    type: multiple
+    prompt: "Quelles méthodes existent sur `readonly number[]` ?"
+    choices:
+      - "map"
+      - "slice"
+      - "push"
+      - "pop"
+    answer: [0, 1]
+    explanation: "Les méthodes qui modifient le tableau (push, pop, splice, sort…) sont absentes du type en lecture seule."
+    concept: ts-readonly-array-param
+    difficulty: 1

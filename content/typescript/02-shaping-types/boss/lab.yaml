@@ -1,0 +1,13 @@
+id: ts-ch02-boss
+title: "Boss : un store à actions typées"
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["store.ts"]
+concepts: [ts-pick-mapped, ts-readonly-shallow, ts-typeof-returntype-derive, ts-union-needs-type, ts-function-type-alias]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

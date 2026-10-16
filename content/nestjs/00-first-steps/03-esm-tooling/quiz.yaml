@@ -1,0 +1,64 @@
+id: nest-ch00-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Dans un projet ESM (`\"type\": \"module\"`, module `nodenext`), comment `app.module.ts` doit-il importer `books.service.ts` ?"
+    choices:
+      - "import { BooksService } from './books.service';"
+      - "import { BooksService } from './books.service.ts';"
+      - "import { BooksService } from './books.service.js';"
+      - "import { BooksService } from 'books.service';"
+    answer: 2
+    explanation: "Le spécificateur désigne le fichier émis : books.service.js. TypeScript sait retrouver le .ts correspondant pour vérifier les types."
+    concept: nest-esm-imports
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Ce module ESM est exécuté par Node. Qu'affiche-t-il ?"
+    code: |
+      let where: string;
+      try {
+        where = __dirname;
+      } catch (e) {
+        where = (e as Error).name;
+      }
+      console.log(where);
+    answer: "ReferenceError"
+    explanation: "__dirname n'existe pas en ESM, et tsc ne prévient pas, car @types/node le déclare globalement. Remplace-le par import.meta.dirname."
+    concept: nest-esm-globals
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ESM ?"
+    code: |
+      import * as ns from 'supertest';
+      import request from 'supertest';
+      console.log(typeof ns, typeof request);
+    answer: "object function"
+    explanation: "supertest est un module CommonJS qui exporte une fonction. Le namespace (import *) est un objet qui ne s'appelle pas ; l'import par défaut donne la fonction."
+    concept: nest-cjs-interop
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "L'équipe passe à `nest build -b swc` pour accélérer la CI, sans autre option. Quel risque prend-elle ?"
+    choices:
+      - "Les décorateurs ne fonctionnent plus"
+      - "Les erreurs de types ne bloquent plus le build : SWC compile sans vérifier"
+      - "Le build devient plus lent"
+      - "Aucun"
+    answer: 1
+    explanation: "SWC émet les métadonnées de décorateurs mais ne vérifie pas les types. Ajoute --type-check (ou un tsc --noEmit séparé) en CI."
+    concept: nest-build-tools
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Une application CommonJS veut passer à Nest 12 (paquets ESM uniquement). Que faut-il ?"
+    choices:
+      - "Réécrire toute l'application en ESM"
+      - "Node 20.19+ ou 22.12+ (require(esm)) ; le code peut rester en CommonJS"
+      - "Rester sur Nest 11"
+      - "Utiliser Bun"
+    answer: 1
+    explanation: "require(esm) permet de charger les paquets ESM depuis CommonJS. nest upgrade ne touche pas au format de ton code."
+    concept: nest-build-tools
+    difficulty: 1

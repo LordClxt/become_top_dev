@@ -1,0 +1,114 @@
+id: ts-ch00-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi `shape instanceof Rectangle` est-il une erreur quand `Rectangle` est une `interface` ?"
+    choices:
+      - "Parce qu'une interface n'existe qu'au niveau des types, et disparaît à l'exécution"
+      - "Parce que instanceof ne marche qu'avec des classes natives"
+      - "Parce que Rectangle étend Square"
+      - "Parce que shape est une union"
+    answer: 0
+    explanation: "instanceof s'évalue à l'exécution et attend une valeur (un constructeur). Une interface est effacée : il n'y a rien à comparer."
+    concept: ts-type-erasure
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Quelles techniques permettent de distinguer à l'exécution un `Square` d'un `Rectangle` ?"
+    choices:
+      - "Tester la présence d'une propriété : `'height' in shape`"
+      - "Ajouter une propriété `kind` littérale et la comparer"
+      - "Faire des deux types des classes et utiliser instanceof"
+      - "Écrire `shape as Rectangle`"
+    answer: [0, 1, 2]
+    explanation: "Les trois premières utilisent des informations présentes dans la valeur à l'exécution. `as Rectangle` ne teste rien : c'est une assertion de type effacée à la compilation."
+    concept: ts-tagged-union
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ? (Node retire les annotations et exécute le reste.)"
+    code: |
+      function asNumber(val: number | string): number {
+        return val as number;
+      }
+      const n = asNumber('42');
+      console.log(typeof n, n + 1);
+    answer: "string 421"
+    explanation: "as number est effacé : la fonction renvoie la chaîne '42' telle quelle, et '42' + 1 vaut '421'. Pour convertir, il faut Number(val)."
+    concept: ts-assertion-no-conversion
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Ce code contient une erreur de types (tsc la signalerait). Qu'affiche-t-il quand on exécute le JavaScript produit ?"
+    code: |
+      let x: string = 'hello';
+      x = 1234 as any;
+      console.log(typeof x, x);
+    answer: "number 1234"
+    explanation: "La génération de code est indépendante de la vérification des types : même un programme que tsc refuserait produit son JavaScript. Ici l'assertion as any fait taire l'erreur, mais l'exécution est la même dans les deux cas."
+    concept: ts-emit-with-errors
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quelle phrase décrit correctement un programme TypeScript qui contient des erreurs de types ?"
+    choices:
+      - "Il ne produit aucun JavaScript tant que les erreurs ne sont pas corrigées"
+      - "Il produit du JavaScript, sauf si `noEmitOnError` est activée"
+      - "Il s'exécute plus lentement"
+      - "Il ne peut pas être importé"
+    answer: 1
+    explanation: "tsc écrit son résultat malgré les erreurs, comme un compilateur qui n'émet que des avertissements. noEmitOnError change ce comportement."
+    concept: ts-emit-with-errors
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "`const result: ApiResponse = await response.json();` garantit-il que `result` a la forme d'`ApiResponse` ?"
+    choices:
+      - "Oui, TypeScript vérifie la forme au moment de l'appel"
+      - "Oui, mais seulement avec strict"
+      - "Non : l'annotation est effacée, personne ne contrôle la forme réelle des données reçues"
+      - "Non, sauf si ApiResponse est une classe"
+    answer: 2
+    explanation: "json() renvoie une valeur dont le type réel dépend du serveur. L'annotation exprime ce que tu crois, pas ce qui est contrôlé : les données externes doivent être validées à l'exécution."
+    concept: ts-runtime-vs-declared
+    difficulty: 2
+  - id: q7
+    type: code-output
+    prompt: "La fonction déclare un `boolean`. Qu'affiche ce programme ?"
+    code: |
+      function describe(on: boolean): string {
+        switch (on) {
+          case true: return 'allumé';
+          case false: return 'éteint';
+          default: return 'état inconnu';
+        }
+      }
+      console.log(describe(true), describe('ON' as any));
+    answer: "allumé état inconnu"
+    explanation: "Le type boolean n'existe plus à l'exécution : une valeur venue d'un appelant JavaScript, du réseau ou d'une assertion peut être n'importe quoi, et la branche default devient atteignable."
+    concept: ts-runtime-vs-declared
+    difficulty: 3
+  - id: q8
+    type: single
+    prompt: "Peut-on écrire deux fonctions `add` qui ne diffèrent que par le type de leurs paramètres (number, number) et (string, string), chacune avec sa propre implémentation ?"
+    choices:
+      - "Oui, comme en Java"
+      - "Non : les types sont effacés ; on écrit plusieurs signatures de surcharge pour une seule implémentation"
+      - "Oui, mais seulement avec strict"
+      - "Non, la surcharge n'existe pas du tout en TypeScript"
+    answer: 1
+    explanation: "Le JavaScript n'a qu'une seule fonction par nom. TypeScript permet des signatures de surcharge, mais elles n'existent qu'au niveau des types, et l'implémentation est unique."
+    concept: ts-overload-type-level
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Quel est le coût à l'exécution des annotations de type ?"
+    choices:
+      - "Un léger ralentissement lié aux vérifications"
+      - "Aucun : elles sont effacées ; seul le temps de compilation augmente"
+      - "Il dépend de la taille des interfaces"
+      - "Il double la mémoire utilisée"
+    answer: 1
+    explanation: "Les types n'existent plus dans le JavaScript produit, donc ils ne coûtent rien à l'exécution."
+    concept: ts-zero-cost
+    difficulty: 1

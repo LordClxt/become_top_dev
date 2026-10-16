@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Quelle est la forme de singleton recommandée ?"
+    back: "L'enum à un élément (enum X { INSTANCE; … }) : concise, sérialisable gratuitement, impossible à dupliquer même par réflexion."
+    concept: java-singleton-enum
+  - id: fc2
+    front: "Seule limite du singleton enum ?"
+    back: "Il ne peut pas étendre une autre classe qu'Enum (il peut en revanche implémenter des interfaces)."
+    concept: java-singleton-enum
+  - id: fc3
+    front: "Comment la réflexion contourne-t-elle un constructeur privé ?"
+    back: "getDeclaredConstructor().setAccessible(true) puis newInstance(). Parade possible : lever une exception à la seconde création."
+    concept: java-singleton-field-factory
+  - id: fc4
+    front: "Que faut-il pour qu'un singleton à constructeur privé reste unique après sérialisation ?"
+    back: "Champs transient et une méthode readResolve() qui renvoie INSTANCE. Sinon chaque désérialisation crée un nouvel objet."
+    concept: java-singleton-field-factory
+  - id: fc5
+    front: "Avantages du singleton par fabrique statique (getInstance) ?"
+    back: "Pouvoir changer d'avis sans changer l'API, pouvoir être générique, et servir de Supplier via une référence de méthode."
+    concept: java-singleton-field-factory
+  - id: fc6
+    front: "Pourquoi un singleton ou une classe utilitaire est-il inadapté quand la classe dépend d'une ressource ?"
+    back: "Il suppose une seule ressource pour toujours : pas de variante, pas de faux pour les tests, et un setter serait fragile et faux entre threads."
+    concept: java-dependency-injection
+  - id: fc7
+    front: "Qu'est-ce que l'injection de dépendances, dans sa forme la plus simple ?"
+    back: "Passer la ressource au constructeur (ou à la fabrique, ou au builder) et la garder dans un champ final."
+    concept: java-dependency-injection
+  - id: fc8
+    front: "Comment rendre testable du code qui lit l'heure ?"
+    back: "Injecter un java.time.Clock et appeler clock.instant() ; Clock.fixed(...) ou une horloge pilotable dans les tests."
+    concept: java-dependency-injection
+  - id: fc9
+    front: "Quel type standard représente une fabrique à injecter ?"
+    back: "Supplier<T>, de préférence déclaré Supplier<? extends T> pour accepter les fabriques de sous-types."
+    concept: java-supplier-factory

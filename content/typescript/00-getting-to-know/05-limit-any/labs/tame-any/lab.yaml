@@ -1,0 +1,12 @@
+id: ts-ch00-l05-lab-tame-any
+title: "Traquer les any"
+kind: code
+language: typescript
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["inventory.ts"]
+concepts: [ts-any-no-safety, ts-any-masks-refactoring, ts-any-language-services]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

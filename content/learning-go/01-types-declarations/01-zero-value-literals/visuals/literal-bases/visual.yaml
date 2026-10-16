@@ -1,6 +1,0 @@
-id: go-ch01-literal-bases
-concept: go-literals
-format: interactive
-justification: "Taper soi-même 010, 0o10 ou 0xFF et voir les quatre bases se mettre à jour fait comprendre d'un coup le piège du zéro initial."
-entry: LiteralBases.tsx
-status: built

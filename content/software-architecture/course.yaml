@@ -13,10 +13,7 @@ running_project:
   id: going-going-gone
   title: "Going, Going, Gone — le dossier d'architecture"
   pitch: "Un site d'enchères en ligne, conçu de bout en bout : caractéristiques, quanta, style, ADR, risques et diagrammes, plus la boîte à outils Go archkit."
-requires:
-  - course: go
-    through: "06-types-methods-interfaces"
-    reason: "Les outils archkit s'écrivent en Go : packages, interfaces et tests."
+requires: []
 
 tracks:
   - id: arch-thinking

@@ -2,16 +2,16 @@ milestones:
   - id: m1
     title: "Mesurer chaque opération"
     goal: "Enregistrer des durées par opération dans des histogrammes à tranches fixes et lire un percentile."
-    tests: "go test ./... -run TestM1"
+    tests: "tstest M1"
     review: false
   - id: m2
     title: "Fusionner les nœuds"
     goal: "Lister les opérations et additionner les histogrammes de deux nœuds, sans jamais moyenner de percentiles."
-    tests: "go test ./... -run TestM2"
+    tests: "tstest M2"
     review: false
   - id: m3
     title: "Un SLO avec budget d'erreur"
     goal: "Vérifier un objectif de latence en percentile et calculer le budget d'erreur restant pour une disponibilité visée."
-    tests: "go test ./... -run TestM3"
+    tests: "tstest M3"
     review: true
-    prompt: "Explique en quelques lignes pourquoi Recorder.Merge et non la moyenne des p95 doit alimenter le tableau de bord d'un cluster."
+    prompt: "Explique en quelques lignes pourquoi recorder.merge et non la moyenne des p95 doit alimenter le tableau de bord d'un cluster."

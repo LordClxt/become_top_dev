@@ -1,0 +1,94 @@
+id: java-ch01-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      String a = "bikini";
+      String b = "bikini";
+      String c = new String("bikini");
+      System.out.println(a == b);
+      System.out.println(a == c);
+      System.out.println(a == c.intern());
+    answer: "true\nfalse\ntrue"
+    explanation: "Deux littéraux identiques partagent une seule instance. new String crée toujours un nouvel objet, inutile. intern() renvoie l'instance partagée."
+    concept: java-reuse-expensive-objects
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "`Long sum = 0L; for (long i = 0; i < n; i++) sum += i;` Pourquoi est-ce lent ?"
+    choices:
+      - "Parce que long est plus lent que int"
+      - "Parce que chaque sum += i déballe sum, additionne, puis crée un nouvel objet Long"
+      - "Parce que la boucle n'est pas compilée par le JIT"
+      - "Parce que 0L est un littéral lent"
+    answer: 1
+    explanation: "sum est un Long immuable : chaque tour fait un unboxing, une addition et un boxing qui alloue un nouvel objet. Déclarer sum en long supprime toutes ces allocations."
+    concept: java-autoboxing-cost
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi `pop()` doit-il mettre `elements[size] = null`, alors que le client a déjà reçu l'objet ?"
+    choices:
+      - "Pour que le client ne puisse plus modifier l'objet"
+      - "Parce que la case du tableau reste une référence accessible : le GC ne peut pas récupérer l'objet tant que la pile vit"
+      - "Pour accélérer le prochain push"
+      - "Parce que Java l'exige pour les tableaux d'Object"
+    answer: 1
+    explanation: "Seule la pile sait que les cases au-delà de size sont libres. Pour le GC, une référence est une référence : il faut l'effacer pour rendre l'objet récupérable."
+    concept: java-obsolete-reference
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Quelle règle dit quand mettre explicitement une référence à null ?"
+    choices:
+      - "Après chaque utilisation d'une variable locale"
+      - "Dans le finalize() de chaque classe"
+      - "Quand une classe gère sa propre mémoire (pool de cases, tableau interne), pour les éléments qu'elle libère"
+      - "Jamais : le GC s'en charge"
+    answer: 2
+    explanation: "Mettre à null partout encombre le code ; laisser les variables sortir de leur portée suffit. C'est quand la classe gère elle-même ses cases qu'elle doit effacer celles qu'elle libère."
+    concept: java-obsolete-reference
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      Map<String, Integer> cache = new LinkedHashMap<>(16, 0.75f, true) {
+          @Override protected boolean removeEldestEntry(Map.Entry<String, Integer> e) {
+              return size() > 2;
+          }
+      };
+      cache.put("a", 1);
+      cache.put("b", 2);
+      cache.get("a");
+      cache.put("c", 3);
+      System.out.println(cache.keySet());
+    answer: "[a, c]"
+    explanation: "Avec accessOrder = true, get(\"a\") rend a récent : l'entrée la plus ancienne devient b, évincée par removeEldestEntry lors de l'ajout de c."
+    concept: java-cache-retention
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Dans quel cas une WeakHashMap est-elle le bon choix de cache ?"
+    choices:
+      - "Quand une entrée n'a d'intérêt que tant que sa clé est référencée en dehors du cache"
+      - "Quand on veut garder les 100 dernières entrées"
+      - "Quand les valeurs sont très grosses"
+      - "Quand le cache est partagé entre threads"
+    answer: 0
+    explanation: "WeakHashMap tient ses clés par des références faibles : l'entrée disparaît quand la clé n'est plus référencée ailleurs. Pour une éviction par âge ou par taille, il faut autre chose."
+    concept: java-cache-retention
+    difficulty: 2
+  - id: q7
+    type: multiple
+    prompt: "Quelles pratiques sont recommandées ?"
+    choices:
+      - "Garder une Pattern compilée dans un champ static final"
+      - "Écrire un pool maison pour réutiliser de petits objets valeur"
+      - "Utiliser Boolean.valueOf plutôt qu'un constructeur de Boolean"
+      - "Créer de petits objets si cela rend le code plus clair"
+    answer: [0, 2, 3]
+    explanation: "Mettre en cache un objet coûteux et réutiliser les immuables, oui. Les petits objets sont bon marché sur une JVM moderne ; un pool maison n'est justifié que pour des objets très lourds comme les connexions."
+    concept: java-reuse-expensive-objects
+    difficulty: 2

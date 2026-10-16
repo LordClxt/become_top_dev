@@ -1,0 +1,12 @@
+id: ts-ch01-l03-lab-annotations
+title: "Annoter plutôt qu’asserter"
+kind: code
+language: typescript
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["people.ts"]
+concepts: [ts-annotation-vs-assertion, ts-assertion-comparable, ts-wrapper-types, ts-runtime-vs-declared]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

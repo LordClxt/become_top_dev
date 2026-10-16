@@ -1,0 +1,70 @@
+id: nest
+title: "NestJS en production"
+book:
+  title: "Documentation officielle NestJS (v12.1)"
+  authors: ["Kamil Myśliwiec", "contributeurs NestJS"]
+  slug: nestjs-docs   # dépôt github.com/nestjs/docs.nestjs.com (MIT), lu au commit 71c2196 (2026-10-16)
+summary: "Construire des API Node.js sérieuses avec NestJS 12 : injection de dépendances, pipeline de requête, données, sécurité, puis la fiabilité distribuée (idempotence, outbox, verrous, workflows durables) qui sépare les bons développeurs des meilleurs."
+order: 6
+kind: practical
+language: nestjs
+runtime: "node24-nest12"   # tsc 6 (décorateurs legacy + emitDecoratorMetadata), ESM, harnais de test maison au format go test -json
+running_project:
+  id: librairie
+  title: "Librairie — l'API d'une boutique de livres"
+  pitch: "Catalogue, commandes, paiement et notifications : une vraie API construite module après module, jusqu'à une commande traitée exactement une fois malgré les pannes."
+requires:
+  - { course: ts, through: "05-valid-states", reason: "Les TP supposent l'aisance avec les classes, les génériques et les unions du cours TypeScript." }
+
+tracks:
+  - id: nest-foundations
+    title: "Fondations Nest"
+    chapters:
+      - "00-first-steps"
+      - "01-controllers-routing"
+      - "02-di-modules"
+      - "03-request-pipeline"
+      - "04-lifecycle-testing"
+  - id: nest-production-api
+    title: "Une API de production"
+    chapters:
+      - "05-validation-serialization"
+      - "06-data"
+      - "07-authentication"
+      - "08-authorization-web-security"
+      - "09-application-toolbox"
+      - "10-contract-operations"
+  - id: nest-reliability
+    title: "Fiabilité distribuée"
+    chapters:
+      - "11-resilience"
+      - "12-idempotency-outbox"
+      - "13-locks-coordination"
+      - "14-workflows-cqrs"
+  - id: nest-advanced
+    title: "Pistes avancées"
+    optional: true
+    chapters:
+      - "15-graphql"
+      - "16-realtime"
+      - "17-microservices"
+      - "18-tooling-migration"
+
+planned_titles:
+  "02-di-modules": "Injection de dépendances et modules"
+  "03-request-pipeline": "Le pipeline de requête"
+  "04-lifecycle-testing": "Cycle de vie et tests"
+  "05-validation-serialization": "Validation et sérialisation"
+  "06-data": "Données : Drizzle, transactions et cache"
+  "07-authentication": "Authentification"
+  "08-authorization-web-security": "Autorisation et sécurité web"
+  "09-application-toolbox": "La boîte à outils applicative"
+  "10-contract-operations": "Contrat d'API et exploitation"
+  "11-resilience": "Résilience"
+  "12-idempotency-outbox": "Idempotence, outbox et webhooks"
+  "13-locks-coordination": "Verrous et coordination"
+  "14-workflows-cqrs": "Workflows durables et CQRS"
+  "15-graphql": "GraphQL"
+  "16-realtime": "Temps réel : WebSockets et SSE"
+  "17-microservices": "Microservices"
+  "18-tooling-migration": "Outillage, monorepo et migration"

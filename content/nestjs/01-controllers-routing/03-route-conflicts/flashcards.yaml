@@ -1,0 +1,17 @@
+cards:
+  - id: fc1
+    front: "Sur Express, quelle route répond quand plusieurs correspondent ?"
+    back: "La première enregistrée, c'est-à-dire, par défaut, la première déclarée."
+    concept: nest-route-order
+  - id: fc2
+    front: "Que détecte routeConflictPolicy ?"
+    back: "Les routes en double (duplicate) et les routes masquées (shadow), en 'warn' ou 'error' au démarrage."
+    concept: nest-route-conflict-policy
+  - id: fc3
+    front: "Ordre d'enregistrement avec routeResolutionStrategy: 'specificity' ?"
+    back: "Littéraux, puis paramètres, puis wildcards."
+    concept: nest-route-specificity
+  - id: fc4
+    front: "Syntaxe d'un wildcard en Nest 12 (Express 5) ?"
+    back: "*path (nommé, au moins un segment) ou {*path} (accepte aussi le chemin vide)."
+    concept: nest-route-specificity

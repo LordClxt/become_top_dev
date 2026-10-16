@@ -1,0 +1,17 @@
+cards:
+  - id: fc1
+    front: "Extension d'un import relatif en ESM depuis un .ts ?"
+    back: ".js : le spécificateur nomme le fichier émis."
+    concept: nest-esm-imports
+  - id: fc2
+    front: "Remplaçants ESM de __dirname et require ?"
+    back: "import.meta.dirname et createRequire(import.meta.url)."
+    concept: nest-esm-globals
+  - id: fc3
+    front: "Comment importer supertest en ESM ?"
+    back: "import request from 'supertest' (import par défaut). Le namespace import * n'est pas appelable."
+    concept: nest-cjs-interop
+  - id: fc4
+    front: "tsc ou SWC : qui vérifie les types ?"
+    back: "tsc. SWC compile vite et émet les métadonnées, mais il faut --type-check (ou tsc --noEmit) pour vérifier."
+    concept: nest-build-tools

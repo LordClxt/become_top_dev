@@ -4,14 +4,14 @@ pitch: 'Tinybase implémente les trois techniques du chapitre : un exécuteur mo
   avec détection d''interblocage, et une validation optimiste sur instantané qui attrape write skew et fantômes.'
 running_project: tinybase
 kind: code
-language: go
+language: typescript
 difficulty: 5
 xp: 280
 timeout_s: 90
 entrypoint: starter/
-test_command: go test ./...
+test_command: "tstest"
 files_editable:
-- serializable.go
+- serializable.ts
 concepts:
 - ddia-serial-execution
 - ddia-stored-procedures
@@ -19,4 +19,4 @@ concepts:
 - ddia-deadlock
 - ddia-ssi
 - ddia-predicate-locks
-verified: { at: 2026-10-11, solution: pass, starter: fail }
+verified: { at: 2026-10-16, solution: pass, starter: fail }

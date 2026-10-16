@@ -1,0 +1,92 @@
+id: ts-ch01-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Lesquelles de ces déclarations créent à la fois un type et une valeur ?"
+    choices:
+      - "interface et type"
+      - "class et enum"
+      - "const et let"
+      - "function seulement"
+    answer: 1
+    explanation: "class (type = instances, valeur = constructeur) et enum créent les deux ; interface et type n'ont qu'un type, const/let/function qu'une valeur."
+    concept: ts-class-both-spaces
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const jane = { first: 'Jane', last: 'Jacobs' };
+      type T = typeof jane;
+      const kind = typeof jane;
+      const list = typeof [1, 2];
+      console.log(kind, list, typeof null, typeof (() => 1));
+    answer: "object object object function"
+    explanation: "En position de valeur, typeof est l'opérateur JavaScript : 'object' pour un objet, un tableau et null ; 'function' pour une fonction. La ligne `type T = typeof jane` est effacée."
+    concept: ts-typeof-two-meanings
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Dans `type T = typeof jane`, que fait typeof ?"
+    choices:
+      - "Il renvoie la chaîne 'object'"
+      - "Il extrait le type de la valeur jane"
+      - "Il crée une copie de jane"
+      - "Il vérifie le type à l'exécution"
+    answer: 1
+    explanation: "En position de type, typeof lit le type de la valeur. Il est effacé à la compilation."
+    concept: ts-typeof-two-meanings
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Avec `interface Cylinder {…}` et `const Cylinder = …`, que désigne `Cylinder` dans `shape instanceof Cylinder` ?"
+    choices:
+      - "L'interface"
+      - "La valeur (la fonction)"
+      - "Les deux à la fois"
+      - "C'est une erreur de compilation d'avoir le même nom"
+    answer: 1
+    explanation: "instanceof s'exécute : il lit la valeur. Les deux homonymes coexistent sans lien, d'où l'erreur de propriété sur `shape`."
+    concept: ts-two-spaces
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Que signifie `function f({ person: Person, subject: string }) {}` ?"
+    choices:
+      - "person est de type Person et subject de type string"
+      - "Une déstructuration qui renomme les variables locales en Person et string"
+      - "Une erreur de syntaxe"
+      - "Une surcharge"
+    answer: 1
+    explanation: "Dans un motif de déstructuration, `a: b` signifie « prendre la propriété a et la nommer b ». Les types s'écrivent après le motif : `({ person, subject }: { person: Person; subject: string })`."
+    concept: ts-two-spaces
+    difficulty: 3
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      class Point {
+        x: number;
+        constructor(x = 0) {
+          this.x = x;
+        }
+      }
+      type P = Point;
+      const a: P = new Point(3);
+      console.log(a instanceof Point, typeof Point, typeof a);
+    answer: "true function object"
+    explanation: "La classe est un type (P) et une valeur (le constructeur, de typeof 'function'). L'instance est un objet."
+    concept: ts-class-both-spaces
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "`type First = Person['first']` : à quel espace appartient `Person['first']` ?"
+    choices:
+      - "Les valeurs : c'est un accès à une propriété"
+      - "Les types : c'est un accès indexé, effacé à la compilation"
+      - "Aux deux selon le contexte"
+      - "Ni l'un ni l'autre"
+    answer: 1
+    explanation: "Dans un alias de type, Person['first'] est un type (accès indexé). L'expression jane['first'], elle, lit une valeur."
+    concept: ts-indexed-access-type
+    difficulty: 2

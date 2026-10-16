@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Comment éviter de répéter les annotations sur plusieurs fonctions de même forme ?"
+    back: "Nommer la signature (`type BinaryFn = (a: number, b: number) => number`) et annoter la variable : `const add: BinaryFn = (a, b) => a + b`."
+    concept: ts-function-type-alias
+  - id: fc2
+    front: "Que garantit `const f: typeof fetch = …` ?"
+    back: "Les paramètres sont déduits de fetch et le type de retour de l'implémentation est vérifié (ex. un `return new Error` est refusé)."
+    concept: ts-typeof-function
+  - id: fc3
+    front: "Parameters<typeof f> et ReturnType<typeof f> ?"
+    back: "Le tuple des types de paramètres de f, et le type de retour de f."
+    concept: ts-parameters-returntype

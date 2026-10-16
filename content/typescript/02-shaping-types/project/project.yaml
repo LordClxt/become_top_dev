@@ -1,0 +1,14 @@
+id: ts-ch02-project
+title: "Parse, jalon 2 : tuples, dictionnaires et schémas dérivés"
+pitch: "Les schémas doivent se composer : décrire des paires, des dictionnaires, et dériver un schéma d’un autre sans le recopier. Tu enrichis Parse avec ces trois mécanismes."
+kind: code
+language: typescript
+difficulty: 3
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-pick-mapped, ts-index-alternatives, ts-partial-homomorphic, ts-readonly-subtype]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

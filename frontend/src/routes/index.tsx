@@ -43,7 +43,7 @@ export const Route = createFileRoute('/')({
   component: Landing,
 })
 
-const SHOWCASE_VISUAL = 'go-ch10-goroutine-scheduler'
+const SHOWCASE_VISUAL = 'java-ch01-stack-leak'
 
 const NAV = [
   { href: '#methode', label: 'La méthode' },
@@ -118,7 +118,7 @@ function Landing() {
               <SectionHead
                 eyebrow="Les visuels"
                 title="Comprendre en voyant"
-                aside="Les idées difficiles ont leur animation. Ici, Go répartit cinq tâches sur deux processeurs, étape par étape."
+                aside="Les idées difficiles ont leur animation. Ici, une pile Java qui fuit : on voit quels objets le ramasse-miettes ne peut plus libérer."
               />
               <motion.figure
                 initial={{ opacity: 0, y: 60 }}
@@ -129,8 +129,8 @@ function Landing() {
               >
                 <figcaption className="flex items-center gap-2 border-b border-line px-6 py-4 text-sm">
                   <Clapperboard className="size-4 text-accent" aria-hidden="true" />
-                  <span className="font-medium">Le scheduler de Go</span>
-                  <span className="text-muted">du module Concurrence</span>
+                  <span className="font-medium">La fuite de mémoire d’une pile</span>
+                  <span className="text-muted">du module Créer et détruire des objets</span>
                 </figcaption>
                 <div className="p-6">
                   <Showcase />
@@ -463,7 +463,7 @@ function WhySection() {
             transition={{ duration: 0.9, ease: EASE }}
             className="rounded-[1.75rem] bg-surface p-8 shadow-[0_40px_80px_-50px_rgb(12_13_18/0.5)]"
           >
-            <p className="text-sm text-muted">Exemple : un module de Go</p>
+            <p className="text-sm text-muted">Exemple : un module de Java</p>
             <p className={cn('mt-2 text-5xl', display)}>Maîtrise du module</p>
             <div className="mt-8 grid gap-6">
               {MASTERY.map((m, i) => (
@@ -551,7 +551,7 @@ function CoursesSection({ courses, signedIn }: { courses: CatalogCourse[]; signe
         <SectionHead
           eyebrow="Les cours"
           title="Des livres de référence, devenus des cours"
-          aside="Commence par Go : les exercices des autres cours s'écrivent en Go ou s'appuient dessus."
+          aside="Chaque cours suit un livre de référence, avec ses exercices testés et son projet fil rouge."
         />
         <motion.ol
           className="mt-16 grid gap-5 md:grid-cols-2 xl:grid-cols-4"

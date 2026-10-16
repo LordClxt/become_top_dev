@@ -1,0 +1,12 @@
+id: java-ch01-l04-lab-leaks
+title: "Chasser les rétentions et les objets inutiles"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["ArrayStack.java", "LruCache.java", "RomanNumerals.java"]
+concepts: [java-obsolete-reference, java-cache-retention, java-reuse-expensive-objects]
+verified: { at: 2026-10-15, solution: pass, starter: fail }

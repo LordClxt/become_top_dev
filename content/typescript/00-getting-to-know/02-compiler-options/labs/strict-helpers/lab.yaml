@@ -1,0 +1,12 @@
+id: ts-ch00-l02-lab-strict-helpers
+title: "Passer le code sous strict"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["helpers.ts"]
+concepts: [ts-no-implicit-any, ts-strict-null-checks, ts-strict-flag]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

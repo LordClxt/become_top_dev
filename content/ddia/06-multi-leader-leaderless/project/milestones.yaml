@@ -2,19 +2,19 @@ milestones:
 - id: m1
   title: Vecteurs de version et compteur convergent
   goal: Comparer deux vecteurs (avant, après, égaux, concurrents), incrémenter sans muter, fusionner (maximum par réplica) et sommer un G-Counter.
-  tests: go test ./... -run TestM1
+  tests: "tstest M1"
   review: false
 - id: m2
   title: Le serveur de siblings
   goal: 'Rejouer l''algorithme du panier : numéro de version par clé, valeurs concurrentes conservées, valeurs fusionnées écrasées ; fusionner
     des paniers avec tombstones.'
-  tests: go test ./... -run TestM2
+  tests: "tstest M2"
   review: false
 - id: m3
   title: Un cluster à quorum
   goal: Écrire sur les nœuds en marche et exiger w confirmations, lire r réponses avec réparation à la lecture, constater qu'une écriture échouée
     n'est pas annulée, et converger par anti-entropie.
-  tests: go test ./... -run TestM3
+  tests: "tstest M3"
   review: true
   prompt: Pourquoi ce cluster peut-il renvoyer une valeur périmée même quand w + r > n, et quelles garanties du module précédent (lire ses écritures,
     lectures monotones) n'offre-t-il pas ?

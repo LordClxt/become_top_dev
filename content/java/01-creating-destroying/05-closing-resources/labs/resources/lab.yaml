@@ -1,0 +1,12 @@
+id: java-ch01-l05-lab-resources
+title: "Fermer ses ressources sans perdre l'erreur"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Connection.java", "Transfers.java"]
+concepts: [java-try-with-resources, java-suppressed-exceptions, java-autocloseable-state, java-finalizer-unreliable]
+verified: { at: 2026-10-15, solution: pass, starter: fail }

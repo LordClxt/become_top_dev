@@ -1,0 +1,88 @@
+id: ts-ch00-l05-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quel est l'effet principal de `any` ?"
+    choices:
+      - "Il rend la valeur immuable"
+      - "Il désactive la vérification de types pour toute valeur et toute expression qu'il touche"
+      - "Il convertit la valeur en chaîne"
+      - "Il ralentit le programme"
+    answer: 1
+    explanation: "any est assignable à tout, tout est assignable à any, et toutes les opérations sont permises : le vérificateur ne contrôle plus rien."
+    concept: ts-any-no-safety
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "`age` est déclaré number. Qu'affiche ce programme ?"
+    code: |
+      let age: number = 12;
+      age = '12' as any;
+      age += 1;
+      console.log(age, typeof age);
+    answer: "121 string"
+    explanation: "as any fait taire le vérificateur, mais à l'exécution age est la chaîne '12' : += 1 concatène. Le type annoncé (number) ne correspond plus à la valeur."
+    concept: ts-any-no-safety
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Une fonction `getBirthDate(): any` est utilisée partout comme un Date. Quel est le risque ?"
+    choices:
+      - "Aucun : any est compatible avec Date"
+      - "Elle peut renvoyer autre chose qu'un Date sans qu'aucun appelant ne soit averti"
+      - "Elle ne peut plus être appelée"
+      - "L'éditeur refusera de l'afficher"
+    answer: 1
+    explanation: "any dans une signature casse le contrat : les appelants perdent la protection et le compilateur ne détecte pas qu'on renvoie un autre type."
+    concept: ts-any-contracts
+    difficulty: 2
+  - id: q4
+    type: multiple
+    prompt: "Quels services de l'éditeur sont perdus pour une valeur de type `any` ?"
+    choices:
+      - "L'autocomplétion des propriétés"
+      - "La détection des fautes de frappe sur les propriétés"
+      - "Le renommage fiable d'une propriété dans tout le projet"
+      - "La coloration syntaxique"
+    answer: [0, 1, 2]
+    explanation: "Sans type, l'éditeur ne sait pas quelles propriétés existent : plus d'autocomplétion, plus d'erreur sur une faute de frappe, plus de renommage sûr. La coloration syntaxique ne dépend pas des types."
+    concept: ts-any-language-services
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "On a changé l'API : le composant envoie maintenant l'identifiant plutôt que l'objet, mais le gestionnaire n'a pas été mis à jour. Qu'affiche ce programme ?"
+    code: |
+      let selectedId: number | undefined = 0;
+      function handleSelectItem(item: any) {
+        selectedId = item.id;
+      }
+      handleSelectItem(42);
+      console.log(selectedId);
+    answer: "undefined"
+    explanation: "Le paramètre item: any accepte n'importe quoi : passer 42 ne produit aucune erreur, mais (42).id est undefined. Avec item: Item, le changement d'API aurait été signalé immédiatement."
+    concept: ts-any-masks-refactoring
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Pourquoi dit-on qu'un `any` est « contagieux » ?"
+    choices:
+      - "Parce qu'il se propage aux variables et aux résultats calculés à partir de lui"
+      - "Parce qu'il modifie les fichiers voisins"
+      - "Parce qu'il est automatiquement ajouté partout par le compilateur"
+      - "Parce qu'il est copié dans tsconfig.json"
+    answer: 0
+    explanation: "Une expression qui utilise une valeur any a souvent elle-même un type any : le trou se propage par l'inférence et réduit la confiance dans le reste du code."
+    concept: ts-any-hides-design
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Tu dois vraiment contourner le vérificateur à un endroit précis. Que privilégies-tu ?"
+    choices:
+      - "Typer toute la fonction (paramètres et retour) en any"
+      - "Confiner le any à la plus petite portée possible, avec un commentaire qui explique pourquoi"
+      - "Désactiver strict pour tout le projet"
+      - "Ajouter // @ts-nocheck en tête de fichier"
+    answer: 1
+    explanation: "Plus la portée d'un any est petite, moins il fait de dégâts. Les autres options éteignent une partie bien plus large du vérificateur."
+    concept: ts-any-hides-design
+    difficulty: 2

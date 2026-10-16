@@ -4,14 +4,14 @@ pitch: 'Tinybase apprend à douter : un détecteur de pannes à timeout adaptati
   un service de baux avec jetons de clôture qui empêche un client en pause de corrompre les données.'
 running_project: tinybase
 kind: code
-language: go
+language: typescript
 difficulty: 5
 xp: 280
 timeout_s: 90
 entrypoint: starter/
-test_command: go test ./...
+test_command: "tstest"
 files_editable:
-- trouble.go
+- trouble.ts
 concepts:
 - ddia-adaptive-timeout
 - ddia-fault-detection
@@ -21,4 +21,4 @@ concepts:
 - ddia-commit-wait
 - ddia-fencing-token
 - ddia-majority-truth
-verified: { at: 2026-10-11, solution: pass, starter: fail }
+verified: { at: 2026-10-16, solution: pass, starter: fail }

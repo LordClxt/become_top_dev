@@ -1,0 +1,17 @@
+cards:
+  - id: fc1
+    front: "Statut par défaut d'un POST dans Nest ?"
+    back: "201. Les autres verbes valent 200 ; @HttpCode change le statut."
+    concept: nest-status-codes
+  - id: fc2
+    front: "Que fait @Res() sans option ?"
+    back: "Il désactive la réponse standard : la valeur renvoyée est ignorée, les intercepteurs ne la voient pas, il faut envoyer soi-même."
+    concept: nest-standard-response
+  - id: fc3
+    front: "Comment poser un en-tête calculé sans perdre la réponse standard ?"
+    back: "@Res({ passthrough: true }) res, puis res.location(...) ou res.setHeader(...), et renvoyer la valeur."
+    concept: nest-standard-response
+  - id: fc4
+    front: "Ressource absente : que faire dans le handler ?"
+    back: "Lever NotFoundException (404), pas renvoyer undefined (200 vide)."
+    concept: nest-rest-semantics
