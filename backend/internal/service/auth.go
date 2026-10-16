@@ -148,9 +148,8 @@ type SignupInput struct {
 	Password    string
 }
 
-// Signup crée un compte avec un code d'invitation valide et ouvre une session.
+// Signup crée un compte et ouvre une session.
 func (s *Service) Signup(ctx context.Context, in SignupInput) (string, *UserView, error) {
-	code := NormalizeInviteCode(in.Code)
 	email := normalizeEmail(in.Email)
 	if err := validateEmail(email); err != nil {
 		return "", nil, err
@@ -166,20 +165,10 @@ func (s *Service) Signup(ctx context.Context, in SignupInput) (string, *UserView
 	var token string
 	var user *model.User
 	err = s.store.InTx(ctx, func(r repository.Repos) error {
-		ok, err := r.Users.ConsumeInvite(ctx, code)
-		if err != nil {
-			return err
-		}
-		if !ok {
-			return errorf(Invalid, "code d'invitation invalide, expiré ou déjà utilisé")
-		}
 		if user, err = r.Users.Create(ctx, email, name, hash); err != nil {
 			if errors.Is(err, repository.ErrEmailTaken) {
 				return errorf(Conflict, "un compte existe déjà avec cet email")
 			}
-			return err
-		}
-		if err := r.Users.SetInviteUser(ctx, code, user.ID); err != nil {
 			return err
 		}
 		token, err = s.newSession(ctx, r.Users, user.ID)

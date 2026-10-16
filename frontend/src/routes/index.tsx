@@ -665,7 +665,7 @@ function FinalCta({ signedIn, target, ctaLabel }: { signedIn: boolean; target: s
         </motion.div>
         <div className="max-w-[34ch]">
           <p className="text-muted">
-            {signedIn ? 'Ta progression reste là où tu l’as laissée.' : 'L’inscription se fait sur invitation, et chacun garde sa propre progression.'}
+            {signedIn ? 'Ta progression reste là où tu l’as laissée.' : 'Rejoins la plateforme et garde ta propre progression.'}
           </p>
           <div className="mt-6">
             <Pill to={target}>{ctaLabel}</Pill>
