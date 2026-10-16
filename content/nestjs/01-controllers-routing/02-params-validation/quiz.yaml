@@ -1,0 +1,92 @@
+id: nest-ch01-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      import 'reflect-metadata';
+      import { Controller, Get, Module, Query } from '@nestjs/common';
+      import { Test } from '@nestjs/testing';
+      import request from 'supertest';
+
+      @Controller('books')
+      class BooksController {
+        @Get() list(@Query('page') page: number) { return { next: page + 1 }; }
+      }
+      @Module({ controllers: [BooksController] }) class AppModule {}
+
+      const app = (await Test.createTestingModule({ imports: [AppModule] }).compile())
+        .createNestApplication({ logger: false });
+      await app.init();
+      const res = await request(app.getHttpServer()).get('/books?page=2');
+      console.log(res.body.next);
+      await app.close();
+    answer: "21"
+    explanation: "page vaut la chaîne '2' : l'annotation number est effacée et ne convertit rien. '2' + 1 donne '21'. Il faut ParseIntPipe."
+    concept: nest-strings-from-url
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Quels statuts obtient-on ?"
+    code: |
+      import 'reflect-metadata';
+      import { Controller, DefaultValuePipe, Get, Module, ParseIntPipe, Query } from '@nestjs/common';
+      import { Test } from '@nestjs/testing';
+      import request from 'supertest';
+
+      @Controller('books')
+      class BooksController {
+        @Get() list(@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number) {
+          return { page };
+        }
+      }
+      @Module({ controllers: [BooksController] }) class AppModule {}
+
+      const app = (await Test.createTestingModule({ imports: [AppModule] }).compile())
+        .createNestApplication({ logger: false });
+      await app.init();
+      const http = request(app.getHttpServer());
+      const a = await http.get('/books');
+      const b = await http.get('/books?page=x');
+      console.log(a.status, a.body.page, b.status);
+      await app.close();
+    answer: "200 1 400"
+    explanation: "Sans page, DefaultValuePipe fournit 1 puis ParseIntPipe le garde. Avec page=x, ParseIntPipe rejette : 400, sans exécuter le handler."
+    concept: nest-parse-pipes
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Une route déclare `@Body({ schema: CreateBook }) body: CreateBook`, mais l'application n'enregistre aucun pipe. Un client envoie `{ \"title\": 42 }`. Que se passe-t-il ?"
+    choices:
+      - "400 : le schéma rejette le corps"
+      - "Le handler reçoit { title: 42 } sans validation : le décorateur ne fait qu'attacher le schéma"
+      - "500 : Nest ne trouve pas de pipe"
+      - "Le corps est converti en { title: '42' }"
+    answer: 1
+    explanation: "Le décorateur attache des métadonnées. C'est StandardSchemaValidationPipe (global, ou sur la route) qui valide."
+    concept: nest-schema-validation
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi un DTO de corps ne peut-il pas être une simple `interface` si on veut le valider ?"
+    choices:
+      - "Parce que les interfaces sont plus lentes"
+      - "Parce qu'une interface n'existe pas à l'exécution : aucun pipe ne peut s'en servir"
+      - "Parce que Nest interdit les interfaces"
+      - "On peut, si l'interface est exportée"
+    answer: 1
+    explanation: "Comme pour l'injection, la validation a besoin d'une valeur à l'exécution : une classe (class-validator) ou un schéma (Zod)."
+    concept: nest-schema-validation
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Où placer la règle « limit ne peut pas dépasser 50 » ?"
+    choices:
+      - "Nulle part : le client choisit"
+      - "Dans le contrôleur ou le schéma de la query, avec un 400 explicite"
+      - "Dans la base de données, qui coupera la requête"
+      - "Dans un commentaire de la doc OpenAPI"
+    answer: 1
+    explanation: "C'est une protection de la frontière : refuser tôt une requête coûteuse vaut mieux que la subir. Elle peut vivre dans un schéma de query ou dans un test explicite."
+    concept: nest-parse-pipes
+    difficulty: 1

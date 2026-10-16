@@ -1,0 +1,22 @@
+id: ts-ch00
+title: "Faire connaissance avec TypeScript"
+subtitle: "Surensemble de JavaScript, options du compilateur, effacement des types, typage structurel et any"
+source: { chapter: 1, pages: "1-26" }
+objectives:
+  - "Expliquer la relation entre TypeScript et JavaScript, et ce que le vérificateur de types garantit (et ne garantit pas)"
+  - "Choisir les options du compilateur (strict, noImplicitAny, strictNullChecks) et lire leurs erreurs"
+  - "Distinguer ce qui existe à l'exécution (valeurs) de ce qui est effacé (types), et concevoir une union taguée"
+  - "Exploiter le typage structurel : interfaces étroites, tests sans mock, pièges des types ouverts"
+  - "Mesurer le coût d'un any et le remplacer par un type précis"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-ts-and-js"
+  - "02-compiler-options"
+  - "03-erasure"
+  - "04-structural-typing"
+  - "05-limit-any"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

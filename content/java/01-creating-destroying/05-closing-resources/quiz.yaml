@@ -1,0 +1,133 @@
+id: java-ch01-l05-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          record Res(String name) implements AutoCloseable {
+              Res { System.out.println("ouvre " + name); }
+              @Override public void close() { System.out.println("ferme " + name); }
+          }
+
+          public static void main(String[] args) {
+              try (Res a = new Res("a"); Res b = new Res("b")) {
+                  System.out.println("corps");
+              }
+          }
+      }
+    answer: "ouvre a\nouvre b\ncorps\nferme b\nferme a"
+    explanation: "Les ressources sont fermées dans l'ordre inverse de leur déclaration, après le corps."
+    concept: java-try-with-resources
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static class Res implements AutoCloseable {
+              @Override public void close() { throw new IllegalStateException("close"); }
+          }
+
+          public static void main(String[] args) {
+              try (Res r = new Res()) {
+                  throw new RuntimeException("corps");
+              } catch (RuntimeException e) {
+                  System.out.println(e.getMessage());
+                  System.out.println(e.getSuppressed()[0].getMessage());
+              }
+          }
+      }
+    answer: "corps\nclose"
+    explanation: "L'exception du corps reste l'exception principale ; celle de close() lui est attachée comme exception supprimée."
+    concept: java-suppressed-exceptions
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static class Res {
+              void close() { throw new IllegalStateException("close"); }
+          }
+
+          public static void main(String[] args) {
+              try {
+                  Res r = new Res();
+                  try {
+                      throw new RuntimeException("corps");
+                  } finally {
+                      r.close();
+                  }
+              } catch (RuntimeException e) {
+                  System.out.println(e.getMessage());
+                  System.out.println(e.getSuppressed().length);
+              }
+          }
+      }
+    answer: "close\n0"
+    explanation: "Avec try/finally, l'exception levée dans le finally remplace celle du corps : la vraie cause (corps) est perdue, sans aucune trace."
+    concept: java-suppressed-exceptions
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          record Res(String name) implements AutoCloseable {
+              @Override public void close() { System.out.println("ferme " + name); }
+          }
+
+          static Res open(String name) {
+              if (name.equals("b")) throw new IllegalStateException("b indisponible");
+              return new Res(name);
+          }
+
+          public static void main(String[] args) {
+              try (Res a = open("a"); Res b = open("b")) {
+                  System.out.println("corps");
+              } catch (IllegalStateException e) {
+                  System.out.println(e.getMessage());
+              }
+          }
+      }
+    answer: "ferme a\nb indisponible"
+    explanation: "b n'a jamais été ouverte : seule a est fermée, avant que le catch ne s'exécute. Le corps n'est pas exécuté."
+    concept: java-try-with-resources
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Pourquoi est-ce une erreur grave de fermer des fichiers dans un finaliseur ?"
+    choices:
+      - "Parce que finalize() ne peut pas accéder aux champs privés"
+      - "Parce que rien ne garantit quand (ni si) il s'exécutera : les descripteurs de fichiers peuvent s'épuiser"
+      - "Parce que finalize() s'exécute dans le thread principal"
+      - "Parce qu'un fichier ne peut pas être fermé deux fois"
+    answer: 1
+    explanation: "Le moment d'exécution dépend du GC, et le programme peut même se terminer sans l'appeler. Une ressource limitée doit être rendue au bon moment, par close()."
+    concept: java-finalizer-unreliable
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Dans un objet qui utilise un Cleaner, pourquoi l'état à nettoyer doit-il être une classe imbriquée STATIQUE ?"
+    choices:
+      - "Pour être sérialisable"
+      - "Parce qu'une classe interne garde une référence vers l'objet englobant, qui ne deviendrait alors jamais inaccessible"
+      - "Parce que Cleaner.register refuse les classes internes"
+      - "Pour que run() soit appelé plus vite"
+    answer: 1
+    explanation: "Si l'action de nettoyage référence l'objet, celui-ci reste accessible depuis le Cleaner : il n'est jamais ramassé, donc jamais nettoyé. Même risque avec une lambda qui capture this."
+    concept: java-cleaner-safety-net
+    difficulty: 3
+  - id: q7
+    type: multiple
+    prompt: "Ta classe `Session` tient une ressource. Que fais-tu ?"
+    choices:
+      - "Elle implémente AutoCloseable"
+      - "Ses méthodes lèvent IllegalStateException après close()"
+      - "Elle redéfinit finalize() pour fermer au cas où"
+      - "close() ne fait rien au second appel"
+    answer: [0, 1, 3]
+    explanation: "AutoCloseable, un état « fermé » vérifié et un close() idempotent. finalize() est déprécié pour suppression et ne garantit rien ; au mieux, un Cleaner comme filet de sécurité."
+    concept: java-autocloseable-state
+    difficulty: 1

@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Deux garanties qu'un finaliseur ou un cleaner NE donne PAS ?"
+    back: "Qu'il s'exécute rapidement, et qu'il s'exécute tout court (le programme peut se terminer avant)."
+    concept: java-finalizer-unreliable
+  - id: fc2
+    front: "Qu'est-ce qu'une attaque par finaliseur ?"
+    back: "Une sous-classe malveillante dont finalize() sauve une référence vers un objet dont le constructeur a échoué. Parade : classe final ou finalize() final et vide."
+    concept: java-finalizer-unreliable
+  - id: fc3
+    front: "Statut de finalize() dans le JDK récent ?"
+    back: "Déprécié depuis Java 9, déprécié pour suppression depuis Java 18 (JEP 421)."
+    concept: java-finalizer-unreliable
+  - id: fc4
+    front: "Les deux usages légitimes d'un Cleaner ?"
+    back: "Filet de sécurité si le client oublie close() ; libération d'un pair natif qui ne tient pas de ressource critique."
+    concept: java-cleaner-safety-net
+  - id: fc5
+    front: "Pourquoi l'état d'un Cleaner ne doit-il pas référencer l'objet nettoyé ?"
+    back: "Sinon l'objet reste accessible depuis le Cleaner et n'est jamais nettoyé. Classe imbriquée statique, pas de lambda capturant this."
+    concept: java-cleaner-safety-net
+  - id: fc6
+    front: "Comment une ressource doit-elle se comporter après close() ?"
+    back: "Elle retient qu'elle est fermée, ses méthodes lèvent IllegalStateException, et un second close() ne fait rien."
+    concept: java-autocloseable-state
+  - id: fc7
+    front: "Dans quel ordre try-with-resources ferme-t-il les ressources ?"
+    back: "Dans l'ordre inverse de leur déclaration, et seulement celles qui ont été ouvertes."
+    concept: java-try-with-resources
+  - id: fc8
+    front: "Quel défaut subtil a try/finally quand close() lève une exception ?"
+    back: "L'exception de close() remplace celle du corps : la vraie cause disparaît de la trace de pile."
+    concept: java-suppressed-exceptions
+  - id: fc9
+    front: "Que devient une exception levée par close() pendant un try-with-resources déjà en échec ?"
+    back: "Elle est attachée à l'exception principale avec addSuppressed ; on la lit avec getSuppressed() et la trace l'affiche (Suppressed: …)."
+    concept: java-suppressed-exceptions
+  - id: fc10
+    front: "Peut-on mettre un catch sur un try-with-resources ?"
+    back: "Oui (et un finally) : les ressources sont fermées avant l'exécution du catch."
+    concept: java-try-with-resources

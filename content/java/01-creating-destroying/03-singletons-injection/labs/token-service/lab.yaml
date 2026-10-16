@@ -1,0 +1,12 @@
+id: java-ch01-l03-lab-token-service
+title: "Injecter l'horloge pour pouvoir tester"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["TokenService.java", "SequentialIds.java"]
+concepts: [java-dependency-injection, java-supplier-factory, java-singleton-enum]
+verified: { at: 2026-10-15, solution: pass, starter: fail }

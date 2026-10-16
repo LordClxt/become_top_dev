@@ -1,7 +1,0 @@
-id: go-ch10-concurrency-vs-parallelism
-concept: go-concurrency-vs-parallelism
-format: remotion
-justification: "Voir les deux mêmes tâches tour à tour sur un cœur puis en même temps sur deux cœurs sépare enfin « structurer » de « exécuter simultanément » : c'est une séquence à regarder."
-entry: ConcurrencyVsParallelism.tsx
-duration_s: 17
-status: built

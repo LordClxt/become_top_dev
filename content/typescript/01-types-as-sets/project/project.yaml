@@ -1,0 +1,14 @@
+id: ts-ch01-project
+title: "Parse, jalon 1 : singletons, unions et tableaux"
+pitch: "Un ensemble de valeurs se décrit par ses singletons et leurs unions. Tu enrichis Parse pour valider des rôles, des identifiants et des listes, avec le type déduit du schéma."
+kind: code
+language: typescript
+difficulty: 3
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-type-as-set, ts-union-intersection-sets, ts-assertion-comparable]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

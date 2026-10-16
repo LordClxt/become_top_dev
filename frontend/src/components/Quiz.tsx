@@ -40,6 +40,7 @@ export function Quiz({ quizId }: { quizId: string }) {
         key={question.id}
         quizId={quizId}
         question={question}
+        language={data.language}
         result={results[question.id]}
         onResult={(r) => setResults((prev) => ({ ...prev, [question.id]: r }))}
       />
@@ -65,10 +66,12 @@ export function Quiz({ quizId }: { quizId: string }) {
 function QuestionCard({
   quizId,
   question: q,
+  language,
   result,
   onResult,
 }: {
   quizId: string
+  language: string
   question: QuizQuestion
   result?: AnswerResult
   onResult: (r: AnswerResult) => void
@@ -96,7 +99,7 @@ function QuestionCard({
   return (
     <div>
       <p className="text-lg">{q.prompt}</p>
-      {q.code && <div className="mt-4">{<CodeBlock code={q.code} />}</div>}
+      {q.code && <div className="mt-4">{<CodeBlock code={q.code} language={language} />}</div>}
       {q.answered && !result && (
         <p className="mt-2 text-sm text-muted">Déjà répondue : tu peux réessayer, sans XP cette fois.</p>
       )}

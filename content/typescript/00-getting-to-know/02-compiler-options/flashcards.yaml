@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Où configurer TypeScript : ligne de commande ou tsconfig.json ?"
+    back: "tsconfig.json : l'équipe, l'éditeur et la CI partagent exactement les mêmes options. `tsc --init` en crée un."
+    concept: ts-tsconfig
+  - id: fc2
+    front: "Que fait noImplicitAny ?"
+    back: "Il rend illégal le any implicite : quand TypeScript ne peut pas déduire un type, il signale une erreur au lieu de mettre any en silence."
+    concept: ts-no-implicit-any
+  - id: fc3
+    front: "Que change strictNullChecks ?"
+    back: "null et undefined ne sont plus des valeurs de tous les types. Il faut écrire `T | null` et traiter le cas avant d'utiliser la valeur."
+    concept: ts-strict-null-checks
+  - id: fc4
+    front: "Dans quel ordre activer noImplicitAny et strictNullChecks pendant une migration ?"
+    back: "noImplicitAny d'abord, strictNullChecks ensuite."
+    concept: ts-strict-null-checks
+  - id: fc5
+    front: "Quel est le réglage cible pour un projet TypeScript ?"
+    back: "`strict: true`, qui active noImplicitAny, strictNullChecks et les autres contrôles du langage."
+    concept: ts-strict-flag
+  - id: fc6
+    front: "Que fait noUncheckedIndexedAccess et quel est son prix ?"
+    back: "Elle type `arr[i]` en `T | undefined`, ce qui attrape les accès hors limites, mais signale aussi des accès valides comme `arr[0]`."
+    concept: ts-unchecked-indexed
+  - id: fc7
+    front: "Que signifie le `!` dans `el!.textContent` ?"
+    back: "Une assertion de non-nullité : tu promets que la valeur n'est pas null. Le vérificateur te croit, et l'erreur a lieu à l'exécution si tu te trompes."
+    concept: ts-strict-null-checks

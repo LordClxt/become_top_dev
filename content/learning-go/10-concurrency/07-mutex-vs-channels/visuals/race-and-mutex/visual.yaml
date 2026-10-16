@@ -1,7 +1,0 @@
-id: go-ch10-race-and-mutex
-concept: go-data-race
-format: remotion
-justification: "Une course de données dépend de l'entrelacement exact de lectures et d'écritures : dérouler pas à pas un compteur incrémenté par deux goroutines, avec puis sans mutex, rend la perte de mise à jour visible."
-entry: RaceAndMutex.tsx
-duration_s: 19
-status: built

@@ -1,0 +1,90 @@
+id: ts-ch00-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Que signifie « TypeScript est un surensemble de JavaScript » ?"
+    choices:
+      - "Tout programme JavaScript syntaxiquement valide est aussi un programme TypeScript valide"
+      - "Tout programme TypeScript s'exécute tel quel dans un navigateur"
+      - "TypeScript ajoute des classes et des modules que JavaScript n'a pas"
+      - "Tout programme JavaScript passe le vérificateur de types de TypeScript"
+    answer: 0
+    explanation: "Il s'agit de syntaxe : renommer main.js en main.ts donne un programme TypeScript valide. Mais le vérificateur peut rejeter ce programme, et le TypeScript avec annotations n'est pas du JavaScript."
+    concept: ts-superset
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi `function greet(who: string) {}` échoue-t-il si on l'exécute avec un interpréteur JavaScript pur ?"
+    choices:
+      - "Parce que `string` n'est pas un type JavaScript"
+      - "Parce que l'annotation `: string` est une syntaxe propre à TypeScript"
+      - "Parce que la fonction n'a pas de corps"
+      - "Parce que `who` n'est pas utilisé"
+    answer: 1
+    explanation: "Les annotations de type ne font pas partie de la syntaxe JavaScript ; dès qu'on en écrit une, on a quitté JavaScript (SyntaxError: Unexpected token :)."
+    concept: ts-superset
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "TypeScript signale `state.capitol` comme une erreur, mais que se passe-t-il à l'exécution ?"
+    code: |
+      const states = [
+        { name: 'Alabama', capital: 'Montgomery' },
+        { name: 'Alaska', capital: 'Juneau' },
+      ];
+      for (const state of states) {
+        console.log((state as any).capitol);
+      }
+    answer: "undefined\nundefined"
+    explanation: "Lire une propriété absente ne lève pas d'exception en JavaScript : on obtient undefined. C'est pourquoi une faute de frappe est un bug silencieux, et pourquoi le vérificateur de types est utile."
+    concept: ts-static-checking
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Quel est le résultat ? (TypeScript accepte ces expressions car JavaScript les accepte.)"
+    code: |
+      const x = 2 + '3';
+      const y = '2' + 3;
+      console.log(x, y, typeof x);
+    answer: "23 23 string"
+    explanation: "Le + avec une chaîne concatène : les deux expressions donnent la chaîne \"23\". TypeScript modélise le comportement de JavaScript ici, il ne le corrige pas."
+    concept: ts-static-checking
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Dans `const states = [{name: 'Alabama', capitol: 'Montgomery'}, …]`, on lit `state.capital` : pourquoi la suggestion de TypeScript (« Did you mean 'capitol' ? ») peut-elle être fausse ?"
+    choices:
+      - "Parce que TypeScript ne sait pas quelle orthographe tu avais en tête, faute d'annotation"
+      - "Parce que `capital` est un mot réservé"
+      - "Parce que TypeScript ne regarde que les noms de variables"
+      - "Parce que la suggestion n'est jamais correcte"
+    answer: 0
+    explanation: "Sans annotation, TypeScript déduit le type des données telles qu'elles sont écrites et ne peut pas savoir quelle est la forme voulue. Une interface State exprime ton intention, et les erreurs pointent alors la bonne ligne."
+    concept: ts-annotations-intent
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Ce programme passe le vérificateur de types (sous strict, sans noUncheckedIndexedAccess). Qu'affiche-t-il ?"
+    code: |
+      const names = ['Alice', 'Bob'];
+      try {
+        console.log(names[2].toUpperCase());
+      } catch (e) {
+        console.log((e as Error).constructor.name);
+      }
+    answer: "TypeError"
+    explanation: "names[2] vaut undefined, et appeler une méthode dessus lève un TypeError. Le type statique (string) et la valeur réelle ont divergé : le système de types de TypeScript n'est pas sound."
+    concept: ts-unsound
+    difficulty: 2
+  - id: q7
+    type: multiple
+    prompt: "Parmi ces constructions, lesquelles TypeScript refuse-t-il alors que JavaScript les exécute sans erreur ?"
+    choices:
+      - "`null + 7`"
+      - "`[] + 12`"
+      - "`2 + '3'`"
+      - "`alert('Hello', 'TypeScript')` (un argument en trop)"
+    answer: [0, 1, 3]
+    explanation: "TypeScript juge ces trois usages presque toujours fautifs. `2 + '3'`, en revanche, est accepté : il modélise la concaténation de JavaScript."
+    concept: ts-static-checking
+    difficulty: 2

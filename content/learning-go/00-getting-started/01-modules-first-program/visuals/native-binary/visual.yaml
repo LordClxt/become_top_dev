@@ -1,7 +1,0 @@
-id: go-ch00-native-binary
-concept: go-build-binary
-format: hyperframes
-justification: "Voir le code, la bibliothèque standard et le runtime fusionner en un fichier, puis ce fichier tourner seul sur un serveur sans Go, rend concret ce que « binaire autonome » veut dire."
-entry: scene.html
-duration_s: 10.5
-status: built

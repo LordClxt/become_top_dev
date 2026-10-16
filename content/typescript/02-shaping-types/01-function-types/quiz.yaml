@@ -1,0 +1,69 @@
+id: ts-ch02-l01-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Quel est l'avantage de `const add: BinaryFn = (a, b) => a + b` par rapport à `function add(a: number, b: number)` ?"
+    choices:
+      - "La fonction s'exécute plus vite"
+      - "Les paramètres sont déduits de la signature nommée, qui est partagée par toutes les fonctions de même forme"
+      - "On peut utiliser await"
+      - "La fonction devient immuable"
+    answer: 1
+    explanation: "Un seul type de fonction s'applique à toute l'expression : moins de répétition, et un changement de signature est revérifié partout."
+    concept: ts-function-type-alias
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Ce wrapper contient le bug du livre. Qu'affiche ce programme ?"
+    code: |
+      async function checkedFetch(status: number) {
+        if (status >= 400) {
+          return new Error('Request failed: ' + status);
+        }
+        return 'ok';
+      }
+      const result = await checkedFetch(500);
+      console.log(result instanceof Error, String(result));
+    answer: "true Error: Request failed: 500"
+    explanation: "return new Error ne lève rien : la promesse est résolue avec un objet Error. L'appelant qui attend une réponse reçoit une erreur comme valeur. Avec `: typeof fetch`, TypeScript l'aurait refusé."
+    concept: ts-typeof-function
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Que fait `const checkedFetch: typeof fetch = async (input, init) => {…}` en plus de typer les paramètres ?"
+    choices:
+      - "Il remplace fetch par checkedFetch"
+      - "Il impose aussi le type de retour de fetch (Promise<Response>) à l'implémentation"
+      - "Il rend la fonction synchrone"
+      - "Il copie le code de fetch"
+    answer: 1
+    explanation: "L'annotation s'applique à toute la fonction, retour inclus : renvoyer un Error au lieu de lever devient une erreur de type."
+    concept: ts-typeof-function
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Que vaut `Parameters<(a: string, b?: number) => void>` ?"
+    choices:
+      - "string | number"
+      - "[a: string, b?: number]"
+      - "void"
+      - "{ a: string; b?: number }"
+    answer: 1
+    explanation: "Parameters renvoie un tuple des types des paramètres, avec leurs noms et leur caractère optionnel."
+    concept: ts-parameters-returntype
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      type BinaryFn = (a: number, b: number) => number;
+      const ops: Record<string, BinaryFn> = {
+        add: (a, b) => a + b,
+        mul: (a, b) => a * b,
+      };
+      console.log(ops.add(2, 3), ops.mul(2, 3), Object.keys(ops).join());
+    answer: "5 6 add,mul"
+    explanation: "Chaque implémentation hérite de la signature BinaryFn : les paramètres sont déduits. À l'exécution, ce sont de simples fonctions."
+    concept: ts-function-type-alias
+    difficulty: 1

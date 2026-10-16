@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Qui crée un type, une valeur, ou les deux ?"
+    back: "interface/type → type. const/let/function → valeur. class et enum → les deux."
+    concept: ts-class-both-spaces
+  - id: fc2
+    front: "Les deux sens de typeof ?"
+    back: "En position de valeur : l'opérateur JS qui renvoie une chaîne ('object', 'function'…). En position de type : extrait le type d'une valeur."
+    concept: ts-typeof-two-meanings
+  - id: fc3
+    front: "Pourquoi `x instanceof MonInterface` échoue-t-il ?"
+    back: "instanceof lit une valeur ; une interface n'existe que dans l'espace des types."
+    concept: ts-two-spaces
+  - id: fc4
+    front: "Que donne `Person['first']` en position de type ?"
+    back: "Le type de la propriété first de Person (accès indexé), effacé à la compilation."
+    concept: ts-indexed-access-type
+  - id: fc5
+    front: "Pourquoi `({ person: Person })` ne type-t-il pas le paramètre ?"
+    back: "C'est une déstructuration : elle renomme la propriété person en variable Person. Le type s'écrit après le motif."
+    concept: ts-two-spaces
+  - id: fc6
+    front: "`typeof MaClasse` en position de type : constructeur ou instance ?"
+    back: "Le type du constructeur. Pour le type des instances, on écrit MaClasse."
+    concept: ts-class-both-spaces

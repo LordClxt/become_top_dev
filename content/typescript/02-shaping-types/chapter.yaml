@@ -1,0 +1,22 @@
+id: ts-ch02
+title: "Façonner ses types"
+subtitle: "Typer des fonctions entières, type contre interface, readonly, ne pas se répéter, signatures d'index"
+source: { chapter: 2, pages: "56-88" }
+objectives:
+  - "Appliquer un type à une expression de fonction entière plutôt qu'à chacun de ses paramètres"
+  - "Choisir entre type et interface en connaissant leurs différences réelles"
+  - "Utiliser readonly pour empêcher la mutation et en comprendre les limites"
+  - "Dériver des types (Pick, Partial, mapped types, ReturnType) au lieu de les recopier"
+  - "Remplacer les signatures d'index imprécises par des alternatives plus précises"
+mastery_threshold: 0.8
+prerequisites: [ts-ch01]
+lessons:
+  - "01-function-types"
+  - "02-type-vs-interface"
+  - "03-readonly"
+  - "04-dry-types"
+  - "05-index-signatures"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

@@ -1,0 +1,6 @@
+id: nest-ch00-di-resolution
+concept: nest-design-paramtypes
+format: interactive
+justification: "Avancer pas à pas dans la résolution, puis basculer un import en « import type », montre où naît l'erreur « can't resolve dependencies » : l'apprenant voit design:paramtypes changer."
+entry: DiResolution.tsx
+status: built

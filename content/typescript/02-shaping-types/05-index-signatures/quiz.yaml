@@ -1,0 +1,75 @@
+id: ts-ch02-l05-quiz
+questions:
+
+  - id: q1
+    type: multiple
+    prompt: "Quels défauts a `type Rocket = { [property: string]: string }` ?"
+    choices:
+      - "Toute clé est acceptée, même une faute de frappe"
+      - "Aucune clé n'est obligatoire : {} est valide"
+      - "Pas d'autocomplétion sur les propriétés"
+      - "Il est plus lent à l'exécution"
+    answer: [0, 1, 2]
+    explanation: "Ce sont les imprécisions typiques d'une signature d'index. Aucun coût d'exécution, car les types sont effacés."
+    concept: ts-index-signature-imprecise
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel type est le plus précis pour un vecteur 3D avec exactement les clés x, y, z ?"
+    choices:
+      - "`{ [k: string]: number }`"
+      - "`Record<'x' | 'y' | 'z', number>`"
+      - "`number[]`"
+      - "`object`"
+    answer: 1
+    explanation: "Record avec une union de littéraux exige exactement ces clés, refuse les autres et offre l'autocomplétion."
+    concept: ts-index-alternatives
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const xs = ['a', 'b', 'c'];
+      const keys = Object.keys(xs);
+      const kinds: string[] = [];
+      for (const k in xs) kinds.push(typeof k);
+      console.log(keys, typeof keys[0], kinds.join());
+    answer: "[ '0', '1', '2' ] string string,string,string"
+    explanation: "Les clés d'un tableau sont des chaînes en JavaScript : Object.keys et for…in renvoient '0', '1', '2', jamais des nombres."
+    concept: ts-numeric-index-strings
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme (dictionnaire dans un objet vs Map) ?"
+    code: |
+      const dict: { [k: string]: number } = {};
+      const map = new Map<string, number>();
+      console.log(dict['toString'] !== undefined, map.get('toString') === undefined);
+    answer: "true true"
+    explanation: "Un objet hérite des propriétés de Object.prototype : dict['toString'] n'est pas undefined alors que la clé n'a jamais été ajoutée. Une Map n'a pas ce défaut."
+    concept: ts-index-alternatives
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Quel paramètre accepte à la fois un tableau, un Set et un générateur de nombres ?"
+    choices:
+      - "`number[]`"
+      - "`Iterable<number>`"
+      - "`{ [i: number]: number }`"
+      - "`ArrayLike<number>`"
+    answer: 1
+    explanation: "Iterable<number> suffit pour un for…of. ArrayLike exige length et des indices, qu'un Set ou un générateur n'ont pas."
+    concept: ts-arraylike-iterable
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Que signifie `interface Row { id: number; [column: string]: unknown }` ?"
+    choices:
+      - "Un objet avec id obligatoire et d'autres colonnes libres"
+      - "Un objet dont toutes les valeurs sont des nombres"
+      - "Un tableau"
+      - "Une erreur de syntaxe"
+    answer: 0
+    explanation: "On combine propriété connue et signature d'index. La signature d'index doit rester compatible avec id (d'où unknown)."
+    concept: ts-index-alternatives
+    difficulty: 2

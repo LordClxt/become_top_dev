@@ -1,6 +1,0 @@
-id: go-ch01-untyped-constants
-concept: go-untyped-literals
-format: interactive
-justification: "Essayer soi-même d'affecter un littéral à chaque type fait voir qu'il s'adapte au contexte tant que la valeur y tient."
-entry: UntypedConstants.tsx
-status: built

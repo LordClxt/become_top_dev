@@ -32,6 +32,8 @@ tracks:                                 # required
 id: go-ch02                             # required
 title: "Types prédéclarés et déclarations"  # required
 source: { chapter: 2, pages: "17-38" }  # required — add `book: <slug>` if the course has several books
+# Course built on a documentation repo: chapter = page number in toc.md, pages = anchor, url = page link
+# source: { chapter: 12, pages: "#factory-providers-usefactory", url: "https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory" }
 objectives:                             # required — "be able to…"
   - "Choisir entre var, := et const selon le contexte"
 mastery_threshold: 0.8                  # required — minimum score to unlock what follows

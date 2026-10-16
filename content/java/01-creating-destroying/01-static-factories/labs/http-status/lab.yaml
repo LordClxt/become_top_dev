@@ -1,0 +1,12 @@
+id: java-ch01-l01-lab-http-status
+title: "Des statuts HTTP qui contrôlent leurs instances"
+kind: code
+language: java
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["HttpStatus.java", "StatusCodes.java"]
+concepts: [java-static-factory, java-instance-control, java-factory-naming, java-noninstantiable]
+verified: { at: 2026-10-15, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: java-ch01-l02-lab-http-request
+title: "Un builder pour des requêtes HTTP immuables"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["HttpRequest.java"]
+concepts: [java-builder, java-builder-validation]
+verified: { at: 2026-10-15, solution: pass, starter: fail }

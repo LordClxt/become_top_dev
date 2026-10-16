@@ -1,0 +1,18 @@
+id: java-ch01
+title: "Créer et détruire des objets"
+subtitle: "Fabriques, builders, singletons, injection, fuites mémoire et try-with-resources"
+source: { chapter: 2, pages: "5-36" }
+objectives:
+  - "Choisir entre constructeur et fabrique statique, et écrire une classe à instances contrôlées"
+  - "Concevoir un builder immuable qui valide ses paramètres, y compris dans une hiérarchie de classes"
+  - "Écrire un singleton robuste et injecter les ressources (horloge, fabriques) plutôt que les câbler en dur"
+  - "Repérer et corriger les objets inutiles et les références obsolètes (pile, cache, regex)"
+  - "Fermer des ressources avec try-with-resources sans perdre la cause d'une erreur, et sans finaliseur"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-static-factories"
+  - "02-builder"
+  - "03-singletons-injection"
+  - "04-memory-references"
+  - "05-closing-resources"

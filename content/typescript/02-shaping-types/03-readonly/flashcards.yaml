@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi déclarer `arr: readonly number[]` ?"
+    back: "Pour interdire à la fonction de modifier son argument, et accepter aussi bien des tableaux ordinaires que readonly."
+    concept: ts-readonly-array-param
+  - id: fc2
+    front: "T[] est-il assignable à readonly T[] ? L'inverse ?"
+    back: "Oui pour T[] → readonly T[] (sous-type). Non pour l'inverse."
+    concept: ts-readonly-subtype
+  - id: fc3
+    front: "Readonly<T> protège-t-il en profondeur ?"
+    back: "Non : un seul niveau. Les objets imbriqués restent modifiables, et les méthodes de mutation (Date.setFullYear) restent."
+    concept: ts-readonly-shallow
+  - id: fc4
+    front: "const ou readonly ?"
+    back: "const empêche de réaffecter la variable ; readonly (type) empêche de modifier le contenu."
+    concept: ts-readonly-vs-const

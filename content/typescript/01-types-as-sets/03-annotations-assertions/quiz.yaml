@@ -1,0 +1,84 @@
+id: ts-ch01-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "`const b = {} as Person;` quand Person exige `name: string` : que se passe-t-il ?"
+    choices:
+      - "Erreur de type : il manque name"
+      - "Aucune erreur : l'assertion fait taire le vérificateur, et b n'a pas de name à l'exécution"
+      - "TypeScript ajoute name automatiquement"
+      - "Erreur à l'exécution immédiatement"
+    answer: 1
+    explanation: "Une assertion ne vérifie rien de la complétude. Le type affirme un Person, la valeur est {} : le bug apparaîtra plus loin."
+    concept: ts-annotation-vs-assertion
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      interface Person { name: string }
+      const people = ['alice', 'bob'].map(name => ({ nom: name } as unknown as Person));
+      console.log(people[0].name, people.length);
+    answer: "undefined 2"
+    explanation: "as unknown as Person contourne toute vérification : la propriété est nom, pas name. Le type certifie un Person que la valeur n'est pas."
+    concept: ts-assertion-comparable
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Quelle écriture fait vérifier le retour de la flèche ?"
+    choices:
+      - "`names.map(n => ({ name: n } as Person))`"
+      - "`names.map((n): Person => ({ name: n }))`"
+      - "`names.map(n => ({ name: n }) as any)`"
+      - "`names.map(n => <Person>{ name: n })`"
+    answer: 1
+    explanation: "L'annotation de retour `: Person` oblige TypeScript à contrôler l'objet renvoyé. Les trois autres sont des assertions."
+    concept: ts-annotation-vs-assertion
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Dans quel cas une assertion de type est-elle justifiée ?"
+    choices:
+      - "Pour éviter d'écrire une interface"
+      - "Pour affirmer qu'un événement vient d'un HTMLButtonElement, information que seul le programmeur connaît, avec un commentaire"
+      - "Pour convertir une chaîne en nombre"
+      - "Pour désactiver une erreur gênante"
+    answer: 1
+    explanation: "On asserte quand on dispose d'une connaissance que le vérificateur ne peut pas déduire (liaison au DOM). On ne convertit rien et on ne fait pas taire un vrai problème."
+    concept: ts-assertion-comparable
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi `document.body as Person` est-il refusé alors que `document.body as unknown as Person` passe ?"
+    choices:
+      - "Parce que unknown est un type magique"
+      - "Parce qu'une assertion directe exige des types comparables, et unknown est comparable à tout"
+      - "Parce que Person est une interface"
+      - "C'est un bug du compilateur"
+    answer: 1
+    explanation: "as vérifie qu'un type peut raisonnablement être l'autre (leurs ensembles se recouvrent). Via unknown, la contrainte disparaît : c'est l'échappatoire ultime."
+    concept: ts-assertion-comparable
+    difficulty: 3
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const a = 'x';
+      const b = new String('x');
+      console.log(a === (b as unknown as string), typeof a, typeof b, a == b.valueOf());
+    answer: "false string object true"
+    explanation: "new String('x') est un objet enveloppe : il n'est pas strictement égal à la primitive 'x', et typeof donne 'object'. valueOf() redonne la primitive."
+    concept: ts-wrapper-types
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Que fait `as const` sur `{ kind: 'circle', r: 2 } as const` ?"
+    choices:
+      - "Il convertit l'objet en constante globale"
+      - "Il donne le type le plus étroit : { readonly kind: 'circle'; readonly r: 2 }, sans contourner de vérification"
+      - "Il désactive strictNullChecks"
+      - "Il copie l'objet en profondeur"
+    answer: 1
+    explanation: "as const est un contexte const : littéraux préservés et propriétés readonly. Contrairement aux assertions ordinaires, il n'affirme rien de faux."
+    concept: ts-as-const
+    difficulty: 2

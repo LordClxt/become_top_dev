@@ -1,0 +1,12 @@
+id: ts-ch02-l05-lab-index-signatures
+title: "Des types plus précis que les signatures d’index"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["csv.ts"]
+concepts: [ts-index-signature-imprecise, ts-index-alternatives, ts-arraylike-iterable, ts-numeric-index-strings]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,79 @@
+id: nest-ch01-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Le versioning par URI est activé sans `defaultVersion`. Quels statuts obtient-on ?"
+    code: |
+      import 'reflect-metadata';
+      import { Controller, Get, Module, VersioningType } from '@nestjs/common';
+      import { NestFactory } from '@nestjs/core';
+      import request from 'supertest';
+
+      @Controller({ path: 'books', version: '1' }) class BooksController { @Get() all() { return []; } }
+      @Controller('health') class HealthController { @Get() ok() { return 'ok'; } }
+      @Module({ controllers: [BooksController, HealthController] }) class AppModule {}
+
+      const app = await NestFactory.create(AppModule, { logger: false });
+      app.enableVersioning({ type: VersioningType.URI });
+      await app.init();
+      const http = request(app.getHttpServer());
+      console.log((await http.get('/v1/books')).status, (await http.get('/health')).status);
+      await app.close();
+    answer: "200 200"
+    explanation: "Sans defaultVersion, une route sans version reste servie sans préfixe de version : /health répond. C'est avec defaultVersion: '1' qu'elle deviendrait /v1/health, d'où VERSION_NEUTRAL pour les sondes."
+    concept: nest-default-version
+    difficulty: 3
+  - id: q2
+    type: code-output
+    prompt: "Avec `defaultVersion: '1'`, qu'affiche ce programme ?"
+    code: |
+      import 'reflect-metadata';
+      import { Controller, Get, Module, VersioningType } from '@nestjs/common';
+      import { NestFactory } from '@nestjs/core';
+      import request from 'supertest';
+
+      @Controller('health') class HealthController { @Get() ok() { return 'ok'; } }
+      @Module({ controllers: [HealthController] }) class AppModule {}
+
+      const app = await NestFactory.create(AppModule, { logger: false });
+      app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
+      await app.init();
+      const http = request(app.getHttpServer());
+      console.log((await http.get('/health')).status, (await http.get('/v1/health')).status);
+      await app.close();
+    answer: "404 200"
+    explanation: "La route sans version prend la version par défaut : la sonde est maintenant sous /v1/health, et l'orchestrateur qui appelle /health reçoit 404. VERSION_NEUTRAL l'évite."
+    concept: nest-default-version
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Avec `setGlobalPrefix('api')` et le versioning URI, quel est le chemin de la v2 de `GET books` ?"
+    choices: ["/v2/api/books", "/api/v2/books", "/api/books?v=2", "/books/v2"]
+    answer: 1
+    explanation: "Le préfixe global vient en premier, puis la version (avec son préfixe v), puis le chemin de la route."
+    concept: nest-global-prefix
+    difficulty: 1
+  - id: q4
+    type: multiple
+    prompt: "Lesquels de ces changements justifient une nouvelle version d'API ?"
+    choices:
+      - "Ajouter un champ optionnel `subtitle` à la réponse"
+      - "Renommer `title` en `name`"
+      - "Passer d'un tableau à `{ items, total }`"
+      - "Corriger une faute dans un message d'erreur"
+    answer: [1, 2]
+    explanation: "Renommer un champ ou changer l'enveloppe casse les clients existants. Ajouter un champ optionnel ne casse rien si les clients ignorent les champs inconnus."
+    concept: nest-versioning
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi exclure la sonde de santé et les webhooks entrants du préfixe global ?"
+    choices:
+      - "Pour qu'ils soient plus rapides"
+      - "Parce que leur URL est fixée en dehors de ton code (orchestrateur, partenaire) et ne doit pas suivre l'organisation de ton API"
+      - "Parce que Nest l'impose"
+      - "Pour les cacher des clients"
+    answer: 1
+    explanation: "L'orchestrateur et le partenaire connaissent une URL figée ; ton API, elle, peut changer de préfixe ou de version."
+    concept: nest-global-prefix
+    difficulty: 1

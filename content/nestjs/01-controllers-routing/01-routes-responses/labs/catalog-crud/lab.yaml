@@ -1,0 +1,12 @@
+id: nest-ch01-l01-lab-catalog-crud
+title: "Le CRUD du catalogue, codes de statut compris"
+kind: code
+language: nestjs
+difficulty: 2
+xp: 60
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["books.controller.ts"]
+concepts: [nest-route-decorators, nest-status-codes, nest-standard-response, nest-rest-semantics]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

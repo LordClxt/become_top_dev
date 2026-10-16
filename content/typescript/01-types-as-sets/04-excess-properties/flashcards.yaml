@@ -1,0 +1,17 @@
+cards:
+  - id: fc1
+    front: "Pourquoi un littéral d'objet est-il refusé s'il a une propriété inconnue, alors que les types sont ouverts ?"
+    back: "Le contrôle des propriétés en trop est une vérification distincte de l'assignabilité, appliquée aux littéraux d'objet frais."
+    concept: ts-excess-property-check
+  - id: fc2
+    front: "Comment contourner (à tort) le contrôle des propriétés en trop ?"
+    back: "Une variable intermédiaire, ou une assertion `as T`."
+    concept: ts-fresh-literal
+  - id: fc3
+    front: "Qu'est-ce qu'un type faible ?"
+    back: "Un type dont toutes les propriétés sont optionnelles : toute valeur assignée doit en partager au moins une."
+    concept: ts-weak-type
+  - id: fc4
+    front: "Pourquoi les options facultatives ont-elles besoin du contrôle des propriétés en trop ?"
+    back: "Sans lui, la faute de frappe `darkmode` serait valide (propriété optionnelle absente) et passerait inaperçue."
+    concept: ts-excess-property-check

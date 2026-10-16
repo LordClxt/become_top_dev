@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'une fabrique statique ?"
+    back: "Une méthode static qui renvoie une instance de sa classe (ou d'un sous-type), comme Boolean.valueOf ou List.of. Ce n'est pas le patron Factory Method du GoF."
+    concept: java-static-factory
+  - id: fc2
+    front: "Cite les trois avantages d'une fabrique statique liés à l'objet renvoyé."
+    back: "Pas d'obligation de créer un objet (réutilisation), possibilité de renvoyer un sous-type (éventuellement caché), classe renvoyée choisie selon les paramètres ou même écrite plus tard (service provider)."
+    concept: java-static-factory
+  - id: fc3
+    front: "Que garantit une classe à instances contrôlées ?"
+    back: "Qu'il n'existe qu'une instance par valeur : a.equals(b) si et seulement si a == b. Les enums en sont l'exemple type."
+    concept: java-instance-control
+  - id: fc4
+    front: "Quels Integer sont mis en cache par Integer.valueOf ?"
+    back: "Ceux de -128 à 127 (borne haute réglable). Au-delà, chaque appel peut renvoyer un nouvel objet : ne jamais comparer des Integer avec ==."
+    concept: java-instance-control
+  - id: fc5
+    front: "Deux inconvénients des fabriques statiques ?"
+    back: "Une classe sans constructeur public ou protégé ne peut pas être étendue ; les fabriques sont moins visibles dans la Javadoc que les constructeurs."
+    concept: java-static-factory
+  - id: fc6
+    front: "from ou of ?"
+    back: "from : conversion depuis UN paramètre (Date.from(instant)). of : agrégation de PLUSIEURS paramètres (EnumSet.of(a, b))."
+    concept: java-factory-naming
+  - id: fc7
+    front: "Que promet le nom newInstance (ou create) ?"
+    back: "Une nouvelle instance à chaque appel, contrairement à getInstance qui peut réutiliser."
+    concept: java-factory-naming
+  - id: fc8
+    front: "Comment rendre une classe utilitaire non instanciable ?"
+    back: "Un constructeur privé qui lève AssertionError, avec un commentaire qui explique pourquoi. La classe ne peut plus être étendue non plus."
+    concept: java-noninstantiable
+  - id: fc9
+    front: "Que fait le compilateur si une classe ne déclare aucun constructeur ?"
+    back: "Il ajoute un constructeur public sans paramètre : une classe utilitaire devient instanciable sans qu'on le voie."
+    concept: java-noninstantiable
+  - id: fc10
+    front: "Pourquoi EnumSet.noneOf peut-il renvoyer deux classes différentes ?"
+    back: "RegularEnumSet (un long) jusqu'à 64 constantes, JumboEnumSet (tableau de long) au-delà. Le client ne voit qu'un EnumSet : l'implémentation peut changer sans le casser."
+    concept: java-static-factory

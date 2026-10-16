@@ -1,0 +1,17 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce que design:paramtypes ?"
+    back: "La métadonnée émise par tsc (emitDecoratorMetadata) sur une classe décorée : le tableau des constructeurs de ses paramètres. Nest s'en sert pour savoir quoi injecter."
+    concept: nest-design-paramtypes
+  - id: fc2
+    front: "Quel est le vrai rôle de @Injectable() ?"
+    back: "Rendre la classe décorée, pour que tsc émette design:paramtypes (et la marquer comme provider)."
+    concept: nest-decorator-metadata
+  - id: fc3
+    front: "Pourquoi ne peut-on pas injecter une interface par son type ?"
+    back: "L'interface n'existe pas à l'exécution : tsc émet Object. Il faut un jeton réel : une classe (abstraite) ou @Inject('TOKEN')."
+    concept: nest-injection-token
+  - id: fc4
+    front: "« argument at index [0] … undefined at runtime » : cause typique ?"
+    back: "Un import circulaire entre fichiers : la classe n'est pas encore définie quand la métadonnée est émise."
+    concept: nest-injection-token

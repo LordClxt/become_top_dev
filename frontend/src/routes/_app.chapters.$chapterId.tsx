@@ -8,6 +8,7 @@ import { coursesQuery } from '@/features/courses/queries'
 import { api, type Chapter, type ExerciseSummary } from '@/lib/api'
 import { iconFor } from '@/lib/course-icons'
 import { cn } from '@/lib/utils'
+import { docLabel } from '@/lib/source'
 
 export const Route = createFileRoute('/_app/chapters/$chapterId')({ component: ChapterPage })
 
@@ -121,7 +122,16 @@ function ChapterPage() {
             </ul>
           </section>
           <p className="text-xs text-muted">
-            Source : chapitre {ch.source.chapter}, pages {ch.source.pages}
+            {ch.source.url ? (
+              <>
+                Source :{' '}
+                <a className="underline" href={ch.source.url} target="_blank" rel="noreferrer">
+                  {docLabel(ch.source)}
+                </a>
+              </>
+            ) : (
+              <>Source : chapitre {ch.source.chapter}, pages {ch.source.pages}</>
+            )}
           </p>
         </aside>
       </div>

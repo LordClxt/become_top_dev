@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Défauts d'une signature d'index ?"
+    back: "Toute clé acceptée, aucune obligatoire, valeurs homogènes, pas d'autocomplétion."
+    concept: ts-index-signature-imprecise
+  - id: fc2
+    front: "Alternatives plus précises à une signature d'index ?"
+    back: "Interface (clés connues), Record<'a'|'b', T>, type mappé, ou Map pour des clés dynamiques."
+    concept: ts-index-alternatives
+  - id: fc3
+    front: "Les clés d'un tableau en JavaScript sont-elles des nombres ?"
+    back: "Non, des chaînes ('0', '1'…). Object.keys et for…in renvoient des string."
+    concept: ts-numeric-index-strings
+  - id: fc4
+    front: "Quel type pour accepter n'importe quelle suite d'éléments ?"
+    back: "Iterable<T> (tout ce qu'on peut parcourir avec for…of) ou ArrayLike<T> (length + indices)."
+    concept: ts-arraylike-iterable

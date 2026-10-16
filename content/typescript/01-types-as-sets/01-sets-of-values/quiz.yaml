@@ -1,0 +1,84 @@
+id: ts-ch01-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quel est l'ensemble de valeurs du type `never` ?"
+    choices:
+      - "Toutes les valeurs"
+      - "Aucune valeur : l'ensemble vide"
+      - "Seulement null et undefined"
+      - "Les valeurs jamais utilisées dans le programme"
+    answer: 1
+    explanation: "never est l'ensemble vide ; c'est pourquoi il est assignable à tous les types (le vide est inclus partout) et pourquoi aucune valeur ne peut en être une."
+    concept: ts-never-unknown
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "`const x: 'A' | 'B' = 'A'; const y: 'A' = x;` : que se passe-t-il ?"
+    choices:
+      - "Accepté : 'A' est une valeur valide dans les deux cas"
+      - "Erreur : le type de x est {'A','B'}, qui n'est pas inclus dans {'A'}"
+      - "Erreur à l'exécution seulement"
+      - "Accepté avec strict désactivé"
+    answer: 1
+    explanation: "TypeScript raisonne sur le type déclaré de x, pas sur sa valeur : x pourrait valoir 'B'. {'A','B'} n'est pas un sous-ensemble de {'A'}."
+    concept: ts-assignable-subset
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Que vaut `keyof (A | B)` quand A = { a: 1, c: 1 } et B = { b: 1, c: 1 } ?"
+    choices:
+      - "'a' | 'b' | 'c'"
+      - "'c'"
+      - "never"
+      - "'a' | 'b'"
+    answer: 1
+    explanation: "Pour une union, seules les propriétés présentes dans les deux variantes sont accessibles sans test : l'intersection des clés, ici 'c'. (Pour A & B, on aurait 'a' | 'b' | 'c'.)"
+    concept: ts-union-intersection-sets
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Pourquoi `[number, number, number]` n'est-il pas assignable à `[number, number]` ?"
+    choices:
+      - "Parce que les tuples ne peuvent pas être assignés entre eux"
+      - "Parce que la propriété length vaut 3 pour l'un et 2 pour l'autre"
+      - "Parce que number[] est plus grand"
+      - "Parce que c'est une limite du compilateur, sans raison logique"
+    answer: 1
+    explanation: "Un tuple est un tableau dont length est un littéral ; 3 n'est pas 2, donc l'ensemble des triplets n'est pas inclus dans celui des paires."
+    concept: ts-assignable-subset
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Voici pourquoi `getElement` posait problème : qu'affiche ce programme ?"
+    code: |
+      const value: string | object | null = null;
+      console.log(typeof value, value === null);
+    answer: "object true"
+    explanation: "En JavaScript, typeof null vaut 'object'. Tester typeof x === 'object' n'élimine donc pas null : le type affiné contient encore null."
+    concept: ts-editor-explore
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Quelles affirmations sont vraies ?"
+    choices:
+      - "never est assignable à tous les types"
+      - "Tous les types sont assignables à unknown"
+      - "unknown est assignable à string"
+      - "Le littéral 3 est un sous-type de number"
+    answer: [0, 1, 3]
+    explanation: "unknown est l'univers : il n'est assignable qu'à unknown (et any). Les trois autres sont des inclusions d'ensembles."
+    concept: ts-never-unknown
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Pourquoi une valeur de type `Person & Lifespan` a-t-elle PLUS de propriétés qu'une valeur de `Person` ?"
+    choices:
+      - "Parce que & fusionne les deux interfaces dans une nouvelle classe"
+      - "Parce que la valeur doit appartenir aux deux ensembles : elle respecte donc les deux formes à la fois"
+      - "Parce que TypeScript ajoute des propriétés par défaut"
+      - "Ce n'est pas vrai : elle en a moins"
+    answer: 1
+    explanation: "L'intersection ne garde que les valeurs qui sont à la fois Person et Lifespan : elles ont toutes les propriétés des deux."
+    concept: ts-union-intersection-sets
+    difficulty: 2

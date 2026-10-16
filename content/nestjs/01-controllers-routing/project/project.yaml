@@ -1,0 +1,14 @@
+id: nest-ch01-project
+title: "Librairie, jalon 1 : le catalogue versionné"
+pitch: "Le catalogue devient une vraie ressource : CRUD complet, recherche paginée en v2 sans casser les clients v1, et une application qui refuse de démarrer si une route est masquée."
+running_project: librairie
+kind: code
+language: nestjs
+difficulty: 3
+xp: 260
+timeout_s: 90
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["app.ts"]
+concepts: [nest-rest-semantics, nest-schema-validation, nest-parse-pipes, nest-versioning, nest-route-conflict-policy, nest-route-specificity]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -2,16 +2,16 @@ milestones:
   - id: m1
     title: "L'entier de longueur variable"
     goal: "Encoder un entier signé avec zigzag et groupes de 7 bits, le décoder, et refuser les octets tronqués ou démesurés."
-    tests: "go test ./... -run TestM1"
+    tests: "tstest M1"
     review: false
   - id: m2
     title: "Encoder un enregistrement"
     goal: "Concaténer des champs précédés d'un en-tête (numéro et type), décoder en conservant l'ordre et les champs répétés, détecter les octets invalides."
-    tests: "go test ./... -run TestM2"
+    tests: "tstest M2"
     review: false
   - id: m3
     title: "Évoluer sans rien casser"
     goal: "Lire en ignorant les numéros inconnus, voir le dernier élément d'un champ répété, et mettre à jour un enregistrement en conservant intacts les champs qu'on ne connaît pas."
-    tests: "go test ./... -run TestM3"
+    tests: "tstest M3"
     review: true
-    prompt: "Pourquoi Update travaille-t-il sur les champs décodés plutôt que de décoder vers une structure Go fixe, puis de la ré-encoder ? Quel bogue de production cela évite-t-il pendant une mise à jour progressive ?"
+    prompt: "Pourquoi update travaille-t-il sur les champs décodés plutôt que de décoder vers une interface TypeScript fixe, puis de la ré-encoder ? Quel bogue de production cela évite-t-il pendant une mise à jour progressive ?"

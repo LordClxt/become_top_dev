@@ -1,0 +1,76 @@
+id: ts-ch01-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi `const r: Room = { …, elephant: 'present' }` est-il refusé alors que `const r: Room = obj` (obj ayant cette même propriété) est accepté ?"
+    choices:
+      - "Parce que la variable obj est plus lisible"
+      - "Parce que le contrôle des propriétés en trop ne s'applique qu'aux littéraux d'objet frais, pas à l'assignabilité"
+      - "Parce que obj est une constante"
+      - "C'est un bug connu de TypeScript"
+    answer: 1
+    explanation: "Deux vérifications existent : l'assignabilité (structurelle, accepte les propriétés en plus) et le contrôle des littéraux frais (qui attrape les fautes de frappe)."
+    concept: ts-excess-property-check
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "TypeScript refuserait le littéral direct, mais pas ce code. Qu'affiche-t-il ?"
+    code: |
+      interface Options { title: string; darkMode?: boolean }
+      function createWindow(options: Options) {
+        return `${options.title}:${options.darkMode}`;
+      }
+      const opts = { title: 'Solitaire', darkmode: true };
+      console.log(createWindow(opts));
+    answer: "Solitaire:undefined"
+    explanation: "Passer par une variable intermédiaire désactive le contrôle des propriétés en trop. La faute de frappe darkmode passe, et darkMode vaut undefined."
+    concept: ts-fresh-literal
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Qu'est-ce qu'un type faible (weak type) ?"
+    choices:
+      - "Un type sans annotation"
+      - "Un type dont toutes les propriétés sont optionnelles"
+      - "Un type à un seul champ"
+      - "Un type déclaré avec any"
+    answer: 1
+    explanation: "Pour un tel type, TypeScript exige que la valeur partage au moins une propriété, sinon presque tout objet serait assignable."
+    concept: ts-weak-type
+    difficulty: 1
+  - id: q4
+    type: multiple
+    prompt: "Quelles écritures désactivent le contrôle des propriétés en trop ?"
+    choices:
+      - "Passer le littéral via une variable intermédiaire"
+      - "Ajouter une assertion `as Options`"
+      - "Annoter la variable cible avec le type"
+      - "Écrire les propriétés dans un ordre différent"
+    answer: [0, 1]
+    explanation: "Une variable intermédiaire ou une assertion supprime le contrôle ; une annotation le conserve ; l'ordre n'a aucun effet."
+    concept: ts-fresh-literal
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "`interface Chart { logscale?: boolean }` et `const o = { logScale: true }; const c: Chart = o;` : que dit TypeScript ?"
+    choices:
+      - "Accepté : une propriété en trop est permise"
+      - "Erreur : Chart est un type faible, et o ne partage aucune propriété avec lui"
+      - "Erreur à l'exécution seulement"
+      - "Accepté avec un avertissement"
+    answer: 1
+    explanation: "La vérification des types faibles s'applique à toute assignation, pas seulement aux littéraux. Elle attrape la faute logScale / logscale."
+    concept: ts-weak-type
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Quel est l'intérêt du contrôle des propriétés en trop ?"
+    choices:
+      - "Interdire les objets avec plus de propriétés que prévu partout"
+      - "Détecter les fautes de frappe dans les littéraux d'options sans rendre les types fermés"
+      - "Accélérer la compilation"
+      - "Remplacer l'assignabilité"
+    answer: 1
+    explanation: "Les propriétés optionnelles rendraient une faute de frappe invisible ; le contrôle sur littéraux la révèle, sans fermer les types."
+    concept: ts-excess-property-check
+    difficulty: 1

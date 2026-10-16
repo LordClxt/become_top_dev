@@ -1,0 +1,102 @@
+id: java-ch01-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      System.out.println(Integer.valueOf(127) == Integer.valueOf(127));
+      System.out.println(Integer.valueOf(128) == Integer.valueOf(128));
+      System.out.println(Integer.valueOf(128).equals(Integer.valueOf(128)));
+    answer: "true\nfalse\ntrue"
+    explanation: "valueOf est une fabrique qui garde en cache les entiers de -128 à 127 : même objet, donc == vaut true. Au-delà, deux objets distincts sont créés ; seul equals compare les valeurs."
+    concept: java-instance-control
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      Boolean a = Boolean.valueOf("TRUE");
+      Boolean b = Boolean.valueOf(true);
+      System.out.println(a == b);
+      System.out.println(a == Boolean.TRUE);
+    answer: "true\ntrue"
+    explanation: "Boolean.valueOf ne crée jamais d'objet : il renvoie l'une des deux constantes Boolean.TRUE ou Boolean.FALSE."
+    concept: java-static-factory
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      enum Couleur { ROUGE, VERT, BLEU }
+      Set<Couleur> s = EnumSet.of(Couleur.ROUGE, Couleur.BLEU);
+      System.out.println(s instanceof EnumSet);
+      System.out.println(s.getClass().getSimpleName());
+    answer: "true\nRegularEnumSet"
+    explanation: "EnumSet.of déclare renvoyer un EnumSet, mais la classe réelle est un sous-type caché, choisi selon la taille de l'enum (RegularEnumSet jusqu'à 64 constantes)."
+    concept: java-static-factory
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Ta classe `Temperature` doit pouvoir se construire en Celsius et en Fahrenheit, chaque fois à partir d'un `double`. Que proposes-tu ?"
+    choices:
+      - "Deux constructeurs Temperature(double) et Temperature(double, boolean fahrenheit)"
+      - "Deux fabriques statiques Temperature.ofCelsius(double) et Temperature.ofFahrenheit(double)"
+      - "Un seul constructeur Temperature(double) et une méthode setFahrenheit(boolean)"
+      - "Deux constructeurs Temperature(double) et Temperature(Double)"
+    answer: 1
+    explanation: "Deux constructeurs ne peuvent pas avoir la même signature (double). Les fabriques statiques ont des noms qui disent l'unité ; le booléen et le setter rendent l'appel illisible ou l'objet mutable."
+    concept: java-static-factory
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Quel est le nom conventionnel d'une fabrique qui convertit UN paramètre d'un autre type, comme un `Instant` à partir d'un `TemporalAccessor` ?"
+    choices: ["of", "from", "newInstance", "getType"]
+    answer: 1
+    explanation: "from désigne une conversion depuis un seul paramètre ; of agrège plusieurs paramètres ; newInstance garantit un nouvel objet ; getType s'utilise quand la fabrique est dans une autre classe."
+    concept: java-factory-naming
+    difficulty: 1
+  - id: q6
+    type: multiple
+    prompt: "Quelles affirmations sur les fabriques statiques sont vraies ?"
+    choices:
+      - "Elles peuvent renvoyer la même instance à chaque appel"
+      - "Elles peuvent renvoyer une instance d'une classe non publique"
+      - "Elles permettent à des clients d'étendre la classe si elle n'a aucun constructeur public"
+      - "Elles apparaissent aussi clairement qu'un constructeur dans la Javadoc"
+    answer: [0, 1]
+    explanation: "Réutiliser et cacher l'implémentation sont deux avantages. Sans constructeur public ou protégé, la classe ne peut PAS être étendue, et les fabriques se perdent dans la Javadoc : ce sont les deux inconvénients."
+    concept: java-static-factory
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Pourquoi déclarer `abstract` une classe utilitaire ne suffit-il pas à la rendre non instanciable ?"
+    choices:
+      - "Parce qu'une classe abstraite ne peut pas avoir de méthodes statiques"
+      - "Parce qu'on peut l'étendre et instancier la sous-classe, et qu'on fait croire qu'elle est conçue pour l'héritage"
+      - "Parce que le compilateur refuse abstract sur une classe sans méthode abstraite"
+      - "Parce que la réflexion ignore le mot-clé abstract"
+    answer: 1
+    explanation: "Une sous-classe vide rend la classe instanciable ; et abstract signale à tort une conception pour l'héritage. Le bon idiome est un constructeur privé qui lève AssertionError."
+    concept: java-noninstantiable
+    difficulty: 2
+  - id: q8
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static final Main FIRST = create();
+          static final List<String> LOG = new ArrayList<>();
+
+          static Main create() {
+              System.out.println("LOG vaut " + LOG);
+              return new Main();
+          }
+
+          public static void main(String[] args) {
+              System.out.println("FIRST créé : " + (FIRST != null));
+          }
+      }
+    answer: "LOG vaut null\nFIRST créé : true"
+    explanation: "Les champs statiques s'initialisent dans l'ordre du fichier : quand FIRST appelle create(), LOG n'a pas encore reçu sa liste. C'est le piège classique d'une constante déclarée avant le cache de la fabrique."
+    concept: java-instance-control
+    difficulty: 3

@@ -1,0 +1,58 @@
+id: ts
+title: "TypeScript efficace"
+book:
+  title: "Effective TypeScript, 2nd Edition"
+  authors: ["Dan Vanderkam"]
+  slug: effective-typescript
+summary: "Les 83 règles de Vanderkam, mises en pratique avec TypeScript 5.x : le système de types comme ensembles de valeurs, l'inférence, la conception de types, any et l'unsoundness, les génériques, puis l'outillage et la migration."
+order: 5
+kind: practical
+language: typescript
+runtime: "node24-tsc"   # le livre s'arrête à TypeScript 5.4 : satisfies, erasableSyntaxOnly, Node type stripping… sont signalés en `extra`.
+pilot: "00-getting-to-know"
+running_project:
+  id: parse
+  title: "Parse — un mini-validateur de schémas"
+  pitch: "Une bibliothèque à la Zod écrite à la main : chaque module ajoute une pièce (types précis, unions taguées, génériques, brands) jusqu'à un validateur dont les types se déduisent du schéma."
+
+tracks:
+  - id: ts-foundations
+    title: "Les bases du système de types"
+    chapters:
+      - "00-getting-to-know"      # ch1, items 1-5 — pilote
+      - "01-types-as-sets"        # ch2, items 6-11
+      - "02-shaping-types"        # ch2, items 12-17
+      - "03-inference"            # ch3, items 18-24
+      - "04-flow-and-async"       # ch3, items 25-28
+      - "05-valid-states"         # ch4, items 29-35
+  - id: ts-design
+    title: "Concevoir et durcir ses types"
+    chapters:
+      - "06-type-design"          # ch4, items 36-42
+      - "07-any-unsoundness"      # ch5, items 43-49
+      - "08-generics"             # ch6, items 50-54
+      - "09-testing-types"        # ch6, items 55-58
+  - id: ts-practice
+    title: "Recettes, outillage et migration"
+    chapters:
+      - "10-recipes"              # ch7, items 59-64
+      - "11-declarations"         # ch8, items 65-71
+      - "12-writing-running"      # ch9, items 72-78
+      - "13-migration"            # ch10, items 79-83
+      - "14-modern-typescript"    # extra : TypeScript 5.5 → 7
+
+planned_titles:
+  "01-types-as-sets": "Les types sont des ensembles de valeurs"
+  "02-shaping-types": "Façonner ses types"
+  "03-inference": "L'inférence de types"
+  "04-flow-and-async": "Flux de types et async"
+  "05-valid-states": "Des types qui n'expriment que des états valides"
+  "06-type-design": "Conception de types, suite"
+  "07-any-unsoundness": "any et l'unsoundness"
+  "08-generics": "Génériques et types conditionnels"
+  "09-testing-types": "Tester ses types"
+  "10-recipes": "Recettes TypeScript"
+  "11-declarations": "Déclarations et @types"
+  "12-writing-running": "Écrire et exécuter son code"
+  "13-migration": "Moderniser et migrer"
+  "14-modern-typescript": "TypeScript moderne"

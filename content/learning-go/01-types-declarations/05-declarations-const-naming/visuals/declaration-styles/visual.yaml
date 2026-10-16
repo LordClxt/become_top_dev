@@ -1,6 +1,0 @@
-id: go-ch01-declaration-styles
-concept: go-var-vs-short
-format: interactive
-justification: "Répondre à trois questions et voir la déclaration conseillée change selon le contexte fait mémoriser la règle mieux qu'un tableau."
-entry: DeclarationStyles.tsx
-status: built

@@ -1,8 +1,0 @@
-id: go-ch02-utf8-bytes
-concept: go-string-utf8
-format: interactive
-justification: "Taper son propre texte (accents, emojis) et voir les bytes et les runes côte à côte rend la différence évidente."
-entry: Utf8Bytes.tsx
-params:
-  - { name: text, type: string, default: "café 🙂" }
-status: built

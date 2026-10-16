@@ -1,0 +1,94 @@
+id: ts-ch00-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Qu'est-ce qui rend un objet compatible avec l'interface `Vector2D { x: number; y: number }` ?"
+    choices:
+      - "Qu'il ait été créé par une classe qui déclare `implements Vector2D`"
+      - "Qu'il ait au moins les propriétés x et y de type number"
+      - "Qu'il ait exactement x et y, et rien d'autre"
+      - "Qu'il porte le nom Vector2D"
+    answer: 1
+    explanation: "TypeScript est structurel : seule la forme compte. Des propriétés supplémentaires sont permises (les types sont ouverts), et aucune déclaration de relation n'est nécessaire."
+    concept: ts-structural-typing
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "`calculateLength` n'attend qu'un Vector2D. Qu'affiche ce programme ?"
+    code: |
+      interface Vector2D { x: number; y: number }
+      function calculateLength(v: Vector2D) {
+        return Math.sqrt(v.x ** 2 + v.y ** 2);
+      }
+      const v3 = { x: 3, y: 4, z: 12 };
+      console.log(calculateLength(v3));
+    answer: "5"
+    explanation: "Un objet {x, y, z} est un Vector2D valide : z est ignoré. Le vérificateur ne se plaint pas, ce qui est exactement le piège si on voulait une longueur 3D (13)."
+    concept: ts-open-types
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      interface Point { x: number; y: number }
+      const p: Point & { label: string } = { x: 1, y: 2, label: 'A' };
+      const keys: string[] = Object.keys(p);
+      console.log(keys.join(','));
+    answer: "x,y,label"
+    explanation: "Object.keys renvoie les clés réelles de l'objet, y compris celles que son type ne déclare pas. C'est pourquoi son type de retour est string[] : un objet de type Point peut avoir d'autres clés."
+    concept: ts-open-types
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi `Object.keys(point)` est-il typé `string[]` et non `('x' | 'y')[]` ?"
+    choices:
+      - "Par oubli de l'équipe de TypeScript"
+      - "Parce que les types sont ouverts : l'objet peut avoir d'autres propriétés à l'exécution"
+      - "Parce que x et y sont des number"
+      - "Parce que Object.keys est une fonction JavaScript"
+    answer: 1
+    explanation: "Un Point peut en réalité contenir d'autres clés (c'est un type ouvert). Le type précis serait faux dans certains cas."
+    concept: ts-open-types
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "La classe protège un invariant dans son constructeur. Qu'affiche ce programme ?"
+    code: |
+      class Percent {
+        value: number;
+        constructor(value: number) {
+          if (value < 0 || value > 100) throw new Error('hors limites');
+          this.value = value;
+        }
+      }
+      const ok: Percent = new Percent(50);
+      const bad: Percent = { value: 500 };
+      console.log(ok.value, bad.value, bad instanceof Percent);
+    answer: "50 500 false"
+    explanation: "Le type Percent n'exige que la forme { value: number }. Un littéral compatible est accepté sans passer par le constructeur : l'invariant n'est garanti que pour les objets réellement construits."
+    concept: ts-structural-typing
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Pour tester `getAuthors(db: PostgresDB)` sans base de données, quelle solution tire parti du typage structurel ?"
+    choices:
+      - "Hériter de PostgresDB dans une classe de test"
+      - "Déclarer une interface qui contient seulement ce que getAuthors utilise, puis passer un objet littéral conforme"
+      - "Utiliser `as any` sur le paramètre"
+      - "Copier PostgresDB dans le fichier de test"
+    answer: 1
+    explanation: "Une interface étroite exprime la dépendance réelle. Le vrai PostgresDB reste compatible (même forme), et le test passe un simple objet, sans mock ni héritage."
+    concept: ts-narrow-interface
+    difficulty: 2
+  - id: q7
+    type: multiple
+    prompt: "Quelles affirmations sont vraies ?"
+    choices:
+      - "Une classe peut recevoir un littéral objet de la même forme que ses instances"
+      - "Pour qu'un type soit compatible avec une interface, il doit la déclarer avec implements"
+      - "Un Vector3D {x, y, z} est utilisable là où l'on attend un Vector2D"
+      - "Le typage structurel rend impossible d'écrire des interfaces étroites"
+    answer: [0, 2]
+    explanation: "implements est facultatif (il sert à faire vérifier la conformité, pas à l'obtenir), et les interfaces étroites sont au contraire l'un de ses grands avantages."
+    concept: ts-structural-typing
+    difficulty: 2

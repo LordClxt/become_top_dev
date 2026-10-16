@@ -1,0 +1,6 @@
+id: ts-ch00-erasure
+concept: ts-type-erasure
+format: interactive
+justification: "Basculer entre le TypeScript écrit et le JavaScript réellement exécuté, en voyant disparaître chaque type, rend l'effacement concret : l'apprenant voit ce qui reste à l'exécution."
+entry: Erasure.tsx
+status: built

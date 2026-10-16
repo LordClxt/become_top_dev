@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Que ne peut-on faire qu'avec `type` ?"
+    back: "Exprimer des unions, des tuples et des types calculés (keyof, conditionnels…)."
+    concept: ts-union-needs-type
+  - id: fc2
+    front: "Différence entre `interface A extends B` et `type A = B & {…}` pour une propriété redéclarée incompatible ?"
+    back: "extends signale l'erreur ; & ne dit rien (la propriété devient never)."
+    concept: ts-interface-extends-checks
+  - id: fc3
+    front: "Qu'est-ce que le declaration merging ?"
+    back: "Deux interfaces de même nom fusionnent en une. Les types l'interdisent (doublon). Il sert à augmenter des types existants."
+    concept: ts-declaration-merging
+  - id: fc4
+    front: "Quel est le conseil pratique pour choisir entre type et interface ?"
+    back: "Union/tuple/calculé → type. Objets : suis la convention du projet ; sinon interface. Surtout, reste cohérent."
+    concept: ts-type-interface-similar

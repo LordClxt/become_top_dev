@@ -35,6 +35,21 @@ export function goWorkspaceNames(files: string[]): WorkspaceNames {
   return { globals: [...g.values()], members: [...m.values()] }
 }
 
+export function typescriptWorkspaceNames(files: string[]): WorkspaceNames {
+  const g = new Map<string, Completion>()
+  const m = new Map<string, Completion>()
+  for (const src of files) {
+    for (const name of caps(src, /\b(?:function\*?|class|interface|type|enum)\s+(\w+)/g)) add(g, name, 'type', 'TP')
+    for (const name of caps(src, /\b(?:const|let|var)\s+(\w+)/g)) add(g, name, 'variable', 'TP')
+    for (const names of caps(src, /import\s*(?:type\s*)?\{([^}]*)\}/g))
+      for (const n of names.split(',')) add(g, n.trim().split(/\s+/).pop() ?? '', 'variable', 'import')
+    // Méthodes et champs : `nom(` ou `nom:` / `nom?:` en début de ligne (classes, interfaces, objets).
+    for (const name of caps(src, /^\s*(?:(?:readonly|static|async|private|public|protected|get|set|#)\s*)*(\w+)\s*\??\s*[(:<]/gm))
+      if (!KEYWORDS.has(name)) add(m, name, 'property', 'TP')
+  }
+  return { globals: [...g.values()], members: [...m.values()] }
+}
+
 export function groovyWorkspaceNames(files: string[]): WorkspaceNames {
   const g = new Map<string, Completion>()
   const m = new Map<string, Completion>()

@@ -342,6 +342,7 @@ type QuestionView struct {
 type QuizView struct {
 	ID        string         `json:"id"`
 	LessonID  string         `json:"lesson_id"`
+	Language  string         `json:"language"` // langage des extraits de code (coloration)
 	Questions []QuestionView `json:"questions"`
 }
 
@@ -354,7 +355,7 @@ func (s *Service) Quiz(ctx context.Context, uid int64, id string) (*QuizView, er
 	if err != nil {
 		return nil, err
 	}
-	view := &QuizView{ID: quiz.ID, LessonID: quiz.LessonID, Questions: []QuestionView{}}
+	view := &QuizView{ID: quiz.ID, LessonID: quiz.LessonID, Language: s.lessonLanguage(quiz.LessonID), Questions: []QuestionView{}}
 	for _, q := range quiz.Questions {
 		_, answered := first[model.QuestionKey{QuizID: quiz.ID, QuestionID: q.ID}]
 		view.Questions = append(view.Questions, QuestionView{
@@ -363,6 +364,22 @@ func (s *Service) Quiz(ctx context.Context, uid int64, id string) (*QuizView, er
 		})
 	}
 	return view, nil
+}
+
+// lessonLanguage renvoie le langage du cours d'une leçon (vide si inconnu).
+func (s *Service) lessonLanguage(lessonID string) string {
+	lesson := s.Content.Lessons[lessonID]
+	if lesson == nil {
+		return ""
+	}
+	chapter := s.Content.Chapters[lesson.ChapterID]
+	if chapter == nil {
+		return ""
+	}
+	if course := s.Content.Courses[chapter.CourseID]; course != nil {
+		return course.Language
+	}
+	return ""
 }
 
 type AnswerResult struct {

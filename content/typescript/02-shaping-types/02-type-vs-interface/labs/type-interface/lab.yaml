@@ -1,0 +1,12 @@
+id: ts-ch02-l02-lab-type-interface
+title: "Choisir type ou interface"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["models.ts"]
+concepts: [ts-type-interface-similar, ts-interface-extends-checks, ts-declaration-merging, ts-union-needs-type]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

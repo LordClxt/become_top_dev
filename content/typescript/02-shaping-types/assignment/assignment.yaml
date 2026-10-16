@@ -1,0 +1,12 @@
+id: ts-ch02-assignment
+title: "Un inventaire immuable"
+kind: code
+language: typescript
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["inventory.ts"]
+concepts: [ts-readonly-array-param, ts-pick-mapped, ts-function-type-alias, ts-index-alternatives]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

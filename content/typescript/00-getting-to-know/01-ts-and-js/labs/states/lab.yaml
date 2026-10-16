@@ -1,0 +1,12 @@
+id: ts-ch00-l01-lab-states
+title: "La faute de frappe que tsc voit"
+kind: code
+language: typescript
+difficulty: 1
+xp: 40
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["states.ts"]
+concepts: [ts-superset, ts-annotations-intent]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

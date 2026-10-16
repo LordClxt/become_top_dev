@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { announceXp } from '@/features/xp/xp-events'
 import { api, type Chapter, type ExerciseSummary, type Lesson } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { docLabel } from '@/lib/source'
 
 export const Route = createFileRoute('/_app/lessons/$lessonId')({ component: LessonPage })
 
@@ -65,7 +66,13 @@ function LessonPage() {
         <div className="mt-5 flex flex-wrap gap-2 text-sm">
           <Chip icon={<Clock className="size-3.5" />}>{lesson.duration_min} min de lecture</Chip>
           <Chip icon={<Sparkles className="size-3.5 text-accent" />}>{lesson.xp} XP</Chip>
-          <Chip icon={<BookOpen className="size-3.5" />}>Livre, p. {lesson.source.pages}</Chip>
+          {lesson.source.url ? (
+            <a href={lesson.source.url} target="_blank" rel="noreferrer">
+              <Chip icon={<BookOpen className="size-3.5" />}>Doc : {docLabel(lesson.source)}</Chip>
+            </a>
+          ) : (
+            <Chip icon={<BookOpen className="size-3.5" />}>Livre, p. {lesson.source.pages}</Chip>
+          )}
           {lesson.extra && <Chip>Au-delà du livre</Chip>}
           {done && (
             <Chip icon={<Check className="size-3.5 text-pass" />} className="text-pass">

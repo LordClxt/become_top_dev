@@ -3,12 +3,12 @@ title: "Tinybase — le moteur de stockage v1"
 pitch: "Le cœur de Tinybase : un moteur à log segmenté avec index de hachage, qui survit aux crashs, tourne ses segments et se compacte."
 running_project: tinybase
 kind: code
-language: go
+language: typescript
 difficulty: 4
 xp: 240
 timeout_s: 60
 entrypoint: starter/
-test_command: "go test ./..."
-files_editable: ["engine.go"]
+test_command: "tstest"
+files_editable: ["engine.ts"]
 concepts: [ddia-hash-index, ddia-segments-compaction, ddia-tombstone-recovery, ddia-log-append-only]
-verified: { at: 2026-10-10, solution: pass, starter: fail }
+verified: { at: 2026-10-16, solution: pass, starter: fail }

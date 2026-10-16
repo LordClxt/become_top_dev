@@ -1,0 +1,12 @@
+id: ts-ch02-l01-lab-function-types
+title: "Typer des fonctions entières"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["fetching.ts"]
+concepts: [ts-function-type-alias, ts-typeof-function, ts-parameters-returntype]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -16,17 +16,41 @@ services:
     command: ["true"]
     restart: "no"
 
+  sandbox-java:
+    build: ./sandbox/images/java
+    image: btd-runner-java
+    command: ["true"]
+    restart: "no"
+
+  sandbox-typescript:
+    build: ./sandbox/images/typescript
+    image: btd-runner-typescript
+    command: ["true"]
+    restart: "no"
+
+  sandbox-nestjs:
+    build: ./sandbox/images/nestjs
+    image: btd-runner-nestjs
+    command: ["true"]
+    restart: "no"
+
   runner:
     build: ./runner
     environment:
       RUNNER_TOKEN: ${RUNNER_TOKEN:?définir RUNNER_TOKEN}
-      RUNNER_IMAGES: '{"go": "btd-runner-go", "groovy": "btd-runner-groovy"}'
+      RUNNER_IMAGES: '{"go": "btd-runner-go", "groovy": "btd-runner-groovy", "java": "btd-runner-java", "typescript": "btd-runner-typescript", "nestjs": "btd-runner-nestjs"}'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       sandbox-go:
         condition: service_completed_successfully
       sandbox-groovy:
+        condition: service_completed_successfully
+      sandbox-java:
+        condition: service_completed_successfully
+      sandbox-typescript:
+        condition: service_completed_successfully
+      sandbox-nestjs:
         condition: service_completed_successfully
     restart: unless-stopped
 

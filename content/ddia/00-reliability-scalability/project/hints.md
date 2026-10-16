@@ -1,8 +1,8 @@
 ## Hint 1
-Stocke un `[]int` de `len(bounds)+1` cases par opération dans une map. `sort.SearchFloat64s(bounds, ms)` donne l'indice de la tranche.
+Garde un `Map<string, number[]>` : un tableau de `bounds.length + 1` compteurs par opération. `bounds.findIndex(b => ms <= b)` donne la tranche (`-1` → débordement).
 
 ## Hint 2
-Convertis la durée sans tronquer : `float64(d) / float64(time.Millisecond)`. Pour `Merge`, vérifie les bornes d'abord, puis additionne dans des compteurs que `r` possède (jamais la slice de `other`).
+Copie les bornes avec `[...bounds]`. Pour `merge`, vérifie les bornes d'abord, puis additionne dans des compteurs que `this` possède (jamais le tableau de `other`). Les champs `#privés` de `other` sont lisibles depuis une méthode de la même classe.
 
 ## Hint 3
-`Evaluate` : `allowed := int(math.Floor((1-a)*float64(count) + 1e-9))`. Sans mesure, `Quantile` renvoie 0 : la latence est respectée et le budget vaut 0 − failed.
+`evaluate` : `Math.floor((1 - availability) * count + 1e-9)`. Sans mesure, `quantile` renvoie 0 : la latence est respectée et le budget vaut 0 − failed.

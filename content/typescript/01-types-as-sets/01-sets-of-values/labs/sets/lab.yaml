@@ -1,0 +1,12 @@
+id: ts-ch01-l01-lab-sets
+title: "Ensembles, unions et intersections"
+kind: code
+language: typescript
+difficulty: 3
+xp: 65
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["sets.ts"]
+concepts: [ts-type-as-set, ts-assignable-subset, ts-union-intersection-sets, ts-never-unknown]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

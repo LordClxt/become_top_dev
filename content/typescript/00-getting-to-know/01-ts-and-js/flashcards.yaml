@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Que signifie « TypeScript est un surensemble de JavaScript » ?"
+    back: "Tout programme JavaScript syntaxiquement valide est un programme TypeScript valide. L'inverse est faux dès qu'on écrit une annotation de type."
+    concept: ts-superset
+  - id: fc2
+    front: "Quels sont les trois ensembles de programmes à distinguer ?"
+    back: "Les programmes JavaScript, les programmes TypeScript (JS + annotations) et ceux qui passent le vérificateur de types, celui dans lequel on travaille au quotidien."
+    concept: ts-superset
+  - id: fc3
+    front: "TypeScript détecte-t-il `city.toUppercase()` sans aucune annotation ?"
+    back: "Oui : il déduit que city est un string et signale que la propriété n'existe pas (« Did you mean 'toUpperCase' ? »). C'est l'inférence de types."
+    concept: ts-static-checking
+  - id: fc4
+    front: "Pourquoi annoter `const states: State[] = …` améliore-t-il les messages d'erreur ?"
+    back: "L'annotation dit à TypeScript ce que tu veux. L'erreur se place sur la ligne fautive et la suggestion est correcte, au lieu d'être déduite d'une orthographe qui peut être la mauvaise."
+    concept: ts-annotations-intent
+  - id: fc5
+    front: "Cite deux constructions que JavaScript accepte mais que TypeScript refuse."
+    back: "`null + 7`, `[] + 12`, ou appeler une fonction avec trop d'arguments (alert('a', 'b'))."
+    concept: ts-static-checking
+  - id: fc6
+    front: "Un programme qui passe le vérificateur peut-il planter à l'exécution ? Exemple."
+    back: "Oui. `const names = ['Alice', 'Bob']; names[2].toUpperCase()` passe, puis lève un TypeError : le système de types n'est pas sound."
+    concept: ts-unsound
+  - id: fc7
+    front: "Qu'est-ce qu'un système de types « sound » ?"
+    back: "Un système dont les types statiques correspondent toujours aux types réels à l'exécution. TypeScript ne l'est pas, volontairement."
+    concept: ts-unsound

@@ -1,0 +1,17 @@
+cards:
+  - id: fc1
+    front: "Que déclare un module Nest ?"
+    back: "Ses contrôleurs, ses providers, les modules qu'il importe et les providers qu'il exporte."
+    concept: nest-building-blocks
+  - id: fc2
+    front: "Combien d'instances d'un provider par défaut ?"
+    back: "Une seule (singleton), partagée par tous ceux qui l'injectent."
+    concept: nest-ioc-container
+  - id: fc3
+    front: "init() ou listen() ?"
+    back: "init() prépare l'application (routes, hooks) ; listen() ouvre en plus le port HTTP. Les tests n'ont besoin que d'init()."
+    concept: nest-testing-module
+  - id: fc4
+    front: "À quoi sert abortOnError: false ?"
+    back: "À lever l'erreur de démarrage au lieu de quitter le processus : utile dans un script ou un test."
+    concept: nest-building-blocks

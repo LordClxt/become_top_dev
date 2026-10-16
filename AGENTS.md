@@ -8,7 +8,6 @@ Invite-only, several users (the owner is the admin). Goal: become a top 1 % deve
 - Content is generated ahead of time, versioned in `content/`, then loaded by the app.
 - Rephrase and teach. Never long excerpts from the book. Always cite `source: {chapter, pages}`.
 - Current books:
-  - `learning-go` — *Learning Go, 2nd ed.* (Bodner) → labs coded in Go, tested.
   - `software-architecture` — *Fundamentals of Software Architecture* (Richards & Ford) → conceptual labs (katas, ADRs, diagrams) graded by rubric + AI review.
   - `programming-grails` (EPUB, Grails 2.2) + `groovy-in-action` (2nd ed., Groovy 2.4) → **one course** (`content/grails/`) built on both books; labs in Groovy 4 / JDK 17 (target: Grails 7). A course may list extra books in `course.yaml` (`books:`) and a `source.book` slug per lesson. The books are older than the target: gaps are marked `extra`.
 
@@ -57,7 +56,7 @@ design-system/             shared UI + visual tokens (colors, typography, motion
 
 ## Conventions
 - Code, identifiers, paths, YAML keys: **English**. UI and teaching content: **French**.
-- Stable kebab-case IDs (`go-ch02-l03-constants`): they are the keys for progress in the DB.
+- Stable kebab-case IDs (`java-ch01-l02-builder`): they are the keys for progress in the DB.
 - No added dependency without a one-line justification.
 
 ## Skills (`.claude/skills/`)

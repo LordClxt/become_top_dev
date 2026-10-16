@@ -1,0 +1,97 @@
+id: ts-ch00-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Où faut-il de préférence configurer les options du compilateur ?"
+    choices:
+      - "En ligne de commande, à chaque exécution de tsc"
+      - "Dans tsconfig.json, partagé par l'équipe, l'éditeur et la CI"
+      - "Dans un commentaire en tête de chaque fichier .ts"
+      - "Dans les variables d'environnement"
+    answer: 1
+    explanation: "Un fichier de configuration garantit que collègues et outils utilisent exactement les mêmes règles. `tsc --init` en génère un déjà strict."
+    concept: ts-tsconfig
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Que fait `noImplicitAny` ?"
+    choices:
+      - "Il interdit d'écrire le mot any dans le code"
+      - "Il transforme en erreur tout endroit où TypeScript n'arrive pas à déduire un type et retomberait sur any"
+      - "Il convertit automatiquement les any en unknown"
+      - "Il supprime les annotations inutiles"
+    answer: 1
+    explanation: "`any` explicite reste permis. L'option interdit seulement le `any` implicite, celui qu'on obtient sans le voir pour un paramètre non typé."
+    concept: ts-no-implicit-any
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Sous `strictNullChecks`, que signifie `let x: number = null` ?"
+    choices:
+      - "C'est accepté : null est une valeur de number"
+      - "C'est une erreur : il faut écrire `number | null` pour permettre null"
+      - "C'est accepté mais avec un avertissement"
+      - "x vaut 0"
+    answer: 1
+    explanation: "Avec strictNullChecks, null et undefined ne sont plus des valeurs de tous les types : on les déclare dans l'union quand on les permet."
+    concept: ts-strict-null-checks
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Dans quel ordre activer les options sur un projet JavaScript en cours de migration ?"
+    choices:
+      - "strictNullChecks d'abord, puis noImplicitAny"
+      - "noImplicitAny d'abord, puis strictNullChecks"
+      - "Les deux en même temps, sinon ça ne compile pas"
+      - "Aucune des deux : strict suffit toujours"
+    answer: 1
+    explanation: "Les erreurs de strictNullChecks portent sur des types : tant que tout est any implicite, elles ne protègent de rien. On commence par noImplicitAny, puis on resserre."
+    concept: ts-strict-null-checks
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Le vérificateur (noUncheckedIndexedAccess désactivé) ne dit rien ici. Qu'affiche ce programme ?"
+    code: |
+      const tenses = ['past', 'present', 'future'];
+      const word = tenses[3];
+      console.log(word, typeof word, tenses.length);
+    answer: "undefined undefined 3"
+    explanation: "tenses[3] est hors limites : la valeur est undefined (de type 'undefined'). Avec noUncheckedIndexedAccess, TypeScript typerait word en string | undefined et obligerait à tester."
+    concept: ts-unchecked-indexed
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Quelles affirmations sur `noUncheckedIndexedAccess` sont vraies ?"
+    choices:
+      - "Elle est incluse dans `strict`"
+      - "Elle fait de `arr[i]` un `T | undefined`"
+      - "Elle peut signaler des accès parfaitement valides comme `tenses[0]`"
+      - "Elle rend le code plus sûr, mais au prix d'une vérification systématique"
+    answer: [1, 2, 3]
+    explanation: "C'est une option « plus stricte que strict » : elle n'est pas activée par strict. Elle attrape les accès hors limites mais impose de gérer undefined, même quand l'indice est évidemment valide."
+    concept: ts-unchecked-indexed
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Un collègue te montre un exemple qui, chez lui, ne produit aucune erreur, mais en produit chez toi. Que vérifies-tu en premier ?"
+    choices:
+      - "La version de ton éditeur"
+      - "Que vos options de compilateur (tsconfig.json) sont les mêmes"
+      - "Que vous utilisez le même système d'exploitation"
+      - "Que le fichier est enregistré"
+    answer: 1
+    explanation: "Le comportement du vérificateur dépend fortement des options (noImplicitAny, strictNullChecks…) : des réglages différents donnent des verdicts différents sur le même code."
+    concept: ts-tsconfig
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Quel est l'effet de `strict: true` ?"
+    choices:
+      - "Il active noImplicitAny, strictNullChecks et d'autres contrôles du langage d'un seul coup"
+      - "Il interdit tout usage de any, explicite ou non"
+      - "Il active aussi noUncheckedIndexedAccess"
+      - "Il rend le code plus rapide à l'exécution"
+    answer: 0
+    explanation: "strict regroupe la famille des contrôles de langage. any explicite reste permis, noUncheckedIndexedAccess est à part, et aucune option de type ne change la vitesse d'exécution."
+    concept: ts-strict-flag
+    difficulty: 1

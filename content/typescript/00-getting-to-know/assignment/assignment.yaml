@@ -1,0 +1,12 @@
+id: ts-ch00-assignment
+title: "Valider les événements d'un flux"
+kind: code
+language: typescript
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["events.ts"]
+concepts: [ts-type-erasure, ts-tagged-union, ts-runtime-vs-declared, ts-any-no-safety]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

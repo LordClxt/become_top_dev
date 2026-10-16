@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Les schémas primitifs"
+    goal: "schema, string, number et boolean : parse valide ou lève ParseError (chemin `$`), safeParse renvoie un résultat sans lever."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Les schémas d'objet"
+    goal: "object valide chaque champ, ne garde que les clés du schéma et rapporte le chemin exact de l'erreur ($.owner.age)."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Champs optionnels"
+    goal: "optional accepte undefined ; safeParse fonctionne sur des objets imbriqués."
+    tests: "tstest M3"
+    review: true

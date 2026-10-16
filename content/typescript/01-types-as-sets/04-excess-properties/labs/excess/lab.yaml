@@ -1,0 +1,12 @@
+id: ts-ch01-l04-lab-excess
+title: "Des options qui détectent les fautes de frappe"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["options.ts"]
+concepts: [ts-excess-property-check, ts-fresh-literal, ts-weak-type]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,13 @@
+#!/bin/sh
+# nesttest [préfixes…] : compile /work avec tsc (décorateurs legacy + emitDecoratorMetadata, exigés par Nest),
+# rapporte les erreurs de types, puis lance test.js compilé avec Node. Les dépendances sont préinstallées
+# dans /opt/nest/node_modules (aucun npm install à l'exécution, réseau coupé).
+cd /work || exit 2
+[ -f package.json ] || printf '{"type":"module"}\n' > package.json
+[ -e node_modules ] || ln -s /opt/nest/node_modules node_modules
+mkdir -p /tmp/build && cp package.json /tmp/build/ && ln -sfn /opt/nest/node_modules /tmp/build/node_modules
+/opt/nest/node_modules/.bin/tsc -p /opt/nest/tsconfig.json --pretty false > /tmp/tsc.txt 2>&1
+types=$?
+node /opt/nest/report-tsc.mjs /tmp/tsc.txt
+if [ -f /tmp/build/test.js ]; then node /tmp/build/test.js "$@"; tests=$?; else echo "test.js introuvable après compilation" >&2; tests=1; fi
+[ "$types" -eq 0 ] && [ "$tests" -eq 0 ]

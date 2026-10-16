@@ -1,7 +1,0 @@
-id: go-ch10-buffered-queue
-concept: go-chan-buffered
-format: remotion
-justification: "Un tampon qui se remplit puis bloque l'émetteur, et qui se vide en le débloquant, est une séquence ordonnée d'états : on la regarde pas à pas."
-entry: BufferedQueue.tsx
-duration_s: 17
-status: built

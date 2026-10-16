@@ -1,0 +1,12 @@
+id: nest-ch01-l04-lab-api-versions
+title: "v1 et v2 côte à côte"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["app.ts"]
+concepts: [nest-versioning, nest-default-version, nest-global-prefix]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

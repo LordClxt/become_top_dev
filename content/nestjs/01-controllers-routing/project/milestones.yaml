@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Le CRUD v1"
+    goal: "GET/POST/DELETE sous /api/v1/books avec 201 + Location, 404, 409 et un corps validé par schéma ; la sonde /health reste hors préfixe et hors version."
+    tests: "nesttest M1"
+    review: false
+  - id: m2
+    title: "La recherche v2"
+    goal: "GET /api/v2/books renvoie { items, page, limit, total }, filtrable par auteur, paginé (limit ≤ 50) ; v1 renvoie toujours un tableau."
+    tests: "nesttest M2"
+    review: false
+  - id: m3
+    title: "Des routes sûres"
+    goal: "GET /api/v1/books/featured fonctionne quel que soit l'ordre des méthodes, et createApp refuse de démarrer sur une route en double ou masquée."
+    tests: "nesttest M3"
+    review: true

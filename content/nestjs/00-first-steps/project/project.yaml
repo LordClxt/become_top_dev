@@ -1,0 +1,14 @@
+id: nest-ch00-project
+title: "Librairie, jalon 0 : le squelette de l'API"
+pitch: "Toute API sérieuse commence par trois choses : un point de santé, une première ressource et une fabrique d'application partagée par la production et les tests. Tu poses les fondations de Librairie."
+running_project: librairie
+kind: code
+language: nestjs
+difficulty: 2
+xp: 220
+timeout_s: 90
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["app.ts"]
+concepts: [nest-building-blocks, nest-ioc-container, nest-testing-module, nest-esm-imports]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

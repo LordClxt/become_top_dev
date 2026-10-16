@@ -1,6 +1,0 @@
-id: go-ch03-range-string
-concept: go-range-string
-format: interactive
-justification: "Taper un mot avec des accents ou un emoji et voir les octets se regrouper en runes explique pourquoi l'indice d'un range saute."
-entry: RangeString.tsx
-status: built

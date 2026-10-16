@@ -1,0 +1,17 @@
+cards:
+  - id: fc1
+    front: "Quel est le type réel de @Query('page') page: number ?"
+    back: "string (ou undefined) : l'annotation est effacée, il faut ParseIntPipe pour convertir."
+    concept: nest-strings-from-url
+  - id: fc2
+    front: "Ordre des pipes pour un entier optionnel avec défaut ?"
+    back: "new DefaultValuePipe(1), puis ParseIntPipe : d'abord remplacer undefined, ensuite convertir."
+    concept: nest-parse-pipes
+  - id: fc3
+    front: "Que faut-il en plus de @Body({ schema }) pour valider ?"
+    back: "Le pipe StandardSchemaValidationPipe (global ou sur la route)."
+    concept: nest-schema-validation
+  - id: fc4
+    front: "Statut quand un pipe rejette une entrée ?"
+    back: "400 Bad Request, et le handler ne s'exécute pas."
+    concept: nest-parse-pipes

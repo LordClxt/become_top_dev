@@ -1,0 +1,87 @@
+id: nest-ch01-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Avec Express et la configuration par défaut, qu'affiche ce programme ?"
+    code: |
+      import 'reflect-metadata';
+      import { Controller, Get, Module, Param } from '@nestjs/common';
+      import { NestFactory } from '@nestjs/core';
+      import request from 'supertest';
+
+      @Controller('books')
+      class BooksController {
+        @Get(':isbn') findOne(@Param('isbn') isbn: string) { return `findOne:${isbn}`; }
+        @Get('featured') featured() { return 'featured'; }
+      }
+      @Module({ controllers: [BooksController] }) class AppModule {}
+
+      const app = await NestFactory.create(AppModule, { logger: false });
+      await app.init();
+      console.log((await request(app.getHttpServer()).get('/books/featured')).text);
+      await app.close();
+    answer: "findOne:featured"
+    explanation: "Express prend la première route enregistrée qui correspond. :isbn a été déclarée en premier et accepte 'featured' comme valeur : la route featured est masquée."
+    concept: nest-route-order
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Le même contrôleur, avec `routeResolutionStrategy: 'specificity'`. Qu'affiche le programme ?"
+    code: |
+      import 'reflect-metadata';
+      import { Controller, Get, Module, Param } from '@nestjs/common';
+      import { NestFactory } from '@nestjs/core';
+      import request from 'supertest';
+
+      @Controller('books')
+      class BooksController {
+        @Get(':isbn') findOne(@Param('isbn') isbn: string) { return `findOne:${isbn}`; }
+        @Get('featured') featured() { return 'featured'; }
+      }
+      @Module({ controllers: [BooksController] }) class AppModule {}
+
+      const app = await NestFactory.create(AppModule, { logger: false, routeResolutionStrategy: 'specificity' });
+      await app.init();
+      const http = request(app.getHttpServer());
+      console.log((await http.get('/books/featured')).text, (await http.get('/books/42')).text);
+      await app.close();
+    answer: "featured findOne:42"
+    explanation: "La stratégie specificity enregistre les littéraux avant les paramètres : l'ordre des méthodes ne compte plus."
+    concept: nest-route-specificity
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Quand une route en double est-elle signalée avec `routeConflictPolicy: { duplicate: 'error' }` ?"
+    choices:
+      - "À la compilation, par tsc"
+      - "Au démarrage de l'application (init/listen), qui échoue avec un message qui nomme les deux handlers"
+      - "À la première requête sur la route"
+      - "Jamais : seul un log est écrit"
+    answer: 1
+    explanation: "En mode error, Nest refuse de démarrer. Un test e2e qui démarre l'application complète protège donc la CI."
+    concept: nest-route-conflict-policy
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Ton API a un fallback `@Get('*path')` en fin de contrôleur, et tu actives `shadow: 'error'` avec la stratégie specificity. Que se passe-t-il ?"
+    choices:
+      - "Rien : le wildcard est enregistré en dernier"
+      - "Le démarrage échoue : un wildcard recouvre par nature les routes plus précises, Nest le signale comme partiellement masqué"
+      - "Le wildcard est ignoré"
+      - "Les routes littérales deviennent inaccessibles"
+    answer: 1
+    explanation: "Le wildcard et les routes précises se recouvrent. Avec un fallback volontaire, garde shadow: 'warn'."
+    concept: nest-route-conflict-policy
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Pourquoi le même contrôleur peut-il se comporter différemment sur Fastify ?"
+    choices:
+      - "Fastify ne supporte pas les paramètres de route"
+      - "Le routeur de Fastify (find-my-way) classe les routes par spécificité, quel que soit l'ordre de déclaration"
+      - "Fastify inverse l'ordre des routes"
+      - "Il se comporte toujours pareil"
+    answer: 1
+    explanation: "Express est sensible à l'ordre, Fastify non. Rendre la stratégie explicite (specificity) évite que l'adaptateur change le comportement de l'API."
+    concept: nest-route-order
+    difficulty: 2

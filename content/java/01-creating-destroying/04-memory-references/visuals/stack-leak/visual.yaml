@@ -1,0 +1,6 @@
+id: java-ch01-stack-leak
+concept: java-obsolete-reference
+format: interactive
+justification: "Empiler, dépiler et basculer « elements[size] = null » en voyant quels objets restent accessibles au GC rend visible une fuite qu'aucun test fonctionnel ne montre."
+entry: StackLeak.tsx
+status: built

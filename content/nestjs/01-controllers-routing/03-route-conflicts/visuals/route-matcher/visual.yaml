@@ -1,0 +1,6 @@
+id: nest-ch01-route-matcher
+concept: nest-route-order
+format: interactive
+justification: "Réordonner les routes, changer de stratégie et envoyer une requête rend le masquage tangible : l'apprenant voit quelle route répond et lesquelles deviennent inaccessibles."
+entry: RouteMatcher.tsx
+status: built

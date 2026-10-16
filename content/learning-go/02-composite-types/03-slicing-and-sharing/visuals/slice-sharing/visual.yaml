@@ -1,8 +1,0 @@
-id: go-ch02-slice-sharing
-concept: go-slice-append-overwrite
-format: interactive
-justification: "Le bug n'existe que selon la capacité restante : il faut manipuler sous-slices, append et full slice expression pour voir quand les cases sont partagées."
-entry: SliceSharing.tsx
-params:
-  - { name: preset, type: enum, values: ["sharing", "append-overwrite", "full-slice", "confusing"], default: "sharing" }
-status: built

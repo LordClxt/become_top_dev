@@ -68,6 +68,14 @@ export const COURSE_ICONS: Record<string, LucideIcon[]> = {
     Brain, Puzzle, SlidersHorizontal, Ruler, Atom, Component, Landmark, Layers, Plug, Server,
     Zap, Orbit, Radio, Compass, FileText, ShieldAlert, PenTool, Users, Handshake, TrendingUp,
   ],
+  java: [
+    Zap, Factory, Scale, Lock, GitFork, Brackets, Shapes, SquareFunction, Ruler, Library,
+    TriangleAlert, Workflow, Binary,
+  ],
+  ts: [
+    Terminal, Layers, Puzzle, ScanSearch, Workflow, Ruler, Shapes, TriangleAlert, SquareFunction, FlaskConical,
+    Brackets, Package, Timer, GitBranch, Zap,
+  ],
 }
 
 /** Icône du module `n` (numéro du slug) d'un cours. */

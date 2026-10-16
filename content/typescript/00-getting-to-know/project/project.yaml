@@ -1,0 +1,14 @@
+id: ts-ch00-project
+title: "Parse, jalon 0 : les briques du validateur"
+pitch: "Les types sont effacés : pour valider des données venues du réseau, il faut des schémas qui existent à l'exécution. Tu écris le noyau de Parse, un mini-validateur à la Zod dont le type TypeScript se déduit du schéma."
+running_project: parse
+kind: code
+language: typescript
+difficulty: 3
+xp: 250
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-type-erasure, ts-runtime-vs-declared, ts-tagged-union, ts-structural-typing]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

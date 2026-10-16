@@ -84,104 +84,84 @@
   "path": "/api/exercises"
  },
  {
-  "name": "chapter:go-ch00",
+  "name": "chapter:java-ch01",
   "method": "GET",
-  "path": "/api/chapters/go-ch00"
+  "path": "/api/chapters/java-ch01"
  },
  {
-  "name": "chapter:go-ch02",
+  "name": "chapter:grails-ch01",
   "method": "GET",
-  "path": "/api/chapters/go-ch02"
+  "path": "/api/chapters/grails-ch01"
  },
  {
-  "name": "lesson:go-ch00-l01",
+  "name": "lesson:java-ch01-l01",
   "method": "GET",
-  "path": "/api/lessons/go-ch00-l01"
+  "path": "/api/lessons/java-ch01-l01"
  },
  {
-  "name": "lesson:go-ch00-l02",
+  "name": "lesson:java-ch01-l02",
   "method": "GET",
-  "path": "/api/lessons/go-ch00-l02"
+  "path": "/api/lessons/java-ch01-l02"
  },
  {
-  "name": "lesson:go-ch00-l03",
+  "name": "lesson:java-ch01-l03",
   "method": "GET",
-  "path": "/api/lessons/go-ch00-l03"
+  "path": "/api/lessons/java-ch01-l03"
  },
  {
-  "name": "lesson:go-ch02-l01",
+  "name": "lesson:java-ch01-l04",
   "method": "GET",
-  "path": "/api/lessons/go-ch02-l01"
+  "path": "/api/lessons/java-ch01-l04"
  },
  {
-  "name": "lesson:go-ch02-l02",
+  "name": "lesson:java-ch01-l05",
   "method": "GET",
-  "path": "/api/lessons/go-ch02-l02"
+  "path": "/api/lessons/java-ch01-l05"
  },
  {
-  "name": "lesson:go-ch02-l03",
+  "name": "lesson:grails-ch01-l01",
   "method": "GET",
-  "path": "/api/lessons/go-ch02-l03"
+  "path": "/api/lessons/grails-ch01-l01"
  },
  {
-  "name": "lesson:go-ch02-l04",
+  "name": "lesson:grails-ch01-l02",
   "method": "GET",
-  "path": "/api/lessons/go-ch02-l04"
+  "path": "/api/lessons/grails-ch01-l02"
  },
  {
-  "name": "lesson:go-ch02-l05",
+  "name": "lesson:grails-ch01-l03",
   "method": "GET",
-  "path": "/api/lessons/go-ch02-l05"
+  "path": "/api/lessons/grails-ch01-l03"
  },
  {
-  "name": "lesson:go-ch02-l06",
+  "name": "lesson:grails-ch01-l04",
   "method": "GET",
-  "path": "/api/lessons/go-ch02-l06"
+  "path": "/api/lessons/grails-ch01-l04"
  },
  {
-  "name": "quiz:go-ch00-l01-quiz",
+  "name": "quiz:java-ch01-l01-quiz",
   "method": "GET",
-  "path": "/api/quizzes/go-ch00-l01-quiz"
+  "path": "/api/quizzes/java-ch01-l01-quiz"
  },
  {
-  "name": "quiz:go-ch00-l02-quiz",
+  "name": "quiz:java-ch01-l02-quiz",
   "method": "GET",
-  "path": "/api/quizzes/go-ch00-l02-quiz"
+  "path": "/api/quizzes/java-ch01-l02-quiz"
  },
  {
-  "name": "quiz:go-ch00-l03-quiz",
+  "name": "quiz:java-ch01-l03-quiz",
   "method": "GET",
-  "path": "/api/quizzes/go-ch00-l03-quiz"
+  "path": "/api/quizzes/java-ch01-l03-quiz"
  },
  {
-  "name": "quiz:go-ch02-l01-quiz",
+  "name": "quiz:java-ch01-l04-quiz",
   "method": "GET",
-  "path": "/api/quizzes/go-ch02-l01-quiz"
+  "path": "/api/quizzes/java-ch01-l04-quiz"
  },
  {
-  "name": "quiz:go-ch02-l02-quiz",
+  "name": "quiz:java-ch01-l05-quiz",
   "method": "GET",
-  "path": "/api/quizzes/go-ch02-l02-quiz"
- },
- {
-  "name": "quiz:go-ch02-l03-quiz",
-  "method": "GET",
-  "path": "/api/quizzes/go-ch02-l03-quiz"
- },
- {
-  "name": "quiz:go-ch02-l04-quiz",
-  "method": "GET",
-  "path": "/api/quizzes/go-ch02-l04-quiz"
- },
- {
-  "name": "quiz:go-ch02-l05-quiz",
-  "method": "GET",
-  "path": "/api/quizzes/go-ch02-l05-quiz"
- },
- {
-  "name": "quiz:go-ch02-l06-quiz",
-  "method": "GET",
-  "path": "/api/quizzes/go-ch02-l06-quiz"
+  "path": "/api/quizzes/java-ch01-l05-quiz"
  },
  {
   "name": "exercise:arch-sandbox-ggg-bid-flow",
@@ -189,99 +169,69 @@
   "path": "/api/exercises/arch-sandbox-ggg-bid-flow"
  },
  {
-  "name": "exercise:go-ch00-assignment",
+  "name": "exercise:grails-ch01-assignment",
   "method": "GET",
-  "path": "/api/exercises/go-ch00-assignment"
+  "path": "/api/exercises/grails-ch01-assignment"
  },
  {
-  "name": "exercise:go-ch00-boss",
+  "name": "exercise:grails-ch01-boss",
   "method": "GET",
-  "path": "/api/exercises/go-ch00-boss"
+  "path": "/api/exercises/grails-ch01-boss"
  },
  {
-  "name": "exercise:go-ch00-l01-lab-gomod",
+  "name": "exercise:grails-ch01-l01-lab-callbacks",
   "method": "GET",
-  "path": "/api/exercises/go-ch00-l01-lab-gomod"
+  "path": "/api/exercises/grails-ch01-l01-lab-callbacks"
  },
  {
-  "name": "exercise:go-ch00-l02-lab-semicolons",
+  "name": "exercise:grails-ch01-project",
   "method": "GET",
-  "path": "/api/exercises/go-ch00-l02-lab-semicolons"
+  "path": "/api/exercises/grails-ch01-project"
  },
  {
-  "name": "exercise:go-ch00-l03-lab-vet-fix",
+  "name": "exercise:java-ch01-l01-lab-http-status",
   "method": "GET",
-  "path": "/api/exercises/go-ch00-l03-lab-vet-fix"
+  "path": "/api/exercises/java-ch01-l01-lab-http-status"
  },
  {
-  "name": "exercise:go-ch00-project",
+  "name": "exercise:java-ch01-l02-lab-http-request",
   "method": "GET",
-  "path": "/api/exercises/go-ch00-project"
+  "path": "/api/exercises/java-ch01-l02-lab-http-request"
  },
  {
-  "name": "exercise:go-ch02-assignment",
+  "name": "exercise:java-ch01-l03-lab-token-service",
   "method": "GET",
-  "path": "/api/exercises/go-ch02-assignment"
+  "path": "/api/exercises/java-ch01-l03-lab-token-service"
  },
  {
-  "name": "exercise:go-ch02-boss",
+  "name": "exercise:java-ch01-l04-lab-leaks",
   "method": "GET",
-  "path": "/api/exercises/go-ch02-boss"
+  "path": "/api/exercises/java-ch01-l04-lab-leaks"
  },
  {
-  "name": "exercise:go-ch02-l01-lab-rotate",
+  "name": "exercise:java-ch01-l05-lab-resources",
   "method": "GET",
-  "path": "/api/exercises/go-ch02-l01-lab-rotate"
- },
- {
-  "name": "exercise:go-ch02-l02-lab-squares",
-  "method": "GET",
-  "path": "/api/exercises/go-ch02-l02-lab-squares"
- },
- {
-  "name": "exercise:go-ch02-l03-lab-chunk",
-  "method": "GET",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk"
- },
- {
-  "name": "exercise:go-ch02-l04-lab-truncate",
-  "method": "GET",
-  "path": "/api/exercises/go-ch02-l04-lab-truncate"
- },
- {
-  "name": "exercise:go-ch02-l05-lab-common-tags",
-  "method": "GET",
-  "path": "/api/exercises/go-ch02-l05-lab-common-tags"
- },
- {
-  "name": "exercise:go-ch02-l06-lab-payroll",
-  "method": "GET",
-  "path": "/api/exercises/go-ch02-l06-lab-payroll"
- },
- {
-  "name": "exercise:go-ch02-project",
-  "method": "GET",
-  "path": "/api/exercises/go-ch02-project"
+  "path": "/api/exercises/java-ch01-l05-lab-resources"
  },
  {
   "name": "lesson-complete",
   "method": "POST",
-  "path": "/api/lessons/go-ch02-l03/complete"
+  "path": "/api/lessons/java-ch01-l02/complete"
  },
  {
   "name": "lesson-complete-again",
   "method": "POST",
-  "path": "/api/lessons/go-ch02-l03/complete"
+  "path": "/api/lessons/java-ch01-l02/complete"
  },
  {
   "name": "lesson-complete-l01",
   "method": "POST",
-  "path": "/api/lessons/go-ch02-l01/complete"
+  "path": "/api/lessons/java-ch01-l01/complete"
  },
  {
   "name": "quiz-q2-wrong",
   "method": "POST",
-  "path": "/api/quizzes/go-ch02-l03-quiz/questions/q2",
+  "path": "/api/quizzes/java-ch01-l01-quiz/questions/q2",
   "json": {
    "answer": "?"
   }
@@ -289,23 +239,23 @@
  {
   "name": "quiz-q2-right",
   "method": "POST",
-  "path": "/api/quizzes/go-ch02-l03-quiz/questions/q2",
+  "path": "/api/quizzes/java-ch01-l01-quiz/questions/q2",
   "json": {
-   "answer": "[a b z d]"
+   "answer": "true\ntrue"
   }
  },
  {
   "name": "quiz-q1-right",
   "method": "POST",
-  "path": "/api/quizzes/go-ch02-l03-quiz/questions/q1",
+  "path": "/api/quizzes/java-ch01-l01-quiz/questions/q1",
   "json": {
-   "answer": "[1 20 3 4]"
+   "answer": "true\nfalse\ntrue"
   }
  },
  {
   "name": "quiz-question-unknown",
   "method": "POST",
-  "path": "/api/quizzes/go-ch02-l03-quiz/questions/nope",
+  "path": "/api/quizzes/java-ch01-l01-quiz/questions/nope",
   "json": {
    "answer": "x"
   }
@@ -313,45 +263,45 @@
  {
   "name": "quiz-after-answers",
   "method": "GET",
-  "path": "/api/quizzes/go-ch02-l03-quiz"
+  "path": "/api/quizzes/java-ch01-l01-quiz"
  },
  {
   "name": "draft-save",
   "method": "PUT",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/draft",
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/draft",
   "json": {
    "files": {
-    "chunk.go": "brouillon"
+    "HttpStatus.java": "brouillon"
    }
   }
  },
  {
   "name": "draft-forbidden-file",
   "method": "PUT",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/draft",
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/draft",
   "json": {
    "files": {
-    "tests/chunk_test.go": "x"
+    "tests/Test.java": "x"
    }
   }
  },
  {
   "name": "exercise-with-draft",
   "method": "GET",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+  "path": "/api/exercises/java-ch01-l01-lab-http-status"
  },
  {
   "name": "hint-1",
   "method": "POST",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/hints"
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/hints"
  },
  {
   "name": "run-fail",
   "method": "POST",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/run",
   "json": {
    "files": {
-    "chunk.go": "mon code"
+    "HttpStatus.java": "mon code"
    }
   },
   "runner": {
@@ -362,15 +312,15 @@
  {
   "name": "exercise-after-fail",
   "method": "GET",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+  "path": "/api/exercises/java-ch01-l01-lab-http-status"
  },
  {
   "name": "run-pass",
   "method": "POST",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/run",
   "json": {
    "files": {
-    "chunk.go": "package lab"
+    "HttpStatus.java": "package lab"
    }
   },
   "runner": {
@@ -381,10 +331,10 @@
  {
   "name": "run-pass-again",
   "method": "POST",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/run",
   "json": {
    "files": {
-    "chunk.go": "x"
+    "HttpStatus.java": "x"
    }
   },
   "runner": {
@@ -395,41 +345,41 @@
  {
   "name": "run-build-error",
   "method": "POST",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/run",
   "json": {
    "files": {
-    "chunk.go": "x"
+    "HttpStatus.java": "x"
    }
   },
   "runner": {
    "exit_code": 1,
-   "output": "# lab\n./chunk.go:1:1: expected 'package'\nFAIL\tlab [build failed]"
+   "output": "HttpStatus.java:1: error: class, interface, enum, or record expected\nx\n^\n1 error"
   }
  },
  {
   "name": "run-overwrite-tests",
   "method": "POST",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/run",
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/run",
   "json": {
    "files": {
-    "tests/chunk_test.go": "x"
+    "tests/Test.java": "x"
    }
   }
  },
  {
   "name": "exercise-after-pass",
   "method": "GET",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+  "path": "/api/exercises/java-ch01-l01-lab-http-status"
  },
  {
   "name": "reset",
   "method": "POST",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk/reset"
+  "path": "/api/exercises/java-ch01-l01-lab-http-status/reset"
  },
  {
   "name": "exercise-after-reset",
   "method": "GET",
-  "path": "/api/exercises/go-ch02-l03-lab-chunk"
+  "path": "/api/exercises/java-ch01-l01-lab-http-status"
  },
  {
   "name": "diagram-run-starter",
@@ -437,7 +387,7 @@
   "path": "/api/exercises/arch-sandbox-ggg-bid-flow/run",
   "json": {
    "files": {
-    "diagram.json": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": []\n}\n"
+    "HttpStatus.java": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": []\n}\n"
    }
   }
  },
@@ -447,7 +397,7 @@
   "path": "/api/exercises/arch-sandbox-ggg-bid-flow/run",
   "json": {
    "files": {
-    "diagram.json": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"capture\",\n      \"type\": \"bid-capture\",\n      \"x\": 200,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auct-capture\",\n      \"type\": \"auctioneer-capture\",\n      \"x\": 200,\n      \"y\": 220\n    },\n    {\n      \"id\": \"q-bids\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 0\n    },\n    {\n      \"id\": \"q-auct\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"db\",\n      \"type\": \"database\",\n      \"x\": 800,\n      \"y\": 110\n    },\n    {\n      \"id\": \"streamer\",\n      \"type\": \"bid-streamer\",\n      \"x\": 600,\n      \"y\": -110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"q-pay\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"e1\",\n      \"source\": \"bidder\",\n      \"target\": \"capture\"\n    },\n    {\n      \"id\": \"e2\",\n      \"source\": \"capture\",\n      \"target\": \"q-bids\"\n    },\n    {\n      \"id\": \"e3\",\n      \"source\": \"q-bids\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e4\",\n      \"source\": \"auctioneer\",\n      \"target\": \"auct-capture\"\n    },\n    {\n      \"id\": \"e5\",\n      \"source\": \"auct-capture\",\n      \"target\": \"q-auct\"\n    },\n    {\n      \"id\": \"e6\",\n      \"source\": \"q-auct\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e7\",\n      \"source\": \"tracker\",\n      \"target\": \"db\"\n    },\n    {\n      \"id\": \"e8\",\n      \"source\": \"tracker\",\n      \"target\": \"streamer\"\n    },\n    {\n      \"id\": \"e9\",\n      \"source\": \"streamer\",\n      \"target\": \"bidder\"\n    },\n    {\n      \"id\": \"e10\",\n      \"source\": \"session\",\n      \"target\": \"q-pay\"\n    },\n    {\n      \"id\": \"e11\",\n      \"source\": \"q-pay\",\n      \"target\": \"payment\"\n    }\n  ]\n}\n"
+    "HttpStatus.java": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"capture\",\n      \"type\": \"bid-capture\",\n      \"x\": 200,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auct-capture\",\n      \"type\": \"auctioneer-capture\",\n      \"x\": 200,\n      \"y\": 220\n    },\n    {\n      \"id\": \"q-bids\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 0\n    },\n    {\n      \"id\": \"q-auct\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"db\",\n      \"type\": \"database\",\n      \"x\": 800,\n      \"y\": 110\n    },\n    {\n      \"id\": \"streamer\",\n      \"type\": \"bid-streamer\",\n      \"x\": 600,\n      \"y\": -110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"q-pay\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"e1\",\n      \"source\": \"bidder\",\n      \"target\": \"capture\"\n    },\n    {\n      \"id\": \"e2\",\n      \"source\": \"capture\",\n      \"target\": \"q-bids\"\n    },\n    {\n      \"id\": \"e3\",\n      \"source\": \"q-bids\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e4\",\n      \"source\": \"auctioneer\",\n      \"target\": \"auct-capture\"\n    },\n    {\n      \"id\": \"e5\",\n      \"source\": \"auct-capture\",\n      \"target\": \"q-auct\"\n    },\n    {\n      \"id\": \"e6\",\n      \"source\": \"q-auct\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e7\",\n      \"source\": \"tracker\",\n      \"target\": \"db\"\n    },\n    {\n      \"id\": \"e8\",\n      \"source\": \"tracker\",\n      \"target\": \"streamer\"\n    },\n    {\n      \"id\": \"e9\",\n      \"source\": \"streamer\",\n      \"target\": \"bidder\"\n    },\n    {\n      \"id\": \"e10\",\n      \"source\": \"session\",\n      \"target\": \"q-pay\"\n    },\n    {\n      \"id\": \"e11\",\n      \"source\": \"q-pay\",\n      \"target\": \"payment\"\n    }\n  ]\n}\n"
    }
   }
  },
@@ -457,7 +407,7 @@
   "path": "/api/exercises/arch-sandbox-ggg-bid-flow/run",
   "json": {
    "files": {
-    "diagram.json": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"capture\",\n      \"type\": \"bid-capture\",\n      \"x\": 200,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auct-capture\",\n      \"type\": \"auctioneer-capture\",\n      \"x\": 200,\n      \"y\": 220\n    },\n    {\n      \"id\": \"q-bids\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 0\n    },\n    {\n      \"id\": \"q-auct\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"db\",\n      \"type\": \"database\",\n      \"x\": 800,\n      \"y\": 110\n    },\n    {\n      \"id\": \"streamer\",\n      \"type\": \"bid-streamer\",\n      \"x\": 600,\n      \"y\": -110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"q-pay\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"e1\",\n      \"source\": \"bidder\",\n      \"target\": \"capture\"\n    },\n    {\n      \"id\": \"e2\",\n      \"source\": \"capture\",\n      \"target\": \"q-bids\"\n    },\n    {\n      \"id\": \"e3\",\n      \"source\": \"q-bids\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e4\",\n      \"source\": \"auctioneer\",\n      \"target\": \"auct-capture\"\n    },\n    {\n      \"id\": \"e5\",\n      \"source\": \"auct-capture\",\n      \"target\": \"q-auct\"\n    },\n    {\n      \"id\": \"e6\",\n      \"source\": \"q-auct\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e7\",\n      \"source\": \"tracker\",\n      \"target\": \"db\"\n    },\n    {\n      \"id\": \"e8\",\n      \"source\": \"tracker\",\n      \"target\": \"streamer\"\n    },\n    {\n      \"id\": \"e9\",\n      \"source\": \"streamer\",\n      \"target\": \"bidder\"\n    },\n    {\n      \"id\": \"e10\",\n      \"source\": \"session\",\n      \"target\": \"q-pay\"\n    },\n    {\n      \"id\": \"e11\",\n      \"source\": \"q-pay\",\n      \"target\": \"payment\"\n    }\n  ]\n}\n"
+    "HttpStatus.java": "{\n  \"nodes\": [\n    {\n      \"id\": \"bidder\",\n      \"type\": \"bidder\",\n      \"x\": 0,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auctioneer\",\n      \"type\": \"auctioneer\",\n      \"x\": 0,\n      \"y\": 220\n    },\n    {\n      \"id\": \"capture\",\n      \"type\": \"bid-capture\",\n      \"x\": 200,\n      \"y\": 0\n    },\n    {\n      \"id\": \"auct-capture\",\n      \"type\": \"auctioneer-capture\",\n      \"x\": 200,\n      \"y\": 220\n    },\n    {\n      \"id\": \"q-bids\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 0\n    },\n    {\n      \"id\": \"q-auct\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 220\n    },\n    {\n      \"id\": \"tracker\",\n      \"type\": \"bid-tracker\",\n      \"x\": 600,\n      \"y\": 110\n    },\n    {\n      \"id\": \"db\",\n      \"type\": \"database\",\n      \"x\": 800,\n      \"y\": 110\n    },\n    {\n      \"id\": \"streamer\",\n      \"type\": \"bid-streamer\",\n      \"x\": 600,\n      \"y\": -110\n    },\n    {\n      \"id\": \"session\",\n      \"type\": \"auction-session\",\n      \"x\": 200,\n      \"y\": 330\n    },\n    {\n      \"id\": \"q-pay\",\n      \"type\": \"queue\",\n      \"x\": 400,\n      \"y\": 330\n    },\n    {\n      \"id\": \"payment\",\n      \"type\": \"payment\",\n      \"x\": 600,\n      \"y\": 330\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"e1\",\n      \"source\": \"bidder\",\n      \"target\": \"capture\"\n    },\n    {\n      \"id\": \"e2\",\n      \"source\": \"capture\",\n      \"target\": \"q-bids\"\n    },\n    {\n      \"id\": \"e3\",\n      \"source\": \"q-bids\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e4\",\n      \"source\": \"auctioneer\",\n      \"target\": \"auct-capture\"\n    },\n    {\n      \"id\": \"e5\",\n      \"source\": \"auct-capture\",\n      \"target\": \"q-auct\"\n    },\n    {\n      \"id\": \"e6\",\n      \"source\": \"q-auct\",\n      \"target\": \"tracker\"\n    },\n    {\n      \"id\": \"e7\",\n      \"source\": \"tracker\",\n      \"target\": \"db\"\n    },\n    {\n      \"id\": \"e8\",\n      \"source\": \"tracker\",\n      \"target\": \"streamer\"\n    },\n    {\n      \"id\": \"e9\",\n      \"source\": \"streamer\",\n      \"target\": \"bidder\"\n    },\n    {\n      \"id\": \"e10\",\n      \"source\": \"session\",\n      \"target\": \"q-pay\"\n    },\n    {\n      \"id\": \"e11\",\n      \"source\": \"q-pay\",\n      \"target\": \"payment\"\n    }\n  ]\n}\n"
    }
   }
  },
@@ -467,7 +417,7 @@
   "path": "/api/exercises/arch-sandbox-ggg-bid-flow/run",
   "json": {
    "files": {
-    "diagram.json": "{"
+    "HttpStatus.java": "{"
    }
   },
   "select": "status"
@@ -485,12 +435,12 @@
  {
   "name": "chapter-after",
   "method": "GET",
-  "path": "/api/chapters/go-ch02"
+  "path": "/api/chapters/java-ch01"
  },
  {
   "name": "lesson-after",
   "method": "GET",
-  "path": "/api/lessons/go-ch02-l03"
+  "path": "/api/lessons/java-ch01-l02"
  },
  {
   "name": "progress-after",

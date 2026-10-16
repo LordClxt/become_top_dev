@@ -1,6 +1,0 @@
-id: go-ch02-map-buckets
-concept: go-map-comma-ok
-format: interactive
-justification: "Écrire, lire une clé absente, supprimer et relancer range soi-même rend visibles la valeur zéro, comma ok, la panic de la map nil et l'ordre aléatoire."
-entry: MapBuckets.tsx
-status: built

@@ -4,14 +4,14 @@ pitch: 'Tinybase gagne des transactions : read committed sans lecture ni écritu
   détection des mises à jour perdues et verrous explicites contre le write skew.'
 running_project: tinybase
 kind: code
-language: go
+language: typescript
 difficulty: 5
 xp: 280
 timeout_s: 60
 entrypoint: starter/
-test_command: go test ./...
+test_command: "tstest"
 files_editable:
-- mvcc.go
+- mvcc.ts
 concepts:
 - ddia-atomicity
 - ddia-read-committed
@@ -19,4 +19,4 @@ concepts:
 - ddia-visibility-rules
 - ddia-lost-update
 - ddia-write-skew
-verified: { at: 2026-10-11, solution: pass, starter: fail }
+verified: { at: 2026-10-16, solution: pass, starter: fail }

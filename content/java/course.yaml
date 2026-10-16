@@ -1,0 +1,54 @@
+id: java
+title: "Java efficace"
+book:
+  title: "Effective Java, 3rd Edition"
+  authors: ["Joshua Bloch"]
+  slug: effective-java
+summary: "Les 90 règles de Bloch, reproduites puis corrigées en Java 21 : créer des objets, respecter les contrats d'Object, concevoir des API, généricité, streams, exceptions et concurrence."
+order: 4
+kind: practical
+language: java
+runtime: "jdk21"   # le livre s'arrête à Java 9 : records, sealed, pattern matching, virtual threads… sont signalés en `extra`.
+pilot: "01-creating-destroying"
+running_project:
+  id: ordo
+  title: "Ordo — un moteur de carnet d'ordres"
+  pitch: "Montants immuables, ordres construits par builder, événements génériques, rapports en streams, moteur de matching thread-safe : chaque module ajoute une pièce à une bibliothèque qu'on pourrait publier."
+
+tracks:
+  - id: java-foundations
+    title: "Les objets"
+    chapters:
+      - "00-modern-java"              # extra : Java 9 → 21
+      - "01-creating-destroying"      # ch2, items 1-9 — pilote
+      - "02-object-contracts"         # ch3, items 10-14
+      - "03-encapsulation-immutability"  # ch4, items 15-17
+      - "04-inheritance-interfaces"   # ch4, items 18-25
+      - "05-generics"                 # ch5, items 26-33
+      - "06-enums-annotations"        # ch6, items 34-41
+  - id: java-api
+    title: "Java fonctionnel et conception d'API"
+    chapters:
+      - "07-lambdas-streams"          # ch7, items 42-48
+      - "08-method-design"            # ch8, items 49-56
+      - "09-general-programming"      # ch9, items 57-68
+      - "10-exceptions"               # ch10, items 69-77
+  - id: java-concurrency
+    title: "Concurrence et sérialisation"
+    chapters:
+      - "11-concurrency"              # ch11, items 78-84
+      - "12-serialization"            # ch12, items 85-90
+
+planned_titles:
+  "00-modern-java": "Java moderne en accéléré"
+  "02-object-contracts": "Les contrats d'Object"
+  "03-encapsulation-immutability": "Encapsulation et immutabilité"
+  "04-inheritance-interfaces": "Héritage, composition et interfaces"
+  "05-generics": "Génériques"
+  "06-enums-annotations": "Enums et annotations"
+  "07-lambdas-streams": "Lambdas et streams"
+  "08-method-design": "Concevoir ses méthodes"
+  "09-general-programming": "Programmation générale"
+  "10-exceptions": "Exceptions"
+  "11-concurrency": "Concurrence"
+  "12-serialization": "Sérialisation"

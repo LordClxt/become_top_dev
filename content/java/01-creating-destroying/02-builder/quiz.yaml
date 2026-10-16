@@ -1,0 +1,110 @@
+id: java-ch01-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Avec le patron JavaBeans, quel problème le compilateur ne peut-il PAS détecter ?"
+    choices:
+      - "Un setter appelé avec le mauvais type"
+      - "Un objet utilisé avant que tous ses setters obligatoires aient été appelés"
+      - "Un setter qui n'existe pas"
+      - "Un constructeur sans paramètre manquant"
+    answer: 1
+    explanation: "La construction est répartie sur plusieurs appels : l'objet existe, à moitié rempli, et rien n'oblige à appeler les setters obligatoires avant de s'en servir."
+    concept: java-javabeans-inconsistent
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "`new Rect(10, 20, 3, 4)` : l'auteur voulait (x, y, largeur, hauteur) mais la signature est (largeur, hauteur, x, y). Que se passe-t-il ?"
+    choices:
+      - "Erreur de compilation"
+      - "IllegalArgumentException à l'exécution"
+      - "Ça compile et ça s'exécute, mais le rectangle est faux"
+      - "Le JIT détecte l'inversion"
+    answer: 2
+    explanation: "Des paramètres consécutifs de même type peuvent être inversés sans que le compilateur le voie. C'est le principal danger des longues listes de paramètres et des constructeurs télescopiques."
+    concept: java-telescoping-ctor
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static final class Pizza {
+              final List<String> toppings;
+              Pizza(Builder b) { toppings = b.toppings; }
+              static final class Builder {
+                  final List<String> toppings = new ArrayList<>();
+                  Builder add(String t) { toppings.add(t); return this; }
+                  Pizza build() { return new Pizza(this); }
+              }
+          }
+
+          public static void main(String[] args) {
+              Pizza.Builder b = new Pizza.Builder().add("tomate");
+              Pizza margherita = b.build();
+              b.add("chorizo");
+              System.out.println(margherita.toppings);
+          }
+      }
+    answer: "[tomate, chorizo]"
+    explanation: "Pizza partage la liste de son builder. Continuer à utiliser le builder modifie une pizza déjà construite : il faut copier la liste dans le constructeur (List.copyOf)."
+    concept: java-builder
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Où vérifier qu'une alerte de sévérité PAGE a une durée strictement positive ?"
+    choices:
+      - "Dans le constructeur du builder"
+      - "Dans la méthode severity() du builder"
+      - "Dans build() (ou le constructeur privé), sur les valeurs copiées"
+      - "Dans un setter de l'alerte"
+    answer: 2
+    explanation: "L'invariant porte sur deux paramètres qui peuvent arriver dans n'importe quel ordre : on ne peut le vérifier qu'une fois tous connus, et on le vérifie sur les champs de l'objet final."
+    concept: java-builder-validation
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Dans `abstract static class Builder<T extends Builder<T>>`, à quoi sert la méthode abstraite `self()` ?"
+    choices:
+      - "À cloner le builder"
+      - "À renvoyer le builder concret, pour que les méthodes héritées puissent être chaînées avec celles de la sous-classe sans cast"
+      - "À empêcher l'héritage du builder"
+      - "À appeler build() automatiquement"
+    answer: 1
+    explanation: "Java n'a pas de type « soi-même ». Chaque sous-classe implémente self() en renvoyant this, avec le type T : tag(...) renvoie alors Email.Builder, pas Message.Builder."
+    concept: java-builder-hierarchy
+    difficulty: 3
+  - id: q6
+    type: multiple
+    prompt: "Quels sont des inconvénients réels du Builder ?"
+    choices:
+      - "Il faut créer un objet supplémentaire"
+      - "Il est plus verbeux que des constructeurs pour 2 ou 3 paramètres"
+      - "L'objet construit ne peut pas être immuable"
+      - "On ne peut pas valider les paramètres"
+    answer: [0, 1]
+    explanation: "Le coût du builder et sa verbosité sont les deux vrais inconvénients. Au contraire, il permet l'immutabilité et une validation au plus tôt."
+    concept: java-builder
+    difficulty: 1
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static class Animal { Animal copy() { return new Animal(); } }
+          static class Chat extends Animal {
+              @Override Chat copy() { return new Chat(); }
+              String miauler() { return "miaou"; }
+          }
+
+          public static void main(String[] args) {
+              Chat c = new Chat().copy();
+              System.out.println(c.miauler());
+              Animal a = new Chat();
+              System.out.println(a.copy().getClass().getSimpleName());
+          }
+      }
+    answer: "miaou\nChat"
+    explanation: "Chat.copy() redéfinit Animal.copy() avec un type de retour plus précis (covariant) : pas de cast pour obtenir un Chat. L'appel via une référence Animal exécute quand même la version de Chat."
+    concept: java-builder-hierarchy
+    difficulty: 2

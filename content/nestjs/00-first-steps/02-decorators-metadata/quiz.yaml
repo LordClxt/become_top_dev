@@ -1,0 +1,72 @@
+id: nest-ch00-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Avec emitDecoratorMetadata, qu'affiche ce programme ?"
+    code: |
+      import 'reflect-metadata';
+      const Mark = (): ClassDecorator => () => {};
+
+      class Clock {}
+      interface Mailer { send(to: string): void }
+
+      @Mark()
+      class Service {
+        constructor(clock: Clock, mailer: Mailer, retries: number) {}
+      }
+      const types: Function[] = Reflect.getMetadata('design:paramtypes', Service);
+      console.log(types.map((t) => t.name).join(','));
+    answer: "Clock,Object,Number"
+    explanation: "tsc remplace chaque type par la valeur qui existe à l'exécution : la classe Clock, le constructeur Number pour number, et Object pour l'interface, qui n'existe pas à l'exécution. Nest chercherait donc un provider Object pour mailer."
+    concept: nest-design-paramtypes
+    difficulty: 3
+  - id: q2
+    type: code-output
+    prompt: "La même classe, mais sans aucun décorateur. Qu'affiche ce programme ?"
+    code: |
+      import 'reflect-metadata';
+      class Clock {}
+      class Service {
+        constructor(clock: Clock) {}
+      }
+      console.log(Reflect.getMetadata('design:paramtypes', Service));
+    answer: "undefined"
+    explanation: "tsc n'émet design:paramtypes que pour les classes décorées. C'est le vrai rôle de @Injectable() : sans lui, le conteneur ne sait pas quoi passer au constructeur."
+    concept: nest-decorator-metadata
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Un collègue accepte la correction automatique de son linter : `import { BooksService }` devient `import type { BooksService }` dans le contrôleur. Que se passe-t-il ?"
+    choices:
+      - "Rien, le code compile et tourne pareil"
+      - "Le démarrage échoue : design:paramtypes contient Object au lieu de BooksService, Nest ne trouve pas de provider"
+      - "tsc refuse de compiler"
+      - "Nest injecte un BooksService vide"
+    answer: 1
+    explanation: "Un import type disparaît à la compilation : tsc ne peut plus référencer la classe et émet Object. La classe sert de jeton d'injection, elle doit être importée comme valeur."
+    concept: nest-injection-token
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi les labs de ce cours compilent-ils avec tsc au lieu d'exécuter `node fichier.ts` ?"
+    choices:
+      - "Parce que tsc est plus rapide"
+      - "Parce que la suppression de types de Node n'émet pas les métadonnées de décorateurs (et refuse leur syntaxe)"
+      - "Parce que Nest ne fonctionne pas en ESM"
+      - "Par habitude"
+    answer: 1
+    explanation: "Node retire les types sans rien générer. Nest a besoin de design:paramtypes, que seul un compilateur (tsc, SWC) produit."
+    concept: nest-design-paramtypes
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Que fait réellement `@Controller('books')` au moment où la classe est définie ?"
+    choices:
+      - "Il démarre une route Express"
+      - "Il enveloppe chaque méthode dans un middleware"
+      - "Il attache des métadonnées (le préfixe 'books') à la classe ; Nest les relit au démarrage"
+      - "Il enregistre la classe dans un registre global que Nest scanne"
+    answer: 2
+    explanation: "Un décorateur Nest pose des étiquettes. Ce sont les modules qui disent à Nest quelles classes lire : sans déclaration, les étiquettes ne sont jamais lues."
+    concept: nest-decorator-metadata
+    difficulty: 2

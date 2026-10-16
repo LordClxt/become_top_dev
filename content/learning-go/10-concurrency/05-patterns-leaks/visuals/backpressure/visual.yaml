@@ -1,7 +1,0 @@
-id: go-ch10-backpressure
-concept: go-backpressure
-format: remotion
-justification: "Un channel tamponné utilisé comme jeton de capacité refuse la requête en trop au lieu de la mettre en file : on le voit en regardant les jetons se prendre et se rendre."
-entry: Backpressure.tsx
-duration_s: 14
-status: built

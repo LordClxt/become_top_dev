@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'un type, selon le modèle des ensembles ?"
+    back: "L'ensemble des valeurs que la variable peut contenir. Les littéraux sont des singletons, string est infini."
+    concept: ts-type-as-set
+  - id: fc2
+    front: "never et unknown en termes d'ensembles ?"
+    back: "never = ensemble vide (assignable à tout). unknown = toutes les valeurs (tout y est assignable)."
+    concept: ts-never-unknown
+  - id: fc3
+    front: "« A est assignable à B » veut dire quoi ?"
+    back: "L'ensemble de A est inclus dans celui de B (A ⊆ B) : A est un sous-type de B."
+    concept: ts-assignable-subset
+  - id: fc4
+    front: "Union et intersection de types objets : lequel ajoute des propriétés ?"
+    back: "L'intersection (&) : une valeur doit respecter les deux formes, donc elle a les propriétés des deux. L'union n'en garantit que les communes."
+    concept: ts-union-intersection-sets
+  - id: fc5
+    front: "keyof (A | B) et keyof (A & B) ?"
+    back: "keyof (A | B) = keyof A & keyof B (clés communes). keyof (A & B) = keyof A | keyof B (toutes les clés)."
+    concept: ts-union-intersection-sets
+  - id: fc6
+    front: "Pourquoi number[] n'est-il pas assignable à [number, number] ?"
+    back: "number[] contient des listes de toute longueur ; ce n'est pas un sous-ensemble des paires."
+    concept: ts-assignable-subset
+  - id: fc7
+    front: "Que faire quand une erreur de type te semble incompréhensible ?"
+    back: "Survoler dans l'éditeur : il montre les types déduits et affinés à cet endroit (tsserver)."
+    concept: ts-editor-explore

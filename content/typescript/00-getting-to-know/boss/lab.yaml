@@ -1,0 +1,13 @@
+id: ts-ch00-boss
+title: "Boss : le garde-frontière d'un formulaire"
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["signup.ts"]
+concepts: [ts-runtime-vs-declared, ts-tagged-union, ts-strict-null-checks, ts-any-no-safety, ts-structural-typing]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

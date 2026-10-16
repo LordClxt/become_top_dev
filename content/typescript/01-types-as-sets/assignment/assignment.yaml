@@ -1,0 +1,12 @@
+id: ts-ch01-assignment
+title: "Une configuration à source unique"
+kind: code
+language: typescript
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["config.ts"]
+concepts: [ts-type-as-set, ts-typeof-two-meanings, ts-excess-property-check, ts-weak-type]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

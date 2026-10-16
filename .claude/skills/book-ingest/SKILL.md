@@ -12,7 +12,7 @@ The PDF is never read directly page by page: extract it to text once, then read 
    ```bash
    python3 .claude/skills/book-ingest/scripts/extract_book.py "books/<file>.pdf" --slug <slug>
    ```
-   Existing slugs: `learning-go`, `software-architecture`. Output: `.cache/books/<slug>/`.
+   Existing slugs: `software-architecture`, `ddia`, `effective-java`, `groovy-in-action`, `programming-grails`, `effective-typescript`. Output: `.cache/books/<slug>/`.
 2. Open `toc.md`: check that the chapter ↔ page split is consistent (front matter, preface, index to ignore).
    If the PDF outline is missing or wrong, split from `full.txt` by locating the "Chapter N" headings.
 3. Read **all** chapters in full (`chNN-*.txt` files), in order. Never plan from the table of contents alone.

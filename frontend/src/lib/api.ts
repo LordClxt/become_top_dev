@@ -13,6 +13,9 @@ const transport = createIsomorphicFn()
   }))
   .client(() => ({ base: '', cookie: undefined as string | undefined }))
 
+/** Référence à la source : chapitre et pages d'un livre, ou page de documentation (url). */
+export type Source = { chapter: number; pages: string; url?: string }
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -107,7 +110,7 @@ export type Chapter = {
   course: { id: string; title: string }
   title: string
   subtitle: string
-  source: { chapter: number; pages: string }
+  source: Source
   objectives: string[]
   mastery_threshold: number
   lessons: {
@@ -137,7 +140,7 @@ export type Lesson = {
   id: string
   title: string
   chapter: { id: string; title: string; course_id: string }
-  source: { chapter: number; pages: string }
+  source: Source
   duration_min: number
   xp: number
   extra: boolean
@@ -223,7 +226,7 @@ export type SandboxExercise = {
   difficulty: number
   xp: number
   course: { id: string; title: string }
-  source: { chapter: number; pages: string } | null
+  source: Source | null
   passed: boolean
   attempts: number
 }
@@ -242,7 +245,7 @@ export type Exercise = {
   instructions: string
   milestones: { id: string; title: string; goal: string }[]
   rubric: { id: string; label: string; weight: number; source: string }[]
-  source: { chapter: number; pages: string } | null
+  source: Source | null
   palette: PaletteItem[]
   checks: { id: string; label: string }[]
   worksheet: Worksheet | null
@@ -362,7 +365,7 @@ export const api = {
     post<Record<string, TunerPreview>>(`/exercises/${id}/preview`, { files }),
   diagramCatalog: () => request<DiagramCatalog>('/diagram/catalog'),
 
-  quiz: (id: string) => request<{ id: string; lesson_id: string; questions: QuizQuestion[] }>(`/quizzes/${id}`),
+  quiz: (id: string) => request<{ id: string; lesson_id: string; language: string; questions: QuizQuestion[] }>(`/quizzes/${id}`),
   answer: (quizId: string, questionId: string, answer: unknown) =>
     post<AnswerResult>(`/quizzes/${quizId}/questions/${questionId}`, { answer }),
 

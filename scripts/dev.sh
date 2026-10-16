@@ -5,6 +5,9 @@ cd "$(dirname "$0")/.."
 
 docker build -q -t btd-runner-go sandbox/images/go >/dev/null
 docker build -q -t btd-runner-groovy sandbox/images/groovy >/dev/null
+docker build -q -t btd-runner-java sandbox/images/java >/dev/null
+docker build -q -t btd-runner-typescript sandbox/images/typescript >/dev/null
+docker build -q -t btd-runner-nestjs sandbox/images/nestjs >/dev/null
 if ! docker ps --format '{{.Names}}' | grep -q '^btd-db$'; then
   docker start btd-db >/dev/null 2>&1 || docker run -d --name btd-db \
     -e POSTGRES_USER=btd -e POSTGRES_PASSWORD=btd -e POSTGRES_DB=btd -p 5433:5432 postgres:17-alpine >/dev/null

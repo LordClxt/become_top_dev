@@ -1,6 +1,0 @@
-id: go-ch01-int-overflow
-concept: go-int-overflow
-format: interactive
-justification: "Choisir soi-même le type, la valeur et l'opération, puis voir les bits faire le tour, est la seule façon de sentir pourquoi 127 + 1 vaut -128."
-entry: IntOverflow.tsx
-status: built

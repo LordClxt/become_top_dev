@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: single-source
+    label: "Une seule source de vérité pour les types"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Tous les types sont dérivés de DEFAULTS (typeof, keyof, Partial, Exclude) ; rien n'est recopié"
+      2: "Quelques types écrits à la main mais cohérents avec la constante"
+      0: "Types dupliqués qui peuvent diverger de DEFAULTS"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Petites fonctions (parsePort, parseBool), priorités lisibles, aucune duplication"
+      2: "Lisible mais duplications entre les champs"
+      0: "Difficile à suivre"

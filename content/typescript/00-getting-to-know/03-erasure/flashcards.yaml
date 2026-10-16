@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Les deux activités indépendantes de tsc ?"
+    back: "Transformer le code en JavaScript exécutable, et vérifier les types. Les types ne peuvent donc pas modifier le JavaScript produit."
+    concept: ts-type-erasure
+  - id: fc2
+    front: "Pourquoi `x instanceof MonInterface` ne compile-t-il pas ?"
+    back: "Une interface (ou un alias de type) n'existe qu'au niveau des types et est effacée : il n'y a pas de valeur à l'exécution à tester."
+    concept: ts-type-erasure
+  - id: fc3
+    front: "Trois façons de reconnaître une variante à l'exécution ?"
+    back: "Tester une propriété (`'height' in shape`), utiliser une balise littérale (union taguée), ou utiliser des classes avec instanceof."
+    concept: ts-tagged-union
+  - id: fc4
+    front: "Qu'est-ce qu'une union taguée ?"
+    back: "Une union de types objets qui partagent une propriété littérale (`kind`) : elle existe à l'exécution et permet d'affiner le type dans un switch."
+    concept: ts-tagged-union
+  - id: fc5
+    front: "Quelles constructions créent à la fois un type et une valeur ?"
+    back: "class (et enum). interface et type ne créent qu'un type."
+    concept: ts-type-erasure
+  - id: fc6
+    front: "Un programme avec des erreurs de types produit-il du JavaScript ?"
+    back: "Oui, sauf si noEmitOnError est activée. Les erreurs de types sont comme des avertissements : il faut viser zéro avant de committer."
+    concept: ts-emit-with-errors
+  - id: fc7
+    front: "Que fait `val as number` à l'exécution ?"
+    back: "Rien. Une assertion est effacée et ne convertit pas. Pour convertir : `Number(val)`."
+    concept: ts-assertion-no-conversion
+  - id: fc8
+    front: "Pourquoi `await response.json()` ne garantit-il pas le type annoncé ?"
+    back: "L'annotation est effacée : rien ne contrôle la forme des données reçues. Les données externes se valident à l'exécution."
+    concept: ts-runtime-vs-declared
+  - id: fc9
+    front: "Comment fonctionne la surcharge de fonction en TypeScript ?"
+    back: "Plusieurs signatures (types seulement), une seule implémentation. Seule l'implémentation reste dans le JavaScript."
+    concept: ts-overload-type-level
+  - id: fc10
+    front: "Quel est le coût des types à l'exécution ?"
+    back: "Nul : ils sont effacés. Le coût est à la compilation."
+    concept: ts-zero-cost
