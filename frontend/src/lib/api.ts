@@ -336,7 +336,7 @@ export type Member = User & { created_at: string; xp: number }
 export const api = {
   me: () => request<Me>('/auth/me'),
   login: (email: string, password: string) => post<Me>('/auth/login', { email, password }),
-  signup: (body: { code: string; email: string; display_name: string; password: string }) =>
+  signup: (body: { email: string; display_name: string; password: string }) =>
     post<Me>('/auth/signup', body),
   logout: () => post('/auth/logout'),
   changePassword: (current: string, next: string) =>

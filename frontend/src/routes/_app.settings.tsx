@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import { InvitesPanel } from '@/features/admin/InvitesPanel'
+import { MembersPanel } from '@/features/admin/InvitesPanel'
 import { AccountPanel } from '@/features/auth/AccountPanel'
 import { meQuery } from '@/features/auth/queries'
 import { type Settings, updateSettings, useSettings } from '@/lib/settings'
@@ -43,12 +43,12 @@ function SettingsPage() {
       </section>
 
       {me?.user?.is_admin && (
-        <section className="mt-12" aria-labelledby="invites-title">
-          <h2 id="invites-title" className="font-read text-2xl font-semibold">
-            Invitations
+        <section className="mt-12" aria-labelledby="members-title">
+          <h2 id="members-title" className="font-read text-2xl font-semibold">
+            Membres
           </h2>
           <div className="mt-4">
-            <InvitesPanel />
+            <MembersPanel />
           </div>
         </section>
       )}

@@ -8,12 +8,7 @@ import { api, ApiError } from '@/lib/api'
 // Même règle que le backend (service.MinPasswordLen).
 const MIN_PASSWORD = 10
 
-type SignupSearch = { code?: string }
-
 export const Route = createFileRoute('/signup')({
-  validateSearch: (search: Record<string, unknown>): SignupSearch => ({
-    code: typeof search.code === 'string' ? search.code : undefined,
-  }),
   beforeLoad: async ({ context }) => {
     const me = await context.queryClient.ensureQueryData(meQuery)
     if (me.authenticated) throw redirect({ to: '/learn' })
@@ -23,8 +18,6 @@ export const Route = createFileRoute('/signup')({
 })
 
 function Signup() {
-  const search = Route.useSearch()
-  const [code, setCode] = useState(search.code ?? '')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,7 +25,7 @@ function Signup() {
   const qc = useQueryClient()
 
   const signup = useMutation({
-    mutationFn: () => api.signup({ code, email, display_name: name, password }),
+    mutationFn: () => api.signup({ email, display_name: name, password }),
     onSuccess: async (me) => {
       qc.clear()
       qc.setQueryData(meQuery.queryKey, me)
@@ -53,12 +46,12 @@ function Signup() {
     if (signup.isError) signup.reset()
   }
   const tooShort = password.length > 0 && password.length < MIN_PASSWORD
-  const ready = code.trim() && name.trim() && email.trim() && password.length >= MIN_PASSWORD
+  const ready = name.trim() && email.trim() && password.length >= MIN_PASSWORD
 
   return (
     <AuthForm
       title="Rejoindre l'entraînement"
-      intro="L'inscription se fait sur invitation. Entre le code reçu, puis choisis tes identifiants."
+      intro="Choisis tes identifiants pour démarrer l'entraînement."
       error={error}
       submitLabel={signup.isPending ? 'Création…' : 'Créer mon compte'}
       canSubmit={!!ready && !signup.isPending}
@@ -73,18 +66,9 @@ function Signup() {
       }
     >
       <Field
-        label="Code d'invitation"
-        autoComplete="off"
-        autoFocus={!search.code}
-        spellCheck={false}
-        value={code}
-        onValue={edit(setCode)}
-        className="h-12 w-full rounded-md border border-line bg-surface px-3 font-code text-base tracking-widest uppercase outline-none transition-colors focus:border-accent aria-invalid:border-fail"
-      />
-      <Field
         label="Nom affiché"
         autoComplete="nickname"
-        autoFocus={!!search.code}
+        autoFocus
         maxLength={40}
         value={name}
         onValue={edit(setName)}

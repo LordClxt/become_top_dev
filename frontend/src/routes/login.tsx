@@ -63,7 +63,7 @@ function Login() {
       onSubmit={() => login.mutate()}
       footer={
         <>
-          Tu as reçu une invitation ?{' '}
+          Pas encore de compte ?{' '}
           <Link to="/signup" className="text-text underline underline-offset-4 hover:text-accent">
             Créer un compte
           </Link>

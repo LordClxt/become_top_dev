@@ -33,7 +33,7 @@ Invite-only, several users (the owner is the admin). Goal: become a top 1 % deve
 - PostgreSQL = accounts + user state only (XP, attempts, progress, coach), referenced by the content `id`s.
 - Code execution: a separate `runner/` service, the only one that talks to Docker; one throwaway container per run (`--network none`, CPU/mem/pids/time limits). The backend never touches the Docker socket.
 - Editor: CodeMirror 6. Remotion: `@remotion/player` client-side only (no SSR); server-side mp4 rendering deferred to v3.
-- Auth: email + password accounts (argon2id), sessions stored in DB (cookie = random token, DB keeps its SHA-256), sign-up only with a single-use invite code created by the admin. All user state is keyed by `user_id`; repositories are user-scoped (`Repos.Progress(uid)`). Runner runs are limited per user, login/sign-up per IP.
+- Auth: email + password accounts (argon2id), sessions stored in DB (cookie = random token, DB keeps its SHA-256). All user state is keyed by `user_id`; repositories are user-scoped (`Repos.Progress(uid)`). Runner runs are limited per user, login/sign-up per IP.
 - AI coach (v2): Claude API from the backend, streamed responses.
 
 ## Target tree

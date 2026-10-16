@@ -170,7 +170,7 @@ func (s *Server) signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	token, user, err := s.svc.Signup(r.Context(), service.SignupInput{
-		Code: body.Code, Email: body.Email, DisplayName: body.DisplayName, Password: body.Password,
+		Email: body.Email, DisplayName: body.DisplayName, Password: body.Password,
 	})
 	if err != nil {
 		fail(w, err)

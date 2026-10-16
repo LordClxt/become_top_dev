@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"testing"
 	"time"
@@ -32,12 +31,12 @@ func invite(t *testing.T, admin *http.Client, base string) string {
 	return decode[struct{ Code string }](t, resp).Code
 }
 
-// signup inscrit un nouveau compte avec un code d'invitation et renvoie son client connecté.
-func signup(t *testing.T, base, code, email string) *http.Client {
+// signup inscrit un nouveau compte et renvoie son client connecté.
+func signup(t *testing.T, base, email string) *http.Client {
 	t.Helper()
 	client := newClient(t)
 	resp := do(t, client, http.MethodPost, base+"/api/auth/signup", jsonBody(map[string]string{
-		"code": code, "email": email, "display_name": "Ada", "password": "un-long-mot-de-passe",
+		"email": email, "display_name": "Ada", "password": "un-long-mot-de-passe",
 	}))
 	if resp.StatusCode != http.StatusOK {
 		t.Fatalf("inscription de %s : statut %d", email, resp.StatusCode)
@@ -45,25 +44,20 @@ func signup(t *testing.T, base, code, email string) *http.Client {
 	return client
 }
 
-func TestSignupNeedsAValidSingleUseInvite(t *testing.T) {
+func TestSignup(t *testing.T) {
 	srv, _ := newTestServer(t)
-	admin := newClient(t)
-	login(t, admin, srv.URL)
-	code := invite(t, admin, srv.URL)
 
-	body := func(code, email string) []byte {
-		return jsonBody(map[string]string{"code": code, "email": email, "display_name": "Ada", "password": "un-long-mot-de-passe"})
+	body := func(email, password string) []byte {
+		return jsonBody(map[string]string{"email": email, "display_name": "Ada", "password": password})
 	}
 	anon := newClient(t)
-	if resp := do(t, anon, http.MethodPost, srv.URL+"/api/auth/signup", body("FAUXCODE", "ada@example.com")); resp.StatusCode != http.StatusBadRequest {
-		t.Errorf("code inconnu : statut %d", resp.StatusCode)
+	if resp := do(t, anon, http.MethodPost, srv.URL+"/api/auth/signup", body("ada@example.com", "court")); resp.StatusCode != http.StatusBadRequest {
+		t.Errorf("mot de passe trop court : statut %d", resp.StatusCode)
 	}
-	if resp := do(t, anon, http.MethodPost, srv.URL+"/api/auth/signup", body(code, "ADMIN@test.local")); resp.StatusCode != http.StatusConflict {
+	if resp := do(t, anon, http.MethodPost, srv.URL+"/api/auth/signup", body("ADMIN@test.local", "un-long-mot-de-passe")); resp.StatusCode != http.StatusConflict {
 		t.Errorf("email déjà pris (casse différente) : statut %d", resp.StatusCode)
 	}
-	// L'échec précédent n'a pas consommé le code ; le format recopié (tirets, minuscules) est accepté.
-	pretty := fmt.Sprintf("%s-%s-%s", code[:4], code[4:8], code[8:])
-	resp := do(t, anon, http.MethodPost, srv.URL+"/api/auth/signup", body(pretty, " Ada@Example.com "))
+	resp := do(t, anon, http.MethodPost, srv.URL+"/api/auth/signup", body(" Ada@Example.com ", "un-long-mot-de-passe"))
 	if resp.StatusCode != http.StatusOK {
 		t.Fatalf("inscription valide : statut %d", resp.StatusCode)
 	}
@@ -71,13 +65,8 @@ func TestSignupNeedsAValidSingleUseInvite(t *testing.T) {
 	if !me.Authenticated || me.User.Email != "ada@example.com" || me.User.IsAdmin {
 		t.Errorf("après inscription : %+v %+v", me, me.User)
 	}
-	if resp := do(t, newClient(t), http.MethodPost, srv.URL+"/api/auth/signup", body(code, "bob@example.com")); resp.StatusCode != http.StatusBadRequest {
-		t.Errorf("code déjà utilisé : statut %d", resp.StatusCode)
-	}
-
-	invites := decode[[]struct{ Code, Status string }](t, do(t, admin, http.MethodGet, srv.URL+"/api/admin/invites", nil))
-	if len(invites) != 1 || invites[0].Status != "used" {
-		t.Errorf("invitations : %+v", invites)
+	if resp := do(t, newClient(t), http.MethodPost, srv.URL+"/api/auth/signup", body("ada@example.com", "un-long-mot-de-passe")); resp.StatusCode != http.StatusConflict {
+		t.Errorf("email déjà pris : statut %d", resp.StatusCode)
 	}
 }
 
@@ -85,7 +74,7 @@ func TestProgressIsPerUser(t *testing.T) {
 	srv, runner := newTestServer(t)
 	admin := newClient(t)
 	login(t, admin, srv.URL)
-	ada := signup(t, srv.URL, invite(t, admin, srv.URL), "ada@example.com")
+	ada := signup(t, srv.URL, "ada@example.com")
 
 	do(t, admin, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l01/complete", nil)
 	do(t, admin, http.MethodPut, srv.URL+"/api/exercises/java-ch01-l01-lab-http-status/draft",
@@ -124,7 +113,7 @@ func TestAdminRoutesNeedAdmin(t *testing.T) {
 	srv, _ := newTestServer(t)
 	admin := newClient(t)
 	login(t, admin, srv.URL)
-	ada := signup(t, srv.URL, invite(t, admin, srv.URL), "ada@example.com")
+	ada := signup(t, srv.URL, "ada@example.com")
 	for _, path := range []string{"/api/admin/invites", "/api/admin/members"} {
 		if resp := do(t, ada, http.MethodGet, srv.URL+path, nil); resp.StatusCode != http.StatusForbidden {
 			t.Errorf("%s par un membre : statut %d", path, resp.StatusCode)
