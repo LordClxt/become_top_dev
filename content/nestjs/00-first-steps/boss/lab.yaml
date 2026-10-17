@@ -1,0 +1,13 @@
+id: nest-ch00-boss
+title: "Boss : ton propre conteneur d'injection"
+kind: code
+language: nestjs
+difficulty: 5
+xp: 250
+timeout_s: 60
+time_limit_min: 75
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["container.ts"]
+concepts: [nest-ioc-container, nest-decorator-metadata, nest-design-paramtypes, nest-injection-token]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

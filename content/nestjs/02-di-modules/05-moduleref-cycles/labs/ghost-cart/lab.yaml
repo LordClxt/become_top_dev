@@ -1,0 +1,12 @@
+id: nest-ch02-l05-lab-ghost-cart
+title: "Débogage : le panier fantôme"
+kind: code
+language: nestjs
+difficulty: 4
+xp: 90
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["cart.ts", "stats.ts", "audit.ts", "app.module.ts"]
+concepts: [nest-scope-bubbling, nest-shared-singleton, nest-module-encapsulation]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

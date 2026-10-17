@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Le module des commandes"
+    goal: "POST /api/v1/orders (201 + Location, 400, 422) et GET /api/v1/orders/:id dans un OrdersModule qui réutilise le BooksService exporté par CatalogModule, avec des identifiants ord_<n> fournis par IdGeneratorModule.register()."
+    tests: "nesttest M1"
+    review: false
+  - id: m2
+    title: "Des prix configurés une fois"
+    goal: "PricingModule.forRoot({ vatRate: 0.055, isGlobal: true }) dans AppModule ; le total TTC est calculé par PricingService sans que OrdersModule importe PricingModule."
+    tests: "nesttest M2"
+    review: false
+  - id: m3
+    title: "La trace de la requête"
+    goal: "Chaque commande porte le x-request-id de la requête qui l'a créée (ou req_<n>), même sous des requêtes parallèles, sans que les commandes ni le générateur d'identifiants ne deviennent des providers par requête."
+    tests: "nesttest M3"
+    review: true

@@ -1,0 +1,13 @@
+id: nest-ch02-boss
+title: "Boss : la plateforme de notifications"
+kind: code
+language: nestjs
+difficulty: 5
+xp: 300
+timeout_s: 90
+time_limit_min: 90
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["notifications.ts"]
+concepts: [nest-configurable-module-builder, nest-module-extras, nest-custom-providers, nest-provider-tokens, nest-scope-bubbling, nest-shared-singleton, nest-circular-dependency]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

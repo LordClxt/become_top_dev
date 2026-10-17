@@ -1,0 +1,7 @@
+id: nest-ch02-scope-bubbling
+concept: nest-scope-bubbling
+format: hyperframes
+justification: "Voir la portée REQUEST remonter carte par carte puis les copies s'empiler à chaque requête, sauf le dépôt, fait comprendre dans quel sens se propage la contagion et ce qu'elle coûte."
+entry: scene.html
+duration_s: 12
+status: built

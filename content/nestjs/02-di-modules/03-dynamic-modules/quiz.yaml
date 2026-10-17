@@ -1,0 +1,92 @@
+id: nest-ch02-l03-quiz
+questions:
+- id: q1
+  type: code-output
+  prompt: Deux modules appellent `register()` avec des options différentes. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { type DynamicModule, Inject, Injectable, Module } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\nconst OPTS = Symbol('OPTS');\n@Injectable()\n\
+    class Ids {\n  constructor(@Inject(OPTS) private readonly o: { prefix: string }) {}\n  make() { return `${this.o.prefix}_1`; }\n}\n@Module({ providers: [Ids], exports: [Ids] })\nclass IdsModule {\n\
+    \  static register(o: { prefix: string }): DynamicModule {\n    return { module: IdsModule, providers: [{ provide: OPTS, useValue: o }] };\n  }\n}\n@Injectable() class Users { constructor(readonly ids:\
+    \ Ids) {} }\n@Injectable() class Orders { constructor(readonly ids: Ids) {} }\n@Module({ imports: [IdsModule.register({ prefix: 'usr' })], providers: [Users] }) class UsersModule {}\n@Module({ imports:\
+    \ [IdsModule.register({ prefix: 'ord' })], providers: [Orders] }) class OrdersModule {}\n\nconst ref = await Test.createTestingModule({ imports: [UsersModule, OrdersModule] }).compile();\nconst u =\
+    \ ref.get(Users, { strict: false });\nconst o = ref.get(Orders, { strict: false });\nconsole.log(u.ids.make(), o.ids.make(), u.ids === o.ids);\n"
+  answer: usr_1 ord_1 false
+  explanation: Chaque appel à register() produit un module distinct, avec son provider d'options et sa propre instance d'Ids. Les métadonnées renvoyées s'ajoutent à celles de @Module.
+  concept: nest-dynamic-module
+  difficulty: 2
+- id: q2
+  type: code-output
+  prompt: Un module construit avec `ConfigurableModuleBuilder` et un extra `isGlobal`. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { ConfigurableModuleBuilder, Inject, Injectable, Module } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\nconst { ConfigurableModuleClass,\
+    \ MODULE_OPTIONS_TOKEN } =\n  new ConfigurableModuleBuilder<{ locale: string }>()\n    .setExtras({ isGlobal: false }, (def, extras) => ({ ...def, global: extras.isGlobal }))\n    .build();\n\n@Injectable()\n\
+    class Formatter {\n  constructor(@Inject(MODULE_OPTIONS_TOKEN) readonly options: object) {}\n}\n@Module({ providers: [Formatter], exports: [Formatter] })\nclass FormatModule extends ConfigurableModuleClass\
+    \ {}\n\n@Injectable() class Invoices { constructor(readonly f: Formatter) {} }\n@Module({ providers: [Invoices] }) class InvoicesModule {}\n\nconst ref = await Test.createTestingModule({\n  imports:\
+    \ [FormatModule.register({ locale: 'fr', isGlobal: true }), InvoicesModule],\n}).compile();\nconsole.log(JSON.stringify(ref.get(Invoices, { strict: false }).f.options));\n"
+  answer: '{"locale":"fr"}'
+  explanation: 'isGlobal rend le module global, donc InvoicesModule voit Formatter sans l''importer. Mais c''est un extra : il modifie la définition du module et n''apparaît pas dans les options injectées.'
+  concept: nest-module-extras
+  difficulty: 3
+- id: q3
+  type: single
+  prompt: Un module de connexion à la base doit être configuré une fois pour toute l'application. Quel nom de méthode suit la convention ?
+  choices:
+  - register()
+  - forRoot()
+  - forFeature()
+  - create()
+  answer: 1
+  explanation: forRoot configure une fois, dans le module racine, une configuration partagée. register configure pour le module appelant ; forFeature ajuste la configuration de forRoot pour un module.
+  concept: nest-register-forroot
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Un collègue appelle `FeatureFlagsModule.forRoot(flags)` dans `CatalogModule` et dans `OrdersModule`. Conséquence ?
+  choices:
+  - Nest fusionne les deux configurations
+  - Deux instances de FeatureFlagsService, configurées séparément
+  - Une erreur au démarrage
+  - La seconde configuration écrase la première pour tout le monde
+  answer: 1
+  explanation: 'Chaque appel produit un module dynamique distinct. Pour partager : forRoot une fois (dans un module socle), puis ré-exporter la classe FeatureFlagsModule, ou isGlobal.'
+  concept: nest-register-forroot
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: 'Dans `registerAsync({ useFactory: (config: ConfigService) => ({ … }), inject: [ConfigService] })`, Nest refuse de démarrer : ConfigService introuvable. Que manque-t-il ?'
+  choices:
+  - '@Global() sur le module dynamique'
+  - 'imports: [ConfigModule] dans l''objet passé à registerAsync'
+  - useClass en plus de useFactory
+  - Rendre la fabrique async
+  answer: 1
+  explanation: 'La fabrique s''exécute dans le contexte du module dynamique : il doit importer le module qui exporte ConfigService. C''est le rôle de la propriété imports de registerAsync.'
+  concept: nest-configurable-module-builder
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Que génère `new ConfigurableModuleBuilder<Opts>().setClassMethodName('forRoot').build()` ?
+  choices:
+  - Une classe à étendre, avec forRoot() et forRootAsync()
+  - Un jeton MODULE_OPTIONS_TOKEN sous lequel les options sont injectables
+  - Le provider IdGenerator
+  - Les types OPTIONS_TYPE et ASYNC_OPTIONS_TYPE pour redéfinir les méthodes
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: 'Le builder génère la mécanique de configuration, pas tes services : tu déclares toujours tes providers dans @Module, et leurs métadonnées s''ajoutent à celles générées.'
+  concept: nest-configurable-module-builder
+  difficulty: 2
+- id: q7
+  type: code-output
+  prompt: Le même objet DynamicModule est importé par deux modules. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { type DynamicModule, Inject, Injectable, Module } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\nconst OPTS = Symbol('OPTS');\n@Injectable()\
+    \ class Ids { constructor(@Inject(OPTS) readonly o: { prefix: string }) {} }\n@Module({ providers: [Ids], exports: [Ids] })\nclass IdsModule {\n  static register(o: { prefix: string }): DynamicModule\
+    \ {\n    return { module: IdsModule, providers: [{ provide: OPTS, useValue: o }] };\n  }\n}\n@Injectable() class A { constructor(readonly ids: Ids) {} }\n@Injectable() class B { constructor(readonly\
+    \ ids: Ids) {} }\n\nconst SHARED = IdsModule.register({ prefix: 'ord' });\n@Module({ imports: [SHARED], providers: [A], exports: [A] }) class MA {}\n@Module({ imports: [SHARED], providers: [B], exports:\
+    \ [B] }) class MB {}\n@Module({ imports: [IdsModule.register({ prefix: 'ord' })], providers: [A], exports: [A] }) class MC {}\n\nconst r1 = await Test.createTestingModule({ imports: [MA, MB] }).compile();\n\
+    const r2 = await Test.createTestingModule({ imports: [MA, MC] }).compile();\nconsole.log(r1.get(A, { strict: false }).ids === r1.get(B, { strict: false }).ids,\n  r2.get(MA, { strict: false }) !== undefined);\n"
+  answer: true true
+  explanation: 'Par défaut, Nest identifie un module dynamique par l''objet renvoyé : le même objet SHARED importé deux fois donne un seul module, donc un seul Ids. Deux appels register(), même identiques,
+    donneraient deux modules.'
+  concept: nest-dynamic-module
+  difficulty: 3

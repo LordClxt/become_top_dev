@@ -1,0 +1,7 @@
+id: nest-ch02-module-visibility
+concept: nest-module-encapsulation
+format: hyperframes
+justification: "Une injection acceptée, une refusée, puis deux stocks qui divergent après une redéclaration "
+entry: scene.html
+duration_s:  l'animation montre que l'erreur de visibilité est un garde-fou et que la contourner duplique l'état.:12
+status: built

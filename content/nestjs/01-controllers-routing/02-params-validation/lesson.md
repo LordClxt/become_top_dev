@@ -25,9 +25,13 @@ extra: false
 xp: 30
 ---
 
-## Pourquoi c'est important
+> **En une phrase :** tout ce qui entre par l'URL est une chaîne, et tout ce qui entre est suspect : les pipes convertissent et valident **avant** le handler.
 
-Le contrôleur est la frontière de ton système. Tout ce qui la traverse est **hostile jusqu'à preuve du contraire** : des chaînes là où tu attends des nombres, des champs en trop, des champs manquants, des valeurs absurdes. Un `limit=1000000` mal contrôlé, et c'est ta base de données qui tombe. Valider tôt, au bord, permet au reste du code de faire confiance à ses arguments.
+## Le problème
+
+La pagination du catalogue renvoie des résultats absurdes : `?page=2` donne la page 21. Un autre jour, un script de partenaire appelle `?limit=1000000` et la base de données sature. Le code TypeScript annonçait pourtant `page: number`.
+
+Le contrôleur est la **frontière** de ton système. Tout ce qui la traverse est hostile jusqu'à preuve du contraire : des chaînes là où tu attends des nombres, des champs en trop, des valeurs démesurées. Valider au bord permet au reste du code de faire confiance à ses arguments.
 
 ## Le concept
 
@@ -102,6 +106,20 @@ Un corps invalide reçoit alors `400` avec la liste des problèmes (`"title: Too
 ### Pourquoi pas une interface ?
 
 Les DTO sont des classes ou des schémas, **jamais** des interfaces, pour la même raison qu'à l'injection : une interface n'existe pas à l'exécution, donc aucun pipe ne peut s'en servir pour valider.
+
+## Sous le capot
+
+Comment un argument arrive-t-il dans ta méthode ? Pour chaque paramètre décoré, Nest a enregistré au démarrage une petite fiche : son type (`body`, `query`, `param`…), la clé éventuelle (`'page'`), et les pipes attachés. Il lit aussi le **type TypeScript** du paramètre dans `design:paramtypes`, cette fois pour la **méthode** (`helpers/context-utils.js`), ce qui donne le `metatype` transmis aux pipes.
+
+À chaque requête, il extrait la valeur brute (`req.query.page`), puis la fait passer dans la chaîne de pipes : les pipes globaux d'abord, puis ceux de la route, puis ceux du paramètre. Chaque pipe reçoit la sortie du précédent. Si l'un lève une exception, le handler n'est jamais appelé.
+
+C'est pour ça que `page: number` ne convertit rien : le type n'est qu'une métadonnée (`Number`) transmise aux pipes. Sans pipe, personne ne s'en sert.
+
+## En production
+
+- **Plafonne tout ce qui coûte** : `limit`, taille des tableaux, longueur des chaînes. C'est autant de la sécurité que de la validation.
+- **Rejeter vite est bon marché** : un 400 renvoyé par un pipe ne touche ni la base ni les services.
+- Les messages d'erreur de validation sont lus par d'autres développeurs : garde-les précis (« title: Too small ») mais sans jamais renvoyer de détails internes (requêtes SQL, traces).
 
 ## Pièges fréquents
 

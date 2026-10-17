@@ -1,76 +1,73 @@
 id: nest-ch00-l01-quiz
 questions:
-  - id: q1
-    type: single
-    prompt: "Quelle est la relation entre Nest et Express ?"
-    choices:
-      - "Nest est une réécriture d'Express plus rapide"
-      - "Nest s'installe au-dessus d'Express (ou de Fastify) par un adaptateur et ajoute une architecture et un conteneur d'injection"
-      - "Nest remplace le serveur HTTP de Node"
-      - "Nest ne fonctionne qu'avec Fastify"
-    answer: 1
-    explanation: "Express est l'adaptateur par défaut, Fastify l'autre option officielle. Nest garde leur API accessible et ajoute modules, contrôleurs, providers et injection."
-    concept: nest-building-blocks
-    difficulty: 1
-  - id: q2
-    type: single
-    prompt: "`BooksController` est décoré par `@Controller('books')`, mais aucun module ne le liste dans `controllers`. Que se passe-t-il au démarrage, puis sur `GET /books` ?"
-    choices:
-      - "Le démarrage échoue avec une erreur de dépendance"
-      - "Le démarrage réussit et GET /books renvoie 404"
-      - "Nest découvre le contrôleur automatiquement"
-      - "GET /books renvoie 500"
-    answer: 1
-    explanation: "Nest ne scanne pas les fichiers : seul ce qui est déclaré dans un module existe. Le contrôleur oublié ne déclenche aucune erreur, ses routes n'existent simplement pas."
-    concept: nest-building-blocks
-    difficulty: 2
-  - id: q3
-    type: code-output
-    prompt: "Deux contrôleurs injectent le même `CounterService`. Qu'affiche ce programme ?"
-    code: |
-      import 'reflect-metadata';
-      import { Controller, Injectable, Module } from '@nestjs/common';
-      import { Test } from '@nestjs/testing';
-
-      @Injectable()
-      class CounterService {
-        private n = 0;
-        hit() { return ++this.n; }
-      }
-      @Controller('a') class A { constructor(readonly c: CounterService) {} }
-      @Controller('b') class B { constructor(readonly c: CounterService) {} }
-      @Module({ controllers: [A, B], providers: [CounterService] })
-      class AppModule {}
-
-      const ref = await Test.createTestingModule({ imports: [AppModule] }).compile();
-      ref.get(A).c.hit();
-      ref.get(B).c.hit();
-      console.log(ref.get(B).c.hit());
-    answer: "3"
-    explanation: "Un provider est un singleton : A et B reçoivent la même instance, donc le même compteur. C'est utile pour une connexion, dangereux pour un état propre à une requête."
-    concept: nest-ioc-container
-    difficulty: 2
-  - id: q4
-    type: single
-    prompt: "Que fait `app.init()` dans un test ?"
-    choices:
-      - "Il démarre le serveur HTTP sur un port aléatoire"
-      - "Il initialise l'application (hooks, enregistrement des routes) sans ouvrir de port ; supertest utilise ensuite getHttpServer()"
-      - "Il réinitialise la base de données"
-      - "Il est inutile, supertest suffit"
-    answer: 1
-    explanation: "init() prépare l'application ; listen() ouvre le port. supertest passe le serveur HTTP Node directement, sans réseau."
-    concept: nest-testing-module
-    difficulty: 1
-  - id: q5
-    type: single
-    prompt: "Pourquoi éviter `new BooksService()` dans un contrôleur ?"
-    choices:
-      - "Parce que TypeScript l'interdit sur une classe décorée"
-      - "Parce que l'instance créée n'est pas celle du conteneur : elle n'est ni partagée ni remplaçable en test"
-      - "Parce que c'est plus lent"
-      - "Parce que Nest lève une exception"
-    answer: 1
-    explanation: "Le code compile et tourne, mais il contourne l'inversion de contrôle : deux instances coexistent et overrideProvider ne peut plus substituer un faux service."
-    concept: nest-ioc-container
-    difficulty: 2
+- id: q1
+  type: single
+  prompt: Quelle est la relation entre Nest et Express ?
+  choices:
+  - Nest est une réécriture d'Express plus rapide
+  - Nest s'installe au-dessus d'Express (ou de Fastify) par un adaptateur et ajoute une architecture et un conteneur d'injection
+  - Nest remplace le serveur HTTP de Node
+  - Nest ne fonctionne qu'avec Fastify
+  answer: 1
+  explanation: Express est l'adaptateur par défaut, Fastify l'autre option officielle. Nest garde leur API accessible et ajoute modules, contrôleurs, providers et injection.
+  concept: nest-building-blocks
+  difficulty: 1
+- id: q2
+  type: single
+  prompt: '`BooksController` est décoré par `@Controller(''books'')`, mais aucun module ne le liste dans `controllers`. Que se passe-t-il au démarrage, puis sur `GET /books` ?'
+  choices:
+  - Le démarrage échoue avec une erreur de dépendance
+  - Le démarrage réussit et GET /books renvoie 404
+  - Nest découvre le contrôleur automatiquement
+  - GET /books renvoie 500
+  answer: 1
+  explanation: 'Nest ne scanne pas les fichiers : seul ce qui est déclaré dans un module existe. Le contrôleur oublié ne déclenche aucune erreur, ses routes n''existent simplement pas.'
+  concept: nest-building-blocks
+  difficulty: 2
+- id: q3
+  type: code-output
+  prompt: Deux contrôleurs injectent le même `CounterService`. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { Controller, Injectable, Module } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\n@Injectable()\nclass CounterService {\n  private n = 0;\n\
+    \  hit() { return ++this.n; }\n}\n@Controller('a') class A { constructor(readonly c: CounterService) {} }\n@Controller('b') class B { constructor(readonly c: CounterService) {} }\n@Module({ controllers:\
+    \ [A, B], providers: [CounterService] })\nclass AppModule {}\n\nconst ref = await Test.createTestingModule({ imports: [AppModule] }).compile();\nref.get(A).c.hit();\nref.get(B).c.hit();\nconsole.log(ref.get(B).c.hit());\n"
+  answer: '3'
+  explanation: 'Un provider est un singleton : A et B reçoivent la même instance, donc le même compteur. C''est utile pour une connexion, dangereux pour un état propre à une requête.'
+  concept: nest-ioc-container
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Que fait `app.init()` dans un test ?
+  choices:
+  - Il démarre le serveur HTTP sur un port aléatoire
+  - Il initialise l'application (hooks, enregistrement des routes) sans ouvrir de port ; supertest utilise ensuite getHttpServer()
+  - Il réinitialise la base de données
+  - Il est inutile, supertest suffit
+  answer: 1
+  explanation: init() prépare l'application ; listen() ouvre le port. supertest passe le serveur HTTP Node directement, sans réseau.
+  concept: nest-testing-module
+  difficulty: 1
+- id: q5
+  type: single
+  prompt: Pourquoi éviter `new BooksService()` dans un contrôleur ?
+  choices:
+  - Parce que TypeScript l'interdit sur une classe décorée
+  - 'Parce que l''instance créée n''est pas celle du conteneur : elle n''est ni partagée ni remplaçable en test'
+  - Parce que c'est plus lent
+  - Parce que Nest lève une exception
+  answer: 1
+  explanation: 'Le code compile et tourne, mais il contourne l''inversion de contrôle : deux instances coexistent et overrideProvider ne peut plus substituer un faux service.'
+  concept: nest-ioc-container
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Un provider demande une dépendance que personne ne fournit. Quand l'erreur apparaît-elle ?
+  choices:
+  - À la première requête qui utilise ce provider
+  - Au démarrage, pendant l'instanciation de tous les singletons, avant l'enregistrement des routes
+  - 'Jamais : Nest injecte undefined'
+  - À la compilation TypeScript
+  answer: 1
+  explanation: 'NestFactory.create scanne tout le graphe puis instancie tous les singletons (InstanceLoader) avant d''enregistrer les routes : une dépendance manquante fait échouer le démarrage. C''est
+    aussi ce que vérifie Test.createTestingModule(...).compile().'
+  concept: nest-ioc-container
+  difficulty: 2

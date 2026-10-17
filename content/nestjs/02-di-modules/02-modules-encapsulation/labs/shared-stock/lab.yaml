@@ -1,0 +1,12 @@
+id: nest-ch02-l02-lab-shared-stock
+title: "Le stock en double"
+kind: code
+language: nestjs
+difficulty: 2
+xp: 60
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["modules.ts"]
+concepts: [nest-module-encapsulation, nest-shared-singleton, nest-module-reexport, nest-global-modules]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

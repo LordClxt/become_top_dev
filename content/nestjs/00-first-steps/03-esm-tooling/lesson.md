@@ -27,9 +27,13 @@ extra: false
 xp: 25
 ---
 
-## Pourquoi c'est important
+> **En une phrase :** en ESM, Node charge exactement le fichier que tu nommes : extensions `.js`, pas de `__dirname`, et une interop CommonJS à connaître.
 
-Nest 12 publie tous ses paquets en ESM, et `nest new` génère par défaut un projet ESM testé avec Vitest. C'est l'avenir de Node, mais la transition laisse des pièges dans chaque projet : un import sans extension qui marche dans l'éditeur et casse à l'exécution, un `__dirname` qui n'existe plus, un `import * as` qui donne un objet impossible à appeler. Ces erreurs ne viennent pas de ta logique, et elles coûtent des heures quand on ne les reconnaît pas.
+## Le problème
+
+Le service de catalogue marche dans l'éditeur, compile sans erreur, et plante au démarrage : `ERR_MODULE_NOT_FOUND: Cannot find module '/app/dist/catalog.service'`. Le fichier existe pourtant, il s'appelle `catalog.service.js`.
+
+Nest 12 publie tous ses paquets en ESM, et `nest new` génère un projet ESM testé avec Vitest. La transition laisse des pièges qui ne viennent pas de ta logique et coûtent des heures quand on ne les reconnaît pas.
 
 ## Le concept
 
@@ -90,6 +94,17 @@ En développement, SWC raccourcit la boucle d'édition. En CI, il faut **toujour
 ### Les tests
 
 `@nestjs/testing` ne dépend d'aucun lanceur : Vitest et Jest l'utilisent de la même manière. Seul piège à connaître : Jest ne charge les paquets ESM de Nest 12 qu'à partir de Node 24.9. En dessous, il échoue avec `ERR_REQUIRE_ASYNC_MODULE`.
+
+## Sous le capot
+
+Pourquoi l'extension est-elle obligatoire ? En CommonJS, `require('./catalog.service')` essayait plusieurs fichiers (`.js`, `.json`, `/index.js`). Le chargeur ESM de Node, lui, résout une URL : il charge **exactement** le fichier nommé, sans rien deviner. Et tsc, avec `module: NodeNext`, ne réécrit jamais tes chemins : il laisse `./catalog.service.js` tel quel, ce qui pointe vers le fichier **compilé**. C'est pour ça qu'on écrit `.js` dans un fichier `.ts`.
+
+`__dirname` n'existe pas en ESM parce qu'un module ESM n'est pas enveloppé dans la fonction `(exports, require, module, __filename, __dirname) => …` de CommonJS. Son équivalent est `import.meta.dirname`, calculé à partir de l'URL du module.
+
+## En production
+
+- Teste toujours le code **compilé** (le `dist/` que tu déploies), pas seulement l'exécution à la volée de l'éditeur : c'est là que les extensions manquantes apparaissent.
+- SWC compile beaucoup plus vite que tsc mais ne vérifie pas les types : garde un `tsc --noEmit` dans la CI.
 
 ## Pièges fréquents
 

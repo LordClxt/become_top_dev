@@ -15,6 +15,7 @@ lessons:
   - "02-params-validation"
   - "03-route-conflicts"
   - "04-versioning-prefixes"
-xp: { assignment: 150, project: 260 }
+xp: { assignment: 150, project: 260, boss: 300 }
 assignment: assignment
 project: project
+boss: boss

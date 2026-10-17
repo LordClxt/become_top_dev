@@ -1,0 +1,24 @@
+id: nest-ch02
+title: "Injection de dépendances et modules"
+subtitle: "Jetons et recettes, encapsulation, modules dynamiques, portées et dépendances circulaires"
+source: { chapter: 12, pages: "/providers, /modules, /fundamentals/custom-providers … /fundamentals/module-ref", url: "https://docs.nestjs.com/fundamentals/custom-providers" }
+objectives:
+  - "Enregistrer et injecter n'importe quelle dépendance avec le bon jeton (classe, classe abstraite, Symbol) et la bonne recette (useClass, useValue, useFactory, useExisting), y compris asynchrone ou facultative"
+  - "Découper une application en modules qui partagent une instance par export, sans dupliquer d'état ni abuser de @Global()"
+  - "Écrire un module dynamique avec ConfigurableModuleBuilder (register/forRoot, variantes Async, extras) et choisir la bonne convention"
+  - "Prévoir la propagation des portées REQUEST et TRANSIENT et isoler l'état durable dans des singletons"
+  - "Prédire le comportement du conteneur à partir de son fonctionnement interne (métadonnées lues, identité des modules, calcul de la portée)"
+  - "Diagnostiquer un état dupliqué ou réinitialisé à partir d'un symptôme vague"
+  - "Supprimer une dépendance circulaire en extrayant la responsabilité partagée plutôt qu'en la contournant par forwardRef"
+mastery_threshold: 0.8
+prerequisites: [nest-ch01]
+lessons:
+  - "01-providers-tokens"
+  - "02-modules-encapsulation"
+  - "03-dynamic-modules"
+  - "04-scopes"
+  - "05-moduleref-cycles"
+xp: { assignment: 150, project: 280, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

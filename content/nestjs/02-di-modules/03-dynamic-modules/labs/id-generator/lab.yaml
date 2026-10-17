@@ -1,0 +1,12 @@
+id: nest-ch02-l03-lab-id-generator
+title: "Un module d'identifiants configurable"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["id-generator.module.ts"]
+concepts: [nest-dynamic-module, nest-configurable-module-builder, nest-register-forroot, nest-module-extras]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

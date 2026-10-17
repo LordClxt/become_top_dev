@@ -1,96 +1,75 @@
 id: nest-ch01-l01-quiz
 questions:
-  - id: q1
-    type: code-output
-    prompt: "Quels statuts renvoient ces trois routes ?"
-    code: |
-      import 'reflect-metadata';
-      import { Controller, Delete, HttpCode, Module, Post, Put } from '@nestjs/common';
-      import { Test } from '@nestjs/testing';
-      import request from 'supertest';
-
-      @Controller('books')
-      class BooksController {
-        @Post() create() { return { ok: true }; }
-        @Put(':id') replace() { return { ok: true }; }
-        @Delete(':id') @HttpCode(204) remove() {}
-      }
-      @Module({ controllers: [BooksController] }) class AppModule {}
-
-      const app = (await Test.createTestingModule({ imports: [AppModule] }).compile())
-        .createNestApplication({ logger: false });
-      await app.init();
-      const http = request(app.getHttpServer());
-      const codes = [
-        (await http.post('/books')).status,
-        (await http.put('/books/1')).status,
-        (await http.delete('/books/1')).status,
-      ];
-      console.log(codes.join(' '));
-      await app.close();
-    answer: "201 200 204"
-    explanation: "POST vaut 201 par défaut, les autres verbes 200 ; @HttpCode(204) remplace le statut de la suppression."
-    concept: nest-status-codes
-    difficulty: 1
-  - id: q2
-    type: code-output
-    prompt: "La méthode renvoie `undefined` quand le livre n'existe pas. Qu'affiche ce programme ?"
-    code: |
-      import 'reflect-metadata';
-      import { Controller, Get, Module, Param } from '@nestjs/common';
-      import { Test } from '@nestjs/testing';
-      import request from 'supertest';
-
-      const books: Record<string, string> = { '1': 'Germinal' };
-      @Controller('books')
-      class BooksController {
-        @Get(':id') findOne(@Param('id') id: string) { return books[id]; }
-      }
-      @Module({ controllers: [BooksController] }) class AppModule {}
-
-      const app = (await Test.createTestingModule({ imports: [AppModule] }).compile())
-        .createNestApplication({ logger: false });
-      await app.init();
-      const res = await request(app.getHttpServer()).get('/books/42');
-      console.log(res.status, JSON.stringify(res.text));
-      await app.close();
-    answer: "200 \"\""
-    explanation: "Nest envoie ce que tu renvoies : undefined donne un 200 au corps vide. Pour une ressource absente, lève NotFoundException afin d'obtenir un 404."
-    concept: nest-rest-semantics
-    difficulty: 2
-  - id: q3
-    type: single
-    prompt: "Une route déclare `@Res() res: Response` (sans option), puis `return book;` sans jamais appeler `res.json()`. Que reçoit le client ?"
-    choices:
-      - "Le livre en JSON, statut 200"
-      - "Rien : avec @Res() seul, Nest ignore la valeur renvoyée, et la requête reste pendante jusqu'au timeout"
-      - "Une erreur 500"
-      - "Un 204"
-    answer: 1
-    explanation: "@Res() désactive la réponse standard : c'est à toi d'envoyer la réponse. Avec { passthrough: true }, Nest enverrait le livre."
-    concept: nest-standard-response
-    difficulty: 2
-  - id: q4
-    type: single
-    prompt: "Pourquoi `@Header('Location', ...)` ne convient-il pas pour l'en-tête Location d'une création ?"
-    choices:
-      - "Parce que Location est un en-tête interdit"
-      - "Parce que la valeur de @Header est fixée à la définition de la classe, alors que Location dépend de la ressource créée"
-      - "Parce que @Header ne marche qu'avec GET"
-      - "Il convient parfaitement"
-    answer: 1
-    explanation: "@Header pose une valeur constante. Pour une valeur calculée, utilise @Res({ passthrough: true }) et res.location(...)."
-    concept: nest-standard-response
-    difficulty: 2
-  - id: q5
-    type: multiple
-    prompt: "Lesquelles de ces réponses respectent le contrat REST vu dans la leçon ?"
-    choices:
-      - "POST /books → 201 + Location: /books/123"
-      - "DELETE /books/123 → 204 sans corps"
-      - "GET /books/999 (absent) → 200 avec null"
-      - "GET /books (catalogue vide) → 200 avec []"
-    answer: [0, 1, 3]
-    explanation: "Une ressource absente est un 404. Une collection vide n'est pas une erreur : c'est 200 avec un tableau vide."
-    concept: nest-rest-semantics
-    difficulty: 1
+- id: q1
+  type: code-output
+  prompt: Quels statuts renvoient ces trois routes ?
+  code: "import 'reflect-metadata';\nimport { Controller, Delete, HttpCode, Module, Post, Put } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\nimport request from 'supertest';\n\n@Controller('books')\n\
+    class BooksController {\n  @Post() create() { return { ok: true }; }\n  @Put(':id') replace() { return { ok: true }; }\n  @Delete(':id') @HttpCode(204) remove() {}\n}\n@Module({ controllers: [BooksController]\
+    \ }) class AppModule {}\n\nconst app = (await Test.createTestingModule({ imports: [AppModule] }).compile())\n  .createNestApplication({ logger: false });\nawait app.init();\nconst http = request(app.getHttpServer());\n\
+    const codes = [\n  (await http.post('/books')).status,\n  (await http.put('/books/1')).status,\n  (await http.delete('/books/1')).status,\n];\nconsole.log(codes.join(' '));\nawait app.close();\n"
+  answer: 201 200 204
+  explanation: POST vaut 201 par défaut, les autres verbes 200 ; @HttpCode(204) remplace le statut de la suppression.
+  concept: nest-status-codes
+  difficulty: 1
+- id: q2
+  type: code-output
+  prompt: La méthode renvoie `undefined` quand le livre n'existe pas. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { Controller, Get, Module, Param } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\nimport request from 'supertest';\n\nconst books: Record<string,\
+    \ string> = { '1': 'Germinal' };\n@Controller('books')\nclass BooksController {\n  @Get(':id') findOne(@Param('id') id: string) { return books[id]; }\n}\n@Module({ controllers: [BooksController] })\
+    \ class AppModule {}\n\nconst app = (await Test.createTestingModule({ imports: [AppModule] }).compile())\n  .createNestApplication({ logger: false });\nawait app.init();\nconst res = await request(app.getHttpServer()).get('/books/42');\n\
+    console.log(res.status, JSON.stringify(res.text));\nawait app.close();\n"
+  answer: 200 ""
+  explanation: 'Nest envoie ce que tu renvoies : undefined donne un 200 au corps vide. Pour une ressource absente, lève NotFoundException afin d''obtenir un 404.'
+  concept: nest-rest-semantics
+  difficulty: 2
+- id: q3
+  type: single
+  prompt: 'Une route déclare `@Res() res: Response` (sans option), puis `return book;` sans jamais appeler `res.json()`. Que reçoit le client ?'
+  choices:
+  - Le livre en JSON, statut 200
+  - 'Rien : avec @Res() seul, Nest ignore la valeur renvoyée, et la requête reste pendante jusqu''au timeout'
+  - Une erreur 500
+  - Un 204
+  answer: 1
+  explanation: '@Res() désactive la réponse standard : c''est à toi d''envoyer la réponse. Avec { passthrough: true }, Nest enverrait le livre.'
+  concept: nest-standard-response
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Pourquoi `@Header('Location', ...)` ne convient-il pas pour l'en-tête Location d'une création ?
+  choices:
+  - Parce que Location est un en-tête interdit
+  - Parce que la valeur de @Header est fixée à la définition de la classe, alors que Location dépend de la ressource créée
+  - Parce que @Header ne marche qu'avec GET
+  - Il convient parfaitement
+  answer: 1
+  explanation: '@Header pose une valeur constante. Pour une valeur calculée, utilise @Res({ passthrough: true }) et res.location(...).'
+  concept: nest-standard-response
+  difficulty: 2
+- id: q5
+  type: multiple
+  prompt: Lesquelles de ces réponses respectent le contrat REST vu dans la leçon ?
+  choices:
+  - 'POST /books → 201 + Location: /books/123'
+  - DELETE /books/123 → 204 sans corps
+  - GET /books/999 (absent) → 200 avec null
+  - GET /books (catalogue vide) → 200 avec []
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: 'Une ressource absente est un 404. Une collection vide n''est pas une erreur : c''est 200 avec un tableau vide.'
+  concept: nest-rest-semantics
+  difficulty: 1
+- id: q6
+  type: single
+  prompt: Pourquoi un intercepteur ne voit-il plus la valeur renvoyée dès qu'un handler déclare @Res() sans passthrough ?
+  choices:
+  - Express efface la valeur
+  - Au démarrage, Nest marque la route « réponse gérée à la main » et n'utilise plus la valeur renvoyée
+  - Les intercepteurs ne fonctionnent qu'avec Fastify
+  - '@Res() rend le contrôleur request-scoped'
+  answer: 1
+  explanation: 'isResponseHandled() détecte @Res()/@Next() sans passthrough : Nest n''envoie plus rien lui-même, et la valeur renvoyée n''est plus le contenu de la réponse.'
+  concept: nest-standard-response
+  difficulty: 2

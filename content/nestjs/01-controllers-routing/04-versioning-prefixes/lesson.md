@@ -20,14 +20,18 @@ glossary:
   - term: "VERSION_NEUTRAL"
     definition: "Constante de Nest : la route répond quelle que soit la version demandée, et même sans version."
 visuals: []
-labs: [nest-ch01-l04-lab-api-versions]
+labs: [nest-ch01-l04-lab-api-versions, nest-ch01-l04-lab-broken-release]
 extra: false
 xp: 25
 ---
 
-## Pourquoi c'est important
+> **En une phrase :** servir v1 et v2 côte à côte pour ne casser aucun client, et préfixer l'API sans emporter les sondes de santé.
 
-Une API publique a des clients que tu ne contrôles pas : applications mobiles jamais mises à jour, scripts de partenaires, intégrations oubliées. Le jour où `GET /books` doit renvoyer `{ items, total }` au lieu d'un tableau, tu ne peux pas casser tout le monde. Le versioning permet de servir v1 et v2 côte à côte, puis de retirer v1 quand plus personne ne l'appelle. Le préfixe global, lui, sépare l'API du reste : sondes, webhooks, pages statiques.
+## Le problème
+
+L'application mobile de la librairie n'a pas été mise à jour depuis huit mois chez la moitié des clients. Le jour où `GET /books` doit renvoyer `{ items, total }` au lieu d'un tableau, ces clients plantent au démarrage. Et le jour où tu ajoutes un préfixe `/api`, l'orchestrateur ne trouve plus `/health` et redémarre l'application en boucle.
+
+Le versioning sert v1 et v2 côte à côte, puis permet de retirer v1 quand plus personne ne l'appelle. Le préfixe global sépare l'API du reste : sondes, webhooks, pages statiques.
 
 ## Le concept
 
@@ -99,6 +103,23 @@ Tous les contrôleurs d'`AdminModule` passent sous `/admin`, et ceux de `Reports
 ### Quand créer une v2 ?
 
 Seulement pour un **breaking change** : champ supprimé ou renommé, type changé, enveloppe de réponse différente, statut différent. Ajouter un champ optionnel n'en est pas un, si les clients ignorent les champs inconnus (ce qu'il faut leur demander). Chaque version servie est du code à maintenir et à tester. Mesure qui appelle encore v1 avant de la retirer.
+
+## Sous le capot
+
+Le chemin final d'une route est assemblé dans `router/route-path-factory.js`, dans cet ordre :
+
+1. la version, si le versioning par URI est actif : `/v` + numéro (le préfixe `v` est configurable), sauf pour `VERSION_NEUTRAL` ;
+2. le chemin du module (`RouterModule`) ;
+3. le chemin du contrôleur ;
+4. le chemin de la méthode ;
+5. enfin le préfixe global, sauf si la route est exclue.
+
+Avec `setGlobalPrefix('api')` et la version `1`, `@Controller('books')` + `@Get(':isbn')` donne donc `/api/v1/books/:isbn`. Une route listée dans `exclude` ne reçoit pas le préfixe global, mais garde sa version : d'où l'intérêt de `VERSION_NEUTRAL` pour `/health`.
+
+## En production
+
+- Mesure qui appelle encore v1 (journaux par version) avant de la retirer, et annonce la date : l'en-tête `Deprecation` / `Sunset` est une convention répandue.
+- Garde les sondes (`/health`) hors préfixe et hors version : l'orchestrateur ne doit jamais dépendre de ton schéma d'URL.
 
 ## Pièges fréquents
 

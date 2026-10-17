@@ -1,0 +1,12 @@
+id: nest-ch00-l01-lab-warmup-hello
+title: "Échauffement : brancher un contrôleur"
+kind: code
+language: nestjs
+difficulty: 1
+xp: 20
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["app.ts"]
+concepts: [nest-building-blocks]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

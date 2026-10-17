@@ -1,0 +1,13 @@
+id: nest-ch01-boss
+title: "Boss : l'API publique des avis"
+kind: code
+language: nestjs
+difficulty: 5
+xp: 300
+timeout_s: 90
+time_limit_min: 75
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["app.ts"]
+concepts: [nest-rest-semantics, nest-status-codes, nest-standard-response, nest-schema-validation, nest-parse-pipes, nest-route-specificity, nest-route-conflict-policy, nest-versioning]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

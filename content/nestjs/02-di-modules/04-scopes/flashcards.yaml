@@ -1,0 +1,37 @@
+cards:
+- id: fc1
+  front: Les trois portées d'injection ?
+  back: DEFAULT (singleton, recommandé), REQUEST (une par requête), TRANSIENT (une par consommateur).
+  concept: nest-injection-scopes
+- id: fc2
+  front: Dans quel sens remonte la portée REQUEST ?
+  back: 'Vers les consommateurs : tout ce qui en dépend devient request-scoped. Les dépendances restent singletons.'
+  concept: nest-scope-bubbling
+- id: fc3
+  front: TRANSIENT contamine-t-il ses consommateurs ?
+  back: 'Non : le consommateur reçoit sa propre instance, mais reste un singleton.'
+  concept: nest-scope-bubbling
+- id: fc4
+  front: Injecter @Inject(REQUEST) a quel effet sur la portée ?
+  back: Le provider devient request-scoped (REQUEST l'est par nature), et la contagion remonte.
+  concept: nest-request-provider
+- id: fc5
+  front: Où garder un état qui doit survivre à la requête ?
+  back: Dans un singleton qui ne dépend pas de la requête, injecté dans le provider request-scoped.
+  concept: nest-scope-bubbling
+- id: fc6
+  front: Alternative à REQUEST pour lire l'utilisateur courant ?
+  back: 'Un stockage par requête avec AsyncLocalStorage : tout reste singleton, et ça marche hors HTTP.'
+  concept: nest-request-provider
+- id: fc7
+  front: À quoi sert INQUIRER ?
+  back: Dans un provider transient, il donne l'instance de la classe consommatrice (logger contextualisé).
+  concept: nest-inquirer
+- id: fc8
+  front: Comment Nest décide-t-il qu'un provider est request-scoped ?
+  back: 'isDependencyTreeStatic() : faux si la portée est REQUEST, sinon vrai seulement si toutes ses dépendances (constructeur, propriétés, enhancers) sont statiques. Récursif.'
+  concept: nest-scope-bubbling
+- id: fc9
+  front: als.run(store, fn) puis als.getStore() ?
+  back: 'Tout ce qui s''exécute depuis fn, même après des await, retrouve ce store : une variable propre à chaque requête, sans provider REQUEST.'
+  concept: nest-request-provider

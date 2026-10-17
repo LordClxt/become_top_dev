@@ -54,6 +54,16 @@ design-system/             shared UI + visual tokens (colors, typography, motion
 - Every visual has a one-line justification of its format.
 - Content must be valid according to `content-format/reference/schemas.md`.
 
+## Courses aim at excellence (not just competence)
+Every course must take a learner to the level of the best engineers in that technology. Concretely, every chapter:
+- **Clear first, then deep**: open each lesson with a concrete scenario and the bug it prevents, build intuition before jargon, one idea per section with a small runnable example. No notion that is mentioned but not taught: teach it or cut it.
+- **Progressive difficulty**: a warm-up exercise (one notion) → labs → assignment → a **boss fight with no hints** (mandatory, every chapter).
+- **A debugging lab**: a broken app with a vague symptom across several files; the learner finds the root cause.
+- **Under the hood**: explain how the framework/language actually implements the feature (internals, source code), so behavior can be predicted, not memorized.
+- **Real conditions**: performance, failure modes, production trade-offs and professional idioms, measured when possible.
+- **Demanding review**: AI rubric criteria judge design quality, not only correctness.
+- The running project grows into a real, end-to-end application; the course ends with a capstone that is deployable.
+
 ## Conventions
 - Code, identifiers, paths, YAML keys: **English**. UI and teaching content: **French**.
 - Stable kebab-case IDs (`java-ch01-l02-builder`): they are the keys for progress in the DB.

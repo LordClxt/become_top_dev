@@ -20,14 +20,18 @@ glossary:
   - term: "HttpException"
     definition: "Exception que Nest transforme en réponse HTTP. Ses sous-classes (NotFoundException, ConflictException…) fixent le statut."
 visuals: []
-labs: [nest-ch01-l01-lab-catalog-crud]
+labs: [nest-ch01-l01-lab-warmup-404, nest-ch01-l01-lab-catalog-crud]
 extra: false
 xp: 30
 ---
 
-## Pourquoi c'est important
+> **En une phrase :** un handler **renvoie** une valeur et **lève** une exception ; Nest en fait la réponse HTTP, à condition de ne pas reprendre la main avec `@Res()`.
 
-Le contrat d'une API, c'est d'abord ses routes et ses codes de statut. Un client mobile qui reçoit 200 avec `null` au lieu de 404, ou 200 au lieu de 201 après une création, doit deviner, et il devinera mal. Nest rend la bonne réponse facile à écrire. Il reste à savoir laquelle est bonne, et à éviter le raccourci `@Res()` qui casse silencieusement la moitié du framework.
+## Le problème
+
+L'application mobile de la librairie affiche « Livre ajouté ! » même quand l'ajout a échoué, et une fiche vide quand on ouvre un livre supprimé. Le développeur mobile explique : « Votre API répond 200 dans tous les cas. Pour un livre absent, je reçois 200 et un corps vide ; je ne peux pas savoir. »
+
+Le contrat d'une API, ce sont d'abord ses routes et ses **codes de statut**. Nest rend la bonne réponse facile à écrire ; il reste à savoir laquelle est bonne, et à éviter le raccourci `@Res()`, qui casse silencieusement une partie du framework.
 
 ## Le concept
 
@@ -113,6 +117,21 @@ create(@Body() dto: CreateBookDto, @Res({ passthrough: true }) res: Response) {
 | créer `POST /books` | 201 + ressource + `Location` | 400 (invalide), 409 (existe déjà) |
 | remplacer `PUT /books/:id` | 200 + ressource | 404 |
 | supprimer `DELETE /books/:id` | 204 sans corps | 404 |
+
+## Sous le capot
+
+Ce que Nest fait de ta valeur de retour (`@nestjs/core`, `router/router-execution-context.js` et `router-response-controller.js`) :
+
+1. Au démarrage, il regarde les paramètres du handler. S'il y trouve `@Res()` ou `@Next()` **sans** `passthrough`, il marque la route « réponse gérée à la main » (`isResponseHandled`).
+2. À chaque requête, il appelle ta méthode. Si le résultat est un `Observable`, il attend sa **dernière** valeur (`lastValueFrom`) ; si c'est une promesse, il l'attend.
+3. Si la route n'est pas « gérée à la main », il envoie le résultat avec le statut prévu : celui de `@HttpCode`, sinon `201` pour `POST` et `200` pour le reste (`getStatusByMethod`).
+
+Tout le comportement de `@Res()` découle de l'étape 1 : Nest ne regarde même plus ce que tu renvoies. Et comme les intercepteurs travaillent sur la valeur renvoyée, ils n'ont plus rien à transformer.
+
+## En production
+
+- Les clients (applications, partenaires) codent contre tes statuts. Changer un 200 en 201 est une **rupture de contrat** : documente-le et versionne si besoin (leçon 4).
+- Un 404 sur une ressource absente permet aussi au cache HTTP et aux outils de supervision de faire leur travail : un 200 vide est compté comme un succès dans tes tableaux de bord.
 
 ## Pièges fréquents
 

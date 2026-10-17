@@ -13,5 +13,6 @@ lessons:
   - "01-architecture"
   - "02-decorators-metadata"
   - "03-esm-tooling"
-xp: { project: 220 }
+xp: { project: 220, boss: 250 }
 project: project
+boss: boss

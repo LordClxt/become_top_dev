@@ -23,9 +23,11 @@ extra: false
 xp: 25
 ---
 
-## Pourquoi c'est important
+> **En une phrase :** Express essaie les routes dans l'ordre où elles sont enregistrées ; une route paramétrée déclarée trop tôt avale les autres, sans erreur.
 
-Tu ajoutes `GET /books/featured`. Les tests unitaires du service passent, la revue de code aussi. En production, `/books/featured` répond « Livre featured introuvable ». Le bug n'est ni dans le service ni dans le contrôleur, il est dans **l'ordre** des méthodes. Ce genre d'erreur ne casse rien au démarrage, ne lève aucune exception, et peut survivre des mois. Nest 12 sait maintenant la détecter : encore faut-il le lui demander.
+## Le problème
+
+Tu ajoutes `GET /books/featured`. Les tests unitaires du service passent, la revue de code aussi. En production, `/books/featured` répond « Livre featured introuvable ». Le bug n'est ni dans le service ni dans le contrôleur : il est dans **l'ordre** des méthodes. Il ne casse rien au démarrage, ne lève aucune exception, et peut survivre des mois. Nest 12 sait le détecter, encore faut-il le lui demander.
 
 ## Le concept
 
@@ -77,6 +79,19 @@ Une nuance à connaître : un wildcard recouvre **par nature** les routes plus p
 ### Les wildcards en Nest 12
 
 Nest suit la syntaxe d'Express 5 : un wildcard **porte un nom**, `*path`, et ne correspond qu'à au moins un segment. `{*path}` accepte en plus le chemin vide. L'astérisque nu `*` est déprécié.
+
+## Sous le capot
+
+Nest parcourt les méthodes d'un contrôleur dans l'ordre de déclaration et les enregistre une à une auprès d'Express, qui les essaie dans ce même ordre. D'où « la première qui correspond gagne ».
+
+Avec `routeResolutionStrategy: 'specificity'`, Nest trie d'abord les routes (`router/route-specificity-sorter.js`). Il compare les chemins segment par segment : un segment littéral (`featured`) est plus spécifique qu'un paramètre (`:isbn`), lui-même plus spécifique qu'un wildcard (`*path`), et un segment absent l'est encore moins. À égalité, l'ordre de déclaration est conservé. Les routes sont ensuite enregistrées dans ce nouvel ordre.
+
+`routeConflictPolicy`, lui, s'appuie sur un détecteur (`route-conflict-detector.js`) qui découpe chaque chemin en segments et cherche les doublons exacts et les routes masquées. Quand le tri par spécificité est actif, il retire de la liste les masquages que le tri a déjà résolus.
+
+## En production
+
+- Active `routeConflictPolicy` en **erreur** dans les tests et en CI : un conflit doit casser le build, pas apparaître en production.
+- Le tri par spécificité rend l'ordre des méthodes sans importance, ce qui évite qu'une simple réorganisation du fichier change le comportement de l'API.
 
 ## Pièges fréquents
 

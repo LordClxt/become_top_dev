@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Que signifie `providers: [BooksService]` en forme longue ?"
+    back: "{ provide: BooksService, useClass: BooksService } : le jeton BooksService est associé à la recette « instancier BooksService »."
+    concept: nest-provider-tokens
+  - id: fc2
+    front: "Quelle recette pour un mock en test ?"
+    back: "useValue : un objet littéral qui a les bonnes méthodes suffit, grâce au typage structurel."
+    concept: nest-custom-providers
+  - id: fc3
+    front: "useExisting ou useClass pour un alias ?"
+    back: "useExisting : même instance. useClass créerait une seconde instance, avec son propre état."
+    concept: nest-custom-providers
+  - id: fc4
+    front: "Dans quel ordre une useFactory reçoit-elle ses arguments ?"
+    back: "Dans l'ordre du tableau inject, par position (pas par type)."
+    concept: nest-custom-providers
+  - id: fc5
+    front: "Pourquoi un Symbol plutôt qu'une chaîne comme jeton ?"
+    back: "Un Symbol est unique : deux bibliothèques ne peuvent pas entrer en collision, contrairement à 'CONFIG'."
+    concept: nest-provider-tokens
+  - id: fc6
+    front: "Comment injecter un contrat décrit par une interface ?"
+    back: "Un jeton Symbol (ou une chaîne), enregistré dans providers, et @Inject(JETON) sur le paramètre."
+    concept: nest-provider-tokens
+  - id: fc7
+    front: "Une classe abstraite peut-elle servir de jeton ?"
+    back: "Oui : elle existe à l'exécution. C'est le contrat et le jeton à la fois, sans @Inject."
+    concept: nest-provider-tokens
+  - id: fc8
+    front: "Que fait Nest d'une fabrique qui renvoie une promesse ?"
+    back: "Il attend sa résolution avant de construire les providers qui en dépendent ; ils reçoivent la valeur résolue."
+    concept: nest-async-providers
+  - id: fc9
+    front: "Effet de @Optional() sur un jeton absent ?"
+    back: "undefined est injecté au lieu d'une erreur au démarrage ; la classe gère le repli."
+    concept: nest-optional-deps
+  - id: fc10
+    front: "Premier réflexe face à « Nest can't resolve dependencies » ?"
+    back: "Lire l'index du paramètre et le module cité ; relancer avec NEST_DEBUG=1 pour suivre la résolution."
+    concept: nest-provider-tokens

@@ -1,0 +1,30 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.4
+    source: tests
+  - id: graph
+    label: "Un graphe de dépendances sain"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Le cycle est supprimé par une responsabilité extraite, nommée d'après le domaine (Ledger, pas SharedService) ; chaque module n'exporte que ce que les autres utilisent ; aucun état dupliqué ; les flèches d'import vont vers le socle"
+      3: "Graphe acyclique et état unique, mais un export superflu ou un nom générique"
+      2: "Plus de cycle, mais par un découpage artificiel (un service fourre-tout) ou des exports trop larges"
+      0: "Cycle déplacé ailleurs, @Global() pour le cacher, ou état copié dans deux providers"
+  - id: invariants
+    label: "Règles métier au bon endroit"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Les transitions d'état (pending → paid → refunded) sont gardées à un seul endroit ; un remboursement impossible lève une erreur métier explicite ; aucune mutation d'objet renvoyé par un autre service hors de son propriétaire"
+      2: "Transitions correctes mais dispersées entre services"
+      0: "Un service modifie directement l'état d'un autre, sans règle"
+  - id: explanation
+    label: "Explication du découpage"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Explique que les deux services partageaient un état et non un comportement, pourquoi forwardRef n'aurait fait que masquer ce couplage, et quand un événement serait préférable"
+      2: "Décrit le changement sans en donner la raison"
+      0: "Pas d'explication"
