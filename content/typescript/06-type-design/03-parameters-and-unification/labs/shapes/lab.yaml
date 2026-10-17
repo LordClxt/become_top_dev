@@ -1,0 +1,12 @@
+id: ts-ch06-l03-lab-shapes
+title: "Des appels qu'on ne peut pas inverser"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["shapes.ts"]
+concepts: [ts-repeated-params, ts-params-object, ts-unify-types]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

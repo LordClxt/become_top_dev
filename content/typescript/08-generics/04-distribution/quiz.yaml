@@ -1,0 +1,64 @@
+id: ts-ch08-l04-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Que vaut `IsString<string | number>` avec `type IsString<T> = T extends string ? true : false` ?"
+    choices:
+      - "true"
+      - "false"
+      - "boolean"
+      - "never"
+    answer: 2
+    explanation: "Distribution : true | false = boolean."
+    concept: ts-distributive-conditional
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Et avec `type IsString<T> = [T] extends [string] ? true : false` ?"
+    choices:
+      - "true"
+      - "false"
+      - "boolean"
+      - "never"
+    answer: 1
+    explanation: "Sans distribution, l'union entière est testée : string | number n'est pas assignable à string."
+    concept: ts-non-distributive
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Que vaut `T extends string ? 'oui' : 'non'` pour T = never ?"
+    choices:
+      - "'oui'"
+      - "'non'"
+      - "never"
+      - "'oui' | 'non'"
+    answer: 2
+    explanation: "never est l'union vide : la distribution ne produit aucun membre."
+    concept: ts-boolean-never-distribution
+    difficulty: 3
+  - id: q4
+    type: code-output
+    prompt: "Le comportement à l'exécution ne dépend pas des types. Qu'affiche ce programme ?"
+    code: |
+      function repeat<T>(value: T, n: number): T[] {
+        return Array.from({ length: n }, () => value);
+      }
+      const sizes = [2, 3] as const;
+      console.log(sizes.map((n) => repeat('x', n).join('')).join(' '));
+    answer: "xx xxx"
+    explanation: "Au niveau des types, NTuple<string, 2 | 3> distribué décrirait exactement ces deux formes."
+    concept: ts-force-distribution
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi `isLessThan(dateOrStr, 'B')` est-il accepté avec un Comparable<T> distributif ?"
+    choices:
+      - "Parce que 'B' est une Date"
+      - "Parce que Comparable<Date | string> distribue en Date | number | string, qui inclut string"
+      - "Parce que isLessThan n'est pas typée"
+      - "Parce que les chaînes sont comparables à tout"
+    answer: 1
+    explanation: "La version non distributive ([T] extends [Date]) donne never pour une union mélangée, et refuse l'appel."
+    concept: ts-non-distributive
+    difficulty: 2

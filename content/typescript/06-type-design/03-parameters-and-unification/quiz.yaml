@@ -1,0 +1,54 @@
+id: ts-ch06-l03-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function area(width: number, height: number, margin: number) {
+        return (width - 2 * margin) * (height - 2 * margin);
+      }
+      // l'appelant croit que la signature est (margin, width, height)
+      console.log(area(2, 10, 20));
+    answer: "1140"
+    explanation: "Trois number : l'ordre inversé compile. Avec un objet { width, height, margin }, l'erreur serait impossible."
+    concept: ts-repeated-params
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Quelle signature mérite le moins d'être transformée en objet de paramètres ?"
+    choices:
+      - "createUser(firstName: string, lastName: string, email: string, city: string)"
+      - "drawRect(x: number, y: number, w: number, h: number, opacity: number)"
+      - "max(a: number, b: number)"
+      - "schedule(start: Date, end: Date, reminder: Date)"
+    answer: 2
+    explanation: "max est commutatif : inverser a et b ne change rien. Les autres mélangent facilement des valeurs de même type."
+    concept: ts-params-object
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi peut-il être préférable de garder des noms en snake_case dans le code qui manipule des lignes de base de données ?"
+    choices:
+      - "Parce que TypeScript ne sait pas convertir les noms"
+      - "Pour n'avoir qu'un type et aucune conversion à oublier aux frontières"
+      - "Parce que le camelCase est interdit"
+      - "Pour accélérer les requêtes"
+    answer: 1
+    explanation: "Deux variantes d'un même type imposent des conversions dans les deux sens ; unifier supprime toute une classe d'erreurs."
+    concept: ts-unify-types
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      interface Point { x: number; y: number }
+      interface Size { width: number; height: number }
+      function svgRect({ topLeft, size }: { topLeft: Point; size: Size }) {
+        return `<rect x="${topLeft.x}" y="${topLeft.y}" width="${size.width}" height="${size.height}"/>`;
+      }
+      console.log(svgRect({ size: { width: 75, height: 100 }, topLeft: { x: 25, y: 50 } }));
+    answer: '<rect x="25" y="50" width="75" height="100"/>'
+    explanation: "Avec des paramètres nommés, l'ordre des clés à l'appel n'a pas d'importance et chaque valeur est étiquetée."
+    concept: ts-params-object
+    difficulty: 1

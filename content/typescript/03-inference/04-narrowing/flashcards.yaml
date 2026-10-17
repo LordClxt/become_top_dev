@@ -1,0 +1,22 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `typeof el === 'object'` ne suffit-il pas à exclure null ?"
+    back: "En JavaScript, typeof null vaut 'object' : el reste HTMLElement | null."
+    concept: ts-narrowing-pitfalls
+  - id: fc2
+    front: "Quels tests rétrécissent une union ?"
+    back: "Test de null/vérité, throw/return anticipé, instanceof, in, Array.isArray, typeof, comparaison d'un tag."
+    concept: ts-narrowing-checks
+  - id: fc3
+    front: "Comment rétrécir un tableau avec filter ?"
+    back: "Avec un type guard : `xs.filter((x): x is string => x !== undefined)` donne string[]."
+    concept: ts-type-guard
+  - id: fc4
+    front: "`const box = p.bbox; if (p.bbox) box.x` : pourquoi l'erreur ?"
+    back: "Le test porte sur p.bbox, pas sur l'alias box. Teste et utilise la même référence (décomposition : const { bbox } = p)."
+    concept: ts-alias-consistency
+  - id: fc5
+    front: "Qu'est-ce qu'une union taguée ?"
+    back: "Une union de types qui partagent une propriété littérale (type: 'upload' | 'download') ; un switch sur cette propriété rétrécit chaque branche."
+    concept: ts-tagged-union-switch

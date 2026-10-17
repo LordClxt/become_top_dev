@@ -1,0 +1,12 @@
+id: ts-ch04-l02-lab-rosters
+title: "Des effectifs sans boucle annotée"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["rosters.ts"]
+concepts: [ts-functional-flow, ts-imperative-annotations, ts-groupby-library]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

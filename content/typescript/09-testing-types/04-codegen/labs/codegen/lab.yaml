@@ -1,0 +1,12 @@
+id: ts-ch09-l04-lab-codegen
+title: "Générer des interfaces depuis un schéma"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["codegen.ts"]
+concepts: [ts-codegen, ts-codegen-ci, ts-type-level-tarpit]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

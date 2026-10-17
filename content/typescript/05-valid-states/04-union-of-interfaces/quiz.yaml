@@ -1,0 +1,63 @@
+id: ts-ch05-l04-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Avec `type Layer = FillLayer | LineLayer` tagués par `type`, que vaut `layer.paint` après `if (layer.type === 'fill')` ?"
+    choices:
+      - "FillPaint | LinePaint"
+      - "FillPaint"
+      - "unknown"
+      - "never"
+    answer: 1
+    explanation: "Le tag rétrécit l'union à FillLayer : toutes ses propriétés sont celles du remplissage."
+    concept: ts-union-of-interfaces
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "`interface Person { name: string; birth?: { place: string; date: Date } }`. Quelle valeur est refusée ?"
+    choices:
+      - "{ name: 'Alan' }"
+      - "{ name: 'Alan', birth: { place: 'London', date: new Date() } }"
+      - "{ name: 'Alan', birth: { place: 'London' } }"
+      - "Aucune"
+    answer: 2
+    explanation: "birth est optionnel, mais s'il est présent il doit contenir place ET date."
+    concept: ts-grouped-optionals
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      type Shape = { type: 'circle'; r: number } | { type: 'rect'; w: number; h: number };
+      const shapes: Shape[] = [{ type: 'circle', r: 1 }, { type: 'rect', w: 2, h: 3 }];
+      const labels = shapes.map((s) => (s.type === 'circle' ? `cercle ${s.r}` : `rect ${s.w}x${s.h}`));
+      console.log(labels.join(' ; '));
+    answer: "cercle 1 ; rect 2x3"
+    explanation: "Le tag rétrécit chaque branche : r n'est accessible que pour un cercle, w et h que pour un rectangle."
+    concept: ts-union-of-interfaces
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Tu ne contrôles pas la forme `{ name; placeOfBirth?; dateOfBirth? }` d'une API. Comment exprimer que les deux champs vont ensemble ?"
+    choices:
+      - "Avec un commentaire"
+      - "Avec une union : Name | (Name & { placeOfBirth: string; dateOfBirth: Date })"
+      - "Avec Partial"
+      - "C'est impossible"
+    answer: 1
+    explanation: "L'union d'interfaces exprime la relation ; `'placeOfBirth' in p` rétrécit ensuite vers la variante complète."
+    concept: ts-grouped-optionals
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Combien de combinaisons (layout, paint) autorise `{ layout: A | B | C; paint: A' | B' | C' }`, et combien sont valides ?"
+    choices:
+      - "3 autorisées, 3 valides"
+      - "9 autorisées, 3 valides"
+      - "6 autorisées, 3 valides"
+      - "9 autorisées, 9 valides"
+    answer: 1
+    explanation: "3 × 3 = 9 combinaisons, dont seules les 3 assorties ont un sens. L'union d'interfaces n'autorise que celles-là."
+    concept: ts-interface-of-unions
+    difficulty: 1

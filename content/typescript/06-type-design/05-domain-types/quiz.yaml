@@ -1,0 +1,56 @@
+id: ts-ch06-l05-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Quel nom de propriété est le plus précis pour le nom scientifique d'une espèce ?"
+    choices:
+      - "name"
+      - "info"
+      - "genus et species"
+      - "data"
+    answer: 2
+    explanation: "Le vocabulaire du domaine (nomenclature binomiale) dit exactement ce que contient chaque champ."
+    concept: ts-domain-names
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Ce code a été écrit d'après quelques fichiers GeoJSON. Qu'affiche-t-il ?"
+    code: |
+      type Geometry = { type: string; coordinates?: number[][]; geometries?: Geometry[] };
+      function countPositions(g: Geometry): number {
+        return g.coordinates?.length ?? 0;
+      }
+      const collection: Geometry = {
+        type: 'GeometryCollection',
+        geometries: [{ type: 'LineString', coordinates: [[0, 0], [1, 1]] }],
+      };
+      console.log(countPositions(collection));
+    answer: "0"
+    explanation: "Le type anecdotique ignore GeometryCollection : les positions de ses géométries sont oubliées en silence. Les types officiels auraient imposé de traiter ce cas."
+    concept: ts-anecdotal-types
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Une API documente ses réponses par un JSON Schema. Quelle approche est la plus fiable ?"
+    choices:
+      - "Écrire les types à partir de deux réponses observées"
+      - "Typer les réponses en any"
+      - "Générer les types depuis le schéma"
+      - "Copier les types d'un autre projet"
+    answer: 2
+    explanation: "Le schéma est la source de vérité : les types générés couvrent tous les cas, y compris ceux jamais observés."
+    concept: ts-generated-types
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Dans un même code, `release` et `version` désignent la même chose. Quel est le problème ?"
+    choices:
+      - "Aucun"
+      - "Le lecteur suppose que deux noms désignent deux concepts différents"
+      - "TypeScript refuse les synonymes"
+      - "Le code est plus lent"
+    answer: 1
+    explanation: "Une distinction de nom doit correspondre à une distinction de sens, sinon le lecteur cherche une différence qui n'existe pas."
+    concept: ts-meaningful-distinctions
+    difficulty: 1

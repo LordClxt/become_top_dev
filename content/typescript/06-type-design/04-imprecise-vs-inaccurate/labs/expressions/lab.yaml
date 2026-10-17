@@ -1,0 +1,12 @@
+id: ts-ch06-l04-lab-expressions
+title: "Typer et évaluer des expressions de style"
+kind: code
+language: typescript
+difficulty: 4
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["expression.ts"]
+concepts: [ts-precision-tradeoff, ts-type-test-suite, ts-inaccurate-types]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

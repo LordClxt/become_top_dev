@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Énonce la loi de Postel appliquée aux types."
+    back: "Large dans ce qu'on accepte (paramètres), strict dans ce qu'on produit (retours canoniques)."
+    concept: ts-postel
+  - id: fc2
+    front: "Comment dériver CameraOptions (entrée) de Camera (sortie) ?"
+    back: "`interface CameraOptions extends Omit<Partial<Camera>, 'center'> { center?: LngLatLike }`."
+    concept: ts-canonical-form
+  - id: fc3
+    front: "Pourquoi `sum(xs: Iterable<number>)` plutôt que `sum(xs: number[])` ?"
+    back: "Iterable accepte tableaux, Set, générateurs… plus d'appelants, sans perte."
+    concept: ts-iterable-param
+  - id: fc4
+    front: "Où mettre l'unité d'une durée ?"
+    back: "Dans le nom (timeoutMs), pas dans un commentaire ; et « ne modifie pas » dans readonly."
+    concept: ts-no-types-in-docs

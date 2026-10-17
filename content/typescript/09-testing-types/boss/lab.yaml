@@ -1,0 +1,13 @@
+id: ts-ch09-boss
+title: "Boss : un SDK d'API typé, testé et généré"
+kind: code
+language: typescript
+difficulty: 5
+xp: 250
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["sdk.ts"]
+concepts: [ts-equals-expect, ts-resolve-type, ts-tail-recursive-type, ts-codegen, ts-template-infer, ts-hidden-assertion]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

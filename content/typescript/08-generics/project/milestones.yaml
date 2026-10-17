@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Fusion"
+    goal: "merge combine deux schémas d'objets ; Merge<A, B> est un type mappé où B l'emporte."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Renommage"
+    goal: "camelize valide une entrée snake_case et produit une sortie camelCase, types compris."
+    tests: "tstest M2"
+    review: true
+  - id: m3
+    title: "Chaînes préfixées"
+    goal: "startsWith produit un littéral de gabarit `${P}${string}`."
+    tests: "tstest M3"
+    review: false

@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "`const pizza: any = getPizza()` ou `eatSalad(pizza as any)` ?"
+    back: "Le second : any limité à un argument ; le reste de la fonction garde ses types."
+    concept: ts-any-scope
+  - id: fc2
+    front: "Pourquoi préférer @ts-expect-error à @ts-ignore ?"
+    back: "Si l'erreur disparaît, la directive inutile devient une erreur : on la retire au lieu de la garder pour rien."
+    concept: ts-expect-error-vs-ignore
+  - id: fc3
+    front: "Quel avantage `array: any[]` a-t-il sur `array: any` ?"
+    back: "TypeScript vérifie que c'est un tableau, connaît length (number) et refuse une RegExp."
+    concept: ts-any-variants
+  - id: fc4
+    front: "Quel type pour « n'importe quelle fonction » ?"
+    back: "(...args: any[]) => any (ou une forme plus précise), plutôt que Function ou any."
+    concept: ts-any-variants

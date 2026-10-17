@@ -1,0 +1,12 @@
+id: ts-ch05-l04-lab-layers
+title: "Des calques qui ne se mélangent pas"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["layers.ts"]
+concepts: [ts-union-of-interfaces, ts-interface-of-unions, ts-grouped-optionals]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

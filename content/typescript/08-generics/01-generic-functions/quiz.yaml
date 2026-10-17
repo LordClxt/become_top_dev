@@ -1,0 +1,54 @@
+id: ts-ch08-l01-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Dans `type MyPick<T, K extends keyof T>`, à quoi correspond `extends keyof T` ?"
+    choices:
+      - "À un héritage de classe"
+      - "À une contrainte : l'équivalent d'une annotation de type sur un paramètre de fonction"
+      - "À une valeur par défaut"
+      - "À une union"
+    answer: 1
+    explanation: "extends borne le paramètre de type : K doit être un sous-ensemble des clés de T."
+    concept: ts-generic-constraints
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Avec la contrainte, où apparaît l'erreur de `MyPick<Person, 'firstName'>` ?"
+    choices:
+      - "Dans la définition de MyPick"
+      - "À l'utilisation, sur 'firstName'"
+      - "À l'exécution"
+      - "Nulle part"
+    answer: 1
+    explanation: "Comme un argument de mauvais type dans un appel de fonction : l'erreur est là où est la faute."
+    concept: ts-generic-constraints
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function pick<T extends object, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K> {
+        const out: Partial<Pick<T, K>> = {};
+        for (const k of keys) out[k] = obj[k];
+        return out as Pick<T, K>;
+      }
+      const p = pick({ name: 'Ada', age: 36, admin: true }, 'name', 'admin');
+      console.log(JSON.stringify(p), Object.keys(p).length);
+    answer: '{"name":"Ada","admin":true} 2'
+    explanation: "T et K sont inférés depuis les arguments : p a le type { name: string; admin: boolean }."
+    concept: ts-generic-function-inference
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Que donne `MyPick<Person, 'age' | 'firstName'>` si MyPick a été « corrigé » avec `// @ts-expect-error` au lieu d'une contrainte ?"
+    choices:
+      - "Une erreur à l'utilisation"
+      - "Un type avec age: number et firstName: unknown, sans aucune erreur"
+      - "never"
+      - "Person"
+    answer: 1
+    explanation: "Faire taire l'erreur dans la définition rend le type faux pour tous les appelants, en silence."
+    concept: ts-constraint-not-workaround
+    difficulty: 2

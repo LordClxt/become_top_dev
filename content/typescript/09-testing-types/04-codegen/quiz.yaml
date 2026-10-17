@@ -1,0 +1,51 @@
+id: ts-ch09-l04-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Que signifie le « Turing tar-pit » à propos du système de types ?"
+    choices:
+      - "Que TypeScript est lent"
+      - "Que tout peut s'y calculer, mais que les calculs complexes deviennent impraticables"
+      - "Que les types sont effacés"
+      - "Que les génériques sont interdits"
+    answer: 1
+    explanation: "Turing-complet ne veut pas dire pratique : un analyseur en types est un enfer à maintenir."
+    concept: ts-type-level-tarpit
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel est l'avantage principal des types générés depuis la base de données ?"
+    choices:
+      - "Ils sont plus courts à écrire à la main"
+      - "Ils sont exacts (issus de la source de vérité), simples et rapides à vérifier"
+      - "Ils n'ont pas besoin d'être versionnés"
+      - "Ils remplacent les tests"
+    answer: 1
+    explanation: "La source de vérité fournit les types ; l'outil se contente de les écrire."
+    concept: ts-codegen
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Un mini-générateur. Qu'affiche ce programme ?"
+    code: |
+      const columns = { id: 'uuid', title: 'text', created_at: 'timestamptz' } as const;
+      const tsType: Record<string, string> = { uuid: 'string', text: 'string', timestamptz: 'Date' };
+      const body = Object.entries(columns).map(([name, t]) => `${name}: ${tsType[t]};`).join(' ');
+      console.log(`interface Doc { ${body} }`);
+    answer: "interface Doc { id: string; title: string; created_at: Date; }"
+    explanation: "Le générateur traduit chaque colonne en une propriété : les types produits sont simples et lisibles."
+    concept: ts-codegen
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Comment la CI doit-elle traiter les fichiers générés ?"
+    choices:
+      - "Les ignorer"
+      - "Les régénérer et échouer s'ils diffèrent de la version commitée"
+      - "Les supprimer"
+      - "Les éditer automatiquement"
+    answer: 1
+    explanation: "C'est le moyen de détecter un schéma modifié sans régénération."
+    concept: ts-codegen-ci
+    difficulty: 1

@@ -1,0 +1,12 @@
+id: ts-ch05-assignment
+title: "Des réservations normalisées"
+kind: code
+language: typescript
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["booking.ts"]
+concepts: [ts-postel, ts-canonical-form, ts-null-perimeter, ts-literal-union-domain, ts-grouped-optionals]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

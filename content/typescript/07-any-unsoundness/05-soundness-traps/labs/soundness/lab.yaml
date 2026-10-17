@@ -1,0 +1,12 @@
+id: ts-ch07-l05-lab-soundness
+title: "Boucher les trous de soundness"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["farm.ts"]
+concepts: [ts-index-unsoundness, ts-method-bivariance, ts-array-variance, ts-refinement-invalidation]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

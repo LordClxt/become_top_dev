@@ -1,0 +1,20 @@
+id: ts-ch04
+title: "Flux de types et async"
+subtitle: "Types évolutifs, constructions fonctionnelles, async/await, nouveaux sites d'inférence"
+source: { chapter: 3, pages: "119-136" }
+objectives:
+  - "Comprendre les types évolutifs (tableaux vides, variables sans valeur) et leurs limites"
+  - "Préférer les constructions fonctionnelles (map, flat, Object.fromEntries, groupBy) pour que les types circulent sans annotation"
+  - "Écrire du code asynchrone avec async/await, Promise.all et Promise.race, et éviter les fonctions mi-synchrones"
+  - "Créer de nouveaux sites d'inférence avec une classe ou la curryfication pour inférer certains paramètres de type et en fixer d'autres"
+mastery_threshold: 0.8
+prerequisites: [ts-ch03]
+lessons:
+  - "01-evolving-types"
+  - "02-functional-flow"
+  - "03-async"
+  - "04-inference-sites"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

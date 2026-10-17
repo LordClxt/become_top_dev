@@ -1,0 +1,51 @@
+id: ts-ch07-l04-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Que fait `declare global { interface Window { user: User | undefined } }` à l'exécution ?"
+    choices:
+      - "Il crée window.user"
+      - "Rien : il ne fait qu'ajouter un membre au type Window"
+      - "Il gèle window"
+      - "Il importe User"
+    answer: 1
+    explanation: "C'est une déclaration de type ; c'est au code de renseigner window.user."
+    concept: ts-global-augmentation
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi déclarer `user: User | undefined` plutôt que `user: User` ?"
+    choices:
+      - "Par convention"
+      - "Parce que du code peut lire la globale avant qu'elle soit renseignée"
+      - "Parce que User peut être null"
+      - "Pour éviter une erreur de compilation"
+    answer: 1
+    explanation: "L'augmentation est visible partout, y compris au démarrage, avant la connexion."
+    concept: ts-global-augmentation
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const meta = new WeakMap<object, { tooltip: string }>();
+      const button = { id: 'send' };
+      meta.set(button, { tooltip: 'Envoyer' });
+      console.log(meta.get(button)?.tooltip, Object.keys(button).join(), meta.get({ id: 'send' }));
+    answer: "Envoyer id undefined"
+    explanation: "La WeakMap associe la donnée à l'objet sans le modifier ; les clés sont comparées par identité."
+    concept: ts-narrow-augmentation
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Quelle solution limite le plus la portée d'une donnée « globale » ?"
+    choices:
+      - "(window as any).data"
+      - "declare global { interface Window { data: Data } }"
+      - "Un module qui garde la donnée et exporte des fonctions d'accès"
+      - "document.data"
+    answer: 2
+    explanation: "Un module n'expose la donnée qu'à ceux qui l'importent, avec des types exacts."
+    concept: ts-narrow-augmentation
+    difficulty: 1

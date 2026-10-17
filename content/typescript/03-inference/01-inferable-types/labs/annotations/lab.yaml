@@ -1,0 +1,12 @@
+id: ts-ch03-l01-lab-annotations
+title: "Annoter là où ça compte"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["quotes.ts"]
+concepts: [ts-annotate-return, ts-annotate-signatures, ts-no-inferable-annotations]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

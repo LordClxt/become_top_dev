@@ -1,0 +1,80 @@
+id: ts-ch03-l01-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Quel est le type inféré de `const axis = 'x'` ?"
+    choices:
+      - "string"
+      - "\"x\""
+      - "any"
+      - "String"
+    answer: 1
+    explanation: "Une const ne peut pas changer : TypeScript lui donne le type littéral \"x\", plus précis que string."
+    concept: ts-no-inferable-annotations
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Dans quel cas une annotation de paramètre est-elle superflue ?"
+    choices:
+      - "Jamais : il faut toujours annoter les paramètres"
+      - "Quand le paramètre a une valeur par défaut, ou quand c'est un callback dont le contexte fournit le type"
+      - "Quand la fonction est exportée"
+      - "Quand le paramètre est un objet"
+    answer: 1
+    explanation: "`base = 10` donne number, et `arr.map(x => …)` déduit x du tableau. Ailleurs, TypeScript n'infère pas un paramètre depuis ses appels."
+    concept: ts-annotate-signatures
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Voici getQuote sans annotation de retour (le réseau est simulé). Qu'affiche ce programme ?"
+    code: |
+      const cache: Record<string, number> = { MSFT: 420 };
+      function getQuote(ticker: string) {
+        if (ticker in cache) return cache[ticker];
+        return Promise.resolve(100);
+      }
+      const q = getQuote('MSFT');
+      console.log(typeof q, q instanceof Promise);
+    answer: "number false"
+    explanation: "Une branche renvoie un nombre, l'autre une promesse : getQuote('MSFT').then(…) planterait. Avec `: Promise<number>`, l'erreur serait signalée sur le premier return."
+    concept: ts-annotate-return
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi écrire `const elmo: Product = { … }` plutôt que `const elmo = { … }` ?"
+    choices:
+      - "Pour accélérer l'exécution"
+      - "Pour obtenir la vérification des propriétés en trop et une erreur à l'endroit de la définition"
+      - "Parce que l'inférence ne fonctionne pas sur les objets"
+      - "Pour rendre l'objet immuable"
+    answer: 1
+    explanation: "L'inférence fonctionne, mais sans annotation une faute de frappe ou un mauvais type n'est détecté que là où l'objet est utilisé."
+    concept: ts-annotate-object-literal
+    difficulty: 1
+  - id: q5
+    type: multiple
+    prompt: "Quelles annotations sont redondantes ?"
+    choices:
+      - "let n: number = 12"
+      - "function area(r: number) { … }"
+      - "const { id, name }: { id: string; name: string } = product"
+      - "const ids = [1, 2, 3]"
+    answer: [0, 2]
+    explanation: "n et la décomposition sont inférées. Le paramètre r doit être annoté ; ids n'a pas d'annotation."
+    concept: ts-no-inferable-annotations
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      interface Product { id: number; name: string; price: number }
+      function label(product: Product) {
+        const { name, price } = product;
+        return `${name} : ${price.toFixed(2)} €`;
+      }
+      console.log(label({ id: 1, name: 'Elmo', price: 28.99 }));
+    answer: "Elmo : 28.99 €"
+    explanation: "name et price sont inférés de Product par la décomposition : aucune annotation locale n'est nécessaire."
+    concept: ts-annotate-signatures
+    difficulty: 1

@@ -1,0 +1,12 @@
+id: ts-ch07-l01-lab-narrow-any
+title: "Contenir les any"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["legacy.ts"]
+concepts: [ts-any-scope, ts-any-variants, ts-expect-error-vs-ignore]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: ts-ch08-l04-lab-distribution
+title: "Distribuer, ou pas"
+kind: code
+language: typescript
+difficulty: 4
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["distribution.ts"]
+concepts: [ts-distributive-conditional, ts-non-distributive, ts-boolean-never-distribution, ts-force-distribution]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

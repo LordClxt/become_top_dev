@@ -1,0 +1,12 @@
+id: ts-ch09-assignment
+title: "Typer une bibliothèque contre sa suite de tests de types"
+kind: code
+language: typescript
+difficulty: 4
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["tuples.ts"]
+concepts: [ts-equals-expect, ts-negative-type-tests, ts-resolve-type, ts-tail-recursive-type, ts-assignability-not-equality]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

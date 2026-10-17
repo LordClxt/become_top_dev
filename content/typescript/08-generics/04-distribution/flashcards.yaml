@@ -1,0 +1,22 @@
+cards:
+
+  - id: fc1
+    front: "Quand un type conditionnel est-il distributif ?"
+    back: "Quand le type testé est un paramètre générique nu (T extends …) : il est évalué sur chaque membre de l'union."
+    concept: ts-distributive-conditional
+  - id: fc2
+    front: "Comment désactiver la distribution ?"
+    back: "Envelopper les deux côtés dans un tuple : [T] extends [U] ? … : …"
+    concept: ts-non-distributive
+  - id: fc3
+    front: "Que vaut `V extends true ? 'Huzzah!' : never` pour V = boolean ?"
+    back: "'Huzzah!' : boolean = true | false distribue, la branche false donne never."
+    concept: ts-boolean-never-distribution
+  - id: fc4
+    front: "Comment tester si T est never ?"
+    back: "[T] extends [never] ? true : false (un conditionnel distributif sur never donne toujours never)."
+    concept: ts-boolean-never-distribution
+  - id: fc5
+    front: "NTuple<T, 2 | 3> ne donne que le tuple de 2. Pourquoi et comment corriger ?"
+    back: "L'accumulateur teste Acc['length'], pas N : pas de distribution. On ajoute N extends number ? NTupleHelp<…> : never."
+    concept: ts-force-distribution

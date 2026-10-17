@@ -1,0 +1,14 @@
+id: ts-ch05-project
+title: "Parse, jalon 5 : unions taguées, null explicite et dates"
+pitch: "Les données réelles ont des variantes, des absences et des dates. Tu ajoutes à Parse des schémas qui produisent des types n'exprimant que des états valides."
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-union-of-interfaces, ts-null-perimeter, ts-literal-union-domain, ts-state-union]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

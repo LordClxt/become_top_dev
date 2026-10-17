@@ -1,0 +1,22 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi remplacer `endangered: boolean` par `status: ConservationStatus` ?"
+    back: "Le domaine a une échelle standard (IUCN : LC, NT, VU, EN, CR, EW, EX) : plus précis et compris des spécialistes."
+    concept: ts-domain-names
+  - id: fc2
+    front: "Quels noms de types éviter ?"
+    back: "Les noms vagues : data, info, thing, item, object, entity."
+    concept: ts-domain-names
+  - id: fc3
+    front: "Quel cas un type GeoJSON « fait maison » oublie-t-il typiquement ?"
+    back: "GeometryCollection, qui n'a pas de coordinates mais une liste de geometries (à traiter récursivement)."
+    concept: ts-anecdotal-types
+  - id: fc4
+    front: "Une API fournit un schéma OpenAPI. Comment obtenir ses types ?"
+    back: "Les générer à partir du schéma plutôt que les écrire d'après quelques réponses."
+    concept: ts-generated-types
+  - id: fc5
+    front: "Que signifie « une distinction de nom = une distinction de sens » ?"
+    back: "Deux noms différents désignent deux choses différentes, et un même concept garde partout le même nom."
+    concept: ts-meaningful-distinctions

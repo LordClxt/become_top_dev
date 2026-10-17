@@ -1,0 +1,13 @@
+id: ts-ch03-boss
+title: "Boss : un collecteur d'événements analytiques"
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["analytics.ts"]
+concepts: [ts-narrowing-checks, ts-type-guard, ts-tagged-union-switch, ts-as-const, ts-conditional-spread, ts-alias-consistency]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

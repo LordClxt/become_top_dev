@@ -1,0 +1,22 @@
+id: ts-ch08
+title: "Génériques et types conditionnels"
+subtitle: "Les génériques comme fonctions entre types, paramètres inutiles, types conditionnels, distribution, littéraux de gabarit"
+source: { chapter: 6, pages: "216-240" }
+objectives:
+  - "Écrire des types génériques comme des fonctions entre types, avec des contraintes (extends) plutôt que des contournements"
+  - "Supprimer les paramètres de type inutiles (règle : un paramètre de type doit apparaître au moins deux fois)"
+  - "Préférer les types conditionnels aux surcharges quand le type de retour dépend du type d'entrée"
+  - "Contrôler la distribution des unions sur les types conditionnels ([T] extends [U])"
+  - "Modéliser des DSL et des relations entre chaînes avec les types littéraux de gabarit et infer"
+mastery_threshold: 0.8
+prerequisites: [ts-ch07]
+lessons:
+  - "01-generic-functions"
+  - "02-unnecessary-params"
+  - "03-conditional-types"
+  - "04-distribution"
+  - "05-template-literals"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

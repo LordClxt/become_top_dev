@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: types
+    label: "Qualité des types"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Types exacts et lisibles (Resolve), récursions terminales, aucune assertion superflue"
+      2: "Les tests passent, mais avec des types difficiles à lire ou des assertions non justifiées"
+      0: "any, ou tests contournés"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Types intermédiaires nommés, commentaires utiles"
+      2: "Types monolithiques"
+      0: "Illisible"

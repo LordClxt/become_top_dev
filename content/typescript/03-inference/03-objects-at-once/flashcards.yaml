@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `const pt = {}; pt.x = 3;` est-il refusé ?"
+    back: "Le type de pt est fixé à sa création ({}) : il n'a pas de propriété x. Crée l'objet d'un coup."
+    concept: ts-object-all-at-once
+  - id: fc2
+    front: "Type de `{ ...{ x: 3 }, ...{ name: 'P' } }` ?"
+    back: "{ name: string; x: number } : la décomposition fusionne les types."
+    concept: ts-spread-compose
+  - id: fc3
+    front: "Comment ajouter `middle` seulement si hasMiddle ?"
+    back: "`{ ...base, ...(hasMiddle ? { middle: 'S' } : {}) }` : middle devient optionnelle (middle?: string)."
+    concept: ts-conditional-spread
+  - id: fc4
+    front: "Pourquoi éviter `const pt = {} as Point` ?"
+    back: "L'assertion fait taire TypeScript : si une propriété n'est jamais affectée, aucune erreur."
+    concept: ts-object-all-at-once

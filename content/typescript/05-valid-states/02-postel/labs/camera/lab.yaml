@@ -1,0 +1,12 @@
+id: ts-ch05-l02-lab-camera
+title: "Une caméra canonique"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["camera.ts"]
+concepts: [ts-postel, ts-canonical-form, ts-iterable-param, ts-no-types-in-docs]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

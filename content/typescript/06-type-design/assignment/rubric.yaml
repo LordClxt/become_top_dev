@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: design
+    label: "Conception des types"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Aucune sentinelle ; préférence de salle en union taguée ; demande normalisée une fois ; objets de paramètres ; unités dans les noms"
+      2: "Fonctionne, mais des défauts dispersés ou des paramètres positionnels du même type"
+      0: "Sentinelles (-1, ''), optionnels propagés partout, any"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes, vocabulaire du domaine, aucune duplication"
+      2: "Lisible mais noms vagues ou répétitions"
+      0: "Difficile à suivre"

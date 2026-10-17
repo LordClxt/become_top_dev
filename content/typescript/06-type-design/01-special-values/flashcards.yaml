@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Que renvoie le splitAround naïf pour une valeur absente ?"
+    back: "indexOf vaut -1 : [[tout sauf le dernier], [tout]], un résultat faux sans aucune erreur."
+    concept: ts-magic-values
+  - id: fc2
+    front: "Quel type de retour pour un indexOf sûr ?"
+    back: "number | null : l'appelant doit traiter le cas null (strictNullChecks)."
+    concept: ts-null-special-value
+  - id: fc3
+    front: "Dans le livre, priceDollars: -1 signifiait « prix inconnu ». Quel bug, et quel type ?"
+    back: "Du code ignorant la convention a crédité les cartes des clients (prix négatif). Il fallait number | null (ou une union taguée s'il y a plusieurs cas spéciaux)."
+    concept: ts-tagged-special-value

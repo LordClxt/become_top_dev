@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Type de retour de `const xs = []; xs.push(1); return xs;` ?"
+    back: "number[] : le type du tableau vide évolue au fil des push."
+    concept: ts-evolving-array
+  - id: fc2
+    front: "`let r = null; try { r = compute(); } catch {}` : type de r après le bloc ?"
+    back: "number | null (si compute renvoie number) : le type de r évolue avec les affectations."
+    concept: ts-evolving-let
+  - id: fc3
+    front: "Pourquoi `const out = []; xs.forEach(x => out.push(x)); return out;` est-il refusé ?"
+    back: "L'évolution ne traverse pas les callbacks : out reste un any[] implicite. Utilise for-of ou map."
+    concept: ts-evolving-limits

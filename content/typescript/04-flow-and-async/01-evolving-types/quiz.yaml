@@ -1,0 +1,73 @@
+id: ts-ch04-l01-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Quel est le type de retour inféré de cette fonction : `const xs = []; xs.push(1); xs.push('a'); return xs;` ?"
+    choices:
+      - "any[]"
+      - "number[]"
+      - "(string | number)[]"
+      - "never[]"
+    answer: 2
+    explanation: "Le tableau vide a un type évolutif : chaque push l'élargit, ici à (string | number)[]."
+    concept: ts-evolving-array
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi `const out = []; range(0, 3).forEach(i => out.push(i)); return out;` est-il refusé avec noImplicitAny ?"
+    choices:
+      - "forEach n'existe pas sur les tableaux"
+      - "L'évolution du type ne traverse pas les callbacks : out reste un any[] implicite"
+      - "On ne peut pas pousser dans une const"
+      - "range renvoie un itérateur"
+    answer: 1
+    explanation: "TypeScript ne suit pas les push faits dans un callback. Une boucle for-of ou un map résolvent le problème."
+    concept: ts-evolving-limits
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function parseOr(text: string) {
+        let result = null;
+        try {
+          result = JSON.parse(text) as number;
+        } catch {
+          console.log('invalide');
+        }
+        return result;
+      }
+      console.log(parseOr('42'), parseOr('{'));
+    answer: |
+      invalide
+      42 null
+    explanation: "Les arguments sont évalués avant l'affichage final : le second appel affiche « invalide » d'abord. Le type de retour inféré est number | null."
+    concept: ts-evolving-let
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Que se passe-t-il avec `const xs: unknown[] = []; xs.push(1);` ?"
+    choices:
+      - "xs devient number[]"
+      - "xs reste unknown[] : une annotation désactive l'évolution"
+      - "Erreur : on ne peut pas pousser un nombre"
+      - "xs devient any[]"
+    answer: 1
+    explanation: "Le type évolutif n'existe que sans annotation ; avec une annotation, le type est fixé."
+    concept: ts-evolving-array
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function squares(limit: number) {
+        const out = [];
+        for (let i = 1; i <= limit; i++) out.push(i * i);
+        return out;
+      }
+      console.log(squares(4).join('+'), squares(0).length);
+    answer: "1+4+9+16 0"
+    explanation: "Avec une boucle for, l'évolution fonctionne : le retour est number[], même vide à l'exécution."
+    concept: ts-evolving-array
+    difficulty: 1

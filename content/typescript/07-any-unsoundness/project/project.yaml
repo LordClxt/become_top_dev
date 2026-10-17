@@ -1,0 +1,14 @@
+id: ts-ch07-project
+title: "Parse, jalon 7 : de l'unknown aux types sûrs"
+pitch: "Parse est l'outil qui transforme un unknown en type fiable. Tu ajoutes la validation d'instances, des type guards et des fonctions d'assertion, et un mode strict qui ferme les types ouverts."
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-unknown-narrowing, ts-hidden-assertion, ts-unknown-vs-any, ts-soundness-definition]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

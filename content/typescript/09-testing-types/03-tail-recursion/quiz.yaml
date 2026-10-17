@@ -1,0 +1,55 @@
+id: ts-ch09-l03-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Lequel de ces types est récursif terminal ?"
+    choices:
+      - "type A<S> = S extends `${infer F}${infer R}` ? F | A<R> : never"
+      - "type B<S, Acc> = S extends `${infer F}${infer R}` ? B<R, Acc | F> : Acc"
+      - "type C<S> = S extends `${infer F}${infer R}` ? `${C<R>}${F}` : ''"
+      - "Aucun"
+    answer: 1
+    explanation: "Dans B, l'appel récursif est toute la branche ; A et C combinent le résultat après l'appel."
+    concept: ts-tail-recursive-type
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function sumRec(nums: number[], i = 0): number {
+        return i === nums.length ? 0 : nums[i]! + sumRec(nums, i + 1);
+      }
+      function sumLoop(nums: number[]) { let t = 0; for (const n of nums) t += n; return t; }
+      const big = Array(200_000).fill(1);
+      let rec: string;
+      try { rec = String(sumRec(big)); } catch (e) { rec = (e as Error).name; }
+      console.log(rec, sumLoop(big));
+    answer: "RangeError 200000"
+    explanation: "La récursion dépasse la pile de V8 ; la boucle n'a pas ce problème."
+    concept: ts-runtime-tail-recursion
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Vers quelle profondeur TypeScript arrête-t-il un type récursif non terminal ?"
+    choices:
+      - "10"
+      - "environ 50"
+      - "environ 1000"
+      - "Jamais"
+    answer: 1
+    explanation: "Les types récursifs terminaux, eux, vont jusqu'à environ 1000 niveaux."
+    concept: ts-recursion-depth
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "À quoi sert `string extends T ? string : …` en tête de ToSnake ?"
+    choices:
+      - "À refuser les chaînes vides"
+      - "À renvoyer string directement quand T est le type string lui-même, au lieu de tenter de le découper"
+      - "À accélérer l'exécution"
+      - "À rendre le type distributif"
+    answer: 1
+    explanation: "Sur string (et non un littéral), le découpage n'a pas de sens : on court-circuite."
+    concept: ts-tail-recursive-type
+    difficulty: 2

@@ -1,0 +1,12 @@
+id: ts-ch03-l02-lab-widening
+title: "Garder les types précis"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["routes.ts"]
+concepts: [ts-as-const, ts-satisfies, ts-widening-let-const, ts-object-props-widen]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,63 @@
+id: ts-ch08-l05-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Quelles valeurs sont assignables à `` `${'margin' | 'padding'}-${'top' | 'left'}` `` ?"
+    choices:
+      - "Seulement 'margin-top'"
+      - "Les quatre combinaisons margin-top, margin-left, padding-top, padding-left"
+      - "N'importe quelle chaîne"
+      - "'margin' et 'padding'"
+    answer: 1
+    explanation: "Un gabarit combine les unions : produit cartésien des possibilités."
+    concept: ts-template-literal-type
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Que vaut `ToCamel<'user_id_value'>` avec la version récursive de la leçon ?"
+    choices:
+      - "\"userIdValue\""
+      - "\"userId_value\""
+      - "\"UserIdValue\""
+      - "string"
+    answer: 0
+    explanation: "Head = 'user', Tail = 'id_value' traité récursivement en 'idValue', puis capitalisé."
+    concept: ts-template-infer
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche cette version d'exécution de ToCamel ?"
+    code: |
+      const toCamel = (s: string) => s.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase());
+      const row = { first_name: 'Ada', last_name: 'Lovelace', id: 1 };
+      const camel = Object.fromEntries(Object.entries(row).map(([k, v]) => [toCamel(k), v]));
+      console.log(Object.keys(camel).join());
+    answer: "firstName,lastName,id"
+    explanation: "Au niveau des types, ObjectToCamel décrit exactement ce renommage."
+    concept: ts-key-remapping
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Le sélecteur 'div#main img' correspond-il au gabarit `${'div' | 'img'}#${string}` ?"
+    choices:
+      - "Non, à cause de l'espace"
+      - "Oui : ${string} accepte ' img' aussi, d'où un type HTMLDivElement faux"
+      - "Seulement en mode strict"
+      - "Oui, et le type est juste"
+    answer: 1
+    explanation: "${string} correspond à n'importe quelle chaîne : le type devient inexact sur les sélecteurs composés."
+    concept: ts-dsl-precision-limits
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi écrire `ToCamel<K & string>` dans `{ [K in keyof T as ToCamel<K & string>]: T[K] }` ?"
+    choices:
+      - "Pour rendre K optionnel"
+      - "Parce que keyof T peut contenir number et symbol, et ToCamel attend une string"
+      - "Pour convertir les valeurs"
+      - "Par convention"
+    answer: 1
+    explanation: "L'intersection ne garde que les clés chaînes, compatibles avec la contrainte de ToCamel."
+    concept: ts-key-remapping
+    difficulty: 2

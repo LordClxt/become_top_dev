@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Instances"
+    goal: "instanceOf rétrécit un unknown en instance d'une classe."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Gardes et assertions"
+    goal: "is est un type guard, assertValid une fonction d'assertion : les appelants obtiennent des types sûrs sans as."
+    tests: "tstest M2"
+    review: true
+  - id: m3
+    title: "Objets stricts"
+    goal: "strict refuse les propriétés inconnues et ferme ainsi un trou de soundness des types ouverts."
+    tests: "tstest M3"
+    review: false

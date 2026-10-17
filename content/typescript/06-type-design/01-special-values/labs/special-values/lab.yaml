@@ -1,0 +1,12 @@
+id: ts-ch06-l01-lab-special-values
+title: "Chasser les sentinelles"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["special.ts"]
+concepts: [ts-magic-values, ts-null-special-value, ts-tagged-special-value]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

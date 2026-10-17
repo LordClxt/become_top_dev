@@ -1,0 +1,13 @@
+id: ts-ch05-boss
+title: "Boss : le cycle de vie d'une commande"
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 75
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["orders.ts"]
+concepts: [ts-state-union, ts-invalid-states, ts-union-of-interfaces, ts-grouped-optionals, ts-literal-union-domain, ts-null-perimeter]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

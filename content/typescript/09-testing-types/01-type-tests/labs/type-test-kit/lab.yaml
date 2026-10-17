@@ -1,0 +1,12 @@
+id: ts-ch09-l01-lab-type-test-kit
+title: "Ta propre boîte à outils de tests de types"
+kind: code
+language: typescript
+difficulty: 4
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["kit.ts"]
+concepts: [ts-equals-expect, ts-assignability-not-equality, ts-negative-type-tests]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

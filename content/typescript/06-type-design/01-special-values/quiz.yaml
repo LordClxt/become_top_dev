@@ -1,0 +1,50 @@
+id: ts-ch06-l01-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Voici le splitAround du livre. Qu'affiche ce programme ?"
+    code: |
+      function splitAround<T>(vals: readonly T[], val: T): [T[], T[]] {
+        const index = vals.indexOf(val);
+        return [vals.slice(0, index), vals.slice(index + 1)];
+      }
+      console.log(JSON.stringify(splitAround([1, 2, 3, 4, 5], 6)));
+    answer: "[[1,2,3,4],[1,2,3,4,5]]"
+    explanation: "indexOf renvoie -1 : slice(0, -1) retire le dernier élément, slice(0) renvoie tout. La sentinelle produit un résultat faux en silence."
+    concept: ts-magic-values
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Pourquoi `number | null` vaut-il mieux que `-1` pour « non trouvé » ?"
+    choices:
+      - "null prend moins de mémoire"
+      - "Avec strictNullChecks, l'appelant ne peut pas utiliser le résultat sans traiter le cas null"
+      - "-1 n'est pas un nombre valide en TypeScript"
+      - "null est plus rapide à comparer"
+    answer: 1
+    explanation: "-1 est un number comme les autres ; null appartient à un autre type, que le vérificateur oblige à éliminer."
+    concept: ts-null-special-value
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Un champ `user: User | null` peut signifier « pas encore chargé » ou « n'existe pas ». Que faire ?"
+    choices:
+      - "Garder null, c'est suffisant"
+      - "Utiliser undefined pour l'un et null pour l'autre"
+      - "Une union taguée qui nomme chaque cas (loading, missing, loaded)"
+      - "Utiliser -1"
+    answer: 2
+    explanation: "Distinguer null et undefined est fragile et implicite ; une union taguée rend chaque cas explicite."
+    concept: ts-tagged-special-value
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Comme dans le livre, un prix de -1 signifie « prix inconnu ». Qu'affiche ce programme ?"
+    code: |
+      const orders = [{ priceDollars: 10 }, { priceDollars: -1 }, { priceDollars: 5 }];
+      console.log(orders.reduce((sum, o) => sum + o.priceDollars, 0));
+    answer: "14"
+    explanation: "La sentinelle se fond dans la somme : le total est faux. Dans le livre, ce genre d'oubli a fini par créditer les cartes des clients. Avec number | null, l'addition aurait été refusée."
+    concept: ts-magic-values
+    difficulty: 1

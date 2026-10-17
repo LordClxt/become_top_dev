@@ -1,0 +1,12 @@
+id: ts-ch04-l01-lab-evolving
+title: "Laisser les types évoluer"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["collect.ts"]
+concepts: [ts-evolving-array, ts-evolving-let, ts-evolving-limits]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

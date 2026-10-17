@@ -1,0 +1,12 @@
+id: ts-ch04-l03-lab-async
+title: "Requêtes parallèles, délai et cache de promesses"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["fetching.ts"]
+concepts: [ts-promise-all-race, ts-async-always-async, ts-promise-cache]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

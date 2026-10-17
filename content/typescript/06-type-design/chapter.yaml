@@ -1,0 +1,22 @@
+id: ts-ch06
+title: "Conception de types, suite"
+subtitle: "Valeurs spéciales, optionnels, paramètres répétés, unification, précision contre exactitude, langage du domaine"
+source: { chapter: 4, pages: "162-184" }
+objectives:
+  - "Représenter les valeurs spéciales par un type distinct (null, union taguée) plutôt que par une valeur magique comme -1"
+  - "Limiter les propriétés optionnelles : séparer la configuration saisie de la configuration normalisée"
+  - "Éviter les paramètres répétés du même type, et unifier les types plutôt que modéliser des variantes superflues"
+  - "Préférer un type imprécis à un type inexact, et tester ses types pour progresser sans régression"
+  - "Nommer les types avec le langage du domaine et ne pas les déduire de quelques exemples"
+mastery_threshold: 0.8
+prerequisites: [ts-ch05]
+lessons:
+  - "01-special-values"
+  - "02-optional-properties"
+  - "03-parameters-and-unification"
+  - "04-imprecise-vs-inaccurate"
+  - "05-domain-types"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

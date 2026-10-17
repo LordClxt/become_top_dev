@@ -1,0 +1,14 @@
+id: ts-ch04-project
+title: "Parse, jalon 4 : transformations, lots et validation asynchrone"
+pitch: "Un validateur réel convertit les données, traite des lots entiers et interroge parfois un service distant. Tu ajoutes à Parse transform, partition et les schémas asynchrones."
+kind: code
+language: typescript
+difficulty: 3
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-functional-flow, ts-async-always-async, ts-evolving-limits, ts-promise-all-race]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

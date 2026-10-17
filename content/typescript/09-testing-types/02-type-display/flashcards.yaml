@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Définition de Resolve<T> ?"
+    back: "T extends Function ? T : { [K in keyof T]: T[K] } — aplatit un objet, laisse les fonctions intactes."
+    concept: ts-resolve-type
+  - id: fc2
+    front: "Pourquoi éviter un DeepResolve ?"
+    back: "Il ouvrirait Date, Map ou les classes en listes de méthodes ; Resolve doit rester superficiel."
+    concept: ts-resolve-limits
+  - id: fc3
+    front: "Pourquoi soigner l'affichage d'un type ?"
+    back: "Les survols et les messages d'erreur montrent le type affiché : une composition de génériques est illisible pour les utilisateurs."
+    concept: ts-type-display-matters

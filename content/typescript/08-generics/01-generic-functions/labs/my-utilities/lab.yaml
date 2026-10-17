@@ -1,0 +1,12 @@
+id: ts-ch08-l01-lab-my-utilities
+title: "Réécrire les types utilitaires"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["utilities.ts"]
+concepts: [ts-generic-as-function, ts-generic-constraints, ts-constraint-not-workaround, ts-generic-function-inference]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

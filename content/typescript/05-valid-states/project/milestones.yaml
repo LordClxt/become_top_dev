@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "null explicite"
+    goal: "nullable ajoute null aux valeurs acceptées, et seulement null."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Unions taguées"
+    goal: "discriminatedUnion choisit la variante par son tag et produit une union d'objets précise."
+    tests: "tstest M2"
+    review: true
+  - id: m3
+    title: "Dates"
+    goal: "isoDate convertit une chaîne AAAA-MM-JJ en Date et refuse les dates impossibles."
+    tests: "tstest M3"
+    review: false

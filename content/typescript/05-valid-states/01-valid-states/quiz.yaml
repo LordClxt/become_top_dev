@@ -1,0 +1,67 @@
+id: ts-ch05-l01-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Combien de combinaisons de valeurs autorisent trois booléens indépendants `isLoading`, `hasError`, `isDone` ?"
+    choices:
+      - "3"
+      - "4"
+      - "8"
+      - "6"
+    answer: 2
+    explanation: "2³ = 8 combinaisons, alors qu'il n'y a que quelques états valides. Une union taguée n'en autorise que le nombre voulu."
+    concept: ts-invalid-states
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Dans `type RequestState = { state: 'pending' } | { state: 'error'; error: string } | { state: 'ok'; pageText: string }`, que garantit le type ?"
+    choices:
+      - "Que la requête finit toujours par réussir"
+      - "Qu'une requête est dans un seul état, avec seulement les données qui ont du sens dans cet état"
+      - "Que pageText est toujours défini"
+      - "Que les erreurs sont journalisées"
+    answer: 1
+    explanation: "Chaque variante porte ses propres champs : pas de texte en erreur, pas de message en succès."
+    concept: ts-state-union
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Ce code utilise l'état ambigu de départ. Qu'affiche-t-il ?"
+    code: |
+      interface State { pageText: string; isLoading: boolean; error?: string }
+      function render(s: State) {
+        if (s.error) return `Erreur : ${s.error}`;
+        if (s.isLoading) return 'Chargement…';
+        return s.pageText;
+      }
+      // l'utilisateur réessaie après une erreur : isLoading repasse à true, l'erreur n'est pas effacée
+      console.log(render({ pageText: '', isLoading: true, error: 'timeout' }));
+    answer: "Erreur : timeout"
+    explanation: "Le type autorise « en chargement » et « en erreur » à la fois : le rendu affiche une erreur périmée pendant la nouvelle tentative."
+    concept: ts-invalid-states
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "L'utilisateur clique sur la page A puis aussitôt sur B ; la réponse de A arrive après celle de B. Avec `requests: { [page]: RequestState }` et `currentPage`, que s'affiche-t-il ?"
+    choices:
+      - "La page A"
+      - "La page B : la réponse de A ne met à jour que requests['A']"
+      - "Une erreur"
+      - "Rien"
+    answer: 1
+    explanation: "Chaque réponse modifie sa propre case ; le rendu ne lit que la page courante."
+    concept: ts-state-per-request
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Une fonction getStickSetting(left, right) ne peut pas être implémentée correctement quand les deux manches divergent. Que faut-il faire ?"
+    choices:
+      - "Faire la moyenne"
+      - "Prendre toujours le manche gauche"
+      - "Changer le modèle : un seul angle de manche, les deux étant liés"
+      - "Lever une exception"
+    answer: 2
+    explanation: "Quand aucune implémentation n'est correcte, c'est le type d'entrée qui autorise des états invalides."
+    concept: ts-unrepresentable-design
+    difficulty: 2

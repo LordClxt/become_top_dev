@@ -1,0 +1,66 @@
+id: ts-ch05-l05-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Pour `interface Album { artist: string; releaseDate: Date }`, que vaut le type de `pluck(albums, 'releaseDate')` avec `pluck<T, K extends keyof T>(records: T[], key: K): T[K][]` ?"
+    choices:
+      - "any[]"
+      - "(string | Date)[]"
+      - "Date[]"
+      - "string[]"
+    answer: 2
+    explanation: "K est inféré à 'releaseDate', donc T[K] = Date."
+    concept: ts-keyof-pluck
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Et avec la signature `pluck<T>(records: T[], key: keyof T): T[keyof T][]` ?"
+    choices:
+      - "Date[]"
+      - "(string | Date)[]"
+      - "never[]"
+      - "unknown[]"
+    answer: 1
+    explanation: "Sans paramètre de type dédié pour la clé, le retour est l'union de toutes les colonnes."
+    concept: ts-keyof-pluck
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Ce code est « stringly typed ». Qu'affiche-t-il ?"
+    code: |
+      function recordRelease(title: string, date: string) {
+        return `${title} (${date.slice(0, 4)})`;
+      }
+      const album = { title: 'Kind of Blue', releaseDate: '1959-08-17' };
+      console.log(recordRelease(album.releaseDate, album.title));
+    answer: "1959-08-17 (Kind)"
+    explanation: "Les arguments sont inversés et TypeScript ne voit rien : deux string sont interchangeables. Avec releaseDate: Date, l'erreur serait détectée."
+    concept: ts-stringly-typed
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Quel est le principal gain de `recordingType: 'studio' | 'live'` par rapport à `recordingType: string` ?"
+    choices:
+      - "Le code s'exécute plus vite"
+      - "Les valeurs invalides ('Studio', 'concert') sont refusées et l'autocomplétion propose les valeurs permises"
+      - "Les chaînes deviennent immuables"
+      - "On peut utiliser switch"
+    answer: 1
+    explanation: "Une union de littéraux est un ensemble fini : le vérificateur refuse tout le reste et l'éditeur liste les choix."
+    concept: ts-literal-union-domain
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function pluck<T, K extends keyof T>(records: readonly T[], key: K): T[K][] {
+        return records.map((r) => r[key]);
+      }
+      const albums = [{ artist: 'Miles', year: 1959 }, { artist: 'Coltrane', year: 1965 }];
+      const years = pluck(albums, 'year');
+      console.log(years.map((y) => y + 1).join(), pluck(albums, 'artist').join('/'));
+    answer: "1960,1966 Miles/Coltrane"
+    explanation: "years a le type number[] : on peut lui ajouter 1 sans conversion. pluck(albums, 'artist') donne string[]."
+    concept: ts-keyof-pluck
+    difficulty: 1

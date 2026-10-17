@@ -1,0 +1,52 @@
+id: ts-ch09-l02-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Que fait `{ [K in keyof T]: T[K] }` appliqué à `{ a: 1 } & { b: 2 }` ?"
+    choices:
+      - "Rien"
+      - "Il produit l'objet aplati { a: 1; b: 2 }"
+      - "Il produit never"
+      - "Il rend les clés optionnelles"
+    answer: 1
+    explanation: "Le type mappé force le calcul de chaque propriété : l'intersection est aplatie, à l'affichage comme pour Equals."
+    concept: ts-resolve-type
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi Resolve teste-t-il `T extends Function` ?"
+    choices:
+      - "Pour accélérer la compilation"
+      - "Parce qu'un type mappé sur une fonction la transformerait en objet (sans signature d'appel)"
+      - "Pour refuser les fonctions"
+      - "Par convention"
+    answer: 1
+    explanation: "Les signatures d'appel ne sont pas des propriétés : un type mappé les perdrait."
+    concept: ts-resolve-type
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Que doit renvoyer `PartiallyPartial<T, never>` idéalement ?"
+    choices:
+      - "never"
+      - "{}"
+      - "T lui-même, affiché par son nom"
+      - "Partial<T>"
+    answer: 2
+    explanation: "Aucune clé à rendre optionnelle : on renvoie T, avec un test non distributif [K] extends [never]."
+    concept: ts-resolve-limits
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "L'affichage des types ne change rien à l'exécution. Qu'affiche ce programme ?"
+    code: |
+      type Resolve<T> = T extends Function ? T : { [K in keyof T]: T[K] };
+      const a = { id: 1 };
+      const b = { title: 'x' };
+      const merged: Resolve<typeof a & typeof b> = { ...a, ...b };
+      console.log(Object.keys(merged).join());
+    answer: "id,title"
+    explanation: "Resolve n'agit que sur l'affichage et la comparaison des types ; la valeur est un objet ordinaire."
+    concept: ts-type-display-matters
+    difficulty: 1

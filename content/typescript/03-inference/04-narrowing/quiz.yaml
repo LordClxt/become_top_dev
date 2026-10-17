@@ -1,0 +1,85 @@
+id: ts-ch03-l04-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function kind(x: number | string | null) {
+        if (!x) return 'vide';
+        if (typeof x === 'object') return 'objet';
+        return typeof x;
+      }
+      console.log(kind(0), kind(''), kind(null), kind(7), kind('a'));
+    answer: "vide vide vide number string"
+    explanation: "Le test de vérité exclut null mais aussi 0 et '' : c'est le piège classique des valeurs « falsy »."
+    concept: ts-narrowing-pitfalls
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      console.log(typeof null, typeof [], Array.isArray([]), typeof undefined);
+    answer: "object object true undefined"
+    explanation: "typeof ne distingue ni null ni les tableaux des objets : il faut x !== null et Array.isArray."
+    concept: ts-narrowing-pitfalls
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Dans `switch (e.type) { case 'upload': … }`, quel est le type de e dans la branche 'upload' ?"
+    choices:
+      - "AppEvent"
+      - "UploadEvent"
+      - "string"
+      - "never"
+    answer: 1
+    explanation: "type est la propriété discriminante : comparer sa valeur rétrécit l'union au membre correspondant."
+    concept: ts-tagged-union-switch
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Que se passe-t-il si un type guard `isInputElement(el): el is HTMLInputElement` renvoie true à tort ?"
+    choices:
+      - "TypeScript détecte l'incohérence à la compilation"
+      - "Une erreur est levée à l'exécution"
+      - "TypeScript fait confiance au prédicat : le type est faux, comme avec une assertion"
+      - "La fonction renvoie undefined"
+    answer: 2
+    explanation: "Le corps d'un type guard n'est pas vérifié contre son prédicat : il n'est pas plus sûr qu'une assertion."
+    concept: ts-type-guard
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "`const box = polygon.bbox; if (polygon.bbox) { box.x }` est refusé. Pourquoi ?"
+    choices:
+      - "bbox n'est pas une propriété de polygon"
+      - "Le test a rétréci polygon.bbox, pas l'alias box"
+      - "On ne peut pas créer d'alias en TypeScript"
+      - "box est en lecture seule"
+    answer: 1
+    explanation: "TypeScript suit chaque référence séparément. Il faut tester l'alias (if (box)) ou le créer par décomposition et l'utiliser partout."
+    concept: ts-alias-consistency
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Quels tests rétrécissent `x: string[] | string | RegExp | null` ?"
+    choices:
+      - "if (Array.isArray(x))"
+      - "if (x instanceof RegExp)"
+      - "if (typeof x === 'string')"
+      - "if (x.length)"
+    answer: [0, 1, 2]
+    explanation: "Array.isArray, instanceof et typeof sont compris par TypeScript. x.length est refusé : null et RegExp n'ont pas de length."
+    concept: ts-narrowing-checks
+    difficulty: 2
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const counts = new Map<string, number>([['a', 2]]);
+      const read = (k: string) => counts.get(k) ?? 0;
+      console.log(read('a'), read('z'), counts.has('z'));
+    answer: "2 0 false"
+    explanation: "get renvoie number | undefined ; ?? fournit une valeur par défaut sans passer par has + assertion."
+    concept: ts-narrowing-checks
+    difficulty: 1

@@ -1,0 +1,12 @@
+id: ts-ch08-l05-lab-template-literals
+title: "Des chaînes typées par leur forme"
+kind: code
+language: typescript
+difficulty: 4
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["strings.ts"]
+concepts: [ts-template-literal-type, ts-template-infer, ts-key-remapping, ts-dsl-precision-limits]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

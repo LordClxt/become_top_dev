@@ -1,0 +1,66 @@
+id: ts-ch06-l04-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Entre un type imprécis (laisse passer des valeurs invalides) et un type inexact (rejette des valeurs valides), lequel préférer ?"
+    choices:
+      - "L'inexact, car il est plus précis"
+      - "L'imprécis : rejeter du code valide pousse aux contournements (as any) et fait perdre confiance"
+      - "Aucun : il faut utiliser any"
+      - "Peu importe"
+    answer: 1
+    explanation: "Un type qui refuse des valeurs valides est un mensonge ; l'imprécision n'est qu'une protection incomplète."
+    concept: ts-inaccurate-types
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Avec `type CallExpression = [FnName, ...any[]]` où FnName = '+' | '-' | 'case' | 'rgb' …, quelle expression est désormais refusée ?"
+    choices:
+      - "['+', 10, 5]"
+      - "['rgb', 255, 0, 127, 0]"
+      - "['**', 2, 31]"
+      - "['case', ['>', 20, 10], 'red', 'blue', 'green']"
+    answer: 2
+    explanation: "'**' n'appartient pas à FnName. Le nombre d'arguments n'est pas encore vérifié : les deux dernières passent toujours."
+    concept: ts-precision-tradeoff
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce petit évaluateur ?"
+    code: |
+      type Expr = number | ['+' | '*', Expr, Expr];
+      function evaluate(e: Expr): number {
+        if (typeof e === 'number') return e;
+        const [op, a, b] = e;
+        return op === '+' ? evaluate(a) + evaluate(b) : evaluate(a) * evaluate(b);
+      }
+      console.log(evaluate(['+', 2, ['*', 3, 4]]));
+    answer: "14"
+    explanation: "Le type récursif décrit exactement les expressions acceptées par l'évaluateur : 2 + 3 × 4."
+    concept: ts-precision-tradeoff
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "À quoi sert une liste `invalidExpressions` où chaque ligne porte `// @ts-expect-error` ?"
+    choices:
+      - "À désactiver le vérificateur"
+      - "À vérifier que le type refuse bien ces valeurs ; si l'une d'elles devient acceptée, la directive inutilisée provoque une erreur"
+      - "À documenter les erreurs à l'exécution"
+      - "À rien, c'est un commentaire"
+    answer: 1
+    explanation: "Une directive @ts-expect-error sans erreur en dessous est elle-même une erreur : c'est un test négatif."
+    concept: ts-type-test-suite
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Mapbox accepte `['-', 12]` (moins unaire), mais `MathCall` exige deux opérandes. Que dire de ce type ?"
+    choices:
+      - "Il est trop imprécis"
+      - "Il est inexact : il rejette une expression valide"
+      - "Il est parfait"
+      - "Il est équivalent à any"
+    answer: 1
+    explanation: "C'est la vallée de l'étrange : très précis, mais faux sur des cas réels, avec un message d'erreur obscur."
+    concept: ts-uncanny-valley
+    difficulty: 2

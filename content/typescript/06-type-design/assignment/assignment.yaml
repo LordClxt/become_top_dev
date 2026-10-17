@@ -1,0 +1,12 @@
+id: ts-ch06-assignment
+title: "Un agenda de salles bien conçu"
+kind: code
+language: typescript
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["rooms.ts"]
+concepts: [ts-null-special-value, ts-tagged-special-value, ts-input-vs-normalized, ts-params-object, ts-domain-names]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

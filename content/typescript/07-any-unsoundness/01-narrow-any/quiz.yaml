@@ -1,0 +1,50 @@
+id: ts-ch07-l01-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Quel est le type de retour inféré de `function f() { const x: any = load(); return x.data; }` ?"
+    choices:
+      - "unknown"
+      - "any"
+      - "le type de data"
+      - "never"
+    answer: 1
+    explanation: "any est contagieux : toute propriété d'un any est any, et la fonction propage any à ses appelants."
+    concept: ts-any-scope
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Que se passe-t-il si l'erreur couverte par `// @ts-expect-error` disparaît ?"
+    choices:
+      - "Rien"
+      - "TypeScript signale une directive @ts-expect-error inutilisée"
+      - "Le code ne s'exécute plus"
+      - "La directive se transforme en @ts-ignore"
+    answer: 1
+    explanation: "C'est son avantage sur @ts-ignore : elle ne survit pas à la correction du problème."
+    concept: ts-expect-error-vs-ignore
+    difficulty: 1
+  - id: q3
+    type: multiple
+    prompt: "Avec `function getLength(array: any[]) { return array.length; }`, qu'est-ce qui est vrai ?"
+    choices:
+      - "Le type de retour est number"
+      - "getLength(/123/) est refusé"
+      - "getLength(null) est accepté en mode strict"
+      - "Les éléments du tableau sont vérifiés"
+    answer: [0, 1]
+    explanation: "any[] garantit un tableau (donc length: number) mais pas le type des éléments. null est refusé avec strictNullChecks."
+    concept: ts-any-variants
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "any désactive la vérification. Qu'affiche ce programme ?"
+    code: |
+      const settings: any = { theme: 'dark' };
+      const size: number = settings.fontSize;
+      console.log(size, typeof size);
+    answer: "undefined undefined"
+    explanation: "TypeScript croit que size est un number, mais il vaut undefined : any a fait entrer une valeur fausse dans un type précis."
+    concept: ts-any-scope
+    difficulty: 2

@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi un `unitSystem?` ajouté à AppConfig est-il risqué ?"
+    back: "Le code existant compile sans le prendre en compte, et chaque lecture invente sa valeur par défaut (incohérences)."
+    concept: ts-optional-cost
+  - id: fc2
+    front: "Comment gérer une option facultative pour l'utilisateur ?"
+    back: "Un type saisi InputAppConfig (optionnel), un type AppConfig = Required<…>, et normalizeAppConfig qui applique les défauts une seule fois."
+    concept: ts-input-vs-normalized
+  - id: fc3
+    front: "Combien de combinaisons pour 5 propriétés optionnelles ?"
+    back: "2⁵ = 32 combinaisons de présence à envisager."
+    concept: ts-optional-combinations

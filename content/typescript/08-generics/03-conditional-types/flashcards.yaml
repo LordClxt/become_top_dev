@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `double(x)` échoue-t-il avec des surcharges si x: string | number ?"
+    back: "Les surcharges sont essayées une par une ; une union ne correspond à aucune signature."
+    concept: ts-overload-limits
+  - id: fc2
+    front: "Signature conditionnelle de double ?"
+    back: "function double<T extends string | number>(x: T): T extends string ? string : number"
+    concept: ts-conditional-type
+  - id: fc3
+    front: "Comment implémenter une fonction à type de retour conditionnel sans assertions ?"
+    back: "Une signature de surcharge publique (conditionnelle) puis une implémentation plus large (string | number)."
+    concept: ts-single-overload-impl
+  - id: fc4
+    front: "Que vaut `T extends Promise<infer U> ? U : T` pour Promise<number> ?"
+    back: "number : infer capture le type contenu dans la promesse."
+    concept: ts-infer-keyword

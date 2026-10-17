@@ -1,0 +1,66 @@
+id: ts-ch04-l02-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const headers = ['name', 'team'];
+      const row = Object.fromEntries('Ada,Lakers'.split(',').map((v, j) => [headers[j], v]));
+      console.log(row.name, row.team, Object.keys(row).length);
+    answer: "Ada Lakers 2"
+    explanation: "Object.fromEntries construit l'objet d'un coup ; son type ({ [k: string]: string }) est déduit sans annotation."
+    concept: ts-functional-flow
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel est le type de `Object.values(rosters).flat()` si `rosters: Record<string, Player[]>` ?"
+    choices:
+      - "Player[][]"
+      - "Player[]"
+      - "any[]"
+      - "unknown[]"
+    answer: 1
+    explanation: "Object.values donne Player[][], flat retire un niveau : Player[]."
+    concept: ts-functional-flow
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const players = [
+        { name: 'A', team: 'X', salary: 3 },
+        { name: 'B', team: 'Y', salary: 9 },
+        { name: 'C', team: 'X', salary: 5 },
+      ];
+      const byTeam = Map.groupBy(players, (p) => p.team);
+      const best = [...byTeam.values()].map((ps) => ps.toSorted((a, b) => b.salary - a.salary)[0]?.name);
+      console.log([...byTeam.keys()].join(), best.join(), players[0].name);
+    answer: "X,Y C,B A"
+    explanation: "groupBy garde l'ordre de première apparition des clés ; toSorted ne modifie pas le tableau d'origine."
+    concept: ts-groupby-library
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi le code fonctionnel demande-t-il moins d'annotations que le code impératif ?"
+    choices:
+      - "Parce que TypeScript n'analyse pas les fonctions fléchées"
+      - "Parce que chaque étape crée une nouvelle valeur, donc un nouveau type déduit de la précédente"
+      - "Parce que map renvoie toujours any"
+      - "Parce que les boucles sont interdites en mode strict"
+    answer: 1
+    explanation: "Le type d'une variable est fixé à sa création : créer une valeur par étape laisse l'inférence suivre chaque transformation."
+    concept: ts-imperative-annotations
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quelle est la différence entre `xs.sort()` et `xs.toSorted()` ?"
+    choices:
+      - "Aucune"
+      - "sort modifie xs en place, toSorted renvoie une copie triée"
+      - "toSorted est plus lent"
+      - "sort renvoie undefined"
+    answer: 1
+    explanation: "toSorted (ES2023) est la version non mutante : elle s'accorde avec des paramètres readonly."
+    concept: ts-groupby-library
+    difficulty: 1

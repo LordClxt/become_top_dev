@@ -1,0 +1,71 @@
+id: ts-ch05-l03-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Voici l'extent bogué du livre. Qu'affiche ce programme ?"
+    code: |
+      function extent(nums: number[]) {
+        let min: number | undefined, max: number | undefined;
+        for (const num of nums) {
+          if (!min) { min = num; max = num; }
+          else { min = Math.min(min, num); max = Math.max(max!, num); }
+        }
+        return [min, max];
+      }
+      console.log(JSON.stringify(extent([0, 1, 2])), JSON.stringify(extent([])));
+    answer: "[1,2] [null,null]"
+    explanation: "0 est falsy : il est écrasé par 1. Une liste vide donne [undefined, undefined] (JSON l'écrit [null,null])."
+    concept: ts-falsy-zero-bug
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Quel type de retour décrit le mieux extent ?"
+    choices:
+      - "(number | undefined)[]"
+      - "[number | undefined, number | undefined]"
+      - "[number, number] | null"
+      - "number[]"
+    answer: 2
+    explanation: "Min et max existent ensemble ou pas du tout : le null est au périmètre, l'appelant ne teste qu'une fois."
+    concept: ts-null-perimeter
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Une classe a deux champs `user: User | null` et `posts: Post[] | null` remplis par `init()`. Combien de combinaisons null/non-null chaque méthode doit-elle envisager ?"
+    choices:
+      - "1"
+      - "2"
+      - "4"
+      - "3"
+    answer: 2
+    explanation: "2 × 2 = 4. Une fabrique qui attend les deux données avant de construire n'en laisse qu'une."
+    concept: ts-class-complete-init
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Où placer le `| null` pour un utilisateur qui peut ne pas être connecté ?"
+    choices:
+      - "Dans l'alias : type User = {...} | null"
+      - "À l'usage : let current: User | null"
+      - "Dans chaque champ : name: string | null"
+      - "Nulle part : utiliser any"
+    answer: 1
+    explanation: "User désigne un utilisateur ; l'absence est une propriété de la variable, pas du type."
+    concept: ts-no-null-in-alias
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function extent(nums: number[]) {
+        let span: [number, number] | null = null;
+        for (const n of nums) span = span ? [Math.min(span[0], n), Math.max(span[1], n)] : [n, n];
+        return span;
+      }
+      const s = extent([0, -3, 5]);
+      console.log(s ? `${s[0]}..${s[1]}` : 'vide', extent([]));
+    answer: "-3..5 null"
+    explanation: "Le null est au périmètre : un seul test, et 0 n'est plus confondu avec une absence."
+    concept: ts-null-perimeter
+    difficulty: 1

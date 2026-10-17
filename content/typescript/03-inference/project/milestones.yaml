@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Énumérations"
+    goal: "enumeration garde les littéraux de la liste (sans as const chez l'appelant) et refuse toute autre valeur."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Raffinements"
+    goal: "refine applique un type guard et rétrécit le type de sortie."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Valeurs par défaut"
+    goal: "withDefault remplace undefined et retire undefined du type de sortie."
+    tests: "tstest M3"
+    review: true

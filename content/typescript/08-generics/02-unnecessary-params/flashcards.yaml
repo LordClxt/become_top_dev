@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Quelle est la règle d'or des génériques ?"
+    back: "Un paramètre de type doit apparaître au moins deux fois, pour relier deux types."
+    concept: ts-golden-rule-generics
+  - id: fc2
+    front: "Comment simplifier `third<A, B, C>(a: A, b: B, c: C): C` ?"
+    back: "`third<C>(a: unknown, b: unknown, c: C): C` : A et B n'apparaissent qu'une fois."
+    concept: ts-simplify-generic
+  - id: fc3
+    front: "Pourquoi K est-il utile dans getProperty mais pas dans printProperty ?"
+    back: "getProperty renvoie T[K] (K deux fois) ; printProperty n'utilise K qu'une fois : key: keyof T suffit."
+    concept: ts-useful-param
+  - id: fc4
+    front: "Que penser de `parseYAML<T>(input: string): T` ?"
+    back: "T n'apparaît que dans le retour : c'est une assertion déguisée. Renvoie unknown."
+    concept: ts-return-only-param

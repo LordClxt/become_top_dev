@@ -1,0 +1,83 @@
+id: ts-ch07-l05-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Ce code compile. Qu'affiche-t-il ?"
+    code: |
+      class Animal { name = 'animal'; }
+      class Hen extends Animal { cluck() { return 'cot'; } }
+      class Fox extends Animal { name = 'renard'; }
+      function addFox(animals: Animal[]) { animals.push(new Fox()); }
+      const henhouse: Hen[] = [new Hen()];
+      addFox(henhouse);
+      console.log(henhouse.length, henhouse[1]?.name, typeof henhouse[1]?.cluck);
+    answer: "2 renard undefined"
+    explanation: "Hen[] est accepté comme Animal[], et la fonction y pousse un renard : TypeScript croit toujours que henhouse ne contient que des poules."
+    concept: ts-array-variance
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Ce code compile aussi. Qu'affiche-t-il ?"
+    code: |
+      class Parent { describe(x: number | string) { return `parent ${x}`; } }
+      class Child extends Parent { describe(x: string) { return `child ${x.length}`; } }
+      const p: Parent = new Child();
+      try { console.log(p.describe(42)); } catch (e) { console.log('plantage'); }
+    answer: "child undefined"
+    explanation: "La bivariance des méthodes laisse Child restreindre le paramètre ; avec un nombre, x.length vaut undefined (et une méthode de chaîne aurait planté)."
+    concept: ts-method-bivariance
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "Quelle déclaration fait vérifier strictement les paramètres d'une fonction stockée dans une interface ?"
+    choices:
+      - "handle(x: string): void"
+      - "handle: (x: string) => void"
+      - "Les deux"
+      - "Aucune"
+    answer: 1
+    explanation: "Avec strictFunctionTypes, seules les propriétés de type fonction sont contravariantes ; les méthodes restent bivariantes."
+    concept: ts-method-bivariance
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      interface Fact { fact: string; author?: string }
+      function process(f: Fact, cb: (f: Fact) => void) {
+        if (f.author) {
+          cb(f);
+          return typeof f.author;
+        }
+        return 'sans auteur';
+      }
+      console.log(process({ fact: 'x', author: 'Ada' }, (f) => { delete f.author; }));
+    answer: "undefined"
+    explanation: "TypeScript croit encore que f.author est une string après l'appel ; le callback l'a supprimé."
+    concept: ts-refinement-invalidation
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Avec `noUncheckedIndexedAccess`, quel est le type de `xs[0]` pour `xs: number[]` ?"
+    choices:
+      - "number"
+      - "number | undefined"
+      - "unknown"
+      - "never"
+    answer: 1
+    explanation: "L'option ajoute | undefined à tout accès indexé, même xs[0] ; plus sûr, mais il faut tester."
+    concept: ts-index-unsoundness
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Que mesure `type-coverage` ?"
+    choices:
+      - "Le pourcentage de lignes testées"
+      - "Le pourcentage d'expressions dont le type n'est pas any"
+      - "Le nombre d'interfaces"
+      - "Le temps de compilation"
+    answer: 1
+    explanation: "Suivi en CI, ce chiffre empêche les any de revenir sans qu'on s'en aperçoive."
+    concept: ts-type-coverage
+    difficulty: 1

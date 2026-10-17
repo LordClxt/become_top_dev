@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Comment construire un objet à partir de paires [clé, valeur] sans annotation ?"
+    back: "Object.fromEntries(pairs) : le type { [k: string]: V } est déduit."
+    concept: ts-functional-flow
+  - id: fc2
+    front: "Version fonctionnelle de « concaténer tous les tableaux d'un dictionnaire » ?"
+    back: "Object.values(rosters).flat() : le type T[] est déduit, sans annotation."
+    concept: ts-functional-flow
+  - id: fc3
+    front: "Pourquoi une boucle qui remplit `const row = {}` est-elle refusée ?"
+    back: "Le type {} n'a pas de signature d'index : il faut annoter (ou asserter). La version fonctionnelle évite le problème."
+    concept: ts-imperative-annotations
+  - id: fc4
+    front: "Que renvoie `Map.groupBy(players, p => p.team)` ?"
+    back: "Une Map<string, Player[]> : les joueurs regroupés par équipe (ES2024)."
+    concept: ts-groupby-library

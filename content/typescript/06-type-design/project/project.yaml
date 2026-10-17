@@ -1,0 +1,14 @@
+id: ts-ch06-project
+title: "Parse, jalon 6 : options nommées, JSON exact et schémas récursifs"
+pitch: "Concevoir les types de Parse avec soin : des options qu'on ne peut pas inverser, un type JSON récursif exact plutôt qu'un any, et des schémas qui se référencent eux-mêmes."
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-params-object, ts-inaccurate-types, ts-precision-tradeoff, ts-optional-cost]
+verified: { at: 2026-10-16, solution: pass, starter: fail }
