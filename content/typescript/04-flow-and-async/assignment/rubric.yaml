@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: flow
+    label: "Async et style fonctionnel"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Requêtes en parallèle, async/await sans callbacks, aucune annotation superflue ; transformations en map/groupBy plutôt qu'en boucles qui remplissent des objets"
+      2: "Fonctionne, mais des await séquentiels inutiles ou des boucles impératives annotées"
+      0: "Callbacks imbriqués, any, ou erreurs avalées sans trace"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes et nommées, aucune duplication"
+      2: "Lisible mais répétitif"
+      0: "Difficile à suivre"

@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `FirstChar | GetChars<Rest>` échoue-t-il sur une longue chaîne ?"
+    back: "La récursion n'est pas terminale (le résultat est combiné) : TypeScript s'arrête vers 50 niveaux (« excessively deep »)."
+    concept: ts-recursion-depth
+  - id: fc2
+    front: "Comment rendre un type récursif terminal ?"
+    back: "Ajouter un accumulateur et faire de l'appel récursif toute la branche : GetCharsHelp<Rest, Acc | First>."
+    concept: ts-tail-recursive-type
+  - id: fc3
+    front: "La récursion terminale évite-t-elle les dépassements de pile en JavaScript ?"
+    back: "Non : la plupart des moteurs (V8) ne l'optimisent pas. Une boucle reste plus sûre."
+    concept: ts-runtime-tail-recursion

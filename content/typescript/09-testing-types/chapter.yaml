@@ -1,0 +1,20 @@
+id: ts-ch09
+title: "Tester ses types"
+subtitle: "Tests de types, affichage des types, récursion terminale, génération de code"
+source: { chapter: 6, pages: "240-260" }
+objectives:
+  - "Écrire des tests de types qui vérifient l'égalité (et pas seulement l'assignabilité), y compris des tests négatifs"
+  - "Soigner l'affichage des types (Resolve) pour des messages et des survols lisibles"
+  - "Écrire des types récursifs terminaux, avec accumulateur, pour dépasser les limites de profondeur"
+  - "Savoir quand générer des types (codegen) plutôt qu'écrire des types complexes"
+mastery_threshold: 0.8
+prerequisites: [ts-ch08]
+lessons:
+  - "01-type-tests"
+  - "02-type-display"
+  - "03-tail-recursion"
+  - "04-codegen"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

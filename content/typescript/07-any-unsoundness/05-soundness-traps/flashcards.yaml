@@ -1,0 +1,26 @@
+cards:
+
+  - id: fc1
+    front: "Qu'est-ce qu'un système de types sound ?"
+    back: "Un système où le type statique contient toujours la valeur réelle à l'exécution. TypeScript ne l'est pas, par choix."
+    concept: ts-soundness-definition
+  - id: fc2
+    front: "Quel est le type de `[0, 1, 2][3]` par défaut ?"
+    back: "number, alors que la valeur est undefined. noUncheckedIndexedAccess donne number | undefined."
+    concept: ts-index-unsoundness
+  - id: fc3
+    front: "`m(x: string): void` vs `m: (x: string) => void` dans une interface ?"
+    back: "La syntaxe méthode est bivariante (moins sûre) ; la syntaxe propriété est vérifiée strictement (strictFunctionTypes)."
+    concept: ts-method-bivariance
+  - id: fc4
+    front: "Comment éviter qu'une fonction pousse un Fox dans un Hen[] ?"
+    back: "Typer le paramètre readonly Animal[] : la fonction ne peut plus écrire dans le tableau."
+    concept: ts-array-variance
+  - id: fc5
+    front: "if (fact.author) { cb(fact); fact.author.blink(); } : quel risque ?"
+    back: "cb a pu supprimer author ; TypeScript ne l'invalide pas. Copier author dans une const avant l'appel."
+    concept: ts-refinement-invalidation
+  - id: fc6
+    front: "À quoi sert type-coverage ?"
+    back: "Mesurer la part d'expressions non any et la suivre en CI pour éviter les régressions."
+    concept: ts-type-coverage

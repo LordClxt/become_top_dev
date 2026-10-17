@@ -1,0 +1,12 @@
+id: ts-ch03-l03-lab-spread
+title: "Construire des objets en une expression"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["build.ts"]
+concepts: [ts-object-all-at-once, ts-spread-compose, ts-conditional-spread]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

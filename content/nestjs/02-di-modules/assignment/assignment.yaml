@@ -1,0 +1,12 @@
+id: nest-ch02-assignment
+title: "Démêler commandes et paiements"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 150
+timeout_s: 90
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["orders.ts", "payments.ts", "app.module.ts", "ledger.ts"]
+concepts: [nest-circular-dependency, nest-module-encapsulation, nest-shared-singleton]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

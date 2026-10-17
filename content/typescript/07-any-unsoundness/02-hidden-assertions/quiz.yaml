@@ -1,0 +1,60 @@
+id: ts-ch07-l02-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Sans annotation de retour, que renvoie `async function fetchPeak(id) { return checkedFetchJSON(url); }` si checkedFetchJSON renvoie Promise<unknown> ?"
+    choices:
+      - "Promise<MountainPeak>"
+      - "Promise<unknown>, et chaque appelant doit asserter"
+      - "Promise<any>"
+      - "MountainPeak"
+    answer: 1
+    explanation: "L'annotation Promise<MountainPeak> + une assertion interne concentre le risque en un seul endroit."
+    concept: ts-hidden-assertion
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi `shallowObjectEqual(a: object, b: object)` avec `(b as any)[k]` vaut-il mieux que `b: any` ?"
+    choices:
+      - "C'est plus rapide"
+      - "Le paramètre reste vérifié (null est refusé) ; seul un accès est non vérifié"
+      - "any est interdit dans les paramètres"
+      - "Aucune différence"
+    answer: 1
+    explanation: "L'assertion est limitée à une expression justifiée ; b: any accepterait n'importe quoi, y compris null."
+    concept: ts-assertion-justified
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function cacheLast<F extends (...args: never[]) => unknown>(fn: F): F {
+        let lastKey: string | null = null;
+        let lastResult: unknown;
+        const cached = (...args: unknown[]) => {
+          const key = JSON.stringify(args);
+          if (key !== lastKey) { lastResult = (fn as (...a: unknown[]) => unknown)(...args); lastKey = key; }
+          return lastResult;
+        };
+        return cached as unknown as F;
+      }
+      let calls = 0;
+      const square = cacheLast((n: number) => { calls++; return n * n; });
+      console.log(square(3), square(3), square(4), calls);
+    answer: "9 9 16 2"
+    explanation: "Le deuxième appel avec 3 est servi par le cache. L'assertion interne est invisible pour l'appelant, qui garde le type (n: number) => number."
+    concept: ts-generic-wrapper-assertion
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Quelle est la seule protection d'une fonction qui contient une assertion ?"
+    choices:
+      - "Le vérificateur de types"
+      - "Ses tests (et la relecture du commentaire qui la justifie)"
+      - "Le linter"
+      - "Le mode strict"
+    answer: 1
+    explanation: "Une assertion désactive la vérification sur ce point : seuls les tests peuvent montrer qu'elle est juste."
+    concept: ts-assertion-justified
+    difficulty: 1

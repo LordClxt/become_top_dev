@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi éviter d'analyser du SQL au niveau des types ?"
+    back: "C'est réimplémenter un analyseur en types : lent, fragile, incomplet, avec des erreurs illisibles (Turing tar-pit)."
+    concept: ts-type-level-tarpit
+  - id: fc2
+    front: "Quelle alternative aux types complexes quand une source de vérité existe ?"
+    back: "La génération de code : un outil lit le schéma ou les requêtes et écrit des types TypeScript simples."
+    concept: ts-codegen
+  - id: fc3
+    front: "Comment garder le code généré synchronisé ?"
+    back: "Le versionner, le régénérer en CI et échouer s'il diffère (git diff --exit-code) ; ne jamais l'éditer à la main."
+    concept: ts-codegen-ci

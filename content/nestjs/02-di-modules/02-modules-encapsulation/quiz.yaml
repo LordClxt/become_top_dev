@@ -1,0 +1,113 @@
+id: nest-ch02-l02-quiz
+questions:
+- id: q1
+  type: code-output
+  prompt: '`Counter` est déclaré dans deux modules. Qu''affiche ce programme ?'
+  code: 'import ''reflect-metadata'';
+
+    import { Injectable, Module } from ''@nestjs/common'';
+
+    import { Test } from ''@nestjs/testing'';
+
+
+    @Injectable() class Counter { n = 0; }
+
+    @Injectable() class A { constructor(readonly c: Counter) {} }
+
+    @Injectable() class B { constructor(readonly c: Counter) {} }
+
+
+    @Module({ providers: [Counter, A], exports: [A] }) class ModA {}
+
+    @Module({ providers: [Counter, B], exports: [B] }) class ModB {}
+
+
+    const ref = await Test.createTestingModule({ imports: [ModA, ModB] }).compile();
+
+    const a = ref.get(A, { strict: false });
+
+    const b = ref.get(B, { strict: false });
+
+    a.c.n++;
+
+    console.log(a.c.n, b.c.n, a.c === b.c);
+
+    '
+  answer: 1 0 false
+  explanation: Chaque module qui déclare Counter dans ses providers en obtient sa propre instance. Pour partager, un seul module le déclare et l'exporte.
+  concept: nest-shared-singleton
+  difficulty: 2
+- id: q2
+  type: code-output
+  prompt: '`CatalogModule` est importé, mais exporte-t-il ce qu''il faut ? Qu''affiche ce programme ?'
+  code: "import 'reflect-metadata';\nimport { Injectable, Module } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\n@Injectable() class PriceService {}\n@Injectable() class StockService\
+    \ {}\n@Injectable() class OrdersService { constructor(readonly prices: PriceService) {} }\n\n@Module({ providers: [PriceService, StockService], exports: [StockService] }) class CatalogModule {}\n@Module({\
+    \ imports: [CatalogModule], providers: [OrdersService] }) class OrdersModule {}\n\ntry {\n  await Test.createTestingModule({ imports: [OrdersModule] }).compile();\n  console.log('démarré');\n} catch\
+    \ {\n  console.log('refusé');\n}\n"
+  answer: refusé
+  explanation: 'Importer un module ne donne accès qu''à ses exports. PriceService n''est pas exporté : OrdersService ne peut pas le recevoir, et la compilation échoue.'
+  concept: nest-module-encapsulation
+  difficulty: 1
+- id: q3
+  type: single
+  prompt: 'Au démarrage : « Nest can''t resolve dependencies of OrdersService (?). Please make sure that StockService… is available in the OrdersModule context ». Quelle est la meilleure correction ?'
+  choices:
+  - Ajouter StockService aux providers de OrdersModule
+  - Exporter StockService depuis le module qui le déclare, et importer ce module dans OrdersModule
+  - Mettre @Global() sur tous les modules
+  - Injecter StockService avec ModuleRef
+  answer: 1
+  explanation: Redéclarer le provider fait disparaître l'erreur, mais crée une seconde instance, avec son propre état. Le provider vit dans un module, il est exporté et importé là où il sert.
+  concept: nest-shared-singleton
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: '`CoreModule` a `imports: [CatalogModule], exports: [CatalogModule]`. Que reçoit un module qui importe `CoreModule` ?'
+  choices:
+  - 'Rien : on ne peut exporter que des providers'
+  - Les exports de CatalogModule, comme s'il l'importait directement
+  - Tous les providers de CatalogModule, exportés ou non
+  - Une nouvelle instance de CatalogModule
+  answer: 1
+  explanation: Un module peut ré-exporter un module importé. L'importateur reçoit les exports de CatalogModule, et les mêmes instances, puisque les modules sont des singletons.
+  concept: nest-module-reexport
+  difficulty: 2
+- id: q5
+  type: multiple
+  prompt: Lesquelles de ces raisons justifient d'éviter `@Global()` sur un module de fonctionnalité ?
+  choices:
+  - Les dépendances de chaque module ne se lisent plus dans ses imports
+  - Un test qui compile un module seul peut échouer faute du module global
+  - Un module global crée une instance par importateur
+  - Toute l'application devient couplée à ce module sans l'avoir déclaré
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: Un module global reste un singleton ; son défaut est de rendre les dépendances implicites. Réserve-le à une ou deux briques transverses, enregistrées une fois.
+  concept: nest-global-modules
+  difficulty: 2
+- id: q6
+  type: single
+  prompt: Que peut faire une classe de module ?
+  choices:
+  - Être injectée dans un service
+  - Injecter des providers dans son constructeur, mais pas être injectée elle-même
+  - Ni l'un ni l'autre
+  - Les deux
+  answer: 1
+  explanation: 'Un module peut recevoir des providers (pour une configuration au démarrage, par exemple). L''inverse provoquerait des dépendances circulaires : une classe de module n''est pas un provider.'
+  concept: nest-module-encapsulation
+  difficulty: 1
+- id: q7
+  type: single
+  prompt: Pourquoi CatalogModule, importé par dix modules, n'a-t-il qu'une seule instance de StockService ?
+  choices:
+  - Nest compare les noms de classes
+  - Nest attache un identifiant à la classe du module la première fois qu'il la voit, et la retrouve ensuite
+  - Les modules sont @Global() par défaut
+  - StockService est mis en cache par son module importateur
+  answer: 1
+  explanation: 'Identité par référence : l''identifiant est stocké sur la classe CatalogModule. Dix imports, un module, un jeu d''instances.'
+  concept: nest-shared-singleton
+  difficulty: 2

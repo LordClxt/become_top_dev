@@ -1,0 +1,14 @@
+id: ts-ch08-project
+title: "Parse, jalon 8 : programmer au niveau des types"
+pitch: "Les types de sortie de Parse se calculent : fusion de formes, renommage snake_case → camelCase, chaînes typées par leur forme. Tu écris les fonctions de types qui les décrivent."
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-generic-as-function, ts-key-remapping, ts-template-infer, ts-template-literal-type]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

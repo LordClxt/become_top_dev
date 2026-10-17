@@ -1,0 +1,13 @@
+id: ts-ch08-boss
+title: "Boss : un routeur typé de bout en bout"
+kind: code
+language: typescript
+difficulty: 5
+xp: 250
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["router.ts"]
+concepts: [ts-template-infer, ts-conditional-type, ts-generic-constraints, ts-key-remapping, ts-golden-rule-generics, ts-boolean-never-distribution]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

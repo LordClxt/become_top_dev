@@ -1,0 +1,12 @@
+id: nest-ch00-l02-lab-silent-undefined
+title: "Débogage : les nouveautés invisibles"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 80
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["books.controller.ts", "latest.service.ts", "books.service.ts", "clock.ts", "app.module.ts"]
+concepts: [nest-decorator-metadata, nest-design-paramtypes, nest-ioc-container]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

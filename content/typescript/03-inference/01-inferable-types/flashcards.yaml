@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Faut-il annoter `let count = 0` ?"
+    back: "Non : TypeScript infère number. Une annotation redondante encombre et fige le type."
+    concept: ts-no-inferable-annotations
+  - id: fc2
+    front: "Où les annotations sont-elles indispensables ?"
+    back: "Sur les paramètres des fonctions (sauf valeur par défaut ou callback typé par le contexte)."
+    concept: ts-annotate-signatures
+  - id: fc3
+    front: "Pourquoi annoter un littéral d'objet (`const elmo: Product = {…}`) ?"
+    back: "Pour la vérification des propriétés en trop et pour que l'erreur apparaisse à la définition, pas à l'utilisation."
+    concept: ts-annotate-object-literal
+  - id: fc4
+    front: "Trois raisons d'annoter un type de retour ?"
+    back: "Plusieurs return (cohérence), API publique (contrat), type nommé (affichage lisible)."
+    concept: ts-annotate-return

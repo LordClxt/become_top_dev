@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `let lang = 'TypeScript'; setLanguage(lang)` échoue alors que `setLanguage('TypeScript')` passe ?"
+    back: "Extrait dans un let, le littéral perd le contexte et est élargi à string. Correction : const ou annotation Language."
+    concept: ts-context-inference
+  - id: fc2
+    front: "`const loc = [10, 20] as const; panTo(loc)` échoue avec panTo(where: [number, number]). Pourquoi ?"
+    back: "as const donne readonly [10, 20], non assignable à un tuple modifiable. Le paramètre doit être readonly [number, number]."
+    concept: ts-context-tuples
+  - id: fc3
+    front: "Comment garder `language: 'TypeScript'` précis dans un objet extrait ?"
+    back: "L'annoter (`const ts: GovernedLanguage = …`), ou satisfies GovernedLanguage, ou as const."
+    concept: ts-context-objects
+  - id: fc4
+    front: "Un callback extrait dans une const a des paramètres implicitement any. Que faire ?"
+    back: "Annoter la constante avec un type de fonction : `const fn: (a: number, b: number) => void = (a, b) => …`."
+    concept: ts-context-callbacks

@@ -1,0 +1,12 @@
+id: ts-ch06-l05-lab-geojson
+title: "Une boîte englobante qui n'oublie aucune géométrie"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["geo.ts"]
+concepts: [ts-anecdotal-types, ts-domain-names, ts-generated-types]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,13 @@
+id: ts-ch06-boss
+title: "Boss : un moteur d'expressions de style"
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 75
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["style.ts"]
+concepts: [ts-precision-tradeoff, ts-type-test-suite, ts-inaccurate-types, ts-null-special-value, ts-domain-names]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: ts-ch08-l03-lab-conditional
+title: "Des retours qui suivent les entrées"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["conditional.ts"]
+concepts: [ts-conditional-type, ts-single-overload-impl, ts-infer-keyword, ts-overload-limits]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

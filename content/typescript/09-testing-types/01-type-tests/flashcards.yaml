@@ -1,0 +1,22 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `const xs: number[] = f()` est-il un test de types faible ?"
+    back: "Il ne teste que l'assignabilité : 1[], never[] ou any passent aussi."
+    concept: ts-assignability-not-equality
+  - id: fc2
+    front: "Définition de Equals des Type Challenges ?"
+    back: "(<T>() => T extends X ? 1 : 2) extends (<T>() => T extends Y ? 1 : 2) ? true : false"
+    concept: ts-equals-expect
+  - id: fc3
+    front: "À quoi sert `type Expect<T extends true> = T` ?"
+    back: "À transformer un résultat false (Equals raté) en erreur de compilation."
+    concept: ts-equals-expect
+  - id: fc4
+    front: "Comment tester qu'un appel est refusé ?"
+    back: "// @ts-expect-error sur la ligne : si l'appel compile, la directive inutilisée est une erreur."
+    concept: ts-negative-type-tests
+  - id: fc5
+    front: "Citer deux outils de tests de types."
+    back: "expect-type / vitest expectTypeOf, tsd, eslint-plugin-expect-type (twoslash)."
+    concept: ts-type-test-tools

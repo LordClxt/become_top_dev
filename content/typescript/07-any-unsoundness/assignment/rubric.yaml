@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: safety
+    label: "Sûreté des types"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Aucun any ; les entrées sont unknown et rétrécies par des gardes ; aucune assertion ou une seule, justifiée ; accès indexés testés"
+      2: "Fonctionne, mais quelques assertions non justifiées ou un any résiduel"
+      0: "any partout, ou valeurs non vérifiées utilisées comme si elles étaient typées"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Petits validateurs nommés, messages d'erreur précis"
+      2: "Lisible mais monolithique"
+      0: "Difficile à suivre"

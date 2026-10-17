@@ -1,0 +1,13 @@
+id: ts-ch07-boss
+title: "Boss : un bus d'événements qui ne fait confiance à personne"
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 75
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["bus.ts"]
+concepts: [ts-unknown-narrowing, ts-hidden-assertion, ts-generic-wrapper-assertion, ts-method-bivariance, ts-array-variance, ts-any-scope]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

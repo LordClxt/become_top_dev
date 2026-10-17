@@ -1,0 +1,25 @@
+cards:
+- id: fc1
+  front: moduleRef.get() sur un provider scoped ?
+  back: Erreur. Il faut await moduleRef.resolve(Token).
+  concept: nest-module-ref
+- id: fc2
+  front: 'Deux resolve() sur le même jeton REQUEST : même instance ?'
+  back: Non, sauf si on leur passe le même contextId (ContextIdFactory.create() ou getByRequest).
+  concept: nest-module-ref
+- id: fc3
+  front: moduleRef.create(Classe) ?
+  back: Instancie une classe non enregistrée comme provider, en résolvant ses dépendances.
+  concept: nest-module-ref
+- id: fc4
+  front: Résoudre un cycle entre providers sans refactorer ?
+  back: '@Inject(forwardRef(() => Autre)) des deux côtés ; ordre d''instanciation non garanti.'
+  concept: nest-circular-dependency
+- id: fc5
+  front: Cause fréquente de cycle sans lien avec le domaine ?
+  back: Les fichiers barrel (index.ts) qui réimportent le dossier courant.
+  concept: nest-circular-dependency
+- id: fc6
+  front: Pourquoi un cycle d'imports donne-t-il une dépendance undefined ?
+  back: La classe importée n'est pas encore évaluée quand design:paramtypes est écrit. forwardRef retarde la lecture.
+  concept: nest-circular-dependency

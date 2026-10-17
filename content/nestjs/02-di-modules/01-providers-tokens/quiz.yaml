@@ -1,0 +1,95 @@
+id: nest-ch02-l01-quiz
+questions:
+- id: q1
+  type: code-output
+  prompt: Deux jetons, une classe. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { Injectable, Module } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\n@Injectable() class Cache { items = new Map<string, string>(); }\n\n\
+    @Module({\n  providers: [\n    Cache,\n    { provide: 'ALIAS', useExisting: Cache },\n    { provide: 'COPY', useClass: Cache },\n  ],\n})\nclass AppModule {}\n\nconst ref = await Test.createTestingModule({\
+    \ imports: [AppModule] }).compile();\nconst cache = ref.get(Cache);\nconsole.log(ref.get('ALIAS') === cache, ref.get('COPY') === cache);\n"
+  answer: true false
+  explanation: useExisting est un alias vers la même instance. useClass crée une nouvelle instance de Cache, avec sa propre Map.
+  concept: nest-custom-providers
+  difficulty: 2
+- id: q2
+  type: code-output
+  prompt: La fabrique est asynchrone. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { Inject, Injectable, Module } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\nconst RATES = Symbol('RATES');\n\n@Injectable()\nclass Converter\
+    \ {\n  constructor(@Inject(RATES) readonly rates: Record<string, number>) {}\n}\n\n@Module({\n  providers: [\n    { provide: RATES, useFactory: async () => { await new Promise((r) => setTimeout(r, 10));\
+    \ return { USD: 1.1 }; } },\n    Converter,\n  ],\n})\nclass AppModule {}\n\nconst ref = await Test.createTestingModule({ imports: [AppModule] }).compile();\nconst rates = ref.get(Converter).rates;\n\
+    console.log(rates instanceof Promise, rates.USD);\n"
+  answer: false 1.1
+  explanation: 'Nest attend la résolution de la promesse d''une fabrique asynchrone avant de construire ceux qui en dépendent : Converter reçoit l''objet, pas la promesse.'
+  concept: nest-async-providers
+  difficulty: 2
+- id: q3
+  type: code-output
+  prompt: Rien n'est enregistré sous `MAILER`. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { Inject, Injectable, Module, Optional } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\n@Injectable()\nclass Notifier {\n  constructor(@Optional()\
+    \ @Inject('MAILER') readonly mailer?: { send(): void }) {}\n  channel() { return this.mailer ? 'mail' : 'log'; }\n}\n@Module({ providers: [Notifier] }) class AppModule {}\n\nconst ref = await Test.createTestingModule({\
+    \ imports: [AppModule] }).compile();\nconsole.log(ref.get(Notifier).channel());\n"
+  answer: log
+  explanation: '@Optional() fait injecter undefined au lieu de refuser de démarrer. La classe se replie alors sur sa valeur par défaut.'
+  concept: nest-optional-deps
+  difficulty: 1
+- id: q4
+  type: single
+  prompt: Tu veux injecter une configuration décrite par `interface ShopConfig`. Quelle déclaration fonctionne ?
+  choices:
+  - '`constructor(private config: ShopConfig)` avec `providers: [{ provide: ''ShopConfig'', useValue: cfg }]`'
+  - '`constructor(@Inject(SHOP_CONFIG) private config: ShopConfig)` avec `SHOP_CONFIG = Symbol(''SHOP_CONFIG'')` et `{ provide: SHOP_CONFIG, useValue: cfg }`'
+  - '`constructor(private config: ShopConfig)` avec `providers: [ShopConfig]`'
+  - '`import type { ShopConfig }` suffit, puisque c''est une interface'
+  answer: 1
+  explanation: 'Une interface n''existe pas à l''exécution : design:paramtypes contient Object. Il faut un jeton qui existe (ici un Symbol) et le demander avec @Inject.'
+  concept: nest-provider-tokens
+  difficulty: 2
+- id: q5
+  type: single
+  prompt: Pourquoi préférer une classe abstraite `PaymentGateway` à une interface + Symbol pour un contrat à plusieurs implémentations ?
+  choices:
+  - Elle est plus rapide à l'exécution
+  - 'Elle sert à la fois de type et de jeton : l''injection par constructeur fonctionne sans @Inject'
+  - Elle force le singleton
+  - Elle évite d'enregistrer un provider
+  answer: 1
+  explanation: 'Une classe abstraite existe à l''exécution : tsc l''écrit dans design:paramtypes. Elle reste le contrat TypeScript et devient la clé du conteneur, avec { provide: PaymentGateway, useClass:
+    StripeGateway }.'
+  concept: nest-provider-tokens
+  difficulty: 2
+- id: q6
+  type: multiple
+  prompt: Lesquelles de ces affirmations sur `useFactory` sont vraies ?
+  choices:
+  - Les éléments de `inject` sont passés à la fabrique dans le même ordre
+  - La fabrique peut renvoyer une promesse
+  - 'Une entrée de `inject` peut être `{ token, optional: true }`'
+  - Nest associe les arguments par leur type TypeScript
+  answer:
+  - 0
+  - 1
+  - 2
+  explanation: 'Les arguments sont associés par position, pas par type : deux dépendances inversées dans inject sont une source classique de bug silencieux.'
+  concept: nest-custom-providers
+  difficulty: 2
+- id: q7
+  type: single
+  prompt: '`{ provide: Mailer, useClass: process.env.CI ? FakeMailer : SmtpMailer }`. Quel est le défaut principal de cette ligne ?'
+  choices:
+  - useClass n'accepte pas d'expression
+  - 'Le choix est figé au chargement du fichier et ne dépend pas de la configuration injectée : impossible à piloter par overrideProvider dans un test'
+  - Elle crée deux instances
+  - Elle rend Mailer request-scoped
+  answer: 1
+  explanation: C'est valide, mais l'expression est évaluée à l'import du module. Une useFactory qui reçoit la configuration par inject se pilote par injection, donc se teste.
+  concept: nest-custom-providers
+  difficulty: 3
+- id: q8
+  type: code-output
+  prompt: Ce que l'injecteur lit vraiment. Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { Inject, Injectable } from '@nestjs/common';\n\nconst CONFIG = Symbol('CONFIG');\n@Injectable() class Clock {}\n@Injectable()\nclass Shipping {\n  constructor(@Inject(CONFIG)\
+    \ config: object, clock: Clock) {}\n}\nconst types = Reflect.getMetadata('design:paramtypes', Shipping).map((t: Function) => t.name);\nconst self = Reflect.getMetadata('self:paramtypes', Shipping).map((p:\
+    \ { index: number }) => p.index);\nconsole.log(types.join(','), self.join(','));\n"
+  answer: Object,Clock 0
+  explanation: tsc écrit Object pour le type object ; @Inject(CONFIG) enregistre dans self:paramtypes que la position 0 doit être remplacée par le jeton CONFIG. L'injecteur fusionne les deux listes.
+  concept: nest-provider-tokens
+  difficulty: 3

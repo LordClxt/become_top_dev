@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Où placer l'assertion qui transforme une réponse JSON en MountainPeak ?"
+    back: "Dans une fonction fetchPeak(): Promise<MountainPeak> : une seule assertion, les appelants ont un type exact."
+    concept: ts-hidden-assertion
+  - id: fc2
+    front: "Que doit accompagner chaque assertion ?"
+    back: "Un commentaire qui explique pourquoi elle est sûre, et des tests de la fonction qui la contient."
+    concept: ts-assertion-justified
+  - id: fc3
+    front: "Pourquoi cacheLast<F>(fn: F): F a-t-il besoin d'une assertion ?"
+    back: "TypeScript ne peut pas prouver que la fonction renvoyée est un F ; la signature est exacte, on asserte une fois dans le corps."
+    concept: ts-generic-wrapper-assertion

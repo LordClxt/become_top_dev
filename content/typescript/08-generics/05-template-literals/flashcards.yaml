@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Comment typer « n'importe quel attribut data-* » ?"
+    back: "Une signature d'index à gabarit : [key: `data-${string}`]: unknown."
+    concept: ts-template-literal-type
+  - id: fc2
+    front: "Écris ToCamel<S> (snake_case → camelCase)."
+    back: "S extends `${infer H}_${infer T}` ? `${H}${Capitalize<ToCamel<T>>}` : S"
+    concept: ts-template-infer
+  - id: fc3
+    front: "Comment renommer toutes les clés d'un objet en camelCase ?"
+    back: "{ [K in keyof T as ToCamel<K & string>]: T[K] } : un type mappé avec as."
+    concept: ts-key-remapping
+  - id: fc4
+    front: "Pourquoi le querySelector typé du livre se trompe-t-il sur 'div#container img' ?"
+    back: "${string} avale l'espace : le sélecteur correspond au gabarit `div#…` alors qu'il renvoie une image. Il faut revenir à Element pour les sélecteurs complexes."
+    concept: ts-dsl-precision-limits

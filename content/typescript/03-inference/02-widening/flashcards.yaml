@@ -1,0 +1,22 @@
+cards:
+
+  - id: fc1
+    front: "Type de `let x = 'x'` et de `const y = 'y'` ?"
+    back: "string (élargi, car x peut changer) et \"y\" (littéral)."
+    concept: ts-widening-let-const
+  - id: fc2
+    front: "Type inféré de `const v = { x: 1 }` ?"
+    back: "{ x: number } : les propriétés sont élargies comme des let."
+    concept: ts-object-props-widen
+  - id: fc3
+    front: "Type de `['GET', 'POST'] as const` ?"
+    back: "readonly [\"GET\", \"POST\"] : littéraux, tuple, lecture seule."
+    concept: ts-as-const
+  - id: fc4
+    front: "Différence entre `const c: Record<string, P> = {…}` et `{…} satisfies Record<string, P>` ?"
+    back: "L'annotation remplace le type (les clés sont perdues) ; satisfies vérifie et garde le type inféré (clés précises)."
+    concept: ts-satisfies
+  - id: fc5
+    front: "productId change de string à number : que faire ?"
+    back: "Deux variables distinctes (de préférence const), plutôt qu'une union string | number."
+    concept: ts-one-variable-one-type

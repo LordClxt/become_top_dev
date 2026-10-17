@@ -1,0 +1,91 @@
+id: ts-ch04-l03-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function later(cb: () => void) { setTimeout(cb, 0); }
+      later(() => {
+        later(() => console.log(1));
+        console.log(2);
+      });
+      console.log(3);
+    answer: |
+      3
+      2
+      1
+    explanation: "Avec des callbacks, l'ordre d'exécution est l'inverse de l'ordre du code : c'est la pyramide décrite dans la leçon."
+    concept: ts-async-over-callbacks
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Pourquoi `timeout(ms)` doit-il être typé `Promise<never>` ?"
+    choices:
+      - "Parce qu'il ne se termine jamais"
+      - "Pour que Promise.race([fetch(url), timeout(ms)]) ait le type Promise<Response> et non Promise<unknown>"
+      - "Parce que setTimeout renvoie never"
+      - "C'est obligatoire pour une promesse qui rejette"
+    answer: 1
+    explanation: "race renvoie l'union des types ; never est l'ensemble vide, il disparaît de l'union."
+    concept: ts-promise-all-race
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const wait = (ms: number, v: string) => new Promise<string>((r) => setTimeout(() => r(v), ms));
+      const start = Date.now();
+      const [a, b] = await Promise.all([wait(50, 'a'), wait(50, 'b')]);
+      console.log(a + b, Date.now() - start < 90);
+    answer: "ab true"
+    explanation: "Promise.all lance les deux attentes en parallèle (≈ 50 ms au total, pas 100) et renvoie un tuple typé."
+    concept: ts-promise-all-race
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      let calls = 0;
+      const cache = new Map<string, Promise<string>>();
+      async function load(url: string) { calls++; return url.toUpperCase(); }
+      function cached(url: string) {
+        let p = cache.get(url);
+        if (!p) { p = load(url); cache.set(url, p); }
+        return p;
+      }
+      const [x, y] = await Promise.all([cached('a'), cached('a')]);
+      console.log(x, y, calls);
+    answer: "A A 1"
+    explanation: "La promesse est en cache dès le premier appel : le second appel simultané la réutilise, une seule requête part."
+    concept: ts-promise-cache
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quel est le type de retour de `async function f() { return Promise.resolve(1); }` ?"
+    choices:
+      - "Promise<Promise<number>>"
+      - "Promise<number>"
+      - "number"
+      - "Promise<unknown>"
+    answer: 1
+    explanation: "Une fonction async n'imbrique jamais les promesses : renvoyer une promesse l'adopte."
+    concept: ts-async-always-async
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Une fonction async est toujours asynchrone. Qu'affiche ce programme ?"
+    code: |
+      const cache: Record<string, string> = { a: 'A' };
+      async function get(key: string) {
+        if (key in cache) return cache[key];
+        return 'fetched';
+      }
+      get('a').then((v) => console.log('valeur', v));
+      console.log('après');
+    answer: |
+      après
+      valeur A
+    explanation: "Même en cas de cache, le résultat arrive après le code synchrone : l'ordre est toujours le même, pas de « Zalgo »."
+    concept: ts-async-always-async
+    difficulty: 2

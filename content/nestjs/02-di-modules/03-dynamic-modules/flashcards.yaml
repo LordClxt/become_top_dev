@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'un DynamicModule ?"
+    back: "Un objet { module, providers?, imports?, exports?, global? } renvoyé par une méthode statique ; ses propriétés s'ajoutent à celles de @Module."
+    concept: nest-dynamic-module
+  - id: fc2
+    front: "Seule propriété obligatoire d'un DynamicModule ?"
+    back: "module : la classe du module elle-même."
+    concept: nest-dynamic-module
+  - id: fc3
+    front: "Comment les options arrivent-elles au service du module ?"
+    back: "Enregistrées comme provider (useValue + jeton), puis injectées avec @Inject(jeton)."
+    concept: nest-dynamic-module
+  - id: fc4
+    front: "register, forRoot ou forFeature : lequel pour une configuration par importateur ?"
+    back: "register. forRoot = une fois, partagé ; forFeature = ajuste forRoot."
+    concept: nest-register-forroot
+  - id: fc5
+    front: "Que signifie le suffixe Async (forRootAsync…) ?"
+    back: "La configuration est obtenue par injection (useFactory + inject, useClass ou useExisting)."
+    concept: nest-register-forroot
+  - id: fc6
+    front: "Comment partager un module configuré par forRoot ?"
+    back: "forRoot une seule fois, puis ré-exporter la classe du module (sans rappeler forRoot), ou isGlobal."
+    concept: nest-register-forroot
+  - id: fc7
+    front: "Que donne ConfigurableModuleBuilder.build() ?"
+    back: "ConfigurableModuleClass (register + registerAsync) et MODULE_OPTIONS_TOKEN."
+    concept: nest-configurable-module-builder
+  - id: fc8
+    front: "Changer register() en forRoot() avec le builder ?"
+    back: ".setClassMethodName('forRoot') : on obtient forRoot() et forRootAsync()."
+    concept: nest-configurable-module-builder
+  - id: fc9
+    front: "Rôle de imports dans registerAsync ?"
+    back: "Donner à la fabrique accès aux providers qu'elle injecte (par ex. ConfigModule pour ConfigService)."
+    concept: nest-configurable-module-builder
+  - id: fc10
+    front: "Pourquoi isGlobal est-il un extra ?"
+    back: "Il modifie la définition du module, pas le comportement de ses providers : il ne doit pas figurer dans les options injectées."
+    concept: nest-module-extras

@@ -1,0 +1,87 @@
+id: nest-ch02-l05-quiz
+questions:
+- id: q1
+  type: code-output
+  prompt: Deux appels à `resolve()`, puis deux appels avec le même contextId. Qu'affiche ce programme ?
+  code: 'import ''reflect-metadata'';
+
+    import { Injectable, Module, Scope } from ''@nestjs/common'';
+
+    import { ContextIdFactory, ModuleRef } from ''@nestjs/core'';
+
+    import { Test } from ''@nestjs/testing'';
+
+
+    @Injectable({ scope: Scope.REQUEST }) class Cart {}
+
+    @Module({ providers: [Cart] }) class AppModule {}
+
+
+    const ref = await Test.createTestingModule({ imports: [AppModule] }).compile();
+
+    const moduleRef = ref.get(ModuleRef);
+
+    const [a, b] = await Promise.all([moduleRef.resolve(Cart), moduleRef.resolve(Cart)]);
+
+    const id = ContextIdFactory.create();
+
+    const [c, d] = await Promise.all([moduleRef.resolve(Cart, id), moduleRef.resolve(Cart, id)]);
+
+    console.log(a === b, c === d);
+
+    '
+  answer: false true
+  explanation: Sans contextId, chaque resolve() construit un nouveau sous-arbre, donc une nouvelle instance. Avec le même contextId, les résolutions partagent le sous-arbre.
+  concept: nest-module-ref
+  difficulty: 3
+- id: q2
+  type: single
+  prompt: OrdersService et PaymentsService dépendent l'un de l'autre. Quelle est la correction de fond ?
+  choices:
+  - forwardRef des deux côtés
+  - ModuleRef.get() dans l'un des deux
+  - Extraire ce qu'ils partagent (l'état de la commande) dans un troisième provider dont les deux dépendent
+  - Fusionner les deux modules en @Global()
+  answer: 2
+  explanation: forwardRef et ModuleRef font démarrer l'application, mais gardent le couplage, avec un ordre d'instanciation non garanti. Extraire la responsabilité partagée rend le graphe acyclique.
+  concept: nest-circular-dependency
+  difficulty: 2
+- id: q3
+  type: multiple
+  prompt: Lesquelles de ces affirmations sur `forwardRef` sont vraies ?
+  choices:
+  - Il faut l'utiliser des deux côtés du cycle
+  - L'ordre d'instanciation des deux providers n'est pas garanti
+  - Il fonctionne sans risque avec des providers REQUEST
+  - 'Il sert aussi entre modules : imports: [forwardRef(() => M)]'
+  answer:
+  - 0
+  - 1
+  - 3
+  explanation: Avec un provider REQUEST dans le cycle, des dépendances peuvent rester undefined. Le code ne doit jamais dépendre de l'ordre des constructeurs.
+  concept: nest-circular-dependency
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: 'payments.ts et orders.ts s''importent l''un l''autre. Au démarrage : « undefined dependency… circular import or missing dependency ». D''où vient le undefined ?'
+  choices:
+  - Nest n'a pas encore créé l'instance
+  - 'Au moment où tsc écrit design:paramtypes, la classe importée n''est pas encore évaluée : elle vaut undefined'
+  - Le provider n'est pas exporté
+  - emitDecoratorMetadata est désactivé
+  answer: 1
+  explanation: Avec un cycle d'imports ES, un des deux fichiers lit la classe de l'autre avant qu'elle soit définie. forwardRef(() => X) retarde cette lecture jusqu'à la résolution.
+  concept: nest-circular-dependency
+  difficulty: 3
+- id: q5
+  type: single
+  prompt: Où se trouve le plus souvent un cycle d'imports qui n'existe pas dans le domaine ?
+  choices:
+  - Dans un module @Global()
+  - Dans un fichier barrel (index.ts) importé depuis son propre dossier
+  - Dans un DynamicModule
+  - Dans un provider transient
+  answer: 1
+  explanation: cats/cats.controller.ts qui importe « ./index » (qui réexporte le contrôleur) crée un cycle de fichiers. La doc recommande d'éviter les barrels pour les modules et providers.
+  concept: nest-circular-dependency
+  difficulty: 2

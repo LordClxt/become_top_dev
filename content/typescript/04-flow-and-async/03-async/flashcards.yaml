@@ -1,0 +1,22 @@
+cards:
+
+  - id: fc1
+    front: "Type de `Promise.race([fetch(url), timeout(ms)])` si timeout renvoie Promise<never> ?"
+    back: "Promise<Response> : Response | never = Response."
+    concept: ts-promise-all-race
+  - id: fc2
+    front: "Comment lancer trois requêtes en parallèle et typer les résultats ?"
+    back: "`const [a, b, c] = await Promise.all([f1(), f2(), f3()])` : chaque élément garde son type."
+    concept: ts-promise-all-race
+  - id: fc3
+    front: "Qu'est-ce qu'une fonction mi-synchrone et pourquoi l'éviter ?"
+    back: "Elle appelle son callback tantôt tout de suite, tantôt plus tard : l'ordre des effets devient imprévisible. Une fonction async est toujours asynchrone."
+    concept: ts-async-always-async
+  - id: fc4
+    front: "Comment éviter deux requêtes identiques simultanées dans un cache ?"
+    back: "Mettre en cache la promesse dès le premier appel (pas la valeur à la fin), et la retirer si elle échoue."
+    concept: ts-promise-cache
+  - id: fc5
+    front: "Pourquoi préférer async/await aux callbacks imbriqués ?"
+    back: "L'ordre du code est l'ordre d'exécution, les erreurs passent par try/catch et les types circulent à travers await."
+    concept: ts-async-over-callbacks

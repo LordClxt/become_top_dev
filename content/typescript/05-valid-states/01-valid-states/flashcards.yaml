@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Que reprocher à `{ pageText: string; isLoading: boolean; error?: string }` ?"
+    back: "Il autorise des états absurdes (en chargement ET en erreur) : le rendu doit deviner et les mises à jour oublient des champs."
+    concept: ts-invalid-states
+  - id: fc2
+    front: "Quelle forme donner à l'état d'une requête ?"
+    back: "Une union taguée : { state: 'pending' } | { state: 'error'; error } | { state: 'ok'; pageText }."
+    concept: ts-state-union
+  - id: fc3
+    front: "Comment éviter qu'une réponse en retard écrase la page courante ?"
+    back: "Stocker un état par requête (requests[page]) et la page courante à part : chaque réponse met à jour sa propre case."
+    concept: ts-state-per-request
+  - id: fc4
+    front: "Quelle leçon tirer des deux manches de l'A330 ?"
+    back: "Si aucune implémentation correcte n'est possible avec un type d'entrée, c'est le type qu'il faut changer (un seul angle)."
+    concept: ts-unrepresentable-design

@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Options nommées"
+    goal: "numberIn reçoit un objet d'options (min, max, integer) et produit des messages précis."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "JSON exact"
+    goal: "json valide toute valeur JSON, et seulement elle, avec un type récursif exact."
+    tests: "tstest M2"
+    review: true
+  - id: m3
+    title: "Schémas récursifs"
+    goal: "lazy permet à un schéma de se référencer lui-même et n'appelle sa fabrique qu'une fois."
+    tests: "tstest M3"
+    review: false

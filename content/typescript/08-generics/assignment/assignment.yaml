@@ -1,0 +1,12 @@
+id: ts-ch08-assignment
+title: "Des chemins et des handlers calculés par les types"
+kind: code
+language: typescript
+difficulty: 4
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["paths.ts"]
+concepts: [ts-generic-constraints, ts-conditional-type, ts-template-infer, ts-key-remapping, ts-golden-rule-generics]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

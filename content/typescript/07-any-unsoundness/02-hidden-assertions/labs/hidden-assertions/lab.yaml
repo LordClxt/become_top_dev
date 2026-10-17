@@ -1,0 +1,12 @@
+id: ts-ch07-l02-lab-hidden-assertions
+title: "Une assertion, bien rangée"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["peaks.ts"]
+concepts: [ts-hidden-assertion, ts-assertion-justified, ts-generic-wrapper-assertion]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

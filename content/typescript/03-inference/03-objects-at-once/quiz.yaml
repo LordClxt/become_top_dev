@@ -1,0 +1,63 @@
+id: ts-ch03-l03-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Quelle est la façon idiomatique de créer un Point en TypeScript ?"
+    choices:
+      - "const pt = {} as Point; pt.x = 3; pt.y = 4;"
+      - "const pt: Point = { x: 3, y: 4 };"
+      - "const pt: any = {}; pt.x = 3; pt.y = 4;"
+      - "const pt = new Object() as Point;"
+    answer: 1
+    explanation: "Créer l'objet d'un coup donne un type exact et vérifié. Les autres versions désactivent la vérification."
+    concept: ts-object-all-at-once
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function president(hasMiddle: boolean) {
+        const firstLast = { first: 'Harry', last: 'Truman' };
+        return { ...firstLast, ...(hasMiddle ? { middle: 'S' } : {}) };
+      }
+      console.log(Object.keys(president(true)).join(), '/', Object.keys(president(false)).join());
+    answer: "first,last,middle / first,last"
+    explanation: "Décomposer {} n'ajoute rien : la clé middle n'existe que si la condition est vraie, d'où le type middle?: string."
+    concept: ts-conditional-spread
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Quel est le type de `{ name: 'H', ...(hasDates && { start: 1, end: 2 }) }` ?"
+    choices:
+      - "{ name: string; start: number; end: number }"
+      - "{ name: string; start?: number; end?: number }"
+      - "{ name: string } | { name: string; start: number; end: number }"
+      - "Erreur : on ne peut pas décomposer false"
+    answer: 1
+    explanation: "Décomposer false ne copie rien ; TypeScript rend start et end optionnelles (et oublie qu'elles vont ensemble)."
+    concept: ts-conditional-spread
+    difficulty: 3
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const pt = { x: 3, y: 4 };
+      const named = { ...pt, name: 'Pythagoras', x: 0 };
+      console.log(named.x, named.y, named.name, pt.x);
+    answer: "0 4 Pythagoras 3"
+    explanation: "Les propriétés écrites après la décomposition l'emportent ; l'objet d'origine n'est pas modifié."
+    concept: ts-spread-compose
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi préférer `{ ...a, ...b }` à `Object.assign(a, b)` ?"
+    choices:
+      - "Object.assign n'existe pas en TypeScript"
+      - "La décomposition crée un nouvel objet au type exact, sans muter a"
+      - "La décomposition est une copie profonde"
+      - "Object.assign perd les propriétés de b"
+    answer: 1
+    explanation: "Object.assign mute son premier argument. La décomposition reste superficielle, mais elle ne modifie rien."
+    concept: ts-spread-compose
+    difficulty: 2

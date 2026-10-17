@@ -1,0 +1,12 @@
+id: ts-ch03-assignment
+title: "Un formulaire d'inscription bien inféré"
+kind: code
+language: typescript
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["signup.ts"]
+concepts: [ts-as-const, ts-satisfies, ts-conditional-spread, ts-tagged-union-switch, ts-annotate-return, ts-context-callbacks]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

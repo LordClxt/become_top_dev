@@ -1,0 +1,12 @@
+id: ts-ch07-assignment
+title: "Un chargeur de configuration sans any"
+kind: code
+language: typescript
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["config.ts"]
+concepts: [ts-unknown-vs-any, ts-unknown-narrowing, ts-any-scope, ts-hidden-assertion, ts-index-unsoundness]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

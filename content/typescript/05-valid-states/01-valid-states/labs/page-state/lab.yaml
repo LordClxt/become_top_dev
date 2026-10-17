@@ -1,0 +1,12 @@
+id: ts-ch05-l01-lab-page-state
+title: "Un état de page sans ambiguïté"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["page.ts"]
+concepts: [ts-state-union, ts-state-per-request, ts-invalid-states]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

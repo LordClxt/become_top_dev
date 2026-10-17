@@ -1,0 +1,66 @@
+id: ts-ch07-l03-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Avec `const book: unknown = parse(text)`, quelle instruction est acceptée ?"
+    choices:
+      - "book.title"
+      - "book('read')"
+      - "if (typeof book === 'string') book.toUpperCase()"
+      - "const b: Book = book"
+    answer: 2
+    explanation: "On ne peut rien faire d'un unknown avant de l'avoir rétréci ; typeof le rétrécit en string."
+    concept: ts-unknown-narrowing
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Quelles valeurs sont assignables au type `{}` ?"
+    choices:
+      - "'abc'"
+      - "12"
+      - "null"
+      - "[1, 2]"
+    answer: [0, 1, 3]
+    explanation: "{} accepte tout sauf null et undefined, y compris les primitives."
+    concept: ts-object-types
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      interface Book { name: string; author: string }
+      function isBook(v: unknown): v is Book {
+        return typeof v === 'object' && v !== null && 'name' in v && typeof v.name === 'string'
+          && 'author' in v && typeof v.author === 'string';
+      }
+      const values: unknown[] = [{ name: 'Dune', author: 'Herbert' }, { name: 'X' }, null, 'Dune'];
+      console.log(values.filter(isBook).map((b) => b.author).join(), values.filter(isBook).length);
+    answer: "Herbert 1"
+    explanation: "Le type guard valide la forme à l'exécution et rétrécit le type : seul le premier élément est un Book."
+    concept: ts-unknown-narrowing
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi any est-il dit « hors du système de types » ?"
+    choices:
+      - "Parce qu'il est plus lent"
+      - "Parce qu'il est à la fois assignable à tout et que tout lui est assignable, ce qu'aucun ensemble ne peut être"
+      - "Parce qu'il n'existe qu'à l'exécution"
+      - "Parce qu'il est interdit en mode strict"
+    answer: 1
+    explanation: "Un ensemble ne peut pas être à la fois sous-ensemble et sur-ensemble de tous les autres ; unknown est le sur-ensemble, never le sous-ensemble."
+    concept: ts-unknown-vs-any
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Que reprocher à `function load<T>(key: string): T` ?"
+    choices:
+      - "Rien"
+      - "T n'apparaît que dans le retour : c'est une assertion déguisée, sans vérification"
+      - "key devrait être générique"
+      - "Il faut renvoyer any"
+    answer: 1
+    explanation: "Renvoie unknown : l'appelant asserte ou valide explicitement."
+    concept: ts-generic-return-only
+    difficulty: 1

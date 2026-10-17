@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Quel problème pose `{ layout: Fill | Line; paint: Fill | Line }` ?"
+    back: "Il autorise un layout de ligne avec un paint de remplissage : les propriétés sont indépendantes."
+    concept: ts-interface-of-unions
+  - id: fc2
+    front: "Comment relier layout et paint ?"
+    back: "Une union d'interfaces taguées : { type: 'fill'; layout: FillLayout; paint: FillPaint } | { type: 'line'; … }."
+    concept: ts-union-of-interfaces
+  - id: fc3
+    front: "placeOfBirth? et dateOfBirth? vont ensemble. Quel type ?"
+    back: "birth?: { place: string; date: Date } — les deux sont présents ou aucun."
+    concept: ts-grouped-optionals

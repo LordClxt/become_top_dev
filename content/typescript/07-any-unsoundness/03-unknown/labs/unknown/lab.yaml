@@ -1,0 +1,12 @@
+id: ts-ch07-l03-lab-unknown
+title: "Lire du JSON sans mentir"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["books.ts"]
+concepts: [ts-unknown-vs-any, ts-unknown-narrowing, ts-generic-return-only]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,89 @@
+id: ts-ch03-l02-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Pourquoi `let axis = 'x'; getComponent(v, axis)` est-il refusé si le paramètre attend `'x' | 'y' | 'z'` ?"
+    choices:
+      - "Parce que axis vaut undefined"
+      - "Parce que let élargit axis au type string, qui n'est pas assignable à l'union de littéraux"
+      - "Parce que getComponent n'accepte pas de variable"
+      - "Parce que 'x' n'est pas une chaîne"
+    answer: 1
+    explanation: "axis pourrait recevoir n'importe quelle chaîne plus tard : TypeScript lui donne le type string. const axis = 'x' garde \"x\"."
+    concept: ts-widening-let-const
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel est le type de `[1, 2, 3] as const` ?"
+    choices:
+      - "number[]"
+      - "[number, number, number]"
+      - "readonly [1, 2, 3]"
+      - "1 | 2 | 3"
+    answer: 2
+    explanation: "as const empêche tout élargissement : un tuple en lecture seule de littéraux."
+    concept: ts-as-const
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "as const n'existe qu'au niveau des types. Qu'affiche ce programme ?"
+    code: |
+      const point = { x: 1, y: 2 } as const;
+      const copy = point as { x: number; y: number };
+      copy.x = 10;
+      console.log(point.x, Object.isFrozen(point));
+    answer: "10 false"
+    explanation: "as const ne gèle rien à l'exécution : seul TypeScript interdit l'écriture. Object.freeze, lui, agit à l'exécution (et superficiellement)."
+    concept: ts-as-const
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Avec `const capitals = { ny: [1, 2], ca: [3, 4] } satisfies Record<string, [number, number]>`, que vaut `keyof typeof capitals` ?"
+    choices:
+      - "string"
+      - "\"ny\" | \"ca\""
+      - "number"
+      - "never"
+    answer: 1
+    explanation: "satisfies vérifie la conformité mais garde le type inféré : les clés précises sont conservées. Une annotation Record<string, …> aurait donné string."
+    concept: ts-satisfies
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "`const v = { x: 1 }`. Quelle instruction est acceptée par TypeScript ?"
+    choices:
+      - "v.x = 3"
+      - "v.x = '3'"
+      - "v.y = 4"
+      - "v = { x: 2 }"
+    answer: 0
+    explanation: "Le type est { x: number } : on peut changer x en un autre nombre, mais pas en chaîne, ni ajouter y, ni réaffecter une const."
+    concept: ts-object-props-widen
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      const METHODS = ['GET', 'POST', 'PUT'] as const;
+      type Method = (typeof METHODS)[number];
+      function isMethod(s: string): s is Method {
+        return (METHODS as readonly string[]).includes(s);
+      }
+      console.log(['GET', 'get', 'PUT'].filter(isMethod).join('|'));
+    answer: "GET|PUT"
+    explanation: "Method vaut \"GET\" | \"POST\" | \"PUT\", dérivé du tableau as const. Le garde de type sert de filtre."
+    concept: ts-as-const
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "productId reçoit d'abord '12-34-56' puis 123456. Quelle est la meilleure correction ?"
+    choices:
+      - "Annoter `let productId: any`"
+      - "Annoter `let productId: string | number`"
+      - "Utiliser deux variables distinctes, en const"
+      - "Utiliser `as unknown as number`"
+    answer: 2
+    explanation: "L'union obligerait à tester le type partout. Deux variables aux noms précis sont plus lisibles et mieux typées."
+    concept: ts-one-variable-one-type
+    difficulty: 1

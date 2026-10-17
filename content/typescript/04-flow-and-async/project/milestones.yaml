@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Transformations"
+    goal: "transform convertit une valeur validée, et ses erreurs deviennent des ParseError localisées."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Lots"
+    goal: "partition valide une liste entière, en style fonctionnel, sans s'arrêter à la première erreur."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Validation asynchrone"
+    goal: "refineAsync attend une vérification distante ; parseAsync renvoie toujours une promesse."
+    tests: "tstest M3"
+    review: true

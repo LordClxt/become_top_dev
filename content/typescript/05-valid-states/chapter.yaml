@@ -1,0 +1,22 @@
+id: ts-ch05
+title: "Des types qui n'expriment que des états valides"
+subtitle: "États valides, loi de Postel, documentation, null au périmètre, unions d'interfaces, chaînes précises"
+source: { chapter: 4, pages: "137-162" }
+objectives:
+  - "Concevoir des types qui rendent les états invalides impossibles à représenter (unions taguées d'états)"
+  - "Être large dans ce qu'on accepte et strict dans ce qu'on produit : formes canoniques en sortie"
+  - "Ne pas répéter dans la documentation ce que les types disent déjà, et porter les unités dans les noms"
+  - "Repousser null et undefined au périmètre des types plutôt que les disperser dans les champs"
+  - "Préférer une union d'interfaces à une interface faite d'unions, et des types plus précis que string"
+mastery_threshold: 0.8
+prerequisites: [ts-ch04]
+lessons:
+  - "01-valid-states"
+  - "02-postel"
+  - "03-null-perimeter"
+  - "04-union-of-interfaces"
+  - "05-precise-strings"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

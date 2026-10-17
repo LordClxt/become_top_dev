@@ -1,0 +1,12 @@
+id: ts-ch05-l05-lab-albums
+title: "Une discothèque bien typée"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["albums.ts"]
+concepts: [ts-literal-union-domain, ts-stringly-typed, ts-keyof-pluck]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

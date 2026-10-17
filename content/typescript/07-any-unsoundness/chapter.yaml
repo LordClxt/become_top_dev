@@ -1,0 +1,22 @@
+id: ts-ch07
+title: "any et l'unsoundness"
+subtitle: "Portée minimale de any, variantes précises, assertions cachées, unknown, monkey patching, pièges de soundness, couverture de types"
+source: { chapter: 5, pages: "185-214" }
+objectives:
+  - "Limiter any à la plus petite portée possible et préférer ses variantes précises (any[], Record<string, any>, unknown)"
+  - "Cacher les assertions de type nécessaires dans des fonctions bien typées et testées"
+  - "Utiliser unknown pour les valeurs de type inconnu et le rétrécir par des gardes"
+  - "Ajouter des données globales de façon typée plutôt que par monkey patching"
+  - "Reconnaître les pièges d'unsoundness (index, bivariance, variance des tableaux, raffinements invalidés) et suivre la couverture de types"
+mastery_threshold: 0.8
+prerequisites: [ts-ch06]
+lessons:
+  - "01-narrow-any"
+  - "02-hidden-assertions"
+  - "03-unknown"
+  - "04-monkey-patching"
+  - "05-soundness-traps"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

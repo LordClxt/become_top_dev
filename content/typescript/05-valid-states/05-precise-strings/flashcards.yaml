@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Qu'est-ce que du code « stringly typed » ?"
+    back: "Du code où tout est string (dates, genres, clés…) : le vérificateur ne peut rien attraper, pas même des arguments inversés."
+    concept: ts-stringly-typed
+  - id: fc2
+    front: "Meilleur type pour `recordingType: string // 'live' ou 'studio'` ?"
+    back: "type RecordingType = 'studio' | 'live'."
+    concept: ts-literal-union-domain
+  - id: fc3
+    front: "Signature précise de pluck ?"
+    back: "function pluck<T, K extends keyof T>(records: T[], key: K): T[K][]"
+    concept: ts-keyof-pluck
+  - id: fc4
+    front: "Pourquoi `key: keyof T` (sans K) est-il moins précis ?"
+    back: "Le retour devient T[keyof T][], l'union de toutes les colonnes, au lieu du type exact de la colonne demandée."
+    concept: ts-keyof-pluck

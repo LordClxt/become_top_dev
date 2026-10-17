@@ -1,0 +1,12 @@
+id: nest-ch01-l01-lab-warmup-404
+title: "Échauffement : un vrai 404"
+kind: code
+language: nestjs
+difficulty: 1
+xp: 20
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["books.controller.ts"]
+concepts: [nest-status-codes, nest-rest-semantics]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

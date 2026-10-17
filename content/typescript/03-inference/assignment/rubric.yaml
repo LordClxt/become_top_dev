@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: inference
+    label: "Inférence maîtrisée"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Annotations uniquement sur les signatures et les contrats ; FieldName et les règles sont dérivés (as const, satisfies) ; objets créés d'un coup"
+      2: "Fonctionne, mais des annotations redondantes ou une union recopiée à la main"
+      0: "Assertions as, objets mutés, any"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes, messages d'erreur clairs, aucune duplication"
+      2: "Lisible mais répétitif"
+      0: "Difficile à suivre"

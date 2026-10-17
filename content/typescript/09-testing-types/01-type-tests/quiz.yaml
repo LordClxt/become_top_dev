@@ -1,0 +1,62 @@
+id: ts-ch09-l01-quiz
+questions:
+
+  - id: q1
+    type: multiple
+    prompt: "Quels types de retour de `map` passeraient le test `const lengths: number[] = map(names, n => n.length)` ?"
+    choices:
+      - "number[]"
+      - "1[]"
+      - "any"
+      - "string[]"
+    answer: [0, 1, 2]
+    explanation: "Une assignation accepte tout type assignable, y compris plus précis (1[]) ou any. Seul string[] est refusé."
+    concept: ts-assignability-not-equality
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Que vaut `Equals<any, unknown>` avec la définition des Type Challenges ?"
+    choices:
+      - "true"
+      - "false"
+      - "boolean"
+      - "never"
+    answer: 1
+    explanation: "L'astuce des fonctions génériques distingue any de unknown, contrairement à un test d'assignabilité dans les deux sens."
+    concept: ts-equals-expect
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Que vaut `Equals<{ a: 1 } & { b: 2 }, { a: 1; b: 2 }>` ?"
+    choices:
+      - "true"
+      - "false"
+    answer: 1
+    explanation: "Equals compare la forme : une intersection n'est pas identique à l'objet aplati. La leçon suivante (Resolve) règle ce problème."
+    concept: ts-equals-expect
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Pourquoi n'écrire qu'une erreur attendue par `@ts-expect-error` ?"
+    choices:
+      - "C'est une règle de syntaxe"
+      - "La directive est satisfaite par n'importe quelle erreur sur la ligne : une seconde erreur pourrait masquer la disparition de la première"
+      - "Pour accélérer tsc"
+      - "Parce que la directive ne s'applique qu'au premier caractère"
+    answer: 1
+    explanation: "@ts-expect-error ne dit pas quelle erreur est attendue : c'est un instrument grossier."
+    concept: ts-negative-type-tests
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Les tests de types ne s'exécutent pas. Qu'affiche ce programme ?"
+    code: |
+      type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends (<T>() => T extends Y ? 1 : 2) ? true : false;
+      type Expect<T extends true> = T;
+      export type _checks = [Expect<Equals<string, string>>];
+      const values = [1, 2, 3].map((x) => x * 2);
+      console.log(values.join(), typeof (null as unknown as _checks));
+    answer: "2,4,6 object"
+    explanation: "Les types sont effacés : _checks n'existe pas à l'exécution, et null a pour typeof 'object'."
+    concept: ts-equals-expect
+    difficulty: 2

@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: design
+    label: "Conception des types"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Entrée large et sortie canonique ; types précis (Date, unions de littéraux, unités dans les noms) ; null au périmètre ; contact groupé"
+      2: "Fonctionne, mais la sortie garde des formes multiples ou des optionnels dispersés"
+      0: "string partout, null dispersés, any"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Fonctions courtes, messages d'erreur précis, aucune duplication"
+      2: "Lisible mais répétitif"
+      0: "Difficile à suivre"

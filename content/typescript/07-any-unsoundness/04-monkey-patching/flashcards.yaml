@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi éviter `(window as any).user = …` ?"
+    back: "Aucune vérification : fautes de frappe et mauvais types passent, et la valeur lue est any."
+    concept: ts-monkey-patching
+  - id: fc2
+    front: "Comment typer une propriété ajoutée à window ?"
+    back: "declare global { interface Window { user: User | undefined } } : une augmentation de l'interface Window."
+    concept: ts-global-augmentation
+  - id: fc3
+    front: "Comment associer des données à des éléments DOM sans les modifier ?"
+    back: "Une WeakMap<Element, Data> : type exact, pas de propriété ajoutée, mémoire libérée avec l'élément."
+    concept: ts-narrow-augmentation

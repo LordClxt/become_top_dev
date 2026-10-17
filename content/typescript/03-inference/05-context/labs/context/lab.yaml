@@ -1,0 +1,12 @@
+id: ts-ch03-l05-lab-context
+title: "Rendre le contexte perdu"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["map.ts"]
+concepts: [ts-context-inference, ts-context-tuples, ts-context-objects, ts-context-callbacks]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

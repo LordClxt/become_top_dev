@@ -1,0 +1,65 @@
+id: ts-ch08-l03-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Avec `double<T extends string | number>(x: T): T`, quel est le type de `double('x')` ?"
+    choices:
+      - "string"
+      - "\"x\""
+      - "\"xx\""
+      - "string | number"
+    answer: 1
+    explanation: "T est inféré au littéral \"x\" : le type de retour est faux, puisque la valeur vaut 'xx'."
+    concept: ts-conditional-type
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Que vaut `(string | number) extends string ? string : number` quand le type testé est un paramètre générique T = string | number ?"
+    choices:
+      - "string"
+      - "number"
+      - "string | number"
+      - "never"
+    answer: 2
+    explanation: "Le type conditionnel distribue sur l'union : string donne string, number donne number."
+    concept: ts-conditional-type
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function double<T extends string | number>(x: T): T extends string ? string : number;
+      function double(x: string | number): string | number {
+        return typeof x === 'string' ? x + x : x * 2;
+      }
+      const values: (string | number)[] = [3, 'ab'];
+      console.log(values.map((v) => double(v)).join(' '));
+    answer: "6 abab"
+    explanation: "La signature conditionnelle accepte l'union (contrairement aux surcharges) ; l'implémentation reste invisible des appelants."
+    concept: ts-single-overload-impl
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Que vaut `ElementOf<string[]>` avec `type ElementOf<T> = T extends readonly (infer E)[] ? E : never` ?"
+    choices:
+      - "string[]"
+      - "string"
+      - "never"
+      - "unknown"
+    answer: 1
+    explanation: "infer E capture le type des éléments du tableau."
+    concept: ts-infer-keyword
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi l'appel `double(x)` avec `x: string | number` est-il refusé si double n'a que deux surcharges (number) et (string) ?"
+    choices:
+      - "Parce que x n'est pas initialisé"
+      - "Parce que chaque surcharge est essayée séparément et qu'aucune n'accepte l'union"
+      - "Parce que double n'est pas exportée"
+      - "Parce que les surcharges sont interdites en mode strict"
+    answer: 1
+    explanation: "C'est la principale limite des surcharges ; le type conditionnel la lève."
+    concept: ts-overload-limits
+    difficulty: 1

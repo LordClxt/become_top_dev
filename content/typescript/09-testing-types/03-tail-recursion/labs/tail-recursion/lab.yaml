@@ -1,0 +1,12 @@
+id: ts-ch09-l03-lab-tail-recursion
+title: "Des types récursifs qui tiennent la distance"
+kind: code
+language: typescript
+difficulty: 4
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["recursion.ts"]
+concepts: [ts-tail-recursive-type, ts-recursion-depth, ts-runtime-tail-recursion]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

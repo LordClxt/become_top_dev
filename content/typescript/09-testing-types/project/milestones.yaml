@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Optionnels lisibles"
+    goal: "looseObject rend optionnels les champs qui acceptent undefined, avec un type aplati par Resolve."
+    tests: "tstest M1"
+    review: true
+  - id: m2
+    title: "Tuples longs"
+    goal: "tupleOf produit un NTuple récursif terminal qui tient 60 éléments."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Spécifications et génération"
+    goal: "fromSpec et toTypeScript tirent un schéma et le code source d'une interface de la même spécification."
+    tests: "tstest M3"
+    review: false

@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `drawRect(25, 50, 75, 100, 1)` est-il dangereux ?"
+    back: "Cinq number à la suite : un ordre inversé compile sans erreur. Regroupe en Point et Dimension ou en objet."
+    concept: ts-repeated-params
+  - id: fc2
+    front: "Quand garder des paramètres positionnels du même type ?"
+    back: "Quand ils sont commutatifs (max(a, b)) ou que leur ordre est naturel (slice(start, end))."
+    concept: ts-params-object
+  - id: fc3
+    front: "Tables en snake_case, code en camelCase : que préférer ?"
+    back: "Si possible, unifier sur une seule forme (garder snake_case) plutôt que deux types et des conversions à ne pas oublier."
+    concept: ts-unify-types

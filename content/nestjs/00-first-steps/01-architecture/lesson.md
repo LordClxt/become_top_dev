@@ -18,16 +18,18 @@ glossary:
   - term: "inversion de contrôle (IoC)"
     definition: "Ce n'est plus ton code qui fait `new`, c'est le framework qui construit les objets et fournit leurs dépendances."
 visuals: []
-labs: [nest-ch00-l01-lab-first-feature]
+labs: [nest-ch00-l01-lab-warmup-hello, nest-ch00-l01-lab-first-feature]
 extra: false
 xp: 25
 ---
 
-## Pourquoi c'est important
+> **En une phrase :** Nest s'installe au-dessus d'Express et t'impose une structure (modules, contrôleurs, providers) en échange d'un conteneur qui fabrique et relie tes objets.
 
-Express te donne un routeur et des middlewares, puis te laisse seul face aux vraies questions : où mettre la logique métier, comment partager une connexion à la base, comment tester un contrôleur sans démarrer un serveur. Chaque équipe y répond à sa façon, et deux projets Express se ressemblent rarement.
+## Le problème
 
-Nest répond à ces questions une fois pour toutes, avec une architecture inspirée d'Angular. Il ne remplace pas Express : il s'installe **au-dessus**, par l'intermédiaire d'un adaptateur. Express est l'adaptateur par défaut, Fastify est l'autre option officielle. L'API de la plateforme reste accessible quand tu en as besoin. Tu gagnes une structure commune et un conteneur d'injection. En échange, il faut accepter une contrainte : déclarer ce que tu fabriques.
+Trois développeurs ont écrit trois API Express pour la librairie. Dans la première, la connexion à la base est une variable globale ; dans la deuxième, chaque route en ouvre une ; dans la troisième, on la passe de fonction en fonction. Aucune ne se teste sans démarrer un serveur, et passer de l'une à l'autre demande une semaine d'adaptation.
+
+Express te donne un routeur et des middlewares, puis te laisse seul face aux vraies questions : où mettre la logique métier, comment partager une connexion, comment tester un contrôleur. Nest y répond une fois pour toutes. Il ne remplace pas Express : il s'installe **au-dessus**, par un adaptateur (Express par défaut, Fastify en option). En échange d'une structure commune et d'un conteneur d'injection, il faut accepter une contrainte : **déclarer** ce que tu fabriques.
 
 ## Le concept
 
@@ -92,6 +94,21 @@ const res = await request(app.getHttpServer()).get('/books');   // supertest
 ```
 
 `moduleRef.get(BooksService)` renvoie l'instance que le conteneur a créée : tu peux l'inspecter, ou la remplacer avec `overrideProvider` (module 04). Ce test est rapide (aucun port, aucun réseau) et il vérifie le câblage réel. C'est le format de tous les labs de ce cours.
+
+## Sous le capot
+
+Ce que fait `NestFactory.create(AppModule)` (`@nestjs/core`, `nest-factory.js` puis `nest-application.js`), dans l'ordre :
+
+1. **Scanner** (`DependenciesScanner.scan`) : partir de `AppModule`, suivre récursivement les `imports`, et enregistrer chaque module, provider et contrôleur dans le conteneur. Rien n'est encore instancié.
+2. **Instancier** (`InstanceLoader.createInstancesOfDependencies`) : créer tous les singletons, dépendances d'abord. Une dépendance introuvable fait échouer ici, avant toute requête.
+3. À `app.init()` (appelé par `listen()`) : enregistrer les parseurs de corps, puis **les routes** auprès de l'adaptateur HTTP (`RoutesResolver`), puis appeler les hooks de cycle de vie (chapitre 04).
+
+C'est pour ça qu'une erreur d'injection apparaît **au démarrage** et pas à la première requête, et qu'un test qui appelle `compile()` vérifie déjà tout le graphe.
+
+## En production
+
+- Le démarrage est un moment de vérité : une application qui démarre a un graphe complet. Fais démarrer l'application dans la CI (un test e2e minimal suffit), pas seulement les tests unitaires.
+- `logger: false` dans les tests, mais jamais en production : les logs de démarrage listent les modules et les routes enregistrées, c'est la première chose à lire quand une route « n'existe pas ».
 
 ## Pièges fréquents
 

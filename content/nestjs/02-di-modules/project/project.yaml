@@ -1,0 +1,14 @@
+id: nest-ch02-project
+title: "Librairie, jalon 2 : les commandes"
+pitch: "La librairie prend ses premières commandes : un module à part qui réutilise le catalogue, des identifiants et des prix fournis par des modules configurables, et une trace de la requête d'origine sans transformer toute l'application en providers par requête."
+running_project: librairie
+kind: code
+language: nestjs
+difficulty: 3
+xp: 280
+timeout_s: 90
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["app.ts"]
+concepts: [nest-shared-singleton, nest-module-encapsulation, nest-dynamic-module, nest-configurable-module-builder, nest-module-extras, nest-injection-scopes, nest-scope-bubbling]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

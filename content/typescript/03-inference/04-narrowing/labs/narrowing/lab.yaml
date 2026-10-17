@@ -1,0 +1,12 @@
+id: ts-ch03-l04-lab-narrowing
+title: "Rétrécir sans mentir"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["narrow.ts"]
+concepts: [ts-narrowing-checks, ts-narrowing-pitfalls, ts-tagged-union-switch, ts-type-guard, ts-alias-consistency]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,22 @@
+id: ts-ch03
+title: "L'inférence de types"
+subtitle: "Ne pas surcharger d'annotations, élargissement, objets créés d'un coup, rétrécissement, contexte"
+source: { chapter: 3, pages: "89-118" }
+objectives:
+  - "Savoir où annoter (signatures, littéraux d'objet, retours publics) et où laisser l'inférence travailler"
+  - "Prévoir le type déduit d'une variable : élargissement, const, as const, satisfies"
+  - "Construire les objets d'un coup avec la décomposition (spread), y compris conditionnelle"
+  - "Rétrécir une union avec typeof, instanceof, in, les unions taguées et les type guards, et utiliser les alias de façon cohérente"
+  - "Comprendre comment le contexte influence l'inférence et le préserver"
+mastery_threshold: 0.8
+prerequisites: [ts-ch02]
+lessons:
+  - "01-inferable-types"
+  - "02-widening"
+  - "03-objects-at-once"
+  - "04-narrowing"
+  - "05-context"
+xp: { assignment: 150, project: 250, boss: 250 }
+boss: boss
+assignment: assignment
+project: project

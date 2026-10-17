@@ -1,0 +1,14 @@
+id: ts-ch03-project
+title: "Parse, jalon 3 : des types déduits avec précision"
+pitch: "Un validateur doit garder les littéraux qu'on lui donne et rétrécir ce qu'il valide. Tu ajoutes à Parse les énumérations, les raffinements par type guard et les valeurs par défaut."
+kind: code
+language: typescript
+difficulty: 3
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-as-const, ts-widening-let-const, ts-type-guard, ts-context-inference]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

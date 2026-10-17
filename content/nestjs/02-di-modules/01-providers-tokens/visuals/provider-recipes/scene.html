@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="nest-ch02-provider-recipes" />
+    <title>Jetons et recettes</title>
+    <!--
+      Choreography (11 s) :
+        0.0 – 1.0   colonne des jetons
+        1.0 – 6.0   une recette par ligne produit sa valeur (useClass, useValue, useFactory attend, useExisting)
+        6.5 – 11.0  l'alias ne crée rien : sa flèche rejoint l'instance de Mailer ; un consommateur reçoit le cache
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0c0d12; --surface: #15161e; --surface-2: #1d1f2b; --line: #2b2e40;
+        --text: #f4f4ef; --muted: #a3a5b8; --accent: #d6ff3d; --pass: #5be49b; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f3f2ec; --surface: #ffffff; --surface-2: #e9e8e0; --line: #d9d7cc;
+        --text: #0c0d12; --muted: #5b5d6e; --accent: #3a3dff; --pass: #1f8a50; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 60px; text-align: center; font-size: 50px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .card { position: absolute; border-radius: 24px; border: 4px solid var(--line); background: var(--surface);
+        padding: 20px 30px; will-change: transform; opacity: 0; }
+      .card .t { font-size: 40px; font-weight: 600; }
+      .card .d { font-size: 28px; color: var(--muted); margin-top: 4px; }
+      svg.lines { position: absolute; inset: 0; overflow: visible; }
+      svg.lines line, svg.lines path { fill: none; stroke: var(--line); stroke-width: 5; stroke-linecap: round; }
+      .tok { left: 120px; width: 440px; height: 130px; }
+      .rec { left: 690px; width: 400px; height: 130px; border-color: var(--accent); }
+      .val { left: 1240px; width: 560px; height: 130px; border-color: var(--pass); }
+      .rec .t { color: var(--accent); }
+      #r1, #t1, #v1 { top: 230px; } #r2, #t2, #v2 { top: 420px; } #r3, #t3, #v3 { top: 610px; } #r4, #t4 { top: 800px; }
+      .wait { position: absolute; left: 1240px; top: 610px; width: 560px; height: 130px; border-radius: 24px; border: 4px dashed var(--fail);
+        display: flex; align-items: center; justify-content: center; font-size: 34px; color: var(--fail); opacity: 0; }
+      .same { position: absolute; left: 1250px; top: 860px; font-size: 34px; color: var(--pass); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="11" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Un <em>jeton</em>, une <em>recette</em>, une valeur</div>
+      <div class="caption" id="c2"><em>useExisting</em> ne crée rien : même instance</div>
+      <svg class="lines" id="lines" width="1920" height="1080">
+        <line x1="560" y1="295" x2="690" y2="295" /><line x1="1090" y1="295" x2="1240" y2="295" />
+        <line x1="560" y1="485" x2="690" y2="485" /><line x1="1090" y1="485" x2="1240" y2="485" />
+        <line x1="560" y1="675" x2="690" y2="675" /><line x1="1090" y1="675" x2="1240" y2="675" />
+        <line x1="560" y1="865" x2="690" y2="865" />
+        <path id="alias" d="M1090 865 C 1180 865, 1180 295, 1240 295" style="stroke: var(--pass)" />
+      </svg>
+      <div class="card tok" id="t1"><div class="t mono">Mailer</div><div class="d">classe</div></div>
+      <div class="card tok" id="t2"><div class="t mono">SHOP_CONFIG</div><div class="d">Symbol</div></div>
+      <div class="card tok" id="t3"><div class="t mono">DB</div><div class="d">Symbol</div></div>
+      <div class="card tok" id="t4"><div class="t mono">'LegacyMailer'</div><div class="d">chaîne</div></div>
+      <div class="card rec" id="r1"><div class="t mono">useClass</div><div class="d">instancier</div></div>
+      <div class="card rec" id="r2"><div class="t mono">useValue</div><div class="d">rendre tel quel</div></div>
+      <div class="card rec" id="r3"><div class="t mono">useFactory</div><div class="d">inject: [SHOP_CONFIG]</div></div>
+      <div class="card rec" id="r4"><div class="t mono">useExisting</div><div class="d">→ Mailer</div></div>
+      <div class="card val" id="v1"><div class="t mono">SmtpMailer #1</div><div class="d">créé une fois, mis en cache</div></div>
+      <div class="card val" id="v2"><div class="t mono">{ currency: 'EUR' }</div><div class="d">l'objet fourni</div></div>
+      <div class="wait mono" id="w3">await connect(…)</div>
+      <div class="card val" id="v3"><div class="t mono">Connexion ouverte</div><div class="d">les dépendants attendaient</div></div>
+      <div class="same mono" id="same">'LegacyMailer' → SmtpMailer #1</div>
+    </div>
+    <script>
+      const DURATION = 11;
+      const tl = gsap.timeline({ paused: true });
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      function show(sel, t, d = 0.4) {
+        tl.fromTo(sel, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: d, stagger: 0.08, ease: "power3.out", immediateRender: false }, t);
+      }
+      function hide(sel, t) { tl.to(sel, { opacity: 0, duration: 0.25 }, t); }
+      function pulse(sel, t) {
+        tl.fromTo(sel, { scale: 1 }, { keyframes: { scale: [1, 1.06, 1] }, duration: 0.4, ease: "none", immediateRender: false }, t);
+      }
+      captions([["#c1", 0.5, 6.3], ["#c2", 6.5, DURATION + 1]]);
+      show(".tok", 0.1);
+      tl.fromTo("#lines", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.6);
+      gsap.set("#alias", { strokeDasharray: 1200, strokeDashoffset: 1200 });
+      show("#r1", 1.2); show("#v1", 1.8); pulse("#v1", 2.2);
+      show("#r2", 2.6); show("#v2", 3.1);
+      show("#r3", 3.6);
+      tl.fromTo("#w3", { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, 4.0);
+      tl.fromTo("#w3", { scale: 1 }, { keyframes: { scale: [1, 1.03, 1, 1.03, 1] }, duration: 1.2, ease: "none", immediateRender: false }, 4.1);
+      hide("#w3", 5.3); show("#v3", 5.4); pulse("#v3", 5.7);
+      show("#r4", 6.6);
+      tl.to("#alias", { strokeDashoffset: 0, duration: 1.2, ease: "power2.inOut" }, 7.2);
+      pulse("#v1", 8.4);
+      tl.fromTo("#same", { opacity: 0 }, { opacity: 1, duration: 0.4, immediateRender: false }, 8.6);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

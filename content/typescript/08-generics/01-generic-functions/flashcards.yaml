@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Qu'est-ce qu'un type générique, vu comme en programmation fonctionnelle ?"
+    back: "Une fonction entre types : MyPartial<T> prend un type T et renvoie un nouveau type."
+    concept: ts-generic-as-function
+  - id: fc2
+    front: "Comment corriger `type MyPick<T, K> = { [P in K]: T[P] }` ?"
+    back: "Avec une contrainte : `type MyPick<T, K extends keyof T> = { [P in K]: T[P] }`."
+    concept: ts-generic-constraints
+  - id: fc3
+    front: "Pourquoi éviter `[P in K & PropertyKey]: T[P & keyof T]` ?"
+    back: "Les intersections font taire le vérificateur : MyPick<Person, 'firstName'> produit un type faux sans erreur."
+    concept: ts-constraint-not-workaround
+  - id: fc4
+    front: "Différence d'utilisation entre un type générique et une fonction générique ?"
+    back: "Le type générique reçoit ses arguments explicitement ; la fonction générique les infère depuis ses arguments."
+    concept: ts-generic-function-inference

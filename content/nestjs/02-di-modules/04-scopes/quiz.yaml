@@ -1,0 +1,101 @@
+id: nest-ch02-l04-quiz
+questions:
+- id: q1
+  type: code-output
+  prompt: Un singleton injecte un provider TRANSIENT, et un autre singleton aussi. Qu'affiche ce programme ?
+  code: 'import ''reflect-metadata'';
+
+    import { Injectable, Module, Scope } from ''@nestjs/common'';
+
+    import { Test } from ''@nestjs/testing'';
+
+
+    @Injectable({ scope: Scope.TRANSIENT }) class Logger {}
+
+    @Injectable() class A { constructor(readonly log: Logger) {} }
+
+    @Injectable() class B { constructor(readonly log: Logger) {} }
+
+    @Module({ providers: [Logger, A, B] }) class AppModule {}
+
+
+    const ref = await Test.createTestingModule({ imports: [AppModule] }).compile();
+
+    const a = ref.get(A);
+
+    console.log(a.log === ref.get(B).log, a === ref.get(A));
+
+    '
+  answer: false true
+  explanation: 'Chaque consommateur d''un provider transient reçoit sa propre instance. Mais TRANSIENT ne remonte pas : A reste un singleton, et ref.get(A) renvoie toujours la même instance.'
+  concept: nest-injection-scopes
+  difficulty: 2
+- id: q2
+  type: code-output
+  prompt: Qu'affiche ce programme ?
+  code: "import 'reflect-metadata';\nimport { Injectable, Module, Scope } from '@nestjs/common';\nimport { Test } from '@nestjs/testing';\n\n@Injectable({ scope: Scope.REQUEST }) class Ctx {}\n@Injectable()\
+    \ class Service { constructor(readonly ctx: Ctx) {} }\n@Module({ providers: [Ctx, Service] }) class AppModule {}\n\nconst ref = await Test.createTestingModule({ imports: [AppModule] }).compile();\n\
+    try {\n  ref.get(Service);\n  console.log('singleton');\n} catch {\n  console.log('scoped');\n}\n"
+  answer: scoped
+  explanation: 'Service dépend d''un provider REQUEST : la portée remonte, Service devient request-scoped. get() refuse les providers scoped, même implicitement : il faut resolve().'
+  concept: nest-scope-bubbling
+  difficulty: 3
+- id: q3
+  type: single
+  prompt: 'Graphe : `OrdersController ← OrdersService ← RequestContext (REQUEST)`, et `OrdersService ← BooksRepository`. Quels providers sont recréés à chaque requête ?'
+  choices:
+  - Seulement RequestContext
+  - RequestContext, OrdersService et OrdersController
+  - Tous, y compris BooksRepository
+  - RequestContext et BooksRepository
+  answer: 1
+  explanation: 'La portée REQUEST remonte vers les consommateurs (OrdersService, puis le contrôleur), jamais vers les dépendances : BooksRepository ne dépend pas de RequestContext et reste un singleton.'
+  concept: nest-scope-bubbling
+  difficulty: 2
+- id: q4
+  type: single
+  prompt: Ton logger lit l'identifiant de l'utilisateur depuis la requête, et il est injecté dans 80 services. Quelle approche limite le coût ?
+  choices:
+  - Rendre le logger request-scoped
+  - Garder le logger singleton et lire l'utilisateur dans un stockage par requête fondé sur AsyncLocalStorage
+  - Rendre le logger transient
+  - Passer l'utilisateur en paramètre de chaque méthode du logger
+  answer: 1
+  explanation: Un logger request-scoped contaminerait les 80 services. AsyncLocalStorage garde tout en singleton et fonctionne aussi hors HTTP (jobs, messages). Transient ne donne pas accès à la requête.
+  concept: nest-request-provider
+  difficulty: 3
+- id: q5
+  type: single
+  prompt: 'Un provider TRANSIENT doit écrire `<classe consommatrice>: message`. Que doit-il injecter ?'
+  choices:
+  - REQUEST
+  - INQUIRER
+  - ModuleRef
+  - Reflector
+  answer: 1
+  explanation: INQUIRER donne l'instance de la classe qui a demandé le provider ; son constructor.name donne le nom.
+  concept: nest-inquirer
+  difficulty: 1
+- id: q6
+  type: code-output
+  prompt: Deux « requêtes » parallèles avec AsyncLocalStorage. Qu'affiche ce programme ?
+  code: "import { AsyncLocalStorage } from 'node:async_hooks';\n\nconst als = new AsyncLocalStorage<{ requestId: string }>();\nlet shared = '';\n\nasync function handle(id: string) {\n  shared = id;   \
+    \                                // un champ partagé, comme sur un singleton\n  await new Promise((r) => setTimeout(r, id === 'a' ? 20 : 5));\n  return `${als.getStore()?.requestId}/${shared}`;\n}\n\
+    \nconst out = await Promise.all([\n  als.run({ requestId: 'a' }, () => handle('a')),\n  als.run({ requestId: 'b' }, () => handle('b')),\n]);\nconsole.log(out.join(' '));\n"
+  answer: a/b b/b
+  explanation: 'Le champ partagé est écrasé par la seconde requête : la première lit ''b''. Le store d''AsyncLocalStorage, lui, suit chaque chaîne d''appels asynchrones et retrouve ''a''.'
+  concept: nest-request-provider
+  difficulty: 3
+- id: q7
+  type: single
+  prompt: Un intercepteur request-scoped est posé avec @UseInterceptors sur OrdersController (singleton par ailleurs). Que devient le contrôleur ?
+  choices:
+  - 'Il reste singleton : un intercepteur n''est pas une dépendance du constructeur'
+  - 'Il devient request-scoped : les enhancers comptent dans le calcul de la portée'
+  - Nest refuse de démarrer
+  - Seul l'intercepteur est recréé, le contrôleur n'est pas concerné
+  answer: 1
+  explanation: isDependencyTreeStatic() parcourt les dépendances du constructeur, les propriétés injectées et les enhancers (guards, intercepteurs, pipes). Un seul élément non statique suffit à rendre le
+    contrôleur request-scoped.
+  concept: nest-scope-bubbling
+  difficulty: 3

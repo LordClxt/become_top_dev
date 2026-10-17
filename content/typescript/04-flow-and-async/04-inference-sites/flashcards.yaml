@@ -1,0 +1,14 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `fetchAPI<SeedAPI>('/seeds')` échoue avec `fetchAPI<API, Path extends keyof API>` ?"
+    back: "L'inférence est tout ou rien : préciser un paramètre de type oblige à les préciser tous."
+    concept: ts-generic-all-or-nothing
+  - id: fc2
+    front: "Comment une classe aide-t-elle l'inférence d'un client d'API ?"
+    back: "`new ApiFetcher<SeedAPI>()` fixe API ; la méthode générique `fetch<Path>(path)` infère Path à chaque appel."
+    concept: ts-class-inference-site
+  - id: fc3
+    front: "Version curryfiée d'un client typé ?"
+    back: "`fetchAPI<SeedAPI>()('/seeds')` : le premier appel fixe API, la fonction renvoyée infère Path."
+    concept: ts-currying-inference-site

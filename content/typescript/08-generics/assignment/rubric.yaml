@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.6
+    source: tests
+  - id: generics
+    label: "Qualité des génériques"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Contraintes plutôt que contournements ; aucun paramètre de type inutile ; types récursifs lisibles ; assertions rares et justifiées"
+      2: "Fonctionne, mais des paramètres inutiles ou des intersections qui font taire le vérificateur"
+      0: "any, @ts-expect-error dans les définitions, types faux"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Types nommés et découpés, noms explicites pour les longs génériques"
+      2: "Un seul type monolithique difficile à lire"
+      0: "Illisible"

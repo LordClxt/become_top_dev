@@ -1,0 +1,12 @@
+id: ts-ch04-assignment
+title: "Un tableau de bord météo asynchrone"
+kind: code
+language: typescript
+difficulty: 3
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["weather.ts"]
+concepts: [ts-promise-all-race, ts-async-always-async, ts-functional-flow, ts-groupby-library]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

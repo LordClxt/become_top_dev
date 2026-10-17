@@ -1,0 +1,12 @@
+id: ts-ch04-l04-lab-api-fetcher
+title: "Un client d'API typé, deux sites d'inférence"
+kind: code
+language: typescript
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["api.ts"]
+concepts: [ts-generic-all-or-nothing, ts-class-inference-site, ts-currying-inference-site]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Que reprocher à `type User = { name: string } | null` ?"
+    back: "Le nom cache l'absence possible ; écris User sans null et User | null là où c'est vrai."
+    concept: ts-no-null-in-alias
+  - id: fc2
+    front: "Meilleur type de retour pour extent(nums) ?"
+    back: "[number, number] | null : min et max sont présents ensemble, ou rien."
+    concept: ts-null-perimeter
+  - id: fc3
+    front: "Pourquoi `if (!min)` est-il un bug dans extent ?"
+    back: "0 est falsy : il est pris pour une absence, et extent([0, 1, 2]) renvoie [1, 2]."
+    concept: ts-falsy-zero-bug
+  - id: fc4
+    front: "Comment éviter une classe aux champs nullables remplis plus tard ?"
+    back: "Une fabrique static async init qui attend toutes les données puis appelle le constructeur avec des valeurs non nulles."
+    concept: ts-class-complete-init

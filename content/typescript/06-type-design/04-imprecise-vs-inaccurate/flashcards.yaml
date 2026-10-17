@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Pourquoi `type GeoPosition = [number, number]` était-il une erreur ?"
+    back: "Il est précis mais inexact : une position peut avoir une élévation (3e nombre). Des valeurs valides étaient rejetées."
+    concept: ts-inaccurate-types
+  - id: fc2
+    front: "Comment monter en précision sans régression ?"
+    back: "Par étapes, avec une liste d'exemples valides (doivent compiler) et invalides (@ts-expect-error) vérifiée à chaque étape."
+    concept: ts-type-test-suite
+  - id: fc3
+    front: "Pourquoi CaseCall est-il une interface avec `length: 4 | 6 | 8…` ?"
+    back: "L'interface autorise la récursion vers Expression ; le length pair impose des paires (condition, valeur) plus une valeur par défaut."
+    concept: ts-precision-tradeoff
+  - id: fc4
+    front: "Qu'est-ce que la « vallée de l'étrange » des types ?"
+    back: "Un type presque exact dont les erreurs rares sont si obscures qu'il gêne plus qu'un type simple."
+    concept: ts-uncanny-valley

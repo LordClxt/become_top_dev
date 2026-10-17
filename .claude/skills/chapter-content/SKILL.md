@@ -8,6 +8,7 @@ description: Generate all the content for a course chapter (lessons, tested labs
 Prerequisites: approved plan (`content/<book>/course.yaml` exists), book extracted (`.cache/books/<slug>/`). Format: `content-format` skill.
 
 ## Procedure
+Goal: excellence, not competence — apply the « Courses aim at excellence » rules of AGENTS.md at every step.
 1. Re-read the source chapter **in full** (`.cache/books/<slug>/chNN-*.txt`) and `notes.md`.
 2. `chapter.yaml`: objectives, mastery threshold, prerequisites.
 3. **Lessons** (`lesson.md`), for each one:
@@ -35,6 +36,7 @@ Points of attention / deviations from the book: …
 Then **STOP** and wait for approval before the next chapter.
 
 ## Definition of Done
+- [ ] Excellence rules (AGENTS.md): scenario-first lessons, no taught-nowhere notion, warm-up exercise, debugging lab, boss without hints, an « under the hood » section, production trade-offs
 - [ ] Every objective in `chapter.yaml` is covered by at least one lesson and one exercise
 - [ ] Every lab/assignment/boss has `verified` filled in by `verify_lab.sh` (or a rubric if `kind: design`)
 - [ ] `verify_quiz.py`: every `code-output` answer is correct

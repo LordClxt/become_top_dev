@@ -1,0 +1,64 @@
+id: ts-ch03-l05-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Pourquoi `setLanguage('JavaScript')` passe-t-il alors que `let l = 'JavaScript'; setLanguage(l)` échoue ?"
+    choices:
+      - "Parce que let rend la valeur modifiable à l'exécution"
+      - "Parce qu'en argument direct, le littéral est typé par le paramètre ; extrait dans un let, il est élargi à string"
+      - "Parce que setLanguage n'accepte pas de variables"
+      - "Parce que 'JavaScript' est un mot réservé"
+    answer: 1
+    explanation: "C'est le typage contextuel : il disparaît quand on extrait l'expression dans une variable."
+    concept: ts-context-inference
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel est le type de `const loc = [10, 20]` ?"
+    choices:
+      - "[number, number]"
+      - "readonly [10, 20]"
+      - "number[]"
+      - "[10, 20]"
+    answer: 2
+    explanation: "Sans contexte, un littéral de tableau est inféré comme un tableau, pas comme un tuple."
+    concept: ts-context-tuples
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Avec `const loc = [10, 20] as const`, quelle signature de panTo accepte `panTo(loc)` ?"
+    choices:
+      - "panTo(where: [number, number])"
+      - "panTo(where: readonly [number, number])"
+      - "panTo(where: number[])"
+      - "Aucune"
+    answer: 1
+    explanation: "as const produit un tuple readonly : il n'est assignable qu'à un paramètre readonly."
+    concept: ts-context-tuples
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Le contexte typé ne change rien à l'exécution. Qu'affiche ce programme ?"
+    code: |
+      function callWith(fn: (a: number, b: number) => number) {
+        return fn(2, 5);
+      }
+      const sum: (a: number, b: number) => number = (a, b) => a + b;
+      console.log(callWith(sum), callWith((a, b) => a * b));
+    answer: "7 10"
+    explanation: "Le callback en ligne reçoit ses types du paramètre ; la constante extraite les reçoit de son annotation."
+    concept: ts-context-callbacks
+    difficulty: 1
+  - id: q5
+    type: multiple
+    prompt: "`const ts = { language: 'TypeScript', organization: 'Microsoft' }; complain(ts)` échoue. Quelles corrections fonctionnent ?"
+    choices:
+      - "const ts: GovernedLanguage = { … }"
+      - "const ts = { … } satisfies GovernedLanguage"
+      - "const ts = { … } as const"
+      - "let ts = { … }"
+    answer: [0, 1, 2]
+    explanation: "Les trois premières gardent language précis. let ne change rien : la propriété reste élargie à string."
+    concept: ts-context-objects
+    difficulty: 2

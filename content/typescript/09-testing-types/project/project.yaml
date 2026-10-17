@@ -1,0 +1,14 @@
+id: ts-ch09-project
+title: "Parse, jalon 9 : des types lisibles, testés et générés"
+pitch: "Dernier jalon de la piste « Concevoir et durcir ses types » : Parse produit des types aplatis et lisibles, supporte des tuples longs grâce à la récursion terminale, et génère le code source de ses interfaces."
+kind: code
+language: typescript
+difficulty: 5
+xp: 250
+timeout_s: 60
+running_project: parse
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["parse.ts"]
+concepts: [ts-resolve-type, ts-tail-recursive-type, ts-codegen, ts-equals-expect]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

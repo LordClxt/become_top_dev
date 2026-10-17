@@ -1,0 +1,52 @@
+id: ts-ch06-l02-quiz
+questions:
+
+  - id: q1
+    type: code-output
+    prompt: "Deux fonctions lisent la même option avec des défauts différents. Qu'affiche ce programme ?"
+    code: |
+      interface AppConfig { unitSystem?: 'metric' | 'imperial' }
+      const config: AppConfig = {};
+      const distanceUnits = (config.unitSystem ?? 'imperial') === 'metric' ? 'km' : 'miles';
+      const speedUnits = (config.unitSystem ?? 'metric') === 'metric' ? 'km/h' : 'mph';
+      console.log(distanceUnits, speedUnits);
+    answer: "miles km/h"
+    explanation: "Les valeurs par défaut dispersées divergent : distances en miles, vitesses en km/h. Normaliser une seule fois évite ce bug."
+    concept: ts-optional-cost
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Que vaut `Required<{ darkMode: boolean; unitSystem?: 'metric' | 'imperial' }>` ?"
+    choices:
+      - "{ darkMode?: boolean; unitSystem?: 'metric' | 'imperial' }"
+      - "{ darkMode: boolean; unitSystem: 'metric' | 'imperial' }"
+      - "{ darkMode: boolean; unitSystem: 'metric' | 'imperial' | undefined }"
+      - "{ unitSystem: 'metric' | 'imperial' }"
+    answer: 1
+    explanation: "Required retire le ? de toutes les propriétés (sans ajouter undefined)."
+    concept: ts-input-vs-normalized
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Tu ajoutes une option qui doit, à terme, être fournie partout. Quelle approche ?"
+    choices:
+      - "La rendre optionnelle pour ne rien casser"
+      - "La rendre obligatoire et corriger les appels signalés par le compilateur"
+      - "Lui donner le type any"
+      - "La documenter dans un commentaire"
+    answer: 1
+    explanation: "Une propriété obligatoire fait de chaque appel oublié une erreur : le compilateur guide la migration."
+    concept: ts-optional-combinations
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Où appliquer les valeurs par défaut d'une configuration ?"
+    choices:
+      - "À chaque lecture, avec ??"
+      - "Une seule fois, dans une fonction de normalisation à l'entrée"
+      - "Dans les commentaires du type"
+      - "Dans chaque composant qui l'utilise"
+    answer: 1
+    explanation: "Normaliser à l'entrée donne un type sans optionnel au reste du code, et une seule source pour les défauts."
+    concept: ts-input-vs-normalized
+    difficulty: 1

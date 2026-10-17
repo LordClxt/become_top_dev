@@ -49,6 +49,10 @@ tracks:
       - "16-realtime"
       - "17-microservices"
       - "18-tooling-migration"
+  - id: nest-capstone
+    title: "Projet final"
+    chapters:
+      - "19-capstone"
 
 planned_titles:
   "02-di-modules": "Injection de dépendances et modules"
@@ -68,3 +72,4 @@ planned_titles:
   "16-realtime": "Temps réel : WebSockets et SSE"
   "17-microservices": "Microservices"
   "18-tooling-migration": "Outillage, monorepo et migration"
+  "19-capstone": "Projet final : la librairie en production"

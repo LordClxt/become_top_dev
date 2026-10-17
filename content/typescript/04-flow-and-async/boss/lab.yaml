@@ -1,0 +1,13 @@
+id: ts-ch04-boss
+title: "Boss : un client d'API typé, avec cache, délai et tentatives"
+kind: code
+language: typescript
+difficulty: 4
+xp: 250
+timeout_s: 60
+time_limit_min: 75
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["client.ts"]
+concepts: [ts-class-inference-site, ts-promise-cache, ts-promise-all-race, ts-async-always-async, ts-functional-flow]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

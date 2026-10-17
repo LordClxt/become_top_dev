@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'un provider de module peut injecter ?"
+    back: "Les providers de son module, et les exports des modules qu'il importe. Rien d'autre."
+    concept: nest-module-encapsulation
+  - id: fc2
+    front: "Que représente le tableau exports d'un module ?"
+    back: "Son API publique : ce que les modules importateurs ont le droit d'injecter."
+    concept: nest-module-encapsulation
+  - id: fc3
+    front: "Déclarer le même service dans les providers de deux modules ?"
+    back: "Deux instances, deux états. Le bug ne produit aucune erreur."
+    concept: nest-shared-singleton
+  - id: fc4
+    front: "Comment partager une instance entre modules ?"
+    back: "La déclarer dans un module, l'exporter, importer ce module là où elle sert."
+    concept: nest-shared-singleton
+  - id: fc5
+    front: "Ré-exporter un module : syntaxe ?"
+    back: "imports: [CatalogModule], exports: [CatalogModule]. L'importateur reçoit les exports de CatalogModule."
+    concept: nest-module-reexport
+  - id: fc6
+    front: "Combien de fois enregistrer un module @Global() ?"
+    back: "Une seule, dans le module racine ou le module socle."
+    concept: nest-global-modules
+  - id: fc7
+    front: "Défaut principal de @Global() ?"
+    back: "Les dépendances deviennent invisibles dans les imports, et le couplage n'est plus déclaré."
+    concept: nest-global-modules
+  - id: fc8
+    front: "Une classe de module peut-elle être injectée ?"
+    back: "Non. Elle peut injecter des providers dans son constructeur, mais n'est pas elle-même un provider."
+    concept: nest-module-encapsulation

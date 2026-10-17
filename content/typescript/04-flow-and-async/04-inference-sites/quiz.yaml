@@ -1,0 +1,54 @@
+id: ts-ch04-l04-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Avec `function f<A, B>(b: B): A`, que donne l'appel `f<string>(42)` ?"
+    choices:
+      - "A = string, B est inféré à number"
+      - "Une erreur : 2 arguments de type attendus, 1 fourni"
+      - "A = string, B = unknown"
+      - "A = string, B = any"
+    answer: 1
+    explanation: "L'inférence des paramètres de type est tout ou rien : on ne peut pas en préciser certains et inférer les autres."
+    concept: ts-generic-all-or-nothing
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Dans `const fetcher = new ApiFetcher<SeedAPI>(); fetcher.fetch('/seeds')`, où Path est-il inféré ?"
+    choices:
+      - "À la construction de la classe"
+      - "À l'appel de la méthode générique fetch"
+      - "Nulle part : il faut l'écrire"
+      - "Dans l'interface SeedAPI"
+    answer: 1
+    explanation: "La construction fixe API ; chaque appel de méthode est un nouveau site d'inférence pour Path."
+    concept: ts-class-inference-site
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "La curryfication ne change rien à l'exécution. Qu'affiche ce programme ?"
+    code: |
+      interface API { '/a': number; '/b': string }
+      const data: Record<string, unknown> = { '/a': 1, '/b': 'deux' };
+      function fetchAPI<T>() {
+        return <P extends keyof T & string>(path: P) => Promise.resolve(data[path] as T[P]);
+      }
+      const get = fetchAPI<API>();
+      console.log(await get('/a'), await get('/b'));
+    answer: "1 deux"
+    explanation: "fetchAPI<API>() renvoie une fonction ; P est inféré à chaque appel ('/a' puis '/b'), et le type de retour suit."
+    concept: ts-currying-inference-site
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi écrire `Path extends keyof API & string` plutôt que `keyof API` ?"
+    choices:
+      - "Pour accepter aussi les nombres"
+      - "Pour exclure les clés number et symbol, et pouvoir utiliser le chemin comme chaîne"
+      - "Parce que keyof est interdit dans une méthode"
+      - "Pour rendre Path optionnel"
+    answer: 1
+    explanation: "keyof peut renvoyer string | number | symbol ; l'intersection avec string ne garde que les clés chaînes."
+    concept: ts-class-inference-site
+    difficulty: 2

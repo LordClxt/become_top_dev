@@ -1,0 +1,18 @@
+cards:
+
+  - id: fc1
+    front: "Différence entre any et unknown ?"
+    back: "Les deux acceptent tout ; any est aussi assignable à tout (hors système de types), unknown n'est assignable à rien avant rétrécissement."
+    concept: ts-unknown-vs-any
+  - id: fc2
+    front: "Comment utiliser une valeur unknown ?"
+    back: "La rétrécir : typeof, instanceof, in, ou un type guard (value is Book)."
+    concept: ts-unknown-narrowing
+  - id: fc3
+    front: "Que penser de `parseYAML<T>(yaml: string): T` ?"
+    back: "Une assertion déguisée : T n'apparaît que dans le retour, rien n'est vérifié. Renvoie unknown."
+    concept: ts-generic-return-only
+  - id: fc4
+    front: "{} vs object vs unknown ?"
+    back: "{} : tout sauf null/undefined ; object : tout non primitif ; unknown : absolument tout."
+    concept: ts-object-types

@@ -1,0 +1,52 @@
+id: ts-ch08-l02-quiz
+questions:
+
+  - id: q1
+    type: multiple
+    prompt: "Quelles signatures ont un paramètre de type inutile ?"
+    choices:
+      - "function identity<T>(x: T): T"
+      - "function len<T extends { length: number }>(x: T): number"
+      - "function load<T>(key: string): T"
+      - "function first<T>(xs: readonly T[]): T | undefined"
+    answer: [1, 2]
+    explanation: "len n'utilise T qu'une fois (x: { length: number } suffit) ; load n'a T que dans le retour. identity et first relient entrée et sortie."
+    concept: ts-golden-rule-generics
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Quel est le type de `getProperty({ name: 'Ada', age: 36 }, 'age')` avec `getProperty<T, K extends keyof T>(obj: T, key: K): T[K]` ?"
+    choices:
+      - "string | number"
+      - "number"
+      - "unknown"
+      - "T[keyof T]"
+    answer: 1
+    explanation: "K est inféré à 'age' : le retour est T['age'], number. Ici, K est utile."
+    concept: ts-useful-param
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function join(els: readonly (string | number)[]) {
+        return els.map(String).join(',');
+      }
+      function getLength(x: ArrayLike<unknown>) { return x.length; }
+      console.log(join([1, 'a', 2]), getLength('abc'), getLength([1, 2]));
+    answer: "1,a,2 3 2"
+    explanation: "Sans paramètres de type inutiles, les fonctions sont plus simples et acceptent les mêmes arguments (une chaîne est un ArrayLike)."
+    concept: ts-simplify-generic
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Dans `function f<T, K extends keyof T>(obj: T, key: K): void`, combien de fois K est-il utilisé (hors déclaration) ?"
+    choices:
+      - "Zéro"
+      - "Une fois (le type de key) : la contrainte mentionne T, pas K"
+      - "Deux fois"
+      - "Trois fois"
+    answer: 1
+    explanation: "K n'apparaît que dans key : on peut écrire key: keyof T."
+    concept: ts-golden-rule-generics
+    difficulty: 2

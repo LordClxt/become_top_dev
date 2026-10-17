@@ -20,14 +20,16 @@ glossary:
   - term: "jeton d'injection"
     definition: "La clé sous laquelle le conteneur range un provider : une classe, une chaîne ou un symbole."
 visuals: [nest-ch00-di-resolution]
-labs: [nest-ch00-l02-lab-mini-injector]
+labs: [nest-ch00-l02-lab-mini-injector, nest-ch00-l02-lab-silent-undefined]
 extra: true
 xp: 30
 ---
 
-## Pourquoi c'est important
+> **En une phrase :** un décorateur n'exécute rien, il **attache** des métadonnées ; tsc écrit pour toi les types du constructeur, et c'est tout ce que Nest lit pour injecter.
 
-Écrire `constructor(private books: BooksService)` suffit pour que Nest fournisse un `BooksService`. Ça ressemble à de la magie, et la magie devient un problème le jour où elle casse : « Nest can't resolve dependencies of the BooksController (?) ». Pour comprendre ce message (et le corriger en trente secondes plutôt qu'en une heure), il faut savoir comment Nest **lit** un constructeur. Le mécanisme tient en deux pièces : les décorateurs et une métadonnée que le compilateur écrit pour toi.
+## Le problème
+
+Un service fonctionne en local, puis un collègue accepte une « correction automatique » de son éditeur, et l'application refuse de démarrer : « Nest can't resolve dependencies of BooksController (?) ». Le code n'a pas changé de logique ; un seul mot a changé dans un `import`. Pour comprendre ce genre d'erreur, il faut savoir ce que Nest lit réellement.
 
 ## Le concept
 
@@ -85,6 +87,18 @@ Le compilateur ne peut émettre que ce qui existe à l'exécution. Trois cas cas
 | deux fichiers qui s'importent mutuellement | `undefined` | « the argument at index [0] … appears to be undefined at runtime » |
 
 Pour injecter une abstraction, il faut donc un jeton qui existe à l'exécution : une classe abstraite, ou un `@Inject('BOOKS_REPOSITORY')` avec une chaîne ou un symbole (module 02).
+
+## Sous le capot
+
+Ce que tsc génère pour `@Injectable() class Shop { constructor(clock: Clock) {} }` avec `emitDecoratorMetadata` : un appel `__decorate([Injectable(), __metadata("design:paramtypes", [Clock])], Shop)`. Deux choses en découlent :
+
+- `@Injectable()` pose la marque `__injectable__` sur la classe ; mais surtout, sa **présence** fait écrire `design:paramtypes`. Une classe sans aucun décorateur n'a pas de `design:paramtypes` : Nest croit son constructeur sans paramètre, l'appelle sans argument, et les dépendances valent `undefined`, **sans erreur au démarrage**. C'est le TP de débogage de cette leçon.
+- `[Clock]` est évalué au chargement du fichier. Si `Clock` vient d'un `import type`, tsc écrit `Object` ; si `Clock` n'est pas encore défini (import circulaire), la valeur est `undefined`. Dans les deux cas, l'injecteur ne trouve pas de jeton utilisable.
+
+## En production
+
+- Ces erreurs ne viennent jamais de la logique : quand une dépendance vaut `undefined`, vérifie d'abord le décorateur, puis l'`import`, puis les cycles.
+- Configure le linter pour qu'il **ne transforme pas** en `import type` les imports utilisés comme types de paramètres de constructeur dans les classes décorées (`consistent-type-imports` avec les options adaptées, ou `verbatimModuleSyntax` + revue).
 
 ## Pièges fréquents
 

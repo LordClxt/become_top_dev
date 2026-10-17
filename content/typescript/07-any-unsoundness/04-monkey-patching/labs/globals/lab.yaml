@@ -1,0 +1,12 @@
+id: ts-ch07-l04-lab-globals
+title: "Des globales typées, puis plus de globales"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["session.ts"]
+concepts: [ts-global-augmentation, ts-narrow-augmentation, ts-monkey-patching]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

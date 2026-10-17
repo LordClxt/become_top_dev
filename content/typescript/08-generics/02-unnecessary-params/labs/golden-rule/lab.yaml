@@ -1,0 +1,12 @@
+id: ts-ch08-l02-lab-golden-rule
+title: "Appliquer la règle d'or"
+kind: code
+language: typescript
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["signatures.ts"]
+concepts: [ts-golden-rule-generics, ts-return-only-param, ts-useful-param, ts-simplify-generic]
+verified: { at: 2026-10-16, solution: pass, starter: fail }

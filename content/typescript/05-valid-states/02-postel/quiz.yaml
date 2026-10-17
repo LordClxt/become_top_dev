@@ -1,0 +1,69 @@
+id: ts-ch05-l02-quiz
+questions:
+
+  - id: q1
+    type: single
+    prompt: "Pourquoi `viewportForBounds(bounds): CameraOptions` est-il un mauvais contrat ?"
+    choices:
+      - "Parce que CameraOptions est trop strict"
+      - "Parce que tous ses champs sont optionnels et center a plusieurs formes : chaque appelant doit tout tester"
+      - "Parce qu'il faudrait renvoyer any"
+      - "Parce qu'une fonction ne doit pas renvoyer d'objet"
+    answer: 1
+    explanation: "Un type de sortie large reporte la complexité sur tous les appelants. Renvoie la forme canonique Camera."
+    concept: ts-postel
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      function sum(xs: Iterable<number>) {
+        let total = 0;
+        for (const x of xs) total += x;
+        return total;
+      }
+      function* evens(limit: number) { for (let i = 0; i <= limit; i += 2) yield i; }
+      console.log(sum([1, 2, 3]), sum(new Set([5, 5, 6])), sum(evens(6)));
+    answer: "6 11 12"
+    explanation: "Iterable<number> accepte un tableau, un Set (doublons retirés : 5 + 6) et un générateur (0 + 2 + 4 + 6)."
+    concept: ts-iterable-param
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Quel nom est le plus clair pour un délai exprimé en millisecondes ?"
+    choices:
+      - "timeout: number // en ms"
+      - "timeoutMs: number"
+      - "t: number"
+      - "timeout: Milliseconds // voir la doc"
+    answer: 1
+    explanation: "L'unité dans le nom est visible à chaque utilisation et ne peut pas diverger d'un commentaire."
+    concept: ts-no-types-in-docs
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Que vaut `Omit<Partial<Camera>, 'center'>` si `Camera = { center: LngLat; zoom: number }` ?"
+    choices:
+      - "{ center?: LngLat; zoom?: number }"
+      - "{ zoom?: number }"
+      - "{ zoom: number }"
+      - "{ center: LngLat }"
+    answer: 1
+    explanation: "Partial rend tout optionnel, Omit retire center ; on le réintroduit ensuite sous sa forme large (LngLatLike)."
+    concept: ts-canonical-form
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Ce commentaire dit « ne modifie pas nums ». Qu'affiche le programme ?"
+    code: |
+      /** Renvoie la médiane. Ne modifie pas nums. */
+      function median(nums: number[]) {
+        nums.sort((a, b) => a - b);
+        return nums[Math.floor(nums.length / 2)];
+      }
+      const data = [3, 1, 2];
+      console.log(median(data), data.join());
+    answer: "2 1,2,3"
+    explanation: "Le commentaire ment : sort trie en place. Avec nums: readonly number[], le compilateur aurait refusé sort (toSorted convient)."
+    concept: ts-no-types-in-docs
+    difficulty: 2
