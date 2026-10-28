@@ -1,0 +1,22 @@
+id: arch-ch03
+title: "Mesurer et gouverner"
+subtitle: "Des définitions objectives, des mesures qui disent la vérité, et des fitness functions qui protègent l'architecture"
+source: { chapter: 6, pages: "97-110" }
+objectives:
+  - "Transformer une caractéristique vague ou composite en définitions objectives et mesurables"
+  - "Choisir la bonne mesure opérationnelle : moyenne, maximum, percentiles, budgets de performance, modèles statistiques"
+  - "Calculer la complexité cyclomatique d'une fonction et interpréter les seuils (10, 5, 50)"
+  - "Mesurer des caractéristiques de process (testabilité, déployabilité) sans confondre couverture et confiance"
+  - "Concevoir des fitness functions de gouvernance : cycles, distance, couches, chaos engineering"
+  - "Diagnostiquer une fitness function qui laisse passer une violation"
+  - "Écrire en TypeScript une suite de fitness functions : complexité cyclomatique, détection de cycles et cliquet (ratchet)"
+mastery_threshold: 0.8
+prerequisites: [arch-ch02]
+lessons:
+  - "01-objective-definitions"
+  - "02-cyclomatic-complexity"
+  - "03-fitness-functions"
+xp: { assignment: 140, project: 260, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

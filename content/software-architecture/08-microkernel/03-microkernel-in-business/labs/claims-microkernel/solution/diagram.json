@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "id": "ui",
+      "type": "ui",
+      "x": 0,
+      "y": 200
+    },
+    {
+      "id": "core",
+      "type": "core",
+      "x": 260,
+      "y": 200
+    },
+    {
+      "id": "reg",
+      "type": "registry",
+      "x": 260,
+      "y": 20
+    },
+    {
+      "id": "db",
+      "type": "central-db",
+      "x": 260,
+      "y": 400,
+      "props": {
+        "role": "primary"
+      }
+    },
+    {
+      "id": "tx",
+      "type": "plugin-tx",
+      "x": 560,
+      "y": 100
+    },
+    {
+      "id": "ca",
+      "type": "plugin-ca",
+      "x": 560,
+      "y": 300
+    },
+    {
+      "id": "rtx",
+      "type": "rules-tx",
+      "x": 820,
+      "y": 100
+    },
+    {
+      "id": "rca",
+      "type": "rules-ca",
+      "x": 820,
+      "y": 300
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "ui",
+      "target": "core",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "core",
+      "target": "reg",
+      "kind": "read"
+    },
+    {
+      "id": "e3",
+      "source": "core",
+      "target": "db",
+      "kind": "write"
+    },
+    {
+      "id": "e4",
+      "source": "core",
+      "target": "tx",
+      "kind": "sync"
+    },
+    {
+      "id": "e5",
+      "source": "core",
+      "target": "ca",
+      "kind": "sync"
+    },
+    {
+      "id": "e6",
+      "source": "tx",
+      "target": "rtx",
+      "kind": "read"
+    },
+    {
+      "id": "e7",
+      "source": "ca",
+      "target": "rca",
+      "kind": "read"
+    }
+  ]
+}

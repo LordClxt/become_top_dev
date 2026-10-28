@@ -1,0 +1,15 @@
+{
+  "rates": {
+    "a.pct": 23,
+    "b.pct": 99
+  },
+  "verdict": {
+    "a": "fine",
+    "b": "wrong"
+  },
+  "weak": [
+    "elasticity",
+    "scalability",
+    "fault"
+  ]
+}

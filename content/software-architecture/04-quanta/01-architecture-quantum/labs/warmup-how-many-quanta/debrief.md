@@ -1,0 +1,1 @@
+**Ce sont les liens, pas les services, qui font les quanta.** Une base partagée (t2) ou un appel synchrone (t4, A–B) soude les parties ; un lien asynchrone (t3, t5) les laisse indépendantes. Six services peuvent faire un seul quantum, trois services peuvent en faire trois.

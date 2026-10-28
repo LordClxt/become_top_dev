@@ -1,0 +1,70 @@
+intro: |
+  **Symptôme.** Samedi, 120 ventes se sont terminées entre 21 h 00 et 21 h 01. 70 % des adjudications sont en erreur « payment timeout ». Le service Enchères était passé de 4 à **40 instances** grâce à l'autoscaling, sa CPU était à 12 %.
+
+  **`auction/close.ts`**
+  ```typescript
+  export async function closeAuction(a: Auction) {
+    const winner = a.highestBid();
+    await payment.charge(winner.card, winner.amount, { timeoutMs: 15_000 }); // REST synchrone
+    await auctions.markSold(a.id, winner);
+  }
+  ```
+
+  **Fiche du service Paiement** : prestataire bancaire certifié, **un débit toutes les 500 ms**, pas de montée en charge possible (contrat).
+
+  **Journal, 21 h 00 min 17 s**
+  ```
+  close a-0031  payment.charge  ok    0.5 s
+  close a-0032  payment.charge  ok    1.0 s
+  …
+  close a-0060  payment.charge  ok   15.0 s
+  close a-0061  payment.charge  TIMEOUT after 15 s
+  ```
+blocks:
+- id: cause
+  type: choice
+  title: Cause racine
+  prompt: Quelle est la cause racine ?
+  options:
+  - id: sync
+    label: 'La clôture appelle Paiement en synchrone : pendant l''appel, Enchères est limité au rythme de Paiement, quel que soit son nombre d''instances'
+  - id: cpu
+    label: Enchères manquait d'instances
+  - id: timeout
+    label: Le timeout de 15 s est trop court
+  - id: bank
+    label: Le prestataire bancaire était en panne
+- id: capacity
+  type: number
+  title: Le débit de Paiement
+  prompt: Combien de clôtures au maximum peuvent réussir dans le timeout de 15 s si toutes arrivent en même temps ?
+  unit: clôtures
+- id: async-time
+  type: number
+  title: Avec une file
+  prompt: Si les 120 demandes de paiement sont déposées dans une file, combien de secondes faut-il pour toutes les traiter ?
+  unit: s
+- id: fix
+  type: multi
+  title: Le correctif
+  prompt: Quelles mesures traitent la cause ?
+  options:
+  - id: queue
+    label: Déposer la demande de paiement dans une file persistante ; Paiement la consomme à son rythme
+  - id: state
+    label: Marquer l'enchère « adjugée, paiement en attente », puis « payée » quand l'événement de paiement arrive
+  - id: more
+    label: Monter Enchères à 200 instances
+  - id: longer
+    label: Passer le timeout à 10 minutes
+- id: quanta
+  type: choice
+  title: Ce que change la file
+  prompt: Avec la file, combien de quanta forment Enchères et Paiement ?
+  options:
+  - id: two
+    label: 'Deux : la file sépare leurs caractéristiques opérationnelles'
+  - id: one
+    label: 'Un : ils sont toujours liés'
+  - id: three
+    label: 'Trois : la file est un quantum'

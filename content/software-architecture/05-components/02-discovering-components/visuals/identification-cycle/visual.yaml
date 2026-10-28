@@ -1,0 +1,7 @@
+id: arch-ch05-identification-cycle
+concept: arch-identification-flow
+format: hyperframes
+justification: "Une boucle animée (composants initiaux → exigences → rôles → caractéristiques → restructurer) montre l'itération comme un cycle et non comme une liste d'étapes."
+entry: scene.html
+duration_s: 12
+status: built

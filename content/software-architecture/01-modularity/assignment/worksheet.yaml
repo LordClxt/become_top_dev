@@ -1,0 +1,107 @@
+intro: |
+  Le monolithe compte ces modules (un import compte une fois) :
+
+  | module | importe | A |
+  |---|---|---|
+  | bidding | auction, money, users | 0,2 |
+  | auction | money, users | 0,5 |
+  | video | auction | 0 |
+  | money | — | 0 |
+  | users | money | 0,25 |
+
+  ```typescript
+  class BidService {
+    private bids: Bid[] = [];
+    private highest = 0;
+    private ffmpegPath = '/usr/bin/ffmpeg';
+    private auditKey = 'k-…';
+
+    place(b: Bid) { this.bids.push(b); this.highest = Math.max(this.highest, b.cents); }
+    leader() { return this.bids.find((b) => b.cents === this.highest); }
+    history() { return [...this.bids]; }
+    transcode(file: string) { return run(this.ffmpegPath, file); }
+    sign(b: Bid) { return hmac(this.auditKey, b); }
+  }
+  ```
+blocks:
+- id: metrics
+  type: table
+  title: Instabilité et distance
+  prompt: Complète I et D (deux décimales).
+  columns:
+  - id: i
+    label: I
+  - id: d
+    label: D
+  rows:
+  - id: bidding
+    label: bidding
+    cells: {}
+  - id: auction
+    label: auction
+    cells: {}
+  - id: users
+    label: users
+    cells: {}
+- id: worst
+  type: choice
+  title: Le module le plus douloureux
+  prompt: Quel module est le plus loin de la séquence principale, et dans quelle zone ?
+  options:
+  - id: money-pain
+    label: money, zone de douleur
+  - id: video-useless
+    label: video, zone d'inutilité
+  - id: auction-pain
+    label: auction, zone de douleur
+  - id: bidding-useless
+    label: bidding, zone d'inutilité
+- id: lcom
+  type: number
+  title: LCOM de BidService
+  prompt: Combien de groupes de méthodes reliées par des champs partagés ?
+  unit: groupes
+- id: split
+  type: choice
+  title: Que faire de BidService ?
+  prompt: Quelle extraction est la plus justifiée ?
+  options:
+  - id: video
+    label: Sortir `transcode` (et ffmpegPath) vers le module video, et `sign` vers un composant d'audit
+  - id: history
+    label: Sortir `history` dans sa propre classe
+  - id: nothing
+    label: 'Rien : toutes les méthodes parlent d''enchères'
+- id: crossing
+  type: match
+  title: Connascences aux futures frontières
+  prompt: Ces accords traverseront les futures frontières de services. Nomme chaque connascence.
+  items:
+  - id: x1
+    label: Bid Capture envoie des montants en centimes ; Payment les lit en euros.
+  - id: x2
+    label: Bid Capture et Audit calculent chacun le même HMAC d'une offre.
+  - id: x3
+    label: L'offre gagnante est stockée dans `auction` et dans `payment`, et doit être identique.
+  - id: x4
+    label: Video lit le champ `auctionId` publié par Auction.
+  categories:
+  - id: name
+    label: Nom
+  - id: meaning
+    label: Sens
+  - id: algorithm
+    label: Algorithme
+  - id: values
+    label: Valeurs
+- id: first
+  type: choice
+  title: La priorité
+  prompt: Laquelle de ces connascences faut-il affaiblir en priorité avant le découpage ?
+  options:
+  - id: x3
+    label: 'x3 : des valeurs liées dans deux futurs services (forme dynamique, à grande distance)'
+  - id: x4
+    label: 'x4 : le nom auctionId'
+  - id: x1
+    label: x1 en dernier, une conversion suffit

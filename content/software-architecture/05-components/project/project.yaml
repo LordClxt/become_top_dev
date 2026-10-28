@@ -1,0 +1,14 @@
+id: arch-ch05-project
+title: "archkit v6 — les frontières du monolithe modulaire"
+pitch: "Garder un monolithe modulaire modulaire : imports profonds et dépendances non déclarées refusés, cycles entre domaines détectés, et l'impact de chaque changement calculé."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 3
+xp: 260
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["boundaries.ts"]
+concepts: [arch-technical-vs-domain, arch-partition-tradeoffs, arch-component]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,88 @@
+id: arch-ch06-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Qui a formulé les erreurs du calcul distribué, et quand ?"
+    choices:
+      - "Martin Fowler, 2014"
+      - "L. Peter Deutsch et ses collègues de Sun Microsystems, 1994"
+      - "Eric Evans, 2003"
+      - "Edsger Dijkstra, 1968"
+    answer: 1
+    explanation: "Et toutes s'appliquent encore aux architectures distribuées d'aujourd'hui."
+    concept: arch-fallacy-reliable
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Le service B est en bonne santé, mais A ne reçoit pas sa réponse. Quelle erreur le rappelle ?"
+    choices: ["La latence est nulle", "Le réseau est fiable", "La topologie ne change pas", "Le réseau est homogène"]
+    answer: 1
+    explanation: "D'où les timeouts et circuit breakers entre services."
+    concept: arch-fallacy-reliable
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi un retry n'est-il sûr que pour une opération idempotente ?"
+    choices:
+      - "Parce que les retries sont lents"
+      - "Parce que la première tentative a pu réussir sans que la réponse arrive : rejouer pourrait débiter deux fois"
+      - "Parce que le réseau est homogène"
+      - "Parce que les timeouts l'interdisent"
+    answer: 1
+    explanation: "Une opération idempotente peut être rejouée sans changer le résultat."
+    concept: arch-fallacy-reliable
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Une fonction métier enchaîne 8 appels à 120 ms de latence moyenne. Combien de latence ajoutent-ils en moyenne ?"
+    choices: ["120 ms", "480 ms", "960 ms", "8 s"]
+    answer: 2
+    explanation: "Les latences d'une chaîne s'additionnent : 8 × 120 ms."
+    concept: arch-fallacy-latency
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Chaque service a 1 % de requêtes lentes. Quelle part des requêtes traversant 10 services en rencontre au moins une lente ?"
+    code: |
+      const n = 10;
+      console.log(((1 - 0.99 ** n) * 100).toFixed(1) + ' %');
+    answer: "9.6 %"
+    explanation: "La queue s'amplifie avec la longueur de la chaîne : le rare devient quotidien."
+    concept: arch-fallacy-latency
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Couplage de tampon : quel débit (en Mo/s) l'appel au service Profil consomme-t-il ?"
+    code: |
+      const requestsPerSecond = 2000;
+      const responseKb = 500;
+      console.log((requestsPerSecond * responseKb) / 1000, 'Mo/s');
+    answer: "1000 Mo/s"
+    explanation: "Soit 1 Go par seconde pour transmettre un nom de 200 octets : 400 Ko/s suffiraient."
+    concept: arch-fallacy-bandwidth
+    difficulty: 2
+  - id: q7
+    type: multiple
+    prompt: "Quelles parades le livre propose-t-il contre le couplage de tampon ?"
+    choices:
+      - "Endpoints REST privés"
+      - "Sélecteurs de champs"
+      - "GraphQL"
+      - "Contrats pilotés par le consommateur"
+      - "Augmenter la bande passante"
+    answer: [0, 1, 2, 3]
+    explanation: "Le principe est de faire circuler le minimum de données, pas d'élargir le tuyau."
+    concept: arch-fallacy-bandwidth
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Pourquoi la sécurité rend-elle les architectures synchrones très distribuées plus lentes ?"
+    choices:
+      - "Parce qu'il faut sécuriser chaque endpoint, y compris entre services"
+      - "Parce que les pare-feu sont lents"
+      - "Parce que HTTPS est interdit"
+      - "Elle ne les rend pas plus lentes"
+    answer: 0
+    explanation: "La surface d'attaque augmente de plusieurs ordres de grandeur ; chaque appel paie sa vérification."
+    concept: arch-fallacy-secure
+    difficulty: 1

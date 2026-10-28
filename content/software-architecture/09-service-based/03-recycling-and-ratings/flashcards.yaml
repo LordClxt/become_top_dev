@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Les sept services du recyclage ?"
+    back: "Quoting, Receiving, Assessment, Accounting, Item Status, Recycling, Reporting."
+    concept: arch-sb-recycling
+  - id: fc2
+    front: "Interfaces fédérées du recyclage ?"
+    back: "Customer Facing, Receiving, Recycling and Accounting."
+    concept: arch-sb-recycling
+  - id: fc3
+    front: "Les quatre étoiles du service-based ?"
+    back: "Agilité, testabilité, déployabilité, tolérance aux pannes, disponibilité."
+    concept: arch-sb-ratings
+  - id: fc4
+    front: "Pourquoi le service-based est-il plus fiable que les autres distribués ?"
+    back: "Moins de trafic réseau, moins de transactions distribuées, moins de bande passante."
+    concept: arch-sb-ratings
+  - id: fc5
+    front: "Quatre raisons de choisir le service-based ?"
+    back: "Pragmatisme, affinité avec le DDD, préservation de l'ACID, éviter les pièges de granularité."
+    concept: arch-sb-when
+  - id: fc6
+    front: "Orchestration vs chorégraphie ?"
+    back: "Orchestration : un médiateur contrôle le workflow (chef d'orchestre). Chorégraphie : pas de médiateur (danseurs)."
+    concept: arch-orchestration-choreography

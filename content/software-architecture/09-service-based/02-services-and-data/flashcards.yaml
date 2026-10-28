@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Deux façons de concevoir un service de domaine ?"
+    back: "En couches (façade d'API, métier, persistance) ou par sous-domaines (comme un monolithe modulaire)."
+    concept: arch-sb-service-design
+  - id: fc2
+    front: "Orchestration interne vs externe ?"
+    back: "Service-based : la façade orchestre au niveau des classes. Microservices : orchestration entre services distants."
+    concept: arch-sb-facade-orchestration
+  - id: fc3
+    front: "ACID vs BASE selon la granularité ?"
+    back: "Gros grain : ACID dans le service (rollback). Grain fin : BASE et cohérence à terme entre services."
+    concept: arch-sb-acid
+  - id: fc4
+    front: "Prix du gros grain ?"
+    back: "Tester tout le service à chaque changement, plus de risque par déploiement."
+    concept: arch-sb-tradeoff
+  - id: fc5
+    front: "Bibliothèques d'entités fédérées ?"
+    back: "Une bibliothèque par domaine logique de la base ; un changement de table ne touche que les services de ce domaine."
+    concept: arch-sb-entity-libs
+  - id: fc6
+    front: "Conseil de partitionnement logique de la base ?"
+    back: "Aussi fin que possible, tout en gardant des domaines de données bien définis."
+    concept: arch-sb-entity-libs

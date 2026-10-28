@@ -1,0 +1,79 @@
+id: arch-ch06-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Lundi matin, des timeouts partout, aucun déploiement du week-end. Quelle erreur faut-il soupçonner ?"
+    choices: ["Le réseau est sûr", "La topologie ne change jamais", "Le transport ne coûte rien", "La bande passante est infinie"]
+    answer: 1
+    explanation: "Une mise à jour réseau « mineure » à 2 h du matin a invalidé les hypothèses de latence."
+    concept: arch-fallacy-topology
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Qu'est-ce que l'erreur « le transport ne coûte rien » vise exactement ?"
+    choices:
+      - "La latence"
+      - "L'argent : matériel, gateways, pare-feu, sous-réseaux, proxies"
+      - "La bande passante"
+      - "La sécurité"
+    answer: 1
+    explanation: "On la confond souvent avec la latence ; il s'agit du coût réel de l'infrastructure."
+    concept: arch-fallacy-cost-homogeneous
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi l'erreur « le réseau est homogène » boucle-t-elle sur les autres ?"
+    choices:
+      - "Des équipements de fournisseurs différents perdent parfois des paquets, ce qui touche fiabilité, latence et bande passante"
+      - "Parce qu'elle coûte cher"
+      - "Parce qu'il n'y a qu'un administrateur"
+      - "Elle ne boucle pas"
+    answer: 0
+    explanation: "Juniper et Cisco s'entendent presque toujours… presque."
+    concept: arch-fallacy-cost-homogeneous
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Que signifie BASE ?"
+    choices:
+      - "Basic availability, Soft state, Eventual consistency"
+      - "Batch, Atomic, Safe, Exact"
+      - "Un logiciel de transactions distribuées"
+      - "Un protocole réseau"
+    answer: 0
+    explanation: "C'est une technique, pas un logiciel."
+    concept: arch-distributed-concerns
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Quel est le grand trade-off des transactions en distribué ?"
+    choices:
+      - "Plus de cohérence, moins de performance"
+      - "Scalabilité, performance et disponibilité, au prix de la cohérence et de l'intégrité des données"
+      - "Aucun : ACID fonctionne partout"
+      - "Moins de sécurité, plus de cohérence"
+    answer: 1
+    explanation: "On passe d'ACID à la cohérence à terme."
+    concept: arch-distributed-concerns
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Chaque appel réussit 99,9 % du temps. Quelle part d'une opération qui touche 4 services réussit partout du premier coup ?"
+    code: |
+      console.log((0.999 ** 4 * 100).toFixed(2) + ' %');
+    answer: "99.60 %"
+    explanation: "Le reste devra être compensé ou rattrapé : ce qu'un rollback ACID faisait gratuitement en monolithe."
+    concept: arch-distributed-concerns
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Pourquoi trouver la cause d'une commande perdue est-il plus difficile en distribué ?"
+    choices:
+      - "Les commandes sont plus nombreuses"
+      - "Des dizaines de journaux, à des endroits et dans des formats différents, au lieu d'un seul"
+      - "Les journaux sont interdits"
+      - "Ce n'est pas plus difficile"
+    answer: 1
+    explanation: "D'où les outils de consolidation et, en pratique, les identifiants de corrélation."
+    concept: arch-distributed-concerns
+    difficulty: 1

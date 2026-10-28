@@ -1,0 +1,22 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests et types)"
+    weight: 0.45
+    source: tests
+  - id: placement
+    label: "La bonne brique au bon endroit"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Une métadonnée + un intercepteur composés par applyDecorators ; l'intercepteur observe l'erreur sans l'avaler ni la transformer ; aucune logique d'audit dans le contrôleur ; l'explication distingue clairement guard (autorise), filtre (formate l'erreur), middleware (aveugle au handler) et intercepteur (avant/après, succès et échec)"
+      3: "Bonne architecture, explication incomplète"
+      2: "Fonctionne, mais l'audit est dupliqué dans les handlers ou repose sur un filtre"
+      0: "L'erreur est avalée ou remplacée, ou les échecs ne sont pas journalisés"
+  - id: robustness
+    label: "Robustesse en production"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Durée mesurée avec une horloge monotone (performance.now) ; aucune fuite de données sensibles dans l'entrée (pas de corps de requête) ; le journal ne peut pas faire échouer la requête ; l'identifiant vient du contexte, pas d'un paramètre ajouté partout"
+      2: "Correct mais fragile : Date.now(), ou une erreur du journal casserait la requête"
+      0: "Données sensibles journalisées, ou état partagé entre requêtes"

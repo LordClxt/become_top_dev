@@ -1,0 +1,73 @@
+intro: |
+  **Symptôme.** Depuis la refonte « Panier v2 », environ 40 commandes par jour sont payées sans que le stock soit réservé ; le dernier exemplaire est parfois vendu deux fois.
+
+  **`ui/checkout.ts` (refonte Panier v2)**
+  ```typescript
+  const order = await http.post('/ordering/orders', cart);           // crée la commande ET débite la carte
+  await http.post('/inventory/reservations', { orderId: order.id }); // réserve le stock
+  ```
+
+  **`ordering/facade.ts`**
+  ```typescript
+  async createOrder(cart) {
+    return db.transaction(async (tx) => {
+      const order = await orders.insert(tx, cart);
+      await payments.charge(tx, cart.card, cart.total);
+      return order;
+    });
+  }
+  ```
+
+  **Journal, 14 h 02**
+  ```
+  ordering   POST /orders        201  order=88121  charged=89,90 €
+  inventory  POST /reservations  409  « stock insuffisant pour sku-7731 »
+  ui         erreur affichée : « Un problème est survenu »
+  ```
+
+  `ordering` et `inventory` sont deux services de domaine qui partagent la même base.
+blocks:
+- id: cause
+  type: choice
+  title: Cause racine
+  prompt: Quelle est la cause racine ?
+  options:
+  - id: split
+    label: 'L''interface orchestre deux services : paiement et réservation sont dans deux transactions séparées, sans compensation quand la seconde
+      échoue'
+  - id: stock
+    label: Le service Inventory calcule mal le stock
+  - id: payment
+    label: Le prestataire de paiement débite deux fois
+  - id: db
+    label: La base partagée est corrompue
+- id: style
+  type: choice
+  title: Ce que la refonte a perdu
+  prompt: Que la refonte a-t-elle sacrifié, par rapport à l'ancien service Commande ?
+  options:
+  - id: acid
+    label: 'L''atomicité ACID : avant, créer, payer et réserver étaient une seule transaction dans la façade du service'
+  - id: perf
+    label: La performance
+  - id: ui
+    label: L'ergonomie
+- id: fix
+  type: choice
+  title: Le correctif le plus simple
+  prompt: Quel correctif est le plus simple et le plus sûr ici ?
+  options:
+  - id: facade
+    label: Remettre la réservation dans la façade du service Commande, dans la même transaction que la création et le paiement (les deux tables
+      sont dans la même base)
+  - id: saga
+    label: Écrire une saga orchestrée avec compensation du paiement
+  - id: retry
+    label: Retenter la réservation jusqu'à ce qu'elle passe
+  - id: order
+    label: Réserver d'abord, payer ensuite, toujours depuis l'interface
+- id: count
+  type: number
+  title: L'ampleur
+  prompt: À 89,90 € en moyenne, combien d'euros de paiements à rembourser ou à régulariser cela représente-t-il sur 30 jours ?
+  unit: €

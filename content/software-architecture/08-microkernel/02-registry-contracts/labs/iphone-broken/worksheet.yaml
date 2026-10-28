@@ -1,0 +1,63 @@
+intro: |
+  **Symptôme.** Depuis la livraison 4.8 (nouveau plug-in Galaxy S9 + migration de base), les iPhone sont évalués à des prix 100 fois trop élevés, et l'écran affiche parfois « null » à la place du rapport.
+
+  **`plugins/assessment/galaxy-s9/index.ts`** (nouveau)
+  ```typescript
+  import { screenDiscount } from '../iphone6s/pricing';   // « la fonction existait déjà »
+  ```
+
+  **Diff de `plugins/assessment/iphone6s/pricing.ts`** dans la même pull request
+  ```diff
+  - export const screenDiscount = (euros: number, cracked: boolean) => (cracked ? euros * 0.6 : euros);
+  + // Galaxy travaille en centimes : on renvoie désormais des centimes
+  + export const screenDiscount = (euros: number, cracked: boolean) => Math.round((cracked ? euros * 0.6 : euros) * 100);
+  ```
+
+  **`plugins/assessment/iphone6s/index.ts`**
+  ```typescript
+  const row = await centralDb.query('SELECT battery_health FROM devices WHERE serial = $1', [serial]);
+  report = `Batterie : ${row.battery_health}`;
+  ```
+
+  **Migration 4.8** : `devices.battery_health` renommée `battery_health_pct`.
+blocks:
+- id: causes
+  type: multi
+  title: Causes racines
+  prompt: Quelles règles du microkernel ont été enfreintes ?
+  options:
+  - id: dependency
+    label: Un plug-in dépend d'un autre plug-in (Galaxy importe le code de l'iPhone, et l'a modifié)
+  - id: db
+    label: Un plug-in lit la base centrale au lieu de recevoir ses données du cœur
+  - id: registry
+    label: Le registre est mal configuré
+  - id: runtime
+    label: Les plug-ins sont chargés à la compilation
+- id: match
+  type: match
+  title: Quel symptôme, quelle cause ?
+  prompt: Associe chaque symptôme à sa cause.
+  items:
+  - id: price
+    label: Prix des iPhone 100 fois trop élevés
+  - id: empty
+    label: « null » dans le rapport
+  categories:
+  - id: dependency
+    label: La dépendance entre plug-ins
+  - id: db
+    label: L'accès direct à la base centrale
+- id: fix
+  type: multi
+  title: Les correctifs
+  prompt: Quelles mesures rétablissent les règles ?
+  options:
+  - id: copy
+    label: Chaque plug-in a sa propre fonction de décote (ou une bibliothèque partagée stable, versionnée, hors des plug-ins)
+  - id: core-data
+    label: Le cœur lit la base et passe à chaque plug-in les données de l'appareil
+  - id: fitness
+    label: Une fitness function qui interdit tout import entre dossiers de plug-ins et tout accès plug-in → base centrale
+  - id: freeze
+    label: Interdire les migrations de base

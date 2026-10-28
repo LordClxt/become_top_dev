@@ -1,0 +1,14 @@
+{
+  "diagnosis": [
+    "orm",
+    "workflows",
+    "coarse"
+  ],
+  "touched": 6,
+  "crud": "framework",
+  "techniques": {
+    "t1": "storming",
+    "t2": "actors",
+    "t3": "workflow"
+  }
+}

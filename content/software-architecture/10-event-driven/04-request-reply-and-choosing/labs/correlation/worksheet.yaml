@@ -1,0 +1,64 @@
+intro: |
+  **Requêtes envoyées** : Réservation (ID 501), Facturation (ID 502), Fidélité (ID 503).
+
+  **File de réponse partagée**
+  | ID | CID | contenu |
+  |---|---|---|
+  | 900 | 503 | points crédités |
+  | 901 | 499 | (réponse à une requête expirée) |
+  | 902 | 501 | numéro BK-77 |
+  | 903 | 502 | facture F-12 |
+blocks:
+- id: replies
+  type: match
+  title: Qui reçoit quoi ?
+  prompt: Associe chaque message de réponse à son destinataire.
+  items:
+  - id: r900
+    label: Message 900
+  - id: r901
+    label: Message 901
+  - id: r902
+    label: Message 902
+  - id: r903
+    label: Message 903
+  categories:
+  - id: booking
+    label: Réservation
+  - id: billing
+    label: Facturation
+  - id: loyalty
+    label: Fidélité
+  - id: nobody
+    label: Personne (reste dans la file)
+- id: quanta
+  type: number
+  title: Combien de quanta ?
+  prompt: A publie des événements et attend, en request-reply, un numéro de B. B et C partagent une base. D s'abonne aux événements de A, avec
+    sa propre base, sans jamais répondre. Combien de quanta ?
+  unit: quanta
+- id: why-cid
+  type: choice
+  title: Pourquoi pas une file temporaire ?
+  prompt: La plateforme traite 8 000 requêtes par seconde. Pourquoi préférer l'identifiant de corrélation ?
+  options:
+  - id: volume
+    label: Une file temporaire par requête, créée puis détruite, ralentirait fortement le broker à ce volume
+  - id: order
+    label: La file temporaire ne garantit pas l'ordre
+  - id: security
+    label: La file temporaire n'est pas sécurisée
+- id: model
+  type: match
+  title: Requêtes ou événements ?
+  prompt: Quel modèle pour chaque besoin ?
+  items:
+  - id: m1
+    label: Afficher le détail d'une réservation
+  - id: m2
+    label: 'Réagir à une annulation de vol : rembourser, reloger, prévenir, ajuster les statistiques'
+  categories:
+  - id: request
+    label: Par requêtes
+  - id: event
+    label: Par événements

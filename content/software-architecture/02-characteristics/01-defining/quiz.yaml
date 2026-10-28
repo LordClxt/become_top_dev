@@ -1,0 +1,110 @@
+id: arch-ch02-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi les auteurs refusent-ils le terme « exigences non fonctionnelles » ?"
+    choices:
+      - "Il est trop long"
+      - "Il est auto-dévalorisant : difficile de faire prendre au sérieux du « non fonctionnel »"
+      - "Il vient de l'ISO"
+      - "Il ne couvre pas la performance"
+    answer: 1
+    explanation: "Ils écartent aussi « attributs qualité », qui évoque une évaluation après coup plutôt qu'un travail de conception."
+    concept: arch-char-three-criteria
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Quels sont les trois critères d'une caractéristique d'architecture ?"
+    choices:
+      - "Elle porte sur une considération hors domaine"
+      - "Elle influence un aspect structurel de la conception"
+      - "Elle est critique ou importante pour le succès"
+      - "Elle figure dans le cahier des charges"
+    answer: [0, 1, 2]
+    explanation: "Une caractéristique peut être implicite : elle n'a pas besoin d'être écrite."
+    concept: arch-char-three-criteria
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Le paiement est entièrement délégué à un prestataire externe. La sécurité du paiement est-elle une caractéristique d'architecture ?"
+    choices:
+      - "Oui, toujours"
+      - "Non : une hygiène standard suffit, elle n'exige pas de structure particulière"
+      - "Oui, car c'est critique"
+      - "Non, car la sécurité n'est jamais une caractéristique"
+    answer: 1
+    explanation: "Si le paiement était traité dans l'application, un module ou service isolé en ferait une caractéristique d'architecture."
+    concept: arch-char-three-criteria
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Dans une société de trading haute fréquence, la faible latence n'est écrite nulle part. C'est…"
+    choices:
+      - "Une caractéristique implicite"
+      - "Une exigence du domaine"
+      - "Une caractéristique explicite"
+      - "Une décision d'architecture"
+    answer: 0
+    explanation: "Les implicites ne figurent pas dans les exigences ; la connaissance du domaine les révèle."
+    concept: arch-char-implicit-explicit
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "La recouvrabilité (revenir en ligne vite après un sinistre) appartient à quelle famille ?"
+    choices:
+      - "Opérationnelle"
+      - "Structurelle"
+      - "Transverse"
+      - "Fonctionnelle"
+    answer: 0
+    explanation: "Avec disponibilité, continuité, performance, fiabilité, robustesse et scalabilité."
+    concept: arch-char-categories
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "L'extensibilité (brancher de nouvelles fonctionnalités) appartient à quelle famille ?"
+    choices:
+      - "Opérationnelle"
+      - "Structurelle"
+      - "Transverse"
+      - "Aucune"
+    answer: 1
+    explanation: "Les structurelles concernent la structure du code : configurabilité, extensibilité, maintenabilité, portabilité…"
+    concept: arch-char-categories
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Pourquoi UDP illustre-t-il l'ambiguïté entre disponibilité et fiabilité ?"
+    choices:
+      - "Il est fiable mais pas disponible"
+      - "Il est disponible sur IP sans être fiable : paquets perdus ou désordonnés"
+      - "Il n'est ni l'un ni l'autre"
+      - "Il est les deux à la fois"
+    answer: 1
+    explanation: "Deux notions qu'on croit toujours liées peuvent se séparer : d'où l'intérêt de définitions précises."
+    concept: arch-char-ambiguity
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Quel élément de l'ISO 25010 les auteurs retirent-ils de la liste des caractéristiques ?"
+    choices:
+      - "La portabilité"
+      - "L'adéquation fonctionnelle"
+      - "La sécurité"
+      - "La maintenabilité"
+    answer: 1
+    explanation: "Complétude, exactitude et pertinence des fonctions sont la raison de construire le logiciel, pas des caractéristiques d'architecture."
+    concept: arch-char-ambiguity
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Que dit la métaphore de l'hélicoptère ?"
+    choices:
+      - "Il faut une commande par caractéristique"
+      - "Chaque caractéristique interagit avec les autres : en pousser une en déplace d'autres"
+      - "L'architecte doit piloter seul"
+      - "Il faut maximiser chaque caractéristique"
+    answer: 1
+    explanation: "D'où le conseil : viser l'architecture la moins mauvaise, pas la meilleure."
+    concept: arch-least-worst
+    difficulty: 1

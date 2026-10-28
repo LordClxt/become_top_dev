@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Les quatre couches standard ?"
+    back: "Présentation, métier, persistance, base de données."
+    concept: arch-layered-topology
+  - id: fc2
+    front: "Trois variantes de déploiement des couches ?"
+    back: "Tout sauf la base ensemble ; présentation séparée + métier/persistance ensemble ; tout, base comprise, dans une unité (on-prem)."
+    concept: arch-layered-topology
+  - id: fc3
+    front: "Architecture par implication ?"
+    back: "Ne pas choisir de style, « commencer à coder », et finir en couches par défaut."
+    concept: arch-layered-default
+  - id: fc4
+    front: "Couche fermée vs ouverte ?"
+    back: "Fermée : on la traverse obligatoirement. Ouverte : on peut la sauter."
+    concept: arch-closed-open-layers
+  - id: fc5
+    front: "Fast-lane reader ?"
+    back: "Ancien pattern : la présentation lit la base directement en sautant des couches ouvertes."
+    concept: arch-closed-open-layers
+  - id: fc6
+    front: "Isolation des couches ?"
+    back: "Changer une couche sans affecter les autres si les contrats tiennent ; exige des couches fermées sur le flux principal."
+    concept: arch-layers-of-isolation
+  - id: fc7
+    front: "À quoi sert une couche de services ouverte ?"
+    back: "Isoler les objets partagés sous le métier fermé : la présentation ne peut plus y accéder."
+    concept: arch-open-services-layer

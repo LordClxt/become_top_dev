@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Composants de la topologie médiateur ?"
+    back: "Événement initiateur, file d'événements initiateurs, médiateur, canaux dédiés (files), processeurs qui répondent au médiateur."
+    concept: arch-mediator-components
+  - id: fc2
+    front: "Trois familles de médiateurs ?"
+    back: "Simples en code (Camel, Mule, Spring Integration), BPEL (ODE, Oracle), BPM avec humains (jBPM)."
+    concept: arch-mediator-implementations
+  - id: fc3
+    front: "Ce que le médiateur permet et que le broker ne permet pas ?"
+    back: "Contrôle du workflow, gestion d'erreurs, état persisté, reprise et redémarrage."
+    concept: arch-mediator-recovery
+  - id: fc4
+    front: "Commande vs événement ?"
+    back: "Commande : ce qui doit se passer, à traiter (médiateur). Événement : ce qui s'est passé, ignorable (broker)."
+    concept: arch-commands-vs-events
+  - id: fc5
+    front: "Inconvénients du médiateur ?"
+    back: "Processeurs plus couplés, scalabilité, performance et tolérance moindres, workflows dynamiques difficiles à modéliser, médiateur goulot."
+    concept: arch-broker-vs-mediator

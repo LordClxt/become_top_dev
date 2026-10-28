@@ -1,0 +1,9 @@
+{
+  "groups": 3,
+  "billing": [
+    "charge",
+    "refund"
+  ],
+  "extract": "three",
+  "pure": "keep"
+}

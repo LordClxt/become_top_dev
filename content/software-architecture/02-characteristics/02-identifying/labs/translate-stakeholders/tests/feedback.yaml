@@ -1,0 +1,20 @@
+blocks:
+  ceo:
+    options:
+      performance: La vitesse d'exécution n'accélère pas la sortie des fonctionnalités.
+      elasticity: Absorber des rafales ne rapproche pas une fonctionnalité de la production.
+  cfo:
+    options:
+      accessibility: Rien dans le rachat ne concerne l'accès des personnes handicapées en particulier.
+  risk:
+    options:
+      localization: Langues et devises n'aident pas à finir à l'heure ni à prouver le calcul.
+  trap:
+    options:
+      perf: La question n'est pas la vitesse d'exécution.
+      nothing: Une modification qu'on met trois semaines à tester et à déployer n'arrive pas plus tôt.
+  priority:
+    options:
+      rank: 'Personne ne s''accordera sur l''ordre exact de onze critères : temps perdu et conflits.'
+      alone: La priorité vient du métier ; l'architecte facilite le choix.
+      all: Sans priorité, l'architecte ne sait pas quoi privilégier quand deux caractéristiques s'opposent.

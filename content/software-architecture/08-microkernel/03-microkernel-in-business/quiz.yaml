@@ -1,0 +1,77 @@
+id: arch-ch08-l03-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Lesquels sont cités comme des microkernels ?"
+    choices: ["Eclipse", "Jenkins", "Les navigateurs (Chrome, Firefox)", "Un monolithe en couches CRUD"]
+    answer: [0, 1, 2]
+    explanation: "Les outils de développement et les navigateurs en sont les exemples types."
+    concept: arch-microkernel-examples
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi un grand moteur de règles de sinistres devient-il problématique ?"
+    choices:
+      - "Il est trop rapide"
+      - "Il peut devenir une boule de boue : changer une règle en impacte d'autres"
+      - "Il ne gère pas les juridictions"
+      - "Il exige des microservices"
+    answer: 1
+    explanation: "Les plug-ins par juridiction isolent chaque jeu de règles."
+    concept: arch-rules-engine-mud
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Dans le logiciel d'impôts, qu'est-ce que le cœur ?"
+    choices: ["Chaque annexe", "Le formulaire 1040 de synthèse", "Le moteur de calcul de TVA", "La base de données"]
+    answer: 1
+    explanation: "Les annexes et feuilles de calcul sont des plug-ins."
+    concept: arch-microkernel-examples
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Quelle particularité unique a le microkernel parmi tous les styles ?"
+    choices:
+      - "Il est distribué"
+      - "Il peut être à la fois partitionné techniquement et par domaine"
+      - "Il a plusieurs quanta"
+      - "Il n'a pas de base"
+    answer: 1
+    explanation: "Grâce à l'isomorphisme domaine-architecture (configuration par lieu ou par client)."
+    concept: arch-domain-isomorphism
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Combien de quanta a un microkernel dont les plug-ins sont des services REST ?"
+    choices: ["Un", "Un par plug-in", "Deux", "Zéro"]
+    answer: 0
+    explanation: "Toute requête passe par le cœur monolithique."
+    concept: arch-microkernel-ratings
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Pourquoi la performance du microkernel est-elle un peu au-dessus de la moyenne ?"
+    choices:
+      - "Parce qu'il est distribué"
+      - "Il reste petit, souffre moins du puits, et on peut débrancher l'inutile (Wildfly)"
+      - "Parce qu'il n'a pas de cœur"
+      - "Elle ne l'est pas"
+    answer: 1
+    explanation: "Débrancher clustering, cache et messagerie accélère nettement Wildfly."
+    concept: arch-microkernel-ratings
+    difficulty: 2
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce cœur de traitement des sinistres ?"
+    code: |
+      type Claim = { jurisdiction: string; kind: string };
+      const plugins: Record<string, (c: Claim) => boolean> = {
+        TX: (c) => c.kind === 'windshield',
+        CA: (c) => c.kind !== 'flood',
+      };
+      const process = (c: Claim) => (plugins[c.jurisdiction]?.(c) ? 'couvert' : 'refusé');
+      console.log(process({ jurisdiction: 'CA', kind: 'windshield' }), process({ jurisdiction: 'NY', kind: 'windshield' }));
+    answer: "couvert refusé"
+    explanation: "La Californie couvre le pare-brise ; aucune règle pour New York, donc refus par défaut."
+    concept: arch-rules-engine-mud
+    difficulty: 2

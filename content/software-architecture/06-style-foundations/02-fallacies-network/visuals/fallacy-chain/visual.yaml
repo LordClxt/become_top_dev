@@ -1,0 +1,9 @@
+id: arch-ch06-fallacy-chain
+concept: arch-fallacy-latency
+format: interactive
+justification: "Allonger une chaîne de services, régler latence, pertes et taille des réponses, et voir bouger p50, p99 et bande passante de bout en bout rend tangibles les erreurs 1 à 3."
+entry: FallacyChain.tsx
+params:
+  - { name: hops, type: int, min: 1, max: 12, default: 5 }
+  - { name: payloadKb, type: int, min: 1, max: 500, default: 300 }
+status: built

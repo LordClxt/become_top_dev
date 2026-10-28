@@ -1,0 +1,3 @@
+**Pondérer par la fréquence tranche le débat.** L'option A touche en moyenne **3,55** composants par évolution, l'option B **1,85** : les évolutions métier, majoritaires, restent locales en B. Le prix de B est réel (la charte graphique touche cinq domaines), mais il ne concerne que 15 % du travail. On pourrait d'ailleurs l'atténuer par une bibliothèque de composants d'interface partagée.
+
+Sans équipes par domaine, B retomberait dans Conway : l'architecture et l'organisation doivent évoluer **ensemble**. Et la contre-proposition aux cinq Managers n'est ni technique ni par domaine : c'est le piège des entités.

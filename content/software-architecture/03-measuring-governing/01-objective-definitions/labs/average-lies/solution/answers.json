@@ -1,0 +1,10 @@
+{
+  "stats": {
+    "mean.value": 317,
+    "p50.value": 80,
+    "p95.value": 900,
+    "max.value": 4000
+  },
+  "slo": "p99",
+  "model": "model"
+}

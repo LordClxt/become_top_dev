@@ -1,0 +1,42 @@
+intro: |
+  Aujourd'hui : un monolithe en couches, une base, 400 requêtes/s au pic, aucun incident de performance. Une seule équipe de cinq développeurs. Aucun besoin d'élasticité particulier : la charge est stable toute l'année.
+
+  Projet : six services. La page produit appellerait en chaîne Catalogue → Prix → Stock → Avis → Recommandations (**5 appels**, 40 ms chacun en moyenne). Recommandations renverrait la fiche complète des 20 produits recommandés (**80 Ko**), alors que la page n'affiche que titre et image (**4 Ko**). Il faudrait une gateway, un service mesh et deux nouveaux sous-réseaux : **2 400 € par mois**.
+blocks:
+- id: latency
+  type: number
+  title: Latence ajoutée
+  prompt: Combien de millisecondes en moyenne la chaîne ajouterait-elle à la page produit ?
+  unit: ms
+- id: waste
+  type: number
+  title: Bande passante gaspillée
+  prompt: À 400 pages/s, combien de Mo/s de données inutiles (ce que la page n'affiche pas) les recommandations transporteraient-elles ?
+  unit: Mo/s
+- id: yearly
+  type: number
+  title: Coût du transport
+  prompt: Combien coûterait l'infrastructure supplémentaire sur un an ?
+  unit: €
+- id: quanta
+  type: choice
+  title: Le critère décisif
+  prompt: Que dit l'analyse en quanta de ce système ?
+  options:
+  - id: one
+    label: 'Un seul jeu de caractéristiques (charge stable, pas d''élasticité) : un seul quantum suffit'
+  - id: six
+    label: Six quanta, un par service
+  - id: two
+    label: 'Deux quanta : lecture et écriture'
+- id: reco
+  type: choice
+  title: Ta recommandation
+  prompt: Que recommandes-tu ?
+  options:
+  - id: modular
+    label: Rester monolithique, mais passer à un monolithe modulaire (partitionné par domaine) pour garder la porte ouverte
+  - id: micro
+    label: Découper en six microservices maintenant
+  - id: nothing
+    label: Ne rien changer du tout, jamais

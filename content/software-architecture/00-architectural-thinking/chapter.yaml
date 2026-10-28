@@ -1,0 +1,22 @@
+id: arch-ch00
+title: "Penser en architecte"
+subtitle: "Ce qu'est une architecture, ce qu'on attend d'un architecte et comment il raisonne : en trade-offs"
+source: { chapter: 1, pages: "21-56" }
+objectives:
+  - "Décrire une architecture par ses quatre dimensions : structure, caractéristiques, décisions et principes de design"
+  - "Distinguer une décision (règle, avec variance) d'un principe (guide) et une décision qui guide d'un choix technique imposé"
+  - "Expliquer les huit attentes envers un architecte, dont la vitalité de l'architecture et le respect des décisions par des fitness functions"
+  - "Énoncer les deux lois de l'architecture et retrouver le trade-off caché d'une « solution miracle »"
+  - "Comparer topic et files pour diffuser un même message, et choisir selon le facteur dominant (extensibilité ou sécurité)"
+  - "Diagnostiquer une perte de messages due à des consommateurs concurrents sur une file partagée"
+  - "Écrire une fitness function de couches en TypeScript, avec un mécanisme de variance justifiée"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-what-is-architecture"
+  - "02-architect-expectations"
+  - "03-tradeoffs"
+xp: { assignment: 120, project: 220, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

@@ -1,0 +1,7 @@
+id: arch-ch04-sync-vs-async
+concept: arch-sync-alignment
+format: hyperframes
+justification: "Quarante fins d'enchères qui se heurtent à Paiement en synchrone puis s'écoulent par une file : la même scène jouée deux fois montre l'alignement des caractéristiques mieux qu'un texte."
+entry: scene.html
+duration_s: 14
+status: built

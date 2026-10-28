@@ -1,0 +1,18 @@
+blocks:
+  sort:
+    options:
+      p1: Elle décrit ce que fait le système pour le patient.
+      p2: Un critère de succès hors domaine qui pèsera sur la structure (scalabilité, élasticité).
+      p3: Une bonne pratique standard, sans module ni service dédié.
+      p4: 'La sécurité exige ici une structure dédiée : c''est elle qui en fait une caractéristique d''architecture.'
+      p5: Une fonctionnalité offerte au médecin.
+      p6: Brancher des règles demande une structure (extensibilité, plug-ins).
+      p7: Une précaution de code, pas un choix de structure.
+  families:
+    options:
+      availability: Elle décrit comment le système tourne en production.
+      recoverability: Revenir en ligne après un sinistre est une préoccupation d'exploitation.
+      extensibility: Elle concerne la structure du code.
+      localization: 'Langues, devises, unités : une propriété de la structure du code.'
+      legal: Elle traverse tout le système sans entrer dans une catégorie technique.
+      accessibility: Elle traverse tout le système, comme la sécurité ou le légal.

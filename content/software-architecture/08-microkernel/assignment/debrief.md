@@ -1,0 +1,3 @@
+**Les deux options sont défendables ; il faut savoir ce que chacune laisse de côté.** Le microkernel épouse la forme du domaine (une configuration par franchise) et permet d'ajouter des franchises sans toucher au reste. Template Method garde un style simple et traite la personnalisation par le design. Mais aucun des deux ne rend le système **élastique** : un microkernel reste un seul quantum, quel que soit le nombre de plug-ins.
+
+Une décision honnête le dit dans ses conséquences : l'élasticité du midi sera traitée par d'autres moyens. Et le contrat des plug-ins de promotion doit être standard, avec un adaptateur pour un éventuel outil tiers, et sans accès des plug-ins à la base des commandes.

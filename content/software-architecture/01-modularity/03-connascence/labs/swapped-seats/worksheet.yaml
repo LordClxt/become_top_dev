@@ -1,0 +1,95 @@
+intro: |
+  **Symptômes (release 4.2)** : (A) sur certaines cartes d'embarquement, le nom affiché est « 14D » et le siège « Ford, N ». (B) Des passagers **enregistrés** reçoivent un e-mail « Votre réservation est annulée ». Les tests unitaires de chaque module passent.
+
+  **`seats/seat.ts` (modifié en 4.2)**
+  ```typescript
+  // avant : export function updateSeat(seat: string, passenger: string)
+  export function updateSeat(passenger: string, seat: string) { /* … */ }
+  ```
+
+  **`checkin/handler.ts` (inchangé depuis 2024)**
+  ```typescript
+  updateSeat(req.body.seat, req.body.passenger);
+  ```
+
+  **`bookings/status.ts`**
+  ```typescript
+  // 0 = créée, 1 = payée, 2 = enregistrée, 3 = annulée
+  export function checkIn(b: Booking) { b.status = 2; }
+  ```
+
+  **`notifications/rules.ts` (copié d'un ancien service en 4.2)**
+  ```typescript
+  if (booking.status === 2) sendMail(booking, 'cancelled'); // 2 = annulée
+  ```
+blocks:
+- id: causeA
+  type: choice
+  title: Cause du symptôme A
+  prompt: Pourquoi le nom et le siège sont-ils inversés ?
+  options:
+  - id: position
+    label: 'Connascence de position : la signature a été réordonnée, l''appelant passe toujours (seat, passenger), et deux string ne se distinguent
+      pas'
+  - id: type
+    label: Une erreur de type que TypeScript aurait dû signaler
+  - id: db
+    label: La base a inversé les colonnes
+  - id: front
+    label: Un bug d'affichage de la carte d'embarquement
+- id: causeB
+  type: choice
+  title: Cause du symptôme B
+  prompt: Pourquoi des passagers enregistrés reçoivent-ils un e-mail d'annulation ?
+  options:
+  - id: meaning
+    label: 'Connascence de sens : 2 veut dire « enregistrée » dans bookings et « annulée » dans notifications'
+  - id: timing
+    label: Une race condition entre l'enregistrement et l'e-mail
+  - id: name
+    label: Une faute de frappe dans le nom de la fonction sendMail
+  - id: execution
+    label: L'e-mail part avant que le statut soit enregistré
+- id: why-green
+  type: multi
+  title: Pourquoi les tests sont verts
+  prompt: Pourquoi aucun test n'a-t-il attrapé ces bugs ?
+  options:
+  - id: unit
+    label: 'Chaque module est testé seul : la connascence est entre modules, hors de leur portée'
+  - id: types
+    label: 'Les types ne portent pas le sens : string/string et number laissent passer l''erreur'
+  - id: flaky
+    label: Les tests sont instables
+  - id: coverage
+    label: La couverture est inférieure à 80 %
+- id: fixes
+  type: match
+  title: Le refactoring qui empêche la récidive
+  prompt: Pour chaque cause, choisis le refactoring qui transforme la connascence en une forme que le compilateur vérifie.
+  items:
+  - id: A
+    label: Symptôme A (sièges inversés)
+  - id: B
+    label: Symptôme B (annulations fantômes)
+  categories:
+  - id: named
+    label: Arguments nommés `{ passenger, seat }` (ou types marqués `SeatCode`)
+  - id: union
+    label: Un type partagé `BookingStatus = 'created' | 'paid' | 'checked-in' | 'cancelled'`
+  - id: comment
+    label: Un commentaire plus clair au-dessus de la fonction
+  - id: test
+    label: Un test de bout en bout de plus
+- id: locality
+  type: choice
+  title: Gravité
+  prompt: La même connascence de sens existait entre deux fonctions privées de `bookings/status.ts` depuis 2022, sans incident. Pourquoi est-elle
+    devenue grave en 4.2 ?
+  options:
+  - id: locality
+    label: 'Sa localité a changé : elle traverse maintenant une frontière de module, là où on ne la voit plus'
+  - id: degree
+    label: Le compilateur a changé de version
+  - id: strength
+    label: Elle est devenue dynamique

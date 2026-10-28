@@ -1,0 +1,132 @@
+{
+  "nodes": [
+    {
+      "id": "kafka",
+      "type": "kafka",
+      "x": 0,
+      "y": 200
+    },
+    {
+      "id": "cap",
+      "type": "capture",
+      "x": 200,
+      "y": 200
+    },
+    {
+      "id": "df",
+      "type": "duration-filter",
+      "x": 400,
+      "y": 200
+    },
+    {
+      "id": "dc",
+      "type": "duration-calc",
+      "x": 600,
+      "y": 60
+    },
+    {
+      "id": "uf",
+      "type": "uptime-filter",
+      "x": 600,
+      "y": 260
+    },
+    {
+      "id": "uc",
+      "type": "uptime-calc",
+      "x": 800,
+      "y": 200
+    },
+    {
+      "id": "wf",
+      "type": "wait-filter",
+      "x": 800,
+      "y": 380
+    },
+    {
+      "id": "wc",
+      "type": "wait-calc",
+      "x": 1000,
+      "y": 380
+    },
+    {
+      "id": "out",
+      "type": "output",
+      "x": 1100,
+      "y": 160
+    },
+    {
+      "id": "db",
+      "type": "mongo",
+      "x": 1300,
+      "y": 160
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "kafka",
+      "target": "cap",
+      "kind": "async"
+    },
+    {
+      "id": "e2",
+      "source": "cap",
+      "target": "df",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "df",
+      "target": "dc",
+      "kind": "sync"
+    },
+    {
+      "id": "e4",
+      "source": "df",
+      "target": "uf",
+      "kind": "sync"
+    },
+    {
+      "id": "e5",
+      "source": "uf",
+      "target": "uc",
+      "kind": "sync"
+    },
+    {
+      "id": "e6",
+      "source": "uf",
+      "target": "wf",
+      "kind": "sync"
+    },
+    {
+      "id": "e7",
+      "source": "wf",
+      "target": "wc",
+      "kind": "sync"
+    },
+    {
+      "id": "e8",
+      "source": "dc",
+      "target": "out",
+      "kind": "sync"
+    },
+    {
+      "id": "e9",
+      "source": "uc",
+      "target": "out",
+      "kind": "sync"
+    },
+    {
+      "id": "e10",
+      "source": "wc",
+      "target": "out",
+      "kind": "sync"
+    },
+    {
+      "id": "e11",
+      "source": "out",
+      "target": "db",
+      "kind": "write"
+    }
+  ]
+}

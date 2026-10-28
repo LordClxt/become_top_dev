@@ -1,0 +1,18 @@
+blocks:
+  litmus:
+    options:
+      rep: Il faut demander au métier ce que « réputation » veut dire ici.
+      burst: L'élasticité se discute sans rien savoir des enchères en particulier.
+      lot: 'Une règle de gestion des ventes : du domaine.'
+      order: La fiabilité de l'ordre des messages est une propriété abstraite, valable pour tout système.
+  auctioneer:
+    options:
+      archivability: Le livre ne la cite pour aucun quantum.
+  feedback:
+    options:
+      security: 'Ce quantum diffuse en lecture : le livre n''y met pas la sécurité.'
+      elasticity: Le livre ne la liste pas pour ce quantum de diffusion.
+  critical:
+    options:
+      pays: 'Ce n''est pas une question d''argent mais de dépendance : tout passe par lui.'
+      video: La vidéo est diffusée par le quantum de retour ; c'est la saisie des offres qui compte.

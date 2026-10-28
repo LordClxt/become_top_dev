@@ -1,0 +1,102 @@
+checks:
+- id: admin-write
+  label: Le service Catalogue écrit dans la base catalogue
+  rule: edge_kind
+  source: admin-svc
+  target: catalog-db
+  kind: write
+- id: admin-ui
+  label: Le back-office appelle le service Catalogue en synchrone
+  rule: edge_kind
+  source: admin-ui
+  target: admin-svc
+  kind: sync
+- id: shop-ui
+  label: La boutique appelle le service Commandes en synchrone
+  rule: edge_kind
+  source: shop-ui
+  target: order-svc
+  kind: sync
+- id: orders-write
+  label: Le service Commandes écrit ses commandes
+  rule: edge_kind
+  source: order-svc
+  target: orders-db
+  kind: write
+- id: repl
+  label: La copie est alimentée par réplication depuis la base catalogue
+  rule: edge_kind
+  source: catalog-db
+  target: replica
+  kind: replication
+- id: read-replica
+  label: Le service Commandes lit la copie
+  rule: edge_kind
+  source: order-svc
+  target: replica
+  kind: read
+- id: no-shared-db
+  label: Le service Commandes ne touche pas la base catalogue
+  rule: no_edge
+  source: order-svc
+  target: catalog-db
+- id: no-sync-admin
+  label: Le service Commandes n'appelle pas le service Catalogue
+  rule: no_edge
+  source: order-svc
+  target: admin-svc
+- id: no-shop-admin
+  label: La boutique n'appelle pas le service Catalogue
+  rule: no_edge
+  source: shop-ui
+  target: admin-svc
+- id: primary
+  label: La base catalogue est primaire
+  rule: prop
+  source: catalog-db
+  prop: role
+  value: primary
+- id: replica-role
+  label: La copie est un réplica
+  rule: prop
+  source: replica
+  prop: role
+  value: replica
+- id: z1
+  label: Back-office dans le quantum administration
+  rule: in_zone
+  source: admin-ui
+  target: z-admin
+- id: z2
+  label: Service Catalogue dans le quantum administration
+  rule: in_zone
+  source: admin-svc
+  target: z-admin
+- id: z3
+  label: Base catalogue dans le quantum administration
+  rule: in_zone
+  source: catalog-db
+  target: z-admin
+- id: z4
+  label: Boutique dans le quantum client
+  rule: in_zone
+  source: shop-ui
+  target: z-shop
+- id: z5
+  label: Service Commandes dans le quantum client
+  rule: in_zone
+  source: order-svc
+  target: z-shop
+- id: z6
+  label: Copie du catalogue dans le quantum client
+  rule: in_zone
+  source: replica
+  target: z-shop
+- id: z7
+  label: Base commandes dans le quantum client
+  rule: in_zone
+  source: orders-db
+  target: z-shop
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

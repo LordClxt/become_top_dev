@@ -1,0 +1,92 @@
+id: arch-ch10-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "« Afficher mes commandes des six derniers mois » relève de quel modèle ?"
+    choices: ["Par événements", "Par requêtes", "Par diffusion", "Par pipeline"]
+    answer: 1
+    explanation: "Une demande déterministe, orientée données, dans un contexte précis."
+    concept: arch-request-vs-event
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "« Une enchère vient d'être placée sur le lot 42 » relève de quel modèle ?"
+    choices: ["Par requêtes", "Par événements", "Ni l'un ni l'autre", "Les deux"]
+    answer: 1
+    explanation: "Ce n'est pas une demande au système, c'est un fait auquel il faut réagir."
+    concept: arch-request-vs-event
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "En topologie broker, que fait un processeur une fois sa tâche accomplie ?"
+    choices:
+      - "Il prévient le médiateur"
+      - "Il publie un événement de traitement qui annonce ce qu'il a fait"
+      - "Il appelle directement le processeur suivant"
+      - "Il écrit dans la base du suivant"
+    answer: 1
+    explanation: "D'autres processeurs l'écoutent et réagissent : c'est une chaîne de diffusion."
+    concept: arch-broker-components
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Notification publie `email-sent`, que personne n'écoute. Faut-il le supprimer ?"
+    choices:
+      - "Oui, c'est du gaspillage"
+      - "Non : c'est un point d'extension ; un futur analyseur d'e-mails s'y abonnera sans rien changer"
+      - "Oui, cela crée de l'incohérence"
+      - "Non, le broker l'exige"
+    answer: 1
+    explanation: "Toujours annoncer ce qu'on a fait : c'est l'extensibilité de l'architecture."
+    concept: arch-advertise
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce mini broker ?"
+    code: |
+      const subs = new Map<string, ((e: string) => void)[]>();
+      const on = (t: string, h: (e: string) => void) => subs.set(t, [...(subs.get(t) ?? []), h]);
+      const pub = (t: string, e: string) => (subs.get(t) ?? []).forEach((h) => h(e));
+      const log: string[] = [];
+      on('order-created', (e) => { log.push('inventory'); pub('inventory-updated', e); });
+      on('inventory-updated', () => log.push('warehouse'));
+      on('order-created', (e) => { log.push('payment'); pub('payment-denied', e); });
+      on('payment-denied', () => log.push('notification'));
+      pub('order-created', 'o-7');
+      console.log(log.join(','));
+    answer: "inventory,warehouse,payment,notification"
+    explanation: "Chaque processeur réagit puis annonce ; personne n'orchestre, et Inventory a décrémenté le stock même si le paiement est refusé."
+    concept: arch-broker-components
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Pourquoi la course de relais décrit-elle bien la topologie broker ?"
+    choices:
+      - "Parce que tous les coureurs courent ensemble"
+      - "Parce qu'un processeur qui a passé l'événement n'en est plus responsable et passe à autre chose"
+      - "Parce qu'il y a un arbitre central"
+      - "Parce que les événements reviennent au point de départ"
+    answer: 1
+    explanation: "Chaque processeur peut aussi monter en charge indépendamment des autres."
+    concept: arch-relay-race
+    difficulty: 1
+  - id: q7
+    type: multiple
+    prompt: "Quels sont les inconvénients de la topologie broker ?"
+    choices:
+      - "Pas de contrôle du workflow"
+      - "Une panne de processeur passe inaperçue, les autres continuent"
+      - "Impossible de reprendre la transaction là où elle s'est arrêtée"
+      - "Faible scalabilité"
+    answer: [0, 1, 2]
+    explanation: "La scalabilité est au contraire l'un de ses points forts."
+    concept: arch-broker-drawbacks
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Qui possède l'état de la commande d'origine en topologie broker ?"
+    choices: ["OrderPlacement", "Le broker", "Personne", "Payment"]
+    answer: 2
+    explanation: "C'est pourquoi personne ne peut la relancer là où elle s'est arrêtée."
+    concept: arch-broker-drawbacks
+    difficulty: 2

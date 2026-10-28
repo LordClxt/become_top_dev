@@ -1,0 +1,15 @@
+blocks:
+  diagnosis:
+    options:
+      fine: 'Six composants n''est pas trop : le problème est ce qu''ils représentent, pas leur nombre.'
+  touched:
+    wrong: 'Suis le workflow : qui est le cycliste, quel vélo, quelle station, quelle location, quel pass, quel paiement ?'
+  crud:
+    options:
+      arch: Pour du pur CRUD, une architecture complète est un coût sans bénéfice.
+      micro: Un service séparé pour un écran CRUD ajoute réseau et déploiement pour rien.
+  techniques:
+    options:
+      t1: Les événements identifiés deviendront les messages du système.
+      t2: 'Rôles distincts et process formel : la technique généraliste.'
+      t3: Les workflows sans la contrainte de messagerie.

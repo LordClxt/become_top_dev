@@ -1,0 +1,19 @@
+id: arch-ch06-boss
+title: 'Boss : rendre un appel distribué sûr et rapide'
+difficulty: 4
+xp: 300
+time_limit_min: 45
+concepts:
+- arch-fallacy-reliable
+- arch-fallacy-latency
+- arch-fallacy-bandwidth
+- arch-fallacy-secure
+- arch-distributed-concerns
+source:
+  chapter: 9
+  pages: 144-152
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

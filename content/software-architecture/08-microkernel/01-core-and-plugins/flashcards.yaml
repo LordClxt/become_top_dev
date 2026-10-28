@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Deux définitions du système cœur ?"
+    back: "La fonctionnalité minimale pour faire tourner le système (Eclipse = éditeur de texte), ou le chemin nominal sans spécificités."
+    concept: arch-core-system
+  - id: fc2
+    front: "Pourquoi sortir la complexité cyclomatique du cœur ?"
+    back: "Extensibilité, maintenabilité, testabilité : chaque cas vit dans un plug-in autonome."
+    concept: arch-move-complexity
+  - id: fc3
+    front: "Règles des plug-ins ?"
+    back: "Autonomes, indépendants, sans dépendance entre eux, reliés au cœur point à point."
+    concept: arch-plugin-rules
+  - id: fc4
+    front: "Plug-ins à la compilation vs à l'exécution ?"
+    back: "Compilation : simple, mais tout redéployer. Exécution : à chaud, via OSGi, Penrose, Jigsaw (Java) ou Prism (.NET)."
+    concept: arch-compile-runtime
+  - id: fc5
+    front: "Convention de nommage des plug-ins ?"
+    back: "app.plugin.<domaine>.<contexte>, par exemple app.plugin.assessment.iphone6s."
+    concept: arch-plugin-rules
+  - id: fc6
+    front: "Formes possibles du cœur ?"
+    back: "En couches, monolithe modulaire, ou services de domaine avec leurs plug-ins (Paiement : carte, PayPal, avoir…)."
+    concept: arch-microkernel-topology

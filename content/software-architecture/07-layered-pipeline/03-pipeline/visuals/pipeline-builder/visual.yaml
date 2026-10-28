@@ -1,0 +1,8 @@
+id: arch-ch07-pipeline-builder
+concept: arch-filter-types
+format: interactive
+justification: "Assembler producteur, testeurs, transformateurs et consommateur par glisser-déposer et voir les messages couler (et s'arrêter aux testeurs) fait comprendre les quatre rôles mieux qu'une liste."
+entry: PipelineBuilder.tsx
+params:
+  - { name: messagesPerSecond, type: int, min: 1, max: 20, default: 5 }
+status: built

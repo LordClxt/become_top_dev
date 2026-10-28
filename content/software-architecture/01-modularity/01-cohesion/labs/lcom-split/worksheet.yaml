@@ -1,0 +1,63 @@
+intro: |
+  ```typescript
+  class SubscriptionService {
+    private plan = 'free';
+    private renewsAt = new Date();
+    private stripeKey = 'sk_live_…';
+    private smtpHost = 'mail.local';
+
+    upgrade(p: string) { this.plan = p; this.renewsAt = nextMonth(); }
+    isActive() { return this.renewsAt > new Date(); }
+    price() { return PRICES[this.plan]; }
+    charge(cents: number) { return stripe(this.stripeKey, cents); }
+    refund(id: string) { return stripeRefund(this.stripeKey, id); }
+    sendInvoice(to: string) { return mail(this.smtpHost, to); }
+    sendReminder(to: string) { return mail(this.smtpHost, to); }
+  }
+  ```
+blocks:
+- id: groups
+  type: number
+  title: Combien de groupes ?
+  prompt: En reliant les méthodes qui partagent au moins un champ, combien de groupes obtiens-tu ?
+  unit: groupes
+- id: billing
+  type: multi
+  title: Le groupe paiement
+  prompt: Quelles méthodes forment le groupe relié par `stripeKey` ?
+  options:
+  - id: upgrade
+    label: upgrade
+  - id: charge
+    label: charge
+  - id: refund
+    label: refund
+  - id: price
+    label: price
+  - id: sendInvoice
+    label: sendInvoice
+- id: extract
+  type: choice
+  title: Le découpage
+  prompt: Quel découpage le LCOM suggère-t-il ?
+  options:
+  - id: three
+    label: 'Trois classes : abonnement (plan, échéance), paiement (Stripe), notifications (e-mail)'
+  - id: seven
+    label: Sept classes, une par méthode
+  - id: none
+    label: 'Aucun : la classe a un seul groupe'
+  - id: two
+    label: 'Deux classes : lecture d''un côté, écriture de l''autre'
+- id: pure
+  type: choice
+  title: Un LCOM trompeur
+  prompt: |
+    Un module `tax.ts` contient cinq **fonctions pures** sans aucun état : `vatRate(country)`, `vatAmount(net, country)`, `ecoTax(item)`, `roundCents(x)`, `totalWithTaxes(lines, country)`, qui s'appellent entre elles. Son LCOM compte 5 groupes. Que fais-tu ?
+  options:
+  - id: keep
+    label: 'Rien : LCOM ne voit que les champs partagés ; ces fonctions servent un même calcul (cohésion fonctionnelle)'
+  - id: split
+    label: Cinq modules, un par fonction, pour obtenir un LCOM de 1
+  - id: class
+    label: Les mettre dans une classe avec un champ commun factice

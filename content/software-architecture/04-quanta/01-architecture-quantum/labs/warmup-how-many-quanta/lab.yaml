@@ -1,0 +1,16 @@
+id: arch-ch04-l01-lab-warmup-how-many-quanta
+title: 'Échauffement : combien de quanta ?'
+difficulty: 1
+xp: 40
+concepts:
+- arch-quantum-definition
+- arch-sync-alignment
+- arch-async-decoupling
+source:
+  chapter: 7
+  pages: 112-114
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

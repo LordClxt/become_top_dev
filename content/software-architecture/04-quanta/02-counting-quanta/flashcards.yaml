@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Règle pratique pour compter les quanta ?"
+    back: "Relier ce qui est lié par un appel synchrone, une base partagée ou une UI partagée ; chaque groupe est un quantum."
+    concept: arch-quantum-counting
+  - id: fc2
+    front: "12 services, une base partagée : combien de quanta ?"
+    back: "Un seul."
+    concept: arch-shared-db-ui
+  - id: fc3
+    front: "Leviers pour séparer des quanta ?"
+    back: "Fédérer les données, fédérer l'interface, passer en asynchrone, répliquer en asynchrone."
+    concept: arch-quantum-split
+  - id: fc4
+    front: "Données de référence partagées entre deux quanta ?"
+    back: "Le quantum qui les modifie les possède ; l'autre lit une copie répliquée en asynchrone."
+    concept: arch-quantum-split
+  - id: fc5
+    front: "Un jeu de caractéristiques vs plusieurs ?"
+    back: "Un seul : monolithe. Plusieurs très différents : architecture distribuée."
+    concept: arch-quantum-decision

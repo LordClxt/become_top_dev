@@ -1,0 +1,17 @@
+{
+  "decisions": {
+    "d1": "guide",
+    "d2": "tech",
+    "d3": "arch",
+    "d4": "guide",
+    "d5": "tech",
+    "d6": "arch"
+  },
+  "fitness": "ci",
+  "signals": [
+    "p99",
+    "release",
+    "market"
+  ],
+  "coding": "feature"
+}

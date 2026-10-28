@@ -1,0 +1,8 @@
+id: arch-ch10-data-loss
+concept: arch-data-loss
+format: interactive
+justification: "Activer ou couper persistance, envoi synchrone, acquittement client et LPS, puis injecter des pannes aux trois endroits, rend visible quel mécanisme sauve quel message."
+entry: DataLoss.tsx
+params:
+  - { name: protections, type: int, min: 0, max: 4, default: 0 }
+status: built

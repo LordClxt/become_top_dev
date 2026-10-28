@@ -4,15 +4,15 @@ book:
   title: "Fundamentals of Software Architecture"
   authors: ["Mark Richards", "Neal Ford"]
   slug: software-architecture
-summary: "Raisonner en trade-offs : caractéristiques, styles, décisions et risques. Des katas et des ADR notés par rubrique, et des outils Go qui mesurent l'architecture."
+summary: "Raisonner en trade-offs : caractéristiques, styles, décisions et risques. Des katas et des diagrammes corrigés pas à pas, et archkit, une boîte à outils TypeScript qui mesure et protège l'architecture."
 order: 3
 kind: conceptual
-language: go                # pour les TP archkit (métriques, fitness functions)
+language: typescript        # projets archkit (métriques, fitness functions, simulateurs de styles)
 pilot: "02-characteristics"
 running_project:
-  id: going-going-gone
-  title: "Going, Going, Gone — le dossier d'architecture"
-  pitch: "Un site d'enchères en ligne, conçu de bout en bout : caractéristiques, quanta, style, ADR, risques et diagrammes, plus la boîte à outils Go archkit."
+  id: archkit
+  title: "archkit — la boîte à outils de l'architecte"
+  pitch: "Une bibliothèque TypeScript qui grandit à chaque module : fitness functions, métriques de couplage, quanta, résilience, pipeline, plug-ins, broker d'événements. Le kata Going, Going, Gone sert de terrain d'essai."
 requires: []
 
 tracks:

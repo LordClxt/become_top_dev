@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Couches et dépendances vers le haut"
+    goal: "Rattacher chaque module à sa couche (préfixe le plus long), accepter la même couche et la couche juste en dessous, signaler les dépendances vers le haut et les modules hors couche, dans un ordre stable."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Couches ouvertes et fermées"
+    goal: "Interdire de sauter une couche fermée, autoriser à traverser une couche ouverte, sans jamais permettre de remonter."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Variances"
+    goal: "Couvrir une violation par une variance précise, signaler les variances périmées, refuser une variance sans raison ou sans approbateur."
+    tests: "tstest M3"
+    review: true
+    prompt: "Pourquoi signaler les variances qui ne couvrent plus rien plutôt que les ignorer ? Que se passerait-il si une variance pouvait couvrir tout un module (préfixe) au lieu d'un import précis ?"

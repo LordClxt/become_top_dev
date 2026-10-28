@@ -1,0 +1,15 @@
+blocks:
+  rates:
+    tolerance:
+      abs: 1
+    options:
+      a.pct: 'Lire et lister ne font aucun travail : (12 000 + 3 000) sur 65 000.'
+      b.pct: 'Seule la modification fait un vrai travail : 140 000 sur 142 000.'
+  verdict:
+    options:
+      a: 'Environ 23 % : proche des 20 % acceptables, les requêtes principales portent de vraies règles.'
+      b: 'Près de 99 % de relais purs : chaque couche est une cérémonie inutile.'
+  weak:
+    options:
+      cost: C'est au contraire l'un de ses points forts.
+      simplicity: C'est l'autre point fort.

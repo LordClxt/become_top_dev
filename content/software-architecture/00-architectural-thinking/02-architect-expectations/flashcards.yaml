@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Les huit attentes envers un architecte ?"
+    back: "Décider, analyser en continu, rester à jour, faire respecter, exposition variée, connaître le métier, compétences humaines, politique."
+    concept: arch-breadth-domain-people
+  - id: fc2
+    front: "Décision qui guide vs choix technique imposé : exemple ?"
+    back: "« Un framework web réactif » (guide) vs « React » (impose)."
+    concept: arch-guide-not-specify
+  - id: fc3
+    front: "Vitalité de l'architecture ?"
+    back: "La pertinence, aujourd'hui, d'une architecture définie il y a plusieurs années, au vu des changements métier et techniques."
+    concept: arch-vitality-decay
+  - id: fc4
+    front: "Dégradation structurelle ?"
+    back: "Des changements de code qui, un par un, érodent les caractéristiques requises (perf, dispo, scalabilité)."
+    concept: arch-vitality-decay
+  - id: fc5
+    front: "Fitness function ?"
+    back: "Tout mécanisme qui évalue objectivement l'intégrité d'une caractéristique : test, métrique, moniteur, chaos engineering."
+    concept: arch-compliance-fitness
+  - id: fc6
+    front: "D'où vient le terme « fitness function » ?"
+    back: "Des algorithmes génétiques : la fonction qui mesure si une solution mutée se rapproche de l'objectif."
+    concept: arch-compliance-fitness
+  - id: fc7
+    front: "Process vs pratiques d'ingénierie ?"
+    back: "Process = organisation des personnes (Scrum, réunions). Pratiques = techniques au bénéfice reproductible (CI, tests automatisés)."
+    concept: arch-intersections
+  - id: fc8
+    front: "Pourquoi toute architecture devient-elle itérative ?"
+    back: "À cause des inconnus inconnus ; l'Agile le reconnaît simplement plus tôt."
+    concept: arch-intersections
+  - id: fc9
+    front: "Piège du goulot d'étranglement : remède ?"
+    back: "Déléguer le chemin critique à l'équipe et coder une fonctionnalité métier 1 à 3 itérations plus loin."
+    concept: arch-hands-on
+  - id: fc10
+    front: "Pourquoi écrire un POC en qualité production ?"
+    back: "Il finit souvent dans le dépôt comme exemple de référence copié par les autres."
+    concept: arch-hands-on

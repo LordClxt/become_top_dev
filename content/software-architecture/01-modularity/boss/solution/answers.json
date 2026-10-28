@@ -1,0 +1,20 @@
+{
+  "d-before": 0.9,
+  "cohesion": "coincidental",
+  "plan": [
+    "measure",
+    "names",
+    "split",
+    "delete"
+  ],
+  "connascences": {
+    "status": "meaning",
+    "retry": "position",
+    "hash": "algorithm",
+    "format": "name"
+  },
+  "target": {
+    "abstract": 4,
+    "concrete": 1
+  }
+}

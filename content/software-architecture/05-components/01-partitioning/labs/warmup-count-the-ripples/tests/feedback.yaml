@@ -1,0 +1,15 @@
+blocks:
+  ripples:
+    options:
+      c1.technical: 'Écran, règle et colonne : une modification par couche.'
+      c1.domain: Tout se passe dans le composant des recettes.
+      c2.technical: 'Écran, règle et stockage : trois couches.'
+      c2.domain: Le suivi du livreur relève d'un seul domaine.
+      c3.technical: Une règle seule vit dans une seule couche.
+      c3.domain: La règle vit dans le composant des promotions.
+      c4.technical: La personnalisation locale est isolée dans un composant.
+      c4.domain: Combien de composants de domaine ont une personnalisation locale ?
+  verdict:
+    options:
+      domain-wins: 'Regarde l''évolution 4 : la personnalisation locale est dispersée côté domaine.'
+      technical-wins: 'Regarde les évolutions 1 et 2 : chaque workflow traverse toutes les couches.'

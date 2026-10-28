@@ -1,0 +1,21 @@
+blocks:
+  choose:
+    options:
+      p1: 'Un traitement de données à sens unique, par étapes : des filtres.'
+      p2: 'Écrans, règles et persistance interactifs : des couches.'
+      p3: 'Transformation d''un format en un autre : l''usage EDI classique du pipeline.'
+      p4: 'Une application interactive avec workflow et base : des couches.'
+  filters:
+    options:
+      read: 'Le point de départ : il émet sans rien recevoir.'
+      valid: Il teste un critère et transmet ou non.
+      convert: Il transforme et transmet (map).
+      load: Le point d'arrivée.
+  compare:
+    options:
+      modularity: Les filtres se remplacent sans toucher les autres.
+      deploy: Le pipeline est un peu au-dessus grâce à ses filtres, sans cesser d'être un monolithe.
+      scal: 'Une étoile chacun : un seul quantum.'
+      cost: Les deux sont des monolithes simples et peu coûteux.
+  quanta:
+    wrong: Chaque style monolithique forme un quantum ; quatre déployables indépendants, quatre quanta.

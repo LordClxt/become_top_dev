@@ -1,0 +1,23 @@
+blocks:
+  scale:
+    options:
+      backoffice: 'Cinq employés : une instance suffit.'
+      reporting: Les rapports n'ont pas d'exigence de débit.
+  booking-tx:
+    options:
+      ui: 'Deux transactions séparées : paiements sans places ou places sans paiement (l''enquête de la leçon 2).'
+      three: 'Trois services fins pour une opération atomique : sagas et BASE, sans nécessité.'
+  libs:
+    options:
+      offers.n: Recherche, réservation, back-office.
+      bookings.n: Réservation, après-vente, comptabilité, reporting.
+      travellers.n: 'Une table commune : tous les services.'
+      single.n: La bibliothèque unique redéploie tout.
+  zones:
+    options:
+      one: Les pics de la recherche pèseraient sur la base de tous.
+      six: 'Les données de réservation servent à l''après-vente, à la comptabilité et au reporting : les séparer imposerait appels ou duplication.'
+  weak:
+    options:
+      fault: 'C''est au contraire une force du style (quatre étoiles) : les services ne s''appellent pas.'
+      cheap: C'est l'un des distribués les moins chers.

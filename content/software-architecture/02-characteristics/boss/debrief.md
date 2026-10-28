@@ -1,0 +1,3 @@
+**Un kata complet, c'est une suite de traductions.** « Lancer avant l'hiver et itérer chaque semaine » est un time to market : agilité, testabilité, déployabilité. L'hiver demande à la fois de la scalabilité (des semaines à 6×) et de l'élasticité (redescendre ensuite). Les données de santé font de la sécurité une caractéristique **structurante** : isolement et traçabilité.
+
+La vidéo externe touche la fiabilité : sa panne doit **dégrader** la consultation, pas la plateforme. Le top 3 garde ce qui peut faire échouer le projet (hiver, sécurité, rythme de livraison) ; l'archivabilité, réelle, se traite par un stockage d'archive standard. Il n'y a pas de bonne réponse unique, mais chaque choix ici se justifie par le domaine.

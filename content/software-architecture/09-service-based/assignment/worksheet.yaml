@@ -1,0 +1,62 @@
+intro: |
+  Un réseau de 40 cliniques vétérinaires. Domaines : **rendez-vous**, **dossiers médicaux**, **facturation**, **pharmacie (stock de médicaments)**, **rappels de vaccins**, **statistiques**. Équipe de **6 développeurs**. Charge stable (pas de pics). Une consultation se clôt en **une opération** : enregistrer l'acte au dossier, facturer, et décrémenter les médicaments délivrés. Le budget est serré.
+blocks:
+- id: services
+  type: number
+  title: Combien de services ?
+  prompt: En service-based, avec un service par domaine, combien de services de domaine ?
+  unit: services
+- id: closing
+  type: choice
+  title: La clôture de consultation
+  prompt: Dans quelle option la clôture (dossier + facture + stock) peut-elle rester une transaction ACID ?
+  options:
+  - id: sb
+    label: Service-based, si la clôture vit dans la façade d'un service (ex. dossiers médicaux) qui écrit les trois tables de la base partagée
+  - id: micro
+    label: Microservices, grâce à la cohérence à terme
+  - id: both
+    label: Les deux, de la même façon
+- id: needs
+  type: match
+  title: Qui gagne ?
+  prompt: Pour chaque besoin, quelle option le sert le mieux compte tenu du contexte ?
+  items:
+  - id: n1
+    label: Coût et simplicité pour 6 développeurs
+  - id: n2
+    label: Atomicité de la clôture de consultation
+  - id: n3
+    label: Élasticité extrême (inexistante ici)
+  - id: n4
+    label: Déployer les rappels de vaccins sans toucher au reste
+  categories:
+  - id: sb
+    label: Service-based
+  - id: micro
+    label: Microservices
+  - id: both
+    label: Les deux
+- id: coordination
+  type: choice
+  title: Coordination
+  prompt: En microservices, la clôture demanderait de coordonner trois services. Comment s'appelle une coordination par un service médiateur central
+    ?
+  options:
+  - id: orch
+    label: Orchestration
+  - id: choreo
+    label: Chorégraphie
+  - id: saga
+    label: Event sourcing
+- id: decision
+  type: choice
+  title: La décision
+  prompt: Que recommandes-tu ?
+  options:
+  - id: sb
+    label: 'Service-based avec base partagée et bibliothèques d''entités fédérées : simple, ACID préservé, déploiements indépendants par domaine'
+  - id: micro
+    label: 'Microservices : c''est l''état de l''art'
+  - id: monolith
+    label: Rester sur un monolithe en couches sans rien changer

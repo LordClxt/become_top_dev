@@ -1,0 +1,17 @@
+{
+  "kind": {
+    "i1": "request",
+    "i2": "event",
+    "i3": "event",
+    "i4": "request",
+    "i5": "event",
+    "i6": "request"
+  },
+  "flow": [
+    "created",
+    "paid",
+    "fulfilled",
+    "shipped"
+  ],
+  "nobody": "keep"
+}

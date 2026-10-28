@@ -1,0 +1,19 @@
+id: arch-ch02-assignment
+title: 'Kata : l''inscription universitaire'
+difficulty: 3
+xp: 140
+concepts:
+- arch-char-implicit-explicit
+- arch-requirements-knowledge
+- arch-short-list-top3
+- arch-eliminate-one
+- arch-scalability-vs-elasticity
+- arch-overspecify
+source:
+  chapter: 5
+  pages: 85-96
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

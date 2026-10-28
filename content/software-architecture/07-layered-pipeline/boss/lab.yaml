@@ -1,0 +1,63 @@
+id: arch-ch07-boss
+title: 'Boss : le pipeline d''import EDI'
+difficulty: 4
+xp: 300
+time_limit_min: 45
+concepts:
+- arch-filter-types
+- arch-pipes
+- arch-pipeline-extensibility
+- arch-compositional-reuse
+source:
+  chapter: 11
+  pages: 163-168
+palette:
+- type: reader
+  component: worker
+  label: Lecteur de fichiers EDI
+  hint: Producteur.
+- type: parser
+  component: worker
+  label: Parseur EDI
+  hint: 'Transformateur : message EDI → commande.'
+- type: validator
+  component: worker
+  label: Validateur
+  hint: 'Testeur : commande valide ?'
+- type: fraud
+  component: worker
+  label: Testeur de fraude
+  hint: 'Testeur (nouveau) : commande suspecte ?'
+- type: b2b-test
+  component: worker
+  label: Testeur B2B
+  hint: 'Testeur : client professionnel ?'
+- type: b2b-map
+  component: worker
+  label: Transformateur B2B
+  hint: 'Transformateur : commande → format ERP.'
+- type: b2c-map
+  component: worker
+  label: Transformateur B2C
+  hint: 'Transformateur : commande → format boutique.'
+- type: erp
+  component: worker
+  label: Sortie ERP
+  hint: 'Consommateur : envoie à l''ERP.'
+- type: shop
+  component: worker
+  label: Sortie boutique
+  hint: 'Consommateur : envoie à la boutique.'
+- type: reject
+  component: worker
+  label: Sortie rejets
+  hint: 'Consommateur : fichier des rejets.'
+- type: review
+  component: worker
+  label: Sortie revue manuelle
+  hint: 'Consommateur : file de revue humaine.'
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

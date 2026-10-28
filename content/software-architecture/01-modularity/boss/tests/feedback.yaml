@@ -1,0 +1,23 @@
+blocks:
+  d-before:
+    tolerance:
+      abs: 0.011
+    wrong: Calcule I avec 9 dépendants et 1 dépendance, et A avec 12 éléments tous concrets.
+  cohesion:
+    options:
+      functional: Mailer, slugify et isWeekend ne servent aucune fonction commune.
+      temporal: Rien ne lie ces éléments au même moment d'exécution.
+      sequential: Aucun élément ne produit l'entrée d'un autre.
+  plan:
+    wrong: On mesure d'abord pour voir la tendance ; on affaiblit les connascences les plus dangereuses avant de déplacer le code ; on supprime
+      en dernier.
+  connascences:
+    options:
+      status: Les appelants doivent s'accorder sur la signification de 1 et 2.
+      retry: 'Trois arguments positionnels de types proches : 3 et 500 sont-ils des essais ou des millisecondes ?'
+      hash: Le même calcul, exécuté des deux côtés.
+      format: Les appelants ne dépendent que d'un nom.
+  target:
+    goals:
+      d: 'Un module stable (I = 0) doit être presque entièrement abstrait : il faut A ≥ 0,8.'
+      size: Un module de contrats doit rester petit.

@@ -1,0 +1,51 @@
+intro: |
+  Latences (ms) de **20 requêtes** de validation de panier, relevées pendant une minute :
+
+  `80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 80 900 4000`
+
+  Les deux requêtes lentes sont les deux plus gros paniers de la minute.
+blocks:
+- id: stats
+  type: table
+  title: Les chiffres
+  prompt: Complète les statistiques (en ms).
+  columns:
+  - id: value
+    label: Valeur (ms)
+  rows:
+  - id: mean
+    label: Moyenne
+    cells: {}
+  - id: p50
+    label: Médiane (p50)
+    cells: {}
+  - id: p95
+    label: p95
+    cells: {}
+  - id: max
+    label: Maximum
+    cells: {}
+- id: slo
+  type: choice
+  title: La bonne définition
+  prompt: Laquelle protège le mieux les gros paniers ?
+  options:
+  - id: mean
+    label: Temps moyen de validation < 400 ms
+  - id: p50
+    label: Médiane < 100 ms
+  - id: p99
+    label: p99 < 1 000 ms et maximum suivi en alerte
+  - id: none
+    label: 'Pas de seuil : on regarde le graphe de temps en temps'
+- id: model
+  type: choice
+  title: Seuil fixe ou modèle
+  prompt: Le trafic varie fortement entre la nuit et le samedi après-midi. Comment alerter sur la scalabilité ?
+  options:
+  - id: model
+    label: Un modèle statistique du normal par heure et par jour, et une alerte quand la mesure en sort
+  - id: fixed
+    label: Un seuil fixe unique, calé sur le samedi
+  - id: night
+    label: Un seuil fixe unique, calé sur la nuit

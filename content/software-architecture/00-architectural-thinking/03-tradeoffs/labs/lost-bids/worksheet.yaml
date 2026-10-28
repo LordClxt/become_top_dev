@@ -1,0 +1,79 @@
+intro: |
+  **Symptôme.** Depuis mardi, les tableaux de bord de Bid Analytics affichent environ **deux fois moins** d'offres que la base de Bid Tracking. Le code d'Analytics n'a pas changé depuis un mois. Le broker ne signale aucune erreur.
+
+  **Indice 1 — `broker/bindings.yaml` (inchangé depuis six mois)**
+  ```yaml
+  exchange: bids
+  queues:
+    - name: bids.capture     # → Bid Capture
+    - name: bids.tracking    # → Bid Tracking
+    - name: bids.analytics   # → Bid Analytics
+  ```
+
+  **Indice 2 — `deploy/bid-history.yaml` (ajouté mardi)**
+  ```yaml
+  service: bid-history
+  replicas: 1
+  consume:
+    queue: bids.analytics   # « on réutilise la file d'analytics, elle a déjà tout »
+  ```
+
+  **Indice 3 — `deploy/bid-analytics.yaml` (inchangé)**
+  ```yaml
+  service: bid-analytics
+  replicas: 1
+  consume:
+    queue: bids.analytics
+  ```
+
+  **Indice 4 — métriques du broker, mercredi, sur une heure**
+  | file | publiés | consommateurs | remis à analytics | remis à history |
+  |---|---|---|---|---|
+  | bids.analytics | 1 200 | 2 | 600 | 600 |
+
+  **Indice 5 — ticket de Bid History** : « Il manque des offres dans l'historique de certains enchérisseurs. »
+blocks:
+- id: cause
+  type: choice
+  title: Cause racine
+  prompt: Quelle est la cause racine ?
+  options:
+  - id: bug
+    label: Un bug de désérialisation dans Bid Analytics rejette une offre sur deux
+  - id: shared
+    label: 'Bid History lit la même file qu''Analytics : ils sont devenus consommateurs concurrents et se répartissent les offres'
+  - id: broker
+    label: Le broker perd des messages sous la charge
+  - id: producer
+    label: Le Bid Producer n'envoie qu'une offre sur deux à la file d'analytics
+- id: expected
+  type: number
+  title: Le compte juste
+  prompt: Après correction, combien d'offres **chacun** des deux services devrait-il recevoir sur cette heure ?
+  unit: offres
+- id: evidence
+  type: multi
+  title: Les preuves
+  prompt: Quels indices, ensemble, prouvent la cause (et écartent les autres) ?
+  options:
+  - id: i2
+    label: 'Indice 2 : Bid History consomme `bids.analytics`'
+  - id: i4
+    label: 'Indice 4 : 1 200 publiés, 2 consommateurs, 600 chacun'
+  - id: i5
+    label: 'Indice 5 : Bid History aussi a des trous'
+  - id: i1
+    label: 'Indice 1 : il n''existe aucune file dédiée à Bid History'
+- id: fix
+  type: choice
+  title: Le correctif
+  prompt: Quel correctif traite la cause sans en créer une autre ?
+  options:
+  - id: replicas
+    label: Passer Bid Analytics à 2 réplicas pour qu'il « rattrape » sa part
+  - id: own
+    label: 'Donner à Bid History son propre canal : une file `bids.history` liée à l''exchange (ou un abonnement à un topic)'
+  - id: copy
+    label: Faire republier par Analytics chaque offre reçue vers Bid History
+  - id: retry
+    label: Activer les retries côté producteur

@@ -1,0 +1,13 @@
+blocks:
+  ctx:
+    options:
+      a.channel: 'Un nouveau consommateur par mois : quel canal évite de modifier le producteur à chaque fois ?'
+      a.factor: Ajouter des consommateurs sans rien changer à l'existant, c'est quelle propriété ?
+      b.channel: Sur quel canal un espion vole-t-il des messages, ce qui déclenche une alerte ?
+      b.factor: L'exigence porte sur la détection d'une écoute.
+      c.channel: Pour mesurer la profondeur de chaque canal et dimensionner chaque consommateur séparément, il faut un canal par consommateur.
+      c.factor: L'exigence porte sur la montée en charge indépendante.
+  hidden:
+    options:
+      producer: 'C''est l''inconvénient des files : avec un topic, on abonne le nouveau service sans toucher au producteur.'
+      loss: Sur un topic, chaque abonné reçoit sa propre copie de chaque message. La répartition, c'est une file partagée.

@@ -1,0 +1,21 @@
+blocks:
+  topology:
+    options:
+      f1: 'Une diffusion : on ne sait pas qui sera intéressé demain.'
+      f2: 'Contrôle, état et reprise : c''est le rôle du médiateur.'
+      f3: Volume, réactivité, aucune coordination nécessaire.
+      f4: Une suite d'étapes qui doit aboutir ou s'arrêter proprement.
+  engine:
+    options:
+      e1: Quelques jours en Camel ; des mois en BPM pour rien.
+      e2: 'Une intervention humaine longue au milieu du flux : BPM.'
+      e3: 'Beaucoup de chemins conditionnels et dynamiques : BPEL.'
+  delegation:
+    options:
+      bpm-all: Des mois perdus pour des flux simples.
+      camel-all: Camel devient très difficile à écrire et maintenir pour des processus humains longs.
+  kind:
+    options:
+      m1: Elle dit ce qui doit se passer.
+      m2: Il dit ce qui s'est passé.
+      m3: Elle dit ce qui doit se passer.

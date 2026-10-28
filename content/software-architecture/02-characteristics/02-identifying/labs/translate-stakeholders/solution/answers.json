@@ -1,0 +1,21 @@
+{
+  "ceo": [
+    "agility",
+    "testability",
+    "deployability"
+  ],
+  "cfo": [
+    "interop",
+    "scalability",
+    "adaptability",
+    "extensibility"
+  ],
+  "risk": [
+    "availability",
+    "reliability",
+    "recoverability",
+    "auditability"
+  ],
+  "trap": "flour",
+  "priority": "top3"
+}

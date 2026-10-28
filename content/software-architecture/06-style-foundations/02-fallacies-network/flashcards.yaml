@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Erreur 1 et ses parades ?"
+    back: "Le réseau est fiable. Parades : timeouts, retries (backoff + jitter, idempotence), circuit breakers."
+    concept: arch-fallacy-reliable
+  - id: fc2
+    front: "Circuit breaker : trois états ?"
+    back: "Fermé (on appelle), ouvert (échec immédiat pendant un temps), demi-ouvert (un essai pour voir si le service est revenu)."
+    concept: arch-fallacy-reliable
+  - id: fc3
+    front: "Erreur 2 : que faut-il connaître ?"
+    back: "La latence réelle, et surtout le p95-p99 : la longue traîne tue la performance du distribué."
+    concept: arch-fallacy-latency
+  - id: fc4
+    front: "10 appels à 100 ms ?"
+    back: "Une seconde de latence ajoutée."
+    concept: arch-fallacy-latency
+  - id: fc5
+    front: "Couplage de tampon (stamp coupling) ?"
+    back: "Transmettre une grosse structure dont le consommateur n'utilise qu'une partie (45 attributs pour un nom)."
+    concept: arch-fallacy-bandwidth
+  - id: fc6
+    front: "Erreur 4 ?"
+    back: "Le réseau est sûr : faux, chaque endpoint doit être sécurisé, la surface d'attaque explose."
+    concept: arch-fallacy-secure

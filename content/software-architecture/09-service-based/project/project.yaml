@@ -1,0 +1,14 @@
+id: arch-ch09-project
+title: "archkit v10 — ACID et base partagée maîtrisée"
+pitch: "Ce qui rend le service-based pragmatique, en code : une base transactionnelle en mémoire, une façade de commande tout-ou-rien qui ne débite jamais un client pour rien, et l'analyse d'impact des bibliothèques d'entités."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 4
+xp: 300
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["servicebased.ts"]
+concepts: [arch-sb-acid, arch-sb-facade-orchestration, arch-sb-entity-libs]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

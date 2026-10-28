@@ -1,0 +1,82 @@
+id: arch-ch04-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi l'élasticité est-elle une caractéristique implicite de Going, Going, Gone ?"
+    choices:
+      - "L'énoncé l'écrit"
+      - "Le domaine la révèle : les enchérisseurs deviennent frénétiques en fin de vente"
+      - "Le budget n'est pas contraint"
+      - "La vidéo l'exige"
+    answer: 1
+    explanation: "Les exigences parlent d'échelle ; seule la connaissance des enchères révèle les rafales."
+    concept: arch-ggg-characteristics
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Face au procès pour fraude, que doit faire l'architecte ?"
+    choices:
+      - "Ignorer : c'est du passé"
+      - "Demander des précisions au métier, quelle que soit la sécurité conçue"
+      - "Tout chiffrer en double"
+      - "Refuser le projet"
+    answer: 1
+    explanation: "Un signal de contexte appelle une question, pas une supposition."
+    concept: arch-ggg-characteristics
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "« Indice de réputation » : domaine ou caractéristique d'architecture ?"
+    choices:
+      - "Caractéristique : c'est de l'auditabilité"
+      - "Domaine : son implémentation demande des connaissances métier"
+      - "Caractéristique : c'est de l'anti-trollabilité"
+      - "Ni l'un ni l'autre"
+    answer: 1
+    explanation: "Le test décisif : une caractéristique se discute dans l'abstrait, quel que soit le métier."
+    concept: arch-domain-litmus
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi la disponibilité n'est-elle pas uniforme dans ce kata ?"
+    choices:
+      - "Parce que la vidéo est externe"
+      - "Si le commissaire-priseur perd l'accès, plus personne ne peut enchérir"
+      - "Parce que le budget est illimité"
+      - "Parce que les enchérisseurs sont moins nombreux"
+    answer: 1
+    explanation: "Un enchérisseur parmi des centaines est moins critique que le commissaire-priseur."
+    concept: arch-nonuniform
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Quel quantum a la liste de caractéristiques la plus longue ?"
+    choices: ["Retour enchérisseur", "Commissaire-priseur", "Enchérisseur", "Ils sont identiques"]
+    answer: 1
+    explanation: "Disponibilité, fiabilité, scalabilité, élasticité, performance, sécurité."
+    concept: arch-quanta-per-characteristics
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Quel bénéfice principal apporte l'analyse des caractéristiques par quantum ?"
+    choices:
+      - "Elle réduit le nombre de caractéristiques"
+      - "Elle fait apparaître tôt le besoin d'une architecture hybride"
+      - "Elle évite d'écrire des ADR"
+      - "Elle supprime le besoin de choisir un style"
+    answer: 1
+    explanation: "Une liste unique pour tout le système masque des besoins incompatibles."
+    concept: arch-quanta-per-characteristics
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Pourquoi les fusions avec des concurrents comptent-elles, alors qu'elles n'ont pas d'impact immédiat ?"
+    choices:
+      - "Elles imposent un style"
+      - "Elles arbitrent des trade-offs futurs, comme préférer un protocole plus interopérable"
+      - "Elles imposent un budget"
+      - "Elles n'ont aucune importance"
+    answer: 1
+    explanation: "Une caractéristique implicite et subtile : l'interopérabilité."
+    concept: arch-ggg-characteristics
+    difficulty: 2

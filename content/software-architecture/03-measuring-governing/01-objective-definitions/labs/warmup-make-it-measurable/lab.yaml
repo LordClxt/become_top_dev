@@ -1,0 +1,15 @@
+id: arch-ch03-l01-lab-warmup-make-it-measurable
+title: 'Échauffement : rendre mesurable'
+difficulty: 1
+xp: 40
+concepts:
+- arch-objective-definitions
+- arch-measure-problems
+source:
+  chapter: 6
+  pages: 97-98
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

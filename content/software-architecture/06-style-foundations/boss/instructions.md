@@ -1,0 +1,1 @@
+Le service Paiement d'une plateforme de réservation appelle trois services distants pour chaque paiement. Règle timeouts, retries et contrats pour tenir le budget, et choisis les mécanismes qui rendent l'ensemble sûr. Aucun indice.

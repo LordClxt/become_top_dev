@@ -1,0 +1,22 @@
+id: arch-ch07
+title: "Couches et pipeline"
+subtitle: "Deux styles monolithiques techniquement partitionnés : l'architecture en couches et les pipes and filters"
+source: { chapter: 10, pages: "153-168" }
+objectives:
+  - "Décrire la topologie en couches, ses variantes de déploiement et pourquoi elle naît souvent par défaut (Conway, architecture par implication)"
+  - "Expliquer les couches fermées et ouvertes, l'isolation des couches, et l'ajout d'une couche de services ouverte"
+  - "Repérer l'anti-pattern du puits (sinkhole) et appliquer la règle des 80/20"
+  - "Évaluer les caractéristiques d'une architecture en couches : forces (coût, simplicité) et faiblesses (déployabilité, scalabilité, tolérance aux pannes)"
+  - "Construire un pipeline avec les quatre types de filtres (producteur, transformateur, testeur, consommateur) et l'étendre sans toucher l'existant"
+  - "Diagnostiquer une régression causée par une couche ouverte non documentée"
+  - "Écrire en TypeScript une bibliothèque de pipes and filters paresseuse, avec routage et le pipeline de McIlroy"
+mastery_threshold: 0.8
+prerequisites: [arch-ch06]
+lessons:
+  - "01-layered-topology"
+  - "02-layered-tradeoffs"
+  - "03-pipeline"
+xp: { assignment: 140, project: 280, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

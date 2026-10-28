@@ -1,0 +1,19 @@
+{
+  "actions": {
+    "a1": "driver",
+    "a2": "passenger",
+    "a3": "passenger",
+    "a4": "passenger",
+    "a5": "system",
+    "a6": "security"
+  },
+  "trap": "trap",
+  "split": [
+    "emergency",
+    "booking",
+    "tracking"
+  ],
+  "shape": "hybrid",
+  "partition": "domain",
+  "granularity": "chatty"
+}

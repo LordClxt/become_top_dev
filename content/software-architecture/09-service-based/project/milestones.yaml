@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Une base transactionnelle"
+    goal: "Mettre les écritures d'une transaction de côté, les rendre visibles à la transaction elle-même, les appliquer au commit et les jeter (séquences comprises) si elle échoue."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "La façade de commande"
+    goal: "Vérifier et décrémenter le stock, numéroter, enregistrer la commande et payer dans une seule transaction, en appelant le prestataire de paiement en dernier."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Impact des bibliothèques d'entités"
+    goal: "Calculer les services à redéployer pour un changement de tables et l'impact moyen d'un découpage en bibliothèques, en refusant les tables orphelines ou ambiguës."
+    tests: "tstest M3"
+    review: true
+    prompt: "Pourquoi la façade appelle-t-elle le prestataire de paiement en dernier ? Que faudrait-il faire si le commit de la base échouait après un débit réussi (le prestataire, lui, n'est pas dans la transaction) ?"

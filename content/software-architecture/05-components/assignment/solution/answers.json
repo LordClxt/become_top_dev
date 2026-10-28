@@ -1,0 +1,19 @@
+{
+  "ripples": {
+    "pedago.a": 4,
+    "pedago.b": 1,
+    "enroll.a": 4,
+    "enroll.b": 2,
+    "certif.a": 4,
+    "certif.b": 1,
+    "theme.a": 1,
+    "theme.b": 5
+  },
+  "weighted": {
+    "a.avg": 3.55,
+    "b.avg": 1.85
+  },
+  "choose": "b",
+  "teams": "inverse",
+  "trap": "trap"
+}

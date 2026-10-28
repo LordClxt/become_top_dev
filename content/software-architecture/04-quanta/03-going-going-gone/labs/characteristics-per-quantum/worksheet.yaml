@@ -1,0 +1,65 @@
+intro: 'Going, Going, Gone : trois quanta, trois profils.'
+blocks:
+- id: litmus
+  type: match
+  title: Domaine ou caractéristique ?
+  prompt: 'Applique le test : faut-il des connaissances métier pour l''implémenter ?'
+  items:
+  - id: rep
+    label: « Les participants sont suivis par un indice de réputation »
+  - id: burst
+    label: « Absorber la frénésie des fins de vente »
+  - id: lot
+    label: « Un lot invendu repasse dans la vente suivante »
+  - id: order
+    label: « Les offres sont reçues dans l'ordre où elles sont passées »
+  categories:
+  - id: domain
+    label: Domaine
+  - id: char
+    label: Caractéristique d'architecture
+- id: auctioneer
+  type: multi
+  title: Quantum commissaire-priseur
+  prompt: Quelles caractéristiques le livre attribue-t-il au quantum commissaire-priseur ?
+  options:
+  - id: availability
+    label: Disponibilité
+  - id: reliability
+    label: Fiabilité
+  - id: scalability
+    label: Scalabilité
+  - id: elasticity
+    label: Élasticité
+  - id: performance
+    label: Performance
+  - id: security
+    label: Sécurité
+  - id: archivability
+    label: Archivabilité
+- id: feedback
+  type: multi
+  title: Quantum retour enchérisseur
+  prompt: Et au quantum retour enchérisseur (flux des offres et vidéo) ?
+  options:
+  - id: availability
+    label: Disponibilité
+  - id: scalability
+    label: Scalabilité
+  - id: performance
+    label: Performance
+  - id: security
+    label: Sécurité
+  - id: elasticity
+    label: Élasticité
+- id: critical
+  type: choice
+  title: Le plus critique
+  prompt: Pourquoi le commissaire-priseur est-il plus critique qu'un enchérisseur ?
+  options:
+  - id: blocks
+    label: S'il perd l'accès, plus personne ne peut enchérir ; un enchérisseur parmi des centaines n'arrête rien
+  - id: pays
+    label: Parce qu'il paie plus cher
+  - id: video
+    label: Parce qu'il produit la vidéo

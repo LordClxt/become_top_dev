@@ -1,0 +1,17 @@
+id: arch-ch08-l02-lab-plugin-decisions
+title: Décisions de plug-ins
+difficulty: 2
+xp: 70
+concepts:
+- arch-remote-plugins
+- arch-plugin-data
+- arch-plugin-registry
+- arch-plugin-contracts
+source:
+  chapter: 12
+  pages: 175-178
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,15 @@
+id: arch-ch03-l03-lab-green-ci-cycle
+title: 'Enquête : la CI est verte, le cycle est là'
+difficulty: 3
+xp: 90
+concepts:
+- arch-cycle-detection
+- arch-fitness-mechanisms
+source:
+  chapter: 6
+  pages: 104-106
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

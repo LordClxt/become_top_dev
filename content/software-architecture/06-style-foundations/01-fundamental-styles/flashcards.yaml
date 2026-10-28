@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Ce que condense un nom de style ?"
+    back: "Topologie, caractéristiques par défaut (bonnes et mauvaises), déploiement, stratégie de données."
+    concept: arch-style-name
+  - id: fc2
+    front: "Big Ball of Mud ?"
+    back: "Système sans structure discernable (Foote et Yoder, 1997), né d'une croissance non régulée ; tout dépend de tout."
+    concept: arch-big-ball-of-mud
+  - id: fc3
+    front: "Trois variantes du client/serveur ?"
+    back: "Bureau + serveur de base ; navigateur + serveur web ; trois tiers (base, serveur d'application, interface)."
+    concept: arch-client-server
+  - id: fc4
+    front: "Leçon de la sérialisation Java ?"
+    back: "On ne prévoit pas le long terme : préférer la simplicité est une défense."
+    concept: arch-long-term-simplicity
+  - id: fc5
+    front: "Styles monolithiques du livre ?"
+    back: "En couches, pipeline, microkernel."
+    concept: arch-monolithic-distributed
+  - id: fc6
+    front: "Styles distribués du livre ?"
+    back: "Service-based, event-driven, space-based, SOA orchestrée, microservices."
+    concept: arch-monolithic-distributed

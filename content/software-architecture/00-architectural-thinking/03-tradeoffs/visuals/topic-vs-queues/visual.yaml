@@ -1,0 +1,8 @@
+id: arch-ch00-topic-vs-queues
+concept: arch-topic-vs-queue
+format: interactive
+justification: "L'apprenant ajoute un consommateur, un espion ou un champ de contrat et voit, sur le topic puis sur les files, qui reçoit quoi et ce qui doit changer : le trade-off se manipule au lieu de se lire."
+entry: TopicVsQueues.tsx
+params:
+  - { name: consumers, type: int, min: 1, max: 5, default: 3 }
+status: built

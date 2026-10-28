@@ -1,0 +1,9 @@
+blocks:
+  pairs:
+    options:
+      fast: Une rapidité perçue se mesure par un temps de réponse, et la queue de distribution compte.
+      agile: L'agilité est composite ; la partie la plus parlante est le temps entre une modification et sa mise en production.
+      deploy: La sûreté d'un déploiement se voit au nombre de déploiements qu'il faut annuler.
+      avail: « Toujours marcher » devient un taux de succès sur une fenêtre de temps.
+      light: La légèreté d'une application web se mesure en octets envoyés.
+      tested: La couverture ne prouve rien ; le score de mutation mesure si les tests détectent des erreurs.

@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Les quatre filtres"
+    goal: "Écrire transformateur (map), testeur (keep), take, compose et le consommateur collect, en flux paresseux : take arrête de lire et referme l'amont."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Aiguillage et lots"
+    goal: "Router chaque élément vers la première route qui lui correspond (les autres sont écartés et signalés), et regrouper en lots pour le consommateur."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Le pipeline de McIlroy"
+    goal: "Recomposer « tr | tr | sort | uniq -c | sort -rn | sed q » en filtres : mots, minuscules, comptage trié, top n."
+    tests: "tstest M3"
+    review: true
+    prompt: "countSorted doit lire tout le flux avant d'émettre quoi que ce soit, alors que les autres filtres sont paresseux. Qu'est-ce que cela implique pour la mémoire et pour un flux infini ? Comment l'architecture pipeline traite-t-elle ce genre de filtre « bloquant » en production ?"

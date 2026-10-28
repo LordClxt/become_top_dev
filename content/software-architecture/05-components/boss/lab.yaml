@@ -1,0 +1,21 @@
+id: arch-ch05-boss
+title: 'Boss : le kata du covoiturage de festival'
+difficulty: 4
+xp: 300
+time_limit_min: 45
+concepts:
+- arch-discovery-techniques
+- arch-actor-actions-ggg
+- arch-split-by-characteristics
+- arch-monolith-vs-distributed
+- arch-entity-trap
+- arch-granularity
+- arch-technical-vs-domain
+source:
+  chapter: 8
+  pages: 119-138
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

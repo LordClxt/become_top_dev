@@ -1,0 +1,18 @@
+blocks:
+  systems:
+    options:
+      s1: 'Un seul système, une seule machine : la forme d''origine, aujourd''hui surtout embarquée.'
+      s2: Une application riche sur le poste, les données sur un serveur de base.
+      s3: 'Interface, serveur d''application, base : trois tiers.'
+      s4: 'Aucune structure, tout partagé : la boule de boue.'
+      s5: Le navigateur parle au serveur web, souvent compté comme deux tiers même avec une base derrière.
+  families:
+    options:
+      layered: Une seule unité de déploiement.
+      pipeline: Les filtres vivent dans le même déployable.
+      microkernel: Cœur et plug-ins forment une seule unité, même avec des plug-ins distants (un seul quantum).
+      service: Des services à gros grain déployés séparément.
+      event: Des processeurs d'événements séparés.
+      space: Des unités de traitement réparties.
+      soa: Des services reliés par un bus.
+      micro: Le plus distribué de tous.

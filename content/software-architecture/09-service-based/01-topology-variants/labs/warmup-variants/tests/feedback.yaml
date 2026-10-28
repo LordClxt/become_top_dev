@@ -1,0 +1,11 @@
+blocks:
+  variants:
+    options:
+      a.variant: 'Rien n''est découpé : c''est la topologie de base.'
+      a.quanta: Une interface et une base partagées.
+      b.variant: Seule l'interface est découpée.
+      b.quanta: La base reste commune à tous.
+      c.variant: 'Une gateway devant les services : la couche d''API.'
+      c.quanta: Interface et base toujours communes.
+      d.variant: Ici les bases sont découpées (et les interfaces aussi).
+      d.quanta: Deux groupes qui ne partagent ni interface, ni base, ni appel.

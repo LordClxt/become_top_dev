@@ -1,0 +1,3 @@
+**shared est le cas d'école de la zone de douleur** : I = 1/10 = 0,1, A = 0, D = 0,9. Sa cohésion est **coïncidente** : « partagé » n'est pas une fonction. Chaque élément devrait vivre là où il est cohésif, et ce qui reste vraiment partagé doit être **abstrait** et **stable** (des types de contrat).
+
+L'ordre compte : mesurer d'abord (une fitness function qui suit D et le nombre de dépendants), affaiblir ensuite les connascences qui traversent le plus de frontières (sens → nom avec `BookingStatus`, position → nom avec `retry({ times, delayMs })`, algorithme → une seule implémentation), puis déplacer, et supprimer en dernier. Le module `booking-contracts` final (4 types, 1 constante) est stable **et** abstrait : il se trouve sur la séquence principale.

@@ -1,0 +1,81 @@
+checks:
+- id: ui
+  label: L'interface appelle le cœur
+  rule: edge_kind
+  source: ui
+  target: core
+  kind: sync
+- id: reg
+  label: Le cœur consulte le registre
+  rule: edge_kind
+  source: core
+  target: registry
+  kind: read
+- id: db-owner
+  label: Seul le cœur touche la base des sinistres
+  rule: inbound_via
+  target: central-db
+  via: core
+- id: db-write
+  label: Le cœur écrit les sinistres
+  rule: edge_kind
+  source: core
+  target: central-db
+  kind: write
+- id: tx
+  label: Le cœur appelle le plug-in Texas
+  rule: edge_kind
+  source: core
+  target: plugin-tx
+  kind: sync
+- id: ca
+  label: Le cœur appelle le plug-in Californie
+  rule: edge_kind
+  source: core
+  target: plugin-ca
+  kind: sync
+- id: tx-rules
+  label: Le plug-in Texas lit ses propres règles
+  rule: edge_kind
+  source: plugin-tx
+  target: rules-tx
+  kind: read
+- id: ca-rules
+  label: Le plug-in Californie lit ses propres règles
+  rule: edge_kind
+  source: plugin-ca
+  target: rules-ca
+  kind: read
+- id: own-tx
+  label: Les règles du Texas n'appartiennent qu'à son plug-in
+  rule: inbound_via
+  target: rules-tx
+  via: plugin-tx
+- id: own-ca
+  label: Les règles de la Californie n'appartiennent qu'à son plug-in
+  rule: inbound_via
+  target: rules-ca
+  via: plugin-ca
+- id: indep-1
+  label: Le plug-in Texas ignore le plug-in Californie
+  rule: no_edge
+  source: plugin-tx
+  target: plugin-ca
+- id: indep-2
+  label: Le plug-in Californie ignore le plug-in Texas
+  rule: no_edge
+  source: plugin-ca
+  target: plugin-tx
+- id: no-engine
+  label: Pas de moteur de règles central
+  rule: count
+  source: rules-engine
+  max: 0
+- id: registry-owner
+  label: Seul le cœur consulte le registre
+  rule: inbound_via
+  target: registry
+  via: core
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

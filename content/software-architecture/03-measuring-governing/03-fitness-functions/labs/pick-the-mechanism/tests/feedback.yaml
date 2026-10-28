@@ -1,0 +1,16 @@
+blocks:
+  mech:
+    options:
+      layers: Une règle de structure se lit dans le graphe d'imports, à chaque commit.
+      cycles: Les cycles se détectent dans le graphe d'imports, avant la revue de code.
+      latency: Un comportement en production se mesure en production.
+      resilience: On ne prouve la survie à une panne qu'en la provoquant.
+      complexity: Une métrique calculée sur le code, avec un seuil.
+      bundle: La taille se mesure sur l'artefact construit.
+  monkeys:
+    options:
+      chaos: 'Le premier singe : il tue des instances au hasard.'
+      kong: 'Le plus gros : une région entière.'
+      conformity: Il vérifie que les services respectent les règles.
+      janitor: Le concierge fait le ménage des services orphelins.
+      security: Il cherche les failles connues.

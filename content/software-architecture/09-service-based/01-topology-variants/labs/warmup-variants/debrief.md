@@ -1,0 +1,1 @@
+**Fédérer l'interface seule ou ajouter une gateway ne crée pas de quantum** : la base commune soude toujours les six services. Il faut découper **interface et base** par groupe de services, sans appel entre groupes, pour obtenir deux quanta (D), chacun avec ses propres caractéristiques.

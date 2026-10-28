@@ -1,0 +1,13 @@
+{
+  "fixed": 240,
+  "kind": "scalable",
+  "autoscale": {
+    "base": 3,
+    "max": 10
+  },
+  "which": {
+    "hotel": "scal",
+    "concert": "elas",
+    "tax": "both"
+  }
+}

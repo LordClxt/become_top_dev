@@ -1,0 +1,20 @@
+{
+  "dims": {
+    "p1.dim": "caracteristique",
+    "p1.mode": "guide",
+    "p2.dim": "decision",
+    "p2.mode": "impose",
+    "p3.dim": "principe",
+    "p3.mode": "guide",
+    "p4.dim": "structure",
+    "p4.mode": "guide"
+  },
+  "miracles": {
+    "m1": "stale",
+    "m2": "tap",
+    "m3": "network",
+    "m4": "errors"
+  },
+  "caveman": "caveman",
+  "why": "why"
+}

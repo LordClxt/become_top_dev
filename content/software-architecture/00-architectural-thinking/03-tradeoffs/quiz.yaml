@@ -1,0 +1,110 @@
+id: arch-ch00-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "D'après le livre, pourquoi le modèle « l'architecte conçoit, puis remet aux développeurs » échoue-t-il ?"
+    choices:
+      - "Les développeurs n'aiment pas les diagrammes"
+      - "La flèche est à sens unique : les décisions se perdent et les changements ne remontent pas"
+      - "L'architecte ne code pas assez vite"
+      - "Il manque un chef de projet"
+    answer: 1
+    explanation: "Il faut une relation bidirectionnelle dans une même équipe virtuelle."
+    concept: arch-vs-design
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Dans la pyramide du savoir, que représente la largeur technique d'un architecte ?"
+    choices:
+      - "La taille du sommet (ce qu'il sait)"
+      - "Ce qu'il sait plus ce qu'il sait ne pas savoir"
+      - "Ce qu'il ne sait pas ne pas savoir"
+      - "Le nombre d'années d'expérience"
+    answer: 1
+    explanation: "La largeur, c'est jusqu'où la partie médiane (connue mais non maîtrisée) s'étend."
+    concept: arch-knowledge-pyramid
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Un architecte refuse tout cache distribué « depuis l'incident de 2014 », sans regarder le contexte actuel. C'est…"
+    choices:
+      - "Une saine gestion du risque"
+      - "L'anti-pattern Frozen Caveman"
+      - "Un principe de design"
+      - "De la largeur technique"
+    answer: 1
+    explanation: "Un risque perçu, hérité d'un traumatisme, est traité comme un risque réel."
+    concept: arch-frozen-caveman
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Quel avantage le topic a-t-il sur les files quand on ajoute Bid History ?"
+    choices:
+      - "Bid History reçoit un contrat sur mesure"
+      - "Aucune modification du producteur ni de l'existant n'est nécessaire"
+      - "On peut faire monter Bid History en charge indépendamment"
+      - "Personne ne peut écouter les offres"
+    answer: 1
+    explanation: "C'est l'extensibilité : un nouvel abonné ne touche à rien d'existant."
+    concept: arch-topic-vs-queue
+    difficulty: 1
+  - id: q5
+    type: multiple
+    prompt: "Quels sont les inconvénients du topic par rapport aux files ?"
+    choices:
+      - "Écoute clandestine possible sans détection"
+      - "Un seul contrat pour tous les abonnés"
+      - "Le producteur doit connaître chaque consommateur"
+      - "Supervision et montée en charge par consommateur plus difficiles"
+    answer: [0, 1, 3]
+    explanation: "Connaître chaque consommateur est un inconvénient des files (couplage), pas du topic."
+    concept: arch-topic-vs-queue
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Pourquoi un espion sur une file est-il détecté, et pas sur un topic ?"
+    choices:
+      - "Les files chiffrent les messages"
+      - "Sur une file, l'espion consomme les messages : le vrai destinataire ne les reçoit plus"
+      - "Les topics n'ont pas de journal"
+      - "Les files exigent une authentification"
+    answer: 1
+    explanation: "Sur un topic, l'espion reçoit une copie de plus ; personne ne perd rien, donc personne ne remarque rien."
+    concept: arch-topic-vs-queue
+    difficulty: 2
+  - id: q7
+    type: code-output
+    prompt: "Bid Analytics et Bid History lisent la même file. Combien d'offres Analytics reçoit-il sur 10 ?"
+    code: |
+      const consumers = ['analytics', 'history'];
+      const got: Record<string, number> = { analytics: 0, history: 0 };
+      for (let i = 0; i < 10; i++) got[consumers[i % consumers.length]!]!++;
+      console.log(got.analytics);
+    answer: "5"
+    explanation: "Une file répartit les messages entre ses consommateurs (consommateurs concurrents) : Analytics n'en voit plus que la moitié."
+    concept: arch-competing-consumers
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Quand plusieurs consommateurs sur une même file sont-ils une bonne idée ?"
+    choices:
+      - "Pour que deux services différents reçoivent chacun tous les messages"
+      - "Pour paralléliser le même traitement sur plusieurs instances"
+      - "Pour détecter une écoute clandestine"
+      - "Jamais"
+    answer: 1
+    explanation: "Les consommateurs concurrents servent à répartir la charge d'un même service, pas à diffuser."
+    concept: arch-competing-consumers
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Le régulateur exige que toute écoute des offres soit détectée ; aucun nouveau consommateur n'est prévu. Que privilégier ?"
+    choices:
+      - "Un topic"
+      - "Des files point-à-point"
+      - "Une base partagée"
+      - "Des appels REST synchrones"
+    answer: 1
+    explanation: "Le moteur métier (sécurité) pèse plus que l'extensibilité ici."
+    concept: arch-business-drivers
+    difficulty: 2

@@ -1,0 +1,118 @@
+checks:
+- id: bui
+  label: Le navigateur appelle Bid Capture en synchrone
+  rule: edge_kind
+  source: bidder-ui
+  target: bid-capture
+  kind: sync
+- id: aui
+  label: Le poste du commissaire-priseur appelle Auctioneer Capture en synchrone
+  rule: edge_kind
+  source: auctioneer-ui
+  target: auctioneer-capture
+  kind: sync
+- id: bc-q
+  label: Bid Capture transmet à Bid Tracker uniquement par une file
+  rule: path
+  source: bid-capture
+  target: bid-tracker
+  via: queue
+- id: ac-q
+  label: Auctioneer Capture transmet à Bid Tracker uniquement par une file
+  rule: path
+  source: auctioneer-capture
+  target: bid-tracker
+  via: queue
+- id: bc-direct
+  label: Pas d'appel direct de Bid Capture vers Bid Tracker
+  rule: no_edge
+  source: bid-capture
+  target: bid-tracker
+- id: ac-direct
+  label: Pas d'appel direct d'Auctioneer Capture vers Bid Tracker
+  rule: no_edge
+  source: auctioneer-capture
+  target: bid-tracker
+- id: owner
+  label: Seul Bid Tracker écrit dans la base des offres
+  rule: inbound_via
+  target: bids-db
+  via: bid-tracker
+- id: write
+  label: Bid Tracker écrit les offres ordonnées
+  rule: edge_kind
+  source: bid-tracker
+  target: bids-db
+  kind: write
+- id: stream
+  label: Bid Tracker diffuse vers Bid Streamer en asynchrone
+  rule: edge_kind
+  source: bid-tracker
+  target: bid-streamer
+  kind: async
+- id: push
+  label: Bid Streamer pousse le fil vers les navigateurs en asynchrone
+  rule: edge_kind
+  source: bid-streamer
+  target: bidder-ui
+  kind: async
+- id: pay-q
+  label: Le paiement passe par une file
+  rule: path
+  source: bid-tracker
+  target: payment
+  via: queue
+- id: pay-direct
+  label: Pas d'appel synchrone de Bid Tracker vers Payment
+  rule: no_edge
+  source: bid-tracker
+  target: payment
+- id: z-b1
+  label: Navigateur dans le quantum enchérisseur
+  rule: in_zone
+  source: bidder-ui
+  target: z-bidder
+- id: z-b2
+  label: Bid Capture dans le quantum enchérisseur
+  rule: in_zone
+  source: bid-capture
+  target: z-bidder
+- id: z-a1
+  label: Poste du commissaire-priseur dans son quantum
+  rule: in_zone
+  source: auctioneer-ui
+  target: z-auctioneer
+- id: z-a2
+  label: Auctioneer Capture dans le quantum commissaire-priseur
+  rule: in_zone
+  source: auctioneer-capture
+  target: z-auctioneer
+- id: z-t1
+  label: Bid Tracker dans le quantum suivi des offres
+  rule: in_zone
+  source: bid-tracker
+  target: z-tracker
+- id: z-t2
+  label: Base des offres dans le quantum suivi des offres
+  rule: in_zone
+  source: bids-db
+  target: z-tracker
+- id: z-f
+  label: Bid Streamer dans le quantum retour enchérisseur
+  rule: in_zone
+  source: bid-streamer
+  target: z-feedback
+- id: z-p
+  label: Payment dans le quantum paiement
+  rule: in_zone
+  source: payment
+  target: z-payment
+- id: one-db
+  label: Une seule base des offres
+  rule: count
+  source: bids-db
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

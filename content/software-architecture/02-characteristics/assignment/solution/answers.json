@@ -1,0 +1,21 @@
+{
+  "classify": {
+    "e1": "elasticity",
+    "e2": "reliability",
+    "e3": "none",
+    "e4": "custom",
+    "e5": "none",
+    "e6": "feasibility"
+  },
+  "rush": 167,
+  "implicit": [
+    "availability",
+    "security"
+  ],
+  "top3": [
+    "elasticity",
+    "availability",
+    "reliability"
+  ],
+  "eliminate": "custom"
+}

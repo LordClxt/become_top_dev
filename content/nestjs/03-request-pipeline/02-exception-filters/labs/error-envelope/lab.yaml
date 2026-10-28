@@ -1,0 +1,12 @@
+id: nest-ch03-l02-lab-error-envelope
+title: "Une seule enveloppe d'erreur pour toute l'API"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["errors.filter.ts"]
+concepts: [nest-exception-filters, nest-error-codes, nest-filter-binding]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

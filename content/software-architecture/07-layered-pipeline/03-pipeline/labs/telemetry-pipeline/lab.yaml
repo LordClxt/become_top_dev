@@ -1,0 +1,57 @@
+id: arch-ch07-l03-lab-telemetry-pipeline
+title: Le pipeline de télémétrie
+difficulty: 3
+xp: 90
+concepts:
+- arch-filter-types
+- arch-pipeline-extensibility
+- arch-pipes
+source:
+  chapter: 11
+  pages: 165-166
+palette:
+- type: kafka
+  component: kafka
+  label: Topic Kafka
+  hint: Les services y publient leur télémétrie.
+- type: capture
+  component: stream-processor
+  label: Service Info Capture
+  hint: 'Producteur : s''abonne au topic.'
+- type: duration-filter
+  component: worker
+  label: Duration Filter
+  hint: 'Testeur : la donnée concerne-t-elle la durée ?'
+- type: duration-calc
+  component: worker
+  label: Duration Calculator
+  hint: 'Transformateur : calcule les durées.'
+- type: uptime-filter
+  component: worker
+  label: Uptime Filter
+  hint: 'Testeur : la donnée concerne-t-elle la disponibilité ?'
+- type: uptime-calc
+  component: worker
+  label: Uptime Calculator
+  hint: 'Transformateur : calcule la disponibilité.'
+- type: wait-filter
+  component: worker
+  label: Connection Wait Filter
+  hint: 'Testeur (nouveau) : temps d''attente de connexion à la base ?'
+- type: wait-calc
+  component: worker
+  label: Connection Wait Calculator
+  hint: Transformateur (nouveau).
+- type: output
+  component: worker
+  label: Database Output
+  hint: 'Consommateur : écrit les métriques.'
+- type: mongo
+  component: mongo
+  label: MongoDB
+  hint: Stockage des métriques.
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

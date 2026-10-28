@@ -1,0 +1,3 @@
+**Une préoccupation métier = plusieurs caractéristiques.** « Accélérer » est le time to market : agilité **et** testabilité **et** déployabilité. Le rachat appelle interopérabilité, scalabilité, adaptabilité, extensibilité. Le calcul réglementaire reprend le cas des fonds du livre : il ne suffit pas d'aller vite, il faut être là (disponibilité), ne pas planter (fiabilité), reprendre où l'on s'est arrêté (recouvrabilité) et prouver le résultat (auditabilité).
+
+Pour prioriser, le **top 3** dans n'importe quel ordre : un consensus atteignable, une discussion sur l'essentiel, et une boussole pour les arbitrages.

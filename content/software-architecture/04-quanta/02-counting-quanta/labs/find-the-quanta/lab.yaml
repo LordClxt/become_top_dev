@@ -1,0 +1,53 @@
+id: arch-ch04-l02-lab-find-the-quanta
+title: Deux quanta pour une boutique
+difficulty: 3
+xp: 90
+concepts:
+- arch-quantum-split
+- arch-shared-db-ui
+- arch-quantum-counting
+source:
+  chapter: 7
+  pages: 112-115
+palette:
+- type: admin-ui
+  component: browser
+  label: Back-office
+  hint: Interface des gestionnaires du catalogue.
+- type: admin-svc
+  component: service
+  label: Service Catalogue
+  hint: Crée et modifie produits et entrepôts.
+- type: catalog-db
+  component: postgres
+  label: Base catalogue
+  hint: Les données de référence. Règle son rôle dans le panneau.
+- type: replica
+  component: postgres
+  label: Copie du catalogue
+  hint: Une copie en lecture, alimentée par réplication. Règle son rôle dans le panneau.
+- type: shop-ui
+  component: browser
+  label: Boutique
+  hint: Interface des clients.
+- type: order-svc
+  component: service
+  label: Service Commandes
+  hint: Prend les commandes ; doit lire le catalogue.
+- type: orders-db
+  component: postgres
+  label: Base commandes
+  hint: Les commandes.
+- type: z-admin
+  component: zone
+  label: Quantum administration
+  hint: Une zone qui regroupe un quantum.
+- type: z-shop
+  component: zone
+  label: Quantum client
+  hint: Une zone qui regroupe un quantum.
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

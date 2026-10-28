@@ -1,0 +1,74 @@
+intro: |
+  **Symptôme.** De 12 h 00 à 12 h 20, 40 % des commandes échouent (« 503 Service Unavailable »). Le reste de la journée, tout va bien. Lundi, le fournisseur de cartographie a changé d'offre.
+
+  **Métriques (lundi, 12 h 05)**
+  | métrique | valeur |
+  |---|---|
+  | CPU moyenne des instances | 31 % |
+  | connexions HTTP sortantes en attente vers `traffic-api` | 512 / 512 (pool plein) |
+  | latence p99 de `traffic-api` | 28 s |
+  | requêtes entrantes | 950 / min |
+
+  **`config/traffic.yaml`**
+  ```yaml
+  traffic_api:
+    timeout_ms: 30000
+    max_connections: 512
+    plan: "starter"   # 10 requêtes/s garanties, au-delà : file d'attente côté fournisseur
+  ```
+
+  **`orders/place-order.ts`**
+  ```typescript
+  export async function placeOrder(o: Order) {
+    const route = await traffic.routeWithTraffic(o.shopId, o.address); // obligatoire
+    const pickup = computePickupTime(o, route);
+    await db.save({ ...o, pickup, route });
+    return { pickup, route };
+  }
+  ```
+blocks:
+- id: cause
+  type: choice
+  title: Cause racine
+  prompt: Quelle est la cause racine ?
+  options:
+  - id: fragile
+    label: 'La commande attend obligatoirement le service de trafic : quand il ralentit au pic, le pool de connexions se remplit et les commandes
+      échouent'
+  - id: cpu
+    label: Les instances manquent de CPU au pic
+  - id: db
+    label: La base de données sature à midi
+  - id: ddos
+    label: Une attaque par déni de service à midi
+- id: rate
+  type: number
+  title: L'écart de débit
+  prompt: Au pic, combien de requêtes par seconde la commande envoie-t-elle au service de trafic de plus que les 10 garanties ? (arrondis à l'unité)
+  unit: req/s
+- id: fix
+  type: multi
+  title: Les correctifs
+  prompt: Quelles mesures traitent la cause, conformément à l'esprit du kata ?
+  options:
+  - id: optional
+    label: 'Rendre le trafic optionnel : un délai court, et sans réponse, un itinéraire sans trafic'
+  - id: timeout
+    label: Réduire le timeout de 30 s à quelques centaines de millisecondes
+  - id: morecpu
+    label: Doubler la CPU des instances
+  - id: morepool
+    label: Passer le pool à 5 000 connexions
+  - id: async
+    label: Calculer l'itinéraire après la commande et l'envoyer ensuite
+- id: lesson
+  type: choice
+  title: La leçon
+  prompt: Quelle phrase résume l'erreur d'architecture ?
+  options:
+  - id: fragility
+    label: 'On a construit de la fragilité : une intégration utile mais non essentielle est devenue une condition de succès'
+  - id: elastic
+    label: Le système n'était pas assez élastique
+  - id: vendor
+    label: Il ne faut jamais utiliser de service externe

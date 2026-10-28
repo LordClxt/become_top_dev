@@ -1,0 +1,13 @@
+{
+  "ripples": {
+    "c1.technical": 3,
+    "c1.domain": 1,
+    "c2.technical": 3,
+    "c2.domain": 1,
+    "c3.technical": 1,
+    "c3.domain": 1,
+    "c4.technical": 1,
+    "c4.domain": 3
+  },
+  "verdict": "tradeoff"
+}

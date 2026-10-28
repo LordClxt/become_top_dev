@@ -1,0 +1,16 @@
+id: arch-ch08-l01-lab-warmup-core-or-plugin
+title: 'Échauffement : cœur ou plug-in ?'
+difficulty: 1
+xp: 40
+concepts:
+- arch-core-system
+- arch-move-complexity
+- arch-compile-runtime
+source:
+  chapter: 12
+  pages: 170-175
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

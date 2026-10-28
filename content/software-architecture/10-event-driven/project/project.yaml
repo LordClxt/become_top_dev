@@ -1,0 +1,14 @@
+id: arch-ch10-project
+title: "archkit v11 — broker et médiateur"
+pitch: "Le dernier outil d'archkit pour ce parcours : un broker en mémoire (topics, consommateurs concurrents, acquittement client, corrélation, idempotence) et un médiateur qui persiste son état et reprend là où il s'est arrêté."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 5
+xp: 340
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["eda.ts"]
+concepts: [arch-broker-components, arch-data-loss, arch-request-reply, arch-mediator-recovery, arch-competing-consumers]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

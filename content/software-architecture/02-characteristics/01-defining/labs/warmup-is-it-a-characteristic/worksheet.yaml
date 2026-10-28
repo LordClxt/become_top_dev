@@ -1,0 +1,52 @@
+intro: Extraits du cahier des charges d'une application de prise de rendez-vous médicaux.
+blocks:
+- id: sort
+  type: match
+  title: Trie les phrases
+  prompt: 'Pour chaque phrase : exigence du domaine, caractéristique d''architecture, ou simple hygiène ?'
+  items:
+  - id: p1
+    label: Le patient choisit un créneau et reçoit un rappel la veille.
+  - id: p2
+    label: Le lundi à 8 h, 50 000 patients se connectent en même temps.
+  - id: p3
+    label: Les mots de passe sont stockés hachés.
+  - id: p4
+    label: Les dossiers médicaux sont dans un service isolé, chiffré, accessible aux seuls soignants autorisés.
+  - id: p5
+    label: Le médecin peut annuler une plage horaire.
+  - id: p6
+    label: Chaque cabinet peut brancher ses propres règles de prise de rendez-vous.
+  - id: p7
+    label: Les champs de formulaire sont validés.
+  categories:
+  - id: domain
+    label: Exigence du domaine
+  - id: char
+    label: Caractéristique d'architecture
+  - id: hygiene
+    label: Hygiène (pas de structure dédiée)
+- id: families
+  type: match
+  title: Range par famille
+  prompt: Associe chaque caractéristique à sa famille.
+  items:
+  - id: availability
+    label: Disponibilité
+  - id: recoverability
+    label: Recouvrabilité
+  - id: extensibility
+    label: Extensibilité
+  - id: localization
+    label: Localisation
+  - id: legal
+    label: Contraintes légales (RGPD)
+  - id: accessibility
+    label: Accessibilité
+  categories:
+  - id: operational
+    label: Opérationnelle
+  - id: structural
+    label: Structurelle
+  - id: crosscutting
+    label: Transverse

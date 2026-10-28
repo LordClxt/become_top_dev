@@ -1,0 +1,77 @@
+intro: |
+  Domaines : **recherche de voyages** (forte charge, pics le dimanche soir), **réservation** (créer le dossier, payer, bloquer les places chez le transporteur), **après-vente** (modifications, annulations), **comptabilité fournisseurs**, **back-office des offres** (saisie des voyages par 5 employés), **reporting**.
+
+  Base actuelle : 60 tables. Le monolithe a une bibliothèque d'entités unique. Une table `travellers` est utilisée par tous les domaines.
+blocks:
+- id: scale
+  type: multi
+  title: Instances multiples
+  prompt: Quels services doivent pouvoir monter en charge (plusieurs instances derrière un répartiteur) ?
+  options:
+  - id: search
+    label: Recherche de voyages
+  - id: booking
+    label: Réservation
+  - id: backoffice
+    label: Back-office des offres
+  - id: reporting
+    label: Reporting
+- id: booking-tx
+  type: choice
+  title: La réservation
+  prompt: 'Créer le dossier, payer et bloquer les places : comment les organiser ?'
+  options:
+  - id: facade
+    label: 'Dans la façade du service Réservation : dossier et paiement dans une transaction ACID ; le blocage chez le transporteur (système externe)
+      avec une annulation compensatoire si le paiement échoue'
+  - id: ui
+    label: L'interface appelle trois services l'un après l'autre
+  - id: three
+    label: Trois services distincts coordonnés par chorégraphie
+- id: libs
+  type: table
+  title: Impact des changements de schéma
+  prompt: Avec des bibliothèques fédérées (offres, réservations, après-vente, comptabilité, `common` avec `travellers`), combien de services redéployer
+    ? (6 services ; `offers` est importée par recherche, réservation et back-office ; `bookings` par réservation, après-vente, comptabilité et
+    reporting)
+  columns:
+  - id: n
+    label: Services à redéployer
+  rows:
+  - id: offers
+    label: Colonne ajoutée à `offers`
+    cells: {}
+  - id: bookings
+    label: Colonne ajoutée à `bookings`
+    cells: {}
+  - id: travellers
+    label: Colonne renommée dans `travellers`
+    cells: {}
+  - id: single
+    label: N'importe quelle table, avec la bibliothèque unique actuelle
+    cells: {}
+- id: zones
+  type: choice
+  title: Zones et quanta
+  prompt: La recherche doit tenir les pics du dimanche sans être freinée par le reste. Quelle organisation ?
+  options:
+  - id: two
+    label: 'Interface et base de lecture propres à la recherche (alimentée en asynchrone depuis le back-office), le reste partageant la base principale
+      : deux quanta'
+  - id: one
+    label: 'Tout sur une base et une interface : un quantum suffit'
+  - id: six
+    label: 'Une base par service : six quanta'
+- id: weak
+  type: multi
+  title: Ce que le style ne donnera pas
+  prompt: Quelles attentes faut-il tempérer auprès de la direction ?
+  options:
+  - id: elastic
+    label: Une élasticité de niveau microservices pour les pics
+  - id: fault
+    label: La tolérance aux pannes entre services
+  - id: cheap
+    label: Le coût faible
+  - id: finegrain
+    label: Des déploiements aussi petits qu'en microservices

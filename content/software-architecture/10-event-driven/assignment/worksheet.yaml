@@ -1,0 +1,81 @@
+intro: |
+  Trois flux :
+  - **Offre** : un enchérisseur place une offre ; il doit savoir tout de suite si elle est acceptée ; ensuite, le fil des offres, l'historique, l'analyse antifraude et les statistiques doivent être informés.
+  - **Clôture** : à l'adjudication, il faut débiter le gagnant, émettre la facture, prévenir les perdants, puis organiser la livraison ; si le débit échoue, on contacte le deuxième enchérisseur.
+  - **Cours de l'or** : un flux externe met à jour le cours toutes les secondes ; plusieurs services d'estimation l'utilisent.
+blocks:
+- id: topologies
+  type: match
+  title: Topologie de chaque flux
+  prompt: Associe chaque flux à sa topologie.
+  items:
+  - id: offer
+    label: Diffusion de l'offre acceptée (fil, historique, antifraude, statistiques)
+  - id: close
+    label: Clôture et paiement
+  - id: gold
+    label: Cours de l'or
+  categories:
+  - id: broker
+    label: Broker (topics)
+  - id: mediator
+    label: Médiateur
+  - id: broadcast
+    label: Diffusion pure
+- id: accept
+  type: choice
+  title: L'acceptation de l'offre
+  prompt: Comment l'enchérisseur apprend-il tout de suite que son offre est acceptée ?
+  options:
+  - id: rr
+    label: Request-reply avec identifiant de corrélation vers le service qui ordonne les offres
+  - id: topic
+    label: Il s'abonne au topic de toutes les offres et cherche la sienne
+  - id: none
+    label: 'Il ne l''apprend pas : tout est asynchrone'
+- id: losses
+  type: multi
+  title: Aucune offre perdue
+  prompt: Quelles protections appliquer au flux des offres ?
+  options:
+  - id: persist
+    label: Files persistantes et envoi synchrone vers le broker
+  - id: ack
+    label: Acquittement client chez les consommateurs
+  - id: lps
+    label: Écriture en base dans une transaction, message retiré après le commit (LPS)
+  - id: auto
+    label: Acquittement automatique pour aller plus vite
+- id: close-steps
+  type: order
+  title: Les étapes du médiateur de clôture
+  prompt: Range les étapes.
+  items:
+  - id: charge
+    label: Débiter le gagnant (et attendre l'acquittement)
+  - id: invoice
+    label: Émettre la facture et prévenir les perdants (en parallèle)
+  - id: ship
+    label: Organiser la livraison
+  - id: done
+    label: Marquer la clôture terminée et supprimer l'état
+- id: fail
+  type: choice
+  title: Le débit échoue
+  prompt: Le débit du gagnant échoue (carte refusée). Que fait le médiateur ?
+  options:
+  - id: stop
+    label: Il arrête le workflow, persiste l'état, déclenche la proposition au deuxième enchérisseur, et reprend à l'étape de débit
+  - id: continue
+    label: Il émet la facture quand même
+  - id: restart
+    label: Il recommence toute la vente
+- id: quanta
+  type: choice
+  title: Et en quanta ?
+  prompt: Le request-reply de l'acceptation lie l'interface enchérisseur et le service qui ordonne les offres. Qu'en déduire ?
+  options:
+  - id: same
+    label: 'Ils forment le même quantum : ce service doit avoir l''élasticité des enchérisseurs'
+  - id: separate
+    label: Ils restent indépendants car la communication est asynchrone

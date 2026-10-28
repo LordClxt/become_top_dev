@@ -1,0 +1,17 @@
+blocks:
+  kinds:
+    options:
+      c1: 'Les appelants dépendent du nom de la fonction : la forme la plus faible.'
+      c2: Les deux modules doivent s'accorder sur ce que signifie 3.
+      c3: 'Les types sont les mêmes : seul l''ordre porte le sens.'
+      c4: Les deux côtés doivent exécuter exactement le même calcul.
+      c5: Les appels doivent se faire dans un certain ordre.
+      c6: Le résultat dépend du moment relatif des deux exécutions.
+      c7: Deux valeurs liées qui doivent changer ensemble.
+      c8: Les deux services doivent s'accorder sur le type de l'identifiant.
+  fixes:
+    options:
+      c2: Un nombre magique devient un nom vérifié par le compilateur.
+      c3: Nommer les arguments rend l'ordre indifférent.
+      c5: Un objet valide dès sa construction supprime l'ordre d'appel.
+      c4: Un algorithme dupliqué doit devenir une seule source de vérité.

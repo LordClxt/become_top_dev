@@ -1,0 +1,20 @@
+blocks:
+  proposals:
+    options:
+      p1: 'Toute requête passe toujours par le cœur : pas de quanta en plus, mais du distribué en plus.'
+      p2: Chaque migration du schéma central deviendrait un risque pour ce plug-in.
+      p3: Un cas particulier dans le cœur, c'est le début du retour de la complexité.
+      p4: Un stockage propre au plug-in respecte le découplage.
+  why-p1:
+    options:
+      many: Le cœur reste monolithique et sur le chemin de toutes les requêtes.
+      nothing: Le déploiement, la latence et les pannes partielles changent beaucoup.
+  fix-p3:
+    options:
+      change: On imposerait le contrat d'un tiers aux 179 autres plug-ins.
+      refuse: Le plug-in apporte de la valeur ; il suffit de l'adapter.
+  registry:
+    options:
+      r1: 'Un chemin de module : un appel de fonction.'
+      r2: Un nom de file.
+      r3: Une URL.

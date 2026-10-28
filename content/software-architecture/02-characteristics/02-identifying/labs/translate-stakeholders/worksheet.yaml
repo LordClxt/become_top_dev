@@ -1,0 +1,73 @@
+intro: Une néobanque prépare sa nouvelle plateforme. Trois responsables s'expriment en réunion.
+blocks:
+- id: ceo
+  type: multi
+  title: La directrice générale
+  prompt: « Notre concurrent sort une fonctionnalité par semaine. Nous en sortons une par trimestre. Il faut **accélérer**. » Quelles caractéristiques
+    ?
+  options:
+  - id: agility
+    label: Agilité
+  - id: testability
+    label: Testabilité
+  - id: deployability
+    label: Déployabilité
+  - id: performance
+    label: Performance
+  - id: elasticity
+    label: Élasticité
+- id: cfo
+  type: multi
+  title: Le directeur financier
+  prompt: « Nous rachetons deux banques régionales l'an prochain, avec leurs systèmes et leurs clients. » Quelles caractéristiques ?
+  options:
+  - id: interop
+    label: Interopérabilité
+  - id: scalability
+    label: Scalabilité
+  - id: adaptability
+    label: Adaptabilité
+  - id: extensibility
+    label: Extensibilité
+  - id: accessibility
+    label: Accessibilité
+- id: risk
+  type: multi
+  title: La responsable des risques
+  prompt: « Le calcul réglementaire de fin de journée doit être transmis avant minuit. Le régulateur peut demander à le recalculer. » Au-delà
+    de la performance, que faut-il ?
+  options:
+  - id: availability
+    label: Disponibilité
+  - id: reliability
+    label: Fiabilité
+  - id: recoverability
+    label: Recouvrabilité
+  - id: auditability
+    label: Auditabilité
+  - id: localization
+    label: Localisation
+- id: trap
+  type: choice
+  title: Le piège
+  prompt: 'Un architecte répond à la directrice générale : « Compris, on passe en microservices pour l''agilité. » Qu''a-t-il oublié ?'
+  options:
+  - id: flour
+    label: 'La testabilité et la déployabilité : sans elles, l''agilité n''accélère pas la mise en marché'
+  - id: perf
+    label: La performance des microservices
+  - id: nothing
+    label: Rien, l'agilité suffit
+- id: priority
+  type: choice
+  title: La priorisation
+  prompt: La liste finale compte onze caractéristiques. Comment la faire prioriser par ces trois responsables ?
+  options:
+  - id: top3
+    label: Leur faire choisir ensemble les trois plus importantes, dans n'importe quel ordre
+  - id: rank
+    label: Leur faire classer les onze de 1 à 11
+  - id: alone
+    label: Prioriser seul, pour gagner du temps
+  - id: all
+    label: Les garder toutes au même niveau

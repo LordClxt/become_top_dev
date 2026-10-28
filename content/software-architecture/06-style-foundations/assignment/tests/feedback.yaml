@@ -1,0 +1,17 @@
+blocks:
+  latency:
+    wrong: 5 appels × 40 ms.
+  waste:
+    tolerance:
+      abs: 0.5
+    wrong: 400 × (80 − 4) Ko, converti en Mo.
+  yearly:
+    wrong: 2 400 € × 12.
+  quanta:
+    options:
+      six: 'Le nombre de services ne crée pas de quanta : il faudrait des caractéristiques différentes.'
+      two: Rien n'indique que lecture et écriture aient des besoins opposés ici.
+  reco:
+    options:
+      micro: 200 ms de latence, 30 Mo/s gaspillés et 28 800 €/an, pour aucun besoin que le monolithe ne satisfait déjà.
+      nothing: 'Le partitionnement par domaine prépare l''avenir à faible coût : ne rien faire n''est pas la seule alternative.'

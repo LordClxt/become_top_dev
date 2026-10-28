@@ -1,0 +1,65 @@
+intro: |
+  Rappel du module 02 : Silicon Sandwiches doit être **scalable**, **élastique** (le midi), **disponible**, et **personnalisable** par franchise (promotions locales, recettes, itinéraires). Le budget est modeste.
+
+  - **Option A — microkernel** : le cœur gère la commande ; chaque franchise a ses plug-ins (promotions, recettes, itinéraire).
+  - **Option B — Template Method** : un style plus classique ; une classe de base définit le déroulé de la commande, chaque franchise surcharge des étapes.
+blocks:
+- id: pros
+  type: match
+  title: Pour quelle option ?
+  prompt: Associe chaque argument à l'option qu'il favorise.
+  items:
+  - id: a1
+    label: 'Isomorphisme fort : la configuration varie par franchise'
+  - id: a2
+    label: Ajouter une franchise sans toucher au code commun ni aux autres franchises
+  - id: a3
+    label: Rester sur un seul style, simple, que l'équipe connaît
+  - id: a4
+    label: La personnalisation reste du design, sans structure dédiée
+  categories:
+  - id: a
+    label: Option A (microkernel)
+  - id: b
+    label: Option B (Template Method)
+- id: limits
+  type: multi
+  title: Ce que le microkernel ne résout pas
+  prompt: Quelles caractéristiques retenues restent mal servies par un microkernel monolithique ?
+  options:
+  - id: elasticity
+    label: Élasticité (le pic du midi)
+  - id: scalability
+    label: Scalabilité
+  - id: custom
+    label: Personnalisation par franchise
+  - id: cost
+    label: Coût
+- id: quanta
+  type: number
+  title: Combien de quanta ?
+  prompt: Avec l'option A, 300 franchises et 900 plug-ins, combien de quanta compte l'architecture ?
+  unit: quanta
+- id: decision
+  type: choice
+  title: La décision
+  prompt: Quelle décision défendrais-tu dans l'ADR ?
+  options:
+  - id: micro
+    label: 'Microkernel : l''isomorphisme par franchise est fort ; l''élasticité devra être traitée à part (cache, files, instances), et c''est
+      écrit dans les conséquences'
+  - id: template
+    label: 'Template Method sans réserve : la personnalisation est un détail'
+  - id: micro-solves
+    label: Microkernel, car il résout aussi l'élasticité
+- id: contract
+  type: choice
+  title: Le contrat des plug-ins de promotion
+  prompt: Quel contrat pour les plug-ins de promotion ?
+  options:
+  - id: standard
+    label: 'Un contrat standard commun : panier en entrée, remises et libellé en sortie ; un adaptateur pour un éventuel outil promotionnel tiers'
+  - id: free
+    label: Chaque franchise définit son propre format, le cœur s'adapte
+  - id: db
+    label: Chaque plug-in écrit directement ses remises dans la base des commandes

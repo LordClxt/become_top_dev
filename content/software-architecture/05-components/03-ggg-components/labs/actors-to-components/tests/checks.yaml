@@ -1,0 +1,58 @@
+checks:
+- id: bid
+  label: L'enchérisseur enchérit via Bid Capture jusqu'à BidTracker
+  rule: path
+  source: bidder
+  target: bid-tracker
+  via: bid-capture
+- id: auct
+  label: Le commissaire-priseur saisit via Auctioneer Capture jusqu'à BidTracker
+  rule: path
+  source: auctioneer
+  target: bid-tracker
+  via: auctioneer-capture
+- id: no-cross-1
+  label: Le commissaire-priseur n'utilise pas la capture des enchérisseurs
+  rule: no_edge
+  source: auctioneer
+  target: bid-capture
+- id: no-cross-2
+  label: L'enchérisseur n'utilise pas la capture du commissaire-priseur
+  rule: no_edge
+  source: bidder
+  target: auctioneer-capture
+- id: stream-room
+  label: Les offres de la salle alimentent le fil diffusé
+  rule: path
+  source: auctioneer-capture
+  target: bid-streamer
+- id: video
+  label: L'enchérisseur reçoit la vidéo
+  rule: path
+  source: video-streamer
+  target: bidder
+- id: feed
+  label: L'enchérisseur reçoit le fil des offres
+  rule: path
+  source: bid-streamer
+  target: bidder
+- id: pay
+  label: AuctionSession déclenche le paiement
+  rule: path
+  source: auction-session
+  target: payment
+- id: two-captures
+  label: Exactement une capture de chaque sorte
+  rule: count
+  source: auctioneer-capture
+  min: 1
+  max: 1
+- id: one-bc
+  label: Une seule Bid Capture
+  rule: count
+  source: bid-capture
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

@@ -1,0 +1,8 @@
+id: arch-ch07-layers-isolation
+concept: arch-layers-of-isolation
+format: interactive
+justification: "Ouvrir ou fermer chaque couche puis modifier la persistance montre en couleur les couches touchées : l'isolation se voit disparaître dès qu'on ouvre le flux principal."
+entry: LayersIsolation.tsx
+params:
+  - { name: openLayers, type: int, min: 0, max: 3, default: 0 }
+status: built

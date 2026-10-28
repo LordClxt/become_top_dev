@@ -1,0 +1,26 @@
+blocks:
+  retry:
+    goals:
+      p99: 'Sous 400 ms, on coupe des appels sains à la Banque : on crée des échecs.'
+      fail: 'Avec une ou deux tentatives, trop de paiements échouent sur une perte transitoire : il en faut trois.'
+      worst: 'Trois tentatives sur trois appels synchrones coûtent 3,6 s dans le pire cas. Aucun réglage de paramètre ne suffit : un appel doit-il
+        vraiment rester dans le chemin synchrone ?'
+  idempotent:
+    options:
+      never: Sans retry, 2 % des débits échouent pour une perte réseau transitoire.
+      longer: Un timeout plus long ne règle pas le cas où la réponse s'est perdue après le débit.
+  bw:
+    tolerance:
+      abs: 0.5
+    wrong: 900 × (60 − 0,1) Ko, converti en Mo.
+  breaker:
+    options:
+      hammer: On accable un service déjà en panne et on bloque les ressources de Paiement.
+      down: 'Seuls les débits sont touchés : le reste de la plateforme peut continuer.'
+  secure:
+    options:
+      firewall: Le réseau n'est pas sûr, même derrière le pare-feu (erreur 4).
+  trace:
+    options:
+      grep: 'Des montants identiques, des formats différents, des dizaines de journaux : une fouille sans fin.'
+      nothing: La Banque ne sait pas ce que Paiement et Notification ont fait.

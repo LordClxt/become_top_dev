@@ -1,0 +1,18 @@
+blocks:
+  stats:
+    tolerance:
+      abs: 0.5
+    options:
+      mean.value: 'Additionne tout et divise par 20 : deux valeurs tirent la moyenne.'
+      p50.value: La 10e valeur triée.
+      p95.value: La 19e valeur triée (⌈0,95 × 20⌉ = 19).
+      max.value: La plus grande valeur.
+  slo:
+    options:
+      mean: La moyenne (317 ms) passerait sous 400 ms alors qu'un client a attendu 4 secondes.
+      p50: La médiane ne voit que le client typique.
+      none: Sans seuil, rien n'est vérifié.
+  model:
+    options:
+      fixed: La nuit, un effondrement passerait inaperçu sous un seuil calé sur le samedi.
+      night: Chaque samedi déclencherait une fausse alerte.

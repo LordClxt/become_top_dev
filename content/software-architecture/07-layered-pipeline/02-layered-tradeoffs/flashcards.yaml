@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Règle des 80/20 du puits ?"
+    back: "20 % de requêtes en simple relais : acceptable. 80 % : le style en couches ne convient pas."
+    concept: arch-sinkhole
+  - id: fc2
+    front: "Points forts des couches ?"
+    back: "Coût global et simplicité (tant que le monolithe reste petit)."
+    concept: arch-layered-ratings
+  - id: fc3
+    front: "Notes les plus faibles des couches ?"
+    back: "Déployabilité, élasticité, scalabilité (très faibles) ; testabilité et performance (faibles) ; aucune tolérance aux pannes."
+    concept: arch-layered-ratings
+  - id: fc4
+    front: "Combien de quanta a une architecture en couches ?"
+    back: "Toujours un : interface, traitement et base monolithiques."
+    concept: arch-layered-ratings
+  - id: fc5
+    front: "MTTR d'un monolithe ?"
+    back: "Élevé : de 2 minutes (petite application) à 15 minutes ou plus de démarrage."
+    concept: arch-layered-ratings
+  - id: fc6
+    front: "Quand choisir les couches ?"
+    back: "Petites applications, budget et délais serrés, besoins encore flous."
+    concept: arch-layered-when

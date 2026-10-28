@@ -1,0 +1,3 @@
+**Mesurer, figer, empêcher l'aggravation, resserrer.** `pricingEngine` a une CC de 131 − 96 + 2 = **37** : un candidat prioritaire. Le paiement a un p99 de **120 ms** et un p99,9 de **2 s** : seule la queue montre les 60 clients en difficulté.
+
+Le cliquet compare les violations **une par une** : une pull request qui en supprime trois et en crée une est refusée, car le nouveau cycle est une aggravation. Corrigée, elle fait passer la référence à **35**. Et l'ordre d'adoption compte : expliquer d'abord (pas de tour d'ivoire), figer la référence, bloquer le neuf, puis resserrer. Chaque règle s'exécute là où sa caractéristique est observable : CI, production, chaos.

@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Modèle par requêtes vs par événements ?"
+    back: "Requêtes : orchestrateur déterministe et synchrone, orienté données. Événements : réagir à un fait (une enchère placée)."
+    concept: arch-request-vs-event
+  - id: fc2
+    front: "Quatre composants de la topologie broker ?"
+    back: "Événement initiateur, broker d'événements, processeur d'événements, événement de traitement."
+    concept: arch-broker-components
+  - id: fc3
+    front: "Canaux utilisés en topologie broker ?"
+    back: "Des topics (publish/subscribe), sur un broker léger souvent fédéré par domaine."
+    concept: arch-broker-components
+  - id: fc4
+    front: "Pourquoi publier un événement que personne n'écoute ?"
+    back: "Extensibilité : un futur processeur pourra s'y abonner sans rien changer."
+    concept: arch-advertise
+  - id: fc5
+    front: "Rôle des topics en cas de ralentissement ?"
+    back: "Point de contre-pression : les messages attendent le processeur lent."
+    concept: arch-relay-race
+  - id: fc6
+    front: "Cinq inconvénients du broker ?"
+    back: "Contrôle du workflow, gestion d'erreurs, reprise, redémarrage, incohérence des données."
+    concept: arch-broker-drawbacks

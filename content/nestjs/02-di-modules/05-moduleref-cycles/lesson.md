@@ -74,9 +74,12 @@ C'est utile pour des cas vraiment dynamiques : choisir un gestionnaire à l'exé
 
 ## Sous le capot
 
-Pourquoi un import circulaire entre **fichiers** casse-t-il l'injection ? Quand `payments.ts` importe `orders.ts` qui importe `payments.ts`, l'un des deux modules ES n'a pas fini de s'évaluer quand l'autre lit sa classe. Au moment où tsc écrit `design:paramtypes`, la classe vaut encore `undefined`. L'injecteur trouve donc `[undefined]` et lève l'erreur « undefined dependency… circular import or missing dependency ».
+Pourquoi un import circulaire entre **fichiers** casse-t-il l'injection ? Quand `payments.ts` importe `orders.ts` qui importe `payments.ts`, l'un des deux modules n'a pas fini de s'évaluer quand l'autre lit sa classe. Or tsc écrit `__metadata("design:paramtypes", [OrdersService])` **au chargement du fichier**, au moment où la classe est décorée :
 
-`forwardRef` contourne exactement ça : l'injecteur stocke la fonction, et ne l'appelle (`resolveParamToken`) qu'au moment de résoudre, quand tous les fichiers sont chargés.
+- en **ESM** (le défaut de Nest 12), la classe est encore dans sa « zone morte » : Node lève `ReferenceError: Cannot access 'OrdersService' before initialization` avant même que Nest démarre ;
+- en **CommonJS**, l'export vaut encore `undefined` : l'injecteur trouve `[undefined]` et lève « undefined dependency… circular import or missing dependency ».
+
+`forwardRef(() => X)` contourne exactement ça : la flèche n'est appelée qu'au moment de résoudre (`resolveParamToken`), quand tous les fichiers sont chargés. Et parce que le paramètre porte `@Inject(...)`, la métadonnée lue est celle de `@Inject`, pas la valeur figée dans `design:paramtypes`.
 
 ## Pièges fréquents
 

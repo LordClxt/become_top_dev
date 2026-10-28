@@ -1,0 +1,103 @@
+intro: |
+  **Description** : un réseau de 2 000 médecins généralistes lance la téléconsultation vidéo.
+
+  **Utilisateurs** : 400 000 patients inscrits ; en temps normal 1 500 consultations simultanées ; lors des épidémies hivernales, jusqu'à **6 fois plus** pendant plusieurs semaines.
+
+  **Exigences** :
+  1. Le patient réserve un créneau, rejoint une salle d'attente virtuelle, puis la vidéo.
+  2. La vidéo passe par un fournisseur WebRTC externe.
+  3. Le médecin rédige une ordonnance électronique, signée, transmise à la pharmacie.
+  4. Le patient reçoit un SMS de rappel une heure avant.
+  5. Les comptes rendus restent consultables 20 ans (obligation légale).
+
+  **Contexte additionnel** : la directrice médicale dit : « Il faut lancer avant l'hiver et améliorer chaque semaine. » Les données de santé exigent un hébergement certifié et des accès tracés. Le budget de lancement est limité.
+blocks:
+- id: ceo
+  type: multi
+  title: « Lancer avant l'hiver et améliorer chaque semaine »
+  prompt: Quelles caractéristiques cette phrase exige-t-elle ?
+  options:
+  - id: agility
+    label: Agilité
+  - id: testability
+    label: Testabilité
+  - id: deployability
+    label: Déployabilité
+  - id: performance
+    label: Performance
+  - id: portability
+    label: Portabilité
+- id: winter
+  type: choice
+  title: L'hiver
+  prompt: 'Six fois plus de consultations pendant plusieurs semaines : qu''est-ce que cela demande ?'
+  options:
+  - id: both
+    label: Scalabilité (un volume durablement élevé) et élasticité (monter puis redescendre)
+  - id: elastic
+    label: Seulement de l'élasticité, comme une billetterie
+  - id: none
+    label: 'Rien : 1 500 consultations simultanées suffisent'
+- id: sorting
+  type: match
+  title: Exigence par exigence
+  prompt: Pour chaque élément, la caractéristique qui compte le plus (ou aucune).
+  items:
+  - id: r2
+    label: Vidéo via un fournisseur externe
+  - id: r3
+    label: Ordonnance signée transmise à la pharmacie
+  - id: r4
+    label: SMS de rappel
+  - id: r5
+    label: Comptes rendus conservés 20 ans
+  - id: ctx
+    label: Données de santé, accès tracés
+  categories:
+  - id: reliability
+    label: Fiabilité (tenir malgré une intégration)
+  - id: auditability
+    label: Auditabilité / non-répudiation
+  - id: none
+    label: Aucune caractéristique d'architecture
+  - id: archivability
+    label: Archivabilité
+  - id: security
+    label: Sécurité structurante (isolement, traçabilité)
+- id: video
+  type: choice
+  title: Le fournisseur vidéo tombe
+  prompt: Que doit faire la plateforme si le fournisseur WebRTC est indisponible ?
+  options:
+  - id: degrade
+    label: Basculer la consultation en appel téléphonique ou la reporter, sans bloquer le reste (réservations, ordonnances)
+  - id: down
+    label: Mettre toute la plateforme en maintenance
+  - id: retry
+    label: Réessayer indéfiniment la connexion vidéo
+- id: top3
+  type: multi
+  title: Le top 3
+  prompt: Les trois caractéristiques les plus importantes ?
+  options:
+  - id: elasticity
+    label: Élasticité (et scalabilité) pour l'hiver
+  - id: security
+    label: Sécurité structurante des données de santé
+  - id: deployability
+    label: Déployabilité / agilité (lancer et itérer)
+  - id: archivability
+    label: Archivabilité
+  - id: performance
+    label: Performance
+- id: eliminate
+  type: choice
+  title: Celle qu'on élimine
+  prompt: Laquelle retirer de la liste d'architecture en premier ?
+  options:
+  - id: archivability
+    label: 'L''archivabilité : un stockage d''archive standard suffit, sans structure particulière dans l''application'
+  - id: security
+    label: La sécurité
+  - id: elasticity
+    label: L'élasticité

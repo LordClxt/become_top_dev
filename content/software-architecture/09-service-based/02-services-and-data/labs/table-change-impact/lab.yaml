@@ -1,0 +1,15 @@
+id: arch-ch09-l02-lab-table-change-impact
+title: Le coût d'un changement de table
+difficulty: 2
+xp: 80
+concepts:
+- arch-sb-entity-libs
+- arch-sb-shared-db
+source:
+  chapter: 13
+  pages: 189-191
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

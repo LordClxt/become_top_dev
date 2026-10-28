@@ -1,0 +1,7 @@
+id: arch-ch06-mud-circle
+concept: arch-big-ball-of-mud
+format: hyperframes
+justification: "Les classes placées sur un cercle et les dépendances qui s'ajoutent sprint après sprint jusqu'au cercle noir montrent la boule de boue comme un processus, pas comme un état."
+entry: scene.html
+duration_s: 12
+status: built

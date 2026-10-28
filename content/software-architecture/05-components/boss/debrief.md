@@ -1,0 +1,3 @@
+**Partir des actions, pas des tables.** Les actions révèlent des parties aux caractéristiques opposées : l'urgence (disponibilité absolue), la réservation (élasticité du rush), le suivi de position (flux temps réel en lecture). Elles justifient des quanta séparés ; le reste (publication, profil, règlement) peut vivre ensemble dans un monolithe modulaire, partitionné par domaine pour pouvoir en extraire une partie plus tard.
+
+Une vingtaine de microservices pour six développeurs serait trop fin. La bonne réponse est la moins mauvaise : **peu de quanta, choisis là où les caractéristiques divergent vraiment**.

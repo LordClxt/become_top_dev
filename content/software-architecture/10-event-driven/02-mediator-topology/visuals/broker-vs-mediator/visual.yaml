@@ -1,0 +1,8 @@
+id: arch-ch10-broker-vs-mediator
+concept: arch-broker-vs-mediator
+format: interactive
+justification: "Jouer la même commande dans les deux topologies puis faire planter Payment montre l'écart décisif : incohérence silencieuse en broker, arrêt et reprise en médiateur."
+entry: BrokerVsMediator.tsx
+params:
+  - { name: crashPayment, type: int, min: 0, max: 1, default: 1 }
+status: built

@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Définition d'un module (livre) ?"
+    back: "Un regroupement logique de code lié (classes, fonctions…), pas forcément une séparation physique."
+    concept: arch-modularity
+  - id: fc2
+    front: "Pourquoi la modularité se dégrade-t-elle ?"
+    back: "Entropie : un système tend vers le désordre, il faut dépenser de l'énergie en continu pour garder la structure."
+    concept: arch-modularity
+  - id: fc3
+    front: "Les sept cohésions, de la meilleure à la pire ?"
+    back: "Fonctionnelle, séquentielle, communicationnelle, procédurale, temporelle, logique, coïncidente."
+    concept: arch-cohesion-types
+  - id: fc4
+    front: "Cohésion temporelle : exemple ?"
+    back: "Tout ce qu'on initialise au démarrage, sans autre lien entre ces tâches."
+    concept: arch-cohesion-types
+  - id: fc5
+    front: "Citation de Constantine sur la cohésion ?"
+    back: "Diviser un module cohésif ne fait qu'augmenter le couplage et diminuer la lisibilité."
+    concept: arch-cohesion-tradeoff
+  - id: fc6
+    front: "LCOM en une phrase ?"
+    back: "La somme des ensembles de méthodes qui ne sont pas reliées par des champs partagés."
+    concept: arch-lcom
+  - id: fc7
+    front: "À quoi sert LCOM lors d'une migration ?"
+    back: "Repérer les classes utilitaires couplées par accident, qui n'auraient jamais dû être une seule classe."
+    concept: arch-lcom
+  - id: fc8
+    front: "Limite de LCOM ?"
+    back: "Il ne voit que la structure : il ne sait pas si des morceaux vont logiquement ensemble."
+    concept: arch-lcom

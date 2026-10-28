@@ -1,0 +1,14 @@
+id: arch-ch02-project
+title: "archkit v3 — le simulateur de charge"
+pitch: "Mesurer au lieu de deviner : une file, des instances, des percentiles et un autoscaler pour voir, chiffres à l'appui, la différence entre scalabilité et élasticité."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 4
+xp: 260
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["loadsim.ts"]
+concepts: [arch-scalability-vs-elasticity, arch-requirements-knowledge, arch-least-worst]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,15 @@
+{
+  "retry": {
+    "timeout": 400,
+    "tries": 3,
+    "notifAsync": 1
+  },
+  "idempotent": "key",
+  "bw": 53.9,
+  "breaker": "breaker",
+  "secure": [
+    "mtls",
+    "authz"
+  ],
+  "trace": "corr"
+}

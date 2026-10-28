@@ -1,0 +1,14 @@
+{
+  "stuck": 312,
+  "cause": "lost",
+  "limits": [
+    "control",
+    "errors",
+    "restart"
+  ],
+  "fix": [
+    "ack",
+    "watch",
+    "mediator"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "metrics": {
+    "bidding.i": 1,
+    "bidding.d": 0.2,
+    "auction.i": 0.5,
+    "auction.d": 0,
+    "users.i": 0.33,
+    "users.d": 0.42
+  },
+  "worst": "money-pain",
+  "lcom": 3,
+  "split": "video",
+  "crossing": {
+    "x1": "meaning",
+    "x2": "algorithm",
+    "x3": "values",
+    "x4": "name"
+  },
+  "first": "x3"
+}

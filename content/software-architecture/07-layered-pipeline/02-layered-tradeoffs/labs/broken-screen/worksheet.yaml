@@ -1,0 +1,55 @@
+intro: |
+  **Symptôme.** Après la migration `057_rename_status.sql` (colonne `status` renommée `state`), l'écran « Suivi de commande » affiche « undefined » partout. Les tests du métier et de la persistance sont verts.
+
+  **Message de commit, il y a 8 mois** : « Suivi de commande : lecture directe du repository pour aller plus vite (temporaire) ».
+
+  **`src/presentation/tracking/TrackingPage.tsx`**
+  ```typescript
+  import { OrderRow } from '../../persistence/orders/order-row';   // type de ligne SQL
+  import { findOrder } from '../../persistence/orders/repository';
+  // …
+  <span>{row.status}</span>
+  ```
+
+  **Documentation d'architecture** : « Couches fermées : présentation → métier → persistance → base. » Aucune exception documentée.
+
+  **CI** : lint, tests unitaires, build. Aucune vérification des dépendances entre couches.
+blocks:
+- id: cause
+  type: choice
+  title: Cause racine
+  prompt: Pourquoi la migration a-t-elle cassé la présentation ?
+  options:
+  - id: bypass
+    label: 'La présentation contourne le métier et dépend directement d''un type de la persistance : l''isolation des couches est rompue'
+  - id: migration
+    label: La migration est mal écrite
+  - id: react
+    label: Un bug de React
+  - id: tests
+    label: Les tests du métier sont insuffisants
+- id: rule
+  type: multi
+  title: Ce qui a manqué
+  prompt: Qu'est-ce qui aurait empêché cette régression ?
+  options:
+  - id: fitness
+    label: Une fitness function de couches en CI (présentation ne doit pas importer persistance)
+  - id: variance
+    label: 'Si l''exception était nécessaire : une variance documentée, avec un test de contrat sur ce qu''elle lit'
+  - id: dto
+    label: Que la présentation reçoive un objet du métier, pas une ligne SQL
+  - id: freeze
+    label: Interdire toute migration de base
+- id: perf
+  type: choice
+  title: La raison invoquée
+  prompt: Le contournement avait été fait « pour aller plus vite ». Quelle réponse d'architecte ?
+  options:
+  - id: measure
+    label: Mesurer d'abord ; si la lecture est vraiment un puits, l'assumer explicitement (couche ouverte documentée, ou endpoint de lecture dédié)
+      plutôt qu'en douce
+  - id: allow
+    label: La performance justifie toujours de contourner les couches
+  - id: never
+    label: La performance ne compte jamais

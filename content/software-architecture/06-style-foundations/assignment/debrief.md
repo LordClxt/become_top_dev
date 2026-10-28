@@ -1,0 +1,3 @@
+**Le distribué a un prix, et il faut une raison de le payer.** Ici : 200 ms de latence en plus sur la page produit, 30 Mo/s transportés pour rien, 28 800 € par an d'infrastructure, et toutes les difficultés du distribué (journalisation, transactions, contrats), pour un système qui n'a **qu'un seul jeu de caractéristiques** et qu'une équipe de cinq.
+
+La recommandation raisonnable : rester monolithique, mais **par domaine** (monolithe modulaire, module 05), avec des fitness functions sur les frontières. Le jour où un domaine aura vraiment des caractéristiques différentes, il pourra être extrait.

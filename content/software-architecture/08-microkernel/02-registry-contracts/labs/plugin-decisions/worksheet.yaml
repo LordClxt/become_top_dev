@@ -1,0 +1,61 @@
+intro: Le microkernel d'évaluation compte 180 plug-ins d'appareils, chargés à la compilation, et une base centrale.
+blocks:
+- id: proposals
+  type: match
+  title: Bonne idée ?
+  prompt: Pour chaque proposition, choisis le verdict.
+  items:
+  - id: p1
+    label: « Passons tous les plug-ins en microservices REST pour avoir plusieurs quanta. »
+  - id: p2
+    label: « Le plug-in Pixel lira directement la table `devices` pour gagner un aller-retour. »
+  - id: p3
+    label: '« Le plug-in Samsung, fourni par Samsung, renvoie une note de A à E : ajoutons un if dans le cœur. »'
+  - id: p4
+    label: « Chaque plug-in d'appareil aura son petit fichier de règles embarqué, que lui seul lit. »
+  categories:
+  - id: good
+    label: Bonne idée
+  - id: bad
+    label: Mauvaise idée
+- id: why-p1
+  type: choice
+  title: Pourquoi pas plusieurs quanta ?
+  prompt: Que se passe-t-il réellement si tous les plug-ins deviennent des services REST ?
+  options:
+  - id: one
+    label: Toujours un seul quantum (tout passe par le cœur), mais une architecture désormais distribuée, plus chère, où un plug-in en panne bloque
+      sa requête
+  - id: many
+    label: 180 quanta indépendants
+  - id: nothing
+    label: Rien ne change
+- id: fix-p3
+  type: choice
+  title: Le plug-in Samsung
+  prompt: Quelle solution pour le contrat de Samsung ?
+  options:
+  - id: adapter
+    label: Un adaptateur qui convertit sa note en AssessmentOutput standard
+  - id: change
+    label: Changer le contrat standard pour accepter des notes
+  - id: refuse
+    label: Refuser le plug-in
+- id: registry
+  type: match
+  title: Le registre
+  prompt: Associe chaque entrée de registre à son mode d'accès.
+  items:
+  - id: r1
+    label: '`iPhone6s` → `app/plugin/assessment/iphone6s`'
+  - id: r2
+    label: '`Galaxy5` → `galaxy5.assessment` (file)'
+  - id: r3
+    label: '`Pixel3` → `https://atlas:443/assess/pixel3`'
+  categories:
+  - id: local
+    label: Point à point (appel de fonction)
+  - id: queue
+    label: Messagerie
+  - id: rest
+    label: REST

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="arch-ch06-mud-circle" />
+    <title>La boule de boue</title>
+    <!--
+      Choreography (12 s) :
+        0.0 – 3.5  peu de dépendances
+        3.5 – 7.5  elles s’accumulent
+        7.5 – 12   le cercle noircit
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0c0d12; --surface: #15161e; --surface-2: #1d1f2b; --line: #2b2e40;
+        --text: #f4f4ef; --muted: #a3a5b8; --accent: #d6ff3d; --pass: #5be49b; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f3f2ec; --surface: #ffffff; --surface-2: #e9e8e0; --line: #d9d7cc;
+        --text: #0c0d12; --muted: #5b5d6e; --accent: #3a3dff; --pass: #1f8a50; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 60px; text-align: center; font-size: 50px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .card { position: absolute; border-radius: 24px; border: 4px solid var(--line); background: var(--surface);
+        padding: 18px 26px; opacity: 0; }
+      .card .t { font-size: 36px; font-weight: 600; }
+      .card .d { font-size: 26px; color: var(--muted); margin-top: 4px; }
+      .pass { border-color: var(--pass); } .fail { border-color: var(--fail); } .acc { border-color: var(--accent); }
+      .tag { position: absolute; font-size: 30px; opacity: 0; }
+      .tag.pass { color: var(--pass); } .tag.fail { color: var(--fail); } .tag.acc { color: var(--accent); }
+      svg.lines { position: absolute; inset: 0; overflow: visible; }
+      svg.lines line, svg.lines path { fill: none; stroke: var(--line); stroke-width: 5; stroke-linecap: round; opacity: 0; }
+      svg.lines .dash { stroke-dasharray: 14 12; }
+      .dot { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); opacity: 0; }
+
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">Sprint 1 : <em>14 dépendances</em>, tout se lit</div>
+      <div class="caption" id="c2">Sprint 10 : 60 dépendances, les imports « automatiques » s'accumulent</div>
+      <div class="caption" id="c3">Sprint 40 : <em>150 dépendances</em> sur 153 paires : tout dépend de tout</div>
+      <svg class="lines" width="1920" height="1080"><line class="w0" x1="684" y1="831" x2="622" y2="723" /><line class="w0" x1="684" y1="831" x2="1236" y2="369" /><line class="w0" x1="1140" y1="912" x2="1236" y2="369" /><line class="w0" x1="1140" y1="912" x2="1023" y2="955" /><line class="w0" x1="1298" y1="723" x2="897" y2="955" /><line class="w0" x1="1320" y1="600" x2="1298" y2="723" /><line class="w0" x1="600" y1="600" x2="780" y2="288" /><line class="w0" x1="1298" y1="723" x2="1298" y2="477" /><line class="w0" x1="1236" y1="831" x2="897" y2="955" /><line class="w0" x1="897" y1="245" x2="1023" y2="245" /><line class="w0" x1="1320" y1="600" x2="684" y2="831" /><line class="w0" x1="1320" y1="600" x2="780" y2="288" /><line class="w0" x1="1320" y1="600" x2="1298" y2="477" /><line class="w0" x1="1236" y1="831" x2="1140" y2="288" /><line class="w1" x1="1298" y1="723" x2="780" y2="288" /><line class="w1" x1="1236" y1="831" x2="1140" y2="912" /><line class="w1" x1="780" y1="912" x2="780" y2="288" /><line class="w1" x1="684" y1="831" x2="780" y2="288" /><line class="w1" x1="780" y1="912" x2="1023" y2="245" /><line class="w1" x1="622" y1="477" x2="897" y2="245" /><line class="w1" x1="897" y1="245" x2="1140" y2="288" /><line class="w1" x1="1140" y1="912" x2="684" y2="369" /><line class="w1" x1="1320" y1="600" x2="1140" y2="912" /><line class="w1" x1="897" y1="955" x2="780" y2="912" /><line class="w1" x1="1298" y1="723" x2="622" y2="477" /><line class="w1" x1="684" y1="831" x2="1140" y2="288" /><line class="w1" x1="1236" y1="831" x2="1023" y2="955" /><line class="w1" x1="897" y1="955" x2="1298" y2="477" /><line class="w1" x1="1140" y1="912" x2="780" y2="912" /><line class="w1" x1="1023" y1="955" x2="600" y2="600" /><line class="w1" x1="684" y1="831" x2="897" y2="245" /><line class="w1" x1="780" y1="288" x2="1023" y2="245" /><line class="w1" x1="1140" y1="912" x2="897" y2="955" /><line class="w1" x1="684" y1="369" x2="1236" y2="369" /><line class="w1" x1="684" y1="831" x2="622" y2="477" /><line class="w1" x1="897" y1="955" x2="1140" y2="288" /><line class="w1" x1="622" y1="723" x2="1298" y2="477" /><line class="w1" x1="780" y1="912" x2="622" y2="477" /><line class="w1" x1="1320" y1="600" x2="1236" y2="831" /><line class="w1" x1="780" y1="288" x2="1140" y2="288" /><line class="w1" x1="780" y1="288" x2="897" y2="245" /><line class="w1" x1="600" y1="600" x2="897" y2="245" /><line class="w1" x1="1298" y1="723" x2="897" y2="245" /><line class="w1" x1="1023" y1="955" x2="684" y2="831" /><line class="w1" x1="897" y1="955" x2="622" y2="723" /><line class="w1" x1="1236" y1="831" x2="684" y2="369" /><line class="w1" x1="622" y1="723" x2="1140" y2="288" /><line class="w1" x1="1140" y1="912" x2="622" y2="723" /><line class="w1" x1="780" y1="912" x2="600" y2="600" /><line class="w1" x1="1320" y1="600" x2="1023" y2="955" /><line class="w1" x1="897" y1="955" x2="600" y2="600" /><line class="w1" x1="1236" y1="831" x2="780" y2="288" /><line class="w1" x1="897" y1="955" x2="684" y2="369" /><line class="w1" x1="1298" y1="723" x2="1140" y2="288" /><line class="w1" x1="600" y1="600" x2="1236" y2="369" /><line class="w1" x1="684" y1="369" x2="1023" y2="245" /><line class="w1" x1="780" y1="912" x2="1140" y2="288" /><line class="w1" x1="1320" y1="600" x2="897" y2="955" /><line class="w1" x1="1298" y1="723" x2="1023" y2="245" /><line class="w1" x1="1140" y1="912" x2="684" y2="831" /><line class="w2" x1="600" y1="600" x2="1140" y2="288" /><line class="w2" x1="897" y1="955" x2="1236" y2="369" /><line class="w2" x1="1236" y1="369" x2="1298" y2="477" /><line class="w2" x1="1236" y1="831" x2="1023" y2="245" /><line class="w2" x1="622" y1="723" x2="1236" y2="369" /><line class="w2" x1="897" y1="245" x2="1236" y2="369" /><line class="w2" x1="897" y1="955" x2="684" y2="831" /><line class="w2" x1="622" y1="477" x2="780" y2="288" /><line class="w2" x1="897" y1="955" x2="1023" y2="245" /><line class="w2" x1="1023" y1="955" x2="897" y2="955" /><line class="w2" x1="1298" y1="723" x2="1023" y2="955" /><line class="w2" x1="684" y1="831" x2="600" y2="600" /><line class="w2" x1="1298" y1="723" x2="780" y2="912" /><line class="w2" x1="600" y1="600" x2="1023" y2="245" /><line class="w2" x1="1023" y1="955" x2="622" y2="723" /><line class="w2" x1="600" y1="600" x2="684" y2="369" /><line class="w2" x1="780" y1="288" x2="1236" y2="369" /><line class="w2" x1="1236" y1="831" x2="780" y2="912" /><line class="w2" x1="622" y1="477" x2="1298" y2="477" /><line class="w2" x1="1236" y1="831" x2="897" y2="245" /><line class="w2" x1="780" y1="912" x2="1298" y2="477" /><line class="w2" x1="1023" y1="955" x2="622" y2="477" /><line class="w2" x1="780" y1="912" x2="622" y2="723" /><line class="w2" x1="600" y1="600" x2="1298" y2="477" /><line class="w2" x1="1320" y1="600" x2="684" y2="369" /><line class="w2" x1="780" y1="912" x2="1236" y2="369" /><line class="w2" x1="622" y1="723" x2="897" y2="245" /><line class="w2" x1="684" y1="369" x2="780" y2="288" /><line class="w2" x1="1140" y1="288" x2="1298" y2="477" /><line class="w2" x1="1236" y1="831" x2="1236" y2="369" /><line class="w2" x1="1140" y1="912" x2="1023" y2="245" /><line class="w2" x1="622" y1="723" x2="684" y2="369" /><line class="w2" x1="1140" y1="912" x2="1140" y2="288" /><line class="w2" x1="1236" y1="831" x2="622" y2="477" /><line class="w2" x1="780" y1="288" x2="1298" y2="477" /><line class="w2" x1="1023" y1="955" x2="684" y2="369" /><line class="w2" x1="622" y1="723" x2="1023" y2="245" /><line class="w2" x1="1023" y1="955" x2="780" y2="912" /><line class="w2" x1="1298" y1="723" x2="684" y2="369" /><line class="w2" x1="897" y1="955" x2="622" y2="477" /><line class="w2" x1="1320" y1="600" x2="622" y2="723" /><line class="w2" x1="1023" y1="955" x2="1140" y2="288" /><line class="w2" x1="1320" y1="600" x2="600" y2="600" /><line class="w2" x1="780" y1="912" x2="684" y2="369" /><line class="w2" x1="1023" y1="955" x2="897" y2="245" /><line class="w2" x1="622" y1="477" x2="1023" y2="245" /><line class="w2" x1="1236" y1="831" x2="1298" y2="477" /><line class="w2" x1="897" y1="245" x2="1298" y2="477" /><line class="w2" x1="897" y1="955" x2="780" y2="288" /><line class="w2" x1="600" y1="600" x2="622" y2="477" /><line class="w2" x1="1023" y1="955" x2="1298" y2="477" /><line class="w2" x1="1320" y1="600" x2="1023" y2="245" /><line class="w2" x1="684" y1="369" x2="1140" y2="288" /><line class="w2" x1="780" y1="912" x2="684" y2="831" /><line class="w2" x1="684" y1="831" x2="1023" y2="245" /><line class="w2" x1="622" y1="477" x2="684" y2="369" /><line class="w2" x1="1236" y1="831" x2="600" y2="600" /><line class="w2" x1="1023" y1="955" x2="1236" y2="369" /><line class="w2" x1="622" y1="477" x2="1236" y2="369" /><line class="w2" x1="1023" y1="955" x2="780" y2="288" /><line class="w2" x1="1023" y1="245" x2="1236" y2="369" /><line class="w2" x1="1140" y1="912" x2="600" y2="600" /><line class="w2" x1="1236" y1="831" x2="684" y2="831" /><line class="w2" x1="1023" y1="245" x2="1140" y2="288" /><line class="w2" x1="622" y1="723" x2="622" y2="477" /><line class="w2" x1="1023" y1="955" x2="1023" y2="245" /><line class="w2" x1="1320" y1="600" x2="780" y2="912" /><line class="w2" x1="1140" y1="912" x2="780" y2="288" /><line class="w2" x1="1023" y1="245" x2="1298" y2="477" /><line class="w2" x1="1140" y1="288" x2="1236" y2="369" /><line class="w2" x1="684" y1="369" x2="897" y2="245" /><line class="w2" x1="1140" y1="912" x2="897" y2="245" /><line class="w2" x1="1298" y1="723" x2="1236" y2="369" /><line class="w2" x1="1320" y1="600" x2="1236" y2="369" /><line class="w2" x1="622" y1="723" x2="600" y2="600" /><line class="w2" x1="1298" y1="723" x2="622" y2="723" /><line class="w2" x1="1140" y1="912" x2="1298" y2="477" /><line class="w2" x1="1298" y1="723" x2="1236" y2="831" /><line class="w2" x1="684" y1="831" x2="1298" y2="477" /><line class="w2" x1="622" y1="723" x2="780" y2="288" /><line class="w2" x1="1298" y1="723" x2="684" y2="831" /><line class="w2" x1="1320" y1="600" x2="622" y2="477" /><line class="w2" x1="1140" y1="912" x2="622" y2="477" /><line class="w2" x1="622" y1="477" x2="1140" y2="288" /><line class="w2" x1="1320" y1="600" x2="1140" y2="288" /><line class="w2" x1="780" y1="912" x2="897" y2="245" /><line class="w2" x1="1298" y1="723" x2="600" y2="600" /><line class="w2" x1="684" y1="369" x2="1298" y2="477" /><line class="w2" x1="1298" y1="723" x2="1140" y2="912" /><line class="w2" x1="1320" y1="600" x2="897" y2="245" /></svg>
+      <div class="dot" id="p0" style="left:1307px;top:587px"></div>
+      <div class="dot" id="p1" style="left:1285px;top:710px"></div>
+      <div class="dot" id="p2" style="left:1223px;top:818px"></div>
+      <div class="dot" id="p3" style="left:1127px;top:899px"></div>
+      <div class="dot" id="p4" style="left:1010px;top:942px"></div>
+      <div class="dot" id="p5" style="left:884px;top:942px"></div>
+      <div class="dot" id="p6" style="left:767px;top:899px"></div>
+      <div class="dot" id="p7" style="left:671px;top:818px"></div>
+      <div class="dot" id="p8" style="left:609px;top:710px"></div>
+      <div class="dot" id="p9" style="left:587px;top:587px"></div>
+      <div class="dot" id="p10" style="left:609px;top:464px"></div>
+      <div class="dot" id="p11" style="left:671px;top:356px"></div>
+      <div class="dot" id="p12" style="left:767px;top:275px"></div>
+      <div class="dot" id="p13" style="left:884px;top:232px"></div>
+      <div class="dot" id="p14" style="left:1010px;top:232px"></div>
+      <div class="dot" id="p15" style="left:1127px;top:275px"></div>
+      <div class="dot" id="p16" style="left:1223px;top:356px"></div>
+      <div class="dot" id="p17" style="left:1285px;top:464px"></div>
+      <div class="tag acc mono" id="dens" style="left:1500px;top:980px">densité</div>
+    </div>
+    <script>
+      const DURATION = 12;
+      const tl = gsap.timeline({ paused: true });
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      function show(sel, t, d = 0.4) {
+        tl.fromTo(sel, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: d, stagger: 0.08, ease: "power3.out", immediateRender: false }, t);
+      }
+      function fade(sel, t, to = 1) { tl.to(sel, { opacity: to, duration: 0.35 }, t); }
+      function hide(sel, t) { tl.to(sel, { opacity: 0, duration: 0.25 }, t); }
+      function pulse(sel, t) {
+        tl.fromTo(sel, { scale: 1 }, { keyframes: { scale: [1, 1.07, 1] }, duration: 0.45, ease: "none", immediateRender: false }, t);
+      }
+      function color(sel, c, t) { tl.to(sel, { borderColor: c, duration: 0.3 }, t); }
+      function stroke(sel, c, t) { tl.to(sel, { stroke: c, duration: 0.3 }, t); }
+      function travel(sel, x1, y1, x2, y2, t, d = 0.8) {
+        tl.fromTo(sel, { left: x1, top: y1, opacity: 1 }, { left: x2, top: y2, duration: d, ease: "power1.inOut", immediateRender: false }, t);
+        tl.to(sel, { opacity: 0, duration: 0.15 }, t + d);
+      }
+      const ACC = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+      const PASS = getComputedStyle(document.documentElement).getPropertyValue("--pass").trim();
+      const FAIL = getComputedStyle(document.documentElement).getPropertyValue("--fail").trim();
+      captions([["#c1", 0.3, 3.5], ["#c2", 3.7, 7.5], ["#c3", 7.7, DURATION + 1]]);
+      show("[id^=p]", 0.1, 0.3);
+      tl.to(".w0", { opacity: 1, duration: 0.6, stagger: 0.05 }, 0.8);
+      tl.to(".w1", { opacity: 1, duration: 0.4, stagger: 0.04 }, 4.0);
+      tl.to(".w2", { opacity: 0.9, duration: 0.3, stagger: 0.02 }, 8.0);
+      tl.to(".w2,.w1", { stroke: FAIL, duration: 0.6 }, 10.6);
+      show("#dens", 0.5);
+      tl.to("#dens", { textContent: "densité 0,09", duration: 0 }, 0.5);
+      tl.to("#dens", { textContent: "densité 0,39", duration: 0 }, 4.5);
+      tl.to("#dens", { textContent: "densité 0,98", duration: 0 }, 9.0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

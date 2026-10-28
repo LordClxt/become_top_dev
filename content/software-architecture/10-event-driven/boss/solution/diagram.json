@@ -1,0 +1,184 @@
+{
+  "nodes": [
+    {
+      "id": "ui",
+      "type": "ui",
+      "x": 0,
+      "y": 200
+    },
+    {
+      "id": "iq",
+      "type": "initq",
+      "x": 180,
+      "y": 200
+    },
+    {
+      "id": "med",
+      "type": "mediator",
+      "x": 380,
+      "y": 200
+    },
+    {
+      "id": "st",
+      "type": "state",
+      "x": 380,
+      "y": 380
+    },
+    {
+      "id": "qp",
+      "type": "q-payment",
+      "x": 600,
+      "y": 80
+    },
+    {
+      "id": "qi",
+      "type": "q-inventory",
+      "x": 600,
+      "y": 300
+    },
+    {
+      "id": "pay",
+      "type": "payment",
+      "x": 800,
+      "y": 80
+    },
+    {
+      "id": "inv",
+      "type": "inventory",
+      "x": 800,
+      "y": 300
+    },
+    {
+      "id": "err",
+      "type": "errors",
+      "x": 1000,
+      "y": 0
+    },
+    {
+      "id": "dash",
+      "type": "dashboard",
+      "x": 1200,
+      "y": 0
+    },
+    {
+      "id": "tp",
+      "type": "topic",
+      "x": 600,
+      "y": 480
+    },
+    {
+      "id": "nt",
+      "type": "notify",
+      "x": 800,
+      "y": 440
+    },
+    {
+      "id": "an",
+      "type": "analytics",
+      "x": 800,
+      "y": 560
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "ui",
+      "target": "iq",
+      "kind": "async"
+    },
+    {
+      "id": "e2",
+      "source": "iq",
+      "target": "med",
+      "kind": "async"
+    },
+    {
+      "id": "e3",
+      "source": "med",
+      "target": "st",
+      "kind": "write"
+    },
+    {
+      "id": "e4",
+      "source": "med",
+      "target": "qp",
+      "kind": "async"
+    },
+    {
+      "id": "e5",
+      "source": "med",
+      "target": "qi",
+      "kind": "async"
+    },
+    {
+      "id": "e6",
+      "source": "qp",
+      "target": "pay",
+      "kind": "async"
+    },
+    {
+      "id": "e7",
+      "source": "qi",
+      "target": "inv",
+      "kind": "async"
+    },
+    {
+      "id": "e8",
+      "source": "pay",
+      "target": "med",
+      "kind": "async",
+      "label": "ack"
+    },
+    {
+      "id": "e9",
+      "source": "inv",
+      "target": "med",
+      "kind": "async",
+      "label": "ack"
+    },
+    {
+      "id": "e10",
+      "source": "pay",
+      "target": "err",
+      "kind": "async"
+    },
+    {
+      "id": "e11",
+      "source": "err",
+      "target": "qp",
+      "kind": "async",
+      "label": "réparé"
+    },
+    {
+      "id": "e12",
+      "source": "err",
+      "target": "dash",
+      "kind": "async"
+    },
+    {
+      "id": "e13",
+      "source": "dash",
+      "target": "qp",
+      "kind": "async",
+      "label": "corrigé"
+    },
+    {
+      "id": "e14",
+      "source": "med",
+      "target": "tp",
+      "kind": "async"
+    },
+    {
+      "id": "e15",
+      "source": "tp",
+      "target": "nt",
+      "kind": "async"
+    },
+    {
+      "id": "e16",
+      "source": "tp",
+      "target": "an",
+      "kind": "async"
+    }
+  ]
+}

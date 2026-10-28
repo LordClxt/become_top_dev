@@ -1,0 +1,101 @@
+intro: |
+  Le graphe d'imports d'une boutique (un import compte une fois) :
+
+  | module | importe | éléments abstraits | éléments concrets |
+  |---|---|---|---|
+  | api | orders, catalog, money | 0 | 4 |
+  | admin | orders, money | 0 | 3 |
+  | orders | money, db, catalog | 0 | 5 |
+  | catalog | money, db | 2 | 2 |
+  | money | — | 0 | 6 |
+  | db | — | 3 | 0 |
+blocks:
+- id: metrics
+  type: table
+  title: Calcule les métriques
+  prompt: Complète Ca, Ce, I et D (deux décimales).
+  columns:
+  - id: ca
+    label: Ca
+  - id: ce
+    label: Ce
+  - id: i
+    label: I
+  - id: d
+    label: D
+  rows:
+  - id: orders
+    label: orders
+    cells: {}
+  - id: catalog
+    label: catalog
+    cells: {}
+  - id: money
+    label: money
+    cells: {}
+  - id: db
+    label: db
+    cells: {}
+- id: zones
+  type: match
+  title: Où sont-ils ?
+  prompt: Situe chaque module. Le module `extensions` (nouveau) contient 6 interfaces, importe `money`, et personne ne l'importe.
+  items:
+  - id: money
+    label: money
+  - id: db
+    label: db
+  - id: catalog
+    label: catalog
+  - id: extensions
+    label: extensions
+  categories:
+  - id: pain
+    label: Zone de douleur
+  - id: useless
+    label: Zone d'inutilité
+  - id: main
+    label: Sur (ou près de) la séquence principale
+- id: rescue
+  type: tuner
+  title: Sortir money de la zone de douleur
+  prompt: On garde l'implémentation de `money` (au moins 3 éléments concrets) et on introduit des abstractions stables (un type `Money` opaque,
+    une interface d'opérations…). money a toujours 8 dépendants et 1 dépendance. Règle-le pour que **D < 0,15** sans dépasser **10 abstractions**.
+  params:
+  - id: abstract
+    label: Éléments abstraits
+    unit: ''
+    min: 0
+    max: 12
+    step: 1
+    default: 0
+  - id: concrete
+    label: Éléments concrets
+    unit: ''
+    min: 1
+    max: 8
+    step: 1
+    default: 6
+  metrics:
+  - id: A
+    label: Abstraction A
+    expr: abstract / (abstract + concrete)
+    format: number
+  - id: I
+    label: Instabilité I
+    expr: 1 / (1 + 8)
+    format: number
+  - id: D
+    label: Distance D
+    expr: abs(abstract / (abstract + concrete) + 1 / 9 - 1)
+    format: number
+  goals:
+  - id: dist
+    label: D < 0,15
+    expr: abs(abstract / (abstract + concrete) + 1 / 9 - 1) < 0.15
+  - id: impl
+    label: Au moins 3 éléments concrets
+    expr: concrete >= 3
+  - id: cap
+    label: Au plus 10 abstractions
+    expr: abstract <= 10

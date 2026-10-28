@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Les trois critères d'une caractéristique d'architecture ?"
+    back: "Considération hors domaine ; influence sur la structure ; critique pour le succès."
+    concept: arch-char-three-criteria
+  - id: fc2
+    front: "Paiement délégué vs paiement interne : quelle différence pour la sécurité ?"
+    back: "Délégué : hygiène, pas d'architecture. Interne : module/service isolé, donc caractéristique d'architecture."
+    concept: arch-char-three-criteria
+  - id: fc3
+    front: "Trois caractéristiques implicites presque universelles ?"
+    back: "Disponibilité, fiabilité, sécurité."
+    concept: arch-char-implicit-explicit
+  - id: fc4
+    front: "Les trois familles de caractéristiques ?"
+    back: "Opérationnelles, structurelles, transverses."
+    concept: arch-char-categories
+  - id: fc5
+    front: "Interopérabilité vs compatibilité ?"
+    back: "Interopérabilité : intégration facile via des API publiées. Compatibilité : respect des standards du secteur."
+    concept: arch-char-ambiguity
+  - id: fc6
+    front: "Parade contre l'ambiguïté des termes ?"
+    back: "Un langage ubiquitaire : des définitions écrites et partagées dans l'organisation."
+    concept: arch-char-ambiguity
+  - id: fc7
+    front: "Italy-ility ?"
+    back: "Une caractéristique propre à une organisation (disponibilité + recouvrabilité + résilience), née d'un incident et nommée."
+    concept: arch-char-ambiguity
+  - id: fc8
+    front: "Conseil du livre sur la « meilleure » architecture ?"
+    back: "Ne vise jamais la meilleure, mais la moins mauvaise ; et garde-la itérative."
+    concept: arch-least-worst

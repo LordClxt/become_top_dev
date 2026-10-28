@@ -1,0 +1,16 @@
+id: arch-ch08-l02-lab-iphone-broken
+title: 'Enquête : le Galaxy a cassé l''iPhone'
+difficulty: 3
+xp: 90
+concepts:
+- arch-plugin-rules
+- arch-plugin-data
+- arch-plugin-contracts
+source:
+  chapter: 12
+  pages: 173-178
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

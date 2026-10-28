@@ -1,0 +1,16 @@
+id: arch-ch10-l04-lab-correlation
+title: Corrélation et quanta
+difficulty: 2
+xp: 80
+concepts:
+- arch-request-reply
+- arch-eda-ratings
+- arch-choose-event-model
+source:
+  chapter: 14
+  pages: 224-230
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

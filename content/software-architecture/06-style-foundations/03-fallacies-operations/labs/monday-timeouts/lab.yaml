@@ -1,0 +1,17 @@
+id: arch-ch06-l03-lab-monday-timeouts
+title: 'Enquête : les timeouts du lundi matin'
+difficulty: 3
+xp: 90
+concepts:
+- arch-fallacy-topology
+- arch-fallacy-admins
+- arch-fallacy-latency
+- arch-fallacy-reliable
+source:
+  chapter: 9
+  pages: 148-149
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

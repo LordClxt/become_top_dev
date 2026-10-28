@@ -1,0 +1,1 @@
+Relis le premier dossier d'architecture du site d'enchères Going, Going, Gone : classe ses phrases, repère ce qui guide et ce qui impose, et retrouve le trade-off caché de quatre « solutions miracles ».

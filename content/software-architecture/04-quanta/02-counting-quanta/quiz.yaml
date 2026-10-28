@@ -1,0 +1,77 @@
+id: arch-ch04-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Une seule interface web appelle en synchrone quatre services, chacun avec sa base. Combien de quanta ?"
+    choices: ["1", "4", "5", "8"]
+    answer: 0
+    explanation: "L'interface partagée, qui appelle tout en synchrone, lie les quatre services en un seul quantum."
+    concept: arch-shared-db-ui
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Comment obtenir quatre quanta dans ce système ?"
+    choices:
+      - "Ajouter des instances à chaque service"
+      - "Fédérer l'interface (un écran par domaine, micro-frontends) ou découpler les appels"
+      - "Partager une base commune"
+      - "Passer à un seul service"
+    answer: 1
+    explanation: "Il faut supprimer le lien synchrone commun qu'est l'interface unique."
+    concept: arch-quantum-split
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Combien de quanta ce calcul trouve-t-il ?"
+    code: |
+      type Link = [string, string, 'sync' | 'async' | 'db'];
+      const nodes = ['ui', 'catalog', 'orders', 'shipping', 'db1', 'db2'];
+      const links: Link[] = [
+        ['ui', 'catalog', 'sync'], ['ui', 'orders', 'sync'],
+        ['catalog', 'db1', 'db'], ['orders', 'db1', 'db'],
+        ['orders', 'shipping', 'async'], ['shipping', 'db2', 'db'],
+      ];
+      const parent = new Map(nodes.map((n) => [n, n]));
+      const find = (n: string): string => (parent.get(n) === n ? n : find(parent.get(n)!));
+      for (const [a, b, k] of links) if (k !== 'async') parent.set(find(a), find(b));
+      console.log(new Set(nodes.map(find)).size);
+    answer: "2"
+    explanation: "{ui, catalog, orders, db1} d'un côté, {shipping, db2} de l'autre : le seul lien vers shipping est asynchrone."
+    concept: arch-quantum-counting
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Administration (catalogue, peu de changements) et partie client (commandes, forte charge) doivent être deux quanta. Où vit la base du catalogue ?"
+    choices:
+      - "Dans le quantum client, lue en synchrone par l'administration"
+      - "Dans le quantum administration, avec une copie répliquée en asynchrone côté client"
+      - "Partagée en synchrone par les deux"
+      - "Nulle part, on la supprime"
+    answer: 1
+    explanation: "L'administration possède les données qu'elle modifie ; le client lit sa copie et survit à une panne de l'administration."
+    concept: arch-quantum-split
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Le système n'a qu'un seul jeu de caractéristiques pour toutes ses parties. Qu'en déduire ?"
+    choices:
+      - "Il faut des microservices"
+      - "Un monolithe suffit probablement : plus simple et moins cher"
+      - "Il faut un style event-driven"
+      - "Rien"
+    answer: 1
+    explanation: "Plusieurs jeux de caractéristiques très différents poussent vers le distribué ; un seul, vers le monolithe."
+    concept: arch-quantum-decision
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Deux services communiquent uniquement par événements, mais partagent un schéma d'événements commun. Quel couplage subsiste ?"
+    choices:
+      - "Aucun"
+      - "Une connascence statique (le contrat), même s'ils sont deux quanta"
+      - "Une connascence synchrone"
+      - "Une base partagée"
+    answer: 1
+    explanation: "Asynchrone ne veut pas dire sans couplage : le contrat d'événement reste à faire évoluer avec soin."
+    concept: arch-quantum-counting
+    difficulty: 2

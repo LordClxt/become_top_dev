@@ -1,0 +1,15 @@
+id: arch-ch00-l01-lab-warmup-dimensions
+title: 'Échauffement : les quatre dimensions'
+difficulty: 1
+xp: 40
+concepts:
+- arch-four-dimensions
+- arch-decision-vs-principle
+source:
+  chapter: 1
+  pages: 24-28
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

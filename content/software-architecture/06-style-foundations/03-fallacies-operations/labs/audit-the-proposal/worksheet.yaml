@@ -1,0 +1,54 @@
+intro: Extraits de la proposition « Passage aux microservices », rédigée par l'équipe Commandes.
+blocks:
+- id: fallacies
+  type: match
+  title: Quelle erreur ?
+  prompt: Associe chaque phrase à l'erreur du calcul distribué qu'elle commet.
+  items:
+  - id: p1
+    label: « Les appels internes n'ont pas besoin de timeout, notre réseau ne tombe pas. »
+  - id: p2
+    label: « Un appel de plus ne changera pas le temps de réponse. »
+  - id: p3
+    label: « Chaque service renverra l'objet complet, c'est plus simple. »
+  - id: p4
+    label: '« Pas besoin d''authentification entre services : ils sont derrière le pare-feu. »'
+  - id: p5
+    label: « Le réseau du datacenter est stable, il n'a pas bougé depuis des années. »
+  - id: p6
+    label: « On validera la latence avec l'admin réseau. »
+  - id: p7
+    label: « Aucun budget d'infrastructure n'est nécessaire, on réutilise les serveurs. »
+  - id: p8
+    label: « Tout le matériel réseau est standard, ça marchera partout pareil. »
+  categories:
+  - id: f1
+    label: 1. Le réseau est fiable
+  - id: f2
+    label: 2. La latence est nulle
+  - id: f3
+    label: 3. La bande passante est infinie
+  - id: f4
+    label: 4. Le réseau est sûr
+  - id: f5
+    label: 5. La topologie ne change jamais
+  - id: f6
+    label: 6. Il n'y a qu'un administrateur
+  - id: f7
+    label: 7. Le transport ne coûte rien
+  - id: f8
+    label: 8. Le réseau est homogène
+- id: forgotten
+  type: multi
+  title: Ce que la proposition oublie
+  prompt: La proposition prévoit que la prise de commande écrive dans les bases Commandes, Stock et Paiement « dans la même transaction », et
+    que chaque équipe fasse évoluer son API « quand elle veut ». Quels défis oublie-t-elle ?
+  options:
+  - id: tx
+    label: 'Il n''y a plus de transaction ACID entre trois bases : cohérence à terme, sagas ou compensation'
+  - id: contracts
+    label: Faire évoluer une API sans plan de version ni de dépréciation casse les consommateurs
+  - id: logs
+    label: Suivre une commande à travers trois services demande une journalisation distribuée (identifiant de corrélation)
+  - id: css
+    label: La feuille de style du site

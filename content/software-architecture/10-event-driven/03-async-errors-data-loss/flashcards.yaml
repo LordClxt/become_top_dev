@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Réactivité vs performance ?"
+    back: "Réactivité : dire tout de suite que c'est accepté. Performance : rendre le traitement plus rapide."
+    concept: arch-responsiveness-vs-performance
+  - id: fc2
+    front: "Trois mots du workflow event pattern ?"
+    back: "Délégation, confinement, réparation."
+    concept: arch-workflow-event-pattern
+  - id: fc3
+    front: "Exemple de réparation du livre ?"
+    back: "L'ordre « 8756 SHARES » : le délégué retire « SHARES » et resoumet l'ordre."
+    concept: arch-workflow-event-pattern
+  - id: fc4
+    front: "Garder l'ordre malgré la réparation ?"
+    back: "Mettre les ordres suivants du même compte dans une file temporaire FIFO, vidée après la réparation."
+    concept: arch-out-of-order
+  - id: fc5
+    front: "Trois points de perte de données ?"
+    back: "Entre producteur et file ; consommateur qui plante après lecture ; échec d'écriture en base."
+    concept: arch-data-loss
+  - id: fc6
+    front: "Trois parades à la perte de données ?"
+    back: "Files persistantes + envoi synchrone ; acquittement client ; transaction ACID + LPS."
+    concept: arch-data-loss

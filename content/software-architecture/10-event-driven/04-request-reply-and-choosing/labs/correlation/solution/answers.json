@@ -1,0 +1,14 @@
+{
+  "replies": {
+    "r900": "loyalty",
+    "r901": "nobody",
+    "r902": "booking",
+    "r903": "billing"
+  },
+  "quanta": 2,
+  "why-cid": "volume",
+  "model": {
+    "m1": "request",
+    "m2": "event"
+  }
+}

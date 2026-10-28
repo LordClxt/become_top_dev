@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "File, service et rejets"
+    goal: "Simuler tick par tick une file FIFO bornée servie par des instances de capacité fixe, rejeter les requêtes les plus récentes au-delà de la file, et produire les statistiques par tick."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Percentiles et coût"
+    goal: "Mesurer l'attente de chaque requête servie dans un histogramme, en tirer p50 et p99 au rang le plus proche, et calculer le coût."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Autoscaling"
+    goal: "Décider à chaque tick du nombre d'instances voulu pour l'utilisation visée, borné par min et max, appliqué avec un délai de démarrage."
+    tests: "tstest M3"
+    review: true
+    prompt: "Avec un délai de 2 ticks, l'autoscaler perd 2 000 requêtes au début du pic. Quelles options d'architecture réduiraient cette perte (sans payer 15 instances en permanence), et quel trade-off chacune implique-t-elle ?"

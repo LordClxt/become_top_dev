@@ -1,0 +1,14 @@
+{
+  "cause": "topology",
+  "fallacies": [
+    "f5",
+    "f6",
+    "f2"
+  ],
+  "timeout": 390,
+  "durable": [
+    "subscribe",
+    "alert",
+    "review"
+  ]
+}

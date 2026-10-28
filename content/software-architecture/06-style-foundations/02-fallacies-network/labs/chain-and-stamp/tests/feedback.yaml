@@ -1,0 +1,20 @@
+blocks:
+  mean:
+    wrong: 7 appels × 60 ms.
+  slow:
+    tolerance:
+      abs: 0.06
+    wrong: 1 − 0,99^7, en pourcentage.
+  bw:
+    tolerance:
+      abs: 1
+    wrong: 1 500 × 300 Ko, converti en Mo.
+  fixes:
+    options:
+      bigger: 'On élargit le tuyau au lieu d''arrêter de le remplir : le coût et la latence restent.'
+  redesign:
+    goals:
+      lat: 'À 60 ms l''appel, au-delà de 4 appels on dépasse 250 ms : regroupe des appels ou cache les données stables.'
+      slow: Plus la chaîne est longue, plus la queue s'amplifie.
+      bw: 'Une réponse de plus de 33 Ko à 1 500 pages/s dépasse 50 Mo/s : ne renvoie que ce que la page affiche.'
+      min: Trois services restent indispensables.

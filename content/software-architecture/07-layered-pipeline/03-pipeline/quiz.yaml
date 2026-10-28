@@ -1,0 +1,86 @@
+id: arch-ch07-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Comment sont les pipes d'une architecture pipeline ?"
+    choices:
+      - "Bidirectionnels, en diffusion"
+      - "Unidirectionnels, point à point, avec de petits messages"
+      - "Partagés par tous les filtres"
+      - "Toujours des files Kafka"
+    answer: 1
+    explanation: "Pour la performance."
+    concept: arch-pipes
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel type de filtre correspond au « map » fonctionnel ?"
+    choices: ["Producteur", "Transformateur", "Testeur", "Consommateur"]
+    answer: 1
+    explanation: "Il reçoit, transforme tout ou partie des données, et transmet."
+    concept: arch-filter-types
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Duration Filter vérifie si une donnée concerne la durée des requêtes et l'aiguille. Quel type de filtre ?"
+    choices: ["Producteur", "Transformateur", "Testeur", "Consommateur"]
+    answer: 2
+    explanation: "Un testeur teste un critère et transmet ou non selon le résultat."
+    concept: arch-filter-types
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Pourquoi les six commandes de McIlroy l'emportent-elles sur les dix pages de Knuth ?"
+    choices:
+      - "Le shell est plus rapide que Pascal"
+      - "La réutilisation par composition de filtres simples, autonomes et unidirectionnels"
+      - "Knuth s'est trompé d'algorithme"
+      - "Le shell est mieux documenté"
+    answer: 1
+    explanation: "McIlroy assemble des filtres existants au lieu de tout écrire."
+    concept: arch-compositional-reuse
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce pipeline de filtres ?"
+    code: |
+      function* words(lines: string[]) { for (const l of lines) yield* l.split(' '); }
+      function* lower(ws: Iterable<string>) { for (const w of ws) yield w.toLowerCase(); }
+      function* longOnly(ws: Iterable<string>) { for (const w of ws) if (w.length > 4) yield w; }
+      console.log([...longOnly(lower(words(['Unix PIPES compose', 'Small Filters'])))].join(','));
+    answer: "pipes,compose,small,filters"
+    explanation: "Chaque filtre ne connaît que son entrée et sa sortie ; « unix » (4 lettres) est écarté par le testeur."
+    concept: arch-filter-types
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Il faut suivre une nouvelle métrique (attente de connexion à la base). Que faire dans le pipeline de télémétrie ?"
+    choices:
+      - "Modifier Uptime Calculator"
+      - "Ajouter un testeur après Uptime Filter et un calculateur, sans toucher l'existant"
+      - "Réécrire Duration Filter"
+      - "Créer un second pipeline complet"
+    answer: 1
+    explanation: "C'est l'extensibilité du style."
+    concept: arch-pipeline-extensibility
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Combien de quanta a une architecture pipeline typique ?"
+    choices: ["Un", "Un par filtre", "Deux", "Ça dépend du nombre de pipes"]
+    answer: 0
+    explanation: "Déployée en monolithe, elle n'en a qu'un ; scalabilité et élasticité sont très faibles."
+    concept: arch-pipeline-ratings
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Pourquoi la déployabilité du pipeline est-elle un peu meilleure que celle des couches ?"
+    choices:
+      - "Parce qu'il est distribué"
+      - "Grâce à la modularité des filtres, même si c'est toujours un monolithe"
+      - "Parce qu'il n'a pas de base"
+      - "Elle n'est pas meilleure"
+    answer: 1
+    explanation: "Un filtre se modifie ou se remplace sans toucher les autres."
+    concept: arch-pipeline-ratings
+    difficulty: 2

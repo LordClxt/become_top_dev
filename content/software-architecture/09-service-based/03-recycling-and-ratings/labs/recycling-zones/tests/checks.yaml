@@ -1,0 +1,130 @@
+checks:
+- id: c1
+  label: L'interface clients appelle Quoting
+  rule: edge_kind
+  source: customer-ui
+  target: quoting
+  kind: sync
+- id: c2
+  label: L'interface clients appelle Item Status
+  rule: edge_kind
+  source: customer-ui
+  target: item-status
+  kind: sync
+- id: o1
+  label: L'interface opérations appelle Receiving
+  rule: edge_kind
+  source: ops-ui
+  target: receiving
+  kind: sync
+- id: o2
+  label: L'interface opérations appelle Assessment
+  rule: edge_kind
+  source: ops-ui
+  target: assessment
+  kind: sync
+- id: o3
+  label: L'interface opérations appelle Recycling
+  rule: edge_kind
+  source: ops-ui
+  target: recycling
+  kind: sync
+- id: q-db
+  label: Quoting écrit dans la base clients
+  rule: path
+  source: quoting
+  target: ext-db
+- id: s-db
+  label: Item Status lit la base clients
+  rule: edge_kind
+  source: item-status
+  target: ext-db
+  kind: read
+- id: r-db
+  label: Receiving écrit dans la base interne
+  rule: path
+  source: receiving
+  target: int-db
+- id: a-db
+  label: Assessment écrit dans la base interne
+  rule: path
+  source: assessment
+  target: int-db
+- id: oneway
+  label: 'Le pare-feu à sens unique : un service interne met à jour la base clients'
+  rule: path
+  source: assessment
+  target: ext-db
+- id: no-back-1
+  label: Quoting n'atteint pas la base interne
+  rule: no_edge
+  source: quoting
+  target: int-db
+- id: no-back-2
+  label: Item Status n'atteint pas la base interne
+  rule: no_edge
+  source: item-status
+  target: int-db
+- id: no-back-3
+  label: L'interface clients n'atteint aucun service interne
+  rule: no_edge
+  source: customer-ui
+  target: receiving
+- id: no-call-1
+  label: Pas d'appel entre services (Quoting → Item Status)
+  rule: no_edge
+  source: quoting
+  target: item-status
+- id: no-call-2
+  label: Pas d'appel entre services (Receiving → Assessment)
+  rule: no_edge
+  source: receiving
+  target: assessment
+- id: z1
+  label: Interface clients en zone externe
+  rule: in_zone
+  source: customer-ui
+  target: z-ext
+- id: z2
+  label: Quoting en zone externe
+  rule: in_zone
+  source: quoting
+  target: z-ext
+- id: z3
+  label: Item Status en zone externe
+  rule: in_zone
+  source: item-status
+  target: z-ext
+- id: z4
+  label: Base clients en zone externe
+  rule: in_zone
+  source: ext-db
+  target: z-ext
+- id: z5
+  label: Interface opérations en zone interne
+  rule: in_zone
+  source: ops-ui
+  target: z-int
+- id: z6
+  label: Receiving en zone interne
+  rule: in_zone
+  source: receiving
+  target: z-int
+- id: z7
+  label: Assessment en zone interne
+  rule: in_zone
+  source: assessment
+  target: z-int
+- id: z8
+  label: Recycling en zone interne
+  rule: in_zone
+  source: recycling
+  target: z-int
+- id: z9
+  label: Base interne en zone interne
+  rule: in_zone
+  source: int-db
+  target: z-int
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

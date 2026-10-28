@@ -1,0 +1,124 @@
+id: arch-ch00-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Laquelle de ces formulations est une décision d'architecture qui guide, plutôt qu'un choix technique imposé ?"
+    choices:
+      - "Le front sera écrit en React 19"
+      - "Le front utilisera un framework web réactif"
+      - "Le front utilisera Vite et Tailwind"
+      - "Le front sera écrit par l'équipe A"
+    answer: 1
+    explanation: "Elle fixe un cadre et laisse l'équipe choisir parmi React, Vue, Angular, Elm…"
+    concept: arch-guide-not-specify
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Dans quel cas imposer une technologie précise reste-t-il une décision d'architecture ?"
+    choices:
+      - "Quand l'architecte la préfère"
+      - "Quand elle est nécessaire pour préserver une caractéristique (scalabilité, performance…)"
+      - "Quand elle est à la mode"
+      - "Jamais"
+    answer: 1
+    explanation: "Le livre l'admet explicitement : la technologie sert alors une caractéristique d'architecture."
+    concept: arch-guide-not-specify
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Le code est modulaire et bien testé, mais chaque release demande trois semaines de recette manuelle. Que dit le livre ?"
+    choices:
+      - "L'architecture est agile, c'est le process qui ne l'est pas"
+      - "L'architecte doit aussi analyser les environnements de test et de release : l'agilité globale est nulle"
+      - "Ce n'est pas le sujet de l'architecte"
+      - "Il faut passer en microservices"
+    answer: 1
+    explanation: "Un code facile à modifier ne sert à rien si la livraison prend des semaines : cela fait partie de l'analyse continue."
+    concept: arch-vitality-decay
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi la règle « couches fermées » existe-t-elle, d'après le livre ?"
+    choices:
+      - "Pour la performance"
+      - "Pour contrôler le changement : modifier la base sans toucher la présentation"
+      - "Pour la sécurité réseau"
+      - "Pour réduire le nombre de classes"
+    answer: 1
+    explanation: "La contourner pour gagner quelques millisecondes fait perdre la caractéristique pour laquelle la règle existe."
+    concept: arch-compliance-fitness
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Cette fitness function de couches tourne dans la CI. Qu'affiche-t-elle ?"
+    code: |
+      const allowed: Record<string, string[]> = {
+        presentation: ['business'],
+        business: ['persistence'],
+        persistence: [],
+      };
+      const layerOf = (m: string) => m.split('/')[0]!;
+      const imports: Record<string, string[]> = {
+        'presentation/cart': ['business/cart', 'presentation/ui'],
+        'business/cart': ['persistence/cart-repo', 'presentation/ui'],
+        'persistence/cart-repo': [],
+      };
+      let count = 0;
+      for (const [from, targets] of Object.entries(imports))
+        for (const to of targets) {
+          const a = layerOf(from), b = layerOf(to);
+          if (a !== b && !allowed[a]!.includes(b)) count++;
+        }
+      console.log(count);
+    answer: "1"
+    explanation: "Seul business/cart → presentation/ui viole la règle (dépendance vers le haut). Un import à l'intérieur d'une même couche est permis."
+    concept: arch-compliance-fitness
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Qu'est-ce qui rend une fitness function plus utile ?"
+    choices:
+      - "Qu'elle soit écrite dans un document d'architecture"
+      - "Qu'elle tourne souvent (à chaque commit) pour un retour rapide"
+      - "Qu'elle soit exécutée une fois par an par un auditeur"
+      - "Qu'elle ne mesure que la performance"
+    answer: 1
+    explanation: "Plus la vérification est fréquente, plus vite on attrape la dégradation."
+    concept: arch-compliance-fitness
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Pour un architecte, que vaut-il mieux ?"
+    choices:
+      - "Être expert d'un seul produit de cache"
+      - "Connaître dix produits de cache et leurs compromis"
+      - "Ignorer les caches, c'est du design"
+      - "Laisser les développeurs choisir sans rien connaître"
+    answer: 1
+    explanation: "La largeur technique permet de voir les options et leurs trade-offs."
+    concept: arch-breadth-domain-people
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Pourquoi les architectures ESB/SOA des années 2000 intégraient-elles elles-mêmes l'élasticité ?"
+    choices:
+      - "Parce que c'était plus simple"
+      - "Parce que l'exploitation était externalisée : les architectes devaient se défendre de ce qu'ils ne contrôlaient pas"
+      - "Parce que le cloud l'imposait"
+      - "Parce que les microservices n'existaient pas encore"
+    answer: 1
+    explanation: "Ce choix défensif a créé une complexité accidentelle que les microservices ont résolue en s'alliant aux ops."
+    concept: arch-intersections
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "L'architecte veut coder. Quelle tâche choisir ?"
+    choices:
+      - "Le framework du chemin critique, qu'il connaît le mieux"
+      - "Une fonctionnalité métier prévue dans deux itérations"
+      - "La configuration de production, seul"
+      - "Rien : un architecte ne code plus"
+    answer: 1
+    explanation: "Il évite le piège du goulot d'étranglement et partage les douleurs de l'équipe."
+    concept: arch-hands-on
+    difficulty: 1

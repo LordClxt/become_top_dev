@@ -1,0 +1,93 @@
+id: arch-ch05-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quelle est la différence entre un module et un composant, au sens du livre ?"
+    choices:
+      - "Aucune"
+      - "Le module est un regroupement logique ; le composant en est la manifestation physique (jar, dll, paquet npm…)"
+      - "Le composant est toujours un service réseau"
+      - "Le module est toujours plus gros"
+    answer: 1
+    explanation: "Un composant peut être une bibliothèque, un sous-système ou un service."
+    concept: arch-component
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Une bibliothèque se distingue d'un service parce qu'elle…"
+    choices:
+      - "S'exécute dans le même espace mémoire et communique par appel de fonction"
+      - "Communique toujours par REST"
+      - "A sa propre base de données"
+      - "Se déploie séparément"
+    answer: 0
+    explanation: "Le service, lui, a son propre espace d'adressage et communique par le réseau."
+    concept: arch-component
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Jusqu'où l'architecte doit-il descendre ?"
+    choices:
+      - "Jusqu'à chaque classe et chaque méthode"
+      - "En général jusqu'aux composants, sans micro-gérer les classes"
+      - "Seulement jusqu'au choix du style"
+      - "Jusqu'au code de chaque fonction critique"
+    answer: 1
+    explanation: "Sinon, personne d'autre ne prend de décision importante et l'organisation ne forme pas de futurs architectes."
+    concept: arch-architect-components
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Présentation, règles métier, persistance comme composants de haut niveau : quel partitionnement ?"
+    choices: ["Par domaine", "Technique", "Par quantum", "Par équipe"]
+    answer: 1
+    explanation: "C'est le monolithe en couches, souvent superposé au MVC."
+    concept: arch-technical-vs-domain
+    difficulty: 1
+  - id: q5
+    type: code-output
+    prompt: "Combien de composants une évolution du workflow « commande » touche-t-elle dans chaque partitionnement ?"
+    code: |
+      const technical = { order: ['ui', 'rules', 'services', 'persistence'], search: ['ui', 'services'] };
+      const domain = { order: ['ordering'], search: ['catalog'] };
+      console.log(technical.order.length, domain.order.length);
+    answer: "4 1"
+    explanation: "Le workflow est étalé dans toutes les couches ; en partitionnement par domaine, il vit dans un composant."
+    concept: arch-technical-vs-domain
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Une entreprise a une équipe front, une équipe back et une équipe DBA. D'après Conway, quelle architecture produira-t-elle naturellement ?"
+    choices:
+      - "Des microservices par domaine"
+      - "Une architecture en couches qui copie ces équipes"
+      - "Un microkernel"
+      - "Aucune architecture en particulier"
+    answer: 1
+    explanation: "Les systèmes copient la structure de communication de l'organisation qui les conçoit."
+    concept: arch-conway
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Qu'est-ce que la manœuvre inverse de Conway ?"
+    choices:
+      - "Ignorer l'organisation"
+      - "Faire évoluer ensemble les équipes et l'architecture visée"
+      - "Réorganiser les équipes après coup selon le code"
+      - "Interdire les équipes pluridisciplinaires"
+    answer: 1
+    explanation: "Pour des composants par domaine, on constitue des équipes par domaine."
+    concept: arch-conway
+    difficulty: 1
+  - id: q8
+    type: multiple
+    prompt: "Quels sont des inconvénients du partitionnement technique de Silicon Sandwiches (Common / Local) ?"
+    choices:
+      - "Couplage global plus fort"
+      - "Concepts du domaine dupliqués entre commun et local"
+      - "Couplage plus fort au niveau des données, migration difficile"
+      - "Code de personnalisation dispersé"
+    answer: [0, 1, 2]
+    explanation: "La dispersion de la personnalisation est l'inconvénient du partitionnement par domaine."
+    concept: arch-partition-tradeoffs
+    difficulty: 2

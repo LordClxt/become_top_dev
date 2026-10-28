@@ -1,0 +1,8 @@
+blocks:
+  count:
+    options:
+      t1.quanta: Un seul déployable, une seule base.
+      t2.quanta: La base partagée lie les six services.
+      t3.quanta: Aucun lien synchrone, aucune donnée partagée, aucune interface commune.
+      t4.quanta: A et B sont liés par l'appel synchrone ; C ne reçoit que des événements.
+      t5.quanta: La file sépare les deux rythmes.

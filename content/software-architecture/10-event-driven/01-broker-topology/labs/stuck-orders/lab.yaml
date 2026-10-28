@@ -1,0 +1,15 @@
+id: arch-ch10-l01-lab-stuck-orders
+title: 'Enquête : les commandes bloquées en silence'
+difficulty: 3
+xp: 90
+concepts:
+- arch-broker-drawbacks
+- arch-broker-components
+source:
+  chapter: 14
+  pages: 204-205
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

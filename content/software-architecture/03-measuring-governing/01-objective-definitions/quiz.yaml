@@ -1,0 +1,99 @@
+id: arch-ch03-l01-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Quels sont les trois problèmes de définition des caractéristiques, selon le livre ?"
+    choices:
+      - "Ce n'est pas de la physique : leur sens est flou"
+      - "Les définitions divergent, même dans une organisation"
+      - "Elles sont trop composites"
+      - "Elles sont toujours chiffrées"
+    answer: [0, 1, 2]
+    explanation: "La réponse aux trois : des définitions objectives partagées par l'organisation."
+    concept: arch-measure-problems
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "L'agilité est une caractéristique composite. En quoi se décompose-t-elle ?"
+    choices:
+      - "Modularité, déployabilité, testabilité"
+      - "Performance et scalabilité"
+      - "Sécurité et confidentialité"
+      - "Disponibilité et fiabilité"
+    answer: 0
+    explanation: "Chacune de ces parties, elle, se mesure."
+    concept: arch-objective-definitions
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "990 requêtes à 100 ms, 10 à 6 000 ms. Qu'affiche ce programme (moyenne puis p99) ?"
+    code: |
+      const xs = [...Array(990).fill(100), ...Array(10).fill(6000)];
+      const mean = xs.reduce((a, b) => a + b, 0) / xs.length;
+      const sorted = [...xs].sort((a, b) => a - b);
+      const p99 = sorted[Math.ceil(0.99 * sorted.length) - 1];
+      console.log(mean, p99);
+    answer: "159 100"
+    explanation: "La moyenne bouge à peine et le p99 ne voit rien : les dix clients à 6 s ne sont visibles qu'au p99,9 ou au maximum."
+    concept: arch-average-vs-percentiles
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi suivre aussi le maximum (ou un percentile élevé) en plus de la moyenne ?"
+    choices:
+      - "Pour avoir plus de graphiques"
+      - "Parce qu'avec assez de trafic, 1 % de requêtes 10 fois plus lentes disparaît dans la moyenne"
+      - "Parce que la moyenne est fausse"
+      - "Parce que le maximum est plus facile à calculer"
+    answer: 1
+    explanation: "Les cas extrêmes ne bougent presque pas la moyenne."
+    concept: arch-average-vs-percentiles
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Quelle valeur le livre cite-t-il comme optimum pour le premier rendu d'une page ?"
+    choices:
+      - "50 ms"
+      - "500 ms"
+      - "2 s"
+      - "5 s"
+    answer: 1
+    explanation: "Le premier signe visible de progression, d'après la recherche sur le comportement des utilisateurs."
+    concept: arch-performance-budgets
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Pourquoi un budget de poids (K-weight) par page ?"
+    choices:
+      - "Pour économiser de l'espace disque"
+      - "Parce qu'un réseau, surtout mobile à forte latence, ne transporte qu'un nombre limité d'octets"
+      - "Pour limiter le nombre de développeurs"
+      - "Pour respecter le RGPD"
+    answer: 1
+    explanation: "La contrainte est physique, et le budget guide le design (pas de bibliothèque géante pour un détail)."
+    concept: arch-performance-budgets
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Un service de streaming déclenche une alerte quand la charge sort de son modèle statistique. Que peut signifier l'alerte ?"
+    choices:
+      - "Seulement que le système est en panne"
+      - "Soit le modèle est faux, soit quelque chose ne va pas : les deux sont utiles à savoir"
+      - "Que le seuil est trop bas"
+      - "Rien, c'est du bruit"
+    answer: 1
+    explanation: "Les deux issues apprennent quelque chose à l'équipe."
+    concept: arch-performance-budgets
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Un code base a 100 % de couverture. Qu'en conclure ?"
+    choices:
+      - "Que le code est correct"
+      - "Que tout le code a été exécuté par les tests, pas qu'il a été vérifié"
+      - "Que la testabilité est parfaite"
+      - "Qu'on peut supprimer les tests d'intégration"
+    answer: 1
+    explanation: "Des assertions médiocres peuvent couvrir tout sans rien prouver."
+    concept: arch-process-measures
+    difficulty: 1

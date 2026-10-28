@@ -1,0 +1,17 @@
+id: arch-ch01-l02-lab-main-sequence
+title: Placer les modules sur la séquence principale
+difficulty: 3
+xp: 90
+concepts:
+- arch-afferent-efferent
+- arch-instability
+- arch-abstractness
+- arch-main-sequence
+source:
+  chapter: 3
+  pages: 64-68
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

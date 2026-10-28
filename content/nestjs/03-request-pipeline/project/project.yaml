@@ -1,0 +1,13 @@
+id: nest-ch03-project
+title: "Librairie, jalon 3 : un pipeline de production"
+pitch: "L'identifiant de requête passe par AsyncLocalStorage au lieu d'un provider par requête, les écritures du catalogue sont réservées aux libraires, et toutes les erreurs partagent une même enveloppe traçable."
+running_project: librairie
+kind: code
+language: nestjs
+difficulty: 3
+xp: 300
+timeout_s: 90
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["app.ts"]
+concepts: [nest-middleware, nest-als-context, nest-guards, nest-reflector-metadata, nest-exception-filters, nest-error-codes, nest-interceptors]

@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Trois problèmes de définition des caractéristiques ?"
+    back: "Pas de la physique (sens flou), définitions divergentes, trop composites."
+    concept: arch-measure-problems
+  - id: fc2
+    front: "Remède aux trois problèmes ?"
+    back: "Des définitions objectives partagées : un langage ubiquitaire, et les composites décomposés en mesures."
+    concept: arch-objective-definitions
+  - id: fc3
+    front: "Pourquoi la moyenne ne suffit-elle pas ?"
+    back: "Elle masque les cas extrêmes (1 % de requêtes 10× plus lentes) : suivre aussi max et percentiles."
+    concept: arch-average-vs-percentiles
+  - id: fc4
+    front: "Deux budgets de performance cités par le livre ?"
+    back: "Premier rendu en 500 ms ; budget de poids (K-weight) des bibliothèques par page."
+    concept: arch-performance-budgets
+  - id: fc5
+    front: "Seuil fixe vs modèle statistique ?"
+    back: "Le modèle prédit le normal et alerte quand la mesure en sort : modèle faux ou problème réel."
+    concept: arch-performance-budgets
+  - id: fc6
+    front: "Mesurer la déployabilité ?"
+    back: "Taux de déploiements réussis, durée d'un déploiement, incidents causés par les déploiements."
+    concept: arch-process-measures
+  - id: fc7
+    front: "Couverture de code et testabilité ?"
+    back: "La couverture mesure ce qui est exécuté, pas ce qui est vérifié : 100 % peut ne rien prouver."
+    concept: arch-process-measures

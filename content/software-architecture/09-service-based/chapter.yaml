@@ -1,0 +1,22 @@
+id: arch-ch09
+title: "Service-based"
+subtitle: "Le plus pragmatique des styles distribués : des services de domaine à gros grain, souvent une base partagée"
+source: { chapter: 13, pages: "183-198" }
+objectives:
+  - "Décrire la topologie service-based (interface, 4 à 12 services de domaine à gros grain, base partagée) et ses variantes (interfaces et bases fédérées, couche d'API)"
+  - "Concevoir un service de domaine avec une façade d'API qui orchestre en interne et garde des transactions ACID"
+  - "Comparer l'ACID d'un service à gros grain et le BASE de services fins, sur l'exemple de la carte expirée"
+  - "Partitionner logiquement la base avec des bibliothèques d'entités fédérées pour limiter l'impact d'un changement de schéma"
+  - "Analyser l'exemple du recyclage électronique : services, zones réseau, quanta, et le bulletin du style"
+  - "Diagnostiquer une incohérence de données née d'une transaction coupée entre deux services"
+  - "Écrire en TypeScript une base transactionnelle en mémoire, une façade de commande tout-ou-rien et une analyse d'impact de changement de table"
+mastery_threshold: 0.8
+prerequisites: [arch-ch08]
+lessons:
+  - "01-topology-variants"
+  - "02-services-and-data"
+  - "03-recycling-and-ratings"
+xp: { assignment: 150, project: 300, boss: 320 }
+assignment: assignment
+project: project
+boss: boss

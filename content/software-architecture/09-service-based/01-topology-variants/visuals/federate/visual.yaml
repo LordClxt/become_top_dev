@@ -1,0 +1,8 @@
+id: arch-ch09-federate
+concept: arch-sb-variants
+format: interactive
+justification: "Fédérer l'interface, puis la base, par groupe de services, et voir les zones de quanta apparaître (ou non) rend concrète la règle « interface ou base partagée = un quantum »."
+entry: Federate.tsx
+params:
+  - { name: services, type: int, min: 4, max: 12, default: 7 }
+status: built

@@ -1,0 +1,3 @@
+**Même problème technique, trois réponses.** A ajoute des consommateurs en permanence : le topic lui offre l'**extensibilité** (aucun changement du producteur). B doit détecter les écoutes : sur une file, un espion *vole* des messages et la perte déclenche l'alerte, alors que sur un topic il reçoit une copie de plus en silence. C veut dimensionner chaque consommateur selon la profondeur de **son** canal : un canal par consommateur, donc des files (ou un exchange AMQP qui sépare publication et files).
+
+Le choix de A a un prix qu'il faut **dire** : écoute indétectable et contrat unique pour tous. C'est la question d'architecte : *qu'est-ce qui compte le plus ici ?* Quand tu n'arrives pas à formuler le revers d'une solution, tu ne l'as pas encore analysée.

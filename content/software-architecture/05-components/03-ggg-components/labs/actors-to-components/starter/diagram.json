@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    {
+      "id": "bidder",
+      "type": "bidder",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "auctioneer",
+      "type": "auctioneer",
+      "x": 0,
+      "y": 360
+    }
+  ],
+  "edges": []
+}

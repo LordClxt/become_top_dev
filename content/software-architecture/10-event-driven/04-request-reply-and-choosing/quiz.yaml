@@ -1,0 +1,93 @@
+id: arch-ch10-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi la diffusion est-elle le plus haut niveau de découplage ?"
+    choices:
+      - "Parce qu'elle est synchrone"
+      - "Le producteur ignore qui reçoit le message et ce qu'il en fait"
+      - "Parce qu'elle utilise une file"
+      - "Parce qu'elle n'utilise pas de broker"
+    answer: 1
+    explanation: "Exemple : le cours d'une action, publié sans savoir qui l'utilise."
+    concept: arch-broadcast
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Comment un producteur reconnaît-il sa réponse dans une file de réponse partagée ?"
+    choices:
+      - "Il prend la première"
+      - "Avec un sélecteur sur l'identifiant de corrélation égal à l'identifiant de sa requête"
+      - "Avec l'heure d'arrivée"
+      - "Il les lit toutes"
+    answer: 1
+    explanation: "Le consommateur a recopié l'ID de la requête dans le CID de la réponse."
+    concept: arch-request-reply
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Quelle réponse le producteur de la requête 124 reçoit-il ?"
+    code: |
+      const replies = [
+        { id: 855, cid: 120, body: 'A' },
+        { id: 857, cid: 124, body: 'C' },
+        { id: 856, cid: 122, body: 'B' },
+      ];
+      const mine = replies.find((m) => m.cid === 124);
+      console.log(mine?.body, mine?.id);
+    answer: "C 857"
+    explanation: "Le sélecteur ignore les réponses destinées aux requêtes 120 et 122."
+    concept: arch-request-reply
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Pourquoi le livre préfère-t-il l'identifiant de corrélation à la file temporaire ?"
+    choices:
+      - "La file temporaire est impossible"
+      - "Créer et détruire une file par requête ralentit fortement le broker à fort volume"
+      - "La corrélation est synchrone"
+      - "La file temporaire n'a pas d'en-tête"
+    answer: 1
+    explanation: "La file temporaire est plus simple, mais coûteuse."
+    concept: arch-request-reply
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Lire le profil d'un client : requêtes ou événements ?"
+    choices: ["Requêtes", "Événements", "Diffusion", "Médiateur"]
+    answer: 0
+    explanation: "Une demande structurée, orientée données, qui demande certitude et contrôle."
+    concept: arch-choose-event-model
+    difficulty: 1
+  - id: q6
+    type: multiple
+    prompt: "Quels sont les trade-offs du modèle par événements ?"
+    choices:
+      - "Seulement de la cohérence à terme"
+      - "Moins de contrôle du flux"
+      - "Difficile à tester et à déboguer"
+      - "Moins de scalabilité"
+    answer: [0, 1, 2]
+    explanation: "La scalabilité est au contraire l'un de ses avantages."
+    concept: arch-choose-event-model
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Deux processeurs échangent uniquement des messages asynchrones, mais l'un attend un numéro de commande de l'autre (request-reply). Combien de quanta ?"
+    choices: ["Un", "Deux", "Zéro", "Ça dépend du broker"]
+    answer: 0
+    explanation: "Si le second est en panne, le premier ne peut pas continuer : ils partagent leurs caractéristiques."
+    concept: arch-eda-ratings
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Pourquoi la testabilité de l'event-driven est-elle faible ?"
+    choices:
+      - "Parce qu'il n'y a pas de tests unitaires"
+      - "Les flux sont non déterministes : les arbres d'événements comptent des centaines à des milliers de scénarios"
+      - "Parce que le broker est lent"
+      - "Elle ne l'est pas"
+    answer: 1
+    explanation: "Les flux par requêtes, déterministes, sont bien plus faciles à tester."
+    concept: arch-eda-ratings
+    difficulty: 1

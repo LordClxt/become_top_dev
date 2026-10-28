@@ -1,0 +1,16 @@
+id: arch-ch10-l02-lab-broker-or-mediator
+title: Broker, médiateur… et quel médiateur ?
+difficulty: 2
+xp: 80
+concepts:
+- arch-broker-vs-mediator
+- arch-mediator-implementations
+- arch-commands-vs-events
+source:
+  chapter: 14
+  pages: 205-215
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,3 @@
+**La topologie a changé, personne ne l'a su.** Le remplacement du routeur entre les baies 3 et 7 a fait passer le p99 de 80 à 260 ms. Le timeout de 120 ms, calé sur l'ancienne mesure, expire désormais sur 30 % des appels, et les disjoncteurs s'ouvrent. Le ticket existait, mais chez une équipe réseau parmi des dizaines : erreurs 5 et 6, et une latence traitée comme une constante (erreur 2).
+
+À court terme, un timeout recalculé (390 ms) ; à long terme, être informé des changements réseau, alerter quand la latence mesurée se rapproche du timeout, et revoir les timeouts à partir des percentiles réels. Désactiver les disjoncteurs ne ferait que propager la panne.

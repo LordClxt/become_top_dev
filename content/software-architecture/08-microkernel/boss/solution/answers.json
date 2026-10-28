@@ -1,0 +1,24 @@
+{
+  "split": {
+    "s1": "core",
+    "s2": "plugin",
+    "s3": "plugin",
+    "s4": "core",
+    "s5": "plugin"
+  },
+  "newlaw": "plugin",
+  "partner": "adapter",
+  "remote": "optional",
+  "data": "core",
+  "registry": [
+    "name",
+    "contract",
+    "protocol"
+  ],
+  "ratings": {
+    "r1": "strong",
+    "r2": "above",
+    "r3": "weak",
+    "r4": "one"
+  }
+}

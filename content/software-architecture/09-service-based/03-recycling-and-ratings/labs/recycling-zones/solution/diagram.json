@@ -1,0 +1,160 @@
+{
+  "nodes": [
+    {
+      "id": "ze",
+      "type": "z-ext",
+      "x": -40,
+      "y": -40,
+      "label": "Zone externe",
+      "w": 460,
+      "h": 540
+    },
+    {
+      "id": "zi",
+      "type": "z-int",
+      "x": 520,
+      "y": -40,
+      "label": "Zone interne",
+      "w": 560,
+      "h": 540
+    },
+    {
+      "id": "cui",
+      "type": "customer-ui",
+      "x": 0,
+      "y": 0,
+      "parent": "ze"
+    },
+    {
+      "id": "q",
+      "type": "quoting",
+      "x": 0,
+      "y": 180,
+      "parent": "ze"
+    },
+    {
+      "id": "st",
+      "type": "item-status",
+      "x": 200,
+      "y": 180,
+      "parent": "ze"
+    },
+    {
+      "id": "edb",
+      "type": "ext-db",
+      "x": 100,
+      "y": 360,
+      "parent": "ze",
+      "props": {
+        "role": "primary"
+      }
+    },
+    {
+      "id": "oui",
+      "type": "ops-ui",
+      "x": 600,
+      "y": 0,
+      "parent": "zi"
+    },
+    {
+      "id": "rcv",
+      "type": "receiving",
+      "x": 560,
+      "y": 180,
+      "parent": "zi"
+    },
+    {
+      "id": "asm",
+      "type": "assessment",
+      "x": 740,
+      "y": 180,
+      "parent": "zi"
+    },
+    {
+      "id": "rcy",
+      "type": "recycling",
+      "x": 920,
+      "y": 180,
+      "parent": "zi"
+    },
+    {
+      "id": "idb",
+      "type": "int-db",
+      "x": 740,
+      "y": 360,
+      "parent": "zi",
+      "props": {
+        "role": "primary"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "cui",
+      "target": "q",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "cui",
+      "target": "st",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "q",
+      "target": "edb",
+      "kind": "write"
+    },
+    {
+      "id": "e4",
+      "source": "st",
+      "target": "edb",
+      "kind": "read"
+    },
+    {
+      "id": "e5",
+      "source": "oui",
+      "target": "rcv",
+      "kind": "sync"
+    },
+    {
+      "id": "e6",
+      "source": "oui",
+      "target": "asm",
+      "kind": "sync"
+    },
+    {
+      "id": "e7",
+      "source": "oui",
+      "target": "rcy",
+      "kind": "sync"
+    },
+    {
+      "id": "e8",
+      "source": "rcv",
+      "target": "idb",
+      "kind": "write"
+    },
+    {
+      "id": "e9",
+      "source": "asm",
+      "target": "idb",
+      "kind": "write"
+    },
+    {
+      "id": "e10",
+      "source": "rcy",
+      "target": "idb",
+      "kind": "write"
+    },
+    {
+      "id": "e11",
+      "source": "asm",
+      "target": "edb",
+      "kind": "write",
+      "label": "statut (sens unique)"
+    }
+  ]
+}

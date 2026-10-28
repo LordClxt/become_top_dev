@@ -1,0 +1,98 @@
+id: arch-ch02-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "« Time to market » se traduit par…"
+    choices:
+      - "Agilité"
+      - "Agilité, testabilité et déployabilité"
+      - "Performance"
+      - "Scalabilité et disponibilité"
+    answer: 1
+    explanation: "Un code modifiable vite mais long à tester et à déployer n'arrive pas plus tôt sur le marché."
+    concept: arch-missing-ingredient
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "« Nous allons racheter deux concurrents l'an prochain. » Quelles caractéristiques en priorité ?"
+    choices:
+      - "Interopérabilité, scalabilité, adaptabilité, extensibilité"
+      - "Simplicité et faisabilité"
+      - "Performance seule"
+      - "Accessibilité"
+    answer: 0
+    explanation: "Il faudra intégrer d'autres systèmes et absorber plus d'utilisateurs."
+    concept: arch-domain-translation
+    difficulty: 1
+  - id: q3
+    type: multiple
+    prompt: "La valorisation de fin de journée des fonds doit finir à l'heure. Au-delà de la performance, que faut-il ?"
+    choices:
+      - "Disponibilité"
+      - "Recouvrabilité (reprendre à 85 % au lieu de repartir de zéro)"
+      - "Auditabilité (prouver que les prix sont justes)"
+      - "Localisation"
+    answer: [0, 1, 2]
+    explanation: "Le livre cite aussi scalabilité et fiabilité. La localisation n'a rien à voir ici."
+    concept: arch-missing-ingredient
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Que retenir du naufrage du Vasa ?"
+    choices:
+      - "Il faut plus de tests"
+      - "Vouloir tout supporter fait chavirer : garder une liste de caractéristiques courte"
+      - "Il faut deux ponts de batterie"
+      - "Il faut toujours dire oui au client"
+    answer: 1
+    explanation: "Transport de troupes ET navire de guerre, deux ponts, canons doublés : trop lourd du haut."
+    concept: arch-short-list-top3
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Comment faire prioriser les caractéristiques par les parties prenantes ?"
+    choices:
+      - "Classer toute la liste de 1 à N"
+      - "Faire choisir les trois plus importantes, dans n'importe quel ordre"
+      - "Voter à main levée pour chacune"
+      - "Laisser l'architecte décider seul"
+    answer: 1
+    explanation: "Le consensus est bien plus facile et la discussion porte sur l'essentiel."
+    concept: arch-short-list-top3
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "1 000 étudiants, 10 heures d'inscription. Qu'affiche ce calcul de rafale ?"
+    code: |
+      const students = 1000;
+      const steadyPerMin = students / (10 * 60);
+      const rushPerMin = students / 10;
+      console.log(Math.round(rushPerMin / steadyPerMin));
+    answer: "60"
+    explanation: "Tous dans les 10 dernières minutes : 60 fois la charge régulière. Le domaine révèle ce que les exigences taisent."
+    concept: arch-requirements-knowledge
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Quelle section d'un kata contient ce qui n'est pas dans les exigences mais pèse sur la conception ?"
+    choices:
+      - "Description"
+      - "Utilisateurs"
+      - "Exigences"
+      - "Contexte additionnel"
+    answer: 3
+    explanation: "Ajoutée par Neal Ford pour rendre les katas plus réalistes."
+    concept: arch-katas
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "« Budget serré, livraison dans trois mois. » Quelles caractéristiques ?"
+    choices:
+      - "Simplicité et faisabilité"
+      - "Élasticité et scalabilité"
+      - "Interopérabilité"
+      - "Sécurité et confidentialité"
+    answer: 0
+    explanation: "Temps et budget se traduisent par simplicité et faisabilité."
+    concept: arch-domain-translation
+    difficulty: 1

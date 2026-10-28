@@ -1,0 +1,64 @@
+intro: |
+  Lot reçu, dans cet ordre (compte, sens, symbole, actions) :
+  1. `ACC-1,SELL,IBM,100`
+  2. `ACC-2,BUY,AAPL,8756 SHARES` ← erreur de format
+  3. `ACC-3,BUY,MSFT,40`
+  4. `ACC-2,SELL,AAPL,500`
+  5. `ACC-1,BUY,AAPL,20`
+
+  La réparation de l'ordre 2 prend un peu de temps : elle aboutit après l'arrivée de l'ordre 5.
+blocks:
+- id: placed
+  type: order
+  title: L'ordre de placement
+  prompt: Dans quel ordre les cinq ordres sont-ils effectivement placés ?
+  items:
+  - id: o1
+    label: 1. ACC-1 SELL IBM
+  - id: o2
+    label: 2. ACC-2 BUY AAPL (réparé)
+  - id: o3
+    label: 3. ACC-3 BUY MSFT
+  - id: o4
+    label: 4. ACC-2 SELL AAPL
+  - id: o5
+    label: 5. ACC-1 BUY AAPL
+- id: held
+  type: multi
+  title: La file temporaire
+  prompt: Quels ordres passent par la file temporaire du compte ACC-2 ?
+  options:
+  - id: o3
+    label: Ordre 3 (ACC-3)
+  - id: o4
+    label: Ordre 4 (ACC-2)
+  - id: o5
+    label: Ordre 5 (ACC-1)
+- id: losses
+  type: match
+  title: 'Perte de données : quelle parade ?'
+  prompt: Associe chaque scénario à sa parade.
+  items:
+  - id: l1
+    label: Le broker redémarre juste après avoir reçu le message, avant qu'il soit lu
+  - id: l2
+    label: Le consommateur lit le message puis plante avant de le traiter
+  - id: l3
+    label: L'insertion en base échoue (contrainte violée) après la lecture du message
+  - id: l4
+    label: Le producteur croit avoir envoyé, mais le message n'est jamais arrivé au broker
+  categories:
+  - id: persist
+    label: Files persistantes
+  - id: ack
+    label: Acquittement client
+  - id: lps
+    label: Transaction ACID + LPS
+  - id: syncsend
+    label: Envoi synchrone
+- id: comment
+  type: number
+  title: Réactivité
+  prompt: Un service de modération prend 2 000 ms ; le réseau coûte 40 ms à l'aller et 40 ms au retour en synchrone, 20 ms pour déposer le message
+    en asynchrone. Combien de millisecondes l'utilisateur attend-il en asynchrone ?
+  unit: ms

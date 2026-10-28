@@ -1,0 +1,82 @@
+id: arch-ch09-l03-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Quels services du recyclage ont besoin de plusieurs instances ?"
+    choices: ["Quoting", "Item Status", "Assessment", "Reporting"]
+    answer: [0, 1]
+    explanation: "Ce sont les services exposés aux clients ; les autres se contentent d'une instance."
+    concept: arch-sb-recycling
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi un pare-feu à sens unique entre les deux bases ?"
+    choices:
+      - "Pour la performance"
+      - "Les services internes peuvent mettre à jour les infos clients, mais rien côté client ne peut atteindre l'interne"
+      - "Pour la réplication en temps réel"
+      - "Pour réduire les coûts"
+    answer: 1
+    explanation: "Sécurité et protection des données : les clients n'ont aucun chemin réseau vers l'interne."
+    concept: arch-sb-recycling
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Combien de quanta compte l'exemple du recyclage ?"
+    choices: ["Un", "Deux", "Sept", "Trois"]
+    answer: 1
+    explanation: "La partie client et les opérations internes ; ces dernières ont deux interfaces mais une seule base."
+    concept: arch-sb-ratings
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi la tolérance aux pannes du style est-elle élevée ?"
+    choices:
+      - "Grâce aux microservices"
+      - "Les services sont autonomes et ne s'appellent pas : si l'un tombe, les autres continuent"
+      - "Parce que la base est répliquée"
+      - "Parce qu'il n'y a qu'un service"
+    answer: 1
+    explanation: "Ils partagent base et code, pas des appels."
+    concept: arch-sb-ratings
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Quelles notes sont les plus faibles du style ?"
+    choices: ["Scalabilité (3) et élasticité (2)", "Agilité et testabilité", "Simplicité et coût", "Fiabilité"]
+    answer: 0
+    explanation: "Les services à gros grain répliquent plus de fonctionnalités que des services fins."
+    concept: arch-sb-ratings
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Que dit la métaphore de la Ferrari ?"
+    choices:
+      - "Il faut toujours le style le plus puissant"
+      - "Un style très puissant utilisé sans besoin, c'est une Ferrari à 50 km/h dans les bouchons : un gaspillage"
+      - "Le service-based est une Ferrari"
+      - "Les microservices sont lents"
+    answer: 1
+    explanation: "Beaucoup d'entreprises n'ont pas besoin de la puissance des microservices, ou ne peuvent pas en payer le prix."
+    concept: arch-sb-when
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Orchestration ou chorégraphie : laquelle utilise un médiateur central ?"
+    choices: ["L'orchestration (chef d'orchestre)", "La chorégraphie (danseurs)", "Les deux", "Aucune"]
+    answer: 0
+    explanation: "En chorégraphie, chaque service parle aux autres sans médiateur."
+    concept: arch-orchestration-choreography
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Pourquoi le style service-based préserve-t-il mieux l'ACID que les autres styles distribués ?"
+    choices:
+      - "Parce qu'il n'a pas de base"
+      - "Ses services à gros grain gardent la plupart des transactions dans un seul service"
+      - "Parce qu'il utilise des sagas"
+      - "Il ne la préserve pas"
+    answer: 1
+    explanation: "Seules les opérations orchestrées entre plusieurs services exigent sagas et BASE."
+    concept: arch-sb-when
+    difficulty: 1

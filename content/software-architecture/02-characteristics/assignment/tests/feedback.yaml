@@ -1,0 +1,25 @@
+blocks:
+  classify:
+    options:
+      e1: Le domaine (et l'historique) annonce une rafale, pas une charge répartie sur 5 jours.
+      e2: 'Le risque est d''attribuer deux fois la même place : c''est l''intégrité des données.'
+      e3: 'Paiement délégué : une hygiène standard suffit.'
+      e4: Brancher des règles par faculté demande une structure (ou un bon design).
+      e5: L'internationalisation se règle par le design, sans structure dédiée.
+      e6: Le budget appelle la simplicité et la faisabilité.
+  rush:
+    tolerance:
+      abs: 1
+    wrong: Un tiers de 30 000 étudiants, en 60 minutes.
+  implicit:
+    options:
+      portability: 'Rien n''indique qu''il faudra changer de base : ce serait sur-spécifier.'
+      hft: 'Une inscription n''est pas un ordre de bourse : sur-spécifier complique tout.'
+  top3:
+    options:
+      custom: Elle compte, mais ce n'est pas elle qui a fait tomber le système l'an dernier.
+      performance: 'Elle découle surtout de l''élasticité : un système qui absorbe la rafale répond vite.'
+  eliminate:
+    options:
+      availability: 'C''est ce qui a manqué l''an dernier : on ne retire pas la cause de l''échec.'
+      reliability: 'Deux étudiants sur la même place : on ne retire pas l''intégrité.'

@@ -1,0 +1,75 @@
+intro: |
+  ```typescript
+  // A
+  function shipping(order: Order) {
+    if (order.items.length === 0) return 0;
+    let fee = 0;
+    for (const it of order.items) fee += it.heavy ? 12 : 4;
+    if (order.express || order.vip) fee *= 2;
+    return fee;
+  }
+
+  // B
+  function label(s: Status) {
+    switch (s) {
+      case 'created': return 'Créée';
+      case 'paid': return 'Payée';
+      case 'shipped': return 'Expédiée';
+      case 'cancelled': return 'Annulée';
+      default: return '?';
+    }
+  }
+
+  // C
+  async function fetchWithRetry(url: string, tries = 3) {
+    let last: unknown;
+    while (tries-- > 0) {
+      try { return await fetch(url); }
+      catch (e) { last = e; }
+    }
+    throw last ?? new Error('aucun essai');
+  }
+  ```
+blocks:
+- id: cc
+  type: table
+  title: CC de chaque fonction
+  prompt: Complète la complexité cyclomatique.
+  columns:
+  - id: cc
+    label: CC
+  rows:
+  - id: A
+    label: A — shipping
+    cells: {}
+  - id: B
+    label: B — label
+    cells: {}
+  - id: C
+    label: C — fetchWithRetry
+    cells: {}
+- id: graph
+  type: number
+  title: Vérifier sur le graphe
+  prompt: Le graphe de flot de C a 7 nœuds et 9 arêtes. Que vaut E − N + 2 ?
+  unit: ''
+- id: tests
+  type: number
+  title: Combien de tests ?
+  prompt: Combien de cas de test faut-il au minimum pour exécuter chaque chemin de base de A ?
+  unit: tests
+- id: refactor
+  type: choice
+  title: Réduire la complexité
+  prompt: '`computeTax(country, category)` a une CC de 41 : une cascade de `if` pays par pays, puis catégorie par catégorie, pour lire un taux.
+    Que fais-tu ?'
+  options:
+  - id: table
+    label: 'Remplacer la cascade par une table de taux `Record<Country, Record<Category, number>>` : les données sortent du code, la CC tombe
+      à 1 ou 2'
+  - id: split
+    label: Couper la fonction en quatre fonctions de 10 if chacune
+  - id: comment
+    label: Ajouter des commentaires sur chaque branche
+  - id: keep
+    label: 'La garder : c''est de la complexité essentielle'

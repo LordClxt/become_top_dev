@@ -1,0 +1,16 @@
+id: arch-ch05-l02-lab-six-teams
+title: 'Enquête : chaque petite évolution traverse toutes les équipes'
+difficulty: 3
+xp: 90
+concepts:
+- arch-conway
+- arch-technical-vs-domain
+- arch-partition-tradeoffs
+source:
+  chapter: 8
+  pages: 123-124
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,9 @@
+{
+  "cause": "conway",
+  "count": 21,
+  "law": "conway",
+  "fix": [
+    "domain",
+    "inverse"
+  ]
+}

@@ -1,0 +1,3 @@
+**Une architecture événementielle mêle les modèles selon les flux.** L'offre acceptée est diffusée en broker (fil, historique, antifraude, statistiques, et demain d'autres), la clôture est pilotée par un médiateur qui attend chaque acquittement et reprend après un refus de carte, et le cours de l'or est une diffusion pure.
+
+L'acceptation immédiate passe par un request-reply avec identifiant de corrélation, ce qui **soude** l'interface enchérisseur et le service qui ordonne les offres dans un même quantum : ce service doit donc tenir l'élasticité des fins d'enchères. Et aucune offre ne doit se perdre : persistance, envoi synchrone, acquittement client, ACID + LPS.

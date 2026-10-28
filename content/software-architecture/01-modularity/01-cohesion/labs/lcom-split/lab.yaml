@@ -1,0 +1,15 @@
+id: arch-ch01-l01-lab-lcom-split
+title: 'LCOM : faut-il scinder cette classe ?'
+difficulty: 2
+xp: 70
+concepts:
+- arch-lcom
+- arch-cohesion-tradeoff
+source:
+  chapter: 3
+  pages: 62-64
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

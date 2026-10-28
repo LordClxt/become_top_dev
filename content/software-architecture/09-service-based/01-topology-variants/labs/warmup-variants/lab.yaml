@@ -1,0 +1,15 @@
+id: arch-ch09-l01-lab-warmup-variants
+title: 'Échauffement : quelle variante, combien de quanta ?'
+difficulty: 1
+xp: 40
+concepts:
+- arch-sb-variants
+- arch-sb-topology
+source:
+  chapter: 13
+  pages: 183-187
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

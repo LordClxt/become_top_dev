@@ -1,0 +1,99 @@
+id: arch-ch10-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Le commentaire passe de 3 100 ms à 25 ms en asynchrone. Qu'a-t-on amélioré ?"
+    choices: ["La performance", "La réactivité", "Les deux", "La sécurité"]
+    answer: 1
+    explanation: "Le service prend toujours 3 000 ms : l'utilisateur est simplement prévenu plus tôt."
+    concept: arch-responsiveness-vs-performance
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel est le principal problème de l'asynchronisme ?"
+    choices: ["La latence", "La gestion d'erreurs", "Le coût du réseau", "La sécurité"]
+    answer: 1
+    explanation: "L'utilisateur n'a qu'un accusé de réception : comment lui dire, plus tard, que ça a échoué ?"
+    concept: arch-responsiveness-vs-performance
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Dans le workflow event pattern, que fait le consommateur face à un message en erreur ?"
+    choices:
+      - "Il cherche lui-même la cause"
+      - "Il le délègue au processeur de workflow et passe au message suivant"
+      - "Il arrête de lire la file"
+      - "Il le supprime"
+    answer: 1
+    explanation: "Sinon toute la file attend : on perd la réactivité."
+    concept: arch-workflow-event-pattern
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Le processeur de workflow ne sait pas réparer un message. Que se passe-t-il ?"
+    choices:
+      - "Le message est perdu"
+      - "Il part dans une file lue par un tableau de bord, où une personne le corrige et le resoumet"
+      - "Le consommateur plante"
+      - "Il est renvoyé au producteur"
+    answer: 1
+    explanation: "Souvent via l'en-tête reply-to."
+    concept: arch-workflow-event-pattern
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi un ordre réparé pose-t-il un problème d'ordre ?"
+    choices:
+      - "Parce qu'il est plus gros"
+      - "Il est retraité après des ordres arrivés plus tard ; pour un même compte, l'ordre compte"
+      - "Parce que le broker le perd"
+      - "Il n'en pose pas"
+    answer: 1
+    explanation: "Parade : une file temporaire FIFO pour les ordres du même compte, vidée après la réparation."
+    concept: arch-out-of-order
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Le message n'atteint jamais la file, ou le broker tombe avant qu'on le lise. Quelle parade ?"
+    choices:
+      - "L'acquittement client"
+      - "Des files persistantes et l'envoi synchrone"
+      - "Le LPS"
+      - "Un retry côté consommateur"
+    answer: 1
+    explanation: "Le message est soit encore chez le producteur, soit persisté dans la file."
+    concept: arch-data-loss
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Le consommateur lit le message puis plante avant de le traiter. Quelle parade ?"
+    choices:
+      - "L'acquittement client : le message reste dans la file, réservé, jusqu'à confirmation"
+      - "L'acquittement automatique"
+      - "Une file temporaire"
+      - "Un médiateur"
+    answer: 0
+    explanation: "En acquittement automatique, le message aurait été retiré dès la lecture, donc perdu."
+    concept: arch-data-loss
+    difficulty: 1
+  - id: q8
+    type: code-output
+    prompt: "Acquittement automatique ou client : combien de messages perdus après un plantage ?"
+    code: |
+      function run(mode: 'auto' | 'client') {
+        const queue = ['m1', 'm2', 'm3'];
+        const processed: string[] = [];
+        for (let i = 0; i < 3; i++) {
+          const msg = queue[0]!;
+          if (mode === 'auto') queue.shift();          // retiré dès la lecture
+          if (msg === 'm2' && i === 1) continue;       // le consommateur plante sur m2 (une fois)
+          processed.push(msg);
+          if (mode === 'client') queue.shift();        // retiré seulement après traitement
+        }
+        return 3 - processed.length - queue.length;
+      }
+      console.log(run('auto'), run('client'));
+    answer: "1 0"
+    explanation: "En automatique, m2 est retiré avant le plantage : perdu. En mode client, il reste dans la file et sera retraité."
+    concept: arch-data-loss
+    difficulty: 3

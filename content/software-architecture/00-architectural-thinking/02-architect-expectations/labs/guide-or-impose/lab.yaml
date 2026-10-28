@@ -1,0 +1,16 @@
+id: arch-ch00-l02-lab-guide-or-impose
+title: Guider ou imposer ?
+difficulty: 2
+xp: 60
+concepts:
+- arch-guide-not-specify
+- arch-compliance-fitness
+- arch-hands-on
+source:
+  chapter: 1
+  pages: 28-38
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

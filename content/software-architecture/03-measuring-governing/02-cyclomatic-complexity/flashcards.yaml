@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "CC en une formule simple ?"
+    back: "1 + nombre de points de décision."
+    concept: arch-cc-definition
+  - id: fc2
+    front: "Points de décision en TypeScript ?"
+    back: "if, else if, case, for, while, do, catch, ternaire, &&, ||, ?? (pas le else seul)."
+    concept: arch-cc-definition
+  - id: fc3
+    front: "CC sur le graphe de flot ?"
+    back: "E − N + 2 pour une fonction ; E − N + 2P pour P composantes connexes."
+    concept: arch-cc-formula
+  - id: fc4
+    front: "Que donne aussi la CC pour les tests ?"
+    back: "Le nombre minimal de cas pour exécuter chaque chemin de base."
+    concept: arch-cc-formula
+  - id: fc5
+    front: "Seuils de CC ?"
+    back: "< 10 (industrie), < 5 (auteurs), > 50 irrécupérable (Crap4J)."
+    concept: arch-cc-thresholds
+  - id: fc6
+    front: "Complexité essentielle vs accidentelle ?"
+    back: "Essentielle : le problème est complexe. Accidentelle : le code est plus compliqué que nécessaire."
+    concept: arch-cc-essential-accidental
+  - id: fc7
+    front: "Pratique qui réduit la CC accidentelle ?"
+    back: "Le TDD : petites méthodes cohésives, une à la fois."
+    concept: arch-cc-essential-accidental

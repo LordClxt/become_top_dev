@@ -1,0 +1,22 @@
+id: arch-ch08-boss
+title: 'Boss : le logiciel d''impôts'
+difficulty: 4
+xp: 300
+time_limit_min: 45
+concepts:
+- arch-microkernel-topology
+- arch-core-system
+- arch-move-complexity
+- arch-plugin-registry
+- arch-plugin-contracts
+- arch-remote-plugins
+- arch-plugin-data
+- arch-microkernel-ratings
+source:
+  chapter: 12
+  pages: 169-182
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

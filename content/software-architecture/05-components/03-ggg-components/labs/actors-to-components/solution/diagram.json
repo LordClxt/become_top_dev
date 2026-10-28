@@ -1,0 +1,120 @@
+{
+  "nodes": [
+    {
+      "id": "bidder",
+      "type": "bidder",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "auctioneer",
+      "type": "auctioneer",
+      "x": 0,
+      "y": 360
+    },
+    {
+      "id": "vs",
+      "type": "video-streamer",
+      "x": 320,
+      "y": -120
+    },
+    {
+      "id": "bs",
+      "type": "bid-streamer",
+      "x": 320,
+      "y": 40
+    },
+    {
+      "id": "bc",
+      "type": "bid-capture",
+      "x": 320,
+      "y": 180
+    },
+    {
+      "id": "ac",
+      "type": "auctioneer-capture",
+      "x": 320,
+      "y": 360
+    },
+    {
+      "id": "bt",
+      "type": "bid-tracker",
+      "x": 620,
+      "y": 260
+    },
+    {
+      "id": "as",
+      "type": "auction-session",
+      "x": 620,
+      "y": 440
+    },
+    {
+      "id": "pay",
+      "type": "payment",
+      "x": 900,
+      "y": 440
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "bidder",
+      "target": "bc",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "bc",
+      "target": "bt",
+      "kind": "async"
+    },
+    {
+      "id": "e3",
+      "source": "auctioneer",
+      "target": "ac",
+      "kind": "sync"
+    },
+    {
+      "id": "e4",
+      "source": "ac",
+      "target": "bt",
+      "kind": "async"
+    },
+    {
+      "id": "e5",
+      "source": "ac",
+      "target": "bs",
+      "kind": "async"
+    },
+    {
+      "id": "e6",
+      "source": "bt",
+      "target": "bs",
+      "kind": "async"
+    },
+    {
+      "id": "e7",
+      "source": "vs",
+      "target": "bidder",
+      "kind": "async"
+    },
+    {
+      "id": "e8",
+      "source": "bs",
+      "target": "bidder",
+      "kind": "async"
+    },
+    {
+      "id": "e9",
+      "source": "bt",
+      "target": "as",
+      "kind": "sync"
+    },
+    {
+      "id": "e10",
+      "source": "as",
+      "target": "pay",
+      "kind": "async"
+    }
+  ]
+}

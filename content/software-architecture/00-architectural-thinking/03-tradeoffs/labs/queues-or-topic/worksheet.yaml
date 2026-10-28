@@ -1,0 +1,41 @@
+intro: 'Trois entreprises ont le même besoin technique : un **Bid Producer** doit transmettre chaque offre à plusieurs services. Leur contexte,
+  lui, diffère.'
+blocks:
+- id: ctx
+  type: table
+  title: Choisis pour chaque contexte
+  prompt: Pour chaque contexte, indique le canal (`topic` ou `files`) et le facteur dominant (`extensibilite`, `securite`, `contrats` ou `scalabilite`).
+  columns:
+  - id: context
+    label: Contexte
+  - id: channel
+    label: Canal
+  - id: factor
+    label: Facteur dominant
+  rows:
+  - id: a
+    label: A
+    cells:
+      context: 'Start-up : l''équipe data ajoute un nouveau consommateur (scoring, recommandations, alertes…) presque chaque mois.'
+  - id: b
+    label: B
+    cells:
+      context: 'Maison de ventes régulée : un audit a exigé que toute écoute non autorisée du flux d''offres soit détectée.'
+  - id: c
+    label: C
+    cells:
+      context: 'Plateforme en forte croissance : Bid Capture sature aux clôtures alors qu''Analytics est au repos ; on veut les faire monter en
+        charge séparément, selon la profondeur de leur canal.'
+- id: hidden
+  type: multi
+  title: Le revers du topic
+  prompt: L'équipe A a choisi le topic. Quels risques doit-elle accepter en échange ?
+  options:
+  - id: tap
+    label: Un service malveillant peut écouter les offres sans être remarqué
+  - id: contract
+    label: Si un consommateur a besoin d'un champ de plus, le contrat change pour tous
+  - id: producer
+    label: Le producteur doit être modifié à chaque nouveau consommateur
+  - id: loss
+    label: Chaque abonné ne reçoit que la moitié des offres

@@ -1,0 +1,3 @@
+**La commande dépendait d'un bonus.** Au pic, 950 commandes/min font environ 16 appels/s vers un service qui n'en garantit que 10 : la file du fournisseur grossit, la latence monte à 28 s, les 512 connexions sont occupées, et les commandes échouent alors que la CPU dort à 31 %.
+
+C'est l'avertissement du kata : une intégration externe touche la **fiabilité**, et il faut **éviter de construire de la fragilité**. Le trafic doit être optionnel : délai court, repli sur un itinéraire simple, ou calcul après la commande. Ajouter de la CPU, des connexions ou des instances ne fait qu'attendre plus nombreux.

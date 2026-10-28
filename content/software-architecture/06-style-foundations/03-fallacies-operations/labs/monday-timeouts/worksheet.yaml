@@ -1,0 +1,64 @@
+intro: |
+  **Symptôme.** Depuis lundi 8 h, 30 % des appels Commandes → Stock expirent ; les circuit breakers s'ouvrent en cascade. Aucun déploiement depuis vendredi 17 h. Les services Stock répondent normalement à leurs propres sondes de santé.
+
+  **Latence Commandes → Stock (mesurée côté appelant)**
+  | période | p50 | p99 |
+  |---|---|---|
+  | semaine dernière | 25 ms | 80 ms |
+  | depuis lundi 2 h | 70 ms | 260 ms |
+
+  **`orders/config.yaml`** (écrit il y a un an)
+  ```yaml
+  stock_client:
+    timeout_ms: 120     # « p99 + 50 % de marge »
+    breaker: { failures: 20, open_ms: 30000 }
+  ```
+
+  **Ticket de l'équipe réseau n° 4471** (équipe datacenter B, non diffusé aux équipes applicatives) : « Dimanche 2 h – 3 h : remplacement du routeur cœur entre les baies 3 et 7. Impact attendu : aucun. »
+
+  Le service Commandes tourne en baie 3, le service Stock en baie 7.
+blocks:
+- id: cause
+  type: choice
+  title: Cause racine
+  prompt: Quelle est la cause racine ?
+  options:
+  - id: topology
+    label: Un changement de topologie (nouveau routeur) a augmenté la latence au-delà des hypothèses figées dans le timeout
+  - id: stock
+    label: Le service Stock est en panne
+  - id: deploy
+    label: Un déploiement silencieux de Commandes
+  - id: breaker
+    label: Le circuit breaker est mal codé
+- id: fallacies
+  type: multi
+  title: Les erreurs en jeu
+  prompt: Quelles erreurs du calcul distribué cet incident illustre-t-il ?
+  options:
+  - id: f5
+    label: La topologie ne change jamais
+  - id: f6
+    label: Il n'y a qu'un administrateur
+  - id: f2
+    label: La latence est nulle (ou figée)
+  - id: f7
+    label: Le transport ne coûte rien
+- id: timeout
+  type: number
+  title: Le nouveau timeout
+  prompt: En appliquant la même règle (p99 + 50 %) à la mesure actuelle, quel timeout faut-il ?
+  unit: ms
+- id: durable
+  type: multi
+  title: Corriger durablement
+  prompt: Quelles mesures empêchent la récidive ?
+  options:
+  - id: subscribe
+    label: Être destinataire des changements réseau de toutes les équipes datacenter concernées
+  - id: alert
+    label: Une alerte quand le p99 mesuré dépasse 70 % du timeout configuré
+  - id: review
+    label: Revoir les timeouts à partir des percentiles mesurés, régulièrement
+  - id: disable
+    label: Désactiver les circuit breakers

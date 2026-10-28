@@ -1,0 +1,12 @@
+{
+  "impact": {
+    "c1.single": 7,
+    "c1.federated": 3,
+    "c2.single": 7,
+    "c2.federated": 2,
+    "c3.single": 7,
+    "c3.federated": 7
+  },
+  "common": "lock",
+  "granularity": "fine"
+}

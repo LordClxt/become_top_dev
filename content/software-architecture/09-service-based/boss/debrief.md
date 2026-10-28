@@ -1,0 +1,3 @@
+**Un découpage service-based, c'est une suite de décisions pragmatiques.** Seules la recherche et la réservation montent en charge. La réservation garde dossier et paiement dans une transaction de sa façade ; seul le système externe du transporteur demande une compensation. Les bibliothèques fédérées font passer l'impact d'un changement de 6 services à 3 ou 4 (sauf pour `travellers`, commune, à verrouiller). Et la recherche obtient son propre quantum (interface et base de lecture alimentée en asynchrone), pour encaisser les pics du dimanche.
+
+Ce que le style ne donnera pas : une élasticité de microservices et des déploiements aussi petits. Il faut le dire à la direction, et c'est souvent un excellent compromis.

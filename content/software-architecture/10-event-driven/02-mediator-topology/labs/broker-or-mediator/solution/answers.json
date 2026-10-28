@@ -1,0 +1,19 @@
+{
+  "topology": {
+    "f1": "broker",
+    "f2": "mediator",
+    "f3": "broker",
+    "f4": "mediator"
+  },
+  "engine": {
+    "e1": "code",
+    "e2": "bpm",
+    "e3": "bpel"
+  },
+  "delegation": "delegate",
+  "kind": {
+    "m1": "command",
+    "m2": "event",
+    "m3": "command"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "modules": {
+    "m1": "functional",
+    "m2": "sequential",
+    "m3": "temporal",
+    "m4": "logical",
+    "m5": "coincidental",
+    "m6": "communicational"
+  }
+}

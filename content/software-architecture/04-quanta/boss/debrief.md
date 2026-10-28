@@ -1,0 +1,3 @@
+**Cinq quanta, reliés uniquement par de l'asynchrone.** Chaque interface et sa capture forment un quantum aux caractéristiques propres : l'enchérisseur doit être élastique ; le commissaire-priseur, disponible et fiable avant tout. Les files vers Bid Tracker empêchent un pic d'enchérisseurs de ralentir le commissaire-priseur. Bid Tracker, seul propriétaire de la base, garantit l'**ordre** des offres. La diffusion (Bid Streamer) et le paiement vivent à leur propre rythme.
+
+C'est l'architecture que le livre retient au chapitre 18 : pas « la » bonne réponse, mais la moins mauvaise, et chaque flèche asynchrone a un prix (latence, gestion d'erreurs) qui méritera un ADR.

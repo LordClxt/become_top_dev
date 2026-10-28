@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Microkernel pour les sinistres d'assurance ?"
+    back: "Un plug-in par juridiction ; le cœur est le processus standard de sinistre, qui change rarement."
+    concept: arch-rules-engine-mud
+  - id: fc2
+    front: "Microkernel pour les impôts ?"
+    back: "Le formulaire 1040 est le cœur ; chaque annexe ou feuille de calcul est un plug-in."
+    concept: arch-microkernel-examples
+  - id: fc3
+    front: "Isomorphisme domaine-architecture ?"
+    back: "Une correspondance naturelle entre la forme du problème (configuration par lieu ou client) et le style (plug-ins)."
+    concept: arch-domain-isomorphism
+  - id: fc4
+    front: "Forces et faiblesses du microkernel ?"
+    back: "Forces : simplicité, coût. Faiblesses : scalabilité, tolérance aux pannes. Un seul quantum."
+    concept: arch-microkernel-ratings
+  - id: fc5
+    front: "Notes un peu au-dessus de la moyenne ?"
+    back: "Testabilité, déployabilité, fiabilité, modularité, extensibilité, performance (trois étoiles)."
+    concept: arch-microkernel-ratings

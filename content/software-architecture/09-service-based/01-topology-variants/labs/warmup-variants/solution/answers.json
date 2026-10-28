@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "a.variant": "base",
+    "a.quanta": 1,
+    "b.variant": "ui-federee",
+    "b.quanta": 1,
+    "c.variant": "api",
+    "c.quanta": 1,
+    "d.variant": "bdd-federee",
+    "d.quanta": 2
+  }
+}

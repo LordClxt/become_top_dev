@@ -1,0 +1,18 @@
+blocks:
+  cause:
+    options:
+      bug: 'Le code d''Analytics n''a pas changé, et Bid History a lui aussi des trous : la perte n''est pas propre à Analytics.'
+      broker: 'Le broker a bien remis 1 200 messages : 600 + 600. Rien n''est perdu, tout est réparti.'
+      producer: 'La file a reçu 1 200 publications : le producteur envoie tout.'
+  expected:
+    wrong: 'Après correction, chaque service a son propre canal : combien d''offres a été publié sur l''heure ?'
+  evidence:
+    options:
+      i5: Les trous de Bid History confirment que les messages sont partagés, pas perdus d'un seul côté.
+      i1: Sans file dédiée, Bid History ne pouvait recevoir les offres qu'en lisant le canal d'un autre.
+  fix:
+    options:
+      replicas: 'Un réplica de plus d''Analytics serait un troisième consommateur concurrent : Analytics recevrait 2/3, History 1/3. Le problème
+        reste.'
+      copy: 'Analytics devient un relais dont History dépend : un couplage et un point de panne en plus, pour contourner au lieu de corriger.'
+      retry: 'Rien n''échoue côté producteur : tout est publié.'

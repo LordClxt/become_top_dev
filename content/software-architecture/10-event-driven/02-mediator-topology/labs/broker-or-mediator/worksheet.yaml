@@ -1,0 +1,65 @@
+intro: Une compagnie d'assurance automobile modernise ses flux.
+blocks:
+- id: topology
+  type: match
+  title: Quelle topologie ?
+  prompt: Associe chaque flux à la topologie la plus adaptée.
+  items:
+  - id: f1
+    label: Diffuser chaque changement d'adresse d'un assuré aux services intéressés (tarification, courrier, statistiques)
+  - id: f2
+    label: 'Indemniser un sinistre : expertise, validation, paiement, clôture, avec reprise si le paiement échoue'
+  - id: f3
+    label: Enregistrer les clics sur le site pour l'analyse marketing
+  - id: f4
+    label: 'Souscrire un contrat : vérifications, signature, premier prélèvement, émission de l''attestation'
+  categories:
+  - id: broker
+    label: Broker
+  - id: mediator
+    label: Médiateur
+- id: engine
+  type: match
+  title: Quel médiateur ?
+  prompt: Pour chaque workflow, quel type de médiateur ?
+  items:
+  - id: e1
+    label: 'Souscription standard : quatre étapes fixes'
+  - id: e2
+    label: 'Sinistre grave : au-delà de 20 000 €, un expert humain doit valider, parfois après plusieurs jours'
+  - id: e3
+    label: 'Tarification : de nombreuses branches conditionnelles selon le véhicule, le conducteur, la zone'
+  categories:
+  - id: code
+    label: Médiateur en code (Camel, Mule, Spring Integration)
+  - id: bpel
+    label: Moteur BPEL
+  - id: bpm
+    label: Moteur BPM (jBPM)
+- id: delegation
+  type: choice
+  title: Tous ensemble
+  prompt: Les trois workflows passent par le même point d'entrée. Que recommande le livre ?
+  options:
+  - id: delegate
+    label: Classer les événements (simple, difficile, complexe) ; tout passe par un médiateur simple qui traite ou transfère au BPEL ou au BPM
+  - id: bpm-all
+    label: Tout traiter dans le moteur BPM, le plus puissant
+  - id: camel-all
+    label: Tout écrire en Camel
+- id: kind
+  type: match
+  title: Commande ou événement ?
+  prompt: Classe chaque message.
+  items:
+  - id: m1
+    label: '`pay-claim` envoyé par le médiateur'
+  - id: m2
+    label: '`address-changed` publié sur un topic'
+  - id: m3
+    label: '`issue-certificate` envoyé par le médiateur'
+  categories:
+  - id: command
+    label: Commande (doit être traitée)
+  - id: event
+    label: Événement (peut être ignoré)

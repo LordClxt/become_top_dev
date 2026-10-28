@@ -1,0 +1,9 @@
+id: arch-ch02-scale-vs-elastic
+concept: arch-scalability-vs-elasticity
+format: interactive
+justification: "Superposer une courbe de charge régulière et une courbe à pics, puis régler instances fixes ou autoscaling, montre où le système rejette et ce qu'il coûte : la distinction devient visible."
+entry: ScaleVsElastic.tsx
+params:
+  - { name: baseInstances, type: int, min: 1, max: 15, default: 6 }
+  - { name: autoscaleDelay, type: int, min: 0, max: 5, default: 2 }
+status: built

@@ -1,0 +1,22 @@
+id: arch-ch02
+title: "Caractéristiques d'architecture"
+subtitle: "Définir les -ilités, les extraire du métier et des exigences, et n'en garder que l'essentiel"
+source: { chapter: 4, pages: "75-96" }
+objectives:
+  - "Reconnaître une caractéristique d'architecture à ses trois critères (hors domaine, impact structurel, critique) et distinguer implicite et explicite"
+  - "Classer les caractéristiques en opérationnelles, structurelles et transverses, et lever les ambiguïtés de vocabulaire par un langage commun"
+  - "Traduire les préoccupations métier en caractéristiques, sans oublier un ingrédient (time to market = agilité + testabilité + déployabilité)"
+  - "Distinguer scalabilité et élasticité et dimensionner un système pour un trafic régulier ou en rafales"
+  - "Mener un kata : caractéristiques explicites et implicites, top 3, caractéristique à éliminer, architecture ou design"
+  - "Diagnostiquer une panne causée par un point d'intégration rendu critique sans raison"
+  - "Simuler en TypeScript un système sous charge (file, capacité, percentiles, autoscaling) pour mesurer scalabilité et élasticité"
+mastery_threshold: 0.8
+prerequisites: [arch-ch01]
+lessons:
+  - "01-defining"
+  - "02-identifying"
+  - "03-silicon-sandwiches"
+xp: { assignment: 140, project: 260, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

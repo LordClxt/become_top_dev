@@ -1,0 +1,27 @@
+blocks:
+  actions:
+    options:
+      a1: C'est le conducteur qui propose un trajet.
+      a2: Le passager réserve.
+      a3: Le passager suit le conducteur.
+      a4: Un passager en difficulté déclenche l'alerte.
+      a5: 'Personne ne clique : le système le fait après le trajet.'
+      a6: L'équipe sécurité surveille.
+  trap:
+    options:
+      ok: Ces Managers recopient des tables ; ils ne disent rien du comportement.
+      fewer: Le problème n'est pas le nombre de composants, c'est ce qu'ils représentent.
+  split:
+    options:
+      profile: 'L''édition du profil n''a pas d''exigence particulière : elle rejoint le reste.'
+  shape:
+    options:
+      monolith: Un seul quantum ne peut pas garantir l'urgence quand la réservation sature.
+      micro: 'Vingt services pour six développeurs : la granularité tue la productivité.'
+  partition:
+    options:
+      technical: 'Les évolutions de ce groupe sont surtout métier : les couches les étaleraient.'
+  granularity:
+    options:
+      never: 'Ce n''est pas un dogme : c''est une question de granularité et de contexte.'
+      db: Le nombre de bases n'est pas l'argument.

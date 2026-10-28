@@ -1,0 +1,13 @@
+{
+  "classify": {
+    "s1": "structure",
+    "s2": "characteristic",
+    "s3": "decision",
+    "s4": "principle",
+    "s5": "characteristic",
+    "s6": "decision",
+    "s7": "principle",
+    "s8": "structure"
+  },
+  "variance": "ask"
+}

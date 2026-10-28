@@ -1,0 +1,3 @@
+**Une chaîne de 7 appels coûte 420 ms en moyenne**, et **6,8 %** des pages subissent au moins un appel lent : la longue traîne de chaque service devient l'expérience courante. Le profil complet coûte **450 Mo/s** pour afficher un prénom : c'est le couplage de tampon.
+
+Les remèdes sont architecturaux : raccourcir la chaîne (regrouper, mettre en cache les données stables, paralléliser ce qui peut l'être), et ne transmettre que le nécessaire (sélecteur de champs, endpoint privé, contrat piloté par le consommateur). Avec 4 appels et 100 octets, la page tient le budget : 240 ms, 3,9 % de pages touchées, 0,15 Mo/s.

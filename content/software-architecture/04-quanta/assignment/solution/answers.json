@@ -1,0 +1,21 @@
+{
+  "count": {
+    "v1.quanta": 1,
+    "v2.quanta": 1,
+    "v3.quanta": 2
+  },
+  "why-v2": "db",
+  "groups": {
+    "quote": "external",
+    "status": "external",
+    "receiving": "internal",
+    "assessment": "internal",
+    "recycling": "internal",
+    "accounting": "internal"
+  },
+  "benefit": [
+    "scale",
+    "security",
+    "deploy"
+  ]
+}

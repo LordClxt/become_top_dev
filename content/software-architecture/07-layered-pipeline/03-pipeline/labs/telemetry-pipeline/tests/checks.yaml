@@ -1,0 +1,75 @@
+checks:
+- id: in
+  label: La capture s'abonne au topic
+  rule: path
+  source: kafka
+  target: capture
+- id: d1
+  label: La capture envoie à Duration Filter
+  rule: path
+  source: capture
+  target: duration-filter
+- id: d2
+  label: Duration Filter alimente Duration Calculator
+  rule: path
+  source: duration-filter
+  target: duration-calc
+- id: u1
+  label: Duration Filter passe le reste à Uptime Filter
+  rule: path
+  source: duration-filter
+  target: uptime-filter
+- id: u2
+  label: Uptime Filter alimente Uptime Calculator
+  rule: path
+  source: uptime-filter
+  target: uptime-calc
+- id: w1
+  label: Le nouveau testeur se place après Uptime Filter
+  rule: path
+  source: uptime-filter
+  target: wait-filter
+- id: w2
+  label: Le nouveau testeur alimente son calculateur
+  rule: path
+  source: wait-filter
+  target: wait-calc
+- id: o1
+  label: Duration Calculator écrit via Database Output
+  rule: path
+  source: duration-calc
+  target: output
+- id: o2
+  label: Uptime Calculator écrit via Database Output
+  rule: path
+  source: uptime-calc
+  target: output
+- id: o3
+  label: Connection Wait Calculator écrit via Database Output
+  rule: path
+  source: wait-calc
+  target: output
+- id: owner
+  label: Seul Database Output écrit dans MongoDB
+  rule: inbound_via
+  target: mongo
+  via: output
+- id: write
+  label: Database Output écrit dans MongoDB
+  rule: edge_kind
+  source: output
+  target: mongo
+  kind: write
+- id: nobypass
+  label: La capture ne contourne pas les testeurs
+  rule: no_edge
+  source: capture
+  target: output
+- id: untouched
+  label: Duration Filter ne connaît pas le nouveau testeur (aucune modification)
+  rule: no_edge
+  source: duration-filter
+  target: wait-filter
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

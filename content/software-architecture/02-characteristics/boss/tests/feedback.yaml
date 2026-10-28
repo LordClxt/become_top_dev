@@ -1,0 +1,28 @@
+blocks:
+  ceo:
+    options:
+      performance: La vitesse d'exécution n'aide pas à livrer chaque semaine.
+      portability: Rien n'exige de changer de plateforme.
+  winter:
+    options:
+      elastic: 'Plusieurs semaines à 6× : il faut tenir un volume élevé dans la durée, pas seulement une rafale.'
+      none: '6 × 1 500 = 9 000 consultations simultanées : il faut le prévoir.'
+  sorting:
+    options:
+      r2: 'Une intégration critique touche la fiabilité : que se passe-t-il quand elle tombe ?'
+      r3: Une ordonnance signée doit pouvoir être prouvée.
+      r4: Un SMS de rappel est une fonctionnalité sans enjeu structurel.
+      r5: Conserver et retrouver sur 20 ans est une question de cycle de vie des données.
+      ctx: 'Hébergement certifié et accès tracés façonnent la structure : isolement, journal d''accès.'
+  video:
+    options:
+      down: 'C''est construire de la fragilité : réservations et ordonnances n''ont pas besoin de la vidéo.'
+      retry: Réessayer sans fin bloque les ressources et le patient.
+  top3:
+    options:
+      archivability: Elle compte, mais elle ne fait pas échouer le lancement ni l'hiver.
+      performance: Elle découle surtout de la scalabilité et ne dépasse pas les trois autres.
+  eliminate:
+    options:
+      security: 'Données de santé : on ne retire pas ce qui est légalement et structurellement central.'
+      elasticity: L'hiver est le risque majeur du domaine.

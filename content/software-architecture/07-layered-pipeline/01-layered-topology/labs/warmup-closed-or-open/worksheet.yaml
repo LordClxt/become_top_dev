@@ -1,0 +1,38 @@
+intro: 'Couches, de haut en bas : **présentation** (fermée), **métier** (fermée), **services** (ouverte, objets partagés), **persistance** (fermée),
+  **base**.'
+blocks:
+- id: calls
+  type: match
+  title: Permis ou interdit ?
+  prompt: Classe chaque appel.
+  items:
+  - id: c1
+    label: Présentation → métier
+  - id: c2
+    label: Présentation → persistance
+  - id: c3
+    label: Métier → persistance
+  - id: c4
+    label: Métier → services
+  - id: c5
+    label: Présentation → services (utilitaire de dates)
+  - id: c6
+    label: Persistance → métier
+  - id: c7
+    label: Services → persistance
+  categories:
+  - id: ok
+    label: Permis
+  - id: ko
+    label: Interdit
+- id: why
+  type: choice
+  title: Pourquoi une couche de services ?
+  prompt: Pourquoi avoir placé les utilitaires partagés dans une couche de services sous le métier ?
+  options:
+  - id: structural
+    label: 'Pour que l''interdiction faite à la présentation soit structurelle : le métier fermé lui barre l''accès'
+  - id: perf
+    label: Pour accélérer les utilitaires
+  - id: reuse
+    label: Pour que la présentation puisse les réutiliser

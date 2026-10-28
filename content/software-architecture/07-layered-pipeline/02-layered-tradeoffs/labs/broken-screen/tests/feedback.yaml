@@ -1,0 +1,13 @@
+blocks:
+  cause:
+    options:
+      migration: 'La migration est correcte : la persistance et le métier ont été adaptés et testés.'
+      react: 'React affiche ce qu''on lui donne : `row.status` n''existe plus.'
+      tests: 'Les tests du métier n''exécutent pas la présentation : le problème est un couplage qu''ils ne voient pas.'
+  rule:
+    options:
+      freeze: 'On ne fige pas le schéma : l''isolation des couches sert justement à pouvoir le changer.'
+  perf:
+    options:
+      allow: C'est la porte ouverte au couplage de toutes les couches.
+      never: 'Elle compte : mais un compromis se décide, se documente et se vérifie.'

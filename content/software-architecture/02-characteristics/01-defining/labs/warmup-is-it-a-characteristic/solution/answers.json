@@ -1,0 +1,19 @@
+{
+  "sort": {
+    "p1": "domain",
+    "p2": "char",
+    "p3": "hygiene",
+    "p4": "char",
+    "p5": "domain",
+    "p6": "char",
+    "p7": "hygiene"
+  },
+  "families": {
+    "availability": "operational",
+    "recoverability": "operational",
+    "extensibility": "structural",
+    "localization": "structural",
+    "legal": "crosscutting",
+    "accessibility": "crosscutting"
+  }
+}

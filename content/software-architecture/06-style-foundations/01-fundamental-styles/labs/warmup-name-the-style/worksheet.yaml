@@ -1,0 +1,54 @@
+intro: Cinq systèmes rencontrés lors d'audits.
+blocks:
+- id: systems
+  type: match
+  title: Quel style ?
+  prompt: Associe chaque description à son style.
+  items:
+  - id: s1
+    label: 'Le firmware d''un thermostat : un programme, une puce, rien d''autre.'
+  - id: s2
+    label: Une application Windows de gestion de stock, qui interroge un serveur SQL du réseau de l'entreprise.
+  - id: s3
+    label: Une interface HTML générée par un serveur d'application Java EE, qui parle à une base Oracle.
+  - id: s4
+    label: Des gestionnaires de clics qui appellent directement la base, des variables globales partout, personne n'ose rien changer.
+  - id: s5
+    label: Une SPA dans le navigateur qui appelle un serveur web, lui-même relié à une base.
+  categories:
+  - id: unitary
+    label: Unitaire
+  - id: desktop
+    label: 'Client/serveur : bureau + base'
+  - id: web
+    label: 'Client/serveur : navigateur + serveur web'
+  - id: three
+    label: Trois tiers
+  - id: mud
+    label: Big Ball of Mud
+- id: families
+  type: match
+  title: Monolithique ou distribué ?
+  prompt: Range chaque style.
+  items:
+  - id: layered
+    label: En couches
+  - id: pipeline
+    label: Pipeline
+  - id: microkernel
+    label: Microkernel
+  - id: service
+    label: Service-based
+  - id: event
+    label: Event-driven
+  - id: space
+    label: Space-based
+  - id: soa
+    label: SOA orchestrée
+  - id: micro
+    label: Microservices
+  categories:
+  - id: mono
+    label: Monolithique
+  - id: dist
+    label: Distribué

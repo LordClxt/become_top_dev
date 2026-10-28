@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Définition d'une fitness function d'architecture ?"
+    back: "Tout mécanisme qui fournit une évaluation objective de l'intégrité d'une caractéristique (ou d'une combinaison)."
+    concept: arch-fitness-mechanisms
+  - id: fc2
+    front: "Quatre familles de mécanismes ?"
+    back: "Métriques, tests unitaires, moniteurs, chaos engineering."
+    concept: arch-fitness-mechanisms
+  - id: fc3
+    front: "Pourquoi les cycles sont-ils graves ?"
+    back: "On ne peut plus réutiliser un composant sans les autres ; le système glisse vers le Big Ball of Mud."
+    concept: arch-cycle-detection
+  - id: fc4
+    front: "Outils de règles de couches ?"
+    back: "ArchUnit (Java), NetArchTest (.NET), dependency-cruiser (TypeScript)."
+    concept: arch-layer-rules
+  - id: fc5
+    front: "Chaos Kong ?"
+    back: "Simule la perte d'un centre de données entier."
+    concept: arch-chaos-engineering
+  - id: fc6
+    front: "Conformity Monkey ?"
+    back: "Vérifie en production des règles de gouvernance (ex. chaque service répond à tous les verbes REST)."
+    concept: arch-chaos-engineering
+  - id: fc7
+    front: "Leçon du Checklist Manifesto pour les fitness functions ?"
+    back: "Une checklist automatisée des principes importants, pas une gouvernance lourde."
+    concept: arch-fitness-collaboration
+  - id: fc8
+    front: "Cliquet (ratchet) ?"
+    back: "Tolérer les violations existantes (référence), refuser toute nouvelle, et resserrer la référence à chaque correction."
+    concept: arch-fitness-collaboration

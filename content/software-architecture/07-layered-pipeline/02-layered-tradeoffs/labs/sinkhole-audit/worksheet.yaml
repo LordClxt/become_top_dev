@@ -1,0 +1,59 @@
+intro: |
+  **Application A** (gestion de contrats d'assurance) — volume quotidien par type de requête et couches qui font un vrai travail :
+  | requête | volume/jour | travail |
+  |---|---|---|
+  | calculer une prime | 40 000 | métier (règles tarifaires) |
+  | souscrire | 10 000 | métier, persistance (transaction) |
+  | lire un contrat | 12 000 | aucune |
+  | lister les contrats | 3 000 | aucune |
+
+  **Application B** (annuaire interne) :
+  | requête | volume/jour | travail |
+  |---|---|---|
+  | chercher une personne | 80 000 | aucune |
+  | afficher une fiche | 60 000 | aucune |
+  | modifier sa fiche | 2 000 | métier (validation) |
+blocks:
+- id: rates
+  type: table
+  title: Proportion de puits
+  prompt: Complète la proportion de puits, pondérée par le volume (en %, arrondi à l'unité).
+  columns:
+  - id: pct
+    label: Puits (%)
+  rows:
+  - id: a
+    label: Application A
+    cells: {}
+  - id: b
+    label: Application B
+    cells: {}
+- id: verdict
+  type: match
+  title: Le verdict
+  prompt: Que conclure pour chaque application ?
+  items:
+  - id: a
+    label: Application A
+  - id: b
+    label: Application B
+  categories:
+  - id: fine
+    label: Le style en couches convient
+  - id: wrong
+    label: Le style en couches ne convient pas à ce domaine
+- id: weak
+  type: multi
+  title: Le bulletin des couches
+  prompt: Quelles caractéristiques l'architecture en couches note-t-elle le plus bas (une étoile, ou aucune tolérance) ?
+  options:
+  - id: elasticity
+    label: Élasticité
+  - id: scalability
+    label: Scalabilité
+  - id: fault
+    label: Tolérance aux pannes
+  - id: cost
+    label: Coût
+  - id: simplicity
+    label: Simplicité

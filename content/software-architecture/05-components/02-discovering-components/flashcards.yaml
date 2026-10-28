@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Les cinq étapes du cycle d'identification ?"
+    back: "Composants initiaux, affecter les exigences, rôles et responsabilités, caractéristiques, restructurer (et recommencer)."
+    concept: arch-identification-flow
+  - id: fc2
+    front: "Granularité trop fine / trop grosse ?"
+    back: "Trop fine : trop de communication. Trop grosse : couplage interne, déployabilité et testabilité en berne."
+    concept: arch-granularity
+  - id: fc3
+    front: "Piège des entités ?"
+    back: "Un Manager par entité de la base : un mapping ORM, pas une architecture ; il confond données et workflows."
+    concept: arch-entity-trap
+  - id: fc4
+    front: "Frameworks pour du pur CRUD ?"
+    back: "Naked Objects / Apache Isis, scaffolding de Ruby on Rails."
+    concept: arch-entity-trap
+  - id: fc5
+    front: "Acteurs/actions ?"
+    back: "Identifier qui utilise le système et ce que chacun fait, puis en déduire les composants (issu du RUP)."
+    concept: arch-discovery-techniques
+  - id: fc6
+    front: "Event storming ?"
+    back: "Identifier les événements du système et bâtir les composants autour de leurs gestionnaires (issu du DDD)."
+    concept: arch-discovery-techniques

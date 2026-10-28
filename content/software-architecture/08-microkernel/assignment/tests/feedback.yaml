@@ -1,0 +1,21 @@
+blocks:
+  pros:
+    options:
+      a1: C'est la définition de l'isomorphisme domaine-architecture.
+      a2: Ajouter des plug-ins sans toucher au cœur.
+      a3: Template Method ne demande pas de nouveau style.
+      a4: C'est l'intérêt d'un pattern de design.
+  limits:
+    options:
+      custom: C'est justement ce que le microkernel sert le mieux.
+      cost: Le coût est l'un de ses points forts.
+  quanta:
+    wrong: Toute requête passe par le cœur monolithique, quel que soit le nombre de plug-ins.
+  decision:
+    options:
+      template: 'La personnalisation par franchise est au cœur du modèle d''affaires : ce n''est pas un détail.'
+      micro-solves: 'Un microkernel reste un seul quantum : il ne rend pas le système élastique.'
+  contract:
+    options:
+      free: Le cœur aurait autant de cas particuliers que de franchises.
+      db: 'Les plug-ins ne touchent pas la base centrale : le cœur applique les remises.'

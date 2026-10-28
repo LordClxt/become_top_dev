@@ -1,0 +1,18 @@
+blocks:
+  cause:
+    options:
+      cpu: '40 instances à 12 % de CPU : elles attendaient toutes Paiement.'
+      timeout: Un timeout plus long retarde l'échec mais garde 40 instances bloquées et des enchérisseurs dans l'attente.
+      bank: Le journal montre Paiement qui répond, toutes les 0,5 s, à son rythme contractuel.
+  capacity:
+    wrong: Un paiement toutes les 0,5 s, pendant 15 s.
+  async-time:
+    wrong: 120 paiements à 0,5 s chacun.
+  fix:
+    options:
+      more: 'Plus d''appelants vers le même goulot : plus d''attente, pas plus de paiements.'
+      longer: 'On ne tient pas une connexion ouverte dix minutes par enchère : ressources bloquées, aucun gain de débit.'
+  quanta:
+    options:
+      one: 'Le lien asynchrone ne les soude plus : chacun peut avoir ses propres caractéristiques.'
+      three: Une file est un canal entre quanta, pas un quantum de logique métier.

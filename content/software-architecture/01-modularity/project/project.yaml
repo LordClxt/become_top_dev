@@ -1,0 +1,14 @@
+id: arch-ch01-project
+title: "archkit v2 — métriques de couplage et de cohésion"
+pitch: "archkit apprend à mesurer : Ca, Ce, instabilité, abstraction, distance à la séquence principale par package, et LCOM par classe."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 3
+xp: 240
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["coupling.ts"]
+concepts: [arch-afferent-efferent, arch-instability, arch-abstractness, arch-main-sequence, arch-lcom]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

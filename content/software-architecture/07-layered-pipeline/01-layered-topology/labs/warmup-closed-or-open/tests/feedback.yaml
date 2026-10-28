@@ -1,0 +1,14 @@
+blocks:
+  calls:
+    options:
+      c1: La couche juste en dessous.
+      c2: Il faudrait sauter le métier, qui est fermé.
+      c3: La couche de services sautée est ouverte.
+      c4: La couche juste en dessous.
+      c5: Le métier, fermé, est entre les deux.
+      c6: Jamais vers le haut.
+      c7: La couche juste en dessous.
+  why:
+    options:
+      perf: La couche n'accélère rien ; elle change qui peut voir quoi.
+      reuse: C'est exactement ce qu'on veut empêcher.

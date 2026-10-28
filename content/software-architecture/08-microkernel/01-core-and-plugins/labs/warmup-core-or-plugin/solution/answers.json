@@ -1,0 +1,14 @@
+{
+  "pieces": {
+    "l1": "core",
+    "l2": "plugin",
+    "l3": "core",
+    "l4": "plugin",
+    "l5": "core",
+    "l6": "plugin"
+  },
+  "loading": {
+    "c1": "compile",
+    "c2": "runtime"
+  }
+}

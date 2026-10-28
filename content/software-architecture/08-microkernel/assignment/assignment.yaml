@@ -1,0 +1,17 @@
+id: arch-ch08-assignment
+title: 'Silicon Sandwiches : microkernel ou Template Method ?'
+difficulty: 3
+xp: 140
+concepts:
+- arch-domain-isomorphism
+- arch-move-complexity
+- arch-microkernel-ratings
+- arch-plugin-contracts
+source:
+  chapter: 12
+  pages: 169-182
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

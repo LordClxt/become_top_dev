@@ -1,0 +1,14 @@
+{
+  "mean": 420,
+  "slow": 6.8,
+  "bw": 450,
+  "fixes": [
+    "fields",
+    "private",
+    "cdc"
+  ],
+  "redesign": {
+    "hops": 4,
+    "kb": 0.1
+  }
+}

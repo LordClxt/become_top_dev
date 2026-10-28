@@ -1,0 +1,3 @@
+**Une fitness function n'est fiable que sur son périmètre.** Écrite avant la création de `loyalty`, elle n'analyse que trois dossiers ; l'outil ignore les imports vers des modules non analysés, donc l'arête `billing → loyalty` disparaît, et avec elle le cycle `orders → billing → loyalty → orders`. Trois semaines de vert trompeur.
+
+Les correctifs : analyser **tout** `src/`, **échouer** sur un import interne non analysé, et **tester la fitness function** sur un cycle connu (une fitness function non testée peut être toujours verte). Pour casser le cycle, l'inversion de dépendance garde chaque module extractible.

@@ -1,0 +1,15 @@
+blocks:
+  placed:
+    wrong: Les comptes ACC-1 et ACC-3 ne sont jamais retardés ; l'ordre 4 (ACC-2) attend la réparation de l'ordre 2, puis passe juste après lui.
+  held:
+    options:
+      o3: 'ACC-3 n''a aucun ordre en réparation : il passe tout de suite.'
+      o5: 'ACC-1 n''a aucun ordre en réparation : il passe tout de suite.'
+  losses:
+    options:
+      l1: 'Le message doit survivre au redémarrage : il doit être écrit sur disque.'
+      l2: Le message doit rester dans la file jusqu'à confirmation.
+      l3: Le message ne doit quitter la file qu'après le commit.
+      l4: Le producteur doit attendre la confirmation du broker.
+  comment:
+    wrong: En asynchrone, l'utilisateur n'attend que le dépôt du message.

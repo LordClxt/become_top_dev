@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Topics, files et acquittement"
+    goal: "Publier sur des topics (une copie par abonné durable), envoyer dans des files lues par des consommateurs concurrents, et ne retirer un message qu'à son acquittement : un plantage le remet en tête, marqué comme redistribué."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Request-reply et idempotence"
+    goal: "Répondre avec l'identifiant de corrélation, retrouver sa réponse avec un sélecteur, et ne jamais traiter deux fois un message redistribué."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Le médiateur qui reprend"
+    goal: "Exécuter les étapes en série et leurs tâches en parallèle, persister l'état après chaque étape, s'arrêter sur erreur, et reprendre à l'étape en échec sans refaire les tâches acquittées ; effacer l'état à la fin."
+    tests: "tstest M3"
+    review: true
+    prompt: "La reprise ne relance que les tâches non acquittées. Que se passe-t-il si une tâche a réussi chez le processeur mais que son acquittement s'est perdu avant d'être enregistré par le médiateur ? Quel mécanisme de ce projet protège contre ce cas ?"

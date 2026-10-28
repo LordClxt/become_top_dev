@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Actions de l'enchérisseur ?"
+    back: "Voir la vidéo en direct, voir le fil des offres, enchérir."
+    concept: arch-actor-actions-ggg
+  - id: fc2
+    front: "Actions du commissaire-priseur ?"
+    back: "Saisir les offres en salle, recevoir les offres en ligne, adjuger un lot."
+    concept: arch-actor-actions-ggg
+  - id: fc3
+    front: "Actions du système ?"
+    back: "Démarrer la vente, faire payer, suivre l'activité des enchérisseurs."
+    concept: arch-actor-actions-ggg
+  - id: fc4
+    front: "Composants de départ de GGG ?"
+    back: "VideoStreamer, BidStreamer, BidCapture, BidTracker, AuctionSession, Payment."
+    concept: arch-actor-actions-ggg
+  - id: fc5
+    front: "Pourquoi Auctioneer Capture ?"
+    back: "Le commissaire-priseur exige plus de disponibilité et de fiabilité, mais pas l'élasticité des milliers d'enchérisseurs."
+    concept: arch-split-by-characteristics
+  - id: fc6
+    front: "Règle monolithe vs distribué ?"
+    back: "Un seul jeu de caractéristiques (un quantum) → monolithe ; plusieurs → distribué."
+    concept: arch-monolith-vs-distributed
+  - id: fc7
+    front: "Style vs pattern ?"
+    back: "Style : structure d'ensemble (UI, backend, données). Pattern : structure de plus bas niveau dans un style."
+    concept: arch-style-vs-pattern

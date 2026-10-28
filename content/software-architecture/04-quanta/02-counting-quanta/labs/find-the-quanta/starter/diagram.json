@@ -1,0 +1,23 @@
+{
+  "nodes": [
+    {
+      "id": "z1",
+      "type": "z-admin",
+      "x": -40,
+      "y": -40,
+      "label": "Quantum administration",
+      "w": 420,
+      "h": 520
+    },
+    {
+      "id": "z2",
+      "type": "z-shop",
+      "x": 460,
+      "y": -40,
+      "label": "Quantum client",
+      "w": 460,
+      "h": 520
+    }
+  ],
+  "edges": []
+}

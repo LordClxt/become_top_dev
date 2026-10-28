@@ -1,0 +1,3 @@
+**Réparer sans bloquer, et sans désordonner ce qui compte.** Le consommateur délègue l'ordre 2 et continue : ACC-1 et ACC-3 passent sans attendre. L'ordre 4, du même compte qu'un ordre en réparation, part dans la file temporaire d'ACC-2 ; il est placé juste après l'ordre 2 réparé. Résultat : 1, 3, 5, 2, 4, et pour chaque compte, l'ordre d'origine est respecté.
+
+Côté pertes, chaque endroit a sa parade : envoi synchrone et persistance avant la file, acquittement client chez le consommateur, ACID + LPS jusqu'à la base. Et en asynchrone, l'utilisateur n'attend que 20 ms : c'est de la réactivité, la modération prend toujours 2 secondes.

@@ -1,0 +1,77 @@
+intro: |
+  **Symptôme.** Extraire `src/billing` dans son propre paquet est impossible : il exige `src/orders`, qui exige `src/loyalty`. La CI est verte.
+
+  **`tests/architecture.test.ts` (écrit il y a un an)**
+  ```typescript
+  const graph = await importGraph(['src/orders', 'src/billing', 'src/catalog']);
+  test('aucun cycle entre packages', () => {
+    expect(findCycles(graph)).toEqual([]);
+  });
+  ```
+
+  **`archkit/import-graph.ts`**
+  ```typescript
+  // Ne garde que les arêtes entre modules analysés ; les autres imports sont ignorés.
+  ```
+
+  **Imports relevés à la main**
+  | module | importe |
+  |---|---|
+  | src/orders | src/billing, src/catalog |
+  | src/billing | src/loyalty |
+  | src/loyalty (créé il y a 3 semaines) | src/orders |
+  | src/catalog | — |
+blocks:
+- id: cause
+  type: choice
+  title: Pourquoi la CI est verte
+  prompt: Pourquoi la fitness function ne voit-elle pas le cycle ?
+  options:
+  - id: scope
+    label: 'Elle n''analyse que trois dossiers : loyalty est hors du graphe, donc l''arête billing → loyalty est ignorée et le cycle disparaît'
+  - id: algo
+    label: L'algorithme de détection de cycles est faux
+  - id: cache
+    label: La CI utilise un cache périmé
+  - id: none
+    label: Il n'y a pas de cycle
+- id: members
+  type: multi
+  title: Le cycle
+  prompt: Quels modules forment le cycle ?
+  options:
+  - id: orders
+    label: src/orders
+  - id: billing
+    label: src/billing
+  - id: loyalty
+    label: src/loyalty
+  - id: catalog
+    label: src/catalog
+- id: fix
+  type: multi
+  title: Rendre la fitness function fiable
+  prompt: Quelles mesures empêchent que cela se reproduise ?
+  options:
+  - id: all
+    label: Analyser tout `src/` au lieu d'une liste de dossiers écrite à la main
+  - id: unknown
+    label: Faire échouer le test si un import pointe vers un module interne non analysé
+  - id: selftest
+    label: Tester la fitness function elle-même sur un petit graphe qui contient un cycle connu
+  - id: remove
+    label: Supprimer le test, puisqu'il ne marche pas
+  - id: review
+    label: Compter sur la revue de code pour les nouveaux dossiers
+- id: break
+  type: choice
+  title: Casser le cycle
+  prompt: billing importe loyalty pour appliquer une remise de fidélité ; loyalty importe orders pour lire l'historique d'achats. Quelle correction
+    casse le cycle le plus proprement ?
+  options:
+  - id: invert
+    label: billing dépend d'une interface `DiscountPolicy` qu'il déclare ; loyalty l'implémente et est branché au démarrage (inversion de dépendance)
+  - id: merge
+    label: Fusionner orders, billing et loyalty en un seul module
+  - id: copy
+    label: Copier le code de loyalty dans billing

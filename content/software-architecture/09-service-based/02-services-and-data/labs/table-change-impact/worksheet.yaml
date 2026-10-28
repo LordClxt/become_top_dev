@@ -1,0 +1,53 @@
+intro: |
+  Sept services : `quoting`, `receiving`, `assessment`, `accounting`, `item-status`, `recycling`, `reporting`.
+
+  **Bibliothèques fédérées** (et services qui les importent) :
+  | bibliothèque | tables | services |
+  |---|---|---|
+  | `common` | customers, devices | les 7 |
+  | `quoting` | quotes | quoting, reporting |
+  | `assessment` | assessments, rules | assessment, recycling, reporting |
+  | `accounting` | payments | accounting, reporting |
+  | `tracking` | status_events | item-status, receiving |
+blocks:
+- id: impact
+  type: table
+  title: Services à redéployer
+  prompt: Complète le nombre de services à redéployer.
+  columns:
+  - id: single
+    label: Bibliothèque unique
+  - id: federated
+    label: Bibliothèques fédérées
+  rows:
+  - id: c1
+    label: Ajouter une colonne à `rules`
+    cells: {}
+  - id: c2
+    label: Ajouter une colonne à `status_events`
+    cells: {}
+  - id: c3
+    label: Renommer une colonne de `customers`
+    cells: {}
+- id: common
+  type: choice
+  title: Les entités communes
+  prompt: Que faire pour que les changements de `common` restent rares et coordonnés ?
+  options:
+  - id: lock
+    label: Verrouiller `common` dans le gestionnaire de versions, modifications réservées à l'équipe base de données
+  - id: copy
+    label: Copier `common` dans chaque bibliothèque fédérée
+  - id: free
+    label: Laisser chaque équipe la modifier librement
+- id: granularity
+  type: choice
+  title: Jusqu'où découper ?
+  prompt: Quelle règle suivre pour le partitionnement logique de la base ?
+  options:
+  - id: fine
+    label: Aussi fin que possible, tant que chaque domaine de données reste bien défini
+  - id: one
+    label: Une seule partition, c'est plus simple
+  - id: table
+    label: Une bibliothèque par table, quoi qu'il arrive

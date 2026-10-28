@@ -1,0 +1,98 @@
+id: arch-ch00-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Un architecte décrit son système : « C'est une architecture microservices. » Qu'a-t-il décrit ?"
+    choices:
+      - "L'architecture complète du système"
+      - "Uniquement la structure (le style)"
+      - "Les caractéristiques d'architecture"
+      - "Les décisions d'architecture"
+    answer: 1
+    explanation: "Le style n'est qu'une des quatre dimensions. Il manque les caractéristiques, les décisions et les principes."
+    concept: arch-four-dimensions
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "« Seules les couches métier et services peuvent accéder à la base de données. » C'est…"
+    choices:
+      - "Un principe de design"
+      - "Une caractéristique d'architecture"
+      - "Une décision d'architecture"
+      - "Un style"
+    answer: 2
+    explanation: "C'est une règle de construction : s'en écarter demande une variance. C'est donc une décision."
+    concept: arch-decision-vs-principle
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "« Entre services, privilégier la messagerie asynchrone pour la performance. » Une équipe a un cas où REST est plus simple. Que doit-elle faire ?"
+    choices:
+      - "Demander une variance à l'ARB"
+      - "Utiliser REST si elle peut justifier ce choix : c'est un principe"
+      - "Utiliser l'asynchrone quoi qu'il arrive"
+      - "Supprimer le principe"
+    answer: 1
+    explanation: "Un principe guide sans contraindre : s'en écarter demande une bonne raison, pas une autorisation."
+    concept: arch-decision-vs-principle
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Une équipe ne peut pas respecter une décision d'architecture dans un cas précis. La bonne démarche ?"
+    choices:
+      - "La contourner discrètement, c'est un cas isolé"
+      - "Demander une variance, instruite selon ses justifications et trade-offs"
+      - "Réécrire la décision pour tout le monde"
+      - "Ignorer la décision jusqu'à la prochaine revue"
+    answer: 1
+    explanation: "La variance rend l'exception visible et justifiée ; une violation silencieuse est de la dette invisible qui se recopie."
+    concept: arch-variance
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Un collègue présente une solution « sans aucun inconvénient ». D'après le corollaire de la première loi…"
+    choices:
+      - "C'est possible pour les petites décisions"
+      - "Il n'a pas encore identifié le trade-off"
+      - "Il faut l'adopter sans débat"
+      - "C'est un principe, pas une décision"
+    answer: 1
+    explanation: "Tout est un trade-off ; ne pas en voir signifie qu'on ne l'a pas encore trouvé."
+    concept: arch-laws
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Tu reprends un système inconnu. Qu'est-ce que tu pourras retrouver en lisant le code, et qu'est-ce qui sera perdu sans documentation ?"
+    choices:
+      - "Le pourquoi se lit dans le code ; le comment est perdu"
+      - "Le comment se lit dans le code ; le pourquoi est perdu"
+      - "Les deux se lisent dans le code"
+      - "Aucun des deux"
+    answer: 1
+    explanation: "C'est la deuxième loi : la structure est visible, les raisons ne le sont pas. D'où les ADR."
+    concept: arch-laws
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Pourquoi les microservices étaient-ils irréalistes en 2002 ?"
+    choices:
+      - "Les réseaux étaient trop lents"
+      - "Une machine et une base par service coûtaient des dizaines de licences commerciales"
+      - "Le concept n'était pas techniquement possible"
+      - "Les langages ne supportaient pas HTTP"
+    answer: 1
+    explanation: "Le contexte économique (licences d'OS, de serveurs d'application, de bases) rendait l'isolement par service hors de prix ; open source et DevOps ont changé ce contexte."
+    concept: arch-context
+    difficulty: 1
+  - id: q8
+    type: multiple
+    prompt: "Lesquelles sont des caractéristiques d'architecture (et non des fonctionnalités) ?"
+    choices:
+      - "Supporter 10× le trafic pendant les soldes"
+      - "Ajouter un produit au panier"
+      - "Mettre en production dix fois par jour"
+      - "Calculer la TVA d'une facture"
+    answer: [0, 2]
+    explanation: "Élasticité et déployabilité ne dépendent pas de ce que fait le système ; panier et TVA sont du domaine."
+    concept: arch-four-dimensions
+    difficulty: 2

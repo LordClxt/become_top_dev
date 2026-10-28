@@ -1,0 +1,13 @@
+blocks:
+  causes:
+    options:
+      registry: 'Le registre trouve bien les plug-ins : ce sont leurs dépendances qui posent problème.'
+      runtime: Le mode de chargement n'y est pour rien.
+  match:
+    options:
+      price: 'Le plug-in iPhone appelle toujours sa fonction de décote, mais elle renvoie désormais des centimes pour les besoins du Galaxy :
+        l''iPhone les lit comme des euros.'
+      empty: La colonne lue en direct a été renommée par la migration.
+  fix:
+    options:
+      freeze: 'Le schéma doit pouvoir évoluer : c''est au cœur d''absorber ses changements.'

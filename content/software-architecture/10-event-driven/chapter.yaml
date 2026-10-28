@@ -1,0 +1,24 @@
+id: arch-ch10
+title: "Event-driven"
+subtitle: "Broker ou médiateur, asynchronisme, gestion d'erreurs, perte de données et request-reply"
+source: { chapter: 14, pages: "199-230" }
+objectives:
+  - "Distinguer modèle par requêtes et modèle par événements, et choisir selon le besoin de contrôle ou de réactivité"
+  - "Décrire la topologie broker (événement initiateur, broker, processeurs, événements de traitement) et ses limites (contrôle du workflow, erreurs, reprise)"
+  - "Décrire la topologie médiateur (file d'événements initiateurs, médiateur, canaux dédiés, commandes) et choisir son implémentation (code, BPEL, BPM, délégation)"
+  - "Distinguer réactivité et performance, et gérer les erreurs asynchrones avec le workflow event pattern sans perdre l'ordre"
+  - "Empêcher la perte de messages aux trois endroits critiques (envoi synchrone et files persistantes, acquittement client, ACID et LPS)"
+  - "Mettre en œuvre la diffusion et le request-reply (identifiant de corrélation ou file temporaire), et compter les quanta d'une architecture événementielle"
+  - "Diagnostiquer un workflow broker bloqué en silence après la panne d'un processeur"
+  - "Écrire en TypeScript un broker en mémoire (topics, consommateurs concurrents, acquittement, corrélation) et un médiateur qui reprend après échec"
+mastery_threshold: 0.8
+prerequisites: [arch-ch09]
+lessons:
+  - "01-broker-topology"
+  - "02-mediator-topology"
+  - "03-async-errors-data-loss"
+  - "04-request-reply-and-choosing"
+xp: { assignment: 160, project: 340, boss: 350 }
+assignment: assignment
+project: project
+boss: boss

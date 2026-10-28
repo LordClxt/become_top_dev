@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Request-reply : les deux files ?"
+    back: "Une file de requête et une file de réponse ; le producteur attend sur la seconde."
+    concept: arch-request-reply
+  - id: fc2
+    front: "Identifiant de corrélation ?"
+    back: "Champ de la réponse qui reprend l'ID du message de requête ; le producteur filtre dessus avec un sélecteur."
+    concept: arch-request-reply
+  - id: fc3
+    front: "File temporaire : principe et limite ?"
+    back: "Une file dédiée par requête, nommée dans reply-to ; coûteuse à fort volume."
+    concept: arch-request-reply
+  - id: fc4
+    front: "Quand préférer le modèle par requêtes ?"
+    back: "Demandes structurées, orientées données, quand il faut certitude et contrôle du workflow."
+    concept: arch-choose-event-model
+  - id: fc5
+    front: "Cinq étoiles de l'event-driven ?"
+    back: "Performance, scalabilité (consommateurs concurrents), tolérance aux pannes, évolutivité."
+    concept: arch-eda-ratings
+  - id: fc6
+    front: "Qu'est-ce qui soude des processeurs asynchrones en un seul quantum ?"
+    back: "Une base partagée, ou le request-reply."
+    concept: arch-eda-ratings

@@ -1,0 +1,8 @@
+id: arch-ch02-helicopter
+concept: arch-least-worst
+format: interactive
+justification: "Monter le curseur sécurité fait baisser performance et simplicité : les interactions entre caractéristiques se manipulent comme les commandes d'un hélicoptère."
+entry: Helicopter.tsx
+params:
+  - { name: security, type: int, min: 0, max: 5, default: 2 }
+status: built

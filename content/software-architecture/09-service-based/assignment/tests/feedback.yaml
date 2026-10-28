@@ -1,0 +1,21 @@
+blocks:
+  services:
+    wrong: Compte les domaines listés.
+  closing:
+    options:
+      micro: La cohérence à terme, c'est justement l'absence de transaction ACID entre services.
+      both: Entre services fins, il faut une saga ; dans un service à gros grain, un simple rollback.
+  needs:
+    options:
+      n1: Le service-based est l'un des styles distribués les plus simples et les moins chers.
+      n2: Une transaction dans une façade de service.
+      n3: Les microservices excellent en élasticité… dont la clinique n'a pas besoin.
+      n4: Chaque service de domaine se déploie séparément dans les deux styles.
+  coordination:
+    options:
+      choreo: La chorégraphie, c'est sans médiateur.
+      saga: L'event sourcing est une technique de compensation, pas le nom de cette coordination.
+  decision:
+    options:
+      micro: 'La Ferrari à 50 km/h : beaucoup de complexité pour des besoins qui n''en demandent pas.'
+      monolith: Le monolithe ne permet pas de déployer les rappels sans tout redéployer ; un pas vers le service-based est raisonnable.

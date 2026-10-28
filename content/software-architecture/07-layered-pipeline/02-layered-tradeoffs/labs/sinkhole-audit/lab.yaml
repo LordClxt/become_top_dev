@@ -1,0 +1,16 @@
+id: arch-ch07-l02-lab-sinkhole-audit
+title: Mesurer le puits
+difficulty: 2
+xp: 70
+concepts:
+- arch-sinkhole
+- arch-layered-when
+- arch-layered-ratings
+source:
+  chapter: 10
+  pages: 158-161
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "id": "zb",
+      "type": "z-bidder",
+      "x": -40,
+      "y": -40,
+      "label": "Quantum enchérisseur",
+      "w": 300,
+      "h": 300
+    },
+    {
+      "id": "za",
+      "type": "z-auctioneer",
+      "x": -40,
+      "y": 300,
+      "label": "Quantum commissaire-priseur",
+      "w": 300,
+      "h": 300
+    },
+    {
+      "id": "zt",
+      "type": "z-tracker",
+      "x": 420,
+      "y": 120,
+      "label": "Quantum suivi des offres",
+      "w": 300,
+      "h": 340
+    },
+    {
+      "id": "zf",
+      "type": "z-feedback",
+      "x": 820,
+      "y": -40,
+      "label": "Quantum retour enchérisseur",
+      "w": 260,
+      "h": 220
+    },
+    {
+      "id": "zp",
+      "type": "z-payment",
+      "x": 820,
+      "y": 420,
+      "label": "Quantum paiement",
+      "w": 260,
+      "h": 220
+    }
+  ],
+  "edges": []
+}

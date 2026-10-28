@@ -1,0 +1,3 @@
+**Deux connascences statiques, devenues dangereuses en traversant une frontière.** (A) La signature réordonnée laisse l'appelant passer `(seat, passenger)` : connascence de **position**, invisible pour le compilateur parce que les deux paramètres sont des `string`. (B) Le chiffre 2 n'a pas la même signification dans deux modules : connascence de **sens**.
+
+Les tests unitaires ne peuvent pas les voir : chaque module est juste *pris seul*. Le remède durable est de **faire vérifier l'accord par le compilateur** : arguments nommés ou types marqués pour (A), une union de littéraux partagée pour (B). C'est la règle de localité de Weirich : plus les éléments sont loin, plus la connascence doit être faible.

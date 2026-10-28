@@ -1,0 +1,132 @@
+{
+  "nodes": [
+    {
+      "id": "reader",
+      "type": "reader",
+      "x": 0,
+      "y": 200
+    },
+    {
+      "id": "parser",
+      "type": "parser",
+      "x": 180,
+      "y": 200
+    },
+    {
+      "id": "val",
+      "type": "validator",
+      "x": 360,
+      "y": 200
+    },
+    {
+      "id": "rej",
+      "type": "reject",
+      "x": 360,
+      "y": 380
+    },
+    {
+      "id": "fraud",
+      "type": "fraud",
+      "x": 540,
+      "y": 200
+    },
+    {
+      "id": "rev",
+      "type": "review",
+      "x": 540,
+      "y": 380
+    },
+    {
+      "id": "b2b",
+      "type": "b2b-test",
+      "x": 720,
+      "y": 200
+    },
+    {
+      "id": "bmap",
+      "type": "b2b-map",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "id": "cmap",
+      "type": "b2c-map",
+      "x": 900,
+      "y": 300
+    },
+    {
+      "id": "erp",
+      "type": "erp",
+      "x": 1080,
+      "y": 100
+    },
+    {
+      "id": "shop",
+      "type": "shop",
+      "x": 1080,
+      "y": 300
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "reader",
+      "target": "parser",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "parser",
+      "target": "val",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "val",
+      "target": "rej",
+      "kind": "sync"
+    },
+    {
+      "id": "e4",
+      "source": "val",
+      "target": "fraud",
+      "kind": "sync"
+    },
+    {
+      "id": "e5",
+      "source": "fraud",
+      "target": "rev",
+      "kind": "sync"
+    },
+    {
+      "id": "e6",
+      "source": "fraud",
+      "target": "b2b",
+      "kind": "sync"
+    },
+    {
+      "id": "e7",
+      "source": "b2b",
+      "target": "bmap",
+      "kind": "sync"
+    },
+    {
+      "id": "e8",
+      "source": "b2b",
+      "target": "cmap",
+      "kind": "sync"
+    },
+    {
+      "id": "e9",
+      "source": "bmap",
+      "target": "erp",
+      "kind": "sync"
+    },
+    {
+      "id": "e10",
+      "source": "cmap",
+      "target": "shop",
+      "kind": "sync"
+    }
+  ]
+}

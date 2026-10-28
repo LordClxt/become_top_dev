@@ -1,0 +1,17 @@
+blocks:
+  replies:
+    options:
+      r900: 'CID 503 : la requête de Fidélité.'
+      r901: 'CID 499 : aucun demandeur actuel ne l''attend.'
+      r902: 'CID 501 : la requête de Réservation.'
+      r903: 'CID 502 : la requête de Facturation.'
+  quanta:
+    wrong: Le request-reply soude A et B ; la base partagée soude B et C ; D est seul.
+  why-cid:
+    options:
+      order: 'L''ordre n''est pas l''argument du livre : c''est le coût de création des files.'
+      security: La sécurité n'est pas l'argument.
+  model:
+    options:
+      m1: Une lecture structurée, qui demande une réponse certaine.
+      m2: Un fait qui déclenche plusieurs réactions indépendantes.

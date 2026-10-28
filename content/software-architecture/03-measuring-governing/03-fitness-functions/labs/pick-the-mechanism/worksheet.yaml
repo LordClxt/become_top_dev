@@ -1,0 +1,56 @@
+intro: Une plateforme de réservation veut protéger six caractéristiques.
+blocks:
+- id: mech
+  type: match
+  title: Quel mécanisme ?
+  prompt: Associe chaque besoin au mécanisme le plus adapté.
+  items:
+  - id: layers
+    label: La présentation n'importe jamais la persistance
+  - id: cycles
+    label: Aucun cycle entre packages
+  - id: latency
+    label: p99 de la recherche < 300 ms en production
+  - id: resilience
+    label: La perte d'une zone de disponibilité ne coupe pas les réservations
+  - id: complexity
+    label: Aucune fonction ne dépasse une CC de 10
+  - id: bundle
+    label: L'écran d'accueil reste sous 200 Ko de JavaScript
+  categories:
+  - id: unit
+    label: Test d'architecture dans la CI (graphe d'imports)
+  - id: metric
+    label: Métrique de code avec seuil dans la CI
+  - id: monitor
+    label: Moniteur en production avec alerte
+  - id: chaos
+    label: Chaos engineering (panne provoquée)
+  - id: build
+    label: Contrôle de taille au build
+- id: monkeys
+  type: match
+  title: La Simian Army
+  prompt: Associe chaque singe à ce qu'il fait.
+  items:
+  - id: chaos
+    label: Chaos Monkey
+  - id: kong
+    label: Chaos Kong
+  - id: conformity
+    label: Conformity Monkey
+  - id: janitor
+    label: Janitor Monkey
+  - id: security
+    label: Security Monkey
+  categories:
+  - id: kill
+    label: Provoque des pannes aléatoires en production
+  - id: region
+    label: Simule la perte d'un centre de données entier
+  - id: rules
+    label: Vérifie des règles de gouvernance sur les services en production
+  - id: orphans
+    label: Supprime les services que plus personne n'appelle
+  - id: ports
+    label: Cherche ports ouverts et erreurs de configuration

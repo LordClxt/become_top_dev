@@ -1,0 +1,28 @@
+blocks:
+  ripples:
+    options:
+      pedago.a: Un workflow traverse les quatre couches.
+      pedago.b: Tout reste dans learning.
+      enroll.a: Toujours quatre couches.
+      enroll.b: 'Inscription et facturation : deux domaines.'
+      certif.a: Quatre couches.
+      certif.b: Un seul domaine.
+      theme.a: Seule la présentation est touchée.
+      theme.b: Chaque domaine a ses écrans.
+  weighted:
+    tolerance:
+      abs: 0.011
+    options:
+      a.avg: 0,40 × 4 + 0,25 × 4 + 0,20 × 4 + 0,15 × 1.
+      b.avg: 0,40 × 1 + 0,25 × 2 + 0,20 × 1 + 0,15 × 5.
+  choose:
+    options:
+      a: La charte graphique ne représente que 15 % des évolutions ; les 85 % restants traversent quatre couches.
+  teams:
+    options:
+      keep: Des équipes par couche sur un code par domaine recréent des relais à chaque évolution.
+      more: Plus d'équipes par couche, c'est plus de relais.
+  trap:
+    options:
+      domain: Des Managers calqués sur les tables ne décrivent aucun workflow.
+      technical: Ce ne sont pas des capacités techniques, ce sont des entités.

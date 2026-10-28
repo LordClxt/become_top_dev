@@ -1,0 +1,21 @@
+{
+  "defs": {
+    "fast": "p999",
+    "always": "avail",
+    "ship": "lead",
+    "peak": "load"
+  },
+  "budget": 43.2,
+  "why999": "tail",
+  "govern": {
+    "p999": "monitor",
+    "avail": "monitor",
+    "lead": "pipeline",
+    "load": "loadtest"
+  },
+  "composite": [
+    "lead",
+    "rollback",
+    "mutation"
+  ]
+}

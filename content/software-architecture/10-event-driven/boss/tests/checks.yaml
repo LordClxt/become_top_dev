@@ -1,0 +1,112 @@
+checks:
+- id: init
+  label: La boutique dépose l'événement dans la file d'événements initiateurs
+  rule: edge_kind
+  source: ui
+  target: initq
+  kind: async
+- id: consume
+  label: Le médiateur consomme la file d'événements initiateurs
+  rule: path
+  source: initq
+  target: mediator
+- id: no-direct
+  label: La boutique n'appelle pas le médiateur directement
+  rule: no_edge
+  source: ui
+  target: mediator
+- id: state
+  label: Le médiateur persiste son état
+  rule: edge_kind
+  source: mediator
+  target: state
+  kind: write
+- id: state-owner
+  label: Seul le médiateur touche son état
+  rule: inbound_via
+  target: state
+  via: mediator
+- id: pay-q
+  label: Le paiement passe par sa file dédiée
+  rule: path
+  source: mediator
+  target: payment
+  via: q-payment
+- id: inv-q
+  label: Le stock passe par sa file dédiée
+  rule: path
+  source: mediator
+  target: inventory
+  via: q-inventory
+- id: pay-only
+  label: La file apply-payment n'alimente que Payment
+  rule: no_edge
+  source: q-payment
+  target: inventory
+- id: ack-pay
+  label: Payment répond au médiateur
+  rule: path
+  source: payment
+  target: mediator
+- id: ack-inv
+  label: Inventory répond au médiateur
+  rule: path
+  source: inventory
+  target: mediator
+- id: delegate
+  label: Payment délègue ses erreurs au processeur d'erreurs
+  rule: edge_kind
+  source: payment
+  target: errors
+  kind: async
+- id: resubmit
+  label: Le processeur d'erreurs resoumet dans la file d'origine
+  rule: edge_kind
+  source: errors
+  target: q-payment
+  kind: async
+- id: dash
+  label: L'irréparable va au tableau de bord
+  rule: path
+  source: errors
+  target: dashboard
+- id: dash-resubmit
+  label: Le tableau de bord resoumet dans la file d'origine
+  rule: path
+  source: dashboard
+  target: q-payment
+- id: publish
+  label: Le médiateur publie order-shipped sur le topic
+  rule: edge_kind
+  source: mediator
+  target: topic
+  kind: async
+- id: topic-owner
+  label: Seul le médiateur publie sur le topic
+  rule: inbound_via
+  target: topic
+  via: mediator
+- id: sub-notify
+  label: Notification s'abonne au topic
+  rule: path
+  source: topic
+  target: notify
+- id: sub-analytics
+  label: Analytics s'abonne au topic
+  rule: path
+  source: topic
+  target: analytics
+- id: no-pay-topic
+  label: Payment ne publie pas sur le topic
+  rule: no_edge
+  source: payment
+  target: topic
+- id: one-topic
+  label: Un seul topic
+  rule: count
+  source: topic
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

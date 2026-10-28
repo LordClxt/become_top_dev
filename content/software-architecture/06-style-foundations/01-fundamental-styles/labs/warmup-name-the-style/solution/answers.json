@@ -1,0 +1,19 @@
+{
+  "systems": {
+    "s1": "unitary",
+    "s2": "desktop",
+    "s3": "three",
+    "s4": "mud",
+    "s5": "web"
+  },
+  "families": {
+    "layered": "mono",
+    "pipeline": "mono",
+    "microkernel": "mono",
+    "service": "dist",
+    "event": "dist",
+    "space": "dist",
+    "soa": "dist",
+    "micro": "dist"
+  }
+}

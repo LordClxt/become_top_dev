@@ -1,0 +1,3 @@
+**money est dans la zone de douleur (D = 1)** : du code concret que tout le monde importe. Chaque changement de représentation se propage dans quatre modules (et onze dossiers dans un vrai projet). **db**, lui, est aussi très stable, mais il ne contient que des interfaces : A + I = 1, il est pile sur la séquence principale. C'est le modèle à suivre : **un module stable doit être abstrait**.
+
+Pour sauver money sans toucher à ses dépendants, on augmente A : avec 3 éléments concrets et 9 abstractions, A = 0,75 et D ≈ 0,14. Dans la vraie vie, on y arrive autant en **réduisant** le concret exposé (un type opaque, une interface publique, l'implémentation cachée) qu'en ajoutant des types. Et `extensions` montre l'excès inverse : des abstractions que personne n'utilise.

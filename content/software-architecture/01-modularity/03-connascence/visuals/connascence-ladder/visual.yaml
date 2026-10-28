@@ -1,0 +1,7 @@
+id: arch-ch01-connascence-ladder
+concept: arch-connascence-properties
+format: hyperframes
+justification: "Une échelle animée où chaque refactoring fait descendre un extrait de code d'un barreau (position → nom, sens → nom) montre la force comme une direction de travail, pas comme une liste."
+entry: scene.html
+duration_s: 14
+status: built

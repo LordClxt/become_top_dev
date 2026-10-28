@@ -1,0 +1,19 @@
+id: arch-ch01-assignment
+title: Audit modulaire de Going, Going, Gone
+difficulty: 3
+xp: 130
+concepts:
+- arch-instability
+- arch-main-sequence
+- arch-lcom
+- arch-static-connascence
+- arch-connascence-properties
+- arch-cohesion-tradeoff
+source:
+  chapter: 3
+  pages: 57-73
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

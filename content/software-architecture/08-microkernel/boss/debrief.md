@@ -1,0 +1,3 @@
+**L'isomorphisme parfait : un formulaire principal, des annexes.** Le cœur porte le formulaire principal, le calcul final et la sauvegarde ; chaque annexe est un plug-in qui reçoit ses données du cœur et lui rend son résultat. La loi change ? Un plug-in de plus. Le partenaire a son format ? Un adaptateur. AuditChecker est distant ? Un plug-in optionnel avec timeout, pour ne pas rendre la déclaration dépendante d'un service externe.
+
+Le bulletin colle au besoin : simplicité et coût pour un logiciel installé, extensibilité pour suivre la loi, et une scalabilité faible qui n'a ici aucune importance. Un seul quantum, et c'est très bien ainsi.

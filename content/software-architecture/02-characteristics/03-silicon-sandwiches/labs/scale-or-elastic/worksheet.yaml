@@ -1,0 +1,80 @@
+intro: |
+  Silicon Sandwiches en chiffres : **200 commandes/min** en temps normal, **1 000 commandes/min** au pic, qui dure **3 heures par jour** (midi et soir). Une instance traite **100 commandes/min** et coûte **1 € par heure**.
+blocks:
+- id: fixed
+  type: number
+  title: Capacité fixe
+  prompt: Pour tenir le pic en permanence, combien coûte la flotte d'instances fixes par jour ?
+  unit: €/jour
+- id: kind
+  type: choice
+  title: Qu'est-ce que tu paies ?
+  prompt: Cette flotte fixe fait de Silicon Sandwiches un système…
+  options:
+  - id: scalable
+    label: 'Scalable mais pas élastique : il tient la charge en payant le pic toute la journée'
+  - id: elastic
+    label: 'Élastique : il s''adapte aux rafales'
+  - id: neither
+    label: Ni l'un ni l'autre
+- id: autoscale
+  type: tuner
+  title: Régler l'autoscaling
+  prompt: Choisis le nombre d'instances **de base** (24 h/24) et le **maximum** atteint pendant les 3 heures de pic. Tiens le pic, garde 30 %
+    de marge en temps normal, et reste sous **100 €/jour**.
+  params:
+  - id: base
+    label: Instances de base
+    unit: ''
+    min: 1
+    max: 12
+    step: 1
+    default: 2
+  - id: max
+    label: Instances au pic
+    unit: ''
+    min: 1
+    max: 15
+    step: 1
+    default: 6
+  metrics:
+  - id: peak
+    label: Capacité au pic (commandes/min)
+    expr: max(base, max) * 100
+    format: number
+  - id: margin
+    label: Marge en temps normal
+    expr: base * 100 / 200 - 1
+    format: percent
+  - id: cost
+    label: Coût par jour (€)
+    expr: base * 24 + max(0, max - base) * 3
+    format: number
+  goals:
+  - id: peak
+    label: Tenir 1 000 commandes/min au pic
+    expr: max(base, max) * 100 >= 1000
+  - id: margin
+    label: Au moins 30 % de marge en temps normal
+    expr: base * 100 >= 260
+  - id: cost
+    label: Moins de 100 € par jour
+    expr: base * 24 + max(0, max - base) * 3 < 100
+- id: which
+  type: match
+  title: Scalable, élastique, ou les deux ?
+  prompt: Pour chaque système, quelle caractéristique domine ?
+  items:
+  - id: hotel
+    label: Réservation d'hôtel, charge stable toute l'année
+  - id: concert
+    label: Billetterie de concert, ouverture des ventes à 10 h
+  - id: tax
+    label: 'Déclaration d''impôts en ligne : des millions d''usagers, rush les trois derniers jours'
+  categories:
+  - id: scal
+    label: Scalabilité
+  - id: elas
+    label: Élasticité
+  - id: both
+    label: Les deux

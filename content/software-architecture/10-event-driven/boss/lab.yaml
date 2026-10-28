@@ -1,0 +1,73 @@
+id: arch-ch10-boss
+title: 'Boss : un médiateur hybride qui ne perd rien'
+difficulty: 5
+xp: 350
+time_limit_min: 60
+concepts:
+- arch-mediator-components
+- arch-mediator-recovery
+- arch-workflow-event-pattern
+- arch-broker-components
+- arch-advertise
+- arch-data-loss
+source:
+  chapter: 14
+  pages: 199-230
+palette:
+- type: ui
+  component: browser
+  label: Boutique
+  hint: Émet l'événement initiateur PlaceOrder.
+- type: initq
+  component: queue
+  label: File d'événements initiateurs
+  hint: Persistante.
+- type: mediator
+  component: service
+  label: Médiateur commande
+  hint: Connaît les étapes du workflow.
+- type: state
+  component: postgres
+  label: État du médiateur
+  hint: Où le médiateur persiste l'avancement de chaque commande.
+- type: q-payment
+  component: queue
+  label: File apply-payment
+  hint: Canal dédié.
+- type: q-inventory
+  component: queue
+  label: File adjust-inventory
+  hint: Canal dédié.
+- type: payment
+  component: worker
+  label: Processeur Payment
+  hint: Applique le paiement.
+- type: inventory
+  component: worker
+  label: Processeur Inventory
+  hint: Ajuste le stock.
+- type: errors
+  component: worker
+  label: Processeur d'erreurs (workflow)
+  hint: Répare les messages en erreur.
+- type: dashboard
+  component: client
+  label: Tableau de bord
+  hint: Une personne corrige ce qui ne se répare pas.
+- type: topic
+  component: topic
+  label: Topic order-shipped
+  hint: Diffusion de fin de commande.
+- type: notify
+  component: worker
+  label: Notification
+  hint: Prévient le client.
+- type: analytics
+  component: worker
+  label: Analytics
+  hint: Statistiques.
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,19 @@
+blocks:
+  cause:
+    options:
+      stock: 'Le service Inventory refuse à raison : il n''y a plus de stock. Le problème est que le paiement a déjà été validé.'
+      payment: Le journal montre un seul débit par commande.
+      db: La base fait exactement ce qu'on lui demande, en deux transactions.
+  style:
+    options:
+      perf: Rien dans l'incident ne parle de lenteur.
+      ui: L'erreur est dans la cohérence des données, pas dans l'écran.
+  fix:
+    options:
+      saga: 'Possible, mais bien plus complexe : inutile quand les deux opérations peuvent tenir dans une seule transaction.'
+      retry: 'Le stock est épuisé : retenter ne le fera pas réapparaître.'
+      order: 'Inverser l''ordre déplace le problème : une réservation sans paiement à libérer si le paiement échoue.'
+  count:
+    tolerance:
+      abs: 1
+    wrong: 40 commandes par jour × 30 jours × 89,90 €.

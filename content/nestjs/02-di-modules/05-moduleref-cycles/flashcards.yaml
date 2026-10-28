@@ -20,6 +20,6 @@ cards:
   back: Les fichiers barrel (index.ts) qui réimportent le dossier courant.
   concept: nest-circular-dependency
 - id: fc6
-  front: Pourquoi un cycle d'imports donne-t-il une dépendance undefined ?
-  back: La classe importée n'est pas encore évaluée quand design:paramtypes est écrit. forwardRef retarde la lecture.
+  front: Que produit un cycle d'imports entre deux providers ?
+  back: "En ESM : ReferenceError « Cannot access X before initialization » au chargement. En CommonJS : X vaut undefined dans design:paramtypes, et Nest lève « undefined dependency ». forwardRef retarde la lecture."
   concept: nest-circular-dependency

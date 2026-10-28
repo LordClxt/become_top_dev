@@ -1,0 +1,109 @@
+checks:
+- id: capture-q
+  label: Bid Capture reçoit les offres uniquement par sa file dédiée
+  rule: path
+  source: producer
+  target: capture
+  via: q-capture
+- id: tracking-q
+  label: Bid Tracking reçoit les offres uniquement par sa file dédiée
+  rule: path
+  source: producer
+  target: tracking
+  via: q-tracking
+- id: analytics-t
+  label: Bid Analytics reçoit les offres par le topic
+  rule: path
+  source: producer
+  target: analytics
+  via: topic
+- id: history-t
+  label: Bid History reçoit les offres par le topic
+  rule: path
+  source: producer
+  target: history
+  via: topic
+- id: no-tap-capture
+  label: Les données sensibles ne passent pas par le topic (capture)
+  rule: no_edge
+  source: topic
+  target: capture
+- id: no-tap-tracking
+  label: Les données sensibles ne passent pas par le topic (tracking)
+  rule: no_edge
+  source: topic
+  target: tracking
+- id: dedicated-1
+  label: La file capture n'a pas d'autre consommateur
+  rule: no_edge
+  source: q-capture
+  target: tracking
+- id: dedicated-2
+  label: La file capture n'est pas lue par l'analytique
+  rule: no_edge
+  source: q-capture
+  target: analytics
+- id: dedicated-3
+  label: La file capture n'est pas lue par l'historique
+  rule: no_edge
+  source: q-capture
+  target: history
+- id: dedicated-4
+  label: La file tracking n'a pas d'autre consommateur
+  rule: no_edge
+  source: q-tracking
+  target: capture
+- id: dedicated-5
+  label: La file tracking n'est pas lue par l'analytique
+  rule: no_edge
+  source: q-tracking
+  target: analytics
+- id: dedicated-6
+  label: La file tracking n'est pas lue par l'historique
+  rule: no_edge
+  source: q-tracking
+  target: history
+- id: one-qc
+  label: Une seule file capture
+  rule: count
+  source: q-capture
+  min: 1
+  max: 1
+- id: one-qt
+  label: Une seule file tracking
+  rule: count
+  source: q-tracking
+  min: 1
+  max: 1
+- id: one-topic
+  label: 'Un seul topic : le producteur publie une fois pour toute l''analytique'
+  rule: count
+  source: topic
+  min: 1
+  max: 1
+- id: async-qc
+  label: Le producteur publie de façon asynchrone dans la file capture
+  rule: edge_kind
+  source: producer
+  target: q-capture
+  kind: async
+- id: async-qt
+  label: Le producteur publie de façon asynchrone dans la file tracking
+  rule: edge_kind
+  source: producer
+  target: q-tracking
+  kind: async
+- id: async-t
+  label: Le producteur publie de façon asynchrone dans le topic
+  rule: edge_kind
+  source: producer
+  target: topic
+  kind: async
+- id: no-db
+  label: Pas de base partagée comme canal d'intégration
+  rule: count
+  source: shared-db
+  max: 0
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

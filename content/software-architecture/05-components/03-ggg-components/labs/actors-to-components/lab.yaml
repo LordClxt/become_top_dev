@@ -1,0 +1,52 @@
+id: arch-ch05-l03-lab-actors-to-components
+title: Des acteurs aux composants
+difficulty: 3
+xp: 90
+concepts:
+- arch-actor-actions-ggg
+- arch-split-by-characteristics
+source:
+  chapter: 8
+  pages: 132-135
+palette:
+- type: bidder
+  component: browser
+  label: Enchérisseur
+  hint: Voit la vidéo, voit le fil des offres, enchérit.
+- type: auctioneer
+  component: client
+  label: Commissaire-priseur
+  hint: Saisit les offres de la salle, adjuge.
+- type: video-streamer
+  component: service
+  label: VideoStreamer
+  hint: Diffuse la vente en direct (lecture seule).
+- type: bid-streamer
+  component: service
+  label: BidStreamer
+  hint: Diffuse le fil des offres (lecture seule).
+- type: bid-capture
+  component: service
+  label: Bid Capture
+  hint: Capture les offres des enchérisseurs.
+- type: auctioneer-capture
+  component: service
+  label: Auctioneer Capture
+  hint: Capture les offres du commissaire-priseur.
+- type: bid-tracker
+  component: service
+  label: BidTracker
+  hint: 'Suit les offres : le système de référence.'
+- type: auction-session
+  component: service
+  label: AuctionSession
+  hint: Démarre et clôt la vente, déclenche le paiement.
+- type: payment
+  component: payment
+  label: Payment
+  hint: Prestataire de paiement externe.
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,91 @@
+id: arch-ch07-l01-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Pourquoi l'architecture en couches est-elle le standard de fait ?"
+    choices: ["Simplicité", "Familiarité", "Faible coût", "Excellente élasticité"]
+    answer: [0, 1, 2]
+    explanation: "Et la loi de Conway : les équipes (UI, backend, DBA) s'emboîtent dans les couches. Son élasticité est très faible."
+    concept: arch-layered-default
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Une équipe Agile « commence juste à coder » sans choisir de style. Que construit-elle le plus probablement ?"
+    choices: ["Des microservices", "Une architecture en couches, par implication", "Un microkernel", "Un pipeline"]
+    answer: 1
+    explanation: "C'est l'anti-pattern de l'architecture par implication (ou accidentelle)."
+    concept: arch-layered-default
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Un produit livré sur site embarque une base en mémoire dans le même déployable que le reste. Quelle variante ?"
+    choices:
+      - "Présentation séparée, métier et persistance ensemble"
+      - "Tout, base comprise, dans une seule unité"
+      - "Trois unités séparées"
+      - "Ce n'est pas une architecture en couches"
+    answer: 1
+    explanation: "La troisième variante du livre, fréquente pour les produits on-prem."
+    concept: arch-layered-topology
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Pourquoi le DDD s'adapte-t-il mal à l'architecture en couches ?"
+    choices:
+      - "Parce que les couches sont trop rapides"
+      - "Parce qu'elle est partitionnée techniquement : chaque domaine est étalé dans toutes les couches"
+      - "Parce qu'elle n'a pas de base de données"
+      - "Parce que le DDD interdit les couches"
+    answer: 1
+    explanation: "Le domaine « client » vit dans la présentation, le métier, les règles, les services et la base."
+    concept: arch-layered-topology
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Que garantit l'isolation des couches ?"
+    choices:
+      - "Que les couches tournent sur des machines différentes"
+      - "Qu'un changement dans une couche n'affecte pas les autres, tant que les contrats tiennent"
+      - "Que les couches sont toutes ouvertes"
+      - "Que la performance est maximale"
+    answer: 1
+    explanation: "C'est ce qui permet de remplacer une présentation JSF par React sans toucher au métier."
+    concept: arch-layers-of-isolation
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "La présentation accède directement à la persistance (couches ouvertes). Que se passe-t-il lors d'un changement de persistance ?"
+    choices:
+      - "Seule la persistance change"
+      - "Le métier et la présentation sont tous deux touchés : couplage fort, fragilité"
+      - "La base change de moteur"
+      - "Rien"
+    answer: 1
+    explanation: "Pour l'isolation, les couches du flux principal doivent être fermées."
+    concept: arch-closed-open-layers
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Pourquoi la nouvelle couche de services (objets partagés) doit-elle être ouverte ?"
+    choices:
+      - "Pour que la présentation puisse l'utiliser"
+      - "Sinon le métier devrait la traverser pour atteindre la persistance"
+      - "Pour la performance de la base"
+      - "Elle doit être fermée"
+    answer: 1
+    explanation: "Ouverte, elle peut être utilisée ou sautée par le métier ; la présentation reste bloquée par le métier fermé."
+    concept: arch-open-services-layer
+    difficulty: 2
+  - id: q8
+    type: code-output
+    prompt: "Couches : présentation (fermée), métier (fermée), services (ouverte), persistance (fermée). Qu'affiche ce contrôle ?"
+    code: |
+      const layers = [['presentation', false], ['business', false], ['services', true], ['persistence', false]] as const;
+      const idx = (n: string) => layers.findIndex(([name]) => name === n);
+      const allowed = (from: string, to: string) =>
+        idx(to) >= idx(from) && layers.slice(idx(from) + 1, idx(to)).every(([, open]) => open);
+      console.log(allowed('business', 'persistence'), allowed('presentation', 'services'));
+    answer: "true false"
+    explanation: "Le métier saute la couche de services ouverte ; la présentation est arrêtée par le métier fermé."
+    concept: arch-closed-open-layers
+    difficulty: 2

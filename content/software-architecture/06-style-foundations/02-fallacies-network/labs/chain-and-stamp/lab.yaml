@@ -1,0 +1,15 @@
+id: arch-ch06-l02-lab-chain-and-stamp
+title: Chiffrer une chaîne d'appels
+difficulty: 3
+xp: 90
+concepts:
+- arch-fallacy-latency
+- arch-fallacy-bandwidth
+source:
+  chapter: 9
+  pages: 145-147
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,102 @@
+intro: |
+  Un éditeur vend un logiciel de déclaration d'impôts **installé** sur les postes des cabinets comptables. La déclaration principale (le « 2042 », équivalent français du 1040) résume tout ; chaque ligne peut dépendre d'annexes (revenus fonciers, plus-values, frais réels…). La loi change chaque année, et un éditeur partenaire fournit l'annexe « crypto-actifs » dans son propre format. Un service en ligne d'aide au contrôle fiscal (`AuditChecker`) existe chez un partenaire.
+blocks:
+- id: split
+  type: match
+  title: Cœur ou plug-in ?
+  prompt: Range chaque élément.
+  items:
+  - id: s1
+    label: Le formulaire principal et le calcul final de l'impôt
+  - id: s2
+    label: L'annexe des revenus fonciers
+  - id: s3
+    label: L'annexe des plus-values
+  - id: s4
+    label: La sauvegarde du dossier du contribuable
+  - id: s5
+    label: L'annexe crypto-actifs du partenaire
+  categories:
+  - id: core
+    label: Cœur
+  - id: plugin
+    label: Plug-in
+- id: newlaw
+  type: choice
+  title: La loi change
+  prompt: Une nouvelle annexe « rénovation énergétique » est créée cette année. Que touche-t-on ?
+  options:
+  - id: plugin
+    label: On ajoute un plug-in et une entrée de registre ; le cœur et les autres annexes ne changent pas
+  - id: core
+    label: On modifie le cœur pour y ajouter le calcul
+  - id: all
+    label: On modifie toutes les annexes qui pourraient interagir
+- id: partner
+  type: choice
+  title: L'annexe du partenaire
+  prompt: L'annexe crypto-actifs renvoie un format différent du contrat des annexes. Que faire ?
+  options:
+  - id: adapter
+    label: Un adaptateur vers le contrat standard des annexes
+  - id: if
+    label: Un cas particulier dans le calcul final
+  - id: rewrite
+    label: Imposer au partenaire de réécrire son code
+- id: remote
+  type: choice
+  title: AuditChecker en ligne
+  prompt: AuditChecker est un service distant. Comment l'intégrer dans un logiciel installé chez les clients ?
+  options:
+  - id: optional
+    label: 'Comme plug-in distant optionnel, avec timeout : s''il ne répond pas, la déclaration reste possible et l''analyse est simplement indisponible'
+  - id: blocking
+    label: 'Comme plug-in distant obligatoire : pas de déclaration sans son avis'
+  - id: none
+    label: 'Impossible : un microkernel ne peut pas avoir de plug-in distant'
+- id: data
+  type: choice
+  title: Les données du contribuable
+  prompt: Comment les annexes accèdent-elles au dossier du contribuable ?
+  options:
+  - id: core
+    label: Le cœur leur passe les données dont elles ont besoin, et reçoit leurs résultats
+  - id: direct
+    label: Chaque annexe lit le fichier du dossier directement
+  - id: each-other
+    label: Les annexes se transmettent les données entre elles
+- id: registry
+  type: multi
+  title: Une entrée de registre
+  prompt: Que doit contenir l'entrée de registre d'AuditChecker ?
+  options:
+  - id: name
+    label: Son nom
+  - id: contract
+    label: Son contrat de données (entrée, sortie) et son format
+  - id: protocol
+    label: Le protocole et l'adresse d'accès
+  - id: code
+    label: Le code de ses règles
+- id: ratings
+  type: match
+  title: Le bulletin
+  prompt: Pour ce logiciel, comment le microkernel se situe-t-il ?
+  items:
+  - id: r1
+    label: Simplicité et coût
+  - id: r2
+    label: Extensibilité (nouvelles annexes)
+  - id: r3
+    label: Scalabilité
+  - id: r4
+    label: Nombre de quanta
+  categories:
+  - id: strong
+    label: Point fort
+  - id: above
+    label: Un peu au-dessus de la moyenne
+  - id: weak
+    label: 'Point faible (sans importance ici : logiciel installé)'
+  - id: one
+    label: Un seul

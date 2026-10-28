@@ -1,0 +1,14 @@
+id: arch-ch03-project
+title: "archkit v4 — la suite de gouvernance"
+pitch: "archkit devient un gardien : complexité cyclomatique sur le graphe de flot, cycles nommés par composantes fortement connexes, et un cliquet pour adopter tout ça sur un vieux code."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 4
+xp: 260
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["governance.ts"]
+concepts: [arch-cc-formula, arch-cycle-detection, arch-fitness-collaboration, arch-fitness-mechanisms]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

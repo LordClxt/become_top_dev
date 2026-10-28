@@ -1,0 +1,21 @@
+{
+  "choose": {
+    "p1": "pipeline",
+    "p2": "layered",
+    "p3": "pipeline",
+    "p4": "layered"
+  },
+  "filters": {
+    "read": "producer",
+    "valid": "tester",
+    "convert": "transformer",
+    "load": "consumer"
+  },
+  "compare": {
+    "modularity": "pipeline",
+    "deploy": "pipeline",
+    "scal": "equal",
+    "cost": "equal"
+  },
+  "quanta": 4
+}

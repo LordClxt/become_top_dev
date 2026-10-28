@@ -1,0 +1,22 @@
+{
+  "litmus": {
+    "rep": "domain",
+    "burst": "char",
+    "lot": "domain",
+    "order": "char"
+  },
+  "auctioneer": [
+    "availability",
+    "reliability",
+    "scalability",
+    "elasticity",
+    "performance",
+    "security"
+  ],
+  "feedback": [
+    "availability",
+    "scalability",
+    "performance"
+  ],
+  "critical": "blocks"
+}

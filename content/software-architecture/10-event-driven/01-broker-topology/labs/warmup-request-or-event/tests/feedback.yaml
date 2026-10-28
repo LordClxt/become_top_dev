@@ -1,0 +1,15 @@
+blocks:
+  kind:
+    options:
+      i1: Une demande de données dans un contexte précis.
+      i2: Un fait survenu, auquel le système doit réagir.
+      i3: Un fait qui déclenche paiement, notifications, clôture.
+      i4: Une lecture de données.
+      i5: Un fait diffusé, que d'autres exploitent.
+      i6: Une lecture de données.
+  flow:
+    wrong: 'Chaque événement est la réaction au précédent : création, paiement, préparation, expédition.'
+  nobody:
+    options:
+      drop: Le jour où l'on voudra analyser les e-mails, il faudra modifier Notification.
+      queue: 'Une file a un consommateur précis : on perdrait l''extensibilité du topic.'

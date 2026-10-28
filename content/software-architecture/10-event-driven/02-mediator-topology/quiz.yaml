@@ -1,0 +1,93 @@
+id: arch-ch10-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "En topologie médiateur, où arrive l'événement initiateur ?"
+    choices: ["Sur un topic", "Dans une file d'événements initiateurs, lue par le médiateur", "Directement chez OrderPlacement", "Dans la base"]
+    answer: 1
+    explanation: "Le médiateur envoie ensuite des commandes sur des files dédiées, en point à point."
+    concept: arch-mediator-components
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi avoir plusieurs médiateurs (client, commande…) ?"
+    choices:
+      - "Pour compliquer le système"
+      - "Pour réduire le point unique de défaillance et augmenter le débit"
+      - "Parce que chaque processeur en exige un"
+      - "Pour remplacer le broker"
+    answer: 1
+    explanation: "Un médiateur par domaine ou groupe d'événements."
+    concept: arch-mediator-components
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Un ordre de bourse au-delà d'un seuil exige l'approbation d'un trader senior. Quel médiateur ?"
+    choices: ["Apache Camel", "Un moteur BPEL", "Un moteur BPM comme jBPM", "Aucun"]
+    answer: 2
+    explanation: "Les processus longs avec intervention humaine relèvent du BPM."
+    concept: arch-mediator-implementations
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Que recommande le modèle de délégation ?"
+    choices:
+      - "Tout faire passer par le moteur BPM"
+      - "Classer les événements (simples, difficiles, complexes), tous passent par un médiateur simple qui transfère au besoin"
+      - "Un médiateur par processeur"
+      - "Supprimer les médiateurs"
+    answer: 1
+    explanation: "Chaque événement est traité par le type de médiateur qu'il mérite."
+    concept: arch-mediator-implementations
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "La carte est expirée à l'étape 2 (paiement). Que fait le médiateur ?"
+    choices:
+      - "Il continue l'étape 3 quand même"
+      - "Il arrête, persiste l'état, et reprend au début de l'étape 3 une fois le paiement appliqué"
+      - "Il recommence tout depuis l'étape 1"
+      - "Il ne sait rien de l'erreur"
+    answer: 1
+    explanation: "C'est ce que le broker ne sait pas faire : contrôle, état, reprise."
+    concept: arch-mediator-recovery
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Ce médiateur reprend après échec. Qu'affiche-t-il ?"
+    code: |
+      const steps = [['create'], ['email', 'payment', 'inventory'], ['fulfill'], ['ship']];
+      let at = 0;
+      const done: string[] = [];
+      function run(fails: (t: string) => boolean) {
+        for (; at < steps.length; at++) {
+          if (steps[at]!.some(fails)) return `stop@${at + 1}`;
+          done.push(...steps[at]!);
+        }
+        return 'ok';
+      }
+      console.log(run((t) => t === 'payment'), run(() => false), done.length);
+    answer: "stop@2 ok 6"
+    explanation: "La reprise repart de l'étape 2 sans refaire « create » : 1 + 3 + 1 + 1 = 6 tâches faites."
+    concept: arch-mediator-recovery
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "`place-order` dans une topologie médiateur est…"
+    choices: ["Un événement, qu'on peut ignorer", "Une commande, qui doit être traitée", "Un topic", "Un acquittement"]
+    answer: 1
+    explanation: "En broker, `order-created` est un événement (ce qui s'est passé) ; en médiateur, `place-order` est une commande (ce qui doit se passer)."
+    concept: arch-commands-vs-events
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "À quoi se résume le choix entre broker et médiateur ?"
+    choices:
+      - "Coût contre simplicité"
+      - "Contrôle du workflow et gestion d'erreurs contre performance et scalabilité"
+      - "Synchrone contre asynchrone"
+      - "Topics contre bases"
+    answer: 1
+    explanation: "Et souvent un hybride des deux pour les flux dynamiques."
+    concept: arch-broker-vs-mediator
+    difficulty: 1

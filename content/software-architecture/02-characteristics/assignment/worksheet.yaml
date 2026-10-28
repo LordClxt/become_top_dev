@@ -1,0 +1,87 @@
+intro: |
+  **Description** : une université de 30 000 étudiants remplace son système d'inscription aux cours.
+
+  **Utilisateurs** : 30 000 étudiants, 1 200 enseignants, 40 gestionnaires.
+
+  **Exigences** :
+  1. L'étudiant s'inscrit à ses cours pendant une **fenêtre de 5 jours** ; un cours a un nombre de places limité.
+  2. Les places sont attribuées dans l'ordre d'arrivée.
+  3. Le paiement des frais passe par le prestataire bancaire de l'université.
+  4. Chaque faculté peut définir ses propres règles de prérequis.
+  5. L'interface existe en français et en anglais.
+
+  **Contexte additionnel** : l'ouverture de la fenêtre est annoncée à 8 h ; l'an dernier, l'ancien système est tombé le premier matin ; le budget est serré.
+blocks:
+- id: classify
+  type: match
+  title: Que retenir ?
+  prompt: Pour chaque élément, quelle caractéristique d'architecture (ou aucune) ?
+  items:
+  - id: e1
+    label: Ouverture à 8 h, système tombé le premier matin l'an dernier
+  - id: e2
+    label: Places attribuées dans l'ordre d'arrivée
+  - id: e3
+    label: Paiement via le prestataire bancaire
+  - id: e4
+    label: Règles de prérequis propres à chaque faculté
+  - id: e5
+    label: Interface en français et en anglais
+  - id: e6
+    label: Budget serré
+  categories:
+  - id: elasticity
+    label: Élasticité
+  - id: reliability
+    label: Fiabilité / intégrité des données
+  - id: none
+    label: Aucune caractéristique d'architecture (hygiène ou design)
+  - id: custom
+    label: Personnalisation (extensibilité)
+  - id: feasibility
+    label: Simplicité / faisabilité
+- id: rush
+  type: number
+  title: Le premier matin
+  prompt: Un tiers des étudiants s'inscrit dans la première heure. Combien d'inscriptions par minute faut-il absorber à ce moment (arrondi à l'unité)
+    ?
+  unit: inscriptions/min
+- id: implicit
+  type: multi
+  title: Les implicites
+  prompt: Quelles caractéristiques implicites faut-il garder, même si personne ne les a écrites ?
+  options:
+  - id: availability
+    label: Disponibilité pendant la fenêtre
+  - id: security
+    label: Sécurité des données personnelles (au moins l'hygiène)
+  - id: portability
+    label: Portabilité sur plusieurs systèmes de base de données
+  - id: hft
+    label: Latence de l'ordre de la microseconde
+- id: top3
+  type: multi
+  title: Le top 3
+  prompt: Choisis les trois caractéristiques les plus importantes (dans n'importe quel ordre).
+  options:
+  - id: elasticity
+    label: Élasticité
+  - id: availability
+    label: Disponibilité
+  - id: reliability
+    label: Fiabilité / intégrité (pas de place attribuée deux fois)
+  - id: custom
+    label: Personnalisation par faculté
+  - id: performance
+    label: Performance
+- id: eliminate
+  type: choice
+  title: Celle qu'on élimine
+  prompt: Si tu devais retirer une caractéristique de la liste d'architecture, laquelle ?
+  options:
+  - id: custom
+    label: 'La personnalisation : les règles de prérequis peuvent passer au design (stratégies, Template Method)'
+  - id: availability
+    label: La disponibilité
+  - id: reliability
+    label: La fiabilité

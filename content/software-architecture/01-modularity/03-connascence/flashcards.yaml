@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Définition de la connascence ?"
+    back: "Deux composants sont connascents si changer l'un oblige à modifier l'autre pour que le système reste correct."
+    concept: arch-connascence-def
+  - id: fc2
+    front: "Les cinq connascences statiques, de la plus faible à la plus forte ?"
+    back: "Nom, type, sens (convention), position, algorithme."
+    concept: arch-static-connascence
+  - id: fc3
+    front: "Les quatre connascences dynamiques ?"
+    back: "Exécution, timing, valeurs, identité."
+    concept: arch-dynamic-connascence
+  - id: fc4
+    front: "Connascence d'algorithme : exemple ?"
+    back: "Un hachage calculé à l'identique côté client et côté serveur pour s'authentifier."
+    concept: arch-static-connascence
+  - id: fc5
+    front: "Connascence d'identité : exemple ?"
+    back: "Deux composants qui partagent et modifient la même file distribuée."
+    concept: arch-dynamic-connascence
+  - id: fc6
+    front: "Force, localité, degré ?"
+    back: "Force = difficulté à refactorer ; localité = proximité des éléments ; degré = nombre d'éléments touchés."
+    concept: arch-connascence-properties
+  - id: fc7
+    front: "Les deux règles de Weirich ?"
+    back: "Degré : convertir les formes fortes en formes faibles. Localité : plus c'est loin, plus la forme doit être faible."
+    concept: arch-connascence-rules
+  - id: fc8
+    front: "Remède à la connascence de position ?"
+    back: "Un objet d'arguments nommés (connascence de nom)."
+    concept: arch-connascence-rules
+  - id: fc9
+    front: "Remède à la connascence d'exécution (setters dans le bon ordre) ?"
+    back: "Un constructeur qui exige tous les champs obligatoires : l'objet est valide dès sa création."
+    concept: arch-connascence-rules
+  - id: fc10
+    front: "Deux limites de la connascence des années 1990 ?"
+    back: "Elle regarde le code de trop près, et ne dit rien du synchrone vs asynchrone."
+    concept: arch-connascence-limits

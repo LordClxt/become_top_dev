@@ -1,0 +1,31 @@
+intro: Quatre déclinaisons d'une même application de gestion de bibliothèques municipales (6 services de domaine).
+blocks:
+- id: variants
+  type: table
+  title: Variante et quanta
+  prompt: Pour chaque architecture, donne la variante (`base`, `ui-federee`, `bdd-federee` ou `api`) et le nombre de quanta.
+  columns:
+  - id: desc
+    label: Architecture
+  - id: variant
+    label: Variante
+  - id: quanta
+    label: Quanta
+  rows:
+  - id: a
+    label: A
+    cells:
+      desc: Une interface web, six services, une base.
+  - id: b
+    label: B
+    cells:
+      desc: Une interface pour les lecteurs, une pour les bibliothécaires ; six services ; une base.
+  - id: c
+    label: C
+    cells:
+      desc: Une interface ; six services ; une gateway devant eux pour l'application mobile d'un partenaire, avec authentification et métriques.
+  - id: d
+    label: D
+    cells:
+      desc: 'Lecteurs : interface + Catalogue + Réservations + base « public ». Bibliothécaires : interface + Prêts, Achats, Inventaire, Statistiques
+        + base « interne ». Aucun appel entre les deux groupes.'

@@ -1,0 +1,65 @@
+intro: |
+  **Symptôme.** 312 commandes sont « en cours » depuis lundi. Leur stock est décrémenté, l'e-mail de confirmation est parti, mais rien n'a été préparé ni facturé. Aucune alerte.
+
+  **Compteurs du broker, lundi 9 h → jeudi 9 h**
+  | topic | publiés |
+  |---|---|
+  | order-created | 4 812 |
+  | email-sent | 4 812 |
+  | inventory-updated | 4 812 |
+  | payment-applied | 4 500 |
+  | payment-denied | 0 |
+  | order-fulfilled | 4 500 |
+
+  **Journal du processeur Payment, lundi 14 h 03**
+  ```
+  OutOfMemoryError — processus redémarré par l'orchestrateur à 14 h 05
+  ```
+
+  **Configuration de l'abonnement de Payment à `order-created`** : acquittement **automatique**.
+blocks:
+- id: stuck
+  type: number
+  title: Combien de commandes ?
+  prompt: D'après les compteurs, combien de commandes ont été créées sans paiement appliqué ni refusé ?
+  unit: commandes
+- id: cause
+  type: choice
+  title: Cause racine
+  prompt: Que s'est-il passé ?
+  options:
+  - id: lost
+    label: 'Payment a planté après avoir lu des messages en acquittement automatique : ils ont été retirés du topic et jamais traités ; rien dans
+      un broker ne suit l''état d''une commande, donc personne ne l''a vu'
+  - id: denied
+    label: Les cartes ont été refusées
+  - id: inventory
+    label: Inventory a décrémenté le stock deux fois
+  - id: broker
+    label: Le broker a perdu les messages order-created
+- id: limits
+  type: multi
+  title: Les limites du broker en jeu
+  prompt: Quelles limites de la topologie broker cet incident illustre-t-il ?
+  options:
+  - id: control
+    label: Personne ne contrôle le workflow ni ne sait quand une commande est terminée
+  - id: errors
+    label: La panne d'un processeur passe inaperçue ; les autres continuent (stock décrémenté, e-mail envoyé)
+  - id: restart
+    label: Impossible de resoumettre simplement l'événement initiateur sans refaire stock et e-mail
+  - id: scale
+    label: Le broker ne monte pas en charge
+- id: fix
+  type: multi
+  title: Correctifs
+  prompt: Quelles mesures auraient évité ou détecté l'incident ?
+  options:
+  - id: ack
+    label: 'Acquittement client pour Payment : un message lu mais non traité reste dans la file'
+  - id: watch
+    label: Une alerte quand des commandes restent sans paiement au-delà d'un délai (un « gardien » qui écoute les événements)
+  - id: mediator
+    label: Pour ce workflow critique, une topologie médiateur qui suit l'état et peut reprendre
+  - id: bigger
+    label: Doubler la mémoire de tous les processeurs et s'en tenir là

@@ -1,0 +1,77 @@
+intro: |
+  La page « Ma commande » d'un site de vente appelle en chaîne : Commandes → Clients → Fidélité → Livraison → Stock → Prix → Avis. Chaque appel coûte **60 ms** en moyenne ; 1 % des appels de chaque service sont « lents » (son p99, 400 ms). La page est servie **1 500 fois par seconde**. Le service Clients renvoie à chaque appel le profil complet : **300 Ko**, alors que la page n'affiche que le prénom (100 octets).
+blocks:
+- id: mean
+  type: number
+  title: Latence moyenne ajoutée
+  prompt: Combien de millisecondes la chaîne de 7 appels ajoute-t-elle en moyenne ?
+  unit: ms
+- id: slow
+  type: number
+  title: Requêtes qui subissent au moins un appel lent
+  prompt: Quelle part des pages subit au moins un appel lent (en %, une décimale) ?
+  unit: '%'
+- id: bw
+  type: number
+  title: Bande passante du profil
+  prompt: Combien de Mo par seconde l'appel au service Clients consomme-t-il ?
+  unit: Mo/s
+- id: fixes
+  type: multi
+  title: Contre le couplage de tampon
+  prompt: Quelles mesures réduisent ce débit ?
+  options:
+  - id: fields
+    label: Un sélecteur de champs (`?fields=firstName`)
+  - id: private
+    label: Un endpoint privé taillé pour la page
+  - id: cdc
+    label: Un contrat piloté par le consommateur
+  - id: bigger
+    label: Un lien réseau dix fois plus gros
+- id: redesign
+  type: tuner
+  title: Tenir le budget
+  prompt: 'Choisis le nombre d''appels en chaîne (au moins 3 restent indispensables) et la taille de la réponse du service Clients, pour tenir
+    : **≤ 250 ms** de latence moyenne ajoutée, **≤ 5 %** de pages touchées par un appel lent, **≤ 50 Mo/s** de bande passante.'
+  params:
+  - id: hops
+    label: Appels en chaîne
+    unit: ''
+    min: 1
+    max: 10
+    step: 1
+    default: 7
+  - id: kb
+    label: Réponse du service Clients
+    unit: Ko
+    min: 0.1
+    max: 300
+    step: 0.1
+    default: 300
+  metrics:
+  - id: lat
+    label: Latence moyenne ajoutée (ms)
+    expr: hops * 60
+    format: number
+  - id: slow
+    label: Pages touchées par un appel lent
+    expr: 1 - pow(0.99, hops)
+    format: percent
+  - id: bw
+    label: Bande passante (Mo/s)
+    expr: 1500 * kb / 1000
+    format: number
+  goals:
+  - id: min
+    label: Au moins 3 appels
+    expr: hops >= 3
+  - id: lat
+    label: ≤ 250 ms
+    expr: hops * 60 <= 250
+  - id: slow
+    label: ≤ 5 % de pages touchées
+    expr: 1 - pow(0.99, hops) <= 0.05
+  - id: bw
+    label: ≤ 50 Mo/s
+    expr: 1500 * kb / 1000 <= 50

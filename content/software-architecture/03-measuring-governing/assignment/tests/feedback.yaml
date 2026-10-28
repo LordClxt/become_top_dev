@@ -1,0 +1,24 @@
+blocks:
+  defs:
+    options:
+      fast: Pour une enchère, c'est la diffusion de l'offre qui compte, et sa queue de distribution.
+      always: « Toujours » devient un taux de disponibilité sur une fenêtre.
+      ship: Livrer vite, c'est un délai, mais aussi des déploiements qui ne reviennent pas en arrière.
+      peak: Un pic se prouve par un test de charge à la bonne forme.
+  budget:
+    tolerance:
+      abs: 0.5
+    wrong: 30 jours × 24 h × 60 min, multiplié par 0,1 %.
+  why999:
+    options:
+      easy: Un percentile élevé demande au contraire plus de données.
+      same: Sous un pic, la moyenne peut rester basse pendant que la queue explose.
+  govern:
+    options:
+      p999: La latence réelle ne s'observe qu'en production.
+      avail: La disponibilité se mesure en production, contre un budget.
+      lead: Le délai se lit dans les données du pipeline.
+      load: On ne peut pas attendre la vraie fin d'enchère pour découvrir qu'on ne tient pas.
+  composite:
+    options:
+      cpu: La CPU des serveurs ne dit rien de la vitesse de livraison.

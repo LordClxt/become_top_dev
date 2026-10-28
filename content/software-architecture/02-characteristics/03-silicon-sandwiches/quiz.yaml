@@ -1,0 +1,104 @@
+id: arch-ch02-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Un système de réservation d'hôtel à la charge régulière, et une billetterie de concert. Lequel doit être élastique ?"
+    choices:
+      - "L'hôtel"
+      - "La billetterie"
+      - "Les deux"
+      - "Aucun"
+    answer: 1
+    explanation: "L'hôtel est scalable sans être élastique ; la billetterie subit des rafales à l'ouverture des ventes."
+    concept: arch-scalability-vs-elasticity
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Même volume total, même capacité. Combien de commandes la rafale fait-elle perdre ?"
+    code: |
+      function rejectedFor(load: number[], capacity = 600, maxQueue = 200) {
+        let queue = 0, rejected = 0;
+        for (const arrivals of load) {
+          queue = Math.max(0, queue + arrivals - capacity);
+          if (queue > maxQueue) { rejected += queue - maxQueue; queue = maxQueue; }
+        }
+        return rejected;
+      }
+      const lunch = [...Array(4).fill(300), ...Array(2).fill(1200)];
+      console.log(rejectedFor(lunch));
+    answer: "1000"
+    explanation: "1re minute de pic : 1 200 − 600 = 600 en file, 400 au-delà des 200 places sont rejetées. 2e minute : 200 + 1 200 − 600 = 800, 600 rejetées. Total : 1 000, alors qu'une charge régulière du même volume serait passée sans perte."
+    concept: arch-scalability-vs-elasticity
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "Le service de trafic externe tombe. Que recommande le livre ?"
+    choices:
+      - "Bloquer les commandes jusqu'au retour du service"
+      - "Continuer en donnant un itinéraire sans trafic : ne pas construire de fragilité"
+      - "Ajouter un second fournisseur obligatoire"
+      - "Ignorer le problème"
+    answer: 1
+    explanation: "Le trafic est un plus : sa panne ne doit pas rendre le système indisponible."
+    concept: arch-integration-fragility
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Pourquoi la sécurité n'est-elle pas retenue comme caractéristique d'architecture pour Silicon Sandwiches ?"
+    choices:
+      - "Elle n'est pas importante"
+      - "Le paiement passe par un prestataire : une bonne hygiène suffit, sans structure particulière"
+      - "Le livre l'a oubliée"
+      - "Elle est déjà dans les exigences"
+    answer: 1
+    explanation: "Elle reste implicite ; elle ne façonne simplement pas la structure ici."
+    concept: arch-overspecify
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Promotions nationales et locales, itinéraires adaptés : quelle caractéristique ?"
+    choices:
+      - "La personnalisation (customizability)"
+      - "La portabilité"
+      - "L'archivabilité"
+      - "L'interopérabilité"
+    answer: 0
+    explanation: "Trois exigences demandent un comportement adapté au lieu."
+    concept: arch-char-arch-vs-design
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Microkernel ou Template Method pour la personnalisation : que dit le livre ?"
+    choices:
+      - "Toujours microkernel"
+      - "Toujours Template Method"
+      - "Ça dépend (perf, couplage, autres caractéristiques, coût), et on décide avec l'équipe"
+      - "L'architecte tranche seul"
+    answer: 2
+    explanation: "Décider seul, c'est l'anti-pattern Ivory Tower Architect."
+    concept: arch-char-arch-vs-design
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Quelle caractéristique opérationnelle le livre propose-t-il d'éliminer en premier pour Silicon Sandwiches ?"
+    choices:
+      - "La disponibilité"
+      - "La scalabilité"
+      - "La performance"
+      - "La fiabilité"
+    answer: 2
+    explanation: "Pas pour faire une application lente : pour ne pas la prioriser devant scalabilité et disponibilité."
+    concept: arch-eliminate-one
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Pourquoi élimine-t-on plus volontiers une caractéristique explicite qu'une implicite ?"
+    choices:
+      - "Les explicites sont toujours fausses"
+      - "Les implicites (disponibilité, fiabilité…) portent le succès général du système"
+      - "Les implicites sont plus faciles"
+      - "Le métier ne lit pas les implicites"
+    answer: 1
+    explanation: "On ne retire pas la disponibilité d'un site marchand ; une préférence explicite peut, elle, passer au design."
+    concept: arch-eliminate-one
+    difficulty: 2

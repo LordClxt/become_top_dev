@@ -1,0 +1,76 @@
+id: arch-ch04-boss
+title: 'Boss : les quanta de Going, Going, Gone'
+difficulty: 5
+xp: 320
+time_limit_min: 60
+concepts:
+- arch-quanta-per-characteristics
+- arch-sync-alignment
+- arch-async-decoupling
+- arch-quantum-split
+- arch-nonuniform
+source:
+  chapter: 7
+  pages: 112-118
+palette:
+- type: bidder-ui
+  component: browser
+  label: Navigateur enchérisseur
+  hint: Des milliers par vente.
+- type: auctioneer-ui
+  component: client
+  label: Poste du commissaire-priseur
+  hint: Un par vente, en salle.
+- type: bid-capture
+  component: service
+  label: Bid Capture
+  hint: Reçoit les offres en ligne.
+- type: auctioneer-capture
+  component: service
+  label: Auctioneer Capture
+  hint: Reçoit les offres annoncées en salle.
+- type: bid-tracker
+  component: service
+  label: Bid Tracker
+  hint: 'Ordonne toutes les offres : la référence.'
+- type: bid-streamer
+  component: service
+  label: Bid Streamer
+  hint: Diffuse le fil des offres, en lecture seule.
+- type: payment
+  component: payment
+  label: Payment
+  hint: 'Prestataire : un débit toutes les 500 ms.'
+- type: queue
+  component: queue
+  label: File
+  hint: Tampon asynchrone.
+- type: bids-db
+  component: postgres
+  label: Base des offres
+  hint: La référence des offres ordonnées.
+- type: z-bidder
+  component: zone
+  label: Quantum enchérisseur
+  hint: Zone de quantum.
+- type: z-auctioneer
+  component: zone
+  label: Quantum commissaire-priseur
+  hint: Zone de quantum.
+- type: z-tracker
+  component: zone
+  label: Quantum suivi des offres
+  hint: Zone de quantum.
+- type: z-feedback
+  component: zone
+  label: Quantum retour enchérisseur
+  hint: Zone de quantum.
+- type: z-payment
+  component: zone
+  label: Quantum paiement
+  hint: Zone de quantum.
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

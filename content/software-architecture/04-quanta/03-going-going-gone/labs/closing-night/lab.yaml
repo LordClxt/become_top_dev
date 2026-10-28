@@ -1,0 +1,16 @@
+id: arch-ch04-l03-lab-closing-night
+title: 'Enquête : la soirée de clôture'
+difficulty: 3
+xp: 90
+concepts:
+- arch-sync-alignment
+- arch-async-decoupling
+- arch-quantum-definition
+source:
+  chapter: 7
+  pages: 113-114
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

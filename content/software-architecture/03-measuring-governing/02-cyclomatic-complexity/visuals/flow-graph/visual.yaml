@@ -1,0 +1,8 @@
+id: arch-ch03-flow-graph
+concept: arch-cc-formula
+format: interactive
+justification: "Écrire une petite fonction et voir son graphe de flot se dessiner, avec E, N et la CC qui se mettent à jour à chaque if ou &&, relie la formule au code."
+entry: FlowGraph.tsx
+params:
+  - { name: example, type: int, min: 1, max: 4, default: 1 }
+status: built

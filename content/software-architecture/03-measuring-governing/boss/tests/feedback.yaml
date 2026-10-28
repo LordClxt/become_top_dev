@@ -1,0 +1,21 @@
+blocks:
+  cc:
+    wrong: E − N + 2 pour une fonction.
+  p99:
+    wrong: 'Le rang ⌈0,99 × 10 000⌉ : combien de requêtes sont à 120 ms ?'
+  p999:
+    wrong: 'Le rang ⌈0,999 × 10 000⌉ = 9 990 : où tombe-t-il ?'
+  ratchet:
+    options:
+      accept: 'Un cliquet compare les violations une par une : un cycle absent de la référence est nouveau, quel que soit le total.'
+      ignore: Une tolérance globale laisserait la dette se déplacer sans fin.
+  after:
+    wrong: Trois cycles corrigés sortent de la référence ; le nouveau a été cassé.
+  rollout:
+    wrong: Expliquer d'abord, mesurer et figer la référence, puis bloquer l'aggravation, enfin resserrer.
+  where:
+    options:
+      cycles: Le graphe d'imports se lit dans le code.
+      cc: La complexité se calcule sur le code.
+      latency: La latence réelle n'existe qu'en production.
+      zone: La survie à une panne se prouve en la provoquant.

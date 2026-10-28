@@ -1,0 +1,14 @@
+id: arch-ch01-l01-lab-warmup-cohesion
+title: 'Échauffement : quelle cohésion ?'
+difficulty: 1
+xp: 40
+concepts:
+- arch-cohesion-types
+source:
+  chapter: 3
+  pages: 60-61
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

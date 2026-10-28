@@ -1,0 +1,23 @@
+blocks:
+  causeA:
+    options:
+      type: 'Les deux paramètres sont des string : TypeScript n''a aucune raison de protester.'
+      db: 'Le handler passe les valeurs dans l''ordre de l''ancienne signature : le problème est avant la base.'
+      front: 'La valeur enregistrée est déjà fausse : l''affichage ne fait que la montrer.'
+  causeB:
+    options:
+      timing: 'Le mail part pour une valeur précise de status : ce n''est pas une question de moment.'
+      name: 'sendMail est bien appelée : c''est la condition qui est fausse.'
+      execution: 'Le statut vaut bien 2 au moment du test : c''est la signification de 2 qui diffère.'
+  why-green:
+    options:
+      flaky: 'Les tests sont stables : ils ne regardent simplement pas l''interaction entre modules.'
+      coverage: 'Une couverture de 100 % de chaque module n''aurait rien changé : le bug est dans l''accord entre modules.'
+  fixes:
+    options:
+      A: Il faut que l'ordre ne compte plus, ou que deux valeurs ne puissent plus se confondre.
+      B: Il faut remplacer le nombre magique par un nom partagé, vérifié partout.
+  locality:
+    options:
+      degree: 'Rien n''a changé côté outillage : c''est la distance entre les éléments qui a changé.'
+      strength: 'Elle est toujours statique (sens) : c''est sa localité qui a changé.'

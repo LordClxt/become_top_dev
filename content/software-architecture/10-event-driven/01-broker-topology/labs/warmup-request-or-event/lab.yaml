@@ -1,0 +1,16 @@
+id: arch-ch10-l01-lab-warmup-request-or-event
+title: 'Échauffement : requête ou événement ?'
+difficulty: 1
+xp: 40
+concepts:
+- arch-request-vs-event
+- arch-broker-components
+- arch-advertise
+source:
+  chapter: 14
+  pages: 199-204
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

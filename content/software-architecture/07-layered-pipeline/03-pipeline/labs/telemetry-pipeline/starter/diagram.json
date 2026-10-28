@@ -1,0 +1,11 @@
+{
+  "nodes": [
+    {
+      "id": "kafka",
+      "type": "kafka",
+      "x": 0,
+      "y": 200
+    }
+  ],
+  "edges": []
+}

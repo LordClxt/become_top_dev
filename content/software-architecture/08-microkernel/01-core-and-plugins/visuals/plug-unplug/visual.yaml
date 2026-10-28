@@ -1,0 +1,8 @@
+id: arch-ch08-plug-unplug
+concept: arch-move-complexity
+format: interactive
+justification: "Brancher et débrancher des plug-ins d'appareils pendant que la complexité cyclomatique du cœur reste à 2 montre que la complexité a quitté le cœur, au lieu de le dire."
+entry: PlugUnplug.tsx
+params:
+  - { name: plugins, type: int, min: 1, max: 12, default: 4 }
+status: built

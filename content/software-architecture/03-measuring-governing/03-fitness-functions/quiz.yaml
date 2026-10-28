@@ -1,0 +1,116 @@
+id: arch-ch03-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "D'où vient le mot « gouvernance » ?"
+    choices:
+      - "Du latin gubernare, gouverner un État"
+      - "Du grec kubernan, piloter"
+      - "De l'anglais governor, régulateur"
+      - "D'un acronyme ITIL"
+    answer: 1
+    explanation: "Piloter : orienter le développement sans tout faire soi-même."
+    concept: arch-governance
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi la modularité a-t-elle besoin de gouvernance ?"
+    choices:
+      - "Elle est urgente"
+      - "Elle est importante mais jamais urgente : l'urgence la sacrifie au quotidien"
+      - "Elle ne se mesure pas"
+      - "Les développeurs la refusent"
+    answer: 1
+    explanation: "Les fitness functions gardent l'important quand l'urgent domine."
+    concept: arch-governance
+    difficulty: 1
+  - id: q3
+    type: multiple
+    prompt: "Lesquels peuvent être des fitness functions ?"
+    choices:
+      - "Un test unitaire qui échoue s'il existe un cycle entre packages"
+      - "Un moniteur de latence p99 en production"
+      - "Chaos Monkey"
+      - "Une page de wiki listant les règles"
+    answer: [0, 1, 2]
+    explanation: "« Tout mécanisme » d'évaluation objective ; une page de wiki n'évalue rien."
+    concept: arch-fitness-mechanisms
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Ce détecteur de cycles tourne dans la CI. Qu'affiche-t-il ?"
+    code: |
+      function hasCycle(g: Record<string, string[]>): boolean {
+        const state = new Map<string, number>();
+        const visit = (n: string): boolean => {
+          if (state.get(n) === 1) return true;
+          if (state.get(n) === 2) return false;
+          state.set(n, 1);
+          const found = (g[n] ?? []).some((m) => visit(m));
+          state.set(n, 2);
+          return found;
+        };
+        return Object.keys(g).some((n) => visit(n));
+      }
+      console.log(hasCycle({ api: ['orders'], orders: ['billing'], billing: ['money'], money: [] }),
+                  hasCycle({ api: ['orders'], orders: ['billing'], billing: ['orders'] }));
+    answer: "false true"
+    explanation: "Le second graphe contient orders → billing → orders. Un nœud déjà « en cours » sur le chemin signale un cycle."
+    concept: arch-cycle-detection
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi la revue de code ne suffit-elle pas contre les cycles ?"
+    choices:
+      - "Les relecteurs ne connaissent pas les cycles"
+      - "Elle arrive trop tard : une semaine d'imports a déjà abîmé le code"
+      - "Les cycles sont invisibles dans le code"
+      - "Elle est trop chère"
+    answer: 1
+    explanation: "Une fitness function dans le build continu attrape le cycle au premier commit."
+    concept: arch-cycle-detection
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Quel singe de la Simian Army supprime les services que plus personne n'appelle ?"
+    choices: ["Chaos Monkey", "Conformity Monkey", "Janitor Monkey", "Latency Monkey"]
+    answer: 2
+    explanation: "Les services orphelins coûtent de l'argent dans le cloud."
+    concept: arch-chaos-engineering
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Quel changement de perspective apporte le chaos engineering ?"
+    choices:
+      - "Éviter toute panne"
+      - "Ce n'est pas si ça casse, mais quand : anticiper les pannes"
+      - "Tester seulement en préproduction"
+      - "Supprimer la redondance"
+    answer: 1
+    explanation: "Provoquer des pannes réelles rend le système plus robuste face aux vraies."
+    concept: arch-chaos-engineering
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Que recommande le livre avant d'imposer une fitness function ?"
+    choices:
+      - "La rendre bloquante sans prévenir"
+      - "Expliquer son but aux développeurs"
+      - "La garder secrète"
+      - "La faire valider par un comité"
+    answer: 1
+    explanation: "Sinon, c'est la tour d'ivoire : des règles incomprises qu'on contourne."
+    concept: arch-fitness-collaboration
+    difficulty: 1
+  - id: q9
+    type: single
+    prompt: "Une fitness function trouve 40 cycles sur un vieux code base. Quelle adoption est la plus réaliste ?"
+    choices:
+      - "Bloquer la CI jusqu'à zéro cycle"
+      - "La désactiver"
+      - "Un cliquet : les 40 cycles connus sont la référence, aucun nouveau n'est accepté, la référence ne fait que baisser"
+      - "Augmenter la tolérance à 100 cycles"
+    answer: 2
+    explanation: "Le cliquet stoppe l'aggravation sans bloquer l'équipe, et capture chaque amélioration."
+    concept: arch-fitness-collaboration
+    difficulty: 2

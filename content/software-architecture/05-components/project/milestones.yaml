@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Frontières"
+    goal: "Déterminer le domaine de chaque fichier et refuser les imports profonds (ailleurs que dans index.ts d'un autre domaine) et les dépendances non déclarées, le noyau partagé étant toujours autorisé."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Graphe et cycles de domaines"
+    goal: "Déduire des imports le graphe des domaines et trouver les domaines pris dans un cycle."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Impact d'un changement"
+    goal: "Calculer les domaines touchés par des fichiers modifiés : les leurs et tous ceux qui en dépendent, transitivement, sans boucler sur un cycle."
+    tests: "tstest M3"
+    review: true
+    prompt: "Le test montre qu'une modification du noyau partagé touche tous les domaines. Quelles règles d'architecture (et quelles fitness functions) limiteraient ce rayon d'impact ?"

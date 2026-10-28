@@ -1,0 +1,16 @@
+id: arch-ch01-l03-lab-swapped-seats
+title: 'Enquête : sièges inversés et annulations fantômes'
+difficulty: 3
+xp: 90
+concepts:
+- arch-static-connascence
+- arch-connascence-properties
+- arch-connascence-rules
+source:
+  chapter: 3
+  pages: 68-72
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

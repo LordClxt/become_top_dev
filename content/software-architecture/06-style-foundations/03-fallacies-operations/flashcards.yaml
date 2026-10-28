@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Les erreurs 5 à 8 ?"
+    back: "La topologie ne change jamais ; il n'y a qu'un administrateur ; le transport ne coûte rien ; le réseau est homogène."
+    concept: arch-fallacy-topology
+  - id: fc2
+    front: "Parade à l'erreur 5 ?"
+    back: "Communication constante avec l'exploitation et les administrateurs réseau sur ce qui change et quand."
+    concept: arch-fallacy-topology
+  - id: fc3
+    front: "Ce que révèle l'erreur 6 ?"
+    back: "La complexité de coordination du distribué : des dizaines d'administrateurs à joindre."
+    concept: arch-fallacy-admins
+  - id: fc4
+    front: "Trois défis distribués hors des huit erreurs ?"
+    back: "Journalisation distribuée, transactions distribuées, contrats et versions."
+    concept: arch-distributed-concerns
+  - id: fc5
+    front: "Sagas : deux mécanismes ?"
+    back: "Event sourcing pour la compensation, ou machine à états pour suivre l'état de la transaction."
+    concept: arch-distributed-concerns
+  - id: fc6
+    front: "Cohérence à terme ?"
+    back: "Les données des différentes unités finiront par être cohérentes, à un moment non spécifié."
+    concept: arch-distributed-concerns

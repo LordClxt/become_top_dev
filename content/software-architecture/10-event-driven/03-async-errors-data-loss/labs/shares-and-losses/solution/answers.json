@@ -1,0 +1,19 @@
+{
+  "placed": [
+    "o1",
+    "o3",
+    "o5",
+    "o2",
+    "o4"
+  ],
+  "held": [
+    "o4"
+  ],
+  "losses": {
+    "l1": "persist",
+    "l2": "ack",
+    "l3": "lps",
+    "l4": "syncsend"
+  },
+  "comment": 20
+}

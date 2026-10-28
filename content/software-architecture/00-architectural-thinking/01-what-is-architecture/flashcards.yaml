@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Les quatre dimensions d'une architecture ?"
+    back: "Structure (style), caractéristiques (-ilités), décisions (règles), principes de design (guides)."
+    concept: arch-four-dimensions
+  - id: fc2
+    front: "Pourquoi « c'est du microservices » ne décrit-il pas une architecture ?"
+    back: "Ça ne donne que la structure : ni critères de succès, ni règles, ni préférences."
+    concept: arch-four-dimensions
+  - id: fc3
+    front: "Décision ou principe : comment trancher ?"
+    back: "S'en écarter demande une autorisation (variance) → décision. Une bonne raison suffit → principe."
+    concept: arch-decision-vs-principle
+  - id: fc4
+    front: "Qu'est-ce qu'une variance ?"
+    back: "Une exception à une décision d'architecture, accordée par l'ARB ou l'architecte en chef après analyse des justifications et trade-offs."
+    concept: arch-variance
+  - id: fc5
+    front: "Première loi de l'architecture logicielle ?"
+    back: "Tout est un trade-off. Corollaire : si tu n'en vois pas, tu ne l'as pas encore identifié."
+    concept: arch-laws
+  - id: fc6
+    front: "Deuxième loi de l'architecture logicielle ?"
+    back: "Le pourquoi est plus important que le comment."
+    concept: arch-laws
+  - id: fc7
+    front: "Pourquoi juger une architecture héritée « dans son contexte » ?"
+    back: "Ses choix étaient souvent rationnels avec les contraintes de l'époque (licences chères, ops externalisées)."
+    concept: arch-context

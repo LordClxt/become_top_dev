@@ -1,0 +1,32 @@
+intro: Une application de livraison de repas compte, entre autres, ces six modules.
+blocks:
+- id: modules
+  type: match
+  title: Classe chaque module
+  prompt: Associe chaque module à sa forme de cohésion.
+  items:
+  - id: m1
+    label: '`pricing` : calcule le prix d''une commande, ses remises et ses taxes, et rien d''autre.'
+  - id: m2
+    label: '`import` : `parseCsv` produit des lignes que `validateRows` vérifie.'
+  - id: m3
+    label: '`boot` : configure le logger, ouvre la base, charge les traductions, démarre le cron.'
+  - id: m4
+    label: '`dateUtils` : formatage, parsing, fuseaux, jours fériés, durée lisible.'
+  - id: m5
+    label: '`misc.ts` : un client SMTP, une couleur de thème et le calcul d''un code postal.'
+  - id: m6
+    label: '`order-confirm` : enregistre la commande puis envoie l''e-mail construit à partir de ce qui a été enregistré.'
+  categories:
+  - id: functional
+    label: Fonctionnelle
+  - id: sequential
+    label: Séquentielle
+  - id: communicational
+    label: Communicationnelle
+  - id: temporal
+    label: Temporelle
+  - id: logical
+    label: Logique
+  - id: coincidental
+    label: Coïncidente

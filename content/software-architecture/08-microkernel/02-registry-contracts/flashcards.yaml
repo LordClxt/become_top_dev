@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Plug-ins distants : prix à payer ?"
+    back: "Architecture distribuée (difficile sur site), plus de complexité et de coût, requête bloquée si le plug-in ne répond pas, toujours un seul quantum."
+    concept: arch-remote-plugins
+  - id: fc2
+    front: "Qui accède à la base centrale en microkernel ?"
+    back: "Le cœur, qui passe aux plug-ins les données dont ils ont besoin."
+    concept: arch-plugin-data
+  - id: fc3
+    front: "Registre de plug-ins : des plus simples aux plus complexes ?"
+    back: "Une map interne au cœur, jusqu'à un outil de registre et découverte (ZooKeeper, Consul)."
+    concept: arch-plugin-registry
+  - id: fc4
+    front: "Contrat de plug-in ?"
+    back: "Comportement, données d'entrée et de sortie, standard pour un domaine de plug-ins."
+    concept: arch-plugin-contracts
+  - id: fc5
+    front: "Plug-in tiers au contrat différent ?"
+    back: "Un adaptateur vers le contrat standard."
+    concept: arch-plugin-contracts

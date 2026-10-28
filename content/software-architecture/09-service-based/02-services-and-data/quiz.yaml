@@ -1,0 +1,88 @@
+id: arch-ch09-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Où se fait l'orchestration de « passer commande » dans un style service-based ?"
+    choices:
+      - "Dans l'interface, qui appelle plusieurs services"
+      - "Dans la façade d'API du service Commande, en interne"
+      - "Dans un service médiateur séparé"
+      - "Dans la base de données"
+    answer: 1
+    explanation: "Créer, numéroter, payer, réserver : tout se coordonne au niveau des classes, dans un seul service."
+    concept: arch-sb-facade-orchestration
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "La carte du client est expirée. Que se passe-t-il dans un service Commande à gros grain ?"
+    choices:
+      - "La commande reste, le paiement échoue"
+      - "Un rollback annule tout ce qui a été écrit ; on prévient le client"
+      - "Une saga compense plus tard"
+      - "Le stock est quand même décrémenté"
+    answer: 1
+    explanation: "C'est une transaction ACID dans un seul service."
+    concept: arch-sb-acid
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Et en microservices, avec OrderPlacement puis PaymentService ?"
+    choices:
+      - "Exactement la même chose"
+      - "La commande est déjà insérée quand le paiement échoue : données incohérentes à rattraper"
+      - "Le paiement est fait avant la commande"
+      - "Il n'y a pas de paiement"
+    answer: 1
+    explanation: "Et la question du stock (décrémenté ? réservé ?) reste ouverte : c'est le monde BASE."
+    concept: arch-sb-acid
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Quel est le prix du gros grain ?"
+    choices:
+      - "Plus d'appels réseau"
+      - "Modifier la prise de commande oblige à tester tout le service, paiement compris, et chaque déploiement porte plus de risque"
+      - "Pas de transactions"
+      - "Une base par service obligatoire"
+    answer: 1
+    explanation: "En microservices, seul le petit service modifié serait testé et redéployé."
+    concept: arch-sb-tradeoff
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi une bibliothèque d'entités unique est-elle le pire choix ?"
+    choices:
+      - "Elle est trop petite"
+      - "Tout changement de table oblige à modifier et redéployer tous les services, même ceux qui n'utilisent pas la table"
+      - "Elle interdit le SQL"
+      - "Elle n'est pas versionnable"
+    answer: 1
+    explanation: "Et il devient difficile de savoir quels services sont vraiment touchés."
+    concept: arch-sb-entity-libs
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Avec des bibliothèques fédérées, quels services redéployer après un changement de la table `invoices` ?"
+    code: |
+      const libs: Record<string, string[]> = { common: ['customers'], invoicing: ['invoices'], order: ['orders'] };
+      const uses: Record<string, string[]> = {
+        billing: ['common', 'invoicing'], ordering: ['common', 'order'], tracking: ['common'],
+      };
+      const changedLibs = Object.keys(libs).filter((l) => libs[l]!.includes('invoices'));
+      console.log(Object.keys(uses).filter((s) => uses[s]!.some((l) => changedLibs.includes(l))).join(','));
+    answer: "billing"
+    explanation: "Seul le service qui utilise invoicing_entities est touché ; avec une bibliothèque unique, les trois l'auraient été."
+    concept: arch-sb-entity-libs
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Comment protéger les entités communes, utilisées par tous les services ?"
+    choices:
+      - "Les dupliquer dans chaque service"
+      - "Les verrouiller dans le gestionnaire de versions, modification réservée à l'équipe base de données"
+      - "Les supprimer"
+      - "Les mettre dans chaque bibliothèque fédérée"
+    answer: 1
+    explanation: "Un changement des tables communes exige la coordination de tous les services."
+    concept: arch-sb-entity-libs
+    difficulty: 1

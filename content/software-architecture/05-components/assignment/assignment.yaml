@@ -1,0 +1,18 @@
+id: arch-ch05-assignment
+title: Partitionner une plateforme de formation
+difficulty: 3
+xp: 140
+concepts:
+- arch-technical-vs-domain
+- arch-partition-tradeoffs
+- arch-conway
+- arch-identification-flow
+- arch-entity-trap
+source:
+  chapter: 8
+  pages: 119-135
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

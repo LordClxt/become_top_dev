@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Définition d'un quantum d'architecture ?"
+    back: "Artefact déployable indépendamment, à forte cohésion fonctionnelle et à connascence synchrone."
+    concept: arch-quantum-definition
+  - id: fc2
+    front: "La base de données fait-elle partie du quantum ?"
+    back: "Oui : sans elle, l'artefact ne fonctionne pas."
+    concept: arch-quantum-definition
+  - id: fc3
+    front: "Connascence synchrone vs asynchrone ?"
+    back: "Synchrone : l'appelant attend, les caractéristiques s'alignent pendant l'appel. Asynchrone : tire et oublie, elles peuvent différer."
+    concept: arch-sync-alignment
+  - id: fc4
+    front: "Enchères → Paiement (1 paiement / 500 ms) : bonne conception ?"
+    back: "Un lien asynchrone : une file tamponne les fins d'enchères simultanées."
+    concept: arch-async-decoupling
+  - id: fc5
+    front: "Pourquoi la portée des caractéristiques s'est-elle réduite ?"
+    back: "Les styles modernes (microservices) permettent à chaque partie d'avoir ses propres besoins."
+    concept: arch-scope-narrowed
+  - id: fc6
+    front: "Contexte borné ?"
+    back: "Tout ce qui concerne un domaine est visible à l'intérieur, opaque à l'extérieur ; chaque contexte a son propre modèle."
+    concept: arch-quantum-definition

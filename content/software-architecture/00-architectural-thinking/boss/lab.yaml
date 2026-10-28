@@ -1,0 +1,54 @@
+id: arch-ch00-boss
+title: 'Boss : diffuser les enchères sans rien sacrifier'
+difficulty: 4
+xp: 250
+time_limit_min: 45
+concepts:
+- arch-topic-vs-queue
+- arch-competing-consumers
+- arch-business-drivers
+source:
+  chapter: 2
+  pages: 50-54
+palette:
+- type: producer
+  component: service
+  label: Bid Producer
+  hint: Reçoit chaque offre et la publie.
+- type: capture
+  component: service
+  label: Bid Capture
+  hint: Enregistre l'offre. Données sensibles.
+- type: tracking
+  component: service
+  label: Bid Tracking
+  hint: Ordonne les offres. Données sensibles.
+- type: analytics
+  component: service
+  label: Bid Analytics
+  hint: Statistiques.
+- type: history
+  component: service
+  label: Bid History
+  hint: Historique par enchérisseur.
+- type: q-capture
+  component: queue
+  label: File capture
+  hint: File point-à-point.
+- type: q-tracking
+  component: queue
+  label: File tracking
+  hint: File point-à-point.
+- type: topic
+  component: topic
+  label: Topic des offres
+  hint: 'Publish/subscribe : chaque abonné reçoit une copie.'
+- type: shared-db
+  component: postgres
+  label: Base partagée
+  hint: Une base que tous les services liraient.
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,17 @@
+blocks:
+  cause:
+    options:
+      algo: 'Sur le bon graphe, l''algorithme trouverait le cycle : c''est le graphe qui est incomplet.'
+      cache: 'Le test est vert depuis la création de loyalty, à chaque exécution : rien de périmé.'
+      none: 'Suis les imports : orders → billing → loyalty → orders.'
+  members:
+    options:
+      catalog: 'catalog n''importe rien : il ne peut pas être sur un cycle.'
+  fix:
+    options:
+      remove: Le principe est bon ; c'est son périmètre qu'il faut corriger.
+      review: 'C''est exactement ce que la fitness function devait remplacer : la revue arrive trop tard.'
+  break:
+    options:
+      merge: 'Le cycle disparaît, la modularité aussi : on ne pourra toujours pas extraire billing.'
+      copy: Dupliquer la logique crée une connascence d'algorithme entre deux copies.

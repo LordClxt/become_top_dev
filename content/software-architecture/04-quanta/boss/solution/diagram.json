@@ -1,0 +1,194 @@
+{
+  "nodes": [
+    {
+      "id": "zb",
+      "type": "z-bidder",
+      "x": -40,
+      "y": -40,
+      "label": "Quantum enchérisseur",
+      "w": 300,
+      "h": 300
+    },
+    {
+      "id": "za",
+      "type": "z-auctioneer",
+      "x": -40,
+      "y": 300,
+      "label": "Quantum commissaire-priseur",
+      "w": 300,
+      "h": 300
+    },
+    {
+      "id": "zt",
+      "type": "z-tracker",
+      "x": 420,
+      "y": 120,
+      "label": "Quantum suivi des offres",
+      "w": 300,
+      "h": 340
+    },
+    {
+      "id": "zf",
+      "type": "z-feedback",
+      "x": 820,
+      "y": -40,
+      "label": "Quantum retour enchérisseur",
+      "w": 260,
+      "h": 220
+    },
+    {
+      "id": "zp",
+      "type": "z-payment",
+      "x": 820,
+      "y": 420,
+      "label": "Quantum paiement",
+      "w": 260,
+      "h": 220
+    },
+    {
+      "id": "bui",
+      "type": "bidder-ui",
+      "x": 0,
+      "y": 0,
+      "parent": "zb"
+    },
+    {
+      "id": "bc",
+      "type": "bid-capture",
+      "x": 0,
+      "y": 140,
+      "parent": "zb"
+    },
+    {
+      "id": "aui",
+      "type": "auctioneer-ui",
+      "x": 0,
+      "y": 340,
+      "parent": "za"
+    },
+    {
+      "id": "ac",
+      "type": "auctioneer-capture",
+      "x": 0,
+      "y": 480,
+      "parent": "za"
+    },
+    {
+      "id": "q1",
+      "type": "queue",
+      "x": 300,
+      "y": 140
+    },
+    {
+      "id": "q2",
+      "type": "queue",
+      "x": 300,
+      "y": 480
+    },
+    {
+      "id": "bt",
+      "type": "bid-tracker",
+      "x": 460,
+      "y": 180,
+      "parent": "zt"
+    },
+    {
+      "id": "db",
+      "type": "bids-db",
+      "x": 460,
+      "y": 340,
+      "parent": "zt",
+      "props": {
+        "role": "primary"
+      }
+    },
+    {
+      "id": "bs",
+      "type": "bid-streamer",
+      "x": 860,
+      "y": 20,
+      "parent": "zf"
+    },
+    {
+      "id": "q3",
+      "type": "queue",
+      "x": 760,
+      "y": 340
+    },
+    {
+      "id": "pay",
+      "type": "payment",
+      "x": 860,
+      "y": 480,
+      "parent": "zp"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "bui",
+      "target": "bc",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "aui",
+      "target": "ac",
+      "kind": "sync"
+    },
+    {
+      "id": "e3",
+      "source": "bc",
+      "target": "q1",
+      "kind": "async"
+    },
+    {
+      "id": "e4",
+      "source": "q1",
+      "target": "bt",
+      "kind": "async"
+    },
+    {
+      "id": "e5",
+      "source": "ac",
+      "target": "q2",
+      "kind": "async"
+    },
+    {
+      "id": "e6",
+      "source": "q2",
+      "target": "bt",
+      "kind": "async"
+    },
+    {
+      "id": "e7",
+      "source": "bt",
+      "target": "db",
+      "kind": "write"
+    },
+    {
+      "id": "e8",
+      "source": "bt",
+      "target": "bs",
+      "kind": "async"
+    },
+    {
+      "id": "e9",
+      "source": "bs",
+      "target": "bui",
+      "kind": "async"
+    },
+    {
+      "id": "e10",
+      "source": "bt",
+      "target": "q3",
+      "kind": "async"
+    },
+    {
+      "id": "e11",
+      "source": "q3",
+      "target": "pay",
+      "kind": "async"
+    }
+  ]
+}

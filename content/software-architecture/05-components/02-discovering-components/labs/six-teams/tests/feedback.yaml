@@ -1,0 +1,16 @@
+blocks:
+  cause:
+    options:
+      slow: 'Dix lignes de code : le temps est passé à attendre, pas à coder.'
+      qa: La QA n'est qu'une des six attentes ; le problème est le nombre de relais.
+      sql: Une migration d'une colonne n'explique pas trois semaines.
+  count:
+    wrong: Additionne la colonne « attente ».
+  law:
+    options:
+      brooks: Brooks parle de l'ajout de personnes à un projet en retard.
+      first: Tout est un trade-off, mais la ressemblance organigramme/code a sa propre loi.
+  fix:
+    options:
+      faster: 'On accélère chaque relais sans supprimer les relais : la cause reste.'
+      layers: Une couche de plus, c'est une équipe ou un relais de plus pour chaque workflow.

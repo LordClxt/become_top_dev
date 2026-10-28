@@ -1,0 +1,15 @@
+id: arch-ch00-l03-lab-lost-bids
+title: 'Enquête : la moitié des enchères a disparu'
+difficulty: 3
+xp: 90
+concepts:
+- arch-competing-consumers
+- arch-topic-vs-queue
+source:
+  chapter: 2
+  pages: 51-54
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

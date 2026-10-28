@@ -1,0 +1,11 @@
+{
+  "cause": "shared",
+  "expected": 1200,
+  "evidence": [
+    "i1",
+    "i2",
+    "i4",
+    "i5"
+  ],
+  "fix": "own"
+}

@@ -1,0 +1,10 @@
+{
+  "pairs": {
+    "fast": "p99",
+    "agile": "leadtime",
+    "deploy": "failrate",
+    "avail": "slo",
+    "light": "kweight",
+    "tested": "mutation"
+  }
+}

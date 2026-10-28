@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Test décisif domaine vs caractéristique ?"
+    back: "Faut-il des connaissances métier pour l'implémenter ? Si oui, c'est du domaine."
+    concept: arch-domain-litmus
+  - id: fc2
+    front: "Les trois quanta de Going, Going, Gone ?"
+    back: "Retour enchérisseur (flux d'offres et vidéo), commissaire-priseur, enchérisseur."
+    concept: arch-quanta-per-characteristics
+  - id: fc3
+    front: "Caractéristiques du quantum commissaire-priseur ?"
+    back: "Disponibilité, fiabilité, scalabilité, élasticité, performance, sécurité."
+    concept: arch-quanta-per-characteristics
+  - id: fc4
+    front: "Caractéristiques du quantum retour enchérisseur ?"
+    back: "Disponibilité, scalabilité, performance."
+    concept: arch-quanta-per-characteristics
+  - id: fc5
+    front: "Caractéristiques du quantum enchérisseur ?"
+    back: "Fiabilité, disponibilité, scalabilité, élasticité."
+    concept: arch-quanta-per-characteristics
+  - id: fc6
+    front: "Ce qu'exige « offres reçues dans l'ordre » ?"
+    back: "De la fiabilité : un ordre des messages correct, sans conditions de course."
+    concept: arch-nonuniform
+  - id: fc7
+    front: "Que permet le budget non contraint ?"
+    back: "Des architectures plus élaborées ou spécialisées."
+    concept: arch-ggg-characteristics

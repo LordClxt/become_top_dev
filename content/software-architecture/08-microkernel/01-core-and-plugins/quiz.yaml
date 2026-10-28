@@ -1,0 +1,80 @@
+id: arch-ch08-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quels sont les deux composants d'une architecture microkernel ?"
+    choices: ["Un cœur et des plug-ins", "Des couches et une base", "Des pipes et des filtres", "Des services et un bus"]
+    answer: 0
+    explanation: "Un monolithe simple : le système cœur et des plug-ins indépendants."
+    concept: arch-microkernel-topology
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Le cœur d'Eclipse est…"
+    choices: ["Un IDE Java complet", "Un éditeur de texte basique", "Un compilateur", "Un gestionnaire de versions"]
+    answer: 1
+    explanation: "C'est l'exemple de la fonctionnalité minimale : ouvrir, modifier, enregistrer un fichier."
+    concept: arch-core-system
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Quel est l'effet d'un registre de plug-ins sur la fonction `assessDevice` qui contenait 240 `if` ?"
+    choices:
+      - "Sa complexité cyclomatique ne change pas"
+      - "Sa complexité cyclomatique tombe à presque rien : la complexité part dans les plug-ins"
+      - "Elle devient asynchrone"
+      - "Elle doit lire la base"
+    answer: 1
+    explanation: "Ajouter un appareil revient à ajouter un plug-in et une entrée de registre."
+    concept: arch-move-complexity
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Le plug-in Galaxy importe une fonction du plug-in iPhone. Quelle règle est violée ?"
+    choices:
+      - "Aucune, c'est de la réutilisation"
+      - "Les plug-ins doivent être indépendants, sans dépendance entre eux"
+      - "Les plug-ins doivent être distants"
+      - "Les plug-ins doivent être chargés à l'exécution"
+    answer: 1
+    explanation: "Changer le plug-in iPhone pourrait alors casser le Galaxy."
+    concept: arch-plugin-rules
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Quel inconvénient ont les plug-ins chargés à la compilation ?"
+    choices:
+      - "Ils sont complexes à gérer"
+      - "Toute l'application doit être redéployée quand l'un d'eux change"
+      - "Ils exigent OSGi"
+      - "Ils ne peuvent pas avoir de contrat"
+    answer: 1
+    explanation: "En échange, ils sont bien plus simples que les plug-ins à l'exécution (OSGi, Jigsaw, Prism)."
+    concept: arch-compile-runtime
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Que signifie le nœud `plugin` dans `app.plugin.assessment.iphone6s` ?"
+    choices:
+      - "Le domaine"
+      - "Que ce composant est un plug-in et doit respecter leurs règles (autonome, séparé des autres)"
+      - "Le contexte précis"
+      - "Le nom de l'équipe"
+    answer: 1
+    explanation: "Le troisième nœud est le domaine, le quatrième le contexte."
+    concept: arch-plugin-rules
+    difficulty: 1
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce cœur microkernel ?"
+    code: |
+      const registry = new Map<string, () => string>([
+        ['iPhone6s', () => 'revendable'],
+        ['Galaxy5', () => 'à recycler'],
+      ]);
+      const assess = (id: string) => registry.get(id)?.() ?? `aucun plug-in pour ${id}`;
+      console.log(assess('Galaxy5'), '/', assess('Nokia3310'));
+    answer: "à recycler / aucun plug-in pour Nokia3310"
+    explanation: "Le cœur localise et invoque ; il ne connaît la logique d'aucun appareil."
+    concept: arch-move-complexity
+    difficulty: 1

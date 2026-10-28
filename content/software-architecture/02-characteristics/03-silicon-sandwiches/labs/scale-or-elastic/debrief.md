@@ -1,0 +1,3 @@
+**La capacité fixe achète la scalabilité au prix fort** : 10 instances × 24 h = 240 €/jour, dont l'essentiel paie des machines inutilisées 21 heures sur 24. Avec 3 instances de base (300 commandes/min, 50 % de marge) et un autoscaling jusqu'à 10 pendant 3 heures, on tient le pic pour 3 × 24 + 7 × 3 = **93 €/jour**.
+
+C'est la différence entre les deux caractéristiques : la **scalabilité** tient un grand nombre d'utilisateurs, l'**élasticité** suit la forme de la charge. Le prix de l'élasticité est ailleurs : il faut que l'architecture sache démarrer des instances vite, sans état local, et que la base suive (ce sera tout l'enjeu des styles distribués).

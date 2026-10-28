@@ -1,0 +1,82 @@
+id: arch-ch08-l02-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Quels bénéfices apportent les plug-ins distants (REST, messagerie) ?"
+    choices:
+      - "Meilleur découplage"
+      - "Meilleure scalabilité et débit"
+      - "Changements à l'exécution sans framework spécial"
+      - "Plusieurs quanta indépendants"
+    answer: [0, 1, 2]
+    explanation: "C'est toujours un seul quantum : toute requête passe par le cœur monolithique."
+    concept: arch-remote-plugins
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Un plug-in REST ne répond plus. Que se passe-t-il ?"
+    choices:
+      - "Rien, le cœur continue"
+      - "La requête qui en dépend ne peut pas aboutir"
+      - "Le registre le remplace automatiquement"
+      - "Le monolithe redémarre"
+    answer: 1
+    explanation: "C'est l'un des trade-offs du passage au distribué, absent en monolithe."
+    concept: arch-remote-plugins
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi les plug-ins ne doivent-ils pas lire la base centrale ?"
+    choices:
+      - "Pour la sécurité réseau"
+      - "Pour le découplage : un changement de base ne doit toucher que le cœur"
+      - "Parce que les plug-ins n'ont pas de connexion"
+      - "Pour la performance"
+    answer: 1
+    explanation: "Le cœur leur passe les données ; ils peuvent avoir leur propre stockage."
+    concept: arch-plugin-data
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Un plug-in d'évaluation a besoin de ses règles spécifiques. Où les stocker ?"
+    choices:
+      - "Dans la base centrale"
+      - "Dans son propre stockage (base, moteur de règles), accessible à lui seul"
+      - "Dans le cœur"
+      - "Dans un autre plug-in"
+    answer: 1
+    explanation: "Externe ou embarqué, ce stockage n'appartient qu'à lui."
+    concept: arch-plugin-data
+    difficulty: 1
+  - id: q5
+    type: multiple
+    prompt: "Que contient une entrée de registre de plug-in ?"
+    choices: ["Son nom", "Son contrat de données", "Les détails du protocole d'accès", "Son code source"]
+    answer: [0, 1, 2]
+    explanation: "Par exemple AuditChecker, son entrée et sa sortie, au format XML."
+    concept: arch-plugin-registry
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Un plug-in tiers renvoie une note de A à E au lieu du contrat standard. Que faire ?"
+    choices:
+      - "Ajouter un if dans le cœur pour ce plug-in"
+      - "Créer un adaptateur entre son contrat et le contrat standard"
+      - "Refuser le plug-in"
+      - "Changer le contrat standard pour tout le monde"
+    answer: 1
+    explanation: "Le cœur ne doit pas avoir de code spécifique par plug-in."
+    concept: arch-plugin-contracts
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Le plug-in renvoie un rapport d'évaluation formaté. Que doit en faire le cœur ?"
+    choices:
+      - "L'analyser pour décider du prix"
+      - "Seulement l'afficher ou l'imprimer : l'interpréter n'est pas son rôle"
+      - "Le reformater selon l'appareil"
+      - "Le stocker dans le plug-in"
+    answer: 1
+    explanation: "Sinon le cœur se met à connaître chaque appareil."
+    concept: arch-plugin-contracts
+    difficulty: 2

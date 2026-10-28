@@ -1,0 +1,16 @@
+id: arch-ch03-l03-lab-pick-the-mechanism
+title: Le bon mécanisme au bon moment
+difficulty: 2
+xp: 70
+concepts:
+- arch-fitness-mechanisms
+- arch-chaos-engineering
+- arch-layer-rules
+source:
+  chapter: 6
+  pages: 102-109
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

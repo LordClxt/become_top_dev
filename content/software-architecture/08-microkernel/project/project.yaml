@@ -1,0 +1,14 @@
+id: arch-ch08-project
+title: "archkit v9 — le cœur microkernel"
+pitch: "Un cœur qui ne connaît aucun appareil : registre, contrats vérifiés, adaptateur pour les plug-ins tiers, fitness function d'indépendance, plug-ins distants avec timeout et isolation des pannes."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 4
+xp: 280
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["plugins.ts"]
+concepts: [arch-plugin-registry, arch-plugin-contracts, arch-plugin-rules, arch-plugin-data, arch-remote-plugins, arch-move-complexity]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

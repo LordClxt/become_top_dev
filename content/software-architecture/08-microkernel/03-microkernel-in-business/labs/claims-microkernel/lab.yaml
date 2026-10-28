@@ -1,0 +1,54 @@
+id: arch-ch08-l03-lab-claims-microkernel
+title: Les sinistres en microkernel
+difficulty: 3
+xp: 90
+concepts:
+- arch-rules-engine-mud
+- arch-plugin-data
+- arch-plugin-registry
+- arch-plugin-rules
+source:
+  chapter: 12
+  pages: 178-179
+palette:
+- type: ui
+  component: browser
+  label: Interface gestionnaire
+  hint: Les gestionnaires de sinistres.
+- type: core
+  component: service
+  label: 'Cœur : processus de sinistre'
+  hint: 'Déclarer, instruire, régler : le processus standard.'
+- type: registry
+  component: cache
+  label: Registre des juridictions
+  hint: Juridiction → plug-in.
+- type: central-db
+  component: postgres
+  label: Base des sinistres
+  hint: La base centrale.
+- type: plugin-tx
+  component: worker
+  label: Plug-in Texas
+  hint: Règles du Texas.
+- type: plugin-ca
+  component: worker
+  label: Plug-in Californie
+  hint: Règles de la Californie.
+- type: rules-tx
+  component: sqlite
+  label: Règles Texas
+  hint: Stockage propre au plug-in Texas.
+- type: rules-ca
+  component: sqlite
+  label: Règles Californie
+  hint: Stockage propre au plug-in Californie.
+- type: rules-engine
+  component: service
+  label: Moteur de règles central
+  hint: Toutes les règles de toutes les juridictions au même endroit.
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

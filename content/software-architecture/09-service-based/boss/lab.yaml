@@ -1,0 +1,21 @@
+id: arch-ch09-boss
+title: 'Boss : découper l''agence de voyages'
+difficulty: 5
+xp: 320
+time_limit_min: 60
+concepts:
+- arch-sb-topology
+- arch-sb-variants
+- arch-sb-acid
+- arch-sb-entity-libs
+- arch-sb-ratings
+- arch-sb-facade-orchestration
+- arch-sb-shared-db
+source:
+  chapter: 13
+  pages: 183-198
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

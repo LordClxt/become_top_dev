@@ -1,0 +1,28 @@
+blocks:
+  metrics:
+    tolerance:
+      abs: 0.011
+    options:
+      orders.ca: Qui importe orders ? Regarde les lignes api et admin.
+      orders.ce: orders importe trois modules distincts.
+      orders.i: I = Ce / (Ce + Ca).
+      orders.d: 'orders n''a aucune abstraction : A = 0.'
+      catalog.ca: catalog est importé par api et par orders.
+      catalog.i: I = 2 / (2 + 2).
+      catalog.d: A = 2 / 4 = 0,5 et I = 0,5.
+      money.ca: Compte toutes les lignes qui importent money.
+      money.i: money n'importe rien.
+      money.d: A = 0 et I = 0.
+      db.ca: db est importé par orders et catalog.
+      db.d: 'db ne contient que des abstractions : A = 1.'
+  zones:
+    options:
+      money: 'Concret et importé par quatre modules : coin bas-gauche.'
+      db: 'A = 1 et I = 0 : A + I = 1, pile sur la droite. Une abstraction stable, c''est ce qu''on veut.'
+      catalog: 'A = 0,5 et I = 0,5 : D = 0.'
+      extensions: 'Tout abstrait et personne ne l''utilise : coin haut-droit.'
+  rescue:
+    goals:
+      dist: 'I vaut environ 0,11 : il faut une abstraction A proche de 0,89, donc beaucoup plus d''abstractions que d''éléments concrets.'
+      impl: 'L''implémentation doit rester : au moins 3 éléments concrets.'
+      cap: 'Plus de 10 abstractions pour un module de montants : on glisse vers la sur-ingénierie.'

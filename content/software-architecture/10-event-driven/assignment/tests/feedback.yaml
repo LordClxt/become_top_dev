@@ -1,0 +1,22 @@
+blocks:
+  topologies:
+    options:
+      offer: 'Plusieurs réactions indépendantes, extensibles demain : topics.'
+      close: 'Ordre, attente des acquittements, reprise : médiateur.'
+      gold: 'Le producteur ignore qui l''utilise : diffusion.'
+  accept:
+    options:
+      topic: 'Chercher sa réponse dans un flux de milliers d''offres : lent et fragile.'
+      none: 'L''enchérisseur a besoin d''une confirmation : c''est exactement le cas du request-reply.'
+  losses:
+    options:
+      auto: Un plantage après lecture perdrait l'offre.
+  close-steps:
+    wrong: On ne facture ni ne livre avant que le débit soit acquitté ; la clôture se termine en effaçant l'état.
+  fail:
+    options:
+      continue: Facturer une vente non payée crée de l'incohérence.
+      restart: 'Les autres étapes n''ont pas à être refaites : le médiateur reprend là où il s''est arrêté.'
+  quanta:
+    options:
+      separate: 'Le request-reply soude : si le service tombe, l''enchérisseur ne peut pas continuer.'

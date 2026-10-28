@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Topologie service-based ?"
+    back: "Interface déployée à part, 4 à 12 services de domaine à gros grain (≈ 7), base partagée."
+    concept: arch-sb-topology
+  - id: fc2
+    front: "Instances d'un service de domaine ?"
+    back: "Une seule en général ; plusieurs pour le débit ou le basculement, avec un répartiteur de charge."
+    concept: arch-sb-access
+  - id: fc3
+    front: "Trois variantes du style ?"
+    back: "Interfaces fédérées, bases fédérées, couche d'API (reverse proxy / gateway)."
+    concept: arch-sb-variants
+  - id: fc4
+    front: "Ce qu'il faut absolument éviter entre services de domaine ?"
+    back: "La communication entre services (et la duplication de données entre bases)."
+    concept: arch-sb-variants
+  - id: fc5
+    front: "Le risque de la base partagée ?"
+    back: "Les changements de schéma, qui peuvent toucher tous les services."
+    concept: arch-sb-shared-db

@@ -1,0 +1,15 @@
+id: arch-ch07-l01-lab-warmup-closed-or-open
+title: 'Échauffement : qui peut appeler qui ?'
+difficulty: 1
+xp: 40
+concepts:
+- arch-closed-open-layers
+- arch-open-services-layer
+source:
+  chapter: 10
+  pages: 155-158
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

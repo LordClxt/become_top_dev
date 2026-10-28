@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Où finit l'architecture et où commence le design ?"
+    back: "Nulle part : c'est un cycle synchronisé, l'architecte travaille dans l'équipe."
+    concept: arch-vs-design
+  - id: fc2
+    front: "Les trois parts de la pyramide du savoir ?"
+    back: "Ce que tu sais, ce que tu sais ne pas savoir, ce que tu ne sais pas ne pas savoir."
+    concept: arch-knowledge-pyramid
+  - id: fc3
+    front: "Deux dysfonctionnements du passage dev → architecte ?"
+    back: "Vouloir rester expert partout ; l'expertise périmée."
+    concept: arch-knowledge-pyramid
+  - id: fc4
+    front: "Frozen Caveman ?"
+    back: "Ramener chaque architecture à une peur née d'un incident passé (« et si on perd l'Italie ? »), risque perçu traité comme réel."
+    concept: arch-frozen-caveman
+  - id: fc5
+    front: "Avantages du topic ?"
+    back: "Extensibilité (ajouter un abonné sans rien changer) et découplage du producteur."
+    concept: arch-topic-vs-queue
+  - id: fc6
+    front: "Inconvénients du topic ?"
+    back: "Écoute clandestine indétectable, contrat unique, supervision/scalabilité par consommateur difficiles."
+    concept: arch-topic-vs-queue
+  - id: fc7
+    front: "Deux consommateurs sur une même file reçoivent-ils chacun tous les messages ?"
+    back: "Non : ils se les répartissent (consommateurs concurrents)."
+    concept: arch-competing-consumers
+  - id: fc8
+    front: "La question d'architecte face à topic vs files ?"
+    back: "Qu'est-ce qui compte le plus ici : l'extensibilité ou la sécurité ?"
+    concept: arch-business-drivers
+  - id: fc9
+    front: "Citation de Rich Hickey ?"
+    back: "Les programmeurs connaissent les bénéfices de tout et les trade-offs de rien ; les architectes doivent connaître les deux."
+    concept: arch-topic-vs-queue

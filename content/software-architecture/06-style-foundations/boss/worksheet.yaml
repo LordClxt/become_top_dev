@@ -1,0 +1,105 @@
+intro: |
+  Pour chaque paiement, Paiement appelle **en séquence** : Fraude (p99 120 ms), Banque (p99 400 ms), Notification (p99 80 ms). Chaque appel échoue indépendamment **2 %** du temps (perte réseau, erreur transitoire). Budget de bout en bout : **1,5 s** dans le pire cas où chaque appel attend son timeout à chaque tentative.
+
+  Notification renvoie l'objet réservation complet (**60 Ko**) alors que Paiement n'a besoin que de l'accusé de réception (**0,1 Ko**) ; **900 paiements/s** au pic.
+blocks:
+- id: retry
+  type: tuner
+  title: Timeouts, retries… et architecture
+  prompt: 'Fixe un timeout commun (au moins le p99 du plus lent, 400 ms, pour ne pas couper les appels sains), un nombre de tentatives par appel,
+    et décide si Notification reste dans le chemin synchrone (0) ou devient un message asynchrone retenté en arrière-plan (1). Objectifs : au
+    plus **0,01 %** de paiements en échec, et un pire cas (appels synchrones × tentatives × timeout) **≤ 2,5 s**.'
+  params:
+  - id: timeout
+    label: Timeout (ms)
+    unit: ms
+    min: 100
+    max: 1000
+    step: 50
+    default: 300
+  - id: tries
+    label: Tentatives par appel
+    unit: ''
+    min: 1
+    max: 4
+    step: 1
+    default: 1
+  - id: notifAsync
+    label: Notification asynchrone (0 = non, 1 = oui)
+    unit: ''
+    min: 0
+    max: 1
+    step: 1
+    default: 0
+  metrics:
+  - id: calls
+    label: Appels synchrones
+    expr: 3 - notifAsync
+    format: number
+  - id: fail
+    label: Paiements en échec
+    expr: 1 - pow(1 - pow(0.02, tries), 3 - notifAsync)
+    format: percent
+  - id: worst
+    label: Pire cas (ms)
+    expr: (3 - notifAsync) * tries * timeout
+    format: number
+  goals:
+  - id: p99
+    label: Timeout ≥ 400 ms
+    expr: timeout >= 400
+  - id: fail
+    label: ≤ 0,01 % d'échecs
+    expr: 1 - pow(1 - pow(0.02, tries), 3 - notifAsync) <= 0.0001
+  - id: worst
+    label: Pire cas ≤ 2,5 s
+    expr: (3 - notifAsync) * tries * timeout <= 2500
+- id: idempotent
+  type: choice
+  title: Retenter le débit bancaire
+  prompt: Retenter l'appel à la Banque après un timeout peut débiter deux fois. Que faut-il ?
+  options:
+  - id: key
+    label: 'Une clé d''idempotence envoyée avec le débit : la Banque ignore un second débit portant la même clé'
+  - id: never
+    label: Ne jamais retenter la Banque
+  - id: longer
+    label: Un timeout plus long
+- id: bw
+  type: number
+  title: Le gaspillage de Notification
+  prompt: Combien de Mo/s Notification transporte-t-il inutilement au pic ?
+  unit: Mo/s
+- id: breaker
+  type: choice
+  title: Quand la Banque tombe
+  prompt: La Banque est indisponible 10 minutes. Que doit faire Paiement ?
+  options:
+  - id: breaker
+    label: 'Un circuit breaker s''ouvre : échec immédiat (ou mise en file des paiements), puis un essai demi-ouvert pour détecter le retour'
+  - id: hammer
+    label: Continuer à retenter chaque paiement 3 fois
+  - id: down
+    label: Arrêter toute la plateforme
+- id: secure
+  type: multi
+  title: Sécuriser
+  prompt: Quelles mesures appliquer à ces appels internes ?
+  options:
+  - id: mtls
+    label: Authentifier chaque appel entre services (mTLS ou jeton de service)
+  - id: authz
+    label: Restreindre qui peut appeler l'endpoint de débit de la Banque
+  - id: firewall
+    label: 'Rien : ils sont derrière le pare-feu'
+- id: trace
+  type: choice
+  title: Retrouver un paiement
+  prompt: Un client dit avoir été débité sans confirmation. Que faut-il avoir prévu pour enquêter ?
+  options:
+  - id: corr
+    label: Un identifiant de corrélation propagé dans les trois appels et dans les journaux
+  - id: grep
+    label: Chercher le montant dans chaque journal
+  - id: nothing
+    label: Rien, la Banque a la réponse

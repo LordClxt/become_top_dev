@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Complexité cyclomatique"
+    goal: "Calculer E − N + 2P sur un graphe de flot, en comptant les composantes connexes, et refuser une arête vers un nœud inconnu."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Nommer les cycles"
+    goal: "Trouver les composantes fortement connexes du graphe d'imports (et les auto-imports), sans débordement de pile, et refuser un import interne vers un module non analysé."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Le cliquet"
+    goal: "Comparer les violations à une référence : échouer sur toute violation nouvelle, lister les corrigées, et ne resserrer la référence que si tout passe."
+    tests: "tstest M3"
+    review: true
+    prompt: "Pourquoi le cliquet compare-t-il les violations une par une plutôt que leur nombre ? Quel risque y aurait-il à identifier un cycle par la liste de ses modules dans l'ordre du parcours plutôt que triée ?"

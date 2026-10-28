@@ -1,0 +1,23 @@
+id: arch-ch02-boss
+title: 'Boss : le kata de la téléconsultation'
+difficulty: 4
+xp: 300
+time_limit_min: 45
+concepts:
+- arch-char-three-criteria
+- arch-char-implicit-explicit
+- arch-domain-translation
+- arch-missing-ingredient
+- arch-scalability-vs-elasticity
+- arch-integration-fragility
+- arch-short-list-top3
+- arch-eliminate-one
+- arch-char-arch-vs-design
+source:
+  chapter: 5
+  pages: 75-96
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,82 @@
+id: arch-ch04-l01-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Quels sont les trois éléments de la définition d'un quantum d'architecture ?"
+    choices:
+      - "Déployable indépendamment"
+      - "Forte cohésion fonctionnelle"
+      - "Connascence synchrone"
+      - "Une seule équipe propriétaire"
+    answer: [0, 1, 2]
+    explanation: "L'équipe n'entre pas dans la définition, même si elle s'aligne souvent sur les quanta."
+    concept: arch-quantum-definition
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi les métriques de code ne suffisent-elles pas pour les caractéristiques opérationnelles ?"
+    choices:
+      - "Elles sont trop lentes"
+      - "Elles ne voient pas les composants hors du code, comme la base de données"
+      - "Elles ne s'appliquent qu'à Java"
+      - "Elles ignorent les commentaires"
+    answer: 1
+    explanation: "Un code parfaitement élastique ne sert à rien si la base derrière ne suit pas."
+    concept: arch-scope-narrowed
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Un système historique de 8 services déployés séparément partage une seule base. Combien de quanta ?"
+    choices: ["1", "8", "9", "Ça dépend du nombre d'équipes"]
+    answer: 0
+    explanation: "La base fait partie du quantum : sans elle, rien ne fonctionne, et elle lie tous les services."
+    concept: arch-quantum-definition
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Le service A, très élastique, appelle en synchrone le service B, peu scalable. Que se passe-t-il au pic ?"
+    choices:
+      - "A absorbe la charge, B n'est pas concerné"
+      - "Pendant l'appel, A ne va pas plus vite que B : timeouts et problèmes de fiabilité"
+      - "B devient élastique automatiquement"
+      - "Rien, les appels synchrones sont indépendants"
+    answer: 1
+    explanation: "La connascence synchrone aligne les caractéristiques opérationnelles pour la durée de l'appel."
+    concept: arch-sync-alignment
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "40 enchères se terminent en même temps ; Paiement traite 1 paiement / 500 ms ; les appels synchrones expirent après 2 s. Combien d'échecs ?"
+    code: |
+      const ended = 40, serviceMs = 500, timeoutMs = 2000;
+      let timedOut = 0;
+      for (let i = 0; i < ended; i++) if ((i + 1) * serviceMs > timeoutMs) timedOut++;
+      console.log(timedOut);
+    answer: "36"
+    explanation: "Seuls les 4 premiers paiements finissent avant 2 s. Avec une file asynchrone, les 40 passent."
+    concept: arch-sync-alignment
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Que change une file entre Enchères et Paiement ?"
+    choices:
+      - "Rien, la file ajoute seulement de la latence"
+      - "Elle tamponne la différence de rythme, et les deux deviennent des quanta distincts"
+      - "Elle rend Paiement plus rapide"
+      - "Elle supprime le besoin de Paiement"
+    answer: 1
+    explanation: "La connascence asynchrone permet des caractéristiques opérationnelles différentes de chaque côté."
+    concept: arch-async-decoupling
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Que propose le contexte borné du DDD face à une classe Customer unique pour toute l'organisation ?"
+    choices:
+      - "La partager dans une bibliothèque commune"
+      - "Un modèle Customer par contexte, réconcilié aux points d'intégration"
+      - "Supprimer la notion de client"
+      - "La stocker dans une base partagée"
+    answer: 1
+    explanation: "Le partage global crée couplage, coordination et complexité."
+    concept: arch-quantum-definition
+    difficulty: 2

@@ -147,7 +147,7 @@ Ce que fait réellement l'injecteur de Nest (`@nestjs/core`, fichier `injector/i
 4. Il range l'instance dans l'enveloppe du provider (une `InstanceWrapper`), sous un contexte « statique ». Les demandes suivantes repartent avec cette instance.
 
 Deux conséquences pratiques :
-- Si une entrée de la liste est `undefined` (par exemple à cause d'un import circulaire entre fichiers, leçon 5), l'erreur dit explicitement : « undefined dependency… circular import or missing dependency ».
+- Si une entrée de la liste est `undefined` (par exemple un import circulaire dans un projet CommonJS ; en ESM, Node échoue même avant, leçon 5), l'erreur dit explicitement : « undefined dependency… circular import or missing dependency ».
 - `@Inject` ne fait rien d'autre qu'écrire dans `self:paramtypes`. Ce n'est pas magique : tu pourrais écrire toi-même cette métadonnée.
 
 Quand une résolution échoue, relance avec `NEST_DEBUG=1` : Nest affiche chaque étape. Le message d'erreur donne l'**index** du paramètre fautif et le **module** où il a cherché ; c'est presque toujours suffisant.

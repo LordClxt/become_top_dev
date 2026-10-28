@@ -1,0 +1,17 @@
+id: arch-ch10-l03-lab-shares-and-losses
+title: Réparer sans perdre ni désordonner
+difficulty: 3
+xp: 90
+concepts:
+- arch-workflow-event-pattern
+- arch-out-of-order
+- arch-data-loss
+- arch-responsiveness-vs-performance
+source:
+  chapter: 14
+  pages: 216-222
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,88 @@
+checks:
+- id: chain
+  label: Tout passe par le parseur avant la validation
+  rule: path
+  source: reader
+  target: validator
+  via: parser
+- id: rej
+  label: Les rejets viennent du validateur
+  rule: inbound_via
+  target: reject
+  via: validator
+- id: fraud-pos
+  label: La fraude n'est testée que sur des commandes validées
+  rule: path
+  source: reader
+  target: fraud
+  via: validator
+- id: review
+  label: La revue manuelle ne reçoit que du testeur de fraude
+  rule: inbound_via
+  target: review
+  via: fraud
+- id: b2b-after-fraud
+  label: L'aiguillage B2B/B2C se fait après la fraude
+  rule: path
+  source: validator
+  target: b2b-test
+  via: fraud
+- id: erp
+  label: L'ERP ne reçoit que du transformateur B2B
+  rule: inbound_via
+  target: erp
+  via: b2b-map
+- id: shop
+  label: La boutique ne reçoit que du transformateur B2C
+  rule: inbound_via
+  target: shop
+  via: b2c-map
+- id: b2b-route
+  label: Le testeur B2B alimente le transformateur B2B
+  rule: path
+  source: b2b-test
+  target: b2b-map
+- id: b2c-route
+  label: Le testeur B2B aiguille le reste vers le transformateur B2C
+  rule: path
+  source: b2b-test
+  target: b2c-map
+- id: erp-reach
+  label: Une commande peut atteindre l'ERP
+  rule: path
+  source: reader
+  target: erp
+- id: shop-reach
+  label: Une commande peut atteindre la boutique
+  rule: path
+  source: reader
+  target: shop
+- id: no-skip
+  label: Le parseur ne contourne pas la validation vers l'aiguillage
+  rule: no_edge
+  source: parser
+  target: b2b-test
+- id: end1
+  label: Les rejets sont un point d'arrivée
+  rule: no_edge
+  source: reject
+  target: review
+- id: end2
+  label: La revue manuelle est un point d'arrivée
+  rule: no_edge
+  source: review
+  target: b2b-test
+- id: end3
+  label: L'ERP est un point d'arrivée
+  rule: no_edge
+  source: erp
+  target: shop
+- id: one-validator
+  label: Un seul validateur
+  rule: count
+  source: validator
+  min: 1
+  max: 1
+- id: alone
+  label: Aucun bloc isolé
+  rule: connected

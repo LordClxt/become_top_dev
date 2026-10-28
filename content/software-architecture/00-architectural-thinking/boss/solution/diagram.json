@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "id": "producer",
+      "type": "producer",
+      "x": 0,
+      "y": 220
+    },
+    {
+      "id": "qc",
+      "type": "q-capture",
+      "x": 260,
+      "y": 40
+    },
+    {
+      "id": "qt",
+      "type": "q-tracking",
+      "x": 260,
+      "y": 200
+    },
+    {
+      "id": "t",
+      "type": "topic",
+      "x": 260,
+      "y": 380
+    },
+    {
+      "id": "capture",
+      "type": "capture",
+      "x": 520,
+      "y": 40
+    },
+    {
+      "id": "tracking",
+      "type": "tracking",
+      "x": 520,
+      "y": 200
+    },
+    {
+      "id": "analytics",
+      "type": "analytics",
+      "x": 520,
+      "y": 340
+    },
+    {
+      "id": "history",
+      "type": "history",
+      "x": 520,
+      "y": 440
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "producer",
+      "target": "qc",
+      "kind": "async"
+    },
+    {
+      "id": "e2",
+      "source": "producer",
+      "target": "qt",
+      "kind": "async"
+    },
+    {
+      "id": "e3",
+      "source": "producer",
+      "target": "t",
+      "kind": "async"
+    },
+    {
+      "id": "e4",
+      "source": "qc",
+      "target": "capture",
+      "kind": "async"
+    },
+    {
+      "id": "e5",
+      "source": "qt",
+      "target": "tracking",
+      "kind": "async"
+    },
+    {
+      "id": "e6",
+      "source": "t",
+      "target": "analytics",
+      "kind": "async"
+    },
+    {
+      "id": "e7",
+      "source": "t",
+      "target": "history",
+      "kind": "async"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+id: arch-ch07-l02-lab-broken-screen
+title: 'Enquête : la migration qui casse un écran'
+difficulty: 3
+xp: 90
+concepts:
+- arch-layers-of-isolation
+- arch-closed-open-layers
+source:
+  chapter: 10
+  pages: 155-158
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

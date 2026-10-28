@@ -1,0 +1,108 @@
+id: arch-ch01-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Au sens du livre, un module est…"
+    choices:
+      - "Un fichier déployé séparément"
+      - "Un regroupement logique de code lié, pas forcément séparé physiquement"
+      - "Un microservice"
+      - "Une classe"
+    answer: 1
+    explanation: "La modularité est logique ; la séparation physique (paquet, service) est une autre question."
+    concept: arch-modularity
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi la modularité est-elle qualifiée de caractéristique implicite ?"
+    choices:
+      - "Parce qu'elle est garantie par le langage"
+      - "Parce que presque aucune exigence ne la demande, alors qu'aucun code base durable ne s'en passe"
+      - "Parce qu'elle ne se mesure pas"
+      - "Parce qu'elle concerne seulement les monolithes"
+    answer: 1
+    explanation: "Personne ne l'écrit dans les exigences, mais il faut dépenser de l'énergie en continu pour la préserver (entropie)."
+    concept: arch-modularity
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Quel classement des cohésions va de la meilleure à la pire ?"
+    choices:
+      - "Fonctionnelle, séquentielle, temporelle, logique, coïncidente"
+      - "Logique, fonctionnelle, séquentielle, temporelle, coïncidente"
+      - "Fonctionnelle, logique, temporelle, séquentielle, coïncidente"
+      - "Coïncidente, temporelle, logique, séquentielle, fonctionnelle"
+    answer: 0
+    explanation: "Fonctionnelle > séquentielle > communicationnelle > procédurale > temporelle > logique > coïncidente."
+    concept: arch-cohesion-types
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Un module `startup.ts` initialise le logger, ouvre la base, charge les traductions et démarre un cron. Sa cohésion est…"
+    choices:
+      - "Fonctionnelle"
+      - "Séquentielle"
+      - "Temporelle"
+      - "Coïncidente"
+    answer: 2
+    explanation: "Ces tâches sans rapport sont réunies par le moment où elles s'exécutent : le démarrage."
+    concept: arch-cohesion-types
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Une classe `StringUtils` de fonctions statiques sans autre lien que de manipuler des chaînes a une cohésion…"
+    choices:
+      - "Fonctionnelle"
+      - "Logique"
+      - "Communicationnelle"
+      - "Procédurale"
+    answer: 1
+    explanation: "Des opérations apparentées mais fonctionnellement différentes : c'est l'exemple du livre pour la cohésion logique."
+    concept: arch-cohesion-types
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Faut-il extraire « lire et annuler les commandes » de Customer Maintenance ? Quel argument pousse à NE PAS le faire ?"
+    choices:
+      - "Customer Maintenance va beaucoup grossir"
+      - "Les opérations sur les commandes ont besoin de beaucoup d'informations client"
+      - "Les commandes sont un autre concept métier"
+      - "On veut une équipe dédiée aux commandes"
+    answer: 1
+    explanation: "Séparer créerait un couplage fort entre les deux modules : c'est l'avertissement de Constantine."
+    concept: arch-cohesion-tradeoff
+    difficulty: 2
+  - id: q7
+    type: code-output
+    prompt: "On compte les groupes de méthodes reliées par un champ partagé (LCOM). Qu'affiche ce programme ?"
+    code: |
+      const uses: Record<string, string[]> = {
+        add: ['cart'], total: ['cart', 'discount'], applyCode: ['discount'],
+        sendReceipt: ['smtp'], ping: [],
+      };
+      const parent: Record<string, string> = {};
+      const find = (x: string): string => (parent[x] === x ? x : (parent[x] = find(parent[x]!)));
+      for (const m of Object.keys(uses)) parent[m] = m;
+      const owner: Record<string, string> = {};
+      for (const [m, fields] of Object.entries(uses))
+        for (const f of fields) {
+          if (owner[f]) parent[find(m)] = find(owner[f]!);
+          else owner[f] = m;
+        }
+      console.log(new Set(Object.keys(uses).map(find)).size);
+    answer: "3"
+    explanation: "{add, total, applyCode} partagent cart et discount ; sendReceipt est seul avec smtp ; ping n'utilise aucun champ et forme son propre groupe."
+    concept: arch-lcom
+    difficulty: 3
+  - id: q8
+    type: single
+    prompt: "Un module de fonctions pures de calcul de prix (sans aucun champ) obtient un LCOM élevé. Qu'en conclure ?"
+    choices:
+      - "Il faut le découper en autant de modules que de fonctions"
+      - "Rien d'automatique : LCOM ne voit que la structure, pas le sens métier"
+      - "Il est dans la zone de douleur"
+      - "Il a une cohésion coïncidente"
+    answer: 1
+    explanation: "LCOM est aveugle au lien logique ; ce module peut avoir une cohésion fonctionnelle parfaite."
+    concept: arch-lcom
+    difficulty: 2

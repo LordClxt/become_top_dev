@@ -1,0 +1,22 @@
+id: arch-ch01
+title: "Modularité et connascence"
+subtitle: "Cohésion, couplage, séquence principale et connascence : mesurer comment les morceaux tiennent ensemble"
+source: { chapter: 3, pages: "57-74" }
+objectives:
+  - "Définir la modularité comme un regroupement logique et expliquer pourquoi elle se dégrade sans effort constant"
+  - "Classer la cohésion d'un module et calculer les groupes de méthodes d'une classe (LCOM) pour décider d'un découpage"
+  - "Calculer couplage afférent et efférent, instabilité, abstraction et distance à la séquence principale, et situer un module dans la zone de douleur ou d'inutilité"
+  - "Reconnaître les neuf formes de connascence et proposer le refactoring vers une forme plus faible"
+  - "Raisonner sur la force, la localité et le degré d'une connascence, et appliquer les règles de Page-Jones et de Weirich"
+  - "Diagnostiquer un bug causé par une connascence de position ou de sens entre deux modules"
+  - "Écrire en TypeScript un analyseur de couplage (Ca, Ce, I, A, D) et de cohésion (LCOM)"
+mastery_threshold: 0.8
+prerequisites: [arch-ch00]
+lessons:
+  - "01-cohesion"
+  - "02-coupling-metrics"
+  - "03-connascence"
+xp: { assignment: 130, project: 240, boss: 280 }
+assignment: assignment
+project: project
+boss: boss

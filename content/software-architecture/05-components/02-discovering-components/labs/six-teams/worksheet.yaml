@@ -1,0 +1,68 @@
+intro: |
+  **Symptôme.** « Ajouter un pourboire au livreur » a pris **trois semaines** pour une dizaine de lignes de code. Chaque évolution métier est lente, même minuscule.
+
+  **Organigramme** : équipe Front, équipe API, équipe Règles métier, équipe Données (DBA), équipe Intégrations, équipe QA.
+
+  **Arborescence**
+  ```
+  src/
+    presentation/   (équipe Front)
+    api/            (équipe API)
+    business/       (équipe Règles métier)
+    persistence/    (équipe Données)
+    integrations/   (équipe Intégrations)
+  ```
+
+  **Historique de la fonctionnalité « pourboire »**
+  | équipe | fichiers | attente avant prise en charge |
+  |---|---|---|
+  | Front | `presentation/checkout/tip.tsx` | 2 j |
+  | API | `api/orders/tip.ts` | 3 j |
+  | Règles métier | `business/orders/tip-rules.ts` | 4 j |
+  | Données | `persistence/migrations/042_tip.sql` | 5 j |
+  | Intégrations | `integrations/payment/tip-capture.ts` | 3 j |
+  | QA | campagne de non-régression complète | 4 j |
+blocks:
+- id: cause
+  type: choice
+  title: Cause racine
+  prompt: Quelle est la cause racine ?
+  options:
+  - id: conway
+    label: 'Le partitionnement technique copie une organisation par compétences : chaque workflow métier traverse toutes les couches, donc toutes
+      les équipes'
+  - id: slow
+    label: Les développeurs sont trop lents
+  - id: qa
+    label: La QA prend trop de temps
+  - id: sql
+    label: Les migrations SQL sont mal écrites
+- id: count
+  type: number
+  title: Le coût de coordination
+  prompt: Combien de jours d'attente cumulée la fonctionnalité a-t-elle subis avant chaque prise en charge ?
+  unit: jours
+- id: law
+  type: choice
+  title: La loi en jeu
+  prompt: Quelle loi explique que l'arborescence ressemble autant à l'organigramme ?
+  options:
+  - id: conway
+    label: La loi de Conway
+  - id: brooks
+    label: La loi de Brooks
+  - id: first
+    label: La première loi de l'architecture
+- id: fix
+  type: multi
+  title: Le correctif
+  prompt: Quelles mesures traitent la cause ?
+  options:
+  - id: domain
+    label: Repartitionner le code par domaines (commandes, livraison, catalogue…) en monolithe modulaire
+  - id: inverse
+    label: Constituer des équipes pluridisciplinaires par domaine (manœuvre inverse de Conway)
+  - id: faster
+    label: Fixer un délai maximal de prise en charge à chaque équipe
+  - id: layers
+    label: Ajouter une couche de services pour mieux isoler

@@ -1,0 +1,21 @@
+blocks:
+  count:
+    options:
+      v1.quanta: Une interface et une base communes.
+      v2.quanta: Qu'est-ce qui reste partagé par tous les services ?
+      v3.quanta: Plus d'interface ni de base commune ; le seul lien est asynchrone.
+  why-v2:
+    options:
+      ui: La taille des interfaces n'y change rien.
+      services: 'Le nombre de services ne crée pas de quanta : ce sont les liens qui comptent.'
+  groups:
+    options:
+      quote: Les clients demandent un devis.
+      status: Les clients suivent leur appareil.
+      receiving: Une opération interne.
+      assessment: Une opération interne.
+      recycling: Une opération interne.
+      accounting: Une opération interne.
+  benefit:
+    options:
+      fresh: 'Au contraire : la réplication asynchrone introduit un léger retard sur le statut, c''est le prix de la séparation.'

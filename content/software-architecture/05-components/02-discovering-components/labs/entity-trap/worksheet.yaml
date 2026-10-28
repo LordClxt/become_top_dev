@@ -1,0 +1,52 @@
+intro: |
+  Plateforme de location de vélos en libre-service. Tables : `rider`, `bike`, `station`, `rental`, `pass`, `payment`.
+
+  Proposition de composants : `RiderManager`, `BikeManager`, `StationManager`, `RentalManager`, `PassManager`, `PaymentManager`.
+blocks:
+- id: diagnosis
+  type: multi
+  title: Le diagnostic
+  prompt: Quels reproches s'appliquent à cette proposition ?
+  options:
+  - id: orm
+    label: 'Elle recopie le schéma de la base : c''est un mapping ORM, pas une architecture'
+  - id: workflows
+    label: Elle ne dit rien des workflows (louer, rendre, recharger une station)
+  - id: coarse
+    label: 'Ses composants sont trop gros : « tout ce qui touche à une location » ne guide pas l''organisation du code'
+  - id: fine
+    label: Elle a trop de composants pour un si petit système
+- id: touched
+  type: number
+  title: Une location étudiante
+  prompt: '« Louer un vélo à une station avec un pass étudiant et payer le dépassement » : combien de Managers sont touchés ?'
+  unit: composants
+- id: crud
+  type: choice
+  title: Et si ce n'était que du CRUD ?
+  prompt: Le back-office des stations n'a besoin que de créer, lire, modifier et supprimer des stations. Que faire ?
+  options:
+  - id: framework
+    label: Un framework qui génère l'interface depuis la base (scaffolding) suffit
+  - id: arch
+    label: Concevoir une architecture complète en composants
+  - id: micro
+    label: En faire un microservice
+- id: techniques
+  type: match
+  title: Quelle technique ?
+  prompt: Associe chaque équipe à la technique de découverte la plus adaptée.
+  items:
+  - id: t1
+    label: Équipe DDD qui vise des microservices communiquant par événements
+  - id: t2
+    label: Équipe en cascade, exigences avec des rôles bien distincts
+  - id: t3
+    label: Équipe qui part d'un monolithe et ne veut pas de messagerie
+  categories:
+  - id: storming
+    label: Event storming
+  - id: actors
+    label: Acteurs/actions
+  - id: workflow
+    label: Approche par workflows

@@ -1,0 +1,22 @@
+id: arch-ch05
+title: "Penser en composants"
+subtitle: "Partitionnement technique ou par domaine, découverte des composants et premier choix : monolithe ou distribué"
+source: { chapter: 8, pages: "119-138" }
+objectives:
+  - "Situer le composant (bibliothèque, sous-système, service) et le rôle de l'architecte : définir, raffiner, gouverner sans micro-gérer"
+  - "Comparer partitionnement technique et par domaine, et relier ce choix à la loi de Conway et à la manœuvre inverse"
+  - "Mener le cycle itératif d'identification des composants et juger la granularité"
+  - "Reconnaître le piège des entités et choisir entre acteurs/actions, event storming et approche par workflows"
+  - "Dériver les composants de Going, Going, Gone et scinder un composant quand ses caractéristiques divergent"
+  - "Diagnostiquer une organisation dont chaque petite évolution traverse toutes les équipes"
+  - "Écrire en TypeScript une fitness function de frontières de domaines et une analyse d'impact des changements"
+mastery_threshold: 0.8
+prerequisites: [arch-ch04]
+lessons:
+  - "01-partitioning"
+  - "02-discovering-components"
+  - "03-ggg-components"
+xp: { assignment: 140, project: 260, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

@@ -1,0 +1,3 @@
+**Une file répartit, elle ne duplique pas.** En branchant Bid History sur `bids.analytics`, on en a fait un **consommateur concurrent** d'Analytics : le broker distribue les 1 200 offres à tour de rôle, 600 chacun. Aucun message n'est perdu, aucune erreur n'est levée, et pourtant deux services ont des trous. Les indices 1, 2, 4 et 5 réunis le prouvent.
+
+Le correctif est **structurel** : un canal par consommateur (nouvelle file liée à l'exchange, ou un topic). Ajouter des réplicas d'Analytics aggraverait la répartition ; faire relayer par Analytics créerait un couplage. Retiens la règle : les consommateurs concurrents servent à paralléliser **un même** traitement, jamais à diffuser vers **plusieurs** services.

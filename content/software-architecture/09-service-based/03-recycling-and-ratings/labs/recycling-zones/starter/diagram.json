@@ -1,0 +1,23 @@
+{
+  "nodes": [
+    {
+      "id": "ze",
+      "type": "z-ext",
+      "x": -40,
+      "y": -40,
+      "label": "Zone externe",
+      "w": 460,
+      "h": 540
+    },
+    {
+      "id": "zi",
+      "type": "z-int",
+      "x": 520,
+      "y": -40,
+      "label": "Zone interne",
+      "w": 560,
+      "h": 540
+    }
+  ],
+  "edges": []
+}

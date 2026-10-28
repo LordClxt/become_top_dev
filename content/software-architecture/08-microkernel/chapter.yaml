@@ -1,0 +1,22 @@
+id: arch-ch08
+title: "Microkernel"
+subtitle: "Un cœur minimal, des plug-ins indépendants, un registre et des contrats"
+source: { chapter: 12, pages: "169-182" }
+objectives:
+  - "Décrire la topologie microkernel : système cœur (minimal ou chemin nominal) et plug-ins indépendants"
+  - "Déplacer la complexité cyclomatique du cœur vers des plug-ins localisés par un registre"
+  - "Choisir entre plug-ins à la compilation, à l'exécution et distants, et en mesurer les trade-offs"
+  - "Concevoir le registre et des contrats standard, avec un adaptateur pour les plug-ins tiers ; garder les plug-ins hors de la base centrale"
+  - "Reconnaître les usages métier (sinistres par juridiction, formulaires fiscaux) et lire le bulletin du style, seul à être à la fois technique et par domaine"
+  - "Diagnostiquer une régression causée par la violation de l'indépendance des plug-ins"
+  - "Écrire en TypeScript un registre de plug-ins avec contrats vérifiés, adaptateur, règle d'indépendance et plug-ins distants avec timeout"
+mastery_threshold: 0.8
+prerequisites: [arch-ch07]
+lessons:
+  - "01-core-and-plugins"
+  - "02-registry-contracts"
+  - "03-microkernel-in-business"
+xp: { assignment: 140, project: 280, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

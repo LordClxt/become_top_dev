@@ -1,0 +1,16 @@
+id: arch-ch03-l02-lab-count-the-paths
+title: Compter les chemins
+difficulty: 2
+xp: 70
+concepts:
+- arch-cc-definition
+- arch-cc-formula
+- arch-cc-thresholds
+source:
+  chapter: 6
+  pages: 99-101
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

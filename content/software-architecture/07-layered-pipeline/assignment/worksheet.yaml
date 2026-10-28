@@ -1,0 +1,68 @@
+intro: La mutuelle lance quatre petits projets, avec un budget serré et une équipe de quatre.
+blocks:
+- id: choose
+  type: match
+  title: Quel style ?
+  prompt: Associe chaque projet au style le plus adapté.
+  items:
+  - id: p1
+    label: 'Importer chaque nuit les remboursements d''un fichier partenaire : lire, valider, convertir, rejeter les lignes invalides, charger
+      en base'
+  - id: p2
+    label: Un portail où les adhérents consultent et modifient leurs contrats, avec des règles de gestion
+  - id: p3
+    label: Transformer des messages EDI de pharmacies en écritures comptables
+  - id: p4
+    label: Un back-office de gestion des réclamations, avec écrans, workflow et base
+  categories:
+  - id: layered
+    label: En couches
+  - id: pipeline
+    label: Pipeline
+- id: filters
+  type: match
+  title: Les filtres de l'import nocturne
+  prompt: Pour le projet 1, donne le type de chaque filtre.
+  items:
+  - id: read
+    label: Lire le fichier ligne par ligne
+  - id: valid
+    label: Écarter les lignes invalides
+  - id: convert
+    label: Convertir les montants en centimes
+  - id: load
+    label: Charger en base
+  categories:
+  - id: producer
+    label: Producteur
+  - id: tester
+    label: Testeur
+  - id: transformer
+    label: Transformateur
+  - id: consumer
+    label: Consommateur
+- id: compare
+  type: match
+  title: Comparer les bulletins
+  prompt: Pour chaque caractéristique, lequel des deux styles est mieux noté (ou sont-ils à égalité) ?
+  items:
+  - id: modularity
+    label: Modularité
+  - id: deploy
+    label: Déployabilité
+  - id: scal
+    label: Scalabilité
+  - id: cost
+    label: Coût et simplicité
+  categories:
+  - id: pipeline
+    label: Pipeline mieux noté
+  - id: equal
+    label: À égalité
+  - id: layered
+    label: Couches mieux notées
+- id: quanta
+  type: number
+  title: Combien de quanta ?
+  prompt: Si les quatre projets sont livrés comme quatre déployables indépendants, chacun avec sa propre base, combien de quanta au total ?
+  unit: quanta

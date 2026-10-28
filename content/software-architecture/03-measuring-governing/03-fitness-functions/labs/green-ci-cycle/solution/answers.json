@@ -1,0 +1,14 @@
+{
+  "cause": "scope",
+  "members": [
+    "orders",
+    "billing",
+    "loyalty"
+  ],
+  "fix": [
+    "all",
+    "unknown",
+    "selftest"
+  ],
+  "break": "invert"
+}

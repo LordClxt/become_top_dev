@@ -1,0 +1,15 @@
+blocks:
+  cc:
+    options:
+      A.cc: 'Compte : le premier if, la boucle, le ternaire, le second if et son ||.'
+      B.cc: Chaque case compte, pas le default.
+      C.cc: Compte la boucle, le catch et l'opérateur ??.
+  graph:
+    wrong: E − N + 2 avec E = 9 et N = 7.
+  tests:
+    wrong: Le nombre minimal de chemins de base est égal à la CC.
+  refactor:
+    options:
+      split: 'La complexité est déplacée, pas supprimée : quatre fonctions de CC 10, et autant de tests.'
+      comment: Les commentaires n'enlèvent aucun chemin.
+      keep: 'Des taux par pays et catégorie sont des données, pas de la logique : cette complexité est accidentelle.'

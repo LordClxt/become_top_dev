@@ -1,0 +1,7 @@
+id: arch-ch08-plugin-access
+concept: arch-remote-plugins
+format: hyperframes
+justification: "Une même requête jouée trois fois (plug-in local, file, REST qui ne répond pas) montre ce que chaque mode d'accès gagne et ce qu'il risque, toujours à travers le même cœur."
+entry: scene.html
+duration_s: 14
+status: built

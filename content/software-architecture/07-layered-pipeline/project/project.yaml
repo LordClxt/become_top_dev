@@ -1,0 +1,14 @@
+id: arch-ch07-project
+title: "archkit v8 — pipes and filters"
+pitch: "Une petite bibliothèque de pipeline asynchrone et paresseuse : les quatre types de filtres, l'aiguillage extensible de la télémétrie, et les six commandes de McIlroy recomposées en TypeScript."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 3
+xp: 280
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["pipeline.ts"]
+concepts: [arch-filter-types, arch-pipes, arch-compositional-reuse, arch-pipeline-extensibility]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Trois sources de caractéristiques ?"
+    back: "Préoccupations métier, exigences, connaissance implicite du domaine."
+    concept: arch-domain-translation
+  - id: fc2
+    front: "Fusions et acquisitions → ?"
+    back: "Interopérabilité, scalabilité, adaptabilité, extensibilité."
+    concept: arch-domain-translation
+  - id: fc3
+    front: "Time to market → ?"
+    back: "Agilité + testabilité + déployabilité (pas seulement l'agilité)."
+    concept: arch-missing-ingredient
+  - id: fc4
+    front: "Satisfaction utilisateur → ?"
+    back: "Performance, disponibilité, tolérance aux pannes, testabilité, déployabilité, agilité, sécurité."
+    concept: arch-domain-translation
+  - id: fc5
+    front: "Temps et budget → ?"
+    back: "Simplicité, faisabilité."
+    concept: arch-domain-translation
+  - id: fc6
+    front: "Les six caractéristiques de la valorisation des fonds ?"
+    back: "Performance, disponibilité, scalabilité, fiabilité, recouvrabilité, auditabilité."
+    concept: arch-missing-ingredient
+  - id: fc7
+    front: "Leçon du Vasa ?"
+    back: "Sur-spécifier fait chavirer : garder une liste courte, viser la simplicité."
+    concept: arch-short-list-top3
+  - id: fc8
+    front: "Prioriser les caractéristiques avec le métier ?"
+    back: "Faire choisir le top 3, dans n'importe quel ordre, plutôt que classer toute la liste."
+    concept: arch-short-list-top3
+  - id: fc9
+    front: "Les quatre sections d'un kata ?"
+    back: "Description, utilisateurs, exigences, contexte additionnel."
+    concept: arch-katas

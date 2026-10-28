@@ -1,0 +1,25 @@
+blocks:
+  dims:
+    options:
+      p1.dim: Un critère de succès indépendant de ce que fait le site.
+      p1.mode: 'Un critère de succès fixe une cible, pas une solution : l''équipe garde le choix des moyens.'
+      p2.dim: S'en écarter demanderait une autorisation.
+      p2.mode: « Seul … » ne laisse aucune alternative.
+      p3.dim: « Préférer » laisse le choix au cas par cas.
+      p3.mode: Une préférence oriente sans contraindre.
+      p4.dim: C'est la forme globale du système.
+      p4.mode: '« Services distribués » est une famille : la granularité, les protocoles et les technologies restent à choisir.'
+  miracles:
+    options:
+      m1: 'Un cache sert des copies : lesquelles peuvent être en retard sur la base ?'
+      m2: Pense à ce que reçoit un abonné inconnu, et au contrat partagé par tous.
+      m3: Ce qui était un appel de fonction devient quoi ?
+      m4: Si l'enchère est refusée après la réponse, comment l'enchérisseur l'apprend-il ?
+  caveman:
+    options:
+      right: 'Un incident unique, ancien, ne mesure pas la probabilité actuelle : c''est un risque perçu.'
+      ignore: 'Un SLA de 99,99 % autorise encore environ 52 minutes d''arrêt par an : le risque existe, il faut le chiffrer.'
+  why:
+    options:
+      more: Le diagramme dit déjà comment ; ce qui sera perdu, c'est pourquoi.
+      code: Le code montre le comment, jamais le pourquoi.

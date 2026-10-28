@@ -1,0 +1,3 @@
+**Le contrôle là où il compte, la diffusion là où elle suffit.** Le médiateur consomme une file d'événements initiateurs (persistante : rien ne se perd avant lui), envoie des commandes sur des files dédiées, attend les acquittements et persiste l'état de chaque commande : il sait où il en est et peut reprendre. Les erreurs sont déléguées au processeur de workflow, réparées et resoumises dans la file d'origine, ou corrigées par une personne depuis le tableau de bord, sans bloquer le flux.
+
+La fin de commande, elle, est diffusée sur un topic : Notification et Analytics s'y abonnent, et demain d'autres processeurs le pourront sans rien changer. C'est l'hybride que le livre recommande quand un flux doit être à la fois contrôlé et extensible.

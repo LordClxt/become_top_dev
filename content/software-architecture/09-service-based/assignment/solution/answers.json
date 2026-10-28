@@ -1,0 +1,12 @@
+{
+  "services": 6,
+  "closing": "sb",
+  "needs": {
+    "n1": "sb",
+    "n2": "sb",
+    "n3": "micro",
+    "n4": "both"
+  },
+  "coordination": "orch",
+  "decision": "sb"
+}

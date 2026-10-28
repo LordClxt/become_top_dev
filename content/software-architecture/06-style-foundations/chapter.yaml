@@ -1,0 +1,22 @@
+id: arch-ch06
+title: "Fondations des styles"
+subtitle: "Big Ball of Mud, client/serveur, monolithique ou distribué, et les huit erreurs du calcul distribué"
+source: { chapter: 9, pages: "139-152" }
+objectives:
+  - "Expliquer ce qu'un nom de style condense et reconnaître les styles fondamentaux (Big Ball of Mud, unitaire, client/serveur, trois tiers)"
+  - "Classer les styles en monolithiques et distribués, et tirer la leçon de long terme de la sérialisation Java"
+  - "Énoncer les huit erreurs du calcul distribué et leurs parades (timeouts, circuit breakers, percentiles, contrats minimaux, sécurité de chaque endpoint)"
+  - "Chiffrer la latence d'une chaîne d'appels et la bande passante d'un couplage de tampon (stamp coupling)"
+  - "Identifier les autres défis du distribué : journalisation, transactions (cohérence à terme, sagas, BASE), contrats et versions"
+  - "Diagnostiquer une vague de timeouts causée par un changement de topologie réseau"
+  - "Écrire en TypeScript un client résilient : retries avec backoff et jitter, circuit breaker, latence de bout en bout d'une chaîne"
+mastery_threshold: 0.8
+prerequisites: [arch-ch05]
+lessons:
+  - "01-fundamental-styles"
+  - "02-fallacies-network"
+  - "03-fallacies-operations"
+xp: { assignment: 140, project: 280, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

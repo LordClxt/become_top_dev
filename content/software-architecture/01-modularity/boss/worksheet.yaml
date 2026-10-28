@@ -1,0 +1,111 @@
+intro: |
+  `shared/` est importé par **9 modules** et importe lui-même `config` (1 dépendance). Il contient 12 éléments, tous concrets :
+
+  ```typescript
+  export const STATUS_PAID = 1, STATUS_CANCELLED = 2;           // utilisés partout comme 1 et 2 en dur
+  export function formatPrice(cents: number, currency: string) { /* … */ }
+  export function slugify(s: string) { /* … */ }
+  export function retry<T>(fn: () => Promise<T>, times: number, delayMs: number) { /* … */ }
+  export class Mailer { /* smtpHost, send, sendBulk */ }
+  export class PriceCalculator { /* rates, net, vat, total */ }
+  export function hashBookingRef(id: string) { /* sha256 + sel, recalculé à l'identique côté app mobile */ }
+  export function parseCsv(s: string) { /* … */ }
+  export function sleep(ms: number) { /* … */ }
+  export class Cache { /* map, get, set */ }
+  export function isWeekend(d: Date) { /* … */ }
+  ```
+
+  Un appel typique, relevé 37 fois : `retry(send, 3, 500)`.
+blocks:
+- id: d-before
+  type: number
+  title: La distance aujourd'hui
+  prompt: Que vaut D pour `shared` (deux décimales) ?
+  unit: ''
+- id: cohesion
+  type: choice
+  title: Sa cohésion
+  prompt: Quelle est la cohésion de `shared` ?
+  options:
+  - id: coincidental
+    label: 'Coïncidente : des éléments sans lien, sinon d''être « partagés »'
+  - id: functional
+    label: Fonctionnelle
+  - id: temporal
+    label: Temporelle
+  - id: sequential
+    label: Séquentielle
+- id: plan
+  type: order
+  title: Le plan de désamorçage
+  prompt: Range les étapes dans l'ordre le plus sûr.
+  items:
+  - id: measure
+    label: Mettre une fitness function qui suit D et le nombre de dépendants de shared, pour mesurer la tendance
+  - id: names
+    label: Remplacer les 1 et 2 en dur par une union de littéraux `BookingStatus` exportée (sens → nom)
+  - id: split
+    label: Déplacer chaque élément vers le module dont il a la cohésion (pricing, notifications, util/time…)
+  - id: delete
+    label: Supprimer shared quand son nombre de dépendants atteint 0
+- id: connascences
+  type: match
+  title: Les connascences qu'il propage
+  prompt: Nomme la connascence portée par chaque élément, telle que l'utilisent les 9 modules.
+  items:
+  - id: status
+    label: '`1` et `2` écrits en dur chez les appelants'
+  - id: retry
+    label: '`retry(send, 3, 500)`'
+  - id: hash
+    label: '`hashBookingRef`, recalculé à l''identique dans l''app mobile'
+  - id: format
+    label: '`formatPrice(cents, currency)`, importé par son nom'
+  categories:
+  - id: name
+    label: Nom
+  - id: meaning
+    label: Sens
+  - id: position
+    label: Position
+  - id: algorithm
+    label: Algorithme
+- id: target
+  type: tuner
+  title: Le module qui reste
+  prompt: Une fois le découpage fait, il reste un petit module `booking-contracts` importé par 6 modules, qui n'importe rien. Choisis sa composition
+    pour que **D ≤ 0,2**, avec **au moins 1** élément concret et **au plus 8** éléments au total.
+  params:
+  - id: abstract
+    label: Éléments abstraits (types, interfaces)
+    unit: ''
+    min: 0
+    max: 10
+    step: 1
+    default: 0
+  - id: concrete
+    label: Éléments concrets
+    unit: ''
+    min: 1
+    max: 10
+    step: 1
+    default: 4
+  metrics:
+  - id: A
+    label: A
+    expr: abstract / (abstract + concrete)
+    format: number
+  - id: D
+    label: D
+    expr: abs(abstract / (abstract + concrete) + 0 - 1)
+    format: number
+  goals:
+  - id: d
+    label: D ≤ 0,2
+    expr: abs(abstract / (abstract + concrete) - 1) <= 0.2
+  - id: c
+    label: Au moins 1 élément concret
+    expr: concrete >= 1
+  - id: size
+    label: Au plus 8 éléments
+    expr: abstract + concrete <= 8

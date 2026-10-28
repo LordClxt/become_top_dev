@@ -1,0 +1,7 @@
+id: arch-ch03-fitness-mechanisms
+concept: arch-fitness-mechanisms
+format: hyperframes
+justification: "Une frise du commit à la production place chaque mécanisme (test d'architecture, métrique, moniteur, chaos) là où il s'exécute : le « quand » se voit d'un coup d'œil."
+entry: scene.html
+duration_s: 12
+status: built

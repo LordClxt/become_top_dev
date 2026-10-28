@@ -1,0 +1,18 @@
+id: arch-ch07-assignment
+title: Couches ou pipeline ?
+difficulty: 3
+xp: 140
+concepts:
+- arch-layered-when
+- arch-layered-ratings
+- arch-pipeline-ratings
+- arch-filter-types
+- arch-sinkhole
+source:
+  chapter: 10
+  pages: 153-168
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

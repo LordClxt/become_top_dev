@@ -1,0 +1,22 @@
+{
+  "ceo": [
+    "agility",
+    "testability",
+    "deployability"
+  ],
+  "winter": "both",
+  "sorting": {
+    "r2": "reliability",
+    "r3": "auditability",
+    "r4": "none",
+    "r5": "archivability",
+    "ctx": "security"
+  },
+  "video": "degrade",
+  "top3": [
+    "elasticity",
+    "security",
+    "deployability"
+  ],
+  "eliminate": "archivability"
+}

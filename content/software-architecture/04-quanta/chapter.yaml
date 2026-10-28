@@ -1,0 +1,22 @@
+id: arch-ch04
+title: "Quanta et granularité"
+subtitle: "La portée des caractéristiques : du système entier au quantum d'architecture"
+source: { chapter: 7, pages: "111-118" }
+objectives:
+  - "Expliquer pourquoi les caractéristiques opérationnelles ne se mesurent plus au niveau du système ni du seul code"
+  - "Définir un quantum d'architecture (déployable indépendamment, forte cohésion fonctionnelle, connascence synchrone) et en compter les quanta d'une topologie"
+  - "Montrer comment un appel synchrone aligne les caractéristiques opérationnelles de l'appelant et de l'appelé, et ce qu'un appel asynchrone change"
+  - "Relier le quantum au contexte borné du DDD"
+  - "Mener le kata Going, Going, Gone jusqu'aux caractéristiques par quantum, et distinguer domaine et caractéristique par le test de la connaissance métier"
+  - "Diagnostiquer une cascade de timeouts causée par un appel synchrone entre deux rythmes différents"
+  - "Écrire en TypeScript un calculateur de quanta et un simulateur d'appel synchrone vs asynchrone"
+mastery_threshold: 0.8
+prerequisites: [arch-ch03]
+lessons:
+  - "01-architecture-quantum"
+  - "02-counting-quanta"
+  - "03-going-going-gone"
+xp: { assignment: 140, project: 260, boss: 320 }
+assignment: assignment
+project: project
+boss: boss

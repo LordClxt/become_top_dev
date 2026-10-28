@@ -1,0 +1,97 @@
+id: arch-ch01-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Le couplage afférent d'un module compte…"
+    choices:
+      - "Les modules dont il dépend"
+      - "Les modules qui dépendent de lui"
+      - "Ses fonctions publiques"
+      - "Ses lignes de code"
+    answer: 1
+    explanation: "Afférent = entrant. Mnémotechnique : a avant e, comme l'entrée avant la sortie."
+    concept: arch-afferent-efferent
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce calcul d'instabilité pour `orders` ?"
+    code: |
+      const ce = new Set(['money', 'catalog', 'db', 'money']).size;
+      const ca = ['api', 'admin'].length;
+      console.log((ce / (ce + ca)).toFixed(2));
+    answer: "0.60"
+    explanation: "Les dépendances sortantes distinctes sont 3 (money compte une fois), les entrantes 2 : I = 3 / 5."
+    concept: arch-instability
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Un module dont tout le monde dépend et qui ne dépend de rien a une instabilité…"
+    choices:
+      - "De 1 : il casse facilement"
+      - "De 0 : il est stable, donc coûteux à changer"
+      - "De 0,5"
+      - "Indéfinie"
+    answer: 1
+    explanation: "I = 0 / (0 + Ca) = 0. « Stable » signifie ici que beaucoup en dépendent."
+    concept: arch-instability
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Un module concret dont onze dossiers dépendent (I ≈ 0, A = 0) se trouve…"
+    choices:
+      - "Sur la séquence principale"
+      - "Dans la zone de douleur"
+      - "Dans la zone d'inutilité"
+      - "Au centre du graphe"
+    answer: 1
+    explanation: "D = |0 + 0 − 1| = 1 : concret et très utilisé, chaque changement se propage partout."
+    concept: arch-main-sequence
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Un module d'interfaces que personne n'importe (A ≈ 1, I = 1) est…"
+    choices:
+      - "Dans la zone de douleur"
+      - "Dans la zone d'inutilité"
+      - "Parfaitement équilibré"
+      - "Instable mais sain"
+    answer: 1
+    explanation: "D = |1 + 1 − 1| = 1 dans le coin haut-droit : des abstractions sans utilisateurs."
+    concept: arch-main-sequence
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce calcul de distance à la séquence principale ?"
+    code: |
+      const abstract = 1, concrete = 3;
+      const A = abstract / (abstract + concrete);
+      const I = 2 / (2 + 6);
+      console.log(Math.abs(A + I - 1).toFixed(2));
+    answer: "0.50"
+    explanation: "A = 0,25 et I = 0,25 : D = |0,25 + 0,25 − 1| = 0,5. Le module penche vers la zone de douleur."
+    concept: arch-main-sequence
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Pourquoi diviser par le total (abstraits + concrets) plutôt que par les concrets pour calculer A ?"
+    choices:
+      - "Pour que A reste entre 0 et 1"
+      - "Parce que c'est plus rapide"
+      - "Pour compter les fonctions"
+      - "Pour ignorer les interfaces"
+    answer: 0
+    explanation: "Abstraits / concrets peut dépasser 1 ; la définition de Martin garde A dans [0, 1], comme I."
+    concept: arch-abstractness
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Que ne sait pas faire la complexité cyclomatique, d'après le livre ?"
+    choices:
+      - "Compter les chemins"
+      - "Distinguer complexité essentielle et accidentelle"
+      - "S'appliquer aux fonctions"
+      - "Se calculer automatiquement"
+    answer: 1
+    explanation: "Elle mesure, elle n'interprète pas : c'est la limite de presque toutes les métriques de code."
+    concept: arch-metric-limits
+    difficulty: 1

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="arch-ch00-four-dimensions" />
+    <title>Les quatre dimensions</title>
+    <!--
+      Choreography (12 s) :
+        0.0 – 3.0  « C’est du microservices » : seule la structure
+        3.0 – 8.5  caractéristiques, décisions, principes s’ajoutent
+        8.5 – 12   la définition complète
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0c0d12; --surface: #15161e; --surface-2: #1d1f2b; --line: #2b2e40;
+        --text: #f4f4ef; --muted: #a3a5b8; --accent: #d6ff3d; --pass: #5be49b; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f3f2ec; --surface: #ffffff; --surface-2: #e9e8e0; --line: #d9d7cc;
+        --text: #0c0d12; --muted: #5b5d6e; --accent: #3a3dff; --pass: #1f8a50; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 60px; text-align: center; font-size: 50px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .card { position: absolute; border-radius: 24px; border: 4px solid var(--line); background: var(--surface);
+        padding: 18px 26px; opacity: 0; }
+      .card .t { font-size: 36px; font-weight: 600; }
+      .card .d { font-size: 26px; color: var(--muted); margin-top: 4px; }
+      .pass { border-color: var(--pass); } .fail { border-color: var(--fail); } .acc { border-color: var(--accent); }
+      .tag { position: absolute; font-size: 30px; opacity: 0; }
+      .tag.pass { color: var(--pass); } .tag.fail { color: var(--fail); } .tag.acc { color: var(--accent); }
+      svg.lines { position: absolute; inset: 0; overflow: visible; }
+      svg.lines line, svg.lines path { fill: none; stroke: var(--line); stroke-width: 5; stroke-linecap: round; opacity: 0; }
+      svg.lines .dash { stroke-dasharray: 14 12; }
+      .dot { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); opacity: 0; }
+
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">« C'est du microservices » : <em>une dimension sur quatre</em></div>
+      <div class="caption" id="c2">Il manque les critères de succès, les règles, les préférences</div>
+      <div class="caption" id="c3">Architecture = <em>structure + caractéristiques + décisions + principes</em></div>
+      <div class="card acc" id="s" style="left:750px;top:440px;width:420px;min-height:150px"><div class="t mono">Structure</div><div class="d">microservices, une base par service</div></div>
+      <div class="card " id="k" style="left:120px;top:230px;width:520px;min-height:150px"><div class="t mono">Caractéristiques</div><div class="d">élasticité aux soldes · déployabilité</div></div>
+      <div class="card " id="d" style="left:1280px;top:230px;width:560px;min-height:150px"><div class="t mono">Décisions</div><div class="d">aucun service ne lit la base d’un autre</div></div>
+      <div class="card " id="p" style="left:120px;top:720px;width:520px;min-height:150px"><div class="t mono">Principes</div><div class="d">asynchrone de préférence</div></div>
+      <div class="card " id="q" style="left:1280px;top:720px;width:560px;min-height:150px"><div class="t mono">Le pourquoi</div><div class="d">ADR : décisions et raisons</div></div>
+    </div>
+    <script>
+      const DURATION = 12;
+      const tl = gsap.timeline({ paused: true });
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      function show(sel, t, d = 0.4) {
+        tl.fromTo(sel, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: d, stagger: 0.08, ease: "power3.out", immediateRender: false }, t);
+      }
+      function fade(sel, t, to = 1) { tl.to(sel, { opacity: to, duration: 0.35 }, t); }
+      function hide(sel, t) { tl.to(sel, { opacity: 0, duration: 0.25 }, t); }
+      function pulse(sel, t) {
+        tl.fromTo(sel, { scale: 1 }, { keyframes: { scale: [1, 1.07, 1] }, duration: 0.45, ease: "none", immediateRender: false }, t);
+      }
+      function color(sel, c, t) { tl.to(sel, { borderColor: c, duration: 0.3 }, t); }
+      function stroke(sel, c, t) { tl.to(sel, { stroke: c, duration: 0.3 }, t); }
+      function travel(sel, x1, y1, x2, y2, t, d = 0.8) {
+        tl.fromTo(sel, { left: x1, top: y1, opacity: 1 }, { left: x2, top: y2, duration: d, ease: "power1.inOut", immediateRender: false }, t);
+        tl.to(sel, { opacity: 0, duration: 0.15 }, t + d);
+      }
+      const ACC = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+      const PASS = getComputedStyle(document.documentElement).getPropertyValue("--pass").trim();
+      const FAIL = getComputedStyle(document.documentElement).getPropertyValue("--fail").trim();
+      captions([["#c1", 0.3, 3.0], ["#c2", 3.2, 8.4], ["#c3", 8.6, DURATION + 1]]);
+      show("#s", 0.2);
+      show("#k", 3.6); color("#k", PASS, 4.0);
+      show("#d", 5.0); color("#d", PASS, 5.4);
+      show("#p", 6.4); color("#p", PASS, 6.8);
+      show("#q", 9.4);
+      pulse("#s,#k,#d,#p", 10.4);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

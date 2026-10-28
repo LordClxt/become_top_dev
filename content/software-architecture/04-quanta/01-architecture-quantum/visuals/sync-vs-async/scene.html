@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <meta name="visual-id" content="arch-ch04-sync-vs-async" />
+    <title>Synchrone ou file</title>
+    <!--
+      Choreography (14 s) :
+        0.0 – 2.0  Enchères et Paiement
+        2.0 – 7.0  appels synchrones : la plupart expirent
+        7.0 – 14   une file : tout passe, à son rythme
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ink: #0c0d12; --surface: #15161e; --surface-2: #1d1f2b; --line: #2b2e40;
+        --text: #f4f4ef; --muted: #a3a5b8; --accent: #d6ff3d; --pass: #5be49b; --fail: #e3a93c;
+      }
+      html.light {
+        --ink: #f3f2ec; --surface: #ffffff; --surface-2: #e9e8e0; --line: #d9d7cc;
+        --text: #0c0d12; --muted: #5b5d6e; --accent: #3a3dff; --pass: #1f8a50; --fail: #a86b00;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--text);
+        font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+      #root { position: absolute; inset: 0; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+      .caption { position: absolute; left: 0; right: 0; top: 60px; text-align: center; font-size: 50px; font-weight: 700; opacity: 0; }
+      .caption em { font-style: normal; color: var(--accent); }
+      .card { position: absolute; border-radius: 24px; border: 4px solid var(--line); background: var(--surface);
+        padding: 18px 26px; opacity: 0; }
+      .card .t { font-size: 36px; font-weight: 600; }
+      .card .d { font-size: 26px; color: var(--muted); margin-top: 4px; }
+      .pass { border-color: var(--pass); } .fail { border-color: var(--fail); } .acc { border-color: var(--accent); }
+      .tag { position: absolute; font-size: 30px; opacity: 0; }
+      .tag.pass { color: var(--pass); } .tag.fail { color: var(--fail); } .tag.acc { color: var(--accent); }
+      svg.lines { position: absolute; inset: 0; overflow: visible; }
+      svg.lines line, svg.lines path { fill: none; stroke: var(--line); stroke-width: 5; stroke-linecap: round; opacity: 0; }
+      svg.lines .dash { stroke-dasharray: 14 12; }
+      .dot { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); opacity: 0; }
+
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="14" data-width="1920" data-height="1080">
+      <div class="caption" id="c1">40 enchères se terminent ; Paiement traite <em>1 paiement / 500 ms</em></div>
+      <div class="caption" id="c2">Synchrone, timeout 3 s : <em>6 réussies, 34 expirées</em></div>
+      <div class="caption" id="c3">Asynchrone : la file absorbe, <em>40 traitées en 20 s</em></div>
+      <div class="card " id="auc" style="left:140px;top:470px;width:420px;min-height:140px"><div class="t mono">Enchères</div><div class="d">40 instances élastiques</div></div>
+      <div class="card " id="pay" style="left:1360px;top:470px;width:420px;min-height:140px"><div class="t mono">Paiement</div><div class="d">1 débit / 500 ms</div></div>
+      <div class="card acc" id="q" style="left:760px;top:470px;width:380px;min-height:140px"><div class="t mono">File</div><div class="d">tampon asynchrone</div></div>
+      <svg class="lines" width="1920" height="1080"><line id="l1" x1="560" y1="540" x2="1360" y2="540" /></svg>
+      <div class="tag pass mono" id="ok" style="left:1400px;top:660px">✓ 6</div>
+      <div class="tag fail mono" id="ko" style="left:1400px;top:720px">✗ 34 timeouts</div>
+      <div class="tag pass mono" id="ok2" style="left:1400px;top:660px">✓ 40 · dernier à 20 s</div>
+      <div class="dot" id="d0"></div>
+      <div class="dot" id="d1"></div>
+      <div class="dot" id="d2"></div>
+      <div class="dot" id="d3"></div>
+      <div class="dot" id="d4"></div>
+      <div class="dot" id="d5"></div>
+      <div class="dot" id="d6"></div>
+      <div class="dot" id="d7"></div>
+    </div>
+    <script>
+      const DURATION = 14;
+      const tl = gsap.timeline({ paused: true });
+      function captions(list) {
+        for (const [sel, a, b] of list) {
+          tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, a);
+          if (b < DURATION) tl.to(sel, { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, b - 0.25);
+        }
+      }
+      function show(sel, t, d = 0.4) {
+        tl.fromTo(sel, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: d, stagger: 0.08, ease: "power3.out", immediateRender: false }, t);
+      }
+      function fade(sel, t, to = 1) { tl.to(sel, { opacity: to, duration: 0.35 }, t); }
+      function hide(sel, t) { tl.to(sel, { opacity: 0, duration: 0.25 }, t); }
+      function pulse(sel, t) {
+        tl.fromTo(sel, { scale: 1 }, { keyframes: { scale: [1, 1.07, 1] }, duration: 0.45, ease: "none", immediateRender: false }, t);
+      }
+      function color(sel, c, t) { tl.to(sel, { borderColor: c, duration: 0.3 }, t); }
+      function stroke(sel, c, t) { tl.to(sel, { stroke: c, duration: 0.3 }, t); }
+      function travel(sel, x1, y1, x2, y2, t, d = 0.8) {
+        tl.fromTo(sel, { left: x1, top: y1, opacity: 1 }, { left: x2, top: y2, duration: d, ease: "power1.inOut", immediateRender: false }, t);
+        tl.to(sel, { opacity: 0, duration: 0.15 }, t + d);
+      }
+      const ACC = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+      const PASS = getComputedStyle(document.documentElement).getPropertyValue("--pass").trim();
+      const FAIL = getComputedStyle(document.documentElement).getPropertyValue("--fail").trim();
+      captions([["#c1", 0.2, 2.2], ["#c2", 2.4, 7.0], ["#c3", 7.2, DURATION + 1]]);
+      show("#auc,#pay", 0.2); fade("#l1", 0.8);
+      for (let i = 0; i < 8; i++) {
+        const ok = i < 2;
+        travel(`#d${i}`, 560, 527, ok ? 1360 : 1000 + i * 20, 527, 2.4 + i * 0.12, ok ? 0.9 : 0.7);
+        if (!ok) tl.to(`#d${i}`, { background: FAIL, duration: 0.1 }, 2.9 + i * 0.12);
+      }
+      show("#ok,#ko", 4.4); color("#pay", FAIL, 3.6);
+      hide("#ok,#ko", 6.8); color("#pay", "var(--line)", 6.8);
+      show("#q", 7.4); fade("#l1", 7.2, 0.4);
+      for (let i = 0; i < 8; i++) {
+        travel(`#d${i}`, 560, 527, 930, 527, 7.8 + i * 0.1, 0.5);
+        tl.set(`#d${i}`, { background: ACC }, 7.7);
+        travel(`#d${i}`, 1140, 527, 1360, 527, 9.0 + i * 0.55, 0.45);
+      }
+      show("#ok2", 12.8); color("#pay", PASS, 12.8);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

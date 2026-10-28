@@ -1,0 +1,3 @@
+**Le domaine dit ce que les exigences taisent.** « Une fenêtre de 5 jours » suggère une charge répartie ; l'historique et la psychologie des étudiants annoncent l'inverse : 10 000 inscriptions dans la première heure, environ **167 par minute**, contre 4 par minute en moyenne sur 5 jours. C'est de l'**élasticité**.
+
+Le top 3 suit les risques réels : élasticité, disponibilité (l'échec de l'an dernier) et intégrité (l'ordre d'arrivée sur des places limitées). Le paiement délégué et le bilinguisme relèvent de l'hygiène et du design ; ne pas les élever au rang de caractéristiques évite le Vasa. La personnalisation par faculté est la candidate naturelle à l'élimination : elle peut passer au design.

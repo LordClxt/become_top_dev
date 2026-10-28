@@ -1,0 +1,76 @@
+id: arch-ch06-l01-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Que condense le nom d'un style d'architecture ?"
+    choices:
+      - "Une topologie"
+      - "Des caractéristiques par défaut, bonnes et mauvaises"
+      - "Des modèles de déploiement et de données typiques"
+      - "Le langage de programmation à utiliser"
+    answer: [0, 1, 2]
+    explanation: "Comme un nom de design pattern, c'est un raccourci entre gens du métier ; il ne fixe pas le langage."
+    concept: arch-style-name
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "D'où vient généralement un Big Ball of Mud ?"
+    choices:
+      - "D'une décision délibérée d'architecture"
+      - "D'une croissance non régulée et de réparations expéditives, faute de gouvernance"
+      - "D'un passage aux microservices"
+      - "D'un excès de tests"
+    answer: 1
+    explanation: "Personne ne le décide : on y glisse."
+    concept: arch-big-ball-of-mud
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Un navigateur, un serveur web et une base sur une autre machine : comment le livre qualifie-t-il souvent cette architecture ?"
+    choices: ["Unitaire", "Deux tiers (client/serveur)", "Trois tiers", "Microkernel"]
+    answer: 1
+    explanation: "Serveur web et base tournent dans la salle des serveurs, l'interface dans le navigateur."
+    concept: arch-client-server
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Quelle leçon le livre tire-t-il de la sérialisation intégrée à Java ?"
+    choices:
+      - "Il faut toujours sérialiser les objets"
+      - "Les conséquences à long terme sont imprévisibles : préférer la simplicité est une défense"
+      - "Le trois tiers est éternel"
+      - "Java est mal conçu"
+    answer: 1
+    explanation: "Le trois tiers est passé ; la sérialisation est restée et pèse encore sur le langage."
+    concept: arch-long-term-simplicity
+    difficulty: 1
+  - id: q5
+    type: multiple
+    prompt: "Lesquels sont des styles monolithiques ?"
+    choices: ["En couches", "Pipeline", "Microkernel", "Service-based", "Event-driven"]
+    answer: [0, 1, 2]
+    explanation: "Service-based et event-driven sont distribués."
+    concept: arch-monolithic-distributed
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Densité de dépendances entre 20 modules. Qu'affiche ce calcul ?"
+    code: |
+      const density = (n: number, edges: number) => edges / (n * (n - 1));
+      console.log(density(20, 38).toFixed(2), density(20, 285).toFixed(2));
+    answer: "0.10 0.75"
+    explanation: "Trois quarts des paires possibles reliées : le cercle noir de traits d'une boule de boue."
+    concept: arch-big-ball-of-mud
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Où trouve-t-on encore des architectures unitaires ?"
+    choices:
+      - "Dans les grands sites web"
+      - "Surtout dans l'embarqué et les environnements très contraints"
+      - "Dans les microservices"
+      - "Nulle part"
+    answer: 1
+    explanation: "Les systèmes qui grossissent finissent par séparer leurs préoccupations."
+    concept: arch-client-server
+    difficulty: 1

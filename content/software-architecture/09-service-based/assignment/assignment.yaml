@@ -1,0 +1,18 @@
+id: arch-ch09-assignment
+title: Service-based ou microservices pour la clinique vétérinaire ?
+difficulty: 3
+xp: 150
+concepts:
+- arch-sb-when
+- arch-sb-acid
+- arch-sb-ratings
+- arch-sb-topology
+- arch-orchestration-choreography
+source:
+  chapter: 13
+  pages: 183-198
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

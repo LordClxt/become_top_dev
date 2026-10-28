@@ -1,0 +1,78 @@
+intro: |
+  Le dossier de Going, Going, Gone dit :
+  - « Les enchères doivent être **rapides** » ;
+  - « Le commissaire-priseur doit **toujours** pouvoir saisir une enchère » ;
+  - « On doit pouvoir **livrer vite** des améliorations » ;
+  - « La plateforme doit **tenir la fin d'enchère** » (un pic de 50× le trafic moyen dans les deux dernières minutes).
+blocks:
+- id: defs
+  type: match
+  title: Des définitions objectives
+  prompt: Associe chaque phrase à sa meilleure définition objective.
+  items:
+  - id: fast
+    label: Rapides
+  - id: always
+    label: Toujours
+  - id: ship
+    label: Livrer vite
+  - id: peak
+    label: Tenir la fin d'enchère
+  categories:
+  - id: p999
+    label: p99,9 du temps entre l'offre et sa diffusion < 500 ms
+  - id: avail
+    label: Disponibilité de la saisie du commissaire-priseur ≥ 99,9 % sur 30 jours
+  - id: lead
+    label: Délai médian merge → production < 1 jour, < 5 % de retours arrière
+  - id: load
+    label: 'Test de charge à 50× le trafic moyen pendant 2 min : 0 offre perdue, p99 < 1 s'
+- id: budget
+  type: number
+  title: Ce que 99,9 % autorise
+  prompt: Combien de minutes d'indisponibilité 99,9 % autorise-t-il sur 30 jours ?
+  unit: minutes
+- id: why999
+  type: choice
+  title: Pourquoi un percentile aussi haut ?
+  prompt: Pourquoi le p99,9 plutôt que la moyenne pour la diffusion des offres ?
+  options:
+  - id: tail
+    label: Une offre diffusée trop tard peut faire perdre une enchère ; les cas rares sont précisément ceux qui coûtent
+  - id: easy
+    label: Parce que c'est plus facile à mesurer
+  - id: same
+    label: Parce que la moyenne et le p99,9 sont toujours proches
+- id: govern
+  type: match
+  title: Comment le vérifier ?
+  prompt: Associe chaque définition au mécanisme qui la gouverne.
+  items:
+  - id: p999
+    label: p99,9 de diffusion < 500 ms
+  - id: avail
+    label: Disponibilité ≥ 99,9 %
+  - id: lead
+    label: Délai merge → production
+  - id: load
+    label: Tenir 50× pendant 2 min
+  categories:
+  - id: monitor
+    label: Moniteur en production, alerte sur le budget
+  - id: pipeline
+    label: Métrique du pipeline de déploiement
+  - id: loadtest
+    label: Test de charge automatisé avant chaque version majeure
+- id: composite
+  type: multi
+  title: Décomposer « livrer vite »
+  prompt: « Livrer vite » est composite. Quelles mesures en font partie ?
+  options:
+  - id: lead
+    label: Délai entre merge et production
+  - id: rollback
+    label: Taux de retours arrière
+  - id: mutation
+    label: Score de mutation des modules critiques
+  - id: cpu
+    label: CPU moyenne des serveurs

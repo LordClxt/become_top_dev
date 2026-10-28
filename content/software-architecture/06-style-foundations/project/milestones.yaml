@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Retries avec backoff et jitter"
+    goal: "Calculer les délais « full jitter » d'un backoff exponentiel plafonné, et retenter un appel en attendant ces délais, sauf pour une erreur non retentable."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Circuit breaker"
+    goal: "Ouvrir après N échecs consécutifs, refuser sans appeler pendant l'ouverture, laisser passer un seul essai en demi-ouvert, refermer sur succès et rouvrir sur échec."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Latence d'une chaîne"
+    goal: "Calculer la distribution exacte de la somme de latences indépendantes et en lire un percentile."
+    tests: "tstest M3"
+    review: true
+    prompt: "Pourquoi un jitter « complet » (entre 0 et le plafond) plutôt qu'un délai fixe ? Dans quel ordre composer retry et circuit breaker autour d'un appel, et pourquoi ?"

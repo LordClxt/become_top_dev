@@ -1,0 +1,90 @@
+id: arch-ch05-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Comment considérer le découpage en composants proposé par l'architecte ?"
+    choices:
+      - "Comme définitif"
+      - "Comme un premier brouillon que l'implémentation affinera"
+      - "Comme une recommandation facultative"
+      - "Comme un document contractuel"
+    answer: 1
+    explanation: "Toute conception profite de l'itération."
+    concept: arch-identification-flow
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Deux parties gèrent des saisies d'utilisateurs : l'une pour des centaines d'utilisateurs simultanés, l'autre pour trois. Que dit l'étape « analyser les caractéristiques » ?"
+    choices:
+      - "Un seul composant suffit, c'est la même fonction"
+      - "Les caractéristiques différentes poussent à subdiviser"
+      - "Il faut deux bases de données"
+      - "Il faut un style microkernel"
+    answer: 1
+    explanation: "Une vue purement fonctionnelle donnerait un composant ; les caractéristiques en imposent deux."
+    concept: arch-identification-flow
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Quel est le risque de composants trop fins ?"
+    choices:
+      - "Trop de communication entre composants pour obtenir un résultat"
+      - "Trop de couplage interne"
+      - "Une base trop grosse"
+      - "Aucun"
+    answer: 0
+    explanation: "Trop gros, à l'inverse, c'est le couplage interne qui pénalise déployabilité et testabilité."
+    concept: arch-granularity
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "UserManager, OrderManager, ProductManager, InvoiceManager : un composant par table. C'est…"
+    choices:
+      - "Un partitionnement par domaine"
+      - "Le piège des entités"
+      - "De l'event storming"
+      - "Une architecture microkernel"
+    answer: 1
+    explanation: "Ce n'est pas une architecture mais un mapping ORM ; les relations de données ne sont pas des workflows."
+    concept: arch-entity-trap
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Ton application n'a vraiment besoin que de CRUD sur quelques tables. Que conseille le livre ?"
+    choices:
+      - "Concevoir une architecture en microservices"
+      - "Utiliser un framework qui génère l'interface depuis la base (Naked Objects, scaffolding Rails)"
+      - "Écrire un Manager par entité à la main"
+      - "Éviter toute base de données"
+    answer: 1
+    explanation: "Pas besoin d'une architecture complète pour un simple mapping de la base vers une interface."
+    concept: arch-entity-trap
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Une équipe pratique le DDD et vise des microservices qui communiquent par événements. Quelle technique de découverte ?"
+    choices: ["Acteurs/actions", "Event storming", "Piège des entités", "Template Method"]
+    answer: 1
+    explanation: "L'event storming définit au passage les messages du futur système."
+    concept: arch-discovery-techniques
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Quelle technique est la plus généraliste, valable en monolithe comme en distribué ?"
+    choices: ["Event storming", "Acteurs/actions", "Approche par entités", "Approche par tables"]
+    answer: 1
+    explanation: "Elle marche dès que les exigences font apparaître des rôles distincts."
+    concept: arch-discovery-techniques
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "En quoi l'approche par workflows diffère-t-elle de l'event storming ?"
+    choices:
+      - "Elle ne suppose pas une communication par messages"
+      - "Elle ignore les rôles"
+      - "Elle part des tables"
+      - "Elle est réservée aux microservices"
+    answer: 0
+    explanation: "Même principe (rôles, workflows, activités), sans la contrainte de messagerie."
+    concept: arch-discovery-techniques
+    difficulty: 2

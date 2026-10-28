@@ -1,0 +1,30 @@
+{
+  "metrics": {
+    "orders.ca": 2,
+    "orders.ce": 3,
+    "orders.i": 0.6,
+    "orders.d": 0.4,
+    "catalog.ca": 2,
+    "catalog.ce": 2,
+    "catalog.i": 0.5,
+    "catalog.d": 0,
+    "money.ca": 4,
+    "money.ce": 0,
+    "money.i": 0,
+    "money.d": 1,
+    "db.ca": 2,
+    "db.ce": 0,
+    "db.i": 0,
+    "db.d": 0
+  },
+  "zones": {
+    "money": "pain",
+    "db": "main",
+    "catalog": "main",
+    "extensions": "useless"
+  },
+  "rescue": {
+    "abstract": 9,
+    "concrete": 3
+  }
+}

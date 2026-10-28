@@ -1,0 +1,82 @@
+id: arch-ch09-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Combien de services de domaine compte typiquement une architecture service-based ?"
+    choices: ["1 à 3", "4 à 12, environ 7 en moyenne", "20 à 50", "Plus de 100"]
+    answer: 1
+    explanation: "Le partage de la base limite le nombre de services."
+    concept: arch-sb-topology
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quelle est la topologie de base du style service-based ?"
+    choices:
+      - "Interface séparée, services de domaine à gros grain, base partagée"
+      - "Un service par entité, une base par service"
+      - "Un cœur et des plug-ins"
+      - "Des filtres reliés par des pipes"
+    answer: 0
+    explanation: "Une structure en macro-couches distribuées."
+    concept: arch-sb-topology
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Quel avantage la base partagée offre-t-elle aux services ?"
+    choices:
+      - "Aucun"
+      - "Utiliser SQL et les jointures comme dans un monolithe"
+      - "Une scalabilité infinie"
+      - "Des déploiements indépendants des schémas"
+    answer: 1
+    explanation: "Le revers : un changement de schéma peut toucher tous les services."
+    concept: arch-sb-shared-db
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "À quelle condition peut-on fédérer la base (une base par service) ?"
+    choices:
+      - "Toujours"
+      - "Si les données de chaque base ne sont pas nécessaires à un autre service"
+      - "Si les services sont en Java"
+      - "Si on a plus de 12 services"
+    answer: 1
+    explanation: "Sinon, appels entre services (à éviter dans ce style) ou duplication de données."
+    concept: arch-sb-variants
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quand ajouter une couche d'API (reverse proxy, gateway) ?"
+    choices:
+      - "Jamais"
+      - "Pour exposer des fonctions à des systèmes externes ou sortir de l'interface des préoccupations transverses"
+      - "Pour remplacer la base partagée"
+      - "Pour orchestrer tous les services"
+    answer: 1
+    explanation: "Métriques, sécurité, audit, découverte de services."
+    concept: arch-sb-variants
+    difficulty: 1
+  - id: q6
+    type: code-output
+    prompt: "Quatre services ; interface fédérée en deux groupes, mais une seule base. Combien de quanta ?"
+    code: |
+      const services = ['quote', 'status', 'receive', 'assess'];
+      const ui: Record<string, string> = { quote: 'web', status: 'web', receive: 'ops', assess: 'ops' };
+      const db: Record<string, string> = { quote: 'main', status: 'main', receive: 'main', assess: 'main' };
+      const groups = new Set<string>();
+      // Une base partagée par tous : un seul groupe, quelle que soit l'interface.
+      const sharedDb = new Set(services.map((s) => db[s])).size === 1;
+      for (const s of services) groups.add(sharedDb ? 'all' : `${ui[s]}+${db[s]}`);
+      console.log(groups.size);
+    answer: "1"
+    explanation: "Fédérer l'interface ne suffit pas : la base commune soude tout en un quantum."
+    concept: arch-sb-variants
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Comment l'interface trouve-t-elle généralement les services à appeler ?"
+    choices: ["Par un service locator", "Par diffusion réseau", "Par la base de données", "En les appelant tous"]
+    answer: 0
+    explanation: "Intégré à l'interface, à la gateway ou au proxy."
+    concept: arch-sb-access
+    difficulty: 1

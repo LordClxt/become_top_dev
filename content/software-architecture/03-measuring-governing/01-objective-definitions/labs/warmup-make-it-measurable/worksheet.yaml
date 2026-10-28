@@ -1,0 +1,32 @@
+intro: Six phrases entendues en réunion d'architecture, et six définitions objectives.
+blocks:
+- id: pairs
+  type: match
+  title: Une phrase, une mesure
+  prompt: Associe chaque phrase à la définition qui la rend mesurable.
+  items:
+  - id: fast
+    label: « Le site doit être rapide. »
+  - id: agile
+    label: « On doit être agiles. »
+  - id: deploy
+    label: « Les mises en production doivent être sûres. »
+  - id: avail
+    label: « Le paiement doit toujours marcher. »
+  - id: light
+    label: « L'application mobile doit rester légère. »
+  - id: tested
+    label: « Le code doit être bien testé. »
+  categories:
+  - id: p99
+    label: p99 du temps de réponse de la recherche < 300 ms, mesuré en production
+  - id: leadtime
+    label: Délai médian entre le merge et la mise en production < 1 jour
+  - id: failrate
+    label: Moins de 5 % des déploiements suivis d'un retour arrière
+  - id: slo
+    label: 99,95 % des tentatives de paiement aboutissent, sur 30 jours glissants
+  - id: kweight
+    label: Moins de 200 Ko de JavaScript compressé sur l'écran d'accueil
+  - id: mutation
+    label: Score de mutation > 70 % sur le module de facturation

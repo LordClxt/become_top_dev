@@ -1,0 +1,78 @@
+id: arch-ch05-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quel troisième acteur, souvent présent en acteurs/actions, apparaît dans Going, Going, Gone ?"
+    choices: ["Le livreur", "Le système", "La banque", "L'administrateur"]
+    answer: 1
+    explanation: "Il porte les actions déclenchées par l'application elle-même, comme lancer le paiement en fin de vente."
+    concept: arch-actor-actions-ggg
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel composant sert de système de référence pour les offres ?"
+    choices: ["BidStreamer", "BidCapture", "BidTracker", "AuctionSession"]
+    answer: 2
+    explanation: "BidTracker suit les offres et fait foi ; après la scission, il unifie les deux flux."
+    concept: arch-actor-actions-ggg
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi scinder BidCapture en Bid Capture et Auctioneer Capture ?"
+    choices:
+      - "Parce que le code est différent"
+      - "Parce que les deux types d'utilisateurs exigent des caractéristiques différentes (élasticité d'un côté, disponibilité et fiabilité de l'autre)"
+      - "Pour avoir plus de composants"
+      - "Parce que le commissaire-priseur paie plus"
+    answer: 1
+    explanation: "Fonctionnellement, c'est la même capture ; ce sont les caractéristiques qui imposent la scission."
+    concept: arch-split-by-characteristics
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Sur combien de caractéristiques ces deux groupes d'utilisateurs divergent-ils d'au moins 2 niveaux ?"
+    code: |
+      const bidders = { scalability: 3, elasticity: 3, availability: 2, reliability: 2 };
+      const auctioneer = { scalability: 1, elasticity: 1, availability: 3, reliability: 3 };
+      const keys = Object.keys(bidders) as (keyof typeof bidders)[];
+      console.log(keys.filter((k) => Math.abs(bidders[k] - auctioneer[k]) >= 2).length);
+    answer: "2"
+    explanation: "Scalabilité et élasticité divergent de 2 ; disponibilité et fiabilité d'un seul niveau."
+    concept: arch-split-by-characteristics
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi Going, Going, Gone sera-t-il distribué ?"
+    choices:
+      - "Parce que le budget est illimité"
+      - "Parce que ses composants ont plusieurs jeux de caractéristiques (diffusion en lecture, enchérisseurs élastiques, commissaire-priseur critique)"
+      - "Parce que les microservices sont à la mode"
+      - "Parce qu'il y a une vidéo"
+    answer: 1
+    explanation: "Plusieurs quanta → architecture distribuée ; un seul jeu de caractéristiques → monolithe."
+    concept: arch-monolith-vs-distributed
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Qu'est-ce qui distingue un style d'un pattern d'architecture ?"
+    choices:
+      - "Rien"
+      - "Le style organise toute l'architecture ; le pattern résout un problème précis à l'intérieur d'un style"
+      - "Le pattern est plus important"
+      - "Le style ne concerne que la base de données"
+    answer: 1
+    explanation: "Par exemple, un pattern pour obtenir une forte scalabilité sur un ensemble d'opérations."
+    concept: arch-style-vs-pattern
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Que conseille le livre face à la recherche du design parfait ?"
+    choices:
+      - "Itérer jusqu'à le trouver"
+      - "Ne pas s'obstiner : beaucoup de designs conviennent ; choisir le moins mauvais ensemble de trade-offs"
+      - "Prendre le premier venu"
+      - "Copier une architecture connue"
+    answer: 1
+    explanation: "Chercher la perfection mène souvent à la sur-ingénierie."
+    concept: arch-split-by-characteristics
+    difficulty: 1

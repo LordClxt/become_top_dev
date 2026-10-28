@@ -1,0 +1,62 @@
+intro: Huit extraits relevés dans le code d'une compagnie aérienne.
+blocks:
+- id: kinds
+  type: match
+  title: Quelle connascence ?
+  prompt: Associe chaque extrait à sa forme de connascence.
+  items:
+  - id: c1
+    label: '`bookSeat(flightId, seat)` est appelée depuis 40 fichiers.'
+  - id: c2
+    label: '`if (booking.state === 3)` dans `checkin` et dans `notifications`.'
+  - id: c3
+    label: '`transfer(''FR123'', ''AF456'')` : le premier argument est la source… ou la destination ?'
+  - id: c4
+    label: Le client mobile et l'API calculent chacun le même HMAC d'une carte d'embarquement.
+  - id: c5
+    label: '`const t = new Ticket(); t.issue(); t.setPassenger(p);` lève « passager manquant ».'
+  - id: c6
+    label: Deux workers lisent puis décrémentent le stock de sièges en même temps.
+  - id: c7
+    label: Le prix d'un billet est stocké dans `bookings` et dans `invoices`, et doit y être identique.
+  - id: c8
+    label: '`flightId: number` dans le service de vols et dans celui des bagages.'
+  categories:
+  - id: name
+    label: Nom
+  - id: type
+    label: Type
+  - id: meaning
+    label: Sens (convention)
+  - id: position
+    label: Position
+  - id: algorithm
+    label: Algorithme
+  - id: execution
+    label: Exécution
+  - id: timing
+    label: Timing
+  - id: values
+    label: Valeurs
+- id: fixes
+  type: match
+  title: Quel refactoring ?
+  prompt: Associe chaque extrait au refactoring qui affaiblit sa connascence.
+  items:
+  - id: c2
+    label: '`booking.state === 3`'
+  - id: c3
+    label: '`transfer(''FR123'', ''AF456'')`'
+  - id: c5
+    label: '`new Ticket(); t.issue(); t.setPassenger(p)`'
+  - id: c4
+    label: HMAC calculé côté client et côté API
+  categories:
+  - id: constant
+    label: Une union de littéraux nommés (`'checked-in' | …`)
+  - id: named
+    label: Un objet d'arguments nommés (`{ from, to }`)
+  - id: ctor
+    label: Un constructeur qui exige le passager
+  - id: shared
+    label: Une seule implémentation partagée et versionnée (ou le calcul côté serveur uniquement)

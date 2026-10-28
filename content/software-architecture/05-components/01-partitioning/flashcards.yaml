@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Trois portées de composant ?"
+    back: "Bibliothèque (même mémoire, appel de fonction), sous-système/couche, service (propre espace, réseau)."
+    concept: arch-component
+  - id: fc2
+    front: "Rôle de l'architecte envers les composants ?"
+    back: "Les définir, raffiner, gérer et gouverner, sans micro-gérer les classes."
+    concept: arch-architect-components
+  - id: fc3
+    front: "Partitionnement technique vs par domaine ?"
+    back: "Technique : par capacités (présentation, règles, persistance). Domaine : par workflows (catalogue, paiement…)."
+    concept: arch-technical-vs-domain
+  - id: fc4
+    front: "Monolithe modulaire ?"
+    back: "Un déployable et une base, découpés par domaines plutôt que par couches (Simon Brown)."
+    concept: arch-technical-vs-domain
+  - id: fc5
+    front: "Loi de Conway ?"
+    back: "Les organisations produisent des designs qui copient leurs structures de communication."
+    concept: arch-conway
+  - id: fc6
+    front: "Avantages du partitionnement par domaine ?"
+    back: "Modèle le métier, équipes par domaine, aligné sur monolithe modulaire et microservices, migration facile."
+    concept: arch-partition-tradeoffs
+  - id: fc7
+    front: "Inconvénient principal du partitionnement par domaine (Silicon Sandwiches) ?"
+    back: "Le code de personnalisation se retrouve à plusieurs endroits."
+    concept: arch-partition-tradeoffs

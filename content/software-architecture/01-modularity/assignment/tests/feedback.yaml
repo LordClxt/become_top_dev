@@ -1,0 +1,33 @@
+blocks:
+  metrics:
+    tolerance:
+      abs: 0.011
+    options:
+      bidding.i: bidding importe 3 modules et personne ne l'importe.
+      bidding.d: A = 0,2 et I = 1.
+      auction.i: auction importe 2 modules et est importé par bidding et video.
+      auction.d: A = 0,5 et I = 0,5.
+      users.i: users importe money et est importé par bidding et auction.
+      users.d: A = 0,25, I = 1/3.
+  worst:
+    options:
+      video-useless: 'video a I = 1 et A = 0 : D = 0, il est sur la droite (instable et concret, c''est normal).'
+      auction-pain: 'auction a A = 0,5 et I = 0,5 : D = 0.'
+      bidding-useless: 'bidding : A = 0,2, I = 1, D = 0,2, assez près de la droite.'
+  lcom:
+    wrong: bids et highest relient place, leader, history ; ffmpegPath et auditKey ne servent chacun qu'une méthode.
+  split:
+    options:
+      history: 'history partage bids avec place et leader : la sortir créerait du couplage.'
+      nothing: 'Le thème commun ne suffit pas : transcode et sign ne partagent aucun état avec le reste.'
+  crossing:
+    options:
+      x1: Les deux côtés doivent s'accorder sur ce que signifie le nombre.
+      x2: Le même calcul doit être exécuté à l'identique des deux côtés.
+      x3: Deux valeurs qui doivent changer ensemble.
+      x4: Les deux côtés s'accordent seulement sur un nom de champ.
+  first:
+    options:
+      x4: 'La connascence de nom est la plus faible : elle n''est pas prioritaire.'
+      x1: Une connascence de sens à grande distance est dangereuse, mais elle reste statique et se corrige par un type (Cents) ; les valeurs liées
+        demandent une transaction distribuée.

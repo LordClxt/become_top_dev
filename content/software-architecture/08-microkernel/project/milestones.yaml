@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Registre et contrat"
+    goal: "Enregistrer, lister et retirer des plug-ins ; localiser le plug-in d'un appareil, lui passer ses données, et vérifier que sa réponse respecte le contrat."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Adaptateur et indépendance"
+    goal: "Adapter un plug-in tiers au contrat standard, reconnaître la convention app/plugin/<domaine>/<contexte>, et signaler tout import d'un plug-in vers un autre plug-in ou vers la base centrale."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Plug-ins distants"
+    goal: "Abandonner un plug-in distant qui dépasse son délai, et évaluer un lot en parallèle sans qu'une panne de plug-in emporte les autres."
+    tests: "tstest M3"
+    review: true
+    prompt: "Un plug-in distant transforme le microkernel en système distribué sans créer de quantum supplémentaire. Quelles autres protections de la leçon sur les erreurs du distribué (module 06) faudrait-il ajouter à remotePlugin en production ?"

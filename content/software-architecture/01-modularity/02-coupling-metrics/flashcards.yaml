@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Ca et Ce ?"
+    back: "Ca (afférent) = connexions entrantes ; Ce (efférent) = connexions sortantes."
+    concept: arch-afferent-efferent
+  - id: fc2
+    front: "Formule de l'instabilité ?"
+    back: "I = Ce / (Ce + Ca)"
+    concept: arch-instability
+  - id: fc3
+    front: "Que signifie I = 0 ?"
+    back: "Beaucoup en dépendent, il ne dépend de rien : stable, donc coûteux à changer."
+    concept: arch-instability
+  - id: fc4
+    front: "Abstraction A ?"
+    back: "Part d'éléments abstraits (interfaces, classes abstraites) parmi les éléments du module, entre 0 et 1."
+    concept: arch-abstractness
+  - id: fc5
+    front: "Distance à la séquence principale ?"
+    back: "D = |A + I − 1| ; 0 = équilibre idéal, 1 = pire."
+    concept: arch-main-sequence
+  - id: fc6
+    front: "Zone de douleur ?"
+    back: "A et I faibles : code concret dont beaucoup dépendent, rigide et pénible à changer."
+    concept: arch-main-sequence
+  - id: fc7
+    front: "Zone d'inutilité ?"
+    back: "A et I élevés : des abstractions dont personne ne dépend."
+    concept: arch-main-sequence
+  - id: fc8
+    front: "Comment utiliser au mieux ces métriques ?"
+    back: "Comme références et tendances, avec interprétation : elles mesurent, elles ne décident pas."
+    concept: arch-metric-limits

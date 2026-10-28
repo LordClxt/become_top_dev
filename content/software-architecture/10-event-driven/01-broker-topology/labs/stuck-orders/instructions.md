@@ -1,0 +1,1 @@
+Des clients se plaignent de commandes « en cours » depuis trois jours, alors que le stock a bien été décrémenté. Aucune alerte n'a sonné. Trouve la cause racine et la limite d'architecture qu'elle révèle.

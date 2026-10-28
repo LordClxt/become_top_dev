@@ -1,0 +1,44 @@
+intro: Voici huit phrases extraites du dossier d'architecture d'une **boutique en ligne**. Chacune relève d'une des quatre dimensions de la définition
+  du livre.
+blocks:
+- id: classify
+  type: match
+  title: Range chaque phrase
+  prompt: Associe chaque phrase à sa dimension.
+  items:
+  - id: s1
+    label: Le système est découpé en microservices, chacun avec sa base.
+  - id: s2
+    label: Le site doit absorber 10× le trafic normal le jour des soldes.
+  - id: s3
+    label: Aucun service ne lit directement la base d'un autre service.
+  - id: s4
+    label: Entre services, privilégier la messagerie asynchrone.
+  - id: s5
+    label: On doit pouvoir mettre en production dix fois par jour.
+  - id: s6
+    label: Tout appel venant de l'extérieur passe par la gateway.
+  - id: s7
+    label: De préférence, pas de cache partagé entre équipes.
+  - id: s8
+    label: Le back-office est une application en couches.
+  categories:
+  - id: structure
+    label: Structure (style)
+  - id: characteristic
+    label: Caractéristique
+  - id: decision
+    label: Décision (règle)
+  - id: principle
+    label: Principe (guide)
+- id: variance
+  type: choice
+  title: Qui a besoin d'une variance ?
+  prompt: L'équipe Paiement veut, pour une raison de performance, lire en direct la base du service Commandes. Que doit-elle faire ?
+  options:
+  - id: ask
+    label: Demander une variance à l'ARB, avec ses justifications et trade-offs
+  - id: just
+    label: Le faire et l'expliquer dans la description de sa pull request
+  - id: principle
+    label: 'Le faire : c''est un principe, une bonne raison suffit'

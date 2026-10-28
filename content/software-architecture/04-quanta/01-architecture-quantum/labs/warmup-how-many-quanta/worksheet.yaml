@@ -1,0 +1,32 @@
+intro: Pour chaque topologie, compte les quanta d'architecture.
+blocks:
+- id: count
+  type: table
+  title: Compte
+  prompt: Complète le nombre de quanta.
+  columns:
+  - id: topology
+    label: Topologie
+  - id: quanta
+    label: Quanta
+  rows:
+  - id: t1
+    label: '1'
+    cells:
+      topology: Un monolithe en couches et sa base PostgreSQL.
+  - id: t2
+    label: '2'
+    cells:
+      topology: Six services déployés séparément qui lisent et écrivent tous la même base.
+  - id: t3
+    label: '3'
+    cells:
+      topology: Trois services, chacun sa base ; ils ne communiquent que par événements via Kafka ; chacun a ses propres écrans.
+  - id: t4
+    label: '4'
+    cells:
+      topology: Trois services, chacun sa base ; A appelle B en REST et attend la réponse ; C reçoit des événements de B.
+  - id: t5
+    label: '5'
+    cells:
+      topology: Enchères et Paiement, chacun sa base ; Enchères dépose les demandes de paiement dans une file.

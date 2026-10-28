@@ -1,0 +1,14 @@
+blocks:
+  fallacies:
+    options:
+      p1: Supposer que le réseau ne tombe pas, c'est la toute première erreur.
+      p2: Chaque appel distant coûte des millisecondes, et sa queue de distribution.
+      p3: Renvoyer l'objet complet, c'est du couplage de tampon.
+      p4: Chaque endpoint doit être sécurisé, même à l'intérieur.
+      p5: Elle change sans prévenir, souvent à 2 h du matin.
+      p6: Lequel ? Il y en a des dizaines.
+      p7: 'Gateways, pare-feu, sous-réseaux, proxies : tout cela coûte.'
+      p8: Plusieurs fournisseurs, des paquets perdus.
+  forgotten:
+    options:
+      css: Rien à voir avec le distribué.

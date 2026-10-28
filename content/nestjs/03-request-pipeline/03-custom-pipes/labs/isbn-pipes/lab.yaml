@@ -1,0 +1,12 @@
+id: nest-ch03-l03-lab-isbn-pipes
+title: "Des pipes qui comprennent les ISBN"
+kind: code
+language: nestjs
+difficulty: 3
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "nesttest"
+files_editable: ["pipes.ts"]
+concepts: [nest-custom-pipes, nest-pipe-chain, nest-entity-pipe]
+verified: { at: 2026-10-17, solution: pass, starter: fail }

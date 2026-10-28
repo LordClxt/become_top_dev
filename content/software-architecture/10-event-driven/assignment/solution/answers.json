@@ -1,0 +1,21 @@
+{
+  "topologies": {
+    "offer": "broker",
+    "close": "mediator",
+    "gold": "broadcast"
+  },
+  "accept": "rr",
+  "losses": [
+    "persist",
+    "ack",
+    "lps"
+  ],
+  "close-steps": [
+    "charge",
+    "invoice",
+    "ship",
+    "done"
+  ],
+  "fail": "stop",
+  "quanta": "same"
+}

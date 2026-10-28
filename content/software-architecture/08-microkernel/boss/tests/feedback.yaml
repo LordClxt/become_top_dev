@@ -1,0 +1,30 @@
+blocks:
+  split:
+    options:
+      s1: 'Le formulaire principal pilote le calcul : c''est le cœur.'
+      s4: 'La sauvegarde est commune à tous : chemin nominal.'
+  newlaw:
+    options:
+      core: Le cœur reprendrait la complexité que les plug-ins doivent absorber.
+      all: 'Les annexes sont indépendantes : aucune n''a à changer.'
+  partner:
+    options:
+      if: Le cœur commencerait à connaître chaque annexe.
+      rewrite: 'Inutile et souvent impossible : l''adaptateur est fait pour ça.'
+  remote:
+    options:
+      blocking: 'Une panne chez le partenaire empêcherait toute déclaration : c''est construire de la fragilité.'
+      none: C'est possible ; c'est même l'exemple du livre (AuditChecker).
+  data:
+    options:
+      direct: Chaque changement de format du dossier toucherait toutes les annexes.
+      each-other: Les plug-ins ne dépendent pas les uns des autres.
+  registry:
+    options:
+      code: Le registre dit où et comment joindre le plug-in, pas ce qu'il contient.
+  ratings:
+    options:
+      r1: 'Comme les couches : ses points forts.'
+      r2: Ajouter ou retirer une annexe est facile.
+      r3: Faible, mais un logiciel installé sur un poste n'en a pas besoin.
+      r4: Toute requête passe par le cœur.

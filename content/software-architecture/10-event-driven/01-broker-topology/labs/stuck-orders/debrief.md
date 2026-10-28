@@ -1,0 +1,3 @@
+**312 commandes perdues sans bruit.** Payment a planté avec des messages déjà retirés de la file (acquittement automatique) ; ils n'ont jamais été traités. Pendant ce temps, Inventory décrémentait le stock et Notification envoyait les e-mails, comme si tout allait bien. Et comme personne ne possède l'état d'une commande en broker, personne ne l'a vu.
+
+Trois remèdes complémentaires : l'**acquittement client** (aucun message perdu sur un plantage, leçon 3), un **gardien** qui détecte les commandes sans paiement, et pour un workflow aussi critique, la **topologie médiateur**, qui suit l'état, voit l'erreur et reprend.

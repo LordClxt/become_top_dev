@@ -1,0 +1,7 @@
+id: arch-ch09-expired-card
+concept: arch-sb-acid
+format: hyperframes
+justification: "La même commande à carte expirée jouée côte à côte (un rollback dans un service, une commande fantôme et un stock incertain entre trois services) montre l'écart ACID/BASE en un regard."
+entry: scene.html
+duration_s: 14
+status: built

@@ -1,0 +1,73 @@
+intro: |
+  Premier passage des outils sur le monolithe :
+  - **38 cycles** entre packages ;
+  - la fonction `pricingEngine` : graphe de flot à **96 nœuds** et **131 arêtes** ;
+  - 12 fonctions au-dessus de CC 10 ;
+  - latences du paiement sur une heure : 9 940 requêtes à 120 ms, 50 à 2 s, 10 à 9 s.
+
+  L'équipe découvre ces outils et livre une fonctionnalité par semaine.
+blocks:
+- id: cc
+  type: number
+  title: pricingEngine
+  prompt: Quelle est la complexité cyclomatique de `pricingEngine` ?
+  unit: ''
+- id: p99
+  type: number
+  title: Le p99 du paiement
+  prompt: Que vaut le p99 des latences du paiement, en millisecondes (rang le plus proche) ?
+  unit: ms
+- id: p999
+  type: number
+  title: Le p99,9 du paiement
+  prompt: Et le p99,9 ?
+  unit: ms
+- id: ratchet
+  type: choice
+  title: Une pull request
+  prompt: La référence du cliquet compte 38 cycles. Une pull request en supprime 3 et en crée 1 nouveau. Que fait la CI ?
+  options:
+  - id: reject
+    label: 'Elle refuse : un cycle nouveau, absent de la référence, est une aggravation, même si le total baisse'
+  - id: accept
+    label: 'Elle accepte : 36 < 38'
+  - id: ignore
+    label: Elle ignore les cycles tant qu'il y en a plus de 30
+- id: after
+  type: number
+  title: La nouvelle référence
+  prompt: La pull request est corrigée (le cycle nouveau est cassé) puis fusionnée. Combien de cycles compte la nouvelle référence ?
+  unit: cycles
+- id: rollout
+  type: order
+  title: Le plan d'adoption
+  prompt: Range les étapes dans l'ordre.
+  items:
+  - id: explain
+    label: Présenter aux développeurs le but de chaque fitness function, avec les mesures actuelles
+  - id: baseline
+    label: Enregistrer les violations actuelles comme référence (cliquet)
+  - id: block
+    label: Rendre la CI bloquante pour toute violation nouvelle
+  - id: tighten
+    label: Retirer chaque violation corrigée de la référence, sprint après sprint
+- id: where
+  type: match
+  title: Où vérifier ?
+  prompt: Associe chaque règle au moment où elle doit s'exécuter.
+  items:
+  - id: cycles
+    label: Aucun cycle nouveau
+  - id: cc
+    label: Aucune fonction nouvelle au-dessus de CC 10
+  - id: latency
+    label: p99,9 du paiement < 2 s
+  - id: zone
+    label: Le paiement survit à la perte d'une instance
+  categories:
+  - id: commit
+    label: À chaque commit, dans la CI
+  - id: prod
+    label: En continu, en production
+  - id: chaos
+    label: Par une panne provoquée, régulièrement

@@ -1,0 +1,17 @@
+blocks:
+  groups:
+    wrong: 'Suis les champs : plan et renewsAt relient upgrade, isActive et price ; stripeKey relie deux méthodes ; smtpHost deux autres.'
+  billing:
+    options:
+      upgrade: upgrade touche plan et renewsAt, pas stripeKey.
+      price: price lit plan, pas stripeKey.
+      sendInvoice: sendInvoice utilise smtpHost.
+  extract:
+    options:
+      seven: 'Les méthodes d''un même groupe partagent un état : les séparer créerait du couplage (Constantine).'
+      none: 'Recompte : certaines méthodes ne partagent aucun champ avec les autres.'
+      two: 'Ce découpage ne suit pas les champs partagés : chaque moitié garderait plusieurs groupes.'
+  pure:
+    options:
+      split: 'Ces fonctions s''appellent entre elles : les séparer créerait du couplage entre cinq modules pour un gain nul.'
+      class: Tromper la métrique ne change rien à la structure ; LCOM n'est qu'un indicateur.

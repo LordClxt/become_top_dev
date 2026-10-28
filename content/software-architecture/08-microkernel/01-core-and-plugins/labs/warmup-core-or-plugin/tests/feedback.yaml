@@ -1,0 +1,13 @@
+blocks:
+  pieces:
+    options:
+      l1: 'Commun à tous les appareils : le chemin nominal.'
+      l2: 'Propre à un modèle : un plug-in.'
+      l3: 'C''est le travail du cœur : consulter le registre.'
+      l4: Propre à un modèle.
+      l5: Le cœur affiche le rapport sans l'interpréter.
+      l6: Propre à un modèle.
+  loading:
+    options:
+      c1: 'On redéploie tout deux fois par an : la simplicité l''emporte.'
+      c2: Ajouter sans arrêter le service, c'est le chargement à l'exécution.

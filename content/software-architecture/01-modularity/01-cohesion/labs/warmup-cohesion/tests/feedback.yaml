@@ -1,0 +1,9 @@
+blocks:
+  modules:
+    options:
+      m1: 'Tout sert une seule fonction, et la fonction est complète : c''est le meilleur niveau.'
+      m2: La sortie de l'un devient l'entrée de l'autre.
+      m3: 'Ces tâches n''ont qu''un point commun : le moment où elles s''exécutent.'
+      m4: Des opérations sur le même thème mais sans fonction commune, comme StringUtils.
+      m5: Aucun lien entre ces éléments, sinon le fichier.
+      m6: Une chaîne qui travaille sur la même information (enregistrer, puis notifier).

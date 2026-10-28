@@ -1,0 +1,77 @@
+intro: |
+  **Option A (technique)** : `web`, `api`, `domain-rules`, `persistence`.
+  **Option B (par domaine)** : `catalog`, `enrollment`, `learning` (lecteur de cours, quiz), `certification`, `billing`, chacun avec ses couches internes.
+
+  Évolutions prévues sur l'année :
+  - 40 % : nouvelles fonctionnalités pédagogiques (exercices, quiz) ;
+  - 25 % : évolutions de l'inscription et des tarifs ;
+  - 20 % : nouvelles règles de certification ;
+  - 15 % : changement transverse de la charte graphique de tous les écrans.
+blocks:
+- id: ripples
+  type: table
+  title: Composants touchés par évolution type
+  prompt: 'Complète (option A : un workflow traverse web, api, domain-rules et persistence ; la charte graphique ne touche que la présentation).'
+  columns:
+  - id: a
+    label: Option A
+  - id: b
+    label: Option B
+  rows:
+  - id: pedago
+    label: Fonctionnalité pédagogique
+    cells: {}
+  - id: enroll
+    label: Inscription et tarifs (inscription + facturation)
+    cells: {}
+  - id: certif
+    label: Règle de certification
+    cells: {}
+  - id: theme
+    label: Charte graphique de tous les écrans
+    cells: {}
+- id: weighted
+  type: table
+  title: Impact moyen pondéré
+  prompt: Calcule le nombre moyen de composants touchés par évolution, pondéré par la fréquence (deux décimales).
+  columns:
+  - id: avg
+    label: Moyenne pondérée
+  rows:
+  - id: a
+    label: Option A
+    cells: {}
+  - id: b
+    label: Option B
+    cells: {}
+- id: choose
+  type: choice
+  title: Ta décision
+  prompt: Quelle option retenir ?
+  options:
+  - id: b
+    label: 'B : les évolutions les plus fréquentes restent locales ; on accepte que la charte graphique touche tous les domaines'
+  - id: a
+    label: 'A : la charte graphique est plus simple à changer'
+- id: teams
+  type: choice
+  title: Et les équipes ?
+  prompt: L'entreprise a aujourd'hui une équipe front, une équipe back et un DBA. Que faire avec l'option B ?
+  options:
+  - id: inverse
+    label: Réorganiser en équipes pluridisciplinaires par domaine (manœuvre inverse de Conway)
+  - id: keep
+    label: 'Garder les équipes actuelles : l''architecture suffit'
+  - id: more
+    label: Recruter une équipe par couche supplémentaire
+- id: trap
+  type: choice
+  title: Une contre-proposition
+  prompt: 'Un collègue propose : `CourseManager`, `StudentManager`, `QuizManager`, `InvoiceManager`, `CertificateManager`. Qu''en dis-tu ?'
+  options:
+  - id: trap
+    label: 'C''est le piège des entités : un Manager par table, sans workflows'
+  - id: domain
+    label: C'est un bon partitionnement par domaine
+  - id: technical
+    label: C'est un partitionnement technique

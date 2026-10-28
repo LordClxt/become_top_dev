@@ -1,0 +1,18 @@
+blocks:
+  cause:
+    options:
+      cpu: '31 % de CPU : les instances attendent, elles ne calculent pas.'
+      db: Aucune métrique ne désigne la base ; la commande n'y arrive même pas tant que le trafic n'a pas répondu.
+      ddos: 950 requêtes/min, c'est le pic normal du midi.
+  rate:
+    tolerance:
+      abs: 0.5
+    wrong: 950 commandes par minute, c'est combien par seconde ? Retire les 10 garanties.
+  fix:
+    options:
+      morecpu: 'La CPU n''est pas le goulot : plus de CPU attendrait aussi.'
+      morepool: 'Plus de connexions en attente vers un service limité à 10 req/s : la file grossit, le problème aussi.'
+  lesson:
+    options:
+      elastic: 'Plus d''instances ouvriraient plus de connexions vers le même service lent : l''élasticité ne corrige pas une dépendance bloquante.'
+      vendor: Le service apporte de la valeur ; c'est d'en faire une condition qui pose problème.

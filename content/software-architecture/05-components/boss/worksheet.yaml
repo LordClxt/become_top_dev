@@ -1,0 +1,92 @@
+intro: |
+  **Description** : un grand festival de musique lance une plateforme de covoiturage pour ses 200 000 festivaliers.
+
+  **Exigences** :
+  - Les conducteurs publient un trajet (départ, places, prix) ; les passagers cherchent et réservent une place.
+  - Le jour du départ, les passagers suivent la position du conducteur en direct sur une carte.
+  - Le paiement passe par un prestataire ; le conducteur est payé après le trajet.
+  - L'équipe sécurité du festival voit en direct les alertes déclenchées par un bouton d'urgence.
+
+  **Contexte** : 80 % des réservations ont lieu dans les 48 heures qui suivent l'annonce de la programmation ; le bouton d'urgence doit fonctionner même si tout le reste est saturé ; une petite équipe de six développeurs.
+blocks:
+- id: actions
+  type: match
+  title: Acteurs et actions
+  prompt: Associe chaque action à son acteur.
+  items:
+  - id: a1
+    label: Publier un trajet
+  - id: a2
+    label: Réserver une place
+  - id: a3
+    label: Suivre la position du conducteur
+  - id: a4
+    label: Déclencher une alerte d'urgence
+  - id: a5
+    label: Payer le conducteur après le trajet
+  - id: a6
+    label: Voir les alertes en direct
+  categories:
+  - id: driver
+    label: Conducteur
+  - id: passenger
+    label: Passager
+  - id: security
+    label: Équipe sécurité
+  - id: system
+    label: Système
+- id: trap
+  type: choice
+  title: Une première proposition
+  prompt: Un collègue propose `UserManager`, `TripManager`, `BookingManager`, `PaymentManager`, `AlertManager`. Que réponds-tu ?
+  options:
+  - id: trap
+    label: 'Piège des entités : partons des actions (publication, réservation, suivi, urgence, règlement)'
+  - id: ok
+    label: Parfait, c'est un découpage par domaine
+  - id: fewer
+    label: Il faut fusionner en deux Managers
+- id: split
+  type: multi
+  title: Qui doit être séparé ?
+  prompt: Quelles parties ont des caractéristiques assez différentes pour justifier des composants (et des quanta) séparés ?
+  options:
+  - id: emergency
+    label: 'L''urgence : disponibilité maximale, même quand le reste est saturé'
+  - id: booking
+    label: 'La réservation : élasticité pour le rush des 48 heures'
+  - id: tracking
+    label: 'Le suivi de position : flux en temps réel, en lecture pour les passagers'
+  - id: profile
+    label: L'édition du profil utilisateur
+- id: shape
+  type: choice
+  title: Monolithe ou distribué ?
+  prompt: Que décider, vu ces caractéristiques et une équipe de six ?
+  options:
+  - id: hybrid
+    label: 'Distribué, mais avec peu de quanta : l''urgence isolée, la réservation élastique, le reste regroupé'
+  - id: monolith
+    label: Un monolithe en couches unique, pour la simplicité
+  - id: micro
+    label: Un microservice par entité, une vingtaine au total
+- id: partition
+  type: choice
+  title: Le partitionnement à l'intérieur
+  prompt: Pour la partie regroupée (publication, profil, règlement), quel partitionnement de haut niveau ?
+  options:
+  - id: domain
+    label: Par domaine (monolithe modulaire), pour pouvoir en extraire un domaine plus tard
+  - id: technical
+    label: Par couches techniques
+- id: granularity
+  type: choice
+  title: Granularité
+  prompt: Pourquoi ne pas faire une vingtaine de microservices ?
+  options:
+  - id: chatty
+    label: 'Trop fin pour six développeurs : trop de communication et d''exploitation pour un gain nul'
+  - id: never
+    label: Les microservices sont toujours une erreur
+  - id: db
+    label: Parce qu'il n'y aurait pas assez de bases

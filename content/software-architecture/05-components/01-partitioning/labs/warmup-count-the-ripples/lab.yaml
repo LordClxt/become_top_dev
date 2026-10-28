@@ -1,0 +1,15 @@
+id: arch-ch05-l01-lab-warmup-count-the-ripples
+title: 'Échauffement : compter les ondes de choc'
+difficulty: 1
+xp: 40
+concepts:
+- arch-technical-vs-domain
+- arch-partition-tradeoffs
+source:
+  chapter: 8
+  pages: 122-127
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

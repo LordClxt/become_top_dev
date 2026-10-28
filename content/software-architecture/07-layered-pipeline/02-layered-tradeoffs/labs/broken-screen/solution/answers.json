@@ -1,0 +1,9 @@
+{
+  "cause": "bypass",
+  "rule": [
+    "fitness",
+    "variance",
+    "dto"
+  ],
+  "perf": "measure"
+}

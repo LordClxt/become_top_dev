@@ -1,0 +1,14 @@
+id: arch-ch00-project
+title: "archkit v1 — la fitness function de couches"
+pitch: "Le premier outil d'archkit : il lit un graphe d'imports, attrape toute dépendance qui viole les couches, et gère les variances accordées par l'ARB."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 3
+xp: 220
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["layers.ts"]
+concepts: [arch-compliance-fitness, arch-variance, arch-decision-vs-principle]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

@@ -1,0 +1,10 @@
+{
+  "cc": {
+    "A.cc": 6,
+    "B.cc": 5,
+    "C.cc": 4
+  },
+  "graph": 4,
+  "tests": 6,
+  "refactor": "table"
+}

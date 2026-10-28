@@ -1,0 +1,14 @@
+{
+  "ctx": {
+    "a.channel": "topic",
+    "a.factor": "extensibilite",
+    "b.channel": "files",
+    "b.factor": "securite",
+    "c.channel": "files",
+    "c.factor": "scalabilite"
+  },
+  "hidden": [
+    "tap",
+    "contract"
+  ]
+}

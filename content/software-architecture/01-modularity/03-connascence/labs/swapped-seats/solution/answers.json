@@ -1,0 +1,13 @@
+{
+  "causeA": "position",
+  "causeB": "meaning",
+  "why-green": [
+    "unit",
+    "types"
+  ],
+  "fixes": {
+    "A": "named",
+    "B": "union"
+  },
+  "locality": "locality"
+}

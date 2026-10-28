@@ -1,0 +1,3 @@
+**Le test de la connaissance métier sépare le domaine de l'architecture** : « réputation » et « lot invendu » demandent un expert métier ; « frénésie de fin de vente » (élasticité) et « ordre des offres » (fiabilité) se discutent dans l'abstrait.
+
+Les trois quanta ont des profils très différents : le commissaire-priseur cumule six caractéristiques parce qu'il est le **point critique** (sans lui, aucune enchère) ; le retour enchérisseur, qui diffuse en lecture, n'en a besoin que de trois. Une liste unique pour tout le système aurait soit sur-protégé la diffusion, soit sous-protégé le commissaire-priseur.

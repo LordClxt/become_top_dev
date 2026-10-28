@@ -1,0 +1,15 @@
+{
+  "proposals": {
+    "p1": "bad",
+    "p2": "bad",
+    "p3": "bad",
+    "p4": "good"
+  },
+  "why-p1": "one",
+  "fix-p3": "adapter",
+  "registry": {
+    "r1": "local",
+    "r2": "queue",
+    "r3": "rest"
+  }
+}

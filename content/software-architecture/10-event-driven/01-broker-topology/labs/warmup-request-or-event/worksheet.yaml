@@ -1,0 +1,48 @@
+intro: Un site d'enchères et sa boutique annexe.
+blocks:
+- id: kind
+  type: match
+  title: Requête ou événement ?
+  prompt: Classe chaque interaction.
+  items:
+  - id: i1
+    label: Afficher les enchères remportées l'an dernier
+  - id: i2
+    label: Une offre est placée sur le lot 42
+  - id: i3
+    label: Le commissaire-priseur adjuge le lot
+  - id: i4
+    label: Consulter le profil d'un vendeur
+  - id: i5
+    label: Le cours de l'or change (il influence l'estimation des bijoux)
+  - id: i6
+    label: Lister les lots d'une vente à venir
+  categories:
+  - id: request
+    label: Modèle par requêtes
+  - id: event
+    label: Modèle par événements
+- id: flow
+  type: order
+  title: Le flux broker de la boutique
+  prompt: Range les événements de traitement dans l'ordre où ils apparaissent pour une commande payée.
+  items:
+  - id: created
+    label: order-created
+  - id: paid
+    label: payment-applied
+  - id: fulfilled
+    label: order-fulfilled
+  - id: shipped
+    label: order-shipped
+- id: nobody
+  type: choice
+  title: Un événement sans abonné
+  prompt: Notification publie `email-sent`, que personne n'écoute. Que faire ?
+  options:
+  - id: keep
+    label: 'Le garder : c''est un point d''extension pour un futur processeur'
+  - id: drop
+    label: 'Le supprimer : il gaspille des ressources'
+  - id: queue
+    label: Le remplacer par une file point à point

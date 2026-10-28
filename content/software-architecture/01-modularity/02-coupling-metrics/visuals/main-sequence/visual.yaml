@@ -1,0 +1,9 @@
+id: arch-ch01-main-sequence
+concept: arch-main-sequence
+format: interactive
+justification: "Déplacer un module en ajoutant des dépendants ou des abstractions et le voir glisser vers la zone de douleur ou d'inutilité rend la formule D = |A + I − 1| tangible."
+entry: MainSequence.tsx
+params:
+  - { name: dependents, type: int, min: 0, max: 12, default: 8 }
+  - { name: abstractions, type: int, min: 0, max: 10, default: 0 }
+status: built

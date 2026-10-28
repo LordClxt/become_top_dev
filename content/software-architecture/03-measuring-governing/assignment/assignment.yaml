@@ -1,0 +1,18 @@
+id: arch-ch03-assignment
+title: Rendre Going, Going, Gone mesurable
+difficulty: 3
+xp: 140
+concepts:
+- arch-objective-definitions
+- arch-average-vs-percentiles
+- arch-performance-budgets
+- arch-fitness-mechanisms
+- arch-process-measures
+source:
+  chapter: 6
+  pages: 97-110
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

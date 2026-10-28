@@ -1,0 +1,21 @@
+id: arch-ch03-boss
+title: 'Boss : la suite de gouvernance'
+difficulty: 4
+xp: 300
+time_limit_min: 45
+concepts:
+- arch-fitness-mechanisms
+- arch-cycle-detection
+- arch-cc-formula
+- arch-cc-thresholds
+- arch-average-vs-percentiles
+- arch-fitness-collaboration
+- arch-governance
+source:
+  chapter: 6
+  pages: 97-110
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

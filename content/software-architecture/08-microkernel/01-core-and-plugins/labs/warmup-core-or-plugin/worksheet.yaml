@@ -1,0 +1,38 @@
+intro: Le service reçoit un appareil, l'évalue, propose un prix ou un recyclage, et notifie le client.
+blocks:
+- id: pieces
+  type: match
+  title: Où vit chaque logique ?
+  prompt: Associe chaque morceau de logique à sa place.
+  items:
+  - id: l1
+    label: Enregistrer l'arrivée d'un appareil et son numéro de série
+  - id: l2
+    label: Tester l'usure de la batterie d'un iPhone 6s
+  - id: l3
+    label: Trouver le plug-in correspondant à un modèle
+  - id: l4
+    label: Calculer la décote d'un Galaxy 5 selon l'état de l'écran
+  - id: l5
+    label: Afficher le rapport d'évaluation au client
+  - id: l6
+    label: Vérifier le verrouillage iCloud d'un iPad
+  categories:
+  - id: core
+    label: Système cœur
+  - id: plugin
+    label: Plug-in
+- id: loading
+  type: match
+  title: Compilation ou exécution ?
+  prompt: Quel mode de chargement des plug-ins pour chaque contexte ?
+  items:
+  - id: c1
+    label: Un logiciel installé chez les clients, livré deux fois par an
+  - id: c2
+    label: Une plateforme qui doit ajouter le plug-in d'un nouveau modèle le jour de sa sortie, sans arrêt de service
+  categories:
+  - id: compile
+    label: À la compilation (simple, tout redéployer)
+  - id: runtime
+    label: À l'exécution (à chaud, avec un framework)

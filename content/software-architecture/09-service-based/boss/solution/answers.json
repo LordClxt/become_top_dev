@@ -1,0 +1,18 @@
+{
+  "scale": [
+    "search",
+    "booking"
+  ],
+  "booking-tx": "facade",
+  "libs": {
+    "offers.n": 3,
+    "bookings.n": 4,
+    "travellers.n": 6,
+    "single.n": 6
+  },
+  "zones": "two",
+  "weak": [
+    "elastic",
+    "finegrain"
+  ]
+}

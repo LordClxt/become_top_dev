@@ -1,0 +1,10 @@
+{
+  "cause": "fragile",
+  "rate": 6,
+  "fix": [
+    "optional",
+    "timeout",
+    "async"
+  ],
+  "lesson": "fragility"
+}

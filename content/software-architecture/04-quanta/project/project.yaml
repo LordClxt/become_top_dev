@@ -1,0 +1,14 @@
+id: arch-ch04-project
+title: "archkit v5 — le calculateur de quanta"
+pitch: "Compter les quanta d'une topologie, profiler leurs caractéristiques, repérer les appels synchrones qui alignent un service élastique sur un service lent, et chiffrer ce que change une file."
+running_project: archkit
+kind: code
+language: typescript
+difficulty: 4
+xp: 260
+timeout_s: 60
+entrypoint: starter/
+test_command: "tstest"
+files_editable: ["quanta.ts"]
+concepts: [arch-quantum-counting, arch-sync-alignment, arch-async-decoupling, arch-quanta-per-characteristics]
+verified: { at: 2026-10-21, solution: pass, starter: fail }

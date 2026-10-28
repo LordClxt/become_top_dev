@@ -1,0 +1,16 @@
+id: arch-ch06-l01-lab-warmup-name-the-style
+title: 'Échauffement : nommer le style'
+difficulty: 1
+xp: 40
+concepts:
+- arch-big-ball-of-mud
+- arch-client-server
+- arch-monolithic-distributed
+source:
+  chapter: 9
+  pages: 140-144
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

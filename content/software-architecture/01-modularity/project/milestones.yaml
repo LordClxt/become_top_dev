@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Couplage entre packages"
+    goal: "Regrouper les fichiers par dossier, compter Ca et Ce entre packages distincts (une dépendance compte une fois, les imports internes et externes sont ignorés) et calculer l'instabilité."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Abstraction, distance et zones"
+    goal: "Additionner les éléments abstraits et concrets d'un package, calculer A et D arrondis, et classer chaque package : zone de douleur, zone d'inutilité ou séquence principale selon un seuil."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "LCOM"
+    goal: "Regrouper les méthodes d'une classe reliées de proche en proche par des champs partagés, en temps quasi linéaire."
+    tests: "tstest M3"
+    review: true
+    prompt: "Pourquoi ignorer les imports vers des packages hors du code analysé (node_modules) plutôt que les compter dans Ce ? Dans quel cas la zone « pain » renvoyée par l'outil serait-elle un faux positif ?"

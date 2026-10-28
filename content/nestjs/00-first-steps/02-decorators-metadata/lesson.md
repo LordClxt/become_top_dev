@@ -84,7 +84,7 @@ Le compilateur ne peut émettre que ce qui existe à l'exécution. Trois cas cas
 |---|---|---|
 | `constructor(repo: BooksRepository)` avec une **interface** | `Object` | Nest cherche un provider `Object` : introuvable |
 | `import type { BooksService }` puis `constructor(s: BooksService)` | `Object` | même échec, la classe n'est pas importée comme valeur |
-| deux fichiers qui s'importent mutuellement | `undefined` | « the argument at index [0] … appears to be undefined at runtime » |
+| deux fichiers qui s'importent mutuellement | la classe pas encore initialisée | ESM : `ReferenceError: Cannot access … before initialization` au chargement ; CommonJS : `undefined`, puis « the argument at index [0] … appears to be undefined » |
 
 Pour injecter une abstraction, il faut donc un jeton qui existe à l'exécution : une classe abstraite, ou un `@Inject('BOOKS_REPOSITORY')` avec une chaîne ou un symbole (module 02).
 
@@ -93,7 +93,7 @@ Pour injecter une abstraction, il faut donc un jeton qui existe à l'exécution 
 Ce que tsc génère pour `@Injectable() class Shop { constructor(clock: Clock) {} }` avec `emitDecoratorMetadata` : un appel `__decorate([Injectable(), __metadata("design:paramtypes", [Clock])], Shop)`. Deux choses en découlent :
 
 - `@Injectable()` pose la marque `__injectable__` sur la classe ; mais surtout, sa **présence** fait écrire `design:paramtypes`. Une classe sans aucun décorateur n'a pas de `design:paramtypes` : Nest croit son constructeur sans paramètre, l'appelle sans argument, et les dépendances valent `undefined`, **sans erreur au démarrage**. C'est le TP de débogage de cette leçon.
-- `[Clock]` est évalué au chargement du fichier. Si `Clock` vient d'un `import type`, tsc écrit `Object` ; si `Clock` n'est pas encore défini (import circulaire), la valeur est `undefined`. Dans les deux cas, l'injecteur ne trouve pas de jeton utilisable.
+- `[Clock]` est évalué au chargement du fichier. Si `Clock` vient d'un `import type`, tsc écrit `Object` ; si `Clock` n'est pas encore défini (import circulaire), Node lève une `ReferenceError` au chargement en ESM, et la valeur est `undefined` en CommonJS. Dans les deux cas, l'injecteur ne trouve pas de jeton utilisable.
 
 ## En production
 
@@ -111,5 +111,5 @@ Ce que tsc génère pour `@Injectable() class Shop { constructor(clock: Clock) {
 
 - Un décorateur pose des métadonnées ; Nest les relit au démarrage pour construire routes et dépendances.
 - `emitDecoratorMetadata` traduit les **types** des paramètres en **valeurs** (`design:paramtypes`), ce qui rend l'injection par type possible.
-- Un jeton d'injection doit exister à l'exécution : interfaces et `import type` donnent `Object`, un import circulaire donne `undefined`.
+- Un jeton d'injection doit exister à l'exécution : interfaces et `import type` donnent `Object`, un import circulaire casse le chargement (ESM) ou donne `undefined` (CommonJS).
 - La suppression de types de Node ne suffit pas pour Nest : il faut un compilateur qui émet ces métadonnées (tsc, SWC).

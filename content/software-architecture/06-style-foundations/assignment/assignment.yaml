@@ -1,0 +1,18 @@
+id: arch-ch06-assignment
+title: Faut-il distribuer la librairie en ligne ?
+difficulty: 3
+xp: 140
+concepts:
+- arch-monolithic-distributed
+- arch-fallacy-latency
+- arch-fallacy-bandwidth
+- arch-fallacy-cost-homogeneous
+- arch-distributed-concerns
+source:
+  chapter: 9
+  pages: 139-152
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

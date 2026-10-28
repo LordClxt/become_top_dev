@@ -1,0 +1,78 @@
+intro: |
+  **Going, Going, Gone** est un site d'enchères en ligne, en direct, avec vidéo, partout dans le pays. Voici des extraits du premier dossier d'architecture, rédigé par un architecte pressé.
+blocks:
+- id: dims
+  type: table
+  title: Classer les phrases du dossier
+  prompt: Pour chaque phrase, indique sa dimension (`structure`, `caracteristique`, `decision` ou `principe`) et si elle **guide** l'équipe ou
+    **impose** un choix (`guide` ou `impose`).
+  columns:
+  - id: text
+    label: Phrase
+  - id: dim
+    label: Dimension
+  - id: mode
+    label: Guide ou impose
+  rows:
+  - id: p1
+    label: '1'
+    cells:
+      text: Les enchères en fin de vente doivent supporter des pics de 50× le trafic moyen.
+  - id: p2
+    label: '2'
+    cells:
+      text: Seul Bid Tracker écrit dans la base des offres ; les autres passent par son API.
+  - id: p3
+    label: '3'
+    cells:
+      text: Préférer les échanges asynchrones entre la capture et le suivi des offres.
+  - id: p4
+    label: '4'
+    cells:
+      text: Le système est découpé en services distribués.
+- id: miracles
+  type: match
+  title: Le trade-off caché
+  prompt: Associe chaque « solution miracle » au prix qu'elle fait payer.
+  items:
+  - id: m1
+    label: « Un cache devant la base des offres, et la lecture est gratuite. »
+  - id: m2
+    label: '« Un topic pour tout : on ajoutera des consommateurs sans effort. »'
+  - id: m3
+    label: '« Chaque fonction devient un microservice : déploiements indépendants ! »'
+  - id: m4
+    label: '« Tout en asynchrone : l''enchérisseur a sa réponse en 25 ms. »'
+  categories:
+  - id: stale
+    label: Données potentiellement périmées, mémoire à gérer
+  - id: tap
+    label: Écoute indétectable, contrat unique
+  - id: network
+    label: 'Chaque appel devient réseau : latence et pannes partielles'
+  - id: errors
+    label: Erreurs découvertes après coup, à signaler autrement
+- id: caveman
+  type: choice
+  title: Une objection récurrente
+  prompt: 'À chaque revue, le directeur technique répète : « Et si le prestataire vidéo tombe pendant une vente, comme en 2016 ? On doit tout
+    héberger nous-mêmes. » La panne n''a eu lieu qu''une fois et le prestataire offre aujourd''hui un SLA de 99,99 %. Quelle lecture en fait un
+    architecte ?'
+  options:
+  - id: caveman
+    label: 'Un Frozen Caveman : un risque perçu, issu d''un incident unique, qu''il faut réévaluer avec des chiffres actuels'
+  - id: right
+    label: 'Il a raison : un incident passé suffit à interdire toute dépendance externe'
+  - id: ignore
+    label: 'Il faut ignorer le risque : un SLA garantit l''absence de panne'
+- id: why
+  type: choice
+  title: Ce qui manque au dossier
+  prompt: Le dossier contient un beau diagramme de topologie, et rien d'autre. D'après la deuxième loi, que faudra-t-il ajouter en priorité ?
+  options:
+  - id: why
+    label: Les raisons des choix et les alternatives écartées (des ADR)
+  - id: more
+    label: Des diagrammes plus détaillés
+  - id: code
+    label: Le code source des services

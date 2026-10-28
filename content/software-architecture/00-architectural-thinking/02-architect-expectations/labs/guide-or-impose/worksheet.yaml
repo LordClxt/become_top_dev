@@ -1,0 +1,64 @@
+intro: Léa vient d'être nommée architecte d'une plateforme de réservation. Voici ses premières décisions.
+blocks:
+- id: decisions
+  type: match
+  title: Décision qui guide, ou choix imposé ?
+  prompt: Classe chaque décision.
+  items:
+  - id: d1
+    label: « Le front utilisera un framework web réactif. »
+  - id: d2
+    label: « Le front sera écrit en Svelte, j'aime bien Svelte. »
+  - id: d3
+    label: « Les recherches de disponibilité passeront par un moteur de recherche dédié, la base relationnelle ne tient pas la charge mesurée.
+      »
+  - id: d4
+    label: « Les services communiqueront de préférence par messages. »
+  - id: d5
+    label: « Tout le monde utilisera la bibliothèque de logs que j'ai écrite. »
+  - id: d6
+    label: « Les données de paiement seront chiffrées par le service de coffre-fort existant, exigé par l'audit PCI. »
+  categories:
+  - id: guide
+    label: Guide le choix
+  - id: arch
+    label: Impose, mais pour une caractéristique
+  - id: tech
+    label: Impose sans raison architecturale
+- id: fitness
+  type: choice
+  title: Protéger la règle des couches
+  prompt: Léa veut garantir que la présentation n'importe jamais la persistance. Quel mécanisme est une fitness function ?
+  options:
+  - id: wiki
+    label: Une page de wiki qui explique la règle
+  - id: ci
+    label: Un test en CI qui lit le graphe d'imports et échoue sur toute dépendance présentation → persistance
+  - id: review
+    label: Une revue d'architecture trimestrielle
+  - id: meeting
+    label: Une réunion de lancement où la règle est présentée
+- id: signals
+  type: multi
+  title: Dégradation structurelle
+  prompt: Lesquels de ces signaux relèvent de l'analyse continue de l'architecture (vitalité, dégradation) ?
+  options:
+  - id: p99
+    label: Le p99 de la recherche a doublé en six mois, commit après commit
+  - id: release
+    label: Une mise en production demande trois semaines de recette manuelle
+  - id: color
+    label: Le bouton « Réserver » a changé de couleur
+  - id: market
+    label: Le métier ouvre trois pays, avec leurs propres règles fiscales
+- id: coding
+  type: choice
+  title: Rester dans le code
+  prompt: Léa veut continuer à coder. Que lui conseilles-tu ?
+  options:
+  - id: framework
+    label: Garder la main sur le framework maison, qu'elle connaît le mieux
+  - id: feature
+    label: Coder une fonctionnalité métier prévue dans deux itérations, et outiller l'équipe (fitness functions, validateurs)
+  - id: none
+    label: 'Arrêter de coder : ce n''est plus son rôle'

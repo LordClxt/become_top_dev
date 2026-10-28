@@ -1,0 +1,118 @@
+{
+  "nodes": [
+    {
+      "id": "z1",
+      "type": "z-admin",
+      "x": -40,
+      "y": -40,
+      "label": "Quantum administration",
+      "w": 420,
+      "h": 520
+    },
+    {
+      "id": "z2",
+      "type": "z-shop",
+      "x": 460,
+      "y": -40,
+      "label": "Quantum client",
+      "w": 460,
+      "h": 520
+    },
+    {
+      "id": "aui",
+      "type": "admin-ui",
+      "x": 0,
+      "y": 0,
+      "parent": "z1"
+    },
+    {
+      "id": "asvc",
+      "type": "admin-svc",
+      "x": 0,
+      "y": 160,
+      "parent": "z1"
+    },
+    {
+      "id": "cdb",
+      "type": "catalog-db",
+      "x": 0,
+      "y": 320,
+      "parent": "z1",
+      "props": {
+        "role": "primary"
+      }
+    },
+    {
+      "id": "sui",
+      "type": "shop-ui",
+      "x": 520,
+      "y": 0,
+      "parent": "z2"
+    },
+    {
+      "id": "osvc",
+      "type": "order-svc",
+      "x": 520,
+      "y": 160,
+      "parent": "z2"
+    },
+    {
+      "id": "rep",
+      "type": "replica",
+      "x": 520,
+      "y": 320,
+      "parent": "z2",
+      "props": {
+        "role": "replica"
+      }
+    },
+    {
+      "id": "odb",
+      "type": "orders-db",
+      "x": 740,
+      "y": 320,
+      "parent": "z2",
+      "props": {
+        "role": "primary"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "aui",
+      "target": "asvc",
+      "kind": "sync"
+    },
+    {
+      "id": "e2",
+      "source": "asvc",
+      "target": "cdb",
+      "kind": "write"
+    },
+    {
+      "id": "e3",
+      "source": "cdb",
+      "target": "rep",
+      "kind": "replication"
+    },
+    {
+      "id": "e4",
+      "source": "sui",
+      "target": "osvc",
+      "kind": "sync"
+    },
+    {
+      "id": "e5",
+      "source": "osvc",
+      "target": "rep",
+      "kind": "read"
+    },
+    {
+      "id": "e6",
+      "source": "osvc",
+      "target": "odb",
+      "kind": "write"
+    }
+  ]
+}

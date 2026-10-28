@@ -1,0 +1,44 @@
+intro: |
+  **Technique** : couches `ui`, `rules`, `persistence` (chaque workflow les traverse toutes), plus `common` et `local` pour la personnalisation.
+
+  **Par domaine** : `purchase`, `promotion`, `make-order`, `inventory`, `recipes`, `delivery`, `location`, chacun avec son sous-composant de personnalisation. Seuls `promotion`, `recipes` et `location` ont une personnalisation locale.
+blocks:
+- id: ripples
+  type: table
+  title: Composants de haut niveau touchés
+  prompt: Complète le nombre de composants de haut niveau touchés.
+  columns:
+  - id: change
+    label: Évolution
+  - id: technical
+    label: Technique
+  - id: domain
+    label: Par domaine
+  rows:
+  - id: c1
+    label: '1'
+    cells:
+      change: Ajouter un champ « allergènes » aux recettes (écran, règle, colonne).
+  - id: c2
+    label: '2'
+    cells:
+      change: Ajouter le suivi en direct du livreur (écran, règle, stockage).
+  - id: c3
+    label: '3'
+    cells:
+      change: Changer la règle de cumul des promotions (règle seule).
+  - id: c4
+    label: '4'
+    cells:
+      change: Changer le format commun des surcharges locales (personnalisation locale uniquement).
+- id: verdict
+  type: choice
+  title: Ce que montrent les chiffres
+  prompt: Que montrent ces comptes ?
+  options:
+  - id: tradeoff
+    label: Le domaine contient les évolutions de workflow ; la technique isole mieux la personnalisation transverse
+  - id: domain-wins
+    label: Le partitionnement par domaine gagne dans tous les cas
+  - id: technical-wins
+    label: Le partitionnement technique gagne dans tous les cas

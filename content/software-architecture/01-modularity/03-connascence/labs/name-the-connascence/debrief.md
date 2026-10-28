@@ -1,0 +1,3 @@
+**Chaque forme a son remède, et chaque remède fait descendre la connascence sur l'échelle.** Le nombre magique (sens) devient une union de littéraux (nom) ; l'ordre des arguments (position) devient un objet nommé (nom) ; l'ordre des appels (exécution) disparaît avec un constructeur complet ; l'algorithme dupliqué devient une seule implémentation.
+
+Les formes dynamiques (timing, valeurs) demandent d'autres armes : un verrou ou une opération atomique pour le stock, une source de vérité unique ou une transaction pour le prix. Ce sont elles qui coûtent cher en architecture distribuée, et elles ne se voient pas dans le code.

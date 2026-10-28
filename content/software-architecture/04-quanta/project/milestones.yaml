@@ -1,0 +1,17 @@
+milestones:
+  - id: m1
+    title: "Trouver les quanta"
+    goal: "Regrouper les composants liés par un appel synchrone ou des données partagées, sans lier par l'asynchrone ni par les files, et refuser un lien vers un composant inconnu."
+    tests: "tstest M1"
+    review: false
+  - id: m2
+    title: "Profils et décalages"
+    goal: "Calculer le profil de caractéristiques de chaque quantum et signaler chaque appel synchrone où l'appelant exige plus que l'appelé."
+    tests: "tstest M2"
+    review: false
+  - id: m3
+    title: "Synchrone ou asynchrone, chiffré"
+    goal: "Simuler un serveur unique face à des arrivées : en synchrone avec timeout, en asynchrone avec une file bornée, et mesurer succès, échecs, fin et attente maximale."
+    tests: "tstest M3"
+    review: true
+    prompt: "Dans le test de la rafale, l'asynchrone traite tout mais le dernier paiement attend 19,5 s. Quel nouveau problème cela crée-t-il pour l'enchérisseur, et comment l'architecture devrait-elle le lui présenter ?"

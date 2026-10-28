@@ -1,0 +1,12 @@
+{
+  "calls": {
+    "c1": "ok",
+    "c2": "ko",
+    "c3": "ok",
+    "c4": "ok",
+    "c5": "ko",
+    "c6": "ko",
+    "c7": "ok"
+  },
+  "why": "structural"
+}

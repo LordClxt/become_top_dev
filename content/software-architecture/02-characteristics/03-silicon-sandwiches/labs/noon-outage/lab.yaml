@@ -1,0 +1,15 @@
+id: arch-ch02-l03-lab-noon-outage
+title: 'Enquête : le site tombe à midi'
+difficulty: 3
+xp: 90
+concepts:
+- arch-integration-fragility
+- arch-scalability-vs-elasticity
+source:
+  chapter: 5
+  pages: 91-92
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

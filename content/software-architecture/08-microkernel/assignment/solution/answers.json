@@ -1,0 +1,15 @@
+{
+  "pros": {
+    "a1": "a",
+    "a2": "a",
+    "a3": "b",
+    "a4": "b"
+  },
+  "limits": [
+    "elasticity",
+    "scalability"
+  ],
+  "quanta": 1,
+  "decision": "micro",
+  "contract": "standard"
+}

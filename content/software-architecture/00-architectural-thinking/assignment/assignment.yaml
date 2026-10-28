@@ -1,0 +1,18 @@
+id: arch-ch00-assignment
+title: Relire le dossier de Going, Going, Gone
+difficulty: 3
+xp: 120
+concepts:
+- arch-four-dimensions
+- arch-decision-vs-principle
+- arch-guide-not-specify
+- arch-laws
+- arch-frozen-caveman
+source:
+  chapter: 1
+  pages: 21-56
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

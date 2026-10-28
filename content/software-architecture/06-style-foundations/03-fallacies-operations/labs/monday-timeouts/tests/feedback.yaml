@@ -1,0 +1,16 @@
+blocks:
+  cause:
+    options:
+      stock: 'Stock répond à ses sondes : c''est le chemin réseau entre les baies qui a changé.'
+      deploy: Aucun déploiement depuis vendredi ; la latence a sauté à 2 h dimanche, pendant l'intervention réseau.
+      breaker: 'Le disjoncteur fait son travail : il s''ouvre parce que les appels expirent.'
+  fallacies:
+    options:
+      f7: L'incident ne parle pas d'argent.
+  timeout:
+    tolerance:
+      abs: 1
+    wrong: 260 ms + 50 %.
+  durable:
+    options:
+      disable: 'Sans disjoncteur, les appels lents bloqueraient toutes les ressources de Commandes : on aggrave la panne.'

@@ -1,0 +1,17 @@
+blocks:
+  impact:
+    options:
+      c1.single: La bibliothèque unique est importée par tous les services.
+      c1.federated: '`rules` est dans la bibliothèque assessment : qui l''importe ?'
+      c2.single: Tous, encore.
+      c2.federated: '`status_events` est dans tracking.'
+      c3.single: Tous.
+      c3.federated: '`customers` est commune : importée par tous.'
+  common:
+    options:
+      copy: 'Des copies divergeraient : connascence de valeurs entre bibliothèques.'
+      free: 'Un changement de common touche les sept services : il doit être contrôlé.'
+  granularity:
+    options:
+      one: Une seule partition, c'est la bibliothèque unique et son redéploiement total.
+      table: Une bibliothèque par table casse les domaines de données et multiplie les dépendances.

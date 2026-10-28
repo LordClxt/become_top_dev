@@ -1,0 +1,24 @@
+blocks:
+  decisions:
+    options:
+      d1: 'La décision fixe une famille de solutions : l''équipe choisit dedans.'
+      d2: 'Aucune caractéristique ne justifie ce choix : c''est une préférence personnelle imposée.'
+      d3: La contrainte est motivée par une caractéristique mesurée (performance, scalabilité).
+      d4: « De préférence » laisse l'équipe juger au cas par cas.
+      d5: 'Aucune caractéristique ne justifie cette bibliothèque : c''est un choix technique imposé.'
+      d6: La contrainte est motivée par la sécurité et la conformité.
+  fitness:
+    options:
+      wiki: 'Un document informe, il ne vérifie rien : la règle sera violée sous la pression d''un délai.'
+      review: 'Trop rare : la dégradation a lieu entre deux revues. Une fitness function tourne à chaque commit.'
+      meeting: Présenter une règle ne la fait pas respecter.
+  signals:
+    options:
+      color: Un changement d'interface sans effet sur les caractéristiques n'est pas de la dégradation structurelle.
+      release: 'Le livre insiste : des cycles de test et de release lents annulent l''agilité de toute l''architecture.'
+      market: Un changement métier majeur remet en cause la vitalité de l'architecture actuelle.
+      p99: 'C''est l''exemple type : des changements successifs qui érodent une caractéristique.'
+  coding:
+    options:
+      framework: 'C''est le piège du goulot d''étranglement : elle bloquera l''équipe pendant ses réunions.'
+      none: 'Le livre recommande le contraire : tout architecte devrait coder, hors du chemin critique.'

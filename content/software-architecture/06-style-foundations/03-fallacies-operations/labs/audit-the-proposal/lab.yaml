@@ -1,0 +1,19 @@
+id: arch-ch06-l03-lab-audit-the-proposal
+title: Auditer une proposition de microservices
+difficulty: 2
+xp: 70
+concepts:
+- arch-fallacy-topology
+- arch-fallacy-admins
+- arch-fallacy-cost-homogeneous
+- arch-fallacy-reliable
+- arch-fallacy-secure
+- arch-distributed-concerns
+source:
+  chapter: 9
+  pages: 144-152
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

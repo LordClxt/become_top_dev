@@ -1,0 +1,70 @@
+intro: |
+  Services : **Devis**, **Suivi**, **Réception**, **Évaluation**, **Recyclage**, **Comptabilité**. Les clients utilisent Devis et Suivi ; les opérateurs internes, les quatre autres.
+
+  - **Version 1** : une seule interface web pour tout le monde, une seule base, les six services déployés séparément.
+  - **Version 2** : deux interfaces (clients ; opérateurs), mais toujours une seule base.
+  - **Version 3** : deux interfaces et deux bases : une base « externe » (Devis, Suivi) dans une zone réseau exposée, une base « interne » (les quatre autres) ; la base interne alimente la base externe en asynchrone pour le statut des appareils.
+blocks:
+- id: count
+  type: table
+  title: Combien de quanta ?
+  prompt: Complète le nombre de quanta de chaque version.
+  columns:
+  - id: quanta
+    label: Quanta
+  rows:
+  - id: v1
+    label: Version 1
+    cells: {}
+  - id: v2
+    label: Version 2
+    cells: {}
+  - id: v3
+    label: Version 3
+    cells: {}
+- id: why-v2
+  type: choice
+  title: Pourquoi la version 2 ne suffit pas
+  prompt: Pourquoi deux interfaces ne suffisent-elles pas à créer deux quanta ?
+  options:
+  - id: db
+    label: La base unique lie encore tous les services
+  - id: ui
+    label: Les interfaces sont trop petites
+  - id: services
+    label: Il faudrait un service par interface
+- id: groups
+  type: match
+  title: La version 3
+  prompt: Dans la version 3, range chaque service dans son quantum.
+  items:
+  - id: quote
+    label: Devis
+  - id: status
+    label: Suivi
+  - id: receiving
+    label: Réception
+  - id: assessment
+    label: Évaluation
+  - id: recycling
+    label: Recyclage
+  - id: accounting
+    label: Comptabilité
+  categories:
+  - id: external
+    label: Quantum client (externe)
+  - id: internal
+    label: Quantum opérations (interne)
+- id: benefit
+  type: multi
+  title: Ce que gagne la version 3
+  prompt: Qu'apporte la séparation en deux quanta ?
+  options:
+  - id: scale
+    label: Faire monter Devis et Suivi en charge sans toucher aux opérations internes
+  - id: security
+    label: Isoler la base interne dans une zone réseau non exposée
+  - id: fresh
+    label: Un statut d'appareil toujours parfaitement à jour côté client
+  - id: deploy
+    label: Déployer les opérations internes sans risque pour le site client

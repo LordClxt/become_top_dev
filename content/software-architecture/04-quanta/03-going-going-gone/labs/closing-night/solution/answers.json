@@ -1,0 +1,10 @@
+{
+  "cause": "sync",
+  "capacity": 30,
+  "async-time": 60,
+  "fix": [
+    "queue",
+    "state"
+  ],
+  "quanta": "two"
+}

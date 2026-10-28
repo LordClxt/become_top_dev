@@ -1,0 +1,61 @@
+id: arch-ch09-l03-lab-recycling-zones
+title: Le recyclage en deux zones
+difficulty: 3
+xp: 100
+concepts:
+- arch-sb-recycling
+- arch-sb-variants
+- arch-sb-ratings
+source:
+  chapter: 13
+  pages: 192-196
+palette:
+- type: customer-ui
+  component: browser
+  label: Interface clients
+  hint: Site web et bornes.
+- type: ops-ui
+  component: client
+  label: Interface opérations
+  hint: Réception, recyclage, comptabilité.
+- type: quoting
+  component: service
+  label: Quoting
+  hint: 'Devis : forte charge client.'
+- type: item-status
+  component: service
+  label: Item Status
+  hint: 'Statut des appareils : forte charge client.'
+- type: receiving
+  component: service
+  label: Receiving
+  hint: Réception des appareils.
+- type: assessment
+  component: service
+  label: Assessment
+  hint: 'Évaluation : change sans cesse.'
+- type: recycling
+  component: service
+  label: Recycling
+  hint: Destruction ou revente.
+- type: ext-db
+  component: postgres
+  label: Base clients
+  hint: Données exposées aux clients.
+- type: int-db
+  component: postgres
+  label: Base interne
+  hint: Données des opérations.
+- type: z-ext
+  component: zone
+  label: Zone externe
+  hint: Accessible depuis Internet.
+- type: z-int
+  component: zone
+  label: Zone interne
+  hint: Derrière le pare-feu.
+kind: diagram
+entrypoint: starter/
+files_editable:
+- diagram.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

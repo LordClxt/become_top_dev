@@ -1,0 +1,17 @@
+blocks:
+  fixed:
+    wrong: Il faut assez d'instances pour 1 000 commandes/min, payées 24 heures.
+  kind:
+    options:
+      elastic: 'Une flotte fixe ne s''adapte à rien : elle paie le pic en permanence.'
+      neither: 'Elle tient bien la charge maximale : c''est de la scalabilité, achetée cher.'
+  autoscale:
+    goals:
+      peak: Au pic, il faut au moins 10 instances de 100 commandes/min.
+      margin: 'En temps normal, 200 commandes/min + 30 % = 260 : il faut assez d''instances de base.'
+      cost: Les instances de base coûtent 24 € chacune par jour ; une instance de pic n'en coûte que 3.
+  which:
+    options:
+      hotel: 'Une charge régulière : pas de rafale à absorber.'
+      concert: Une rafale violente, mais pas des millions d'utilisateurs simultanés toute l'année.
+      tax: Beaucoup d'usagers ET un rush concentré.

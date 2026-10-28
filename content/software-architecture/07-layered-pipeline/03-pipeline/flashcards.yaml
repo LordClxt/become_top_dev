@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Les quatre types de filtres ?"
+    back: "Producteur (source), transformateur (map), testeur (aiguillage), consommateur (sink)."
+    concept: arch-filter-types
+  - id: fc2
+    front: "Propriétés d'un filtre ?"
+    back: "Autonome, indépendant, en général sans état, une seule tâche."
+    concept: arch-filter-types
+  - id: fc3
+    front: "Propriétés d'un pipe ?"
+    back: "Unidirectionnel, point à point, petits messages."
+    concept: arch-pipes
+  - id: fc4
+    front: "Knuth vs McIlroy ?"
+    back: "Dix pages de Pascal contre six commandes shell composées : la force de la réutilisation par composition."
+    concept: arch-compositional-reuse
+  - id: fc5
+    front: "Exemples d'usage du pipeline ?"
+    back: "Shells Unix, MapReduce, EDI, ETL, Apache Camel, traitement de télémétrie."
+    concept: arch-pipeline-extensibility
+  - id: fc6
+    front: "Forces du pipeline ?"
+    back: "Coût, simplicité, modularité."
+    concept: arch-pipeline-ratings

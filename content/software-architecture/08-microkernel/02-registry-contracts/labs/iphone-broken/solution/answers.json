@@ -1,0 +1,15 @@
+{
+  "causes": [
+    "dependency",
+    "db"
+  ],
+  "match": {
+    "price": "dependency",
+    "empty": "db"
+  },
+  "fix": [
+    "copy",
+    "core-data",
+    "fitness"
+  ]
+}

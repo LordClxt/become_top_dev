@@ -1,0 +1,81 @@
+id: arch-ch07-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "On démarre en couches faute de savoir quel style s'imposera. Quelles précautions ?"
+    choices:
+      - "Réutiliser le plus possible et hériter profondément"
+      - "Limiter la réutilisation et garder des hiérarchies peu profondes"
+      - "Ouvrir toutes les couches"
+      - "Aucune"
+    answer: 1
+    explanation: "Cela préserve la modularité pour migrer plus tard."
+    concept: arch-layered-starting-point
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Qu'est-ce que l'anti-pattern du puits (sinkhole) ?"
+    choices:
+      - "Une couche qui perd des données"
+      - "Des requêtes qui traversent les couches en simple relais, sans logique"
+      - "Une base trop lente"
+      - "Un cycle entre couches"
+    answer: 1
+    explanation: "Instanciations et traitements inutiles : mémoire et performance en pâtissent."
+    concept: arch-sinkhole
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Quelle proportion de puits ce relevé montre-t-il ?"
+    code: |
+      const work = [[], ['business'], [], [], ['business', 'persistence'], [], [], [], [], []];
+      const sinks = work.filter((w) => w.length === 0).length;
+      console.log(`${(sinks / work.length) * 100} %`);
+    answer: "80 %"
+    explanation: "D'après la règle des 80/20, c'est le signe que le style en couches ne convient pas à ce domaine."
+    concept: arch-sinkhole
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Quel est le prix d'ouvrir toutes les couches pour supprimer les puits ?"
+    choices: ["Aucun", "Le changement devient plus difficile à maîtriser (perte d'isolation)", "La base devient plus lente", "Plus de tests unitaires"]
+    answer: 1
+    explanation: "Tout le monde peut appeler tout le monde : chaque changement se propage."
+    concept: arch-sinkhole
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi la déployabilité des couches est-elle très faible ?"
+    choices:
+      - "Parce qu'il faut un serveur par couche"
+      - "Une modification de trois lignes oblige à redéployer toute l'unité, avec des dizaines d'autres changements"
+      - "Parce que les couches sont fermées"
+      - "Parce que la base est externe"
+    answer: 1
+    explanation: "Cérémonie, risque et rareté des déploiements."
+    concept: arch-layered-ratings
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Pourquoi l'architecture en couches n'a-t-elle aucune tolérance aux pannes ?"
+    choices:
+      - "Parce qu'elle n'a pas de tests"
+      - "Un dépassement de mémoire dans une petite partie fait tomber toute l'application"
+      - "Parce qu'elle est distribuée"
+      - "Elle en a une excellente"
+    answer: 1
+    explanation: "Et le MTTR est élevé : 2 à 15 minutes de démarrage."
+    concept: arch-layered-ratings
+    difficulty: 1
+  - id: q7
+    type: multiple
+    prompt: "Dans quels cas l'architecture en couches est-elle un bon choix ?"
+    choices:
+      - "Petite application simple"
+      - "Budget et délais très serrés"
+      - "Besoins encore en cours d'analyse"
+      - "Trafic en rafales qui exige de l'élasticité"
+    answer: [0, 1, 2]
+    explanation: "L'élasticité est l'une de ses pires notes : un seul quantum."
+    concept: arch-layered-when
+    difficulty: 1

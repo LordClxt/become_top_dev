@@ -1,0 +1,8 @@
+id: arch-ch05-smeared-workflow
+concept: arch-technical-vs-domain
+format: interactive
+justification: "Choisir une évolution (code promo, allergènes, livreur) et la voir s'allumer dans toutes les couches d'un côté, dans un seul domaine de l'autre, rend le coût du partitionnement visible."
+entry: SmearedWorkflow.tsx
+params:
+  - { name: change, type: int, min: 1, max: 4, default: 1 }
+status: built

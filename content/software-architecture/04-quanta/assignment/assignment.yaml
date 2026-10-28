@@ -1,0 +1,17 @@
+id: arch-ch04-assignment
+title: Les quanta du recyclage électronique
+difficulty: 3
+xp: 140
+concepts:
+- arch-quantum-counting
+- arch-shared-db-ui
+- arch-quantum-split
+- arch-quantum-decision
+source:
+  chapter: 7
+  pages: 112-118
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

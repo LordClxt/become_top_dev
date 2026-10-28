@@ -63,7 +63,7 @@ questions:
   difficulty: 2
 - id: q4
   type: single
-  prompt: 'payments.ts et orders.ts s''importent l''un l''autre. Au démarrage : « undefined dependency… circular import or missing dependency ». D''où vient le undefined ?'
+  prompt: 'payments.ts et orders.ts s''importent l''un l''autre. Le projet est compilé en CommonJS. Au démarrage : « undefined dependency… circular import or missing dependency ». D''où vient le undefined ?'
   choices:
   - Nest n'a pas encore créé l'instance
   - 'Au moment où tsc écrit design:paramtypes, la classe importée n''est pas encore évaluée : elle vaut undefined'

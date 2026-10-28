@@ -1,0 +1,3 @@
+**La refonte a coupé une transaction en deux.** Avant, la façade du service Commande créait, payait et réservait dans **une** transaction ACID : un stock insuffisant annulait tout. En déplaçant la réservation dans un second appel orchestré par l'interface, on obtient deux transactions séparées, et un paiement validé quand la réservation échoue. C'est exactement le problème des microservices décrit dans le livre, importé sans le vouloir.
+
+Comme les deux tables vivent dans la même base, le correctif le plus sûr est de **remettre l'opération dans une seule façade**. Une saga serait possible, mais beaucoup plus complexe ; le style service-based existe justement pour garder ces opérations atomiques. Sur 30 jours, l'incident représente près de **108 000 €** à régulariser.

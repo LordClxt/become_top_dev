@@ -1,0 +1,19 @@
+{
+  "cc": 37,
+  "p99": 120,
+  "p999": 2000,
+  "ratchet": "reject",
+  "after": 35,
+  "rollout": [
+    "explain",
+    "baseline",
+    "block",
+    "tighten"
+  ],
+  "where": {
+    "cycles": "commit",
+    "cc": "commit",
+    "latency": "prod",
+    "zone": "chaos"
+  }
+}

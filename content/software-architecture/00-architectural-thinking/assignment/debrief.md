@@ -1,0 +1,3 @@
+**Un dossier d'architecture doit couvrir les quatre dimensions… et leurs raisons.** Ici, la caractéristique (p1, l'élasticité des fins de vente), la règle (p2, un seul propriétaire des offres), la préférence (p3) et la forme (p4) y sont. Seule la règle impose : c'est son rôle, et c'est pour cela qu'elle doit s'accompagner d'un mécanisme de variance et d'une fitness function.
+
+Chaque « solution miracle » a un prix : la fraîcheur des données (cache), la sécurité et les contrats (topic), le réseau (microservices), la gestion d'erreurs (asynchrone). L'objection sur la vidéo est un **Frozen Caveman** : le risque n'est pas nul, mais il se chiffre avec les données d'aujourd'hui. Enfin, sans ADR, le pourquoi de chaque choix sera perdu : c'est la deuxième loi.

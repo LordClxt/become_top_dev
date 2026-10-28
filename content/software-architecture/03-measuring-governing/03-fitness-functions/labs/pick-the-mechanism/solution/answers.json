@@ -1,0 +1,17 @@
+{
+  "mech": {
+    "layers": "unit",
+    "cycles": "unit",
+    "latency": "monitor",
+    "resilience": "chaos",
+    "complexity": "metric",
+    "bundle": "build"
+  },
+  "monkeys": {
+    "chaos": "kill",
+    "kong": "region",
+    "conformity": "rules",
+    "janitor": "orphans",
+    "security": "ports"
+  }
+}

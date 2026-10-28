@@ -1,0 +1,16 @@
+id: arch-ch04-l03-lab-characteristics-per-quantum
+title: Caractéristiques par quantum
+difficulty: 2
+xp: 70
+concepts:
+- arch-quanta-per-characteristics
+- arch-domain-litmus
+- arch-nonuniform
+source:
+  chapter: 7
+  pages: 115-118
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

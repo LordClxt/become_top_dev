@@ -1,0 +1,16 @@
+id: arch-ch09-l02-lab-paid-not-reserved
+title: 'Enquête : payé mais pas réservé'
+difficulty: 3
+xp: 90
+concepts:
+- arch-sb-acid
+- arch-sb-facade-orchestration
+- arch-orchestration-choreography
+source:
+  chapter: 13
+  pages: 188-189
+kind: worksheet
+entrypoint: starter/
+files_editable:
+- answers.json
+verified: { at: 2026-10-21, solution: pass, starter: fail }

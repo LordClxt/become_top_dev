@@ -1,0 +1,18 @@
+{
+  "kinds": {
+    "c1": "name",
+    "c2": "meaning",
+    "c3": "position",
+    "c4": "algorithm",
+    "c5": "execution",
+    "c6": "timing",
+    "c7": "values",
+    "c8": "type"
+  },
+  "fixes": {
+    "c2": "constant",
+    "c3": "named",
+    "c5": "ctor",
+    "c4": "shared"
+  }
+}

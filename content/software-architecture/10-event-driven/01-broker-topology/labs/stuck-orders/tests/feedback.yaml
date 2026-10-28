@@ -1,0 +1,14 @@
+blocks:
+  stuck:
+    wrong: Commandes créées moins paiements appliqués et refusés.
+  cause:
+    options:
+      denied: 'payment-denied vaut 0 : aucun refus n''a été émis.'
+      inventory: 'inventory-updated égale order-created : une fois chacun.'
+      broker: Les autres abonnés ont bien reçu les 4 812 order-created.
+  limits:
+    options:
+      scale: La scalabilité est l'un des points forts du broker ; ce n'est pas le sujet.
+  fix:
+    options:
+      bigger: 'La mémoire réduit la probabilité du plantage, pas ses conséquences : le prochain plantage aura les mêmes effets.'

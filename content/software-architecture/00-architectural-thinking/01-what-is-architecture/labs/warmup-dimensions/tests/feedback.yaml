@@ -1,0 +1,15 @@
+blocks:
+  classify:
+    options:
+      s1: 'Un découpage global du système : c''est sa forme.'
+      s2: C'est un critère de succès qui ne dépend pas de ce que vend la boutique.
+      s3: 'S''en écarter demande une autorisation : c''est une règle de construction.'
+      s4: « Privilégier » laisse le choix quand un cas le justifie.
+      s5: C'est un critère de succès (déployabilité), pas une fonctionnalité.
+      s6: '« Tout … passe par » : il n''y a pas d''alternative laissée à l''équipe.'
+      s7: '« De préférence » : une équipe peut s''en écarter avec une bonne raison.'
+      s8: « En couches » désigne une forme globale.
+  variance:
+    options:
+      just: 'Une description de pull request n''est pas une exception accordée : la règle est violée en silence.'
+      principle: '« Aucun service ne lit la base d''un autre » est une règle : s''en écarter demande une autorisation.'

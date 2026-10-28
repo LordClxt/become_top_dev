@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Scalabilité vs élasticité ?"
+    back: "Scalabilité : beaucoup d'utilisateurs simultanés, durablement. Élasticité : absorber des rafales puis revenir à la normale."
+    concept: arch-scalability-vs-elasticity
+  - id: fc2
+    front: "Exemple scalable mais pas élastique ? Élastique ?"
+    back: "Réservation d'hôtel (charge régulière) ; billetterie de concert (rafales à l'ouverture des ventes)."
+    concept: arch-scalability-vs-elasticity
+  - id: fc3
+    front: "Où se cache l'élasticité de Silicon Sandwiches ?"
+    back: "Dans le domaine : les pics aux heures de repas, absents des exigences."
+    concept: arch-scalability-vs-elasticity
+  - id: fc4
+    front: "Service de trafic en panne : que faire ?"
+    back: "Dégrader (itinéraire sans trafic) plutôt que tomber : ne pas construire de fragilité."
+    concept: arch-integration-fragility
+  - id: fc5
+    front: "Sur-spécifier les caractéristiques ?"
+    back: "Aussi nuisible que sous-spécifier : cela complique toute la conception."
+    concept: arch-overspecify
+  - id: fc6
+    front: "Personnalisation : deux façons de la traiter ?"
+    back: "Par l'architecture (microkernel : cœur + plug-ins) ou par le design (Template Method)."
+    concept: arch-char-arch-vs-design
+  - id: fc7
+    front: "Ivory Tower Architect ?"
+    back: "Anti-pattern : l'architecte décide seul, loin de l'équipe qui implémente."
+    concept: arch-char-arch-vs-design
+  - id: fc8
+    front: "Exercice « en éliminer une » pour Silicon Sandwiches ?"
+    back: "Candidates : la personnalisation (passe au design) ou la performance (la moins critique des opérationnelles)."
+    concept: arch-eliminate-one
+  - id: fc9
+    front: "Citation de Mark Richards sur les réponses en architecture ?"
+    back: "Il n'y a pas de mauvaises réponses en architecture, seulement des réponses chères."
+    concept: arch-overspecify
