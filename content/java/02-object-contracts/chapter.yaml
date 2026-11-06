@@ -1,0 +1,23 @@
+id: java-ch02
+title: "Les contrats d'Object"
+subtitle: "equals, hashCode, toString, copies et Comparable : les méthodes dont dépendent toutes les collections"
+source: { chapter: 3, pages: "37-72" }
+objectives:
+  - "Décider quand redéfinir equals, et écrire un equals qui respecte les cinq clauses du contrat"
+  - "Ajouter une composante de valeur sans casser equals : composition et vue plutôt qu'héritage"
+  - "Écrire un hashCode cohérent avec equals, bien réparti, et prédire le comportement d'une HashMap"
+  - "Écrire un toString utile, documenter (ou non) son format et fournir les accesseurs correspondants"
+  - "Copier un objet par constructeur ou fabrique de copie, en copiant en profondeur l'état mutable, plutôt que par clone"
+  - "Implémenter Comparable et des Comparator corrects, cohérents avec equals, sans comparaison par différence"
+mastery_threshold: 0.8
+prerequisites: [java-ch01]
+lessons:
+  - "01-equals"
+  - "02-hashcode"
+  - "03-tostring"
+  - "04-copies"
+  - "05-comparable"
+xp: { assignment: 150, project: 300, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

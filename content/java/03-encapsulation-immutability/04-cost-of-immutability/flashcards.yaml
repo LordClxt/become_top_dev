@@ -1,0 +1,38 @@
+id: java-ch03-l04-flashcards
+cards:
+  - id: fc1
+    front: "Le seul vrai inconvénient de l'immutabilité ?"
+    back: "Un objet distinct par valeur distincte : coûteux pour les gros objets et les opérations à plusieurs étapes."
+    concept: java-immutable-cost
+  - id: fc2
+    front: "BigInteger.flipBit(0) sur un million de bits ?"
+    back: "Un nouveau BigInteger d'un million de bits. BitSet.flip(0), lui, est en temps constant."
+    concept: java-immutable-cost
+  - id: fc3
+    front: "Parade 1 au coût des étapes intermédiaires ?"
+    back: "Fournir l'opération composée comme primitive (modPow, flipAll) : une copie privée, du travail en place, un seul objet créé."
+    concept: java-multistep-primitives
+  - id: fc4
+    front: "Parade 2 ?"
+    back: "Un compagnon mutable public (StringBuilder pour String), uniquement si la mesure le justifie."
+    concept: java-mutable-companion
+  - id: fc5
+    front: "Le piège d'un build() de compagnon mutable ?"
+    back: "Partager son tableau avec la valeur produite : elle changerait quand on réutilise le compagnon. build() doit copier."
+    concept: java-mutable-companion
+  - id: fc6
+    front: "Concaténation en boucle depuis Java 9 ?"
+    back: "Toujours quadratique : StringConcatFactory optimise une expression, pas les itérations. Utiliser StringBuilder."
+    concept: java-immutable-cost
+  - id: fc7
+    front: "Chaînes compactes (JEP 254) ?"
+    back: "byte[] + coder : 1 octet/caractère en Latin-1, 2 en UTF-16 dès qu'un caractère hors Latin-1 apparaît."
+    concept: java-mutable-companion
+  - id: fc8
+    front: "Classe forcément mutable : trois règles ?"
+    back: "private final par défaut ; objets complètement initialisés par le constructeur ; pas de init() ni de reset() publics."
+    concept: java-minimize-state-space
+  - id: fc9
+    front: "Pourquoi CountDownLatch est-il un modèle ?"
+    back: "Mutable mais à usage unique : une fois à zéro, il le reste. Espace d'états minimal."
+    concept: java-minimize-state-space

@@ -1,0 +1,22 @@
+id: java-ch03
+title: "Encapsulation et immutabilité"
+subtitle: "Cacher ce qui peut changer, figer ce qui ne doit pas changer"
+source: { chapter: 4, pages: "73-86" }
+objectives:
+  - "Donner à chaque classe et à chaque membre le niveau d'accès le plus bas possible, et repérer les fuites d'API (tableaux publics, membres protégés, ouverture pour les tests)"
+  - "Choisir entre champs publics, accesseurs et records selon la visibilité de la classe"
+  - "Écrire une classe immuable qui respecte les cinq règles, y compris l'accès exclusif à ses composants mutables"
+  - "Expliquer ce que garantit un champ final dans le modèle mémoire de Java, et ce qui le casse"
+  - "Mesurer le coût de l'immutabilité et le compenser par des opérations composites ou un compagnon mutable"
+  - "Limiter la mutabilité d'une classe qui ne peut pas être immuable : petit espace d'états, pas de réinitialisation"
+mastery_threshold: 0.8
+prerequisites: [java-ch02]
+lessons:
+  - "01-accessibility"
+  - "02-accessors-records"
+  - "03-immutable-classes"
+  - "04-cost-of-immutability"
+xp: { assignment: 150, project: 300, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

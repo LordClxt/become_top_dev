@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Que renvoie le toString d'Object ?"
+    back: "getClass().getName() + \"@\" + Integer.toHexString(hashCode()) : le hash, pas une adresse."
+    concept: java-tostring-informative
+  - id: fc2
+    front: "Que doit contenir un bon toString ?"
+    back: "Toute l'information intéressante ; ou, pour un gros objet, un résumé qui se suffit à lui-même."
+    concept: java-tostring-informative
+  - id: fc3
+    front: "Avantage et coût d'un format de toString spécifié ?"
+    back: "Avantage : représentation standard, réutilisable (CSV, config) avec un parse assorti. Coût : figé à vie."
+    concept: java-tostring-format-spec
+  - id: fc4
+    front: "Que faire si on ne spécifie pas le format ?"
+    back: "L'annoncer dans la Javadoc (« peut changer ») avec un exemple typique."
+    concept: java-tostring-format-spec
+  - id: fc5
+    front: "Pourquoi fournir des accesseurs pour ce qu'affiche toString ?"
+    back: "Sinon les clients parsent la chaîne, et le format devient une API de fait impossible à changer."
+    concept: java-tostring-accessors
+  - id: fc6
+    front: "Où ne pas écrire de toString ?"
+    back: "Classes utilitaires statiques, et la plupart des enums. En revanche oui dans une classe abstraite dont les sous-classes partagent la représentation."
+    concept: java-tostring-informative
+  - id: fc7
+    front: "Que donne `\"x=\" + null` ?"
+    back: "\"x=null\" : la concaténation passe par String.valueOf, sans exception."
+    concept: java-tostring-informative

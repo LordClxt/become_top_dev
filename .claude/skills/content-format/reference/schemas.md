@@ -16,7 +16,7 @@ books:                                  # optional — extra books when the cour
 summary: "Le langage, de la première…"   # required — 1-2 sentences, shown on the home page and dashboard
 order: 1                                # position in the catalog (default 100)
 kind: practical                         # required — practical | conceptual
-language: go                            # sandbox runner (absent if there are no coding labs)
+language: go                            # sandbox runner: go, groovy, java, typescript (absent if there are no coding labs)
 running_project: { id: go-relay, title: "Relay — …", pitch: "…" }   # common-thread project (optional)
 requires:                               # soft prerequisites between courses (advice, never blocking)
   - { course: go, through: "10-concurrency", reason: "Les TP utilisent goroutines et channels." }

@@ -1,0 +1,12 @@
+id: java-ch03-l03-lab-fraction
+title: "Une fraction vraiment immuable"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Fraction.java"]
+concepts: [java-immutable-five-rules, java-functional-approach, java-immutable-sharing, java-effectively-final-factories]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

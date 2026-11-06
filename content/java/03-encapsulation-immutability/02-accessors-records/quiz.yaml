@@ -1,0 +1,122 @@
+id: java-ch03-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Une classe publique de ton API expose `public double x, y;`. Qu'est-ce que tu ne peux plus jamais faire sans casser les clients ?"
+    choices:
+      - "Ajouter une méthode toString"
+      - "Changer de représentation interne, valider les valeurs ou réagir à une lecture"
+      - "Rendre la classe Serializable"
+      - "Ajouter un constructeur"
+    answer: 1
+    explanation: "Les clients lisent et écrivent les champs directement : la représentation fait partie de l'API, sans aucun point de contrôle."
+    concept: java-accessors-not-fields
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Dans quel cas exposer des champs (non privés) est-il acceptable ?"
+    choices:
+      - "Jamais"
+      - "Dans une classe publique, si les champs sont final"
+      - "Dans une classe package-private ou une classe imbriquée privée"
+      - "Dans une interface"
+    answer: 2
+    explanation: "Le code qui dépend des champs reste confiné au paquetage ou à la classe englobante : tu peux tout changer sans toucher de code client."
+    concept: java-public-fields-nonpublic-class
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      import java.util.*;
+
+      public class Main {
+          record Playlist(String name, List<String> tracks) { }
+
+          public static void main(String[] args) {
+              List<String> t = new ArrayList<>(List.of("A"));
+              Playlist p = new Playlist("Matin", t);
+              t.add("B");
+              System.out.println(p.tracks().size() + " " + p.equals(new Playlist("Matin", List.of("A", "B"))));
+          }
+      }
+    answer: "2 true"
+    explanation: "Le record garde la référence à la liste de l'appelant : il voit l'ajout. Les champs sont final, pas les objets qu'ils désignent."
+    concept: java-record-mutable-components
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          record Barcode(byte[] bytes) { }
+
+          public static void main(String[] args) {
+              Barcode a = new Barcode(new byte[] {1, 2});
+              Barcode b = new Barcode(new byte[] {1, 2});
+              System.out.println(a.equals(b) + " " + a.equals(a));
+          }
+      }
+    answer: "false true"
+    explanation: "L'equals généré compare les composants référence avec Objects.equals : pour un tableau, c'est l'identité."
+    concept: java-record-mutable-components
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      import java.util.Locale;
+
+      public class Main {
+          record Email(String address) {
+              Email {
+                  address = address.strip().toLowerCase(Locale.ROOT);
+              }
+          }
+
+          public static void main(String[] args) {
+              Email e = new Email("  Ana@Example.COM ");
+              System.out.println(e.address() + " " + e.equals(new Email("ana@example.com")));
+          }
+      }
+    answer: "ana@example.com true"
+    explanation: "Le constructeur compact s'exécute avant l'affectation des champs et peut réaffecter ses paramètres : c'est la forme normalisée qui est stockée."
+    concept: java-record-compact-ctor
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Qu'est-ce que le compilateur génère pour `record Time(int hour, int minute) {}` ?"
+    choices:
+      - "Une classe final qui étend java.lang.Record"
+      - "Des champs private final hour et minute"
+      - "Des méthodes getHour() et getMinute()"
+      - "equals, hashCode et toString fondés sur les composants"
+      - "Des setters"
+    answer: [0, 1, 3]
+    explanation: "Les accesseurs portent le nom des composants (hour(), minute()), sans préfixe get. Aucun setter : les champs sont final."
+    concept: java-record-basics
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Comment sont implémentés equals, hashCode et toString d'un record dans le fichier .class ?"
+    choices:
+      - "Par du bytecode généré champ par champ par javac"
+      - "Par une instruction invokedynamic vers ObjectMethods.bootstrap, qui construit l'implémentation au premier appel"
+      - "Par réflexion à chaque appel"
+      - "Ils sont hérités tels quels de java.lang.Object"
+    answer: 1
+    explanation: "Le .class reste petit et l'implémentation peut s'améliorer avec le JDK ; une fois liée, la JVM l'optimise comme du code écrit à la main."
+    concept: java-record-basics
+    difficulty: 3
+  - id: q8
+    type: single
+    prompt: "Un record `Order(String id, List<Line> lines)` doit être réellement immuable. Que mettre dans son constructeur compact ?"
+    choices:
+      - "lines = Collections.unmodifiableList(lines);"
+      - "lines = List.copyOf(lines);"
+      - "Rien : les champs d'un record sont final"
+      - "this.lines = new ArrayList<>(lines);"
+    answer: 1
+    explanation: "List.copyOf copie (indépendante de la liste de l'appelant), refuse null et est non modifiable. unmodifiableList n'est qu'une vue que l'appelant peut encore modifier ; et dans un constructeur compact, on réaffecte le paramètre, pas this.lines. Line doit elle-même être immuable."
+    concept: java-record-compact-ctor
+    difficulty: 3

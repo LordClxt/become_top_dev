@@ -1,0 +1,105 @@
+id: java-ch02-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Dans quel cas ne faut-il PAS redéfinir equals ?"
+    choices:
+      - "Une classe Money (montant + devise) utilisée comme clé de map"
+      - "Une classe DatabaseConnection : chaque instance représente une connexion ouverte"
+      - "Une classe Isbn importée depuis deux fournisseurs aux formats différents"
+      - "Une classe PhoneNumber stockée dans un HashSet"
+    answer: 1
+    explanation: "Une connexion est une entité active, unique par nature : l'identité d'Object est exactement la bonne égalité. Les trois autres sont des classes valeur."
+    concept: java-equals-when
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          record Tag(String name) {
+              public boolean equals(Tag other) { return other != null && name.equalsIgnoreCase(other.name); }
+          }
+
+          public static void main(String[] args) {
+              Tag a = new Tag("java"), b = new Tag("JAVA");
+              Object o = b;
+              System.out.println(a.equals(b) + " " + a.equals(o) + " " + java.util.Set.of(a).contains(b));
+          }
+      }
+    answer: "true false false"
+    explanation: "equals(Tag) surcharge, il ne redéfinit pas equals(Object). a.equals(b) choisit la surcharge (type statique Tag) ; a.equals(o) et Set.contains appellent equals(Object), celui généré par le record, sensible à la casse. Avec @Override, le compilateur aurait refusé."
+    concept: java-equals-recipe
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "ColorPoint étend Point et son equals exige un ColorPoint de même couleur. Quelle clause est violée ?"
+    choices:
+      - "Réflexivité"
+      - "Symétrie : point.equals(colorPoint) est vrai, colorPoint.equals(point) est faux"
+      - "Non-nullité"
+      - "Aucune"
+    answer: 1
+    explanation: "Point compare seulement x et y et accepte donc le ColorPoint ; ColorPoint refuse le Point parce que ce n'est pas un ColorPoint."
+    concept: java-equals-subclass-value
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pour réparer la symétrie, ColorPoint compare « sans couleur » face à un simple Point. rouge(1,2), point(1,2), bleu(1,2) : que se passe-t-il ?"
+    choices:
+      - "Tout est cohérent"
+      - "rouge = point et point = bleu, mais rouge ≠ bleu : la transitivité est cassée"
+      - "rouge.equals(point) lève ClassCastException"
+      - "point.equals(bleu) est faux"
+    answer: 1
+    explanation: "Les deux premières comparaisons ignorent la couleur, la troisième en tient compte. Il n'existe pas de bonne façon d'ajouter une composante de valeur en étendant une classe instanciable."
+    concept: java-equals-subclass-value
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi un equals fondé sur getClass() est-il une mauvaise solution ?"
+    choices:
+      - "Il est plus lent qu'instanceof"
+      - "Il ne compile pas avec les génériques"
+      - "Une sous-classe qui n'ajoute aucune valeur n'est plus égale à sa classe mère : elle n'est plus substituable (Liskov)"
+      - "Il viole la réflexivité"
+    answer: 2
+    explanation: "CounterPoint(1, 0) n'est plus égal à Point(1, 0) : un Set de Points ne le contient plus, alors qu'un CounterPoint est un Point."
+    concept: java-equals-getclass-lsp
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      double a = 0.0 / 0.0;
+      double b = -0.0;
+      System.out.println((a == a) + " " + (Double.compare(a, a) == 0) + " " + (0.0 == b) + " " + (Double.compare(0.0, b) == 0));
+    answer: "false true true false"
+    explanation: "IEEE 754 : NaN n'est égal à rien avec ==, et 0.0 == -0.0. Double.compare compare les bits canoniques : NaN égal à NaN, 0.0 différent de -0.0. D'où Double.compare dans equals."
+    concept: java-equals-recipe
+    difficulty: 3
+  - id: q7
+    type: multiple
+    prompt: "Quelles pratiques font partie de la recette d'un bon equals ?"
+    choices:
+      - "@Override sur equals(Object)"
+      - "Tester o == null avant instanceof"
+      - "Objects.equals pour un champ qui peut être null"
+      - "Comparer d'abord les champs les plus susceptibles de différer"
+      - "Comparer aussi le champ de verrou utilisé par synchronized"
+    answer: [0, 2, 3]
+    explanation: "instanceof renvoie déjà false pour null ; un verrou ne fait pas partie de l'état logique et ne doit jamais être comparé."
+    concept: java-equals-recipe
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Pourquoi java.net.URL est-il une mauvaise clé de HashMap ?"
+    choices:
+      - "URL est mutable"
+      - "Son equals résout les noms d'hôte en adresses IP : le résultat dépend du réseau, il n'est pas cohérent dans le temps (et peut bloquer)"
+      - "URL n'implémente pas hashCode"
+      - "URL est final"
+    answer: 1
+    explanation: "equals ne doit faire que des calculs déterministes sur des objets en mémoire. Utilise URI comme clé."
+    concept: java-equals-contract
+    difficulty: 2

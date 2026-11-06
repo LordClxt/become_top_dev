@@ -1,0 +1,106 @@
+id: java-ch03-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Une classe de premier niveau n'est utilisée que par une seule autre classe du même paquetage. Le meilleur choix ?"
+    choices:
+      - "La laisser public"
+      - "La rendre package-private"
+      - "En faire une classe imbriquée private static de la classe qui l'utilise"
+      - "La rendre protected"
+    answer: 2
+    explanation: "Imbriquée et private, elle n'est plus visible que de son seul utilisateur. (Une classe de premier niveau ne peut d'ailleurs pas être protected.)"
+    concept: java-access-levels
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Pourquoi passer un membre de package-private à protected est-il un grand saut ?"
+    choices:
+      - "Parce que protected est plus lent"
+      - "Parce que n'importe quelle sous-classe, dans n'importe quel paquetage, peut l'utiliser : il entre dans l'API exportée, à maintenir à vie"
+      - "Parce que protected interdit l'héritage"
+      - "Ce n'est pas un grand saut : protected est presque privé"
+    answer: 1
+    explanation: "Un membre protégé d'une classe publique est un engagement public, et il révèle un détail d'implémentation."
+    concept: java-protected-is-api
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static final class Config {
+              public static final String[] MODES = {"lecture", "écriture"};
+          }
+
+          public static void main(String[] args) {
+              String[] m = Config.MODES;
+              m[1] = "admin";
+              System.out.println(Config.MODES[1] + " " + java.util.List.of(Config.MODES).contains("écriture"));
+          }
+      }
+    answer: "admin false"
+    explanation: "final protège la référence, pas le contenu : m et Config.MODES désignent le même tableau, modifié par le client."
+    concept: java-public-array-hole
+    difficulty: 1
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      String[] secret = {"a", "b"};
+      var view = java.util.Collections.unmodifiableList(java.util.Arrays.asList(secret));
+      var copy = java.util.List.of(secret);
+      secret[0] = "z";
+      System.out.println(view.get(0) + " " + copy.get(0));
+    answer: "z a"
+    explanation: "unmodifiableList(Arrays.asList(...)) est une vue du tableau : elle reflète ses changements. List.of copie le tableau à la création."
+    concept: java-public-array-hole
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Tu veux tester une méthode privée de ta classe publique. Jusqu'où peux-tu élargir son accès ?"
+    choices:
+      - "public, avec un nom en ForTests"
+      - "protected"
+      - "package-private : les tests vivent dans le même paquetage"
+      - "Il faut utiliser la réflexion"
+    answer: 2
+    explanation: "package-private ne change pas l'API exportée. Au-delà, la méthode devient un engagement public."
+    concept: java-test-visibility
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Une classe implémente Comparable<T>. Peut-elle déclarer compareTo package-private ?"
+    choices:
+      - "Oui"
+      - "Non : une méthode qui implémente ou redéfinit ne peut pas être moins accessible, et les méthodes d'interface sont publiques"
+      - "Oui, si la classe est final"
+      - "Seulement dans un module"
+    answer: 1
+    explanation: "C'est la règle de substitution de Liskov appliquée à l'accès : la sous-classe doit être utilisable partout où l'est son type parent."
+    concept: java-access-levels
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Une bibliothèque compilée contre la version 1 d'une classe appelle sa méthode publique foo(). En version 2, foo() devient private ; on remplace le JAR sans recompiler. Que se passe-t-il ?"
+    choices:
+      - "Rien, l'accès n'est vérifié qu'à la compilation"
+      - "La JVM lève IllegalAccessError quand elle résout l'appel"
+      - "La méthode est appelée normalement"
+      - "NullPointerException"
+    answer: 1
+    explanation: "La JVM revérifie l'accès en résolvant chaque référence du bytecode. Les niveaux d'accès sont aussi une protection binaire."
+    concept: java-access-levels
+    difficulty: 3
+  - id: q8
+    type: single
+    prompt: "Depuis Java 17, une bibliothèque fait `String.class.getDeclaredField(\"value\").setAccessible(true)`. Résultat sans option de lancement ?"
+    choices:
+      - "Ça marche, comme avant"
+      - "InaccessibleObjectException : java.base n'ouvre pas java.lang à la réflexion profonde"
+      - "Un simple avertissement"
+      - "ClassNotFoundException"
+    answer: 1
+    explanation: "L'encapsulation forte du JDK (JEP 403) est appliquée strictement. Il faudrait --add-opens java.base/java.lang=… au lancement."
+    concept: java-modules-encapsulation
+    difficulty: 3

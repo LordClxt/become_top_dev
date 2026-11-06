@@ -1,0 +1,12 @@
+id: java-ch03-l03-lab-drifting-quote
+title: "Débogage : le devis qui change tout seul"
+kind: code
+language: java
+difficulty: 4
+xp: 80
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["LineItem.java", "Cart.java", "Quote.java", "QuoteService.java", "Promotions.java"]
+concepts: [java-immutable-five-rules, java-functional-approach, java-immutable-sharing]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

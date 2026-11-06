@@ -1,0 +1,13 @@
+id: java-ch03-boss
+title: "Boss : des collections persistantes"
+kind: code
+language: java
+difficulty: 5
+xp: 300
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["PStack.java", "PQueue.java"]
+concepts: [java-immutable-five-rules, java-functional-approach, java-immutable-sharing, java-effectively-final-factories, java-final-field-semantics, java-immutable-cost]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

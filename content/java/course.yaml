@@ -41,8 +41,6 @@ tracks:
 
 planned_titles:
   "00-modern-java": "Java moderne en accéléré"
-  "02-object-contracts": "Les contrats d'Object"
-  "03-encapsulation-immutability": "Encapsulation et immutabilité"
   "04-inheritance-interfaces": "Héritage, composition et interfaces"
   "05-generics": "Génériques"
   "06-enums-annotations": "Enums et annotations"

@@ -1,0 +1,99 @@
+id: java-ch02-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Qu'est-ce qui change quand une classe implémente Cloneable ?"
+    choices:
+      - "Elle gagne une méthode publique clone()"
+      - "Object.clone(), méthode protégée, renvoie une copie champ par champ au lieu de lever CloneNotSupportedException"
+      - "Le compilateur génère une copie profonde"
+      - "Ses champs final deviennent modifiables"
+    answer: 1
+    explanation: "Cloneable est vide : il ne fait que modifier le comportement d'une méthode protégée de la classe mère. Un usage des interfaces à ne jamais imiter."
+    concept: java-cloneable-broken
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static class Bag implements Cloneable {
+              int[] items = {1, 2, 3};
+              @Override public Bag clone() {
+                  try { return (Bag) super.clone(); } catch (CloneNotSupportedException e) { throw new AssertionError(); }
+              }
+          }
+
+          public static void main(String[] args) {
+              Bag a = new Bag();
+              Bag b = a.clone();
+              b.items[0] = 99;
+              System.out.println(a.items[0] + " " + (a.items == b.items));
+          }
+      }
+    answer: "99 true"
+    explanation: "super.clone() copie la référence vers le tableau, pas le tableau : les deux sacs partagent le même int[]. Il fallait result.items = items.clone()."
+    concept: java-clone-shallow
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      int[][] grid = {{1, 2}, {3, 4}};
+      int[][] copy = grid.clone();
+      copy[0][0] = 9;
+      copy[1] = new int[] {7, 7};
+      System.out.println(grid[0][0] + " " + grid[1][0]);
+    answer: "9 3"
+    explanation: "clone() sur un tableau de tableaux ne copie que le premier niveau : copy[0] et grid[0] sont la même ligne. Remplacer copy[1] par une nouvelle ligne ne touche pas grid."
+    concept: java-array-clone
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Pourquoi copier une liste chaînée par récursion (next.deepCopy()) est-il risqué ?"
+    choices:
+      - "La récursion est interdite dans clone"
+      - "Une frame de pile par élément : une longue chaîne provoque un StackOverflowError"
+      - "La copie est superficielle"
+      - "Elle ne copie pas les valeurs"
+    answer: 1
+    explanation: "La profondeur de récursion égale la longueur de la chaîne. Une boucle copie n'importe quelle longueur avec une seule frame."
+    concept: java-clone-deep
+    difficulty: 2
+  - id: q5
+    type: multiple
+    prompt: "Quels avantages un constructeur de copie a-t-il sur clone ?"
+    choices:
+      - "Compatible avec les champs final"
+      - "Pas d'exception vérifiée ni de cast"
+      - "Passe par la validation et les invariants d'un constructeur normal"
+      - "Peut accepter une interface et produire une autre implémentation (conversion)"
+      - "Copie automatiquement en profondeur"
+    answer: [0, 1, 2, 3]
+    explanation: "Il ne copie rien automatiquement : c'est toi qui décides quoi copier en profondeur. Mais c'est un constructeur ordinaire, sans aucune des conventions invisibles de Cloneable."
+    concept: java-copy-constructor
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Tu as un HashSet<String> s et tu veux une copie triée. Que fais-tu ?"
+    choices:
+      - "((HashSet<String>) s.clone()) puis tri"
+      - "new TreeSet<>(s)"
+      - "s.stream().sorted() dans un HashSet"
+      - "Impossible sans boucle"
+    answer: 1
+    explanation: "Le constructeur de conversion de TreeSet accepte n'importe quelle Collection : le client choisit l'implémentation de la copie. clone renverrait forcément un HashSet."
+    concept: java-copy-constructor
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Pourquoi super.clone() renvoie-t-il un objet du bon type même appelé depuis la classe mère ?"
+    choices:
+      - "Parce que clone utilise la réflexion sur la classe déclarante"
+      - "Parce que la JVM alloue un objet de la classe d'exécution réelle de this et y copie la mémoire, sans appeler de constructeur"
+      - "Parce que chaque classe génère son clone à la compilation"
+      - "Ce n'est pas le cas"
+    answer: 1
+    explanation: "Object.clone est natif : il regarde la classe réelle de l'objet. C'est pour ça que chaque clone de la hiérarchie doit appeler super.clone() au lieu d'un constructeur."
+    concept: java-cloneable-broken
+    difficulty: 3

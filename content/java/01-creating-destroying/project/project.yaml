@@ -1,0 +1,14 @@
+id: java-ch01-project
+title: "Ordo, jalon 1 : montants, ordres et journal"
+pitch: "Un carnet d'ordres commence par trois briques qui ne doivent jamais mentir : un montant exact, un ordre toujours valide, un journal qui ne perd rien. Tu poses les fondations d'Ordo."
+running_project: ordo
+kind: code
+language: java
+difficulty: 3
+xp: 300
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Money.java", "Order.java", "OrderJournal.java"]
+concepts: [java-static-factory, java-instance-control, java-factory-naming, java-builder, java-builder-validation, java-dependency-injection, java-obsolete-reference, java-try-with-resources, java-suppressed-exceptions, java-autocloseable-state]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

@@ -1,0 +1,98 @@
+id: java-ch03-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var a = java.math.BigInteger.valueOf(8);
+      var b = a.flipBit(0);
+      System.out.println(a + " " + b + " " + (a == b));
+    answer: "8 9 false"
+    explanation: "flipBit renvoie un nouveau BigInteger : a reste 8. Pour un nombre d'un million de bits, ce nouvel objet recopie le million."
+    concept: java-immutable-cost
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      StringBuilder sb = new StringBuilder("ab");
+      String s = sb.toString();
+      sb.append("c");
+      System.out.println(s + " " + sb);
+    answer: "ab abc"
+    explanation: "toString copie le tampon : la String produite ne change plus, même si le compagnon mutable continue à être modifié. C'est le contrat d'un bon build()."
+    concept: java-mutable-companion
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var latch = new java.util.concurrent.CountDownLatch(2);
+      latch.countDown();
+      latch.countDown();
+      latch.countDown();
+      System.out.println(latch.getCount());
+    answer: "0"
+    explanation: "Un CountDownLatch est mutable mais à usage unique : arrivé à zéro, il y reste. Pas de reset, un espace d'états minimal."
+    concept: java-minimize-state-space
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Depuis Java 9, `s = s + line` compile en invokedynamic vers StringConcatFactory. Une boucle de n concaténations est-elle devenue linéaire ?"
+    choices:
+      - "Oui, le JIT la transforme en StringBuilder"
+      - "Non : chaque itération produit une nouvelle String complète, le coût reste quadratique"
+      - "Oui, grâce aux chaînes compactes"
+      - "Seulement si line est une constante"
+    answer: 1
+    explanation: "StringConcatFactory optimise une expression, pas une boucle. Pour accumuler, StringBuilder."
+    concept: java-immutable-cost
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Pourquoi StringBuilder.append coûte-t-il O(1) amorti, alors qu'il recopie parfois tout le tampon ?"
+    choices:
+      - "Il ne recopie jamais"
+      - "La capacité double à chaque agrandissement : le total des recopies reste proportionnel à la taille finale"
+      - "Il utilise une liste chaînée de blocs"
+      - "La JVM agrandit le tableau sans le déplacer"
+    answer: 1
+    explanation: "n + n/2 + n/4 + … ≤ 2n caractères recopiés au total. Avec une capacité initiale connue, aucune recopie."
+    concept: java-mutable-companion
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Comment BigInteger.modPow évite-t-il de créer un BigInteger par multiplication intermédiaire ?"
+    choices:
+      - "Il ne l'évite pas"
+      - "C'est une primitive à plusieurs étapes : il travaille en interne avec un compagnon mutable package-private (MutableBigInteger)"
+      - "Il utilise des double"
+      - "Il met en cache tous les résultats"
+    answer: 1
+    explanation: "La classe immuable peut être aussi astucieuse qu'elle veut à l'intérieur, tant qu'elle ne crée qu'un objet visible."
+    concept: java-multistep-primitives
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Ta classe Connection est mutable par nature. Laquelle de ces méthodes publiques le livre déconseille-t-il ?"
+    choices:
+      - "close()"
+      - "reset(String url) qui la réutilise comme si elle avait été construite vers une autre URL"
+      - "isOpen()"
+      - "send(byte[] data)"
+    answer: 1
+    explanation: "Une réinitialisation multiplie les états possibles pour un gain de performance négligeable. Crée une nouvelle connexion."
+    concept: java-minimize-state-space
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Quand ajouter un compagnon mutable public à ta classe immuable ?"
+    choices:
+      - "Toujours, par précaution"
+      - "Jamais"
+      - "Quand une mesure montre que la création d'objets intermédiaires pose un vrai problème de performance"
+      - "Quand la classe a plus de trois champs"
+    answer: 2
+    explanation: "Mesurer d'abord : sur une JVM moderne, allouer des objets à courte durée de vie coûte très peu."
+    concept: java-mutable-companion
+    difficulty: 1

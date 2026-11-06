@@ -32,7 +32,6 @@ export function editorLanguage(file: string, fallback: string): EditorLanguage {
   if (file.endsWith('.java')) return 'java'
   if (/\.(ts|mts|js|mjs)$/.test(file)) return 'typescript'
   if (file.endsWith('.go')) return 'go'
-  if (fallback === 'nestjs') return 'typescript'
   return fallback === 'groovy' || fallback === 'java' || fallback === 'typescript' ? fallback : 'go'
 }
 

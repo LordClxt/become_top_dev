@@ -1,0 +1,12 @@
+id: java-ch02-l01-lab-warmup-isbn
+title: "Échauffement : deux ISBN, un seul livre"
+kind: code
+language: java
+difficulty: 1
+xp: 25
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Isbn.java"]
+concepts: [java-equals-when, java-equals-recipe]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

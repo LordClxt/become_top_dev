@@ -24,7 +24,7 @@ glossary:
   - term: "exception supprimée"
     definition: "Exception levée pendant la fermeture automatique alors qu'une autre était déjà en cours ; elle est attachée à la première via addSuppressed et lisible par getSuppressed()."
 visuals: [java-ch01-twr-suppressed]
-labs: [java-ch01-l05-lab-resources]
+labs: [java-ch01-l05-lab-resources, java-ch01-l05-lab-pool-exhausted]
 extra: false
 xp: 30
 ---
@@ -137,6 +137,39 @@ static String firstLine(Path p, String defaultValue) {
 ```
 
 > **Depuis Java 9**, une variable `final` ou effectivement `final` déjà déclarée peut être réutilisée directement : `try (r) { … }`.
+
+## Sous le capot : ce que javac écrit à ta place
+
+try-with-resources n'existe pas dans le bytecode. Le compilateur le **réécrit** en `try`/`catch`/`finally` ordinaires (la règle exacte est dans la spécification du langage, JLS §14.20.3). Pour `try (R r = open()) { corps }`, il produit l'équivalent de :
+
+```java
+final R r = open();
+Throwable primary = null;
+try {
+    corps
+} catch (Throwable t) {
+    primary = t;
+    throw t;
+} finally {
+    if (r != null) {
+        if (primary != null) {
+            try { r.close(); } catch (Throwable s) { primary.addSuppressed(s); }
+        } else {
+            r.close();
+        }
+    }
+}
+```
+
+Lire cette traduction permet de prédire tous les cas limites :
+
+- **`open()` lève une exception** : on n'est pas encore entré dans le `try`, donc rien à fermer. C'est pour ça qu'une ressource qui ne s'ouvre pas n'est jamais fermée.
+- **La ressource vaut `null`** : pas de `NullPointerException`, le `close()` est simplement sauté (`if (r != null)`).
+- **Plusieurs ressources** : javac imbrique un bloc par ressource, la dernière déclarée au plus profond. D'où la fermeture en ordre inverse.
+- **Le corps fait `return`** : le `finally` s'exécute après l'évaluation de la valeur de retour et avant de rendre la main.
+- **Coût** : aucun objet créé tant que rien n'échoue. `addSuppressed` n'alloue que sur le chemin d'erreur (une liste interne à l'exception).
+
+> **Conditions réelles.** Sur un serveur, une fuite de ressource ne se voit pas en test : elle se voit après des heures, quand le pool de connexions ou la limite de descripteurs (`ulimit -n`, souvent 1024) est atteint. Les pannes **rattrapées** (un réessai qui avale l'exception) sont les pires : aucune trace dans les logs. Le TP de débogage de cette leçon en est un exemple typique.
 
 ## Pièges fréquents
 

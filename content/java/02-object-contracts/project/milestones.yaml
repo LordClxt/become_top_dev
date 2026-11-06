@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Les contrats de Money"
+    goal: "equals, hashCode et un ordre naturel cohérent avec equals ; valueOf relit le format de toString."
+    tests: "jtest M1"
+    review: false
+  - id: m2
+    title: "BookSide : la priorité prix-temps"
+    goal: "Un côté du carnet trié par meilleur prix puis ordre d'arrivée, sans jamais confondre deux ordres de même prix."
+    tests: "jtest M2"
+    review: false
+  - id: m3
+    title: "Instantanés et affichage"
+    goal: "Une copie indépendante du carnet pour les rapports, et un toString qui résume sans tout afficher."
+    tests: "jtest M3"
+    review: true

@@ -1,0 +1,14 @@
+id: java-ch03-project
+title: "Ordo, jalon 3 : des transactions et des instantanés immuables"
+pitch: "Un moteur de matching manipule des ordres depuis plusieurs threads. Tu rends chaque valeur immuable : une transaction validée une fois pour toutes, des exécutions qui créent de nouveaux ordres au lieu de les modifier, et des instantanés du carnet que tout le monde peut lire sans verrou."
+running_project: ordo
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Money.java", "Order.java", "Trade.java", "BookSide.java", "BookSnapshot.java"]
+concepts: [java-record-compact-ctor, java-record-mutable-components, java-immutable-five-rules, java-functional-approach, java-immutable-sharing, java-information-hiding]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

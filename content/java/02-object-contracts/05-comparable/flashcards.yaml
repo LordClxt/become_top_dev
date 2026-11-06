@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Les clauses du contrat de compareTo ?"
+    back: "sgn(x.compareTo(y)) == -sgn(y.compareTo(x)) ; transitivité ; x ≡ y ⇒ même comparaison à tout z ; recommandé : compareTo == 0 ⇔ equals."
+    concept: java-comparable-contract
+  - id: fc2
+    front: "Exemple du JDK d'ordre incohérent avec equals ?"
+    back: "BigDecimal : 1.0 et 1.00 se comparent à 0 mais ne sont pas égaux. HashSet en garde 2, TreeSet 1."
+    concept: java-comparable-consistent-equals
+  - id: fc3
+    front: "Quelle égalité utilisent TreeSet et TreeMap ?"
+    back: "compareTo (ou le Comparator), pas equals."
+    concept: java-comparable-consistent-equals
+  - id: fc4
+    front: "Comment comparer deux int dans compareTo ?"
+    back: "Integer.compare(a, b), ou Comparator.comparingInt. Jamais a - b, jamais < et > à la main."
+    concept: java-compare-methods
+  - id: fc5
+    front: "Pourquoi a - b est-il un comparateur faux ?"
+    back: "Débordement : MAX_VALUE - (-1) est négatif. La transitivité casse, le tri devient faux ou lève une exception."
+    concept: java-comparator-difference-bug
+  - id: fc6
+    front: "Que fait `.reversed()` en fin de chaîne comparing(a).thenComparing(b) ?"
+    back: "Il inverse les deux critères. Pour n'inverser que a : comparing(a).reversed().thenComparing(b)."
+    concept: java-comparator-construction
+  - id: fc7
+    front: "Où ranger un Comparator utilisé par compareTo ?"
+    back: "Dans un champ private static final, construit une fois à l'initialisation de la classe."
+    concept: java-comparator-construction
+  - id: fc8
+    front: "Peut-on étendre une classe Comparable en ajoutant un champ significatif ?"
+    back: "Non sans casser le contrat (même problème qu'equals) : composition + vue."
+    concept: java-comparable-contract
+  - id: fc9
+    front: "Quand TimSort lève-t-il « Comparison method violates its general contract! » ?"
+    back: "Quand il détecte une incohérence pendant une fusion (à partir de 32 éléments). Sinon le tri peut être faux en silence."
+    concept: java-comparator-difference-bug

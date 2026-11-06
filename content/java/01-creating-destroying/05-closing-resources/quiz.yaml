@@ -131,3 +131,24 @@ questions:
     explanation: "AutoCloseable, un état « fermé » vérifié et un close() idempotent. finalize() est déprécié pour suppression et ne garantit rien ; au mieux, un Cleaner comme filet de sécurité."
     concept: java-autocloseable-state
     difficulty: 1
+  - id: q8
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static AutoCloseable open(String name) {
+              System.out.println("ouvre " + name);
+              if (name.equals("b")) return null;
+              return () -> System.out.println("ferme " + name);
+          }
+
+          public static void main(String[] args) throws Exception {
+              try (AutoCloseable a = open("a"); AutoCloseable b = open("b")) {
+                  System.out.println("corps " + (b == null));
+              }
+          }
+      }
+    answer: "ouvre a\nouvre b\ncorps true\nferme a"
+    explanation: "La traduction de javac teste `if (r != null)` avant d'appeler close() : une ressource nulle est simplement ignorée, sans NullPointerException. a est quand même fermée."
+    concept: java-try-with-resources
+    difficulty: 3

@@ -1,0 +1,106 @@
+id: java-ch02-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static final class Point {
+              final int x, y;
+              Point(int x, int y) { this.x = x; this.y = y; }
+              @Override public boolean equals(Object o) { return o instanceof Point p && p.x == x && p.y == y; }
+          }
+
+          public static void main(String[] args) {
+              var map = new java.util.HashMap<Point, String>();
+              map.put(new Point(1, 2), "A");
+              System.out.println(map.get(new Point(1, 2)) + " " + new Point(1, 2).equals(new Point(1, 2)));
+          }
+      }
+    answer: "null true"
+    explanation: "equals est redéfini mais pas hashCode : les deux points égaux ont des hash d'identité différents, get cherche dans un autre compartiment (et compare de toute façon le hash avant equals)."
+    concept: java-hashcode-contract
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "`@Override public int hashCode() { return 42; }` :"
+    choices:
+      - "Viole le contrat de hashCode"
+      - "Respecte le contrat, mais toutes les clés tombent dans le même compartiment : la table se comporte comme une liste"
+      - "Fait planter HashMap"
+      - "Est la meilleure option pour un objet mutable"
+    answer: 1
+    explanation: "Des objets égaux ont bien le même hash, donc c'est légal. Mais chaque recherche parcourt toutes les entrées : temps quadratique pour n insertions."
+    concept: java-hashcode-quality
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var key = new java.util.ArrayList<>(java.util.List.of("bio"));
+      var map = new java.util.HashMap<java.util.List<String>, Integer>();
+      map.put(key, 12);
+      key.add("vrac");
+      System.out.println(map.get(key) + " " + map.containsKey(java.util.List.of("bio")) + " " + map.size());
+    answer: "null false 1"
+    explanation: "La clé a changé de hash après insertion. get(key) cherche dans le compartiment du nouveau hash ; List.of(\"bio\") tombe dans le bon compartiment mais n'est plus égale à la clé modifiée. L'entrée reste, inaccessible."
+    concept: java-mutable-key
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Une classe compare `id` et `name` dans equals, et calcule hashCode avec `id`, `name` et `lastAccess`. Que se passe-t-il ?"
+    choices:
+      - "Rien de grave, hashCode est juste plus précis"
+      - "Deux objets égaux mais consultés à des moments différents ont des hash différents : le contrat est violé"
+      - "equals devient asymétrique"
+      - "Le hash est plus lent mais correct"
+    answer: 1
+    explanation: "hashCode ne doit utiliser que des champs qu'equals compare. Sinon deux objets égaux peuvent avoir des hash différents."
+    concept: java-hashcode-recipe
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      System.out.println("Aa".hashCode() == "BB".hashCode());
+      System.out.println("ab".hashCode() == "ba".hashCode());
+    answer: "true\nfalse"
+    explanation: "'A'*31 + 'a' = 65*31 + 97 = 2112 et 'B'*31 + 'B' = 66*31 + 66 = 2112 : une vraie collision, permise par le contrat. En revanche la multiplication par 31 rend l'ordre significatif : ab et ba diffèrent."
+    concept: java-hashcode-recipe
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Pourquoi éviter `Objects.hash(a, b, c)` sur une clé très utilisée ?"
+    choices:
+      - "Son résultat est de moins bonne qualité"
+      - "Il ne gère pas null"
+      - "Il crée un tableau à chaque appel et emballe les primitifs (varargs + autoboxing)"
+      - "Il n'est pas cohérent avec equals"
+    answer: 2
+    explanation: "La qualité est la même que la recette manuelle ; le coût vient des allocations. Pour une clé hachée des millions de fois, écris la recette."
+    concept: java-hashcode-caching
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Dans HashMap, pourquoi l'index est-il calculé à partir de `h ^ (h >>> 16)` plutôt que de `h` ?"
+    choices:
+      - "Pour rendre le hash positif"
+      - "Parce que l'index ne garde que les bits de poids faible : on y replie les bits de poids fort pour qu'ils comptent aussi"
+      - "Pour chiffrer les clés"
+      - "Pour éviter les hash égaux à 0"
+    answer: 1
+    explanation: "Avec une table de 16 cases, (n - 1) & h ne garde que 4 bits. Un hash qui ne varie que dans ses bits hauts finirait toujours dans la même case sans ce repli."
+    concept: java-hashmap-internals
+    difficulty: 3
+  - id: q8
+    type: single
+    prompt: "Un compartiment de HashMap contient 12 clés String qui collisionnent (table de 64 cases). Comment se fait la recherche dans ce compartiment (Java 8+) ?"
+    choices:
+      - "Toujours en parcourant une liste chaînée"
+      - "Dans un arbre rouge-noir ordonné par compareTo, donc en O(log n)"
+      - "Par une seconde table de hachage"
+      - "HashMap refuse plus de 8 collisions"
+    answer: 1
+    explanation: "Au-delà de 8 entrées (table d'au moins 64 cases), le compartiment devient un arbre. String est Comparable, donc l'arbre peut l'ordonner. Avec des clés non comparables, l'arbre ne sait pas trier et la recherche reste quasi linéaire."
+    concept: java-hashmap-internals
+    difficulty: 3

@@ -1,0 +1,6 @@
+id: java-ch02-equals-relations
+concept: java-equals-subclass-value
+format: interactive
+justification: "Basculer entre trois implémentations d'equals et voir la matrice x.equals(y) changer, cases fautives surlignées, montre qu'aucune variante héritée ne tient alors que la composition, si."
+entry: EqualsRelations.tsx
+status: built

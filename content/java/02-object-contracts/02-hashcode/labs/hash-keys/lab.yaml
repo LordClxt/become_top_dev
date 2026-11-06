@@ -1,0 +1,12 @@
+id: java-ch02-l02-lab-hash-keys
+title: "Des clés de HashMap qui retrouvent leur tiroir"
+kind: code
+language: java
+difficulty: 2
+xp: 55
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Route.java", "Seats.java"]
+concepts: [java-hashcode-contract, java-hashcode-recipe, java-hashcode-quality]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Les cinq clauses du contrat d'equals ?"
+    back: "Réflexive, symétrique, transitive, cohérente, et x.equals(null) == false."
+    concept: java-equals-contract
+  - id: fc2
+    front: "Quand garder l'equals d'Object ?"
+    back: "Instances uniques par nature (Thread, connexion), pas besoin d'égalité logique, classe mère qui l'a déjà fait, ou classe à instances contrôlées (enum)."
+    concept: java-equals-when
+  - id: fc3
+    front: "Pourquoi CaseInsensitiveString ne doit-elle pas être égale à une String ?"
+    back: "String ne lui rendra jamais la pareille : l'égalité serait asymétrique et les collections deviendraient imprévisibles."
+    concept: java-equals-symmetry
+  - id: fc4
+    front: "Peut-on ajouter un champ significatif dans une sous-classe d'une classe instanciable sans casser equals ?"
+    back: "Non. Solution : composition (un champ Point) + une vue asPoint()."
+    concept: java-equals-subclass-value
+  - id: fc5
+    front: "Quel est le défaut d'un equals fondé sur getClass() ?"
+    back: "Il viole le principe de Liskov : une sous-classe sans valeur ajoutée n'est plus égale à sa classe mère."
+    concept: java-equals-getclass-lsp
+  - id: fc6
+    front: "Comment comparer un champ double dans equals ?"
+    back: "Double.compare(a, b) == 0 : NaN égal à NaN (réflexivité), 0.0 différent de -0.0. Jamais ==."
+    concept: java-equals-recipe
+  - id: fc7
+    front: "Que se passe-t-il avec `public boolean equals(MyType o)` sans @Override ?"
+    back: "C'est une surcharge : HashSet, HashMap et List appellent equals(Object), qui reste l'identité."
+    concept: java-equals-recipe
+  - id: fc8
+    front: "Exemple du JDK qui viole la symétrie d'equals ?"
+    back: "java.sql.Timestamp, qui étend Date en ajoutant les nanosecondes."
+    concept: java-equals-subclass-value
+  - id: fc9
+    front: "Pourquoi l'héritage pose-t-il moins de problème pour equals si la classe mère est abstraite ?"
+    back: "On ne peut pas créer d'instance de la classe mère : il n'y a jamais de comparaison mixte entre une Shape nue et un Circle."
+    concept: java-equals-subclass-value
+  - id: fc10
+    front: "Qu'est-ce qu'un record génère, et comment compare-t-il les double ?"
+    back: "equals, hashCode et toString à partir des composants ; les double sont comparés comme Double.compare."
+    concept: java-equals-recipe

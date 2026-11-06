@@ -1,0 +1,12 @@
+id: java-ch02-l02-lab-forgetful-cache
+title: "Débogage : le cache qui oublie tout"
+kind: code
+language: java
+difficulty: 4
+xp: 90
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Sku.java", "PriceKey.java", "PriceCache.java", "Checkout.java"]
+concepts: [java-mutable-key, java-hashcode-contract, java-equals-recipe]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

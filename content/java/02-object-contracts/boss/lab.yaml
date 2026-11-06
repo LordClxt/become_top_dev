@@ -1,0 +1,13 @@
+id: java-ch02-boss
+title: "Boss : le vérificateur de contrats"
+kind: code
+language: java
+difficulty: 5
+xp: 300
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Contracts.java", "Report.java"]
+concepts: [java-equals-contract, java-equals-symmetry, java-equals-subclass-value, java-hashcode-contract, java-comparable-contract, java-comparable-consistent-equals, java-comparator-difference-bug, java-tostring-informative]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

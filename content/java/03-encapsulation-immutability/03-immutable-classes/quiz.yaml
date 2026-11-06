@@ -1,0 +1,109 @@
+id: java-ch03-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var total = new java.math.BigDecimal("10.00");
+      total.add(new java.math.BigDecimal("2.50"));
+      System.out.println(total);
+    answer: "10.00"
+    explanation: "BigDecimal est immuable : add renvoie un nouveau BigDecimal, ici jeté. Le nom (un verbe) induit en erreur : c'est pour ça qu'on préfère plus."
+    concept: java-functional-approach
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var d = java.time.LocalDate.of(2024, 1, 31);
+      d.plusMonths(1);
+      System.out.println(d + " " + d.plusMonths(1));
+    answer: "2024-01-31 2024-02-29"
+    explanation: "LocalDate est immuable : le premier plusMonths est perdu. Le second renvoie un nouveau jour, ajusté au dernier jour de février (année bissextile)."
+    concept: java-functional-approach
+    difficulty: 2
+  - id: q3
+    type: multiple
+    prompt: "Lesquelles font partie des cinq règles d'une classe immuable ?"
+    choices:
+      - "Ne fournir aucun mutateur"
+      - "Empêcher l'extension de la classe"
+      - "Rendre tous les champs final et private"
+      - "Implémenter Cloneable"
+      - "Garantir un accès exclusif aux composants mutables (copies défensives)"
+    answer: [0, 1, 2, 4]
+    explanation: "Une classe immuable n'a jamais besoin de clone : une copie serait équivalente pour toujours à l'original."
+    concept: java-immutable-five-rules
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Comment BigInteger.negate() peut-il ne pas copier son tableau de magnitude, alors qu'un int[] est mutable ?"
+    choices:
+      - "Il le copie en réalité, de façon paresseuse"
+      - "Le tableau n'est jamais modifié par aucun BigInteger : deux instances immuables peuvent le partager sans risque"
+      - "Il utilise un tableau en lecture seule fourni par la JVM"
+      - "negate modifie this, puis le renvoie"
+    answer: 1
+    explanation: "Les objets immuables partagent leurs internes : le nouveau BigInteger a le signe opposé et la même magnitude, par référence."
+    concept: java-immutable-sharing
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi une classe sans constructeur public ni protected, avec des fabriques statiques, est-elle « effectivement finale » ?"
+    choices:
+      - "Parce que le compilateur ajoute final automatiquement"
+      - "Parce qu'une sous-classe doit appeler un constructeur de sa superclasse, et qu'aucun n'est accessible depuis un autre paquetage"
+      - "Parce que les fabriques statiques ne sont pas héritées"
+      - "Elle ne l'est pas : on peut toujours l'étendre"
+    answer: 1
+    explanation: "Sans constructeur accessible, impossible d'écrire super(…). Et la classe garde la liberté d'avoir des implémentations package-private et d'ajouter un cache."
+    concept: java-effectively-final-factories
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Ta méthode reçoit un BigInteger d'un appelant non fiable et le stocke comme clé de sécurité. Que fais-tu ?"
+    choices:
+      - "Rien : BigInteger est immuable"
+      - "Si sa classe n'est pas exactement BigInteger.class, le recopier avec new BigInteger(val.toByteArray())"
+      - "L'envelopper dans Collections.unmodifiable…"
+      - "Appeler val.clone()"
+    answer: 1
+    explanation: "BigInteger n'est pas final : une sous-classe malveillante peut être mutable. On vérifie getClass(), pas instanceof."
+    concept: java-defensive-copy-untrusted
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "String a un champ hash non final, calculé au premier appel de hashCode(). String reste-t-elle immuable ?"
+    choices:
+      - "Non : un champ change"
+      - "Oui : aucun changement n'est visible de l'extérieur, et le calcul donne toujours le même résultat"
+      - "Seulement si hashCode est synchronized"
+      - "Seulement si hash est volatile"
+    answer: 1
+    explanation: "Course bénigne : deux threads peuvent calculer le hash chacun, mais ils écrivent la même valeur dans un int (écriture atomique)."
+    concept: java-lazy-cached-fields
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Un objet Point { int x; int y; } (champs non final) est construit puis publié dans un champ statique non volatile, lu par un autre thread. Que peut voir ce thread ?"
+    choices:
+      - "Toujours les bonnes valeurs : le constructeur est terminé"
+      - "Possiblement x et y à 0 : sans final ni synchronisation, rien n'ordonne les écritures des champs avant la publication"
+      - "Une NullPointerException"
+      - "Le programme ne compile pas"
+    answer: 1
+    explanation: "Les champs final sont gelés à la fin du constructeur (JLS 17.5) : leur publication est sûre même via une course de données. Les autres champs n'ont pas cette garantie."
+    concept: java-final-field-semantics
+    difficulty: 3
+  - id: q9
+    type: single
+    prompt: "Quel constructeur casse la garantie des champs final, même s'ils le sont tous ?"
+    choices:
+      - "Un constructeur qui valide ses arguments"
+      - "Un constructeur qui appelle Registry.register(this) avant de finir"
+      - "Un constructeur privé"
+      - "Un constructeur qui fait List.copyOf"
+    answer: 1
+    explanation: "this s'échappe : un autre thread peut l'obtenir pendant la construction, avant le gel des champs final."
+    concept: java-final-field-semantics
+    difficulty: 3

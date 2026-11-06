@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "La règle d'or de l'accessibilité ?"
+    back: "Chaque classe et chaque membre aussi inaccessible que possible, compte tenu du bon fonctionnement du logiciel."
+    concept: java-information-hiding
+  - id: fc2
+    front: "Quels niveaux d'accès pour une classe de premier niveau ?"
+    back: "public ou package-private (aucun modificateur). Rien d'autre."
+    concept: java-access-levels
+  - id: fc3
+    front: "Les quatre niveaux d'un membre, du plus fermé au plus ouvert ?"
+    back: "private, package-private, protected (paquetage + sous-classes), public."
+    concept: java-access-levels
+  - id: fc4
+    front: "Pourquoi protected est-il un engagement ?"
+    back: "Il fait partie de l'API exportée : toute sous-classe, n'importe où, peut en dépendre."
+    concept: java-protected-is-api
+  - id: fc5
+    front: "Deux corrections d'un `public static final Thing[] VALUES` ?"
+    back: "Tableau privé + List non modifiable publique, ou tableau privé + méthode publique qui renvoie un clone."
+    concept: java-public-array-hole
+  - id: fc6
+    front: "Jusqu'où élargir l'accès d'un membre pour le tester ?"
+    back: "package-private, jamais plus : les tests sont dans le même paquetage."
+    concept: java-test-visibility
+  - id: fc7
+    front: "Quels champs publics sont acceptables dans une classe publique ?"
+    back: "Seulement des constantes static final, primitives ou immuables."
+    concept: java-information-hiding
+  - id: fc8
+    front: "Que garantit un module pour un paquetage non exporté ?"
+    back: "Ses membres publics sont inaccessibles hors du module ; strictement pour le JDK, indicatif pour un JAR mis sur le classpath."
+    concept: java-modules-encapsulation
+  - id: fc9
+    front: "Que sont les nestmates (Java 11) ?"
+    back: "La JVM autorise directement l'accès private entre une classe et ses classes imbriquées, sans les méthodes passerelles access$000 d'avant."
+    concept: java-access-levels

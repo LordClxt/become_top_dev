@@ -1,0 +1,14 @@
+id: java-ch02-project
+title: "Ordo, jalon 2 : des montants comparables et un carnet trié"
+pitch: "Un carnet d'ordres, c'est d'abord un ordre : le meilleur prix d'abord, puis le premier arrivé. Tu donnes ses contrats à Money et tu construis un côté du carnet qui ne perd jamais un ordre."
+running_project: ordo
+kind: code
+language: java
+difficulty: 3
+xp: 300
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Money.java", "BookSide.java"]
+concepts: [java-equals-recipe, java-hashcode-recipe, java-tostring-format-spec, java-comparable-consistent-equals, java-comparator-construction, java-copy-constructor]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

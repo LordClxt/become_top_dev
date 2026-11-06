@@ -1,0 +1,12 @@
+id: java-ch03-assignment
+title: "Une configuration profondément immuable"
+kind: code
+language: java
+difficulty: 4
+xp: 150
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["AppConfig.java"]
+concepts: [java-immutable-five-rules, java-functional-approach, java-immutable-sharing, java-mutable-companion, java-record-mutable-components, java-information-hiding]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

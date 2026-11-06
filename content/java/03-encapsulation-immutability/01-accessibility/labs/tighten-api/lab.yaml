@@ -1,0 +1,12 @@
+id: java-ch03-l01-lab-tighten-api
+title: "Refermer une API trop ouverte"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["catalog/Catalog.java", "catalog/Product.java", "catalog/PriceIndex.java"]
+concepts: [java-access-levels, java-protected-is-api, java-public-array-hole, java-test-visibility, java-information-hiding]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

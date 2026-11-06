@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.55
+    source: tests
+  - id: object-creation
+    label: "Création des objets"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Builder immuable qui valide là où chaque paramètre arrive ; registre à instances contrôlées sans constructeur public ; Pattern compilé une seule fois ; horloge injectée, jamais System.nanoTime() en dur dans Timer"
+      2: "Fonctionne, mais une validation est repoussée à l'usage, un objet coûteux est recréé à chaque appel, ou un constructeur public subsiste"
+      0: "Setters publics, horloge câblée en dur, ou un nom peut désigner deux métriques différentes"
+  - id: memory-resources
+    label: "Mémoire et ressources"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Fenêtre d'échantillons réellement bornée (tampon circulaire ou ArrayDeque élaguée), copie défensive non modifiable en sortie, Sample idempotent qui refuse les fermetures en double sans effet de bord"
+      2: "Bornée mais en copiant tout le tableau à chaque mesure, ou recent() expose la structure interne"
+      0: "Les échantillons s'accumulent sans limite, ou close() enregistre deux fois"
