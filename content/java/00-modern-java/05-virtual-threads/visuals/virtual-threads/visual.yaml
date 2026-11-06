@@ -1,0 +1,9 @@
+id: java-ch00-virtual-threads
+concept: java-virtual-thread
+format: interactive
+justification: "Régler soi-même le nombre de requêtes et la taille du pool, puis regarder des tâches attendre un thread libre d'un côté et se démonter des porteurs de l'autre, fait sentir pourquoi le débit dépend du nombre de tâches qui attendent, pas du nombre de cœurs."
+entry: VirtualThreads.tsx
+params:
+  - { name: tasks, type: int, min: 20, max: 400, default: 120 }
+  - { name: pool, type: int, min: 4, max: 60, default: 20 }
+status: built

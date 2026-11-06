@@ -1,0 +1,120 @@
+id: java-ch00-l05-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Un service bloque 300 ms sur le réseau par requête, avec un pool de 200 threads, et sature à 2 000 requêtes simultanées avec 4 % de CPU. Que changent les threads virtuels ?"
+    choices:
+      - "Rien : le processeur est le goulot"
+      - "Chaque requête a son thread, démonté de son porteur pendant l'attente : les 2 000 attendent en même temps au lieu de faire la queue"
+      - "Les appels réseau deviennent plus rapides"
+      - "Il faut réécrire le code en CompletableFuture"
+    answer: 1
+    explanation: "Le goulot, c'est le nombre de threads qui peuvent attendre en même temps. Un thread virtuel bloqué ne coûte presque rien et libère son porteur : le débit suit le nombre de requêtes, avec du code bloquant ordinaire."
+    concept: java-virtual-thread
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Un traitement compresse 10 000 images (calcul pur) sur 8 cœurs. Passer à un thread virtuel par image…"
+    choices:
+      - "divise le temps par 1 000"
+      - "n'apporte rien : les threads virtuels augmentent le débit des tâches qui attendent, pas le nombre de cœurs"
+      - "est interdit par la JVM"
+      - "épingle les porteurs"
+    answer: 1
+    explanation: "Pour du calcul, le parallélisme utile est le nombre de cœurs : un pool de threads de plateforme dimensionné sur availableProcessors() ou un parallelStream reste le bon outil."
+    concept: java-vt-pinning
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Le fournisseur accepte 20 appels simultanés. Quelle est la bonne façon de respecter cette limite avec des threads virtuels ?"
+    choices:
+      - "Executors.newFixedThreadPool(20, Thread.ofVirtual().factory())"
+      - "Un thread virtuel par appel, et un Semaphore(20) autour de l'appel au fournisseur"
+      - "Thread.sleep entre les appels"
+      - "synchronized sur la méthode d'appel"
+    answer: 1
+    explanation: "Un pool limite indirectement en limitant les threads. On protège plutôt la ressource elle-même : attendre un permis ne coûte presque rien à un thread virtuel, et le reste du code n'est pas bridé."
+    concept: java-vt-limit
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      static final ScopedValue<String> ID = ScopedValue.newInstance();
+
+      void main() {
+          ScopedValue.where(ID, "a").run(() -> {
+              ScopedValue.where(ID, "b").run(() -> IO.print(ID.get() + " "));
+              IO.print(ID.get() + " ");
+          });
+          IO.println(ID.isBound() + " " + ID.orElse("aucun"));
+      }
+    answer: "b a false aucun"
+    explanation: "Une liaison imbriquée masque la précédente pendant son appel, puis la précédente revient. Après run, plus rien n'est lié : isBound() est faux, orElse donne la valeur par défaut."
+    concept: java-scoped-value
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      static final ScopedValue<String> ID = ScopedValue.newInstance();
+
+      void main() throws Exception {
+          ScopedValue.where(ID, "req-1").call(() -> {
+              try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+                  var seen = executor.submit(() -> ID.orElse("absent"));
+                  IO.println(seen.get() + " / " + ID.get());
+              }
+              return null;
+          });
+      }
+    answer: "absent / req-1"
+    explanation: "Une ScopedValue n'est pas transmise aux tâches d'un ExecutorService ordinaire. Capture la valeur et relie-la dans la tâche, ou utilise la concurrence structurée, dont les sous-tâches héritent des liaisons."
+    concept: java-scoped-value
+    difficulty: 3
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var t = Thread.ofVirtual().unstarted(() -> { });
+      System.out.println(t.isVirtual() + " " + t.isDaemon());
+    answer: "true true"
+    explanation: "Un thread virtuel est toujours un thread démon : il n'empêche pas la JVM de s'arrêter. D'où l'importance de fermer l'executor (ou de join) pour attendre la fin des tâches."
+    concept: java-vt-executor
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Que fait la fin du bloc `try (var ex = Executors.newVirtualThreadPerTaskExecutor()) { … }` ?"
+    choices:
+      - "Elle interrompt immédiatement toutes les tâches"
+      - "Elle attend que toutes les tâches soumises soient terminées, puis libère l'executor"
+      - "Rien : un executor de threads virtuels n'a pas besoin d'être fermé"
+      - "Elle lève une exception si des tâches tournent encore"
+    answer: 1
+    explanation: "ExecutorService est AutoCloseable depuis Java 19 : close() attend la fin des tâches. Aucune tâche ne survit au bloc, ce qui rend la concurrence lisible."
+    concept: java-vt-executor
+    difficulty: 1
+  - id: q8
+    type: single
+    prompt: "Depuis Java 24, un thread virtuel qui attend une socket dans un bloc synchronized…"
+    choices:
+      - "épingle son porteur, comme en Java 21"
+      - "se démonte normalement : les moniteurs appartiennent désormais au thread virtuel (JEP 491)"
+      - "lève IllegalMonitorStateException"
+      - "devient un thread de plateforme"
+    answer: 1
+    explanation: "Le JEP 491 a supprimé la principale cause d'épinglage. Restent épinglants les cadres de code natif (JNI, fonctions étrangères) qui se bloquent dans du Java appelé depuis le natif."
+    concept: java-vt-pinning
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Qu'apporte StructuredTaskScope par rapport à un ExecutorService ?"
+    choices:
+      - "Des threads plus rapides"
+      - "Des sous-tâches bornées par un bloc : si l'une échoue, les autres sont annulées, et elles héritent des ScopedValue du parent (API encore en preview)"
+      - "Le remplacement des threads virtuels"
+      - "Une exécution sur GPU"
+    answer: 1
+    explanation: "La concurrence structurée traite un groupe de sous-tâches comme une unité. Elle est en preview dans les JDK 25 à 27 : son API bouge encore, ce cours l'aborde au module 11."
+    concept: java-structured-concurrency
+    difficulty: 2

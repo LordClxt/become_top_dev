@@ -124,7 +124,9 @@ Le plus tôt possible, au plus près de l'erreur :
 | Une option isolée (`threshold` entre 0 et 1) | sa méthode du builder |
 | Un invariant entre plusieurs paramètres (`minutes > 0` si `severity == PAGE`) | dans `build()`, **après** avoir copié les valeurs dans l'objet |
 
-Pourquoi après la copie ? Pour que l'objet vérifie **ses propres champs**, que plus personne ne peut changer. On retrouvera ce principe avec les copies défensives (module 8). En cas d'échec, lève une `IllegalArgumentException` dont le message dit **quel** paramètre est fautif.
+Pourquoi après la copie ? Pour que l'objet vérifie **ses propres champs**, que plus personne ne peut changer.
+
+> **Java 25 :** dans un builder **hiérarchique** (plus bas), le constructeur d'une sous-classe peut désormais valider et affecter ses propres champs **avant** `super(builder)` (module 0, leçon 2). Si le constructeur parent appelle une méthode redéfinie, elle verra déjà des champs valides. On retrouvera ce principe avec les copies défensives (module 8). En cas d'échec, lève une `IllegalArgumentException` dont le message dit **quel** paramètre est fautif.
 
 ### Un builder est réutilisable
 

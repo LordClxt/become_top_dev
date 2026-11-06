@@ -1,0 +1,46 @@
+id: java-ch00-l05-flashcards
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'un thread virtuel ?"
+    back: "Un java.lang.Thread planifié par la JVM, monté sur un thread porteur et démonté à chaque blocage. On en crée un par tâche."
+    concept: java-virtual-thread
+  - id: fc2
+    front: "Que deviennent les cadres de pile d'un thread virtuel bloqué ?"
+    back: "Ils sont copiés dans le tas (morceaux de pile) et le porteur est libéré ; ils sont remontés sur un porteur libre à la reprise."
+    concept: java-virtual-thread
+  - id: fc3
+    front: "Qui sont les porteurs par défaut ?"
+    back: "Les threads d'un ForkJoinPool dont le parallélisme vaut le nombre de cœurs."
+    concept: java-virtual-thread
+  - id: fc4
+    front: "Façon idiomatique de lancer des tâches sur des threads virtuels ?"
+    back: "try (var ex = Executors.newVirtualThreadPerTaskExecutor()) { ex.submit(…); } — close() attend toutes les tâches."
+    concept: java-vt-executor
+  - id: fc5
+    front: "Un thread virtuel est-il démon ?"
+    back: "Toujours. Il faut attendre la fin des tâches (fermer l'executor, join)."
+    concept: java-vt-executor
+  - id: fc6
+    front: "Pourquoi pas de pool de threads virtuels ?"
+    back: "Ils ne coûtent rien à créer ; un pool recrée la file d'attente. Pour limiter une ressource : un Semaphore."
+    concept: java-vt-limit
+  - id: fc7
+    front: "Threads virtuels et calcul pur ?"
+    back: "Aucun gain : ils augmentent le débit des tâches qui attendent, pas le nombre de cœurs."
+    concept: java-vt-pinning
+  - id: fc8
+    front: "Qu'est-ce qui épingle encore un porteur depuis Java 24 ?"
+    back: "Les cadres de code natif (JNI, fonctions étrangères). synchronized n'épingle plus (JEP 491)."
+    concept: java-vt-pinning
+  - id: fc9
+    front: "ScopedValue vs ThreadLocal ?"
+    back: "ScopedValue : immuable, liée pour la durée d'un appel, disparaît d'elle-même. ThreadLocal : modifiable, vit jusqu'à remove(), copiée par InheritableThreadLocal."
+    concept: java-scoped-value
+  - id: fc10
+    front: "Une ScopedValue traverse-t-elle un ExecutorService ?"
+    back: "Non : capture la valeur et relie-la dans la tâche avec ScopedValue.where(K, v).call(…)."
+    concept: java-scoped-value
+  - id: fc11
+    front: "StructuredTaskScope, en une phrase ?"
+    back: "Des sous-tâches bornées par un bloc, annulées ensemble en cas d'échec et héritières des ScopedValue (preview, JDK 25-27)."
+    concept: java-structured-concurrency

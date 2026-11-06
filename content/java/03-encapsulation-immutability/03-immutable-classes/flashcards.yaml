@@ -40,3 +40,7 @@ cards:
     front: "Ce qui annule la garantie des champs final ?"
     back: "Laisser this s'échapper du constructeur (registre, thread démarré, méthode redéfinissable)."
     concept: java-final-field-semantics
+  - id: fc11
+    front: "Peut-on modifier un champ final par réflexion ?"
+    back: "Jusqu'au JDK 25, oui sur une classe ordinaire (setAccessible puis set) ; non sur un record. Le JDK 26 avertit (JEP 500), une version future l'interdira."
+    concept: java-final-field-semantics

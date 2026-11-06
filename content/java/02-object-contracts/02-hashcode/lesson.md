@@ -135,7 +135,7 @@ C'est une fuite mémoire **et** un bug fonctionnel. Règle : une clé de map ou 
 
 ## Sous le capot : ce que fait vraiment `HashMap.get`
 
-Dans OpenJDK 21, `HashMap` est un tableau de compartiments dont la taille est une **puissance de 2** (16 au départ). Pour trouver le compartiment :
+Dans OpenJDK 25, `HashMap` est un tableau de compartiments dont la taille est une **puissance de 2** (16 au départ). Pour trouver le compartiment :
 
 ```java
 static final int hash(Object key) {
@@ -169,4 +169,4 @@ Tu peux donc prédire : un mauvais `hashCode` rend une `HashMap` lente, un `hash
 - Les clés doivent être immuables ; copie les collections que tu reçois pour en faire une clé.
 - `HashMap` compare le hash mémorisé **avant** `equals`, garde les bits bas de l'index, et passe en arbre au-delà de 8 collisions.
 
-> **Source :** *Effective Java*, 3e éd., item 11 (pages 50 à 54). Détails d'implémentation de `HashMap` : OpenJDK 21, `java.util.HashMap`.
+> **Source :** *Effective Java*, 3e éd., item 11 (pages 50 à 54). Détails d'implémentation de `HashMap` : OpenJDK 25, `java.util.HashMap`.

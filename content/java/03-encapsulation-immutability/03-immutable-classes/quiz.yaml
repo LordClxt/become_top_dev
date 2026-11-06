@@ -107,3 +107,15 @@ questions:
     explanation: "this s'échappe : un autre thread peut l'obtenir pendant la construction, avant le gel des champs final."
     concept: java-final-field-semantics
     difficulty: 3
+  - id: q10
+    type: single
+    prompt: "Pourquoi le JDK 26 commence-t-il à avertir quand la réflexion modifie un champ final (JEP 500) ?"
+    choices:
+      - "Pour accélérer la réflexion"
+      - "Parce qu'un champ final modifiable empêche la JVM de le traiter comme une constante : rendre final vraiment final rend l'immutabilité vérifiable et ouvre des optimisations"
+      - "Parce que les records n'existent plus"
+      - "Parce que setAccessible est supprimé"
+    answer: 1
+    explanation: "Tant que la réflexion profonde peut changer un champ final, le JIT ne peut pas en replier la valeur, et une classe « immuable » peut être modifiée par une bibliothèque. Les champs des records sont déjà protégés ; teste ton code avec --illegal-final-field-mutation=deny sur un JDK 26+."
+    concept: java-final-field-semantics
+    difficulty: 3

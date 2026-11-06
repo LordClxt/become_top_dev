@@ -1,0 +1,12 @@
+id: java-ch00-l05-lab-quote-fanout
+title: "Mille cotations en une seconde"
+kind: code
+language: java
+difficulty: 3
+xp: 80
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Aggregator.java"]
+concepts: [java-virtual-thread, java-vt-executor, java-vt-limit, java-scoped-value]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

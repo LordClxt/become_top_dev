@@ -39,3 +39,7 @@ cards:
     front: "Comment trouve-t-on une rétention en production ?"
     back: "Par revue de code ou avec un profileur de tas (heap dump analysé dans VisualVM, Eclipse MAT ou JDK Mission Control)."
     concept: java-cache-retention
+  - id: fc11
+    front: "Combien pèse un Long sur une JVM 64 bits ?"
+    back: "24 octets (en-tête de 12 + 8 de donnée, arrondi à 8). 16 avec les en-têtes compacts (-XX:+UseCompactObjectHeaders, JDK 25 ; par défaut au JDK 27)."
+    concept: java-autoboxing-cost

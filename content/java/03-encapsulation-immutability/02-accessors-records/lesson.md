@@ -98,6 +98,8 @@ Le compilateur génère :
 
 On peut ajouter des méthodes, des fabriques statiques, des champs **statiques**, implémenter des interfaces. On ne peut pas ajouter de champ d'instance, ni étendre une autre classe.
 
+Et un record se **déconstruit** dans un `switch` ou un `instanceof` : `case Time(var h, var m) when h < 12 -> "matin"` (module 0, leçon 3). Les accesseurs sont appelés pour extraire chaque composant : si tu en redéfinis un, c'est ta version que le motif utilise.
+
 ### Valider et normaliser : le constructeur compact
 
 ```java

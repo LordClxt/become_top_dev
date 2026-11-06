@@ -157,4 +157,4 @@ Trois conséquences :
 - **Jamais** `a - b` dans un comparateur.
 - Un comparateur faux ne plante pas toujours : il trie faux, en silence, ou lève une exception intermittente dans TimSort.
 
-> **Source :** *Effective Java*, 3e éd., item 14 (pages 66 à 72). Détails de TimSort : OpenJDK 21, `java.util.TimSort`.
+> **Source :** *Effective Java*, 3e éd., item 14 (pages 66 à 72). Détails de TimSort : OpenJDK 25, `java.util.TimSort`.

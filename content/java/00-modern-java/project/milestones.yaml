@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Des commandes qu'on ne peut pas mal former"
+    goal: "Les records de Command se valident eux-mêmes, et CommandParser lit « buy 100 AIR @ 12.50 », « cancel 3 », « book AIR » et « quit », prix exacts en centimes."
+    tests: "jtest M1"
+    review: false
+  - id: m2
+    title: "Une session qui répond à tout"
+    goal: "Session.handle traite chaque commande avec un switch exhaustif : ordres numérotés, annulations, carnet agrégé par prix, fin de session."
+    tests: "jtest M2"
+    review: false
+  - id: m3
+    title: "Rejouer un script"
+    goal: "Console.run lit un script ligne à ligne, signale les erreurs avec leur numéro de ligne et produit un transcript lisible."
+    tests: "jtest M3"
+    review: true

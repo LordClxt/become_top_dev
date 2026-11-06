@@ -136,7 +136,7 @@ bipush        127
 invokestatic  java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
 ```
 
-Et `valueOf` ressemble à ceci dans le JDK 21 (simplifié) :
+Et `valueOf` ressemble à ceci dans le JDK 25 (simplifié) :
 
 ```java
 public static Integer valueOf(int i) {

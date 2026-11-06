@@ -1,0 +1,132 @@
+id: java-ch00-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi `record Payment(String status, String authCode, String reason)` ne résout-il pas le problème du résultat de paiement fourre-tout ?"
+    choices:
+      - "Parce qu'un record ne peut pas avoir de String"
+      - "Parce que toutes les combinaisons (APPROVED sans code, DECLINED avec code…) restent constructibles : une variante doit être un type, pas une valeur de champ"
+      - "Parce qu'un record n'a pas d'equals"
+      - "Parce qu'un record ne peut pas implémenter d'interface"
+    answer: 1
+    explanation: "Un record est un type produit : il contient tous ses composants à la fois. Le choix « l'un ou l'autre » s'exprime avec une interface scellée dont chaque variante est un record."
+    concept: java-adt
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      record Point(int x, int y) { }
+
+      void main() {
+          var a = new Point(1, 2);
+          IO.println(a.equals(new Point(1, 2)) + " " + a + " " + a.x());
+      }
+    answer: "true Point[x=1, y=2] 1"
+    explanation: "Le record génère equals fondé sur les composants, un toString lisible (format non spécifié, à ne pas parser) et des accesseurs nommés comme les composants, sans get."
+    concept: java-record-intro
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Cette déclaration ne compile pas. Pourquoi ?"
+    code: |
+      sealed interface Shape permits Circle, Square { }
+      record Circle(double r) implements Shape { }
+      class Square implements Shape { double side; }
+    choices:
+      - "Un record ne peut pas implémenter une interface scellée"
+      - "Square doit être déclarée final, sealed ou non-sealed"
+      - "permits est interdit quand tout est dans le même fichier"
+      - "Une interface scellée doit avoir au moins une méthode"
+    answer: 1
+    explanation: "Chaque sous-type direct d'un type scellé doit dire comment la hiérarchie continue. Circle est un record, donc final implicitement ; Square, non."
+    concept: java-sealed-subclass-modifiers
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Que provoque `non-sealed class Card implements PaymentMethod` dans une hiérarchie scellée ?"
+    choices:
+      - "Une erreur de compilation"
+      - "N'importe quelle classe peut désormais étendre Card : la hiérarchie est rouverte sous Card, mais PaymentMethod garde sa liste fermée de sous-types directs"
+      - "PaymentMethod n'est plus scellée"
+      - "Card devient abstraite"
+    answer: 1
+    explanation: "non-sealed rouvre seulement la branche Card. Un switch sur PaymentMethod reste exhaustif s'il traite Card (et donc toutes ses sous-classes via le motif Card)."
+    concept: java-sealed-subclass-modifiers
+    difficulty: 3
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ? (ordre classique : super() en premier)"
+    code: |
+      class Person {
+          Person() { show(); }
+          void show() { System.out.println("personne"); }
+      }
+
+      class Employee extends Person {
+          private final String office;
+          Employee(String office) {
+              super();
+              this.office = office;
+          }
+          @Override void show() { System.out.println("bureau " + office); }
+      }
+
+      void main() {
+          new Employee("B12");
+      }
+    answer: "bureau null"
+    explanation: "Le constructeur de Person appelle show(), redéfinie dans Employee, avant que Employee n'ait affecté office : le champ final est encore à sa valeur par défaut."
+    concept: java-flexible-ctor
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Même classe, avec l'affectation déplacée avant super() (Java 25). Qu'affiche le programme ?"
+    code: |
+      class Person {
+          Person() { show(); }
+          void show() { System.out.println("personne"); }
+      }
+
+      class Employee extends Person {
+          private final String office;
+          Employee(String office) {
+              this.office = office;
+              super();
+          }
+          @Override void show() { System.out.println("bureau " + office); }
+      }
+
+      void main() {
+          new Employee("B12");
+      }
+    answer: "bureau B12"
+    explanation: "Dans le prologue, on peut affecter les champs de sa propre classe qui n'ont pas d'initialiseur : quand le parent appelle show(), office est déjà valide."
+    concept: java-flexible-ctor
+    difficulty: 2
+  - id: q7
+    type: multiple
+    prompt: "Dans le prologue d'un constructeur (avant super(...)), qu'est-ce qui est autorisé ?"
+    choices:
+      - "if (amount < 0) throw new IllegalArgumentException();"
+      - "var normalized = name.strip();"
+      - "this.name = normalized; (champ final sans initialiseur)"
+      - "log(this); (passer l'objet à une méthode)"
+      - "if (this.limit > 0) …  (lire un champ)"
+      - "return;"
+    answer: [0, 1, 2]
+    explanation: "Le prologue peut valider, calculer et écrire ses propres champs sans initialiseur. Il ne peut pas utiliser l'objet (lire un champ, appeler une méthode, passer this) ni faire return."
+    concept: java-flexible-ctor
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Un outil génère du bytecode pour une classe `Hack implements PaymentResult` que la liste permits ne mentionne pas. Que se passe-t-il au chargement ?"
+    choices:
+      - "Rien : les types scellés ne sont vérifiés que par javac"
+      - "La JVM refuse de définir la classe (IncompatibleClassChangeError) : l'attribut PermittedSubclasses est vérifié au chargement"
+      - "La classe est chargée mais les switch l'ignorent"
+      - "PaymentResult perd son caractère scellé"
+    answer: 1
+    explanation: "La liste fermée est inscrite dans le fichier .class (attribut PermittedSubclasses) et vérifiée par la JVM : on ne la contourne pas en compilant à part ou en générant du bytecode."
+    concept: java-sealed
+    difficulty: 3

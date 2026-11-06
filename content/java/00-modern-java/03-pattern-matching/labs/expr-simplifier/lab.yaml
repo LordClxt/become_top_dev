@@ -1,0 +1,12 @@
+id: java-ch00-l03-lab-expr-simplifier
+title: "Un simplificateur d'expressions à coups de motifs"
+kind: code
+language: java
+difficulty: 3
+xp: 80
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Algebra.java"]
+concepts: [java-switch-pattern, java-record-pattern, java-guard, java-exhaustive-switch, java-unnamed]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

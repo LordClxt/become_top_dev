@@ -1,0 +1,23 @@
+id: java-ch00
+title: "Java moderne en accéléré"
+subtitle: "De Java 9 à Java 25 : programmes compacts, records, types scellés, pattern matching, gatherers et threads virtuels"
+source: { chapter: 1, pages: "1-3", url: "https://openjdk.org/projects/jdk/25/" }
+objectives:
+  - "Écrire un petit programme Java sans cérémonie (fichier compact, main d'instance, IO, import module) et le faire grandir en vraie classe"
+  - "Lire et écrire var, blocs de texte et switch-expressions sans tomber dans leurs pièges"
+  - "Modéliser un domaine avec des records et des interfaces scellées, et valider les arguments avant super()"
+  - "Remplacer les chaînes d'instanceof par un switch exhaustif à motifs de records, gardes et _"
+  - "Choisir entre fabrique immuable, copie et vue ; utiliser les collections ordonnées et écrire un gatherer"
+  - "Lancer des milliers de tâches bloquantes sur des threads virtuels, limiter la concurrence et propager un contexte avec ScopedValue"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-compact-programs"
+  - "02-records-sealed"
+  - "03-pattern-matching"
+  - "04-modern-collections"
+  - "05-virtual-threads"
+xp: { assignment: 150, project: 300, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

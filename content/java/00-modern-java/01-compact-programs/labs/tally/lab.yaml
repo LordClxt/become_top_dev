@@ -1,0 +1,12 @@
+id: java-ch00-l01-lab-tally
+title: "Un outil de caisse en un fichier compact"
+kind: code
+language: java
+difficulty: 2
+xp: 50
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Tally.java"]
+concepts: [java-compact-source, java-instance-main, java-io-class, java-var, java-source-launcher]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

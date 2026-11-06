@@ -1,0 +1,153 @@
+id: java-ch00-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Un fichier `Tools.java` contient seulement un champ et une méthode `void main()`. Que génère le compilateur ?"
+    choices:
+      - "Rien : ce n'est valide qu'avec jshell"
+      - "Une classe finale implicite, dans le paquetage sans nom, avec un constructeur par défaut"
+      - "Une interface fonctionnelle"
+      - "Une classe publique nommée Tools, utilisable depuis les autres classes avec new Tools()"
+    answer: 1
+    explanation: "Le fichier compact devient une classe finale ordinaire, mais son nom dépend de l'implémentation : aucun code ne doit l'utiliser. Dès que d'autres classes en ont besoin, il faut une vraie déclaration de classe."
+    concept: java-compact-source
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce fichier compact ?"
+    code: |
+      int calls = 0;
+
+      String next() {
+          calls++;
+          return "appel " + calls;
+      }
+
+      void main() {
+          next();
+          IO.println(next() + " / " + calls);
+      }
+    answer: "appel 2 / 2"
+    explanation: "Le champ et les méthodes appartiennent à la même instance (créée par le lanceur avant d'appeler main) : calls vaut 2 après deux appels."
+    concept: java-compact-source
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ? (les espaces sont remplacés par des points)"
+    code: |
+      String s = """
+              a
+                b
+            """;
+      System.out.print(s.replace(' ', '.'));
+    answer: "..a\n....b"
+    explanation: "L'indentation commune se mesure aussi sur la ligne des \"\"\" fermants, qui est la moins indentée : chaque ligne garde les espaces qu'elle a en plus de ce délimiteur (2 pour a, 4 pour b)."
+    concept: java-text-block
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var list = new ArrayList<>();
+      list.add(1);
+      list.add("deux");
+      System.out.println(list.size() + " " + list.get(1).getClass().getSimpleName());
+    answer: "2 String"
+    explanation: "var avec le diamant infère ArrayList<Object> : la liste accepte n'importe quoi et le compilateur ne protège plus rien. Donne le type d'élément : new ArrayList<Integer>()."
+    concept: java-var
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "On lance `java Main.java`. Qu'affiche le programme ?"
+    code: |
+      class Main {
+          void main() {
+              System.out.println("sans argument");
+          }
+
+          static void main(String[] args) {
+              System.out.println("avec args");
+          }
+      }
+    answer: "avec args"
+    explanation: "Le lanceur cherche d'abord une méthode main(String[]), déclarée ou héritée ; il ne se rabat sur main() que si elle n'existe pas. Qu'elle soit static ou non ne change pas l'ordre."
+    concept: java-instance-main
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Ce code ne compile pas : `reference to Date is ambiguous`. Quelle est la correction la plus précise ?"
+    code: |
+      import module java.base;
+      import module java.sql;
+
+      class Report {
+          Date generatedAt;
+      }
+    choices:
+      - "Retirer import module java.base, il est implicite"
+      - "Ajouter import java.util.Date; : un import simple l'emporte sur les imports de modules"
+      - "Remplacer Date par var"
+      - "Déclarer le champ en Object puis le caster"
+    answer: 1
+    explanation: "java.base et java.sql exportent chacun une classe Date. Un import simple l'emporte sur tout le reste et dit exactement de quelle Date la classe dépend (un import java.util.* marcherait aussi, car il masque les imports de modules, mais il importe bien plus que nécessaire)."
+    concept: java-module-import
+    difficulty: 2
+  - id: q7
+    type: multiple
+    prompt: "Où peut-on écrire `var` ?"
+    choices:
+      - "Variable locale avec un initialiseur"
+      - "Champ d'une classe"
+      - "Variable d'une boucle for-each"
+      - "Paramètre d'une méthode"
+      - "Paramètre d'une lambda"
+      - "Ressource d'un try-with-resources"
+    answer: [0, 2, 4, 5]
+    explanation: "var est réservé aux variables locales au sens large (dont boucles, ressources et paramètres de lambda). Les champs, paramètres de méthode et types de retour font partie de l'API d'une classe : leur type doit être écrit."
+    concept: java-var
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Ce fichier compact plante quand l'entrée se termine. Pourquoi ?"
+    code: |
+      void main() {
+          while (true) {
+              var line = IO.readln().strip();
+              if (line.equals("fin")) return;
+              IO.println(line.toUpperCase());
+          }
+      }
+    choices:
+      - "IO.readln() lève EOFException à la fin de l'entrée"
+      - "IO.readln() renvoie null à la fin de l'entrée : strip() lève une NullPointerException si la ligne fin n'arrive jamais"
+      - "var ne peut pas recevoir un String"
+      - "return est interdit dans un main d'instance"
+    answer: 1
+    explanation: "Comme BufferedReader.readLine(), IO.readln() renvoie null en fin de flux. Teste null avant d'utiliser la ligne : while ((line = IO.readln()) != null)."
+    concept: java-io-class
+    difficulty: 1
+  - id: q9
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      String s = """
+          un \
+          deux\s
+          trois""";
+      System.out.println("[" + s.replace("\n", "|") + "]");
+    answer: "[un deux |trois]"
+    explanation: "\\ en fin de ligne supprime le saut de ligne, \\s est un espace qui survit à la suppression des espaces de fin de ligne, et des \"\"\" collés au texte évitent le saut de ligne final."
+    concept: java-text-block
+    difficulty: 3
+  - id: q10
+    type: single
+    prompt: "Dans un dossier, `Main.java` utilise une classe `Parser` définie dans `Parser.java`. Que fait `java Main.java` (Java 22 ou plus) ?"
+    choices:
+      - "Erreur : le lanceur de source ne connaît qu'un fichier"
+      - "Il exige d'avoir compilé Parser.java avec javac"
+      - "Il trouve Parser.java dans le même dossier et le compile en mémoire à la demande"
+      - "Il télécharge Parser depuis Maven Central"
+    answer: 2
+    explanation: "Depuis le JEP 458, le lanceur de source compile à la volée les autres fichiers .java du dossier dont le programme a besoin, sans rien écrire sur le disque."
+    concept: java-source-launcher
+    difficulty: 1

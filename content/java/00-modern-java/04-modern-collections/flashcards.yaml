@@ -1,0 +1,50 @@
+id: java-ch00-l04-flashcards
+cards:
+  - id: fc1
+    front: "Trois garanties de List.of / Set.of / Map.of ?"
+    back: "Non modifiables, pas de null (même contains(null)), pas de doublons pour Set et les clés de Map."
+    concept: java-collection-factories
+  - id: fc2
+    front: "Ordre d'itération de Set.of et Map.of ?"
+    back: "Non spécifié et mélangé par un sel tiré au démarrage de la JVM : il change d'un lancement à l'autre."
+    concept: java-collection-factories
+  - id: fc3
+    front: "Collections.unmodifiableList : copie ou vue ?"
+    back: "Vue : on ne peut pas écrire à travers, mais elle reflète les modifications de l'original."
+    concept: java-copyof-vs-view
+  - id: fc4
+    front: "Que coûte List.copyOf sur une liste déjà immuable ?"
+    back: "Rien : il renvoie la même instance."
+    concept: java-copyof-vs-view
+  - id: fc5
+    front: "Stream.toList() vs Collectors.toList() ?"
+    back: "toList() : non modifiable garanti, accepte null. Collectors.toList() : type et mutabilité non garantis."
+    concept: java-stream-tolist
+  - id: fc6
+    front: "Méthodes de SequencedCollection ?"
+    back: "getFirst, getLast, addFirst, addLast, removeFirst, removeLast, reversed() (une vue)."
+    concept: java-sequenced
+  - id: fc7
+    front: "LinkedHashMap.put d'une clé existante : la position change ?"
+    back: "Non, seule la valeur change. putLast / putFirst déplacent la clé."
+    concept: java-sequenced
+  - id: fc8
+    front: "windowFixed vs windowSliding ?"
+    back: "windowFixed(n) : paquets disjoints, le dernier peut être incomplet. windowSliding(n) : fenêtres qui avancent d'un élément ; une seule fenêtre incomplète si le flux est trop court."
+    concept: java-gatherers-builtin
+  - id: fc9
+    front: "scan vs fold ?"
+    back: "scan émet chaque cumul intermédiaire ; fold émet seulement le résultat final."
+    concept: java-gatherers-builtin
+  - id: fc10
+    front: "Sur quoi tourne Gatherers.mapConcurrent ?"
+    back: "Sur des threads virtuels, avec au plus n appels simultanés, en conservant l'ordre du stream."
+    concept: java-gatherers-builtin
+  - id: fc11
+    front: "Les trois fonctions d'un gatherer séquentiel ?"
+    back: "Initialiseur (état, une fois par exécution), intégrateur (chaque élément, pousse vers l'aval), finisseur (fin du flux)."
+    concept: java-gatherer-custom
+  - id: fc12
+    front: "Comment un gatherer arrête-t-il le stream ?"
+    back: "Son intégrateur renvoie false. push renvoie false quand c'est l'aval qui n'en veut plus."
+    concept: java-gatherer-custom

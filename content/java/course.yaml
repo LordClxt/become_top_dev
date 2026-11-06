@@ -4,11 +4,11 @@ book:
   title: "Effective Java, 3rd Edition"
   authors: ["Joshua Bloch"]
   slug: effective-java
-summary: "Les 90 règles de Bloch, reproduites puis corrigées en Java 21 : créer des objets, respecter les contrats d'Object, concevoir des API, généricité, streams, exceptions et concurrence."
+summary: "Les 90 règles de Bloch, reproduites puis corrigées en Java 25 : créer des objets, respecter les contrats d'Object, concevoir des API, généricité, streams, exceptions et concurrence."
 order: 4
 kind: practical
 language: java
-runtime: "jdk21"   # le livre s'arrête à Java 9 : records, sealed, pattern matching, virtual threads… sont signalés en `extra`.
+runtime: "jdk25"   # LTS. Le livre s'arrête à Java 9 : records, sealed, pattern matching, gatherers, threads virtuels… sont signalés en `extra`. Les previews (JDK 26-27) restent dans le texte, jamais dans les TP.
 pilot: "01-creating-destroying"
 running_project:
   id: ordo
@@ -19,7 +19,7 @@ tracks:
   - id: java-foundations
     title: "Les objets"
     chapters:
-      - "00-modern-java"              # extra : Java 9 → 21
+      - "00-modern-java"              # extra : Java 9 → 25
       - "01-creating-destroying"      # ch2, items 1-9 — pilote
       - "02-object-contracts"         # ch3, items 10-14
       - "03-encapsulation-immutability"  # ch4, items 15-17
@@ -40,7 +40,6 @@ tracks:
       - "12-serialization"            # ch12, items 85-90
 
 planned_titles:
-  "00-modern-java": "Java moderne en accéléré"
   "04-inheritance-interfaces": "Héritage, composition et interfaces"
   "05-generics": "Génériques"
   "06-enums-annotations": "Enums et annotations"

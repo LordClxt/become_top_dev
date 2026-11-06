@@ -1,0 +1,6 @@
+id: java-ch00-switch-dispatch
+concept: java-exhaustive-switch
+format: interactive
+justification: "Choisir soi-même une valeur et voir chaque case essayé de haut en bas (type, puis garde), puis ajouter une variante avec ou sans default, montre en un geste pourquoi l'ordre compte et pourquoi default éteint le filet du compilateur."
+entry: SwitchDispatch.tsx
+status: built

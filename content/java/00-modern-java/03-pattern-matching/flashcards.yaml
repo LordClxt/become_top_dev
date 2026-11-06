@@ -1,0 +1,50 @@
+id: java-ch00-l03-flashcards
+cards:
+  - id: fc1
+    front: "Switch à flèches : que disparaît-il ?"
+    back: "Le fall-through : chaque case est indépendant, pas de break."
+    concept: java-switch-expr
+  - id: fc2
+    front: "Comment un bloc de switch-expression produit-il sa valeur ?"
+    back: "Avec yield valeur; (return sortirait de la méthode)."
+    concept: java-switch-expr
+  - id: fc3
+    front: "Portée de s dans if (!(o instanceof String s)) return; ?"
+    back: "s est utilisable après le if : la portée suit le flot, là où le test a forcément réussi."
+    concept: java-instanceof-pattern
+  - id: fc4
+    front: "Dans quel ordre les cases à motifs sont-ils essayés ?"
+    back: "De haut en bas ; pour chacun, le type puis la garde. Le premier qui réussit gagne."
+    concept: java-switch-pattern
+  - id: fc5
+    front: "Qu'est-ce que la dominance ?"
+    back: "Un case qui accepte tout ce qu'accepte un case suivant le rend inatteignable : erreur de compilation. Le cas gardé va avant le cas général."
+    concept: java-switch-pattern
+  - id: fc6
+    front: "Que fait case Rect(Point(var x1, var y1), Point p) ?"
+    back: "Teste le type Rect, appelle ses accesseurs, déconstruit le premier point en x1, y1 et nomme le second p."
+    concept: java-record-pattern
+  - id: fc7
+    front: "À quoi sert when dans un case ?"
+    back: "Une garde : le case ne s'applique que si le motif réussit ET la condition est vraie. Elle doit être sans effet de bord."
+    concept: java-guard
+  - id: fc8
+    front: "Pourquoi pas de default sur un type scellé ?"
+    back: "Sans default, ajouter une variante casse la compilation de chaque switch qui l'oublie ; avec, elle passe silencieusement par le default."
+    concept: java-exhaustive-switch
+  - id: fc9
+    front: "Switch à motifs et null ?"
+    back: "Sans case null : NullPointerException (même avec default). Avec case null : une valeur comme une autre."
+    concept: java-switch-null
+  - id: fc10
+    front: "Où peut-on écrire _ ?"
+    back: "Motifs (Point _), variables de boucle, catch, paramètres de lambda, variables locales inutilisées (Java 22)."
+    concept: java-unnamed
+  - id: fc11
+    front: "D'où vient une MatchException ?"
+    back: "D'un switch compilé avec une liste de variantes qui ne correspond plus aux classes chargées (compilation séparée)."
+    concept: java-match-exception
+  - id: fc12
+    front: "En quoi compile un switch à motifs ?"
+    back: "En invokedynamic vers SwitchBootstraps.typeSwitch : la JVM construit la répartition au premier appel puis l'optimise."
+    concept: java-match-exception

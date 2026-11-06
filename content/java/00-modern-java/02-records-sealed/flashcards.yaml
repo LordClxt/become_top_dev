@@ -1,0 +1,42 @@
+id: java-ch00-l02-flashcards
+cards:
+  - id: fc1
+    front: "Record : type produit ou type somme ?"
+    back: "Produit : une valeur contient tous ses composants à la fois."
+    concept: java-record-intro
+  - id: fc2
+    front: "Où valider les composants d'un record ?"
+    back: "Dans le constructeur compact : Point { if (x < 0) throw … } ; les champs sont affectés après son corps."
+    concept: java-record-intro
+  - id: fc3
+    front: "Que déclare permits ?"
+    back: "La liste fermée des sous-types directs d'une classe ou interface scellée. Facultatif si tous sont dans le même fichier."
+    concept: java-sealed
+  - id: fc4
+    front: "Trois modificateurs possibles pour un sous-type permis ?"
+    back: "final (rien en dessous, cas des records), sealed (nouvelle liste fermée), non-sealed (rouvert)."
+    concept: java-sealed-subclass-modifiers
+  - id: fc5
+    front: "Où doivent vivre les sous-types permis ?"
+    back: "Dans le même module que le type scellé, ou dans le même paquetage sans module."
+    concept: java-sealed-subclass-modifiers
+  - id: fc6
+    front: "Interface scellée + records : que gagne-t-on ?"
+    back: "Les états invalides deviennent inconstructibles, et le compilateur peut vérifier qu'un switch traite chaque variante."
+    concept: java-adt
+  - id: fc7
+    front: "Différence avec une interface Go ?"
+    back: "Go : structurelle et ouverte, type switch jamais exhaustif. Interface scellée : nominale, fermée, exhaustivité vérifiée."
+    concept: java-adt
+  - id: fc8
+    front: "Qu'a-t-on le droit de faire avant super(...) depuis Java 25 ?"
+    back: "Valider, calculer des locales, lever une exception, affecter ses propres champs sans initialiseur. Pas d'usage de this, pas de return."
+    concept: java-flexible-ctor
+  - id: fc9
+    front: "Pourquoi affecter un champ avant super() ?"
+    back: "Si le constructeur parent appelle une méthode redéfinie, elle voit déjà le champ initialisé au lieu de null ou 0."
+    concept: java-flexible-ctor
+  - id: fc10
+    front: "Qui vérifie la liste d'un type scellé ?"
+    back: "javac et la JVM : l'attribut PermittedSubclasses est contrôlé au chargement (IncompatibleClassChangeError sinon)."
+    concept: java-sealed
