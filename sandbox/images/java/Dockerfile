@@ -1,5 +1,5 @@
-# Image d'exécution des exercices Java (JDK 21 LTS) : une instance jetable par exécution.
-FROM eclipse-temurin:21-jdk-alpine
+# Image d'exécution des exercices Java (JDK 25 LTS) : une instance jetable par exécution.
+FROM eclipse-temurin:25-jdk-alpine
 
 USER root
 # `jtest` compile tous les .java du dossier courant puis lance la classe Test (harnais Spec.java) ;

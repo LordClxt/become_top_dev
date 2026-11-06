@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: modeling
+    label: "Modèle de données : des types, pas des chaînes"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Lecture et application séparées ; une interface scellée de records (un par sorte de règle), validés dans leurs constructeurs compacts ; l'application passe par un switch exhaustif sans default, si bien qu'une nouvelle règle casse la compilation là où il faut la traiter ; résultats immuables"
+      2: "Records ou classes par règle, mais un default (ou une chaîne d'instanceof) qui absorberait une nouvelle règle, ou de la validation dispersée entre la lecture et le calcul"
+      0: "Les règles restent des tableaux de chaînes réinterprétés à chaque colis ; aucun type ne décrit une règle"
+  - id: clarity
+    label: "Clarté et messages d'erreur"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Méthodes courtes au nom explicite ; chaque erreur dit quoi et où (ligne N, identifiant du colis) ; aucun nombre à virgule flottante pour l'argent ; aucun état statique mutable"
+      2: "Correct mais longues méthodes, messages vagues sur certains cas, ou conversions numériques répétées"
+      0: "Messages inutilisables (exception brute sans contexte), calculs en double, ou état partagé entre deux appels"

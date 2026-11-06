@@ -1,0 +1,113 @@
+id: java-ch00-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var source = new ArrayList<>(List.of("a", "b"));
+      var view = Collections.unmodifiableList(source);
+      var copy = List.copyOf(source);
+      source.add("c");
+      System.out.println(view + " " + copy + " " + (List.copyOf(copy) == copy));
+    answer: "[a, b, c] [a, b] true"
+    explanation: "unmodifiableList est une vue : elle reflète la liste d'origine. copyOf fait une copie indépendante, et renvoie la même instance quand on lui passe une liste déjà immuable."
+    concept: java-copyof-vs-view
+    difficulty: 2
+  - id: q2
+    type: multiple
+    prompt: "Lesquelles de ces lignes lèvent une exception ?"
+    choices:
+      - "List.of(1, null)"
+      - "List.of(1, 2).contains(null)"
+      - "Set.of(\"a\", \"a\")"
+      - "Stream.of(1, null).toList()"
+      - "new ArrayList<>(List.of(1)).add(null)"
+    answer: [0, 1, 2]
+    explanation: "Les fabriques sont hostiles à null (même contains(null)) et refusent les doublons de Set et de clés de Map. Stream.toList() accepte null, et une ArrayList aussi."
+    concept: java-collection-factories
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Un test compare `String.join(\",\", Set.of(\"x\", \"y\", \"z\"))` à \"x,y,z\". Il échoue une fois sur trois en CI. Pourquoi ?"
+    choices:
+      - "Set.of trie les éléments selon la locale de la machine"
+      - "L'ordre d'itération de Set.of dépend d'un sel aléatoire tiré au démarrage de la JVM : il change d'un lancement à l'autre, volontairement"
+      - "Set.of n'est pas thread-safe"
+      - "String.join ignore l'ordre"
+    answer: 1
+    explanation: "Les collections immuables mélangent la position de leurs éléments avec un sel tiré au démarrage, pour qu'aucun code ne dépende de leur ordre. Pour un ordre stable : LinkedHashSet, ou trie."
+    concept: java-collection-factories
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var m = new LinkedHashMap<String, Integer>();
+      m.put("a", 1);
+      m.put("b", 2);
+      m.put("a", 3);
+      m.putFirst("z", 0);
+      System.out.println(m + " " + m.lastEntry());
+    answer: "{z=0, a=3, b=2} b=2"
+    explanation: "Remettre une clé existante change sa valeur mais pas sa position ; putFirst place (ou déplace) une clé en tête. lastEntry vient de SequencedMap (Java 21)."
+    concept: java-sequenced
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var list = new ArrayList<>(List.of(1, 2, 3));
+      var reversed = list.reversed();
+      list.add(4);
+      System.out.println(reversed + " " + reversed.getFirst());
+    answer: "[4, 3, 2, 1] 4"
+    explanation: "reversed() renvoie une vue inversée, pas une copie : elle suit les modifications de la liste d'origine."
+    concept: java-sequenced
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      System.out.println(Stream.of(1, 2, 3, 4, 5).gather(Gatherers.windowFixed(2)).toList());
+      System.out.println(Stream.of(1, 2).gather(Gatherers.windowSliding(3)).toList());
+      System.out.println(Stream.of(1, 2, 3).gather(Gatherers.scan(() -> 10, Integer::sum)).toList());
+    answer: "[[1, 2], [3, 4], [5]]\n[[1, 2]]\n[11, 13, 16]"
+    explanation: "windowFixed garde le dernier paquet incomplet ; windowSliding émet une fenêtre incomplète si le flux est plus court que la fenêtre ; scan émet chaque cumul intermédiaire, à partir de la valeur initiale."
+    concept: java-gatherers-builtin
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "Dans un gatherer, que signifie un intégrateur qui renvoie `false` ?"
+    choices:
+      - "L'élément courant est filtré, le stream continue"
+      - "Le gatherer ne veut plus d'éléments : le stream cesse de lire la source"
+      - "Une erreur : le stream lève IllegalStateException"
+      - "L'élément sera retraité au tour suivant"
+    answer: 1
+    explanation: "C'est le mécanisme d'arrêt anticipé d'un gatherer (comme takeWhile). Pour filtrer, on ne pousse simplement rien vers l'aval et on renvoie true."
+    concept: java-gatherer-custom
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "Pourquoi l'état d'un gatherer doit-il venir de son initialiseur, et pas d'un champ ou d'une variable capturée ?"
+    choices:
+      - "Pour des raisons de performance seulement"
+      - "Parce que l'initialiseur est appelé à chaque exécution du stream : un état partagé mélangerait les calculs de deux streams qui utilisent le même gatherer"
+      - "Parce qu'un champ ne peut pas être modifié dans une lambda"
+      - "Parce que le finisseur ne voit pas les champs"
+    answer: 1
+    explanation: "Un objet Gatherer est réutilisable : chaque exécution (et, en parallèle, chaque morceau du flux) reçoit son propre état grâce à l'initialiseur."
+    concept: java-gatherer-custom
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Pourquoi préférer `stream.toList()` à `stream.collect(Collectors.toList())` ?"
+    choices:
+      - "toList() est parallèle"
+      - "toList() garantit une liste non modifiable ; Collectors.toList() ne garantit ni le type ni la mutabilité de ce qu'il renvoie"
+      - "Collectors.toList() est déprécié"
+      - "toList() trie les éléments"
+    answer: 1
+    explanation: "Le contrat de toList() est précis. Si tu dois modifier le résultat, dis-le avec Collectors.toCollection(ArrayList::new)."
+    concept: java-stream-tolist
+    difficulty: 1

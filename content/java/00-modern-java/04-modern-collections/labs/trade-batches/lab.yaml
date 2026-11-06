@@ -1,0 +1,12 @@
+id: java-ch00-l04-lab-trade-batches
+title: "Des paquets d'ordres avec des gatherers"
+kind: code
+language: java
+difficulty: 3
+xp: 80
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Batching.java"]
+concepts: [java-gatherer-custom, java-gatherers-builtin, java-stream-tolist, java-copyof-vs-view]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

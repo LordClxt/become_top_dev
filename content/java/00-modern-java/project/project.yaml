@@ -1,0 +1,14 @@
+id: java-ch00-project
+title: "Ordo, jalon 0 : la console d'ordres"
+pitch: "Avant le moteur de matching, il faut une porte d'entrée : une console où l'on tape « buy 100 AIR @ 12.50 ». Tu modélises les commandes et les réponses avec des types scellés, tu lis le texte sans jamais passer par un double, et tu rejoues des scripts entiers pour obtenir un transcript lisible."
+running_project: ordo
+kind: code
+language: java
+difficulty: 3
+xp: 300
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Command.java", "CommandParser.java", "Session.java", "Console.java"]
+concepts: [java-adt, java-record-intro, java-sealed, java-exhaustive-switch, java-record-pattern, java-text-block, java-sequenced, java-stream-tolist]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

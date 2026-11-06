@@ -1,0 +1,12 @@
+id: java-ch00-assignment
+title: "Un moteur de frais de port configurable"
+kind: code
+language: java
+difficulty: 3
+xp: 150
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Shipping.java"]
+concepts: [java-adt, java-sealed, java-record-intro, java-exhaustive-switch, java-record-pattern, java-text-block, java-sequenced, java-stream-tolist]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

@@ -1,0 +1,6 @@
+id: java-ch00-gatherer-flow
+concept: java-gatherer-custom
+format: interactive
+justification: "Faire avancer soi-même les éléments un par un, en voyant l'état du gatherer grossir, les push vers l'aval et le finisseur qui vide le dernier paquet, rend concret un mécanisme invisible quand on lit seulement le code."
+entry: GathererFlow.tsx
+status: built

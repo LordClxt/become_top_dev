@@ -1,0 +1,161 @@
+id: java-ch00-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      int score(String level) {
+          int s = 0;
+          switch (level) {
+              case "gold": s += 3;
+              case "silver": s += 2;
+              case "bronze": s += 1; break;
+              default: s = -1;
+          }
+          return s;
+      }
+
+      void main() {
+          IO.println(score("gold") + " " + score("bronze") + " " + score("iron"));
+      }
+    answer: "6 1 -1"
+    explanation: "L'ancien switch à deux-points « tombe » d'un case dans le suivant jusqu'au premier break : gold additionne 3 + 2 + 1. Avec des flèches, chaque case serait indépendant."
+    concept: java-switch-expr
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      String describe(Object o) {
+          return switch (o) {
+              case null -> "rien";
+              case Integer i when i > 100 -> "grand";
+              case Integer i -> "entier " + i;
+              case String s -> "texte " + s.length();
+              default -> "autre";
+          };
+      }
+
+      void main() {
+          IO.println(describe(500) + ", " + describe(7) + ", " + describe("abc") + ", " + describe(null) + ", " + describe(2.5));
+      }
+    answer: "grand, entier 7, texte 3, rien, autre"
+    explanation: "Les cases sont essayés de haut en bas : le type puis la garde. 500 satisfait la garde, 7 non et tombe dans le cas général ; case null évite la NullPointerException."
+    concept: java-switch-pattern
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Pourquoi ce switch ne compile-t-il pas ?"
+    code: |
+      return switch (o) {
+          case Integer i -> "entier";
+          case Integer i when i > 100 -> "grand";
+          default -> "autre";
+      };
+    choices:
+      - "Une garde ne peut pas comparer un Integer"
+      - "Le second case est dominé : case Integer i accepte déjà tous les entiers, le cas gardé ne pourrait jamais s'appliquer"
+      - "Il manque case null"
+      - "default doit être le premier case"
+    answer: 1
+    explanation: "Règle de dominance : un case qui accepte tout ce qu'accepte un case suivant rend ce dernier inatteignable, et javac le refuse. Mets le cas particulier avant le cas général."
+    concept: java-switch-pattern
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      record Point(int x, int y) { }
+      sealed interface Shape permits Circle, Segment { }
+      record Circle(Point center, int r) implements Shape { }
+      record Segment(Point a, Point b) implements Shape { }
+
+      String kind(Shape s) {
+          return switch (s) {
+              case Circle(Point(var x, var y), var r) when x == 0 && y == 0 -> "cercle centré, r=" + r;
+              case Circle c -> "cercle";
+              case Segment(Point a, Point b) when a.equals(b) -> "point";
+              case Segment _ -> "segment";
+          };
+      }
+
+      void main() {
+          IO.println(kind(new Circle(new Point(0, 0), 3)) + " | " + kind(new Segment(new Point(1, 2), new Point(1, 2))) + " | " + kind(new Circle(new Point(1, 0), 1)));
+      }
+    answer: "cercle centré, r=3 | point | cercle"
+    explanation: "Les motifs de records s'imbriquent et extraient les composants via les accesseurs ; la garde affine le choix. Pas de default : Circle et Segment couvrent Shape."
+    concept: java-record-pattern
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "On ajoute `record Triangle(...) implements Shape` à la liste permits. Que devient un switch-expression sur Shape qui traite Circle et Segment, sans default ?"
+    choices:
+      - "Il compile, et lève une exception pour un triangle"
+      - "Il ne compile plus : il ne couvre plus toutes les valeurs possibles, et le compilateur te montre l'endroit à mettre à jour"
+      - "Il renvoie null pour un triangle"
+      - "Il traite le triangle comme le premier case"
+    answer: 1
+    explanation: "C'est tout l'intérêt de l'exhaustivité sur un type scellé : l'oubli devient une erreur de compilation. Avec un default, ça compilerait… et le triangle passerait silencieusement par le default."
+    concept: java-exhaustive-switch
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Dans un switch exhaustif sur un type scellé, quand peut-on obtenir une MatchException ?"
+    choices:
+      - "Quand une garde lève une exception"
+      - "Quand la valeur est null"
+      - "Quand l'interface scellée a été recompilée avec une nouvelle variante sans recompiler la classe qui contient le switch"
+      - "Jamais : l'exhaustivité est garantie à l'exécution"
+    answer: 2
+    explanation: "L'exhaustivité est vérifiée avec la liste connue à la compilation. Si des classes compilées séparément ne s'accordent plus, javac a inséré un garde-fou qui lève MatchException plutôt que de choisir un case au hasard."
+    concept: java-match-exception
+    difficulty: 3
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      Object o = "  java  ";
+      if (!(o instanceof String s)) {
+          throw new IllegalStateException();
+      }
+      System.out.println("[" + s.strip() + "]");
+    answer: "[java]"
+    explanation: "La portée d'une variable de motif suit le flot : après un if négatif qui sort de la méthode, le test est forcément réussi, et s est utilisable dans la suite."
+    concept: java-instanceof-pattern
+    difficulty: 2
+  - id: q8
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      record Line(String item, int qty, int cents) { }
+
+      void main() {
+          var lines = List.of(new Line("pain", 2, 95), new Line("café", 1, 250));
+          int count = 0;
+          for (var _ : lines) count++;
+          try {
+              Integer.parseInt("douze");
+          } catch (NumberFormatException _) {
+              count += 10;
+          }
+          int total = lines.stream().mapToInt(l -> switch (l) {
+              case Line(String _, int qty, int cents) -> qty * cents;
+          }).sum();
+          IO.println(count + " " + total);
+      }
+    answer: "12 440"
+    explanation: "_ ignore volontairement une valeur : la variable de boucle, l'exception attrapée, le nom de l'article. Le motif Line(String _, int qty, int cents) couvre tout Line : le switch est exhaustif sans default."
+    concept: java-unnamed
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Que se passe-t-il quand on passe null à un switch à motifs qui n'a pas de `case null` ?"
+    choices:
+      - "Le default s'applique"
+      - "Le premier case s'applique"
+      - "NullPointerException au niveau du switch"
+      - "Le switch renvoie null"
+    answer: 2
+    explanation: "Comme l'ancien switch, un switch sans case null lève NullPointerException ; même default ne reçoit pas null. Avec case null, null devient une valeur traitée explicitement."
+    concept: java-switch-null
+    difficulty: 1

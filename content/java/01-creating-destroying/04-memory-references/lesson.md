@@ -85,6 +85,8 @@ Ce code donne le bon résultat, mais crée environ 2³¹ objets `Long` inutiles 
 
 Créer de petits objets est **bon marché** sur une JVM moderne : allocation par incrément de pointeur, ramassage générationnel très efficace pour les objets éphémères. Ajouter des objets pour gagner en clarté est généralement une bonne chose. Et **n'écris pas ton propre pool d'objets**, sauf pour des objets vraiment lourds comme les connexions à une base de données : un pool maison encombre le code, grossit la mémoire et fait souvent perdre en performance.
 
+> **Java 25+ : ce que pèse vraiment un petit objet.** Sur une JVM 64 bits, chaque objet commence par un **en-tête** : 12 octets (le mot de marque, pour le hash, le verrou et l'âge GC, plus un pointeur de classe compressé), et la taille totale est arrondie à un multiple de 8. Un `Long` pèse donc 24 octets pour 8 octets de donnée. Le JDK 25 rend disponible un en-tête **compact** de 8 octets (JEP 519, option `-XX:+UseCompactObjectHeaders`), activé par défaut depuis le JDK 27 (JEP 534). Mesuré sur 5 millions de `Long` dans l'image du cours : 24 octets par objet sans l'option, 16 avec, soit un tiers de mémoire en moins. Un tas plein de petits objets (des `Long` dans une `Map`, des nœuds de liste) en profite directement ; ça ne rend pas l'autoboxing gratuit pour autant.
+
 > Contrepoint : au module 8, tu verras qu'il faut parfois **créer** un objet (une copie défensive) plutôt que réutiliser l'existant. Oublier une copie défensive cause des bugs et des failles ; créer un objet de trop ne coûte que des performances.
 
 ## Élimine les références obsolètes

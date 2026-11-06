@@ -1,0 +1,12 @@
+id: java-ch00-l03-lab-silent-default
+title: "Débogage : le solde qui ne tombe jamais juste"
+kind: code
+language: java
+difficulty: 3
+xp: 80
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Event.java", "FeePolicy.java", "Ledger.java", "Report.java"]
+concepts: [java-switch-expr, java-exhaustive-switch, java-switch-pattern, java-record-pattern]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

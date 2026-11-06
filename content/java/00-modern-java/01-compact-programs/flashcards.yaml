@@ -1,0 +1,46 @@
+id: java-ch00-l01-flashcards
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'un fichier source compact ?"
+    back: "Un .java qui déclare directement des champs et des méthodes, sans classe : javac l'entoure d'une classe finale implicite (Java 25)."
+    concept: java-compact-source
+  - id: fc2
+    front: "Que manque-t-il à un fichier compact pour être utilisé par d'autres classes ?"
+    back: "Un nom : la classe implicite n'est pas référençable. On l'entoure d'une déclaration de classe et on ajoute les imports."
+    concept: java-compact-source
+  - id: fc3
+    front: "Quelle méthode main le lanceur choisit-il ?"
+    back: "main(String[]) d'abord, sinon main(). Si elle n'est pas static, il crée l'objet avec le constructeur sans argument (non privé) puis l'appelle."
+    concept: java-instance-main
+  - id: fc4
+    front: "Les cinq méthodes de java.lang.IO ?"
+    back: "print(Object), println(Object), println(), readln(String invite), readln(). readln renvoie null en fin d'entrée."
+    concept: java-io-class
+  - id: fc5
+    front: "Que fait import module java.sql; ?"
+    back: "Importe les types publics de tous les paquetages exportés par java.sql et par les modules qu'il rend lisibles transitivement."
+    concept: java-module-import
+  - id: fc6
+    front: "Comment lever une ambiguïté entre deux imports de modules ?"
+    back: "Un import simple (import java.util.Date;) : il l'emporte toujours."
+    concept: java-module-import
+  - id: fc7
+    front: "var, c'est du typage dynamique ?"
+    back: "Non : le type est fixé à la compilation à partir de l'initialiseur, comme := en Go. Locales seulement."
+    concept: java-var
+  - id: fc8
+    front: "var list = new ArrayList<>(); : quel type ?"
+    back: "ArrayList<Object>. Avec var, écris le type d'élément dans le diamant."
+    concept: java-var
+  - id: fc9
+    front: "Comment le compilateur calcule-t-il l'indentation retirée d'un bloc de texte ?"
+    back: "L'indentation commune minimale de toutes les lignes non blanches, plus la ligne des \"\"\" fermants."
+    concept: java-text-block
+  - id: fc10
+    front: "Que coûte un bloc de texte à l'exécution ?"
+    back: "Rien de plus qu'un littéral : tout le traitement est fait par javac, le résultat est une constante du .class."
+    concept: java-text-block
+  - id: fc11
+    front: "Que fait java Outil.java ?"
+    back: "Compile en mémoire, sans .class sur le disque, puis lance main. Depuis Java 22, trouve aussi les autres .java du dossier."
+    concept: java-source-launcher

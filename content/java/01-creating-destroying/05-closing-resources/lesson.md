@@ -43,7 +43,7 @@ Un finaliseur (`finalize()`) ou un cleaner (`java.lang.ref.Cleaner`, Java 9) s'e
 - **Coût.** Dans le livre, créer puis libérer un objet avec un finaliseur est environ 50 fois plus lent qu'avec `try-with-resources`.
 - **Attaque par finaliseur.** Si un constructeur lève une exception, une sous-classe malveillante peut, dans son `finalize()`, sauver une référence vers l'objet à moitié construit et s'en servir. Parade : classe `final`, ou une méthode `finalize()` `final` et vide.
 
-> **Au-delà du livre :** depuis Java 18 (JEP 421), `finalize()` est **déprécié pour suppression**. Les cleaners restent, mais pour des usages très limités.
+> **Au-delà du livre :** depuis Java 18 (JEP 421), `finalize()` est **déprécié pour suppression** ; il existe toujours dans le JDK 25. Pour vérifier qu'une application n'en dépend plus, lance-la avec `java --finalization=disabled` : les finaliseurs ne sont alors jamais appelés, comme le jour où ils auront disparu. Les cleaners restent, mais pour des usages très limités.
 
 ### Les deux usages légitimes
 

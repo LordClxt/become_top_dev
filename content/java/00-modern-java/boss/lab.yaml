@@ -1,0 +1,13 @@
+id: java-ch00-boss
+title: "Boss : un JSON typé, de bout en bout"
+kind: code
+language: java
+difficulty: 5
+xp: 300
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Json.java"]
+concepts: [java-adt, java-sealed, java-record-intro, java-exhaustive-switch, java-record-pattern, java-switch-null, java-guard, java-copyof-vs-view, java-sequenced]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: java-ch00-l02-lab-early-validation
+title: "Un compte valide avant même d'exister"
+kind: code
+language: java
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Account.java"]
+concepts: [java-flexible-ctor]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

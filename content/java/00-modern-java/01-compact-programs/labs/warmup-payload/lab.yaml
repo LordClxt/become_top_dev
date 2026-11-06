@@ -1,0 +1,12 @@
+id: java-ch00-l01-lab-warmup-payload
+title: "Échauffement : un JSON lisible avec un bloc de texte"
+kind: code
+language: java
+difficulty: 1
+xp: 25
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Payload.java"]
+concepts: [java-text-block]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

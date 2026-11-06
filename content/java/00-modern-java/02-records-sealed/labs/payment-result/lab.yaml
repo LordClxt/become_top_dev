@@ -1,0 +1,12 @@
+id: java-ch00-l02-lab-payment-result
+title: "Un résultat de paiement qu'on ne peut pas construire faux"
+kind: code
+language: java
+difficulty: 2
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["PaymentResult.java"]
+concepts: [java-record-intro, java-sealed, java-sealed-subclass-modifiers, java-adt]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

@@ -73,6 +73,8 @@ public enum Registry {
 
 C'est la forme recommandée : aussi concise que le champ public, sérialisation gérée gratuitement, et une **garantie absolue** contre une seconde instance, même face à la réflexion. Une enum peut implémenter des interfaces. Seule limite : elle ne peut pas étendre une autre classe que `Enum`.
 
+> **Au-delà du livre : et si l'instance coûte cher ?** Les trois formes créent l'instance au chargement de la classe. Pour la créer seulement au premier usage, l'idiome de la *classe détentrice* (une classe imbriquée statique privée qui porte le champ, la JVM ne l'initialisant qu'au premier accès) est la réponse classique, détaillée au module 11 (item 83). Les JDK 26 et 27 préparent une API standard pour ce besoin, `LazyConstant` (`LazyConstant.of(() -> new Registry())`, appelée `StableValue` dans le JDK 25) : une valeur calculée au plus une fois, même entre threads, que le JIT traite ensuite comme une vraie constante. Elle est encore en *preview* : pas dans les TP.
+
 > Un singleton rend ses **clients** difficiles à tester : impossible de le remplacer par un faux, sauf s'il implémente une interface et que le client dépend de cette interface.
 
 ## Ne câble pas tes ressources en dur
