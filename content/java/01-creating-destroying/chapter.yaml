@@ -16,3 +16,7 @@ lessons:
   - "03-singletons-injection"
   - "04-memory-references"
   - "05-closing-resources"
+xp: { assignment: 150, project: 300, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

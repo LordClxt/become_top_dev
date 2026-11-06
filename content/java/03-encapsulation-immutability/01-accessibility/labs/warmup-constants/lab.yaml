@@ -1,0 +1,12 @@
+id: java-ch03-l01-lab-warmup-constants
+title: "Échauffement : la constante qu'on peut modifier"
+kind: code
+language: java
+difficulty: 1
+xp: 25
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Currencies.java"]
+concepts: [java-public-array-hole]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

@@ -39,3 +39,7 @@ cards:
     front: "Peut-on mettre un catch sur un try-with-resources ?"
     back: "Oui (et un finally) : les ressources sont fermées avant l'exécution du catch."
     concept: java-try-with-resources
+  - id: fc11
+    front: "Pourquoi une ressource dont l'ouverture lève une exception n'est-elle jamais fermée par try-with-resources ?"
+    back: "javac initialise la ressource AVANT le bloc try qu'il génère : si l'initialisation échoue, il n'y a rien à fermer, et les ressources déjà ouvertes sont fermées par les blocs englobants."
+    concept: java-try-with-resources

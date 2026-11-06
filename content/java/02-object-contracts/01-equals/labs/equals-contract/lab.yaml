@@ -1,0 +1,12 @@
+id: java-ch02-l01-lab-equals-contract
+title: "Trois equals qui mentent aux collections"
+kind: code
+language: java
+difficulty: 3
+xp: 65
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["CaseInsensitiveString.java", "Point.java", "ColorPoint.java", "Measurement.java"]
+concepts: [java-equals-symmetry, java-equals-subclass-value, java-equals-getclass-lsp, java-equals-recipe]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

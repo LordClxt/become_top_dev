@@ -1,0 +1,6 @@
+id: java-ch03-access-levels
+concept: java-access-levels
+format: interactive
+justification: "Choisir un modificateur et voir s'allumer exactement les classes qui y accèdent (même classe, paquetage, sous-classe ailleurs, reste du monde) rend concret le saut entre package-private et protected."
+entry: AccessLevels.tsx
+status: built

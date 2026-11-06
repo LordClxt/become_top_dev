@@ -1,0 +1,6 @@
+id: java-ch03-structural-sharing
+concept: java-immutable-sharing
+format: interactive
+justification: "Créer soi-même des versions d'une pile immuable et voir les mêmes nœuds réapparaître dans plusieurs versions, avec le compteur d'allocations face à une copie complète, montre que l'immutabilité peut coûter presque rien quand les internes sont partagés."
+entry: StructuralSharing.tsx
+status: built

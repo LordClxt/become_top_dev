@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Trade, un record validé"
+    goal: "Une transaction qui ne peut pas exister dans un état invalide, et Money.times dans le style fonctionnel."
+    tests: "jtest M1"
+    review: false
+  - id: m2
+    title: "Exécuter sans modifier"
+    goal: "Order.fill renvoie un nouvel ordre ; l'ordre accepté reste intact, et un all-or-none refuse l'exécution partielle."
+    tests: "jtest M2"
+    review: false
+  - id: m3
+    title: "Des instantanés du carnet"
+    goal: "Un BookSnapshot agrégé par prix, validé, et que rien ne peut plus modifier."
+    tests: "jtest M3"
+    review: true

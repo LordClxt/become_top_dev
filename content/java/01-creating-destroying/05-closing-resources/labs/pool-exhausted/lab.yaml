@@ -1,0 +1,12 @@
+id: java-ch01-l05-lab-pool-exhausted
+title: "Débogage : le pool qui s'épuise tout seul"
+kind: code
+language: java
+difficulty: 4
+xp: 90
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Connection.java", "ConnectionPool.java", "Retry.java", "OrderRepository.java"]
+concepts: [java-try-with-resources, java-autocloseable-state, java-suppressed-exceptions]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

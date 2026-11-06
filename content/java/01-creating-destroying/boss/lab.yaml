@@ -1,0 +1,13 @@
+id: java-ch01-boss
+title: "Boss : la boîte d'envoi de notifications"
+kind: code
+language: java
+difficulty: 5
+xp: 250
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Message.java", "Email.java", "Sms.java", "Outbox.java"]
+concepts: [java-builder-hierarchy, java-builder-validation, java-static-factory, java-dependency-injection, java-supplier-factory, java-obsolete-reference, java-try-with-resources, java-suppressed-exceptions, java-autocloseable-state]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

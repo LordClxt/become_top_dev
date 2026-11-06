@@ -1,0 +1,45 @@
+cards:
+  - id: fc1
+    front: "La clause du contrat de hashCode qu'on viole en oubliant de le redéfinir ?"
+    back: "Deux objets égaux selon equals doivent avoir le même hashCode."
+    concept: java-hashcode-contract
+  - id: fc2
+    front: "La recette de hashCode ?"
+    back: "result = hash du premier champ significatif ; puis result = 31 * result + c pour chaque autre champ (Type.hashCode, Objects.hashCode, Arrays.hashCode)."
+    concept: java-hashcode-recipe
+  - id: fc3
+    front: "Pourquoi multiplier par 31 à chaque champ ?"
+    back: "Pour que l'ordre des champs compte (sinon tous les anagrammes collisionnent) ; 31 est impair et 31 * i == (i << 5) - i."
+    concept: java-hashcode-recipe
+  - id: fc4
+    front: "Quels champs mettre dans hashCode ?"
+    back: "Ceux qu'equals compare, et seulement ceux-là (les champs dérivés peuvent être omis)."
+    concept: java-hashcode-recipe
+  - id: fc5
+    front: "Effet de `return 42` dans hashCode ?"
+    back: "Légal, mais toutes les clés dans un seul compartiment : la table devient une liste, temps quadratique."
+    concept: java-hashcode-quality
+  - id: fc6
+    front: "Coût caché d'Objects.hash ?"
+    back: "Un tableau créé à chaque appel (varargs) et un boxing par primitif."
+    concept: java-hashcode-caching
+  - id: fc7
+    front: "Quand mettre le hash en cache dans un champ ?"
+    back: "Classe immuable, calcul coûteux. Initialisation paresseuse avec 0 comme « pas encore calculé » (comme String)."
+    concept: java-hashcode-caching
+  - id: fc8
+    front: "Que devient une clé de HashMap modifiée après insertion ?"
+    back: "Introuvable : elle reste rangée sous son ancien hash. Fuite mémoire + bug. Les clés doivent être immuables (copier les collections reçues)."
+    concept: java-mutable-key
+  - id: fc9
+    front: "Dans quel ordre HashMap compare-t-elle une clé cherchée à une entrée ?"
+    back: "Hash mémorisé d'abord, puis ==, puis equals. Hash différents ⇒ equals jamais appelé."
+    concept: java-hashmap-internals
+  - id: fc10
+    front: "Quand un compartiment de HashMap devient-il un arbre ?"
+    back: "Au-delà de 8 entrées, si la table a au moins 64 cases. L'arbre ordonne les clés Comparable avec compareTo."
+    concept: java-hashmap-internals
+  - id: fc11
+    front: "Pourquoi ne pas documenter la formule de son hashCode ?"
+    back: "Les clients en dépendraient et tu ne pourrais plus l'améliorer (le cas de String et Integer)."
+    concept: java-hashcode-quality

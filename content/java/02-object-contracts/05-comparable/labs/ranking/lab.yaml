@@ -1,0 +1,12 @@
+id: java-ch02-l05-lab-ranking
+title: "Un classement qui ne déborde pas"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Version.java", "Leaderboard.java"]
+concepts: [java-comparable-contract, java-comparable-consistent-equals, java-compare-methods, java-comparator-construction, java-comparator-difference-bug]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

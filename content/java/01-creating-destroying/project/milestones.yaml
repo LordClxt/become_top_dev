@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Money"
+    goal: "Un montant exact en unités mineures, créé par des fabriques nommées ; zéro est une instance unique par devise."
+    tests: "jtest M1"
+    review: false
+  - id: m2
+    title: "Order.Builder"
+    goal: "Un ordre immuable construit par builder : obligatoires au constructeur, options validées à l'appel, invariants croisés au build."
+    tests: "jtest M2"
+    review: false
+  - id: m3
+    title: "OrderJournal"
+    goal: "Un journal tamponné, horloge injectée, qui ne retient rien après vidage et ferme son support sans perdre d'erreur."
+    tests: "jtest M3"
+    review: true

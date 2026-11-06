@@ -1,0 +1,12 @@
+id: java-ch03-l02-lab-shipping-record
+title: "D'un JavaBean à un record vraiment immuable"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Address.java", "ShippingLabel.java"]
+concepts: [java-record-basics, java-record-compact-ctor, java-record-mutable-components, java-accessors-not-fields]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

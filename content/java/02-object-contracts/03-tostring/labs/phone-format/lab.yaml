@@ -1,0 +1,12 @@
+id: java-ch02-l03-lab-phone-format
+title: "Des logs qu'on peut lire"
+kind: code
+language: java
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["FrenchPhone.java", "Contact.java", "Directory.java"]
+concepts: [java-tostring-informative, java-tostring-format-spec, java-tostring-accessors]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: java-ch03-l04-lab-bits
+title: "Un ensemble de bits immuable qui ne copie pas pour rien"
+kind: code
+language: java
+difficulty: 4
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Bits.java"]
+concepts: [java-immutable-cost, java-multistep-primitives, java-mutable-companion]
+verified: { at: 2026-11-06, solution: pass, starter: fail }

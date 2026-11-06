@@ -1,0 +1,12 @@
+id: java-ch01-assignment
+title: "Un registre de métriques"
+kind: code
+language: java
+difficulty: 3
+xp: 150
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["MetricRegistry.java", "Counter.java", "Timer.java"]
+concepts: [java-builder, java-builder-validation, java-instance-control, java-supplier-factory, java-reuse-expensive-objects, java-obsolete-reference, java-try-with-resources, java-autocloseable-state]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

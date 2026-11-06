@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: deep-immutability
+    label: "Immutabilité profonde et partage"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Copies défensives faites une seule fois, à la frontière (build) ; collections imbriquées copiées en profondeur (Set.copyOf par rôle puis Map.copyOf) ; withX partage les collections existantes sans les recopier ; aucun accesseur ne renvoie un objet mutable ; constructeur privé qui reçoit des collections déjà immuables"
+      2: "Immuable en pratique, mais copies redondantes (dans chaque accesseur, ou withX qui recopie tout), ou vues unmodifiable sur des collections encore référencées par le builder"
+      0: "Une collection interne reste modifiable de l'extérieur, ou un objet construit change quand on réutilise le builder"
+  - id: api-design
+    label: "Conception de l'API et validation"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Toute la validation est dans build() (ou un constructeur privé unique), messages explicites ; noms withX qui disent qu'on renvoie un nouvel objet ; toString documenté qui ne fuit jamais un secret ; equals/hashCode cohérents ; aucune méthode publique inutile"
+      2: "Correct mais validation dispersée (dans les setters du builder et dans withX séparément, avec des règles qui divergent), ou toString non documenté"
+      0: "Validation contournable (withPort accepte un port invalide), secrets visibles dans toString, ou setters publics sur AppConfig"

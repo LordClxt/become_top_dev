@@ -1,0 +1,12 @@
+id: java-ch02-assignment
+title: "Un point GPS qui respecte tous les contrats"
+kind: code
+language: java
+difficulty: 3
+xp: 150
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["GeoPoint.java"]
+concepts: [java-equals-contract, java-equals-recipe, java-hashcode-recipe, java-tostring-format-spec, java-tostring-accessors, java-comparable-consistent-equals, java-comparator-construction]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: java-ch01-l01-lab-warmup-temperature
+title: "Échauffement : trois constructeurs impossibles"
+kind: code
+language: java
+difficulty: 1
+xp: 25
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Temperature.java"]
+concepts: [java-static-factory, java-factory-naming]
+verified: { at: 2026-11-05, solution: pass, starter: fail }

@@ -39,3 +39,7 @@ cards:
     front: "Pourquoi EnumSet.noneOf peut-il renvoyer deux classes différentes ?"
     back: "RegularEnumSet (un long) jusqu'à 64 constantes, JumboEnumSet (tableau de long) au-delà. Le client ne voit qu'un EnumSet : l'implémentation peut changer sans le casser."
     concept: java-static-factory
+  - id: fc11
+    front: "En quoi `Integer n = 127;` est-il compilé ?"
+    back: "En `Integer.valueOf(127)` : l'autoboxing passe par la fabrique statique, donc par son cache (-128..127 par défaut, borne haute réglable avec -XX:AutoBoxCacheMax)."
+    concept: java-instance-control

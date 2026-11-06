@@ -1,0 +1,6 @@
+id: java-ch02-hash-buckets
+concept: java-hashcode-quality
+format: interactive
+justification: "Changer la fonction de hash et voir les entrées se répartir ou s'entasser dans les compartiments, puis modifier une clé déjà rangée, rend palpables le coût d'un mauvais hash et la perte d'une clé mutable."
+entry: HashBuckets.tsx
+status: built

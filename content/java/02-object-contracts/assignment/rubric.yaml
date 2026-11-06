@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.55
+    source: tests
+  - id: canonical-form
+    label: "Forme canonique et cohérence des contrats"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Normalisation faite une seule fois dans la fabrique (arrondi, longitude ramenée, pôles, -0.0) ; equals, hashCode et compareTo reposent sur les mêmes champs canoniques ; idéalement un stockage en entiers (micro-degrés) qui rend la comparaison exacte"
+      2: "Correct, mais la normalisation est répétée dans equals/hashCode/compareTo, ou un champ double est comparé avec == à un endroit"
+      0: "equals, hashCode et compareTo ne regardent pas les mêmes valeurs, ou la normalisation dépend de l'appelant"
+  - id: api-design
+    label: "Conception de l'API"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Format de toString documenté précisément dans la Javadoc, parse symétrique, accesseurs pour tout ce qui est affiché, pas de clone, constructeur privé, comparateur en static final"
+      2: "Fonctionne mais format non documenté, ou comparateur recréé à chaque appel"
+      0: "toString sans format défini, parse qui n'accepte pas la sortie de toString, ou clone fourni sur une classe immuable"

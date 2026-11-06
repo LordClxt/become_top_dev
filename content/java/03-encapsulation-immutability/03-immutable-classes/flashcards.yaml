@@ -1,0 +1,42 @@
+id: java-ch03-l03-flashcards
+cards:
+  - id: fc1
+    front: "Les cinq règles d'une classe immuable ?"
+    back: "Pas de mutateur ; non extensible ; champs final ; champs private ; accès exclusif aux composants mutables (copies défensives)."
+    concept: java-immutable-five-rules
+  - id: fc2
+    front: "Approche fonctionnelle : quel nom pour une opération ?"
+    back: "Une préposition (plus, minus, times) ou withX : le nom dit qu'on renvoie un nouvel objet, pas qu'on modifie this."
+    concept: java-functional-approach
+  - id: fc3
+    front: "Pourquoi un objet immuable est-il thread-safe ?"
+    back: "Il n'a qu'un état. Aucun thread ne peut observer de modification faite par un autre : pas de synchronisation."
+    concept: java-immutable-sharing
+  - id: fc4
+    front: "Comment encourager la réutilisation des instances immuables ?"
+    back: "Des constantes (ZERO, ONE) et des fabriques statiques avec cache (Integer.valueOf, BigInteger.valueOf)."
+    concept: java-immutable-sharing
+  - id: fc5
+    front: "Faut-il un clone ou un constructeur de copie sur une classe immuable ?"
+    back: "Non : une copie serait équivalente à l'original pour toujours."
+    concept: java-immutable-sharing
+  - id: fc6
+    front: "Alternative à final pour empêcher l'extension ?"
+    back: "Constructeurs privés (ou package-private) et fabriques statiques publiques : effectivement final, plusieurs implémentations possibles, cache ajoutable."
+    concept: java-effectively-final-factories
+  - id: fc7
+    front: "Pourquoi se méfier d'un BigInteger reçu ?"
+    back: "BigInteger n'est pas final. Si getClass() != BigInteger.class, recopier : new BigInteger(val.toByteArray())."
+    concept: java-defensive-copy-untrusted
+  - id: fc8
+    front: "Un champ non final dans une classe immuable, c'est permis ?"
+    back: "Oui pour un cache (hash de String) : aucun changement visible de l'extérieur, le calcul donne toujours le même résultat."
+    concept: java-lazy-cached-fields
+  - id: fc9
+    front: "Que garantit un champ final au modèle mémoire ?"
+    back: "Gelé à la fin du constructeur : tout thread qui reçoit la référence ensuite voit sa valeur, même sans synchronisation (JLS 17.5)."
+    concept: java-final-field-semantics
+  - id: fc10
+    front: "Ce qui annule la garantie des champs final ?"
+    back: "Laisser this s'échapper du constructeur (registre, thread démarré, méthode redéfinissable)."
+    concept: java-final-field-semantics

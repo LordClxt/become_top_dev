@@ -1,0 +1,91 @@
+id: java-ch02-l05-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      java.util.Comparator<Integer> byDiff = (a, b) -> a - b;
+      System.out.println(byDiff.compare(Integer.MAX_VALUE, -1) > 0);
+      System.out.println(Integer.compare(Integer.MAX_VALUE, -1) > 0);
+    answer: "false\ntrue"
+    explanation: "MAX_VALUE - (-1) déborde et devient MIN_VALUE, négatif : le comparateur prétend que MAX_VALUE < -1. Integer.compare ne soustrait pas."
+    concept: java-comparator-difference-bug
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      var a = new java.math.BigDecimal("1.0");
+      var b = new java.math.BigDecimal("1.00");
+      System.out.println(a.equals(b) + " " + a.compareTo(b) + " "
+          + new java.util.HashSet<>(java.util.List.of(a, b)).size() + " "
+          + new java.util.TreeSet<>(java.util.List.of(a, b)).size());
+    answer: "false 0 2 1"
+    explanation: "BigDecimal a un ordre incohérent avec equals (l'échelle compte pour equals, pas pour compareTo). HashSet utilise equals, TreeSet utilise compareTo."
+    concept: java-comparable-consistent-equals
+    difficulty: 3
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          record P(String name, int age) { }
+
+          public static void main(String[] args) {
+              var people = new java.util.ArrayList<>(java.util.List.of(new P("bo", 30), new P("ana", 30), new P("cy", 25)));
+              people.sort(java.util.Comparator.comparingInt(P::age).thenComparing(P::name).reversed());
+              System.out.println(people.stream().map(P::name).toList());
+          }
+      }
+    answer: "[bo, ana, cy]"
+    explanation: "reversed() inverse toute la chaîne qui précède : âge décroissant ET nom décroissant. Pour n'inverser que l'âge, il faut comparingInt(P::age).reversed().thenComparing(P::name)."
+    concept: java-comparator-construction
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Un TreeSet<Player> construit avec `comparingInt(Player::score)` reçoit deux joueurs différents de même score. Que se passe-t-il ?"
+    choices:
+      - "Les deux sont gardés, dans l'ordre d'insertion"
+      - "Le second est ignoré : pour le TreeSet, compare == 0 signifie « déjà présent »"
+      - "IllegalArgumentException"
+      - "Le TreeSet appelle equals pour départager"
+    answer: 1
+    explanation: "Les collections triées utilisent la comparaison à la place d'equals. Il manque un critère de départage (nom, identifiant)."
+    concept: java-comparable-consistent-equals
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quelle clause du contrat de compareTo un comparateur par différence casse-t-il en cas de débordement ?"
+    choices:
+      - "Aucune, il est juste lent"
+      - "La transitivité (et l'antisymétrie) : on peut obtenir a < b, b < c et c < a"
+      - "Seulement la cohérence avec equals"
+      - "La non-nullité"
+    answer: 1
+    explanation: "Avec le débordement, l'ordre « boucle ». TimSort peut alors lever « Comparison method violates its general contract! », ou trier faux en silence."
+    concept: java-comparable-contract
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Pourquoi un tri de 20 éléments avec un comparateur incohérent ne lève-t-il jamais « Comparison method violates its general contract! » ?"
+    choices:
+      - "Parce que 20 éléments ne peuvent pas déborder"
+      - "En dessous de 32 éléments, TimSort fait un tri par insertion sans fusion, donc sans la vérification qui détecte l'incohérence"
+      - "Parce que List.sort n'utilise pas TimSort"
+      - "Parce que le JIT corrige le comparateur"
+    answer: 1
+    explanation: "La détection a lieu pendant les fusions de runs. Petit tableau : pas de fusion, pas de détection, résultat potentiellement faux en silence."
+    concept: java-comparator-difference-bug
+    difficulty: 3
+  - id: q7
+    type: multiple
+    prompt: "Quelles écritures sont correctes pour comparer deux joueurs par score croissant ?"
+    choices:
+      - "(a, b) -> a.score() - b.score()"
+      - "(a, b) -> Integer.compare(a.score(), b.score())"
+      - "Comparator.comparingInt(Player::score)"
+      - "(a, b) -> a.score() < b.score() ? -1 : 1"
+    answer: [1, 2]
+    explanation: "La soustraction déborde ; la dernière ne renvoie jamais 0, donc a.compare(a) != 0 et l'antisymétrie est violée pour des scores égaux."
+    concept: java-compare-methods
+    difficulty: 2

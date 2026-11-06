@@ -11,7 +11,8 @@ declares its own `main` is a complete source file; otherwise it is wrapped in
 (image btd-runner-java). TypeScript: the snippet is a module run with `node main.ts`
 (type stripping, image btd-runner-typescript). NestJS: the snippet is a complete module
 compiled with tsc (legacy decorators + emitDecoratorMetadata) then run with node, against the
-preinstalled packages of btd-runner-nestjs. Executed in a
+preinstalled packages of btd-runner-nestjs. Convex: the snippet is a module run with
+`node main.ts` against the packages preinstalled in btd-runner-convex. Executed in a
 throwaway Docker container (no network); stdout is compared to `answer`
 (trailing whitespace ignored). Exit code 1 if any answer is wrong.
 """
@@ -76,6 +77,8 @@ def main() -> int:
         args.image = args.image or "btd-runner-typescript"
     elif language == "nestjs":
         args.image = args.image or "btd-runner-nestjs"
+    elif language == "convex":
+        args.image = args.image or "btd-runner-convex"
     else:
         args.image = args.image or "golang:1"
 
@@ -94,7 +97,7 @@ def main() -> int:
                 (d / "main.groovy").write_text(q["code"].rstrip() + "\n")
             elif language == "java":
                 (d / "Main.java").write_text(wrap_java(q["code"]))
-            elif language in ("typescript", "nestjs"):
+            elif language in ("typescript", "nestjs", "convex"):
                 (d / "package.json").write_text('{"type":"module"}\n')
                 (d / "main.ts").write_text(q["code"].rstrip() + "\n")
             else:
@@ -102,6 +105,7 @@ def main() -> int:
                 (d / "main.go").write_text(wrap(q["code"]))
         run = {"groovy": "groovy main.groovy 2>&1", "java": "java -XX:TieredStopAtLevel=1 Main.java 2>&1",
                "typescript": "node main.ts 2>&1",
+               "convex": "ln -s /opt/convex/node_modules node_modules && node main.ts 2>&1",
                "nestjs": "ln -s /opt/nest/node_modules node_modules && /opt/nest/node_modules/.bin/tsc main.ts"
                          " --experimentalDecorators --emitDecoratorMetadata --module nodenext --target es2023"
                          " --skipLibCheck --outDir /tmp/$(basename $d) >/dev/null 2>&1;"

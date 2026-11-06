@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Pourquoi Cloneable est-il un mixin raté ?"
+    back: "Il n'a pas de méthode clone ; il modifie le comportement de la méthode protégée Object.clone."
+    concept: java-cloneable-broken
+  - id: fc2
+    front: "Que copie super.clone() ?"
+    back: "Les champs tels quels (copie superficielle) : tableaux et objets mutables sont partagés avec l'original. Aucun constructeur n'est appelé."
+    concept: java-clone-shallow
+  - id: fc3
+    front: "Comment réparer le clone d'une Stack qui a un champ Object[] elements ?"
+    back: "result.elements = elements.clone(); après super.clone()."
+    concept: java-clone-shallow
+  - id: fc4
+    front: "Pourquoi clone et les champs final s'entendent-ils mal ?"
+    back: "Après super.clone(), on ne peut plus réaffecter un champ final pour y mettre une copie de l'état mutable."
+    concept: java-clone-shallow
+  - id: fc5
+    front: "Comment copier en profondeur une liste chaînée ?"
+    back: "Avec une boucle (une seule frame de pile), pas par récursion (StackOverflowError sur une longue chaîne)."
+    concept: java-clone-deep
+  - id: fc6
+    front: "Constructeur de conversion : définition et exemple ?"
+    back: "Constructeur de copie qui prend une interface : new TreeSet<>(hashSet), new ArrayList<>(collection)."
+    concept: java-copy-constructor
+  - id: fc7
+    front: "Seule bonne utilisation de clone ?"
+    back: "Copier un tableau : array.clone() (public, bon type, pas de cast). Attention, copie d'un seul niveau."
+    concept: java-array-clone
+  - id: fc8
+    front: "Une classe conçue pour l'héritage doit-elle implémenter Cloneable ?"
+    back: "Non. Soit un clone protégé qui lève CloneNotSupportedException (comme Object), soit un clone protected final qui l'interdit."
+    concept: java-cloneable-broken

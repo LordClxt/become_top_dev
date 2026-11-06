@@ -22,7 +22,7 @@ glossary:
   - term: "classe compagnon"
     definition: "Classe non instanciable qui regroupe les fabriques d'une interface (Collections pour Collection). Depuis Java 8, ces méthodes peuvent vivre dans l'interface elle-même."
 visuals: []
-labs: [java-ch01-l01-lab-http-status]
+labs: [java-ch01-l01-lab-warmup-temperature, java-ch01-l01-lab-http-status]
 extra: false
 xp: 25
 ---
@@ -126,6 +126,31 @@ public final class Strings {
 Le commentaire n'est pas décoratif : un constructeur écrit **pour ne jamais être appelé** surprend le lecteur.
 
 > **Depuis Java 8**, une interface peut contenir des méthodes statiques. Plus besoin d'une classe compagnon `Types` à côté de l'interface `Type` : `List.of` vit dans `List`. Attention, les membres statiques d'une interface sont forcément publics (Java 9 autorise seulement les méthodes statiques privées) : le gros du code peut encore vivre dans une classe package-private.
+
+## Sous le capot : le cache d'`Integer`
+
+Quand tu écris `Integer n = 127;`, il n'y a pas de magie : le compilateur traduit l'**autoboxing** en un appel à la fabrique. `javap -c` sur la classe compilée le montre :
+
+```text
+bipush        127
+invokestatic  java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+```
+
+Et `valueOf` ressemble à ceci dans le JDK 21 (simplifié) :
+
+```java
+public static Integer valueOf(int i) {
+    if (i >= IntegerCache.low && i <= IntegerCache.high)
+        return IntegerCache.cache[i + (-IntegerCache.low)];
+    return new Integer(i);
+}
+```
+
+`IntegerCache` est une **classe imbriquée statique privée** : la JVM ne l'initialise qu'au premier accès, et son initialiseur statique remplit une fois pour toutes un tableau de 256 `Integer`. C'est l'idiome du *holder* d'initialisation paresseuse, qu'on reverra au module 11. Trois conséquences qu'on peut maintenant **prédire** au lieu de les apprendre par cœur :
+
+- la borne haute se règle au lancement (`-XX:AutoBoxCacheMax=1000`) : un `==` qui « marchait » jusqu'à 127 peut marcher jusqu'à 1000 sur un autre serveur, et casser sur le tien ;
+- `Long`, `Short`, `Byte` et `Character` ont le même genre de cache (de 0 à 127 pour `Character`), `Float` et `Double` **aucun** : il y a trop de valeurs entre 0 et 1 pour en choisir 256 ;
+- le constructeur `new Integer(5)` est déprécié depuis Java 9, et marqué pour suppression depuis Java 16 : il empêchait précisément ce contrôle d'instances. Le JDK a fait, des années plus tard, le choix que cette leçon te demande de faire dès le départ.
 
 ## Pièges fréquents
 

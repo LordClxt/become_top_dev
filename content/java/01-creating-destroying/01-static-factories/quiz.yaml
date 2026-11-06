@@ -100,3 +100,16 @@ questions:
     explanation: "Les champs statiques s'initialisent dans l'ordre du fichier : quand FIRST appelle create(), LOG n'a pas encore reçu sa liste. C'est le piège classique d'une constante déclarée avant le cache de la fabrique."
     concept: java-instance-control
     difficulty: 3
+  - id: q9
+    type: code-output
+    prompt: "Qu'affiche ce programme (JVM lancée sans option) ?"
+    code: |
+      Long a = 127L, b = 127L;
+      Long c = 128L, d = 128L;
+      Character x = 'z', y = 'z';
+      Double p = 1.0, q = 1.0;
+      System.out.println((a == b) + " " + (c == d) + " " + (x == y) + " " + (p == q));
+    answer: "true false true false"
+    explanation: "L'autoboxing appelle valueOf. Long met en cache -128..127 (127 oui, 128 non) ; Character met en cache 0..127 ('z' vaut 122) ; Double n'a aucun cache, chaque valueOf crée un objet. Moralité : on compare des objets avec equals, jamais avec ==."
+    concept: java-instance-control
+    difficulty: 3

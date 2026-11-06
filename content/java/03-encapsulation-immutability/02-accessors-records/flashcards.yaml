@@ -1,0 +1,38 @@
+id: java-ch03-l02-flashcards
+cards:
+  - id: fc1
+    front: "Classe publique : champ public ou accesseur ?"
+    back: "Accesseur. Un champ public fige la représentation, interdit la validation et toute réaction à la lecture."
+    concept: java-accessors-not-fields
+  - id: fc2
+    front: "Quand des champs exposés sont-ils acceptables ?"
+    back: "Dans une classe package-private ou imbriquée privée : le code qui en dépend est confiné."
+    concept: java-public-fields-nonpublic-class
+  - id: fc3
+    front: "Un champ public final dans une classe publique, c'est mieux ?"
+    back: "Moins grave (invariants garantis par le constructeur), mais la représentation reste figée et on ne peut pas agir à la lecture."
+    concept: java-accessors-not-fields
+  - id: fc4
+    front: "Que génère un record ?"
+    back: "Classe final (étend Record), champs private final, constructeur canonique, accesseurs x(), equals/hashCode/toString."
+    concept: java-record-basics
+  - id: fc5
+    front: "Qu'est-ce qu'un constructeur compact ?"
+    back: "Le constructeur canonique sans liste de paramètres ; son corps s'exécute avant l'affectation des champs et peut réaffecter les paramètres."
+    concept: java-record-compact-ctor
+  - id: fc6
+    front: "Où valider et normaliser un record ?"
+    back: "Dans le constructeur compact : requireNonNull, bornes, strip(), List.copyOf."
+    concept: java-record-compact-ctor
+  - id: fc7
+    front: "Pourquoi un record avec une List n'est-il pas forcément immuable ?"
+    back: "Le champ est final mais la liste peut être modifiée par l'appelant. Solution : List.copyOf dans le constructeur compact."
+    concept: java-record-mutable-components
+  - id: fc8
+    front: "Un record contenant un tableau : quels pièges ?"
+    back: "equals/hashCode par identité, toString illisible, tableau partagé. Préférer une List, ou redéfinir equals/hashCode/toString et cloner à l'entrée et dans l'accesseur."
+    concept: java-record-mutable-components
+  - id: fc9
+    front: "Comment sont implémentés equals/hashCode/toString d'un record ?"
+    back: "invokedynamic vers java.lang.runtime.ObjectMethods.bootstrap, lié au premier appel."
+    concept: java-record-basics

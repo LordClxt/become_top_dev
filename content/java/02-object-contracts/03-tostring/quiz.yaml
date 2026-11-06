@@ -1,0 +1,86 @@
+id: java-ch02-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quel est le principal avantage d'un toString redéfini ?"
+    choices:
+      - "Il accélère HashMap"
+      - "Les logs, messages d'erreur, rapports de test et le débogueur deviennent lisibles, y compris pour les collections qui contiennent l'objet"
+      - "Il remplace equals dans les tests"
+      - "Il est obligatoire pour compiler"
+    answer: 1
+    explanation: "toString est appelé implicitement partout (concaténation, println, logs, assertions) ; ses bénéfices s'étendent aux collections et aux objets qui contiennent le tien."
+    concept: java-tostring-informative
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Tu spécifies le format de toString d'une classe valeur. Que dois-tu fournir avec ?"
+    choices:
+      - "Rien de plus"
+      - "Une fabrique statique (parse, valueOf) qui relit ce format, avec aller-retour garanti"
+      - "Un setter par champ"
+      - "Une méthode clone"
+    answer: 1
+    explanation: "Un format spécifié sert de représentation standard : on doit pouvoir passer de l'objet à la chaîne et inversement, comme BigDecimal ou LocalDate."
+    concept: java-tostring-format-spec
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Le format de ton toString est déclaré « non spécifié », mais ta classe n'a pas d'accesseurs. Conséquence ?"
+    choices:
+      - "Aucune, puisque le format est non spécifié"
+      - "Les clients parsent la chaîne : le format devient une API de fait que tu ne peux plus changer"
+      - "Le compilateur l'interdit"
+      - "toString ne sera jamais appelé"
+    answer: 1
+    explanation: "Sans accesseurs, découper la chaîne est la seule façon d'obtenir l'information. Ton avertissement n'empêchera pas la casse quand tu changeras le format."
+    concept: java-tostring-accessors
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          static final class Id {
+              @Override public int hashCode() { return 255; }
+          }
+
+          public static void main(String[] args) {
+              Object o = null;
+              System.out.println("x=" + o + " " + new Id().toString().endsWith("@ff"));
+          }
+      }
+    answer: "x=null true"
+    explanation: "La concaténation passe par String.valueOf, qui donne \"null\" sans exception. Le toString d'Object affiche le hash (ici le tien, 255 = ff en hexadécimal), pas une adresse mémoire."
+    concept: java-tostring-informative
+    difficulty: 3
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          record PhoneNumber(int area, int line) { }
+
+          public static void main(String[] args) {
+              var list = new java.util.ArrayList<Object>();
+              list.add(new PhoneNumber(707, 5309));
+              list.add(list);
+              System.out.println(list);
+          }
+      }
+    answer: "[PhoneNumber[area=707, line=5309], (this Collection)]"
+    explanation: "Le record génère un toString « Nom[champ=valeur, …] » (format non spécifié). AbstractCollection.toString détecte la liste qui se contient elle-même et affiche (this Collection) au lieu de boucler."
+    concept: java-tostring-informative
+    difficulty: 3
+  - id: q6
+    type: multiple
+    prompt: "Qu'est-ce qui ne doit PAS se trouver dans un toString ?"
+    choices:
+      - "Un mot de passe ou un jeton"
+      - "Un appel réseau"
+      - "Les champs comparés par equals"
+      - "Une opération qui peut lever une exception"
+    answer: [0, 1, 3]
+    explanation: "toString finit dans les logs et s'exécute dans le débogueur : ni secret, ni coût, ni exception. Les champs d'equals, eux, doivent y être (sinon « attendu X, obtenu X »)."
+    concept: java-tostring-informative
+    difficulty: 2
