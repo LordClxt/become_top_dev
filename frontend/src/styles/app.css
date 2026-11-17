@@ -203,20 +203,21 @@ body {
   border-radius: 4px;
   padding: 0.1em 0.35em;
 }
-.prose-read table {
+/* Les tableaux des visuels (figure) gardent leurs propres classes utilitaires. */
+.prose-read table:not(figure table) {
   font-family: var(--font-ui);
   font-size: 0.95rem;
   border-collapse: collapse;
   width: 100%;
 }
-.prose-read th,
-.prose-read td {
+.prose-read th:not(figure th),
+.prose-read td:not(figure td) {
   border-bottom: 1px solid var(--line);
   padding: 0.5rem 0.75rem 0.5rem 0;
   text-align: left;
   vertical-align: top;
 }
-.prose-read th {
+.prose-read th:not(figure th) {
   color: var(--text-muted);
   font-weight: 500;
 }

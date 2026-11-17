@@ -54,7 +54,7 @@ export default function StackLeak() {
   const leaked = created.filter((n) => status(n) === 'leak').length
 
   return (
-    <div className="grid gap-5">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-5">
       <div className="flex flex-wrap items-center gap-3 text-sm">
         <button type="button" onClick={push} className="rounded-md border border-line px-3 py-1.5 hover:border-accent">
           push

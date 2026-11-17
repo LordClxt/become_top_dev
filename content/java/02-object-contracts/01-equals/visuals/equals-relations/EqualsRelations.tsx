@@ -86,12 +86,12 @@ export default function EqualsRelations() {
       <p className="font-code text-xs text-muted">{current.code}</p>
 
       <div className="overflow-x-auto">
-        <table className="border-separate border-spacing-1 text-xs">
+        <table className="border-separate border-spacing-0.5 text-[11px] sm:border-spacing-1 sm:text-xs">
           <thead>
             <tr>
-              <th className="px-2 py-1 text-left font-normal text-muted">x.equals(y)</th>
+              <th className="px-1 py-1 text-left font-normal text-muted [overflow-wrap:anywhere] sm:px-2">x.equals(y)</th>
               {OBJECTS.map((o) => (
-                <th key={o.name} className="px-2 py-1 font-code font-normal text-muted">
+                <th key={o.name} className="px-1 py-1 font-code font-normal text-muted sm:px-2">
                   {o.name}
                 </th>
               ))}
@@ -100,13 +100,13 @@ export default function EqualsRelations() {
           <tbody>
             {OBJECTS.map((x, i) => (
               <tr key={x.name}>
-                <th className="px-2 py-1 text-left font-code font-normal text-muted">{x.name}</th>
+                <th className="px-1 py-1 text-left font-code sm:px-2 font-normal text-muted">{x.name}</th>
                 {OBJECTS.map((y, j) => {
                   const bad = asym.has(`${i}-${j}`) || intrans.has(`${i}-${j}`)
                   return (
                     <td
                       key={y.name}
-                      className={`min-w-[5.5rem] rounded-md border px-2 py-2 text-center font-code ${
+                      className={`rounded-md border px-1 py-2 sm:min-w-[5.5rem] sm:px-2 text-center font-code ${
                         bad ? 'border-fail/60 bg-fail/10 text-text' : m[i]![j] ? 'border-accent/50 text-text' : 'border-line text-muted'
                       }`}
                     >

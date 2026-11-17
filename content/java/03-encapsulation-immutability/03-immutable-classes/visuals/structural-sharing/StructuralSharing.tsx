@@ -54,7 +54,9 @@ export default function StructuralSharing() {
     setCopied(copied + base.size - 1)
     addVersion(
       { name: `v${versions.length}`, head: top.next, size: base.size - 1 },
-      `${base.name}.pop() : aucun nœud créé. La nouvelle version pointe simplement vers le 2e nœud de ${base.name}.`,
+      top.next === null
+        ? `${base.name}.pop() : aucun nœud créé. La nouvelle version est simplement la pile vide.`
+        : `${base.name}.pop() : aucun nœud créé. La nouvelle version pointe simplement vers le 2e nœud de ${base.name}.`,
     )
   }
 
