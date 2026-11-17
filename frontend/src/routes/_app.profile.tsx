@@ -24,6 +24,7 @@ function ProfilePage() {
   const { data: courses } = useQuery({ queryKey: ['courses'], queryFn: api.courses })
   const { data: review } = useQuery(reviewQuery)
   const [day, setDay] = useState<string | null>(null)
+  const [allModules, setAllModules] = useState(false)
   // Les boss vaincus ne figurent que dans le détail des modules (même cache que la page module).
   const ids = (courses ?? []).flatMap((c) => c.tracks.flatMap((t) => t.chapters)).flatMap((c) => (c.available ? [c.id] : []))
   const chapterDetails = useQueries({
@@ -39,6 +40,8 @@ function ProfilePage() {
   const span = progress.next_level_xp - progress.level_floor_xp
   const into = progress.xp - progress.level_floor_xp
   const chapters = (courses ?? []).flatMap((c) => c.tracks.flatMap((t) => t.chapters)).flatMap((c) => (c.available ? [c] : []))
+  // Les modules commencés d'abord ; le reste sur demande, pour ne pas noyer la page.
+  const started = chapters.filter((c) => c.mastery.lessons_done + c.mastery.labs_passed + c.mastery.quiz_correct > 0)
 
   return (
     <main className="relative isolate overflow-x-clip">
@@ -103,7 +106,7 @@ function ProfilePage() {
               Maîtrise par module
             </h2>
             <ul className="mt-5 grid gap-3">
-              {chapters.map((ch) => (
+              {(allModules ? chapters : started.length ? started : chapters.slice(0, 4)).map((ch) => (
                 <li key={ch.id}>
                   <Link
                     to="/chapters/$chapterId"
@@ -128,6 +131,11 @@ function ProfilePage() {
                 </li>
               ))}
             </ul>
+            {!allModules && chapters.length > Math.max(started.length, 4) && (
+              <button type="button" onClick={() => setAllModules(true)} className="mt-3 text-sm text-muted hover:text-accent">
+                Voir les {chapters.length} modules
+              </button>
+            )}
           </section>
         </div>
 

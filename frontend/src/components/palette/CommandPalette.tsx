@@ -215,7 +215,7 @@ function PaletteBody({ onClose }: { onClose: () => void }) {
           aria-expanded="true"
           aria-controls="palette-list"
           aria-activedescendant={results[active] ? `palette-${active}` : undefined}
-          className="h-14 min-w-0 flex-1 bg-transparent text-base outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 placeholder:text-muted"
+          className="palette-input h-14 min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted"
         />
         <kbd className="rounded border border-line px-1.5 font-code text-[11px] text-muted">Échap</kbd>
       </div>

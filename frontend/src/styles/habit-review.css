@@ -54,3 +54,8 @@
     display: none;
   }
 }
+
+/* Le champ de la palette a déjà son cadre : pas de second contour de focus. */
+.palette-input:focus-visible {
+  outline: none;
+}
