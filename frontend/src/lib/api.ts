@@ -270,7 +270,11 @@ export type RunReport = {
   duration_ms: number
   xp_awarded: number
   debrief: string
+  /** Bonus inclus dans xp_awarded (« Du premier coup »…), absents tant que le backend ne les envoie pas. */
+  bonuses?: RunBonus[]
 }
+
+export type RunBonus = { id: string; label: string; xp: number }
 
 export type QuizQuestion = {
   id: string
@@ -282,7 +286,14 @@ export type QuizQuestion = {
   answered: boolean
 }
 
-export type AnswerResult = { correct: boolean; expected: unknown; explanation: string; xp_awarded: number }
+export type AnswerResult = {
+  correct: boolean
+  expected: unknown
+  explanation: string
+  xp_awarded: number
+  /** Bonus de fin de quiz (« Sans faute »), absent ou null sinon. */
+  bonus?: RunBonus | null
+}
 
 export type Progress = {
   xp: number

@@ -4,10 +4,14 @@ import { useSyncExternalStore } from 'react'
 export type Settings = {
   /** Suggestions automatiques pendant la frappe dans l'éditeur des TP. */
   autocomplete: boolean
+  /** Petits sons de retour (bonne réponse, XP, niveau), synthétisés à la volée. */
+  sound: boolean
+  /** Moments de célébration (confettis, annonces plein écran) après une réussite. */
+  celebrations: boolean
 }
 
 const KEY = 'btd-settings'
-const DEFAULTS: Settings = { autocomplete: true }
+const DEFAULTS: Settings = { autocomplete: true, sound: true, celebrations: true }
 
 let current: Settings = DEFAULTS
 let loaded = false
@@ -42,4 +46,9 @@ function subscribe(listener: () => void) {
 
 export function useSettings(): Settings {
   return useSyncExternalStore(subscribe, load, () => DEFAULTS)
+}
+
+/** Lecture hors React (moteur sonore, couche de célébration). */
+export function getSettings(): Settings {
+  return load()
 }

@@ -42,6 +42,27 @@ function SettingsPage() {
         </div>
       </section>
 
+      <section className="mt-12" aria-labelledby="feedback-title">
+        <h2 id="feedback-title" className="font-read text-2xl font-semibold">
+          Retours et célébrations
+        </h2>
+        <p className="mt-1 text-sm text-muted">Enregistré dans ce navigateur.</p>
+        <div className="mt-4 divide-y divide-line rounded-2xl border border-line bg-surface">
+          <Toggle
+            settings={settings}
+            name="sound"
+            label="Sons"
+            description="De courts carillons pour une bonne réponse, un gain d’XP, un TP réussi ou un niveau atteint. Rien ne sonne sans action de ta part."
+          />
+          <Toggle
+            settings={settings}
+            name="celebrations"
+            label="Célébrations"
+            description="Confettis et annonces brèves quand tu termines une leçon, un TP ou un boss. Désactivées, il reste une simple notification."
+          />
+        </div>
+      </section>
+
       {me?.user?.is_admin && (
         <section className="mt-12" aria-labelledby="members-title">
           <h2 id="members-title" className="font-read text-2xl font-semibold">
