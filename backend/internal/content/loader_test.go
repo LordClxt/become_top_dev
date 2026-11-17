@@ -79,6 +79,67 @@ func TestMinimalTreeLoads(t *testing.T) {
 	}
 }
 
+// withCheckpoints ajoute deux points de contrôle au front-matter de la leçon minimale, et le corps donné.
+func withCheckpoints(f map[string]string, body string) {
+	f["b/01-c/01-l/lesson.md"] = "---\nid: b-ch01-l01\ntitle: L\nsource: {chapter: 1, pages: \"1\"}\n" +
+		"concepts: [{id: k, label: K}]\nxp: 10\nlabs: [b-lab]\ncheckpoints:\n" +
+		"  - {id: c1, type: single, prompt: P, choices: [a, b], answer: 1, explanation: E}\n" +
+		"  - {id: c2, type: code-output, prompt: P, code: \"x\", answer: \"42\", explanation: E, concept: k}\n---\n" + body
+}
+
+func TestCheckpointsLoad(t *testing.T) {
+	files := minimal()
+	withCheckpoints(files, "Intro\n\n::checkpoint{id=\"c1\"}\n\nSuite\n::checkpoint{id=\"c2\"}\n")
+	idx, err := Load(writeTree(t, files))
+	if err != nil {
+		t.Fatal(err)
+	}
+	cps := idx.Lessons["b-ch01-l01"].Checkpoints
+	if len(cps) != 2 || cps[0].Answer != float64(1) || cps[1].Answer != "42" || cps[0].Difficulty != 1 {
+		t.Errorf("checkpoints inattendus : %+v", cps)
+	}
+	idx, err = Load(writeTree(t, minimal()))
+	if err != nil || idx.Lessons["b-ch01-l01"].Checkpoints == nil {
+		t.Error("sans checkpoints, la liste doit être vide et non nil")
+	}
+}
+
+func TestCheckpointsFailLoudly(t *testing.T) {
+	both := "::checkpoint{id=\"c1\"}\n::checkpoint{id=\"c2\"}\n"
+	cases := map[string]struct {
+		edit func(map[string]string)
+		want string
+	}{
+		"unknown ref":  {func(f map[string]string) { withCheckpoints(f, both+"::checkpoint{id=\"c9\"}\n") }, `id="c9"} ne correspond`},
+		"not placed":   {func(f map[string]string) { withCheckpoints(f, "::checkpoint{id=\"c1\"}\n") }, "c2 déclaré mais jamais placé"},
+		"placed twice": {func(f map[string]string) { withCheckpoints(f, both+"::checkpoint{id=\"c1\"}\n") }, "c1 placé 2 fois"},
+		"duplicate id": {func(f map[string]string) {
+			withCheckpoints(f, both)
+			f["b/01-c/01-l/lesson.md"] = strings.Replace(f["b/01-c/01-l/lesson.md"], "id: c2,", "id: c1,", 1)
+		}, "c1 déclaré deux fois"},
+		"bad type": {func(f map[string]string) {
+			withCheckpoints(f, both)
+			f["b/01-c/01-l/lesson.md"] = strings.Replace(f["b/01-c/01-l/lesson.md"], "type: single", "type: free", 1)
+		}, `type = "free"`},
+		"missing answer": {func(f map[string]string) {
+			withCheckpoints(f, both)
+			f["b/01-c/01-l/lesson.md"] = strings.Replace(f["b/01-c/01-l/lesson.md"], "answer: 1, ", "", 1)
+		}, "answer"},
+		"unknown concept": {func(f map[string]string) {
+			withCheckpoints(f, both)
+			f["b/01-c/01-l/lesson.md"] = strings.Replace(f["b/01-c/01-l/lesson.md"], "concept: k}", "concept: z}", 1)
+		}, "concept z inconnu"},
+	}
+	for name, c := range cases {
+		files := minimal()
+		c.edit(files)
+		_, err := Load(writeTree(t, files))
+		if err == nil || !strings.Contains(err.Error(), c.want) {
+			t.Errorf("%s : erreur %v, attendu %q", name, err, c.want)
+		}
+	}
+}
+
 func TestLoadFailsLoudly(t *testing.T) {
 	cases := map[string]struct {
 		edit func(map[string]string)

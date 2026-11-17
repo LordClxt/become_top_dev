@@ -59,6 +59,13 @@ visuals: [go-ch02-iota-counter]
 labs: [go-ch02-l02-lab-enum]
 extra: false                            # true = content beyond the book
 xp: 30                                  # lesson read to the end
+checkpoints:                            # optional — inline graded questions, see below
+  - id: c1
+    type: single
+    prompt: "Que vaut `b` ?"
+    choices: ["0", "1", "2"]
+    answer: 1
+    explanation: "..."
 ---
 
 ## Pourquoi c'est important
@@ -70,6 +77,83 @@ xp: 30                                  # lesson read to the end
 ## À retenir
 - ...
 ```
+
+### Checkpoints (`checkpoints:` in the lesson front matter)
+Short graded questions placed **inside** the lesson body, right after the notion they test. Same fields and
+grading as `quiz.yaml` questions, except: `type` is only `single` | `multiple` | `code-output`, and `concept` is
+optional (if set, it must be a known concept). `id`: lowercase alnum/kebab, unique within the lesson (`c1`, `c2`…).
+3 XP the first time a checkpoint is answered correctly (retries allowed); checkpoints never count in chapter mastery.
+
+```yaml
+checkpoints:
+  - id: c2
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |                  # optional, shown in the course language
+      System.out.println(1 + 2 + "3");
+    answer: "33"             # index for single, [indexes] for multiple, expected stdout for code-output
+    explanation: "Deux phrases qui expliquent POURQUOI."
+    concept: java-strings    # optional
+```
+Each declared checkpoint is placed **exactly once** in the body, on its own line at column 0; every directive must
+reference a declared id (the backend refuses to start otherwise). `code-output` checkpoints are run by
+`verify_quiz.py <chapter>` like quiz questions.
+```markdown
+::checkpoint{id="c2"}
+```
+
+### Body directives (rendered by the front end; plain text for the backend)
+All block directives start at column 0 on their own line.
+
+**Compare** (2 or 3 panes, kinds `bad` | `good` | `neutral`; each pane body is Markdown):
+````markdown
+:::compare
+--- bad: Constructeur télescopique
+```java
+new Alert("cpu", WARN, 0.9, 10, "#ops");
+```
+--- good: Builder
+```java
+new Alert.Builder("cpu", WARN).minutes(10).build();
+```
+:::
+````
+
+**Reveal** (think first, click to reveal; the title is the question):
+```markdown
+:::reveal Pourquoi valider après la copie ?
+Parce que l'objet vérifie alors ses propres champs, que plus personne ne peut modifier.
+:::
+```
+
+**Steps** (guided walkthrough: one code block, then steps highlighting 1-based line ranges of that block; step text is inline Markdown):
+````markdown
+:::steps
+```java
+final class Alert {
+    private final String name;
+    private final int minutes;
+}
+```
+--- 2-3: Les champs sont `final` : l'objet est immuable.
+--- 1: La classe est `final`, personne ne peut la sous-classer.
+:::
+````
+
+**Code fence meta** (optional title bar and highlighted lines):
+````markdown
+```java title="Alert.java" {3-5}
+...
+```
+````
+
+**Automatic callouts** (no new syntax): a blockquote whose first bold run is a known label is styled as a callout.
+`> **Java 25 :**` / `> **Au-delà du livre**` (extra), `> **Source :**` (source footer), `> **Attention :**` (warning),
+`> **Astuce :**` (tip), `> **Sous le capot :**` (internals), `> **En production :**` (prod).
+```markdown
+> **Attention :** un builder partagé entre threads n'est pas thread-safe.
+```
+The sections `## Pièges fréquents` and `## À retenir` get a dedicated card treatment.
 
 ## lab.yaml
 ```yaml

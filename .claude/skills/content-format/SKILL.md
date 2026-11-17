@@ -42,6 +42,7 @@ content/<book>/
 - Every lesson cites `source.chapter` and `source.pages`.
 - Code in Markdown: fenced blocks with a language (` ```go `).
 - Inline visuals in a lesson: `::visual{id="go-ch10-goroutine-scheduler"}` directive.
+- Inline graded questions: declare them in the lesson front matter `checkpoints:` and place each one once with `::checkpoint{id="c1"}`, right after the notion it tests. Other body directives: `:::compare`, `:::reveal`, `:::steps`, code fence meta (`title="…" {3-5}`) and labelled blockquote callouts (see schemas.md, lesson.md).
 - No text diagram (ASCII/box-drawing) in the Markdown: use a visual (`hyperframes` by default for an 8–15 s flow or structure, see `concept-visual`) and list its id in the lesson's `visuals:`.
 
 ## Schemas
@@ -51,3 +52,4 @@ See [reference/schemas.md](reference/schemas.md) for every YAML/front-matter fil
 - [ ] All files follow the schemas (required fields present, unique IDs)
 - [ ] Every `lab.yaml` / `assignment.yaml` points to existing folders
 - [ ] Every `::visual{id}` references an existing visual
+- [ ] Every declared checkpoint is placed exactly once (`::checkpoint{id}`), and `verify_quiz.py` passes on its `code-output` checkpoints

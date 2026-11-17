@@ -90,3 +90,73 @@ func mustURL(t *testing.T, raw string) *url.URL {
 	}
 	return u
 }
+
+func TestLessonCheckpoints(t *testing.T) {
+	srv, _ := newTestServer(t)
+	client := newClient(t)
+	login(t, client, srv.URL)
+	getLesson := func() map[string]any {
+		var v map[string]any
+		if err := json.NewDecoder(do(t, client, http.MethodGet, srv.URL+"/api/lessons/java-ch01-l02", nil).Body).Decode(&v); err != nil {
+			t.Fatal(err)
+		}
+		return v
+	}
+	cps, _ := getLesson()["checkpoints"].([]any)
+	if len(cps) != 3 {
+		t.Fatalf("3 points de contrôle attendus, %d", len(cps))
+	}
+	c1 := cps[0].(map[string]any)
+	if _, leak := c1["answer"]; leak || c1["answered"] != false || c1["id"] != "c1" {
+		t.Errorf("vue du point de contrôle : %v", c1)
+	}
+	answer := func(id, body string) map[string]any {
+		resp := do(t, client, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l02/checkpoints/"+id, []byte(body))
+		var v map[string]any
+		_ = json.NewDecoder(resp.Body).Decode(&v)
+		v["status"] = resp.StatusCode
+		return v
+	}
+	if v := answer("c1", `{"answer": 0}`); v["correct"] != false || v["xp_awarded"] != float64(0) {
+		t.Errorf("mauvaise réponse : %v", v)
+	}
+	if v := answer("c1", `{"answer": 2}`); v["correct"] != true || v["xp_awarded"] != float64(3) || v["explanation"] == "" {
+		t.Errorf("bonne réponse : %v", v)
+	}
+	if v := answer("c1", `{"answer": 2}`); v["xp_awarded"] != float64(0) {
+		t.Errorf("l'XP ne se gagne qu'une fois : %v", v)
+	}
+	if v := answer("c2", `{"answer": "2 true\n"}`); v["correct"] != true {
+		t.Errorf("code-output : %v", v)
+	}
+	cps = getLesson()["checkpoints"].([]any)
+	if cps[0].(map[string]any)["answered"] != true || cps[2].(map[string]any)["answered"] != false {
+		t.Errorf("answered : %v", cps)
+	}
+	if v := answer("zz", `{"answer": 1}`); v["status"] != http.StatusNotFound {
+		t.Errorf("point de contrôle inconnu : %v", v)
+	}
+	if v := answer("c1", `{}`); v["status"] != http.StatusUnprocessableEntity {
+		t.Errorf("answer manquant : %v", v)
+	}
+	if v := do(t, client, http.MethodPost, srv.URL+"/api/lessons/nope/checkpoints/c1", []byte(`{"answer": 1}`)); v.StatusCode != http.StatusNotFound {
+		t.Errorf("leçon inconnue : %d", v.StatusCode)
+	}
+	// La maîtrise ne bouge pas, mais l'XP du jour compte les points de contrôle.
+	var feed []map[string]any
+	_ = json.NewDecoder(do(t, client, http.MethodGet, srv.URL+"/api/activity/feed", nil).Body).Decode(&feed)
+	var act []map[string]any
+	resp := do(t, client, http.MethodGet, srv.URL+"/api/activity", nil)
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("activité : %d", resp.StatusCode)
+	}
+	_ = json.NewDecoder(resp.Body).Decode(&act)
+	total := 0.0
+	for _, d := range act {
+		x, _ := d["xp"].(float64)
+		total += x
+	}
+	if total != 6 {
+		t.Errorf("XP de l'activité = %v, attendu 6", total)
+	}
+}

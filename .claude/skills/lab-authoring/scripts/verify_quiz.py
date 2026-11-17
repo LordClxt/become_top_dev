@@ -15,6 +15,9 @@ preinstalled packages of btd-runner-nestjs. Convex: the snippet is a module run 
 `node main.ts` against the packages preinstalled in btd-runner-convex. Executed in a
 throwaway Docker container (no network); stdout is compared to `answer`
 (trailing whitespace ignored). Exit code 1 if any answer is wrong.
+
+The `checkpoints` of type `code-output` declared in each lesson.md front matter are
+verified the same way (reported as <lesson>/checkpoint:<id>).
 """
 import argparse
 import re
@@ -88,8 +91,15 @@ def main() -> int:
             if q.get("type") == "code-output":
                 questions.append((quiz.parent.name, q))
 
+    for lesson_md in sorted(args.chapter.glob("*/lesson.md")):
+        m = re.match(r"---\n(.*?)\n---\n", lesson_md.read_text(), re.S)
+        for c in ((yaml.safe_load(m.group(1)) or {}).get("checkpoints") or []) if m else []:
+            if c.get("type") == "code-output":
+                questions.append((lesson_md.parent.name, {**c, "id": f"checkpoint:{c['id']}"}))
+
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
+        root.chmod(0o755)  # the runner images run as an unprivileged user (nobody)
         for i, (_, q) in enumerate(questions):
             d = root / f"q{i}"
             d.mkdir()

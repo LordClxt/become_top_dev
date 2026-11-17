@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+@import './journey.css';
+@import './juice.css';
+@import './lesson.css';
 @source '../../../content';
 
 /* Le thème sombre est le défaut ; .light sur <html> bascule en clair. */

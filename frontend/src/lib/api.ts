@@ -154,6 +154,17 @@ export type Lesson = {
   completed: boolean
   previous_id: string | null
   next_id: string | null
+  /** Questions intégrées au fil de la leçon (directive ::checkpoint) ; absent sur un backend ancien. */
+  checkpoints?: Checkpoint[]
+}
+
+export type Checkpoint = {
+  id: string
+  type: 'single' | 'multiple' | 'code-output'
+  prompt: string
+  code: string | null
+  choices: string[]
+  answered: boolean
 }
 
 export type PaletteItem = {
@@ -363,6 +374,8 @@ export const api = {
   chapter: (id: string) => request<Chapter>(`/chapters/${id}`),
   lesson: (id: string) => request<Lesson>(`/lessons/${id}`),
   completeLesson: (id: string) => post<{ xp_awarded: number }>(`/lessons/${id}/complete`),
+  answerCheckpoint: (lessonId: string, checkpointId: string, answer: unknown) =>
+    post<AnswerResult>(`/lessons/${lessonId}/checkpoints/${checkpointId}`, { answer }),
 
   sandbox: () => request<SandboxExercise[]>('/exercises'),
   exercise: (id: string) => request<Exercise>(`/exercises/${id}`),

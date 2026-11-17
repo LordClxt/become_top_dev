@@ -1,0 +1,801 @@
+/* --- Lecteur de leçon 2.0 : blocs de code, directives, encadrés, fin de leçon --- */
+
+/* Code : cadre, titre, copie, lignes surlignées ----------------------------- */
+
+.code-frame {
+  position: relative;
+  margin: 0 0 1.25rem;
+}
+.code-frame .code-block {
+  margin: 0;
+}
+.code-frame.has-title .code-block {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.code-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  padding: 0.45rem 0.9rem;
+  padding-right: 2.75rem;
+}
+.code-title-dots {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0.7rem 0 0 color-mix(in oklab, var(--text-muted) 45%, transparent);
+  margin-right: 0.7rem;
+  flex-shrink: 0;
+}
+.code-block > code {
+  display: inline-grid;
+  min-width: 100%;
+}
+.code-line {
+  display: block;
+  margin: 0 -1.15rem;
+  padding: 0 1.15rem;
+  border-left: 2px solid transparent;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+.code-line.is-hl {
+  background: color-mix(in oklab, var(--accent) 9%, transparent);
+  border-left-color: var(--accent);
+}
+.code-block.is-dimmed .code-line:not(.is-hl) {
+  opacity: 0.34;
+}
+.code-copy {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 6px;
+  color: var(--text-muted);
+  background: color-mix(in oklab, var(--surface-2) 85%, transparent);
+  border: 1px solid var(--line);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out), color var(--dur-fast);
+}
+.code-frame.has-title .code-copy {
+  top: 0.2rem;
+  height: 1.55rem;
+  width: 1.55rem;
+  background: transparent;
+  border-color: transparent;
+  opacity: 1;
+}
+.code-frame:hover .code-copy,
+.code-copy:focus-visible {
+  opacity: 1;
+}
+.code-copy:hover {
+  color: var(--text);
+}
+@media (hover: none) {
+  .code-copy {
+    opacity: 1;
+  }
+}
+
+/* Encadrés automatiques ----------------------------------------------------- */
+
+.prose-read blockquote {
+  border-left: 3px solid var(--line);
+  padding-left: 1rem;
+  color: var(--text-muted);
+  margin: 0 0 1.25rem;
+}
+.callout {
+  --tone: var(--accent);
+  display: flex;
+  gap: 0.9rem;
+  margin: 1.75rem 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid color-mix(in oklab, var(--tone) 28%, var(--line));
+  border-radius: 14px;
+  background: linear-gradient(
+    to right,
+    color-mix(in oklab, var(--tone) 8%, var(--surface)),
+    var(--surface) 70%
+  );
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+.callout > div > :last-child {
+  margin-bottom: 0;
+}
+.callout-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-top: 0.1rem;
+  border-radius: 8px;
+  color: var(--tone);
+  background: color-mix(in oklab, var(--tone) 15%, transparent);
+}
+.callout-label {
+  color: var(--tone);
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-right: 0.3rem;
+}
+.callout--extra,
+.callout--internals {
+  --tone: var(--c-violet);
+}
+.callout--java {
+  --tone: var(--c-sky);
+}
+.callout--warning {
+  --tone: var(--fail);
+}
+.callout--tip {
+  --tone: var(--pass);
+}
+.callout--prod {
+  --tone: var(--c-orange);
+}
+.lesson-source {
+  display: flex;
+  gap: 0.6rem;
+  margin: 2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--line);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.lesson-source p {
+  margin: 0;
+}
+.lesson-source .callout-label {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+/* Glossaire ---------------------------------------------------------------- */
+
+.gloss-term {
+  font-style: normal;
+  text-decoration: underline dotted color-mix(in oklab, var(--accent) 70%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  cursor: help;
+  border-radius: 3px;
+}
+.gloss-term:hover {
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+.gloss-tip {
+  max-width: 19rem;
+  background: var(--surface-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line);
+  padding: 0.6rem 0.8rem !important;
+  font-size: 0.82rem !important;
+  line-height: 1.5;
+  text-align: left;
+  box-shadow: 0 12px 30px -12px rgb(0 0 0 / 0.5);
+}
+.gloss-tip svg {
+  background: var(--surface-2) !important;
+  fill: var(--surface-2) !important;
+}
+
+/* Comparaison --------------------------------------------------------------- */
+
+.compare {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.75rem 0 2rem;
+}
+/* La colonne de lecture est trop étroite pour deux panneaux de code côte à côte :
+   on empile, et on passe en colonnes seulement si le conteneur le permet. */
+@container (min-width: 1100px) {
+  .compare {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.compare-pane {
+  --tone: var(--text-muted);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--tone);
+  border-radius: 14px;
+  background: var(--surface);
+  min-width: 0;
+}
+.compare-pane--bad {
+  --tone: var(--fail);
+}
+.compare-pane--good {
+  --tone: var(--pass);
+  border-color: color-mix(in oklab, var(--pass) 35%, var(--line));
+  border-top-color: var(--pass);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--pass) 6%, transparent);
+}
+.compare-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.75rem 1rem 0.25rem;
+  font-family: var(--font-ui);
+}
+.compare-badge {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  color: var(--tone);
+  background: color-mix(in oklab, var(--tone) 16%, transparent);
+  flex-shrink: 0;
+}
+.compare-tag {
+  display: block;
+  color: var(--tone);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.compare-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.3;
+}
+.compare-body {
+  padding: 0.6rem 1rem 0.2rem;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.compare-body .code-block {
+  background: var(--ink);
+  font-size: 0.8rem;
+}
+.compare-body ul {
+  padding-left: 1.2rem;
+}
+
+/* Révélation ---------------------------------------------------------------- */
+
+.reveal {
+  margin: 1.75rem 0 2rem;
+  border: 1px dashed color-mix(in oklab, var(--accent) 45%, var(--line));
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--accent) 4%, var(--surface));
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.reveal.is-open {
+  border-style: solid;
+  border-color: var(--line);
+  background: var(--surface);
+}
+.reveal-head {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.95rem 1.1rem;
+  font-family: var(--font-ui);
+  border-radius: 14px;
+  cursor: pointer;
+}
+.reveal-icon {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+  color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+}
+.reveal-kicker {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.reveal-title {
+  display: block;
+  font-family: var(--font-read);
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.reveal-cta {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.reveal.is-open .reveal-cta {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+}
+.reveal-body {
+  padding: 0.2rem 1.15rem 0.6rem 4.1rem;
+}
+@media (max-width: 520px) {
+  .reveal-body {
+    padding-left: 1.1rem;
+  }
+}
+
+/* Pas à pas ----------------------------------------------------------------- */
+
+.steps {
+  margin: 1.75rem 0 2.25rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.steps:focus-visible {
+  outline-offset: 3px;
+}
+.steps-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+.steps-cells {
+  display: flex;
+  gap: 4px;
+  margin: 0 0 0 auto !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+.steps-cells li {
+  margin: 0 !important;
+}
+.steps-cell {
+  display: block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 3px;
+  background: var(--cell-empty);
+  transition: background-color var(--dur-base) var(--ease-out), transform var(--dur-fast);
+}
+.steps-cell:hover {
+  transform: scale(1.12);
+}
+.steps-cell.is-past {
+  background: color-mix(in oklab, var(--accent) 55%, var(--cell-empty));
+}
+.steps-cell.is-current {
+  background: var(--accent);
+}
+.steps .code-frame {
+  margin: 0;
+}
+.steps .code-block {
+  border: 0;
+  border-radius: 0;
+  background: var(--ink);
+  max-height: 26rem;
+  overflow: auto;
+}
+.steps .code-title {
+  border: 0;
+  border-radius: 0;
+}
+.steps-panel {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.95rem 1rem 1rem;
+  border-top: 1px solid var(--line);
+  min-height: 6.5rem;
+}
+.steps-num {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.steps-text {
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+.steps-text p {
+  margin: 0;
+}
+.steps-nav {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  transition: border-color var(--dur-fast), opacity var(--dur-fast);
+}
+.steps-nav:hover:not(:disabled) {
+  border-color: var(--text-muted);
+}
+.steps-nav.is-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.steps-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Point de contrôle ---------------------------------------------------------- */
+
+.checkpoint {
+  --tone: var(--accent);
+  position: relative;
+  margin: 2.25rem 0 2.5rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+  border: 1px solid color-mix(in oklab, var(--tone) 40%, var(--line));
+  border-radius: 16px;
+  background:
+    radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--tone) 9%, transparent), transparent 60%),
+    var(--surface);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.55;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.checkpoint.is-pass {
+  --tone: var(--pass);
+}
+.checkpoint.is-fail {
+  --tone: var(--fail);
+}
+.checkpoint.is-solved {
+  --tone: var(--pass);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.8rem 1rem;
+  background: var(--surface);
+  border-color: var(--line);
+}
+.checkpoint-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.checkpoint-badge {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 9px;
+  flex-shrink: 0;
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+.checkpoint-badge.is-pass {
+  background: var(--pass);
+  color: var(--ink);
+}
+.checkpoint-badge.is-fail {
+  background: var(--fail);
+  color: var(--ink);
+}
+.checkpoint-kicker {
+  margin: 0 !important;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.checkpoint-xp {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  color: var(--accent);
+  border: 1px solid color-mix(in oklab, var(--accent) 35%, var(--line));
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+}
+.checkpoint-prompt {
+  margin: 0.85rem 0 0 !important;
+  font-family: var(--font-read);
+  font-size: 1.15rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.checkpoint .code-frame {
+  margin: 0.75rem 0 0;
+}
+.checkpoint .code-block {
+  background: var(--ink);
+}
+.checkpoint-choices {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0.9rem 0 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+.checkpoint-choices li {
+  margin: 0 !important;
+}
+.checkpoint-choice {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.65rem 0.8rem;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--ink) 45%, transparent);
+  transition:
+    border-color var(--dur-fast),
+    background-color var(--dur-fast);
+}
+.checkpoint-choice:hover:not(:disabled) {
+  border-color: var(--text-muted);
+}
+.checkpoint-choice:disabled {
+  cursor: default;
+}
+.checkpoint-choice.is-selected {
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+.checkpoint-choice.is-good {
+  border-color: var(--pass);
+  background: color-mix(in oklab, var(--pass) 10%, transparent);
+}
+.checkpoint-choice.is-bad {
+  border-color: var(--fail);
+  background: color-mix(in oklab, var(--fail) 9%, transparent);
+}
+.checkpoint-key {
+  display: grid;
+  place-items: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  margin-top: 0.05rem;
+  border-radius: 5px;
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+.checkpoint-choice.is-selected .checkpoint-key {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.checkpoint-output {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--ink);
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-code);
+  font-size: 0.86rem;
+  outline: none;
+}
+.checkpoint-output:focus {
+  border-color: var(--accent);
+}
+.checkpoint-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.95rem;
+}
+.checkpoint-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2.25rem;
+  padding: 0 0.95rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  transition: opacity var(--dur-fast);
+}
+.checkpoint-submit:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.checkpoint-ghost {
+  display: inline-flex;
+  align-items: center;
+  height: 2.25rem;
+  padding: 0 0.85rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  border: 1px solid var(--line);
+  color: var(--text);
+  flex-shrink: 0;
+}
+.checkpoint-ghost:hover {
+  border-color: var(--text-muted);
+}
+.checkpoint-result {
+  margin-top: 0.95rem;
+  padding: 0.8rem 0.95rem;
+  border-radius: 10px;
+  border-left: 3px solid var(--tone);
+  background: color-mix(in oklab, var(--tone) 7%, var(--ink));
+}
+.checkpoint-result p {
+  margin: 0;
+}
+.checkpoint-gain {
+  display: inline-block;
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 0 0.5rem;
+}
+
+/* Pièges fréquents ----------------------------------------------------------- */
+
+.pitfalls > h2,
+.recap > h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.pitfalls ul {
+  list-style: none !important;
+  padding: 0 !important;
+  display: grid;
+  gap: 0.6rem;
+}
+.pitfall {
+  display: flex;
+  gap: 0.8rem;
+  margin: 0 !important;
+  padding: 0.85rem 1rem;
+  border: 1px solid color-mix(in oklab, var(--fail) 22%, var(--line));
+  border-left: 3px solid var(--fail);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+.pitfall-icon {
+  display: grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: 0.2rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+  color: var(--fail);
+  background: color-mix(in oklab, var(--fail) 14%, transparent);
+}
+
+/* À retenir : la récompense visuelle de fin de lecture ----------------------- */
+
+.recap {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 3rem 0 0;
+  padding: 1.6rem 1.6rem 1.2rem;
+  border: 1px solid color-mix(in oklab, var(--accent) 35%, var(--line));
+  border-radius: 20px;
+  background:
+    radial-gradient(90% 70% at 100% 0%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%),
+    var(--surface);
+}
+.recap > h2 {
+  margin-top: 0.15rem !important;
+  font-size: 1.9rem !important;
+}
+.recap-kicker {
+  margin: 0 !important;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.recap ul {
+  list-style: none !important;
+  padding: 0 !important;
+  display: grid;
+  gap: 0.15rem;
+}
+.recap-item {
+  display: flex;
+  gap: 0.85rem;
+  margin: 0 !important;
+  padding: 0.55rem 0;
+  border-top: 1px solid color-mix(in oklab, var(--line) 70%, transparent);
+}
+.recap-item:first-child {
+  border-top: 0;
+}
+.recap-check {
+  display: grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  margin-top: 0.25rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+/* Barre de progression de lecture -------------------------------------------- */
+
+.read-progress {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 30;
+  height: 2px;
+  background: transparent;
+}
+.read-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  box-shadow: 0 0 10px color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+/* Lecture étroite (consignes, indices) --------------------------------------- */
+@media (max-width: 640px) {
+  .prose-read {
+    font-size: 1.05rem;
+  }
+  .callout,
+  .checkpoint,
+  .recap {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .steps-panel {
+    flex-wrap: wrap;
+  }
+}

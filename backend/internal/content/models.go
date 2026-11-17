@@ -245,6 +245,8 @@ type Lesson struct {
 	Labs        []string        `yaml:"labs"`
 	Extra       bool            `yaml:"extra"`
 	XP          int             `yaml:"xp"`
+	// Questions notées posées dans le corps (::checkpoint{id="..."}) : single, multiple ou code-output.
+	Checkpoints []QuizQuestion `yaml:"checkpoints"`
 
 	Body       string      `yaml:"-"`
 	Slug       string      `yaml:"-"`

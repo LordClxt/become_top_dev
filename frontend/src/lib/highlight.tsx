@@ -36,3 +36,33 @@ export function highlight(code: string, language: string): ReactNode[] | string 
   )
   return out
 }
+
+/** Même coloration, découpée ligne par ligne (surlignage, pas à pas). */
+export function highlightLines(code: string, language: string): ReactNode[][] {
+  const parser = PARSERS[language]
+  if (!parser) return code.split('\n').map((l) => [l])
+  const lines: ReactNode[][] = [[]]
+  let k = 0
+  highlightCode(
+    code,
+    parser.parse(code),
+    classHighlighter,
+    (text, classes) => {
+      lines[lines.length - 1]!.push(classes ? <span key={k++} className={classes}>{text}</span> : text)
+    },
+    () => lines.push([]),
+  )
+  return lines
+}
+
+/** « 1-3,5 » → {1,2,3,5} (lignes numérotées à partir de 1). */
+export function parseLineSpec(spec: string): Set<number> {
+  const out = new Set<number>()
+  for (const part of spec.split(',')) {
+    const [a, b] = part.trim().split('-').map((n) => Number.parseInt(n, 10))
+    if (a === undefined || Number.isNaN(a)) continue
+    const end = b === undefined || Number.isNaN(b) ? a : b
+    for (let i = a; i <= end; i++) out.add(i)
+  }
+  return out
+}

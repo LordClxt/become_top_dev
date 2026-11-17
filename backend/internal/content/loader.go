@@ -21,6 +21,9 @@ var (
 	frontMatter     = regexp.MustCompile(`(?s)\A---\n(.*?)\n---\n(.*)\z`)
 	hintSplit       = regexp.MustCompile(`(?m)^## Hint \d+\s*$`)
 	visualDirective = regexp.MustCompile(`::visual\{id="([^"]+)"\}`)
+	// Directive de point de contrôle : seule sur sa ligne, en colonne 0.
+	checkpointDirective = regexp.MustCompile(`(?m)^::checkpoint\{id="([^"]*)"\}[ \t]*$`)
+	checkpointID        = regexp.MustCompile(`^[a-z0-9]+(-[a-z0-9]+)*$`)
 )
 
 // Load charge et valide tout content/. Échoue bruyamment si le contenu est invalide.
@@ -201,6 +204,9 @@ func loadLesson(dir, chapterID string, idx *Index) (*Lesson, error) {
 	}
 
 	lesson.Body, lesson.Slug, lesson.ChapterID = string(m[2]), filepath.Base(dir), chapterID
+	if err := lesson.validateCheckpoints(file); err != nil {
+		return nil, err
+	}
 	return lesson, nil
 }
 
@@ -434,6 +440,13 @@ func checkReferences(idx *Index) error {
 			}
 		}
 	}
+	for _, l := range sortedValues(idx.Lessons) {
+		for _, c := range l.Checkpoints {
+			if c.Concept != "" && !concepts[c.Concept] {
+				return fmt.Errorf("%s/%s: concept %s inconnu", l.ID, c.ID, c.Concept)
+			}
+		}
+	}
 	for _, ex := range sortedValues(idx.Exercises) {
 		for _, c := range ex.Concepts {
 			if !concepts[c] {
@@ -540,25 +553,71 @@ func (q *Quiz) validate(file string) error {
 		return err
 	}
 	for i := range q.Questions {
-		qq := &q.Questions[i]
-		if err := required(fmt.Sprintf("%s/%s", file, qq.ID), map[string]bool{
-			"id": qq.ID != "", "type": qq.Type != "", "prompt": qq.Prompt != "", "answer": qq.Answer != nil,
-			"explanation": qq.Explanation != "", "concept": qq.Concept != "",
-		}); err != nil {
+		if err := q.Questions[i].validate(file, true, "single", "multiple", "code-output", "order", "free"); err != nil {
 			return err
 		}
-		if err := oneOf(file, "type", qq.Type, "single", "multiple", "code-output", "order", "free"); err != nil {
+	}
+	return nil
+}
+
+// validate vérifie une question de quiz ou un point de contrôle et normalise sa réponse en JSON.
+func (qq *QuizQuestion) validate(file string, needConcept bool, types ...string) error {
+	if err := required(fmt.Sprintf("%s/%s", file, qq.ID), map[string]bool{
+		"id": qq.ID != "", "type": qq.Type != "", "prompt": qq.Prompt != "", "answer": qq.Answer != nil,
+		"explanation": qq.Explanation != "", "concept": qq.Concept != "" || !needConcept,
+	}); err != nil {
+		return err
+	}
+	if err := oneOf(fmt.Sprintf("%s/%s", file, qq.ID), "type", qq.Type, types...); err != nil {
+		return err
+	}
+	if qq.Difficulty == 0 {
+		qq.Difficulty = 1
+	}
+	qq.Choices = nonNil(qq.Choices)
+	if (qq.Type == "single" || qq.Type == "multiple") && len(qq.Choices) < 2 {
+		return fmt.Errorf("%s/%s: au moins deux choix requis (type %s)", file, qq.ID, qq.Type)
+	}
+	answer, err := asJSON(qq.Answer)
+	if err != nil {
+		return fmt.Errorf("%s/%s: réponse illisible : %w", file, qq.ID, err)
+	}
+	qq.Answer = answer
+	return nil
+}
+
+// validateCheckpoints vérifie les points de contrôle : ids uniques, et chacun placé une seule fois dans le corps.
+func (l *Lesson) validateCheckpoints(file string) error {
+	l.Checkpoints = nonNil(l.Checkpoints)
+	declared := map[string]bool{}
+	for i := range l.Checkpoints {
+		c := &l.Checkpoints[i]
+		if err := c.validate(file+": checkpoints", false, "single", "multiple", "code-output"); err != nil {
 			return err
 		}
-		if qq.Difficulty == 0 {
-			qq.Difficulty = 1
+		if !checkpointID.MatchString(c.ID) {
+			return fmt.Errorf("%s: checkpoint %q : id invalide (minuscules, chiffres et tirets)", file, c.ID)
 		}
-		qq.Choices = nonNil(qq.Choices)
-		answer, err := asJSON(qq.Answer)
-		if err != nil {
-			return fmt.Errorf("%s/%s: réponse illisible : %w", file, qq.ID, err)
+		if declared[c.ID] {
+			return fmt.Errorf("%s: checkpoint %s déclaré deux fois", file, c.ID)
 		}
-		qq.Answer = answer
+		declared[c.ID] = true
+	}
+	placed := map[string]int{}
+	for _, m := range checkpointDirective.FindAllStringSubmatch(l.Body, -1) {
+		if !declared[m[1]] {
+			return fmt.Errorf("%s: ::checkpoint{id=%q} ne correspond à aucun checkpoint du front-matter", file, m[1])
+		}
+		placed[m[1]]++
+	}
+	for _, c := range l.Checkpoints {
+		switch placed[c.ID] {
+		case 0:
+			return fmt.Errorf("%s: checkpoint %s déclaré mais jamais placé (ajoute ::checkpoint{id=%q} dans le corps)", file, c.ID, c.ID)
+		case 1:
+		default:
+			return fmt.Errorf("%s: checkpoint %s placé %d fois dans le corps (une seule fois attendu)", file, c.ID, placed[c.ID])
+		}
 	}
 	return nil
 }

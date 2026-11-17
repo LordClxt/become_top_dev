@@ -1,7 +1,8 @@
-import { ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react'
+import { ChevronLeft, ChevronRight, RotateCcw, Trophy } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { type KeyboardEvent, type ReactNode, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { play } from '@/features/juice/sound'
 import type { Lesson } from '@/lib/api'
 import { cn } from '@/lib/utils'
 
@@ -10,9 +11,9 @@ type Rating = 'known' | 'review'
 
 /**
  * Paquet de flashcards : on retourne la carte, on se note honnêtement, les cartes ratées reviennent au tour suivant.
- * Les notes restent dans la session (rien n'est envoyé au serveur).
+ * Sans `onRate`, les notes restent dans la session ; avec, chaque note est aussi transmise (répétition espacée).
  */
-export function Flashcards({ cards }: { cards: Card[] }) {
+export function Flashcards({ cards, onRate }: { cards: Card[]; onRate?: (cardId: string, rating: Rating) => void }) {
   const reduceMotion = useReducedMotion()
   const [queue, setQueue] = useState(() => cards.map((c) => c.id))
   const [index, setIndex] = useState(0)
@@ -28,6 +29,11 @@ export function Flashcards({ cards }: { cards: Card[] }) {
   const known = queue.filter((id) => ratings[id] === 'known').length
   const review = queue.filter((id) => ratings[id] === 'review')
 
+  const flip = () => {
+    play('flip')
+    setFlipped((f) => !f)
+  }
+
   const go = (delta: number) => {
     setExitDir(delta)
     setFlipped(false)
@@ -38,6 +44,9 @@ export function Flashcards({ cards }: { cards: Card[] }) {
     if (!card) return
     const next = { ...ratings, [card.id]: rating }
     setRatings(next)
+    onRate?.(card.id, rating)
+    if (queue.every((id) => next[id])) play('complete')
+    else play(rating === 'known' ? 'correct' : 'flip')
     setExitDir(rating === 'known' ? 1 : -1)
     setFlipped(false)
     // Prochaine carte pas encore notée, dans l'ordre du paquet.
@@ -82,7 +91,26 @@ export function Flashcards({ cards }: { cards: Card[] }) {
       </div>
 
       {finished ? (
-        <div className="mt-6 rounded-2xl border border-line bg-surface p-8">
+        <div className="relative mt-6 overflow-hidden rounded-2xl border border-line bg-surface p-8">
+          <div className="mb-5 flex items-center gap-4">
+            <span
+              className={cn(
+                'juice-pop grid size-12 place-items-center rounded-xl border-2',
+                review.length === 0 ? 'border-accent text-accent' : 'border-line text-muted',
+              )}
+            >
+              <Trophy className="size-6" />
+            </span>
+            <div className="flex flex-wrap gap-[3px]" aria-hidden="true">
+              {queue.map((id, i) => (
+                <span
+                  key={id}
+                  className={cn('juice-cell-in size-4 rounded-[3px]', ratings[id] === 'known' ? 'bg-accent' : 'bg-fail')}
+                  style={{ animationDelay: `${i * 50}ms` }}
+                />
+              ))}
+            </div>
+          </div>
           <p className="font-read text-2xl font-semibold">
             {review.length === 0 ? 'Paquet maîtrisé' : 'Paquet terminé'}
           </p>
@@ -126,7 +154,7 @@ export function Flashcards({ cards }: { cards: Card[] }) {
               >
                 <button
                   type="button"
-                  onClick={() => setFlipped(!flipped)}
+                  onClick={flip}
                   aria-pressed={flipped}
                   aria-label={flipped ? `Réponse : ${card.back}. Retourner vers la question` : `Question : ${card.front}. Retourner pour voir la réponse`}
                   className="group block w-full rounded-2xl text-left"

@@ -28,7 +28,7 @@ export function XpBar({
       aria-label={`Niveau ${progress.level} : ${into} XP sur ${span}`}
     >
       {Array.from({ length: cells }, (_, i) => (
-        <span key={i} className={cn(cell, 'overflow-hidden rounded-[2px] bg-cell-empty')}>
+        <span key={i} style={{ ["--i" as string]: i }} className={cn(cell, 'overflow-hidden rounded-[2px] bg-cell-empty')}>
           <span
             className="block h-full bg-accent transition-[width] duration-(--dur-slow) ease-(--ease-out)"
             style={{ width: `${Math.max(0, Math.min(1, filled - i)) * 100}%`, transitionDelay: `${i * 40}ms` }}

@@ -8395,6 +8395,7 @@
     "id": "arch-ch00",
     "title": "Penser en architecte"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -8533,6 +8534,7 @@
     "id": "arch-ch00",
     "title": "Penser en architecte"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -8683,6 +8685,7 @@
     "id": "arch-ch00",
     "title": "Penser en architecte"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -8853,6 +8856,7 @@
     "id": "arch-ch01",
     "title": "Modularité et connascence"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -8991,6 +8995,7 @@
     "id": "arch-ch01",
     "title": "Modularité et connascence"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -9154,6 +9159,7 @@
     "id": "arch-ch01",
     "title": "Modularité et connascence"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -9322,6 +9328,7 @@
     "id": "arch-ch02",
     "title": "Caractéristiques d'architecture"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -9470,6 +9477,7 @@
     "id": "arch-ch02",
     "title": "Caractéristiques d'architecture"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -9606,6 +9614,7 @@
     "id": "arch-ch02",
     "title": "Caractéristiques d'architecture"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -9775,6 +9784,7 @@
     "id": "arch-ch03",
     "title": "Mesurer et gouverner"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -9907,6 +9917,7 @@
     "id": "arch-ch03",
     "title": "Mesurer et gouverner"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -10041,6 +10052,7 @@
     "id": "arch-ch03",
     "title": "Mesurer et gouverner"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -10197,6 +10209,7 @@
     "id": "arch-ch04",
     "title": "Quanta et granularité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -10317,6 +10330,7 @@
     "id": "arch-ch04",
     "title": "Quanta et granularité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -10439,6 +10453,7 @@
     "id": "arch-ch04",
     "title": "Quanta et granularité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -10559,6 +10574,7 @@
     "id": "arch-ch05",
     "title": "Penser en composants"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -10705,6 +10721,7 @@
     "id": "arch-ch05",
     "title": "Penser en composants"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -10837,6 +10854,7 @@
     "id": "arch-ch05",
     "title": "Penser en composants"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -10953,6 +10971,7 @@
     "id": "arch-ch06",
     "title": "Fondations des styles"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -11081,6 +11100,7 @@
     "id": "arch-ch06",
     "title": "Fondations des styles"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -11220,6 +11240,7 @@
     "id": "arch-ch06",
     "title": "Fondations des styles"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -11342,6 +11363,7 @@
     "id": "arch-ch07",
     "title": "Couches et pipeline"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -11484,6 +11506,7 @@
     "id": "arch-ch07",
     "title": "Couches et pipeline"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -11602,6 +11625,7 @@
     "id": "arch-ch07",
     "title": "Couches et pipeline"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -11742,6 +11766,7 @@
     "id": "arch-ch08",
     "title": "Microkernel"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -11878,6 +11903,7 @@
     "id": "arch-ch08",
     "title": "Microkernel"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12004,6 +12030,7 @@
     "id": "arch-ch08",
     "title": "Microkernel"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12104,6 +12131,7 @@
     "id": "arch-ch09",
     "title": "Service-based"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12230,6 +12258,7 @@
     "id": "arch-ch09",
     "title": "Service-based"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12366,6 +12395,7 @@
     "id": "arch-ch09",
     "title": "Service-based"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12476,6 +12506,7 @@
     "id": "arch-ch10",
     "title": "Event-driven"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12606,6 +12637,7 @@
     "id": "arch-ch10",
     "title": "Event-driven"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12740,6 +12772,7 @@
     "id": "arch-ch10",
     "title": "Event-driven"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12880,6 +12913,7 @@
     "id": "arch-ch10",
     "title": "Event-driven"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -12998,6 +13032,7 @@
     "id": "ddia-ch00",
     "title": "Fiabilité, charge et percentiles"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -13123,6 +13158,7 @@
     "id": "ddia-ch00",
     "title": "Fiabilité, charge et percentiles"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -13275,6 +13311,7 @@
     "id": "ddia-ch00",
     "title": "Fiabilité, charge et percentiles"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -13409,6 +13446,7 @@
     "id": "ddia-ch00",
     "title": "Fiabilité, charge et percentiles"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -13587,6 +13625,7 @@
     "id": "ddia-ch01",
     "title": "Modèles de données et requêtes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -13745,6 +13784,7 @@
     "id": "ddia-ch01",
     "title": "Modèles de données et requêtes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -13919,6 +13959,7 @@
     "id": "ddia-ch01",
     "title": "Modèles de données et requêtes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -14055,6 +14096,7 @@
     "id": "ddia-ch01",
     "title": "Modèles de données et requêtes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -14221,6 +14263,7 @@
     "id": "ddia-ch02",
     "title": "Stockage et index"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -14383,6 +14426,7 @@
     "id": "ddia-ch02",
     "title": "Stockage et index"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -14557,6 +14601,7 @@
     "id": "ddia-ch02",
     "title": "Stockage et index"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -14717,6 +14762,7 @@
     "id": "ddia-ch02",
     "title": "Stockage et index"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -14845,6 +14891,7 @@
     "id": "ddia-ch02",
     "title": "Stockage et index"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -15015,6 +15062,7 @@
     "id": "ddia-ch03",
     "title": "Analytique et stockage en colonnes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -15141,6 +15189,7 @@
     "id": "ddia-ch03",
     "title": "Analytique et stockage en colonnes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -15263,6 +15312,7 @@
     "id": "ddia-ch03",
     "title": "Analytique et stockage en colonnes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -15403,6 +15453,7 @@
     "id": "ddia-ch03",
     "title": "Analytique et stockage en colonnes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -15521,6 +15572,7 @@
     "id": "ddia-ch03",
     "title": "Analytique et stockage en colonnes"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -15643,6 +15695,7 @@
     "id": "ddia-ch04",
     "title": "Encodage et évolution des schémas"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -15773,6 +15826,7 @@
     "id": "ddia-ch04",
     "title": "Encodage et évolution des schémas"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -15899,6 +15953,7 @@
     "id": "ddia-ch04",
     "title": "Encodage et évolution des schémas"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -16033,6 +16088,7 @@
     "id": "ddia-ch04",
     "title": "Encodage et évolution des schémas"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -16171,6 +16227,7 @@
     "id": "ddia-ch04",
     "title": "Encodage et évolution des schémas"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -16297,6 +16354,7 @@
     "id": "ddia-ch05",
     "title": "Réplication avec leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -16441,6 +16499,7 @@
     "id": "ddia-ch05",
     "title": "Réplication avec leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -16577,6 +16636,7 @@
     "id": "ddia-ch05",
     "title": "Réplication avec leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -16703,6 +16763,7 @@
     "id": "ddia-ch05",
     "title": "Réplication avec leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -16833,6 +16894,7 @@
     "id": "ddia-ch05",
     "title": "Réplication avec leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -16951,6 +17013,7 @@
     "id": "ddia-ch06",
     "title": "Multi-leader et sans leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -17081,6 +17144,7 @@
     "id": "ddia-ch06",
     "title": "Multi-leader et sans leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -17211,6 +17275,7 @@
     "id": "ddia-ch06",
     "title": "Multi-leader et sans leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -17321,6 +17386,7 @@
     "id": "ddia-ch06",
     "title": "Multi-leader et sans leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -17455,6 +17521,7 @@
     "id": "ddia-ch06",
     "title": "Multi-leader et sans leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -17585,6 +17652,7 @@
     "id": "ddia-ch06",
     "title": "Multi-leader et sans leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -17697,6 +17765,7 @@
     "id": "ddia-ch06",
     "title": "Multi-leader et sans leader"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -17823,6 +17892,7 @@
     "id": "ddia-ch07",
     "title": "Partitionnement"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -17953,6 +18023,7 @@
     "id": "ddia-ch07",
     "title": "Partitionnement"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -18085,6 +18156,7 @@
     "id": "ddia-ch07",
     "title": "Partitionnement"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -18219,6 +18291,7 @@
     "id": "ddia-ch07",
     "title": "Partitionnement"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -18345,6 +18418,7 @@
     "id": "ddia-ch07",
     "title": "Partitionnement"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -18473,6 +18547,7 @@
     "id": "ddia-ch08",
     "title": "Isolation faible et MVCC"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -18621,6 +18696,7 @@
     "id": "ddia-ch08",
     "title": "Isolation faible et MVCC"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -18743,6 +18819,7 @@
     "id": "ddia-ch08",
     "title": "Isolation faible et MVCC"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -18873,6 +18950,7 @@
     "id": "ddia-ch08",
     "title": "Isolation faible et MVCC"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -19003,6 +19081,7 @@
     "id": "ddia-ch08",
     "title": "Isolation faible et MVCC"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -19133,6 +19212,7 @@
     "id": "ddia-ch09",
     "title": "Sérialisabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -19225,6 +19305,7 @@
     "id": "ddia-ch09",
     "title": "Sérialisabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -19359,6 +19440,7 @@
     "id": "ddia-ch09",
     "title": "Sérialisabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -19497,6 +19579,7 @@
     "id": "ddia-ch09",
     "title": "Sérialisabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -19627,6 +19710,7 @@
     "id": "ddia-ch09",
     "title": "Sérialisabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -19737,6 +19821,7 @@
     "id": "ddia-ch10",
     "title": "Quand le réseau ment"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -19867,6 +19952,7 @@
     "id": "ddia-ch10",
     "title": "Quand le réseau ment"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20003,6 +20089,7 @@
     "id": "ddia-ch10",
     "title": "Quand le réseau ment"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20147,6 +20234,7 @@
     "id": "ddia-ch10",
     "title": "Quand le réseau ment"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20295,6 +20383,7 @@
     "id": "ddia-ch10",
     "title": "Quand le réseau ment"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20435,6 +20524,7 @@
     "id": "grails-ch00",
     "title": "Groovy essentiel pour lire Grails"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20550,6 +20640,7 @@
     "id": "grails-ch00",
     "title": "Groovy essentiel pour lire Grails"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20661,6 +20752,7 @@
     "id": "grails-ch00",
     "title": "Groovy essentiel pour lire Grails"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20772,6 +20864,7 @@
     "id": "grails-ch00",
     "title": "Groovy essentiel pour lire Grails"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20883,6 +20976,7 @@
     "id": "grails-ch01",
     "title": "Closures et DSL"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -20994,6 +21088,7 @@
     "id": "grails-ch01",
     "title": "Closures et DSL"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -21105,6 +21200,7 @@
     "id": "grails-ch01",
     "title": "Closures et DSL"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -21206,6 +21302,7 @@
     "id": "grails-ch01",
     "title": "Closures et DSL"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -21317,6 +21414,7 @@
     "id": "java-ch00",
     "title": "Java moderne en accéléré"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -21482,6 +21580,7 @@
     "id": "java-ch00",
     "title": "Java moderne en accéléré"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -21629,6 +21728,7 @@
     "id": "java-ch00",
     "title": "Java moderne en accéléré"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -21814,6 +21914,7 @@
     "id": "java-ch00",
     "title": "Java moderne en accéléré"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -21979,6 +22080,7 @@
     "id": "java-ch00",
     "title": "Java moderne en accéléré"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -22153,6 +22255,7 @@
     "id": "java-ch01",
     "title": "Créer et détruire des objets"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -22295,12 +22398,48 @@
  },
  {
   "body": {
-   "body": "\n## Pourquoi c'est important\n\nEn Go, tu passes une struct d'options ou des *functional options*. Java n'a ni paramètres nommés ni valeurs par défaut. Dès qu'une classe a plus de trois ou quatre paramètres, dont beaucoup facultatifs, il te faut une stratégie. Celle que tu choisis décide si tes objets peuvent être **immuables** et si un appel se **lit** sans ouvrir la documentation.\n\nTu croiseras des builders partout : `HttpRequest.newBuilder()` du JDK, `StringBuilder`, `Stream.builder()`, Lombok `@Builder`, les clients AWS, Protobuf…\n\n## Le concept\n\nPrenons une alerte de supervision : un nom et une sévérité obligatoires, puis des options (seuil, durée, canal, runbook…).\n\n### Tentative 1 : les constructeurs télescopiques\n\n```java\npublic Alert(String name, Severity sev) { this(name, sev, 0.9); }\npublic Alert(String name, Severity sev, double threshold) { this(name, sev, threshold, 5); }\npublic Alert(String name, Severity sev, double threshold, int minutes) { this(name, sev, threshold, minutes, \"#ops\"); }\n// … et ainsi de suite\n```\n\nÇa fonctionne, mais l'appel `new Alert(\"cpu\", WARN, 0.9, 10, \"#ops\", 3, true)` est indéchiffrable. Pire : deux `int` inversés **compilent** et donnent un comportement faux à l'exécution.\n\n### Tentative 2 : le patron JavaBeans\n\n```java\nAlert a = new Alert();\na.setName(\"cpu\");\na.setThreshold(0.9);\n// oublié : setSeverity(...)\n```\n\nLisible, mais :\n- entre `new` et le dernier setter, l'objet est **incohérent**, et rien n'empêche de l'utiliser dans cet état. Le bug apparaîtra loin de sa cause ;\n- l'objet ne peut pas être **immuable**, donc il faut penser à la sécurité entre threads (module 11).\n\n### La solution : le Builder\n\n```java\nAlert cpu = new Alert.Builder(\"cpu\", Severity.WARN)   // obligatoires\n        .threshold(0.9)                               // options, dans n'importe quel ordre\n        .forMinutes(10)\n        .channel(\"#ops\")\n        .build();                                     // objet immuable\n```\n\nLa forme classique :\n\n```java\npublic final class Alert {\n    private final String name;\n    private final Severity severity;\n    private final double threshold;\n    private final int minutes;\n\n    public static final class Builder {\n        private final String name;              // obligatoires : final\n        private final Severity severity;\n        private double threshold = 0.9;         // options : valeurs par défaut au même endroit\n        private int minutes = 5;\n\n        public Builder(String name, Severity severity) {\n            this.name = Objects.requireNonNull(name);\n            this.severity = Objects.requireNonNull(severity);\n        }\n        public Builder threshold(double t) { threshold = t; return this; }\n        public Builder forMinutes(int m) { minutes = m; return this; }\n        public Alert build() { return new Alert(this); }\n    }\n\n    private Alert(Builder b) {                  // seul chemin de construction\n        name = b.name;\n        severity = b.severity;\n        threshold = b.threshold;\n        minutes = b.minutes;\n    }\n}\n```\n\nPoints clés :\n- le builder est une **classe imbriquée statique** (on verra pourquoi `static` au module 4) ;\n- chaque méthode renvoie `this` : c'est une **API fluide** qui simule des paramètres nommés ;\n- le constructeur de `Alert` est **privé** : on ne peut obtenir une alerte que par `build()`, donc toujours complète ;\n- toutes les valeurs par défaut sont **au même endroit**.\n\n### Où valider ?\n\nLe plus tôt possible, au plus près de l'erreur :\n\n| Ce qu'on vérifie | Où |\n|---|---|\n| Un paramètre obligatoire | constructeur du builder |\n| Une option isolée (`threshold` entre 0 et 1) | sa méthode du builder |\n| Un invariant entre plusieurs paramètres (`minutes > 0` si `severity == PAGE`) | dans `build()`, **après** avoir copié les valeurs dans l'objet |\n\nPourquoi après la copie ? Pour que l'objet vérifie **ses propres champs**, que plus personne ne peut changer.\n\n> **Java 25 :** dans un builder **hiérarchique** (plus bas), le constructeur d'une sous-classe peut désormais valider et affecter ses propres champs **avant** `super(builder)` (module 0, leçon 2). Si le constructeur parent appelle une méthode redéfinie, elle verra déjà des champs valides. On retrouvera ce principe avec les copies défensives (module 8). En cas d'échec, lève une `IllegalArgumentException` dont le message dit **quel** paramètre est fautif.\n\n### Un builder est réutilisable\n\nOn peut construire plusieurs objets avec le même builder, en changeant quelques options entre deux `build()`. Un builder peut aussi remplir des champs tout seul (un numéro de série qui s'incrémente). Conséquence : `build()` doit **copier** les structures mutables (listes, maps), sinon un objet déjà construit changerait quand on continue à utiliser le builder. Tu vas écrire ce test dans le lab.\n\n### Builders hiérarchiques\n\nLe Builder s'adapte aux hiérarchies de classes : une classe abstraite a un builder abstrait, chaque sous-classe concrète a son builder concret. Le problème : une méthode du builder parent renvoie le type **parent**, donc on perd les méthodes de l'enfant au milieu d'une chaîne.\n\n```java\nabstract class Message {\n    final Set<Tag> tags;\n\n    abstract static class Builder<T extends Builder<T>> {\n        private final EnumSet<Tag> tags = EnumSet.noneOf(Tag.class);\n\n        public T tag(Tag t) {\n            tags.add(Objects.requireNonNull(t));\n            return self();                       // renvoie le builder CONCRET\n        }\n        abstract Message build();\n        protected abstract T self();            // chaque sous-classe renvoie this\n    }\n\n    Message(Builder<?> b) { tags = Set.copyOf(b.tags); }\n}\n\nfinal class Email extends Message {\n    private final String to;\n\n    static final class Builder extends Message.Builder<Builder> {\n        private final String to;\n        Builder(String to) { this.to = to; }\n        @Override public Email build() { return new Email(this); }   // retour covariant\n        @Override protected Builder self() { return this; }\n    }\n\n    private Email(Builder b) { super(b); to = b.to; }\n}\n\nEmail e = new Email.Builder(\"ana@example.com\").tag(Tag.URGENT).build();   // aucun cast\n```\n\n`Builder<T extends Builder<T>>` est un **paramètre de type récursif** (module 5) ; avec `self()`, il simule le « type de soi-même » que Java n'a pas. C'est l'**idiome du self-type simulé**. Le retour **covariant** de `build()` donne directement un `Email`. Autre petit bonus : chaque option a sa propre méthode, donc un builder peut accepter plusieurs paramètres variadiques, ou accumuler plusieurs appels (`tag` deux fois) dans un seul champ.\n\n### Le prix\n\nIl faut créer un objet de plus (le builder), ce qui ne compte presque jamais. Et c'est plus verbeux : réserve-le aux classes qui ont **au moins quatre paramètres**, ou qui en auront. Ajouter un builder plus tard laisse les anciens constructeurs traîner : si la classe va grossir, commence directement par un builder.\n\n> **Au-delà du livre (Java 16+)** : pour une petite valeur à 2 ou 3 champs, tous obligatoires, un `record` avec un constructeur compact qui valide est plus simple qu'un builder. Le builder reste la bonne réponse quand les options s'accumulent.\n\n## Pièges fréquents\n\n- **Partager la collection du builder** avec l'objet construit : continuer à utiliser le builder modifie l'objet « immuable ». Copie dans le constructeur privé (`List.copyOf`, `Set.copyOf`).\n- **Valider dans `build()` sur les champs du builder**, puis copier : entre les deux, rien ne change ici, mais prends l'habitude de vérifier l'objet final.\n- **Oublier `self()`** dans une sous-classe : la compilation échoue, ce qui est voulu.\n- **Mettre des setters dans l'objet construit** « au cas où » : tu perds l'immutabilité qui justifiait le builder.\n\n## À retenir\n\n- Télescopique : sûr mais illisible. JavaBeans : lisible mais incohérent et mutable. **Builder : sûr et lisible.**\n- Obligatoires dans le constructeur du builder, options par méthodes chaînées, `build()` appelle un constructeur **privé**.\n- Valide chaque paramètre à son arrivée, et les invariants croisés dans `build()` sur les champs copiés.\n- Hiérarchies : `Builder<T extends Builder<T>>` + `self()` + `build()` covariant.\n\n> **Source :** *Effective Java*, 3e éd., item 2 (pages 10 à 16).\n",
+   "body": "\n## Pourquoi c'est important\n\nEn Go, tu passes une struct d'options ou des *functional options*. Java n'a ni paramètres nommés ni valeurs par défaut. Dès qu'une classe a plus de trois ou quatre paramètres, dont beaucoup facultatifs, il te faut une stratégie. Celle que tu choisis décide si tes objets peuvent être **immuables** et si un appel se **lit** sans ouvrir la documentation.\n\nTu croiseras des builders partout : `HttpRequest.newBuilder()` du JDK, `StringBuilder`, `Stream.builder()`, Lombok `@Builder`, les clients AWS, Protobuf…\n\n## Le concept\n\nPrenons une alerte de supervision : un nom et une sévérité obligatoires, puis des options (seuil, durée, canal, runbook…).\n\n### Tentative 1 : les constructeurs télescopiques\n\n```java\npublic Alert(String name, Severity sev) { this(name, sev, 0.9); }\npublic Alert(String name, Severity sev, double threshold) { this(name, sev, threshold, 5); }\npublic Alert(String name, Severity sev, double threshold, int minutes) { this(name, sev, threshold, minutes, \"#ops\"); }\n// … et ainsi de suite\n```\n\nÇa fonctionne, mais l'appel `new Alert(\"cpu\", WARN, 0.9, 10, \"#ops\", 3, true)` est indéchiffrable. Pire : deux `int` inversés **compilent** et donnent un comportement faux à l'exécution.\n\n::checkpoint{id=\"c1\"}\n\n### Tentative 2 : le patron JavaBeans\n\n```java\nAlert a = new Alert();\na.setName(\"cpu\");\na.setThreshold(0.9);\n// oublié : setSeverity(...)\n```\n\nLisible, mais :\n- entre `new` et le dernier setter, l'objet est **incohérent**, et rien n'empêche de l'utiliser dans cet état. Le bug apparaîtra loin de sa cause ;\n- l'objet ne peut pas être **immuable**, donc il faut penser à la sécurité entre threads (module 11).\n\n### La solution : le Builder\n\n```java\nAlert cpu = new Alert.Builder(\"cpu\", Severity.WARN)   // obligatoires\n        .threshold(0.9)                               // options, dans n'importe quel ordre\n        .forMinutes(10)\n        .channel(\"#ops\")\n        .build();                                     // objet immuable\n```\n\nLa forme classique :\n\n```java\npublic final class Alert {\n    private final String name;\n    private final Severity severity;\n    private final double threshold;\n    private final int minutes;\n\n    public static final class Builder {\n        private final String name;              // obligatoires : final\n        private final Severity severity;\n        private double threshold = 0.9;         // options : valeurs par défaut au même endroit\n        private int minutes = 5;\n\n        public Builder(String name, Severity severity) {\n            this.name = Objects.requireNonNull(name);\n            this.severity = Objects.requireNonNull(severity);\n        }\n        public Builder threshold(double t) { threshold = t; return this; }\n        public Builder forMinutes(int m) { minutes = m; return this; }\n        public Alert build() { return new Alert(this); }\n    }\n\n    private Alert(Builder b) {                  // seul chemin de construction\n        name = b.name;\n        severity = b.severity;\n        threshold = b.threshold;\n        minutes = b.minutes;\n    }\n}\n```\n\nPoints clés :\n- le builder est une **classe imbriquée statique** (on verra pourquoi `static` au module 4) ;\n- chaque méthode renvoie `this` : c'est une **API fluide** qui simule des paramètres nommés ;\n- le constructeur de `Alert` est **privé** : on ne peut obtenir une alerte que par `build()`, donc toujours complète ;\n- toutes les valeurs par défaut sont **au même endroit**.\n\n### Où valider ?\n\nLe plus tôt possible, au plus près de l'erreur :\n\n| Ce qu'on vérifie | Où |\n|---|---|\n| Un paramètre obligatoire | constructeur du builder |\n| Une option isolée (`threshold` entre 0 et 1) | sa méthode du builder |\n| Un invariant entre plusieurs paramètres (`minutes > 0` si `severity == PAGE`) | dans `build()`, **après** avoir copié les valeurs dans l'objet |\n\nPourquoi après la copie ? Pour que l'objet vérifie **ses propres champs**, que plus personne ne peut changer.\n\n> **Java 25 :** dans un builder **hiérarchique** (plus bas), le constructeur d'une sous-classe peut désormais valider et affecter ses propres champs **avant** `super(builder)` (module 0, leçon 2). Si le constructeur parent appelle une méthode redéfinie, elle verra déjà des champs valides. On retrouvera ce principe avec les copies défensives (module 8). En cas d'échec, lève une `IllegalArgumentException` dont le message dit **quel** paramètre est fautif.\n\n::checkpoint{id=\"c3\"}\n\n### Un builder est réutilisable\n\nOn peut construire plusieurs objets avec le même builder, en changeant quelques options entre deux `build()`. Un builder peut aussi remplir des champs tout seul (un numéro de série qui s'incrémente). Conséquence : `build()` doit **copier** les structures mutables (listes, maps), sinon un objet déjà construit changerait quand on continue à utiliser le builder. Tu vas écrire ce test dans le lab.\n\n::checkpoint{id=\"c2\"}\n\n### Builders hiérarchiques\n\nLe Builder s'adapte aux hiérarchies de classes : une classe abstraite a un builder abstrait, chaque sous-classe concrète a son builder concret. Le problème : une méthode du builder parent renvoie le type **parent**, donc on perd les méthodes de l'enfant au milieu d'une chaîne.\n\n```java\nabstract class Message {\n    final Set<Tag> tags;\n\n    abstract static class Builder<T extends Builder<T>> {\n        private final EnumSet<Tag> tags = EnumSet.noneOf(Tag.class);\n\n        public T tag(Tag t) {\n            tags.add(Objects.requireNonNull(t));\n            return self();                       // renvoie le builder CONCRET\n        }\n        abstract Message build();\n        protected abstract T self();            // chaque sous-classe renvoie this\n    }\n\n    Message(Builder<?> b) { tags = Set.copyOf(b.tags); }\n}\n\nfinal class Email extends Message {\n    private final String to;\n\n    static final class Builder extends Message.Builder<Builder> {\n        private final String to;\n        Builder(String to) { this.to = to; }\n        @Override public Email build() { return new Email(this); }   // retour covariant\n        @Override protected Builder self() { return this; }\n    }\n\n    private Email(Builder b) { super(b); to = b.to; }\n}\n\nEmail e = new Email.Builder(\"ana@example.com\").tag(Tag.URGENT).build();   // aucun cast\n```\n\n`Builder<T extends Builder<T>>` est un **paramètre de type récursif** (module 5) ; avec `self()`, il simule le « type de soi-même » que Java n'a pas. C'est l'**idiome du self-type simulé**. Le retour **covariant** de `build()` donne directement un `Email`. Autre petit bonus : chaque option a sa propre méthode, donc un builder peut accepter plusieurs paramètres variadiques, ou accumuler plusieurs appels (`tag` deux fois) dans un seul champ.\n\n### Le prix\n\nIl faut créer un objet de plus (le builder), ce qui ne compte presque jamais. Et c'est plus verbeux : réserve-le aux classes qui ont **au moins quatre paramètres**, ou qui en auront. Ajouter un builder plus tard laisse les anciens constructeurs traîner : si la classe va grossir, commence directement par un builder.\n\n> **Au-delà du livre (Java 16+)** : pour une petite valeur à 2 ou 3 champs, tous obligatoires, un `record` avec un constructeur compact qui valide est plus simple qu'un builder. Le builder reste la bonne réponse quand les options s'accumulent.\n\n## Pièges fréquents\n\n- **Partager la collection du builder** avec l'objet construit : continuer à utiliser le builder modifie l'objet « immuable ». Copie dans le constructeur privé (`List.copyOf`, `Set.copyOf`).\n- **Valider dans `build()` sur les champs du builder**, puis copier : entre les deux, rien ne change ici, mais prends l'habitude de vérifier l'objet final.\n- **Oublier `self()`** dans une sous-classe : la compilation échoue, ce qui est voulu.\n- **Mettre des setters dans l'objet construit** « au cas où » : tu perds l'immutabilité qui justifiait le builder.\n\n## À retenir\n\n- Télescopique : sûr mais illisible. JavaBeans : lisible mais incohérent et mutable. **Builder : sûr et lisible.**\n- Obligatoires dans le constructeur du builder, options par méthodes chaînées, `build()` appelle un constructeur **privé**.\n- Valide chaque paramètre à son arrivée, et les invariants croisés dans `build()` sur les champs copiés.\n- Hiérarchies : `Builder<T extends Builder<T>>` + `self()` + `build()` covariant.\n\n> **Source :** *Effective Java*, 3e éd., item 2 (pages 10 à 16).\n",
    "chapter": {
     "course_id": "java",
     "id": "java-ch01",
     "title": "Créer et détruire des objets"
    },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [
+      "Le compilateur refuse l'appel",
+      "Une exception est levée à l'exécution",
+      "Tout compile et s'exécute : la réservation fait 2 nuits pour 3 adultes",
+      "Java réordonne les arguments d'après leurs noms"
+     ],
+     "code": null,
+     "id": "c1",
+     "prompt": "La signature est `Reservation(String guest, String room, int nights, int adults)`. Un appel écrit `new Reservation(\"Ana\", \"204\", 2, 3)` pour 3 nuits et 2 adultes. Que se passe-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "public class Main {\n    static final class Request {\n        final List<String> headers;\n        Request(Builder b) { headers = b.headers; }\n        static final class Builder {\n            final List<String> headers = new ArrayList<>();\n            Builder header(String h) { headers.add(h); return this; }\n            Request build() { return new Request(this); }\n        }\n    }\n\n    public static void main(String[] args) {\n        Request.Builder b = new Request.Builder().header(\"Accept\");\n        Request first = b.build();\n        Request second = b.header(\"Auth\").build();\n        System.out.println(first.headers.size() + \" \" + (first.headers == second.headers));\n    }\n}\n",
+     "id": "c2",
+     "prompt": "Ce builder est réutilisé pour deux requêtes. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Dans checkIn(), en comparant avec checkOut",
+      "Dans checkOut(), en comparant avec checkIn",
+      "Dans build() ou le constructeur privé, sur les champs copiés dans Booking",
+      "Nulle part : c'est à l'appelant de faire attention"
+     ],
+     "code": null,
+     "id": "c3",
+     "prompt": "Un builder de `Booking` reçoit `checkIn(...)` et `checkOut(...)`, dans n'importe quel ordre. Où vérifier que checkOut est après checkIn ?",
+     "type": "single"
+    }
+   ],
    "completed": false,
    "concepts": [
     {
@@ -22443,6 +22582,7 @@
     "id": "java-ch01",
     "title": "Créer et détruire des objets"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -22571,6 +22711,7 @@
     "id": "java-ch01",
     "title": "Créer et détruire des objets"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -22725,6 +22866,7 @@
     "id": "java-ch01",
     "title": "Créer et détruire des objets"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -22887,6 +23029,7 @@
     "id": "java-ch02",
     "title": "Les contrats d'Object"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -23051,6 +23194,7 @@
     "id": "java-ch02",
     "title": "Les contrats d'Object"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -23217,6 +23361,7 @@
     "id": "java-ch02",
     "title": "Les contrats d'Object"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -23325,6 +23470,7 @@
     "id": "java-ch02",
     "title": "Les contrats d'Object"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -23451,6 +23597,7 @@
     "id": "java-ch02",
     "title": "Les contrats d'Object"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -23583,6 +23730,7 @@
     "id": "java-ch03",
     "title": "Encapsulation et immutabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -23737,6 +23885,7 @@
     "id": "java-ch03",
     "title": "Encapsulation et immutabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -23869,6 +24018,7 @@
     "id": "java-ch03",
     "title": "Encapsulation et immutabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24043,6 +24193,7 @@
     "id": "java-ch03",
     "title": "Encapsulation et immutabilité"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24167,6 +24318,7 @@
     "id": "ts-ch00",
     "title": "Faire connaissance avec TypeScript"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24279,6 +24431,7 @@
     "id": "ts-ch00",
     "title": "Faire connaissance avec TypeScript"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24395,6 +24548,7 @@
     "id": "ts-ch00",
     "title": "Faire connaissance avec TypeScript"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24551,6 +24705,7 @@
     "id": "ts-ch00",
     "title": "Faire connaissance avec TypeScript"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24653,6 +24808,7 @@
     "id": "ts-ch00",
     "title": "Faire connaissance avec TypeScript"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24759,6 +24915,7 @@
     "id": "ts-ch01",
     "title": "Les types sont des ensembles de valeurs"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24875,6 +25032,7 @@
     "id": "ts-ch01",
     "title": "Les types sont des ensembles de valeurs"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -24977,6 +25135,7 @@
     "id": "ts-ch01",
     "title": "Les types sont des ensembles de valeurs"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25083,6 +25242,7 @@
     "id": "ts-ch01",
     "title": "Les types sont des ensembles de valeurs"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25169,6 +25329,7 @@
     "id": "ts-ch02",
     "title": "Façonner ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25245,6 +25406,7 @@
     "id": "ts-ch02",
     "title": "Façonner ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25335,6 +25497,7 @@
     "id": "ts-ch02",
     "title": "Façonner ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25425,6 +25588,7 @@
     "id": "ts-ch02",
     "title": "Façonner ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25525,6 +25689,7 @@
     "id": "ts-ch02",
     "title": "Façonner ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25615,6 +25780,7 @@
     "id": "ts-ch03",
     "title": "L'inférence de types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25701,6 +25867,7 @@
     "id": "ts-ch03",
     "title": "L'inférence de types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25805,6 +25972,7 @@
     "id": "ts-ch03",
     "title": "L'inférence de types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25887,6 +26055,7 @@
     "id": "ts-ch03",
     "title": "L'inférence de types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -25987,6 +26156,7 @@
     "id": "ts-ch03",
     "title": "L'inférence de types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26073,6 +26243,7 @@
     "id": "ts-ch04",
     "title": "Flux de types et async"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26149,6 +26320,7 @@
     "id": "ts-ch04",
     "title": "Flux de types et async"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26235,6 +26407,7 @@
     "id": "ts-ch04",
     "title": "Flux de types et async"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26331,6 +26504,7 @@
     "id": "ts-ch04",
     "title": "Flux de types et async"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26411,6 +26585,7 @@
     "id": "ts-ch05",
     "title": "Des types qui n'expriment que des états valides"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26497,6 +26672,7 @@
     "id": "ts-ch05",
     "title": "Des types qui n'expriment que des états valides"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26587,6 +26763,7 @@
     "id": "ts-ch05",
     "title": "Des types qui n'expriment que des états valides"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26673,6 +26850,7 @@
     "id": "ts-ch05",
     "title": "Des types qui n'expriment que des états valides"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26749,6 +26927,7 @@
     "id": "ts-ch05",
     "title": "Des types qui n'expriment que des états valides"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26831,6 +27010,7 @@
     "id": "ts-ch06",
     "title": "Conception de types, suite"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26907,6 +27087,7 @@
     "id": "ts-ch06",
     "title": "Conception de types, suite"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -26983,6 +27164,7 @@
     "id": "ts-ch06",
     "title": "Conception de types, suite"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27059,6 +27241,7 @@
     "id": "ts-ch06",
     "title": "Conception de types, suite"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27149,6 +27332,7 @@
     "id": "ts-ch06",
     "title": "Conception de types, suite"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27245,6 +27429,7 @@
     "id": "ts-ch07",
     "title": "any et l'unsoundness"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27327,6 +27512,7 @@
     "id": "ts-ch07",
     "title": "any et l'unsoundness"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27403,6 +27589,7 @@
     "id": "ts-ch07",
     "title": "any et l'unsoundness"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27493,6 +27680,7 @@
     "id": "ts-ch07",
     "title": "any et l'unsoundness"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27573,6 +27761,7 @@
     "id": "ts-ch07",
     "title": "any et l'unsoundness"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27683,6 +27872,7 @@
     "id": "ts-ch08",
     "title": "Génériques et types conditionnels"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27773,6 +27963,7 @@
     "id": "ts-ch08",
     "title": "Génériques et types conditionnels"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27859,6 +28050,7 @@
     "id": "ts-ch08",
     "title": "Génériques et types conditionnels"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -27949,6 +28141,7 @@
     "id": "ts-ch08",
     "title": "Génériques et types conditionnels"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -28041,6 +28234,7 @@
     "id": "ts-ch08",
     "title": "Génériques et types conditionnels"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -28131,6 +28325,7 @@
     "id": "ts-ch09",
     "title": "Tester ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -28227,6 +28422,7 @@
     "id": "ts-ch09",
     "title": "Tester ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -28303,6 +28499,7 @@
     "id": "ts-ch09",
     "title": "Tester ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -28383,6 +28580,7 @@
     "id": "ts-ch09",
     "title": "Tester ses types"
    },
+   "checkpoints": [],
    "completed": false,
    "concepts": [
     {
@@ -90369,12 +90567,48 @@
  },
  {
   "body": {
-   "body": "\n## Pourquoi c'est important\n\nEn Go, tu passes une struct d'options ou des *functional options*. Java n'a ni paramètres nommés ni valeurs par défaut. Dès qu'une classe a plus de trois ou quatre paramètres, dont beaucoup facultatifs, il te faut une stratégie. Celle que tu choisis décide si tes objets peuvent être **immuables** et si un appel se **lit** sans ouvrir la documentation.\n\nTu croiseras des builders partout : `HttpRequest.newBuilder()` du JDK, `StringBuilder`, `Stream.builder()`, Lombok `@Builder`, les clients AWS, Protobuf…\n\n## Le concept\n\nPrenons une alerte de supervision : un nom et une sévérité obligatoires, puis des options (seuil, durée, canal, runbook…).\n\n### Tentative 1 : les constructeurs télescopiques\n\n```java\npublic Alert(String name, Severity sev) { this(name, sev, 0.9); }\npublic Alert(String name, Severity sev, double threshold) { this(name, sev, threshold, 5); }\npublic Alert(String name, Severity sev, double threshold, int minutes) { this(name, sev, threshold, minutes, \"#ops\"); }\n// … et ainsi de suite\n```\n\nÇa fonctionne, mais l'appel `new Alert(\"cpu\", WARN, 0.9, 10, \"#ops\", 3, true)` est indéchiffrable. Pire : deux `int` inversés **compilent** et donnent un comportement faux à l'exécution.\n\n### Tentative 2 : le patron JavaBeans\n\n```java\nAlert a = new Alert();\na.setName(\"cpu\");\na.setThreshold(0.9);\n// oublié : setSeverity(...)\n```\n\nLisible, mais :\n- entre `new` et le dernier setter, l'objet est **incohérent**, et rien n'empêche de l'utiliser dans cet état. Le bug apparaîtra loin de sa cause ;\n- l'objet ne peut pas être **immuable**, donc il faut penser à la sécurité entre threads (module 11).\n\n### La solution : le Builder\n\n```java\nAlert cpu = new Alert.Builder(\"cpu\", Severity.WARN)   // obligatoires\n        .threshold(0.9)                               // options, dans n'importe quel ordre\n        .forMinutes(10)\n        .channel(\"#ops\")\n        .build();                                     // objet immuable\n```\n\nLa forme classique :\n\n```java\npublic final class Alert {\n    private final String name;\n    private final Severity severity;\n    private final double threshold;\n    private final int minutes;\n\n    public static final class Builder {\n        private final String name;              // obligatoires : final\n        private final Severity severity;\n        private double threshold = 0.9;         // options : valeurs par défaut au même endroit\n        private int minutes = 5;\n\n        public Builder(String name, Severity severity) {\n            this.name = Objects.requireNonNull(name);\n            this.severity = Objects.requireNonNull(severity);\n        }\n        public Builder threshold(double t) { threshold = t; return this; }\n        public Builder forMinutes(int m) { minutes = m; return this; }\n        public Alert build() { return new Alert(this); }\n    }\n\n    private Alert(Builder b) {                  // seul chemin de construction\n        name = b.name;\n        severity = b.severity;\n        threshold = b.threshold;\n        minutes = b.minutes;\n    }\n}\n```\n\nPoints clés :\n- le builder est une **classe imbriquée statique** (on verra pourquoi `static` au module 4) ;\n- chaque méthode renvoie `this` : c'est une **API fluide** qui simule des paramètres nommés ;\n- le constructeur de `Alert` est **privé** : on ne peut obtenir une alerte que par `build()`, donc toujours complète ;\n- toutes les valeurs par défaut sont **au même endroit**.\n\n### Où valider ?\n\nLe plus tôt possible, au plus près de l'erreur :\n\n| Ce qu'on vérifie | Où |\n|---|---|\n| Un paramètre obligatoire | constructeur du builder |\n| Une option isolée (`threshold` entre 0 et 1) | sa méthode du builder |\n| Un invariant entre plusieurs paramètres (`minutes > 0` si `severity == PAGE`) | dans `build()`, **après** avoir copié les valeurs dans l'objet |\n\nPourquoi après la copie ? Pour que l'objet vérifie **ses propres champs**, que plus personne ne peut changer.\n\n> **Java 25 :** dans un builder **hiérarchique** (plus bas), le constructeur d'une sous-classe peut désormais valider et affecter ses propres champs **avant** `super(builder)` (module 0, leçon 2). Si le constructeur parent appelle une méthode redéfinie, elle verra déjà des champs valides. On retrouvera ce principe avec les copies défensives (module 8). En cas d'échec, lève une `IllegalArgumentException` dont le message dit **quel** paramètre est fautif.\n\n### Un builder est réutilisable\n\nOn peut construire plusieurs objets avec le même builder, en changeant quelques options entre deux `build()`. Un builder peut aussi remplir des champs tout seul (un numéro de série qui s'incrémente). Conséquence : `build()` doit **copier** les structures mutables (listes, maps), sinon un objet déjà construit changerait quand on continue à utiliser le builder. Tu vas écrire ce test dans le lab.\n\n### Builders hiérarchiques\n\nLe Builder s'adapte aux hiérarchies de classes : une classe abstraite a un builder abstrait, chaque sous-classe concrète a son builder concret. Le problème : une méthode du builder parent renvoie le type **parent**, donc on perd les méthodes de l'enfant au milieu d'une chaîne.\n\n```java\nabstract class Message {\n    final Set<Tag> tags;\n\n    abstract static class Builder<T extends Builder<T>> {\n        private final EnumSet<Tag> tags = EnumSet.noneOf(Tag.class);\n\n        public T tag(Tag t) {\n            tags.add(Objects.requireNonNull(t));\n            return self();                       // renvoie le builder CONCRET\n        }\n        abstract Message build();\n        protected abstract T self();            // chaque sous-classe renvoie this\n    }\n\n    Message(Builder<?> b) { tags = Set.copyOf(b.tags); }\n}\n\nfinal class Email extends Message {\n    private final String to;\n\n    static final class Builder extends Message.Builder<Builder> {\n        private final String to;\n        Builder(String to) { this.to = to; }\n        @Override public Email build() { return new Email(this); }   // retour covariant\n        @Override protected Builder self() { return this; }\n    }\n\n    private Email(Builder b) { super(b); to = b.to; }\n}\n\nEmail e = new Email.Builder(\"ana@example.com\").tag(Tag.URGENT).build();   // aucun cast\n```\n\n`Builder<T extends Builder<T>>` est un **paramètre de type récursif** (module 5) ; avec `self()`, il simule le « type de soi-même » que Java n'a pas. C'est l'**idiome du self-type simulé**. Le retour **covariant** de `build()` donne directement un `Email`. Autre petit bonus : chaque option a sa propre méthode, donc un builder peut accepter plusieurs paramètres variadiques, ou accumuler plusieurs appels (`tag` deux fois) dans un seul champ.\n\n### Le prix\n\nIl faut créer un objet de plus (le builder), ce qui ne compte presque jamais. Et c'est plus verbeux : réserve-le aux classes qui ont **au moins quatre paramètres**, ou qui en auront. Ajouter un builder plus tard laisse les anciens constructeurs traîner : si la classe va grossir, commence directement par un builder.\n\n> **Au-delà du livre (Java 16+)** : pour une petite valeur à 2 ou 3 champs, tous obligatoires, un `record` avec un constructeur compact qui valide est plus simple qu'un builder. Le builder reste la bonne réponse quand les options s'accumulent.\n\n## Pièges fréquents\n\n- **Partager la collection du builder** avec l'objet construit : continuer à utiliser le builder modifie l'objet « immuable ». Copie dans le constructeur privé (`List.copyOf`, `Set.copyOf`).\n- **Valider dans `build()` sur les champs du builder**, puis copier : entre les deux, rien ne change ici, mais prends l'habitude de vérifier l'objet final.\n- **Oublier `self()`** dans une sous-classe : la compilation échoue, ce qui est voulu.\n- **Mettre des setters dans l'objet construit** « au cas où » : tu perds l'immutabilité qui justifiait le builder.\n\n## À retenir\n\n- Télescopique : sûr mais illisible. JavaBeans : lisible mais incohérent et mutable. **Builder : sûr et lisible.**\n- Obligatoires dans le constructeur du builder, options par méthodes chaînées, `build()` appelle un constructeur **privé**.\n- Valide chaque paramètre à son arrivée, et les invariants croisés dans `build()` sur les champs copiés.\n- Hiérarchies : `Builder<T extends Builder<T>>` + `self()` + `build()` covariant.\n\n> **Source :** *Effective Java*, 3e éd., item 2 (pages 10 à 16).\n",
+   "body": "\n## Pourquoi c'est important\n\nEn Go, tu passes une struct d'options ou des *functional options*. Java n'a ni paramètres nommés ni valeurs par défaut. Dès qu'une classe a plus de trois ou quatre paramètres, dont beaucoup facultatifs, il te faut une stratégie. Celle que tu choisis décide si tes objets peuvent être **immuables** et si un appel se **lit** sans ouvrir la documentation.\n\nTu croiseras des builders partout : `HttpRequest.newBuilder()` du JDK, `StringBuilder`, `Stream.builder()`, Lombok `@Builder`, les clients AWS, Protobuf…\n\n## Le concept\n\nPrenons une alerte de supervision : un nom et une sévérité obligatoires, puis des options (seuil, durée, canal, runbook…).\n\n### Tentative 1 : les constructeurs télescopiques\n\n```java\npublic Alert(String name, Severity sev) { this(name, sev, 0.9); }\npublic Alert(String name, Severity sev, double threshold) { this(name, sev, threshold, 5); }\npublic Alert(String name, Severity sev, double threshold, int minutes) { this(name, sev, threshold, minutes, \"#ops\"); }\n// … et ainsi de suite\n```\n\nÇa fonctionne, mais l'appel `new Alert(\"cpu\", WARN, 0.9, 10, \"#ops\", 3, true)` est indéchiffrable. Pire : deux `int` inversés **compilent** et donnent un comportement faux à l'exécution.\n\n::checkpoint{id=\"c1\"}\n\n### Tentative 2 : le patron JavaBeans\n\n```java\nAlert a = new Alert();\na.setName(\"cpu\");\na.setThreshold(0.9);\n// oublié : setSeverity(...)\n```\n\nLisible, mais :\n- entre `new` et le dernier setter, l'objet est **incohérent**, et rien n'empêche de l'utiliser dans cet état. Le bug apparaîtra loin de sa cause ;\n- l'objet ne peut pas être **immuable**, donc il faut penser à la sécurité entre threads (module 11).\n\n### La solution : le Builder\n\n```java\nAlert cpu = new Alert.Builder(\"cpu\", Severity.WARN)   // obligatoires\n        .threshold(0.9)                               // options, dans n'importe quel ordre\n        .forMinutes(10)\n        .channel(\"#ops\")\n        .build();                                     // objet immuable\n```\n\nLa forme classique :\n\n```java\npublic final class Alert {\n    private final String name;\n    private final Severity severity;\n    private final double threshold;\n    private final int minutes;\n\n    public static final class Builder {\n        private final String name;              // obligatoires : final\n        private final Severity severity;\n        private double threshold = 0.9;         // options : valeurs par défaut au même endroit\n        private int minutes = 5;\n\n        public Builder(String name, Severity severity) {\n            this.name = Objects.requireNonNull(name);\n            this.severity = Objects.requireNonNull(severity);\n        }\n        public Builder threshold(double t) { threshold = t; return this; }\n        public Builder forMinutes(int m) { minutes = m; return this; }\n        public Alert build() { return new Alert(this); }\n    }\n\n    private Alert(Builder b) {                  // seul chemin de construction\n        name = b.name;\n        severity = b.severity;\n        threshold = b.threshold;\n        minutes = b.minutes;\n    }\n}\n```\n\nPoints clés :\n- le builder est une **classe imbriquée statique** (on verra pourquoi `static` au module 4) ;\n- chaque méthode renvoie `this` : c'est une **API fluide** qui simule des paramètres nommés ;\n- le constructeur de `Alert` est **privé** : on ne peut obtenir une alerte que par `build()`, donc toujours complète ;\n- toutes les valeurs par défaut sont **au même endroit**.\n\n### Où valider ?\n\nLe plus tôt possible, au plus près de l'erreur :\n\n| Ce qu'on vérifie | Où |\n|---|---|\n| Un paramètre obligatoire | constructeur du builder |\n| Une option isolée (`threshold` entre 0 et 1) | sa méthode du builder |\n| Un invariant entre plusieurs paramètres (`minutes > 0` si `severity == PAGE`) | dans `build()`, **après** avoir copié les valeurs dans l'objet |\n\nPourquoi après la copie ? Pour que l'objet vérifie **ses propres champs**, que plus personne ne peut changer.\n\n> **Java 25 :** dans un builder **hiérarchique** (plus bas), le constructeur d'une sous-classe peut désormais valider et affecter ses propres champs **avant** `super(builder)` (module 0, leçon 2). Si le constructeur parent appelle une méthode redéfinie, elle verra déjà des champs valides. On retrouvera ce principe avec les copies défensives (module 8). En cas d'échec, lève une `IllegalArgumentException` dont le message dit **quel** paramètre est fautif.\n\n::checkpoint{id=\"c3\"}\n\n### Un builder est réutilisable\n\nOn peut construire plusieurs objets avec le même builder, en changeant quelques options entre deux `build()`. Un builder peut aussi remplir des champs tout seul (un numéro de série qui s'incrémente). Conséquence : `build()` doit **copier** les structures mutables (listes, maps), sinon un objet déjà construit changerait quand on continue à utiliser le builder. Tu vas écrire ce test dans le lab.\n\n::checkpoint{id=\"c2\"}\n\n### Builders hiérarchiques\n\nLe Builder s'adapte aux hiérarchies de classes : une classe abstraite a un builder abstrait, chaque sous-classe concrète a son builder concret. Le problème : une méthode du builder parent renvoie le type **parent**, donc on perd les méthodes de l'enfant au milieu d'une chaîne.\n\n```java\nabstract class Message {\n    final Set<Tag> tags;\n\n    abstract static class Builder<T extends Builder<T>> {\n        private final EnumSet<Tag> tags = EnumSet.noneOf(Tag.class);\n\n        public T tag(Tag t) {\n            tags.add(Objects.requireNonNull(t));\n            return self();                       // renvoie le builder CONCRET\n        }\n        abstract Message build();\n        protected abstract T self();            // chaque sous-classe renvoie this\n    }\n\n    Message(Builder<?> b) { tags = Set.copyOf(b.tags); }\n}\n\nfinal class Email extends Message {\n    private final String to;\n\n    static final class Builder extends Message.Builder<Builder> {\n        private final String to;\n        Builder(String to) { this.to = to; }\n        @Override public Email build() { return new Email(this); }   // retour covariant\n        @Override protected Builder self() { return this; }\n    }\n\n    private Email(Builder b) { super(b); to = b.to; }\n}\n\nEmail e = new Email.Builder(\"ana@example.com\").tag(Tag.URGENT).build();   // aucun cast\n```\n\n`Builder<T extends Builder<T>>` est un **paramètre de type récursif** (module 5) ; avec `self()`, il simule le « type de soi-même » que Java n'a pas. C'est l'**idiome du self-type simulé**. Le retour **covariant** de `build()` donne directement un `Email`. Autre petit bonus : chaque option a sa propre méthode, donc un builder peut accepter plusieurs paramètres variadiques, ou accumuler plusieurs appels (`tag` deux fois) dans un seul champ.\n\n### Le prix\n\nIl faut créer un objet de plus (le builder), ce qui ne compte presque jamais. Et c'est plus verbeux : réserve-le aux classes qui ont **au moins quatre paramètres**, ou qui en auront. Ajouter un builder plus tard laisse les anciens constructeurs traîner : si la classe va grossir, commence directement par un builder.\n\n> **Au-delà du livre (Java 16+)** : pour une petite valeur à 2 ou 3 champs, tous obligatoires, un `record` avec un constructeur compact qui valide est plus simple qu'un builder. Le builder reste la bonne réponse quand les options s'accumulent.\n\n## Pièges fréquents\n\n- **Partager la collection du builder** avec l'objet construit : continuer à utiliser le builder modifie l'objet « immuable ». Copie dans le constructeur privé (`List.copyOf`, `Set.copyOf`).\n- **Valider dans `build()` sur les champs du builder**, puis copier : entre les deux, rien ne change ici, mais prends l'habitude de vérifier l'objet final.\n- **Oublier `self()`** dans une sous-classe : la compilation échoue, ce qui est voulu.\n- **Mettre des setters dans l'objet construit** « au cas où » : tu perds l'immutabilité qui justifiait le builder.\n\n## À retenir\n\n- Télescopique : sûr mais illisible. JavaBeans : lisible mais incohérent et mutable. **Builder : sûr et lisible.**\n- Obligatoires dans le constructeur du builder, options par méthodes chaînées, `build()` appelle un constructeur **privé**.\n- Valide chaque paramètre à son arrivée, et les invariants croisés dans `build()` sur les champs copiés.\n- Hiérarchies : `Builder<T extends Builder<T>>` + `self()` + `build()` covariant.\n\n> **Source :** *Effective Java*, 3e éd., item 2 (pages 10 à 16).\n",
    "chapter": {
     "course_id": "java",
     "id": "java-ch01",
     "title": "Créer et détruire des objets"
    },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [
+      "Le compilateur refuse l'appel",
+      "Une exception est levée à l'exécution",
+      "Tout compile et s'exécute : la réservation fait 2 nuits pour 3 adultes",
+      "Java réordonne les arguments d'après leurs noms"
+     ],
+     "code": null,
+     "id": "c1",
+     "prompt": "La signature est `Reservation(String guest, String room, int nights, int adults)`. Un appel écrit `new Reservation(\"Ana\", \"204\", 2, 3)` pour 3 nuits et 2 adultes. Que se passe-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "public class Main {\n    static final class Request {\n        final List<String> headers;\n        Request(Builder b) { headers = b.headers; }\n        static final class Builder {\n            final List<String> headers = new ArrayList<>();\n            Builder header(String h) { headers.add(h); return this; }\n            Request build() { return new Request(this); }\n        }\n    }\n\n    public static void main(String[] args) {\n        Request.Builder b = new Request.Builder().header(\"Accept\");\n        Request first = b.build();\n        Request second = b.header(\"Auth\").build();\n        System.out.println(first.headers.size() + \" \" + (first.headers == second.headers));\n    }\n}\n",
+     "id": "c2",
+     "prompt": "Ce builder est réutilisé pour deux requêtes. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Dans checkIn(), en comparant avec checkOut",
+      "Dans checkOut(), en comparant avec checkIn",
+      "Dans build() ou le constructeur privé, sur les champs copiés dans Booking",
+      "Nulle part : c'est à l'appelant de faire attention"
+     ],
+     "code": null,
+     "id": "c3",
+     "prompt": "Un builder de `Booking` reçoit `checkIn(...)` et `checkOut(...)`, dans n'importe quel ordre. Où vérifier que checkOut est après checkIn ?",
+     "type": "single"
+    }
+   ],
    "completed": true,
    "concepts": [
     {

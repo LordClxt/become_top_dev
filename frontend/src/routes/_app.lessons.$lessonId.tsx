@@ -1,15 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { BookOpen, Check, ChevronLeft, ChevronRight, Clock, FlaskConical, Sparkles } from 'lucide-react'
-import { type ReactNode, useEffect, useMemo, useState } from 'react'
+import { BookOpen, Check, ChevronLeft, ChevronRight, Clock, Sparkles } from 'lucide-react'
+import { type ReactNode, useMemo, useRef } from 'react'
 import { GridZone } from '@/components/Backdrop'
 import { Flashcards } from '@/components/Flashcards'
 import { LessonBody, lessonSections } from '@/components/LessonBody'
+import { FinishSteps } from '@/components/lesson/FinishSteps'
+import { ReadingBar, Toc, useReading } from '@/components/lesson/reading'
 import { Quiz } from '@/components/Quiz'
 import { ErrorState, Loading } from '@/components/states'
-import { Button } from '@/components/ui/button'
 import { announceXp } from '@/features/xp/xp-events'
-import { api, type Chapter, type ExerciseSummary, type Lesson } from '@/lib/api'
+import { api, type Chapter } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { docLabel } from '@/lib/source'
 
@@ -31,13 +32,26 @@ function LessonPage() {
   const complete = useMutation({
     mutationFn: () => api.completeLesson(lessonId),
     onSuccess: (r) => {
-      announceXp({ amount: r.xp_awarded, reason: 'Leçon terminée' })
+      announceXp({ amount: r.xp_awarded, reason: 'Leçon terminée', kind: 'lesson', title: lesson?.title })
       return qc.invalidateQueries()
     },
   })
 
+  const quizId = lesson?.quiz_id
+  const { data: quiz } = useQuery({
+    queryKey: ['quiz', quizId],
+    queryFn: () => api.quiz(quizId!),
+    enabled: !!quizId,
+  })
+
   const body = lesson?.body ?? ''
   const sections = useMemo(() => lessonSections(body), [body])
+  const sectionIds = useMemo(() => sections.map((s) => s.id), [sections])
+  const articleRef = useRef<HTMLDivElement>(null)
+  const reading = useReading(articleRef, sectionIds)
+  // État à l'arrivée sur la page : une leçon déjà terminée ne relance pas.
+  const landed = useRef<{ id: string; done: boolean } | null>(null)
+  if (lesson && landed.current?.id !== lesson.id) landed.current = { id: lesson.id, done: lesson.completed }
 
   if (isPending) return <Loading />
   if (error) return <ErrorState error={error} />
@@ -45,9 +59,14 @@ function LessonPage() {
   const position = lessons.findIndex((l) => l.id === lesson.id)
   const titleOf = (id: string | null) => lessons.find((l) => l.id === id)?.title
   const done = lesson.completed || !!complete.data
+  const landedDone = landed.current?.done ?? lesson.completed
+  const checkpoints = lesson.checkpoints ?? []
+  const solved = checkpoints.filter((c) => c.answered).length
+  const minutesLeft = Math.ceil(lesson.duration_min * (1 - reading.progress))
 
   return (
     <main className="relative isolate overflow-x-clip">
+      <ReadingBar progress={reading.progress} />
       <GridZone style={{ top: -140, right: -60 }} size={620} glow={{ x: -0.05, y: 0.05 }} />
 
       <header className="mx-auto max-w-[1400px] px-6 pt-10 pb-12">
@@ -84,26 +103,47 @@ function LessonPage() {
       </header>
 
       <div className="mx-auto grid max-w-[1400px] gap-10 px-6 pb-24 xl:grid-cols-[200px_minmax(0,1fr)_280px] xl:gap-12">
-        <Toc sections={sections} />
+        <Toc
+          sections={sections}
+          reading={reading}
+          checkpoints={{ solved, total: checkpoints.length }}
+          minutesLeft={minutesLeft}
+          done={done}
+        />
 
         <article className="min-w-0">
-          <LessonBody body={lesson.body} visuals={lesson.visuals} />
+          <div ref={articleRef}>
+            <LessonBody
+              body={lesson.body}
+              visuals={lesson.visuals}
+              lessonId={lesson.id}
+              language={lesson.chapter.course_id === 'grails' ? 'groovy' : lesson.chapter.course_id}
+              checkpoints={checkpoints}
+              glossary={lesson.glossary}
+            />
+          </div>
 
-          <FinishPanel lesson={lesson} done={done} awarded={complete.data?.xp_awarded ?? 0}>
-            {!done && (
-              <Button
-                size="lg"
-                className="h-11 rounded-xl px-5"
-                onClick={() => complete.mutate()}
-                disabled={complete.isPending}
-              >
-                Terminer la leçon (+{lesson.xp} XP)
-              </Button>
-            )}
-          </FinishPanel>
+          <FinishSteps
+            lesson={lesson}
+            done={done}
+            landedDone={landedDone}
+            awarded={complete.data?.xp_awarded ?? 0}
+            completing={complete.isPending}
+            onComplete={() => complete.mutate()}
+            quiz={quiz ? { total: quiz.questions.length, answered: quiz.questions.filter((q) => q.answered).length } : null}
+            nextTitle={titleOf(lesson.next_id)}
+          />
 
-          {lesson.quiz_id && <Quiz quizId={lesson.quiz_id} />}
-          {lesson.flashcards.length > 0 && <Flashcards cards={lesson.flashcards} />}
+          {lesson.quiz_id && (
+            <div id="lesson-quiz" className="scroll-mt-20">
+              <Quiz quizId={lesson.quiz_id} />
+            </div>
+          )}
+          {lesson.flashcards.length > 0 && (
+            <div id="lesson-cards" className="scroll-mt-20">
+              <Flashcards cards={lesson.flashcards} />
+            </div>
+          )}
 
           <nav className="mt-12 grid gap-3 sm:grid-cols-2" aria-label="Leçons">
             {lesson.previous_id ? (
@@ -128,19 +168,25 @@ function LessonPage() {
           </nav>
         </article>
 
-        <aside className="grid content-start gap-4 text-sm xl:sticky xl:top-8 xl:self-start">
-          <Panel title="Concepts de la leçon">
-            <ul className="grid gap-2.5">
-              {lesson.concepts.map((c) => (
-                <li key={c.id} className="flex gap-2.5 leading-snug">
-                  <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                  {c.label}
-                </li>
-              ))}
-            </ul>
+        <aside className="grid content-start gap-4 text-sm xl:sticky xl:top-20 xl:max-h-[calc(100vh-6rem)] xl:self-start xl:overflow-y-auto">
+          <Panel title="Ce que tu vas maîtriser" count={lesson.concepts.length}>
+            <ol className="grid gap-3">
+              {lesson.concepts.map((c, i) => {
+                const [head, ...rest] = c.label.split(' : ')
+                return (
+                  <li key={c.id} className="flex gap-3 leading-snug">
+                    <span className="mt-0.5 font-code text-xs text-accent">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="min-w-0">
+                      <span className="font-medium text-text">{head}</span>
+                      {rest.length > 0 && <span className="mt-0.5 block text-muted">{rest.join(' : ')}</span>}
+                    </span>
+                  </li>
+                )
+              })}
+            </ol>
           </Panel>
           {lesson.glossary.length > 0 && (
-            <Panel title="Glossaire">
+            <Panel title="Glossaire" count={lesson.glossary.length}>
               <dl className="grid gap-3.5">
                 {lesson.glossary.map((g) => (
                   <div key={g.term}>
@@ -199,112 +245,15 @@ function ChapterSteps({ lessons, currentId }: { lessons: Chapter['lessons']; cur
   )
 }
 
-/** Sommaire collant ; la section visible est surlignée. */
-function Toc({ sections }: { sections: { id: string; title: string }[] }) {
-  const [active, setActive] = useState(sections[0]?.id)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting)
-        if (visible[0]) setActive(visible[0].target.id)
-      },
-      { rootMargin: '-15% 0px -70% 0px' },
-    )
-    for (const s of sections) {
-      const el = document.getElementById(s.id)
-      if (el) observer.observe(el)
-    }
-    return () => observer.disconnect()
-  }, [sections])
-
+function Panel({ title, count, children }: { title: string; count?: number; children: ReactNode }) {
   return (
-    <nav className="hidden text-sm xl:sticky xl:top-8 xl:block xl:self-start" aria-label="Sommaire de la leçon">
-      <p className="mb-3 font-medium text-muted">Dans cette leçon</p>
-      <ol className="grid gap-0.5 border-l border-line">
-        {sections.map((s) => (
-          <li key={s.id}>
-            <a
-              href={`#${s.id}`}
-              className={cn(
-                '-ml-px block border-l-2 py-1.5 pl-3 leading-snug',
-                active === s.id ? 'border-accent text-text' : 'border-transparent text-muted hover:text-text',
-              )}
-            >
-              {s.title}
-            </a>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  )
-}
-
-function Panel({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <section className="rounded-xl border border-line bg-surface/80 p-4 backdrop-blur">
-      <h2 className="mb-3 font-medium text-muted">{title}</h2>
+    <section className="rounded-2xl border border-line bg-surface/80 p-5 backdrop-blur">
+      <h2 className="mb-4 flex items-baseline justify-between gap-2 text-xs font-semibold tracking-[0.08em] text-muted uppercase">
+        {title}
+        {count !== undefined && <span className="font-code font-normal tracking-normal">{count}</span>}
+      </h2>
       {children}
     </section>
-  )
-}
-
-function FinishPanel({
-  lesson,
-  done,
-  awarded,
-  children,
-}: {
-  lesson: Lesson
-  done: boolean
-  awarded: number
-  children: ReactNode
-}) {
-  return (
-    <section className="relative isolate mt-14 overflow-hidden rounded-2xl border border-line bg-surface p-6 md:p-8">
-      <div className="bg-grid pointer-events-none absolute -bottom-32 -left-24 -z-10 size-96" aria-hidden="true" />
-      <div className="glow-accent pointer-events-none absolute -bottom-20 left-10 -z-10 size-56 rounded-full" aria-hidden="true" />
-      <h2 className="font-read text-2xl font-semibold">{done ? 'Leçon terminée' : 'Tu as tout lu ?'}</h2>
-      <p className="mt-1 text-muted">
-        {done
-          ? awarded > 0
-            ? `+${awarded} XP. Passe maintenant à la pratique.`
-            : 'Passe maintenant à la pratique.'
-          : 'Valide la leçon, puis mets-la en pratique avec le TP.'}
-      </p>
-      {children && <div className="mt-5">{children}</div>}
-      {lesson.labs.length > 0 && (
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-          {lesson.labs.map((lab) => (
-            <li key={lab.id}>
-              <LabCard lab={lab} />
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  )
-}
-
-function LabCard({ lab }: { lab: ExerciseSummary }) {
-  return (
-    <Link
-      to="/exercises/$exerciseId"
-      params={{ exerciseId: lab.id }}
-      className="group flex h-full items-start gap-3 rounded-xl border border-line bg-ink/60 p-4 hover:border-accent"
-    >
-      <span
-        className={cn(
-          'grid size-9 shrink-0 place-items-center rounded-lg',
-          lab.passed ? 'bg-pass/15 text-pass' : 'bg-accent/15 text-accent',
-        )}
-      >
-        {lab.passed ? <Check className="size-4" /> : <FlaskConical className="size-4" />}
-      </span>
-      <span className="min-w-0">
-        <span className="block text-sm text-muted">TP {lab.passed ? 'réussi' : `${lab.xp} XP`}</span>
-        <span className="block font-medium group-hover:text-accent">{lab.title}</span>
-      </span>
-    </Link>
   )
 }
 

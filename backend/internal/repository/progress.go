@@ -35,6 +35,21 @@ func (r *ProgressRepo) AwardXP(ctx context.Context, kind, refID string, amount i
 	return got, err
 }
 
+// XPRefs renvoie les ref_id déjà récompensés pour kind et commençant par prefix (ex. les points de contrôle d'une leçon).
+func (r *ProgressRepo) XPRefs(ctx context.Context, kind, prefix string) (map[string]bool, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT ref_id FROM xp_events WHERE user_id = $1 AND kind = $2 AND starts_with(ref_id, $3)`, r.uid, kind, prefix)
+	if err != nil {
+		return nil, err
+	}
+	ids, err := pgx.CollectRows(rows, pgx.RowTo[string])
+	out := make(map[string]bool, len(ids))
+	for _, id := range ids {
+		out[id] = true
+	}
+	return out, err
+}
+
 func (r *ProgressRepo) TotalXP(ctx context.Context) (int, error) {
 	var total int
 	err := r.db.QueryRow(ctx, `SELECT COALESCE(SUM(amount), 0) FROM xp_events WHERE user_id = $1`, r.uid).Scan(&total)

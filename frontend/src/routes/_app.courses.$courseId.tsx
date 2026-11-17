@@ -3,11 +3,12 @@ import { CourseBooks } from '@/components/CourseBooks'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { GridZone } from '@/components/Backdrop'
 import { CoursePath } from '@/components/CoursePath'
+import { CourseStats } from '@/components/journey/CourseStats'
 import { ErrorState } from '@/components/states'
 import { Button } from '@/components/ui/button'
 import { coursesQuery } from '@/features/courses/queries'
 import { RequirementNote } from '@/features/courses/RequirementNote'
-import { plural, summarizeCourse } from '@/features/courses/summary'
+import { summarizeCourse } from '@/features/courses/summary'
 
 export const Route = createFileRoute('/_app/courses/$courseId')({
   loader: async ({ context: { queryClient }, params }) => {
@@ -16,7 +17,9 @@ export const Route = createFileRoute('/_app/courses/$courseId')({
     if (!course) throw notFound()
     return { title: course.title }
   },
-  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? 'Cours'} · become_top_dev` }] }),
+  head: ({ loaderData }) => ({
+    meta: [{ title: `${loaderData?.title ?? 'Cours'} · become_top_dev` }],
+  }),
   errorComponent: ({ error }) => <ErrorState error={error} />,
   notFoundComponent: () => (
     <main className="mx-auto max-w-[1200px] px-6 py-24">
@@ -34,7 +37,7 @@ function CoursePage() {
   const { data: courses } = useSuspenseQuery(coursesQuery)
   const course = courses.find((c) => c.id === courseId)
   if (!course) return null
-  const { total, available, mastered, lessonsDone, lessonsTotal, next } = summarizeCourse(course)
+  const { available, next } = summarizeCourse(course)
 
   return (
     <main className="relative isolate overflow-x-clip">
@@ -70,29 +73,10 @@ function CoursePage() {
             </p>
           ) : null}
 
-          {available > 0 && (
-            <p className="mt-8 max-w-[46ch] text-sm leading-relaxed text-muted">
-              <span className="text-text tabular-nums">{plural(mastered, 'module maîtrisé', 'modules maîtrisés')}</span>{' '}
-              sur {total}
-              {lessonsTotal > 0 && (
-                <>
-                  , <span className="text-text tabular-nums">{plural(lessonsDone, 'leçon terminée', 'leçons terminées')}</span>{' '}
-                  sur {lessonsTotal}
-                </>
-              )}
-              . {available < total && `${plural(available, 'module prêt', 'modules prêts')} ; les autres sont en cours de rédaction.`}
-            </p>
-          )}
-
-          {course.running_project && (
-            <div className="mt-10 max-w-[46ch] border-t border-line pt-6">
-              <h2 className="text-sm font-medium">Fil rouge : {course.running_project.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{course.running_project.pitch}</p>
-            </div>
-          )}
+          <CourseStats course={course} />
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="min-w-0">
           <CoursePath course={course} />
         </div>
       </section>

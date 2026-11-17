@@ -269,6 +269,7 @@ type LessonView struct {
 	Labs        []*ExerciseSummary         `json:"labs"`
 	QuizID      *string                    `json:"quiz_id"`
 	Flashcards  []content.Flashcard        `json:"flashcards"`
+	Checkpoints []CheckpointView           `json:"checkpoints"`
 	Completed   bool                       `json:"completed"`
 	PreviousID  *string                    `json:"previous_id"`
 	NextID      *string                    `json:"next_id"`
@@ -298,6 +299,10 @@ func (s *Service) Lesson(ctx context.Context, uid int64, id string) (*LessonView
 		DurationMin: l.DurationMin, XP: l.XP, Extra: l.Extra, Body: l.Body, Concepts: l.Concepts,
 		Glossary: l.Glossary, Visuals: visuals, Labs: s.labSummaries(l.Labs, passed), QuizID: optional(l.QuizID),
 		Flashcards: l.Flashcards, Completed: done[l.ID],
+	}
+	view.Checkpoints, err = s.checkpointViews(ctx, uid, l)
+	if err != nil {
+		return nil, err
 	}
 	if pos > 0 {
 		view.PreviousID = &ch.LessonIDs[pos-1]
@@ -423,6 +428,65 @@ func (s *Service) Answer(ctx context.Context, uid int64, quizID, questionID stri
 		return nil, err
 	}
 	return &AnswerResult{Correct: correct, Expected: q.Answer, Explanation: q.Explanation, XPAwarded: xp}, nil
+}
+
+// CheckpointXP est l'XP d'un point de contrôle réussi (une seule fois).
+const CheckpointXP = 3
+
+// CheckpointView est une question posée dans le corps d'une leçon, sans réponse ni explication.
+type CheckpointView struct {
+	ID       string   `json:"id"`
+	Type     string   `json:"type"`
+	Prompt   string   `json:"prompt"`
+	Code     *string  `json:"code"`
+	Choices  []string `json:"choices"`
+	Answered bool     `json:"answered"` // déjà réussi une fois
+}
+
+func checkpointRef(lessonID, checkpointID string) string { return lessonID + "/" + checkpointID }
+
+func (s *Service) checkpointViews(ctx context.Context, uid int64, l *content.Lesson) ([]CheckpointView, error) {
+	out := []CheckpointView{}
+	if len(l.Checkpoints) == 0 {
+		return out, nil
+	}
+	solved, err := s.repos().Progress(uid).XPRefs(ctx, "checkpoint", l.ID+"/")
+	if err != nil {
+		return nil, err
+	}
+	for _, c := range l.Checkpoints {
+		out = append(out, CheckpointView{
+			ID: c.ID, Type: c.Type, Prompt: c.Prompt, Code: c.Code, Choices: c.Choices,
+			Answered: solved[checkpointRef(l.ID, c.ID)],
+		})
+	}
+	return out, nil
+}
+
+// AnswerCheckpoint corrige un point de contrôle. Les essais sont libres ; la première bonne réponse rapporte
+// CheckpointXP. Rien n'est écrit dans quiz_answers : la maîtrise du module n'en dépend pas.
+func (s *Service) AnswerCheckpoint(ctx context.Context, uid int64, lessonID, checkpointID string, answer any) (*AnswerResult, error) {
+	l := s.Content.Lessons[lessonID]
+	if l == nil {
+		return nil, errorf(NotFound, "leçon introuvable")
+	}
+	i := slices.IndexFunc(l.Checkpoints, func(q content.QuizQuestion) bool { return q.ID == checkpointID })
+	if i < 0 {
+		return nil, errorf(NotFound, "point de contrôle introuvable")
+	}
+	c := l.Checkpoints[i]
+	correct, err := IsCorrect(c, answer)
+	if err != nil {
+		return nil, errorf(Invalid, "type de question non corrigé automatiquement : %s", err)
+	}
+	xp := 0
+	if correct {
+		xp, err = s.repos().Progress(uid).AwardXP(ctx, "checkpoint", checkpointRef(l.ID, c.ID), CheckpointXP)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return &AnswerResult{Correct: correct, Expected: c.Answer, Explanation: c.Explanation, XPAwarded: xp}, nil
 }
 
 func optional(s string) *string {

@@ -29,6 +29,54 @@ visuals: []
 labs: [java-ch01-l02-lab-http-request]
 extra: false
 xp: 30
+checkpoints:
+  - id: c1
+    type: single
+    prompt: "La signature est `Reservation(String guest, String room, int nights, int adults)`. Un appel écrit `new Reservation(\"Ana\", \"204\", 2, 3)` pour 3 nuits et 2 adultes. Que se passe-t-il ?"
+    choices:
+      - "Le compilateur refuse l'appel"
+      - "Une exception est levée à l'exécution"
+      - "Tout compile et s'exécute : la réservation fait 2 nuits pour 3 adultes"
+      - "Java réordonne les arguments d'après leurs noms"
+    answer: 2
+    explanation: "Le compilateur ne vérifie que les types, et deux int restent deux int quel que soit leur ordre. Un builder nomme chaque valeur (nights(3).adults(2)), ce qui rend l'inversion visible à la lecture."
+    concept: java-telescoping-ctor
+  - id: c2
+    type: code-output
+    prompt: "Ce builder est réutilisé pour deux requêtes. Qu'affiche le programme ?"
+    code: |
+      public class Main {
+          static final class Request {
+              final List<String> headers;
+              Request(Builder b) { headers = b.headers; }
+              static final class Builder {
+                  final List<String> headers = new ArrayList<>();
+                  Builder header(String h) { headers.add(h); return this; }
+                  Request build() { return new Request(this); }
+              }
+          }
+
+          public static void main(String[] args) {
+              Request.Builder b = new Request.Builder().header("Accept");
+              Request first = b.build();
+              Request second = b.header("Auth").build();
+              System.out.println(first.headers.size() + " " + (first.headers == second.headers));
+          }
+      }
+    answer: "2 true"
+    explanation: "Les deux requêtes et le builder pointent vers la même ArrayList : ajouter Auth pour la seconde modifie aussi la première. build() doit copier la liste (List.copyOf) pour que chaque objet construit soit indépendant du builder."
+    concept: java-builder
+  - id: c3
+    type: single
+    prompt: "Un builder de `Booking` reçoit `checkIn(...)` et `checkOut(...)`, dans n'importe quel ordre. Où vérifier que checkOut est après checkIn ?"
+    choices:
+      - "Dans checkIn(), en comparant avec checkOut"
+      - "Dans checkOut(), en comparant avec checkIn"
+      - "Dans build() ou le constructeur privé, sur les champs copiés dans Booking"
+      - "Nulle part : c'est à l'appelant de faire attention"
+    answer: 2
+    explanation: "Tant que les deux dates ne sont pas connues, aucune méthode du builder ne peut trancher, puisque l'ordre des appels est libre. On vérifie donc une fois tout reçu, sur les champs de l'objet final que plus personne ne peut modifier."
+    concept: java-builder-validation
 ---
 
 ## Pourquoi c'est important
@@ -52,6 +100,8 @@ public Alert(String name, Severity sev, double threshold, int minutes) { this(na
 
 Ça fonctionne, mais l'appel `new Alert("cpu", WARN, 0.9, 10, "#ops", 3, true)` est indéchiffrable. Pire : deux `int` inversés **compilent** et donnent un comportement faux à l'exécution.
 
+::checkpoint{id="c1"}
+
 ### Tentative 2 : le patron JavaBeans
 
 ```java
@@ -67,6 +117,24 @@ Lisible, mais :
 
 ### La solution : le Builder
 
+La même alerte, écrite des trois façons :
+
+:::compare
+--- bad: Constructeur télescopique
+```java
+new Alert("cpu", WARN, 0.9, 10, "#ops", 3, true);
+```
+Que vaut `10` ? Et `3` ? Il faut ouvrir la classe pour le savoir.
+--- bad: Patron JavaBeans
+```java
+Alert a = new Alert();
+a.setName("cpu");
+a.setSeverity(Severity.WARN);
+a.setThreshold(0.9);
+a.setMinutes(10);
+```
+Lisible, mais `a` existe déjà, incomplet, pendant quatre lignes.
+--- good: Builder
 ```java
 Alert cpu = new Alert.Builder("cpu", Severity.WARN)   // obligatoires
         .threshold(0.9)                               // options, dans n'importe quel ordre
@@ -74,10 +142,13 @@ Alert cpu = new Alert.Builder("cpu", Severity.WARN)   // obligatoires
         .channel("#ops")
         .build();                                     // objet immuable
 ```
+Chaque valeur est nommée, et l'alerte n'existe qu'une fois complète.
+:::
 
-La forme classique :
+La forme classique, ligne par ligne :
 
-```java
+:::steps
+```java title="Alert.java"
 public final class Alert {
     private final String name;
     private final Severity severity;
@@ -107,12 +178,13 @@ public final class Alert {
     }
 }
 ```
-
-Points clés :
-- le builder est une **classe imbriquée statique** (on verra pourquoi `static` au module 4) ;
-- chaque méthode renvoie `this` : c'est une **API fluide** qui simule des paramètres nommés ;
-- le constructeur de `Alert` est **privé** : on ne peut obtenir une alerte que par `build()`, donc toujours complète ;
-- toutes les valeurs par défaut sont **au même endroit**.
+--- 1-5: Tous les champs de `Alert` sont `final` : une fois construite, une alerte ne change plus jamais.
+--- 7: Le builder est une **classe imbriquée statique** (on verra pourquoi `static` au module 4). Il vit à côté de la classe qu'il construit.
+--- 8-11: Il copie les mêmes champs. Les obligatoires sont `final`, les options reçoivent leur **valeur par défaut**, toutes au même endroit.
+--- 13-16: Son constructeur exige les paramètres obligatoires et les vérifie tout de suite : impossible de commencer une alerte sans nom.
+--- 17-18: Chaque option renvoie `this`. C'est une **API fluide** : `.threshold(0.9).forMinutes(10)` se lit comme des paramètres nommés.
+--- 19,22-27: `build()` appelle le constructeur **privé** de `Alert`, seul chemin de construction : on ne peut obtenir une alerte que par `build()`, donc toujours complète.
+:::
 
 ### Où valider ?
 
@@ -124,13 +196,19 @@ Le plus tôt possible, au plus près de l'erreur :
 | Une option isolée (`threshold` entre 0 et 1) | sa méthode du builder |
 | Un invariant entre plusieurs paramètres (`minutes > 0` si `severity == PAGE`) | dans `build()`, **après** avoir copié les valeurs dans l'objet |
 
-Pourquoi après la copie ? Pour que l'objet vérifie **ses propres champs**, que plus personne ne peut changer.
+:::reveal Pourquoi valider après la copie, et pas sur les champs du builder ?
+Parce que le builder reste modifiable : quelqu'un peut encore appeler une de ses méthodes. Une fois les valeurs copiées dans l'objet, l'objet vérifie **ses propres champs**, que plus personne ne peut changer. Ce qui a été validé est exactement ce qui sera utilisé.
+:::
 
 > **Java 25 :** dans un builder **hiérarchique** (plus bas), le constructeur d'une sous-classe peut désormais valider et affecter ses propres champs **avant** `super(builder)` (module 0, leçon 2). Si le constructeur parent appelle une méthode redéfinie, elle verra déjà des champs valides. On retrouvera ce principe avec les copies défensives (module 8). En cas d'échec, lève une `IllegalArgumentException` dont le message dit **quel** paramètre est fautif.
+
+::checkpoint{id="c3"}
 
 ### Un builder est réutilisable
 
 On peut construire plusieurs objets avec le même builder, en changeant quelques options entre deux `build()`. Un builder peut aussi remplir des champs tout seul (un numéro de série qui s'incrémente). Conséquence : `build()` doit **copier** les structures mutables (listes, maps), sinon un objet déjà construit changerait quand on continue à utiliser le builder. Tu vas écrire ce test dans le lab.
+
+::checkpoint{id="c2"}
 
 ### Builders hiérarchiques
 

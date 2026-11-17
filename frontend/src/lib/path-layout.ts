@@ -17,7 +17,13 @@ export type PathNode = Point & {
   side: 'left' | 'right'
 }
 
-export type Camp = { title: string; optional: boolean; count: number; y: number }
+export type Camp = {
+  title: string
+  optional: boolean
+  count: number
+  y: number
+  index: number
+}
 
 export type PathLayout = {
   width: number
@@ -69,7 +75,13 @@ export function layoutCourse(course: Course, width = PATH_WIDTH): PathLayout {
 
   for (const track of course.tracks.filter((t) => !t.optional)) {
     y += CAMP_GAP
-    camps.push({ title: track.title, optional: false, count: track.chapters.length, y: y - 76 })
+    camps.push({
+      title: track.title,
+      optional: false,
+      count: track.chapters.length,
+      y: y - 76,
+      index: camps.length,
+    })
     for (const ch of track.chapters) {
       main.push(place(ch, i++))
       y += STEP
@@ -83,7 +95,13 @@ export function layoutCourse(course: Course, width = PATH_WIDTH): PathLayout {
   let phase = (main.at(-1)?.x ?? CENTER) > CENTER ? -1.6 : 1.6
   for (const track of course.tracks.filter((t) => t.optional)) {
     y += CAMP_GAP
-    camps.push({ title: track.title, optional: true, count: track.chapters.length, y: y - 76 })
+    camps.push({
+      title: track.title,
+      optional: true,
+      count: track.chapters.length,
+      y: y - 76,
+      index: camps.length,
+    })
     for (const ch of track.chapters) {
       optional.push(place(ch, phase))
       phase += 0.95

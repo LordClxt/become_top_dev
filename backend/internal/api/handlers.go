@@ -122,6 +122,24 @@ func (s *Server) answer(w http.ResponseWriter, r *http.Request) {
 	respond(w, v, err)
 }
 
+// answerCheckpoint corrige un point de contrôle de leçon (même corps et même réponse que answer).
+func (s *Server) answerCheckpoint(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Answer json.RawMessage `json:"answer"`
+	}
+	if !decodeJSON(w, r, &body) {
+		return
+	}
+	if body.Answer == nil {
+		writeError(w, http.StatusUnprocessableEntity, "answer requis")
+		return
+	}
+	var answer any
+	_ = json.Unmarshal(body.Answer, &answer)
+	v, err := s.svc.AnswerCheckpoint(r.Context(), uid(r), r.PathValue("id"), r.PathValue("checkpoint"), answer)
+	respond(w, v, err)
+}
+
 // --- Progression -------------------------------------------------------------
 
 // userDay lit le fuseau IANA envoyé par le navigateur : il décide à quel jour appartient une action.

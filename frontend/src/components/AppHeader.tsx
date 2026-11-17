@@ -2,8 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { FlaskConical, GraduationCap, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { StreakFlame } from '@/components/StreakFlame'
-import { LevelTile, XpBar } from '@/components/XpBar'
+import { HeaderXpCluster } from '@/components/celebrate/HeaderXpCluster'
 import { progressQuery } from '@/features/courses/queries'
 import { api } from '@/lib/api'
 import { toggleTheme } from '@/lib/theme'
@@ -31,9 +30,6 @@ export function AppHeader() {
     setTheme(document.documentElement.classList.contains('light') ? 'light' : 'dark')
   }, [])
 
-  const toNext = progress ? progress.next_level_xp - progress.xp : 0
-  const streak = progress?.streak_days ?? 0
-
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-ink/85 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between gap-3 px-4 md:gap-6 md:px-6">
@@ -59,40 +55,7 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-1 text-sm md:gap-2">
-          {progress && (
-            <>
-              <Link
-                to="/profile"
-                className="flex items-center gap-3 rounded-lg py-1 pr-3 pl-1 transition-colors duration-(--dur-fast) hover:bg-surface-2"
-                title={`${progress.xp} XP au total. Encore ${toNext} XP avant le niveau ${progress.level + 1}.`}
-              >
-                <LevelTile level={progress.level} size="sm" />
-                <span className="hidden flex-col gap-1 md:flex">
-                  <XpBar progress={progress} size="sm" />
-                  <span className="font-code text-[11px] leading-none text-muted tabular-nums">
-                    {progress.xp - progress.level_floor_xp}/{progress.next_level_xp - progress.level_floor_xp} XP
-                  </span>
-                </span>
-                <span className="sr-only">Niveau {progress.level}</span>
-              </Link>
-              <Link
-                to="/profile"
-                className={cn(
-                  'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-colors duration-(--dur-fast) hover:bg-surface-2',
-                  streak > 0 ? 'text-text' : 'text-muted',
-                )}
-                title={
-                  streak > 0
-                    ? `${streak} jour${streak > 1 ? 's' : ''} d’affilée avec au moins une activité`
-                    : 'Aucune série en cours : une leçon, un TP ou un quiz aujourd’hui la démarre'
-                }
-              >
-                <StreakFlame lit={streak > 0} />
-                <span className="font-medium tabular-nums">{streak}</span>
-                <span className="sr-only">{streak > 1 ? 'jours de série' : 'jour de série'}</span>
-              </Link>
-            </>
-          )}
+          {progress && <HeaderXpCluster progress={progress} />}
           <span className="mx-1 h-6 w-px bg-line" aria-hidden="true" />
           <button
             type="button"
