@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { AppHeader, MobileTabBar } from '@/components/AppHeader'
+import { CommandPalette } from '@/components/palette/CommandPalette'
 import { XpToaster } from '@/components/XpToaster'
 import { meQuery } from '@/features/auth/queries'
 import { progressQuery } from '@/features/courses/queries'
@@ -26,6 +27,7 @@ function AppLayout() {
       <div className="h-16 md:hidden" aria-hidden="true" />
       <MobileTabBar />
       <XpToaster />
+      <CommandPalette />
     </>
   )
 }

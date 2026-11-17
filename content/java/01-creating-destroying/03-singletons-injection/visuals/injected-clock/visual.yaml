@@ -1,0 +1,6 @@
+id: java-ch01-injected-clock
+concept: java-dependency-injection
+format: interactive
+justification: "Changer l'horloge passée au constructeur puis relancer le même test plusieurs fois montre directement la différence entre un test instable et un test déterministe."
+entry: InjectedClock.tsx
+status: built

@@ -2,7 +2,7 @@
 id: java-ch03-l02
 title: "Des accesseurs, pas des champs publics (et les records)"
 source: { chapter: 4, pages: "78-79" }
-duration_min: 30
+duration_min: 35
 concepts:
   - id: java-accessors-not-fields
     label: "Classe publique : accesseurs plutôt que champs publics, pour garder le droit de changer de représentation et de valider"
@@ -23,30 +23,95 @@ glossary:
     definition: "Le constructeur d'un record qui prend tous ses composants, dans l'ordre de l'en-tête."
   - term: "constructeur compact"
     definition: "Forme abrégée du constructeur canonique, sans liste de paramètres : son corps s'exécute avant l'affectation des champs."
-visuals: []
+  - term: "copie défensive"
+    definition: "Copie d'un objet mutable faite à l'entrée (constructeur) ou à la sortie (accesseur), pour que personne d'autre ne garde une référence vers l'état interne."
+visuals: [java-ch03-accessor-leak]
 labs: [java-ch03-l02-lab-shipping-record]
 extra: false
 xp: 30
+checkpoints:
+  - id: c1
+    type: single
+    prompt: "Ton API publique expose `Point` et tu décides de stocker des coordonnées polaires (`r`, `theta`) au lieu de `x`, `y`. Quelle version de Point te le permet sans casser un seul client ?"
+    choices:
+      - "Celle avec public double x, y : il suffit de garder les noms"
+      - "Celle avec public final double x, y : final fige la valeur, pas la représentation"
+      - "Celle avec private final double x, y et des méthodes x() et y()"
+      - "Aucune : changer la représentation casse toujours les clients"
+    answer: 2
+    explanation: "Les clients des deux premières versions lisent p.x, un champ : il doit exister pour toujours. Avec x(), le client appelle une méthode, qui peut très bien calculer r * Math.cos(theta) ; final protège la valeur, jamais la liberté de changer de représentation."
+    concept: java-accessors-not-fields
+  - id: c2
+    type: code-output
+    prompt: "Ce record redéfinit son accesseur pour arrondir. Qu'affiche le programme ?"
+    code: |
+      public class Main {
+          record Temp(double celsius) {
+              public double celsius() { return Math.round(celsius * 10) / 10.0; }
+          }
+
+          public static void main(String[] args) {
+              Object o = new Temp(21.456);
+              if (o instanceof Temp(var c)) {
+                  System.out.println(c + " " + o.equals(new Temp(21.5)));
+              }
+          }
+      }
+    answer: "21.5 false"
+    explanation: "Le motif Temp(var c) appelle l'accesseur, donc il voit la valeur arrondie ; equals, lui, compare les champs, qui valent 21.456 et 21.5. Un accesseur qui ne renvoie pas le composant tel quel crée cette incohérence : pour normaliser, fais-le dans le constructeur compact."
+    concept: java-record-compact-ctor
+  - id: c3
+    type: single
+    prompt: "Trouve le bug. `record Snapshot(int[] values) { Snapshot { values = values.clone(); } }`. Un client écrit `s.values()[0] = 99;`. Que devient l'état de `s` ?"
+    choices:
+      - "Rien : la copie du constructeur compact protège le record"
+      - "values()[0] vaut maintenant 99 : l'accesseur généré renvoie le tableau interne lui-même"
+      - "Erreur de compilation : les composants d'un record sont final"
+      - "UnsupportedOperationException à l'exécution"
+    answer: 1
+    explanation: "La copie à l'entrée coupe le lien avec le tableau de l'appelant, mais l'accesseur généré renvoie le champ tel quel, et final ne protège que la référence. Il faut aussi redéfinir values() pour renvoyer values.clone() (ou utiliser une List immuable)."
+    concept: java-record-mutable-components
+  - id: c4
+    type: code-output
+    prompt: "Qu'affiche le programme ?"
+    code: |
+      public class Main {
+          record Reading(double value) { }
+
+          public static void main(String[] args) {
+              Reading a = new Reading(Double.NaN);
+              Reading b = new Reading(Double.NaN);
+              System.out.println(a.equals(b) + " " + (a.value() == b.value()));
+          }
+      }
+    answer: "true false"
+    explanation: "L'equals d'un record compare un composant double comme Double.compare, pour lequel NaN est égal à NaN ; l'opérateur ==, lui, suit IEEE 754, où NaN n'est égal à rien. Sans cette règle, un record contenant NaN ne serait pas égal à lui-même et se perdrait dans un HashSet."
+    concept: java-record-basics
 ---
 
 ## Pourquoi c'est important
 
-En 1996, `java.awt.Dimension` expose `public int width, height`. Comme n'importe quel client peut modifier ces champs, chaque méthode qui renvoie une dimension (`getSize()` de chaque composant graphique) doit renvoyer une **nouvelle copie**, pour qu'un appelant ne puisse pas changer la taille d'un composant par accident. Des millions d'objets créés pour rien, à chaque mise en page. Changer de représentation ? Impossible : le code client lit les champs directement. C'est l'exemple que le livre cite comme un **avertissement**, pas comme un modèle.
+En 1996, `java.awt.Dimension` expose `public int width, height`. Comme n'importe quel client peut écrire dans ces champs, chaque `getSize()` de chaque composant graphique doit renvoyer une **nouvelle copie**, pour qu'un appelant ne change pas la taille d'un composant par accident. Des millions d'objets créés pour rien, à chaque mise en page. Et changer de représentation est impossible : le code client lit les champs directement. Le livre cite cet exemple comme un **avertissement**, pas comme un modèle.
 
 Un champ public fige trois choses pour toujours : la représentation, l'absence de validation, et l'absence de réaction quand la valeur change.
+
+> **Le modèle mental :** un **accesseur** (une méthode `x()` ou `getX()` qui renvoie une valeur) est un guichet. Le client demande, la classe décide quoi répondre et d'où sort la réponse. Un champ public, c'est la réserve ouverte au public.
 
 ## Le concept
 
 ### Classe publique : des accesseurs
 
+:::compare
+--- bad: Champs publics
 ```java
-// À ne pas faire dans une classe publique
 public class Point {
     public double x;
     public double y;
 }
-
-// Encapsulé
+```
+Les clients écrivent `p.x = -1` : aucune validation possible, et `x` doit exister à vie.
+--- good: Accesseurs
+```java
 public final class Point {
     private final double x;
     private final double y;
@@ -55,14 +120,20 @@ public final class Point {
     public double y() { return y; }
 }
 ```
+Les clients appellent `p.x()` : ce que la méthode fait derrière ne regarde que toi.
+:::
 
-Avec des accesseurs, demain tu peux stocker des coordonnées polaires, calculer `x` à la demande, journaliser les lectures, valider dans le constructeur. Le code client ne change pas.
+Avec des accesseurs, demain tu peux stocker des coordonnées polaires et calculer `x` à la demande, journaliser les lectures, valider dans le constructeur. Le code client ne change pas.
+
+::checkpoint{id="c1"}
 
 Pour une classe **mutable**, la même logique vaut pour les mutateurs (`setX`) : ils te laissent valider et réagir. Mais avant d'écrire un setter, relis la leçon suivante : la plupart du temps, la classe ne devrait pas être mutable du tout.
 
 ### Classe non publique : les champs, c'est acceptable
 
-Si la classe est **package-private** ou **imbriquée privée**, exposer ses champs ne pose pas de problème de fond, à condition qu'ils décrivent bien l'abstraction. Le code qui en dépend est confiné au paquetage (ou à la classe englobante) : un changement de représentation ne touche que du code que tu contrôles. Et c'est plus lisible, des deux côtés :
+Si la classe est **package-private** ou **imbriquée privée**, exposer ses champs ne pose pas de problème de fond, à condition qu'ils décrivent bien l'abstraction.
+
+La raison : le code qui en dépend est confiné au paquetage (ou à la classe englobante). Un changement de représentation ne touche que du code que tu contrôles, et tu le modifies dans le même commit. Et c'est plus lisible, des deux côtés :
 
 ```java
 // Dans Catalog : un détail d'implémentation, aucune cérémonie nécessaire
@@ -82,7 +153,7 @@ Tu peux garantir les invariants (le constructeur valide). Mais tu ne peux toujou
 
 ### Depuis Java 16 : les records *(extra)*
 
-Pour une classe valeur, Java écrit maintenant tout ça pour toi :
+Un **record** est une classe valeur dont tu déclares les **composants** dans l'en-tête ; le compilateur écrit tout le reste :
 
 ```java
 public record Time(int hour, int minute) { }
@@ -92,7 +163,7 @@ Le compilateur génère :
 
 - une classe **`final`** qui étend `java.lang.Record` ;
 - un champ `private final` par composant ;
-- le **constructeur canonique** `Time(int hour, int minute)` ;
+- le **constructeur canonique** (celui qui prend tous les composants, dans l'ordre de l'en-tête) : `Time(int hour, int minute)` ;
 - des **accesseurs** du nom des composants : `hour()`, `minute()` (pas de `get`) ;
 - `equals`, `hashCode` et `toString` fondés sur tous les composants (module 2).
 
@@ -100,27 +171,30 @@ On peut ajouter des méthodes, des fabriques statiques, des champs **statiques**
 
 Et un record se **déconstruit** dans un `switch` ou un `instanceof` : `case Time(var h, var m) when h < 12 -> "matin"` (module 0, leçon 3). Les accesseurs sont appelés pour extraire chaque composant : si tu en redéfinis un, c'est ta version que le motif utilise.
 
+::checkpoint{id="c2"}
+
 ### Valider et normaliser : le constructeur compact
 
-```java
-public record Time(int hour, int minute) {
-    public Time {                                   // pas de liste de paramètres
-        if (hour < 0 || hour >= 24) throw new IllegalArgumentException("heure : " + hour);
-        if (minute < 0 || minute >= 60) throw new IllegalArgumentException("minute : " + minute);
-    }
-}
-```
+Le **constructeur compact** est une forme abrégée du constructeur canonique : pas de liste de paramètres, pas d'affectation `this.x = x` à écrire.
 
-Le corps d'un constructeur compact s'exécute **avant** l'affectation automatique des champs, et peut **réaffecter les paramètres** :
-
-```java
+:::steps
+```java title="Email.java"
 public record Email(String address) {
     public Email {
-        address = address.strip().toLowerCase(Locale.ROOT);   // normalisation : la forme canonique est stockée
-        if (!address.contains("@")) throw new IllegalArgumentException(address);
+        Objects.requireNonNull(address, "address");
+        address = address.strip().toLowerCase(Locale.ROOT);
+        if (!address.contains("@"))
+            throw new IllegalArgumentException("pas un e-mail : " + address);
     }
 }
 ```
+--- 1: Le composant `address` déclare à la fois le champ, le paramètre du constructeur et l'accesseur `address()`.
+--- 2: Pas de parenthèses après `Email` : c'est le constructeur compact. Ses paramètres sont implicites, ce sont les composants.
+--- 3: On refuse `null` d'abord, sinon la ligne suivante lèverait une `NullPointerException` sans message utile.
+--- 4: On **réaffecte le paramètre**, pas le champ (affecter `this.address` ici ne compile pas). C'est la forme normalisée qui sera stockée : `" Ana@X.com"` et `"ana@x.com"` deviennent égaux.
+--- 5-6: La validation porte sur la valeur normalisée, celle qui sera réellement gardée.
+--- 7: À la fin du corps seulement, le compilateur affecte les champs avec les valeurs **actuelles** des paramètres.
+:::
 
 ### Le piège : un record n'est immuable qu'en surface
 
@@ -135,9 +209,19 @@ t.add("B");                     // p.tracks() contient maintenant B
 p.tracks().clear();             // et on peut la vider de l'extérieur
 ```
 
-La correction se fait dans le constructeur compact : `tracks = List.copyOf(tracks);`. La copie est non modifiable, et indépendante de la liste de l'appelant.
+:::reveal Avant de lire la suite : par combien de portes l'état de `p` a-t-il fui ?
+Deux. **À l'entrée** : le record a gardé la référence vers la liste `t` de l'appelant, qui peut continuer à la modifier. **À la sortie** : l'accesseur renvoie cette même liste, que n'importe quel lecteur peut vider. Une correction doit fermer les deux portes.
+:::
 
-Les **tableaux** sont pires : l'`equals` généré compare les composants avec `Objects.equals`, donc deux tableaux de même contenu ne sont **pas égaux** (identité). Un record qui contient un tableau doit soit le remplacer par une `List`, soit redéfinir `equals`, `hashCode` et `toString` avec `Arrays.equals` & co, **et** copier le tableau à l'entrée comme à la sortie (dans l'accesseur).
+La correction se fait dans le constructeur compact : `tracks = List.copyOf(tracks);`. C'est une **copie défensive** : la copie est indépendante de la liste de l'appelant (porte d'entrée) et non modifiable, donc l'accesseur peut la renvoyer sans risque (porte de sortie).
+
+Les **tableaux** sont pires. D'abord, l'`equals` généré compare les composants avec `Objects.equals`, donc deux tableaux de même contenu ne sont **pas égaux** (identité). Ensuite, aucun tableau n'est non modifiable : copier à l'entrée ne suffit pas. Un record qui contient un tableau doit soit le remplacer par une `List`, soit redéfinir `equals`, `hashCode` et `toString` avec `Arrays.equals` & co, **et** copier le tableau à l'entrée comme à la sortie (dans l'accesseur).
+
+Joue l'attaquant : active ou non chaque copie, puis essaie de modifier l'état du record.
+
+::visual{id="java-ch03-accessor-leak"}
+
+::checkpoint{id="c3"}
 
 ## Sous le capot : ce que javac génère pour un record
 
@@ -149,7 +233,9 @@ Un record compile en une classe `final` qui étend `java.lang.Record`, avec un a
 - les composants primitifs sont comparés comme par `Double.compare` / `Float.compare` (donc `NaN` égal à `NaN`), les références par `Objects.equals` : d'où l'identité pour les tableaux ;
 - le format de `toString` (`Time[hour=9, minute=30]`) n'est **pas spécifié** : ne le parse jamais.
 
-Si tu écris toi-même un accesseur (`public List<String> tracks() { … }`), il remplace celui généré. La spécification exige qu'il reste cohérent avec le composant, mais rien ne le vérifie.
+::checkpoint{id="c4"}
+
+Si tu écris toi-même un accesseur (`public List<String> tracks() { … }`), il remplace celui généré. La spécification exige qu'il reste cohérent avec le composant, mais rien ne le vérifie (c'est exactement le piège du checkpoint c2).
 
 ## Pièges fréquents
 

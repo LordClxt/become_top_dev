@@ -2,7 +2,7 @@
 id: java-ch02-l01
 title: "equals : une relation d'équivalence, pas une comparaison de champs"
 source: { chapter: 3, pages: "37-49" }
-duration_min: 35
+duration_min: 40
 concepts:
   - id: java-equals-when
     label: "Quand redéfinir equals : classe valeur avec une égalité logique, et aucune classe mère qui l'a déjà fait"
@@ -31,6 +31,67 @@ visuals: [java-ch02-equals-relations]
 labs: [java-ch02-l01-lab-warmup-isbn, java-ch02-l01-lab-equals-contract]
 extra: false
 xp: 35
+checkpoints:
+  - id: c1
+    type: code-output
+    prompt: "Money ne redéfinit pas equals. Qu'affiche ce programme ?"
+    code: |
+      import java.util.*;
+
+      public class Main {
+          static final class Money {
+              final long cents; final String currency;
+              Money(long cents, String currency) { this.cents = cents; this.currency = currency; }
+          }
+
+          public static void main(String[] args) {
+              Money price = new Money(1000, "EUR");
+              List<Money> cart = new ArrayList<>(List.of(price));
+              System.out.println(cart.contains(new Money(1000, "EUR")) + " " + cart.contains(price));
+          }
+      }
+    answer: "false true"
+    explanation: "Sans redéfinition, equals hérité d'Object compare les adresses : un second objet de mêmes champs n'est pas « le même ». Croire que Java compare les champs par défaut est l'erreur classique ; c'est précisément ce qu'une classe valeur doit ajouter."
+    concept: java-equals-when
+  - id: c2
+    type: single
+    prompt: "`cities` est une ArrayList qui contient `new CaseInsensitiveString(\"Paris\")` (l'equals cassé ci-dessus, qui accepte les String). Que renvoie `cities.contains(\"paris\")` avec le JDK actuel ?"
+    choices:
+      - "true, puisque l'élément dit être égal à \"paris\""
+      - "false, car ArrayList appelle \"paris\".equals(élément), et String ne connaît pas ta classe"
+      - "Une ClassCastException"
+      - "Ça ne compile pas : la liste n'accepte que des CaseInsensitiveString"
+    answer: 1
+    explanation: "ArrayList.indexOf appelle equals sur l'argument cherché, pas sur l'élément rangé : c'est donc l'equals de String qui décide, et il répond false. Et contains(Object) accepte n'importe quel objet : rien ne t'avertit, le résultat dépend juste du côté choisi par l'implémentation."
+    concept: java-equals-symmetry
+  - id: c3
+    type: code-output
+    prompt: "L'equals de Reading compare son double avec ==. Qu'affiche ce programme ?"
+    code: |
+      import java.util.*;
+
+      public class Main {
+          static final class Reading {
+              final double value;
+              Reading(double value) { this.value = value; }
+              @Override public boolean equals(Object o) {
+                  return o instanceof Reading r && r.value == value;
+              }
+              @Override public int hashCode() { return Double.hashCode(value); }
+          }
+
+          public static void main(String[] args) {
+              Reading broken = new Reading(0.0 / 0.0);
+              List<Reading> list = new ArrayList<>();
+              list.add(broken);
+              Set<Reading> set = new HashSet<>();
+              set.add(broken);
+              System.out.println(list.contains(broken) + " " + set.contains(broken));
+          }
+      }
+    answer: "false true"
+    explanation: "Avec NaN, == rend l'objet inégal à lui-même : ArrayList, qui ne fait qu'appeler equals, ne le retrouve pas. HashMap (sous HashSet) teste d'abord la référence avec == avant equals, ce qui masque le bug : deux collections, deux réponses, la preuve que le contrat cassé rend tout imprévisible."
+    concept: java-equals-recipe
 ---
 
 ## Pourquoi c'est important
@@ -52,7 +113,11 @@ Par défaut, `Object.equals` est l'**identité** : un objet n'est égal qu'à lu
 
 On redéfinit `equals` pour une **classe valeur** : `Money`, `Isbn`, `PhoneNumber`. Là, l'appelant veut savoir si deux objets **représentent la même chose**, pas s'ils sont le même objet en mémoire. C'est aussi ce qui permet de les utiliser comme clés de map ou éléments de set.
 
+::checkpoint{id="c1"}
+
 ### Le contrat, une clause à la fois
+
+Modèle mental avant le tableau : `equals` ne compare pas deux objets, il **range** tous tes objets dans des boîtes. Deux objets dans la même boîte sont interchangeables, et chaque objet est dans une seule boîte, quel que soit celui qui pose la question.
 
 `equals` doit être une **relation d'équivalence** sur les références non nulles :
 
@@ -72,22 +137,31 @@ La réflexivité et la non-nullité se respectent presque toutes seules. Les deu
 
 Une chaîne insensible à la casse, qui veut bien se comparer à une `String` ordinaire :
 
+:::compare
+--- bad: Aimable à sens unique
 ```java
-// Cassé : viole la symétrie
-public final class CaseInsensitiveString {
-    private final String s;
-
-    @Override public boolean equals(Object o) {
-        if (o instanceof CaseInsensitiveString cis) return s.equalsIgnoreCase(cis.s);
-        if (o instanceof String str) return s.equalsIgnoreCase(str);   // interopérabilité à sens unique !
-        return false;
-    }
+@Override public boolean equals(Object o) {
+    if (o instanceof CaseInsensitiveString cis) return s.equalsIgnoreCase(cis.s);
+    if (o instanceof String str) return s.equalsIgnoreCase(str);   // String ne te rendra jamais la pareille
+    return false;
 }
 ```
+--- good: Égale seulement à ses semblables
+```java
+@Override public boolean equals(Object o) {
+    return o instanceof CaseInsensitiveString cis
+        && s.equalsIgnoreCase(cis.s);
+}
+```
+:::
 
 `new CaseInsensitiveString("Paris").equals("paris")` vaut `true`. Mais `"paris".equals(new CaseInsensitiveString("Paris"))` vaut `false` : `String` ne connaît pas ta classe et ne la connaîtra jamais. Mets la première dans une liste, puis demande `list.contains("paris")` : le résultat dépend de **quel côté** l'implémentation de `contains` appelle `equals`. Aujourd'hui `false`, peut-être `true` dans une autre version du JDK.
 
-La correction est de **renoncer** : une `CaseInsensitiveString` n'est égale qu'à une autre `CaseInsensitiveString`.
+La correction est de **renoncer** (volet de droite) : une `CaseInsensitiveString` n'est égale qu'à une autre `CaseInsensitiveString`.
+
+> **Sous le capot :** dans le JDK actuel, `ArrayList.indexOf(o)` (utilisé par `contains`) appelle `o.equals(element)`, c'est-à-dire l'`equals` de l'objet **cherché**. Rien dans le contrat de `List` ne fige ce choix : c'est pourquoi un `equals` asymétrique donne des résultats qui changent d'une collection à l'autre.
+
+::checkpoint{id="c2"}
 
 ### Casser la transitivité : ajouter un champ dans une sous-classe
 
@@ -104,7 +178,11 @@ public class ColorPoint extends Point {
 }
 ```
 
-Comment `ColorPoint` doit-il comparer ? Toutes les options échouent :
+:::reveal Avant de lire la suite : comment écrirais-tu l'equals de ColorPoint ?
+Quelle que soit ta réponse, elle tombe dans l'une des trois options ci-dessous, et les trois échouent. Ce n'est pas une question de talent : c'est mathématiquement impossible.
+:::
+
+Les trois options possibles :
 
 1. **Ne rien redéfinir** : la couleur est ignorée. Légal, mais faux pour le métier.
 2. **Exiger un `ColorPoint`** (`o instanceof ColorPoint cp && super.equals(o) && cp.color == color`) : `point.equals(colorPoint)` vaut `true` (le `Point` ignore la couleur), `colorPoint.equals(point)` vaut `false`. **Symétrie cassée.**
@@ -123,7 +201,11 @@ C'est un résultat fondamental, pas un manque d'astuce : **on ne peut pas étend
 }
 ```
 
-Symétrique et transitif, oui. Mais une sous-classe qui **n'ajoute aucune valeur** (un `CounterPoint` qui compte ses instances) n'est plus jamais égale à un `Point` de mêmes coordonnées. Un `Set.of(new Point(1, 0), …)` ne la « contient » plus. C'est une violation du **principe de substitution de Liskov** : un `CounterPoint` est un `Point` et doit se comporter comme tel partout où on attend un `Point`.
+:::reveal Symétrique et transitif, oui. Alors, qu'est-ce qui cloche ?
+Les sous-classes qui n'ajoutent **rien** à la valeur sont punies elles aussi.
+:::
+
+En détail : une sous-classe qui **n'ajoute aucune valeur** (un `CounterPoint` qui compte ses instances) n'est plus jamais égale à un `Point` de mêmes coordonnées. Un `Set.of(new Point(1, 0), …)` ne la « contient » plus. C'est une violation du **principe de substitution de Liskov** : un `CounterPoint` est un `Point` et doit se comporter comme tel partout où on attend un `Point`.
 
 ### La vraie solution : la composition
 
@@ -155,16 +237,22 @@ Deux remarques :
 
 ### La recette
 
+:::steps
 ```java
 @Override
 public boolean equals(Object o) {
-    if (o == this) return true;                         // 1. raccourci (optimisation)
-    if (!(o instanceof PhoneNumber pn)) return false;   // 2. type + cast ; null donne false tout seul
-    return pn.lineNum == lineNum                        // 3. champs significatifs,
-        && pn.prefix == prefix                          //    les plus discriminants d'abord
+    if (o == this) return true;
+    if (!(o instanceof PhoneNumber pn)) return false;
+    return pn.lineNum == lineNum
+        && pn.prefix == prefix
         && pn.areaCode == areaCode;
 }
 ```
+--- 1-2: `@Override` et le paramètre `Object` : tu **redéfinis** la méthode que `HashSet` et `List` appellent, et le compilateur le vérifie.
+--- 3: Raccourci : un objet est égal à lui-même. Simple optimisation, mais elle garantit la réflexivité à coût nul.
+--- 4: `instanceof` avec pattern teste le type et déclare `pn` déjà casté. `null instanceof X` vaut `false` : la clause de non-nullité est couverte sans test explicite.
+--- 5-7: Les champs significatifs, les plus susceptibles de différer d'abord : `&&` s'arrête dès la première différence.
+:::
 
 Pour chaque champ significatif :
 
@@ -200,6 +288,8 @@ Double.compare(0.0, -0.0);   // 1 : deux valeurs distinctes
 ```
 
 Un `equals` qui compare un champ `double` avec `==` n'est donc **pas réflexif** dès que le champ vaut `NaN` : l'objet n'est pas égal à lui-même, et `list.contains(objet)` renvoie `false` juste après `list.add(objet)`.
+
+::checkpoint{id="c3"}
 
 `Double.compare` (et `Double.equals`) comparent en réalité la représentation binaire : `doubleToLongBits(a) == doubleToLongBits(b)`. Tous les `NaN` sont ramenés à une seule représentation canonique, et `0.0` (bits `0x0000…`) diffère de `-0.0` (bit de signe à 1). C'est ce choix qui rend `equals` réflexif, et c'est celui que fait le `equals` généré d'un record. Évite `Double.valueOf(a).equals(b)` : même résultat, mais un objet créé à chaque comparaison.
 

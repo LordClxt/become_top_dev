@@ -2,7 +2,7 @@
 id: java-ch00-l03
 title: "Pattern matching : switch exhaustif, motifs de records et gardes"
 source: { chapter: 1, pages: "1-3", url: "https://openjdk.org/jeps/441" }
-duration_min: 40
+duration_min: 45
 concepts:
   - id: java-switch-expr
     label: "Switch-expression : flèches sans fall-through, une valeur produite, yield pour un bloc"
@@ -35,6 +35,58 @@ visuals: [java-ch00-switch-dispatch]
 labs: [java-ch00-l03-lab-expr-simplifier, java-ch00-l03-lab-silent-default]
 extra: true
 xp: 35
+checkpoints:
+  - id: c1
+    type: single
+    prompt: "Une collègue écrit `if (o instanceof String s || s.isEmpty()) { ... }`. Que se passe-t-il ?"
+    choices:
+      - "Ça compile : s vaut null quand o n'est pas un String"
+      - "Ça compile, mais s.isEmpty() lève une NullPointerException quand o n'est pas un String"
+      - "Ça ne compile pas : à droite du ||, le test a forcément échoué, donc s n'existe pas"
+      - "Ça ne compile pas : on ne peut pas combiner un motif avec ||"
+    answer: 2
+    explanation: "La droite d'un || n'est évaluée que si la gauche est fausse, c'est-à-dire quand o n'est PAS un String : javac refuse donc d'y rendre s visible (cannot find symbol). Une variable de motif n'est jamais null ni « vide » : elle existe seulement là où le test a réussi, d'où && et non ||."
+    concept: java-instanceof-pattern
+  - id: c2
+    type: code-output
+    prompt: "Prédis la sortie de ce programme."
+    code: |
+      String label(CharSequence cs) {
+          return switch (cs) {
+              case String s when s.length() > 3 -> "long " + s;
+              case String s -> "court " + s;
+              case StringBuilder sb -> "builder " + sb.length();
+              default -> "autre";
+          };
+      }
+
+      void main() {
+          IO.println(label("hi") + ", " + label("hello") + ", " + label(new StringBuilder("abc")));
+      }
+    answer: "court hi, long hello, builder 3"
+    explanation: "Pour chaque case, de haut en bas, Java teste d'abord le type puis la garde : \"hi\" a le bon type mais échoue la garde, donc la recherche continue au case suivant. Une garde qui échoue ne fait pas « sortir » du switch, elle passe la main."
+    concept: java-guard
+  - id: c3
+    type: code-output
+    prompt: "La garde appelle une méthode qui compte ses appels. Qu'affiche le programme ?"
+    code: |
+      static int checks = 0;
+      static boolean big(int i) { checks++; return i > 10; }
+
+      String size(Object o) {
+          return switch (o) {
+              case Integer i when big(i) -> "grand";
+              case Integer i -> "petit";
+              default -> "autre";
+          };
+      }
+
+      void main() {
+          IO.println(size(5) + " " + size(50) + " " + size("x") + " " + checks);
+      }
+    answer: "petit grand autre 2"
+    explanation: "La garde est évaluée pour chaque Integer, y compris 5 qui finit dans le case « petit » : son effet de bord a eu lieu quand même. \"x\" n'est pas un Integer, donc la garde n'est même pas appelée ; c'est pourquoi une garde doit rester une condition pure."
+    concept: java-guard
 ---
 
 ## Pourquoi c'est important
@@ -54,6 +106,10 @@ for (Event e : events) {
 ```
 
 En 2024, quelqu'un ajoute les rétrofacturations (`Chargeback`). Le code compile, les tests passent, et pendant un mois le solde est faux. Ce n'est pas un problème de rigueur : c'est un problème d'**outil**. Un `if/else` ne peut pas savoir qu'il a oublié un cas. Un `switch` sur un type scellé, si.
+
+**Le modèle mental.** Un switch à motifs est un aiguillage : chaque `case` est un guichet qui pose une question (« es-tu un `Sale` ? as-tu plus de 100 centimes ? »). La valeur passe devant les guichets **de haut en bas**, et le premier qui répond oui la prend. Si le type est scellé, le compilateur connaît la liste complète des voyageurs possibles et vérifie qu'aucun ne reste sans guichet.
+
+Trois mots à poser avant le code : un **motif** est un test de forme qui, s'il réussit, nomme des variables (`Sale s`) ; une **garde** est une condition `when` ajoutée à un motif ; un switch est **exhaustif** quand toute valeur possible trouve un case.
 
 ## Le concept
 
@@ -88,6 +144,8 @@ if (obj instanceof String s && !s.isBlank()) {
 
 La variable `s` n'existe que là où le test est **sûr** d'avoir réussi. La portée suit le flot : après `if (!(obj instanceof String s)) return;`, `s` est utilisable dans la suite de la méthode.
 
+::checkpoint{id="c1"}
+
 ### Des motifs dans le switch (Java 21)
 
 ```java
@@ -102,13 +160,24 @@ String describe(Object o) {
 }
 ```
 
-Les cases sont essayés **de haut en bas**, et le premier qui correspond gagne. D'où la règle de **dominance** : si `case Integer i` venait avant `case Integer i when i > 1_000`, le second ne pourrait jamais s'appliquer, et javac refuse de compiler. Mets toujours le cas particulier (gardé) avant le cas général.
+Les cases sont essayés **de haut en bas**, et le premier qui correspond gagne. Pour chaque case, Java teste le type, puis la garde. Si la garde échoue, la recherche continue au case suivant.
+
+:::reveal Avant de lire la suite : que se passerait-il si `case Integer i` venait avant `case Integer i when i > 1_000` ?
+Le case général accepterait tous les entiers, y compris les grands : le case gardé ne pourrait jamais s'appliquer. C'est la règle de **dominance** (un case qui accepte tout ce qu'accepte un case suivant le rend inatteignable), et javac refuse de compiler plutôt que de te laisser du code mort. Mets toujours le cas particulier (gardé) avant le cas général.
+:::
 
 Sans `case null`, un switch sur une référence nulle lève `NullPointerException`, comme l'ancien switch. Avec `case null`, c'est une valeur comme une autre.
 
+::checkpoint{id="c2"}
+
+Une garde est évaluée **pendant la recherche**, donc aussi pour des valeurs qui finiront dans un autre case. Si elle a un effet de bord (un compteur, un log, un appel réseau), il se produit quand même :
+
+::checkpoint{id="c3"}
+
 ### Motifs de records : déconstruire (Java 21)
 
-```java
+:::steps
+```java title="Shapes.java"
 sealed interface Shape permits Circle, Rect { }
 record Point(double x, double y) { }
 record Circle(Point center, double r) implements Shape { }
@@ -121,8 +190,12 @@ double area(Shape s) {
     };
 }
 ```
-
-Un motif de record teste le type **et** extrait les composants, en appelant les accesseurs. Les motifs s'imbriquent : `Rect(Point(var x1, var y1), …)` va chercher les coordonnées en une ligne. `var` laisse le compilateur inférer le type du composant.
+--- 1: `sealed ... permits` fige la liste des variantes : `Shape` ne peut être qu'un `Circle` ou un `Rect`. C'est ce qui rendra le switch vérifiable.
+--- 2-4: Des records : leurs composants (`center`, `r`…) ont des accesseurs générés, que les motifs vont appeler.
+--- 8: Un **motif de record** teste le type **et** extrait les composants. `Point _` dit « il y a un centre, je n'en veux pas » ; `double r` récupère le rayon.
+--- 9: Les motifs s'**imbriquent** : `Point(var x1, var y1)` déconstruit le coin à l'intérieur du rectangle, en une ligne. `var` laisse le compilateur inférer le type du composant.
+--- 7-10: Aucun `default` : les deux variantes sont couvertes, le compilateur le sait. Ajoute une variante à `permits` et cette méthode cesse de compiler.
+:::
 
 Le `_` (Java 22) dit « je ne veux pas de cette valeur » : dans un motif (`Point _`), une variable de boucle (`for (var _ : items)`), un `catch (NumberFormatException _)`, un paramètre de lambda (`(k, _) -> k`). C'est mieux qu'un nom inutilisé : le lecteur sait que l'oubli est volontaire.
 
@@ -130,7 +203,30 @@ Le `_` (Java 22) dit « je ne veux pas de cette valeur » : dans un motif (`Poin
 
 Regarde bien `area` : **pas de `default`**. Le compilateur sait que `Shape` n'a que deux variantes, et que les deux sont traitées. Ajoute `record Triangle(…) implements Shape` à la liste `permits` : **chaque** switch sur `Shape` qui l'oublie devient une erreur de compilation. C'est exactement le filet qui manquait au rapport comptable.
 
-Ce filet, un `default` le supprime. `default -> 0` « au cas où » transforme une erreur de compilation future en bug silencieux. Règle de pratique : sur un type scellé, **pas de `default`** ; s'il le faut vraiment, liste les cas restants explicitement.
+Ce filet, un `default` le supprime. Reprends le rapport comptable, cette fois avec un `Event` scellé :
+
+:::compare
+--- bad: Un default « au cas où »
+```java
+balance += switch (e) {
+    case Sale s -> s.cents();
+    case Refund r -> -r.cents();
+    default -> 0;          // Chargeback arrive ici, en silence
+};
+```
+Ajouter `Chargeback` compile sans un mot : le solde est faux pendant un mois.
+--- good: Les cas listés, sans default
+```java
+balance += switch (e) {
+    case Sale s -> s.cents();
+    case Refund r -> -r.cents();
+    case Fee _, Transfer _ -> 0;   // neutres, et c'est écrit
+};
+```
+Ajouter `Chargeback` casse la compilation ici : le compilateur te montre la ligne à écrire.
+:::
+
+Règle de pratique : sur un type scellé, **pas de `default`** ; s'il le faut vraiment, liste les cas restants explicitement.
 
 ::visual{id="java-ch00-switch-dispatch"}
 

@@ -2,7 +2,7 @@
 id: java-ch01-l01
 title: "Fabriques statiques plutôt que constructeurs"
 source: { chapter: 2, pages: "5-9, 19" }
-duration_min: 25
+duration_min: 30
 concepts:
   - id: java-static-factory
     label: "Une fabrique statique est une méthode qui renvoie une instance : elle a un nom, peut réutiliser, peut renvoyer un sous-type"
@@ -21,21 +21,73 @@ glossary:
     definition: "Système où des fournisseurs enregistrent des implémentations d'un service et où les clients les obtiennent par une fabrique, sans dépendre des classes concrètes (JDBC, ServiceLoader)."
   - term: "classe compagnon"
     definition: "Classe non instanciable qui regroupe les fabriques d'une interface (Collections pour Collection). Depuis Java 8, ces méthodes peuvent vivre dans l'interface elle-même."
-visuals: []
+visuals: [java-ch01-new-vs-valueof]
 labs: [java-ch01-l01-lab-warmup-temperature, java-ch01-l01-lab-http-status]
 extra: false
 xp: 25
+checkpoints:
+  - id: c1
+    type: code-output
+    prompt: "Color a un cache derrière sa fabrique of, mais son constructeur est resté accessible dans le fichier. Qu'affiche le programme ?"
+    code: |
+      import java.util.HashMap;
+      import java.util.Map;
+
+      public class Main {
+          static final class Color {
+              private static final Map<String, Color> CACHE = new HashMap<>();
+              final String name;
+              private Color(String name) { this.name = name; }
+              static Color of(String name) { return CACHE.computeIfAbsent(name, Color::new); }
+          }
+
+          public static void main(String[] args) {
+              Color a = Color.of("red");
+              Color b = Color.of("red");
+              Color c = new Color("red");
+              System.out.println((a == b) + " " + (a == c) + " " + a.name.equals(c.name));
+          }
+      }
+    answer: "true false true"
+    explanation: "La fabrique consulte son cache et rend deux fois le même objet, mais new alloue toujours un objet neuf, qui ne passe jamais par le cache. Croire que le cache protège la classe est une erreur : le contrôle d'instances ne tient que si le constructeur est fermé à tout le monde."
+    concept: java-instance-control
+  - id: c2
+    type: single
+    prompt: "Un collègue écrit `ArrayList<Integer> ids = (ArrayList<Integer>) List.of(1, 2);` pour pouvoir appeler `ensureCapacity`. Que se passe-t-il ?"
+    choices:
+      - "Le compilateur refuse le cast"
+      - "Ça compile, puis ClassCastException à l'exécution : la classe réelle n'est pas une ArrayList"
+      - "Ça marche : List.of renvoie une ArrayList non modifiable"
+      - "Ça marche, mais ids.add(3) lèvera UnsupportedOperationException"
+    answer: 1
+    explanation: "Le compilateur accepte un cast d'interface vers une classe non finale, mais List.of renvoie une classe interne du JDK (ImmutableCollections.List12 ici). Le type de retour déclaré est le seul contrat : supposer une classe concrète, c'est dépendre d'un détail que la fabrique a le droit de changer."
+    concept: java-static-factory
+  - id: c3
+    type: single
+    prompt: "La classe `public final class Strings { public static boolean isBlank(String s) { ... } }` n'a écrit aucun constructeur. Un appelant écrit `new Strings()`. Que se passe-t-il ?"
+    choices:
+      - "Erreur de compilation : la classe n'a pas de constructeur"
+      - "Erreur de compilation : on n'instancie pas une classe final"
+      - "Ça compile et crée une instance inutile, grâce au constructeur public ajouté par le compilateur"
+      - "AssertionError à l'exécution"
+    answer: 2
+    explanation: "Sans constructeur explicite, le compilateur ajoute un constructeur public sans paramètre ; final interdit seulement l'héritage, pas l'instanciation. L'AssertionError n'existe que si tu écris toi-même le constructeur privé qui la lève."
+    concept: java-noninstantiable
 ---
 
 ## Pourquoi c'est important
 
-En Go, tu fabriques tes valeurs avec des fonctions `NewServer(...)` : le langage n'a pas de constructeurs, donc la question ne se pose pas. En Java, le réflexe est `new`. Or `new` promet trois choses que tu ne veux pas toujours promettre : **un objet neuf**, **de cette classe exacte**, **à chaque appel**. Une fabrique statique ne promet rien de tout ça, et c'est précisément ce qui la rend précieuse quand ta classe sera utilisée par d'autres.
+Revue de code, un lundi : ta classe `Money` a un constructeur public, et un service en crée 40 000 par seconde avec `new Money(0, "EUR")`, toujours la même valeur. Tu voudrais rendre une seule instance partagée de « zéro euro », ou renvoyer une sous-classe optimisée pour l'euro. Impossible : des centaines d'appelants écrivent `new Money(...)`, et `new` les a figés.
+
+En Go, tu écris déjà des fonctions `NewServer(...)`, et Java te propose la même chose. Car `new` promet trois choses que tu ne veux pas toujours promettre : **un objet neuf**, **de cette classe exacte**, **à chaque appel**. Une fabrique statique ne promet rien de tout ça, et c'est ce qui te laisse libre de changer d'avis plus tard.
 
 Ouvre le JDK : `List.of`, `Optional.empty`, `Integer.valueOf`, `Path.of`, `Duration.ofSeconds`, `EnumSet.noneOf`… La bibliothèque standard moderne n'expose presque plus de constructeurs publics.
 
 ## Le concept
 
-Une **fabrique statique** est simplement une méthode `static` qui renvoie une instance :
+L'image à garder : `new`, c'est commander un objet sur mesure à l'usine, à chaque fois. La fabrique statique, c'est un guichet : tu demandes « un 404 », et le guichetier décide s'il te tend un objet déjà en stock, un neuf, ou un modèle différent qui fait le même travail.
+
+Une **fabrique statique** est simplement une méthode `static` qui renvoie une instance de sa classe (ou d'un sous-type) :
 
 ```java
 public static Boolean valueOf(boolean b) {
@@ -56,13 +108,32 @@ Duration.ofMinutes(90);   // impossible avec deux constructeurs Duration(long)
 
 ### 2. Elle n'est pas obligée de créer un objet
 
-Une classe immuable peut **réutiliser** des instances : constantes précalculées ou cache. C'est l'idée du patron *Flyweight*. Plus fort : la classe peut garantir qu'il n'existe **qu'une instance par valeur**. On dit qu'elle est **à instances contrôlées**. Pour elle, `a.equals(b)` équivaut à `a == b`. Les enums sont l'exemple parfait.
+Une classe immuable (dont l'état ne change plus après construction) peut **réutiliser** des instances : constantes précalculées ou cache. C'est l'idée du patron *Flyweight* : partager les objets identiques au lieu de les dupliquer.
 
+Plus fort : la classe peut garantir qu'il n'existe **qu'une instance par valeur**. On dit qu'elle est **à instances contrôlées** : c'est elle, et non l'appelant, qui décide quels objets existent. Pour elle, `a.equals(b)` équivaut à `a == b`. Les enums sont l'exemple parfait.
+
+:::steps
 ```java
-var a = HttpStatus.of(404);
-var b = HttpStatus.of(404);
-// a == b : une seule instance de 404 dans toute la JVM
+public final class HttpStatus {
+    private static final Map<Integer, HttpStatus> CACHE = new HashMap<>();
+    private final int code;
+
+    private HttpStatus(int code) { this.code = code; }
+
+    public static HttpStatus of(int code) {
+        return CACHE.computeIfAbsent(code, HttpStatus::new);
+    }
+}
 ```
+--- 1: `final` : personne ne peut créer une sous-classe qui contournerait le cache.
+--- 2: Le cache associe chaque code à **son** unique instance. Il est déclaré en premier, donc initialisé avant toute constante qui l'utiliserait.
+--- 5: Le constructeur est `private` : la seule porte d'entrée est `of`. Sans cette ligne, le contrôle d'instances ne vaut rien.
+--- 7-9: `computeIfAbsent` rend l'instance en stock, ou la crée au premier appel puis la range. Deux `of(404)` rendent donc le même objet, et `==` répond `true`.
+:::
+
+Essaie toi-même : appelle `new` et `of` avec les valeurs de ton choix, et regarde ce qui apparaît dans le tas.
+
+::visual{id="java-ch01-new-vs-valueof"}
 
 Tu peux le constater sur les entiers : `Integer.valueOf` garde en cache les valeurs de -128 à 127.
 
@@ -73,11 +144,21 @@ Integer.valueOf(128) == Integer.valueOf(128)   // false : deux objets distincts
 
 Ce comportement est un détail d'implémentation de la fabrique : un constructeur public ne pourrait jamais l'offrir, et compter dessus avec `==` est un bug (on y reviendra au module 9).
 
+::checkpoint{id="c1"}
+
 ### 3. Elle peut renvoyer un sous-type, même caché
 
-Le type de retour est un contrat ; la classe réelle est un choix d'implémentation. `List.of(1, 2)` te renvoie une `List`, et tu n'as jamais besoin de savoir que c'est une classe interne `ImmutableCollections.List12`. Conséquence : l'API reste minuscule. Le framework des collections expose des dizaines d'implémentations (non modifiables, synchronisées…) **sans une seule classe publique de plus**, toutes derrière des fabriques de `Collections`.
+Le type de retour est un contrat ; la classe réelle est un choix d'implémentation. `List.of(1, 2)` te renvoie une `List`, et tu n'as jamais besoin de savoir que c'est une classe interne `ImmutableCollections.List12`.
+
+Conséquence : l'API reste minuscule. Le framework des collections expose des dizaines d'implémentations (non modifiables, synchronisées…) **sans une seule classe publique de plus**, toutes derrière des fabriques de `Collections`.
+
+::checkpoint{id="c2"}
 
 ### 4. La classe renvoyée peut changer selon les paramètres…
+
+:::reveal Avant de lire la suite : comment un EnumSet pourrait-il être plus rapide pour une petite enum que pour une grande ?
+Une petite enum tient dans un seul `long` de 64 bits : un bit par constante, et `contains` devient un simple ET binaire. Au-delà de 64 constantes, il faut un tableau de `long`. La fabrique choisit pour toi.
+:::
 
 `EnumSet.noneOf(Couleur.class)` renvoie une `RegularEnumSet` (un seul `long` comme masque de bits) si l'enum a 64 constantes ou moins, et une `JumboEnumSet` (un tableau de `long`) au-delà. Le client ne le voit jamais ; le JDK pourrait ajouter une troisième implémentation demain sans casser personne.
 
@@ -106,8 +187,21 @@ C'est la base des **service provider frameworks** : JDBC te rend une `Connection
 
 Parfois tu veux juste regrouper des méthodes statiques : `Math`, `Arrays`, `Collections`. Une instance n'aurait aucun sens. Problème : sans constructeur explicite, **le compilateur ajoute un constructeur public sans paramètre**, et `new Math()` deviendrait possible.
 
-Rendre la classe `abstract` ne marche pas : on peut l'étendre puis instancier la sous-classe, et ça fait croire qu'elle est conçue pour l'héritage. La bonne solution :
+::checkpoint{id="c3"}
 
+Rendre la classe `abstract` ne marche pas : on peut l'étendre puis instancier la sous-classe, et ça fait croire qu'elle est conçue pour l'héritage.
+
+:::compare
+--- bad: Abstraite, donc « protégée » ?
+```java
+public abstract class Strings {
+    public static boolean isBlank(String s) { ... }
+}
+
+class Oops extends Strings { }   // compile
+var s = new Oops();              // une instance quand même
+```
+--- good: Constructeur privé qui lève
 ```java
 public final class Strings {
     // Supprime le constructeur par défaut : pas d'instance, jamais.
@@ -118,10 +212,8 @@ public final class Strings {
     public static boolean isBlank(String s) { ... }
 }
 ```
-
-- `private` empêche les autres classes de l'appeler.
-- `throw new AssertionError()` protège contre un appel depuis la classe elle-même (ou par réflexion).
-- Effet de bord : la classe ne peut plus être étendue, puisqu'un constructeur de sous-classe doit appeler un constructeur de la classe mère.
+`private` empêche les autres classes de l'appeler ; `AssertionError` protège contre un appel depuis la classe elle-même (ou par réflexion). Effet de bord : plus d'héritage possible, puisqu'un constructeur de sous-classe doit appeler celui de la classe mère.
+:::
 
 Le commentaire n'est pas décoratif : un constructeur écrit **pour ne jamais être appelé** surprend le lecteur.
 

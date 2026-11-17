@@ -2,7 +2,7 @@
 id: java-ch02-l02
 title: "hashCode : la moitié qu'on oublie"
 source: { chapter: 3, pages: "50-54" }
-duration_min: 35
+duration_min: 40
 concepts:
   - id: java-hashcode-contract
     label: "Le contrat : objets égaux ⇒ même hashCode ; stable tant que l'objet ne change pas ; collisions permises mais coûteuses"
@@ -29,6 +29,47 @@ visuals: [java-ch02-hash-buckets]
 labs: [java-ch02-l02-lab-hash-keys, java-ch02-l02-lab-forgetful-cache]
 extra: false
 xp: 35
+checkpoints:
+  - id: c1
+    type: single
+    prompt: "`Username` compare `name` avec `equalsIgnoreCase` dans equals, mais son hashCode renvoie `name.hashCode()`. Après `set.add(new Username(\"Ana\"))` dans un HashSet, que renvoie `set.contains(new Username(\"ANA\"))` ?"
+    choices:
+      - "true : equals dit que les deux noms sont égaux"
+      - "Presque toujours false : les hash diffèrent, HashSet cherche ailleurs et n'appelle même pas equals"
+      - "Une exception, car le contrat est violé"
+      - "true, mais plus lentement à cause de la collision"
+    answer: 1
+    explanation: "\"Ana\" et \"ANA\" n'ont pas le même hashCode de String : la recherche part dans un autre compartiment, et même dans le même, le hash mémorisé différent fait sauter equals. Croire que equals « a le dernier mot » est le piège : dans une table de hachage, le hash passe d'abord."
+    concept: java-hashcode-contract
+  - id: c2
+    type: code-output
+    prompt: "Deux façons de combiner les champs d'un siège. Qu'affiche ce programme ?"
+    code: |
+      public class Main {
+          record Seat(int row, int col) {
+              int sumHash() { return row + col; }
+              int recipeHash() { return 31 * Integer.hashCode(row) + Integer.hashCode(col); }
+          }
+
+          public static void main(String[] args) {
+              Seat a = new Seat(1, 2), b = new Seat(2, 1);
+              System.out.println((a.sumHash() == b.sumHash()) + " " + (a.recipeHash() == b.recipeHash()));
+          }
+      }
+    answer: "true false"
+    explanation: "Une simple somme est commutative : (1,2) et (2,1), et toute la diagonale, collisionnent. Multiplier le résultat partiel par 31 avant d'ajouter le champ suivant rend la position de chaque champ significative : 33 contre 63."
+    concept: java-hashcode-recipe
+  - id: c3
+    type: single
+    prompt: "Avec le cache paresseux ci-dessus, une instance dont le calcul complet donne exactement 0. Que se passe-t-il ?"
+    choices:
+      - "hashCode renvoie une valeur fausse pour cette instance"
+      - "La HashMap lève une exception sur un hash nul"
+      - "Le résultat reste juste, mais il est recalculé à chaque appel : le cache ne sert plus à rien pour elle"
+      - "Le hash est mis en cache comme les autres"
+    answer: 2
+    explanation: "0 sert de marqueur « pas encore calculé » : pour cette instance, le test result == 0 est toujours vrai, donc on recalcule, sans jamais se tromper. C'est un coût, pas un bug, et c'est pourquoi la valeur 0 doit être rare."
+    concept: java-hashcode-caching
 ---
 
 ## Pourquoi c'est important
@@ -47,11 +88,15 @@ annuaire.get(new PhoneNumber(707, 867, 5309));   // null
 
 ### Le contrat
 
+Modèle mental d'abord : une `HashMap` est un meuble à tiroirs. `hashCode` dit dans quel tiroir ranger et chercher ; `equals` dit, dans ce tiroir, quel objet est le bon. Le contrat formalise cette règle en trois points :
+
 1. Appelé plusieurs fois sur le même objet, `hashCode` renvoie **la même valeur**, tant que rien de ce qu'utilise `equals` ne change. (D'une exécution à l'autre, la valeur peut varier.)
 2. **Deux objets égaux selon `equals` ont le même `hashCode`.** C'est la clause qu'on viole en oubliant de redéfinir.
 3. Deux objets différents **peuvent** avoir le même `hashCode`. Mais des valeurs bien réparties rendent les tables de hachage rapides.
 
-Intuition : une `HashMap` est un meuble à tiroirs. `hashCode` dit dans quel tiroir ranger et chercher ; `equals` dit, dans ce tiroir, quel objet est le bon. Si deux objets égaux donnent deux tiroirs différents, on range dans l'un et on cherche dans l'autre.
+Si deux objets égaux donnent deux tiroirs différents, on range dans l'un et on cherche dans l'autre.
+
+::checkpoint{id="c1"}
 
 ::visual{id="java-ch02-hash-buckets"}
 
@@ -67,14 +112,21 @@ Même effet, plus sournois : un hash qui **ignore un champ significatif**. Avant
 
 ### La recette
 
+:::steps
 ```java
 @Override public int hashCode() {
-    int result = Short.hashCode(areaCode);         // premier champ significatif
-    result = 31 * result + Short.hashCode(prefix);  // puis, pour chaque champ suivant :
-    result = 31 * result + Short.hashCode(lineNum); //   result = 31 * result + c
+    int result = Short.hashCode(areaCode);
+    result = 31 * result + Short.hashCode(prefix);
+    result = 31 * result + Short.hashCode(lineNum);
     return result;
 }
 ```
+--- 1: `@Override`, signature `int hashCode()` : c'est la méthode qu'appellent `HashMap` et `HashSet`.
+--- 2: On part du premier champ significatif, converti en `int` par `Short.hashCode` (sans créer d'objet).
+--- 3: Chaque champ suivant : on **multiplie** le résultat partiel par 31, puis on ajoute le hash du champ. Le débordement d'`int` est voulu et sans danger.
+--- 4: Même geste pour le dernier champ. Ce sont exactement les champs comparés par `equals`, ni plus ni moins.
+--- 5: On renvoie le résultat : déterministe, il ne dépend que de l'état de l'objet.
+:::
 
 Pour calculer `c` sur chaque champ **utilisé par `equals`** (et seulement ceux-là) :
 
@@ -82,7 +134,13 @@ Pour calculer `c` sur chaque champ **utilisé par `equals`** (et seulement ceux-
 - référence : `f.hashCode()`, ou `Objects.hashCode(f)` (0 si `null`) ;
 - tableau : `Arrays.hashCode(f)`.
 
+:::reveal Avant de lire la suite : pourquoi multiplier à chaque champ, au lieu de simplement additionner ?
+Parce que l'addition ne voit pas l'ordre. Vérifie-le juste en dessous.
+:::
+
 Pourquoi multiplier ? Pour que l'**ordre** compte : sans la multiplication, `"ab"` et `"ba"` auraient le même hash, comme tous les anagrammes. Pourquoi 31 ? Il est impair (multiplier par un nombre pair perdrait un bit à chaque débordement) et `31 * i == (i << 5) - i`, que la JVM optimise toute seule.
+
+::checkpoint{id="c2"}
 
 Un champ **dérivé** (calculable à partir des autres) peut être omis. Un champ **absent d'`equals`** doit l'être, sinon deux objets égaux auraient des hash différents.
 
@@ -113,6 +171,8 @@ private int hashCode;   // 0 = pas encore calculé
 
 `String` fait exactement ça. Seule condition : le hash d'une instance courante ne doit pas valoir 0, sinon on recalcule à chaque fois. (La sûreté de ce cache en multi-thread est traitée au module 11.)
 
+::checkpoint{id="c3"}
+
 ### Ne promets pas la formule
 
 `String` et `Integer` documentent la formule exacte de leur `hashCode`. Des programmes en dépendent, et le JDK ne pourra jamais l'améliorer. Toi, documente seulement le contrat : tu garderas le droit de changer de fonction.
@@ -120,6 +180,23 @@ private int hashCode;   // 0 = pas encore calculé
 ### La clé qui change de tiroir
 
 Le contrat dit « stable **tant que l'objet ne change pas** ». Si une clé change après insertion, son hash change, et elle devient introuvable :
+
+:::compare
+--- bad: La clé reste modifiable de l'extérieur
+```java
+List<String> tags = new ArrayList<>(List.of("bio"));
+prix.put(tags, 12);
+tags.add("vrac");     // l'entrée vient de se perdre
+```
+--- good: La clé est une copie immuable
+```java
+List<String> tags = new ArrayList<>(List.of("bio"));
+prix.put(List.copyOf(tags), 12);
+tags.add("vrac");     // sans effet sur la clé rangée
+```
+:::
+
+Le scénario complet, ligne par ligne :
 
 ```java
 List<String> key = new ArrayList<>(List.of("bio"));

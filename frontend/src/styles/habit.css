@@ -1,0 +1,94 @@
+/* Tableau de bord « Aujourd'hui » : anneau d'objectif, semaine, quêtes et coffre. */
+
+/* Anneau bouclé : halo d'accent discret. */
+.habit-ring-met svg {
+  filter: drop-shadow(0 0 10px color-mix(in oklab, var(--accent) 55%, transparent));
+}
+.habit-burst {
+  animation: habit-burst 900ms var(--ease-out);
+}
+@keyframes habit-burst {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* Aujourd'hui, pas encore d'activité : la case respire doucement. */
+.habit-today {
+  animation: habit-breathe 2.4s ease-in-out infinite;
+}
+@keyframes habit-breathe {
+  50% { background: color-mix(in oklab, var(--accent) 14%, transparent); }
+}
+
+/* Quête à récupérer : un liseré qui scintille. */
+.habit-claimable {
+  box-shadow: 0 0 0 1px var(--accent), 0 0 24px -8px var(--accent);
+}
+
+/* Coffre */
+.habit-chest-lid {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  transition: transform 700ms var(--ease-out);
+}
+.habit-chest-rays,
+.habit-chest-inner {
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out) 250ms;
+}
+.habit-chest-locked {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+.habit-chest-ready {
+  animation: habit-wiggle 3.2s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+@keyframes habit-wiggle {
+  0%, 82%, 100% { transform: rotate(0); }
+  86% { transform: rotate(-4deg); }
+  90% { transform: rotate(4deg); }
+  94% { transform: rotate(-2deg); }
+}
+.habit-chest-opening {
+  animation: habit-shake 380ms ease-in-out 2;
+}
+@keyframes habit-shake {
+  25% { transform: translateX(-2px) rotate(-2deg); }
+  75% { transform: translateX(2px) rotate(2deg); }
+}
+.habit-chest-open .habit-chest-lid {
+  transform: translate(0, -22px) rotate(-14deg);
+}
+.habit-chest-open .habit-chest-rays,
+.habit-chest-open .habit-chest-inner {
+  opacity: 1;
+}
+.habit-chest-open .habit-chest-rays {
+  animation: habit-rays 2.6s ease-in-out infinite;
+  transform-origin: 60px 40px;
+}
+@keyframes habit-rays {
+  50% { opacity: 0.45; }
+}
+
+/* Raccourci clavier affiché sur le bouton principal. */
+.habit-kbd {
+  border: 1px solid color-mix(in oklab, currentColor 35%, transparent);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-family: var(--font-code);
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .habit-today,
+  .habit-chest-ready,
+  .habit-chest-opening,
+  .habit-chest-open .habit-chest-rays,
+  .habit-burst {
+    animation: none;
+  }
+}

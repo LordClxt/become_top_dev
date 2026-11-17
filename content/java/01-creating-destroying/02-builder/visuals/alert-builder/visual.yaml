@@ -1,0 +1,6 @@
+id: java-ch01-alert-builder
+concept: java-builder-validation
+format: interactive
+justification: "Enchaîner soi-même les appels du builder et voir en direct son état, l'objet produit par build() et l'endroit exact où chaque validation échoue (y compris la liste partagée sans copie défensive) montre un mécanisme que le code statique laisse deviner."
+entry: AlertBuilder.tsx
+status: built

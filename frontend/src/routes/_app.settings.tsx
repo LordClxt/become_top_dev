@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { MembersPanel } from '@/features/admin/InvitesPanel'
 import { AccountPanel } from '@/features/auth/AccountPanel'
+import { GoalPicker } from '@/features/profile/GoalPicker'
 import { meQuery } from '@/features/auth/queries'
 import { type Settings, updateSettings, useSettings } from '@/lib/settings'
 import { cn } from '@/lib/utils'
@@ -24,6 +25,16 @@ function SettingsPage() {
         </h2>
         <div className="mt-4">
           <AccountPanel />
+        </div>
+      </section>
+
+      <section className="mt-12" aria-labelledby="goal-title">
+        <h2 id="goal-title" className="font-read text-2xl font-semibold">
+          Objectif quotidien
+        </h2>
+        <p className="mt-1 text-sm text-muted">L’XP à gagner chaque jour pour remplir ton anneau. Tu peux le changer quand tu veux.</p>
+        <div className="mt-4">
+          <GoalPicker />
         </div>
       </section>
 

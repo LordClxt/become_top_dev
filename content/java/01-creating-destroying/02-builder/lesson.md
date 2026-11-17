@@ -25,7 +25,7 @@ glossary:
     definition: "Une méthode redéfinie peut déclarer un type de retour plus précis que la méthode parente (build() renvoie Email au lieu de Message)."
   - term: "idiome du self-type simulé"
     definition: "Paramètre de type récursif T extends Builder<T> plus une méthode abstraite self() : les méthodes héritées renvoient le builder concret, sans cast."
-visuals: []
+visuals: [java-ch01-alert-builder]
 labs: [java-ch01-l02-lab-http-request]
 extra: false
 xp: 30
@@ -209,6 +209,10 @@ Parce que le builder reste modifiable : quelqu'un peut encore appeler une de ses
 On peut construire plusieurs objets avec le même builder, en changeant quelques options entre deux `build()`. Un builder peut aussi remplir des champs tout seul (un numéro de série qui s'incrémente). Conséquence : `build()` doit **copier** les structures mutables (listes, maps), sinon un objet déjà construit changerait quand on continue à utiliser le builder. Tu vas écrire ce test dans le lab.
 
 ::checkpoint{id="c2"}
+
+À toi de construire une alerte : enchaîne les appels, provoque chaque erreur, puis coupe la copie défensive et continue à utiliser le builder après un `build()`.
+
+::visual{id="java-ch01-alert-builder"}
 
 ### Builders hiérarchiques
 

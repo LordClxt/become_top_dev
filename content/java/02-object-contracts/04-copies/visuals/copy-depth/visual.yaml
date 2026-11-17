@@ -1,0 +1,6 @@
+id: java-ch02-copy-depth
+concept: java-clone-shallow
+format: interactive
+justification: "Choisir la façon de copier puis modifier l'original montre, flèche par flèche, ce qui est partagé : le partage d'état se voit mieux qu'il ne se lit."
+entry: CopyDepth.tsx
+status: built

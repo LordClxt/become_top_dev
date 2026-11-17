@@ -1,0 +1,6 @@
+id: java-ch00-sealed-switch
+concept: java-adt
+format: interactive
+justification: "Ajouter une variante au type scellé ou retirer un case, puis voir aussitôt quel switch cesse de compiler, rend tangible le contrôle d'exhaustivité qu'une liste fermée permet."
+entry: SealedSwitch.tsx
+status: built

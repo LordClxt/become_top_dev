@@ -1,13 +1,17 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQueries, useQuery } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { BookOpenCheck, Check, CircleHelp, FlaskConical, type LucideIcon, Play, X } from 'lucide-react'
+import { BookOpenCheck, Brain, Check, Command, CircleHelp, FlaskConical, type LucideIcon, Play, X } from 'lucide-react'
 import { useState } from 'react'
 import { ActivityGraph } from '@/components/ActivityGraph'
 import { GridZone } from '@/components/Backdrop'
 import { StreakFlame } from '@/components/StreakFlame'
 import { SliceMeter } from '@/components/SliceMeter'
 import { XpBar } from '@/components/XpBar'
-import { type Badge, badgesFor } from '@/features/xp/badges'
+import { badgesFor } from '@/features/xp/badges'
+import { nextRank, rankFor } from '@/features/xp/ranks'
+import { Leaderboard } from '@/features/profile/Leaderboard'
+import { TrophyRoom } from '@/features/profile/TrophyRoom'
+import { reviewQuery } from '@/features/review/queries'
 import { AvatarEditor } from '@/components/AvatarEditor'
 import { ErrorState, Loading } from '@/components/states'
 import { type ActivityEvent, api } from '@/lib/api'
@@ -18,11 +22,20 @@ export const Route = createFileRoute('/_app/profile')({ component: ProfilePage }
 function ProfilePage() {
   const { data: progress, error, isPending } = useQuery({ queryKey: ['progress'], queryFn: api.progress })
   const { data: courses } = useQuery({ queryKey: ['courses'], queryFn: api.courses })
+  const { data: review } = useQuery(reviewQuery)
   const [day, setDay] = useState<string | null>(null)
+  // Les boss vaincus ne figurent que dans le détail des modules (même cache que la page module).
+  const ids = (courses ?? []).flatMap((c) => c.tracks.flatMap((t) => t.chapters)).flatMap((c) => (c.available ? [c.id] : []))
+  const chapterDetails = useQueries({
+    queries: ids.map((id) => ({ queryKey: ['chapter', id], queryFn: () => api.chapter(id), staleTime: 60_000 })),
+  })
+  const bossesKnown = courses !== undefined && chapterDetails.every((q) => q.isSuccess)
+  const bossesDefeated = bossesKnown ? chapterDetails.filter((q) => q.data?.boss?.passed).length : undefined
 
   if (isPending) return <Loading />
   if (error) return <ErrorState error={error} />
 
+  const next = nextRank(progress.level)
   const span = progress.next_level_xp - progress.level_floor_xp
   const into = progress.xp - progress.level_floor_xp
   const chapters = (courses ?? []).flatMap((c) => c.tracks.flatMap((t) => t.chapters)).flatMap((c) => (c.available ? [c] : []))
@@ -33,27 +46,44 @@ function ProfilePage() {
       <GridZone style={{ top: 520, right: -140 }} size={560} glow={{ x: -0.1, y: 0 }} />
 
       <div className="mx-auto max-w-[1100px] px-4 pt-10 pb-24 sm:px-6 sm:pt-14">
-        <section className="grid gap-8 sm:gap-10 lg:grid-cols-[auto_1fr_auto] lg:items-end">
-          <div className="flex flex-wrap items-center gap-6">
-            <AvatarEditor level={progress.level} />
-            <div className="min-w-0">
-              <p className="text-sm text-muted">Ton profil</p>
-              <h1 className="mt-1 font-read text-5xl leading-none font-semibold tracking-tight sm:text-6xl">Niveau {progress.level}</h1>
-              <XpBar progress={progress} size="lg" className="mt-5" />
-              <p className="mt-2 font-code text-xs text-muted tabular-nums">
-                {into}/{span} XP, encore {span - into} avant le niveau {progress.level + 1}
-              </p>
-            </div>
+        <section className="grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center">
+          <AvatarEditor level={progress.level} />
+          <div className="min-w-0">
+            <p className="text-sm text-muted">Ton profil</p>
+            <h1 className="mt-1 font-read text-5xl leading-none font-semibold tracking-tight sm:text-6xl">{rankFor(progress.level)}</h1>
+            <p className="mt-2 text-muted">
+              Niveau <span className="font-code text-text">{progress.level}</span>
+              {next ? (
+                <>
+                  {' '}
+                  · <span className="text-text">{next.title}</span> au niveau {next.level}, encore{' '}
+                  <span className="font-code text-text">{next.level - progress.level}</span> niveau{next.level - progress.level > 1 ? 'x' : ''}
+                </>
+              ) : (
+                ' · rang le plus haut atteint'
+              )}
+            </p>
+            <XpBar progress={progress} size="lg" className="mt-5 max-w-[560px]" />
+            <p className="mt-2 font-code text-xs text-muted tabular-nums">
+              {into}/{span} XP, encore {span - into} avant le niveau {progress.level + 1}
+            </p>
           </div>
-          <dl className="grid grid-cols-3 gap-2 sm:gap-3">
-            <Stat label="XP au total" value={progress.xp} />
-            <Stat label="Plus longue série" value={`${progress.longest_streak_days} j`} />
-            <Stat label="Jours actifs" value={progress.active_days} />
-          </dl>
           <Streak days={progress.streak_days} />
         </section>
 
-        <Badges badges={badgesFor(progress)} />
+        <dl className="mt-10 grid grid-cols-2 gap-2 sm:grid-cols-5 sm:gap-3">
+          <Stat label="XP au total" value={progress.xp} />
+          <Stat label="Série en cours" value={`${progress.streak_days} j`} accent={progress.streak_days > 0} />
+          <Stat label="Plus longue série" value={`${progress.longest_streak_days} j`} />
+          <Stat label="Jours actifs" value={progress.active_days} />
+          <Link to="/review" className="col-span-2 rounded-xl sm:col-span-1">
+            <Stat label="Cartes en révision" value={review?.tracked ?? 0} icon={Brain} link />
+          </Link>
+        </dl>
+
+        <TrophyRoom badges={badgesFor(progress, { bossesDefeated })} />
+
+        <Leaderboard />
 
         <section className="mt-14 rounded-2xl border border-line bg-surface/80 p-6 backdrop-blur" aria-labelledby="activity-title">
           <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
@@ -100,60 +130,14 @@ function ProfilePage() {
             </ul>
           </section>
         </div>
-      </div>
-    </main>
-  )
-}
 
-function Badges({ badges }: { badges: Badge[] }) {
-  const earned = badges.filter((b) => b.earned).length
-  return (
-    <section className="mt-14" aria-labelledby="badges-title">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 id="badges-title" className="font-read text-2xl font-semibold">
-          Badges
-        </h2>
-        <p className="font-code text-xs text-muted tabular-nums">
-          len={earned} cap={badges.length}
+        <p className="mt-16 flex items-center justify-center gap-2 text-sm text-muted">
+          <Command className="size-3.5" />
+          Astuce : <kbd className="rounded border border-line px-1.5 font-code text-xs">Ctrl K</kbd> ou{' '}
+          <kbd className="rounded border border-line px-1.5 font-code text-xs">/</kbd> pour aller n’importe où.
         </p>
       </div>
-      <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {badges.map((b) => (
-          <li
-            key={b.id}
-            className={cn(
-              'flex gap-3.5 rounded-xl border p-4',
-              b.earned ? 'border-accent/50 bg-surface' : 'border-dashed border-line',
-            )}
-          >
-            <span
-              className={cn(
-                'grid size-10 shrink-0 place-items-center rounded-xl border-2',
-                b.earned ? 'border-accent bg-accent/15 text-accent' : 'border-line text-muted',
-              )}
-            >
-              <b.icon className="size-4.5" />
-            </span>
-            <span className="min-w-0">
-              <span className={cn('block font-medium', !b.earned && 'text-muted')}>{b.title}</span>
-              <span className="mt-0.5 block text-sm leading-snug text-muted">
-                {b.earned ? 'Obtenu' : b.goal}
-              </span>
-              {!b.earned && b.need > 1 && (
-                <span className="mt-2 flex items-center gap-2">
-                  <span className="h-1.5 w-20 overflow-hidden rounded-[2px] bg-cell-empty">
-                    <span className="block h-full bg-accent" style={{ width: `${(b.have / b.need) * 100}%` }} />
-                  </span>
-                  <span className="font-code text-[11px] text-muted tabular-nums">
-                    {b.have}/{b.need}
-                  </span>
-                </span>
-              )}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </section>
+    </main>
   )
 }
 
@@ -170,11 +154,31 @@ function Streak({ days }: { days: number }) {
   )
 }
 
-function Stat({ label, value }: { label: string; value: string | number }) {
+function Stat({
+  label,
+  value,
+  accent,
+  icon: Icon,
+  link,
+}: {
+  label: string
+  value: string | number
+  accent?: boolean
+  icon?: LucideIcon
+  link?: boolean
+}) {
   return (
-    <div className="min-w-0 rounded-xl border border-line bg-surface/80 px-3 py-3 backdrop-blur sm:px-4">
-      <dt className="text-xs text-muted">{label}</dt>
-      <dd className="mt-1 font-read text-2xl font-semibold tabular-nums">{value}</dd>
+    <div
+      className={cn(
+        'h-full min-w-0 rounded-xl border border-line bg-surface/80 px-3 py-3 backdrop-blur sm:px-4',
+        link && 'transition-colors hover:border-accent',
+      )}
+    >
+      <dt className="flex items-center gap-1.5 text-xs text-muted">
+        {Icon && <Icon className="size-3.5" />}
+        {label}
+      </dt>
+      <dd className={cn('mt-1 font-read text-2xl font-semibold tabular-nums', accent && 'text-fail')}>{value}</dd>
     </div>
   )
 }

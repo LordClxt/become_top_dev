@@ -141,7 +141,22 @@ function LessonPage() {
           )}
           {lesson.flashcards.length > 0 && (
             <div id="lesson-cards" className="scroll-mt-20">
-              <Flashcards cards={lesson.flashcards} />
+              <Flashcards
+                cards={lesson.flashcards}
+                // Chaque note alimente la révision espacée (id composite leçon/carte).
+                onRate={(cardId, rating) => {
+                  api
+                    .rateCard(`${lesson.id}/${cardId}`, rating)
+                    .then((r) => {
+                      if (r.xp_awarded > 0) announceXp({ amount: r.xp_awarded, reason: 'Carte révisée', kind: 'review' })
+                    })
+                    .catch(() => {})
+                    .finally(() => {
+                      qc.invalidateQueries({ queryKey: ['today'] })
+                      qc.invalidateQueries({ queryKey: ['review'] })
+                    })
+                }}
+              />
             </div>
           )}
 

@@ -1,0 +1,6 @@
+id: java-ch01-new-vs-valueof
+concept: java-instance-control
+format: interactive
+justification: "Appeler soi-même new et valueOf avec ses propres valeurs et voir le tas se remplir (ou non) rend visible ce que == compare vraiment : des adresses, pas des valeurs."
+entry: NewVsValueOf.tsx
+status: built

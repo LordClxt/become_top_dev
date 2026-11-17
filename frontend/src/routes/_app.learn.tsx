@@ -1,185 +1,106 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { CourseBooks } from '@/components/CourseBooks'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Check, Lock, LockOpen } from 'lucide-react'
-import { ActivityGraph } from '@/components/ActivityGraph'
+import { ArrowRight, Check, Lock } from 'lucide-react'
 import { GridZone } from '@/components/Backdrop'
-import { SliceMeter } from '@/components/SliceMeter'
 import { ErrorState } from '@/components/states'
-import { Button } from '@/components/ui/button'
-import { StreakFlame } from '@/components/StreakFlame'
-import { LevelTile, XpBar } from '@/components/XpBar'
-import { coursesQuery, progressQuery } from '@/features/courses/queries'
+import { meQuery } from '@/features/auth/queries'
+import { coursesQuery } from '@/features/courses/queries'
 import { RequirementNote } from '@/features/courses/RequirementNote'
 import { plural, summarizeCourse } from '@/features/courses/summary'
+import { GoalRingCard } from '@/features/habit/GoalRing'
+import { AllDoneHero, ContinueHero, HeroSkeleton } from '@/features/habit/Hero'
+import { leaderboardQuery, todayQuery } from '@/features/habit/queries'
+import { Quests } from '@/features/habit/Quests'
+import { LeaderboardTeaser, ReviewCardBlock, SideSkeleton } from '@/features/habit/SideCards'
+import { StreakWeek } from '@/features/habit/StreakWeek'
 import type { Course, CourseChapter } from '@/lib/api'
 import { iconFor } from '@/lib/course-icons'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/_app/learn')({
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(coursesQuery),
-  head: () => ({ meta: [{ title: 'Mes cours · become_top_dev' }] }),
+  // Les cours sont indispensables ; le jour et le classement s'affichent dès le rendu serveur quand ils répondent.
+  loader: async ({ context: { queryClient } }) => {
+    await Promise.all([
+      queryClient.ensureQueryData(coursesQuery),
+      queryClient.ensureQueryData(todayQuery).catch(() => null),
+      queryClient.ensureQueryData(leaderboardQuery).catch(() => null),
+    ])
+  },
+  head: () => ({ meta: [{ title: "Aujourd'hui · become_top_dev" }] }),
   errorComponent: ({ error }) => <ErrorState error={error} />,
   component: Dashboard,
 })
 
 function Dashboard() {
   const { data: courses } = useSuspenseQuery(coursesQuery)
+  const { data: today } = useQuery(todayQuery)
+  const { data: me } = useQuery(meQuery)
+  const name = me?.user?.display_name
   const summaries = courses.map((course) => ({ course, ...summarizeCourse(course) }))
-  // Le prochain pas : le premier module ouvert et non maîtrisé, dans l'ordre conseillé des cours.
-  const focus = summaries.find((s) => s.next)
+  // Le cours en cours d'abord : celui du prochain pas, puis ceux qui ont un module ouvert.
+  const currentId = today?.continue?.course_id ?? summaries.find((s) => s.next)?.course.id
+  const ordered = [...summaries].sort(
+    (a, b) => Number(b.course.id === currentId) - Number(a.course.id === currentId) || Number(!!b.next) - Number(!!a.next),
+  )
+
+  const goal = today && <GoalRingCard have={today.xp_today} goal={today.goal_xp} met={today.goal_met} />
 
   return (
     <main className="relative isolate overflow-x-clip">
       <GridZone style={{ top: -140, right: -100 }} size={620} glow={{ x: -0.1, y: 0.05 }} />
-      <div className="mx-auto grid max-w-[1200px] gap-14 px-6 pt-12 pb-28 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
-        <div>
-          {focus?.next ? (
-            <Quest course={focus.course} chapter={focus.next} />
+      <div className="mx-auto grid max-w-[1200px] gap-8 px-4 pt-8 pb-28 sm:px-6 md:pt-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-10">
+        <div className="grid min-w-0 content-start gap-8 lg:gap-12">
+          {!today ? (
+            <HeroSkeleton />
+          ) : today.continue ? (
+            <ContinueHero item={today.continue} courses={courses} name={name} />
           ) : (
-            <section className="rounded-2xl border border-line bg-surface/70 p-8">
-              <h1 className="font-read text-4xl leading-tight font-semibold tracking-tight">Tout est maîtrisé</h1>
-              <p className="mt-3 max-w-[52ch] font-read text-lg text-muted">
-                Chaque module rédigé est validé. Les prochains apparaîtront ici dès qu'ils seront prêts.
-              </p>
-            </section>
+            <AllDoneHero name={name} />
           )}
+          {/* Sur téléphone, l'objectif suit immédiatement le prochain pas. */}
+          {today ? <div className="lg:hidden">{goal}</div> : null}
+          {today ? <Quests today={today} /> : <div className="h-64 animate-pulse rounded-2xl border border-line bg-surface/60 lg:block" aria-hidden="true" />}
 
-          <section className="mt-16" aria-labelledby="my-courses">
+          <section aria-labelledby="my-courses">
             <h2 id="my-courses" className="font-read text-2xl font-semibold tracking-tight">
               Mes cours
             </h2>
-            <ol className="mt-5 border-t border-line">
-              {summaries.map((s) => (
-                <CourseRow key={s.course.id} course={s.course} summary={s} />
+            <ol className="mt-4 border-t border-line">
+              {ordered.map((s) => (
+                <CourseRow key={s.course.id} course={s.course} summary={s} current={s.course.id === currentId} />
               ))}
             </ol>
           </section>
         </div>
 
-        <aside className="grid content-start gap-10">
-          <PlayerCard />
-          <section aria-labelledby="activity">
-            <div className="mb-3 flex items-baseline justify-between gap-3">
-              <h2 id="activity" className="text-sm font-medium">
-                Mon activité
-              </h2>
-              <Link to="/profile" className="text-sm text-muted hover:text-accent">
-                Voir le journal
-              </Link>
-            </div>
-            <ActivityGraph weeks={16} />
-          </section>
+        <aside className="grid min-w-0 content-start gap-6 lg:sticky lg:top-20 lg:self-start">
+          {today ? (
+            <>
+              <div className="hidden lg:block">{goal}</div>
+              <StreakWeek today={today} />
+              <ReviewCardBlock due={today.review_due} />
+              <LeaderboardTeaser />
+            </>
+          ) : (
+            <SideSkeleton />
+          )}
         </aside>
       </div>
     </main>
   )
 }
 
-type OpenChapter = Extract<CourseChapter, { available: true }>
-
-/** La quête en cours : le module à travailler, ce qu'il reste à faire, et ce qu'il débloque. */
-function Quest({ course, chapter }: { course: Course; chapter: OpenChapter }) {
-  const all = course.tracks.flatMap((t) => t.chapters)
-  const after = all[all.findIndex((c) => c.slug === chapter.slug) + 1]
-  const Icon = iconFor(course.id, Number.parseInt(chapter.slug, 10))
-  const m = chapter.mastery
-
-  return (
-    <section
-      aria-labelledby="next-step"
-      className="relative isolate overflow-hidden rounded-2xl border border-line bg-surface/80 p-7 backdrop-blur md:p-9"
-    >
-      <div className="glow-accent pointer-events-none absolute -top-24 -left-16 -z-10 size-72 rounded-full" aria-hidden="true" />
-      <div className="flex items-start gap-5">
-        <span className="relative hidden size-16 shrink-0 sm:block">
-          <span className="node-pulse absolute inset-0 rounded-2xl bg-accent" aria-hidden="true" />
-          <span className="relative grid size-full place-items-center rounded-2xl border-2 border-accent bg-ink text-accent">
-            <Icon className="size-7" strokeWidth={1.75} />
-          </span>
-        </span>
-        <div className="min-w-0">
-          <p className="text-sm text-muted">
-            Quête en cours, <span className="text-text">{course.title}</span>
-          </p>
-          <h1 id="next-step" className="mt-1 font-read text-4xl leading-[1.08] font-semibold tracking-tight md:text-5xl">
-            {chapter.title}
-          </h1>
-          <p className="mt-3 max-w-[52ch] font-read text-lg leading-relaxed text-muted">{chapter.subtitle}</p>
-        </div>
-      </div>
-
-      <dl className="mt-8 grid gap-5 border-t border-line pt-6 sm:grid-cols-3">
-        <Objective label="Leçons" len={m.lessons_done} cap={m.lessons_total} />
-        <Objective label="TP réussis" len={m.labs_passed} cap={m.labs_total} />
-        <div>
-          <dt className="text-sm text-muted">Maîtrise</dt>
-          <dd className="mt-1.5 flex items-baseline gap-2">
-            <span className="font-read text-2xl font-semibold tabular-nums">{Math.round(m.score * 100)} %</span>
-          </dd>
-        </div>
-      </dl>
-
-      <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-        <Button asChild size="lg" className="h-12 rounded-xl px-6 text-base">
-          <Link to="/chapters/$chapterId" params={{ chapterId: chapter.id }}>
-            {m.lessons_done > 0 ? 'Reprendre ce module' : 'Commencer ce module'}
-          </Link>
-        </Button>
-        {after && (
-          <p className="flex items-center gap-2 text-sm text-muted">
-            <LockOpen className="size-4 text-accent" />
-            Maîtrisé, il ouvre «&nbsp;{after.title}&nbsp;»
-          </p>
-        )}
-      </div>
-    </section>
-  )
-}
-
-function Objective({ label, len, cap }: { label: string; len: number; cap: number }) {
-  return (
-    <div>
-      <dt className="text-sm text-muted">{label}</dt>
-      <dd className="mt-2.5">
-        <SliceMeter len={len} cap={cap} size="sm" label={`${label} : ${len} sur ${cap}`} />
-      </dd>
-    </div>
-  )
-}
-
-function PlayerCard() {
-  const { data: progress } = useQuery(progressQuery)
-  if (!progress) return <div className="h-48 rounded-2xl border border-line bg-surface/60" aria-hidden="true" />
-  const toNext = progress.next_level_xp - progress.xp
-  return (
-    <section aria-labelledby="player" className="rounded-2xl border border-line bg-surface/80 p-6 backdrop-blur">
-      <h2 id="player" className="sr-only">
-        Mon niveau
-      </h2>
-      <div className="flex items-center gap-4">
-        <LevelTile level={progress.level} />
-        <div>
-          <p className="font-read text-2xl font-semibold">Niveau {progress.level}</p>
-          <p className="text-sm text-muted tabular-nums">{progress.xp} XP au total</p>
-        </div>
-      </div>
-      <XpBar progress={progress} className="mt-5" />
-      <p className="mt-2 font-code text-xs text-muted tabular-nums">encore {toNext} XP avant le niveau {progress.level + 1}</p>
-      <div className="mt-5 flex items-center justify-between border-t border-line pt-4 text-sm">
-        <span className="flex items-center gap-2">
-          <StreakFlame lit={progress.streak_days > 0} />
-          <span className="font-medium tabular-nums">{plural(progress.streak_days, 'jour', 'jours')}</span>
-          <span className="text-muted">de série</span>
-        </span>
-        <span className="text-muted tabular-nums">record {progress.longest_streak_days} j</span>
-      </div>
-    </section>
-  )
-}
-
-function CourseRow({ course, summary }: { course: Course; summary: ReturnType<typeof summarizeCourse> }) {
-  const { total, available, mastered } = summary
+function CourseRow({
+  course,
+  summary,
+  current,
+}: {
+  course: Course
+  summary: ReturnType<typeof summarizeCourse>
+  current: boolean
+}) {
+  const { total, available, mastered, next } = summary
   const chapters = course.tracks.flatMap((t) => t.chapters)
   return (
     <li className="border-b border-line">
@@ -200,6 +121,13 @@ function CourseRow({ course, summary }: { course: Course; summary: ReturnType<ty
           <CourseBooks course={course} withAuthors={false} />
         </p>
         <ModuleStrip course={course} chapters={chapters} />
+        {current && next && (
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+            <span className="rounded-md bg-accent/15 whitespace-nowrap px-2 py-0.5 font-code text-[11px] text-accent uppercase">En cours</span>
+            Prochain module : <span className="text-text">{next.title}</span>
+            <ArrowRight className="size-3.5 text-accent transition-transform duration-(--dur-fast) group-hover:translate-x-0.5" />
+          </p>
+        )}
         {course.requires.map((req) => (
           <RequirementNote key={req.course_id} requirement={req} className="max-w-[56ch]" />
         ))}

@@ -1,0 +1,6 @@
+id: java-ch02-tostring-surfaces
+concept: java-tostring-informative
+format: interactive
+justification: "Cocher ce que toString inclut et voir changer d'un coup le log, le message d'assertion, la vue du débogueur et l'affichage d'une collection rend visible que toString est lu partout, y compris quand il laisse fuir un secret."
+entry: ToStringSurfaces.tsx
+status: built

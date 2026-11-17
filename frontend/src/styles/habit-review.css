@@ -1,0 +1,56 @@
+/* Révision du jour, salle des trophées, palette de commandes. */
+
+@keyframes review-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.review-rise {
+  animation: review-rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Trophée obtenu : un reflet passe lentement sur la médaille. */
+.trophy-shine {
+  position: relative;
+  overflow: hidden;
+}
+.trophy-shine::after {
+  content: '';
+  position: absolute;
+  inset: -40% auto -40% -60%;
+  width: 40%;
+  transform: rotate(18deg);
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 35%, transparent), transparent);
+  animation: trophy-shine 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes trophy-shine {
+  0%,
+  70% {
+    left: -60%;
+  }
+  100% {
+    left: 140%;
+  }
+}
+
+@keyframes palette-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.985);
+  }
+}
+.palette-in {
+  animation: palette-in 160ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-rise,
+  .palette-in {
+    animation: none;
+  }
+  .trophy-shine::after {
+    display: none;
+  }
+}

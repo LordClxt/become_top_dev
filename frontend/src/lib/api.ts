@@ -353,6 +353,35 @@ export type Invite = {
 
 export type Member = User & { created_at: string; xp: number }
 
+// --- Révision espacée, classement, objectif (vague 2) -----------------------
+
+export type ReviewCard = {
+  id: string
+  front: string
+  back: string
+  concept: string
+  lesson_id: string
+  lesson_title: string
+  course_title: string
+  box: number
+  is_new: boolean
+}
+export type ReviewDeck = { cards: ReviewCard[]; due_count: number; new_count: number; next_due_on: string | null; tracked: number }
+export type ReviewRating = 'known' | 'review'
+export type ReviewResult = { box: number; due_on: string; xp_awarded: number }
+export type LeaderboardEntry = {
+  user_id: number
+  display_name: string
+  has_avatar: boolean
+  xp_week: number
+  xp_total: number
+  level: number
+  streak_days: number
+  me: boolean
+}
+export type Leaderboard = { week_start: string; entries: LeaderboardEntry[] }
+export type DailyGoal = 20 | 50 | 100 | 150
+
 // --- Endpoints ---------------------------------------------------------------
 
 export const api = {
@@ -407,6 +436,45 @@ export const api = {
   activity: (weeks: number) => request<ActivityDay[]>(`/activity?weeks=${weeks}&${tzParam()}`),
   activityFeed: (day?: string) =>
     request<ActivityEvent[]>(`/activity/feed?${tzParam()}${day ? `&day=${day}` : ''}`),
+
+  // Révision espacée : l'id de carte contient un « / » (leçon/carte), il fait partie du chemin.
+  review: () => request<ReviewDeck>(`/review?${tzParam()}`),
+  rateCard: (cardId: string, rating: ReviewRating) => post<ReviewResult>(`/review/${cardId}?${tzParam()}`, { rating }),
+  leaderboard: () => request<Leaderboard>(`/leaderboard?${tzParam()}`),
+  setGoal: (goal_xp: DailyGoal) => request<void>('/profile/goal', { method: 'PUT', body: JSON.stringify({ goal_xp }) }),
+
+  // Habitude du jour (tableau de bord « Aujourd'hui »).
+  today: () => request<Today>(`/today?${tzParam()}`),
+  claimQuest: (id: string) => post<{ xp_awarded: number }>(`/today/quests/${id}/claim?${tzParam()}`),
+  claimChest: () => post<{ xp_awarded: number }>(`/today/chest/claim?${tzParam()}`),
+}
+
+// --- Habitude du jour --------------------------------------------------------
+
+export type TodayDay = { date: string; xp: number; active: boolean; goal_met: boolean; future: boolean }
+export type TodayQuest = { id: string; title: string; have: number; need: number; xp: number; done: boolean; claimed: boolean }
+export type TodayContinue = {
+  type: 'lesson' | 'exercise' | 'chapter'
+  id: string
+  title: string
+  label: string
+  course_id: string
+  course_title: string
+  chapter_id: string
+  chapter_title: string
+}
+export type Today = {
+  date: string
+  goal_xp: number
+  xp_today: number
+  goal_met: boolean
+  streak_days: number
+  streak_at_risk: boolean
+  week: TodayDay[]
+  quests: TodayQuest[]
+  chest: { ready: boolean; claimed: boolean; xp: number | null }
+  review_due: number
+  continue: TodayContinue | null
 }
 
 /** Le jour d'une action se décide dans le fuseau du navigateur, pas dans celui du serveur. */

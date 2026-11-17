@@ -1,21 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Link, useNavigate } from '@tanstack/react-router'
-import { FlaskConical, GraduationCap, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react'
+import { Link, useLocation, useNavigate } from '@tanstack/react-router'
+import { ArrowRight, FlaskConical, GraduationCap, Layers, LogOut, Moon, Search, Settings, Sun, UserRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { HeaderXpCluster } from '@/components/celebrate/HeaderXpCluster'
 import { progressQuery } from '@/features/courses/queries'
+import { Ring } from '@/features/habit/GoalRing'
+import { continueLink, continuePath, todayQuery } from '@/features/habit/queries'
 import { api } from '@/lib/api'
 import { toggleTheme } from '@/lib/theme'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { to: '/learn', label: 'Mes cours', icon: GraduationCap },
+  { to: '/learn', label: "Aujourd'hui", icon: GraduationCap },
+  { to: '/review', label: 'Révision', icon: Layers },
   { to: '/sandbox', label: 'Atelier', icon: FlaskConical },
   { to: '/profile', label: 'Profil', icon: UserRound },
 ] as const
 
 export function AppHeader() {
   const { data: progress } = useQuery(progressQuery)
+  const { data: today } = useQuery(todayQuery)
+  const pathname = useLocation({ select: (l) => l.pathname })
+  const next = today?.continue
+  const showContinue = !!next && pathname !== '/learn' && pathname !== continuePath(next)
   const qc = useQueryClient()
   const navigate = useNavigate()
   const logout = useMutation({
@@ -40,21 +47,62 @@ export function AppHeader() {
             aria-label="become_top_dev, mes cours"
           >
             <BrandMark />
-            <span className="hidden sm:inline md:hidden lg:inline">become_top_dev</span>
+            <span className="hidden sm:inline md:hidden xl:inline">become_top_dev</span>
           </Link>
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="hidden rounded-md px-3 py-1.5 text-sm text-muted transition-colors duration-(--dur-fast) hover:bg-surface-2 hover:text-text md:block"
+              className="hidden items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm text-muted transition-colors duration-(--dur-fast) hover:bg-surface-2 hover:text-text md:flex lg:px-3"
               activeProps={{ className: 'bg-surface-2 text-text', 'aria-current': 'page' }}
+              title={item.label}
             >
-              {item.label}
+              {/* Entre tablette et petit bureau : icônes seules, pour que l'en-tête tienne sur une ligne. */}
+              <item.icon className="size-4 lg:hidden" aria-hidden="true" />
+              <span className="sr-only lg:not-sr-only">{item.label}</span>
+              {item.to === '/review' && <DueBadge n={today?.review_due ?? 0} />}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-1 text-sm md:gap-2">
+          {showContinue && (
+            <Link
+              {...continueLink(next)}
+              className="mr-1 hidden items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-accent-ink transition-opacity duration-(--dur-fast) hover:opacity-90 xl:flex"
+              title={`${next.label} : ${next.title}`}
+            >
+              Continuer <ArrowRight className="size-3.5" />
+            </Link>
+          )}
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent('btd:palette'))}
+            className="flex items-center gap-2 rounded-md p-2 text-muted transition-colors duration-(--dur-fast) hover:bg-surface-2 hover:text-text xl:border xl:border-line xl:py-1.5 xl:pr-1.5 xl:pl-2.5"
+            aria-label="Rechercher"
+            title="Rechercher (⌘K)"
+          >
+            <Search className="size-4" />
+            <kbd className="hidden rounded border border-line px-1.5 font-code text-[10px] leading-4 xl:inline">⌘K</kbd>
+          </button>
+          {today && (
+            <Link
+              to="/learn"
+              className="group relative rounded-md p-1.5 transition-colors duration-(--dur-fast) hover:bg-surface-2"
+              aria-label={`Objectif du jour : ${today.xp_today} sur ${today.goal_xp} XP`}
+            >
+              <Ring have={today.xp_today} goal={today.goal_xp} size={24} stroke={3.5} />
+              <span
+                className="juice-tip pointer-events-none absolute top-full right-0 z-50 mt-2 w-max rounded-lg border border-line bg-surface px-3 py-2 text-xs shadow-lg"
+                aria-hidden="true"
+              >
+                <span className="font-code tabular-nums">
+                  {today.xp_today} / {today.goal_xp} XP
+                </span>{' '}
+                aujourd'hui{today.goal_met ? ', objectif atteint' : ''}
+              </span>
+            </Link>
+          )}
           {progress && <HeaderXpCluster progress={progress} />}
           <span className="mx-1 h-6 w-px bg-line" aria-hidden="true" />
           <button
@@ -92,9 +140,10 @@ export function AppHeader() {
 
 /** Sur téléphone, la navigation principale passe dans une barre d'onglets en bas de l'écran, à portée de pouce. */
 export function MobileTabBar() {
+  const { data: today } = useQuery(todayQuery)
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-line bg-ink/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-line bg-ink/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
       aria-label="Navigation principale"
     >
       {NAV.map(({ to, label, icon: Icon }) => (
@@ -104,7 +153,10 @@ export function MobileTabBar() {
           className="flex flex-col items-center gap-1 py-2 text-[11px] text-muted"
           activeProps={{ className: 'text-accent', 'aria-current': 'page' }}
         >
-          <Icon className="size-5" aria-hidden="true" />
+          <span className="relative">
+            <Icon className="size-5" aria-hidden="true" />
+            {to === '/review' && <DueBadge n={today?.review_due ?? 0} floating />}
+          </span>
           {label}
         </Link>
       ))}
@@ -119,6 +171,22 @@ export function BrandMark({ className }: { className?: string }) {
       <span className="size-2 rounded-[2px] bg-accent" />
       <span className="size-2 rounded-[2px] bg-accent" />
       <span className="size-2 rounded-[2px] bg-cell-empty" />
+    </span>
+  )
+}
+
+/** Pastille du nombre de cartes à réviser (rien quand il n'y en a pas). */
+function DueBadge({ n, floating }: { n: number; floating?: boolean }) {
+  if (n <= 0) return null
+  return (
+    <span
+      className={cn(
+        'grid h-4 min-w-4 place-items-center rounded-full bg-accent px-1 font-code text-[10px] leading-none font-semibold text-accent-ink tabular-nums',
+        floating && 'absolute -top-1.5 -right-2.5',
+      )}
+      aria-label={`${n} à réviser`}
+    >
+      {n > 99 ? '99+' : n}
     </span>
   )
 }

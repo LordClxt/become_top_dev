@@ -1,0 +1,6 @@
+id: java-ch02-compare-consistency
+concept: java-comparable-consistent-equals
+format: interactive
+justification: "Insérer les mêmes valeurs dans un HashSet et un TreeSet côte à côte, avec la question posée par chacun, rend visible pourquoi ils divergent ; le mode débordement fait calculer a - b sur 32 bits pour voir le signe mentir."
+entry: CompareConsistency.tsx
+status: built

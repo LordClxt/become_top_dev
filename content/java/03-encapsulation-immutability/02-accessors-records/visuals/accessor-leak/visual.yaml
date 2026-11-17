@@ -1,0 +1,6 @@
+id: java-ch03-accessor-leak
+concept: java-record-mutable-components
+format: interactive
+justification: "Jouer soi-même l'attaquant, copie défensive activée ou non à l'entrée et à la sortie, montre quelle référence est partagée et par quelle porte l'état d'un record « immuable » fuit."
+entry: AccessorLeak.tsx
+status: built

@@ -2,7 +2,7 @@
 id: java-ch01-l03
 title: "Singletons et injection de dépendances"
 source: { chapter: 2, pages: "17-21" }
-duration_min: 25
+duration_min: 30
 concepts:
   - id: java-singleton-field-factory
     label: "Singleton par champ public final ou par fabrique statique : constructeur privé, une instance à l'initialisation de la classe"
@@ -21,15 +21,78 @@ glossary:
     definition: "Méthode appelée après la désérialisation d'un objet, qui peut renvoyer une autre instance à sa place ; sert à préserver un singleton sérialisable."
   - term: "Supplier<T>"
     definition: "Interface fonctionnelle de Java 8 : une méthode T get() sans paramètre. Parfaite pour représenter une fabrique."
-visuals: []
+visuals: [java-ch01-injected-clock]
 labs: [java-ch01-l03-lab-token-service]
 extra: false
 xp: 25
+checkpoints:
+  - id: c1
+    type: code-output
+    prompt: "Ce singleton est devenu Serializable, sans readResolve. On l'écrit puis on le relit. Qu'affiche le programme ?"
+    code: |
+      import java.io.*;
+
+      public class Main {
+          static class Registry implements Serializable {
+              static final Registry INSTANCE = new Registry();
+              private Registry() { }
+          }
+
+          public static void main(String[] args) throws Exception {
+              var bytes = new ByteArrayOutputStream();
+              try (var out = new ObjectOutputStream(bytes)) { out.writeObject(Registry.INSTANCE); }
+              try (var in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()))) {
+                  Object copy = in.readObject();
+                  System.out.println((copy == Registry.INSTANCE) + " " + (copy instanceof Registry));
+              }
+          }
+      }
+    answer: "false true"
+    explanation: "La désérialisation fabrique un nouvel objet sans passer par ton constructeur privé : tu as maintenant deux Registry. Le constructeur privé ne protège que contre new dans le code source, pas contre ce mécanisme ; readResolve ou une enum referment la brèche."
+    concept: java-singleton-field-factory
+  - id: c2
+    type: single
+    prompt: "Pour tester `ExchangeRates` (singleton), deux classes de test appellent `ExchangeRates.INSTANCE.setSource(fake)` avec des faux différents. En local tout passe ; en CI, avec les tests en parallèle, un test échoue une fois sur dix. Pourquoi ?"
+    choices:
+      - "La CI est plus lente, il faut augmenter les timeouts"
+      - "Les deux tests partagent la même instance : l'un remplace la source de l'autre pendant qu'il tourne"
+      - "setSource n'est pas synchronized : il suffit de l'ajouter"
+      - "Les singletons ne sont pas chargés dans les tests parallèles"
+    answer: 1
+    explanation: "Un singleton n'a qu'un état, partagé par tous ses clients, donc par tous les tests qui tournent en même temps. synchronized rendrait l'écriture atomique mais un test verrait toujours la source posée par l'autre : la vraie correction est une instance par client, chacune avec sa source au constructeur."
+    concept: java-dependency-injection
+  - id: c3
+    type: code-output
+    prompt: "TokenService reçoit son horloge au constructeur. Qu'affiche le programme ?"
+    code: |
+      import java.time.*;
+
+      public class Main {
+          record TokenService(Clock clock) {
+              boolean isExpired(Instant expiresAt) { return clock.instant().isAfter(expiresAt); }
+          }
+
+          public static void main(String[] args) {
+              Instant t0 = Instant.parse("2026-01-01T00:00:00Z");
+              Instant expiresAt = t0.plusSeconds(60);
+              Clock fixed = Clock.fixed(t0, ZoneOffset.UTC);
+              var before = new TokenService(fixed);
+              var after = new TokenService(Clock.offset(fixed, Duration.ofSeconds(61)));
+              System.out.println(before.isExpired(expiresAt) + " " + after.isExpired(expiresAt));
+          }
+      }
+    answer: "false true"
+    explanation: "Avec une horloge fixe, le service voit toujours le même instant : le résultat ne dépend plus du moment où le test tourne. Clock.offset simule 61 secondes plus tard sans aucun Thread.sleep, ce qu'Instant.now() câblé en dur ne permettrait jamais."
+    concept: java-dependency-injection
 ---
 
 ## Pourquoi c'est important
 
-« Il n'y aura jamais qu'un dictionnaire / une horloge / une base de données » : c'est faux dès le premier test unitaire. Une classe qui va chercher elle-même ses ressources (un `static`, un singleton, `Instant.now()`) devient **impossible à tester** et **impossible à réutiliser** dans un autre contexte. Ce que tu apprends ici, c'est exactement ce que font Spring, Guice ou Dagger à grande échelle, et ce que Grails fait avec ses services injectés.
+3 h du matin, la CI est rouge : `TokenServiceTest.expiresAfterOneHour` échoue, puis repasse au relancement. Le service appelle `Instant.now()` en plein calcul, donc le test dépend de l'heure à laquelle il tourne (et de la lenteur de la machine). Personne ne peut le corriger sans toucher au code de production.
+
+« Il n'y aura jamais qu'une horloge / un dictionnaire / une base de données » : c'est faux dès le premier test unitaire. Une classe qui va chercher elle-même ses ressources (un `static`, un singleton, `Instant.now()`) devient **impossible à tester** et **impossible à réutiliser** ailleurs. Ce que tu apprends ici, c'est ce que font Spring, Guice ou Dagger à grande échelle, et Grails avec ses services injectés.
+
+La règle à retenir : **une classe ne va pas chercher ce dont elle a besoin, on le lui donne.**
 
 ## Les trois façons d'écrire un singleton
 
@@ -58,9 +121,17 @@ public class Registry {
 
 Avantages : tu peux changer d'avis plus tard (une instance par thread, par exemple) sans changer l'API ; elle peut être générique (module 5) ; et `Registry::getInstance` est un `Supplier<Registry>`. Si aucun de ces avantages ne te sert, préfère le champ public.
 
+:::reveal Avant de lire la suite : un constructeur privé garantit-il qu'il n'y aura qu'une instance ?
+Non. `private` est vérifié par le compilateur et par l'accès normal, mais deux mécanismes créent des objets sans passer par ton code : la **réflexion** et la **désérialisation**.
+:::
+
 **Les deux formes ont des failles :**
-- un client privilégié peut appeler le constructeur privé par **réflexion** (`setAccessible(true)`). Parade : lever une exception si une deuxième instance est créée ;
-- si la classe devient `Serializable`, **chaque désérialisation crée une nouvelle instance**. Parade : champs `transient` et une méthode `readResolve()` qui renvoie `INSTANCE` (on verra au module 12 que même ça est fragile).
+- un client privilégié peut appeler le constructeur privé par **réflexion** (l'API qui inspecte et appelle les membres d'une classe à l'exécution, avec `setAccessible(true)`). Parade : lever une exception si une deuxième instance est créée ;
+- si la classe devient `Serializable`, **chaque désérialisation crée une nouvelle instance**. Parade : champs `transient` et une méthode `readResolve()` (appelée juste après la lecture, elle peut rendre un autre objet à la place) qui renvoie `INSTANCE` (on verra au module 12 que même ça est fragile).
+
+::checkpoint{id="c1"}
+
+> **Sous le capot :** la désérialisation n'appelle pas le constructeur de ta classe `Serializable` : elle alloue l'objet puis remplit ses champs depuis le flux d'octets. Seul le constructeur sans paramètre de la première classe mère non sérialisable (ici `Object`) est exécuté. C'est pourquoi ta vérification « déjà une instance ? » dans le constructeur ne voit rien passer.
 
 **L'enum à un élément :**
 
@@ -79,25 +150,23 @@ C'est la forme recommandée : aussi concise que le champ public, sérialisation 
 
 ## Ne câble pas tes ressources en dur
 
-Le cas typique : une classe qui dépend d'une ressource dont le comportement change le sien.
+Le cas typique : une classe qui dépend d'une ressource dont le comportement change le sien. Écrite comme classe utilitaire ou comme singleton, elle suppose qu'**une seule source** de taux convient à tout le monde, pour toujours. Or il en faut une autre pour les tests, une pour la crypto, une en cache…
 
+:::compare
+--- bad: Câblé en dur
 ```java
-// Câblé en dur : rigide et intestable
 public class ExchangeRates {
-    private static final RateSource SOURCE = new EcbRateSource();   // la BCE, en dur
+    // la BCE, en dur : impossible d'en mettre une autre
+    private static final RateSource SOURCE = new EcbRateSource();
     private ExchangeRates() { }
     public static BigDecimal convert(Money m, Currency to) { ... }
 }
 ```
-
-Écrite comme classe utilitaire ou comme singleton, elle suppose qu'**une seule source** de taux convient à tout le monde, pour toujours. Or il en faut une autre pour les tests, une pour la crypto, une en cache… Ajouter un `setSource(...)` serait pire : fragile et faux dès qu'il y a plusieurs threads.
-
-**Classes utilitaires et singletons ne conviennent pas aux classes dont le comportement dépend d'une ressource sous-jacente.** Il faut pouvoir créer plusieurs instances, chacune avec la ressource choisie par le client. Le moyen le plus simple : **la passer au constructeur**.
-
+Un test de `convert` appelle le vrai réseau de la BCE. Ajouter un `setSource(...)` serait pire : fragile et faux dès qu'il y a plusieurs threads.
+--- good: Injection de dépendances
 ```java
-// Injection de dépendances : souple et testable
 public class ExchangeRates {
-    private final RateSource source;
+    private final RateSource source;   // final : fixée une fois pour toutes
 
     public ExchangeRates(RateSource source) {
         this.source = Objects.requireNonNull(source);
@@ -105,12 +174,45 @@ public class ExchangeRates {
     public BigDecimal convert(Money m, Currency to) { ... }
 }
 ```
+Chaque client crée **son** instance avec **sa** source : la BCE en production, un faux à taux fixe en test.
+:::
+
+**Classes utilitaires et singletons ne conviennent pas aux classes dont le comportement dépend d'une ressource sous-jacente.** Il faut pouvoir créer plusieurs instances, chacune avec la ressource choisie par le client. Le moyen le plus simple : **la passer au constructeur**. On appelle ça l'**injection de dépendances** : l'objet reçoit ses ressources au lieu de les créer ou de les chercher.
+
+::checkpoint{id="c2"}
 
 C'est tout : ce patron est si simple que beaucoup l'utilisent sans savoir qu'il a un nom. Il marche avec n'importe quel nombre de ressources, préserve l'**immutabilité** (champs `final`), et s'applique aussi aux fabriques statiques et aux builders.
 
 ### L'horloge est une dépendance
 
 `Instant.now()` et `System.currentTimeMillis()` sont des ressources cachées. Le JDK fournit `java.time.Clock` justement pour pouvoir les injecter : `Clock.systemUTC()` en production, `Clock.fixed(...)` ou une horloge maison dans les tests. C'est ce que tu fais dans le lab.
+
+:::steps
+```java
+public final class TokenService {
+    private final Clock clock;
+
+    public TokenService(Clock clock) {
+        this.clock = Objects.requireNonNull(clock);
+    }
+
+    public boolean isExpired(Instant expiresAt) {
+        return clock.instant().isAfter(expiresAt);
+    }
+}
+```
+--- 2: L'horloge est un champ `final` comme une autre dépendance : le service n'a aucune idée de laquelle il a reçu.
+--- 4-6: Le constructeur la reçoit et refuse `null` tout de suite, plutôt qu'un `NullPointerException` loin d'ici.
+--- 9-10: `clock.instant()` remplace `Instant.now()`. En production c'est la même heure ; en test, c'est l'heure que **le test** a choisie.
+:::
+
+> **Sous le capot :** la Javadoc d'`Instant.now()` dit qu'elle interroge l'horloge système UTC, celle que renvoie `Clock.systemUTC()`. Passer par un `Clock` injecté ne change donc pas le comportement en production, seulement la possibilité de le contrôler.
+
+Change l'horloge injectée et lance le test plusieurs fois : regarde lequel est stable.
+
+::visual{id="java-ch01-injected-clock"}
+
+::checkpoint{id="c3"}
 
 ### Injecter une fabrique
 

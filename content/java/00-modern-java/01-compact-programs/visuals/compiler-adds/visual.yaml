@@ -1,0 +1,6 @@
+id: java-ch00-compiler-adds
+concept: java-compact-source
+format: interactive
+justification: "Activer une à une les pièces que javac et le lanceur ajoutent au fichier compact montre qu'il devient une classe ordinaire, sans magie : une animation linéaire ne laisserait pas l'apprenant isoler chaque pièce."
+entry: CompilerAdds.tsx
+status: built

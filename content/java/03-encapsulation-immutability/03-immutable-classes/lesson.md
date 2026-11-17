@@ -2,7 +2,7 @@
 id: java-ch03-l03
 title: "Des classes immuables"
 source: { chapter: 4, pages: "80-85" }
-duration_min: 40
+duration_min: 45
 concepts:
   - id: java-immutable-five-rules
     label: "Les cinq règles : pas de mutateur, classe non extensible, champs final, champs private, accès exclusif aux composants mutables"
@@ -33,13 +33,70 @@ visuals: [java-ch03-structural-sharing]
 labs: [java-ch03-l03-lab-fraction, java-ch03-l03-lab-drifting-quote]
 extra: false
 xp: 30
+checkpoints:
+  - id: c1
+    type: code-output
+    prompt: "Team a un champ `private final List<String>`. Qu'affiche le programme ?"
+    code: |
+      public class Main {
+          static final class Team {
+              private final List<String> names;
+              Team(List<String> names) { this.names = names; }
+              List<String> names() { return names; }
+          }
+
+          public static void main(String[] args) {
+              var source = new ArrayList<>(List.of("Ana"));
+              var team = new Team(source);
+              source.add("Bob");
+              team.names().add("Eve");
+              System.out.println(team.names());
+          }
+      }
+    answer: "[Ana, Bob, Eve]"
+    explanation: "final fige la référence, pas la liste : l'appelant garde un accès par source, et l'accesseur en donne un second. Il fallait List.copyOf à l'entrée (et ne jamais renvoyer une liste modifiable), c'est la règle 5."
+    concept: java-immutable-five-rules
+  - id: c2
+    type: code-output
+    prompt: "LocalDate est immuable. Qu'affiche le programme ?"
+    code: |
+      var d = LocalDate.of(2026, 1, 15);
+      d.withDayOfMonth(1);
+      var e = d.plusDays(1);
+      System.out.println(d + " " + e);
+    answer: "2026-01-15 2026-01-16"
+    explanation: "withDayOfMonth renvoie une nouvelle date que la ligne 2 jette : d n'a jamais changé. Croire qu'une méthode « with » ou « plus » modifie l'objet est exactement le piège que l'approche fonctionnelle évite si on utilise le résultat."
+    concept: java-functional-approach
+  - id: c3
+    type: single
+    prompt: "`public class Money` (non finale, constructeur public) a deux champs `private final long cents; private final String currency;` et aucun mutateur. Un code non fiable te passe un `Money`. Que peut-il se passer ?"
+    choices:
+      - "Rien : les champs private final ne peuvent pas changer, l'objet est sûr"
+      - "Le compilateur refuse toute sous-classe d'une classe aux champs final"
+      - "Une sous-classe peut redéfinir cents() ou toString() pour renvoyer des valeurs qui changent, tout en passant pour un Money"
+      - "La sous-classe peut écrire directement dans le champ cents hérité"
+    answer: 2
+    explanation: "Les champs du parent restent intacts, mais ce que tu observes passe par des méthodes qu'une sous-classe peut redéfinir avec son propre état mutable. C'est pour ça que la règle 2 exige une classe non extensible : final, ou des constructeurs privés."
+    concept: java-effectively-final-factories
+  - id: c4
+    type: code-output
+    prompt: "Integer est immuable et Integer.valueOf est une fabrique statique. Qu'affiche le programme ?"
+    code: |
+      Integer a = Integer.valueOf(127), b = Integer.valueOf(127);
+      Integer c = Integer.valueOf(128), d = Integer.valueOf(128);
+      System.out.println((a == b) + " " + (c == d) + " " + c.equals(d));
+    answer: "true false true"
+    explanation: "valueOf renvoie une instance en cache pour -128 à 127 : partager est sans risque puisque personne ne peut la modifier. Au-delà, chaque appel crée un objet ; == compare des identités, pas des valeurs, d'où equals pour comparer deux Integer."
+    concept: java-immutable-sharing
 ---
 
 ## Pourquoi c'est important
 
 Un service de réservation calcule un tarif avec `BigDecimal`, puis le passe à un module de remise qui fait `prix.add(remise)`. Rien ne change : `add` ne modifie pas `prix`, il **renvoie** un nouveau `BigDecimal`, que le code jette. Le bug inverse est bien pire : avec une classe `Money` **mutable** dotée d'un `add` qui modifie `this`, le module de remise change le prix stocké dans le panier de *tous* les objets qui partagent cette référence : la facture, le récapitulatif, le journal d'audit.
 
-Un objet immuable ne peut être que dans un seul état : celui de sa construction. Tu vérifies les invariants une fois, dans le constructeur, et ils sont vrais pour toujours, quel que soit le nombre de threads ou de modules qui le partagent.
+L'image à garder : un objet immuable se comporte comme le nombre 3. Personne ne « modifie » 3 ; on calcule `3 + 1` et on obtient **une autre** valeur, 4, pendant que 3 reste 3 pour tous ceux qui le tiennent.
+
+Un objet immuable ne peut donc être que dans un seul état : celui de sa construction. Tu vérifies les invariants une fois, dans le constructeur, et ils sont vrais pour toujours, quel que soit le nombre de threads ou de modules qui le partagent.
 
 ## Le concept
 
@@ -47,10 +104,13 @@ Un objet immuable ne peut être que dans un seul état : celui de sa constructio
 
 1. **Aucun mutateur** : pas de méthode qui change l'état.
 2. **Classe non extensible** : sinon une sous-classe peut ajouter un état mutable et faire *semblant* d'être toi. En général : `final`.
-3. **Tous les champs `final`** : l'intention est vérifiée par le compilateur, et c'est nécessaire pour la publication sûre entre threads (voir *Sous le capot*).
+3. **Tous les champs `final`** : l'intention est vérifiée par le compilateur, et c'est nécessaire à la *publication sûre* : un autre thread qui reçoit l'objet le voit complètement initialisé (voir *Sous le capot*).
 4. **Tous les champs `private`** : sinon un client accède aux objets mutables référencés par un champ.
 5. **Accès exclusif aux composants mutables** : ne stocke jamais une référence mutable fournie par le client, ne la renvoie jamais. Copies défensives à l'entrée **et** à la sortie.
 
+Voici les cinq règles appliquées à une classe de nombres complexes, ligne par ligne :
+
+:::steps
 ```java
 public final class Complex {
     public static final Complex ZERO = new Complex(0, 0);
@@ -69,10 +129,46 @@ public final class Complex {
     // equals, hashCode, toString : module 2
 }
 ```
+--- 1: `final` sur la classe (règle 2) : aucune sous-classe ne pourra ajouter d'état ni redéfinir `realPart()` pour mentir.
+--- 2-3: Des constantes publiques : sans danger, puisque personne ne peut les modifier. Tout le monde partage le même `ZERO`.
+--- 5-6: `private final` (règles 3 et 4) : le compilateur refuse toute réaffectation, et aucun client ne voit les champs.
+--- 8: Le constructeur établit l'état une fois pour toutes. Deux `double` sont des valeurs, pas des objets mutables : la règle 5 n'a rien à copier ici.
+--- 10-11: Des accesseurs, aucun `setRe` : il n'existe aucun mutateur (règle 1).
+--- 13-14: Chaque opération calcule et renvoie un **nouveau** `Complex`. `this` n'est jamais touché.
+:::
+
+La règle 5 est celle qu'on rate le plus souvent, car rien ne la vérifie à la compilation dès qu'un champ pointe vers un objet mutable (une liste, une date `java.util.Date`, un tableau).
+
+::checkpoint{id="c1"}
 
 ### L'approche fonctionnelle (et ses noms)
 
 `plus` renvoie un **nouveau** `Complex` et laisse `this` intact : c'est l'approche *fonctionnelle*. Le nom compte : une **préposition** (`plus`, `minus`, `times`) dit « le résultat de », un **verbe** (`add`) laisse croire que l'objet change. `BigInteger.add` et `BigDecimal.add` ont pris des verbes, et des générations de développeurs ont écrit `total.add(x);` en jetant le résultat. Pour une méthode qui « modifie » un objet immuable, les conventions modernes sont `withX(…)` (`LocalDate.withDayOfMonth`) ou un verbe au participe (`plusDays`).
+
+:::compare
+--- bad: Money mutable : add modifie this
+```java
+final class Money {
+    private long cents;
+    Money add(Money m) { cents += m.cents; return this; }
+}
+// cart.total() et invoice.total() pointent vers le même objet :
+invoice.total().add(fee);   // le panier change aussi
+```
+--- good: Money immuable : plus renvoie une valeur
+```java
+final class Money {
+    private final long cents;
+    Money(long cents) { this.cents = cents; }
+    Money plus(Money m) { return new Money(cents + m.cents); }
+}
+Money withFee = invoice.total().plus(fee);   // personne d'autre ne bouge
+```
+:::
+
+Le prix de la version immuable : **utiliser le résultat**. Un appel dont on jette le retour ne fait rien, sans erreur ni avertissement.
+
+::checkpoint{id="c2"}
 
 ### Ce qu'on gagne
 
@@ -81,9 +177,19 @@ public final class Complex {
 - **Jamais de copie** : une copie serait équivalente pour toujours à l'original. Pas de `clone`, pas de constructeur de copie (le constructeur `String(String)` est une erreur historique).
 - **Partage des internes** : `BigInteger` stocke un signe (`int`) et une magnitude (`int[]`). `negate()` crée un nouveau `BigInteger` avec le signe opposé qui **pointe vers le même tableau** : il ne sera jamais modifié, il peut donc servir à deux objets.
 - **De bonnes briques** : clés de `Map`, éléments de `Set`, composants d'objets plus gros (module 2 : une clé mutable détruit une `HashMap`).
-- **Atomicité en cas d'échec gratuite** : si `dividedBy` lève une exception, aucun objet n'est à moitié modifié.
+- **Atomicité en cas d'échec gratuite** : si `dividedBy` lève une exception, aucun objet n'est à moitié modifié (c'est l'*atomicité en cas d'échec* : l'objet reste cohérent quand une opération échoue au milieu).
+
+::checkpoint{id="c4"}
+
+Le partage des internes est ce qui rend l'immutabilité bon marché. Construis toi-même des versions d'une pile immuable et compte les nœuds alloués :
+
+::visual{id="java-ch03-structural-sharing"}
 
 ### Une alternative à `final` : constructeur privé + fabriques
+
+Pourquoi tant d'insistance sur la règle 2, alors que les champs sont déjà `private final` ? Vérifie ton intuition :
+
+::checkpoint{id="c3"}
 
 ```java
 public class Complex {
@@ -98,6 +204,10 @@ public class Complex {
 ```
 
 Sans constructeur public ni protected, aucune classe d'un autre paquetage ne peut l'étendre : elle est **effectivement finale** pour ses clients. Et tu gardes la liberté d'avoir plusieurs implémentations package-private (une `Complex` polaire, une `Complex` réelle) et d'ajouter un cache dans `valueOf`. C'est souvent la meilleure option.
+
+:::reveal Avant de lire la suite : même pour une classe `final`, pourquoi préférer `valueOf` à un constructeur public ?
+Un constructeur promet **un nouvel objet** à chaque appel, pour toujours. Une fabrique ne promet qu'**une valeur** : tu peux plus tard renvoyer une instance en cache (`Complex.ZERO` pour `valueOf(0, 0)`) ou une sous-classe package-private plus efficace, sans casser un seul client.
+:::
 
 ### L'erreur de `BigInteger` et `BigDecimal`
 
@@ -124,7 +234,11 @@ Deux limites à connaître :
 - **Ne laisse pas `this` s'échapper du constructeur** (l'enregistrer dans un registre statique, démarrer un thread qui le voit, appeler une méthode redéfinissable) : un thread qui obtient la référence *pendant* la construction n'a aucune garantie.
 - Le gel couvre l'objet **atteint par** le champ final tel qu'il était à la fin du constructeur : un tableau rempli dans le constructeur est visible correctement ; un tableau modifié après ne l'est pas.
 
-**`final` ne voulait pas encore tout à fait dire final.** Jusqu'au JDK 25, la réflexion profonde peut modifier un champ `final` d'instance : `f.setAccessible(true); f.setLong(money, 999);` réussit sur une classe ordinaire (vérifié dans l'image du cours), et c'est ce que font certaines bibliothèques de sérialisation ou de mock. Seuls les champs des **records** (et des classes cachées) sont protégés : la même ligne lève `IllegalAccessException`. Conséquence méconnue : comme un champ final *peut* changer, le JIT n'ose pas le traiter comme une constante (il ne fait pas de *constant folding* sur les champs finals d'instance ordinaires), et ton immutabilité ne te rapporte pas toutes les optimisations qu'elle pourrait. Le JDK 26 commence à corriger ça (JEP 500, « Prepare to Make Final Mean Final ») : une telle modification affiche un avertissement, et deviendra une erreur dans une version future. Pour vérifier dès aujourd'hui qu'aucune de tes dépendances ne le fait, lance tes tests sur un JDK 26+ avec `--illegal-final-field-mutation=deny`.
+**`final` ne voulait pas encore tout à fait dire final.** Jusqu'au JDK 25, la réflexion profonde peut modifier un champ `final` d'instance : `f.setAccessible(true); f.setLong(money, 999);` réussit sur une classe ordinaire (vérifié dans l'image du cours), et c'est ce que font certaines bibliothèques de sérialisation ou de mock. Seuls les champs des **records** (et des classes cachées) sont protégés : la même ligne lève `IllegalAccessException`.
+
+Conséquence méconnue : comme un champ final *peut* changer, le JIT n'ose pas le traiter comme une constante (il ne fait pas de *constant folding* sur les champs finals d'instance ordinaires), et ton immutabilité ne te rapporte pas toutes les optimisations qu'elle pourrait.
+
+Le JDK 26 commence à corriger ça (JEP 500, « Prepare to Make Final Mean Final ») : une telle modification affiche un avertissement, et deviendra une erreur dans une version future. Pour vérifier dès aujourd'hui qu'aucune de tes dépendances ne le fait, lance tes tests sur un JDK 26+ avec `--illegal-final-field-mutation=deny`.
 
 Et le champ de cache non final de `String.hash` ? Il fait une course *bénigne* : deux threads peuvent calculer le hash chacun de leur côté, mais ils écrivent la même valeur, et un `int` s'écrit atomiquement. Le pire cas est un calcul en double. (Depuis le JDK 13, un booléen `hashIsZero` évite de recalculer à chaque appel le hash des chaînes dont le hash vaut réellement 0.)
 

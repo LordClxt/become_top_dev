@@ -1,0 +1,6 @@
+id: java-ch03-immutable-price
+concept: java-immutable-cost
+format: interactive
+justification: "Faire avancer soi-même une concaténation étape par étape, avec String et avec StringBuilder, et voir les chaînes jetées s'empiler d'un côté pendant qu'un seul tampon grandit de l'autre, rend visible un coût quadratique qu'un chiffre seul ne fait pas sentir."
+entry: ImmutablePrice.tsx
+status: built

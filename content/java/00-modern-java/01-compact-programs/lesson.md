@@ -2,7 +2,7 @@
 id: java-ch00-l01
 title: "Du script au programme : fichiers compacts, var et blocs de texte"
 source: { chapter: 1, pages: "1-3", url: "https://openjdk.org/jeps/512" }
-duration_min: 30
+duration_min: 35
 concepts:
   - id: java-compact-source
     label: "Fichier source compact : des champs et des méthodes sans classe englobante, compilés en une classe finale implicite"
@@ -29,7 +29,52 @@ glossary:
     definition: "Déclaration `import module M;` qui importe les types publics de tous les paquetages exportés par le module M."
   - term: "espace accessoire"
     definition: "Dans un bloc de texte, l'indentation commune à toutes les lignes (y compris celle du délimiteur fermant), retirée par le compilateur."
-visuals: []
+  - term: "main d'instance"
+    definition: "Méthode main non static : le lanceur crée d'abord un objet de la classe, puis appelle main dessus."
+checkpoints:
+  - id: c1
+    type: code-output
+    prompt: "Le champ est initialisé en appelant une méthode de la même instance. Qu'affiche ce fichier compact ?"
+    code: |
+      int n = next();
+
+      int next() { return n + 10; }
+
+      void main() {
+          IO.println(n + " " + next());
+      }
+    answer: "10 20"
+    explanation: "Le lanceur construit un vrai objet avant d'appeler main : l'initialiseur du champ s'exécute pendant la construction, quand n vaut encore 0, donc n devient 10, puis next() renvoie 20. Penser qu'un fichier compact est un script exécuté de haut en bas, sans objet, fait prédire une erreur."
+    concept: java-instance-main
+  - id: c2
+    type: code-output
+    prompt: "Prédis la sortie."
+    code: |
+      void main() {
+          var x = 7;
+          x = x / 2;
+          IO.println(x);
+      }
+    answer: "3"
+    explanation: "var prend le type de l'initialiseur : 7 est un int, x est un int pour toujours, et 7 / 2 est une division entière. var ne rend pas la variable dynamique et ne la « promeut » jamais en double."
+    concept: java-var
+  - id: c3
+    type: single
+    prompt: "Que se passe-t-il à la compilation ?"
+    code: |
+      void main() {
+          String body = """{"id": 42}""";
+          IO.println(body);
+      }
+    choices:
+      - "Ça compile et affiche {\"id\": 42}"
+      - "Ça compile, mais les guillemets internes doivent être échappés pour s'afficher"
+      - "Erreur : après les \"\"\" ouvrants, le contenu doit commencer à la ligne suivante"
+      - "Ça compile et affiche le texte avec un saut de ligne final"
+    answer: 2
+    explanation: "Les \"\"\" ouvrants doivent être suivis d'un saut de ligne (javac : illegal text block open delimiter sequence). Un bloc de texte n'est pas une chaîne avec d'autres guillemets : pour une seule ligne, garde une chaîne classique."
+    concept: java-text-block
+visuals: [java-ch00-compiler-adds]
 labs: [java-ch00-l01-lab-warmup-payload, java-ch00-l01-lab-tally]
 extra: true
 xp: 30
@@ -37,13 +82,15 @@ xp: 30
 
 ## Pourquoi c'est important
 
-Vendredi, 17 h. On te demande de totaliser un export de caisse : quelques centaines de lignes `article;quantité;prix`. En Go, tu écris un `main.go` de vingt lignes et tu lances `go run`. En Java « de 2014 », il te fallait d'abord une classe publique dont le nom correspond au fichier, un `public static void main(String[] args)`, trois imports pour lire l'entrée standard, une compilation, puis une exécution. Résultat : beaucoup d'équipes écrivaient ces outils en Python ou en Bash… et les réécrivaient en Java le jour où ils devenaient importants, en recopiant les bugs.
+Vendredi, 17 h. On te demande de totaliser un export de caisse : quelques centaines de lignes `article;quantité;prix`. En Java « de 2014 », il fallait une classe publique au nom du fichier, un `public static void main(String[] args)`, trois imports, une compilation, puis une exécution. Alors l'équipe l'écrit en Bash. Six mois plus tard, le script est devenu critique, quelqu'un le réécrit en Java… et recopie le bug d'arrondi qui faussait les totaux. (En Go, tu aurais juste fait `go run main.go`.)
 
 Depuis Java 25, le même outil tient dans un fichier sans aucune cérémonie, et il **grandit** en vraie classe sans être réécrit. Ce module est un tour accéléré du Java que tu écriras dans ce cours : le livre de Bloch s'arrête à Java 9, tout ce qui suit est marqué *extra*.
 
 ## Le concept
 
 ### Un fichier compact
+
+L'idée à retenir : **un fichier compact, c'est le corps d'une classe dont le compilateur écrit l'enveloppe**. Tu écris les champs et les méthodes ; javac ajoute la déclaration de classe et les imports. Rien d'autre ne change : c'est toujours de l'objet.
 
 ```java
 // Tally.java — un fichier complet
@@ -63,8 +110,8 @@ printf '12\n30\n' | java Tally.java      # TOTAL 42
 
 Trois nouveautés, toutes **définitives** depuis Java 25 :
 
-- **pas de classe** : un fichier qui déclare directement des champs et des méthodes est un *fichier source compact* ;
-- **`main` d'instance** : ni `public`, ni `static`, ni `String[] args` obligatoires ;
+- **pas de classe** : un fichier qui déclare directement des champs et des méthodes est un *fichier source compact* ; le compilateur l'enveloppe dans une *classe implicite* ;
+- **`main` d'instance** : ni `public`, ni `static`, ni `String[] args` obligatoires ; comme elle n'est pas `static`, le lanceur crée un objet avant de l'appeler ;
 - **`IO`**, une classe de `java.lang` (donc sans import) avec cinq méthodes statiques : `print`, `println` (avec ou sans argument) et `readln` (avec ou sans invite). `readln()` renvoie `null` à la fin de l'entrée.
 
 Un fichier compact importe automatiquement tout `java.base` : `List`, `Map`, `LocalDate`, `Path`… sont disponibles sans une ligne d'import. Les membres se voient entre eux, comme dans une classe :
@@ -81,10 +128,24 @@ void main() {
 }
 ```
 
+Active une à une les pièces ajoutées, et regarde le fichier devenir une classe ordinaire :
+
+::visual{id="java-ch00-compiler-adds"}
+
+::checkpoint{id="c1"}
+
 ### Faire grandir le programme
 
 Le jour où l'outil devient du code d'équipe, tu l'entoures d'une classe et tu ajoutes l'import que le fichier compact faisait pour toi. **Le corps ne change pas** :
 
+:::compare
+--- neutral: Fichier compact (script)
+```java
+final Map<String, Long> totals = new LinkedHashMap<>();
+void add(String item, long cents) { totals.merge(item, cents, Long::sum); }
+void main() { /* … */ }
+```
+--- good: Classe d'équipe (même corps)
 ```java
 import module java.base;
 
@@ -94,12 +155,13 @@ final class Tally {
     void main() { /* identique */ }
 }
 ```
+:::
 
 C'est l'idée directrice de la fonctionnalité : une rampe d'accès, pas un dialecte. Un fichier compact n'a ni `package`, ni nom utilisable : dès que d'autres classes doivent l'appeler, c'est une classe normale qu'il te faut.
 
 ### `import module`
 
-`import module java.sql;` importe d'un coup les types publics de **tous** les paquetages exportés par le module (`java.sql`, `javax.sql`…), plus ceux des modules qu'il rend transitivement lisibles. Pratique pour un script, mais attention aux collisions :
+Un *import module* est un import en gros : `import module java.sql;` importe d'un coup les types publics de **tous** les paquetages exportés par le module (`java.sql`, `javax.sql`…), plus ceux des modules qu'il rend transitivement lisibles. Pratique pour un script, mais attention aux collisions :
 
 ```java
 import module java.base;   // contient java.util.Date
@@ -108,7 +170,11 @@ import module java.sql;    // contient java.sql.Date
 Date d;                     // erreur : reference to Date is ambiguous
 ```
 
-La correction : un import **simple** (`import java.util.Date;`). L'ordre de priorité est fixe : import simple, puis import à la demande (`import java.util.*;`), puis import de module. Dans le code de production, les imports simples restent la norme : ils disent précisément ce dont la classe dépend.
+:::reveal Avant de lire la suite : comment dire au compilateur de quelle Date tu parles, sans renoncer aux deux imports de modules ?
+Avec un import **simple** : `import java.util.Date;`. Il est plus précis, donc il l'emporte.
+:::
+
+L'ordre de priorité est fixe : import simple, puis import à la demande (`import java.util.*;`), puis import de module. Dans le code de production, les imports simples restent la norme : ils disent précisément ce dont la classe dépend.
 
 ### `var` (Java 10)
 
@@ -118,12 +184,19 @@ for (var entry : totals.entrySet()) { … }     // Map.Entry<String, Long>
 try (var in = Files.newBufferedReader(path)) { … }
 ```
 
-`var` n'est **pas** du typage dynamique : le compilateur fixe le type une fois pour toutes à partir de l'initialiseur, exactement comme `:=` en Go. Il ne marche que pour les variables locales (et les variables de `for`, de `try`, les paramètres de lambda), jamais pour un champ, un paramètre de méthode ou un type de retour. Et il exige un initialiseur : `var x;` et `var x = null;` ne compilent pas.
+`var` n'est **pas** du typage dynamique : le compilateur fixe le type une fois pour toutes à partir de l'initialiseur, exactement comme `:=` en Go. Le `.class` produit est identique à celui où tu aurais écrit le type.
+
+Il ne marche que pour les variables locales (et les variables de `for`, de `try`, les paramètres de lambda), jamais pour un champ, un paramètre de méthode ou un type de retour. Et il exige un initialiseur : `var x;` et `var x = null;` ne compilent pas.
 
 À utiliser quand le type est évident à droite du `=` ; à éviter quand il cache une information utile (`var result = service.process(data);` : process renvoie quoi ?).
 
+::checkpoint{id="c2"}
+
 ### Les blocs de texte (Java 15)
 
+Règle à répéter : **le compilateur aligne tout sur la ligne la moins indentée, `"""` fermants compris**.
+
+:::steps
 ```java
 String json = """
     {
@@ -132,14 +205,24 @@ String json = """
     }
     """.formatted(user, unread);
 ```
+--- 1: Les `"""` ouvrants doivent finir la ligne : le contenu commence à la ligne suivante.
+--- 2,5: Ces lignes ont 4 espaces d'indentation, le minimum : elles se retrouvent collées à gauche dans le résultat.
+--- 3-4: Elles ont 2 espaces de plus que le minimum : ces 2 espaces sont conservés. Les guillemets ne sont pas échappés.
+--- 6: Les `"""` fermants comptent dans le calcul. Plus à gauche, ils ajouteraient de l'indentation à chaque ligne ; sur leur propre ligne, ils laissent un `\n` final.
+--- 6: `.formatted(...)` remplace `%s` et `%d` à l'exécution, comme `String.format`.
+:::
 
-Le contenu commence à la ligne qui suit les `"""` ouvrants. Le compilateur retire l'**indentation commune** à toutes les lignes, en comptant la ligne du délimiteur fermant : déplacer les `"""` fermants vers la gauche ajoute de l'indentation au résultat. Les guillemets n'ont pas besoin d'être échappés. Deux échappements nouveaux : `\` en fin de ligne (pas de saut de ligne à cet endroit) et `\s` (un espace qui ne sera pas supprimé).
+L'*espace accessoire* (cette indentation commune) disparaît, le reste est gardé. Les guillemets n'ont pas besoin d'être échappés. Deux échappements nouveaux : `\` en fin de ligne (pas de saut de ligne à cet endroit) et `\s` (un espace qui ne sera pas supprimé).
+
+::checkpoint{id="c3"}
 
 ## Sous le capot
 
 **Ce que javac fait d'un fichier compact.** Il génère une classe `final` dans le paquetage sans nom, qui étend `Object`, avec un constructeur par défaut. Son nom dépend de l'implémentation (OpenJDK prend le nom du fichier) et ne doit apparaître dans aucun code : on ne peut pas écrire `new Tally()` depuis une autre classe. Le fichier `.class` produit est ordinaire : la JVM ne sait même pas qu'il venait d'un fichier compact.
 
 **Comment le lanceur choisit `main`.** D'abord une méthode `main(String[])`, déclarée ou héritée ; sinon une méthode `main()` sans paramètre ; sinon une erreur. Si la méthode choisie est `static`, il l'appelle directement. Sinon, il instancie la classe avec son constructeur sans argument (qui ne doit pas être privé), puis appelle `main` sur l'objet. Conséquence prévisible : une classe qui a à la fois `main(String[])` et `main()` lancera toujours la première.
+
+> **Sous le capot :** `IO.println` n'a rien de spécial : c'est une méthode statique d'une classe de `java.lang`, qui écrit sur `System.out`. Elle est visible sans import pour la même raison que `String`.
 
 **Le lanceur de source.** `java Tally.java` compile le fichier **en mémoire**, charge les classes dans un chargeur dédié et lance `main` : aucun `.class` n'est écrit. Depuis Java 22 (JEP 458), si le programme utilise une classe qui n'est pas dans le fichier, le lanceur cherche le `.java` correspondant dans le même dossier et le compile à la volée. On peut donc garder un petit outil en plusieurs fichiers sans outil de build.
 

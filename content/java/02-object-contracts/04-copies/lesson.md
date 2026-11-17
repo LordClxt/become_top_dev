@@ -2,7 +2,7 @@
 id: java-ch02-l04
 title: "Copier un objet : clone, et pourquoi on l'évite"
 source: { chapter: 3, pages: "58-65" }
-duration_min: 30
+duration_min: 35
 concepts:
   - id: java-cloneable-broken
     label: "Cloneable est un mixin raté : pas de méthode clone, il modifie le comportement d'une méthode protégée d'Object"
@@ -23,25 +23,94 @@ glossary:
     definition: "Copie qui duplique aussi les objets mutables référencés, pour que la copie et l'original ne partagent aucun état modifiable."
   - term: "constructeur de conversion"
     definition: "Constructeur de copie qui accepte une interface (Collection, Map) : le client choisit l'implémentation de la copie."
-visuals: []
+visuals: [java-ch02-copy-depth]
 labs: [java-ch02-l04-lab-deep-copies]
 extra: false
 xp: 30
+checkpoints:
+  - id: c1
+    type: code-output
+    prompt: "Le constructeur de Ticket compte les tickets créés. Qu'affiche le programme ?"
+    code: |
+      public class Main {
+          static int created = 0;
+
+          static class Ticket implements Cloneable {
+              final int number;
+              Ticket() { created++; number = created; }
+              @Override public Ticket clone() {
+                  try { return (Ticket) super.clone(); } catch (CloneNotSupportedException e) { throw new AssertionError(); }
+              }
+          }
+
+          public static void main(String[] args) {
+              Ticket t = new Ticket();
+              Ticket copy = t.clone();
+              System.out.println(created + " " + copy.number + " " + (t == copy));
+          }
+      }
+    answer: "1 1 false"
+    explanation: "Object.clone recopie la mémoire de l'objet sans exécuter aucun constructeur : le compteur ne bouge pas et le numéro « unique » est dupliqué. Croire que clone passe par le constructeur est l'erreur qui casse les identifiants et les compteurs."
+    concept: java-cloneable-broken
+  - id: c2
+    type: single
+    prompt: "Tu répares le clone d'une classe dont le champ est `final List<String> slots` : `result.slots = new ArrayList<>(slots);`. Que se passe-t-il ?"
+    choices:
+      - "Ça marche : la copie a sa propre liste"
+      - "Le code ne compile pas : on ne peut pas réaffecter un champ final, même dans clone"
+      - "Ça compile, mais lève CloneNotSupportedException à l'exécution"
+      - "Ça compile, mais la copie partage encore la liste de l'original"
+    answer: 1
+    explanation: "clone n'est pas un constructeur aux yeux du compilateur : un champ final déjà recopié par super.clone ne peut plus être réaffecté (cannot assign a value to final variable). Pour rendre la classe clonable il faudrait retirer final, alors qu'un constructeur de copie l'initialise normalement."
+    concept: java-clone-shallow
+  - id: c3
+    type: code-output
+    prompt: "Le constructeur de conversion d'ArrayList copie la liste. Qu'affiche le programme ?"
+    code: |
+      import java.util.*;
+
+      public class Main {
+          public static void main(String[] args) {
+              List<StringBuilder> original = new ArrayList<>(List.of(new StringBuilder("lun"), new StringBuilder("mar")));
+              List<StringBuilder> copy = new ArrayList<>(original);
+              copy.get(0).append("-Ana");
+              copy.add(new StringBuilder("mer"));
+              System.out.println(original.size() + " " + original.get(0));
+          }
+      }
+    answer: "2 lun-Ana"
+    explanation: "new ArrayList<>(original) crée une nouvelle liste (l'ajout de mer ne touche pas l'original) mais ses cases pointent vers les mêmes StringBuilder. Un constructeur de copie de collection est superficiel sur les éléments : il est profond seulement si les éléments sont immuables ou si tu les recopies toi-même."
+    concept: java-copy-constructor
 ---
 
 ## Pourquoi c'est important
 
-Un planning d'équipe affiche la semaine prochaine. Pour proposer un scénario « et si Ana prenait le mardi ? », le code fait `Schedule draft = current.clone();` puis modifie `draft`. Le scénario est abandonné… et le planning **réel** a changé quand même : la copie partageait la liste des créneaux avec l'original. Aucun constructeur n'a été appelé, aucune validation n'a tourné, et `clone` a fait exactement ce qu'il promet : une copie **superficielle**.
+Un planning d'équipe affiche la semaine prochaine. Pour simuler « et si Ana prenait le mardi ? », le code fait `Schedule draft = current.clone();` puis modifie `draft`. Le scénario est abandonné… et le planning **réel** a changé quand même. Aucun constructeur n'a tourné, aucune validation non plus : `clone` a fait exactement ce qu'il promet, une copie **superficielle**, et la liste des créneaux était partagée.
 
 Cette leçon t'explique comment `clone` fonctionne vraiment, comment l'écrire correctement quand tu n'as pas le choix, et surtout comment t'en passer.
 
 ## Le concept
 
+**Le modèle mental :** un objet Java ne contient pas ses listes ni ses tableaux, il contient des **flèches** (des références) vers eux. Copier un objet, c'est d'abord copier ses flèches. La vraie question est donc toujours : *qu'est-ce qui pointe encore vers la même chose ?*
+
+- **Copie superficielle** : on recopie les champs tels quels, les flèches visent les mêmes objets que l'original.
+- **Copie profonde** : on duplique aussi chaque objet mutable visé, pour que copie et original ne partagent plus rien de modifiable.
+
+Manipule-le avant de lire le code : clone, puis modifie l'original et regarde quelles copies bougent.
+
+::visual{id="java-ch02-copy-depth"}
+
 ### Cloneable : une interface qui ne fait pas ce qu'elle dit
 
-On s'attendrait à ce qu'une classe qui implémente `Cloneable` ait une méthode `clone()` publique. Ce n'est pas le cas : `Cloneable` est **vide**, et `clone()` est une méthode **protégée** d'`Object`. Implémenter `Cloneable` ne fait qu'une chose : changer le comportement de `Object.clone()`, qui renvoie alors une copie champ par champ au lieu de lever `CloneNotSupportedException`.
+Un **mixin** est une interface qu'une classe ajoute à son type principal pour annoncer une capacité optionnelle (`Comparable` annonce « je sais me comparer »). On s'attendrait donc à ce que `Cloneable` apporte une méthode `clone()` publique. Raté :
 
-C'est un usage des interfaces qu'il ne faut jamais imiter. Et le reste du mécanisme repose sur des conventions que rien ne vérifie : appeler `super.clone()` (sinon les sous-classes reçoivent un objet du mauvais type), réparer l'état mutable, ne pas appeler de méthode redéfinissable… Le tout en créant un objet **sans passer par un constructeur**.
+- `Cloneable` est **vide** ;
+- `clone()` est une méthode **protégée** d'`Object` ;
+- implémenter `Cloneable` ne fait qu'une chose : `Object.clone()` renvoie alors une copie champ par champ au lieu de lever `CloneNotSupportedException`.
+
+Une interface qui modifie en douce le comportement d'une méthode de la classe mère : c'est un usage à ne jamais imiter. Le reste repose sur des conventions que rien ne vérifie (appeler `super.clone()`, réparer l'état mutable, ne pas appeler de méthode redéfinissable), et l'objet est créé **sans passer par un constructeur**.
+
+::checkpoint{id="c1"}
 
 ### Le clone correct d'une classe simple
 
@@ -61,8 +130,23 @@ Si tous les champs sont des primitifs ou des références vers des objets immuab
 
 ### Le piège : l'état mutable partagé
 
-La `Stack` du module 1 a un champ `Object[] elements`. Avec seulement `super.clone()`, la copie a son propre `size`… mais **le même tableau**. Un `push` sur la copie écrase une case de l'original. La règle : **`clone` est un constructeur caché**. Il ne doit rien abîmer dans l'original et doit établir les invariants de la copie.
+La `Stack` du module 1 a un champ `Object[] elements`. Avec seulement `super.clone()`, la copie a son propre `size`… mais **le même tableau**. Un `push` sur la copie écrase une case de l'original.
 
+La règle à retenir : **`clone` est un constructeur caché**. Il ne doit rien abîmer dans l'original et doit établir les invariants de la copie.
+
+:::compare
+--- bad: super.clone() seul
+```java
+@Override public Stack clone() {
+    try {
+        return (Stack) super.clone();   // size copié, elements PARTAGÉ
+    } catch (CloneNotSupportedException e) {
+        throw new AssertionError();
+    }
+}
+```
+Un `push` sur la copie écrit dans le tableau de l'original.
+--- good: réparer l'état mutable
 ```java
 @Override public Stack clone() {
     try {
@@ -74,16 +158,25 @@ La `Stack` du module 1 a un champ `Object[] elements`. Avec seulement `super.clo
     }
 }
 ```
+Chaque pile a son tableau ; les éléments eux-mêmes restent partagés.
+:::
 
 Deux remarques :
 
 - `elements.clone()` sur un tableau renvoie un `Object[]`, sans cast : c'est **la** bonne utilisation de `clone`. Pour copier un tableau, `array.clone()` est l'idiome.
 - Si `elements` était `final`, cette ligne ne compilerait pas. `clone` est **incompatible avec les champs `final`** qui référencent un état mutable : pour rendre une classe clonable, il faudrait affaiblir son design.
 
+::checkpoint{id="c2"}
+
 ### Plus profond : les structures chaînées
 
-Une table de hachage maison : un tableau de compartiments, chacun en tête d'une liste chaînée d'`Entry`. Cloner le tableau ne suffit pas : la copie a son propre tableau, mais il pointe vers **les mêmes** entrées. Il faut copier chaque chaîne :
+Une table de hachage maison : un tableau de compartiments, chacun en tête d'une liste chaînée d'`Entry`. Cloner le tableau ne suffit pas : la copie a son propre tableau, mais il pointe vers **les mêmes** entrées. Il faut copier chaque chaîne.
 
+:::reveal Avant de lire la suite : pourquoi pas une jolie récursion `next.deepCopy()` ?
+La version récursive (`new Entry(key, value, next == null ? null : next.deepCopy())`) consomme une frame de pile par élément : avec une chaîne de 100 000 entrées, `StackOverflowError`. Et une chaîne longue arrive justement en production quand le hash est mauvais (leçon 2). D'où la boucle ci-dessous.
+:::
+
+:::steps
 ```java
 // Copie itérative d'une chaîne : une seule frame de pile, quelle que soit la longueur.
 Entry deepCopy() {
@@ -93,8 +186,12 @@ Entry deepCopy() {
     return result;
 }
 ```
-
-La version **récursive** (`new Entry(key, value, next == null ? null : next.deepCopy())`) est plus jolie, mais consomme une frame de pile par élément : avec une chaîne de 100 000 entrées, `StackOverflowError`. En production, une chaîne longue arrive justement quand le hash est mauvais (leçon 2).
+--- 3: On copie la tête. Son `next` vise encore la chaîne **originale**, provisoirement.
+--- 4: `p` avance sur la **copie** : tant que le maillon suivant est un original, il reste du travail.
+--- 5: On remplace ce maillon original par une copie neuve, qui vise à son tour le reste de l'original.
+--- 4-5: À chaque tour, la frontière copie / original recule d'un maillon : à la fin, plus aucune flèche ne revient vers l'original.
+--- 6: Une boucle, pas de récursion : la profondeur de pile reste constante pour 10 ou 100 000 entrées.
+:::
 
 ### La bonne réponse : le constructeur de copie
 
@@ -110,6 +207,10 @@ Comparé à `clone`, c'est un constructeur normal :
 - pas d'exception vérifiée, pas de cast, pas de convention invisible.
 
 Mieux encore, il peut accepter une **interface** : c'est un **constructeur de conversion**. Toutes les collections du JDK en ont un : `new TreeSet<>(hashSet)` copie un `HashSet` **en** `TreeSet`. `clone` ne pourrait jamais faire ça, puisqu'il renvoie toujours la classe de l'original.
+
+> **Attention :** un constructeur de copie ne copie que ce que tu lui demandes. Ceux des collections créent une nouvelle structure, mais ses cases visent **les mêmes éléments**. C'est sans danger avec des éléments immuables (`String`, records de valeurs), pas avec des `StringBuilder` ou des objets à setters.
+
+::checkpoint{id="c3"}
 
 ### Quand clone reste justifié
 

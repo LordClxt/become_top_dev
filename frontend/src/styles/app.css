@@ -2,6 +2,8 @@
 @import './journey.css';
 @import './juice.css';
 @import './lesson.css';
+@import './habit-review.css';
+@import './habit.css';
 @source '../../../content';
 
 /* Le thème sombre est le défaut ; .light sur <html> bascule en clair. */
