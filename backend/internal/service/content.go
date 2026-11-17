@@ -4,6 +4,7 @@ import (
 	"context"
 	"slices"
 	"sort"
+	"strings"
 
 	"btd/backend/internal/content"
 	"btd/backend/internal/model"
@@ -270,6 +271,7 @@ type LessonView struct {
 	QuizID      *string                    `json:"quiz_id"`
 	Flashcards  []content.Flashcard        `json:"flashcards"`
 	Checkpoints []CheckpointView           `json:"checkpoints"`
+	CardsRated  int                        `json:"cards_rated"` // cartes de la leçon déjà notées au moins une fois
 	Completed   bool                       `json:"completed"`
 	PreviousID  *string                    `json:"previous_id"`
 	NextID      *string                    `json:"next_id"`
@@ -303,6 +305,15 @@ func (s *Service) Lesson(ctx context.Context, uid int64, id string) (*LessonView
 	view.Checkpoints, err = s.checkpointViews(ctx, uid, l)
 	if err != nil {
 		return nil, err
+	}
+	reviews, err := s.repos().Progress(uid).CardReviews(ctx, "UTC")
+	if err != nil {
+		return nil, err
+	}
+	for _, r := range reviews {
+		if strings.HasPrefix(r.CardID, l.ID+"/") {
+			view.CardsRated++
+		}
 	}
 	if pos > 0 {
 		view.PreviousID = &ch.LessonIDs[pos-1]

@@ -160,3 +160,33 @@ func TestLessonCheckpoints(t *testing.T) {
 		t.Errorf("XP de l'activité = %v, attendu 6", total)
 	}
 }
+
+func TestLessonCardsRated(t *testing.T) {
+	srv, _ := newTestServer(t)
+	client := newClient(t)
+	login(t, client, srv.URL)
+	rated := func() float64 {
+		var v map[string]any
+		if err := json.NewDecoder(do(t, client, http.MethodGet, srv.URL+"/api/lessons/java-ch01-l02", nil).Body).Decode(&v); err != nil {
+			t.Fatal(err)
+		}
+		return v["cards_rated"].(float64)
+	}
+	if n := rated(); n != 0 {
+		t.Fatalf("cards_rated initial : %v", n)
+	}
+	var l struct {
+		Flashcards []struct{ ID string } `json:"flashcards"`
+	}
+	_ = json.NewDecoder(do(t, client, http.MethodGet, srv.URL+"/api/lessons/java-ch01-l02", nil).Body).Decode(&l)
+	if len(l.Flashcards) == 0 {
+		t.Skip("leçon sans cartes")
+	}
+	card := "java-ch01-l02/" + l.Flashcards[0].ID
+	if resp := do(t, client, http.MethodPost, srv.URL+"/api/review/"+card, []byte(`{"rating":"known"}`)); resp.StatusCode != http.StatusOK {
+		t.Fatalf("notation : statut %d", resp.StatusCode)
+	}
+	if n := rated(); n != 1 {
+		t.Errorf("cards_rated après une note : %v", n)
+	}
+}

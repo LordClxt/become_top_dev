@@ -81,7 +81,9 @@ checkpoints:
 
 ## Pourquoi c'est important
 
-En Go, tu passes une struct d'options ou des *functional options*. Java n'a ni paramètres nommés ni valeurs par défaut. Dès qu'une classe a plus de trois ou quatre paramètres, dont beaucoup facultatifs, il te faut une stratégie. Celle que tu choisis décide si tes objets peuvent être **immuables** et si un appel se **lit** sans ouvrir la documentation.
+Mardi, 2 h du matin, personne n'est réveillé : l'alerte disque devait sonner dans `#ops` au bout de 5 minutes, elle attend 30 minutes et part dans un canal que personne ne lit. Dans le code, `new Alert("disk", CRIT, 0.95, 30, 5, "#ops-archive")` : deux `int` inversés, une chaîne copiée du mauvais exemple. Ça compile, la revue ne l'a pas vu.
+
+En Go, tu aurais passé une struct d'options ou des *functional options*. Java n'a ni paramètres nommés ni valeurs par défaut. Dès qu'une classe a plus de trois ou quatre paramètres, dont beaucoup facultatifs, il te faut une stratégie. Celle que tu choisis décide si tes objets peuvent être **immuables** et si un appel se **lit** sans ouvrir la documentation.
 
 Tu croiseras des builders partout : `HttpRequest.newBuilder()` du JDK, `StringBuilder`, `Stream.builder()`, Lombok `@Builder`, les clients AWS, Protobuf…
 
