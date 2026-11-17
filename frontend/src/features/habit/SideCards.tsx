@@ -29,8 +29,8 @@ export function ReviewCardBlock({ due }: { due: number }) {
           <h2 id="review-title" className="font-read text-lg font-semibold">
             Révision du jour
           </h2>
-          <p className="text-sm text-muted tabular-nums">
-            {plural(due, 'carte', 'cartes')}, environ {minutes} min
+          <p className="text-sm text-muted">
+            {plural(due, 'carte', 'cartes')}, environ {minutes}&nbsp;min
           </p>
         </div>
       </div>

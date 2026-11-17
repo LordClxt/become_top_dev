@@ -143,7 +143,9 @@ function Chest({ today, done }: { today: Today; done: number }) {
       )}
     >
       {(ready || claimed) && <div className="glow-accent pointer-events-none absolute -top-10 left-1/2 -z-10 size-48 -translate-x-1/2 rounded-full" aria-hidden="true" />}
-      <ChestArt state={!ready && !claimed ? 'locked' : open ? 'open' : 'ready'} opening={phase === 'opening'} />
+      <span className={cn('block', open && 'pt-5')}>
+        <ChestArt state={!ready && !claimed ? 'locked' : open ? 'open' : 'ready'} opening={phase === 'opening'} />
+      </span>
       <div className="mt-3 min-h-[68px]" aria-live="polite">
         <AnimatePresence mode="wait">
           {phase === 'revealed' || claimed ? (
