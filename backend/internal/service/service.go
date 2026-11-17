@@ -43,10 +43,15 @@ type Service struct {
 	now     func() time.Time
 	// unlockAll débloque tous les chapitres (BTD_UNLOCK_ALL=1, usage local pour tester le contenu).
 	unlockAll bool
+	// cards indexe les flashcards par id public (<lessonId>/<cardId>), dans l'ordre des cours.
+	cards     map[string]cardRef
+	cardOrder []string
 }
 
 func New(idx *content.Index, store *repository.Store, runner Runner) *Service {
-	return &Service{Content: idx, store: store, runner: runner, now: time.Now, unlockAll: os.Getenv("BTD_UNLOCK_ALL") == "1"}
+	s := &Service{Content: idx, store: store, runner: runner, now: time.Now, unlockAll: os.Getenv("BTD_UNLOCK_ALL") == "1"}
+	s.indexCards()
+	return s
 }
 
 // SetRunner remplace le runner (tests).

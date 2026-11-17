@@ -263,8 +263,16 @@ func (s *Service) RevealHint(ctx context.Context, uid int64, id string) (*Hints,
 
 type RunReport struct {
 	TestReport
-	XPAwarded int    `json:"xp_awarded"`
-	Debrief   string `json:"debrief"`
+	XPAwarded int     `json:"xp_awarded"` // bonus compris
+	Debrief   string  `json:"debrief"`
+	Bonuses   []Bonus `json:"bonuses"` // jamais nil
+}
+
+// Bonus est une XP en plus pour une performance (événement d'XP kind "bonus", ref <id>/<exercice ou quiz>).
+type Bonus struct {
+	ID    string `json:"id"`
+	Label string `json:"label"`
+	XP    int    `json:"xp"`
 }
 
 // Run exécute les tests sur le code soumis et enregistre la tentative.
@@ -309,16 +317,32 @@ func (s *Service) Run(ctx context.Context, uid int64, id string, files map[strin
 	}
 
 	xp := 0
+	bonuses := []Bonus{}
 	err = s.updateProgress(ctx, uid, ex.ID, func(r repository.Repos, p *model.ExerciseProgress) error {
 		p.Attempts++
 		p.Draft = files
 		if report.Passed {
-			if p.PassedAt == nil {
+			firstPass := p.PassedAt == nil
+			if firstPass {
 				p.PassedAt = new(s.now())
 			}
+			base := ExerciseXP(ex.XP, p.HintsRevealed)
 			var err error
-			if xp, err = r.Progress(uid).AwardXP(ctx, "exercise", ex.ID, ExerciseXP(ex.XP, p.HintsRevealed)); err != nil {
+			if xp, err = r.Progress(uid).AwardXP(ctx, "exercise", ex.ID, base); err != nil {
 				return err
+			}
+			// Du premier coup : première réussite, au premier essai, sans indice.
+			if firstPass && p.Attempts == 1 && p.HintsRevealed == 0 {
+				if amount := FirstTryXP(base); amount > 0 {
+					got, err := r.Progress(uid).AwardXP(ctx, "bonus", "first_try/"+ex.ID, amount)
+					if err != nil {
+						return err
+					}
+					if got > 0 {
+						xp += got
+						bonuses = append(bonuses, Bonus{"first_try", "Du premier coup", got})
+					}
+				}
 			}
 		}
 		return r.Progress(uid).AddRun(ctx, model.ExerciseRun{
@@ -332,7 +356,7 @@ func (s *Service) Run(ctx context.Context, uid int64, id string, files map[strin
 	if report.Passed {
 		debrief = ex.Debrief
 	}
-	return &RunReport{TestReport: report, XPAwarded: xp, Debrief: debrief}, nil
+	return &RunReport{TestReport: report, XPAwarded: xp, Debrief: debrief, Bonuses: bonuses}, nil
 }
 
 // RunsPerMinute borne les exécutions dans le runner par compte : chaque exécution lance un conteneur.

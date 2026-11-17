@@ -292,7 +292,7 @@ function StepAction({
   const cls = cn(
     'group inline-flex h-11 max-w-full items-center gap-2 rounded-xl px-5 font-semibold transition-[opacity,transform] active:scale-[0.98]',
     primary ? 'bg-accent text-accent-ink hover:opacity-90' : 'border border-line hover:border-muted',
-    floating && 'shadow-[0_12px_32px_-10px_rgb(0_0_0/0.6)]',
+    floating && 'max-w-[min(30rem,calc(100vw-2rem))] shadow-[0_12px_32px_-10px_rgb(0_0_0/0.6)]',
   )
   const body = (
     <>

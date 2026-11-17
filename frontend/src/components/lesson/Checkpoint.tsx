@@ -1,20 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Check, CircleHelp, CornerDownLeft, RotateCcw, Sparkles, X } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { use, useState } from 'react'
+import { use, useRef, useState } from 'react'
 import { CodeBlock } from '@/components/CodeBlock'
 import { announceXp } from '@/features/xp/xp-events'
 import { type AnswerResult, api, type Lesson } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { Md } from '@/components/LessonBody'
 import { LessonContext } from './context'
 
 /** Question intégrée au fil de la leçon (directive ::checkpoint{id}). */
 export function CheckpointCard({ id }: { id: string }) {
-  const { lessonId, checkpoints, language } = use(LessonContext)
+  const { lessonId, checkpoints, checkpointOrder, language } = use(LessonContext)
   const qc = useQueryClient()
   const reduce = useReducedMotion()
-  const index = checkpoints.findIndex((c) => c.id === id)
-  const cp = checkpoints[index]
+  const cp = checkpoints.find((c) => c.id === id)
+  const index = checkpointOrder.indexOf(id)
+  const total = checkpointOrder.length
 
   const [single, setSingle] = useState<number | null>(null)
   const [multiple, setMultiple] = useState<number[]>([])
@@ -22,6 +24,7 @@ export function CheckpointCard({ id }: { id: string }) {
   const [result, setResult] = useState<AnswerResult | null>(null)
   const [showAnswer, setShowAnswer] = useState(false)
   const [reopened, setReopened] = useState(false)
+  const cardRef = useRef<HTMLElement>(null)
 
   const submit = useMutation({
     mutationFn: (answer: unknown) => api.answerCheckpoint(lessonId!, id, answer),
@@ -41,7 +44,7 @@ export function CheckpointCard({ id }: { id: string }) {
   // Directive orpheline (ou backend sans points de contrôle) : on n'affiche rien.
   if (!cp || !lessonId) return null
 
-  const label = `Point de contrôle ${index + 1} sur ${checkpoints.length}`
+  const label = `Point de contrôle ${index + 1} sur ${total}`
 
   if (cp.answered && !reopened && !result) {
     return (
@@ -53,7 +56,7 @@ export function CheckpointCard({ id }: { id: string }) {
           <p className="checkpoint-kicker">
             {label} <span className="text-pass">· Déjà réussi</span>
           </p>
-          <p className="truncate text-[0.95rem] text-muted">{cp.prompt}</p>
+          <p className="truncate text-[0.95rem] text-muted">{cp.prompt.replace(/`/g, '')}</p>
         </div>
         <button type="button" className="checkpoint-ghost" onClick={() => setReopened(true)}>
           Revoir
@@ -81,10 +84,15 @@ export function CheckpointCard({ id }: { id: string }) {
     setShowAnswer(false)
     setSingle(null)
     setMultiple([])
+    // Le bouton « Réessayer » disparaît : on rend le focus aux choix pour garder le clavier.
+    requestAnimationFrame(() =>
+      cardRef.current?.querySelector<HTMLElement>('.checkpoint-choice, .checkpoint-output')?.focus(),
+    )
   }
 
   return (
     <section
+      ref={cardRef}
       className={cn('checkpoint', result && (result.correct ? 'is-pass' : 'is-fail'))}
       aria-label={label}
       onKeyDown={(e) => {
@@ -113,7 +121,7 @@ export function CheckpointCard({ id }: { id: string }) {
           Point de contrôle
           <span className="font-code text-muted">
             {' '}
-            {index + 1}/{checkpoints.length}
+            {index + 1}/{total}
           </span>
         </p>
         {!cp.answered && !result?.correct && (
@@ -124,7 +132,9 @@ export function CheckpointCard({ id }: { id: string }) {
         )}
       </header>
 
-      <p className="checkpoint-prompt">{cp.prompt}</p>
+      <div className="checkpoint-prompt">
+        <Md>{cp.prompt}</Md>
+      </div>
       {cp.code && <CodeBlock code={cp.code} language={language} copy={false} className="mt-3" />}
 
       {isChoice ? (
@@ -145,7 +155,9 @@ export function CheckpointCard({ id }: { id: string }) {
                   <kbd className="checkpoint-key" aria-hidden="true">
                     {i + 1}
                   </kbd>
-                  <span className="min-w-0 flex-1">{choice}</span>
+                  <span className="min-w-0 flex-1">
+                    <Md components={{ p: ({ children }) => <>{children}</> }}>{choice}</Md>
+                  </span>
                   {good && <Check className="size-4 shrink-0 text-pass" aria-label="bonne réponse" />}
                   {bad && <X className="size-4 shrink-0 text-fail" aria-label="ton choix" />}
                 </button>

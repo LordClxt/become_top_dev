@@ -55,6 +55,33 @@ type Profile struct {
 	Avatar          []byte
 	AvatarType      string
 	AvatarUpdatedAt *time.Time
+	DailyGoalXP     int
+}
+
+// CardReview est l'état Leitner d'une carte (CardID = <lessonId>/<cardId>). Les jours sont à minuit UTC.
+type CardReview struct {
+	CardID    string
+	Box       int
+	DueOn     time.Time
+	Reviews   int
+	Lapses    int
+	CreatedOn time.Time // jour local de la première révision
+}
+
+// Touch est une trace d'activité sur un contenu (XP gagnée ou exercice modifié), pour « continuer ».
+type Touch struct {
+	Kind  string // kind d'xp_events, ou "draft" pour exercise_progress
+	RefID string
+	At    time.Time
+}
+
+// LeaderboardRow est un membre vu par le classement.
+type LeaderboardRow struct {
+	ID          int64
+	DisplayName string
+	HasAvatar   bool
+	XPWeek      int
+	XPTotal     int
 }
 
 // User est un compte. PasswordHash vide : compte du propriétaire pas encore réclamé.

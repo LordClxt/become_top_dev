@@ -61,12 +61,14 @@ function escape(s: string) {
 
 /**
  * Première occurrence de chaque terme du glossaire → <dfn data-term>.
- * `used` est partagé entre les segments d'une même leçon : un seul soulignement par terme.
+ * Le rendu doit rester pur (StrictMode rend deux fois) : chaque bloc reçoit seulement
+ * les termes dont il contient la première occurrence (voir glossaryByBlock).
  */
-export function remarkGlossary({ terms, used }: { terms: string[]; used: Set<string> }) {
+export function remarkGlossary({ terms }: { terms: string[] }) {
   const sorted = [...terms].sort((a, b) => b.length - a.length)
   return () => (tree: Node) => {
     if (!sorted.length) return
+    const used = new Set<string>()
     const visit = (n: Node) => {
       if (SKIP.has(n.type) || !n.children) return
       const next: Node[] = []
@@ -102,4 +104,24 @@ export function remarkGlossary({ terms, used }: { terms: string[]; used: Set<str
     }
     visit(tree)
   }
+}
+
+/** Texte lisible d'un bloc, sans code ni titres, pour situer la première occurrence d'un terme. */
+function prose(md: string): string {
+  return md
+    .replace(/^(```|~~~)[\s\S]*?^\1\s*$/gm, ' ')
+    .replace(/^#.*$/gm, ' ')
+    .replace(/`[^`\n]*`/g, ' ')
+}
+
+/** Pour chaque bloc (dans l'ordre), les termes du glossaire qui y apparaissent pour la première fois. */
+export function glossaryByBlock(texts: string[], terms: string[]): string[][] {
+  const out = texts.map(() => [] as string[])
+  const clean = texts.map(prose)
+  for (const term of terms) {
+    const re = new RegExp(`(^|[^\\p{L}\\p{N}])${escape(term)}(?![\\p{L}\\p{N}])`, 'iu')
+    const i = clean.findIndex((t) => re.test(t))
+    if (i >= 0) out[i]!.push(term)
+  }
+  return out
 }

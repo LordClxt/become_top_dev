@@ -20,7 +20,7 @@ import {
 import { useJuiceEnabled } from '@/features/juice/motion'
 import { installSoundUnlock, play } from '@/features/juice/sound'
 import { rankFor } from '@/features/xp/ranks'
-import { useXpGains, type XpGain } from '@/features/xp/xp-events'
+import { announceXp, useXpGains, type XpGain } from '@/features/xp/xp-events'
 import type { Progress } from '@/lib/api'
 import { cn } from '@/lib/utils'
 
@@ -37,9 +37,14 @@ export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackTo
   const [flights, setFlights] = useState<Flight[]>([])
   const seq = useRef(0)
   const lastProgress = useRef<Progress | null>(null)
+  // Instant du dernier « grand » gain : seul un grand gain autorise un moment centré pour la série ou le niveau.
+  const lastBigAt = useRef(0)
+  const [corner, setCorner] = useState<(CornerMoment & { key: number })[]>([])
 
   useEffect(() => {
     installSoundUnlock()
+    // En développement : déclencher une célébration depuis la console (`__btdAnnounce({...})`, `__btdCelebrate({...})`).
+    if (import.meta.env.DEV) Object.assign(window, { __btdAnnounce: announceXp, __btdCelebrate: celebrate })
     return trackPointer()
   }, [])
 
@@ -47,6 +52,7 @@ export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackTo
   const onGain = useCallback(
     (gain: XpGain) => {
       if (isBigGain(gain)) {
+        lastBigAt.current = Date.now()
         if (juice) celebrate({ type: 'gain', gain })
         else {
           play('complete')
@@ -80,8 +86,17 @@ export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackTo
     }
     if (progress.streak_days > prev.streak_days) moments.push({ type: 'streak', days: progress.streak_days })
     if (progress.level > prev.level) moments.push({ type: 'level', level: progress.level })
+    const afterBig = Date.now() - lastBigAt.current < 8000
     for (const m of moments) {
-      if (juice) celebrate(m)
+      if (juice && afterBig) celebrate(m)
+      else if (juice && (m.type === 'level' || m.type === 'streak')) {
+        const cm: CornerMoment = m
+        // Après un petit gain : carte en coin, non bloquante, l'explication reste lisible.
+        play(m.type === 'level' ? 'levelup' : 'complete')
+        const key = ++seq.current
+        setCorner((list) => [...list, { ...cm, key }])
+        setTimeout(() => setCorner((list) => list.filter((c) => c.key !== key)), 4200)
+      } else if (juice) celebrate(m)
       else {
         play(m.type === 'level' ? 'levelup' : 'complete')
         onFallback({
@@ -104,6 +119,11 @@ export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackTo
       {flights.map((f) => (
         <FlyingXp key={f.key} flight={f} onDone={() => setFlights((list) => list.filter((x) => x.key !== f.key))} />
       ))}
+      <div className="pointer-events-none fixed right-4 bottom-20 z-[60] grid justify-items-end gap-2 md:right-6 md:bottom-6">
+        {corner.map((c) => (
+          <CornerCard key={c.key} moment={c} />
+        ))}
+      </div>
       {moment && <MomentOverlay key={moment.key} moment={moment} progress={progress ?? null} />}
     </>
   )
@@ -326,7 +346,7 @@ function MomentBody({ moment, progress, boss }: { moment: QueuedMoment; progress
       {boss && <h2 className="juice-boss-title font-read text-4xl font-semibold tracking-tight">Boss vaincu</h2>}
       {gain.amount > 0 && (
         <p className={cn('juice-pop font-code text-6xl font-semibold tabular-nums', boss ? 'text-pass' : 'text-accent')}>
-          +{gain.amount} <span className="text-3xl">XP</span>
+          +{gain.amount}<span className="ml-2 text-3xl">XP</span>
         </p>
       )}
       {gain.title && <p className="max-w-full font-read text-xl leading-snug text-balance">{gain.title}</p>}
@@ -352,5 +372,44 @@ function Eyebrow({ children, boss }: { children: React.ReactNode; boss?: boolean
     >
       {children}
     </p>
+  )
+}
+
+type CornerMoment = { type: 'level'; level: number } | { type: 'streak'; days: number }
+
+/** Carte de coin : même contenu qu'un moment, en compact ; ne prend jamais le focus ni le centre de l'écran. */
+function CornerCard({ moment }: { moment: CornerMoment }) {
+  return (
+    <div
+      className="juice-corner flex w-[300px] max-w-[calc(100vw-2rem)] items-center gap-4 rounded-2xl border border-accent/60 bg-surface p-4 shadow-[0_24px_60px_-24px_var(--accent)]"
+      role="status"
+      aria-live="polite"
+    >
+      {moment.type === 'level' ? (
+        <>
+          <span className="juice-pop">
+            <LevelTile level={moment.level} size="md" />
+          </span>
+          <span className="min-w-0">
+            <span className="block font-code text-[10px] font-semibold tracking-[0.14em] text-accent uppercase">Niveau supérieur</span>
+            <span className="block font-read text-xl font-semibold">Niveau {moment.level}</span>
+            <span className="block font-read text-accent italic">{rankFor(moment.level)}</span>
+          </span>
+        </>
+      ) : (
+        <>
+          <span className="juice-pop">
+            <StreakFlame lit className="size-10" />
+          </span>
+          <span className="grid min-w-0 gap-1.5">
+            <span className="font-code text-[10px] font-semibold tracking-[0.14em] text-accent uppercase">Première activité du jour</span>
+            <span className="font-read text-lg font-semibold">
+              Série : {moment.days} jour{moment.days > 1 ? 's' : ''}
+            </span>
+            <WeekDots days={moment.days} className="gap-1.5" />
+          </span>
+        </>
+      )}
+    </div>
   )
 }

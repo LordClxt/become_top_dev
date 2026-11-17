@@ -55,13 +55,13 @@ export function Confetti({
           vr: (Math.random() - 0.5) * 0.3,
           c: palette[k % palette.length] ?? "#c6f432",
           born: at,
-          life: 1500 + Math.random() * 900,
+          life: 900 + Math.random() * 450,
           flat: Math.random() * Math.PI * 2,
         })
       }
     }
     const per = Math.round(count / bursts)
-    for (let b = 0; b < bursts; b++) spawn(b * 260, b, per)
+    for (let b = 0; b < bursts; b++) spawn(b * 150, b, per)
 
     let raf = 0
     const start = performance.now()
@@ -87,7 +87,7 @@ export function Confetti({
         p.y += p.vy * dt
         p.r += p.vr * dt
         p.flat += 0.12 * dt
-        const fade = Math.min(1, (p.life - age) / 400)
+        const fade = Math.min(1, (p.life - age) / 300)
         ctx.save()
         ctx.globalAlpha = fade
         ctx.translate(p.x, p.y)

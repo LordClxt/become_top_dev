@@ -168,3 +168,22 @@ func (r *UserRepo) SetInviteUser(ctx context.Context, code string, userID int64)
 	_, err := r.db.Exec(ctx, `UPDATE invites SET used_by = $2 WHERE code = $1`, code, userID)
 	return err
 }
+
+// Leaderboard liste les comptes réclamés avec leur XP depuis weekStart (jour local dans tz) et leur XP totale.
+func (r *UserRepo) Leaderboard(ctx context.Context, weekStart time.Time, tz string) ([]model.LeaderboardRow, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT u.id, u.display_name, COALESCE(p.avatar IS NOT NULL AND p.avatar_type IS NOT NULL, false),
+			COALESCE((SELECT SUM(amount) FROM xp_events x WHERE x.user_id = u.id
+				AND date(timezone($1, x.created_at)) >= $2), 0),
+			COALESCE((SELECT SUM(amount) FROM xp_events x WHERE x.user_id = u.id), 0)
+		FROM users u LEFT JOIN profile p ON p.user_id = u.id
+		WHERE u.password_hash <> '' ORDER BY u.id`, tz, weekStart)
+	if err != nil {
+		return nil, err
+	}
+	return pgx.CollectRows(rows, func(row pgx.CollectableRow) (model.LeaderboardRow, error) {
+		var m model.LeaderboardRow
+		err := row.Scan(&m.ID, &m.DisplayName, &m.HasAvatar, &m.XPWeek, &m.XPTotal)
+		return m, err
+	})
+}

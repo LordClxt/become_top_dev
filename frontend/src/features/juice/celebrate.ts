@@ -77,6 +77,13 @@ export function trackPointer() {
 export function launchPoint(): { x: number; y: number } {
   // Un clic récent (validation à la souris) ; sinon l'élément actif (validation au clavier) ; sinon le bas de l'écran.
   if (lastPointer && Date.now() - lastPointer.at < 4000) return lastPointer
+  // Une zone qui se déclare point de départ (le quiz, un point de contrôle) et qui est à l'écran.
+  for (const el of document.querySelectorAll('[data-xp-origin]')) {
+    const r = el.getBoundingClientRect()
+    if (r.height > 0 && r.bottom > 60 && r.top < window.innerHeight) {
+      return { x: r.left + Math.min(r.width / 2, 120), y: Math.min(window.innerHeight - 40, Math.max(80, r.top + r.height / 2)) }
+    }
+  }
   const el = document.activeElement
   if (el && el !== document.body) {
     const r = el.getBoundingClientRect()

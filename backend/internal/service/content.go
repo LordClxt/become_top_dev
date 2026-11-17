@@ -391,7 +391,8 @@ type AnswerResult struct {
 	Correct     bool   `json:"correct"`
 	Expected    any    `json:"expected"`
 	Explanation string `json:"explanation"`
-	XPAwarded   int    `json:"xp_awarded"`
+	XPAwarded   int    `json:"xp_awarded"` // bonus compris
+	Bonus       *Bonus `json:"bonus"`      // « Sans faute » quand cette réponse termine un quiz parfait
 }
 
 // Answer corrige une réponse. Seule la première tentative par question rapporte de l'XP.
@@ -410,24 +411,43 @@ func (s *Service) Answer(ctx context.Context, uid int64, quizID, questionID stri
 		return nil, errorf(Invalid, "type de question non corrigé automatiquement : %s", err)
 	}
 	xp := 0
+	var bonus *Bonus
 	err = s.store.InTx(ctx, func(r repository.Repos) error {
-		answered, err := r.Progress(uid).HasAnswered(ctx, quiz.ID, q.ID)
+		p := r.Progress(uid)
+		answered, err := p.HasAnswered(ctx, quiz.ID, q.ID)
 		if err != nil {
 			return err
 		}
-		err = r.Progress(uid).AddAnswer(ctx, model.QuizAnswer{
+		err = p.AddAnswer(ctx, model.QuizAnswer{
 			QuizID: quiz.ID, QuestionID: q.ID, Answer: answer, Correct: correct, FirstAttempt: !answered,
 		})
 		if err != nil || !correct || answered {
 			return err
 		}
-		xp, err = r.Progress(uid).AwardXP(ctx, "quiz", quiz.ID+"/"+q.ID, QuizXPPerQuestion)
+		if xp, err = p.AwardXP(ctx, "quiz", quiz.ID+"/"+q.ID, QuizXPPerQuestion); err != nil {
+			return err
+		}
+		// Sans faute : cette réponse est la dernière première tentative du quiz, et toutes étaient justes.
+		first, err := p.FirstAttempts(ctx)
+		if err != nil {
+			return err
+		}
+		for _, other := range quiz.Questions {
+			if !first[model.QuestionKey{QuizID: quiz.ID, QuestionID: other.ID}] {
+				return nil
+			}
+		}
+		got, err := p.AwardXP(ctx, "bonus", "quiz_perfect/"+quiz.ID, QuizPerfectXP)
+		if got > 0 {
+			xp += got
+			bonus = &Bonus{"quiz_perfect", "Sans faute", got}
+		}
 		return err
 	})
 	if err != nil {
 		return nil, err
 	}
-	return &AnswerResult{Correct: correct, Expected: q.Answer, Explanation: q.Explanation, XPAwarded: xp}, nil
+	return &AnswerResult{Correct: correct, Expected: q.Answer, Explanation: q.Explanation, XPAwarded: xp, Bonus: bonus}, nil
 }
 
 // CheckpointXP est l'XP d'un point de contrôle réussi (une seule fois).

@@ -263,7 +263,7 @@ function NavCard({ to, label, title, next }: { to: string; label: string; title?
       to="/lessons/$lessonId"
       params={{ lessonId: to }}
       className={cn(
-        'group flex items-center gap-3 rounded-2xl border border-line bg-surface p-5 hover:border-accent',
+        'group flex min-w-0 items-center gap-3 rounded-2xl border border-line bg-surface p-5 hover:border-accent',
         next && 'flex-row-reverse text-right',
       )}
     >

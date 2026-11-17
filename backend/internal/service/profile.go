@@ -3,6 +3,9 @@ package service
 import (
 	"bytes"
 	"context"
+	"slices"
+
+	"btd/backend/internal/repository"
 )
 
 const MaxAvatarBytes = 2 * 1024 * 1024
@@ -22,14 +25,29 @@ func sniffImageType(data []byte) string {
 
 type ProfileView struct {
 	AvatarVersion *int64 `json:"avatar_version"`
+	DailyGoalXP   int    `json:"daily_goal_xp"`
 }
 
 func (s *Service) Profile(ctx context.Context, uid int64) (*ProfileView, error) {
 	p, err := s.repos().Profile(uid).Get(ctx)
-	if err != nil || p == nil || p.Avatar == nil || p.AvatarUpdatedAt == nil {
-		return &ProfileView{}, err
+	if err != nil || p == nil {
+		return &ProfileView{DailyGoalXP: repository.DefaultDailyGoalXP}, err
 	}
-	return &ProfileView{AvatarVersion: new(p.AvatarUpdatedAt.UnixMilli())}, nil
+	v := &ProfileView{DailyGoalXP: p.DailyGoalXP}
+	if p.Avatar != nil && p.AvatarUpdatedAt != nil {
+		v.AvatarVersion = new(p.AvatarUpdatedAt.UnixMilli())
+	}
+	return v, nil
+}
+
+// DailyGoals sont les objectifs quotidiens proposés (XP d'apprentissage par jour).
+var DailyGoals = []int{20, 50, 100, 150}
+
+func (s *Service) SetDailyGoal(ctx context.Context, uid int64, goal int) error {
+	if !slices.Contains(DailyGoals, goal) {
+		return errorf(Invalid, "objectif : 20, 50, 100 ou 150 XP")
+	}
+	return s.repos().Profile(uid).SetDailyGoal(ctx, goal)
 }
 
 func (s *Service) Avatar(ctx context.Context, uid int64) ([]byte, string, error) {

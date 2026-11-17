@@ -51,7 +51,7 @@ export function HeaderXpCluster({ progress }: { progress: Progress }) {
         </span>
         {/* Infobulle : rang et chemin vers le niveau suivant. */}
         <span
-          className="juice-tip pointer-events-none absolute top-full left-0 z-50 mt-2 w-max max-w-[260px] rounded-lg border border-line bg-surface px-3 py-2 text-left shadow-lg"
+          className="juice-tip pointer-events-none absolute hidden md:block top-full left-0 z-50 mt-2 w-max max-w-[260px] rounded-lg border border-line bg-surface px-3 py-2 text-left shadow-lg"
           aria-hidden="true"
         >
           <span className="block font-read text-base font-semibold">

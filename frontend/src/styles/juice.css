@@ -112,7 +112,12 @@
   100% { box-shadow: 0 0 0 14px transparent; }
 }
 .juice-cell-in {
-  animation: run-cell 300ms var(--ease-out) both;
+  animation: juice-cell-in 320ms var(--ease-out) both;
+}
+@keyframes juice-cell-in {
+  from { transform: scale(0.5); opacity: 0.3; }
+  60% { transform: scale(1.18); opacity: 1; }
+  to { transform: scale(1); }
 }
 
 /* Lancement des tests : compilation -> tests */
@@ -141,4 +146,15 @@
   .juice-run-step {
     animation: none !important;
   }
+}
+
+/* Carte de coin (série, niveau après un petit gain) : entre, reste ~4 s, s'efface. */
+.juice-corner {
+  animation: juice-corner 4200ms var(--ease-out) both;
+}
+@keyframes juice-corner {
+  0% { opacity: 0; transform: translateY(14px) scale(0.95); }
+  8% { opacity: 1; transform: none; }
+  90% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(6px); }
 }

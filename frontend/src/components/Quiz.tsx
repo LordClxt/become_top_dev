@@ -23,8 +23,9 @@ export function Quiz({ quizId }: { quizId: string }) {
   const [best, setBest] = useState(0)
   const [broke, setBroke] = useState(0)
   const [done, setDone] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-  const active = useInView(sectionRef)
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const [sectionEl, setSectionEl] = useState<HTMLElement | null>(null)
+  const active = useInView(sectionEl)
 
   const order = round ?? data?.questions.map((q) => q.id) ?? []
   const byId = new Map(data?.questions.map((q) => [q.id, q]) ?? [])
@@ -74,7 +75,10 @@ export function Quiz({ quizId }: { quizId: string }) {
   return (
     <section
       id="quiz"
-      ref={sectionRef}
+      ref={(el) => {
+        sectionRef.current = el
+        setSectionEl(el)
+      }}
       className="mt-12 scroll-mt-20 rounded-2xl border border-line bg-surface/60 p-5 md:p-8"
       aria-labelledby="quiz-title"
     >
@@ -212,6 +216,10 @@ function QuestionCard({
     onSuccess: (r) => {
       announceXp({ amount: r.xp_awarded, reason: 'Bonne réponse', kind: 'quiz' })
       onResult(r)
+      // Le cache du quiz sait que la question est faite (la page de leçon le voit sans rechargement) ; l'état de la manche reste intact.
+      qc.setQueryData<Awaited<ReturnType<typeof api.quiz>>>(['quiz', quizId], (old) =>
+        old && { ...old, questions: old.questions.map((x) => (x.id === q.id ? { ...x, answered: true } : x)) },
+      )
       qc.invalidateQueries({ queryKey: ['progress'] })
     },
   })
@@ -362,7 +370,7 @@ function QuestionCard({
         </div>
       )}
 
-      <div className="mt-5 flex items-center gap-3">
+      <div className="mt-5 flex items-center gap-3" data-xp-origin>
         {!result ? (
           <Button disabled={!ready || submit.isPending} onClick={validate}>
             Valider
@@ -420,7 +428,7 @@ function EndScreen({
   const nextLab = lesson?.labs.find((l) => !l.passed)
 
   return (
-    <div className="grid justify-items-center gap-4 py-2 text-center" role="status">
+    <div className="grid grid-cols-[minmax(0,1fr)] justify-items-center gap-4 py-2 text-center" role="status">
       <div className="flex gap-2" aria-label={`${stars} étoile${stars > 1 ? 's' : ''} sur 3`}>
         {[0, 1, 2].map((i) => (
           <Star
@@ -433,7 +441,7 @@ function EndScreen({
       <h3 className="font-read text-3xl font-semibold tracking-tight">
         {ratio === 1 ? (replaying ? 'Erreurs corrigées' : 'Sans faute') : ratio >= 0.6 ? 'Bien joué' : 'Quiz terminé'}
       </h3>
-      <p className="text-muted">
+      <p className="text-balance text-muted">
         <span className="font-code text-text tabular-nums">
           {ok}/{order.length}
         </span>{' '}
@@ -445,7 +453,7 @@ function EndScreen({
         )}
       </p>
       <div className="flex flex-wrap justify-center gap-2">
-        <span className="flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 font-code text-sm tabular-nums">
+        <span className="flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 font-code text-xs tabular-nums md:text-sm">
           <Sparkles className="size-3.5 text-accent" />+{xp} XP dans cette session
         </span>
         {bonus && (
@@ -459,7 +467,7 @@ function EndScreen({
           Ces questions étaient déjà réussies : l’XP n’est donnée qu’une fois, la révision, elle, compte toujours.
         </p>
       )}
-      <div className="mt-2 flex flex-wrap justify-center gap-3">
+      <div className="mt-2 flex max-w-full flex-wrap justify-center gap-3">
         {missed.length > 0 && (
           <Button variant="outline" onClick={() => onReplay(missed)}>
             <RotateCcw className="size-4" />
@@ -467,9 +475,9 @@ function EndScreen({
           </Button>
         )}
         {nextLab ? (
-          <Button asChild>
-            <Link to="/exercises/$exerciseId" params={{ exerciseId: nextLab.id }}>
-              Passer au TP : {nextLab.title}
+          <Button asChild className="max-w-full">
+            <Link to="/exercises/$exerciseId" params={{ exerciseId: nextLab.id }} title={nextLab.title}>
+              <span className="truncate">Passer au TP : {nextLab.title}</span>
               <ArrowRight className="size-4" />
             </Link>
           </Button>
@@ -494,14 +502,13 @@ function EndScreen({
 }
 
 /** Vrai quand au moins un tiers de l'élément est à l'écran (les raccourcis clavier ne s'activent qu'alors). */
-function useInView(ref: React.RefObject<HTMLElement | null>) {
+function useInView(el: HTMLElement | null) {
   const [inView, setInView] = useState(false)
   useEffect(() => {
-    const el = ref.current
     if (!el || typeof IntersectionObserver === 'undefined') return
     const io = new IntersectionObserver(([entry]) => setInView(!!entry?.isIntersecting), { threshold: 0.33 })
     io.observe(el)
     return () => io.disconnect()
-  }, [ref])
+  }, [el])
   return inView
 }

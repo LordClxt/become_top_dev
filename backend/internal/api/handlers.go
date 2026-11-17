@@ -206,8 +206,10 @@ func (s *Server) profile(w http.ResponseWriter, r *http.Request) {
 	respond(w, v, err)
 }
 
-func (s *Server) avatar(w http.ResponseWriter, r *http.Request) {
-	data, ctype, err := s.svc.Avatar(r.Context(), uid(r))
+func (s *Server) avatar(w http.ResponseWriter, r *http.Request) { s.writeAvatar(w, r, uid(r)) }
+
+func (s *Server) writeAvatar(w http.ResponseWriter, r *http.Request, userID int64) {
+	data, ctype, err := s.svc.Avatar(r.Context(), userID)
 	if err != nil {
 		fail(w, err)
 		return

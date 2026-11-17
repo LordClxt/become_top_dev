@@ -75,6 +75,15 @@ func New(svc *service.Service, cfg Config) http.Handler {
 		"DELETE /api/profile/avatar":                  s.deleteAvatar,
 
 		"POST /api/lessons/{id}/checkpoints/{checkpoint}": s.answerCheckpoint,
+
+		"GET /api/today":                    s.today,
+		"POST /api/today/quests/{id}/claim": s.claimQuest,
+		"POST /api/today/chest/claim":       s.claimChest,
+		"GET /api/review":                   s.review,
+		"POST /api/review/{card...}":        s.rateCard,
+		"GET /api/leaderboard":              s.leaderboard,
+		"GET /api/users/{id}/avatar":        s.memberAvatar,
+		"PUT /api/profile/goal":             s.setGoal,
 	}
 	for pattern, h := range protected {
 		mux.HandleFunc(pattern, s.requireAuth(h))

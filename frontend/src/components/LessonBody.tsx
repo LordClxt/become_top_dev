@@ -7,7 +7,7 @@ import { CheckpointCard } from '@/components/lesson/Checkpoint'
 import { Callout, CompareBlock, GlossaryTerm, LessonSection, RevealBlock, StepsBlock } from '@/components/lesson/blocks'
 import { LessonContext, type LessonContextValue } from '@/components/lesson/context'
 import { type Block, parseBlocks, parseMeta } from '@/components/lesson/directives'
-import { remarkCallouts, remarkGlossary } from '@/components/lesson/remark'
+import { glossaryByBlock, remarkCallouts, remarkGlossary } from '@/components/lesson/remark'
 import type { Checkpoint, Visual } from '@/lib/api'
 import { HyperframesPlayer } from '@/visuals/HyperframesPlayer'
 import { hyperframesScenes, visualComponents } from '@/visuals/registry'
@@ -56,25 +56,37 @@ type Props = {
 
 export function LessonBody({ body, visuals, lessonId, language = 'go', checkpoints, glossary, compact }: Props) {
   const blocks = useMemo(() => parseBlocks(body), [body])
-  // Recréé à chaque rendu : la première occurrence d'un terme est recalculée dans l'ordre du texte.
-  const used = new Set<string>()
+  const terms = useMemo(
+    () => glossaryByBlock(blocks.map(blockText), (glossary ?? []).map((g) => g.term)),
+    [blocks, glossary],
+  )
   const ctx: LessonContextValue = {
     lessonId,
     language,
     checkpoints: checkpoints ?? [],
+    checkpointOrder: blocks.flatMap((b) => (b.kind === 'checkpoint' && checkpoints?.some((c) => c.id === b.id) ? [b.id] : [])),
     glossary: glossary ?? [],
-    used,
+    glossaryTerms: [],
     compact: !!compact,
   }
   return (
     <LessonContext value={ctx}>
       <div className="prose-read">
         {blocks.map((b, i) => (
-          <BlockView key={i} block={b} visuals={visuals} />
+          <LessonContext key={i} value={{ ...ctx, glossaryTerms: terms[i] ?? [] }}>
+            <BlockView block={b} visuals={visuals} />
+          </LessonContext>
         ))}
       </div>
     </LessonContext>
   )
+}
+
+function blockText(b: Block): string {
+  if (b.kind === 'md' || b.kind === 'reveal' || b.kind === 'section') return b.md
+  if (b.kind === 'compare') return b.panes.map((p) => p.md).join('\n')
+  if (b.kind === 'steps') return b.steps.map((s) => s.text).join('\n')
+  return ''
 }
 
 function BlockView({ block, visuals }: { block: Block; visuals: Record<string, Visual> }) {
@@ -105,7 +117,7 @@ export function Md({ children, components }: { children: string; components?: Co
           remarkPlugins={[
             remarkGfm,
             remarkCallouts,
-            remarkGlossary({ terms: ctx.glossary.map((g) => g.term), used: ctx.used }),
+            remarkGlossary({ terms: ctx.glossaryTerms }),
           ]}
           components={{
             h2: ({ children }) => (

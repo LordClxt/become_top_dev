@@ -799,3 +799,24 @@
     flex-wrap: wrap;
   }
 }
+.checkpoint-prompt p {
+  margin: 0;
+}
+.recap ul,
+.pitfalls ul {
+  margin-bottom: 0;
+}
+@media (max-width: 640px) {
+  .steps-panel > .flex-1 {
+    flex-basis: calc(100% - 3.5rem);
+  }
+  .steps-panel > .self-end {
+    margin-left: auto;
+  }
+  .reveal-icon {
+    display: none;
+  }
+  .reveal-head {
+    padding: 0.85rem 0.9rem;
+  }
+}
