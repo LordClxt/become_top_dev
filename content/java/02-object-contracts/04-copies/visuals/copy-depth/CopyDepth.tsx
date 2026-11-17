@@ -97,7 +97,7 @@ export default function CopyDepth() {
           </button>
         ))}
       </div>
-      <p className="font-code text-xs text-muted break-words">{current.code}</p>
+      <p className="font-code text-xs text-muted [overflow-wrap:anywhere]">{current.code}</p>
 
       <div className="flex flex-wrap gap-2 text-sm">
         <button type="button" onClick={copy} disabled={copied} className="rounded-md border border-line px-3 py-1.5 hover:border-accent disabled:opacity-40">
