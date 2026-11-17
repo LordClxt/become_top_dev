@@ -1,16 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ChevronLeft, ClipboardList, Lightbulb, ListChecks, Play, RotateCcw, Workflow } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ClipboardList, Lightbulb, ListChecks, Play, RotateCcw, Swords, Workflow } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CodeEditor, editorLanguage } from '@/components/CodeEditor'
 import { DiagramEditor } from '@/components/diagram/DiagramEditor'
 import { LessonBody } from '@/components/LessonBody'
 import { ErrorState, Loading } from '@/components/states'
-import { TestResults } from '@/components/TestResults'
+import { TestResults, topLevelTests } from '@/components/TestResults'
 import { Worksheet } from '@/components/worksheet/Worksheet'
 import { Button } from '@/components/ui/button'
 import { announceXp } from '@/features/xp/xp-events'
-import { api, type Exercise } from '@/lib/api'
+import { api, type Chapter, type Exercise, type RunReport } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { docLabel } from '@/lib/source'
 
@@ -80,11 +80,19 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
     }
   }, [saveDraft])
 
+  // Essais de cette session : le précédent sert à mesurer le progrès.
+  const [history, setHistory] = useState<RunReport[]>([])
+  const wasPassed = useRef(ex.workspace.passed)
   const run = useMutation({
     mutationFn: () => api.run(ex.id, files),
     onSuccess: (r) => {
+      setHistory((h) => [...h.slice(-4), r])
       if (!r.passed) return
-      announceXp({ amount: r.xp_awarded, reason: `${ROLE_LABEL[ex.role]} réussi` })
+      // Célébration au premier passage (ou quand de l'XP tombe) ; un TP déjà réussi qu'on relance reste discret.
+      if (r.xp_awarded > 0 || !wasPassed.current) {
+        announceXp({ amount: r.xp_awarded, reason: `${ROLE_LABEL[ex.role]} réussi`, kind: ex.role, title: ex.title })
+      }
+      wasPassed.current = true
       qc.invalidateQueries()
     },
   })
@@ -137,6 +145,21 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
       ? ({ to: '/chapters/$chapterId', params: { chapterId: ex.chapter_id } } as const)
       : ({ to: '/sandbox' } as const)
   const inSandbox = !ex.lesson_id && !ex.chapter_id
+  const boss = ex.role === 'boss'
+  const previous = history.length > 1 ? history[history.length - 2] : undefined
+
+  const { data: chapter } = useQuery({
+    queryKey: ['chapter', ex.chapter_id],
+    queryFn: () => api.chapter(ex.chapter_id),
+    enabled: !!ex.chapter_id,
+  })
+  const next = chapter ? nextStep(chapter, ex) : null
+  const nextRef = useRef<HTMLAnchorElement>(null)
+  const justPassed = !!run.data?.passed
+  useEffect(() => {
+    // Après une réussite, Entrée suit l'étape suivante.
+    if (justPassed) nextRef.current?.focus({ preventScroll: true })
+  }, [justPassed, next?.label])
 
   return (
     <main
@@ -147,11 +170,27 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
       )}
     >
       {/* Énoncé */}
-      <section className="border-b border-line px-4 pt-6 pb-10 sm:px-8 sm:pt-8 lg:overflow-y-auto lg:border-r lg:border-b-0 lg:pb-16">
+      <section
+        className={cn(
+          'border-b border-line px-4 pt-6 pb-10 sm:px-8 sm:pt-8 lg:overflow-y-auto lg:border-r lg:border-b-0 lg:pb-16',
+          boss && 'bg-[radial-gradient(ellipse_at_top_left,color-mix(in_oklab,var(--fail)_9%,transparent),transparent_60%)]',
+        )}
+      >
         <Link {...backTo} className="inline-flex items-center gap-1 text-sm text-muted hover:text-text">
           <ChevronLeft className="size-4" />
           {ex.lesson_id ? 'Retour à la leçon' : inSandbox ? 'Retour à l’atelier' : 'Retour au module'}
         </Link>
+        {boss && (
+          <div className="juice-boss-glow mt-5 flex items-center gap-3 rounded-xl border border-fail/50 bg-fail/8 px-4 py-3">
+            <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-fail text-ink">
+              <Swords className="size-5" />
+            </span>
+            <span className="min-w-0">
+              <span className="block font-code text-xs font-bold tracking-[0.25em] text-fail">BOSS</span>
+              <span className="block text-sm text-muted">Pas d’indice ici : c’est toi contre le boss. Tout ce module t’y a préparé.</span>
+            </span>
+          </div>
+        )}
         <p className={cn('mt-5 text-sm', ex.role === 'boss' ? 'text-fail' : 'text-muted')}>
           {inSandbox ? (isDiagram ? 'Kata de diagramme' : isSheet ? 'Fiche' : 'Atelier') : ROLE_LABEL[ex.role]}, difficulté {ex.difficulty}/5,{' '}
           {ex.xp} XP
@@ -367,12 +406,30 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
             <p className="p-4 text-sm text-fail">{run.error.message}</p>
           ) : (
             <>
-              <TestResults report={run.data} running={run.isPending} diagram={isDiagram} sheet={isSheet} />
+              {boss && !noCode && <BossHp report={run.data ?? history.at(-1)} passed={!!passed} />}
+              <TestResults
+                report={run.data}
+                previous={previous}
+                running={run.isPending}
+                diagram={isDiagram}
+                sheet={isSheet}
+                action={
+                  next && justPassed ? (
+                    <Button asChild size="sm">
+                      <Link ref={nextRef} {...next.link} hash={next.hash}>
+                        {next.label}
+                        <ArrowRight />
+                      </Link>
+                    </Button>
+                  ) : undefined
+                }
+              />
               {passed && debrief && (
                 <section className="border-t border-line p-5" aria-label="Debrief">
-                  <h2 className="flex items-center gap-2 font-medium">
+                  <h2 className="flex items-center gap-2 font-read text-lg font-semibold">
                     <Lightbulb className="size-4 text-accent" /> Ce qu’il fallait retenir
                   </h2>
+                  <p className="mt-1 text-xs text-muted">Ta récompense : la leçon qui reste quand le code est oublié.</p>
                   <div className="mt-3 [&_.prose-read]:text-[0.95rem]">
                     <LessonBody body={debrief} visuals={{}} />
                   </div>
@@ -383,5 +440,70 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
         </div>
       </section>
     </main>
+  )
+}
+
+type NextLink =
+  | { readonly to: '/chapters/$chapterId'; readonly params: { chapterId: string } }
+  | { readonly to: '/exercises/$exerciseId'; readonly params: { exerciseId: string } }
+  | { readonly to: '/lessons/$lessonId'; readonly params: { lessonId: string } }
+type NextStep = { label: string; link: NextLink; hash?: string }
+
+/**
+ * Étape suivante après une réussite, jamais une impasse :
+ * TP suivant de la leçon, sinon retour au quiz de la leçon, sinon leçon suivante, sinon le module.
+ */
+function nextStep(chapter: Chapter, ex: Exercise): NextStep {
+  const toChapter: NextStep = {
+    label: 'Devoir, boss et projet',
+    link: { to: '/chapters/$chapterId', params: { chapterId: chapter.id } },
+  }
+  const li = chapter.lessons.findIndex((l) => l.id === ex.lesson_id)
+  const lesson = chapter.lessons[li]
+  if (lesson) {
+    const lab = lesson.labs.find((l) => l.id !== ex.id && !l.passed)
+    if (lab) return { label: `TP suivant : ${lab.title}`, link: { to: '/exercises/$exerciseId', params: { exerciseId: lab.id } } }
+    if (!lesson.completed)
+      return { label: 'Retour à la leçon', link: { to: '/lessons/$lessonId', params: { lessonId: lesson.id } }, hash: 'quiz' }
+    const after = chapter.lessons[li + 1]
+    if (after) return { label: 'Leçon suivante', link: { to: '/lessons/$lessonId', params: { lessonId: after.id } } }
+    return toChapter
+  }
+  const rest = [chapter.assignment, chapter.boss, chapter.project].find((e) => e && e.id !== ex.id && !e.passed)
+  if (rest) return { label: `${ROLE_LABEL[rest.role]} : ${rest.title}`, link: { to: '/exercises/$exerciseId', params: { exerciseId: rest.id } } }
+  return { ...toChapter, label: 'Retour au module' }
+}
+
+/** Barre de vie du boss : la part des tests de premier niveau encore en échec au dernier essai. */
+function BossHp({ report, passed }: { report?: RunReport; passed: boolean }) {
+  const top = report ? topLevelTests(report) : []
+  const failing = top.filter((t) => t.status !== 'pass').length
+  const hp = passed && report?.passed ? 0 : !report || top.length === 0 ? 1 : failing / top.length
+  const dead = hp === 0
+  return (
+    <div className="border-b border-line px-4 py-3">
+      <div className="flex items-center justify-between gap-3 text-xs">
+        <span className={cn('flex items-center gap-1.5 font-code font-bold tracking-[0.2em]', dead ? 'text-pass' : 'text-fail')}>
+          <Swords className="size-3.5" />
+          {dead ? 'BOSS VAINCU' : 'BOSS'}
+        </span>
+        <span className="font-code text-muted tabular-nums">
+          {dead ? '0 PV' : report && top.length ? `${failing}/${top.length} PV` : 'PV au maximum'}
+        </span>
+      </div>
+      <div
+        className="juice-hp mt-2 h-2.5 overflow-hidden rounded-full bg-cell-empty"
+        role="meter"
+        aria-label="Vie du boss"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(hp * 100)}
+      >
+        <span
+          className={cn('block h-full rounded-full', dead ? 'bg-pass' : 'bg-fail')}
+          style={{ width: `${Math.max(dead ? 0 : 3, hp * 100)}%` }}
+        />
+      </div>
+    </div>
   )
 }
