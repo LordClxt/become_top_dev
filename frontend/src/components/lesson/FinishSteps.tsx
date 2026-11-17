@@ -37,6 +37,7 @@ export function FinishSteps({
   onComplete,
   quiz,
   nextTitle,
+  cardsRated = 0,
 }: {
   lesson: Lesson
   done: boolean
@@ -47,7 +48,11 @@ export function FinishSteps({
   onComplete: () => void
   quiz: QuizState
   nextTitle?: string
+  /** Cartes de la leçon déjà notées (serveur + visite en cours). */
+  cardsRated?: number
 }) {
+  const cardsTotal = lesson.flashcards.length
+  const cardsDone = cardsTotal > 0 && cardsRated >= cardsTotal
   const reduce = useReducedMotion()
   const panelRef = useRef<HTMLElement>(null)
   const [passed, setPassed] = useState(false)
@@ -96,8 +101,12 @@ export function FinishSteps({
             key: 'cards',
             icon: <Layers className="size-4" />,
             title: 'Cartes mémo',
-            detail: `${lesson.flashcards.length} cartes, à revoir quand tu veux`,
-            done: false,
+            detail: cardsDone
+              ? `${cardsTotal} cartes notées, elles reviendront dans ta révision`
+              : cardsRated > 0
+                ? `${Math.min(cardsRated, cardsTotal)}/${cardsTotal} cartes notées`
+                : `${cardsTotal} cartes, à revoir quand tu veux`,
+            done: cardsDone,
             optional: true,
             action: { kind: 'scroll', target: 'lesson-cards' },
             cta: 'Revoir les cartes',

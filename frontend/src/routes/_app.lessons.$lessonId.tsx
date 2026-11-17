@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { BookOpen, Check, ChevronLeft, ChevronRight, Clock, Sparkles } from 'lucide-react'
-import { type ReactNode, useMemo, useRef } from 'react'
+import { type ReactNode, useMemo, useRef, useState } from 'react'
 import { GridZone } from '@/components/Backdrop'
 import { Flashcards } from '@/components/Flashcards'
 import { LessonBody, lessonSections } from '@/components/LessonBody'
@@ -29,6 +29,8 @@ function LessonPage() {
     queryFn: () => api.chapter(chapterId!),
     enabled: !!chapterId,
   })
+  // Cartes notées pendant cette visite (avant que le serveur ne renvoie cards_rated à jour).
+  const [ratedNow, setRatedNow] = useState<Set<string>>(() => new Set())
   const complete = useMutation({
     mutationFn: () => api.completeLesson(lessonId),
     onSuccess: (r) => {
@@ -132,6 +134,7 @@ function LessonPage() {
             onComplete={() => complete.mutate()}
             quiz={quiz ? { total: quiz.questions.length, answered: quiz.questions.filter((q) => q.answered).length } : null}
             nextTitle={titleOf(lesson.next_id)}
+            cardsRated={Math.max(lesson.cards_rated ?? 0, [...ratedNow].filter((k) => k.startsWith(`${lesson.id}/`)).length)}
           />
 
           {lesson.quiz_id && (
@@ -145,6 +148,8 @@ function LessonPage() {
                 cards={lesson.flashcards}
                 // Chaque note alimente la révision espacée (id composite leçon/carte).
                 onRate={(cardId, rating) => {
+                  const key = `${lesson.id}/${cardId}`
+                  setRatedNow((prev) => (prev.has(key) ? prev : new Set(prev).add(key)))
                   api
                     .rateCard(`${lesson.id}/${cardId}`, rating)
                     .then((r) => {
@@ -154,6 +159,7 @@ function LessonPage() {
                     .finally(() => {
                       qc.invalidateQueries({ queryKey: ['today'] })
                       qc.invalidateQueries({ queryKey: ['review'] })
+                      qc.invalidateQueries({ queryKey: ['lesson', lesson.id] })
                     })
                 }}
               />

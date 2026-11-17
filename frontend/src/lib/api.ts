@@ -151,6 +151,8 @@ export type Lesson = {
   labs: ExerciseSummary[]
   quiz_id: string | null
   flashcards: { id: string; front: string; back: string; concept: string }[]
+  /** Cartes de la leçon déjà notées au moins une fois (répétition espacée). */
+  cards_rated?: number
   completed: boolean
   previous_id: string | null
   next_id: string | null
