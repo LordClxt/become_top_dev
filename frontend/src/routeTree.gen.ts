@@ -15,6 +15,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AppLearnRouteImport } from './routes/_app.learn'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
+import { Route as AppReviewRouteImport } from './routes/_app.review'
 import { Route as AppSandboxRouteImport } from './routes/_app.sandbox'
 import { Route as AppSettingsRouteImport } from './routes/_app.settings'
 import { Route as AppChaptersChapterIdRouteImport } from './routes/_app.chapters.$chapterId'
@@ -49,6 +50,11 @@ const AppLearnRoute = AppLearnRouteImport.update({
 const AppProfileRoute = AppProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReviewRoute = AppReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
   getParentRoute: () => AppRoute,
 } as any)
 const AppSandboxRoute = AppSandboxRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/learn': typeof AppLearnRoute
   '/profile': typeof AppProfileRoute
+  '/review': typeof AppReviewRoute
   '/sandbox': typeof AppSandboxRoute
   '/settings': typeof AppSettingsRoute
   '/chapters/$chapterId': typeof AppChaptersChapterIdRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/learn': typeof AppLearnRoute
   '/profile': typeof AppProfileRoute
+  '/review': typeof AppReviewRoute
   '/sandbox': typeof AppSandboxRoute
   '/settings': typeof AppSettingsRoute
   '/chapters/$chapterId': typeof AppChaptersChapterIdRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_app/learn': typeof AppLearnRoute
   '/_app/profile': typeof AppProfileRoute
+  '/_app/review': typeof AppReviewRoute
   '/_app/sandbox': typeof AppSandboxRoute
   '/_app/settings': typeof AppSettingsRoute
   '/_app/chapters/$chapterId': typeof AppChaptersChapterIdRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/learn'
     | '/profile'
+    | '/review'
     | '/sandbox'
     | '/settings'
     | '/chapters/$chapterId'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/learn'
     | '/profile'
+    | '/review'
     | '/sandbox'
     | '/settings'
     | '/chapters/$chapterId'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_app/learn'
     | '/_app/profile'
+    | '/_app/review'
     | '/_app/sandbox'
     | '/_app/settings'
     | '/_app/chapters/$chapterId'
@@ -217,6 +229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProfileRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/review': {
+      id: '/_app/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof AppReviewRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/sandbox': {
       id: '/_app/sandbox'
       path: '/sandbox'
@@ -265,6 +284,7 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppLearnRoute: typeof AppLearnRoute
   AppProfileRoute: typeof AppProfileRoute
+  AppReviewRoute: typeof AppReviewRoute
   AppSandboxRoute: typeof AppSandboxRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppChaptersChapterIdRoute: typeof AppChaptersChapterIdRoute
@@ -276,6 +296,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppLearnRoute: AppLearnRoute,
   AppProfileRoute: AppProfileRoute,
+  AppReviewRoute: AppReviewRoute,
   AppSandboxRoute: AppSandboxRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppChaptersChapterIdRoute: AppChaptersChapterIdRoute,
