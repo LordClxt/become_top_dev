@@ -424,7 +424,7 @@ export const api = {
 
   progress: () => request<Progress>(`/progress?${tzParam()}`),
 
-  profile: () => request<{ avatar_version: number | null }>('/profile'),
+  profile: () => request<{ avatar_version: number | null; daily_goal_xp: number }>('/profile'),
   uploadAvatar: async (image: Blob) => {
     const res = await fetch('/api/profile/avatar', { method: 'PUT', credentials: 'include', body: image })
     if (!res.ok) {

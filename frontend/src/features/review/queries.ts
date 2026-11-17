@@ -2,27 +2,8 @@ import { api } from '@/lib/api'
 
 /** Clés partagées avec le tableau de bord : une note invalide les deux. */
 export const reviewQuery = { queryKey: ['review'], queryFn: api.review }
-export const leaderboardQuery = { queryKey: ['leaderboard'], queryFn: api.leaderboard }
-
-/** Le strict nécessaire de /api/today pour proposer « Continuer » (le type complet appartient au tableau de bord). */
-export type TodayContinue = {
-  type: 'lesson' | 'exercise' | 'chapter'
-  id: string
-  title: string
-  label: string
-  course_title?: string
-}
-type TodayLite = { continue: TodayContinue | null; review_due?: number; goal_xp?: number }
-
-export const todayQuery = {
-  queryKey: ['today'],
-  queryFn: async (): Promise<TodayLite> => {
-    const tz = encodeURIComponent(Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC')
-    const res = await fetch(`/api/today?tz=${tz}`, { credentials: 'include' })
-    if (!res.ok) throw new Error(res.statusText)
-    return res.json()
-  },
-}
+// Le jour et le classement viennent du tableau de bord : une seule queryFn par clé.
+export { leaderboardQuery, todayQuery } from '@/features/habit/queries'
 
 /** « aujourd'hui », « demain », « dans 3 jours », « dans 2 semaines ». Date au format AAAA-MM-JJ, jour local. */
 export function dueInWords(iso: string | null | undefined): string {

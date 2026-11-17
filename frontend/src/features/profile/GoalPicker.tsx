@@ -15,7 +15,7 @@ const GOALS: { xp: DailyGoal; title: string; minutes: string; hint: string }[] =
 export function GoalPicker() {
   const qc = useQueryClient()
   const { data: profile } = useQuery(profileQuery)
-  const current = (profile as { daily_goal_xp?: number } | undefined)?.daily_goal_xp ?? 50
+  const current = profile?.daily_goal_xp ?? 50
   const save = useMutation({
     mutationFn: api.setGoal,
     onMutate: async (goal) => {

@@ -38,8 +38,8 @@
   transition: opacity 500ms var(--ease-out) 250ms;
 }
 .habit-chest-locked {
-  filter: grayscale(1);
-  opacity: 0.55;
+  filter: saturate(0.35);
+  opacity: 0.8;
 }
 .habit-chest-ready {
   animation: habit-wiggle 3.2s ease-in-out infinite;

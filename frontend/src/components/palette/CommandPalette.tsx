@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from '@tanstack/react-query'
+import { type QueryClient, useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import {
   ArrowRight,
@@ -59,9 +59,36 @@ function isTyping(t: EventTarget | null): boolean {
   return !!el && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName) || !!el.closest('.cm-editor'))
 }
 
+const INDEX_STALE = 5 * 60_000
+
+/** Charge l'index de recherche (cours, modules, leçons, exercices) dans le cache, sans rien afficher. */
+async function prefetchIndex(qc: QueryClient) {
+  const courses = await qc.fetchQuery({ ...coursesQuery, staleTime: INDEX_STALE })
+  const ids = courses.flatMap((c) => c.tracks.flatMap((t) => t.chapters)).flatMap((c) => (c.available ? [c.id] : []))
+  await Promise.all([
+    qc.prefetchQuery({ ...sandboxQuery, staleTime: INDEX_STALE }),
+    ...ids.map((id) => qc.prefetchQuery({ queryKey: ['chapter', id], queryFn: () => api.chapter(id), staleTime: INDEX_STALE })),
+  ])
+}
+
 /** Palette de commandes : Ctrl/Cmd+K, « / » hors saisie, ou l'événement `btd:palette`. */
 export function CommandPalette() {
   const [open, setOpen] = useState(false)
+  const qc = useQueryClient()
+
+  // Préchargement unique, en tâche de fond, ~2 s après l'arrivée dans l'espace connecté.
+  useEffect(() => {
+    let idle: number | undefined
+    const timer = window.setTimeout(() => {
+      const run = () => void prefetchIndex(qc).catch(() => {})
+      if ('requestIdleCallback' in window) idle = window.requestIdleCallback(run, { timeout: 3000 })
+      else run()
+    }, 2000)
+    return () => {
+      window.clearTimeout(timer)
+      if (idle !== undefined) window.cancelIdleCallback(idle)
+    }
+  }, [qc])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -105,12 +132,12 @@ function PaletteBody({ onClose }: { onClose: () => void }) {
   const listRef = useRef<HTMLDivElement>(null)
 
   // Chargé à l'ouverture seulement, puis gardé en cache par react-query.
-  const { data: courses } = useQuery({ ...coursesQuery, staleTime: 5 * 60_000 })
-  const { data: sandbox } = useQuery({ ...sandboxQuery, staleTime: 5 * 60_000 })
+  const { data: courses } = useQuery({ ...coursesQuery, staleTime: INDEX_STALE })
+  const { data: sandbox } = useQuery({ ...sandboxQuery, staleTime: INDEX_STALE })
   const { data: today } = useQuery(todayQuery)
   const chapterIds = (courses ?? []).flatMap((c) => c.tracks.flatMap((t) => t.chapters)).flatMap((c) => (c.available ? [c.id] : []))
   const chapters = useQueries({
-    queries: chapterIds.map((id) => ({ queryKey: ['chapter', id], queryFn: () => api.chapter(id), staleTime: 5 * 60_000 })),
+    queries: chapterIds.map((id) => ({ queryKey: ['chapter', id], queryFn: () => api.chapter(id), staleTime: INDEX_STALE })),
   })
 
   const items = useMemo<Item[]>(() => {

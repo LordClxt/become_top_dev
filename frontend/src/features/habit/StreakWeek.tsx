@@ -13,7 +13,7 @@ export function StreakWeek({ today }: { today: Today }) {
   return (
     <section aria-labelledby="streak-title" className="rounded-2xl border border-line bg-surface/80 p-6 backdrop-blur">
       <div className="flex items-center gap-3">
-        <StreakFlame lit={n > 0 && !today.streak_at_risk} className="size-7" />
+        <StreakFlame lit={n > 0} className="size-7" />
         <h2 id="streak-title" className="font-read text-xl font-semibold">
           Série : <span className="tabular-nums">{plural(n, 'jour', 'jours')}</span>
         </h2>

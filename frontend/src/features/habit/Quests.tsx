@@ -180,12 +180,12 @@ function ChestArt({ state, opening }: { state: 'locked' | 'ready' | 'open'; open
   return (
     <svg
       viewBox="0 0 120 100"
-      className={cn('habit-chest h-24 w-28 overflow-visible', `habit-chest-${state}`, opening && 'habit-chest-opening')}
+      className={cn('habit-chest h-24 w-32 overflow-visible', `habit-chest-${state}`, opening && 'habit-chest-opening')}
       aria-hidden="true"
     >
       <defs>
         <clipPath id={`${uid}-lid`}>
-          <path d="M16 50 V36 Q16 20 60 20 Q104 20 104 36 V50 Z" />
+          <path d="M16 50 V34 Q16 14 60 14 Q104 14 104 34 V50 Z" />
         </clipPath>
         <clipPath id={`${uid}-body`}>
           <rect x="16" y="50" width="88" height="42" rx="6" />
@@ -206,17 +206,22 @@ function ChestArt({ state, opening }: { state: 'locked' | 'ready' | 'open'; open
         <rect x="16" y="50" width="88" height="7" fill="var(--cell-empty)" />
         <rect x="30" y="50" width="9" height="42" fill="var(--accent)" />
         <rect x="81" y="50" width="9" height="42" fill="var(--accent)" />
+        {/* Planches et pieds : il se lit comme un coffre, pas comme un sac */}
+        <path d="M16 71 H104" stroke="var(--line)" strokeWidth="1.5" />
+        <rect x="16" y="86" width="88" height="6" fill="var(--line)" />
       </g>
       <rect x="16" y="50" width="88" height="42" rx="6" fill="none" stroke="var(--line)" strokeWidth="2" />
       {/* Couvercle : pivote autour de sa charnière arrière */}
       <g className="habit-chest-lid">
         <g clipPath={`url(#${uid}-lid)`}>
-          <rect x="16" y="20" width="88" height="30" fill="var(--surface-2)" />
-          <rect x="16" y="20" width="88" height="8" fill="var(--surface)" opacity="0.6" />
-          <rect x="30" y="20" width="9" height="30" fill="var(--accent)" />
-          <rect x="81" y="20" width="9" height="30" fill="var(--accent)" />
+          <rect x="16" y="14" width="88" height="36" fill="var(--surface-2)" />
+          <rect x="16" y="14" width="88" height="10" fill="var(--surface)" opacity="0.6" />
+          <rect x="30" y="14" width="9" height="36" fill="var(--accent)" />
+          <rect x="81" y="14" width="9" height="36" fill="var(--accent)" />
+          {/* Lèvre du couvercle */}
+          <rect x="16" y="45" width="88" height="5" fill="var(--line)" />
         </g>
-        <path d="M16 50 V36 Q16 20 60 20 Q104 20 104 36 V50 Z" fill="none" stroke="var(--line)" strokeWidth="2" strokeLinejoin="round" />
+        <path d="M16 50 V34 Q16 14 60 14 Q104 14 104 34 V50 Z" fill="none" stroke="var(--line)" strokeWidth="2" strokeLinejoin="round" />
         {/* Serrure */}
         <rect x="51" y="42" width="18" height="16" rx="4" fill="var(--ink)" stroke="var(--accent)" strokeWidth="2" />
         <circle cx="60" cy="48.5" r="2.4" fill="var(--accent)" />

@@ -95,7 +95,7 @@ function ProfilePage() {
             </h2>
             <p className="text-sm text-muted">Clique sur un jour pour voir ce que tu as fait.</p>
           </div>
-          <ActivityGraph weeks={53} selected={day} onSelect={setDay} />
+          <ActivityGraph weeks={53} selected={day} onSelect={setDay} fill />
         </section>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]">

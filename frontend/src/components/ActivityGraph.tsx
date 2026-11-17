@@ -33,8 +33,11 @@ export function ActivityGraph({
   selected,
   onSelect,
   className,
+  fill,
 }: {
   weeks: number
+  /** Les cases s'élargissent pour remplir la largeur disponible (carrées, bornées en taille). */
+  fill?: boolean
   selected?: string | null
   onSelect?: (date: string | null) => void
   className?: string
@@ -50,21 +53,27 @@ export function ActivityGraph({
   return (
     <div className={className}>
       <div className="flex gap-2 overflow-x-auto pb-1">
-        <div className="grid shrink-0 grid-rows-[14px_repeat(7,11px)] gap-[3px] text-[10px] leading-[11px] text-muted">
+        <div
+          className={cn('grid shrink-0 gap-[3px] text-[10px] leading-[11px] text-muted', fill ? 'grid-rows-[14px_repeat(7,minmax(0,1fr))] items-center' : 'grid-rows-[14px_repeat(7,11px)]')}
+        >
           <span />
           {DAY_LABELS.map((l, i) => (
             <span key={i}>{l}</span>
           ))}
         </div>
-        <div className="flex gap-[3px]" role="grid" aria-label={`Activité ${span}`}>
+        <div className={cn('flex gap-[3px]', fill && 'min-w-[520px] flex-1')} role="grid" aria-label={`Activité ${span}`}>
           {columns.map((col, c) => {
             const first = parse(col[0]!.date)
             const prev = columns[c - 1]?.[0]
             const newMonth = !prev || parse(prev.date).getMonth() !== first.getMonth()
             return (
-              <div key={col[0]!.date} className="grid grid-rows-[14px_repeat(7,11px)] gap-[3px]" role="row">
+              <div
+                key={col[0]!.date}
+                className={cn('grid gap-[3px]', fill ? 'flex max-w-4 min-w-0 flex-1 flex-col content-start' : 'grid-rows-[14px_repeat(7,11px)]')}
+                role="row"
+              >
                 {/* Le libellé déborde à droite sans élargir la colonne : les semaines restent régulières. */}
-                <span className="relative w-[11px]">
+                <span className={cn('relative w-[11px]', fill && 'h-[14px] shrink-0')}>
                   <span className="absolute left-0 text-[10px] leading-[11px] whitespace-nowrap text-muted">
                     {newMonth && c < columns.length - 2 ? monthFmt.format(first) : ''}
                   </span>
@@ -79,7 +88,7 @@ export function ActivityGraph({
                         aria-pressed={onSelect ? selected === d.date : undefined}
                         onClick={onSelect ? () => onSelect(selected === d.date ? null : d.date) : undefined}
                         className={cn(
-                          'size-[11px] rounded-[3px]',
+                          fill ? 'aspect-square w-full rounded-[3px]' : 'size-[11px] rounded-[3px]',
                           onSelect ? 'cursor-pointer' : 'cursor-default',
                           selected === d.date && 'ring-2 ring-text ring-offset-1 ring-offset-ink',
                         )}

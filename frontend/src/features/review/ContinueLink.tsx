@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
-import type { TodayContinue } from './queries'
+import type { TodayContinue } from '@/lib/api'
 
 /** Lien vers la cible de « Continuer » (leçon, TP ou module), ou /learn sans cible. */
 export function ContinueLink({ target, className, children }: { target: TodayContinue | null | undefined; className?: string; children: ReactNode }) {
