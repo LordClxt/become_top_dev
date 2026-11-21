@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Activer des profils ?"
+    back: "spring.profiles.active (ligne de commande, SPRING_PROFILES_ACTIVE, fichier) ou setAdditionalProfiles ; sinon le profil default."
+    concept: spring-ch03-profiles-activation
+  - id: fc2
+    front: "Document YAML réservé à un profil ?"
+    back: "Après ---, spring.config.activate.on-profile: prod ; il l'emporte sur la base et ne contient que les différences."
+    concept: spring-ch03-profiles-activation
+  - id: fc3
+    front: "Expressions de @Profile ?"
+    back: "!prod, prod & eu, prod | staging."
+    concept: spring-ch03-profile-beans
+  - id: fc4
+    front: "Quand @Profile est-il évalué ?"
+    back: "À la lecture des configurations (ProfileCondition) : un bean d'un profil inactif n'est jamais une définition."
+    concept: spring-ch03-profile-beans
+  - id: fc5
+    front: "Déclarer un groupe de profils ?"
+    back: "spring.profiles.group.staging: prod, us ; activer staging active staging, prod et us."
+    concept: spring-ch03-profile-groups
+  - id: fc6
+    front: "Règle de sûreté pour les beans par profil ?"
+    back: "Le composant dangereux (vraie banque) est réservé au profil explicite et exige sa configuration."
+    concept: spring-ch03-profile-beans

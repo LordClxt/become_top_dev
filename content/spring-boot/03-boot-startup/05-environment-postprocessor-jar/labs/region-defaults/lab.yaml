@@ -1,0 +1,12 @@
+id: spring-ch03-l05-lab-region-defaults
+title: "Un EnvironmentPostProcessor : des valeurs par défaut par région"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/RegionDefaults.java", "META-INF/spring.factories"]
+concepts: [spring-ch03-environment-post-processor, spring-ch03-spring-factories, spring-ch03-property-source-order]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

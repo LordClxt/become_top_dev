@@ -1,0 +1,78 @@
+id: spring-ch03-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Une `@PropertySource` et une valeur par défaut. Qu'affiche le programme ?"
+    code: |
+      import java.util.Map;
+      import org.springframework.boot.*;
+      import org.springframework.context.annotation.*;
+      import org.springframework.core.env.MapPropertySource;
+
+      public class Main {
+          @Configuration static class App { }
+
+          public static void main(String[] args) {
+              var app = new SpringApplication(App.class);
+              app.setBannerMode(Banner.Mode.OFF);
+              app.setWebApplicationType(WebApplicationType.NONE);
+              app.setDefaultProperties(Map.of("tixa.currency", "EUR"));
+              try (var ctx = app.run("--tixa.region=us")) {
+                  var env = ctx.getEnvironment();
+                  System.out.println(env.getProperty("tixa.region") + " " + env.getProperty("tixa.currency") + " "
+                          + env.getProperty("tixa.missing", "défaut"));
+              }
+          }
+      }
+    answer: "us EUR défaut"
+    explanation: "tixa.region vient de la ligne de commande, tixa.currency des valeurs par défaut de la SpringApplication (aucune autre source ne la définit). getProperty(clé, défaut) renvoie la valeur donnée quand aucune source ne connaît la clé."
+    concept: spring-ch03-property-source-order
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quelle variable d'environnement définit `tixa.fee-cents` ?"
+    choices:
+      - "TIXA_FEE_CENTS"
+      - "TIXA_FEECENTS"
+      - "tixa.fee-cents"
+      - "TIXA-FEE-CENTS"
+    answer: 1
+    explanation: "Règle de Spring Boot : points remplacés par des underscores, tirets supprimés, tout en majuscules. TIXA_FEE_CENTS correspondrait à tixa.fee.cents. Une variable mal nommée ne lève aucune erreur : elle est simplement ignorée."
+    concept: spring-ch03-property-source-order
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "`application.yml` importe `fees.properties` (`spring.config.import`). Les deux définissent `tixa.fee-cents`. Laquelle gagne, sans profil ?"
+    choices:
+      - "application.yml, le fichier principal"
+      - "fees.properties, le fichier importé"
+      - "La dernière lue sur le disque"
+      - "Le démarrage échoue"
+    answer: 1
+    explanation: "Un fichier importé l'emporte sur le document qui l'importe. Un document de profil de application.yml l'emporterait en revanche sur l'import. C'est ce qui permet de garder une grille dans un fichier dédié tout en surchargeant la production."
+    concept: spring-ch03-config-import
+    difficulty: 2
+  - id: q4
+    type: multiple
+    prompt: "Pourquoi une valeur placée dans une `@PropertySource` semble-t-elle « ignorée » ?"
+    choices:
+      - "La même propriété est définie dans application.yml, qui l'emporte"
+      - "Elle est définie en ligne de commande ou dans l'environnement"
+      - "Il s'agit de logging.level.* ou spring.main.*, lus avant que la @PropertySource soit ajoutée"
+      - "Les @PropertySource ne sont jamais lues par Spring Boot"
+    answer: [0, 1, 2]
+    explanation: "Une @PropertySource passe après tous les fichiers de configuration, et n'est ajoutée qu'au refresh, trop tard pour les propriétés lues avant (journalisation, spring.main). Elle est bien lue, mais presque tout la masque."
+    concept: spring-ch03-config-import
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Pourquoi les arguments de ligne de commande l'emportent-ils sur `application.yml` ?"
+    choices:
+      - "Parce qu'ils sont lus en dernier"
+      - "Parce que ce qui est le plus proche du lancement doit pouvoir surcharger ce qui est embarqué : l'exploitation dépanne sans recompiler"
+      - "Parce que YAML est plus lent à analyser"
+      - "C'est une limite de Java"
+    answer: 1
+    explanation: "L'ordre est un choix de conception : l'application embarque des défauts raisonnables, l'environnement d'exécution les ajuste. C'est aussi pourquoi un secret ne doit jamais être embarqué : il ne doit pas exister de valeur « par défaut » d'un mot de passe."
+    concept: spring-ch03-property-source-order
+    difficulty: 1

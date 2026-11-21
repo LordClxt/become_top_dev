@@ -1,0 +1,12 @@
+id: spring-ch03-assignment
+title: "Un démarrage qui explique ses erreurs : un FailureAnalyzer"
+kind: code
+language: java
+difficulty: 3
+xp: 150
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/MissingSecretFailureAnalyzer.java", "META-INF/spring.factories"]
+concepts: [spring-ch03-failure-analyzer, spring-ch03-spring-factories, spring-ch03-run-steps]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

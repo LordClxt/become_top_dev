@@ -1,0 +1,85 @@
+id: spring-ch03-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Un runner lève une exception. Qu'affiche le programme ?"
+    code: |
+      import java.util.*;
+      import org.springframework.boot.*;
+      import org.springframework.boot.context.event.*;
+      import org.springframework.context.ApplicationListener;
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          static List<String> log = new ArrayList<>();
+
+          @Configuration
+          static class App {
+              @Bean ApplicationRunner check() { return args -> { throw new IllegalStateException("banque injoignable"); }; }
+          }
+
+          public static void main(String[] args) {
+              var app = new SpringApplication(App.class);
+              app.setBannerMode(Banner.Mode.OFF);
+              app.setWebApplicationType(WebApplicationType.NONE);
+              app.addListeners((ApplicationListener<SpringApplicationEvent>) e -> log.add(e.getClass().getSimpleName()));
+              try {
+                  app.run();
+              } catch (IllegalStateException e) {
+                  log.add("échec : " + e.getMessage());
+              }
+              System.out.println(log.subList(log.size() - 3, log.size()));
+          }
+      }
+    answer: "[ApplicationStartedEvent, ApplicationFailedEvent, échec : banque injoignable]"
+    explanation: "Le runner tourne après ApplicationStartedEvent. Son exception fait échouer run() : ApplicationFailedEvent est publié à la place d'ApplicationReadyEvent, et l'exception d'origine remonte au main. L'application n'a jamais été déclarée prête."
+    concept: spring-ch03-runners
+    difficulty: 3
+  - id: q2
+    type: single
+    prompt: "Où mettre la vérification « la base de paiement répond », qui doit réussir avant que Tixa reçoive du trafic ?"
+    choices:
+      - "Dans un écouteur d'ApplicationStartingEvent"
+      - "Dans un ApplicationRunner"
+      - "Dans le constructeur de la classe @SpringBootApplication"
+      - "Dans un écouteur d'ApplicationReadyEvent"
+    answer: 1
+    explanation: "Le runner voit le contexte complet, et son échec empêche l'application d'être déclarée prête. ApplicationStartingEvent arrive avant toute configuration, et ApplicationReadyEvent après l'ouverture au trafic : trop tôt et trop tard."
+    concept: spring-ch03-runners
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Dans quel ordre ces étapes ont-elles lieu dans `SpringApplication.run()` ?"
+    choices:
+      - "refresh(), préparation de l'environnement, création du contexte, runners"
+      - "préparation de l'environnement, création du contexte, refresh(), runners"
+      - "création du contexte, préparation de l'environnement, runners, refresh()"
+      - "runners, préparation de l'environnement, création du contexte, refresh()"
+    answer: 1
+    explanation: "La configuration doit être complète avant de choisir et créer le contexte (le type d'application et les profils en dépendent), et le contexte doit être rafraîchi avant que les runners puissent utiliser ses beans."
+    concept: spring-ch03-run-steps
+    difficulty: 1
+  - id: q4
+    type: multiple
+    prompt: "Comment faire recevoir `ApplicationEnvironmentPreparedEvent` à un écouteur ?"
+    choices:
+      - "springApplication.addListeners(monEcouteur) avant run()"
+      - "Une ligne org.springframework.context.ApplicationListener=… dans META-INF/spring.factories"
+      - "Annoter l'écouteur @Component"
+      - "Une méthode @EventListener dans la classe @SpringBootApplication"
+    answer: [0, 1]
+    explanation: "Cet événement est publié avant la création du contexte : seuls les écouteurs connus de la SpringApplication le reçoivent. Un bean, ou une méthode @EventListener d'un bean, n'existe pas encore à ce moment."
+    concept: spring-ch03-startup-events
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Que fait Spring Boot quand une exception interrompt le démarrage ?"
+    choices:
+      - "Il réessaie le démarrage trois fois"
+      - "Il publie ApplicationFailedEvent, ferme le contexte, et demande aux FailureAnalyzer d'expliquer l'erreur"
+      - "Il laisse le contexte ouvert pour le diagnostic"
+      - "Il démarre en mode dégradé sans les beans en échec"
+    answer: 1
+    explanation: "handleRunFailure publie l'événement, ferme ce qui a été créé (les @PreDestroy sont appelés), puis cherche un FailureAnalyzer qui reconnaît l'exception pour afficher « APPLICATION FAILED TO START » avec une description et une action."
+    concept: spring-ch03-failure-analyzer
+    difficulty: 2

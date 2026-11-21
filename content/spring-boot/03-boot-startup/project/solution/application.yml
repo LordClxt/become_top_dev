@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    group:
+      staging: prod
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+tixa:
+  fee-cents: 200

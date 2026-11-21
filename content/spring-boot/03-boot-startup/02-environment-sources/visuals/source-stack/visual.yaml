@@ -1,0 +1,8 @@
+id: spring-ch03-source-stack
+concept: spring-ch03-property-source-order
+format: interactive
+justification: "L'apprenant définit la même propriété dans plusieurs sources (ligne de commande, environnement, ./config, application.yml, document de profil, @PropertySource) et voit, dans la pile, laquelle gagne et pourquoi."
+entry: SourceStack.tsx
+params:
+  - { name: sources, type: int, min: 1, max: 7, default: 3 }
+status: idea

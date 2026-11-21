@@ -1,0 +1,6 @@
+id: spring-ch03-executable-jar
+concept: spring-ch03-executable-jar
+format: static
+justification: "Une structure fixe suffit : l'arborescence du jar (META-INF/MANIFEST.MF, classes du lanceur, BOOT-INF/classes, BOOT-INF/lib), avec les flèches Main-Class → JarLauncher → Start-Class."
+entry: executable-jar.svg
+status: idea

@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Les grandes étapes de SpringApplication.run() ?"
+    back: "Environnement → création du contexte → préparation (initializers, sources) → refresh() → runners → prêt."
+    concept: spring-ch03-run-steps
+  - id: fc2
+    front: "Ordre des événements de démarrage ?"
+    back: "Starting, EnvironmentPrepared, ContextInitialized, Prepared, (ContextRefreshed), Started, runners, Ready."
+    concept: spring-ch03-startup-events
+  - id: fc3
+    front: "Pourquoi un @Component ne reçoit-il pas ApplicationStartingEvent ?"
+    back: "Il n'existe qu'après refresh() ; il faut addListeners ou META-INF/spring.factories."
+    concept: spring-ch03-startup-events
+  - id: fc4
+    front: "Quand tournent les ApplicationRunner ?"
+    back: "Après ApplicationStartedEvent, avant ApplicationReadyEvent ; une exception y fait échouer le démarrage."
+    concept: spring-ch03-runners
+  - id: fc5
+    front: "Événements de disponibilité au démarrage ?"
+    back: "LivenessState.CORRECT après Started ; ReadinessState.ACCEPTING_TRAFFIC après Ready."
+    concept: spring-ch03-runners
+  - id: fc6
+    front: "Qui produit le rapport « APPLICATION FAILED TO START » ?"
+    back: "Les FailureAnalyzer déclarés dans META-INF/spring.factories, appelés par handleRunFailure."
+    concept: spring-ch03-failure-analyzer

@@ -1,0 +1,8 @@
+id: spring-ch03-profile-layers
+concept: spring-ch03-profiles-activation
+format: interactive
+justification: "L'apprenant coche des profils (ou un groupe) et voit quels documents YAML s'empilent, quels beans @Profile existent, et la valeur finale de chaque propriété."
+entry: ProfileLayers.tsx
+params:
+  - { name: profiles, type: int, min: 0, max: 3, default: 1 }
+status: idea

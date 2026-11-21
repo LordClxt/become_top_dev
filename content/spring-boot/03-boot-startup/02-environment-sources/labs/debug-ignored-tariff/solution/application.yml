@@ -1,0 +1,11 @@
+spring:
+  config:
+    # Le fichier importé l'emporte sur ce document ; un document de profil l'emporte sur l'import.
+    import: classpath:fees.properties
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+tixa:
+  fee-cents: 200      # tarif de production, fixé par contrat

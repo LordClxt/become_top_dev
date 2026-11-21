@@ -1,0 +1,7 @@
+id: spring-ch03-run-timeline
+concept: spring-ch03-run-steps
+format: hyperframes
+justification: "Une frise de 14 s à regarder : chaque étape de SpringApplication.run() s'allume avec l'événement qu'elle publie, et l'on voit où le contexte commence à exister (et donc à partir de quand un bean peut écouter)."
+entry: scene.html
+duration_s: 14
+status: idea

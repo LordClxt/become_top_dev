@@ -1,0 +1,6 @@
+id: spring-ch03-binding
+concept: spring-ch03-configuration-properties
+format: static
+justification: "Une correspondance fixe suffit : à gauche les clés telles qu'écrites (kebab-case, camelCase, variable d'environnement), à droite les composants du record, avec les conversions (90s → Duration, liste)."
+entry: binding.svg
+status: idea

@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "La configuration typée"
+    goal: "TixaProperties est lié au préfixe tixa avec ses valeurs par défaut, et des frais négatifs font échouer le démarrage."
+    tests: "jboot M1"
+    review: false
+  - id: m2
+    title: "Une banque par environnement"
+    goal: "Banque factice hors production, vraie banque en prod (URL obligatoire), frais contractuels de 200 en prod, et staging active prod."
+    tests: "jboot M2"
+    review: false
+  - id: m3
+    title: "Un démarrage qui se vérifie"
+    goal: "Un runner vérifie la banque avant que l'application soit prête et fait échouer le démarrage sinon ; à ApplicationReadyEvent, un message résume l'état."
+    tests: "jboot M3"
+    review: true

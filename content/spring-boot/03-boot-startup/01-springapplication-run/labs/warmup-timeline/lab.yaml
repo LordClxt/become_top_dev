@@ -1,0 +1,12 @@
+id: spring-ch03-l01-lab-warmup-timeline
+title: "Échauffement : la chronologie d'un démarrage"
+kind: code
+language: java
+difficulty: 2
+xp: 40
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/Launcher.java", "app/CatalogWarmUp.java"]
+concepts: [spring-ch03-run-steps, spring-ch03-startup-events, spring-ch03-runners]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

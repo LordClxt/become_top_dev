@@ -1,0 +1,13 @@
+id: spring-ch03-boss
+title: "Boss : des secrets montés en fichiers, à la bonne place"
+kind: code
+language: java
+difficulty: 5
+xp: 250
+timeout_s: 120
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/SecretsLoader.java", "META-INF/spring.factories", "application.yml"]
+concepts: [spring-ch03-environment-post-processor, spring-ch03-spring-factories, spring-ch03-property-source-order, spring-ch03-config-file-order, spring-ch03-profiles-activation]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

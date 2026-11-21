@@ -1,0 +1,80 @@
+id: spring-ch03-l05-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Une source de secrets placée juste après les variables d'environnement. Qu'affiche le programme ?"
+    code: |
+      import java.util.Map;
+      import org.springframework.boot.*;
+      import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+      import org.springframework.context.ApplicationListener;
+      import org.springframework.context.annotation.Configuration;
+      import org.springframework.core.env.*;
+
+      public class Main {
+          @Configuration static class App { }
+
+          public static void main(String[] args) {
+              var app = new SpringApplication(App.class);
+              app.setBannerMode(Banner.Mode.OFF);
+              app.setWebApplicationType(WebApplicationType.NONE);
+              app.addListeners((ApplicationListener<ApplicationEnvironmentPreparedEvent>) e ->
+                      e.getEnvironment().getPropertySources().addAfter(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME,
+                              new MapPropertySource("secrets", Map.of("api-key", "sk_secret", "endpoint", "https://secret"))));
+              try (var ctx = app.run("--api-key=sk_cli")) {
+                  System.out.println(ctx.getEnvironment().getProperty("api-key") + " " + ctx.getEnvironment().getProperty("endpoint"));
+              }
+          }
+      }
+    answer: "sk_cli https://secret"
+    explanation: "La ligne de commande est au-dessus des variables d'environnement, donc au-dessus de la source des secrets : elle l'emporte (dépannage). Pour endpoint, aucune source plus haute ne le définit : la valeur du secret est utilisée."
+    concept: spring-ch03-environment-post-processor
+    difficulty: 3
+  - id: q2
+    type: single
+    prompt: "Pourquoi un `EnvironmentPostProcessor` ordinaire peut-il lire `tixa.region` défini dans `application.yml` ?"
+    choices:
+      - "Parce que les fichiers sont lus par la JVM avant le main"
+      - "Parce qu'il passe après ConfigDataEnvironmentPostProcessor, très prioritaire, qui a déjà chargé les fichiers et les profils"
+      - "Parce qu'il est créé comme un bean, après le refresh"
+      - "Il ne le peut pas : il doit lire le fichier lui-même"
+    answer: 1
+    explanation: "Les post-processors d'environnement sont triés par @Order ; celui qui charge la configuration (config data) a une priorité très haute. Un post-processor sans ordre particulier voit donc l'environnement avec tous les fichiers et documents de profil."
+    concept: spring-ch03-environment-post-processor
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Dans `META-INF/spring.factories`, comment déclarer la classe imbriquée `RegionDefaults` de `app.Tixa` ?"
+    choices:
+      - "org.springframework.boot.EnvironmentPostProcessor=app.Tixa.RegionDefaults"
+      - "org.springframework.boot.EnvironmentPostProcessor=app.Tixa$RegionDefaults"
+      - "org.springframework.boot.EnvironmentPostProcessor=RegionDefaults"
+      - "Une classe imbriquée ne peut pas y être déclarée"
+    answer: 1
+    explanation: "SpringFactoriesLoader charge les classes par leur nom binaire (Class.forName), où une classe imbriquée s'écrit avec un $. Avec un point, le démarrage échoue avec une ClassNotFoundException."
+    concept: spring-ch03-spring-factories
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Dans le MANIFEST.MF d'un jar Spring Boot, que vaut `Main-Class` ?"
+    choices:
+      - "La classe annotée @SpringBootApplication"
+      - "org.springframework.boot.loader.launch.JarLauncher ; ta classe est dans Start-Class"
+      - "org.springframework.boot.SpringApplication"
+      - "Il n'y a pas de Main-Class : java -jar lit BOOT-INF/classes"
+    answer: 1
+    explanation: "java -jar lance Main-Class, c'est-à-dire le lanceur de Spring Boot. Il crée un class loader capable de lire les jars imbriqués de BOOT-INF/lib, puis appelle le main de Start-Class."
+    concept: spring-ch03-executable-jar
+    difficulty: 2
+  - id: q5
+    type: multiple
+    prompt: "Qu'est-ce qui se déclare dans `META-INF/spring.factories` plutôt que comme bean ?"
+    choices:
+      - "Un EnvironmentPostProcessor"
+      - "Un FailureAnalyzer"
+      - "Un écouteur d'ApplicationStartingEvent destiné à toutes les applications qui utilisent ta bibliothèque"
+      - "Un service métier @Service"
+    answer: [0, 1, 2]
+    explanation: "Tout ce qui doit exister avant le contexte, ou quand il a échoué, ne peut pas être un bean. Un service métier, lui, est un bean ordinaire."
+    concept: spring-ch03-spring-factories
+    difficulty: 2

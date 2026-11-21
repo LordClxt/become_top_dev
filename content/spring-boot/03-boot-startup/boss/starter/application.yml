@@ -1,0 +1,13 @@
+tixa:
+  payment:
+    api-key: dev-key-not-secret
+    endpoint: https://sandbox.bank.example
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+tixa:
+  secrets-dir: ${tixa.secrets-root}/prod
+  payment:
+    endpoint: https://bank.example

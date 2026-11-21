@@ -1,0 +1,12 @@
+id: spring-ch03-l04-lab-bank-per-profile
+title: "Une banque par environnement : @Profile et groupes de profils"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/FakeBank.java", "app/LiveBank.java", "application.yml"]
+concepts: [spring-ch03-profiles-activation, spring-ch03-profile-beans, spring-ch03-profile-groups]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

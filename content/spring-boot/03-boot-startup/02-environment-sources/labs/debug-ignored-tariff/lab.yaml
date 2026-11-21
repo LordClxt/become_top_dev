@@ -1,0 +1,12 @@
+id: spring-ch03-l02-lab-debug-ignored-tariff
+title: "Débogage : le nouveau tarif n'est jamais appliqué"
+kind: code
+language: java
+difficulty: 4
+xp: 90
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["application.yml", "config/application.properties", "fees.properties", "app/PricingConfig.java", "app/FeeService.java"]
+concepts: [spring-ch03-property-source-order, spring-ch03-config-file-order, spring-ch03-config-import]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

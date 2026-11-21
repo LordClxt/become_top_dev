@@ -1,0 +1,16 @@
+tixa:
+  bank:
+    region: eu
+spring:
+  profiles:
+    group:
+      # staging = la configuration de prod, avec la région us en plus
+      staging: prod, us
+---
+spring:
+  config:
+    activate:
+      on-profile: us
+tixa:
+  bank:
+    region: us

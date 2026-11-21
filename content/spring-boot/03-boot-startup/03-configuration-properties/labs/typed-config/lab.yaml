@@ -1,0 +1,12 @@
+id: spring-ch03-l03-lab-typed-config
+title: "Une configuration typée, qui refuse de démarrer si elle est fausse"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/TixaProperties.java", "app/TixaApp.java"]
+concepts: [spring-ch03-configuration-properties, spring-ch03-relaxed-binding, spring-ch03-config-validation]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

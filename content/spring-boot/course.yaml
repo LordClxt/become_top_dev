@@ -65,7 +65,6 @@ tracks:
       - "18-spring-ai"
 
 planned_titles:
-  "03-boot-startup": "Le démarrage de Spring Boot"
   "04-autoconfiguration": "L'autoconfiguration"
   "05-spring-mvc": "Spring MVC"
   "06-http-clients": "Clients HTTP et résilience"

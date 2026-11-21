@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Comment l'Environment répond-il à getProperty ?"
+    back: "Il interroge ses PropertySource dans l'ordre ; la première qui connaît la propriété gagne."
+    concept: spring-ch03-property-source-order
+  - id: fc2
+    front: "Ordre principal, du plus fort au plus faible ?"
+    back: "Ligne de commande > propriétés système > variables d'environnement > fichiers > @PropertySource > setDefaultProperties."
+    concept: spring-ch03-property-source-order
+  - id: fc3
+    front: "Ordre des fichiers, du plus faible au plus fort ?"
+    back: "Embarqué, profil embarqué, externe (./, ./config/), profil externe."
+    concept: spring-ch03-config-file-order
+  - id: fc4
+    front: "spring.config.import ou @PropertySource ?"
+    back: "L'import l'emporte sur le fichier qui l'importe ; @PropertySource passe après tous les fichiers et arrive trop tard pour logging/spring.main."
+    concept: spring-ch03-config-import
+  - id: fc5
+    front: "Variable d'environnement pour tixa.fee-cents ?"
+    back: "TIXA_FEECENTS : points → _, tirets supprimés, majuscules."
+    concept: spring-ch03-property-source-order
+  - id: fc6
+    front: "Trouver d'où vient une valeur ?"
+    back: "Parcourir environment.getPropertySources(), ou /actuator/env/<propriété>."
+    concept: spring-ch03-property-source-order

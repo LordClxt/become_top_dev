@@ -1,0 +1,50 @@
+id: spring-ch03-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "On démarre la production avec `--spring.profiles.active=prd` (faute de frappe). Que se passe-t-il ?"
+    choices:
+      - "Le démarrage échoue : le profil prd n'existe pas"
+      - "L'application démarre avec la configuration de base et les beans non réservés à prod, sans erreur"
+      - "Spring Boot corrige en prod"
+      - "Le profil default est utilisé, avec un avertissement bloquant"
+    answer: 1
+    explanation: "Un profil n'a pas besoin d'être déclaré : prd est actif, mais aucun document ni bean ne lui correspond. C'est pourquoi la vraie banque doit être réservée à prod ET exiger sa configuration, et la banque factice ne jamais être le choix par défaut… en production."
+    concept: spring-ch03-profiles-activation
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "À quel moment `@Profile(\"prod\")` est-il évalué ?"
+    choices:
+      - "À chaque appel d'une méthode du bean"
+      - "Au moment où le conteneur lit les configurations : un bean d'un profil inactif n'est jamais une définition"
+      - "Après la création du bean, qui est détruit si le profil est inactif"
+      - "À la compilation"
+    answer: 1
+    explanation: "@Profile est un @Conditional (ProfileCondition) évalué pendant la lecture des configurations, au temps des recettes du module 01. Le constructeur d'un bean d'un profil inactif ne tourne jamais."
+    concept: spring-ch03-profile-beans
+    difficulty: 2
+  - id: q3
+    type: multiple
+    prompt: "Comment activer le profil `prod` au démarrage ?"
+    choices:
+      - "--spring.profiles.active=prod en ligne de commande"
+      - "La variable d'environnement SPRING_PROFILES_ACTIVE=prod"
+      - "springApplication.setAdditionalProfiles(\"prod\") dans le main"
+      - "Annoter la classe @SpringBootApplication avec @Profile(\"prod\")"
+    answer: [0, 1, 2]
+    explanation: "spring.profiles.active est une propriété comme une autre (ligne de commande, environnement, fichier) ; setAdditionalProfiles l'ajoute par programme. @Profile ne fait que conditionner un composant à un profil déjà actif."
+    concept: spring-ch03-profiles-activation
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "La base de `application.yml` définit 10 propriétés `tixa.*` ; le document `prod` doit changer la seule URL de la banque. Que mettre dans le document `prod` ?"
+    choices:
+      - "Les 10 propriétés, pour que la production soit complète"
+      - "Seulement tixa.bank.url : le reste vient de la base"
+      - "Rien : il faut un fichier application-prod.yml séparé"
+      - "Toutes les propriétés sauf celles de la base"
+    answer: 1
+    explanation: "Un document de profil s'ajoute par-dessus la base. N'y mettre que les différences évite que les copies divergent avec le temps, et rend évident ce qui distingue la production."
+    concept: spring-ch03-profiles-activation
+    difficulty: 1

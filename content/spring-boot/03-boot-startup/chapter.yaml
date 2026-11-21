@@ -1,0 +1,22 @@
+id: spring-ch03
+title: "Le démarrage de Spring Boot"
+subtitle: "SpringApplication.run, l'Environment et ses sources, @ConfigurationProperties, profils, EnvironmentPostProcessor et jar exécutable"
+source: { book: spring-docs, chapter: 25, pages: "#page-title", url: "https://docs.spring.io/spring-boot/4.1/reference/features/spring-application.html" }
+objectives:
+  - "Décrire les étapes de SpringApplication.run() et placer un écouteur, un runner ou un analyseur d'échec au bon moment"
+  - "Prédire quelle source fournit une propriété définie à plusieurs endroits, et diagnostiquer une valeur « ignorée »"
+  - "Écrire une configuration typée, liée par constructeur, avec valeurs par défaut et validation qui arrête le démarrage"
+  - "Utiliser profils, documents YAML de profil, @Profile et groupes, en gardant le composant dangereux explicite"
+  - "Modifier l'Environment avant le contexte avec un EnvironmentPostProcessor déclaré dans spring.factories, et expliquer comment java -jar atteint le main"
+mastery_threshold: 0.8
+prerequisites: [spring-ch02]
+lessons:
+  - "01-springapplication-run"
+  - "02-environment-sources"
+  - "03-configuration-properties"
+  - "04-profiles"
+  - "05-environment-postprocessor-jar"
+xp: { assignment: 150, project: 300, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

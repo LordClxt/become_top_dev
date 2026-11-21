@@ -1,0 +1,14 @@
+id: spring-ch03-project
+title: "Tixa, jalon 3 : une application Spring Boot configurable"
+pitch: "Tixa devient une vraie application Spring Boot : une configuration typée qui refuse les erreurs, une banque factice ou réelle selon l'environnement, et un démarrage qui vérifie ce dont il a besoin avant d'accepter du trafic."
+running_project: tixa
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/TixaApp.java", "app/TixaProperties.java", "app/Banks.java", "app/StartupCheck.java", "application.yml"]
+concepts: [spring-ch03-configuration-properties, spring-ch03-config-validation, spring-ch03-profile-beans, spring-ch03-profile-groups, spring-ch03-runners, spring-ch03-startup-events]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

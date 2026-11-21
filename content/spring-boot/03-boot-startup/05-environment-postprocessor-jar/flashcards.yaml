@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Quand tourne un EnvironmentPostProcessor ?"
+    back: "Pendant ApplicationEnvironmentPreparedEvent, avant tout bean, après ConfigDataEnvironmentPostProcessor (fichiers et profils lus)."
+    concept: spring-ch03-environment-post-processor
+  - id: fc2
+    front: "Interface EnvironmentPostProcessor dans Spring Boot 4 ?"
+    back: "org.springframework.boot.EnvironmentPostProcessor (l'ancienne org.springframework.boot.env existe encore)."
+    concept: spring-ch03-environment-post-processor
+  - id: fc3
+    front: "Où placer des valeurs par défaut ? des secrets ?"
+    back: "Défauts : addLast. Secrets : addAfter(systemEnvironment), sous la ligne de commande, au-dessus des fichiers."
+    concept: spring-ch03-environment-post-processor
+  - id: fc4
+    front: "Secrets montés en fichiers, sans code ?"
+    back: "spring.config.import=optional:configtree:/run/secrets/"
+    concept: spring-ch03-environment-post-processor
+  - id: fc5
+    front: "Rôle de META-INF/spring.factories ?"
+    back: "Associer une interface à des implémentations à charger avant le contexte (EnvironmentPostProcessor, FailureAnalyzer, écouteurs précoces)."
+    concept: spring-ch03-spring-factories
+  - id: fc6
+    front: "Structure d'un jar Spring Boot ?"
+    back: "Main-Class = JarLauncher, Start-Class = ta classe ; BOOT-INF/classes (ton code), BOOT-INF/lib (dépendances)."
+    concept: spring-ch03-executable-jar

@@ -1,0 +1,10 @@
+tixa:
+  fee-cents: 150      # ancien tarif, gardé « en secours »
+  fee-currency: EUR
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+tixa:
+  fee-cents: 200      # tarif de production, fixé par contrat

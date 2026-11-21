@@ -1,0 +1,95 @@
+id: spring-ch03-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Une durée écrite sans unité. Qu'affiche le programme ?"
+    code: |
+      import java.time.Duration;
+      import org.springframework.boot.*;
+      import org.springframework.boot.context.properties.*;
+      import org.springframework.context.annotation.Configuration;
+
+      public class Main {
+          @ConfigurationProperties("tixa.hold")
+          public record Hold(Duration timeout) { }
+
+          @Configuration @EnableConfigurationProperties(Hold.class)
+          static class App { }
+
+          public static void main(String[] args) {
+              var app = new SpringApplication(App.class);
+              app.setBannerMode(Banner.Mode.OFF);
+              app.setWebApplicationType(WebApplicationType.NONE);
+              try (var ctx = app.run("--tixa.hold.timeout=15")) {
+                  System.out.println(ctx.getBean(Hold.class).timeout().toMillis());
+              }
+          }
+      }
+    answer: "15"
+    explanation: "Un nombre seul est lu en millisecondes (sauf @DurationUnit) : la réservation expire après 15 ms au lieu de 15 minutes, sans aucune erreur. Écris toujours l'unité (15m), ou force-la avec @DurationUnit(ChronoUnit.MINUTES)."
+    concept: spring-ch03-configuration-properties
+    difficulty: 3
+  - id: q2
+    type: code-output
+    prompt: "Liaison souple : trois écritures. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.boot.*;
+      import org.springframework.boot.context.properties.*;
+      import org.springframework.context.annotation.Configuration;
+
+      public class Main {
+          @ConfigurationProperties("tixa.hold")
+          public record Hold(int maxSeats, int minSeats, int seatsPerRow) { }
+
+          @Configuration @EnableConfigurationProperties(Hold.class)
+          static class App { }
+
+          public static void main(String[] args) {
+              var app = new SpringApplication(App.class);
+              app.setBannerMode(Banner.Mode.OFF);
+              app.setWebApplicationType(WebApplicationType.NONE);
+              try (var ctx = app.run("--tixa.hold.max-seats=6", "--tixa.hold.minSeats=1", "--tixa.hold.seats_per_row=12")) {
+                  System.out.println(ctx.getBean(Hold.class));
+              }
+          }
+      }
+    answer: "Hold[maxSeats=6, minSeats=1, seatsPerRow=12]"
+    explanation: "kebab-case, camelCase et underscore désignent tous le même composant : c'est la liaison souple de @ConfigurationProperties. Dans les fichiers, garde la forme canonique (max-seats) pour qu'une recherche texte trouve toutes les occurrences."
+    concept: spring-ch03-relaxed-binding
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Un record `@ConfigurationProperties` porte `@Validated`, mais `spring-boot-starter-validation` n'est pas une dépendance du projet. Que valent ses contraintes ?"
+    choices:
+      - "Elles sont appliquées par Spring lui-même"
+      - "Rien : sans implémentation Jakarta Validation sur le classpath, aucune contrainte n'est vérifiée"
+      - "Le démarrage échoue toujours"
+      - "Elles sont vérifiées à la première lecture d'une propriété"
+    answer: 1
+    explanation: "La documentation le précise : il faut une implémentation compatible (Hibernate Validator, apportée par le starter de validation). Sans elle, les annotations sont décoratives. Le module 11 montre comment tester qu'une configuration invalide arrête bien le démarrage."
+    concept: spring-ch03-config-validation
+    difficulty: 3
+  - id: q4
+    type: multiple
+    prompt: "Qu'apporte `@ConfigurationProperties` par rapport à une série de `@Value` ?"
+    choices:
+      - "Un seul objet typé pour tout un préfixe, injectable partout"
+      - "La validation au démarrage"
+      - "Les expressions SpEL #{...}"
+      - "La liaison souple complète et les objets imbriqués"
+    answer: [0, 1, 3]
+    explanation: "SpEL reste propre à @Value. Tout le reste (typage d'un préfixe, objets imbriqués, validation, liaison souple, métadonnées pour l'IDE) est l'avantage de @ConfigurationProperties."
+    concept: spring-ch03-configuration-properties
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quelle variable d'environnement correspond à `tixa.hold.max-seats` ?"
+    choices:
+      - "TIXA_HOLD_MAX_SEATS"
+      - "TIXA_HOLD_MAXSEATS"
+      - "TIXA.HOLD.MAX-SEATS"
+      - "tixa_hold_maxSeats"
+    answer: 1
+    explanation: "Points remplacés par des underscores, tirets supprimés, majuscules. TIXA_HOLD_MAX_SEATS correspondrait à tixa.hold.max.seats, un composant qui n'existe pas : la variable serait ignorée en silence."
+    concept: spring-ch03-relaxed-binding
+    difficulty: 2

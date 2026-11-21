@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Comment un record @ConfigurationProperties est-il lié ?"
+    back: "Par son constructeur : chaque composant reçoit la propriété du même nom (kebab-case dans les fichiers)."
+    concept: spring-ch03-configuration-properties
+  - id: fc2
+    front: "Faire d'un @ConfigurationProperties un bean ?"
+    back: "@ConfigurationPropertiesScan sur l'application, ou @EnableConfigurationProperties(MaClasse.class)."
+    concept: spring-ch03-configuration-properties
+  - id: fc3
+    front: "Une durée sans unité vaut…"
+    back: "…des millisecondes (sauf @DurationUnit) : 15 = 15 ms."
+    concept: spring-ch03-configuration-properties
+  - id: fc4
+    front: "Les écritures acceptées pour tixa.hold.max-seats ?"
+    back: "max-seats (canonique), maxSeats, max_seats ; TIXA_HOLD_MAXSEATS en variable d'environnement."
+    concept: spring-ch03-relaxed-binding
+  - id: fc5
+    front: "Valider une configuration au démarrage ?"
+    back: "@Validated + contraintes Jakarta, une implémentation (starter validation) sur le classpath, et @Valid pour les objets imbriqués."
+    concept: spring-ch03-config-validation
+  - id: fc6
+    front: "Qui lie les @ConfigurationProperties ?"
+    back: "ConfigurationPropertiesBindingPostProcessor (un BeanPostProcessor) et le Binder, qui lit l'Environment."
+    concept: spring-ch03-configuration-properties

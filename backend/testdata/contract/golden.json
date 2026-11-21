@@ -390,8 +390,11 @@
         "title": "AOP et proxies"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch03",
+        "lesson_count": 5,
         "slug": "03-boot-startup",
+        "subtitle": "SpringApplication.run, l'Environment et ses sources, @ConfigurationProperties, profils, EnvironmentPostProcessor et jar exécutable",
         "title": "Le démarrage de Spring Boot"
        },
        {
@@ -1340,8 +1343,23 @@
         "title": "AOP et proxies"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch03",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "spring-ch03",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 24,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "03-boot-startup",
+        "subtitle": "SpringApplication.run, l'Environment et ses sources, @ConfigurationProperties, profils, EnvironmentPostProcessor et jar exécutable",
         "title": "Le démarrage de Spring Boot"
        },
        {
@@ -2108,6 +2126,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 27,
+     "score": 0,
+     "unlocked": false
+    },
+    "spring-ch03": {
+     "chapter_id": "spring-ch03",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 24,
      "score": 0,
      "unlocked": false
     },
@@ -7141,6 +7171,156 @@
    "title": "AOP et proxies"
   },
   "name": "chapter:spring-ch02",
+  "status": 200
+ },
+ {
+  "body": {
+   "assignment": {
+    "difficulty": 3,
+    "id": "spring-ch03-assignment",
+    "passed": false,
+    "role": "assignment",
+    "title": "Un démarrage qui explique ses erreurs : un FailureAnalyzer",
+    "xp": 150
+   },
+   "boss": {
+    "difficulty": 5,
+    "id": "spring-ch03-boss",
+    "passed": false,
+    "role": "boss",
+    "title": "Boss : des secrets montés en fichiers, à la bonne place",
+    "xp": 250
+   },
+   "course": {
+    "id": "spring",
+    "title": "Spring Boot sous le capot"
+   },
+   "id": "spring-ch03",
+   "lessons": [
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch03-l01",
+     "labs": [
+      {
+       "difficulty": 2,
+       "id": "spring-ch03-l01-lab-warmup-timeline",
+       "passed": false,
+       "role": "lab",
+       "title": "Échauffement : la chronologie d'un démarrage",
+       "xp": 40
+      }
+     ],
+     "title": "SpringApplication.run() pas à pas",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch03-l02",
+     "labs": [
+      {
+       "difficulty": 4,
+       "id": "spring-ch03-l02-lab-debug-ignored-tariff",
+       "passed": false,
+       "role": "lab",
+       "title": "Débogage : le nouveau tarif n'est jamais appliqué",
+       "xp": 90
+      }
+     ],
+     "title": "L'Environment : qui gagne quand une propriété est définie deux fois ?",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch03-l03",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch03-l03-lab-typed-config",
+       "passed": false,
+       "role": "lab",
+       "title": "Une configuration typée, qui refuse de démarrer si elle est fausse",
+       "xp": 70
+      }
+     ],
+     "title": "@ConfigurationProperties : une configuration typée et validée",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 30,
+     "id": "spring-ch03-l04",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch03-l04-lab-bank-per-profile",
+       "passed": false,
+       "role": "lab",
+       "title": "Une banque par environnement : @Profile et groupes de profils",
+       "xp": 60
+      }
+     ],
+     "title": "Les profils : une application, plusieurs environnements",
+     "xp": 25
+    },
+    {
+     "completed": false,
+     "duration_min": 30,
+     "id": "spring-ch03-l05",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch03-l05-lab-region-defaults",
+       "passed": false,
+       "role": "lab",
+       "title": "Un EnvironmentPostProcessor : des valeurs par défaut par région",
+       "xp": 70
+      }
+     ],
+     "title": "Agir avant le contexte : EnvironmentPostProcessor, spring.factories et le jar exécutable",
+     "xp": 30
+    }
+   ],
+   "mastery": {
+    "chapter_id": "spring-ch03",
+    "labs_passed": 0,
+    "labs_total": 5,
+    "lessons_done": 0,
+    "lessons_total": 5,
+    "mastered": false,
+    "quiz_correct": 0,
+    "quiz_total": 24,
+    "score": 0,
+    "unlocked": false
+   },
+   "mastery_threshold": 0.8,
+   "objectives": [
+    "Décrire les étapes de SpringApplication.run() et placer un écouteur, un runner ou un analyseur d'échec au bon moment",
+    "Prédire quelle source fournit une propriété définie à plusieurs endroits, et diagnostiquer une valeur « ignorée »",
+    "Écrire une configuration typée, liée par constructeur, avec valeurs par défaut et validation qui arrête le démarrage",
+    "Utiliser profils, documents YAML de profil, @Profile et groupes, en gardant le composant dangereux explicite",
+    "Modifier l'Environment avant le contexte avec un EnvironmentPostProcessor déclaré dans spring.factories, et expliquer comment java -jar atteint le main"
+   ],
+   "project": {
+    "difficulty": 4,
+    "id": "spring-ch03-project",
+    "passed": false,
+    "role": "project",
+    "title": "Tixa, jalon 3 : une application Spring Boot configurable",
+    "xp": 300
+   },
+   "source": {
+    "book": "spring-docs",
+    "chapter": 25,
+    "pages": "#page-title",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/spring-application.html"
+   },
+   "subtitle": "SpringApplication.run, l'Environment et ses sources, @ConfigurationProperties, profils, EnvironmentPostProcessor et jar exécutable",
+   "title": "Le démarrage de Spring Boot"
+  },
+  "name": "chapter:spring-ch03",
   "status": 200
  },
  {
@@ -28303,6 +28483,720 @@
  },
  {
   "body": {
+   "body": "\n## Pourquoi c'est important\n\nTon `main` tient en une ligne : `SpringApplication.run(TixaApp.class, args)`. Entre cette ligne et le moment où Tixa accepte sa première requête, il se passe une dizaine d'étapes, et chacune répond à une question que tu te poseras en production : à partir de quand puis-je lire la configuration ? Où lancer le préchauffage d'un cache ? Pourquoi mon écouteur ne reçoit-il jamais l'événement ? Que voit la personne de garde quand le démarrage échoue ?\n\nLe module 01 a ouvert `refresh()`, le cœur du conteneur. Spring Boot l'enveloppe dans une méthode plus large : `SpringApplication.run()`.\n\n## Les étapes de run()\n\nLe code de `SpringApplication.run(String... args)` dans Spring Boot 4.1 tient en une trentaine de lignes. Dans l'ordre :\n\n1. **Démarrage** : un `BootstrapContext` minimal est créé, les écouteurs de démarrage sont chargés, et `ApplicationStartingEvent` est publié. Rien n'est encore configuré, pas même la journalisation.\n2. **L'environnement** (`prepareEnvironment`) : toutes les sources de configuration (ligne de commande, variables d'environnement, fichiers `application.*`, profils) sont rassemblées. `ApplicationEnvironmentPreparedEvent` est publié : c'est là que les `EnvironmentPostProcessor` travaillent (leçon 5).\n3. **La bannière**, puis **la création du contexte** : Spring Boot choisit sa classe selon le type d'application (servlet, réactif, aucun).\n4. **La préparation** (`prepareContext`) : les `ApplicationContextInitializer` reçoivent le contexte (`ApplicationContextInitializedEvent`), puis les sources (ta classe `@SpringBootApplication`) sont enregistrées (`ApplicationPreparedEvent`).\n5. **`refresh()`** : tout le module 01. Le serveur web embarqué est créé dans `onRefresh()`.\n6. **`ApplicationStartedEvent`**, puis les **runners** (`ApplicationRunner`, `CommandLineRunner`).\n7. **`ApplicationReadyEvent`** : l'application accepte du trafic.\n\n::visual{id=\"spring-ch03-run-timeline\"}\n\n::checkpoint{id=\"c1\"}\n\n> **Sous le capot :** chaque étape appelle un `SpringApplicationRunListener` (`listeners.starting(...)`, `environmentPrepared`, `contextPrepared`, `contextLoaded`, `started`, `ready`). L'implémentation par défaut, `EventPublishingRunListener`, transforme ces appels en événements. Avant `refresh()`, elle les envoie elle-même à ses écouteurs ; après, elle passe par le contexte. C'est pourquoi il existe deux familles d'écouteurs.\n\n## Qui peut écouter quoi\n\nUn bean n'existe qu'après le `refresh()` (étape 5). Un `@Component` qui écoute `ApplicationStartingEvent` ou `ApplicationEnvironmentPreparedEvent` ne les recevra donc **jamais**.\n\n::checkpoint{id=\"c2\"}\n\nPour les premiers événements, l'écouteur doit être connu **avant** le contexte :\n- `springApplication.addListeners(...)` dans ton `main` ;\n- ou une ligne dans `META-INF/spring.factories` (clé `org.springframework.context.ApplicationListener`), pour une bibliothèque.\n\nÀ partir de `ApplicationStartedEvent`, un simple `@EventListener` sur un bean suffit.\n\n## Le bon endroit pour le travail de démarrage\n\n| Besoin | Où |\n|---|---|\n| Ajuster la configuration avant tout bean | un `EnvironmentPostProcessor` (leçon 5) |\n| Préparer un bean à sa création | le constructeur, ou `@PostConstruct` (module 01) |\n| Une tâche **qui doit réussir** avant d'accepter du trafic (vérifier une dépendance, préchauffer un cache) | un `ApplicationRunner` |\n| Réagir à « l'application est prête » | `@EventListener(ApplicationReadyEvent.class)` |\n\nUn runner a deux propriétés utiles : il voit le contexte **complet** (tous les beans sont créés), et une exception qu'il lève **fait échouer le démarrage**, avant que l'application soit déclarée prête. C'est le jalon 3 du projet.\n\n> **En production :** derrière un orchestrateur (Kubernetes), « prête » a un sens précis. Spring Boot publie aussi des `AvailabilityChangeEvent` : l'état de vivacité passe à `CORRECT` après `ApplicationStartedEvent`, et l'état de disponibilité passe à `ACCEPTING_TRAFFIC` après `ApplicationReadyEvent`. Les sondes de santé d'Actuator s'appuient dessus (module 13). Un préchauffage long dans un runner retarde donc l'arrivée du trafic, ce qui est voulu.\n\n## Quand le démarrage échoue\n\nSi une étape lève une exception, `run()` appelle `handleRunFailure` : il publie `ApplicationFailedEvent`, ferme le contexte (les beans déjà créés sont détruits, module 01), puis cherche une explication. Spring Boot charge ses **analyseurs d'échec** (`FailureAnalyzer`, déclarés dans `META-INF/spring.factories`) et, si l'un reconnaît l'exception, affiche :\n\n```\n***************************\nAPPLICATION FAILED TO START\n***************************\n\nDescription:\n...\nAction:\n...\n```\n\nUn bean manquant, un port occupé, une propriété invalide ont déjà leur analyseur. Tu écris le tien dans l'assignment.\n\n## Pièges fréquents\n\n- **Écouter `ApplicationStartingEvent` depuis un `@Component`** : jamais reçu.\n- **Lancer un long travail dans un `@PostConstruct`** : il bloque la création des autres beans, et une erreur y donne une pile illisible. Un runner est fait pour ça.\n- **Avaler l'exception dans un runner** : l'application se déclare prête alors qu'elle ne l'est pas.\n- **`@SpringBootApplication` dans le paquet par défaut** : le scan des composants parcourt tout le classpath et le démarrage échoue (Spring Boot l'écrit dans un avertissement).\n\n## À retenir\n\n- `run()` : environnement → création du contexte → préparation → `refresh()` → runners → prêt.\n- Le contexte n'existe qu'à partir de l'étape 3 : les premiers événements s'écoutent sur la `SpringApplication`, pas sur un bean.\n- Les runners tournent entre `ApplicationStartedEvent` et `ApplicationReadyEvent`, et peuvent faire échouer le démarrage.\n- Un démarrage raté passe par les `FailureAnalyzer` pour produire un rapport lisible.\n\n> **Source :** Spring Boot 4.1, [SpringApplication](https://docs.spring.io/spring-boot/4.1/reference/features/spring-application.html) (événements, runners, échec de démarrage) ; code de [`SpringApplication.run`](https://github.com/spring-projects/spring-boot/blob/v4.1.3/core/spring-boot/src/main/java/org/springframework/boot/SpringApplication.java) (v4.1.3).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch03",
+    "title": "Le démarrage de Spring Boot"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.*;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.event.*;\nimport org.springframework.context.ApplicationListener;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    static List<String> log = new ArrayList<>();\n\n    @Configuration\n    static class App {\n        @Bean ApplicationRunner warmUp() { return args -> log.add(\"runner\"); }\n    }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.addListeners((ApplicationListener<SpringApplicationEvent>) e ->\n                log.add(e.getClass().getSimpleName().replace(\"Application\", \"\").replace(\"Event\", \"\")));\n        app.run().close();\n        System.out.println(log);\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Un écouteur donné à la SpringApplication, un runner déclaré comme bean. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Une fois, au début du démarrage",
+      "Jamais : quand l'environnement est préparé, le contexte (et donc le bean) n'existe pas encore",
+      "Deux fois : une pour l'environnement, une pour le contexte",
+      "À chaque refresh"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Un `@Component` implémente `ApplicationListener<ApplicationEnvironmentPreparedEvent>` pour lire la configuration le plus tôt possible. Combien de fois est-il appelé ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch03-run-steps",
+     "label": "run() : préparer l'environnement, créer le contexte, le préparer, refresh(), appeler les runners ; le contexte n'existe qu'à partir de la troisième étape"
+    },
+    {
+     "id": "spring-ch03-startup-events",
+     "label": "Chaque étape publie un événement (Starting, EnvironmentPrepared, ContextInitialized, Prepared, Started, Ready) ; les premiers ne peuvent être écoutés que par un écouteur donné à la SpringApplication"
+    },
+    {
+     "id": "spring-ch03-runners",
+     "label": "Les ApplicationRunner et CommandLineRunner tournent après ApplicationStartedEvent et avant ApplicationReadyEvent ; une exception y fait échouer le démarrage"
+    },
+    {
+     "id": "spring-ch03-failure-analyzer",
+     "label": "Quand le démarrage échoue, les FailureAnalyzer déclarés dans spring.factories transforment l'exception en rapport Description / Action"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Environnement → création du contexte → préparation (initializers, sources) → refresh() → runners → prêt.",
+     "concept": "spring-ch03-run-steps",
+     "front": "Les grandes étapes de SpringApplication.run() ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Starting, EnvironmentPrepared, ContextInitialized, Prepared, (ContextRefreshed), Started, runners, Ready.",
+     "concept": "spring-ch03-startup-events",
+     "front": "Ordre des événements de démarrage ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Il n'existe qu'après refresh() ; il faut addListeners ou META-INF/spring.factories.",
+     "concept": "spring-ch03-startup-events",
+     "front": "Pourquoi un @Component ne reçoit-il pas ApplicationStartingEvent ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Après ApplicationStartedEvent, avant ApplicationReadyEvent ; une exception y fait échouer le démarrage.",
+     "concept": "spring-ch03-runners",
+     "front": "Quand tournent les ApplicationRunner ?",
+     "id": "fc4"
+    },
+    {
+     "back": "LivenessState.CORRECT après Started ; ReadinessState.ACCEPTING_TRAFFIC après Ready.",
+     "concept": "spring-ch03-runners",
+     "front": "Événements de disponibilité au démarrage ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Les FailureAnalyzer déclarés dans META-INF/spring.factories, appelés par handleRunFailure.",
+     "concept": "spring-ch03-failure-analyzer",
+     "front": "Qui produit le rapport « APPLICATION FAILED TO START » ?",
+     "id": "fc6"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "La classe de Spring Boot qui démarre une application : elle prépare l'environnement, choisit et crée le contexte, puis appelle son refresh().",
+     "term": "SpringApplication"
+    },
+    {
+     "definition": "Un bean dont la méthode run(ApplicationArguments) est appelée une fois le contexte démarré, avant que l'application soit déclarée prête.",
+     "term": "ApplicationRunner"
+    },
+    {
+     "definition": "Un rappel qui reçoit le contexte juste après sa création, avant le chargement des définitions de beans.",
+     "term": "ApplicationContextInitializer"
+    },
+    {
+     "definition": "Un composant qui transforme une exception de démarrage en un rapport lisible (description de la cause, action à mener).",
+     "term": "FailureAnalyzer"
+    }
+   ],
+   "id": "spring-ch03-l01",
+   "labs": [
+    {
+     "difficulty": 2,
+     "id": "spring-ch03-l01-lab-warmup-timeline",
+     "passed": false,
+     "role": "lab",
+     "title": "Échauffement : la chronologie d'un démarrage",
+     "xp": 40
+    }
+   ],
+   "next_id": "spring-ch03-l02",
+   "previous_id": null,
+   "quiz_id": "spring-ch03-l01-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 25,
+    "pages": "#features.spring-application.application-events-and-listeners",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/spring-application.html#features.spring-application.application-events-and-listeners"
+   },
+   "title": "SpringApplication.run() pas à pas",
+   "visuals": {
+    "spring-ch03-run-timeline": {
+     "concept": "spring-ch03-run-steps",
+     "entry": "scene.html",
+     "format": "hyperframes",
+     "id": "spring-ch03-run-timeline",
+     "justification": "Une frise de 14 s à regarder : chaque étape de SpringApplication.run() s'allume avec l'événement qu'elle publie, et l'on voit où le contexte commence à exister (et donc à partir de quand un bean peut écouter).",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch03-l01",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nLa finance change le tarif dans un fichier, le support jure que l'application facture autre chose, et personne n'a tort : la propriété est définie à **plusieurs** endroits, et l'un d'eux gagne. Savoir lequel, sans tâtonner, c'est l'une des compétences qui distinguent quelqu'un qui « fait marcher » Spring Boot de quelqu'un qui le maîtrise. Le lab de débogage de cette leçon en est un cas réel.\n\n## Une pile de sources\n\nL'`Environment` ne contient pas une `Map` de propriétés : il contient une **liste ordonnée de sources** (`PropertySource`). Pour répondre à `getProperty(\"tixa.fee-cents\")`, il interroge les sources **dans l'ordre**, et la première qui connaît la propriété gagne.\n\nVoici l'ordre de Spring Boot, du plus fort au plus faible (la documentation le donne dans l'autre sens, du plus faible au plus fort) :\n\n1. propriétés des tests (`@TestPropertySource`, `@DynamicPropertySource`, `properties` de `@SpringBootTest`) ;\n2. **arguments de ligne de commande** (`--tixa.fee-cents=50`) ;\n3. `SPRING_APPLICATION_JSON` ;\n4. **propriétés système Java** (`-Dtixa.fee-cents=50`) ;\n5. **variables d'environnement** (`TIXA_FEECENTS=50`) ;\n6. `random.*` ;\n7. **les fichiers de configuration** (config data : `application.properties`, `application.yml`, profils, imports) ;\n8. les **`@PropertySource`** de tes classes `@Configuration` ;\n9. les valeurs par défaut (`SpringApplication.setDefaultProperties`).\n\n::visual{id=\"spring-ch03-source-stack\"}\n\n::checkpoint{id=\"c1\"}\n\nLa logique : ce qui est **le plus proche du lancement** (une option en ligne de commande, une variable du serveur) l'emporte sur ce qui est **embarqué** dans l'application. L'exploitation peut toujours dépanner sans recompiler.\n\n> **Astuce :** pour savoir d'où vient une valeur, parcours `environment.getPropertySources()` et demande la propriété à chacune. Avec Actuator (module 13), l'endpoint `/actuator/env/tixa.fee-cents` affiche exactement cela, source par source.\n\n## L'ordre parmi les fichiers\n\nLes fichiers de configuration forment eux-mêmes plusieurs sources. La documentation donne leur ordre, du plus faible au plus fort :\n\n1. `application.*` **embarqué** (dans le jar, le classpath) ;\n2. `application-{profil}.*` **embarqué** (et les documents de profil d'un même fichier) ;\n3. `application.*` **externe** (à côté de l'application : `./config/`, puis `./`) ;\n4. `application-{profil}.*` **externe**.\n\nConséquence peu intuitive : un `./config/application.properties` oublié sur un serveur l'emporte sur un document de profil embarqué.\n\n::checkpoint{id=\"c2\"}\n\n> **En production :** les emplacements par défaut sont `classpath:/`, `classpath:/config/`, `file:./`, `file:./config/` et `file:./config/*/`. Une image Docker qui copie un dossier `config/` dans son répertoire de travail change donc la configuration sans que personne ne relise l'application. Préfère des variables d'environnement ou des secrets montés (leçon 5), visibles dans la description du déploiement.\n\n## Ajouter un fichier : import ou @PropertySource\n\nDeux façons d'ajouter un fichier, qui n'ont **pas** la même priorité :\n\n:::compare\n--- bad: @PropertySource\n```java\n@Configuration\n@PropertySource(\"classpath:fees.properties\")\nclass PricingConfig { }\n```\nAjouté au moment du `refresh()`, **après** tous les fichiers `application.*` : la moindre valeur de `application.yml` le masque. Et trop tard pour `logging.*` ou `spring.main.*`, lus avant (la documentation le précise).\n--- good: spring.config.import\n```yaml\nspring:\n  config:\n    import: classpath:fees.properties\n```\nChargé avec les fichiers de configuration : le fichier importé l'emporte sur le document qui l'importe, et un document de profil l'emporte encore sur l'import. Avec `optional:`, son absence n'est pas une erreur.\n:::\n\n`@PropertySource` reste utile pour une bibliothèque qui apporte ses propres valeurs par défaut, justement **parce qu'**elle est faible.\n\n## Noms souples\n\nUne même propriété s'écrit de plusieurs façons selon la source : `tixa.fee-cents` (forme canonique, en kebab-case), `tixa.feeCents`, ou `TIXA_FEECENTS` dans une variable d'environnement (points remplacés par des `_`, tirets supprimés, en majuscules). C'est la *liaison souple* (*relaxed binding*), détaillée dans la leçon suivante.\n\n## Pièges fréquents\n\n- **Un fichier `./config/application.properties` oublié** : il l'emporte sur toute la configuration embarquée.\n- **Une `@PropertySource` pour une valeur qu'on veut voir gagner** : elle perd contre `application.yml`.\n- **Chercher une valeur dans le seul fichier qu'on connaît** au lieu de parcourir les sources.\n- **Une variable d'environnement mal nommée** (`TIXA_FEE_CENTS` au lieu de `TIXA_FEECENTS` pour `tixa.fee-cents`) : elle ne correspond à rien, et la valeur du fichier reste en place.\n\n## À retenir\n\n- L'`Environment` est une **pile** : la première source qui définit une propriété gagne.\n- Ligne de commande > propriétés système > variables d'environnement > fichiers > `@PropertySource` > défauts.\n- Parmi les fichiers : externe > embarqué, et profil > base au même endroit.\n- `spring.config.import` donne la priorité au fichier importé ; `@PropertySource` passe après tous les fichiers.\n\n> **Source :** Spring Boot 4.1, [Externalized Configuration](https://docs.spring.io/spring-boot/4.1/reference/features/external-config.html) (ordre des sources, emplacements, `spring.config.import`, liaison souple).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch03",
+    "title": "Le démarrage de Spring Boot"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.Map;\nimport org.springframework.boot.*;\nimport org.springframework.context.annotation.Configuration;\n\npublic class Main {\n    @Configuration static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.setDefaultProperties(Map.of(\"who\", \"défauts\", \"fee\", \"100\"));\n        System.setProperty(\"who\", \"propriété système\");\n        System.setProperty(\"fee\", \"120\");\n        try (var ctx = app.run(\"--who=ligne de commande\")) {\n            var env = ctx.getEnvironment();\n            System.out.println(env.getProperty(\"who\") + \" / \" + env.getProperty(\"fee\"));\n        }\n    }\n}\n",
+     "id": "c1",
+     "prompt": "La même propriété dans quatre sources. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "200 : un document de profil l'emporte toujours",
+      "999 : un fichier à côté de l'application l'emporte sur toute la configuration embarquée, profils compris",
+      "Le démarrage échoue : la propriété est définie deux fois",
+      "La première lue au démarrage"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "`application.yml` (dans le jar) fixe `tixa.fee-cents: 200` dans un document du profil `prod`. Sur le serveur, un vieux `./config/application.properties` contient `tixa.fee-cents=999`. Avec le profil `prod`, que vaut la propriété ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch03-property-source-order",
+     "label": "L'Environment est une pile ordonnée de sources ; la première qui définit une propriété gagne : ligne de commande, propriétés système, variables d'environnement, fichiers de configuration, @PropertySource, valeurs par défaut"
+    },
+    {
+     "id": "spring-ch03-config-file-order",
+     "label": "Parmi les fichiers : un fichier à côté de l'application (./config/, ./) l'emporte sur ceux du classpath, et un fichier de profil l'emporte sur le fichier de base au même endroit"
+    },
+    {
+     "id": "spring-ch03-config-import",
+     "label": "spring.config.import ajoute un fichier qui l'emporte sur celui qui l'importe ; une @PropertySource, elle, passe après tous les fichiers application.*"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Il interroge ses PropertySource dans l'ordre ; la première qui connaît la propriété gagne.",
+     "concept": "spring-ch03-property-source-order",
+     "front": "Comment l'Environment répond-il à getProperty ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Ligne de commande > propriétés système > variables d'environnement > fichiers > @PropertySource > setDefaultProperties.",
+     "concept": "spring-ch03-property-source-order",
+     "front": "Ordre principal, du plus fort au plus faible ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Embarqué, profil embarqué, externe (./, ./config/), profil externe.",
+     "concept": "spring-ch03-config-file-order",
+     "front": "Ordre des fichiers, du plus faible au plus fort ?",
+     "id": "fc3"
+    },
+    {
+     "back": "L'import l'emporte sur le fichier qui l'importe ; @PropertySource passe après tous les fichiers et arrive trop tard pour logging/spring.main.",
+     "concept": "spring-ch03-config-import",
+     "front": "spring.config.import ou @PropertySource ?",
+     "id": "fc4"
+    },
+    {
+     "back": "TIXA_FEECENTS : points → _, tirets supprimés, majuscules.",
+     "concept": "spring-ch03-property-source-order",
+     "front": "Variable d'environnement pour tixa.fee-cents ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Parcourir environment.getPropertySources(), ou /actuator/env/<propriété>.",
+     "concept": "spring-ch03-property-source-order",
+     "front": "Trouver d'où vient une valeur ?",
+     "id": "fc6"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "L'objet de Spring qui répond à « que vaut cette propriété ? » et « quels profils sont actifs ? », en interrogeant ses sources dans l'ordre.",
+     "term": "Environment"
+    },
+    {
+     "definition": "Une source de propriétés nommée : les arguments de ligne de commande, les variables d'environnement, un fichier application.yml…",
+     "term": "PropertySource"
+    },
+    {
+     "definition": "Le nom que Spring Boot donne aux fichiers de configuration (application.properties, application.yml, imports) qu'il charge lui-même.",
+     "term": "config data"
+    }
+   ],
+   "id": "spring-ch03-l02",
+   "labs": [
+    {
+     "difficulty": 4,
+     "id": "spring-ch03-l02-lab-debug-ignored-tariff",
+     "passed": false,
+     "role": "lab",
+     "title": "Débogage : le nouveau tarif n'est jamais appliqué",
+     "xp": 90
+    }
+   ],
+   "next_id": "spring-ch03-l03",
+   "previous_id": "spring-ch03-l01",
+   "quiz_id": "spring-ch03-l02-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 26,
+    "pages": "#features.external-config.order",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/external-config.html"
+   },
+   "title": "L'Environment : qui gagne quand une propriété est définie deux fois ?",
+   "visuals": {
+    "spring-ch03-source-stack": {
+     "concept": "spring-ch03-property-source-order",
+     "entry": "SourceStack.tsx",
+     "format": "interactive",
+     "id": "spring-ch03-source-stack",
+     "justification": "L'apprenant définit la même propriété dans plusieurs sources (ligne de commande, environnement, ./config, application.yml, document de profil, @PropertySource) et voit, dans la pile, laquelle gagne et pourquoi.",
+     "params": [
+      {
+       "default": 3,
+       "max": 7,
+       "min": 1,
+       "name": "sources",
+       "type": "int"
+      }
+     ],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch03-l02",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nAvec `@Value(\"${tixa.hold.timeout}\")`, la configuration est une chaîne lue au hasard des classes. Une faute de frappe dans la clé, une durée écrite `15` au lieu de `15m`, un nombre de places à `50` : rien ne se voit avant qu'un client réserve. Et personne ne sait, en lisant le code, quelles propriétés l'application attend vraiment.\n\n`@ConfigurationProperties` regroupe toute la configuration d'un préfixe dans **un objet typé**, lié et **validé au démarrage**. Une configuration fausse devient une application qui refuse de démarrer, avec un message qui nomme la propriété.\n\n## Un record pour tout un préfixe\n\n```java\n@ConfigurationProperties(\"tixa\")\n@Validated\npublic record TixaProperties(\n        @DefaultValue(\"EUR\") @Pattern(regexp = \"[A-Z]{3}\") String currency,\n        @DefaultValue List<String> notifiers,\n        @DefaultValue @Valid Hold hold) {\n\n    public record Hold(\n            @DefaultValue(\"15m\") @NotNull Duration timeout,\n            @DefaultValue(\"6\") @Min(1) @Max(10) int maxSeats) { }\n}\n```\n\nUn record est lié **par son constructeur** : chaque composant reçoit la propriété du même nom. Il faut ensuite en faire un bean : `@ConfigurationPropertiesScan` sur la classe d'application (qui trouve les classes du paquet), ou `@EnableConfigurationProperties(TixaProperties.class)`.\n\n::checkpoint{id=\"c1\"}\n\nLe *Binder* convertit chaque valeur texte vers le type du composant :\n- **durées** (`Duration`) : `90s`, `15m`, `2h`, `1d`, ou ISO-8601 (`PT15M`). Un nombre seul est lu en **millisecondes**, sauf si `@DurationUnit` dit autre chose ;\n- **tailles** (`DataSize`) : `10MB`, `512KB` ;\n- **listes** : `email,sms`, ou des entrées `notifiers[0]`, `notifiers[1]` ;\n- **objets imbriqués** : un préfixe de plus (`tixa.hold.timeout`).\n\n`@DefaultValue(\"15m\")` donne une valeur par défaut, convertie comme une vraie propriété. Sans valeur, sur une liste ou un objet imbriqué, il donne une liste vide ou un objet construit avec ses propres défauts : jamais `null`.\n\n> **Sous le capot :** la liaison est faite par `ConfigurationPropertiesBindingPostProcessor`, un `BeanPostProcessor` (module 01) enregistré par `@EnableConfigurationProperties`. Pour un record, il n'y a pas de setters : il appelle le constructeur avec les valeurs liées par le `Binder`, qui lit l'`Environment` au travers d'une vue (`ConfigurationPropertySources`) capable de reconnaître toutes les écritures d'un même nom.\n\n## La liaison souple\n\nCes quatre écritures désignent la même propriété :\n\n| écriture | où |\n|---|---|\n| `tixa.hold.max-seats` | `.properties` et `.yml` (forme canonique recommandée) |\n| `tixa.hold.maxSeats` | acceptée dans les fichiers |\n| `TIXA_HOLD_MAXSEATS` | variable d'environnement |\n| `--tixa.hold.max-seats=4` | ligne de commande |\n\nLa forme **canonique** est le kebab-case en minuscules. C'est celle qu'il faut utiliser dans les fichiers, et celle qu'il faut chercher quand une valeur semble ignorée.\n\n> **Attention :** la liaison souple ne s'applique **qu'**à `@ConfigurationProperties`. `@Value(\"${tixa.hold.max-seats}\")` reconnaît aussi la variable d'environnement, mais il faut écrire la clé sous sa forme canonique : la documentation recommande le kebab-case dans les `@Value`.\n\n## Valider au démarrage\n\n`@Validated` sur la classe, et les contraintes Jakarta (`@NotNull`, `@Min`, `@Max`, `@Pattern`, `@NotEmpty`…) sur les composants. Une valeur invalide fait échouer le démarrage : `ConfigurationPropertiesBindException`, avec en cause une `BindValidationException` qui nomme la propriété. Le rapport d'échec de Spring Boot l'affiche lisiblement.\n\n::checkpoint{id=\"c2\"}\n\nDeux règles à retenir :\n- un objet imbriqué n'est validé que si son composant porte **`@Valid`** ;\n- la validation a besoin d'un validateur Jakarta sur le classpath (Hibernate Validator, apporté par `spring-boot-starter-validation`) ; sans lui, `@Validated` n'a aucun effet.\n\n## @Value ou @ConfigurationProperties ?\n\n| | `@Value` | `@ConfigurationProperties` |\n|---|---|---|\n| Une valeur isolée, dans un seul bean | ✓ | — |\n| Tout un préfixe, typé | — | ✓ |\n| Liaison souple complète | — | ✓ |\n| Validation au démarrage | — | ✓ |\n| Expressions SpEL (`#{…}`) | ✓ | — |\n| Documentation des propriétés (métadonnées pour l'IDE) | — | ✓ |\n\n## Pièges fréquents\n\n- **Oublier de faire du record un bean** : `@ConfigurationProperties` seul ne suffit pas (`@ConfigurationPropertiesScan` ou `@EnableConfigurationProperties`).\n- **Oublier `@Valid`** sur un objet imbriqué : ses contraintes ne sont jamais vérifiées.\n- **Une durée sans unité** : `timeout: 15` vaut 15 **millisecondes**.\n- **Une variable d'environnement avec des underscores à la place des tirets** : `TIXA_HOLD_MAX_SEATS` ne correspond pas à `max-seats`.\n\n## À retenir\n\n- Un record `@ConfigurationProperties` = tout un préfixe, typé, lié par constructeur.\n- `@DefaultValue` pour les défauts ; conversions de durées, tailles, listes et objets imbriqués.\n- Liaison souple : kebab-case canonique, camelCase et variables d'environnement acceptés.\n- `@Validated` + contraintes : la configuration invalide arrête le démarrage ; `@Valid` pour descendre dans les objets imbriqués.\n\n> **Source :** Spring Boot 4.1, [Externalized Configuration — Type-safe Configuration Properties](https://docs.spring.io/spring-boot/4.1/reference/features/external-config.html#features.external-config.typesafe-configuration-properties) (liaison par constructeur, liaison souple, conversions, validation).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch03",
+    "title": "Le démarrage de Spring Boot"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.time.Duration;\nimport java.util.List;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.properties.*;\nimport org.springframework.boot.context.properties.bind.DefaultValue;\nimport org.springframework.context.annotation.Configuration;\n\npublic class Main {\n    @ConfigurationProperties(\"tixa\")\n    public record TixaProps(@DefaultValue(\"150\") int feeCents, Duration holdTimeout, List<String> notifiers) { }\n\n    @Configuration @EnableConfigurationProperties(TixaProps.class)\n    static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        try (var ctx = app.run(\"--tixa.hold-timeout=90s\", \"--tixa.notifiers=email,sms\")) {\n            System.out.println(ctx.getBean(TixaProps.class));\n        }\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Un record lié au préfixe `tixa`. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Le démarrage échoue comme avant",
+      "L'application démarre avec 50 : sans @Valid, l'objet imbriqué n'est pas validé",
+      "La valeur est ramenée à 10",
+      "Le démarrage échoue avec une erreur de compilation"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Un record `TixaProperties(@Valid Hold hold)` est `@Validated`, et `Hold` porte `@Max(10) int maxSeats`. Que se passe-t-il si on retire `@Valid` et qu'on démarre avec `tixa.hold.max-seats=50` ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch03-configuration-properties",
+     "label": "Un record @ConfigurationProperties(\"tixa\") représente tout un préfixe, lié par son constructeur, avec des valeurs par défaut (@DefaultValue) et des conversions (Duration, DataSize, listes)"
+    },
+    {
+     "id": "spring-ch03-relaxed-binding",
+     "label": "Liaison souple : tixa.hold.max-seats, tixa.hold.maxSeats et TIXA_HOLD_MAXSEATS désignent la même propriété ; la forme canonique est le kebab-case"
+    },
+    {
+     "id": "spring-ch03-config-validation",
+     "label": "@Validated et des contraintes Jakarta font échouer le démarrage sur une configuration invalide ; @Valid est nécessaire pour valider un objet imbriqué"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Par son constructeur : chaque composant reçoit la propriété du même nom (kebab-case dans les fichiers).",
+     "concept": "spring-ch03-configuration-properties",
+     "front": "Comment un record @ConfigurationProperties est-il lié ?",
+     "id": "fc1"
+    },
+    {
+     "back": "@ConfigurationPropertiesScan sur l'application, ou @EnableConfigurationProperties(MaClasse.class).",
+     "concept": "spring-ch03-configuration-properties",
+     "front": "Faire d'un @ConfigurationProperties un bean ?",
+     "id": "fc2"
+    },
+    {
+     "back": "…des millisecondes (sauf @DurationUnit) : 15 = 15 ms.",
+     "concept": "spring-ch03-configuration-properties",
+     "front": "Une durée sans unité vaut…",
+     "id": "fc3"
+    },
+    {
+     "back": "max-seats (canonique), maxSeats, max_seats ; TIXA_HOLD_MAXSEATS en variable d'environnement.",
+     "concept": "spring-ch03-relaxed-binding",
+     "front": "Les écritures acceptées pour tixa.hold.max-seats ?",
+     "id": "fc4"
+    },
+    {
+     "back": "@Validated + contraintes Jakarta, une implémentation (starter validation) sur le classpath, et @Valid pour les objets imbriqués.",
+     "concept": "spring-ch03-config-validation",
+     "front": "Valider une configuration au démarrage ?",
+     "id": "fc5"
+    },
+    {
+     "back": "ConfigurationPropertiesBindingPostProcessor (un BeanPostProcessor) et le Binder, qui lit l'Environment.",
+     "concept": "spring-ch03-configuration-properties",
+     "front": "Qui lie les @ConfigurationProperties ?",
+     "id": "fc6"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Le travail du Binder de Spring Boot : transformer des propriétés texte en un objet Java typé, en convertissant chaque valeur.",
+     "term": "liaison (binding)"
+    },
+    {
+     "definition": "Annotation de Spring Boot sur un paramètre de constructeur : la valeur à utiliser quand la propriété est absente, convertie comme une vraie propriété.",
+     "term": "@DefaultValue"
+    },
+    {
+     "definition": "Le type Java d'une durée. Spring Boot accepte 90s, 15m, 2h, 1d ou le format ISO-8601 (PT15M).",
+     "term": "Duration"
+    }
+   ],
+   "id": "spring-ch03-l03",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch03-l03-lab-typed-config",
+     "passed": false,
+     "role": "lab",
+     "title": "Une configuration typée, qui refuse de démarrer si elle est fausse",
+     "xp": 70
+    }
+   ],
+   "next_id": "spring-ch03-l04",
+   "previous_id": "spring-ch03-l02",
+   "quiz_id": "spring-ch03-l03-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 26,
+    "pages": "#features.external-config.typesafe-configuration-properties",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/external-config.html#features.external-config.typesafe-configuration-properties"
+   },
+   "title": "@ConfigurationProperties : une configuration typée et validée",
+   "visuals": {
+    "spring-ch03-binding": {
+     "concept": "spring-ch03-configuration-properties",
+     "entry": "binding.svg",
+     "format": "static",
+     "id": "spring-ch03-binding",
+     "justification": "Une correspondance fixe suffit : à gauche les clés telles qu'écrites (kebab-case, camelCase, variable d'environnement), à droite les composants du record, avec les conversions (90s → Duration, liste).",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch03-l03",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nTixa tourne en trois versions : sur le poste des développeurs (banque factice), en recette (vraie banque, région de test), en production (vraie banque, tarifs contractuels). Copier trois applications est exclu ; multiplier les `if (env.equals(\"prod\"))` dans le code aussi. Les **profils** permettent à une seule application de changer de configuration et de composants selon l'environnement, sans une ligne de code conditionnelle.\n\nMal utilisés, ils produisent le pire des bugs : une production qui démarre avec la banque factice parce qu'un profil a été mal orthographié.\n\n## Activer des profils\n\nOn active des profils par une propriété comme une autre : `spring.profiles.active=prod,eu`, passée en ligne de commande, en variable d'environnement (`SPRING_PROFILES_ACTIVE`) ou dans un fichier. Sans profil actif, Spring Boot utilise le profil `default`.\n\nChaque profil actif ajoute de la configuration, qui **l'emporte** sur la configuration de base (leçon 2) :\n- un fichier `application-prod.yml` à côté de `application.yml` ;\n- ou un **document** du même fichier, réservé à un profil :\n\n```yaml\ntixa:\n  bank:\n    region: eu\n---\nspring:\n  config:\n    activate:\n      on-profile: us\ntixa:\n  bank:\n    region: us\n```\n\nUn document de profil ne contient que **ce qui change**. Tout le reste vient de la base.\n\n## Des beans par profil\n\n`@Profile` sur un `@Component` ou une méthode `@Bean` : la définition n'est enregistrée que si l'**expression** de profils est vraie. Elle accepte la négation (`!prod`), le *et* (`prod & eu`) et le *ou* (`prod | staging`).\n\n::checkpoint{id=\"c1\"}\n\n> **Sous le capot :** `@Profile` est une condition comme les autres : il est méta-annoté `@Conditional(ProfileCondition.class)`, et la condition est évaluée par le `ConditionEvaluator` au moment où `ConfigurationClassPostProcessor` lit les configurations (module 01, temps des recettes). Un bean d'un profil inactif n'est donc jamais une définition, encore moins un objet. Le module 04 généralise ce mécanisme à toute l'autoconfiguration.\n\nLa règle de sûreté : le bean **dangereux** (la vraie banque) est réservé au profil explicite (`@Profile(\"prod\")`), et il **exige** sa configuration. En production sans URL, le démarrage échoue. Jamais l'inverse : une banque factice marquée `@Profile(\"dev\")`, avec la vraie banque par défaut, transforme un profil oublié en vrais débits depuis un poste de développement.\n\n## Les groupes\n\nUn environnement est souvent une **combinaison** : la recette, c'est la configuration de production plus la région de test. Un groupe le dit une fois pour toutes :\n\n```yaml\nspring:\n  profiles:\n    group:\n      staging: prod, us\n```\n\n::checkpoint{id=\"c2\"}\n\n> **En production :** les profils sont faits pour les **différences d'environnement** (quelle banque, quelle région), pas pour les **secrets** ni les valeurs propres à un serveur. Un mot de passe dans `application-prod.yml` est versionné avec le code. Les valeurs propres au déploiement viennent de l'environnement ou de secrets montés (leçon 5).\n\n## Pièges fréquents\n\n- **Une faute de frappe dans un profil** (`spring.profiles.active=prd`) : aucun document ne correspond, l'application démarre sur la configuration de base, sans erreur.\n- **Le bean dangereux par défaut** et le sûr réservé à `dev` : un profil oublié déclenche la production.\n- **Des `if` sur `env.getActiveProfiles()`** dans le code métier : la logique d'environnement se disperse ; préfère `@Profile` ou une propriété.\n- **Un document de profil qui recopie toute la configuration** : la base et le profil divergent avec le temps ; ne mets que les différences.\n\n## À retenir\n\n- `spring.profiles.active` choisit les profils ; leurs fichiers et documents l'emportent sur la base.\n- `@Profile` (expressions `!`, `&`, `|`) décide quels beans existent, au temps des recettes.\n- Un groupe active plusieurs profils d'un coup, dans l'ordre.\n- Le composant dangereux doit être l'exception explicite, et exiger sa configuration.\n\n> **Source :** Spring Boot 4.1, [Profiles](https://docs.spring.io/spring-boot/4.1/reference/features/profiles.html) et [Externalized Configuration — Activation Properties](https://docs.spring.io/spring-boot/4.1/reference/features/external-config.html) ; Spring Framework 7.0, [`@Profile`](https://docs.spring.io/spring-framework/reference/core/beans/environment.html).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch03",
+    "title": "Le démarrage de Spring Boot"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.boot.*;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    @Configuration\n    static class App {\n        @Bean @Profile(\"prod & eu\") String euProd() { return \"eu-prod\"; }\n        @Bean @Profile(\"prod & !eu\") String otherProd() { return \"other-prod\"; }\n        @Bean @Profile(\"!prod\") String dev() { return \"dev\"; }\n    }\n\n    public static void main(String[] args) {\n        for (String profiles : new String[] { \"prod,eu\", \"prod\", \"eu\" }) {\n            var app = new SpringApplication(App.class);\n            app.setBannerMode(Banner.Mode.OFF);\n            app.setWebApplicationType(WebApplicationType.NONE);\n            try (var ctx = app.run(\"--spring.profiles.active=\" + profiles)) {\n                System.out.println(profiles + \" → \" + String.join(\",\", ctx.getBeanNamesForType(String.class)));\n            }\n        }\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Des beans réservés à des expressions de profils. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "staging seulement",
+      "staging, prod, us",
+      "prod, us seulement",
+      "us seulement, le dernier de la liste"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "`application.yml` contient un groupe `staging: prod, us`. On démarre avec `--spring.profiles.active=staging`. Quels profils sont actifs ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch03-profiles-activation",
+     "label": "spring.profiles.active choisit les profils ; chaque profil actif ajoute ses fichiers application-{profil} et ses documents YAML (spring.config.activate.on-profile), qui l'emportent sur la base"
+    },
+    {
+     "id": "spring-ch03-profile-beans",
+     "label": "@Profile sur un composant ou une méthode @Bean : la définition n'existe que si l'expression de profils est vraie (négation, &, |)"
+    },
+    {
+     "id": "spring-ch03-profile-groups",
+     "label": "Un groupe (spring.profiles.group.staging: prod, us) active plusieurs profils d'un coup, dans l'ordre"
+    }
+   ],
+   "duration_min": 30,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "spring.profiles.active (ligne de commande, SPRING_PROFILES_ACTIVE, fichier) ou setAdditionalProfiles ; sinon le profil default.",
+     "concept": "spring-ch03-profiles-activation",
+     "front": "Activer des profils ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Après ---, spring.config.activate.on-profile: prod ; il l'emporte sur la base et ne contient que les différences.",
+     "concept": "spring-ch03-profiles-activation",
+     "front": "Document YAML réservé à un profil ?",
+     "id": "fc2"
+    },
+    {
+     "back": "!prod, prod & eu, prod | staging.",
+     "concept": "spring-ch03-profile-beans",
+     "front": "Expressions de @Profile ?",
+     "id": "fc3"
+    },
+    {
+     "back": "À la lecture des configurations (ProfileCondition) : un bean d'un profil inactif n'est jamais une définition.",
+     "concept": "spring-ch03-profile-beans",
+     "front": "Quand @Profile est-il évalué ?",
+     "id": "fc4"
+    },
+    {
+     "back": "spring.profiles.group.staging: prod, us ; activer staging active staging, prod et us.",
+     "concept": "spring-ch03-profile-groups",
+     "front": "Déclarer un groupe de profils ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Le composant dangereux (vraie banque) est réservé au profil explicite et exige sa configuration.",
+     "concept": "spring-ch03-profile-beans",
+     "front": "Règle de sûreté pour les beans par profil ?",
+     "id": "fc6"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Un nom (dev, prod, eu…) qui active un ensemble de configurations et de beans. Plusieurs profils peuvent être actifs à la fois.",
+     "term": "profil"
+    },
+    {
+     "definition": "Une partie d'un fichier YAML séparée par ---. Spring Boot lit chaque document comme une source à part, éventuellement réservée à un profil.",
+     "term": "document YAML"
+    },
+    {
+     "definition": "Un profil qui, une fois activé, active une liste d'autres profils.",
+     "term": "groupe de profils"
+    }
+   ],
+   "id": "spring-ch03-l04",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch03-l04-lab-bank-per-profile",
+     "passed": false,
+     "role": "lab",
+     "title": "Une banque par environnement : @Profile et groupes de profils",
+     "xp": 60
+    }
+   ],
+   "next_id": "spring-ch03-l05",
+   "previous_id": "spring-ch03-l03",
+   "quiz_id": "spring-ch03-l04-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 27,
+    "pages": "#page-title",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/profiles.html"
+   },
+   "title": "Les profils : une application, plusieurs environnements",
+   "visuals": {
+    "spring-ch03-profile-layers": {
+     "concept": "spring-ch03-profiles-activation",
+     "entry": "ProfileLayers.tsx",
+     "format": "interactive",
+     "id": "spring-ch03-profile-layers",
+     "justification": "L'apprenant coche des profils (ou un groupe) et voit quels documents YAML s'empilent, quels beans @Profile existent, et la valeur finale de chaque propriété.",
+     "params": [
+      {
+       "default": 1,
+       "max": 3,
+       "min": 0,
+       "name": "profiles",
+       "type": "int"
+      }
+     ],
+     "status": "idea"
+    }
+   },
+   "xp": 25
+  },
+  "name": "lesson:spring-ch03-l04",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nCertaines décisions doivent être prises **avant** que le moindre bean existe : ajouter des valeurs par défaut selon la région, charger des secrets montés en fichiers, refuser une configuration incohérente. À ce moment-là, il n'y a pas de conteneur : ni `@Component`, ni injection. Spring Boot fournit des points d'entrée pour cette phase, et un mécanisme pour les déclarer sans bean.\n\nCette leçon ferme le module en suivant l'application jusqu'au bout de la chaîne : comment `java -jar tixa.jar` arrive jusqu'à ton `main`.\n\n## EnvironmentPostProcessor\n\n```java\npublic class RegionDefaults implements EnvironmentPostProcessor {\n    @Override\n    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {\n        String region = environment.getProperty(\"tixa.region\", \"eu\");\n        environment.getPropertySources().addLast(new MapPropertySource(\"tixaRegionDefaults\", defaultsFor(region)));\n    }\n}\n```\n\nDans Spring Boot 4, l'interface est `org.springframework.boot.EnvironmentPostProcessor` (l'ancienne, dans `org.springframework.boot.env`, existe encore). Elle est appelée pendant `ApplicationEnvironmentPreparedEvent` (leçon 1), par `EnvironmentPostProcessorApplicationListener`, dans l'ordre de leur `@Order`.\n\nLe plus important de ces post-processors est celui de Spring Boot lui-même, `ConfigDataEnvironmentPostProcessor`, qui lit les fichiers `application.*` et les profils. Il est très prioritaire : **un post-processor ordinaire passe après lui**, donc voit déjà la configuration des fichiers et les profils actifs. C'est ce qui permet de lire `tixa.region` dans `application.yml`, ou un chemin de secrets dans un document de profil (le boss).\n\n### Choisir sa position dans la pile\n\n`MutablePropertySources` permet de placer une source exactement : `addFirst`, `addLast`, `addBefore(nom, …)`, `addAfter(nom, …)`. Le choix est une décision de conception :\n- des **valeurs par défaut** : `addLast`, sous tous les fichiers ;\n- des **secrets** : `addAfter(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, …)`, au-dessus des fichiers mais sous la ligne de commande et l'environnement, pour garder le dépannage possible.\n\n::checkpoint{id=\"c1\"}\n\n> **Au-delà :** pour des secrets montés en fichiers, Spring Boot fournit déjà la solution : `spring.config.import=optional:configtree:/run/secrets/` lit un dossier dont chaque fichier est une propriété. Le boss te fait écrire l'équivalent pour en comprendre le mécanisme ; en production, préfère `configtree`.\n\n## spring.factories : déclarer sans bean\n\nTout ce qui doit exister **avant** le contexte se déclare dans `META-INF/spring.factories`, un fichier de propriétés qui associe une interface à ses implémentations :\n\n```properties\norg.springframework.boot.EnvironmentPostProcessor=app.RegionDefaults\norg.springframework.boot.diagnostics.FailureAnalyzer=app.MissingSecretFailureAnalyzer\norg.springframework.context.ApplicationListener=app.EarlyListener\n```\n\n`SpringFactoriesLoader` lit **tous** les fichiers de ce nom présents dans le classpath, de toutes les bibliothèques. C'est ainsi qu'une dépendance ajoute un comportement de démarrage sans que tu écrives une ligne.\n\n::checkpoint{id=\"c2\"}\n\n> **Sous le capot :** une classe imbriquée s'y écrit avec son nom **binaire** (`app.Tixa$RegionDefaults`), pas avec un point : `SpringFactoriesLoader` charge les classes par leur nom avec `Class.forName`. L'autoconfiguration (module 04) utilise un mécanisme voisin mais distinct : `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`.\n\n## Du jar à ton main\n\n`java -jar tixa.jar` ne sait lancer qu'une classe dont les dépendances sont sur le classpath. Or un jar Java ne sait pas lire des jars **imbriqués**. Le plugin Maven ou Gradle de Spring Boot construit donc un jar particulier :\n\n- `META-INF/MANIFEST.MF` déclare `Main-Class: org.springframework.boot.loader.launch.JarLauncher` et `Start-Class: app.TixaApp` ;\n- les classes du lanceur sont à la racine du jar ;\n- tes classes sont dans `BOOT-INF/classes`, tes dépendances dans `BOOT-INF/lib`.\n\n`JarLauncher` crée un class loader capable de lire ces jars imbriqués, puis appelle le `main` de la `Start-Class`. À partir de là, c'est `SpringApplication.run()` (leçon 1).\n\n::visual{id=\"spring-ch03-executable-jar\"}\n\n> **En production :** dans une image Docker, il vaut mieux **extraire** le jar en couches (dépendances d'un côté, code de l'autre) : seule la couche du code change à chaque version, et Docker réutilise les autres. Spring Boot le fait avec le mode `tools` du jar (`java -Djarmode=tools -jar tixa.jar extract --layers`) ; le module 14 en mesure l'effet.\n\n## Pièges fréquents\n\n- **Un `EnvironmentPostProcessor` déclaré `@Component`** : jamais appelé.\n- **Un nom de classe imbriquée avec un point** dans `spring.factories` : `ClassNotFoundException` au démarrage.\n- **`addFirst` pour des valeurs par défaut** : elles écrasent la configuration explicite, y compris la ligne de commande.\n- **Lire une propriété qui n'existe pas encore** : un post-processor placé *avant* `ConfigDataEnvironmentPostProcessor` (ordre très prioritaire) ne voit pas les fichiers.\n\n## À retenir\n\n- `EnvironmentPostProcessor` : agir sur l'`Environment` avant tout bean, après la lecture des fichiers.\n- Placer sa source consciemment : `addLast` pour des défauts, `addAfter(systemEnvironment)` pour des secrets.\n- `META-INF/spring.factories` déclare ce qui doit exister avant le contexte ; nom binaire pour les classes imbriquées.\n- Jar exécutable : `JarLauncher` (Main-Class) lit `BOOT-INF/classes` et `BOOT-INF/lib`, puis lance la `Start-Class`.\n\n> **Source :** Spring Boot 4.1, [Customize the Environment or ApplicationContext Before It Starts](https://docs.spring.io/spring-boot/4.1/how-to/application.html), [Externalized Configuration — Configuration Trees](https://docs.spring.io/spring-boot/4.1/reference/features/external-config.html) et [The Executable Jar Format](https://docs.spring.io/spring-boot/4.1/specification/executable-jar/index.html) ; code de `EnvironmentPostProcessorApplicationListener` (spring-boot 4.1.3).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch03",
+    "title": "Le démarrage de Spring Boot"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.*;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;\nimport org.springframework.context.ApplicationListener;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.core.env.MapPropertySource;\n\npublic class Main {\n    @Configuration static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.setDefaultProperties(Map.of(\"tixa.currency\", \"XXX\"));\n        app.addListeners((ApplicationListener<ApplicationEnvironmentPreparedEvent>) e ->\n                e.getEnvironment().getPropertySources().addLast(new MapPropertySource(\"regionDefaults\", Map.of(\"tixa.currency\", \"EUR\"))));\n        try (var ctx = app.run()) {\n            List<String> names = new ArrayList<>();\n            ctx.getEnvironment().getPropertySources().forEach(ps -> names.add(ps.getName()));\n            System.out.println(names.subList(names.size() - 3, names.size()) + \" \" + ctx.getEnvironment().getProperty(\"tixa.currency\"));\n        }\n    }\n}\n",
+     "id": "c1",
+     "prompt": "On ajoute une source à la toute fin, puis Spring Boot termine sa préparation. Où sont les sources ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Au démarrage, comme prévu",
+      "Jamais : l'environnement est préparé avant que le moindre bean existe",
+      "Après le refresh, trop tard mais une fois",
+      "À chaque lecture d'une propriété"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Ton `EnvironmentPostProcessor` est annoté `@Component`, et non déclaré dans `spring.factories`. Quand est-il appelé ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch03-environment-post-processor",
+     "label": "Un EnvironmentPostProcessor modifie l'Environment pendant ApplicationEnvironmentPreparedEvent, avant tout bean ; il passe après la lecture des fichiers, donc peut lire tixa.* et ajouter une source à la position voulue"
+    },
+    {
+     "id": "spring-ch03-spring-factories",
+     "label": "Ce qui doit exister avant le contexte (EnvironmentPostProcessor, FailureAnalyzer, écouteurs précoces) se déclare dans META-INF/spring.factories, pas comme bean"
+    },
+    {
+     "id": "spring-ch03-executable-jar",
+     "label": "Le jar de Spring Boot a pour Main-Class JarLauncher, qui lit BOOT-INF/classes et BOOT-INF/lib puis appelle le main de la Start-Class"
+    }
+   ],
+   "duration_min": 30,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Pendant ApplicationEnvironmentPreparedEvent, avant tout bean, après ConfigDataEnvironmentPostProcessor (fichiers et profils lus).",
+     "concept": "spring-ch03-environment-post-processor",
+     "front": "Quand tourne un EnvironmentPostProcessor ?",
+     "id": "fc1"
+    },
+    {
+     "back": "org.springframework.boot.EnvironmentPostProcessor (l'ancienne org.springframework.boot.env existe encore).",
+     "concept": "spring-ch03-environment-post-processor",
+     "front": "Interface EnvironmentPostProcessor dans Spring Boot 4 ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Défauts : addLast. Secrets : addAfter(systemEnvironment), sous la ligne de commande, au-dessus des fichiers.",
+     "concept": "spring-ch03-environment-post-processor",
+     "front": "Où placer des valeurs par défaut ? des secrets ?",
+     "id": "fc3"
+    },
+    {
+     "back": "spring.config.import=optional:configtree:/run/secrets/",
+     "concept": "spring-ch03-environment-post-processor",
+     "front": "Secrets montés en fichiers, sans code ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Associer une interface à des implémentations à charger avant le contexte (EnvironmentPostProcessor, FailureAnalyzer, écouteurs précoces).",
+     "concept": "spring-ch03-spring-factories",
+     "front": "Rôle de META-INF/spring.factories ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Main-Class = JarLauncher, Start-Class = ta classe ; BOOT-INF/classes (ton code), BOOT-INF/lib (dépendances).",
+     "concept": "spring-ch03-executable-jar",
+     "front": "Structure d'un jar Spring Boot ?",
+     "id": "fc6"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Interface de Spring Boot (org.springframework.boot.EnvironmentPostProcessor dans Boot 4) dont la méthode reçoit l'Environment et la SpringApplication, avant la création du contexte.",
+     "term": "EnvironmentPostProcessor"
+    },
+    {
+     "definition": "Un fichier META-INF/spring.factories du classpath qui associe une interface à des implémentations. Spring Boot y cherche ses composants de démarrage.",
+     "term": "spring.factories"
+    },
+    {
+     "definition": "Un jar lancé par java -jar qui contient l'application et toutes ses dépendances, sous forme de jars imbriqués dans BOOT-INF/lib.",
+     "term": "jar exécutable"
+    }
+   ],
+   "id": "spring-ch03-l05",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch03-l05-lab-region-defaults",
+     "passed": false,
+     "role": "lab",
+     "title": "Un EnvironmentPostProcessor : des valeurs par défaut par région",
+     "xp": 70
+    }
+   ],
+   "next_id": null,
+   "previous_id": "spring-ch03-l04",
+   "quiz_id": "spring-ch03-l05-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 28,
+    "pages": "#page-title",
+    "url": "https://docs.spring.io/spring-boot/4.1/specification/executable-jar/index.html"
+   },
+   "title": "Agir avant le contexte : EnvironmentPostProcessor, spring.factories et le jar exécutable",
+   "visuals": {
+    "spring-ch03-executable-jar": {
+     "concept": "spring-ch03-executable-jar",
+     "entry": "executable-jar.svg",
+     "format": "static",
+     "id": "spring-ch03-executable-jar",
+     "justification": "Une structure fixe suffit : l'arborescence du jar (META-INF/MANIFEST.MF, classes du lanceur, BOOT-INF/classes, BOOT-INF/lib), avec les flèches Main-Class → JarLauncher → Start-Class.",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch03-l05",
+  "status": 200
+ },
+ {
+  "body": {
    "body": "\n## Pourquoi c'est important\n\nOn répète que « TypeScript est un surensemble typé de JavaScript ». La phrase est juste, mais elle cache trois idées qui changent la façon de travailler : ce que TypeScript **ajoute** (un vérificateur), ce qu'il **ne change pas** (le programme qui s'exécute) et ce qu'il **ne promet pas** (l'absence d'erreur à l'exécution). Si tu viens de Java, de Go ou de Python, ce modèle mental est la première chose à poser.\n\n## Le concept\n\n### Un surensemble, au sens de la syntaxe\n\nRenomme `main.js` en `main.ts` : tu n'as pas changé de langage, ton code était déjà du TypeScript. C'est ce qui rend la migration d'une base JavaScript progressive (module 13) : on n'écrit pas tout dans un autre langage.\n\nL'inverse est faux. Ce fichier est du TypeScript valide mais pas du JavaScript :\n\n```ts\nfunction greet(who: string) {\n  console.log('Bonjour', who);\n}\n```\n\nDonné à un interpréteur JavaScript pur, il échoue sur `: string` (`SyntaxError`). Dès que tu écris une annotation de type, tu as quitté JavaScript.\n\n### Un vérificateur qui travaille sans exécuter\n\nMême **sans aucune annotation**, TypeScript déduit des types (c'est l'inférence, module 03) et repère des fautes :\n\n```ts\nlet city = 'new york city';\nconsole.log(city.toUppercase());\n// Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?\n```\n\nÀ l'exécution, JavaScript lèverait `TypeError: city.toUppercase is not a function`. Le vérificateur te le dit avant, dans l'éditeur. On parle de typage **statique** : l'analyse porte sur le texte du programme, pas sur son exécution.\n\nIl va même plus loin que les exceptions. Ce code tourne sans erreur et affiche trois fois `undefined` :\n\n```ts\nconst states = [\n  { name: 'Alabama', capital: 'Montgomery' },\n  { name: 'Alaska', capital: 'Juneau' },\n];\nfor (const state of states) {\n  console.log(state.capitol);   // faute de frappe : « capitol » (le bâtiment) au lieu de « capital »\n}\n```\n\nTypeScript la signale quand même : `Property 'capitol' does not exist … Did you mean 'capital'?`.\n\n### Les annotations disent ton intention\n\nQue se passe-t-il si la faute est dans les données plutôt que dans le code ?\n\n```ts\nconst states = [\n  { name: 'Alabama', capitol: 'Montgomery' },\n  { name: 'Alaska', capitol: 'Juneau' },\n];\nfor (const state of states) {\n  console.log(state.capital);   // Did you mean 'capitol' ?\n}\n```\n\nL'erreur est la même, mais **la suggestion est fausse** : TypeScript ne peut pas deviner quelle orthographe est la bonne. Dis-le-lui :\n\n```ts\ninterface State {\n  name: string;\n  capital: string;\n}\nconst states: State[] = [\n  { name: 'Alabama', capitol: 'Montgomery' },\n  //                 ~~~~~~~ Object literal may only specify known properties… Did you mean 'capital'?\n];\n```\n\nMaintenant l'erreur est **sur la ligne fautive** et la suggestion est la bonne. Et si une seule entrée sur cent avait contenu la faute ? Sans annotation, TypeScript l'aurait acceptée (il aurait simplement déduit une union de deux formes) ; avec l'annotation, il la trouve. Retiens la règle : **plus tu donnes d'information au vérificateur, plus il trouve de problèmes**.\n\n### Il modélise JavaScript, avec du jugement\n\nLe principe directeur est de refléter le comportement réel de JavaScript. Donc ceci passe, parce que JavaScript le permet :\n\n```ts\nconst x = 2 + '3';   // string : \"23\"\nconst y = '2' + 3;   // string : \"23\"\n```\n\nMais TypeScript refuse des constructions légales qu'il juge presque toujours fautives :\n\n```ts\nconst a = null + 7;               // vaut 7 en JS, refusé\nconst b = [] + 12;                // vaut '12' en JS, refusé\nalert('Hello', 'TypeScript');     // l'argument en trop est ignoré en JS, refusé\n```\n\nOù placer la limite est une question de goût, que tu délègues à l'équipe de TypeScript en l'adoptant.\n\n### Un programme qui passe peut quand même planter\n\n```ts\nconst names = ['Alice', 'Bob'];\nconsole.log(names[2].toUpperCase());   // TypeScript : OK. Exécution : TypeError.\n```\n\nTypeScript suppose que l'indice est dans le tableau. Son type statique (`string`) et la vraie valeur (`undefined`) ont divergé. Un système de types qui garantit cette cohérence est dit **sound** ; celui de TypeScript **ne l'est pas, par choix** : il vaut mieux rester utilisable avec du JavaScript existant que tout prouver. Le module 07 détaille les trous. D'autres langages (Reason, PureScript, Dart) offrent plus de garanties, mais au prix d'une migration bien plus lourde.\n\nLes trois ensembles de programmes à garder en tête :\n\n- les programmes JavaScript (tous valides en TypeScript) ;\n- les programmes TypeScript (JavaScript + annotations) ;\n- ceux qui **passent le vérificateur** : le sous-ensemble dans lequel tu vis au quotidien.\n\n## Pièges fréquents\n\n- **Croire que « ça passe » veut dire « ça marche ».** Le vérificateur réduit les erreurs possibles, il ne les élimine pas.\n- **Traiter une suggestion de correction comme une vérité.** Elle dépend de ce que TypeScript a déduit ; sans annotation, elle peut viser la mauvaise orthographe.\n- **Annoter pour « faire taire » l'erreur** (`: any`, `as`) au lieu de comprendre ce qu'elle dit.\n\n## À retenir\n\n- TypeScript est un surensemble de JavaScript : tout JavaScript valide est du TypeScript valide, pas l'inverse.\n- Il ajoute un système de types statique qui modélise le comportement de JavaScript et cherche les erreurs avant l'exécution.\n- Il refuse certaines constructions légales mais douteuses (`null + 7`, arguments en trop).\n- Un programme qui passe le vérificateur peut lever une exception : le système de types n'est pas sound.\n- Les annotations expriment ton intention ; elles améliorent le nombre et la justesse des erreurs trouvées.\n\n> **Au-delà du livre :** dans ce cours, les exécutions se font avec Node.js, qui retire lui-même les annotations (« type stripping ») : `node main.ts` fonctionne sans étape de compilation, et la vérification des types est confiée à `tsc` à part. Tu verras ce découplage en détail à la leçon 3.\n",
    "cards_rated": 0,
    "chapter": {
@@ -48983,6 +49877,372 @@
    ]
   },
   "name": "quiz:spring-ch02-l05-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch03-l01-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch03-l01",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.*;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.event.*;\nimport org.springframework.context.ApplicationListener;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    static List<String> log = new ArrayList<>();\n\n    @Configuration\n    static class App {\n        @Bean ApplicationRunner check() { return args -> { throw new IllegalStateException(\"banque injoignable\"); }; }\n    }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.addListeners((ApplicationListener<SpringApplicationEvent>) e -> log.add(e.getClass().getSimpleName()));\n        try {\n            app.run();\n        } catch (IllegalStateException e) {\n            log.add(\"échec : \" + e.getMessage());\n        }\n        System.out.println(log.subList(log.size() - 3, log.size()));\n    }\n}\n",
+     "difficulty": 3,
+     "id": "q1",
+     "prompt": "Un runner lève une exception. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Dans un écouteur d'ApplicationStartingEvent",
+      "Dans un ApplicationRunner",
+      "Dans le constructeur de la classe @SpringBootApplication",
+      "Dans un écouteur d'ApplicationReadyEvent"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Où mettre la vérification « la base de paiement répond », qui doit réussir avant que Tixa reçoive du trafic ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "refresh(), préparation de l'environnement, création du contexte, runners",
+      "préparation de l'environnement, création du contexte, refresh(), runners",
+      "création du contexte, préparation de l'environnement, runners, refresh()",
+      "runners, préparation de l'environnement, création du contexte, refresh()"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q3",
+     "prompt": "Dans quel ordre ces étapes ont-elles lieu dans `SpringApplication.run()` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "springApplication.addListeners(monEcouteur) avant run()",
+      "Une ligne org.springframework.context.ApplicationListener=… dans META-INF/spring.factories",
+      "Annoter l'écouteur @Component",
+      "Une méthode @EventListener dans la classe @SpringBootApplication"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Comment faire recevoir `ApplicationEnvironmentPreparedEvent` à un écouteur ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il réessaie le démarrage trois fois",
+      "Il publie ApplicationFailedEvent, ferme le contexte, et demande aux FailureAnalyzer d'expliquer l'erreur",
+      "Il laisse le contexte ouvert pour le diagnostic",
+      "Il démarre en mode dégradé sans les beans en échec"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Que fait Spring Boot quand une exception interrompt le démarrage ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch03-l01-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch03-l02-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch03-l02",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.Map;\nimport org.springframework.boot.*;\nimport org.springframework.context.annotation.*;\nimport org.springframework.core.env.MapPropertySource;\n\npublic class Main {\n    @Configuration static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.setDefaultProperties(Map.of(\"tixa.currency\", \"EUR\"));\n        try (var ctx = app.run(\"--tixa.region=us\")) {\n            var env = ctx.getEnvironment();\n            System.out.println(env.getProperty(\"tixa.region\") + \" \" + env.getProperty(\"tixa.currency\") + \" \"\n                    + env.getProperty(\"tixa.missing\", \"défaut\"));\n        }\n    }\n}\n",
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Une `@PropertySource` et une valeur par défaut. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "TIXA_FEE_CENTS",
+      "TIXA_FEECENTS",
+      "tixa.fee-cents",
+      "TIXA-FEE-CENTS"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q2",
+     "prompt": "Quelle variable d'environnement définit `tixa.fee-cents` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "application.yml, le fichier principal",
+      "fees.properties, le fichier importé",
+      "La dernière lue sur le disque",
+      "Le démarrage échoue"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "`application.yml` importe `fees.properties` (`spring.config.import`). Les deux définissent `tixa.fee-cents`. Laquelle gagne, sans profil ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "La même propriété est définie dans application.yml, qui l'emporte",
+      "Elle est définie en ligne de commande ou dans l'environnement",
+      "Il s'agit de logging.level.* ou spring.main.*, lus avant que la @PropertySource soit ajoutée",
+      "Les @PropertySource ne sont jamais lues par Spring Boot"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Pourquoi une valeur placée dans une `@PropertySource` semble-t-elle « ignorée » ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce qu'ils sont lus en dernier",
+      "Parce que ce qui est le plus proche du lancement doit pouvoir surcharger ce qui est embarqué : l'exploitation dépanne sans recompiler",
+      "Parce que YAML est plus lent à analyser",
+      "C'est une limite de Java"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q5",
+     "prompt": "Pourquoi les arguments de ligne de commande l'emportent-ils sur `application.yml` ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch03-l02-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch03-l03-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch03-l03",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.time.Duration;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.properties.*;\nimport org.springframework.context.annotation.Configuration;\n\npublic class Main {\n    @ConfigurationProperties(\"tixa.hold\")\n    public record Hold(Duration timeout) { }\n\n    @Configuration @EnableConfigurationProperties(Hold.class)\n    static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        try (var ctx = app.run(\"--tixa.hold.timeout=15\")) {\n            System.out.println(ctx.getBean(Hold.class).timeout().toMillis());\n        }\n    }\n}\n",
+     "difficulty": 3,
+     "id": "q1",
+     "prompt": "Une durée écrite sans unité. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.boot.*;\nimport org.springframework.boot.context.properties.*;\nimport org.springframework.context.annotation.Configuration;\n\npublic class Main {\n    @ConfigurationProperties(\"tixa.hold\")\n    public record Hold(int maxSeats, int minSeats, int seatsPerRow) { }\n\n    @Configuration @EnableConfigurationProperties(Hold.class)\n    static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        try (var ctx = app.run(\"--tixa.hold.max-seats=6\", \"--tixa.hold.minSeats=1\", \"--tixa.hold.seats_per_row=12\")) {\n            System.out.println(ctx.getBean(Hold.class));\n        }\n    }\n}\n",
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Liaison souple : trois écritures. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Elles sont appliquées par Spring lui-même",
+      "Rien : sans implémentation Jakarta Validation sur le classpath, aucune contrainte n'est vérifiée",
+      "Le démarrage échoue toujours",
+      "Elles sont vérifiées à la première lecture d'une propriété"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q3",
+     "prompt": "Un record `@ConfigurationProperties` porte `@Validated`, mais `spring-boot-starter-validation` n'est pas une dépendance du projet. Que valent ses contraintes ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Un seul objet typé pour tout un préfixe, injectable partout",
+      "La validation au démarrage",
+      "Les expressions SpEL #{...}",
+      "La liaison souple complète et les objets imbriqués"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Qu'apporte `@ConfigurationProperties` par rapport à une série de `@Value` ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "TIXA_HOLD_MAX_SEATS",
+      "TIXA_HOLD_MAXSEATS",
+      "TIXA.HOLD.MAX-SEATS",
+      "tixa_hold_maxSeats"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Quelle variable d'environnement correspond à `tixa.hold.max-seats` ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch03-l03-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch03-l04-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch03-l04",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [
+      "Le démarrage échoue : le profil prd n'existe pas",
+      "L'application démarre avec la configuration de base et les beans non réservés à prod, sans erreur",
+      "Spring Boot corrige en prod",
+      "Le profil default est utilisé, avec un avertissement bloquant"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "On démarre la production avec `--spring.profiles.active=prd` (faute de frappe). Que se passe-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "À chaque appel d'une méthode du bean",
+      "Au moment où le conteneur lit les configurations : un bean d'un profil inactif n'est jamais une définition",
+      "Après la création du bean, qui est détruit si le profil est inactif",
+      "À la compilation"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "À quel moment `@Profile(\"prod\")` est-il évalué ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "--spring.profiles.active=prod en ligne de commande",
+      "La variable d'environnement SPRING_PROFILES_ACTIVE=prod",
+      "springApplication.setAdditionalProfiles(\"prod\") dans le main",
+      "Annoter la classe @SpringBootApplication avec @Profile(\"prod\")"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Comment activer le profil `prod` au démarrage ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Les 10 propriétés, pour que la production soit complète",
+      "Seulement tixa.bank.url : le reste vient de la base",
+      "Rien : il faut un fichier application-prod.yml séparé",
+      "Toutes les propriétés sauf celles de la base"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q4",
+     "prompt": "La base de `application.yml` définit 10 propriétés `tixa.*` ; le document `prod` doit changer la seule URL de la banque. Que mettre dans le document `prod` ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch03-l04-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch03-l05-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch03-l05",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.Map;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;\nimport org.springframework.context.ApplicationListener;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.core.env.*;\n\npublic class Main {\n    @Configuration static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.addListeners((ApplicationListener<ApplicationEnvironmentPreparedEvent>) e ->\n                e.getEnvironment().getPropertySources().addAfter(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME,\n                        new MapPropertySource(\"secrets\", Map.of(\"api-key\", \"sk_secret\", \"endpoint\", \"https://secret\"))));\n        try (var ctx = app.run(\"--api-key=sk_cli\")) {\n            System.out.println(ctx.getEnvironment().getProperty(\"api-key\") + \" \" + ctx.getEnvironment().getProperty(\"endpoint\"));\n        }\n    }\n}\n",
+     "difficulty": 3,
+     "id": "q1",
+     "prompt": "Une source de secrets placée juste après les variables d'environnement. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que les fichiers sont lus par la JVM avant le main",
+      "Parce qu'il passe après ConfigDataEnvironmentPostProcessor, très prioritaire, qui a déjà chargé les fichiers et les profils",
+      "Parce qu'il est créé comme un bean, après le refresh",
+      "Il ne le peut pas : il doit lire le fichier lui-même"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Pourquoi un `EnvironmentPostProcessor` ordinaire peut-il lire `tixa.region` défini dans `application.yml` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "org.springframework.boot.EnvironmentPostProcessor=app.Tixa.RegionDefaults",
+      "org.springframework.boot.EnvironmentPostProcessor=app.Tixa$RegionDefaults",
+      "org.springframework.boot.EnvironmentPostProcessor=RegionDefaults",
+      "Une classe imbriquée ne peut pas y être déclarée"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q3",
+     "prompt": "Dans `META-INF/spring.factories`, comment déclarer la classe imbriquée `RegionDefaults` de `app.Tixa` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "La classe annotée @SpringBootApplication",
+      "org.springframework.boot.loader.launch.JarLauncher ; ta classe est dans Start-Class",
+      "org.springframework.boot.SpringApplication",
+      "Il n'y a pas de Main-Class : java -jar lit BOOT-INF/classes"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Dans le MANIFEST.MF d'un jar Spring Boot, que vaut `Main-Class` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Un EnvironmentPostProcessor",
+      "Un FailureAnalyzer",
+      "Un écouteur d'ApplicationStartingEvent destiné à toutes les applications qui utilisent ta bibliothèque",
+      "Un service métier @Service"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Qu'est-ce qui se déclare dans `META-INF/spring.factories` plutôt que comme bean ?",
+     "type": "multiple"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch03-l05-quiz",
   "status": 200
  },
  {
@@ -91979,6 +93239,416 @@
  },
  {
   "body": {
+   "chapter_id": "spring-ch03",
+   "checks": [],
+   "concepts": [
+    "spring-ch03-failure-analyzer",
+    "spring-ch03-spring-factories",
+    "spring-ch03-run-steps"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch03-assignment",
+   "instructions": "## Contexte\n\nÀ 3 h du matin, la personne de garde redéploie Tixa sur un nouveau serveur. L'application refuse de démarrer, et le journal montre quarante lignes de pile d'exceptions : `BeanCreationException`, `BeanInstantiationException`, et enfin, tout en bas, `MissingSecretException: secret manquant : tixa.payment.api-key`. Il lui faut dix minutes pour comprendre qu'une variable d'environnement manque.\n\nSpring Boot sait faire beaucoup mieux : quand le démarrage échoue, il demande à ses **analyseurs d'échec** de transformer l'exception en un rapport `APPLICATION FAILED TO START` avec une *Description* et une *Action*. Tu en écris un.\n\n`MissingSecretException` (qui connaît la propriété et la variable d'environnement attendue) et `PaymentGateway` (qui la lève) sont fournis. Tu écris `MissingSecretFailureAnalyzer.java` et `META-INF/spring.factories`.\n\n## Ta tâche\n\n1. `MissingSecretFailureAnalyzer` reconnaît une `MissingSecretException` **où qu'elle soit** dans la chaîne des causes (le conteneur l'enveloppe), et ne reconnaît rien d'autre.\n2. Son analyse donne :\n   - une **description** qui nomme la propriété manquante (`tixa.payment.api-key`) et ce que ça empêche ;\n   - une **action** qui donne la variable d'environnement à définir (`TIXA_PAYMENT_APIKEY`) ;\n   - comme cause, la `MissingSecretException`.\n3. Spring Boot le trouve sans qu'aucun bean ne soit déclaré.\n\n## Ce qui sera relu\n\nLa revue juge le rapport du point de vue de la personne de garde : est-il exécutable sans lire le code ? N'expose-t-il aucune valeur sensible ?\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "assignment",
+   "rubric": [
+    {
+     "id": "correctness",
+     "label": "Correction (tests)",
+     "source": "tests",
+     "weight": 0.5
+    },
+    {
+     "id": "report-quality",
+     "label": "Qualité du rapport pour la personne de garde",
+     "levels": {
+      "0": "Recopie le message de l'exception, ou affiche une valeur de secret",
+      "2": "Nomme la propriété mais l'action reste vague (« vérifiez la configuration »)",
+      "4": "Description qui dit ce qui manque et sa conséquence ; action exécutable (nom exact de la variable, où la définir) ; rappel de ne pas versionner le secret ; aucune valeur sensible affichée"
+     },
+     "source": "ai",
+     "weight": 0.35
+    },
+    {
+     "id": "design",
+     "label": "Conception",
+     "levels": {
+      "0": "Analyseur déclaré comme bean (jamais appelé) ou attrape l'exception dans le code métier",
+      "2": "Parcours manuel des causes, ou analyse trop large (toute RuntimeException)",
+      "4": "AbstractFailureAnalyzer typé, qui trouve la cause dans la chaîne sans parcours manuel ; enregistrement dans spring.factories, aucun bean"
+     },
+     "source": "ai",
+     "weight": 0.15
+    }
+   ],
+   "source": null,
+   "title": "Un démarrage qui explique ses erreurs : un FailureAnalyzer",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "META-INF/spring.factories": "# TODO\n",
+     "app/MissingSecretFailureAnalyzer.java": "package app;\n\n/** Transforme une MissingSecretException en un rapport de démarrage clair. */\npublic class MissingSecretFailureAnalyzer {\n    // TODO\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/MissingSecretException.java": "package app;\n\n/** Un secret obligatoire n'est pas configuré. Fourni : ne pas modifier. */\npublic class MissingSecretException extends RuntimeException {\n    private final String property;\n    private final String envVariable;\n\n    public MissingSecretException(String property, String envVariable) {\n        super(\"secret manquant : \" + property);\n        this.property = property;\n        this.envVariable = envVariable;\n    }\n\n    public String property() { return property; }\n\n    public String envVariable() { return envVariable; }\n}\n",
+     "app/PaymentGateway.java": "package app;\n\nimport org.springframework.beans.factory.annotation.Value;\nimport org.springframework.stereotype.Component;\n\n/** Exige sa clé d'API au démarrage. Fourni : ne pas modifier. */\n@Component\npublic class PaymentGateway {\n    public PaymentGateway(@Value(\"${tixa.payment.api-key:}\") String apiKey) {\n        if (apiKey.isBlank()) throw new MissingSecretException(\"tixa.payment.api-key\", \"TIXA_PAYMENT_APIKEY\");\n    }\n}\n",
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "tests/app/FailureAnalyzerTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.catchThrowable;\n\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.boot.diagnostics.FailureAnalysis;\nimport org.springframework.boot.diagnostics.FailureAnalyzer;\nimport org.springframework.core.io.support.SpringFactoriesLoader;\n\nclass FailureAnalyzerTest {\n\n    static Throwable startFailure(String... args) {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        return catchThrowable(() -> app.run(args).close());\n    }\n\n    static List<FailureAnalyzer> registeredAnalyzers() {\n        // Certains analyseurs de Spring Boot exigent une fabrique de beans en argument : on ignore ceux-là ici.\n        return SpringFactoriesLoader.forDefaultResourceLocation().load(FailureAnalyzer.class, (type, name, failure) -> { });\n    }\n\n    static FailureAnalysis analyzeWithRegistered(Throwable failure) {\n        for (FailureAnalyzer analyzer : registeredAnalyzers()) {\n            if (analyzer instanceof MissingSecretFailureAnalyzer) {\n                FailureAnalysis analysis = analyzer.analyze(failure);\n                if (analysis != null) return analysis;\n            }\n        }\n        return null;\n    }\n\n    @Test\n    @DisplayName(\"l'analyseur est enregistré dans spring.factories\")\n    void registered() {\n        assertThat(registeredAnalyzers()).as(\"analyseurs déclarés dans META-INF/spring.factories\")\n                .anyMatch(a -> a instanceof MissingSecretFailureAnalyzer);\n    }\n\n    @Test\n    @DisplayName(\"le vrai échec de démarrage est reconnu, même enveloppé par le conteneur\")\n    void recognizesWrappedFailure() {\n        Throwable failure = startFailure();\n        assertThat(failure).as(\"le démarrage sans clé doit échouer\").isNotNull();\n        FailureAnalysis analysis = analyzeWithRegistered(failure);\n        assertThat(analysis).as(\"analyse de l'échec réel (la MissingSecretException est une cause, pas l'exception levée)\").isNotNull();\n        assertThat(analysis.getCause()).as(\"cause de l'analyse\").isInstanceOf(MissingSecretException.class);\n    }\n\n    @Test\n    @DisplayName(\"la description nomme le secret, l'action donne la variable d'environnement\")\n    void messages() {\n        FailureAnalysis analysis = analyzeWithRegistered(startFailure());\n        assertThat(analysis).as(\"analyse\").isNotNull();\n        assertThat(analysis.getDescription()).as(\"description\").contains(\"tixa.payment.api-key\");\n        assertThat(analysis.getAction()).as(\"action\").contains(\"TIXA_PAYMENT_APIKEY\");\n    }\n\n    @Test\n    @DisplayName(\"une autre erreur n'est pas récupérée par cet analyseur\")\n    void ignoresOtherFailures() {\n        FailureAnalysis analysis = analyzeWithRegistered(new IllegalStateException(\"autre chose\"));\n        assertThat(analysis).as(\"analyse d'une IllegalStateException sans rapport\").isNull();\n    }\n\n    @Test\n    @DisplayName(\"avec la clé, l'application démarre\")\n    void startsWithKey() {\n        assertThat(startFailure(\"--tixa.payment.api-key=sk_test\")).as(\"échec avec une clé\").isNull();\n    }\n}\n"
+    }
+   },
+   "xp": 150
+  },
+  "name": "exercise:spring-ch03-assignment",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch03",
+   "checks": [],
+   "concepts": [
+    "spring-ch03-environment-post-processor",
+    "spring-ch03-spring-factories",
+    "spring-ch03-property-source-order",
+    "spring-ch03-config-file-order",
+    "spring-ch03-profiles-activation"
+   ],
+   "debrief": "",
+   "difficulty": 5,
+   "id": "spring-ch03-boss",
+   "instructions": "## Contexte\n\nEn production, Tixa tourne sur Kubernetes. Les secrets (clé d'API de paiement, mots de passe) ne sont ni dans `application.yml` (versionné) ni dans des variables d'environnement (visibles dans les outils d'exploitation) : ils sont **montés en fichiers** dans un dossier, un fichier par secret. Le nom du fichier est la propriété, son contenu est la valeur.\n\n`TixaApp` et `application.yml` (avec un document `prod`) sont fournis. Tu écris `SecretsLoader.java` et `META-INF/spring.factories`.\n\nPas d'indices pour ce combat : tout ce qu'il faut est dans les cinq leçons du module.\n\n## Les règles\n\n- Si `tixa.secrets-dir` est défini (par n'importe quelle source, y compris un document de profil, et avec ses placeholders résolus), chaque **fichier** de ce dossier devient une propriété : nom du fichier = nom de la propriété, contenu = valeur, **sans** les espaces et sauts de ligne de début et de fin.\n- Les fichiers cachés (dont le nom commence par `.`) sont ignorés : Kubernetes en crée.\n- Ces propriétés forment une source nommée `tixaSecrets`, placée **juste après** les variables d'environnement :\n  - la ligne de commande, les propriétés système et les variables d'environnement l'emportent sur un secret (pour dépanner) ;\n  - un secret l'emporte sur tous les fichiers de configuration, profils compris.\n- `tixa.secrets-dir` non défini : rien ne change, pas de source `tixaSecrets`.\n- Dossier défini mais introuvable : le démarrage échoue avec `IllegalStateException(\"dossier de secrets introuvable : <chemin>\")`.\n- `TixaApp` ne change pas.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "boss",
+   "rubric": [],
+   "source": null,
+   "title": "Boss : des secrets montés en fichiers, à la bonne place",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "META-INF/spring.factories": "",
+     "app/SecretsLoader.java": "package app;\n\npublic class SecretsLoader {\n}\n",
+     "application.yml": "tixa:\n  payment:\n    api-key: dev-key-not-secret\n    endpoint: https://sandbox.bank.example\n---\nspring:\n  config:\n    activate:\n      on-profile: prod\ntixa:\n  secrets-dir: ${tixa.secrets-root}/prod\n  payment:\n    endpoint: https://bank.example\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 0,
+    "passed": false,
+    "readonly": {
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "tests/app/SecretsTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.util.ArrayList;\nimport java.util.List;\n\nimport org.junit.jupiter.api.AfterEach;\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.context.ConfigurableApplicationContext;\n\nclass SecretsTest {\n\n    static ConfigurableApplicationContext start(String... args) {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        return app.run(args);\n    }\n\n    /** Un dossier de secrets : nom de fichier = propriété, contenu = valeur. */\n    static Path secrets(String... nameAndValue) throws Exception {\n        Path dir = Files.createTempDirectory(\"secrets\");\n        for (int i = 0; i < nameAndValue.length; i += 2) Files.writeString(dir.resolve(nameAndValue[i]), nameAndValue[i + 1]);\n        return dir;\n    }\n\n    @AfterEach\n    void cleanSystemProperties() {\n        System.clearProperty(\"tixa.payment.api-key\");\n    }\n\n    @Test\n    @DisplayName(\"sans dossier de secrets : la configuration de développement\")\n    void noSecrets() {\n        try (var ctx = start()) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.payment.api-key\")).as(\"clé sans secrets\").isEqualTo(\"dev-key-not-secret\");\n            assertThat(ctx.getEnvironment().getPropertySources().contains(\"tixaSecrets\")).as(\"source tixaSecrets sans dossier\").isFalse();\n        }\n    }\n\n    @Test\n    @DisplayName(\"un secret remplace la valeur de application.yml, sans son saut de ligne final\")\n    void secretOverridesConfigFile() throws Exception {\n        Path dir = secrets(\"tixa.payment.api-key\", \"sk_live_123\\n\");\n        try (var ctx = start(\"--tixa.secrets-dir=\" + dir)) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.payment.api-key\")).as(\"clé lue dans le secret\").isEqualTo(\"sk_live_123\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"la ligne de commande et les propriétés système l'emportent sur un secret\")\n    void overridesForTroubleshooting() throws Exception {\n        Path dir = secrets(\"tixa.payment.api-key\", \"sk_live_123\");\n        try (var ctx = start(\"--tixa.secrets-dir=\" + dir, \"--tixa.payment.api-key=sk_cli\")) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.payment.api-key\")).as(\"clé avec --tixa.payment.api-key\").isEqualTo(\"sk_cli\");\n        }\n        System.setProperty(\"tixa.payment.api-key\", \"sk_sysprop\");\n        try (var ctx = start(\"--tixa.secrets-dir=\" + dir)) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.payment.api-key\")).as(\"clé avec -Dtixa.payment.api-key\").isEqualTo(\"sk_sysprop\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"le dossier peut venir d'un profil, avec un placeholder\")\n    void dirFromProfile() throws Exception {\n        Path root = Files.createTempDirectory(\"root\");\n        Files.createDirectories(root.resolve(\"prod\"));\n        Files.writeString(root.resolve(\"prod/tixa.payment.api-key\"), \"sk_prod\");\n        try (var ctx = start(\"--spring.profiles.active=prod\", \"--tixa.secrets-root=\" + root)) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.payment.api-key\")).as(\"clé en prod\").isEqualTo(\"sk_prod\");\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.payment.endpoint\")).as(\"endpoint en prod\").isEqualTo(\"https://bank.example\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"les fichiers cachés du dossier sont ignorés\")\n    void hiddenFilesIgnored() throws Exception {\n        Path dir = secrets(\".tixa.payment.api-key\", \"piège\", \"tixa.payment.endpoint\", \"https://other.example\");\n        try (var ctx = start(\"--tixa.secrets-dir=\" + dir)) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.payment.api-key\")).as(\"clé (seul un fichier caché la définit)\").isEqualTo(\"dev-key-not-secret\");\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.payment.endpoint\")).as(\"endpoint lu dans le secret\").isEqualTo(\"https://other.example\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"la source des secrets passe juste après les variables d'environnement\")\n    void position() throws Exception {\n        Path dir = secrets(\"tixa.payment.api-key\", \"sk\");\n        try (var ctx = start(\"--tixa.secrets-dir=\" + dir)) {\n            List<String> names = new ArrayList<>();\n            ctx.getEnvironment().getPropertySources().forEach(ps -> names.add(ps.getName()));\n            assertThat(names.indexOf(\"tixaSecrets\")).as(\"position de tixaSecrets dans \" + names)\n                    .isEqualTo(names.indexOf(\"systemEnvironment\") + 1);\n        }\n    }\n\n    @Test\n    @DisplayName(\"un dossier de secrets introuvable fait échouer le démarrage\")\n    void missingDirFails() {\n        assertThatThrownBy(() -> start(\"--tixa.secrets-dir=/nulle/part\").close()).as(\"dossier introuvable\")\n                .hasStackTraceContaining(\"dossier de secrets introuvable : /nulle/part\");\n    }\n}\n"
+    }
+   },
+   "xp": 250
+  },
+  "name": "exercise:spring-ch03-boss",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch03",
+   "checks": [],
+   "concepts": [
+    "spring-ch03-run-steps",
+    "spring-ch03-startup-events",
+    "spring-ch03-runners"
+   ],
+   "debrief": "",
+   "difficulty": 2,
+   "id": "spring-ch03-l01-lab-warmup-timeline",
+   "instructions": "## Contexte\n\nTixa doit préchauffer son catalogue au démarrage, et l'exploitation veut voir, dans l'ordre, ce qui se passe entre `main()` et le moment où l'application accepte du trafic. Spring Boot publie un événement à chaque étape : il suffit de savoir les écouter, et **à partir de quand** on peut le faire.\n\nFournis : `TixaApp` (`@SpringBootApplication`), `Timeline` (un écouteur qui note les événements) et `LateListener`. Tu écris `Launcher.java` et `CatalogWarmUp.java`.\n\n## Ta tâche\n\n1. `Launcher.create(timeline)` renvoie une `SpringApplication` pour `TixaApp` :\n   - sans bannière, et **sans serveur web** (`WebApplicationType.NONE`) ;\n   - qui transmet **tous** les événements du démarrage à `timeline`, y compris le tout premier ;\n   - dont le contexte contient `timeline` comme bean, pour que d'autres beans puissent y écrire.\n2. `CatalogWarmUp` est un bean qui note `catalogue préchauffé` dans la timeline **une fois le contexte démarré, mais avant** que l'application soit déclarée prête.\n\n## Résultat attendu\n\n```\nApplicationStartingEvent, ApplicationEnvironmentPreparedEvent, ApplicationContextInitializedEvent,\nApplicationPreparedEvent, ContextRefreshedEvent, ApplicationStartedEvent,\ncatalogue préchauffé, ApplicationReadyEvent\n```\n\n## À observer\n\n`LateListener` est un `@Component` qui écoute `ApplicationStartingEvent`. Combien en reçoit-il ?\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch03-l01",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Échauffement : la chronologie d'un démarrage",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/CatalogWarmUp.java": "package app;\n\n/** Préchauffe le catalogue une fois le contexte prêt, avant que l'application n'accepte du trafic. */\npublic class CatalogWarmUp {\n    // TODO\n}\n",
+     "app/Launcher.java": "package app;\n\nimport org.springframework.boot.SpringApplication;\n\n/** Prépare le démarrage de Tixa. */\npublic final class Launcher {\n    private Launcher() { }\n\n    /** Une SpringApplication pour TixaApp : sans bannière, sans serveur web, et qui note tout dans timeline. */\n    public static SpringApplication create(Timeline timeline) {\n        throw new UnsupportedOperationException(\"Launcher.create\");\n    }\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/LateListener.java": "package app;\n\nimport org.springframework.boot.context.event.ApplicationStartingEvent;\nimport org.springframework.context.ApplicationListener;\nimport org.springframework.stereotype.Component;\n\n/** Un écouteur déclaré comme bean, pour le tout premier événement. Fourni : ne pas modifier. */\n@Component\npublic class LateListener implements ApplicationListener<ApplicationStartingEvent> {\n    public static int received;\n\n    @Override\n    public void onApplicationEvent(ApplicationStartingEvent event) { received++; }\n}\n",
+     "app/Timeline.java": "package app;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\nimport org.springframework.context.ApplicationEvent;\nimport org.springframework.context.ApplicationListener;\n\n/** Note le nom simple de chaque événement reçu, et tout ce qu'on lui signale. Fourni : ne pas modifier. */\npublic class Timeline implements ApplicationListener<ApplicationEvent> {\n    private final List<String> entries = new ArrayList<>();\n\n    @Override\n    public synchronized void onApplicationEvent(ApplicationEvent event) {\n        String name = event.getClass().getSimpleName();\n        if (name.startsWith(\"Application\") || name.equals(\"ContextRefreshedEvent\")) entries.add(name);\n    }\n\n    public synchronized void note(String entry) { entries.add(entry); }\n\n    public synchronized List<String> entries() { return List.copyOf(entries); }\n}\n",
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n/** L'application Tixa. Fourni : ne pas modifier. */\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "tests/app/TimelineTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.WebApplicationType;\n\nclass TimelineTest {\n\n    @Test\n    @DisplayName(\"la SpringApplication est configurée : sans serveur web, sans bannière\")\n    void configured() {\n        var app = Launcher.create(new Timeline());\n        assertThat(app.getWebApplicationType()).as(\"type d'application web\").isEqualTo(WebApplicationType.NONE);\n        assertThat(app.getListeners()).as(\"écouteurs de la SpringApplication (la timeline doit y être)\").anyMatch(l -> l instanceof Timeline);\n    }\n\n    @Test\n    @DisplayName(\"la timeline voit tout le démarrage, du premier au dernier événement\")\n    void fullTimeline() {\n        Timeline timeline = new Timeline();\n        try (var ctx = Launcher.create(timeline).run()) {\n            assertThat(timeline.entries()).as(\"chronologie du démarrage\").isEqualTo(List.of(\n                    \"ApplicationStartingEvent\", \"ApplicationEnvironmentPreparedEvent\", \"ApplicationContextInitializedEvent\",\n                    \"ApplicationPreparedEvent\", \"ContextRefreshedEvent\", \"ApplicationStartedEvent\",\n                    \"catalogue préchauffé\", \"ApplicationReadyEvent\"));\n        }\n    }\n\n    @Test\n    @DisplayName(\"un écouteur déclaré comme bean ne reçoit jamais ApplicationStartingEvent\")\n    void beanListenerTooLate() {\n        LateListener.received = 0;\n        try (var ctx = Launcher.create(new Timeline()).run()) {\n            assertThat(LateListener.received).as(\"ApplicationStartingEvent reçus par un @Component (il n'existe pas encore)\").isZero();\n        }\n    }\n}\n"
+    }
+   },
+   "xp": 40
+  },
+  "name": "exercise:spring-ch03-l01-lab-warmup-timeline",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch03",
+   "checks": [],
+   "concepts": [
+    "spring-ch03-property-source-order",
+    "spring-ch03-config-file-order",
+    "spring-ch03-config-import"
+   ],
+   "debrief": "",
+   "difficulty": 4,
+   "id": "spring-ch03-l02-lab-debug-ignored-tariff",
+   "instructions": "## Contexte\n\nMessage de l'équipe finance :\n\n> On a passé les frais de service à 1,80 € dans `fees.properties` il y a deux semaines, comme d'habitude. Les clients paient toujours un autre montant, et le support nous dit que la recette facture 9,99 € par place. En production, le contrat impose 2,00 €. On ne touche qu'à `fees.properties`, on n'y comprend plus rien.\n\nLes fichiers : `application.yml` (la configuration de l'application, avec un document pour le profil `prod`), `fees.properties` (la grille de la finance), `config/application.properties`, `app/PricingConfig.java` (qui charge la grille) et `app/FeeService.java` (qui lit les frais). Les tests rejouent les démarrages de recette et de production.\n\n## Ta mission\n\n1. Trouve **pourquoi** le tarif de `fees.properties` n'est pas appliqué. Il y a plus d'une cause.\n2. Corrige-les, pour que :\n   - sans profil : `180 EUR`, la grille de la finance ;\n   - avec le profil `prod` : `200 EUR` ;\n   - une option `--tixa.fee-cents=…` en ligne de commande l'emporte toujours.\n3. `fees.properties` doit rester **le seul fichier** que la finance modifie : le prochain changement de tarif doit s'appliquer sans toucher à autre chose.\n\nNe modifie pas les tests.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch03-l02",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Débogage : le nouveau tarif n'est jamais appliqué",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/FeeService.java": "package app;\n\nimport org.springframework.beans.factory.annotation.Value;\nimport org.springframework.stereotype.Service;\n\n/** Les frais de service facturés par place. */\n@Service\npublic class FeeService {\n    private final int feeCents;\n    private final String currency;\n\n    public FeeService(@Value(\"${tixa.fee-cents}\") int feeCents, @Value(\"${tixa.fee-currency}\") String currency) {\n        this.feeCents = feeCents;\n        this.currency = currency;\n    }\n\n    public String describe() { return feeCents + \" \" + currency; }\n}\n",
+     "app/PricingConfig.java": "package app;\n\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.context.annotation.PropertySource;\n\n/** Charge la grille tarifaire de l'équipe finance. */\n@Configuration\n@PropertySource(\"classpath:fees.properties\")\npublic class PricingConfig { }\n",
+     "application.yml": "tixa:\n  fee-cents: 150      # ancien tarif, gardé « en secours »\n  fee-currency: EUR\n---\nspring:\n  config:\n    activate:\n      on-profile: prod\ntixa:\n  fee-cents: 200      # tarif de production, fixé par contrat\n",
+     "config/application.properties": "# test local de Karim, 12 mars\ntixa.fee-cents=999\n",
+     "fees.properties": "# Grille tarifaire officielle, tenue par l'équipe finance (le seul fichier qu'elle modifie).\ntixa.fee-cents=180\ntixa.fee-currency=EUR\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "tests/app/TariffTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\n\n/** Le support rejoue les démarrages de recette et de production. */\nclass TariffTest {\n\n    static String feeWith(String... args) {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        try (var ctx = app.run(args)) {\n            return ctx.getBean(FeeService.class).describe();\n        }\n    }\n\n    @Test\n    @DisplayName(\"recette (aucun profil) : le tarif de la grille finance\")\n    void defaultTariff() {\n        assertThat(feeWith()).as(\"frais en recette\").isEqualTo(\"180 EUR\");\n    }\n\n    @Test\n    @DisplayName(\"production : le tarif contractuel\")\n    void prodTariff() {\n        assertThat(feeWith(\"--spring.profiles.active=prod\")).as(\"frais en production\").isEqualTo(\"200 EUR\");\n    }\n\n    @Test\n    @DisplayName(\"une option de ligne de commande l'emporte toujours (dépannage)\")\n    void commandLineWins() {\n        assertThat(feeWith(\"--spring.profiles.active=prod\", \"--tixa.fee-cents=50\")).as(\"frais avec --tixa.fee-cents=50\").isEqualTo(\"50 EUR\");\n    }\n}\n"
+    }
+   },
+   "xp": 90
+  },
+  "name": "exercise:spring-ch03-l02-lab-debug-ignored-tariff",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch03",
+   "checks": [],
+   "concepts": [
+    "spring-ch03-configuration-properties",
+    "spring-ch03-relaxed-binding",
+    "spring-ch03-config-validation"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch03-l03-lab-typed-config",
+   "instructions": "## Contexte\n\nAvec `@Value(\"${tixa.hold.timeout}\")`, une faute de frappe dans la clé, une durée écrite « 15 » au lieu de « 15m » ou un nombre de places à 50 ne se voient qu'en production. Tixa passe à une configuration **typée** : un `record` qui représente tout le préfixe `tixa`, lié et vérifié au démarrage.\n\n`HoldService` (qui l'utilise) est fourni. Tu complètes `TixaProperties.java` et `TixaApp.java`.\n\n## Ta tâche\n\n1. `TixaProperties` est lié au préfixe `tixa` et devient un bean, trouvé automatiquement dans le paquet de l'application.\n2. Valeurs par défaut, quand rien n'est configuré :\n\n| propriété | défaut |\n|---|---|\n| `tixa.currency` | `EUR` |\n| `tixa.notifiers` | liste vide (jamais `null`) |\n| `tixa.hold.timeout` | `15m` |\n| `tixa.hold.max-seats` | `6` |\n\n   `hold` n'est jamais `null`.\n3. Validation au démarrage, sinon l'application **refuse de démarrer** :\n   - `currency` : trois lettres majuscules ;\n   - `hold.max-seats` : entre 1 et 10 ;\n   - `hold.timeout` : présent.\n\nUne durée s'écrit `90s`, `15m`, `PT2H`… ; `tixa.hold.max-seats` et `tixa.hold.maxSeats` désignent la même propriété.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch03-l03",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Une configuration typée, qui refuse de démarrer si elle est fausse",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "app/TixaProperties.java": "package app;\n\nimport java.time.Duration;\nimport java.util.List;\n\n/** La configuration de Tixa (préfixe tixa). */\npublic record TixaProperties(String currency, List<String> notifiers, Hold hold) {\n\n    public record Hold(Duration timeout, int maxSeats) { }\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/HoldService.java": "package app;\n\nimport java.time.Duration;\n\nimport org.springframework.stereotype.Service;\n\n/** Utilise la configuration typée. Fourni : ne pas modifier. */\n@Service\npublic class HoldService {\n    private final TixaProperties props;\n\n    public HoldService(TixaProperties props) { this.props = props; }\n\n    public Duration holdTimeout() { return props.hold().timeout(); }\n\n    public int maxSeats() { return props.hold().maxSeats(); }\n}\n",
+     "tests/app/TypedConfigTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport java.time.Duration;\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.context.ConfigurableApplicationContext;\n\nclass TypedConfigTest {\n\n    static ConfigurableApplicationContext start(String... args) {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        return app.run(args);\n    }\n\n    @Test\n    @DisplayName(\"sans configuration : les valeurs par défaut\")\n    void defaults() {\n        try (var ctx = start()) {\n            TixaProperties p = ctx.getBean(TixaProperties.class);\n            assertThat(p.currency()).as(\"currency par défaut\").isEqualTo(\"EUR\");\n            assertThat(p.notifiers()).as(\"notifiers par défaut (liste vide, jamais null)\").isEqualTo(List.of());\n            assertThat(p.hold()).as(\"hold par défaut (jamais null)\").isNotNull();\n            assertThat(p.hold().timeout()).as(\"hold.timeout par défaut\").isEqualTo(Duration.ofMinutes(15));\n            assertThat(p.hold().maxSeats()).as(\"hold.max-seats par défaut\").isEqualTo(6);\n        }\n    }\n\n    @Test\n    @DisplayName(\"liaison : durées, listes et noms souples\")\n    void binding() {\n        try (var ctx = start(\"--tixa.currency=CHF\", \"--tixa.notifiers=email,sms\", \"--tixa.hold.timeout=90s\", \"--tixa.hold.maxSeats=4\")) {\n            TixaProperties p = ctx.getBean(TixaProperties.class);\n            assertThat(p.currency()).as(\"currency\").isEqualTo(\"CHF\");\n            assertThat(p.notifiers()).as(\"notifiers\").isEqualTo(List.of(\"email\", \"sms\"));\n            assertThat(ctx.getBean(HoldService.class).holdTimeout()).as(\"hold.timeout=90s\").isEqualTo(Duration.ofSeconds(90));\n            assertThat(ctx.getBean(HoldService.class).maxSeats()).as(\"hold.maxSeats=4 (forme camelCase)\").isEqualTo(4);\n        }\n    }\n\n    @Test\n    @DisplayName(\"une valeur hors limites fait échouer le démarrage\")\n    void invalidMaxSeats() {\n        assertThatThrownBy(() -> start(\"--tixa.hold.max-seats=50\").close()).as(\"tixa.hold.max-seats=50\")\n                .hasStackTraceContaining(\"tixa.hold.maxSeats\");\n    }\n\n    @Test\n    @DisplayName(\"une devise mal écrite fait échouer le démarrage\")\n    void invalidCurrency() {\n        assertThatThrownBy(() -> start(\"--tixa.currency=euro\").close()).as(\"tixa.currency=euro\")\n                .hasStackTraceContaining(\"tixa.currency\");\n    }\n\n    @Test\n    @DisplayName(\"une durée illisible fait échouer le démarrage\")\n    void unreadableDuration() {\n        assertThatThrownBy(() -> start(\"--tixa.hold.timeout=quinze minutes\").close()).as(\"tixa.hold.timeout illisible\")\n                .hasStackTraceContaining(\"tixa.hold.timeout\");\n    }\n}\n"
+    }
+   },
+   "xp": 70
+  },
+  "name": "exercise:spring-ch03-l03-lab-typed-config",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch03",
+   "checks": [],
+   "concepts": [
+    "spring-ch03-profiles-activation",
+    "spring-ch03-profile-beans",
+    "spring-ch03-profile-groups"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch03-l04-lab-bank-per-profile",
+   "instructions": "## Contexte\n\nEn développement, Tixa doit utiliser une banque factice ; en production, la vraie, qui exige son URL. L'environnement de recette (« staging ») est une copie de la production, mais branchée sur la région `us` de la banque. Aujourd'hui, les deux banques existent en même temps et l'application ne démarre pas.\n\n`BankClient` est fourni. Tu modifies `FakeBank.java`, `LiveBank.java` et `application.yml`.\n\n## Ta tâche\n\n| profils demandés | banque | région |\n|---|---|---|\n| aucun | `factice` | `eu` |\n| `prod` | `live` (URL obligatoire) | `eu` |\n| `staging` | `live` | `us` |\n| `us` | `factice` | `us` |\n\n- `staging` est un **groupe** : l'activer active `prod` et `us`, dans cet ordre.\n- Le profil `us` change seulement la région (`tixa.bank.region`), dans un document de `application.yml`.\n- En production sans `tixa.bank.url`, le démarrage doit **échouer**, jamais basculer en silence sur la banque factice.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch03-l04",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Une banque par environnement : @Profile et groupes de profils",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/FakeBank.java": "package app;\n\nimport org.springframework.stereotype.Component;\n\n/** Une banque simulée, qui accepte tout : pour le développement et les tests. */\n@Component\npublic class FakeBank implements BankClient {\n    public String describe() { return \"factice\"; }\n}\n",
+     "app/LiveBank.java": "package app;\n\nimport org.springframework.beans.factory.annotation.Value;\nimport org.springframework.stereotype.Component;\n\n/** La vraie banque : exige son URL et sa région. */\n@Component\npublic class LiveBank implements BankClient {\n    private final String url;\n    private final String region;\n\n    public LiveBank(@Value(\"${tixa.bank.url}\") String url, @Value(\"${tixa.bank.region}\") String region) {\n        this.url = url;\n        this.region = region;\n    }\n\n    public String describe() { return \"live \" + region + \" \" + url; }\n}\n",
+     "application.yml": "tixa:\n  bank:\n    region: eu\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/BankClient.java": "package app;\n\n/** Le prestataire de paiement. Fourni : ne pas modifier. */\npublic interface BankClient {\n    String describe();\n}\n",
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "tests/app/ProfilesTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.context.ConfigurableApplicationContext;\n\nclass ProfilesTest {\n\n    static ConfigurableApplicationContext start(String... args) {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        return app.run(args);\n    }\n\n    @Test\n    @DisplayName(\"sans profil : la banque factice, et aucune URL n'est exigée\")\n    void defaultIsFake() {\n        try (var ctx = start()) {\n            assertThat(ctx.getBean(BankClient.class).describe()).as(\"banque sans profil\").isEqualTo(\"factice\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"prod : la vraie banque, région eu\")\n    void prodIsLive() {\n        try (var ctx = start(\"--spring.profiles.active=prod\", \"--tixa.bank.url=https://bank.example\")) {\n            assertThat(ctx.getBean(BankClient.class).describe()).as(\"banque en prod\").isEqualTo(\"live eu https://bank.example\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"staging : un groupe qui active prod et us\")\n    void stagingGroup() {\n        try (var ctx = start(\"--spring.profiles.active=staging\", \"--tixa.bank.url=https://staging.example\")) {\n            assertThat(ctx.getEnvironment().getActiveProfiles()).as(\"profils actifs\").containsExactly(\"staging\", \"prod\", \"us\");\n            assertThat(ctx.getBean(BankClient.class).describe()).as(\"banque en staging\").isEqualTo(\"live us https://staging.example\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"us seul : la banque factice, région us dans la configuration\")\n    void usAlone() {\n        try (var ctx = start(\"--spring.profiles.active=us\")) {\n            assertThat(ctx.getBean(BankClient.class).describe()).as(\"banque avec us seul\").isEqualTo(\"factice\");\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.bank.region\")).as(\"tixa.bank.region avec us\").isEqualTo(\"us\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"prod sans URL : le démarrage échoue\")\n    void prodWithoutUrlFails() {\n        assertThatThrownBy(() -> start(\"--spring.profiles.active=prod\").close()).as(\"prod sans tixa.bank.url\")\n                .hasStackTraceContaining(\"tixa.bank.url\");\n    }\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:spring-ch03-l04-lab-bank-per-profile",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch03",
+   "checks": [],
+   "concepts": [
+    "spring-ch03-environment-post-processor",
+    "spring-ch03-spring-factories",
+    "spring-ch03-property-source-order"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch03-l05-lab-region-defaults",
+   "instructions": "## Contexte\n\nTixa ouvre aux États-Unis. Selon la région (`tixa.region`), la devise et le fuseau horaire changent. On ne veut pas dupliquer ces valeurs dans chaque fichier de configuration : elles doivent être des **valeurs par défaut** calculées au démarrage, qu'une configuration explicite peut toujours remplacer.\n\nIl faut agir **avant** la création du contexte, pendant que l'environnement se prépare : c'est le rôle d'un `EnvironmentPostProcessor`. `TixaApp` et `application.yml` (`tixa.region: eu`) sont fournis. Tu écris `RegionDefaults.java` et `META-INF/spring.factories`.\n\n## Ta tâche\n\n1. `RegionDefaults` implémente `org.springframework.boot.EnvironmentPostProcessor` (l'interface de Spring Boot 4). Selon `tixa.region` (déjà lue dans `application.yml`, les profils ou la ligne de commande), il ajoute une source de propriétés nommée `tixaRegionDefaults` :\n\n| région | `tixa.currency` | `tixa.time-zone` |\n|---|---|---|\n| `eu` | `EUR` | `Europe/Paris` |\n| `us` | `USD` | `America/New_York` |\n\n2. Cette source passe **après** toutes les sources de configuration (fichiers, profils, environnement, ligne de commande) : n'importe quelle valeur configurée l'emporte.\n3. Région inconnue : le démarrage échoue avec `IllegalStateException(\"région inconnue : mars (connues : eu, us)\")`.\n4. Enregistre `RegionDefaults` pour que Spring Boot le trouve sans qu'on modifie `TixaApp`.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch03-l05",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Un EnvironmentPostProcessor : des valeurs par défaut par région",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "META-INF/spring.factories": "# TODO : enregistrer RegionDefaults\n",
+     "app/RegionDefaults.java": "package app;\n\n/** Ajoute à l'environnement les valeurs par défaut de la région (tixa.region). */\npublic class RegionDefaults {\n    // TODO\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "application.yml": "tixa:\n  region: eu\n",
+     "tests/app/RegionDefaultsTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.context.ConfigurableApplicationContext;\n\nclass RegionDefaultsTest {\n\n    static ConfigurableApplicationContext start(String... args) {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        return app.run(args);\n    }\n\n    @Test\n    @DisplayName(\"région eu (application.yml) : EUR et Europe/Paris\")\n    void euDefaults() {\n        try (var ctx = start()) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.currency\")).as(\"tixa.currency en eu\").isEqualTo(\"EUR\");\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.time-zone\")).as(\"tixa.time-zone en eu\").isEqualTo(\"Europe/Paris\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"région us en ligne de commande : USD et America/New_York\")\n    void usDefaults() {\n        try (var ctx = start(\"--tixa.region=us\")) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.currency\")).as(\"tixa.currency en us\").isEqualTo(\"USD\");\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.time-zone\")).as(\"tixa.time-zone en us\").isEqualTo(\"America/New_York\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"une valeur configurée ailleurs l'emporte toujours sur le défaut de région\")\n    void anyOtherSourceWins() {\n        try (var ctx = start(\"--tixa.region=us\", \"--tixa.currency=CAD\")) {\n            assertThat(ctx.getEnvironment().getProperty(\"tixa.currency\")).as(\"tixa.currency=CAD en us\").isEqualTo(\"CAD\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"les défauts de région passent après les fichiers de configuration\")\n    void afterConfigFiles() {\n        try (var ctx = start()) {\n            List<String> names = new ArrayList<>();\n            ctx.getEnvironment().getPropertySources().forEach(ps -> names.add(ps.getName()));\n            int region = names.indexOf(\"tixaRegionDefaults\");\n            assertThat(region).as(\"position de tixaRegionDefaults dans \" + names).isGreaterThanOrEqualTo(0);\n            for (int i = 0; i < names.size(); i++) {\n                if (names.get(i).startsWith(\"Config resource\") || names.get(i).equals(\"systemEnvironment\")) {\n                    assertThat(i).as(\"la source \" + names.get(i) + \" doit passer avant tixaRegionDefaults\").isLessThan(region);\n                }\n            }\n        }\n    }\n\n    @Test\n    @DisplayName(\"une région inconnue fait échouer le démarrage, avec un message clair\")\n    void unknownRegionFails() {\n        assertThatThrownBy(() -> start(\"--tixa.region=mars\").close()).as(\"tixa.region=mars\")\n                .hasStackTraceContaining(\"région inconnue : mars (connues : eu, us)\");\n    }\n}\n"
+    }
+   },
+   "xp": 70
+  },
+  "name": "exercise:spring-ch03-l05-lab-region-defaults",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch03",
+   "checks": [],
+   "concepts": [
+    "spring-ch03-configuration-properties",
+    "spring-ch03-config-validation",
+    "spring-ch03-profile-beans",
+    "spring-ch03-profile-groups",
+    "spring-ch03-runners",
+    "spring-ch03-startup-events"
+   ],
+   "debrief": "",
+   "difficulty": 4,
+   "id": "spring-ch03-project",
+   "instructions": "## Contexte\n\nJusqu'ici, Tixa se lançait à la main, avec des valeurs en dur. Ce jalon en fait une vraie application Spring Boot : configurable, différente selon l'environnement, et qui refuse de démarrer quand il lui manque quelque chose.\n\nFournis : `Bank` (l'interface du prestataire) et `StartupLog`. Tu modifies `TixaApp`, `TixaProperties`, `Banks`, `StartupCheck` et `application.yml`. Tests par jalon : `jboot M1`, `M2`, `M3`.\n\n## M1 — La configuration typée\n\n`TixaProperties` est lié au préfixe `tixa` et trouvé automatiquement :\n- `tixa.fee-cents` : 150 par défaut, jamais négatif (sinon le démarrage échoue) ;\n- `tixa.hold-timeout` : `15m` par défaut ;\n- `tixa.bank-url` : sans défaut.\n\n## M2 — Une banque par environnement\n\nDans `Banks` (une classe `@Configuration`), deux beans `Bank` :\n- hors du profil `prod` : une banque `factice`, qui répond toujours ;\n- avec `prod` : une banque `live <url>`, qui répond si l'URL commence par `https://`. Sans `tixa.bank-url`, le démarrage échoue avec `tixa.bank-url est obligatoire en production`.\n\nDans `application.yml` : en `prod`, les frais passent à **200** ; le profil `staging` est un groupe qui active `prod`.\n\n## M3 — Un démarrage qui se vérifie\n\n`StartupCheck` :\n- **avant** que l'application soit déclarée prête, vérifie la banque (`ping()`) : si elle ne répond pas, le démarrage échoue avec `la banque ne répond pas : <nom>` ; sinon il note `banque joignable : <nom>` dans `StartupLog` ;\n- **quand** l'application est prête, note `Tixa prêt (<profils actifs, ou default>, frais <frais>)`.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [
+    {
+     "goal": "TixaProperties est lié au préfixe tixa avec ses valeurs par défaut, et des frais négatifs font échouer le démarrage.",
+     "id": "m1",
+     "review": false,
+     "tests": "jboot M1",
+     "title": "La configuration typée"
+    },
+    {
+     "goal": "Banque factice hors production, vraie banque en prod (URL obligatoire), frais contractuels de 200 en prod, et staging active prod.",
+     "id": "m2",
+     "review": false,
+     "tests": "jboot M2",
+     "title": "Une banque par environnement"
+    },
+    {
+     "goal": "Un runner vérifie la banque avant que l'application soit prête et fait échouer le démarrage sinon ; à ApplicationReadyEvent, un message résume l'état.",
+     "id": "m3",
+     "review": true,
+     "tests": "jboot M3",
+     "title": "Un démarrage qui se vérifie"
+    }
+   ],
+   "palette": [],
+   "role": "project",
+   "rubric": [],
+   "source": null,
+   "title": "Tixa, jalon 3 : une application Spring Boot configurable",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/Banks.java": "package app;\n\n/** M2 — les deux prestataires : un faux pour le développement, le vrai pour la production. */\npublic final class Banks {\n    private Banks() { }\n    // TODO (M2) : FakeBank (« factice », répond toujours) et LiveBank (« live <url> », répond si l'URL commence par https://)\n}\n",
+     "app/StartupCheck.java": "package app;\n\n/** M3 — contrôle de démarrage et message de fin de démarrage. */\npublic class StartupCheck {\n    // TODO (M3)\n}\n",
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "app/TixaProperties.java": "package app;\n\nimport java.time.Duration;\n\n/** M1 — la configuration de Tixa (préfixe tixa). */\npublic record TixaProperties(int feeCents, Duration holdTimeout, String bankUrl) { }\n",
+     "application.yml": "# TODO (M2)\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/Bank.java": "package app;\n\n/** Le prestataire de paiement. Fourni : ne pas modifier. */\npublic interface Bank {\n    String name();\n\n    /** Vrai si le prestataire répond. */\n    boolean ping();\n}\n",
+     "app/StartupLog.java": "package app;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\nimport org.springframework.stereotype.Component;\n\n/** Ce que l'exploitation lit après un déploiement. Fourni : ne pas modifier. */\n@Component\npublic class StartupLog {\n    private final List<String> lines = new ArrayList<>();\n\n    public synchronized void add(String line) { lines.add(line); }\n\n    public synchronized List<String> lines() { return List.copyOf(lines); }\n}\n",
+     "tests/app/M1ConfigTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport java.time.Duration;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\n\nclass M1ConfigTest {\n\n    @Test\n    @DisplayName(\"M1 — valeurs par défaut : frais 150, réservation 15 min\")\n    void defaults() {\n        try (var ctx = Tixa.start()) {\n            TixaProperties p = ctx.getBean(TixaProperties.class);\n            assertThat(p.feeCents()).as(\"tixa.fee-cents par défaut\").isEqualTo(150);\n            assertThat(p.holdTimeout()).as(\"tixa.hold-timeout par défaut\").isEqualTo(Duration.ofMinutes(15));\n        }\n    }\n\n    @Test\n    @DisplayName(\"M1 — liaison et conversion des durées\")\n    void binding() {\n        try (var ctx = Tixa.start(\"--tixa.fee-cents=90\", \"--tixa.hold-timeout=2m\")) {\n            TixaProperties p = ctx.getBean(TixaProperties.class);\n            assertThat(p.feeCents()).as(\"tixa.fee-cents\").isEqualTo(90);\n            assertThat(p.holdTimeout()).as(\"tixa.hold-timeout=2m\").isEqualTo(Duration.ofMinutes(2));\n        }\n    }\n\n    @Test\n    @DisplayName(\"M1 — des frais négatifs font échouer le démarrage\")\n    void negativeFee() {\n        assertThatThrownBy(() -> Tixa.start(\"--tixa.fee-cents=-1\").close()).as(\"tixa.fee-cents=-1\").hasStackTraceContaining(\"tixa.feeCents\");\n    }\n}\n",
+     "tests/app/M2ProfilesTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\n\nclass M2ProfilesTest {\n\n    @Test\n    @DisplayName(\"M2 — sans profil : banque factice\")\n    void devBank() {\n        try (var ctx = Tixa.start()) {\n            assertThat(ctx.getBean(Bank.class).name()).as(\"banque sans profil\").isEqualTo(\"factice\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"M2 — prod : vraie banque et frais contractuels de 200\")\n    void prod() {\n        try (var ctx = Tixa.start(\"--spring.profiles.active=prod\", \"--tixa.bank-url=https://bank.example\")) {\n            assertThat(ctx.getBean(Bank.class).name()).as(\"banque en prod\").isEqualTo(\"live https://bank.example\");\n            assertThat(ctx.getBean(TixaProperties.class).feeCents()).as(\"frais en prod\").isEqualTo(200);\n        }\n    }\n\n    @Test\n    @DisplayName(\"M2 — staging active prod\")\n    void staging() {\n        try (var ctx = Tixa.start(\"--spring.profiles.active=staging\", \"--tixa.bank-url=https://staging.example\")) {\n            assertThat(ctx.getBean(Bank.class).name()).as(\"banque en staging\").isEqualTo(\"live https://staging.example\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"M2 — prod sans URL de banque : le démarrage échoue\")\n    void prodWithoutUrl() {\n        assertThatThrownBy(() -> Tixa.start(\"--spring.profiles.active=prod\").close()).as(\"prod sans tixa.bank-url\")\n                .hasStackTraceContaining(\"tixa.bank-url est obligatoire en production\");\n    }\n}\n",
+     "tests/app/M3StartupTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\n\nclass M3StartupTest {\n\n    @Test\n    @DisplayName(\"M3 — le contrôle de la banque passe avant le message « prêt »\")\n    void readyAfterCheck() {\n        try (var ctx = Tixa.start()) {\n            assertThat(ctx.getBean(StartupLog.class).lines()).as(\"journal de démarrage\")\n                    .containsExactly(\"banque joignable : factice\", \"Tixa prêt (default, frais 150)\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"M3 — en prod, le message donne le profil et les frais\")\n    void readyInProd() {\n        try (var ctx = Tixa.start(\"--spring.profiles.active=prod\", \"--tixa.bank-url=https://bank.example\")) {\n            assertThat(ctx.getBean(StartupLog.class).lines()).as(\"journal de démarrage\")\n                    .containsExactly(\"banque joignable : live https://bank.example\", \"Tixa prêt (prod, frais 200)\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"M3 — une banque injoignable fait échouer le démarrage\")\n    void unreachableBankFails() {\n        assertThatThrownBy(() -> Tixa.start(\"--spring.profiles.active=prod\", \"--tixa.bank-url=http://insecure.example\").close())\n                .as(\"prod avec une URL http\").hasStackTraceContaining(\"la banque ne répond pas : live http://insecure.example\");\n    }\n}\n",
+     "tests/app/Tixa.java": "package app;\n\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.context.ConfigurableApplicationContext;\n\nfinal class Tixa {\n    private Tixa() { }\n\n    static ConfigurableApplicationContext start(String... args) {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        return app.run(args);\n    }\n}\n"
+    }
+   },
+   "xp": 300
+  },
+  "name": "exercise:spring-ch03-project",
+  "status": 200
+ },
+ {
+  "body": {
    "chapter_id": "ts-ch00",
    "checks": [],
    "concepts": [
@@ -97113,8 +98783,23 @@
         "title": "AOP et proxies"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch03",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "spring-ch03",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 24,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "03-boot-startup",
+        "subtitle": "SpringApplication.run, l'Environment et ses sources, @ConfigurationProperties, profils, EnvironmentPostProcessor et jar exécutable",
         "title": "Le démarrage de Spring Boot"
        },
        {
@@ -98234,6 +99919,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 27,
+     "score": 0,
+     "unlocked": false
+    },
+    "spring-ch03": {
+     "chapter_id": "spring-ch03",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 24,
      "score": 0,
      "unlocked": false
     },

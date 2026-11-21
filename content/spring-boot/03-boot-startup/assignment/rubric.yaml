@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: report-quality
+    label: "Qualité du rapport pour la personne de garde"
+    weight: 0.35
+    source: ai
+    levels:
+      4: "Description qui dit ce qui manque et sa conséquence ; action exécutable (nom exact de la variable, où la définir) ; rappel de ne pas versionner le secret ; aucune valeur sensible affichée"
+      2: "Nomme la propriété mais l'action reste vague (« vérifiez la configuration »)"
+      0: "Recopie le message de l'exception, ou affiche une valeur de secret"
+  - id: design
+    label: "Conception"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "AbstractFailureAnalyzer typé, qui trouve la cause dans la chaîne sans parcours manuel ; enregistrement dans spring.factories, aucun bean"
+      2: "Parcours manuel des causes, ou analyse trop large (toute RuntimeException)"
+      0: "Analyseur déclaré comme bean (jamais appelé) ou attrape l'exception dans le code métier"
