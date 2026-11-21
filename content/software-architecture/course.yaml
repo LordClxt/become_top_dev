@@ -6,6 +6,7 @@ book:
   slug: software-architecture
 summary: "Raisonner en trade-offs : caractéristiques, styles, décisions et risques. Des katas et des diagrammes corrigés pas à pas, et archkit, une boîte à outils TypeScript qui mesure et protège l'architecture."
 order: 3
+paused: true   # en pause : focus Java efficace + Systèmes de données (plan d'apprentissage)
 kind: conceptual
 language: typescript        # projets archkit (métriques, fitness functions, simulateurs de styles)
 pilot: "02-characteristics"

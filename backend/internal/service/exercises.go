@@ -188,6 +188,9 @@ func (s *Service) Sandbox(ctx context.Context, uid int64) ([]SandboxItem, error)
 	out := []SandboxItem{}
 	for _, id := range s.Content.Sandbox {
 		ex := s.Content.Exercises[id]
+		if s.Content.Courses[ex.CourseID].Paused {
+			continue
+		}
 		p := progress[id]
 		out = append(out, SandboxItem{
 			ID: ex.ID, Title: ex.Title, Kind: ex.Kind, Difficulty: ex.Difficulty, XP: ex.XP,

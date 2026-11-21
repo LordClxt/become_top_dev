@@ -6,6 +6,7 @@ book:
   slug: effective-typescript
 summary: "Les 83 règles de Vanderkam, mises en pratique avec TypeScript 5.x : le système de types comme ensembles de valeurs, l'inférence, la conception de types, any et l'unsoundness, les génériques, puis l'outillage et la migration."
 order: 5
+paused: true   # en pause : focus Java efficace + Systèmes de données (plan d'apprentissage)
 kind: practical
 language: typescript
 runtime: "node24-tsc"   # le livre s'arrête à TypeScript 5.4 : satisfies, erasableSyntaxOnly, Node type stripping… sont signalés en `extra`.

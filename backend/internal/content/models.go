@@ -306,7 +306,8 @@ type Course struct {
 	Book           *Book               `yaml:"book"`
 	Books          []Book              `yaml:"books"` // livres complémentaires (cours construit sur plusieurs livres)
 	Summary        string              `yaml:"summary"`
-	Order          *int                `yaml:"order"` // position dans le catalogue (100 par défaut)
+	Order          *int                `yaml:"order"`  // position dans le catalogue (100 par défaut)
+	Paused         bool                `yaml:"paused"` // masqué du catalogue, de l'accueil, des révisions et de l'atelier (contenu conservé)
 	RunningProject *RunningProject     `yaml:"running_project"`
 	Requires       []CourseRequirement `yaml:"requires"`
 	Tracks         []Track             `yaml:"tracks"`

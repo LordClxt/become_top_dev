@@ -56,10 +56,13 @@ type CourseOverview struct {
 	Tracks         []TrackView             `json:"tracks"`
 }
 
+// orderedCourses renvoie les cours actifs (sans les cours en pause), dans l'ordre du catalogue.
 func (s *Service) orderedCourses() []*content.Course {
 	out := make([]*content.Course, 0, len(s.Content.CourseOrder))
 	for _, id := range s.Content.CourseOrder {
-		out = append(out, s.Content.Courses[id])
+		if c := s.Content.Courses[id]; !c.Paused {
+			out = append(out, c)
+		}
 	}
 	sort.SliceStable(out, func(i, j int) bool { return *out[i].Order < *out[j].Order })
 	return out
