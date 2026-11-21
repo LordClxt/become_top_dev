@@ -382,8 +382,11 @@
         "title": "Le conteneur sous le capot"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch02",
+        "lesson_count": 5,
         "slug": "02-aop-proxies",
+        "subtitle": "Proxies JDK et CGLIB, advisors, @Aspect, auto-invocation, règles d'annulation et ordre des aspects, avec le @Retryable de Spring 7",
         "title": "AOP et proxies"
        },
        {
@@ -1317,8 +1320,23 @@
         "title": "Le conteneur sous le capot"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch02",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "spring-ch02",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 27,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "02-aop-proxies",
+        "subtitle": "Proxies JDK et CGLIB, advisors, @Aspect, auto-invocation, règles d'annulation et ordre des aspects, avec le @Retryable de Spring 7",
         "title": "AOP et proxies"
        },
        {
@@ -2078,6 +2096,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 31,
+     "score": 0,
+     "unlocked": false
+    },
+    "spring-ch02": {
+     "chapter_id": "spring-ch02",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 27,
      "score": 0,
      "unlocked": false
     },
@@ -6961,6 +6991,156 @@
    "title": "Le conteneur sous le capot"
   },
   "name": "chapter:spring-ch01",
+  "status": 200
+ },
+ {
+  "body": {
+   "assignment": {
+    "difficulty": 4,
+    "id": "spring-ch02-assignment",
+    "passed": false,
+    "role": "assignment",
+    "title": "Un aspect d'idempotence : jamais deux débits pour une commande",
+    "xp": 150
+   },
+   "boss": {
+    "difficulty": 5,
+    "id": "spring-ch02-boss",
+    "passed": false,
+    "role": "boss",
+    "title": "Boss : écrire son propre @Transactional",
+    "xp": 250
+   },
+   "course": {
+    "id": "spring",
+    "title": "Spring Boot sous le capot"
+   },
+   "id": "spring-ch02",
+   "lessons": [
+    {
+     "completed": false,
+     "duration_min": 30,
+     "id": "spring-ch02-l01",
+     "labs": [
+      {
+       "difficulty": 2,
+       "id": "spring-ch02-l01-lab-warmup-timing-proxy",
+       "passed": false,
+       "role": "lab",
+       "title": "Échauffement : un proxy qui mesure, avec ProxyFactory",
+       "xp": 40
+      }
+     ],
+     "title": "Deux façons de se faire passer pour un objet : proxy JDK et CGLIB",
+     "xp": 25
+    },
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch02-l02",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch02-l02-lab-retry-advisor",
+       "passed": false,
+       "role": "lab",
+       "title": "Un advisor qui réessaie, au bon endroit de la chaîne",
+       "xp": 70
+      }
+     ],
+     "title": "Advice, pointcut, advisor : la chaîne d'intercepteurs",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch02-l03",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch02-l03-lab-timed-aspect",
+       "passed": false,
+       "role": "lab",
+       "title": "Un @Aspect qui mesure les méthodes @Timed",
+       "xp": 60
+      }
+     ],
+     "title": "@Aspect : des advisors écrits comme des méthodes",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch02-l04",
+     "labs": [
+      {
+       "difficulty": 4,
+       "id": "spring-ch02-l04-lab-debug-sold-unpaid",
+       "passed": false,
+       "role": "lab",
+       "title": "Débogage : des places vendues sans paiement",
+       "xp": 90
+      }
+     ],
+     "title": "Le piège de l'auto-invocation, et les règles d'annulation",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch02-l05",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch02-l05-lab-aspect-order",
+       "passed": false,
+       "role": "lab",
+       "title": "Trois aspects, un seul bon ordre",
+       "xp": 70
+      }
+     ],
+     "title": "Plusieurs aspects sur une méthode : qui enveloppe qui ?",
+     "xp": 30
+    }
+   ],
+   "mastery": {
+    "chapter_id": "spring-ch02",
+    "labs_passed": 0,
+    "labs_total": 5,
+    "lessons_done": 0,
+    "lessons_total": 5,
+    "mastered": false,
+    "quiz_correct": 0,
+    "quiz_total": 27,
+    "score": 0,
+    "unlocked": false
+   },
+   "mastery_threshold": 0.8,
+   "objectives": [
+    "Prédire si un bean sera proxifié par le JDK ou par CGLIB, et ce que ce proxy ne pourra pas intercepter (final, private, champs)",
+    "Construire une chaîne d'intercepteurs avec ProxyFactory et des advisors, et choisir l'ordre selon ce qu'on veut mesurer",
+    "Écrire un @Aspect qui lie annotations et arguments, et expliquer quel post-processor le transforme en proxy",
+    "Diagnostiquer un @Transactional ignoré (auto-invocation, exception vérifiée) et le corriger durablement",
+    "Ordonner plusieurs aspects, et placer un audit, une métrique et un retry de Spring 7 pour qu'ils mesurent ce qu'on attend"
+   ],
+   "project": {
+    "difficulty": 4,
+    "id": "spring-ch02-project",
+    "passed": false,
+    "role": "project",
+    "title": "Tixa, jalon 2 : audit et paiements qui résistent aux pannes",
+    "xp": 300
+   },
+   "source": {
+    "book": "spring-docs",
+    "chapter": 20,
+    "pages": "#aop-understanding-aop-proxies",
+    "url": "https://docs.spring.io/spring-framework/reference/core/aop/proxying.html"
+   },
+   "subtitle": "Proxies JDK et CGLIB, advisors, @Aspect, auto-invocation, règles d'annulation et ordre des aspects, avec le @Retryable de Spring 7",
+   "title": "AOP et proxies"
+  },
+  "name": "chapter:spring-ch02",
   "status": 200
  },
  {
@@ -27378,6 +27558,751 @@
  },
  {
   "body": {
+   "body": "\n## Pourquoi c'est important\n\nLe module 01 l'a montré : `@Transactional`, `@Async`, `@Cacheable` et `@Retryable` ne contiennent aucun code. Un post-processor remplace ton bean par un **proxy**, qui ajoute le comportement autour de chaque appel. Presque toutes les surprises de Spring en production viennent de là : une transaction qui ne s'ouvre pas, un `ClassCastException` sur `$Proxy42`, une méthode `final` qui « ignore » son annotation, un champ qui vaut `null` alors qu'il a été rempli.\n\nPour les prédire, il faut savoir **comment** un proxy se fait passer pour ton objet. Java en offre deux façons, et Spring utilise les deux.\n\n## Le proxy JDK : un frère qui porte la même interface\n\nLe JDK sait fabriquer, à l'exécution, une classe qui **implémente des interfaces** et renvoie chaque appel vers un `InvocationHandler` (`java.lang.reflect.Proxy`, module 01). Ce proxy est un **frère** de la cible : même interface, aucune parenté de classe.\n\n::checkpoint{id=\"c1\"}\n\nConséquence : le proxy n'est utilisable que par l'interface. Un bean injecté par sa classe concrète (`MemoryCatalog`) ne trouve plus aucun candidat.\n\n## Le proxy CGLIB : un fils qui redéfinit les méthodes\n\nSans interface, Spring génère une **sous-classe** de la cible, avec CGLIB (une bibliothèque de génération de bytecode que Spring embarque dans `spring-core`). Chaque méthode redéfinissable est redéfinie pour passer par les comportements ajoutés, puis appeler la vraie cible.\n\n::checkpoint{id=\"c2\"}\n\nSpring instancie cette sous-classe avec **Objenesis**, sans appeler ton constructeur : la cible, elle, a déjà été construite normalement. La documentation le précise : *the constructor of your proxied object will not be called twice*.\n\n## Choisir : ProxyFactory\n\n`ProxyFactory` est l'outil de Spring qui fabrique un proxy à partir d'une cible et de comportements :\n\n```java\nProxyFactory factory = new ProxyFactory(target);\nfactory.addAdvice((MethodInterceptor) invocation -> {\n    long start = System.nanoTime();\n    try {\n        return invocation.proceed();          // appelle la cible (ou le comportement suivant)\n    } finally {\n        System.out.println(invocation.getMethod().getName() + \" : \" + (System.nanoTime() - start) + \" ns\");\n    }\n});\nObject proxy = factory.getProxy();\n```\n\nSa règle par défaut : **JDK si la cible implémente au moins une interface, CGLIB sinon**. `setProxyTargetClass(true)` force CGLIB. Spring Boot, lui, force CGLIB pour toute son AOP (`spring.aop.proxy-target-class=true`, module 01) : l'injection par classe concrète continue de marcher.\n\n::visual{id=\"spring-ch02-two-proxies\"}\n\n> **Sous le capot :** `ProxyFactory` délègue à `DefaultAopProxyFactory`, qui décide : si `proxyTargetClass` est vrai, ou si la cible n'a pas d'interface utilisable, il crée un `ObjenesisCglibAopProxy` ; sinon un `JdkDynamicAopProxy`. Les deux exécutent la même chaîne de comportements, construite à l'appel (leçon 2).\n\n## Ce qu'une sous-classe ne peut pas faire\n\nUn proxy CGLIB n'est qu'une sous-classe : il est soumis aux règles de l'héritage Java. La documentation de Spring les liste :\n- une classe **`final`** ne peut pas être proxifiée du tout ;\n- une méthode **`final`** ou **`private`** ne peut pas être redéfinie : l'appel va directement à la méthode de la classe mère, sans aucun comportement ajouté. Pas d'erreur, pas d'avertissement ;\n- une méthode package-private d'une classe mère d'un **autre paquet** est, pour la sous-classe, comme privée.\n\nEt une dernière, moins connue : **le proxy a ses propres champs**. Ils existent (c'est une sous-classe), mais ne sont jamais remplis, puisque le constructeur n'est pas appelé. Seules les **méthodes** sont déléguées à la cible :\n\n::checkpoint{id=\"c3\"}\n\n> **Attention :** les classes Kotlin sont `final` par défaut ; les projets Spring les ouvrent avec le plugin Kotlin `kotlin-spring` (une configuration de `allopen`) pour les classes qui portent des annotations Spring. En Java, le piège classique est un `record` (toujours `final`) ou une classe `final` qui porte `@Transactional` : CGLIB ne peut pas en faire une sous-classe, et le démarrage échoue.\n\n## Pièges fréquents\n\n- **Injecter ou caster par la classe concrète** un bean proxifié par le JDK : `BeanNotOfRequiredTypeException` ou `ClassCastException` sur `$Proxy…`.\n- **Une méthode `final` ou `private` annotée** `@Transactional`, `@Async`… : l'annotation est ignorée en silence.\n- **Lire ou écrire un champ public** d'un bean proxifié : ce sont les champs du proxy, vides.\n- **Une classe `final`** proxifiée : le démarrage échoue.\n\n## À retenir\n\n- Proxy JDK = **frère** (mêmes interfaces) ; proxy CGLIB = **fils** (sous-classe générée).\n- `ProxyFactory` choisit JDK si la cible a des interfaces, CGLIB sinon ; Spring Boot force CGLIB.\n- Un proxy CGLIB ne voit ni les méthodes `final`, ni les `private`, et ses champs ne sont pas ceux de la cible.\n- Le constructeur de la cible n'est pas rappelé : Spring instancie le proxy avec Objenesis.\n\n> **Source :** Spring Framework 7.0, [Proxying Mechanisms](https://docs.spring.io/spring-framework/reference/core/aop/proxying.html) et [Using the ProxyFactory to Create AOP Proxies Programmatically](https://docs.spring.io/spring-framework/reference/core/aop-api/prog.html) ; code de [`DefaultAopProxyFactory`](https://github.com/spring-projects/spring-framework/blob/v7.0.11/spring-aop/src/main/java/org/springframework/aop/framework/DefaultAopProxyFactory.java) (v7.0.11).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch02",
+    "title": "AOP et proxies"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.aop.framework.ProxyFactory;\nimport org.springframework.aop.support.AopUtils;\n\npublic class Main {\n    interface Catalog { String find(String id); }\n    static class MemoryCatalog implements Catalog { public String find(String id) { return \"événement \" + id; } }\n\n    public static void main(String[] args) {\n        Object proxy = new ProxyFactory(new MemoryCatalog()).getProxy();\n        System.out.println(AopUtils.isJdkDynamicProxy(proxy) + \" \"\n                + (proxy instanceof Catalog) + \" \" + (proxy instanceof MemoryCatalog));\n    }\n}\n",
+     "id": "c1",
+     "prompt": "La cible implémente une interface. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.aop.framework.ProxyFactory;\n\npublic class Main {\n    static class Prices {\n        static int created;\n        Prices() { created++; }\n        public int total(int base, int seats) { return base * seats; }\n    }\n\n    public static void main(String[] args) {\n        Prices target = new Prices();\n        Prices proxy = (Prices) new ProxyFactory(target).getProxy();\n        System.out.println(Prices.created + \" \" + proxy.total(10, 3) + \" \" + proxy.getClass().getSimpleName());\n    }\n}\n",
+     "id": "c2",
+     "prompt": "La cible n'a pas d'interface : le proxy est une sous-classe. Combien de fois le constructeur est-il appelé ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.aop.framework.ProxyFactory;\n\npublic class Main {\n    static class Locker {\n        public int failures;\n        public int failures() { return failures; }\n    }\n\n    public static void main(String[] args) {\n        Locker proxy = (Locker) new ProxyFactory(new Locker()).getProxy();\n        proxy.failures = 2;\n        System.out.println(proxy.failures + \" \" + proxy.failures());\n    }\n}\n",
+     "id": "c3",
+     "prompt": "On modifie un champ public… sur le proxy. Qu'affiche le programme ?",
+     "type": "code-output"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch02-jdk-vs-cglib",
+     "label": "Un proxy JDK implémente les interfaces de la cible (c'est un frère) ; un proxy CGLIB est une sous-classe générée (c'est un fils)"
+    },
+    {
+     "id": "spring-ch02-proxy-factory",
+     "label": "ProxyFactory fabrique un proxy à partir d'une cible et de comportements (advice) ; il choisit JDK si la cible a des interfaces, CGLIB sinon"
+    },
+    {
+     "id": "spring-ch02-final-limit",
+     "label": "Une sous-classe ne redéfinit ni une classe final, ni une méthode final ou private : ces appels échappent au proxy ; et les champs du proxy ne sont pas ceux de la cible"
+    }
+   ],
+   "duration_min": 30,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "JDK = frère qui implémente les mêmes interfaces ; CGLIB = fils, sous-classe générée.",
+     "concept": "spring-ch02-jdk-vs-cglib",
+     "front": "Proxy JDK ou CGLIB : la différence en un mot ?",
+     "id": "fc1"
+    },
+    {
+     "back": "JDK si la cible a au moins une interface, CGLIB sinon ; setProxyTargetClass(true) force CGLIB (choix de Spring Boot).",
+     "concept": "spring-ch02-proxy-factory",
+     "front": "Règle par défaut de ProxyFactory ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Les méthodes final et private ; et une classe final ne peut pas être proxifiée du tout.",
+     "concept": "spring-ch02-final-limit",
+     "front": "Ce qu'un proxy CGLIB ne peut pas intercepter ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Non : Spring instancie la sous-classe avec Objenesis, sans constructeur.",
+     "concept": "spring-ch02-jdk-vs-cglib",
+     "front": "Le constructeur de la cible est-il rappelé pour le proxy CGLIB ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Ce sont les champs du proxy, jamais initialisés ; seules les méthodes sont déléguées à la cible.",
+     "concept": "spring-ch02-final-limit",
+     "front": "Pourquoi ne jamais lire un champ public d'un bean proxifié ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Aucun candidat de ce type au démarrage, ou ClassCastException sur $Proxy…",
+     "concept": "spring-ch02-jdk-vs-cglib",
+     "front": "Le symptôme d'un proxy JDK injecté par classe concrète ?",
+     "id": "fc6"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Un objet qui se fait passer pour un autre (la cible) : il reçoit les appels, ajoute un comportement avant ou après, et les délègue.",
+     "term": "proxy"
+    },
+    {
+     "definition": "Bibliothèque de génération de bytecode, intégrée (copiée) dans spring-core, qui fabrique des sous-classes à l'exécution.",
+     "term": "CGLIB"
+    },
+    {
+     "definition": "Bibliothèque qui crée un objet sans appeler son constructeur. Spring s'en sert pour instancier les proxies CGLIB.",
+     "term": "Objenesis"
+    },
+    {
+     "definition": "Le comportement ajouté par un proxy autour d'un appel (mesurer, réessayer, ouvrir une transaction). En français : un conseil.",
+     "term": "advice"
+    }
+   ],
+   "id": "spring-ch02-l01",
+   "labs": [
+    {
+     "difficulty": 2,
+     "id": "spring-ch02-l01-lab-warmup-timing-proxy",
+     "passed": false,
+     "role": "lab",
+     "title": "Échauffement : un proxy qui mesure, avec ProxyFactory",
+     "xp": 40
+    }
+   ],
+   "next_id": "spring-ch02-l02",
+   "previous_id": null,
+   "quiz_id": "spring-ch02-l01-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 20,
+    "pages": "#aop-understanding-aop-proxies",
+    "url": "https://docs.spring.io/spring-framework/reference/core/aop/proxying.html"
+   },
+   "title": "Deux façons de se faire passer pour un objet : proxy JDK et CGLIB",
+   "visuals": {
+    "spring-ch02-two-proxies": {
+     "concept": "spring-ch02-jdk-vs-cglib",
+     "entry": "two-proxies.svg",
+     "format": "static",
+     "id": "spring-ch02-two-proxies",
+     "justification": "Une comparaison fixe suffit : à gauche le proxy JDK (frère de la cible, même interface), à droite le proxy CGLIB (sous-classe de la cible), avec ce que chacun peut et ne peut pas intercepter.",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 25
+  },
+  "name": "lesson:spring-ch02-l01",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nLe prestataire de paiement de Tixa tombe quelques secondes par jour. Réessayer automatiquement les paiements règle le problème, à une condition : ne réessayer **que** ce qui peut l'être. Un paiement avec une clé d'idempotence peut être rejoué sans risque ; un remboursement rejoué rembourse deux fois.\n\nUn comportement qui s'applique à **toutes** les méthodes d'un objet ne suffit donc pas : il faut pouvoir dire **lesquelles**. Et dès que deux comportements se croisent (un retry et une mesure), il faut savoir **dans quel ordre** ils s'emboîtent. C'est exactement ce que fait Spring avec `@Transactional`, `@Retryable` ou `@Cacheable`, chacun devenant un *advisor* dans le proxy.\n\n## Trois mots, trois rôles\n\n- **Advice** (le conseil) : *quoi* faire autour de l'appel. Le plus général est un `MethodInterceptor`, qui reçoit l'appel et décide quand appeler `proceed()`.\n- **Pointcut** : *à quelles méthodes*. Il répond à `matches(Method, Class<?>)`.\n- **Advisor** : la paire des deux. C'est l'unité que Spring range dans un proxy.\n\n```java\npublic class RetryAdvisor extends StaticMethodMatcherPointcutAdvisor {\n    public RetryAdvisor() {\n        setAdvice((MethodInterceptor) this::invokeWithRetry);    // quoi\n    }\n\n    @Override\n    public boolean matches(Method method, Class<?> targetClass) { // où\n        return AopUtils.getMostSpecificMethod(method, targetClass).isAnnotationPresent(Retry.class);\n    }\n}\n```\n\n`StaticMethodMatcherPointcutAdvisor` est un advisor tout prêt dont le pointcut ne dépend que de la méthode et de la classe, pas des arguments : Spring peut donc mettre en cache sa réponse pour chaque méthode.\n\n> **Sous le capot :** quand une annotation vit sur l'**implémentation** et que le proxy est un proxy JDK, la `Method` reçue est celle de l'**interface**, qui ne porte pas l'annotation. `AopUtils.getMostSpecificMethod` retrouve la méthode de la classe cible. Les pointcuts d'annotation de Spring (`AnnotationMatchingPointcut`, `@Transactional`) font ce travail pour toi ; un pointcut écrit à la main doit y penser.\n\n## La chaîne, appel par appel\n\nÀ chaque appel sur le proxy, Spring calcule la **chaîne** des intercepteurs dont le pointcut accepte la méthode (`AdvisedSupport.getInterceptorsAndDynamicInterceptionAdvice`, mise en cache par méthode), puis crée une `MethodInvocation` qui la parcourt. Chaque `proceed()` passe à l'intercepteur suivant ; après le dernier, c'est la cible.\n\n::checkpoint{id=\"c1\"}\n\nLe premier advisor de la liste est donc le plus **externe**. Dans `ProxyFactory`, c'est l'ordre d'ajout ; dans un conteneur, c'est l'ordre des advisors, trié par `@Order` (leçon 5).\n\n::visual{id=\"spring-ch02-interceptor-chain\"}\n\n### Réessayer, c'est rappeler la suite de la chaîne\n\nUn intercepteur de retry doit relancer **la suite** de la chaîne à chaque tentative. Mais une `MethodInvocation` garde sa position : rappeler `proceed()` sur la même invocation sauterait les intercepteurs placés après. Spring fournit pour cela `ProxyMethodInvocation.invocableClone()`, qui repart du même point :\n\n```java\nfor (int attempt = 1; attempt <= max; attempt++) {\n    try {\n        return ((ProxyMethodInvocation) invocation).invocableClone().proceed();\n    } catch (RuntimeException e) {\n        last = e;\n    }\n}\nthrow last;\n```\n\nC'est exactement ce que fait l'intercepteur de `@Retryable` dans Spring 7 (`AbstractRetryInterceptor`).\n\n::checkpoint{id=\"c2\"}\n\n> **En production :** l'ordre entre un retry et une transaction a des conséquences graves. Retry **à l'extérieur** : chaque tentative ouvre une nouvelle transaction, les écritures d'une tentative ratée sont annulées. Retry **à l'intérieur** : toutes les tentatives partagent une transaction, et la première erreur l'a peut-être déjà marquée « à annuler ». Spring 7 place `@Retryable` à l'extérieur (leçon 5).\n\n## Pièges fréquents\n\n- **Un pointcut trop large** (toutes les méthodes) : un remboursement réessayé rembourse deux fois.\n- **Lire l'annotation sur la méthode de l'interface** avec un proxy JDK : rien n'est jamais visé.\n- **Rappeler `proceed()` sur la même invocation** pour réessayer : les intercepteurs suivants sont sautés.\n- **Ignorer l'ordre** entre deux comportements : la métrique, ou la transaction, ne mesure pas ce que tu crois.\n\n## À retenir\n\n- Advisor = pointcut (où) + advice (quoi) ; c'est l'unité rangée dans un proxy.\n- À chaque appel, la chaîne des advisors applicables est parcourue ; le premier est le plus externe.\n- Avec un proxy JDK, `getMostSpecificMethod` pour lire les annotations de l'implémentation.\n- Réessayer = relancer la suite de la chaîne (`invocableClone().proceed()`), et choisir consciemment l'ordre.\n\n> **Source :** Spring Framework 7.0, [Pointcut API](https://docs.spring.io/spring-framework/reference/core/aop-api/pointcuts.html), [Advice API](https://docs.spring.io/spring-framework/reference/core/aop-api/advice.html) et [The Advisor API](https://docs.spring.io/spring-framework/reference/core/aop-api/advisor.html) ; code de [`ReflectiveMethodInvocation`](https://github.com/spring-projects/spring-framework/blob/v7.0.11/spring-aop/src/main/java/org/springframework/aop/framework/ReflectiveMethodInvocation.java) et [`AbstractRetryInterceptor`](https://github.com/spring-projects/spring-framework/blob/v7.0.11/spring-context/src/main/java/org/springframework/resilience/retry/AbstractRetryInterceptor.java) (v7.0.11).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch02",
+    "title": "AOP et proxies"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.aopalliance.intercept.MethodInterceptor;\nimport org.springframework.aop.framework.ProxyFactory;\n\npublic class Main {\n    public static class Greeter { public String hello() { System.out.println(\"  cible\"); return \"bonjour\"; } }\n\n    public static void main(String[] args) {\n        ProxyFactory factory = new ProxyFactory(new Greeter());\n        factory.addAdvice((MethodInterceptor) inv -> { System.out.println(\"A avant\"); Object r = inv.proceed(); System.out.println(\"A après\"); return r; });\n        factory.addAdvice((MethodInterceptor) inv -> { System.out.println(\" B avant\"); Object r = inv.proceed(); System.out.println(\" B après\"); return r; });\n        ((Greeter) factory.getProxy()).hello();\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Deux intercepteurs ajoutés dans cet ordre. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Le retry",
+      "La mesure",
+      "Peu importe",
+      "Il faut deux proxies séparés"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Un retry et une mesure de durée sur la même méthode, qui échoue deux fois avant de réussir. On veut UNE mesure qui couvre les trois tentatives. Lequel doit être le plus externe ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch02-advisor-pointcut",
+     "label": "Un advisor associe un pointcut (quelles méthodes) à un advice (quoi faire) : le proxy n'applique le comportement qu'aux méthodes visées"
+    },
+    {
+     "id": "spring-ch02-interceptor-chain",
+     "label": "Pour chaque appel, le proxy construit la chaîne des intercepteurs qui s'appliquent ; proceed() passe au suivant, et l'ordre de la chaîne est l'ordre d'emboîtement"
+    },
+    {
+     "id": "spring-ch02-most-specific-method",
+     "label": "Avec un proxy JDK, la méthode reçue est celle de l'interface ; AopUtils.getMostSpecificMethod donne celle de la classe cible, qui porte les annotations"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Advice = quoi faire ; pointcut = à quelles méthodes ; advisor = la paire, rangée dans le proxy.",
+     "concept": "spring-ch02-advisor-pointcut",
+     "front": "Advice, pointcut, advisor ?",
+     "id": "fc1"
+    },
+    {
+     "back": "…le plus externe : il voit l'appel en premier et le résultat en dernier.",
+     "concept": "spring-ch02-interceptor-chain",
+     "front": "Le premier advisor d'un proxy est…",
+     "id": "fc2"
+    },
+    {
+     "back": "Il passe à l'intercepteur suivant de la chaîne ; après le dernier, il appelle la cible.",
+     "concept": "spring-ch02-interceptor-chain",
+     "front": "Que fait proceed() ?",
+     "id": "fc3"
+    },
+    {
+     "back": "((ProxyMethodInvocation) invocation).invocableClone().proceed(), à chaque tentative.",
+     "concept": "spring-ch02-interceptor-chain",
+     "front": "Comment réessayer la suite de la chaîne ?",
+     "id": "fc4"
+    },
+    {
+     "back": "AopUtils.getMostSpecificMethod(method, targetClass) : la méthode reçue est celle de l'interface.",
+     "concept": "spring-ch02-most-specific-method",
+     "front": "Annotation sur l'implémentation + proxy JDK : comment la lire ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Seulement l'idempotent (ou ce qu'on rend idempotent par une clé), et seulement les erreurs passagères.",
+     "concept": "spring-ch02-advisor-pointcut",
+     "front": "Que réessayer automatiquement ?",
+     "id": "fc6"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Le critère qui dit à quelles méthodes un comportement s'applique : par nom, par annotation, par expression AspectJ.",
+     "term": "pointcut"
+    },
+    {
+     "definition": "La paire pointcut + advice. C'est l'unité que Spring range dans un proxy (un @Transactional devient un advisor).",
+     "term": "advisor"
+    },
+    {
+     "definition": "L'appel en cours, vu par un intercepteur : la méthode, les arguments, la cible, et proceed() pour continuer la chaîne.",
+     "term": "MethodInvocation"
+    },
+    {
+     "definition": "Qu'on peut répéter sans changer le résultat : rejouer un paiement avec la même clé ne débite pas deux fois.",
+     "term": "idempotent"
+    }
+   ],
+   "id": "spring-ch02-l02",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch02-l02-lab-retry-advisor",
+     "passed": false,
+     "role": "lab",
+     "title": "Un advisor qui réessaie, au bon endroit de la chaîne",
+     "xp": 70
+    }
+   ],
+   "next_id": "spring-ch02-l03",
+   "previous_id": "spring-ch02-l01",
+   "quiz_id": "spring-ch02-l02-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 21,
+    "pages": "#page-title",
+    "url": "https://docs.spring.io/spring-framework/reference/core/aop-api/advisor.html"
+   },
+   "title": "Advice, pointcut, advisor : la chaîne d'intercepteurs",
+   "visuals": {
+    "spring-ch02-interceptor-chain": {
+     "concept": "spring-ch02-interceptor-chain",
+     "entry": "InterceptorChain.tsx",
+     "format": "interactive",
+     "id": "spring-ch02-interceptor-chain",
+     "justification": "L'apprenant réordonne les intercepteurs (mesure, retry, audit) et fait échouer la cible : il voit immédiatement combien de mesures et de tentatives produit chaque ordre.",
+     "params": [
+      {
+       "default": 2,
+       "max": 4,
+       "min": 0,
+       "name": "failures",
+       "type": "int"
+      }
+     ],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch02-l02",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nÉcrire un advisor à la main (leçon 2) marche, mais personne ne le fait en production. Les équipes écrivent des **aspects** : une classe, des méthodes, et des annotations qui disent où agir. `@Transactional` et `@Cacheable` ont leurs propres mécanismes, mais tout ce qui est maison (audit, mesure, multi-tenant, verrou métier) passe par `@Aspect`.\n\nBien écrit, un aspect retire des centaines de lignes répétées. Mal compris, c'est la pire des dettes : du comportement invisible dans le code qu'il touche. Il faut savoir précisément ce que Spring en fait.\n\n## Un aspect, ce sont des advisors\n\n```java\n@Aspect\npublic class TimedAspect {\n    private final Metrics metrics;\n    private final Ticker ticker;\n\n    public TimedAspect(Metrics metrics, Ticker ticker) { this.metrics = metrics; this.ticker = ticker; }\n\n    @Around(\"@annotation(timed)\")\n    public Object measure(ProceedingJoinPoint call, Timed timed) throws Throwable {\n        long start = ticker.millis();\n        try {\n            return call.proceed();\n        } finally {\n            metrics.record(timed.value(), ticker.millis() - start);\n        }\n    }\n}\n```\n\nChaque méthode annotée par un **conseil** (`@Around`, `@Before`, `@AfterReturning`, `@AfterThrowing`, `@After`) devient un **advisor** : l'annotation dit *quoi*, son expression dit *où*. `@Around` est le plus général : il reçoit un `ProceedingJoinPoint` et décide s'il appelle `proceed()`, combien de fois, avec quels arguments.\n\nLa syntaxe vient d'**AspectJ**, un vrai compilateur d'aspects. Spring n'utilise de lui que l'analyseur d'expressions (la bibliothèque `aspectjweaver`, apportée dans Spring Boot 4 par `spring-boot-starter-aspectj`). Le reste, ce sont les proxies de la leçon 1. Conséquence directe, rappelée par la documentation : Spring AOP ne connaît que **l'exécution de méthodes de beans**. Pas les constructeurs, pas les champs, pas les objets créés avec `new`.\n\n## Viser les bonnes méthodes\n\n| Expression | Vise |\n|---|---|\n| `execution(* app..*Service.*(..))` | toute méthode d'une classe dont le nom finit par `Service`, dans `app` et ses sous-paquets |\n| `@annotation(app.Timed)` | les méthodes annotées `@Timed` |\n| `@within(org.springframework.stereotype.Service)` | toutes les méthodes des classes annotées `@Service` |\n| `within(app.web..*)` | tout ce qui est dans le paquet `app.web` |\n| `bean(*Repository)` | les beans dont le **nom** finit par `Repository` (propre à Spring) |\n\nUn nom de paramètre à la place d'un type **lie** la valeur : `@annotation(timed)` vise les méthodes annotées et passe l'annotation au paramètre `timed`. De même `args(eventId, ..)` lie le premier argument. Plus besoin de réflexion à la main.\n\n> **Astuce :** préfère viser une **annotation** que tu poses explicitement (`@Timed`, `@Audited`) plutôt qu'un motif de nom (`*Service.*(..)`). Le code visé dit alors lui-même qu'un comportement s'y ajoute, et renommer une classe ne change pas silencieusement ce qui est audité.\n\n## Qui transforme l'aspect en proxy\n\n`@EnableAspectJAutoProxy` n'ajoute presque rien : il enregistre un bean, `AnnotationAwareAspectJAutoProxyCreator`. C'est un **`BeanPostProcessor`** (module 01, leçon 4) qui :\n\n1. trouve tous les beans annotés `@Aspect`, et transforme chacune de leurs méthodes de conseil en advisor ;\n2. pour chaque bean créé ensuite, cherche les advisors dont le pointcut accepte au moins une de ses méthodes ;\n3. s'il en trouve, renvoie un **proxy** (dans `postProcessAfterInitialization`), avec ces advisors dans l'ordre.\n\n::checkpoint{id=\"c1\"}\n\n::visual{id=\"spring-ch02-aspect-to-advisor\"}\n\nDeux conséquences de ce mécanisme :\n- un aspect doit être un **bean**. `@Aspect` n'est pas `@Component` : le scan ne le trouve pas, il faut l'annoter aussi `@Component` ou le déclarer avec `@Bean` ;\n- un aspect n'est jamais lui-même proxifié : un aspect ne peut pas en conseiller un autre.\n\n::checkpoint{id=\"c2\"}\n\n> **Sous le capot :** dans une application Spring Boot, tu n'écris pas `@EnableAspectJAutoProxy` : l'autoconfiguration `AopAutoConfiguration` (dans `spring-boot-autoconfigure`) l'applique pour toi dès qu'`aspectjweaver` est sur le classpath, avec `proxyTargetClass = true` tant que `spring.aop.proxy-target-class` ne vaut pas `false` (module 4). C'est pourquoi un aspect « marche tout seul » dans une application Boot, et pourquoi ses proxies sont des sous-classes CGLIB.\n\n## Pièges fréquents\n\n- **Un `@Aspect` sans `@Component` ni `@Bean`** : il n'existe pas pour le conteneur.\n- **Un pointcut par motif de nom** trop large : il vise aussi des méthodes que personne n'imaginait.\n- **Attendre un conseil sur un objet créé avec `new`**, un constructeur ou un champ : Spring AOP ne voit que les méthodes des beans.\n- **Oublier de relancer l'exception** dans un `@Around` qui l'attrape : l'appelant reçoit `null` et croit que tout a réussi.\n\n## À retenir\n\n- Un `@Aspect` est une façon d'écrire des advisors : la méthode de conseil dit quoi, l'expression dit où.\n- `@annotation(x)`, `args(x, ..)` lient des valeurs aux paramètres du conseil.\n- `@EnableAspectJAutoProxy` = un `BeanPostProcessor` qui proxifie les beans visés ; l'aspect doit être un bean.\n- Spring AOP ne voit que l'exécution de méthodes de beans.\n\n> **Source :** Spring Framework 7.0, [Declaring an Aspect](https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/at-aspectj.html), [Declaring a Pointcut](https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/pointcuts.html) et [Declaring Advice](https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/advice.html) ; code de [`AnnotationAwareAspectJAutoProxyCreator`](https://github.com/spring-projects/spring-framework/blob/v7.0.11/spring-aop/src/main/java/org/springframework/aop/aspectj/annotation/AnnotationAwareAspectJAutoProxyCreator.java) (v7.0.11).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch02",
+    "title": "AOP et proxies"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.*;\nimport org.springframework.aop.support.AopUtils;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Catalog { public String find(String id) { return \"événement \" + id; } }\n\n    @Aspect\n    public static class Shout {\n        @Around(\"execution(* Main.Catalog.*(..))\")\n        public Object loud(ProceedingJoinPoint call) throws Throwable { return call.proceed().toString().toUpperCase(); }\n    }\n\n    @Configuration @EnableAspectJAutoProxy\n    static class Config {\n        @Bean Catalog catalog() { return new Catalog(); }\n        @Bean Shout shout() { return new Shout(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            Catalog catalog = ctx.getBean(Catalog.class);\n            System.out.println(catalog.find(\"jazz\") + \" \" + AopUtils.isAopProxy(catalog) + \" \" + AopUtils.isAopProxy(ctx.getBean(Shout.class)));\n        }\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Un `@Aspect` déclaré en bean, et l'auto-proxy activé. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il manque @EnableAspectJAutoProxy, rien d'autre",
+      "@Aspect ne suffit pas pour la détection par scan : il faut aussi @Component (ou une méthode @Bean)",
+      "Les aspects doivent être dans le paquet org.aspectj",
+      "Les aspects ne fonctionnent qu'avec Spring Boot"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Ton `@Aspect` porte l'annotation `@Aspect` seulement, et la configuration fait `@ComponentScan`. Le comportement ne s'applique jamais. Pourquoi ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch02-aspect-annotations",
+     "label": "Un @Aspect décrit des advisors avec des méthodes : l'annotation de conseil (@Around, @Before…) dit quoi, son expression de pointcut dit où"
+    },
+    {
+     "id": "spring-ch02-annotation-binding",
+     "label": "Une expression comme @annotation(timed) vise les méthodes annotées et lie l'annotation trouvée à un paramètre du conseil"
+    },
+    {
+     "id": "spring-ch02-auto-proxy-creator",
+     "label": "@EnableAspectJAutoProxy enregistre AnnotationAwareAspectJAutoProxyCreator, un BeanPostProcessor qui transforme les @Aspect en advisors et proxifie les beans visés"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Un advisor : l'annotation (@Around…) dit quoi, son expression dit où.",
+     "concept": "spring-ch02-aspect-annotations",
+     "front": "Que devient chaque méthode de conseil d'un @Aspect ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Il vise les méthodes annotées et passe l'annotation au paramètre timed du conseil.",
+     "concept": "spring-ch02-annotation-binding",
+     "front": "Que lie @annotation(timed) ?",
+     "id": "fc2"
+    },
+    {
+     "back": "AnnotationAwareAspectJAutoProxyCreator, un BeanPostProcessor enregistré par @EnableAspectJAutoProxy (ou par AopAutoConfiguration dans Boot).",
+     "concept": "spring-ch02-auto-proxy-creator",
+     "front": "Qui pose les proxies des aspects ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Non : il faut aussi @Component, ou une méthode @Bean.",
+     "concept": "spring-ch02-aspect-annotations",
+     "front": "@Aspect suffit-il pour le scan ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Seulement l'exécution de méthodes de beans, à travers un proxy.",
+     "concept": "spring-ch02-aspect-annotations",
+     "front": "Sur quoi Spring AOP peut-il agir ?",
+     "id": "fc5"
+    },
+    {
+     "back": "La syntaxe et l'analyseur d'expressions (aspectjweaver) ; l'exécution, ce sont ses propres proxies.",
+     "concept": "spring-ch02-aspect-annotations",
+     "front": "Que garde Spring d'AspectJ ?",
+     "id": "fc6"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Une classe qui regroupe des comportements transverses (mesure, audit, sécurité) et les règles qui disent où les appliquer.",
+     "term": "aspect"
+    },
+    {
+     "definition": "Le langage d'AspectJ pour viser des méthodes : execution(* app..*Service.*(..)), @annotation(app.Timed), within(app.web..*), bean(*Service)…",
+     "term": "expression de pointcut"
+    },
+    {
+     "definition": "Un point du programme où un aspect peut agir. Avec Spring AOP, ce n'est jamais que l'exécution d'une méthode d'un bean.",
+     "term": "join point"
+    },
+    {
+     "definition": "Ce que reçoit un conseil @Around : l'appel en cours, avec proceed() pour le continuer, getArgs() et getSignature().",
+     "term": "ProceedingJoinPoint"
+    }
+   ],
+   "id": "spring-ch02-l03",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch02-l03-lab-timed-aspect",
+     "passed": false,
+     "role": "lab",
+     "title": "Un @Aspect qui mesure les méthodes @Timed",
+     "xp": 60
+    }
+   ],
+   "next_id": "spring-ch02-l04",
+   "previous_id": "spring-ch02-l02",
+   "quiz_id": "spring-ch02-l03-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 22,
+    "pages": "#aop-ataspectj-around-advice",
+    "url": "https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/advice.html"
+   },
+   "title": "@Aspect : des advisors écrits comme des méthodes",
+   "visuals": {
+    "spring-ch02-aspect-to-advisor": {
+     "concept": "spring-ch02-auto-proxy-creator",
+     "entry": "scene.html",
+     "format": "hyperframes",
+     "id": "spring-ch02-aspect-to-advisor",
+     "justification": "Une séquence de 12 s à regarder : la classe @Aspect est lue, chaque méthode @Around devient un advisor, puis le post-processor voit passer ReservationService, trouve un advisor applicable et le remplace par un proxy.",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch02-l03",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nC'est la question Spring la plus posée en entretien, et le bug qu'on trouve dans presque toutes les applications : un `@Transactional` qui « ne marche pas ». Le code est annoté, les tests passent, et en production des places restent vendues alors que le paiement a échoué.\n\nDans le lab de débogage de cette leçon, il y a deux causes, et ce sont les deux plus fréquentes : un **appel interne** qui contourne le proxy, et une **exception vérifiée** qui valide la transaction au lieu de l'annuler.\n\n## Pourquoi un appel interne échappe au proxy\n\nLe proxy **enveloppe** l'objet, il ne le modifie pas (leçon 1). Quand un client appelle `booking.book(...)`, l'appel arrive sur le proxy, traverse la chaîne des advisors, puis atteint la vraie méthode `book` de l'objet. Dans cette méthode, `this` désigne **l'objet**, pas le proxy. `this.sellAndCharge(...)` (ou simplement `sellAndCharge(...)`) est donc un appel Java ordinaire, que le proxy ne voit jamais.\n\n::visual{id=\"spring-ch02-self-call\"}\n\n::checkpoint{id=\"c1\"}\n\nCe n'est pas propre à `@Transactional` : `@Cacheable`, `@Async`, `@Retryable`, `@PreAuthorize` et tes propres aspects ont tous le même comportement. La documentation de Spring le souligne en notant que le tissage AspectJ (à la compilation ou au chargement) n'a pas ce problème, justement parce qu'il ne passe pas par un proxy.\n\n### Les corrections, de la meilleure à la pire\n\nLa documentation les classe ainsi :\n\n1. **Restructurer** pour que l'appel arrive de l'extérieur : poser l'annotation sur la méthode réellement appelée par le client (c'est la correction du lab), ou déplacer la méthode dans un autre bean. C'est *the best, least-invasive approach*.\n2. **S'injecter soi-même** : recevoir son propre proxy (`ObjectProvider<BookingService>`, ou un champ `@Lazy`) et appeler `self.sellAndCharge(...)`. Ça marche, mais le code dit mal ce qu'il fait.\n3. **`AopContext.currentProxy()`** avec `@EnableAspectJAutoProxy(exposeProxy = true)` : le code dépend alors de Spring AOP. La documentation la déconseille fortement.\n\n> **Sous le capot :** les méthodes non publiques ne sont plus exclues d'office. Depuis Spring 6.0, avec un proxy de classe (CGLIB, le choix de Spring Boot), une méthode `protected` ou package-private annotée `@Transactional` est bien transactionnelle quand on l'appelle **de l'extérieur**. Une méthode `private`, elle, ne peut jamais être redéfinie, donc jamais interceptée.\n\n## Ce que fait @Transactional, concrètement\n\n`@EnableTransactionManagement` (ou l'autoconfiguration de Spring Boot) enregistre un advisor dont l'intercepteur est `TransactionInterceptor`. Pour chaque appel visé, sa méthode `invokeWithinTransaction` :\n\n1. lit les attributs de l'annotation (propagation, isolation, lecture seule, règles d'annulation) ;\n2. demande une transaction au `PlatformTransactionManager`, qui ouvre la connexion et la **lie au thread** (`TransactionSynchronizationManager`) ;\n3. appelle `proceed()` : tout le code qui utilise `JdbcClient` ou JPA sur ce thread retrouve **la même** connexion ;\n4. selon l'issue, `commit` ou `rollback`.\n\nLe boss du module te fait écrire exactement cela.\n\n## Les règles d'annulation\n\nQuand l'appel lève une exception, `TransactionInterceptor` décide entre annuler et valider. **Par défaut** :\n- `RuntimeException` et `Error` : **annulation** ;\n- exception **vérifiée** (`extends Exception`) : **validation**.\n\n::checkpoint{id=\"c2\"}\n\nTrois façons de changer la règle :\n- `@Transactional(rollbackFor = PaymentDeclinedException.class)` : pour cette méthode ;\n- `@Transactional(noRollbackFor = …)` : l'inverse, pour une exception non vérifiée qui ne doit pas tout annuler ;\n- **`@EnableTransactionManagement(rollbackOn = RollbackOn.ALL_EXCEPTIONS)`**, depuis Spring 6.2 : annuler pour **toutes** les exceptions, dans toute l'application. Le Javadoc le recommande quand on lève des exceptions vérifiées dans des méthodes transactionnelles. C'est ce qui empêche la **prochaine** exception vérifiée d'oublier son `rollbackFor`.\n\n> **En production :** une transaction validée sur une exception vérifiée ne se voit jamais dans les tests unitaires qui simulent la base. Écris au moins un test qui fait échouer l'opération pour de vrai et **recompte les lignes**, comme les tests du lab.\n\n## Pièges fréquents\n\n- **`@Transactional` sur une méthode appelée par `this`** : aucune transaction.\n- **`@Transactional` sur une méthode `private`** : jamais intercepté.\n- **Une exception vérifiée** dans une méthode transactionnelle, sans `rollbackFor` ni `ALL_EXCEPTIONS` : les écritures restent.\n- **Attraper l'exception dans la méthode** et continuer : pour le proxy, la méthode a réussi, la transaction est validée.\n- **Lancer un thread** dans une méthode transactionnelle : la transaction est liée au thread d'origine, l'autre thread n'en a pas.\n\n## À retenir\n\n- Un appel `this.x()` ne traverse pas le proxy : aucune annotation de comportement ne s'applique.\n- Corrige en restructurant (l'annotation là où l'appel arrive de l'extérieur, ou un autre bean) ; l'auto-injection et `AopContext` sont des pis-aller.\n- `@Transactional` = `TransactionInterceptor` + un gestionnaire qui lie la connexion au thread.\n- Par défaut, seules les exceptions non vérifiées annulent ; `rollbackOn = ALL_EXCEPTIONS` (Spring 6.2) généralise.\n\n> **Source :** Spring Framework 7.0, [Understanding AOP Proxies](https://docs.spring.io/spring-framework/reference/core/aop/proxying.html#aop-understanding-aop-proxies), [Using @Transactional](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html) et [Rolling Back a Declarative Transaction](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/rolling-back.html) ; code de [`TransactionAspectSupport`](https://github.com/spring-projects/spring-framework/blob/v7.0.11/spring-tx/src/main/java/org/springframework/transaction/interceptor/TransactionAspectSupport.java) et [`RollbackOn`](https://github.com/spring-projects/spring-framework/blob/v7.0.11/spring-tx/src/main/java/org/springframework/transaction/annotation/RollbackOn.java) (v7.0.11).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch02",
+    "title": "AOP et proxies"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.cache.annotation.*;\nimport org.springframework.cache.concurrent.ConcurrentMapCacheManager;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Prices {\n        private int computed;\n        @Cacheable(\"prices\") public int price(String id) { computed++; return 4500; }\n        public int twoPrices(String id) { return price(id) + price(id); }\n        public int computed() { return computed; }\n    }\n\n    @Configuration @EnableCaching\n    static class Config {\n        @Bean ConcurrentMapCacheManager cacheManager() { return new ConcurrentMapCacheManager(); }\n        @Bean Prices prices() { return new Prices(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            Prices prices = ctx.getBean(Prices.class);\n            prices.price(\"jazz\");\n            prices.price(\"jazz\");\n            System.out.print(prices.computed() + \" \");\n            prices.twoPrices(\"rock\");\n            System.out.println(prices.computed());\n        }\n    }\n}\n",
+     "id": "c1",
+     "prompt": "`twoPrices` appelle deux fois `price`, qui est `@Cacheable`. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Annulée, comme pour toute exception",
+      "Validée : par défaut, seules les RuntimeException et les Error annulent",
+      "Laissée ouverte jusqu'à l'arrêt de l'application",
+      "Annulée, puis l'exception est enveloppée dans une RuntimeException"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Une méthode `@Transactional` lève `PaymentDeclinedException extends Exception`. Sans autre configuration, que devient la transaction ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch02-self-invocation",
+     "label": "Un appel this.methode() à l'intérieur d'un bean ne traverse pas le proxy : @Transactional, @Cacheable, @Async… ne s'appliquent pas"
+    },
+    {
+     "id": "spring-ch02-transactional-proxy",
+     "label": "@Transactional est un advisor : TransactionInterceptor ouvre la transaction avant l'appel, la lie au thread, puis valide ou annule après"
+    },
+    {
+     "id": "spring-ch02-rollback-rules",
+     "label": "Par défaut, une transaction n'est annulée que pour une RuntimeException ou une Error ; une exception vérifiée la valide, sauf rollbackFor ou rollbackOn = ALL_EXCEPTIONS"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "this est l'objet, pas le proxy : l'appel ne traverse pas la chaîne des advisors.",
+     "concept": "spring-ch02-self-invocation",
+     "front": "Pourquoi this.methodeTransactionnelle() n'ouvre-t-il pas de transaction ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Restructurer (annotation là où l'appel arrive, ou autre bean) ; s'auto-injecter ; AopContext.currentProxy() avec exposeProxy.",
+     "concept": "spring-ch02-self-invocation",
+     "front": "Corrections de l'auto-invocation, de la meilleure à la pire ?",
+     "id": "fc2"
+    },
+    {
+     "back": "TransactionInterceptor (invokeWithinTransaction), via le PlatformTransactionManager, qui lie la connexion au thread.",
+     "concept": "spring-ch02-transactional-proxy",
+     "front": "Qui ouvre la transaction de @Transactional ?",
+     "id": "fc3"
+    },
+    {
+     "back": "RuntimeException et Error annulent ; une exception vérifiée valide.",
+     "concept": "spring-ch02-rollback-rules",
+     "front": "Règle d'annulation par défaut ?",
+     "id": "fc4"
+    },
+    {
+     "back": "@EnableTransactionManagement(rollbackOn = RollbackOn.ALL_EXCEPTIONS), depuis Spring 6.2.",
+     "concept": "spring-ch02-rollback-rules",
+     "front": "Annuler pour toutes les exceptions, dans toute l'application ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Transactionnelle depuis Spring 6.0 avec un proxy de classe (CGLIB), appelée de l'extérieur ; jamais si private.",
+     "concept": "spring-ch02-transactional-proxy",
+     "front": "Méthode package-private et @Transactional ?",
+     "id": "fc6"
+    },
+    {
+     "back": "La transaction est validée : le proxy ne voit que ce qui sort de la méthode.",
+     "concept": "spring-ch02-transactional-proxy",
+     "front": "Une exception avalée dans la méthode @Transactional ?",
+     "id": "fc7"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Un objet qui appelle une de ses propres méthodes (this.autre()). L'appel reste dans l'objet et ne repasse pas par son proxy.",
+     "term": "auto-invocation"
+    },
+    {
+     "definition": "Ce qui décide si une exception annule (rollback) ou valide (commit) une transaction. Par défaut : annulation pour les exceptions non vérifiées.",
+     "term": "règle d'annulation"
+    },
+    {
+     "definition": "La classe de Spring qui garde, par thread, la transaction en cours et ses ressources (la connexion JDBC). C'est ainsi que JdbcClient trouve la bonne connexion.",
+     "term": "TransactionSynchronizationManager"
+    }
+   ],
+   "id": "spring-ch02-l04",
+   "labs": [
+    {
+     "difficulty": 4,
+     "id": "spring-ch02-l04-lab-debug-sold-unpaid",
+     "passed": false,
+     "role": "lab",
+     "title": "Débogage : des places vendues sans paiement",
+     "xp": 90
+    }
+   ],
+   "next_id": "spring-ch02-l05",
+   "previous_id": "spring-ch02-l03",
+   "quiz_id": "spring-ch02-l04-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 20,
+    "pages": "#aop-understanding-aop-proxies",
+    "url": "https://docs.spring.io/spring-framework/reference/core/aop/proxying.html#aop-understanding-aop-proxies"
+   },
+   "title": "Le piège de l'auto-invocation, et les règles d'annulation",
+   "visuals": {
+    "spring-ch02-self-call": {
+     "concept": "spring-ch02-self-invocation",
+     "entry": "scene.html",
+     "format": "hyperframes",
+     "id": "spring-ch02-self-call",
+     "justification": "Une séquence de 10 s à regarder : un appel externe traverse le proxy (la transaction s'ouvre), puis, à l'intérieur de la cible, this.sellAndCharge() part directement vers la méthode sans repasser par le proxy.",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch02-l04",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nLe service de verrouillage des places de Tixa porte trois comportements : un audit pour le support, une métrique de durée, et un retry quand un autre client tient le même verrou. Un jour, le support se plaint : l'audit montre **trois** tentatives de verrouillage pour une seule réservation, et les métriques comptent des échecs alors que le client a bien eu sa place.\n\nRien n'est faux dans aucun des trois aspects. C'est leur **emboîtement** qui ne correspond pas à ce qu'on voulait mesurer. L'ordre des aspects n'est pas un détail de configuration : il change le sens de chaque comportement.\n\n## Les poupées russes\n\nPlusieurs comportements sur la même méthode s'emboîtent : le plus **externe** voit l'appel en premier et le résultat en dernier ; le plus **interne** est le seul à voir chaque passage vers la cible.\n\n- un **audit** externe voit **un** appel et son résultat final ; interne au retry, il voit chaque tentative ;\n- une **métrique** externe mesure la durée totale, tentatives comprises ; interne, une durée par tentative ;\n- une **transaction** interne au retry donne une transaction par tentative ; externe, une seule pour toutes.\n\n::visual{id=\"spring-ch02-russian-dolls\"}\n\n## L'ordre entre aspects\n\nLa documentation est sans ambiguïté : sans précision, **l'ordre entre deux aspects est indéfini**. On le fixe avec `@Order` sur la classe de l'aspect (ou en implémentant `Ordered`). La **plus petite** valeur a la plus haute précédence : elle est la plus **externe**.\n\n::checkpoint{id=\"c2\"}\n\n> **Attention :** `@Order` se pose sur la **classe** de l'aspect, pas sur ses méthodes. Pour donner deux ordres différents à deux conseils, il faut deux aspects.\n\n## L'ordre dans un même aspect\n\nLes conseils d'un même aspect sur la même méthode ont une précédence fixée par leur **type** : `@Around`, `@Before`, `@After`, `@AfterReturning`, `@AfterThrowing`. Avec une nuance documentée : `@After` suit la sémantique « finally » d'AspectJ, donc s'exécute **après** `@AfterReturning` ou `@AfterThrowing`.\n\n::checkpoint{id=\"c1\"}\n\nEn pratique : pour un audit qui doit dire « appel », puis « ok » ou « échec », trois conseils simples (`@Before`, `@AfterReturning`, `@AfterThrowing`) sont plus lisibles qu'un `@Around`, et ne risquent pas d'avaler l'exception. C'est ce que tu écris dans le lab.\n\n## Le cas de @Retryable dans Spring 7\n\nSpring 7 apporte son propre `@Retryable` (activé par `@EnableResilientMethods`). Il ne passe pas par le système des `@Aspect` : un post-processor dédié, `RetryAnnotationBeanPostProcessor`, ajoute un advisor au proxy existant. Et son constructeur appelle `setBeforeExistingAdvisors(true)` : l'advisor du retry est inséré **en tête** de la chaîne. Il est donc **toujours le plus externe**, quel que soit l'`@Order` de tes aspects.\n\n::checkpoint{id=\"c3\"}\n\nDeux conséquences :\n- **bonne** : avec `@Transactional`, chaque tentative a sa propre transaction (la documentation des transactions le dit explicitement). Une tentative ratée est annulée, la suivante repart de zéro ;\n- **piège** : un audit posé sur la même méthode voit **chaque** tentative, et aucun `@Order` n'y change rien. Pour auditer une seule fois, l'audit doit être **sur l'appelant**, un autre bean, à l'extérieur du proxy qui réessaie. C'est le jalon 3 du projet.\n\n> **Sous le capot :** l'ordre de `@EnableResilientMethods(order = …)` (par défaut `Ordered.LOWEST_PRECEDENCE - 1`) ne règle **pas** la place de l'advisor dans la chaîne : il règle l'ordre dans lequel les **post-processors** s'exécutent, par exemple par rapport à `@EnableAsync`. La documentation de la résilience montre comment l'utiliser pour que le retry s'exécute sur le thread asynchrone.\n\n## Pièges fréquents\n\n- **Compter sur l'ordre de déclaration** des aspects : sans `@Order`, il est indéfini.\n- **Un `@Order` inversé** : la plus petite valeur est la plus externe, pas la plus interne.\n- **Un audit sur une méthode `@Retryable`** : une ligne par tentative, quel que soit l'`@Order`.\n- **Un retry à l'intérieur d'une transaction** (avec un aspect de retry maison mal ordonné) : les tentatives partagent une transaction déjà condamnée.\n\n## À retenir\n\n- Les comportements s'emboîtent : l'externe voit l'appel une fois, l'interne voit chaque tentative.\n- Entre aspects : `@Order`, plus petite valeur = plus externe ; sinon, ordre indéfini.\n- Dans un aspect : `@Around` enveloppe tout, `@After` s'exécute en dernier (« finally »).\n- `@Retryable` de Spring 7 est toujours en tête de chaîne : une transaction par tentative, et l'audit « une fois » se pose sur l'appelant.\n\n> **Source :** Spring Framework 7.0, [Advice Ordering](https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/advice.html#aop-ataspectj-advice-ordering), [Using @Transactional](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html) et [Resilience Features](https://docs.spring.io/spring-framework/reference/core/resilience.html) ; code de [`RetryAnnotationBeanPostProcessor`](https://github.com/spring-projects/spring-framework/blob/v7.0.11/spring-context/src/main/java/org/springframework/resilience/annotation/RetryAnnotationBeanPostProcessor.java) et [`AbstractAdvisingBeanPostProcessor`](https://github.com/spring-projects/spring-framework/blob/v7.0.11/spring-aop/src/main/java/org/springframework/aop/framework/AbstractAdvisingBeanPostProcessor.java) (v7.0.11).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch02",
+    "title": "AOP et proxies"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.*;\nimport org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.*;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    static List<String> log = new ArrayList<>();\n\n    public static class Svc { public void run() { log.add(\"méthode\"); } }\n\n    @Aspect\n    public static class Trace {\n        @Around(\"execution(* Main.Svc.run())\") public Object around(ProceedingJoinPoint p) throws Throwable {\n            log.add(\"around>\"); try { return p.proceed(); } finally { log.add(\"<around\"); } }\n        @Before(\"execution(* Main.Svc.run())\") public void before() { log.add(\"before\"); }\n        @After(\"execution(* Main.Svc.run())\") public void after() { log.add(\"after\"); }\n        @AfterReturning(\"execution(* Main.Svc.run())\") public void ok() { log.add(\"afterReturning\"); }\n    }\n\n    @Configuration @EnableAspectJAutoProxy\n    static class Config {\n        @Bean Svc svc() { return new Svc(); }\n        @Bean Trace trace() { return new Trace(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            ctx.getBean(Svc.class).run();\n            System.out.println(log);\n        }\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Quatre conseils dans le même aspect. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.*;\nimport org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.*;\nimport org.springframework.context.annotation.*;\nimport org.springframework.core.annotation.Order;\n\npublic class Main {\n    static List<String> log = new ArrayList<>();\n\n    public static class Svc { public void run() { log.add(\"méthode\"); } }\n\n    @Aspect @Order(2)\n    public static class Inner {\n        @Around(\"execution(* Main.Svc.run())\") public Object a(ProceedingJoinPoint p) throws Throwable {\n            log.add(\"inner>\"); try { return p.proceed(); } finally { log.add(\"<inner\"); } }\n    }\n\n    @Aspect @Order(1)\n    public static class Outer {\n        @Around(\"execution(* Main.Svc.run())\") public Object a(ProceedingJoinPoint p) throws Throwable {\n            log.add(\"outer>\"); try { return p.proceed(); } finally { log.add(\"<outer\"); } }\n    }\n\n    @Configuration @EnableAspectJAutoProxy\n    static class Config {\n        @Bean Svc svc() { return new Svc(); }\n        @Bean Inner inner() { return new Inner(); }\n        @Bean Outer outer() { return new Outer(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            ctx.getBean(Svc.class).run();\n            System.out.println(log);\n        }\n    }\n}\n",
+     "id": "c2",
+     "prompt": "Deux aspects avec `@Order`. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Une seule, partagée par les trois tentatives",
+      "Trois : chaque tentative a la sienne, les deux premières sont annulées",
+      "Aucune : @Retryable désactive @Transactional",
+      "Ça dépend de l'ordre des deux annotations dans le code"
+     ],
+     "code": null,
+     "id": "c3",
+     "prompt": "Une méthode porte `@Retryable` (Spring 7) et `@Transactional`. Elle échoue deux fois puis réussit. Combien de transactions ont été ouvertes ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch02-aspect-order",
+     "label": "Entre deux aspects, l'ordre est indéfini sans @Order ; la plus petite valeur est la plus externe (elle voit l'appel en premier et le résultat en dernier)"
+    },
+    {
+     "id": "spring-ch02-advice-kinds",
+     "label": "Dans un même aspect : @Around, puis @Before, puis la méthode, puis @AfterReturning ou @AfterThrowing, puis @After (sémantique « finally »)"
+    },
+    {
+     "id": "spring-ch02-retry-placement",
+     "label": "Le plus interne voit chaque tentative, le plus externe voit l'appel une seule fois : l'ordre décide de ce que mesurent un audit, une métrique, une transaction"
+    },
+    {
+     "id": "spring-ch02-retryable-spring7",
+     "label": "@Retryable (Spring 7) est toujours inséré en tête de la chaîne du proxy : chaque tentative a sa propre transaction, et un audit qui doit voir l'appel une fois se pose sur l'appelant"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Indéfini. @Order sur la classe de l'aspect : la plus petite valeur est la plus externe.",
+     "concept": "spring-ch02-aspect-order",
+     "front": "Ordre entre deux aspects sans @Order ?",
+     "id": "fc1"
+    },
+    {
+     "back": "@Around (début), @Before, méthode, @AfterReturning ou @AfterThrowing, @After, @Around (fin).",
+     "concept": "spring-ch02-advice-kinds",
+     "front": "Ordre d'exécution dans un même aspect ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Seulement les comportements internes au retry ; les externes voient l'appel une fois.",
+     "concept": "spring-ch02-retry-placement",
+     "front": "Externe ou interne : qui voit chaque tentative d'un retry ?",
+     "id": "fc3"
+    },
+    {
+     "back": "En tête de la chaîne (setBeforeExistingAdvisors(true)) : toujours le plus externe.",
+     "concept": "spring-ch02-retryable-spring7",
+     "front": "Où Spring 7 place-t-il l'advisor de @Retryable ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Chaque tentative a sa propre transaction ; les tentatives ratées sont annulées.",
+     "concept": "spring-ch02-retryable-spring7",
+     "front": "@Retryable + @Transactional sur la même méthode ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Poser l'audit sur le bean appelant : aucun @Order ne place un aspect à l'extérieur du retry.",
+     "concept": "spring-ch02-retryable-spring7",
+     "front": "Auditer une seule fois une méthode @Retryable ?",
+     "id": "fc6"
+    },
+    {
+     "back": "3 : le premier appel plus 2 nouvelles tentatives.",
+     "concept": "spring-ch02-retryable-spring7",
+     "front": "@Retryable(maxRetries = 2) : combien d'exécutions au plus ?",
+     "id": "fc7"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "La priorité d'un aspect. La plus haute (la plus petite valeur de @Order) s'exécute la première à l'aller et la dernière au retour.",
+     "term": "précédence"
+    },
+    {
+     "definition": "Conseil exécuté après la méthode quelle que soit l'issue, comme un bloc finally.",
+     "term": "@After"
+    },
+    {
+     "definition": "L'annotation de Spring 7 qui active @Retryable et @ConcurrencyLimit, en enregistrant leurs post-processors.",
+     "term": "@EnableResilientMethods"
+    }
+   ],
+   "id": "spring-ch02-l05",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch02-l05-lab-aspect-order",
+     "passed": false,
+     "role": "lab",
+     "title": "Trois aspects, un seul bon ordre",
+     "xp": 70
+    }
+   ],
+   "next_id": null,
+   "previous_id": "spring-ch02-l04",
+   "quiz_id": "spring-ch02-l05-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 22,
+    "pages": "#aop-ataspectj-advice-ordering",
+    "url": "https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/advice.html#aop-ataspectj-advice-ordering"
+   },
+   "title": "Plusieurs aspects sur une méthode : qui enveloppe qui ?",
+   "visuals": {
+    "spring-ch02-russian-dolls": {
+     "concept": "spring-ch02-aspect-order",
+     "entry": "RussianDolls.tsx",
+     "format": "interactive",
+     "id": "spring-ch02-russian-dolls",
+     "justification": "L'apprenant change les @Order de trois aspects et le nombre d'échecs de la cible : les poupées s'emboîtent autrement et le fil des événements se met à jour, ce qui montre pourquoi l'audit doit être à l'extérieur.",
+     "params": [
+      {
+       "default": 2,
+       "max": 3,
+       "min": 0,
+       "name": "failures",
+       "type": "int"
+      }
+     ],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch02-l05",
+  "status": 200
+ },
+ {
+  "body": {
    "body": "\n## Pourquoi c'est important\n\nOn répète que « TypeScript est un surensemble typé de JavaScript ». La phrase est juste, mais elle cache trois idées qui changent la façon de travailler : ce que TypeScript **ajoute** (un vérificateur), ce qu'il **ne change pas** (le programme qui s'exécute) et ce qu'il **ne promet pas** (l'absence d'erreur à l'exécution). Si tu viens de Java, de Go ou de Python, ce modèle mental est la première chose à poser.\n\n## Le concept\n\n### Un surensemble, au sens de la syntaxe\n\nRenomme `main.js` en `main.ts` : tu n'as pas changé de langage, ton code était déjà du TypeScript. C'est ce qui rend la migration d'une base JavaScript progressive (module 13) : on n'écrit pas tout dans un autre langage.\n\nL'inverse est faux. Ce fichier est du TypeScript valide mais pas du JavaScript :\n\n```ts\nfunction greet(who: string) {\n  console.log('Bonjour', who);\n}\n```\n\nDonné à un interpréteur JavaScript pur, il échoue sur `: string` (`SyntaxError`). Dès que tu écris une annotation de type, tu as quitté JavaScript.\n\n### Un vérificateur qui travaille sans exécuter\n\nMême **sans aucune annotation**, TypeScript déduit des types (c'est l'inférence, module 03) et repère des fautes :\n\n```ts\nlet city = 'new york city';\nconsole.log(city.toUppercase());\n// Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?\n```\n\nÀ l'exécution, JavaScript lèverait `TypeError: city.toUppercase is not a function`. Le vérificateur te le dit avant, dans l'éditeur. On parle de typage **statique** : l'analyse porte sur le texte du programme, pas sur son exécution.\n\nIl va même plus loin que les exceptions. Ce code tourne sans erreur et affiche trois fois `undefined` :\n\n```ts\nconst states = [\n  { name: 'Alabama', capital: 'Montgomery' },\n  { name: 'Alaska', capital: 'Juneau' },\n];\nfor (const state of states) {\n  console.log(state.capitol);   // faute de frappe : « capitol » (le bâtiment) au lieu de « capital »\n}\n```\n\nTypeScript la signale quand même : `Property 'capitol' does not exist … Did you mean 'capital'?`.\n\n### Les annotations disent ton intention\n\nQue se passe-t-il si la faute est dans les données plutôt que dans le code ?\n\n```ts\nconst states = [\n  { name: 'Alabama', capitol: 'Montgomery' },\n  { name: 'Alaska', capitol: 'Juneau' },\n];\nfor (const state of states) {\n  console.log(state.capital);   // Did you mean 'capitol' ?\n}\n```\n\nL'erreur est la même, mais **la suggestion est fausse** : TypeScript ne peut pas deviner quelle orthographe est la bonne. Dis-le-lui :\n\n```ts\ninterface State {\n  name: string;\n  capital: string;\n}\nconst states: State[] = [\n  { name: 'Alabama', capitol: 'Montgomery' },\n  //                 ~~~~~~~ Object literal may only specify known properties… Did you mean 'capital'?\n];\n```\n\nMaintenant l'erreur est **sur la ligne fautive** et la suggestion est la bonne. Et si une seule entrée sur cent avait contenu la faute ? Sans annotation, TypeScript l'aurait acceptée (il aurait simplement déduit une union de deux formes) ; avec l'annotation, il la trouve. Retiens la règle : **plus tu donnes d'information au vérificateur, plus il trouve de problèmes**.\n\n### Il modélise JavaScript, avec du jugement\n\nLe principe directeur est de refléter le comportement réel de JavaScript. Donc ceci passe, parce que JavaScript le permet :\n\n```ts\nconst x = 2 + '3';   // string : \"23\"\nconst y = '2' + 3;   // string : \"23\"\n```\n\nMais TypeScript refuse des constructions légales qu'il juge presque toujours fautives :\n\n```ts\nconst a = null + 7;               // vaut 7 en JS, refusé\nconst b = [] + 12;                // vaut '12' en JS, refusé\nalert('Hello', 'TypeScript');     // l'argument en trop est ignoré en JS, refusé\n```\n\nOù placer la limite est une question de goût, que tu délègues à l'équipe de TypeScript en l'adoptant.\n\n### Un programme qui passe peut quand même planter\n\n```ts\nconst names = ['Alice', 'Bob'];\nconsole.log(names[2].toUpperCase());   // TypeScript : OK. Exécution : TypeError.\n```\n\nTypeScript suppose que l'indice est dans le tableau. Son type statique (`string`) et la vraie valeur (`undefined`) ont divergé. Un système de types qui garantit cette cohérence est dit **sound** ; celui de TypeScript **ne l'est pas, par choix** : il vaut mieux rester utilisable avec du JavaScript existant que tout prouver. Le module 07 détaille les trous. D'autres langages (Reason, PureScript, Dart) offrent plus de garanties, mais au prix d'une migration bien plus lourde.\n\nLes trois ensembles de programmes à garder en tête :\n\n- les programmes JavaScript (tous valides en TypeScript) ;\n- les programmes TypeScript (JavaScript + annotations) ;\n- ceux qui **passent le vérificateur** : le sous-ensemble dans lequel tu vis au quotidien.\n\n## Pièges fréquents\n\n- **Croire que « ça passe » veut dire « ça marche ».** Le vérificateur réduit les erreurs possibles, il ne les élimine pas.\n- **Traiter une suggestion de correction comme une vérité.** Elle dépend de ce que TypeScript a déduit ; sans annotation, elle peut viser la mauvaise orthographe.\n- **Annoter pour « faire taire » l'erreur** (`: any`, `as`) au lieu de comprendre ce qu'elle dit.\n\n## À retenir\n\n- TypeScript est un surensemble de JavaScript : tout JavaScript valide est du TypeScript valide, pas l'inverse.\n- Il ajoute un système de types statique qui modélise le comportement de JavaScript et cherche les erreurs avant l'exécution.\n- Il refuse certaines constructions légales mais douteuses (`null + 7`, arguments en trop).\n- Un programme qui passe le vérificateur peut lever une exception : le système de types n'est pas sound.\n- Les annotations expriment ton intention ; elles améliorent le nombre et la justesse des erreurs trouvées.\n\n> **Au-delà du livre :** dans ce cours, les exécutions se font avec Node.js, qui retire lui-même les annotations (« type stripping ») : `node main.ts` fonctionne sans étape de compilation, et la vérification des types est confiée à `tsc` à part. Tu verras ce découplage en détail à la leçon 3.\n",
    "cards_rated": 0,
    "chapter": {
@@ -47655,6 +48580,409 @@
    ]
   },
   "name": "quiz:spring-ch01-l05-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch02-l01-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch02-l01",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.aop.framework.ProxyFactory;\n\npublic class Main {\n    static final class Locked { public String go() { return \"x\"; } }\n\n    public static void main(String[] args) {\n        try {\n            ProxyFactory factory = new ProxyFactory(new Locked());\n            factory.setProxyTargetClass(true);\n            factory.getProxy();\n            System.out.println(\"proxy créé\");\n        } catch (Exception e) {\n            System.out.println(e.getClass().getSimpleName());\n        }\n    }\n}\n",
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "On force un proxy de classe sur une classe `final`. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.aopalliance.intercept.MethodInterceptor;\nimport org.springframework.aop.framework.ProxyFactory;\n\npublic class Main {\n    static class Prices {\n        public int total(int base) { return base; }\n        public final int fee() { return 150; }\n    }\n\n    public static void main(String[] args) {\n        ProxyFactory factory = new ProxyFactory(new Prices());\n        factory.addAdvice((MethodInterceptor) inv -> (int) inv.proceed() * 2);\n        Prices proxy = (Prices) factory.getProxy();\n        System.out.println(proxy.total(100) + \" \" + proxy.fee());\n    }\n}\n",
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Une méthode `final` dans une cible proxifiée par CGLIB. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il reçoit le proxy",
+      "Il reçoit l'objet d'origine, sans comportement ajouté",
+      "Le démarrage échoue : le proxy n'est pas un OrderService",
+      "Spring crée un second proxy, CGLIB cette fois"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Un bean `OrderService implements Orders` est proxifié par le JDK. Un autre bean demande `OrderService` (la classe) dans son constructeur. Que se passe-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Une méthode public",
+      "Une méthode private",
+      "Une méthode public final",
+      "Une méthode protected de la classe elle-même"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Lesquelles de ces méthodes d'un bean proxifié par CGLIB peuvent recevoir un comportement (une transaction, par exemple) ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que le proxy n'a pas de constructeur",
+      "Parce que Spring instancie la sous-classe avec Objenesis, qui crée l'objet sans appeler de constructeur",
+      "Parce que CGLIB copie la cible octet par octet",
+      "Il l'est, c'est pourquoi un constructeur ne doit jamais avoir d'effet de bord"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Pourquoi le constructeur d'un bean n'est-il pas appelé une deuxième fois quand Spring crée son proxy CGLIB ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Toujours CGLIB",
+      "Toujours JDK",
+      "JDK si la cible implémente au moins une interface, CGLIB sinon",
+      "CGLIB si la classe est publique, JDK sinon"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q6",
+     "prompt": "Quelle est la règle par défaut de `ProxyFactory` pour choisir la technique ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch02-l01-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch02-l02-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch02-l02",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.lang.reflect.Method;\nimport org.aopalliance.intercept.MethodInterceptor;\nimport org.springframework.aop.framework.ProxyFactory;\nimport org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;\n\npublic class Main {\n    public static class Payments {\n        public String charge() { return \"charge\"; }\n        public String refund() { return \"refund\"; }\n    }\n\n    public static void main(String[] args) {\n        var advisor = new StaticMethodMatcherPointcutAdvisor() {\n            public boolean matches(Method m, Class<?> c) { return m.getName().equals(\"charge\"); }\n        };\n        advisor.setAdvice((MethodInterceptor) inv -> \"[\" + inv.proceed() + \"]\");\n        ProxyFactory factory = new ProxyFactory(new Payments());\n        factory.addAdvisor(advisor);\n        Payments p = (Payments) factory.getProxy();\n        System.out.println(p.charge() + \" \" + p.refund());\n    }\n}\n",
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "Un advisor dont le pointcut ne vise que `charge`. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Oui, l'annotation est héritée",
+      "Non : la Method reçue est celle de l'interface, qui ne porte pas @Retry",
+      "Oui, mais seulement avec CGLIB",
+      "Le démarrage échoue"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q2",
+     "prompt": "`@Retry` est posée sur `FlakyPaymentClient.charge`, pas sur l'interface `PaymentClient`. Le proxy est un proxy JDK. Un pointcut qui teste `method.isAnnotationPresent(Retry.class)` vise-t-il `charge` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Pour copier les arguments et éviter qu'ils soient modifiés",
+      "Parce que l'invocation garde sa position dans la chaîne : la rappeler sauterait les intercepteurs placés après",
+      "Parce que proceed() ne peut être appelé qu'une fois et lève sinon une exception",
+      "Pour exécuter les tentatives en parallèle"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q3",
+     "prompt": "Dans un intercepteur de retry, pourquoi utiliser `invocableClone().proceed()` plutôt que rappeler `invocation.proceed()` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Elle est calculée pour la méthode appelée, d'après les pointcuts, puis mise en cache",
+      "Le premier advisor est le plus externe",
+      "Chaque intercepteur doit appeler proceed() exactement une fois",
+      "Un intercepteur peut renvoyer un résultat sans appeler proceed()"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Quelles affirmations sur la chaîne d'intercepteurs d'un proxy Spring sont vraies ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que les remboursements sont toujours rapides",
+      "Parce qu'il n'est pas idempotent : si le premier essai a réussi côté banque mais que la réponse s'est perdue, le second rembourse une deuxième fois",
+      "Parce qu'un retry ne peut s'appliquer qu'à une méthode sans paramètre",
+      "Parce que Spring l'interdit sur les méthodes qui renvoient une String"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Pourquoi ne faut-il pas réessayer automatiquement `refund(paymentId)` ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch02-l02-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch02-l03-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch02-l03",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.lang.annotation.*;\nimport org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.*;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD) @interface Tag { String value(); }\n\n    public static class Booking {\n        @Tag(\"réservation\") public String book(String eventId, int seats) { return eventId + \"x\" + seats; }\n    }\n\n    @Aspect\n    public static class Log {\n        @Around(\"@annotation(tag) && args(eventId, ..)\")\n        public Object around(ProceedingJoinPoint call, Tag tag, String eventId) throws Throwable {\n            return tag.value() + \" \" + eventId + \" → \" + call.proceed();\n        }\n    }\n\n    @Configuration @EnableAspectJAutoProxy\n    static class Config {\n        @Bean Booking booking() { return new Booking(); }\n        @Bean Log log() { return new Log(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            System.out.println(ctx.getBean(Booking.class).book(\"jazz\", 2));\n        }\n    }\n}\n",
+     "difficulty": 3,
+     "id": "q1",
+     "prompt": "Un `@Around` lie l'annotation et le premier argument. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Sur l'exécution des méthodes des beans Spring",
+      "Sur tout objet Java, y compris ceux créés avec new",
+      "Sur les constructeurs et les accès aux champs",
+      "Sur les méthodes statiques"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Avec Spring AOP, sur quoi un aspect peut-il agir ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il compile les aspects avec le compilateur AspectJ",
+      "Il enregistre AnnotationAwareAspectJAutoProxyCreator, un BeanPostProcessor qui proxifie les beans visés par un aspect",
+      "Il modifie le bytecode des classes au chargement",
+      "Il rend tous les beans prototypes"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Que fait concrètement `@EnableAspectJAutoProxy` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "execution(* app..*Service.*(..))",
+      "@annotation(app.Audited)",
+      "within(app.web..*)",
+      "bean(*Service)"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Quelles expressions visent une méthode `public String reserve(String id)` de la classe `app.booking.ReservationService`, annotée `@Audited`, dans un bean nommé `reservationService` ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "L'exception d'origine",
+      "Une UndeclaredThrowableException",
+      "La valeur renvoyée par le conseil, souvent null : il croit que tout a réussi",
+      "Une erreur de démarrage du conteneur"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Un `@Around` attrape l'exception de `proceed()`, l'écrit dans un journal, et ne la relance pas. Que reçoit l'appelant ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch02-l03-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch02-l04-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch02-l04",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.aop.framework.AopContext;\nimport org.springframework.cache.annotation.*;\nimport org.springframework.cache.concurrent.ConcurrentMapCacheManager;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Prices {\n        private int computed;\n        @Cacheable(\"prices\") public int price(String id) { computed++; return 4500; }\n        public int twoPrices(String id) {\n            Prices self = (Prices) AopContext.currentProxy();\n            return self.price(id) + self.price(id);\n        }\n        public int computed() { return computed; }\n    }\n\n    @Configuration @EnableCaching @EnableAspectJAutoProxy(exposeProxy = true)\n    static class Config {\n        @Bean ConcurrentMapCacheManager cacheManager() { return new ConcurrentMapCacheManager(); }\n        @Bean Prices prices() { return new Prices(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            Prices prices = ctx.getBean(Prices.class);\n            System.out.println(prices.twoPrices(\"jazz\") + \" \" + prices.computed());\n        }\n    }\n}\n",
+     "difficulty": 3,
+     "id": "q1",
+     "prompt": "Avec `exposeProxy = true`, la méthode passe par son propre proxy. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Utiliser AopContext.currentProxy()",
+      "Injecter le bean dans lui-même",
+      "Restructurer : annoter la méthode appelée de l'extérieur, ou déplacer la méthode dans un autre bean",
+      "Rendre la méthode private"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Quelle est, selon la documentation de Spring, la meilleure correction d'un `@Transactional` ignoré parce que la méthode est appelée par `this` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "IllegalStateException",
+      "java.io.IOException",
+      "OutOfMemoryError",
+      "Une exception métier PaymentDeclinedException extends Exception"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Une méthode `@Transactional` appelée depuis l'extérieur lève une exception. Dans quels cas la transaction est-elle annulée sans configuration particulière ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Annulée, puisqu'une exception a eu lieu",
+      "Validée : pour le proxy, la méthode s'est terminée normalement",
+      "Marquée en échec et laissée ouverte",
+      "Annulée seulement si l'exception était non vérifiée"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Une méthode `@Transactional` attrape l'exception de la banque, écrit un log et renvoie `null`. Que devient la transaction ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Non, seules les méthodes public le sont",
+      "Oui, depuis Spring 6.0, pour les proxies de classe",
+      "Oui, mais seulement si elle est aussi final",
+      "Non, il faut le vrai AspectJ"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q5",
+     "prompt": "Dans une application Spring Boot (proxies CGLIB), une méthode package-private annotée `@Transactional` est appelée par un autre bean du même paquet. Est-elle transactionnelle ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Elle lui est passée en paramètre caché par le proxy",
+      "Le gestionnaire de transactions l'a liée au thread courant (TransactionSynchronizationManager) ; JdbcClient la cherche là",
+      "Il ouvre toujours une nouvelle connexion, qui rejoint la transaction par son identifiant",
+      "Par une variable statique globale"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q6",
+     "prompt": "Comment `JdbcClient` retrouve-t-il la connexion de la transaction ouverte par `@Transactional` ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch02-l04-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch02-l05-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch02-l05",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.*;\nimport org.aspectj.lang.annotation.*;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    static List<String> log = new ArrayList<>();\n\n    public static class Svc { public void run() { log.add(\"méthode\"); throw new IllegalStateException(\"boom\"); } }\n\n    @Aspect\n    public static class Trace {\n        @Before(\"execution(* Main.Svc.run())\") public void before() { log.add(\"before\"); }\n        @After(\"execution(* Main.Svc.run())\") public void after() { log.add(\"after\"); }\n        @AfterReturning(\"execution(* Main.Svc.run())\") public void ok() { log.add(\"ok\"); }\n        @AfterThrowing(pointcut = \"execution(* Main.Svc.run())\", throwing = \"e\") public void ko(RuntimeException e) { log.add(\"ko \" + e.getMessage()); }\n    }\n\n    @Configuration @EnableAspectJAutoProxy\n    static class Config {\n        @Bean Svc svc() { return new Svc(); }\n        @Bean Trace trace() { return new Trace(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            try { ctx.getBean(Svc.class).run(); } catch (IllegalStateException e) { log.add(\"appelant\"); }\n            System.out.println(log);\n        }\n    }\n}\n",
+     "difficulty": 3,
+     "id": "q1",
+     "prompt": "La méthode échoue. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Dans l'ordre de déclaration des beans",
+      "Par ordre alphabétique du nom de classe",
+      "L'ordre est indéfini : il faut @Order (ou Ordered)",
+      "Le dernier enregistré est le plus externe"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Deux aspects sans `@Order` s'appliquent à la même méthode. Dans quel ordre s'exécutent-ils ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Une : @Order(1) rend l'audit le plus externe",
+      "Trois : l'advisor de @Retryable est inséré en tête de la chaîne, l'audit est à l'intérieur quel que soit son @Order",
+      "Zéro : les deux annotations sont incompatibles",
+      "Deux : une par échec"
+     ],
+     "code": null,
+     "difficulty": 4,
+     "id": "q3",
+     "prompt": "Tu poses `@Audited` (ton aspect, `@Order(1)`) sur une méthode `@Retryable` de Spring 7, qui échoue deux fois avant de réussir. Combien de lignes d'audit ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "retry, métrique, audit",
+      "audit, métrique, retry",
+      "métrique, retry, audit",
+      "audit, retry, métrique"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Trois aspects : audit, métrique, retry maison. On veut une ligne d'audit par appel, et une mesure qui couvre toutes les tentatives. Quel ordre (du plus externe au plus interne) ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "2",
+      "3",
+      "4",
+      "Autant que nécessaire jusqu'au succès"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q5",
+     "prompt": "Avec `@Retryable(maxRetries = 2)`, combien de fois au plus la méthode est-elle exécutée ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch02-l05-quiz",
   "status": 200
  },
  {
@@ -90227,6 +91555,430 @@
  },
  {
   "body": {
+   "chapter_id": "spring-ch02",
+   "checks": [],
+   "concepts": [
+    "spring-ch02-aspect-annotations",
+    "spring-ch02-annotation-binding",
+    "spring-ch02-auto-proxy-creator",
+    "spring-ch02-self-invocation"
+   ],
+   "debrief": "",
+   "difficulty": 4,
+   "id": "spring-ch02-assignment",
+   "instructions": "## Contexte\n\nUn client clique deux fois sur « Payer », ou son téléphone renvoie la requête après une coupure réseau. Sans précaution, Tixa le débite deux fois. La parade classique est une **clé d'idempotence** : le client envoie la même clé pour la même commande, et le serveur rejoue le résultat du premier appel au lieu d'en refaire un.\n\nÉcrire ce contrôle dans chaque méthode de paiement, c'est l'oublier un jour. Tu l'écris une fois, sous forme d'aspect. `@Idempotent` et `PaymentService` sont fournis, et `PaymentService` ne doit pas changer.\n\nTu écris `IdempotencyAspect.java` et tu complètes `AppConfig.java`.\n\n## Ta tâche\n\nPour chaque méthode annotée `@Idempotent` :\n- la clé est l'argument à la position `keyArg` (une `String`). Clé absente, `null` ou vide : `IllegalArgumentException`, **sans** appeler la méthode ;\n- premier appel réussi avec une clé : le résultat est **mémorisé** ;\n- appel suivant avec la même clé : le résultat mémorisé est **renvoyé**, la méthode n'est pas exécutée ;\n- un appel qui **échoue** n'est pas mémorisé : un nouvel essai avec la même clé exécute la méthode ;\n- chaque méthode a ses propres clés : `r-1` pour `refund` et `r-1` pour `charge` sont deux opérations.\n\n## Ce qui sera relu\n\nAu-delà des tests, la revue juge la sémantique (quoi mémoriser, avec quelle clé, entre threads) et l'usage de l'AOP. Signale dans un commentaire ce que ton aspect **ne** protège **pas** (pense aux appels simultanés et à l'auto-invocation).\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "assignment",
+   "rubric": [
+    {
+     "id": "correctness",
+     "label": "Correction (tests)",
+     "source": "tests",
+     "weight": 0.55
+    },
+    {
+     "id": "semantics",
+     "label": "Sémantique d'idempotence",
+     "levels": {
+      "0": "La clé est ignorée ou calculée à partir de tous les arguments",
+      "2": "Fonctionne pour les tests mais mémorise les échecs, ou mélange les clés de méthodes différentes, ou HashMap non protégée",
+      "4": "Clé composée de la méthode et de la clé métier ; seuls les succès sont mémorisés ; clé invalide refusée avant l'appel ; structure sûre entre threads (ConcurrentHashMap, putIfAbsent) et limite connue (deux appels simultanés peuvent encore passer) signalée"
+     },
+     "source": "ai",
+     "weight": 0.3
+    },
+    {
+     "id": "aop-design",
+     "label": "Usage de l'AOP",
+     "levels": {
+      "0": "Logique d'idempotence écrite dans PaymentService",
+      "2": "Fonctionne mais relit l'annotation par réflexion, ou pointcut trop large",
+      "4": "Annotation liée au paramètre du conseil (@annotation(idempotent)), aucun appel de réflexion manuel, PaymentService inchangé ; la limite de l'auto-invocation est mentionnée"
+     },
+     "source": "ai",
+     "weight": 0.15
+    }
+   ],
+   "source": null,
+   "title": "Un aspect d'idempotence : jamais deux débits pour une commande",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/AppConfig.java": "package app;\n\nimport org.springframework.context.annotation.ComponentScan;\nimport org.springframework.context.annotation.Configuration;\n\n@Configuration\n@ComponentScan\npublic class AppConfig {\n    // TODO : activer les aspects et déclarer IdempotencyAspect\n}\n",
+     "app/IdempotencyAspect.java": "package app;\n\n/** Rejoue le résultat d'un appel @Idempotent déjà réussi avec la même clé. */\npublic class IdempotencyAspect {\n    // TODO\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/Idempotent.java": "package app;\n\nimport java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n/**\n * Un deuxième appel avec la même clé d'idempotence renvoie le résultat du premier, sans réexécuter la méthode.\n * keyArg : position de l'argument qui porte la clé (une String). Fourni.\n */\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\npublic @interface Idempotent {\n    int keyArg() default 0;\n}\n",
+     "app/PaymentService.java": "package app;\n\nimport org.springframework.stereotype.Service;\n\n/** Débite les clients. Chaque appel réel à la banque est compté. Fourni : ne pas modifier. */\n@Service\npublic class PaymentService {\n    private int bankCalls;\n    private boolean bankDown;\n\n    @Idempotent\n    public String charge(String idempotencyKey, int amountCents) {\n        bankCalls++;\n        if (bankDown) throw new IllegalStateException(\"banque indisponible\");\n        return \"pay-\" + bankCalls + \"-\" + amountCents;\n    }\n\n    @Idempotent(keyArg = 1)\n    public String refund(String paymentId, String idempotencyKey) {\n        bankCalls++;\n        return \"refund-\" + paymentId + \"-\" + bankCalls;\n    }\n\n    public int bankCalls() { return bankCalls; }\n\n    public void setBankDown(boolean down) { this.bankDown = down; }\n}\n",
+     "tests/app/IdempotencyTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.context.annotation.AnnotationConfigApplicationContext;\n\nclass IdempotencyTest {\n\n    @Test\n    @DisplayName(\"même clé : le résultat est rejoué, la banque n'est appelée qu'une fois\")\n    void sameKeyReplays() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            PaymentService payments = ctx.getBean(PaymentService.class);\n            String first = payments.charge(\"cmd-42\", 9000);\n            String second = payments.charge(\"cmd-42\", 9000);\n            assertThat(second).as(\"second charge avec la même clé\").isEqualTo(first);\n            assertThat(payments.bankCalls()).as(\"appels réels à la banque\").isEqualTo(1);\n        }\n    }\n\n    @Test\n    @DisplayName(\"clés différentes : deux paiements\")\n    void differentKeys() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            PaymentService payments = ctx.getBean(PaymentService.class);\n            payments.charge(\"cmd-1\", 100);\n            payments.charge(\"cmd-2\", 100);\n            assertThat(payments.bankCalls()).as(\"appels réels à la banque\").isEqualTo(2);\n        }\n    }\n\n    @Test\n    @DisplayName(\"un échec n'est pas mémorisé : le client peut réessayer avec la même clé\")\n    void failureNotRemembered() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            PaymentService payments = ctx.getBean(PaymentService.class);\n            payments.setBankDown(true);\n            assertThatThrownBy(() -> payments.charge(\"cmd-7\", 500)).as(\"charge pendant la panne\").isInstanceOf(IllegalStateException.class);\n            payments.setBankDown(false);\n            assertThat(payments.charge(\"cmd-7\", 500)).as(\"charge après la panne, même clé\").isEqualTo(\"pay-2-500\");\n            assertThat(payments.charge(\"cmd-7\", 500)).as(\"puis rejoué\").isEqualTo(\"pay-2-500\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"la clé est lue à la position keyArg, et chaque méthode a ses propres clés\")\n    void keyArgAndPerMethod() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            PaymentService payments = ctx.getBean(PaymentService.class);\n            String refund = payments.refund(\"pay-1\", \"r-1\");\n            assertThat(payments.refund(\"pay-1\", \"r-1\")).as(\"refund rejoué avec la clé r-1 (2e argument)\").isEqualTo(refund);\n            payments.charge(\"r-1\", 100);\n            assertThat(payments.bankCalls()).as(\"appels réels : un refund et un charge, même si la clé est identique\").isEqualTo(2);\n        }\n    }\n\n    @Test\n    @DisplayName(\"une clé absente ou vide est refusée avant tout appel à la banque\")\n    void missingKeyRejected() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            PaymentService payments = ctx.getBean(PaymentService.class);\n            assertThatThrownBy(() -> payments.charge(null, 100)).as(\"charge(null, 100)\").isInstanceOf(IllegalArgumentException.class);\n            assertThatThrownBy(() -> payments.charge(\" \", 100)).as(\"charge(\\\" \\\", 100)\").isInstanceOf(IllegalArgumentException.class);\n            assertThat(payments.bankCalls()).as(\"appels réels à la banque\").isZero();\n        }\n    }\n}\n"
+    }
+   },
+   "xp": 150
+  },
+  "name": "exercise:spring-ch02-assignment",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch02",
+   "checks": [],
+   "concepts": [
+    "spring-ch02-aspect-annotations",
+    "spring-ch02-auto-proxy-creator",
+    "spring-ch02-transactional-proxy",
+    "spring-ch02-rollback-rules",
+    "spring-ch02-retry-placement",
+    "spring-ch02-retryable-spring7"
+   ],
+   "debrief": "",
+   "difficulty": 5,
+   "id": "spring-ch02-boss",
+   "instructions": "## Contexte\n\n`@Transactional` n'est qu'un aspect. Pour le prouver, tu en écris un : `@Atomic`. La base (H2), `JdbcClient` et le gestionnaire de transactions de Spring (`DataSourceTransactionManager`) sont configurés dans `DataConfig`, **sans** `@EnableTransactionManagement` : aucune transaction n'existe tant que ton aspect ne les ouvre pas.\n\nFournis : `@Atomic`, `Ledger` (les écritures en base), `AuditTrail`, `Accounting` et `DataConfig`. Tu écris `AtomicAspect.java` et tu complètes `AppConfig.java`.\n\nPas d'indices pour ce combat : tout ce qu'il faut est dans les cinq leçons du module.\n\n## Les règles de `@Atomic`\n\n- Une méthode `@Atomic` appelée hors de toute transaction s'exécute dans une **nouvelle** transaction, obtenue du `PlatformTransactionManager` du conteneur : validée si la méthode réussit, **annulée pour toute exception**, vérifiée comprise. L'exception remonte telle quelle.\n- Une méthode `@Atomic` appelée alors qu'une transaction est **déjà en cours** la rejoint, comme la propagation `REQUIRED` de Spring : c'est la transaction externe qui décide du sort de toutes les écritures.\n- `Accounting.settle` porte `@Retryable` (Spring 7) **et** `@Atomic` : chaque tentative doit repartir d'une transaction neuve, et les écritures des tentatives ratées ne doivent pas rester.\n\n`Ledger` utilise `JdbcClient` sans rien connaître de ton aspect : ses écritures doivent pourtant appartenir à ta transaction.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "boss",
+   "rubric": [],
+   "source": null,
+   "title": "Boss : écrire son propre @Transactional",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/AppConfig.java": "package app;\n\nimport org.springframework.context.annotation.ComponentScan;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.context.annotation.Import;\n\n@Configuration\n@ComponentScan\n@Import(DataConfig.class)\npublic class AppConfig {\n}\n",
+     "app/AtomicAspect.java": "package app;\n\npublic class AtomicAspect {\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 0,
+    "passed": false,
+    "readonly": {
+     "app/Accounting.java": "package app;\n\nimport org.springframework.resilience.annotation.Retryable;\nimport org.springframework.stereotype.Service;\n\n/** Les opérations comptables de Tixa. Fourni : ne pas modifier. */\n@Service\npublic class Accounting {\n    private final Ledger ledger;\n    private final AuditTrail audit;\n    private int lockConflicts;\n    private int attempts;\n\n    public Accounting(Ledger ledger, AuditTrail audit) {\n        this.ledger = ledger;\n        this.audit = audit;\n    }\n\n    public void setLockConflicts(int n) { this.lockConflicts = n; }\n\n    public int attempts() { return attempts; }\n\n    @Atomic\n    public void sale(String eventId, int cents) {\n        ledger.write(\"vente \" + eventId, cents);\n        ledger.write(\"tva \" + eventId, cents / 5);\n        if (cents < 0) throw new IllegalArgumentException(\"montant négatif\");\n    }\n\n    @Atomic\n    public void refund(String eventId, int cents) throws Exception {\n        ledger.write(\"remboursement \" + eventId, -cents);\n        if (eventId.equals(\"closed\")) throw new Exception(\"événement clôturé\");\n    }\n\n    /** Écrit puis audite : l'audit (autre bean, lui aussi @Atomic) rejoint la transaction en cours. */\n    @Atomic\n    public void transfer(String from, String to, int cents) {\n        ledger.write(\"débit \" + from, -cents);\n        audit.note(from + \"->\" + to);\n        if (to.equals(\"nowhere\")) throw new IllegalStateException(\"compte inconnu\");\n        ledger.write(\"crédit \" + to, cents);\n    }\n\n    /** Un conflit de verrou fait échouer les premières tentatives ; chaque tentative doit repartir de zéro. */\n    @Retryable(includes = IllegalStateException.class, maxRetries = 3, delay = 0)\n    @Atomic\n    public void settle(String eventId) {\n        attempts++;\n        ledger.write(\"clôture \" + eventId, 0);\n        if (attempts <= lockConflicts) throw new IllegalStateException(\"verrou en conflit\");\n    }\n}\n",
+     "app/Atomic.java": "package app;\n\nimport java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n/** Tout ou rien : la méthode s'exécute dans une transaction. Fourni. */\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\npublic @interface Atomic { }\n",
+     "app/AuditTrail.java": "package app;\n\nimport org.springframework.stereotype.Service;\n\n/** Écrit une ligne d'audit, dans la transaction de l'appelant s'il y en a une. Fourni. */\n@Service\npublic class AuditTrail {\n    private final Ledger ledger;\n\n    public AuditTrail(Ledger ledger) { this.ledger = ledger; }\n\n    @Atomic\n    public void note(String what) { ledger.write(\"audit \" + what, 0); }\n}\n",
+     "app/DataConfig.java": "package app;\n\nimport javax.sql.DataSource;\n\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.jdbc.core.simple.JdbcClient;\nimport org.springframework.jdbc.datasource.DataSourceTransactionManager;\nimport org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;\nimport org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;\n\n/** La base et son gestionnaire de transactions. Pas de @EnableTransactionManagement : c'est ton aspect qui travaille. Fourni. */\n@Configuration\npublic class DataConfig {\n    @Bean DataSource dataSource() { return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).generateUniqueName(true).build(); }\n    @Bean JdbcClient jdbcClient(DataSource ds) { return JdbcClient.create(ds); }\n    @Bean DataSourceTransactionManager transactionManager(DataSource ds) { return new DataSourceTransactionManager(ds); }\n}\n",
+     "app/Ledger.java": "package app;\n\nimport org.springframework.jdbc.core.simple.JdbcClient;\nimport org.springframework.stereotype.Component;\n\n/** Les écritures comptables, en base H2. Fourni : ne pas modifier. */\n@Component\npublic class Ledger {\n    private final JdbcClient db;\n\n    public Ledger(JdbcClient db) {\n        this.db = db;\n        db.sql(\"create table if not exists entry (label varchar(60), cents int)\").update();\n    }\n\n    public void write(String label, int cents) {\n        db.sql(\"insert into entry (label, cents) values (?, ?)\").params(label, cents).update();\n    }\n\n    public int count() {\n        return db.sql(\"select count(*) from entry\").query(Integer.class).single();\n    }\n}\n",
+     "tests/app/AtomicTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.context.annotation.AnnotationConfigApplicationContext;\n\nclass AtomicTest {\n\n    @Test\n    @DisplayName(\"succès : les deux écritures sont validées\")\n    void commit() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            ctx.getBean(Accounting.class).sale(\"jazz\", 4500);\n            assertThat(ctx.getBean(Ledger.class).count()).as(\"écritures après une vente\").isEqualTo(2);\n        }\n    }\n\n    @Test\n    @DisplayName(\"exception non vérifiée : tout est annulé\")\n    void rollbackRuntime() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            assertThatThrownBy(() -> ctx.getBean(Accounting.class).sale(\"jazz\", -1)).as(\"vente négative\")\n                    .isExactlyInstanceOf(IllegalArgumentException.class);\n            assertThat(ctx.getBean(Ledger.class).count()).as(\"écritures après une vente refusée\").isZero();\n        }\n    }\n\n    @Test\n    @DisplayName(\"exception vérifiée : tout est annulé aussi\")\n    void rollbackChecked() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            assertThatThrownBy(() -> ctx.getBean(Accounting.class).refund(\"closed\", 100)).as(\"remboursement d'un événement clôturé\")\n                    .hasMessage(\"événement clôturé\");\n            assertThat(ctx.getBean(Ledger.class).count()).as(\"écritures après un remboursement refusé\").isZero();\n        }\n    }\n\n    @Test\n    @DisplayName(\"un @Atomic appelé dans un @Atomic rejoint la transaction : un échec externe annule l'audit\")\n    void nestedJoins() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            assertThatThrownBy(() -> ctx.getBean(Accounting.class).transfer(\"caisse\", \"nowhere\", 100)).as(\"virement vers un compte inconnu\")\n                    .isInstanceOf(IllegalStateException.class);\n            assertThat(ctx.getBean(Ledger.class).count()).as(\"écritures, audit compris, après l'échec du virement\").isZero();\n        }\n    }\n\n    @Test\n    @DisplayName(\"un virement réussi garde ses trois écritures\")\n    void nestedCommit() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            ctx.getBean(Accounting.class).transfer(\"caisse\", \"banque\", 100);\n            assertThat(ctx.getBean(Ledger.class).count()).as(\"écritures après un virement\").isEqualTo(3);\n        }\n    }\n\n    @Test\n    @DisplayName(\"@Retryable + @Atomic : chaque tentative a sa transaction, seule la dernière reste\")\n    void retryEachAttemptOwnTransaction() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            Accounting accounting = ctx.getBean(Accounting.class);\n            accounting.setLockConflicts(2);\n            accounting.settle(\"jazz\");\n            assertThat(accounting.attempts()).as(\"tentatives\").isEqualTo(3);\n            assertThat(ctx.getBean(Ledger.class).count()).as(\"écritures après deux conflits puis un succès\").isEqualTo(1);\n        }\n    }\n\n    @Test\n    @DisplayName(\"sans conflit, une seule tentative\")\n    void noConflict() {\n        try (var ctx = new AnnotationConfigApplicationContext(AppConfig.class)) {\n            Accounting accounting = ctx.getBean(Accounting.class);\n            accounting.settle(\"rock\");\n            assertThat(accounting.attempts()).as(\"tentatives\").isEqualTo(1);\n            assertThat(ctx.getBean(Ledger.class).count()).as(\"écritures\").isEqualTo(1);\n        }\n    }\n}\n"
+    }
+   },
+   "xp": 250
+  },
+  "name": "exercise:spring-ch02-boss",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch02",
+   "checks": [],
+   "concepts": [
+    "spring-ch02-jdk-vs-cglib",
+    "spring-ch02-proxy-factory",
+    "spring-ch02-final-limit"
+   ],
+   "debrief": "",
+   "difficulty": 2,
+   "id": "spring-ch02-l01-lab-warmup-timing-proxy",
+   "instructions": "## Contexte\n\nOn veut connaître la durée de chaque appel au catalogue de Tixa, sans ajouter une ligne de mesure dans chaque méthode. C'est exactement le travail d'un **proxy** : un objet qui se fait passer pour la cible, fait quelque chose avant et après, puis lui délègue l'appel.\n\nTu écris `Proxies.timed` avec `ProxyFactory`, l'outil de Spring qui fabrique des proxies. `Metrics`, `Ticker` (une horloge en millisecondes) et les classes cibles sont fournis.\n\n## Ta tâche\n\n`Proxies.timed(target, ticker, metrics)` renvoie un proxy de `target` qui, pour chaque appel :\n1. lit l'heure (`ticker.millis()`) ;\n2. appelle la méthode de la cible ;\n3. enregistre `NomSimpleDeLaClasse.méthode durée` dans `metrics`, par exemple `MemoryCatalog.find 30`, **même si l'appel lève une exception**, qui doit alors remonter telle quelle.\n\nLaisse `ProxyFactory` choisir la technique :\n- une cible qui implémente une interface (`MemoryCatalog`) donne un **proxy JDK** ;\n- une cible sans interface (`PriceCalculator`) donne un **proxy CGLIB**, une sous-classe générée.\n\n## À observer\n\n`PriceCalculator.fee()` est `final`. Lance les tests et regarde ce que le proxy en fait.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch02-l01",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Échauffement : un proxy qui mesure, avec ProxyFactory",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/Proxies.java": "package app;\n\n/** Fabrique des proxies qui mesurent la durée de chaque appel. */\npublic final class Proxies {\n    private Proxies() { }\n\n    /** Un proxy de target qui enregistre « NomSimpleDeLaClasse.méthode durée » dans metrics après chaque appel. */\n    public static <T> T timed(T target, Ticker ticker, Metrics metrics) {\n        throw new UnsupportedOperationException(\"Proxies.timed\");\n    }\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/Catalog.java": "package app;\n\n/** Fourni : ne pas modifier. */\npublic interface Catalog {\n    String find(String eventId);\n}\n",
+     "app/MemoryCatalog.java": "package app;\n\n/** Implémente une interface. Fourni : ne pas modifier. */\npublic class MemoryCatalog implements Catalog {\n    public String find(String eventId) {\n        if (eventId.isBlank()) throw new IllegalArgumentException(\"identifiant vide\");\n        return \"événement \" + eventId;\n    }\n}\n",
+     "app/Metrics.java": "package app;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\n/** Les mesures enregistrées : « Classe.méthode durée_en_ms ». Fourni : ne pas modifier. */\npublic class Metrics {\n    private final List<String> lines = new ArrayList<>();\n\n    public synchronized void record(String method, long millis) { lines.add(method + \" \" + millis); }\n\n    public synchronized List<String> lines() { return List.copyOf(lines); }\n}\n",
+     "app/PriceCalculator.java": "package app;\n\n/** N'implémente aucune interface. Fourni : ne pas modifier. */\npublic class PriceCalculator {\n    public int total(int base, int seats) { return base * seats; }\n\n    public final int fee() { return 150; }\n}\n",
+     "app/Ticker.java": "package app;\n\n/** Une horloge en millisecondes, injectée pour que les tests maîtrisent le temps. Fourni. */\n@FunctionalInterface\npublic interface Ticker {\n    long millis();\n}\n",
+     "tests/app/TimingProxyTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport java.util.Iterator;\nimport java.util.List;\nimport java.util.stream.LongStream;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.aop.support.AopUtils;\n\nclass TimingProxyTest {\n\n    /** Une horloge qui renvoie 100, 130, 200, 260… : chaque appel mesuré dure 30, puis 60 ms. */\n    static Ticker ticks(long... values) {\n        Iterator<Long> it = LongStream.of(values).iterator();\n        return it::next;\n    }\n\n    @Test\n    @DisplayName(\"un appel passe par le proxy et sa durée est enregistrée\")\n    void recordsDuration() {\n        Metrics metrics = new Metrics();\n        Catalog catalog = Proxies.timed(new MemoryCatalog(), ticks(100, 130), metrics);\n        assertThat(catalog.find(\"jazz\")).as(\"résultat de find(\\\"jazz\\\") via le proxy\").isEqualTo(\"événement jazz\");\n        assertThat(metrics.lines()).as(\"mesures après un appel\").containsExactly(\"MemoryCatalog.find 30\");\n    }\n\n    @Test\n    @DisplayName(\"une cible qui a une interface donne un proxy JDK\")\n    void interfaceGivesJdkProxy() {\n        Catalog catalog = Proxies.timed(new MemoryCatalog(), ticks(0, 0), new Metrics());\n        assertThat(AopUtils.isJdkDynamicProxy(catalog)).as(\"AopUtils.isJdkDynamicProxy(proxy du catalogue)\").isTrue();\n    }\n\n    @Test\n    @DisplayName(\"une cible sans interface donne un proxy CGLIB, une sous-classe\")\n    void classGivesCglibProxy() {\n        Metrics metrics = new Metrics();\n        PriceCalculator prices = Proxies.timed(new PriceCalculator(), ticks(0, 5), metrics);\n        assertThat(AopUtils.isCglibProxy(prices)).as(\"AopUtils.isCglibProxy(proxy du calculateur)\").isTrue();\n        assertThat(prices.total(4500, 2)).as(\"total(4500, 2)\").isEqualTo(9000);\n        assertThat(metrics.lines()).as(\"mesures\").containsExactly(\"PriceCalculator.total 5\");\n    }\n\n    @Test\n    @DisplayName(\"une méthode final n'est pas interceptée par une sous-classe\")\n    void finalMethodNotIntercepted() {\n        Metrics metrics = new Metrics();\n        PriceCalculator prices = Proxies.timed(new PriceCalculator(), ticks(), metrics);\n        assertThat(prices.fee()).as(\"fee()\").isEqualTo(150);\n        assertThat(metrics.lines()).as(\"mesures après fee(), méthode final\").isEmpty();\n    }\n\n    @Test\n    @DisplayName(\"un appel qui échoue est mesuré, et l'exception d'origine remonte\")\n    void failureIsMeasuredAndRethrown() {\n        Metrics metrics = new Metrics();\n        Catalog catalog = Proxies.timed(new MemoryCatalog(), ticks(200, 260), metrics);\n        assertThatThrownBy(() -> catalog.find(\" \")).as(\"find(\\\" \\\")\")\n                .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage(\"identifiant vide\");\n        assertThat(metrics.lines()).as(\"mesures après un appel en échec\").containsExactly(\"MemoryCatalog.find 60\");\n    }\n\n    @Test\n    @DisplayName(\"chaque appel est mesuré séparément\")\n    void eachCall() {\n        Metrics metrics = new Metrics();\n        Catalog catalog = Proxies.timed(new MemoryCatalog(), ticks(0, 10, 10, 15), metrics);\n        catalog.find(\"a\");\n        catalog.find(\"b\");\n        assertThat(metrics.lines()).as(\"mesures après deux appels\").isEqualTo(List.of(\"MemoryCatalog.find 10\", \"MemoryCatalog.find 5\"));\n    }\n}\n"
+    }
+   },
+   "xp": 40
+  },
+  "name": "exercise:spring-ch02-l01-lab-warmup-timing-proxy",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch02",
+   "checks": [],
+   "concepts": [
+    "spring-ch02-advisor-pointcut",
+    "spring-ch02-interceptor-chain",
+    "spring-ch02-most-specific-method"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch02-l02-lab-retry-advisor",
+   "instructions": "## Contexte\n\nLe prestataire de paiement de Tixa est parfois indisponible quelques secondes. Réessayer un **paiement** est sûr (il est idempotent : même clé, même paiement). Réessayer un **remboursement** ne l'est pas : on rembourserait deux fois. Il faut donc un comportement qui ne s'applique **qu'à certaines méthodes** : un *advisor*.\n\nTu écris `RetryAdvisor.java` et `Chains.java`. L'annotation `@Retry`, le client et sa version capricieuse (`FlakyPaymentClient`, qui échoue les n premières fois) sont fournis. Note que `@Retry` est posée sur l'**implémentation** (`FlakyPaymentClient.charge`), pas sur l'interface.\n\n## 1. `RetryAdvisor`\n\nUn `org.springframework.aop.PointcutAdvisor` :\n- son **pointcut** ne vise que les méthodes annotées `@Retry` dans la classe cible ;\n- son **advice** réessaie la méthode tant qu'elle lève une `RuntimeException`, jusqu'à `attempts` tentatives au total ; au-delà, la dernière exception remonte telle quelle.\n\n## 2. `Chains.resilient(target, ticker, metrics)`\n\nUn proxy (avec `ProxyFactory`) qui porte **deux** comportements :\n- une mesure de durée, comme à la leçon précédente (`FlakyPaymentClient.charge 10`) ;\n- le `RetryAdvisor`.\n\nLa mesure doit **envelopper** le retry : un appel qui réussit à la troisième tentative donne **une seule** mesure, qui couvre les trois tentatives.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch02-l02",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Un advisor qui réessaie, au bon endroit de la chaîne",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/Chains.java": "package app;\n\n/** Assemble les proxies de Tixa. */\npublic final class Chains {\n    private Chains() { }\n\n    /**\n     * Un proxy de target qui réessaie les méthodes @Retry et mesure chaque appel UNE fois,\n     * retries compris (« NomSimple.méthode durée »).\n     */\n    public static <T> T resilient(T target, Ticker ticker, Metrics metrics) {\n        throw new UnsupportedOperationException(\"Chains.resilient\");\n    }\n}\n",
+     "app/RetryAdvisor.java": "package app;\n\n/** Un advisor : réessaie les méthodes annotées @Retry de la classe cible, et seulement elles. */\npublic class RetryAdvisor {\n    // TODO : un PointcutAdvisor (pointcut : méthodes @Retry ; advice : l'intercepteur qui réessaie)\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/FlakyPaymentClient.java": "package app;\n\n/** Échoue les n premières fois, puis réussit. Fourni : ne pas modifier. */\npublic class FlakyPaymentClient implements PaymentClient {\n    private final int failuresBeforeSuccess;\n    public int charges;\n    public int refunds;\n\n    public FlakyPaymentClient(int failuresBeforeSuccess) { this.failuresBeforeSuccess = failuresBeforeSuccess; }\n\n    @Override\n    @Retry(attempts = 3)\n    public String charge(String key, int amountCents) {\n        charges++;\n        if (charges <= failuresBeforeSuccess) throw new IllegalStateException(\"prestataire indisponible\");\n        return \"pay-\" + key;\n    }\n\n    @Override\n    public String refund(String paymentId) {\n        refunds++;\n        if (refunds <= failuresBeforeSuccess) throw new IllegalStateException(\"prestataire indisponible\");\n        return \"refund-\" + paymentId;\n    }\n}\n",
+     "app/Metrics.java": "package app;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\n/** Les mesures enregistrées : « Classe.méthode durée_en_ms ». Fourni : ne pas modifier. */\npublic class Metrics {\n    private final List<String> lines = new ArrayList<>();\n\n    public synchronized void record(String method, long millis) { lines.add(method + \" \" + millis); }\n\n    public synchronized List<String> lines() { return List.copyOf(lines); }\n}\n",
+     "app/PaymentClient.java": "package app;\n\n/** Le client du prestataire de paiement. Fourni : ne pas modifier. */\npublic interface PaymentClient {\n    /** Idempotent (même clé = même paiement) : peut être réessayé sans risque. */\n    String charge(String idempotencyKey, int amountCents);\n\n    /** Pas idempotent : ne doit JAMAIS être réessayé automatiquement. */\n    String refund(String paymentId);\n}\n",
+     "app/Retry.java": "package app;\n\nimport java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n/** Réessaie la méthode en cas de RuntimeException, jusqu'à attempts tentatives au total. Fourni. */\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\npublic @interface Retry {\n    int attempts() default 3;\n}\n",
+     "app/Ticker.java": "package app;\n\n/** Une horloge en millisecondes, injectée pour que les tests maîtrisent le temps. Fourni. */\n@FunctionalInterface\npublic interface Ticker {\n    long millis();\n}\n",
+     "tests/app/RetryAdvisorTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport java.util.concurrent.atomic.AtomicLong;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.aop.Advisor;\nimport org.springframework.aop.PointcutAdvisor;\nimport org.springframework.aop.support.AopUtils;\n\nclass RetryAdvisorTest {\n\n    /** Chaque lecture avance de 10 ms. */\n    static Ticker clock() {\n        AtomicLong t = new AtomicLong();\n        return () -> t.getAndAdd(10);\n    }\n\n    @Test\n    @DisplayName(\"RetryAdvisor est un PointcutAdvisor qui ne vise que les méthodes @Retry\")\n    void advisorMatchesOnlyAnnotated() throws Exception {\n        Object advisor = new RetryAdvisor();\n        assertThat(advisor).as(\"RetryAdvisor doit être un org.springframework.aop.PointcutAdvisor\").isInstanceOf(PointcutAdvisor.class);\n        var pointcut = ((PointcutAdvisor) advisor).getPointcut();\n        var charge = PaymentClient.class.getMethod(\"charge\", String.class, int.class);\n        var refund = PaymentClient.class.getMethod(\"refund\", String.class);\n        assertThat(AopUtils.canApply(pointcut, FlakyPaymentClient.class)).as(\"le pointcut s'applique à FlakyPaymentClient\").isTrue();\n        assertThat(pointcut.getMethodMatcher().matches(charge, FlakyPaymentClient.class))\n                .as(\"charge (annotée @Retry sur l'implémentation) doit être visée\").isTrue();\n        assertThat(pointcut.getMethodMatcher().matches(refund, FlakyPaymentClient.class)).as(\"refund ne doit pas être visée\").isFalse();\n    }\n\n    @Test\n    @DisplayName(\"une méthode @Retry est réessayée jusqu'au succès\")\n    void retriesUntilSuccess() {\n        var target = new FlakyPaymentClient(2);\n        PaymentClient client = Chains.resilient(target, clock(), new Metrics());\n        assertThat(client.charge(\"k1\", 4500)).as(\"charge après deux échecs\").isEqualTo(\"pay-k1\");\n        assertThat(target.charges).as(\"tentatives de charge\").isEqualTo(3);\n    }\n\n    @Test\n    @DisplayName(\"au-delà du nombre de tentatives, la dernière exception remonte\")\n    void givesUp() {\n        var target = new FlakyPaymentClient(5);\n        PaymentClient client = Chains.resilient(target, clock(), new Metrics());\n        assertThatThrownBy(() -> client.charge(\"k2\", 100)).as(\"charge avec 5 échecs et 3 tentatives\")\n                .isExactlyInstanceOf(IllegalStateException.class).hasMessage(\"prestataire indisponible\");\n        assertThat(target.charges).as(\"tentatives de charge\").isEqualTo(3);\n    }\n\n    @Test\n    @DisplayName(\"une méthode sans @Retry n'est jamais réessayée\")\n    void refundNotRetried() {\n        var target = new FlakyPaymentClient(1);\n        PaymentClient client = Chains.resilient(target, clock(), new Metrics());\n        assertThatThrownBy(() -> client.refund(\"p1\")).as(\"refund en échec\").isInstanceOf(IllegalStateException.class);\n        assertThat(target.refunds).as(\"tentatives de remboursement (non idempotent)\").isEqualTo(1);\n    }\n\n    @Test\n    @DisplayName(\"la mesure enveloppe le retry : une seule mesure par appel, tentatives comprises\")\n    void timingWrapsRetry() {\n        var target = new FlakyPaymentClient(2);\n        Metrics metrics = new Metrics();\n        PaymentClient client = Chains.resilient(target, clock(), metrics);\n        client.charge(\"k3\", 100);\n        assertThat(metrics.lines()).as(\"mesures après un appel réussi à la 3e tentative\").containsExactly(\"FlakyPaymentClient.charge 10\");\n    }\n\n    @Test\n    @DisplayName(\"le proxy porte deux advisors, mesure d'abord, retry ensuite\")\n    void advisorOrder() {\n        PaymentClient client = Chains.resilient(new FlakyPaymentClient(0), clock(), new Metrics());\n        Advisor[] advisors = ((org.springframework.aop.framework.Advised) client).getAdvisors();\n        assertThat(advisors).as(\"advisors du proxy\").hasSize(2);\n        assertThat(advisors[1]).as(\"le second advisor doit être le RetryAdvisor\").isInstanceOf(RetryAdvisor.class);\n    }\n}\n"
+    }
+   },
+   "xp": 70
+  },
+  "name": "exercise:spring-ch02-l02-lab-retry-advisor",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch02",
+   "checks": [],
+   "concepts": [
+    "spring-ch02-aspect-annotations",
+    "spring-ch02-annotation-binding",
+    "spring-ch02-auto-proxy-creator"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch02-l03-lab-timed-aspect",
+   "instructions": "## Contexte\n\nÉcrire des advisors à la main, comme à la leçon précédente, devient vite lourd. Spring accepte une syntaxe plus déclarative, empruntée à AspectJ : une classe `@Aspect` dont les méthodes disent **quand** agir (une expression de *pointcut*) et **quoi** faire (un conseil, ou *advice*). Le conteneur s'occupe de poser les proxies.\n\nTu écris `TimedAspect.java` et tu complètes `AppConfig.java`. `@Timed`, `Metrics`, `Ticker` et `ReservationService` sont fournis. Les tests déclarent eux-mêmes un bean `Ticker`.\n\n## Ta tâche\n\n1. `TimedAspect` est un `@Aspect` qui reçoit `Metrics` et `Ticker` par son constructeur. Un conseil `@Around` s'applique à toute méthode annotée `@Timed` et enregistre `métrique résultat durée` :\n   - `reservation.reserve ok 25` quand l'appel réussit ;\n   - `reservation.reserve erreur 25` quand il lève une exception, qui remonte telle quelle.\n   La métrique est la valeur de l'annotation `@Timed` de la méthode.\n2. Dans `AppConfig`, active l'auto-proxy AspectJ et déclare l'aspect comme bean.\n\nLes méthodes sans `@Timed` ne sont pas mesurées.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch02-l03",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Un @Aspect qui mesure les méthodes @Timed",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/AppConfig.java": "package app;\n\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.ComponentScan;\nimport org.springframework.context.annotation.Configuration;\n\n@Configuration\n@ComponentScan\npublic class AppConfig {\n\n    @Bean\n    Metrics metrics() { return new Metrics(); }\n\n    // TODO : activer l'auto-proxy AspectJ et déclarer l'aspect\n}\n",
+     "app/TimedAspect.java": "package app;\n\n/** Mesure les méthodes annotées @Timed. */\npublic class TimedAspect {\n    // TODO : un @Aspect avec un conseil @Around sur les méthodes @Timed\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/Metrics.java": "package app;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\n/** Les mesures : « métrique résultat durée », résultat = ok ou erreur. Fourni : ne pas modifier. */\npublic class Metrics {\n    private final List<String> lines = new ArrayList<>();\n\n    public synchronized void record(String metric, String outcome, long millis) { lines.add(metric + \" \" + outcome + \" \" + millis); }\n\n    public synchronized List<String> lines() { return List.copyOf(lines); }\n}\n",
+     "app/ReservationService.java": "package app;\n\nimport org.springframework.stereotype.Component;\n\n/** Fourni : ne pas modifier. */\n@Component\npublic class ReservationService {\n\n    @Timed(\"reservation.reserve\")\n    public String reserve(String eventId, int seats) {\n        if (seats <= 0) throw new IllegalArgumentException(\"nombre de places invalide\");\n        return eventId + \"x\" + seats;\n    }\n\n    public String status() { return \"ouvert\"; }\n}\n",
+     "app/Ticker.java": "package app;\n\n/** Une horloge en millisecondes, injectée pour que les tests maîtrisent le temps. Fourni. */\n@FunctionalInterface\npublic interface Ticker {\n    long millis();\n}\n",
+     "app/Timed.java": "package app;\n\nimport java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n/** Mesure la méthode sous le nom de métrique donné. Fourni. */\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\npublic @interface Timed {\n    String value();\n}\n",
+     "tests/app/TimedAspectTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport java.util.concurrent.atomic.AtomicLong;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.aop.support.AopUtils;\nimport org.springframework.context.annotation.AnnotationConfigApplicationContext;\n\nclass TimedAspectTest {\n\n    static AnnotationConfigApplicationContext start() {\n        var ctx = new AnnotationConfigApplicationContext();\n        AtomicLong now = new AtomicLong();\n        ctx.registerBean(Ticker.class, () -> () -> now.getAndAdd(25));   // chaque lecture avance de 25 ms\n        ctx.register(AppConfig.class);\n        ctx.refresh();\n        return ctx;\n    }\n\n    @Test\n    @DisplayName(\"une méthode @Timed est mesurée sous le nom de sa métrique\")\n    void timedMethodIsMeasured() {\n        try (var ctx = start()) {\n            assertThat(ctx.getBean(ReservationService.class).reserve(\"jazz\", 2)).as(\"reserve(\\\"jazz\\\", 2)\").isEqualTo(\"jazzx2\");\n            assertThat(ctx.getBean(Metrics.class).lines()).as(\"mesures\").containsExactly(\"reservation.reserve ok 25\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"un appel en échec est mesuré avec le résultat erreur, et l'exception remonte\")\n    void failureIsMeasured() {\n        try (var ctx = start()) {\n            assertThatThrownBy(() -> ctx.getBean(ReservationService.class).reserve(\"jazz\", 0)).as(\"reserve(\\\"jazz\\\", 0)\")\n                    .isExactlyInstanceOf(IllegalArgumentException.class);\n            assertThat(ctx.getBean(Metrics.class).lines()).as(\"mesures\").containsExactly(\"reservation.reserve erreur 25\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"une méthode sans @Timed n'est pas mesurée\")\n    void untimedMethodIgnored() {\n        try (var ctx = start()) {\n            assertThat(ctx.getBean(ReservationService.class).status()).as(\"status()\").isEqualTo(\"ouvert\");\n            assertThat(ctx.getBean(Metrics.class).lines()).as(\"mesures après status()\").isEmpty();\n        }\n    }\n\n    @Test\n    @DisplayName(\"le service est remplacé par un proxy CGLIB (il n'a pas d'interface)\")\n    void serviceIsProxied() {\n        try (var ctx = start()) {\n            assertThat(AopUtils.isCglibProxy(ctx.getBean(ReservationService.class)))\n                    .as(\"AopUtils.isCglibProxy(reservationService) : l'auto-proxy AspectJ doit être activé\").isTrue();\n        }\n    }\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:spring-ch02-l03-lab-timed-aspect",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch02",
+   "checks": [],
+   "concepts": [
+    "spring-ch02-self-invocation",
+    "spring-ch02-rollback-rules",
+    "spring-ch02-transactional-proxy"
+   ],
+   "debrief": "",
+   "difficulty": 4,
+   "id": "spring-ch02-l04-lab-debug-sold-unpaid",
+   "instructions": "## Contexte\n\nMessage de la comptabilité de Tixa :\n\n> Depuis quelques jours, des concerts affichent complet alors que les recettes ne suivent pas. On a croisé avec la banque : des places sont marquées vendues pour des paiements **refusés**. Le code de réservation est pourtant annoté `@Transactional`, on l'a vérifié deux fois. La semaine dernière, on a ajouté la gestion des cartes expirées.\n\nLe code est réparti en quatre fichiers : `BookingService.java` (la réservation), `SeatRepository.java` (les places, en base H2), `PaymentGateway.java` (la banque simulée) et `TxConfig.java` (la configuration, transactions comprises). Les tests rejouent des journées réelles.\n\n## Ta mission\n\n1. Trouve **pourquoi** des places restent vendues après un paiement refusé. Il y a plus d'une cause.\n2. Corrige-les.\n3. Fais en sorte que la **prochaine** exception vérifiée ajoutée au paiement ne puisse plus réintroduire le bug.\n\nNe modifie pas les tests.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch02-l04",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Débogage : des places vendues sans paiement",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/BookingService.java": "package app;\n\nimport org.springframework.stereotype.Service;\nimport org.springframework.transaction.annotation.Transactional;\n\n/** Réserve des places puis débite la carte : tout ou rien. */\n@Service\npublic class BookingService {\n    private final SeatRepository seats;\n    private final PaymentGateway payments;\n\n    public BookingService(SeatRepository seats, PaymentGateway payments) {\n        this.seats = seats;\n        this.payments = payments;\n    }\n\n    /** Point d'entrée appelé par l'API. */\n    public String book(String eventId, int firstSeat, int count, String card) throws PaymentDeclinedException, CardExpiredException {\n        if (count <= 0) throw new IllegalArgumentException(\"nombre de places invalide\");\n        return sellAndCharge(eventId, firstSeat, count, card);\n    }\n\n    @Transactional\n    public String sellAndCharge(String eventId, int firstSeat, int count, String card)\n            throws PaymentDeclinedException, CardExpiredException {\n        for (int i = 0; i < count; i++) seats.sell(eventId, firstSeat + i);\n        return payments.charge(card, 4500 * count);\n    }\n}\n",
+     "app/PaymentGateway.java": "package app;\n\nimport org.springframework.stereotype.Component;\n\n/** Simule la banque : carte « declined » refusée, carte « expired » expirée. */\n@Component\npublic class PaymentGateway {\n    public String charge(String card, int amountCents) throws PaymentDeclinedException, CardExpiredException {\n        if (card.equals(\"declined\")) throw new PaymentDeclinedException(\"paiement refusé par la banque\");\n        if (card.equals(\"expired\")) throw new CardExpiredException(\"carte expirée\");\n        return \"pay-\" + amountCents;\n    }\n}\n",
+     "app/SeatRepository.java": "package app;\n\nimport org.springframework.jdbc.core.simple.JdbcClient;\nimport org.springframework.stereotype.Component;\n\n/** Les places vendues, en base. */\n@Component\npublic class SeatRepository {\n    private final JdbcClient db;\n\n    public SeatRepository(JdbcClient db) {\n        this.db = db;\n        db.sql(\"create table if not exists sold_seat (event_id varchar(40), seat int)\").update();\n    }\n\n    public void sell(String eventId, int seat) {\n        db.sql(\"insert into sold_seat (event_id, seat) values (?, ?)\").params(eventId, seat).update();\n    }\n\n    public int soldCount(String eventId) {\n        return db.sql(\"select count(*) from sold_seat where event_id = ?\").param(eventId).query(Integer.class).single();\n    }\n}\n",
+     "app/TxConfig.java": "package app;\n\nimport javax.sql.DataSource;\n\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.ComponentScan;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.jdbc.core.simple.JdbcClient;\nimport org.springframework.jdbc.datasource.DataSourceTransactionManager;\nimport org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;\nimport org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;\nimport org.springframework.transaction.annotation.EnableTransactionManagement;\n\n@Configuration\n@ComponentScan\n@EnableTransactionManagement\npublic class TxConfig {\n\n    @Bean\n    DataSource dataSource() {\n        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).generateUniqueName(true).build();\n    }\n\n    @Bean\n    JdbcClient jdbcClient(DataSource dataSource) { return JdbcClient.create(dataSource); }\n\n    @Bean\n    DataSourceTransactionManager transactionManager(DataSource dataSource) { return new DataSourceTransactionManager(dataSource); }\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/CardExpiredException.java": "package app;\n\n/** Ajoutée la semaine dernière : la carte a expiré. Exception vérifiée. */\npublic class CardExpiredException extends Exception {\n    public CardExpiredException(String message) { super(message); }\n}\n",
+     "app/PaymentDeclinedException.java": "package app;\n\n/** La banque refuse le paiement. Exception vérifiée : l'appelant doit la traiter. */\npublic class PaymentDeclinedException extends Exception {\n    public PaymentDeclinedException(String message) { super(message); }\n}\n",
+     "tests/app/BookingTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.context.annotation.AnnotationConfigApplicationContext;\n\n/** Journées rejouées par le support : chaque test part d'une base vide. */\nclass BookingTest {\n\n    @Test\n    @DisplayName(\"une réservation payée enregistre ses places\")\n    void paidBookingIsSaved() throws Exception {\n        try (var ctx = new AnnotationConfigApplicationContext(TxConfig.class)) {\n            assertThat(ctx.getBean(BookingService.class).book(\"jazz\", 1, 2, \"visa\")).as(\"book(jazz, 1, 2, visa)\").isEqualTo(\"pay-9000\");\n            assertThat(ctx.getBean(SeatRepository.class).soldCount(\"jazz\")).as(\"places vendues pour jazz\").isEqualTo(2);\n        }\n    }\n\n    @Test\n    @DisplayName(\"paiement refusé : aucune place ne reste vendue\")\n    void declinedPaymentSellsNothing() {\n        try (var ctx = new AnnotationConfigApplicationContext(TxConfig.class)) {\n            assertThatThrownBy(() -> ctx.getBean(BookingService.class).book(\"rock\", 10, 3, \"declined\"))\n                    .as(\"book avec une carte refusée\").isInstanceOf(PaymentDeclinedException.class);\n            assertThat(ctx.getBean(SeatRepository.class).soldCount(\"rock\"))\n                    .as(\"places vendues pour rock après un paiement refusé\").isZero();\n        }\n    }\n\n    @Test\n    @DisplayName(\"carte expirée : aucune place ne reste vendue\")\n    void expiredCardSellsNothing() {\n        try (var ctx = new AnnotationConfigApplicationContext(TxConfig.class)) {\n            assertThatThrownBy(() -> ctx.getBean(BookingService.class).book(\"expo\", 1, 1, \"expired\"))\n                    .as(\"book avec une carte expirée\").isInstanceOf(CardExpiredException.class);\n            assertThat(ctx.getBean(SeatRepository.class).soldCount(\"expo\"))\n                    .as(\"places vendues pour expo après une carte expirée\").isZero();\n        }\n    }\n\n    @Test\n    @DisplayName(\"une journée mêlée : seules les réservations payées restent\")\n    void mixedDay() throws Exception {\n        try (var ctx = new AnnotationConfigApplicationContext(TxConfig.class)) {\n            BookingService booking = ctx.getBean(BookingService.class);\n            booking.book(\"jazz\", 1, 2, \"visa\");\n            try { booking.book(\"jazz\", 3, 2, \"declined\"); } catch (PaymentDeclinedException expected) { }\n            try { booking.book(\"jazz\", 5, 1, \"expired\"); } catch (CardExpiredException expected) { }\n            booking.book(\"jazz\", 7, 1, \"visa\");\n            assertThat(ctx.getBean(SeatRepository.class).soldCount(\"jazz\")).as(\"places vendues pour jazz en fin de journée\").isEqualTo(3);\n        }\n    }\n}\n"
+    }
+   },
+   "xp": 90
+  },
+  "name": "exercise:spring-ch02-l04-lab-debug-sold-unpaid",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch02",
+   "checks": [],
+   "concepts": [
+    "spring-ch02-aspect-order",
+    "spring-ch02-advice-kinds",
+    "spring-ch02-retry-placement"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch02-l05-lab-aspect-order",
+   "instructions": "## Contexte\n\n`SeatLocker.lock` verrouille une place, et échoue parfois parce qu'un autre client tient le même verrou. Trois aspects s'appliquent à cette méthode (annotée `@Booking`) :\n- `RetryAspect` réessaie jusqu'à 3 tentatives (fourni) ;\n- `TimingAspect` mesure la durée (fourni) ;\n- `AuditAspect`, que tu écris, garde une trace pour le support.\n\nSans ordre explicite, Spring ne garantit pas dans quel ordre les aspects s'emboîtent. Ici, le résultat change complètement selon l'ordre.\n\n## Ta tâche\n\n1. Écris `AuditAspect` (un `@Aspect`) qui ajoute au `Trace` :\n   - avant l'appel : `audit appel lock(A12)` (nom de la méthode et premier argument) ;\n   - après un succès : `audit ok verrou-A12` (la valeur renvoyée) ;\n   - après un échec : `audit échec place déjà verrouillée` (le message de l'exception).\n   Utilise un conseil `@Before`, un `@AfterReturning` et un `@AfterThrowing` (pas de `@Around`). Déclare-le comme bean dans `AopConfig`.\n2. Fixe l'ordre des trois aspects avec `@Order` pour obtenir, pour un appel réussi à la 3e tentative :\n\n```\naudit appel lock(B3)\nmesure début\ntentative 1, lock B3 #1, tentative 2, lock B3 #2, tentative 3, lock B3 #3\nmesure fin\naudit ok verrou-B3\n```\n\nUne seule ligne d'audit par appel, une seule mesure qui couvre toutes les tentatives. Dans `RetryAspect` et `TimingAspect`, tu ne modifies que leur ordre.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch02-l05",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Trois aspects, un seul bon ordre",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/AopConfig.java": "package app;\n\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.ComponentScan;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.context.annotation.EnableAspectJAutoProxy;\n\n@Configuration\n@ComponentScan\n@EnableAspectJAutoProxy\npublic class AopConfig {\n    @Bean Trace trace() { return new Trace(); }\n    @Bean RetryAspect retryAspect(Trace trace) { return new RetryAspect(trace); }\n    @Bean TimingAspect timingAspect(Trace trace) { return new TimingAspect(trace); }\n    // TODO : l'aspect d'audit\n}\n",
+     "app/AuditAspect.java": "package app;\n\n/** Journal d'audit : une ligne par appel, avec le résultat final. */\npublic class AuditAspect {\n    // TODO\n}\n",
+     "app/RetryAspect.java": "package app;\n\nimport org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.Around;\nimport org.aspectj.lang.annotation.Aspect;\n\n/** Réessaie jusqu'à 3 tentatives au total. Ne modifie que son ordre. */\n@Aspect\npublic class RetryAspect {\n    private final Trace trace;\n\n    public RetryAspect(Trace trace) { this.trace = trace; }\n\n    @Around(\"@annotation(app.Booking)\")\n    public Object retry(ProceedingJoinPoint call) throws Throwable {\n        for (int attempt = 1; ; attempt++) {\n            try {\n                trace.add(\"tentative \" + attempt);\n                return call.proceed();\n            } catch (IllegalStateException e) {\n                if (attempt == 3) throw e;\n            }\n        }\n    }\n}\n",
+     "app/TimingAspect.java": "package app;\n\nimport org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.Around;\nimport org.aspectj.lang.annotation.Aspect;\n\n/** Ouvre et ferme une mesure. Ne modifie que son ordre. */\n@Aspect\npublic class TimingAspect {\n    private final Trace trace;\n\n    public TimingAspect(Trace trace) { this.trace = trace; }\n\n    @Around(\"@annotation(app.Booking)\")\n    public Object time(ProceedingJoinPoint call) throws Throwable {\n        trace.add(\"mesure début\");\n        try {\n            return call.proceed();\n        } finally {\n            trace.add(\"mesure fin\");\n        }\n    }\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/Booking.java": "package app;\n\nimport java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n/** Une opération de réservation : auditée, mesurée, réessayée. Fourni. */\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\npublic @interface Booking { }\n",
+     "app/SeatLocker.java": "package app;\n\nimport org.springframework.stereotype.Component;\n\n/** Verrouille une place ; échoue les « failures » premières fois (concurrence). Fourni. */\n@Component\npublic class SeatLocker {\n    private final Trace trace;\n    private int failures;\n    private int calls;\n\n    public SeatLocker(Trace trace) { this.trace = trace; }\n\n    /** Une méthode, pas un champ public : sur un proxy CGLIB, un champ modifié serait celui du proxy. */\n    public void setFailures(int failures) { this.failures = failures; }\n\n    @Booking\n    public String lock(String seat) {\n        calls++;\n        trace.add(\"lock \" + seat + \" #\" + calls);\n        if (calls <= failures) throw new IllegalStateException(\"place déjà verrouillée\");\n        return \"verrou-\" + seat;\n    }\n}\n",
+     "app/Trace.java": "package app;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\n/** Le fil des événements, lu par les tests. Fourni. */\npublic class Trace {\n    private final List<String> events = new ArrayList<>();\n\n    public synchronized void add(String e) { events.add(e); }\n\n    public synchronized List<String> events() { return List.copyOf(events); }\n}\n",
+     "tests/app/AspectOrderTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.context.annotation.AnnotationConfigApplicationContext;\n\nclass AspectOrderTest {\n\n    @Test\n    @DisplayName(\"succès du premier coup : audit, mesure, tentative, puis l'inverse\")\n    void firstTry() {\n        try (var ctx = new AnnotationConfigApplicationContext(AopConfig.class)) {\n            assertThat(ctx.getBean(SeatLocker.class).lock(\"A12\")).as(\"lock(\\\"A12\\\")\").isEqualTo(\"verrou-A12\");\n            assertThat(ctx.getBean(Trace.class).events()).as(\"fil des événements\").isEqualTo(List.of(\n                    \"audit appel lock(A12)\", \"mesure début\", \"tentative 1\", \"lock A12 #1\", \"mesure fin\", \"audit ok verrou-A12\"));\n        }\n    }\n\n    @Test\n    @DisplayName(\"deux échecs puis succès : une seule ligne d'audit et une seule mesure\")\n    void retriedInside() {\n        try (var ctx = new AnnotationConfigApplicationContext(AopConfig.class)) {\n            ctx.getBean(SeatLocker.class).setFailures(2);\n            ctx.getBean(SeatLocker.class).lock(\"B3\");\n            assertThat(ctx.getBean(Trace.class).events()).as(\"fil des événements\").isEqualTo(List.of(\n                    \"audit appel lock(B3)\", \"mesure début\",\n                    \"tentative 1\", \"lock B3 #1\", \"tentative 2\", \"lock B3 #2\", \"tentative 3\", \"lock B3 #3\",\n                    \"mesure fin\", \"audit ok verrou-B3\"));\n        }\n    }\n\n    @Test\n    @DisplayName(\"échec définitif : l'audit voit l'erreur finale, une seule fois\")\n    void finalFailure() {\n        try (var ctx = new AnnotationConfigApplicationContext(AopConfig.class)) {\n            ctx.getBean(SeatLocker.class).setFailures(5);\n            assertThatThrownBy(() -> ctx.getBean(SeatLocker.class).lock(\"C1\")).as(\"lock(\\\"C1\\\") avec 5 échecs\")\n                    .isInstanceOf(IllegalStateException.class);\n            List<String> events = ctx.getBean(Trace.class).events();\n            assertThat(events.getFirst()).as(\"premier événement\").isEqualTo(\"audit appel lock(C1)\");\n            assertThat(events.getLast()).as(\"dernier événement\").isEqualTo(\"audit échec place déjà verrouillée\");\n            assertThat(events.stream().filter(e -> e.startsWith(\"audit\")).count()).as(\"lignes d'audit\").isEqualTo(2);\n            assertThat(events.stream().filter(e -> e.startsWith(\"tentative\")).count()).as(\"tentatives\").isEqualTo(3);\n            assertThat(events.get(events.size() - 2)).as(\"avant-dernier événement\").isEqualTo(\"mesure fin\");\n        }\n    }\n}\n"
+    }
+   },
+   "xp": 70
+  },
+  "name": "exercise:spring-ch02-l05-lab-aspect-order",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch02",
+   "checks": [],
+   "concepts": [
+    "spring-ch02-aspect-annotations",
+    "spring-ch02-auto-proxy-creator",
+    "spring-ch02-retry-placement",
+    "spring-ch02-retryable-spring7",
+    "spring-ch02-advice-kinds"
+   ],
+   "debrief": "",
+   "difficulty": 4,
+   "id": "spring-ch02-project",
+   "instructions": "## Contexte\n\nTixa grandit. Le support veut savoir ce qui s'est passé pour chaque réservation et chaque paiement ; la comptabilité veut que les pannes passagères du prestataire de paiement ne fassent plus échouer les commandes. Rien de tout cela ne doit encombrer le code métier.\n\nFournis : `@Audited`, `AuditLog`, la banque simulée (`Bank`), les deux exceptions de paiement et `ReservationService`. Tu modifies `AuditAspect`, `PaymentClient`, `Checkout` et `TixaConfig`. Les tests sont groupés par jalon : `jboot M1`, `M2`, `M3`.\n\n## M1 — L'audit\n\n`AuditAspect` est un `@Aspect` (il reçoit `AuditLog`) qui consigne chaque appel à une méthode `@Audited` :\n- `reserve(jazz) ok jazz:1-2` : nom de la méthode, premier argument, résultat ;\n- `reserve(rock) échec complet` : message de l'exception, qui remonte ensuite.\n\nActive les aspects et déclare `AuditAspect` dans `TixaConfig`.\n\n## M2 — Les paiements qui réessaient\n\nAvec le `@Retryable` de **Spring 7** (`org.springframework.resilience.annotation`), `PaymentClient.charge` est réessayée :\n- seulement pour une `PaymentUnavailableException` (une `PaymentDeclinedException` ne l'est jamais) ;\n- 3 tentatives au total, sans délai (`delay = 0`, pour les tests).\n\n## M3 — Une ligne d'audit par paiement\n\nLe support veut **une** ligne par paiement de commande, avec la référence de la commande, retries compris :\n\n```\npay(cmd-1) ok pay-3-9000\n```\n\nLance d'abord les tests de M3 avec l'audit posé sur `PaymentClient.charge`, et lis le journal. Puis trouve où le poser.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [
+    {
+     "goal": "Un @Aspect consigne chaque appel @Audited, réussi ou non, sous la forme « méthode(premierArgument) ok résultat » ou « … échec message ».",
+     "id": "m1",
+     "review": false,
+     "tests": "jboot M1",
+     "title": "L'audit"
+    },
+    {
+     "goal": "Avec @Retryable de Spring 7, PaymentClient.charge réessaie jusqu'à 3 tentatives quand le prestataire est indisponible, et jamais pour une carte refusée.",
+     "id": "m2",
+     "review": false,
+     "tests": "jboot M2",
+     "title": "Les paiements qui réessaient"
+    },
+    {
+     "goal": "Le paiement d'une commande est audité une seule fois, retries compris, avec la commande comme référence.",
+     "id": "m3",
+     "review": true,
+     "tests": "jboot M3",
+     "title": "Une ligne d'audit par paiement"
+    }
+   ],
+   "palette": [],
+   "role": "project",
+   "rubric": [],
+   "source": null,
+   "title": "Tixa, jalon 2 : audit et paiements qui résistent aux pannes",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/AuditAspect.java": "package app;\n\n/** M1 — consigne chaque appel @Audited : « méthode(premierArgument) ok résultat » ou « … échec message ». */\npublic class AuditAspect {\n    // TODO (M1)\n}\n",
+     "app/Checkout.java": "package app;\n\nimport org.springframework.stereotype.Service;\n\n/** M3 — le paiement d'une commande, appelé par l'API. */\n@Service\npublic class Checkout {\n    private final PaymentClient payments;\n\n    public Checkout(PaymentClient payments) { this.payments = payments; }\n\n    public String pay(String orderId, String card, int amountCents) {\n        return payments.charge(card, amountCents);\n    }\n}\n",
+     "app/PaymentClient.java": "package app;\n\nimport org.springframework.stereotype.Service;\n\n/** M2 — le client du prestataire de paiement. */\n@Service\npublic class PaymentClient {\n    private final Bank bank;\n\n    public PaymentClient(Bank bank) { this.bank = bank; }\n\n    public String charge(String card, int amountCents) {\n        return bank.debit(card, amountCents);\n    }\n}\n",
+     "app/TixaConfig.java": "package app;\n\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.ComponentScan;\nimport org.springframework.context.annotation.Configuration;\n\n@Configuration\n@ComponentScan\npublic class TixaConfig {\n\n    @Bean AuditLog auditLog() { return new AuditLog(); }\n\n    @Bean Bank bank() { return new Bank(); }\n\n    // TODO (M1, M2)\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/AuditLog.java": "package app;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\n/** Le journal d'audit lu par le support. Fourni : ne pas modifier. */\npublic class AuditLog {\n    private final List<String> lines = new ArrayList<>();\n\n    public synchronized void add(String line) { lines.add(line); }\n\n    public synchronized List<String> lines() { return List.copyOf(lines); }\n}\n",
+     "app/Audited.java": "package app;\n\nimport java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n/** Chaque appel est consigné dans le journal d'audit. Fourni. */\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\npublic @interface Audited { }\n",
+     "app/Bank.java": "package app;\n\n/** La banque simulée : indisponible les n premières fois, refuse la carte « declined ». Fourni. */\npublic class Bank {\n    private int unavailableFor;\n    private int calls;\n\n    public void setUnavailableFor(int calls) { this.unavailableFor = calls; }\n\n    public int calls() { return calls; }\n\n    public String debit(String card, int amountCents) {\n        calls++;\n        if (calls <= unavailableFor) throw new PaymentUnavailableException(\"prestataire indisponible\");\n        if (card.equals(\"declined\")) throw new PaymentDeclinedException(\"carte refusée\");\n        return \"pay-\" + calls + \"-\" + amountCents;\n    }\n}\n",
+     "app/PaymentDeclinedException.java": "package app;\n\n/** La banque refuse : réessayer ne changera rien. Fourni. */\npublic class PaymentDeclinedException extends RuntimeException {\n    public PaymentDeclinedException(String message) { super(message); }\n}\n",
+     "app/PaymentUnavailableException.java": "package app;\n\n/** Le prestataire ne répond pas : réessayer a un sens. Fourni. */\npublic class PaymentUnavailableException extends RuntimeException {\n    public PaymentUnavailableException(String message) { super(message); }\n}\n",
+     "app/ReservationService.java": "package app;\n\nimport java.util.HashMap;\nimport java.util.Map;\n\nimport org.springframework.stereotype.Service;\n\n/** Réserve des places (capacité 4 par événement). Fourni : ne pas modifier. */\n@Service\npublic class ReservationService {\n    private final Map<String, Integer> sold = new HashMap<>();\n\n    @Audited\n    public String reserve(String eventId, int seats) {\n        int taken = sold.getOrDefault(eventId, 0);\n        if (taken + seats > 4) throw new IllegalStateException(\"complet\");\n        sold.put(eventId, taken + seats);\n        return eventId + \":\" + (taken + 1) + \"-\" + (taken + seats);\n    }\n}\n",
+     "tests/app/M1AuditTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.context.annotation.AnnotationConfigApplicationContext;\n\nclass M1AuditTest {\n\n    @Test\n    @DisplayName(\"M1 — une réservation réussie est consignée avec son résultat\")\n    void success() {\n        try (var ctx = new AnnotationConfigApplicationContext(TixaConfig.class)) {\n            ctx.getBean(ReservationService.class).reserve(\"jazz\", 2);\n            assertThat(ctx.getBean(AuditLog.class).lines()).as(\"journal d'audit\").containsExactly(\"reserve(jazz) ok jazz:1-2\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"M1 — un échec est consigné avec son message, et l'exception remonte\")\n    void failure() {\n        try (var ctx = new AnnotationConfigApplicationContext(TixaConfig.class)) {\n            var reservations = ctx.getBean(ReservationService.class);\n            reservations.reserve(\"rock\", 3);\n            assertThatThrownBy(() -> reservations.reserve(\"rock\", 2)).as(\"5 places sur 4\").isInstanceOf(IllegalStateException.class);\n            assertThat(ctx.getBean(AuditLog.class).lines()).as(\"journal d'audit\")\n                    .containsExactly(\"reserve(rock) ok rock:1-3\", \"reserve(rock) échec complet\");\n        }\n    }\n}\n",
+     "tests/app/M2RetryTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.context.annotation.AnnotationConfigApplicationContext;\n\nclass M2RetryTest {\n\n    @Test\n    @DisplayName(\"M2 — prestataire indisponible deux fois : le débit réussit à la 3e tentative\")\n    void retriedUntilSuccess() {\n        try (var ctx = new AnnotationConfigApplicationContext(TixaConfig.class)) {\n            ctx.getBean(Bank.class).setUnavailableFor(2);\n            assertThat(ctx.getBean(PaymentClient.class).charge(\"visa\", 4500)).as(\"charge\").isEqualTo(\"pay-3-4500\");\n            assertThat(ctx.getBean(Bank.class).calls()).as(\"appels à la banque\").isEqualTo(3);\n        }\n    }\n\n    @Test\n    @DisplayName(\"M2 — au plus 3 tentatives, puis l'indisponibilité remonte\")\n    void givesUp() {\n        try (var ctx = new AnnotationConfigApplicationContext(TixaConfig.class)) {\n            ctx.getBean(Bank.class).setUnavailableFor(10);\n            assertThatThrownBy(() -> ctx.getBean(PaymentClient.class).charge(\"visa\", 100)).as(\"charge, banque en panne\")\n                    .isInstanceOf(PaymentUnavailableException.class);\n            assertThat(ctx.getBean(Bank.class).calls()).as(\"appels à la banque\").isEqualTo(3);\n        }\n    }\n\n    @Test\n    @DisplayName(\"M2 — une carte refusée n'est jamais réessayée\")\n    void declinedNotRetried() {\n        try (var ctx = new AnnotationConfigApplicationContext(TixaConfig.class)) {\n            assertThatThrownBy(() -> ctx.getBean(PaymentClient.class).charge(\"declined\", 100)).as(\"carte refusée\")\n                    .isInstanceOf(PaymentDeclinedException.class);\n            assertThat(ctx.getBean(Bank.class).calls()).as(\"appels à la banque pour une carte refusée\").isEqualTo(1);\n        }\n    }\n}\n",
+     "tests/app/M3CheckoutTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\nimport static org.assertj.core.api.Assertions.assertThatThrownBy;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.context.annotation.AnnotationConfigApplicationContext;\n\nclass M3CheckoutTest {\n\n    @Test\n    @DisplayName(\"M3 — un paiement réussi après deux indisponibilités : une seule ligne d'audit\")\n    void oneAuditLinePerPayment() {\n        try (var ctx = new AnnotationConfigApplicationContext(TixaConfig.class)) {\n            ctx.getBean(Bank.class).setUnavailableFor(2);\n            ctx.getBean(Checkout.class).pay(\"cmd-1\", \"visa\", 9000);\n            assertThat(ctx.getBean(AuditLog.class).lines()).as(\"journal d'audit (un paiement = une ligne)\")\n                    .containsExactly(\"pay(cmd-1) ok pay-3-9000\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"M3 — un paiement refusé : une ligne d'échec, la commande comme référence\")\n    void declinedPayment() {\n        try (var ctx = new AnnotationConfigApplicationContext(TixaConfig.class)) {\n            assertThatThrownBy(() -> ctx.getBean(Checkout.class).pay(\"cmd-2\", \"declined\", 100)).as(\"paiement refusé\")\n                    .isInstanceOf(PaymentDeclinedException.class);\n            assertThat(ctx.getBean(AuditLog.class).lines()).as(\"journal d'audit\").containsExactly(\"pay(cmd-2) échec carte refusée\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"M3 — une panne définitive : une seule ligne d'échec, pas une par tentative\")\n    void finalOutage() {\n        try (var ctx = new AnnotationConfigApplicationContext(TixaConfig.class)) {\n            ctx.getBean(Bank.class).setUnavailableFor(10);\n            assertThatThrownBy(() -> ctx.getBean(Checkout.class).pay(\"cmd-3\", \"visa\", 100)).as(\"panne\")\n                    .isInstanceOf(PaymentUnavailableException.class);\n            assertThat(ctx.getBean(AuditLog.class).lines()).as(\"journal d'audit\").containsExactly(\"pay(cmd-3) échec prestataire indisponible\");\n        }\n    }\n}\n"
+    }
+   },
+   "xp": 300
+  },
+  "name": "exercise:spring-ch02-project",
+  "status": 200
+ },
+ {
+  "body": {
    "chapter_id": "ts-ch00",
    "checks": [],
    "concepts": [
@@ -95341,8 +97093,23 @@
         "title": "Le conteneur sous le capot"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch02",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "spring-ch02",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 27,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "02-aop-proxies",
+        "subtitle": "Proxies JDK et CGLIB, advisors, @Aspect, auto-invocation, règles d'annulation et ordre des aspects, avec le @Retryable de Spring 7",
         "title": "AOP et proxies"
        },
        {
@@ -96455,6 +98222,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 31,
+     "score": 0,
+     "unlocked": false
+    },
+    "spring-ch02": {
+     "chapter_id": "spring-ch02",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 27,
      "score": 0,
      "unlocked": false
     },

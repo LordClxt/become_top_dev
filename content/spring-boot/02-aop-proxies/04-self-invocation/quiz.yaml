@@ -1,0 +1,99 @@
+id: spring-ch02-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Avec `exposeProxy = true`, la méthode passe par son propre proxy. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.aop.framework.AopContext;
+      import org.springframework.cache.annotation.*;
+      import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          public static class Prices {
+              private int computed;
+              @Cacheable("prices") public int price(String id) { computed++; return 4500; }
+              public int twoPrices(String id) {
+                  Prices self = (Prices) AopContext.currentProxy();
+                  return self.price(id) + self.price(id);
+              }
+              public int computed() { return computed; }
+          }
+
+          @Configuration @EnableCaching @EnableAspectJAutoProxy(exposeProxy = true)
+          static class Config {
+              @Bean ConcurrentMapCacheManager cacheManager() { return new ConcurrentMapCacheManager(); }
+              @Bean Prices prices() { return new Prices(); }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {
+                  Prices prices = ctx.getBean(Prices.class);
+                  System.out.println(prices.twoPrices("jazz") + " " + prices.computed());
+              }
+          }
+      }
+    answer: "9000 1"
+    explanation: "currentProxy() rend le proxy de l'appel en cours : self.price passe par le cache, un seul calcul. Ça marche, mais la classe dépend maintenant de Spring AOP et d'une option globale. La documentation déconseille fortement cette solution au profit d'une restructuration."
+    concept: spring-ch02-self-invocation
+    difficulty: 3
+  - id: q2
+    type: single
+    prompt: "Quelle est, selon la documentation de Spring, la meilleure correction d'un `@Transactional` ignoré parce que la méthode est appelée par `this` ?"
+    choices:
+      - "Utiliser AopContext.currentProxy()"
+      - "Injecter le bean dans lui-même"
+      - "Restructurer : annoter la méthode appelée de l'extérieur, ou déplacer la méthode dans un autre bean"
+      - "Rendre la méthode private"
+    answer: 2
+    explanation: "Restructurer est « the best, least-invasive approach » : l'appel arrive alors par le proxy, sans code lié à Spring. L'auto-injection marche mais embrouille le code, currentProxy est le dernier recours, et une méthode private n'est jamais interceptée."
+    concept: spring-ch02-self-invocation
+    difficulty: 2
+  - id: q3
+    type: multiple
+    prompt: "Une méthode `@Transactional` appelée depuis l'extérieur lève une exception. Dans quels cas la transaction est-elle annulée sans configuration particulière ?"
+    choices:
+      - "IllegalStateException"
+      - "java.io.IOException"
+      - "OutOfMemoryError"
+      - "Une exception métier PaymentDeclinedException extends Exception"
+    answer: [0, 2]
+    explanation: "Par défaut, Spring annule pour RuntimeException et Error, et valide pour une exception vérifiée (IOException, toute classe qui étend Exception sans passer par RuntimeException). rollbackFor ou rollbackOn = ALL_EXCEPTIONS changent cela."
+    concept: spring-ch02-rollback-rules
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Une méthode `@Transactional` attrape l'exception de la banque, écrit un log et renvoie `null`. Que devient la transaction ?"
+    choices:
+      - "Annulée, puisqu'une exception a eu lieu"
+      - "Validée : pour le proxy, la méthode s'est terminée normalement"
+      - "Marquée en échec et laissée ouverte"
+      - "Annulée seulement si l'exception était non vérifiée"
+    answer: 1
+    explanation: "TransactionInterceptor ne voit que ce qui sort de la méthode. Une exception avalée à l'intérieur n'existe pas pour lui : les écritures faites avant sont validées. Il faut relancer, ou appeler TransactionAspectSupport.currentTransactionStatus().setRollbackOnly()."
+    concept: spring-ch02-transactional-proxy
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Dans une application Spring Boot (proxies CGLIB), une méthode package-private annotée `@Transactional` est appelée par un autre bean du même paquet. Est-elle transactionnelle ?"
+    choices:
+      - "Non, seules les méthodes public le sont"
+      - "Oui, depuis Spring 6.0, pour les proxies de classe"
+      - "Oui, mais seulement si elle est aussi final"
+      - "Non, il faut le vrai AspectJ"
+    answer: 1
+    explanation: "Depuis Spring 6.0, les méthodes protected et package-private peuvent être transactionnelles avec un proxy de classe. Avec un proxy JDK, une méthode transactionnelle doit rester public et déclarée dans l'interface. Une méthode private, elle, ne l'est jamais."
+    concept: spring-ch02-transactional-proxy
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Comment `JdbcClient` retrouve-t-il la connexion de la transaction ouverte par `@Transactional` ?"
+    choices:
+      - "Elle lui est passée en paramètre caché par le proxy"
+      - "Le gestionnaire de transactions l'a liée au thread courant (TransactionSynchronizationManager) ; JdbcClient la cherche là"
+      - "Il ouvre toujours une nouvelle connexion, qui rejoint la transaction par son identifiant"
+      - "Par une variable statique globale"
+    answer: 1
+    explanation: "C'est un ThreadLocal : tout le code exécuté sur ce thread pendant la transaction utilise la même connexion. Corollaire : un autre thread (un CompletableFuture, un @Async) n'est pas dans la transaction."
+    concept: spring-ch02-transactional-proxy
+    difficulty: 2

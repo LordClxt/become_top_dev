@@ -1,0 +1,7 @@
+id: spring-ch02-aspect-to-advisor
+concept: spring-ch02-auto-proxy-creator
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : la classe @Aspect est lue, chaque méthode @Around devient un advisor, puis le post-processor voit passer ReservationService, trouve un advisor applicable et le remplace par un proxy."
+entry: scene.html
+duration_s: 12
+status: idea

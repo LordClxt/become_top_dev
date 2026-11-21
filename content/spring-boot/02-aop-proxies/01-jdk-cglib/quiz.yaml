@@ -1,0 +1,98 @@
+id: spring-ch02-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "On force un proxy de classe sur une classe `final`. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.aop.framework.ProxyFactory;
+
+      public class Main {
+          static final class Locked { public String go() { return "x"; } }
+
+          public static void main(String[] args) {
+              try {
+                  ProxyFactory factory = new ProxyFactory(new Locked());
+                  factory.setProxyTargetClass(true);
+                  factory.getProxy();
+                  System.out.println("proxy créé");
+              } catch (Exception e) {
+                  System.out.println(e.getClass().getSimpleName());
+              }
+          }
+      }
+    answer: "AopConfigException"
+    explanation: "CGLIB fabrique une sous-classe : impossible pour une classe final. Spring refuse au lieu de renvoyer un objet qui n'intercepterait rien. Pour un bean, c'est un échec au démarrage, ce qui vaut mieux qu'une transaction silencieusement absente."
+    concept: spring-ch02-final-limit
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Une méthode `final` dans une cible proxifiée par CGLIB. Qu'affiche le programme ?"
+    code: |
+      import org.aopalliance.intercept.MethodInterceptor;
+      import org.springframework.aop.framework.ProxyFactory;
+
+      public class Main {
+          static class Prices {
+              public int total(int base) { return base; }
+              public final int fee() { return 150; }
+          }
+
+          public static void main(String[] args) {
+              ProxyFactory factory = new ProxyFactory(new Prices());
+              factory.addAdvice((MethodInterceptor) inv -> (int) inv.proceed() * 2);
+              Prices proxy = (Prices) factory.getProxy();
+              System.out.println(proxy.total(100) + " " + proxy.fee());
+          }
+      }
+    answer: "200 150"
+    explanation: "total est redéfinie par la sous-classe : elle passe par le comportement qui double le résultat. fee est final : la sous-classe ne peut pas la redéfinir, l'appel va directement à la méthode de Prices, sans comportement ajouté, et sans le moindre avertissement."
+    concept: spring-ch02-final-limit
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Un bean `OrderService implements Orders` est proxifié par le JDK. Un autre bean demande `OrderService` (la classe) dans son constructeur. Que se passe-t-il ?"
+    choices:
+      - "Il reçoit le proxy"
+      - "Il reçoit l'objet d'origine, sans comportement ajouté"
+      - "Le démarrage échoue : le proxy n'est pas un OrderService"
+      - "Spring crée un second proxy, CGLIB cette fois"
+    answer: 2
+    explanation: "Le proxy JDK n'est qu'un frère qui implémente Orders : aucun bean n'est plus de type OrderService. Dépendre de l'interface règle le problème ; forcer CGLIB aussi (c'est le choix par défaut de Spring Boot)."
+    concept: spring-ch02-jdk-vs-cglib
+    difficulty: 2
+  - id: q4
+    type: multiple
+    prompt: "Lesquelles de ces méthodes d'un bean proxifié par CGLIB peuvent recevoir un comportement (une transaction, par exemple) ?"
+    choices:
+      - "Une méthode public"
+      - "Une méthode private"
+      - "Une méthode public final"
+      - "Une méthode protected de la classe elle-même"
+    answer: [0, 3]
+    explanation: "Une sous-classe redéfinit ce qui est visible et non final : public et protected (et package-private dans le même paquet). Une méthode private ou final ne se redéfinit pas, l'appel échappe au proxy."
+    concept: spring-ch02-final-limit
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Pourquoi le constructeur d'un bean n'est-il pas appelé une deuxième fois quand Spring crée son proxy CGLIB ?"
+    choices:
+      - "Parce que le proxy n'a pas de constructeur"
+      - "Parce que Spring instancie la sous-classe avec Objenesis, qui crée l'objet sans appeler de constructeur"
+      - "Parce que CGLIB copie la cible octet par octet"
+      - "Il l'est, c'est pourquoi un constructeur ne doit jamais avoir d'effet de bord"
+    answer: 1
+    explanation: "Objenesis contourne le constructeur. La documentation de Spring prévient seulement que sur une JVM qui l'interdit, on verrait des doubles appels. Corollaire : les champs du proxy ne sont jamais initialisés."
+    concept: spring-ch02-jdk-vs-cglib
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Quelle est la règle par défaut de `ProxyFactory` pour choisir la technique ?"
+    choices:
+      - "Toujours CGLIB"
+      - "Toujours JDK"
+      - "JDK si la cible implémente au moins une interface, CGLIB sinon"
+      - "CGLIB si la classe est publique, JDK sinon"
+    answer: 2
+    explanation: "C'est la décision de DefaultAopProxyFactory, sauf si proxyTargetClass est vrai. Spring Boot met cette option à vrai pour son AOP : ses proxies sont des sous-classes."
+    concept: spring-ch02-proxy-factory
+    difficulty: 1

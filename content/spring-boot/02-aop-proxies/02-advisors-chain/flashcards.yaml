@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Advice, pointcut, advisor ?"
+    back: "Advice = quoi faire ; pointcut = à quelles méthodes ; advisor = la paire, rangée dans le proxy."
+    concept: spring-ch02-advisor-pointcut
+  - id: fc2
+    front: "Le premier advisor d'un proxy est…"
+    back: "…le plus externe : il voit l'appel en premier et le résultat en dernier."
+    concept: spring-ch02-interceptor-chain
+  - id: fc3
+    front: "Que fait proceed() ?"
+    back: "Il passe à l'intercepteur suivant de la chaîne ; après le dernier, il appelle la cible."
+    concept: spring-ch02-interceptor-chain
+  - id: fc4
+    front: "Comment réessayer la suite de la chaîne ?"
+    back: "((ProxyMethodInvocation) invocation).invocableClone().proceed(), à chaque tentative."
+    concept: spring-ch02-interceptor-chain
+  - id: fc5
+    front: "Annotation sur l'implémentation + proxy JDK : comment la lire ?"
+    back: "AopUtils.getMostSpecificMethod(method, targetClass) : la méthode reçue est celle de l'interface."
+    concept: spring-ch02-most-specific-method
+  - id: fc6
+    front: "Que réessayer automatiquement ?"
+    back: "Seulement l'idempotent (ou ce qu'on rend idempotent par une clé), et seulement les erreurs passagères."
+    concept: spring-ch02-advisor-pointcut

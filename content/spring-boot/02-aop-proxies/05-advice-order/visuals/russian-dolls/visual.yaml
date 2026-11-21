@@ -1,0 +1,8 @@
+id: spring-ch02-russian-dolls
+concept: spring-ch02-aspect-order
+format: interactive
+justification: "L'apprenant change les @Order de trois aspects et le nombre d'échecs de la cible : les poupées s'emboîtent autrement et le fil des événements se met à jour, ce qui montre pourquoi l'audit doit être à l'extérieur."
+entry: RussianDolls.tsx
+params:
+  - { name: failures, type: int, min: 0, max: 3, default: 2 }
+status: idea

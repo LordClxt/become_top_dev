@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Proxy JDK ou CGLIB : la différence en un mot ?"
+    back: "JDK = frère qui implémente les mêmes interfaces ; CGLIB = fils, sous-classe générée."
+    concept: spring-ch02-jdk-vs-cglib
+  - id: fc2
+    front: "Règle par défaut de ProxyFactory ?"
+    back: "JDK si la cible a au moins une interface, CGLIB sinon ; setProxyTargetClass(true) force CGLIB (choix de Spring Boot)."
+    concept: spring-ch02-proxy-factory
+  - id: fc3
+    front: "Ce qu'un proxy CGLIB ne peut pas intercepter ?"
+    back: "Les méthodes final et private ; et une classe final ne peut pas être proxifiée du tout."
+    concept: spring-ch02-final-limit
+  - id: fc4
+    front: "Le constructeur de la cible est-il rappelé pour le proxy CGLIB ?"
+    back: "Non : Spring instancie la sous-classe avec Objenesis, sans constructeur."
+    concept: spring-ch02-jdk-vs-cglib
+  - id: fc5
+    front: "Pourquoi ne jamais lire un champ public d'un bean proxifié ?"
+    back: "Ce sont les champs du proxy, jamais initialisés ; seules les méthodes sont déléguées à la cible."
+    concept: spring-ch02-final-limit
+  - id: fc6
+    front: "Le symptôme d'un proxy JDK injecté par classe concrète ?"
+    back: "Aucun candidat de ce type au démarrage, ou ClassCastException sur $Proxy…"
+    concept: spring-ch02-jdk-vs-cglib

@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Ordre entre deux aspects sans @Order ?"
+    back: "Indéfini. @Order sur la classe de l'aspect : la plus petite valeur est la plus externe."
+    concept: spring-ch02-aspect-order
+  - id: fc2
+    front: "Ordre d'exécution dans un même aspect ?"
+    back: "@Around (début), @Before, méthode, @AfterReturning ou @AfterThrowing, @After, @Around (fin)."
+    concept: spring-ch02-advice-kinds
+  - id: fc3
+    front: "Externe ou interne : qui voit chaque tentative d'un retry ?"
+    back: "Seulement les comportements internes au retry ; les externes voient l'appel une fois."
+    concept: spring-ch02-retry-placement
+  - id: fc4
+    front: "Où Spring 7 place-t-il l'advisor de @Retryable ?"
+    back: "En tête de la chaîne (setBeforeExistingAdvisors(true)) : toujours le plus externe."
+    concept: spring-ch02-retryable-spring7
+  - id: fc5
+    front: "@Retryable + @Transactional sur la même méthode ?"
+    back: "Chaque tentative a sa propre transaction ; les tentatives ratées sont annulées."
+    concept: spring-ch02-retryable-spring7
+  - id: fc6
+    front: "Auditer une seule fois une méthode @Retryable ?"
+    back: "Poser l'audit sur le bean appelant : aucun @Order ne place un aspect à l'extérieur du retry."
+    concept: spring-ch02-retryable-spring7
+  - id: fc7
+    front: "@Retryable(maxRetries = 2) : combien d'exécutions au plus ?"
+    back: "3 : le premier appel plus 2 nouvelles tentatives."
+    concept: spring-ch02-retryable-spring7

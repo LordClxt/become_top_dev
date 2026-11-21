@@ -1,0 +1,22 @@
+id: spring-ch02
+title: "AOP et proxies"
+subtitle: "Proxies JDK et CGLIB, advisors, @Aspect, auto-invocation, règles d'annulation et ordre des aspects, avec le @Retryable de Spring 7"
+source: { book: spring-docs, chapter: 20, pages: "#aop-understanding-aop-proxies", url: "https://docs.spring.io/spring-framework/reference/core/aop/proxying.html" }
+objectives:
+  - "Prédire si un bean sera proxifié par le JDK ou par CGLIB, et ce que ce proxy ne pourra pas intercepter (final, private, champs)"
+  - "Construire une chaîne d'intercepteurs avec ProxyFactory et des advisors, et choisir l'ordre selon ce qu'on veut mesurer"
+  - "Écrire un @Aspect qui lie annotations et arguments, et expliquer quel post-processor le transforme en proxy"
+  - "Diagnostiquer un @Transactional ignoré (auto-invocation, exception vérifiée) et le corriger durablement"
+  - "Ordonner plusieurs aspects, et placer un audit, une métrique et un retry de Spring 7 pour qu'ils mesurent ce qu'on attend"
+mastery_threshold: 0.8
+prerequisites: [spring-ch01]
+lessons:
+  - "01-jdk-cglib"
+  - "02-advisors-chain"
+  - "03-aspectj-annotations"
+  - "04-self-invocation"
+  - "05-advice-order"
+xp: { assignment: 150, project: 300, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

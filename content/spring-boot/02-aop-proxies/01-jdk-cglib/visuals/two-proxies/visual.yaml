@@ -1,0 +1,6 @@
+id: spring-ch02-two-proxies
+concept: spring-ch02-jdk-vs-cglib
+format: static
+justification: "Une comparaison fixe suffit : à gauche le proxy JDK (frère de la cible, même interface), à droite le proxy CGLIB (sous-classe de la cible), avec ce que chacun peut et ne peut pas intercepter."
+entry: two-proxies.svg
+status: idea

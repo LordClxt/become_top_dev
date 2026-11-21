@@ -1,0 +1,14 @@
+id: spring-ch02-project
+title: "Tixa, jalon 2 : audit et paiements qui résistent aux pannes"
+pitch: "Le support veut une trace de chaque opération, la comptabilité veut des paiements qui survivent aux pannes du prestataire sans jamais débiter deux fois. Deux aspects, posés au bon endroit."
+running_project: tixa
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/AuditAspect.java", "app/PaymentClient.java", "app/Checkout.java", "app/TixaConfig.java"]
+concepts: [spring-ch02-aspect-annotations, spring-ch02-auto-proxy-creator, spring-ch02-retry-placement, spring-ch02-retryable-spring7, spring-ch02-advice-kinds]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

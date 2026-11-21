@@ -1,0 +1,90 @@
+id: spring-ch02-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Un `@Around` lie l'annotation et le premier argument. Qu'affiche le programme ?"
+    code: |
+      import java.lang.annotation.*;
+      import org.aspectj.lang.ProceedingJoinPoint;
+      import org.aspectj.lang.annotation.*;
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD) @interface Tag { String value(); }
+
+          public static class Booking {
+              @Tag("réservation") public String book(String eventId, int seats) { return eventId + "x" + seats; }
+          }
+
+          @Aspect
+          public static class Log {
+              @Around("@annotation(tag) && args(eventId, ..)")
+              public Object around(ProceedingJoinPoint call, Tag tag, String eventId) throws Throwable {
+                  return tag.value() + " " + eventId + " → " + call.proceed();
+              }
+          }
+
+          @Configuration @EnableAspectJAutoProxy
+          static class Config {
+              @Bean Booking booking() { return new Booking(); }
+              @Bean Log log() { return new Log(); }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {
+                  System.out.println(ctx.getBean(Booking.class).book("jazz", 2));
+              }
+          }
+      }
+    answer: "réservation jazz → jazzx2"
+    explanation: "@annotation(tag) lie l'annotation trouvée sur la méthode, args(eventId, ..) lie le premier argument. Le conseil reçoit des valeurs typées, sans réflexion à la main. Le résultat de proceed() peut être transformé : l'appelant ne voit que ce que l'aspect renvoie."
+    concept: spring-ch02-annotation-binding
+    difficulty: 3
+  - id: q2
+    type: single
+    prompt: "Avec Spring AOP, sur quoi un aspect peut-il agir ?"
+    choices:
+      - "Sur l'exécution des méthodes des beans Spring"
+      - "Sur tout objet Java, y compris ceux créés avec new"
+      - "Sur les constructeurs et les accès aux champs"
+      - "Sur les méthodes statiques"
+    answer: 0
+    explanation: "Spring AOP passe par des proxies posés sur les beans : il ne voit que les appels de méthodes qui traversent ces proxies. Pour agir sur des constructeurs, des champs ou des objets new, il faut le vrai AspectJ (tissage à la compilation ou au chargement)."
+    concept: spring-ch02-aspect-annotations
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Que fait concrètement `@EnableAspectJAutoProxy` ?"
+    choices:
+      - "Il compile les aspects avec le compilateur AspectJ"
+      - "Il enregistre AnnotationAwareAspectJAutoProxyCreator, un BeanPostProcessor qui proxifie les beans visés par un aspect"
+      - "Il modifie le bytecode des classes au chargement"
+      - "Il rend tous les beans prototypes"
+    answer: 1
+    explanation: "Tout le mécanisme est un post-processor du module 01 : il lit les @Aspect, en fait des advisors, et remplace dans postProcessAfterInitialization chaque bean visé par un proxy. Aucun bytecode n'est modifié, sauf la génération des sous-classes CGLIB."
+    concept: spring-ch02-auto-proxy-creator
+    difficulty: 2
+  - id: q4
+    type: multiple
+    prompt: "Quelles expressions visent une méthode `public String reserve(String id)` de la classe `app.booking.ReservationService`, annotée `@Audited`, dans un bean nommé `reservationService` ?"
+    choices:
+      - "execution(* app..*Service.*(..))"
+      - "@annotation(app.Audited)"
+      - "within(app.web..*)"
+      - "bean(*Service)"
+    answer: [0, 1, 3]
+    explanation: "execution vise par paquet et nom de classe (app et sous-paquets, nom finissant par Service), @annotation par annotation, bean par nom de bean (propre à Spring). within(app.web..*) ne vise que le paquet app.web, pas app.booking."
+    concept: spring-ch02-aspect-annotations
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Un `@Around` attrape l'exception de `proceed()`, l'écrit dans un journal, et ne la relance pas. Que reçoit l'appelant ?"
+    choices:
+      - "L'exception d'origine"
+      - "Une UndeclaredThrowableException"
+      - "La valeur renvoyée par le conseil, souvent null : il croit que tout a réussi"
+      - "Une erreur de démarrage du conteneur"
+    answer: 2
+    explanation: "Un @Around remplace l'appel : ce qu'il renvoie est le résultat. Sans throw, l'erreur disparaît. C'est un des bugs les plus coûteux d'un aspect, parce que rien ne le signale."
+    concept: spring-ch02-aspect-annotations
+    difficulty: 2

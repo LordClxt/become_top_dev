@@ -1,0 +1,13 @@
+id: spring-ch02-boss
+title: "Boss : écrire son propre @Transactional"
+kind: code
+language: java
+difficulty: 5
+xp: 250
+timeout_s: 120
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jboot +data"
+files_editable: ["app/AtomicAspect.java", "app/AppConfig.java"]
+concepts: [spring-ch02-aspect-annotations, spring-ch02-auto-proxy-creator, spring-ch02-transactional-proxy, spring-ch02-rollback-rules, spring-ch02-retry-placement, spring-ch02-retryable-spring7]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

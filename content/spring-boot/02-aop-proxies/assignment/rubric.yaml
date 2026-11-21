@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.55
+    source: tests
+  - id: semantics
+    label: "Sémantique d'idempotence"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Clé composée de la méthode et de la clé métier ; seuls les succès sont mémorisés ; clé invalide refusée avant l'appel ; structure sûre entre threads (ConcurrentHashMap, putIfAbsent) et limite connue (deux appels simultanés peuvent encore passer) signalée"
+      2: "Fonctionne pour les tests mais mémorise les échecs, ou mélange les clés de méthodes différentes, ou HashMap non protégée"
+      0: "La clé est ignorée ou calculée à partir de tous les arguments"
+  - id: aop-design
+    label: "Usage de l'AOP"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Annotation liée au paramètre du conseil (@annotation(idempotent)), aucun appel de réflexion manuel, PaymentService inchangé ; la limite de l'auto-invocation est mentionnée"
+      2: "Fonctionne mais relit l'annotation par réflexion, ou pointcut trop large"
+      0: "Logique d'idempotence écrite dans PaymentService"

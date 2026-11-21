@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Que devient chaque méthode de conseil d'un @Aspect ?"
+    back: "Un advisor : l'annotation (@Around…) dit quoi, son expression dit où."
+    concept: spring-ch02-aspect-annotations
+  - id: fc2
+    front: "Que lie @annotation(timed) ?"
+    back: "Il vise les méthodes annotées et passe l'annotation au paramètre timed du conseil."
+    concept: spring-ch02-annotation-binding
+  - id: fc3
+    front: "Qui pose les proxies des aspects ?"
+    back: "AnnotationAwareAspectJAutoProxyCreator, un BeanPostProcessor enregistré par @EnableAspectJAutoProxy (ou par AopAutoConfiguration dans Boot)."
+    concept: spring-ch02-auto-proxy-creator
+  - id: fc4
+    front: "@Aspect suffit-il pour le scan ?"
+    back: "Non : il faut aussi @Component, ou une méthode @Bean."
+    concept: spring-ch02-aspect-annotations
+  - id: fc5
+    front: "Sur quoi Spring AOP peut-il agir ?"
+    back: "Seulement l'exécution de méthodes de beans, à travers un proxy."
+    concept: spring-ch02-aspect-annotations
+  - id: fc6
+    front: "Que garde Spring d'AspectJ ?"
+    back: "La syntaxe et l'analyseur d'expressions (aspectjweaver) ; l'exécution, ce sont ses propres proxies."
+    concept: spring-ch02-aspect-annotations

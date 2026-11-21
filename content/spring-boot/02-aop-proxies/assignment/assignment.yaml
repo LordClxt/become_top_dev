@@ -1,0 +1,12 @@
+id: spring-ch02-assignment
+title: "Un aspect d'idempotence : jamais deux débits pour une commande"
+kind: code
+language: java
+difficulty: 4
+xp: 150
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/IdempotencyAspect.java", "app/AppConfig.java"]
+concepts: [spring-ch02-aspect-annotations, spring-ch02-annotation-binding, spring-ch02-auto-proxy-creator, spring-ch02-self-invocation]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

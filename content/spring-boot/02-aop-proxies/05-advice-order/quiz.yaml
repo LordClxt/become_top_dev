@@ -1,0 +1,88 @@
+id: spring-ch02-l05-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "La méthode échoue. Qu'affiche le programme ?"
+    code: |
+      import java.util.*;
+      import org.aspectj.lang.annotation.*;
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          static List<String> log = new ArrayList<>();
+
+          public static class Svc { public void run() { log.add("méthode"); throw new IllegalStateException("boom"); } }
+
+          @Aspect
+          public static class Trace {
+              @Before("execution(* Main.Svc.run())") public void before() { log.add("before"); }
+              @After("execution(* Main.Svc.run())") public void after() { log.add("after"); }
+              @AfterReturning("execution(* Main.Svc.run())") public void ok() { log.add("ok"); }
+              @AfterThrowing(pointcut = "execution(* Main.Svc.run())", throwing = "e") public void ko(RuntimeException e) { log.add("ko " + e.getMessage()); }
+          }
+
+          @Configuration @EnableAspectJAutoProxy
+          static class Config {
+              @Bean Svc svc() { return new Svc(); }
+              @Bean Trace trace() { return new Trace(); }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {
+                  try { ctx.getBean(Svc.class).run(); } catch (IllegalStateException e) { log.add("appelant"); }
+                  System.out.println(log);
+              }
+          }
+      }
+    answer: "[before, méthode, ko boom, after, appelant]"
+    explanation: "@AfterReturning ne s'exécute qu'en cas de succès, @AfterThrowing qu'en cas d'exception, puis @After dans tous les cas, en dernier (sémantique finally). L'exception continue ensuite vers l'appelant : @AfterThrowing observe, il n'avale rien."
+    concept: spring-ch02-advice-kinds
+    difficulty: 3
+  - id: q2
+    type: single
+    prompt: "Deux aspects sans `@Order` s'appliquent à la même méthode. Dans quel ordre s'exécutent-ils ?"
+    choices:
+      - "Dans l'ordre de déclaration des beans"
+      - "Par ordre alphabétique du nom de classe"
+      - "L'ordre est indéfini : il faut @Order (ou Ordered)"
+      - "Le dernier enregistré est le plus externe"
+    answer: 2
+    explanation: "La documentation est explicite : sans précédence spécifiée, l'ordre entre deux aspects est indéfini. Un code qui marche par hasard aujourd'hui peut s'inverser après l'ajout d'un bean."
+    concept: spring-ch02-aspect-order
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Tu poses `@Audited` (ton aspect, `@Order(1)`) sur une méthode `@Retryable` de Spring 7, qui échoue deux fois avant de réussir. Combien de lignes d'audit ?"
+    choices:
+      - "Une : @Order(1) rend l'audit le plus externe"
+      - "Trois : l'advisor de @Retryable est inséré en tête de la chaîne, l'audit est à l'intérieur quel que soit son @Order"
+      - "Zéro : les deux annotations sont incompatibles"
+      - "Deux : une par échec"
+    answer: 1
+    explanation: "RetryAnnotationBeanPostProcessor appelle setBeforeExistingAdvisors(true) : son advisor passe avant tous ceux du proxy. L'@Order des aspects ne joue qu'entre aspects. Pour un audit par appel, pose-le sur le bean qui appelle la méthode réessayée."
+    concept: spring-ch02-retryable-spring7
+    difficulty: 4
+  - id: q4
+    type: single
+    prompt: "Trois aspects : audit, métrique, retry maison. On veut une ligne d'audit par appel, et une mesure qui couvre toutes les tentatives. Quel ordre (du plus externe au plus interne) ?"
+    choices:
+      - "retry, métrique, audit"
+      - "audit, métrique, retry"
+      - "métrique, retry, audit"
+      - "audit, retry, métrique"
+    answer: 1
+    explanation: "L'audit doit voir l'appel une fois : le plus externe. La métrique doit couvrir toutes les tentatives : à l'extérieur du retry. Le retry, qui doit relancer seulement la cible, est le plus interne. Avec un retry maison (un @Aspect), @Order(1), @Order(2), @Order(3) suffisent."
+    concept: spring-ch02-retry-placement
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Avec `@Retryable(maxRetries = 2)`, combien de fois au plus la méthode est-elle exécutée ?"
+    choices:
+      - "2"
+      - "3"
+      - "4"
+      - "Autant que nécessaire jusqu'au succès"
+    answer: 1
+    explanation: "maxRetries compte les nouvelles tentatives après le premier appel : 1 + 2 = 3 exécutions. Par défaut, maxRetries vaut 3 et le délai entre tentatives est d'une seconde, d'après la documentation de la résilience."
+    concept: spring-ch02-retryable-spring7
+    difficulty: 2

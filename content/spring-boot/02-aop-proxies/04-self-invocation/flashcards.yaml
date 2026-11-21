@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Pourquoi this.methodeTransactionnelle() n'ouvre-t-il pas de transaction ?"
+    back: "this est l'objet, pas le proxy : l'appel ne traverse pas la chaîne des advisors."
+    concept: spring-ch02-self-invocation
+  - id: fc2
+    front: "Corrections de l'auto-invocation, de la meilleure à la pire ?"
+    back: "Restructurer (annotation là où l'appel arrive, ou autre bean) ; s'auto-injecter ; AopContext.currentProxy() avec exposeProxy."
+    concept: spring-ch02-self-invocation
+  - id: fc3
+    front: "Qui ouvre la transaction de @Transactional ?"
+    back: "TransactionInterceptor (invokeWithinTransaction), via le PlatformTransactionManager, qui lie la connexion au thread."
+    concept: spring-ch02-transactional-proxy
+  - id: fc4
+    front: "Règle d'annulation par défaut ?"
+    back: "RuntimeException et Error annulent ; une exception vérifiée valide."
+    concept: spring-ch02-rollback-rules
+  - id: fc5
+    front: "Annuler pour toutes les exceptions, dans toute l'application ?"
+    back: "@EnableTransactionManagement(rollbackOn = RollbackOn.ALL_EXCEPTIONS), depuis Spring 6.2."
+    concept: spring-ch02-rollback-rules
+  - id: fc6
+    front: "Méthode package-private et @Transactional ?"
+    back: "Transactionnelle depuis Spring 6.0 avec un proxy de classe (CGLIB), appelée de l'extérieur ; jamais si private."
+    concept: spring-ch02-transactional-proxy
+  - id: fc7
+    front: "Une exception avalée dans la méthode @Transactional ?"
+    back: "La transaction est validée : le proxy ne voit que ce qui sort de la méthode."
+    concept: spring-ch02-transactional-proxy

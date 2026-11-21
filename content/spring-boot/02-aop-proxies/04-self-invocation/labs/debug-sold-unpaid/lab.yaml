@@ -1,0 +1,12 @@
+id: spring-ch02-l04-lab-debug-sold-unpaid
+title: "Débogage : des places vendues sans paiement"
+kind: code
+language: java
+difficulty: 4
+xp: 90
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot +data"
+files_editable: ["app/BookingService.java", "app/TxConfig.java", "app/SeatRepository.java", "app/PaymentGateway.java"]
+concepts: [spring-ch02-self-invocation, spring-ch02-rollback-rules, spring-ch02-transactional-proxy]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

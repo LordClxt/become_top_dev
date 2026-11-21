@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "L'audit"
+    goal: "Un @Aspect consigne chaque appel @Audited, réussi ou non, sous la forme « méthode(premierArgument) ok résultat » ou « … échec message »."
+    tests: "jboot M1"
+    review: false
+  - id: m2
+    title: "Les paiements qui réessaient"
+    goal: "Avec @Retryable de Spring 7, PaymentClient.charge réessaie jusqu'à 3 tentatives quand le prestataire est indisponible, et jamais pour une carte refusée."
+    tests: "jboot M2"
+    review: false
+  - id: m3
+    title: "Une ligne d'audit par paiement"
+    goal: "Le paiement d'une commande est audité une seule fois, retries compris, avec la commande comme référence."
+    tests: "jboot M3"
+    review: true

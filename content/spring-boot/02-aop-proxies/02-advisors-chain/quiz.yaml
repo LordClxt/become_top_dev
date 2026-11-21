@@ -1,0 +1,80 @@
+id: spring-ch02-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Un advisor dont le pointcut ne vise que `charge`. Qu'affiche le programme ?"
+    code: |
+      import java.lang.reflect.Method;
+      import org.aopalliance.intercept.MethodInterceptor;
+      import org.springframework.aop.framework.ProxyFactory;
+      import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
+
+      public class Main {
+          public static class Payments {
+              public String charge() { return "charge"; }
+              public String refund() { return "refund"; }
+          }
+
+          public static void main(String[] args) {
+              var advisor = new StaticMethodMatcherPointcutAdvisor() {
+                  public boolean matches(Method m, Class<?> c) { return m.getName().equals("charge"); }
+              };
+              advisor.setAdvice((MethodInterceptor) inv -> "[" + inv.proceed() + "]");
+              ProxyFactory factory = new ProxyFactory(new Payments());
+              factory.addAdvisor(advisor);
+              Payments p = (Payments) factory.getProxy();
+              System.out.println(p.charge() + " " + p.refund());
+          }
+      }
+    answer: "[charge] refund"
+    explanation: "Le pointcut filtre : refund n'est pas visée, son appel traverse le proxy sans aucun comportement. Un advice ajouté avec addAdvice, lui, s'applique à toutes les méthodes (son pointcut accepte tout)."
+    concept: spring-ch02-advisor-pointcut
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "`@Retry` est posée sur `FlakyPaymentClient.charge`, pas sur l'interface `PaymentClient`. Le proxy est un proxy JDK. Un pointcut qui teste `method.isAnnotationPresent(Retry.class)` vise-t-il `charge` ?"
+    choices:
+      - "Oui, l'annotation est héritée"
+      - "Non : la Method reçue est celle de l'interface, qui ne porte pas @Retry"
+      - "Oui, mais seulement avec CGLIB"
+      - "Le démarrage échoue"
+    answer: 1
+    explanation: "Les annotations de méthode ne s'héritent pas en Java, et le proxy JDK reçoit la méthode de l'interface. AopUtils.getMostSpecificMethod(method, targetClass) retrouve la méthode de la classe cible. Avec CGLIB, la méthode reçue serait déjà celle de la classe : c'est pourquoi le bug n'apparaît qu'avec certains proxies."
+    concept: spring-ch02-most-specific-method
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "Dans un intercepteur de retry, pourquoi utiliser `invocableClone().proceed()` plutôt que rappeler `invocation.proceed()` ?"
+    choices:
+      - "Pour copier les arguments et éviter qu'ils soient modifiés"
+      - "Parce que l'invocation garde sa position dans la chaîne : la rappeler sauterait les intercepteurs placés après"
+      - "Parce que proceed() ne peut être appelé qu'une fois et lève sinon une exception"
+      - "Pour exécuter les tentatives en parallèle"
+    answer: 1
+    explanation: "ReflectiveMethodInvocation avance un index à chaque proceed(). Un clone repart du même point, avec tous les intercepteurs suivants : chaque tentative est un vrai nouvel appel de la suite de la chaîne."
+    concept: spring-ch02-interceptor-chain
+    difficulty: 3
+  - id: q4
+    type: multiple
+    prompt: "Quelles affirmations sur la chaîne d'intercepteurs d'un proxy Spring sont vraies ?"
+    choices:
+      - "Elle est calculée pour la méthode appelée, d'après les pointcuts, puis mise en cache"
+      - "Le premier advisor est le plus externe"
+      - "Chaque intercepteur doit appeler proceed() exactement une fois"
+      - "Un intercepteur peut renvoyer un résultat sans appeler proceed()"
+    answer: [0, 1, 3]
+    explanation: "Un intercepteur décide librement : appeler proceed() une fois, plusieurs (retry), ou jamais (cache, idempotence, refus). L'ordre des advisors fixe l'emboîtement, et la chaîne de chaque méthode est mise en cache par le proxy."
+    concept: spring-ch02-interceptor-chain
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi ne faut-il pas réessayer automatiquement `refund(paymentId)` ?"
+    choices:
+      - "Parce que les remboursements sont toujours rapides"
+      - "Parce qu'il n'est pas idempotent : si le premier essai a réussi côté banque mais que la réponse s'est perdue, le second rembourse une deuxième fois"
+      - "Parce qu'un retry ne peut s'appliquer qu'à une méthode sans paramètre"
+      - "Parce que Spring l'interdit sur les méthodes qui renvoient une String"
+    answer: 1
+    explanation: "Un échec côté client ne prouve pas que l'opération n'a pas eu lieu (délai dépassé, réponse perdue). On ne réessaie que ce qui est idempotent, ou ce qu'on a rendu idempotent avec une clé (l'assignment de ce module)."
+    concept: spring-ch02-advisor-pointcut
+    difficulty: 2

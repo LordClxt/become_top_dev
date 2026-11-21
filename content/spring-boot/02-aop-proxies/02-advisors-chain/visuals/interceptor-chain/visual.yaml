@@ -1,0 +1,8 @@
+id: spring-ch02-interceptor-chain
+concept: spring-ch02-interceptor-chain
+format: interactive
+justification: "L'apprenant réordonne les intercepteurs (mesure, retry, audit) et fait échouer la cible : il voit immédiatement combien de mesures et de tentatives produit chaque ordre."
+entry: InterceptorChain.tsx
+params:
+  - { name: failures, type: int, min: 0, max: 4, default: 2 }
+status: idea

@@ -1,0 +1,7 @@
+id: spring-ch02-self-call
+concept: spring-ch02-self-invocation
+format: hyperframes
+justification: "Une séquence de 10 s à regarder : un appel externe traverse le proxy (la transaction s'ouvre), puis, à l'intérieur de la cible, this.sellAndCharge() part directement vers la méthode sans repasser par le proxy."
+entry: scene.html
+duration_s: 10
+status: idea

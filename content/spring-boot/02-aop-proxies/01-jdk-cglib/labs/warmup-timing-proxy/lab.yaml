@@ -1,0 +1,12 @@
+id: spring-ch02-l01-lab-warmup-timing-proxy
+title: "Échauffement : un proxy qui mesure, avec ProxyFactory"
+kind: code
+language: java
+difficulty: 2
+xp: 40
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/Proxies.java"]
+concepts: [spring-ch02-jdk-vs-cglib, spring-ch02-proxy-factory, spring-ch02-final-limit]
+verified: { at: 2026-11-22, solution: pass, starter: fail }
