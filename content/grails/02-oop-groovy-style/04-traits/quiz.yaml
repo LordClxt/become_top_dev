@@ -1,0 +1,124 @@
+id: grails-ch02-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      trait Greets { String greet() { 'trait' } }
+      trait Polite { String greet() { 'poli' } }
+      class A implements Greets, Polite {}
+      class B implements Greets, Polite { String greet() { 'classe' } }
+      println new A().greet()
+      println new B().greet()
+    answer: "poli\nclasse"
+    explanation: "Entre traits, le dernier déclaré gagne (Polite). Une méthode écrite dans la classe gagne toujours sur ses traits."
+    concept: grails-trait-conflict-order
+    difficulty: 1
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      trait Tagged { List<String> tags = [] }
+      class Doc implements Tagged {}
+      def a = new Doc(), b = new Doc()
+      a.tags << 'urgent'
+      println b.tags
+      println a.tags.is(b.tags)
+    answer: "[]\nfalse"
+    explanation: "L'état d'un trait est copié dans chaque instance : la liste est créée pour chaque objet, pas partagée."
+    concept: grails-trait-state-behavior
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Base { String log() { 'base' } }
+      trait A { String log() { 'A(' + super.log() + ')' } }
+      trait B { String log() { 'B(' + super.log() + ')' } }
+      trait C { String log() { 'C(' + super.log() + ')' } }
+      class X extends Base implements A, B, C {}
+      println new X().log()
+    answer: "C(B(A(base)))"
+    explanation: "Le dernier trait (C) s'exécute en premier ; chaque super remonte d'un cran vers la gauche (B, puis A), puis atteint la classe mère Base."
+    concept: grails-trait-super-stacking
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      trait Persistent { String save() { 'P' } }
+      trait Audited    { String save() { 'A' } }
+      class T implements Persistent, Audited {
+          String save() { Persistent.super.save() + Audited.super.save() }
+      }
+      println new T().save()
+    answer: "PA"
+    explanation: "T.super.m() appelle explicitement la version d'un trait donné : la classe choisit l'ordre au lieu de dépendre de l'ordre d'implements."
+    concept: grails-trait-conflict-order
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Un trait contient `int count = 0` et `void inc() { count++ }`. Que se passe-t-il ?"
+    choices:
+      - "Ça marche comme dans une classe"
+      - "Erreur de compilation : les expressions postfixées sur un champ de trait ne sont pas prises en charge"
+      - "count est partagé entre toutes les instances"
+      - "Une MissingPropertyException à l'exécution"
+    answer: 1
+    explanation: "Les champs de trait sont renommés et accédés par des méthodes générées : count++ n'est pas pris en charge. count += 1 fonctionne."
+    concept: grails-trait-state-behavior
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      trait HasId { Long id }
+      class Book { String title }
+      def b = new Book(title: 'GiA')
+      def e = b.withTraits(HasId)
+      e.id = 7
+      println e.title
+      println e instanceof HasId
+      println e instanceof Book
+    answer: "GiA\ntrue\nfalse"
+    explanation: "withTraits crée un proxy qui implémente HasId et transmet les autres appels (title) à l'objet d'origine. Ce proxy est d'une nouvelle classe : ce n'est pas un Book."
+    concept: grails-trait-runtime
+    difficulty: 2
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      interface Rule { boolean test(String s) }
+      Rule longEnough = { it.size() > 3 }
+      Rule lower = { it == it.toLowerCase() }
+      def rules = [longEnough, lower]
+      println rules.collect { r -> r.test('groovy') }
+      println rules.every { r -> r.test('Grails') }
+    answer: "[true, true]\nfalse"
+    explanation: "Affectée à une variable de type Rule, interface à une seule méthode abstraite (SAM), chaque closure est convertie. 'Grails' a plus de 3 lettres mais n'est pas en minuscules. Attention : écrire directement List<Rule> rules = [{ … }] ne convertirait rien, les génériques ne sont pas vérifiés à l'exécution."
+    concept: grails-sam-coercion
+    difficulty: 2
+  - id: q8
+    type: single
+    prompt: "D'où vient `book.save()` sur une classe Grails 7 `@Entity class Book { String title }` qui n'hérite de rien ?"
+    choices:
+      - "D'une classe mère GormEntity ajoutée par Grails à l'exécution"
+      - "Du trait GormEntity<Book>, ajouté à la classe par une transformation AST à la compilation"
+      - "D'une méthode ajoutée par la metaClass au démarrage de l'application"
+      - "D'Hibernate, qui génère une sous-classe proxy"
+    answer: 1
+    explanation: "GORM 7+ ajoute le trait GormEntity (et DirtyCheckable, GormValidateable) aux classes @Entity pendant la compilation. Les méthodes sont donc réellement dans la classe, visibles même depuis Java."
+    concept: grails-trait-grails-artefacts
+    difficulty: 2
+  - id: q9
+    type: single
+    prompt: "Pourquoi modifier un trait impose-t-il de recompiler les classes qui l'implémentent ?"
+    choices:
+      - "Parce que le JIT met le trait en cache"
+      - "Parce que le compilateur copie les champs et les méthodes de délégation du trait dans chaque classe"
+      - "Parce que les traits sont chargés par un ClassLoader séparé"
+      - "Ce n'est pas nécessaire"
+    answer: 1
+    explanation: "Chaque classe reçoit à la compilation ses propres champs (Audited__log) et ses méthodes qui délèguent au Trait$Helper. Une classe déjà compilée garde la forme de l'ancien trait."
+    concept: grails-trait-state-behavior
+    difficulty: 3

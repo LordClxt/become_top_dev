@@ -1,0 +1,12 @@
+id: grails-ch02-l02-lab-pager
+title: "Un paginateur qui résiste aux paramètres HTTP"
+kind: code
+language: groovy
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Pager.groovy"]
+concepts: [grails-named-args-map, grails-named-args-silent-typo, grails-params-coercion, grails-spread-varargs]
+verified: { at: 2026-11-19, solution: pass, starter: fail }

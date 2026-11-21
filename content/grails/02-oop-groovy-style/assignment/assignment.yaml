@@ -1,0 +1,12 @@
+id: grails-ch02-assignment
+title: "Le bus d'événements de Helpdesk"
+kind: code
+language: groovy
+difficulty: 4
+xp: 150
+timeout_s: 60
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Listener.groovy", "EventBus.groovy"]
+concepts: [grails-named-args-map, grails-named-args-silent-typo, grails-params-coercion, grails-multimethod-runtime-dispatch, grails-multimethod-most-specific, grails-sam-coercion, grails-trait-abstract-contract]
+verified: { at: 2026-11-19, solution: pass, starter: fail }

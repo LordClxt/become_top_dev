@@ -1,0 +1,12 @@
+id: grails-ch02-l01-lab-warmup-account
+title: "Échauffement : un compte bien élevé"
+kind: code
+language: groovy
+difficulty: 1
+xp: 30
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Account.groovy"]
+concepts: [grails-prop-inside-outside, grails-prop-readonly-derived]
+verified: { at: 2026-11-19, solution: pass, starter: fail }

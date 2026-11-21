@@ -1,0 +1,6 @@
+id: grails-ch02-trait-stack
+concept: grails-trait-super-stacking
+format: interactive
+justification: "Réordonner la liste implements et voir la chaîne de super se reconstruire (ou casser) rend tangible une règle d'ordre que le code seul cache."
+entry: TraitStack.tsx
+status: built

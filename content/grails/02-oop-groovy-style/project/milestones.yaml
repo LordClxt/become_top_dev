@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Le trait Controller"
+    goal: "render(Map) et redirect(Map) en arguments nommés, avec des clés vérifiées, un statut converti et une réponse qu'on ne peut envoyer qu'une fois ; controllerName déduit du nom de la classe."
+    tests: "groovy -pa Test.groovy M1"
+    review: false
+  - id: m2
+    title: "Le registre par convention"
+    goal: "Enregistrer des classes *Controller qui implémentent le trait, et ne garder comme actions que les méthodes écrites par le développeur (ni accesseurs générés, ni méthodes copiées du trait)."
+    tests: "groovy -pa Test.groovy M2"
+    review: false
+  - id: m3
+    title: "L'aiguillage /controller/action/id"
+    goal: "Router une URI vers une nouvelle instance du contrôleur, lier les paramètres de l'action par nom et par type, appliquer la convention de vue quand l'action ne rend rien, et répondre 404 sinon."
+    tests: "groovy -pa Test.groovy M3"
+    review: true

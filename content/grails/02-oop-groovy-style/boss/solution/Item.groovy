@@ -1,0 +1,2 @@
+// Fourni.
+abstract class Item {}

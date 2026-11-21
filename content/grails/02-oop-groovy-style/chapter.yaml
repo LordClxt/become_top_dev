@@ -1,0 +1,21 @@
+id: grails-ch02
+title: "Objets à la mode Groovy"
+subtitle: "Propriétés, arguments nommés, multiméthodes et traits : les quatre mécanismes sur lesquels reposent les artefacts de Grails"
+source: { book: groovy-in-action, chapter: 7, pages: "164-199" }
+objectives:
+  - "Prédire qui répond à obj.name (clé de map, getter, champ, getProperty, get, propertyMissing) et lire un champ sans passer par son accesseur"
+  - "Concevoir une API à arguments nommés robuste : valeurs par défaut, clés inconnues refusées, valeurs texte converties"
+  - "Prévoir la méthode choisie par le dispatch dynamique de Groovy, et éviter les surcharges qui trompent les collections Java"
+  - "Composer des capacités avec des traits (état, conflits, chaînage par super), et reconnaître les traits de Grails 7 (Controller, GormEntity, Service)"
+  - "Diagnostiquer un bug d'égalité réparti sur plusieurs classes, du symptôme à la cause racine"
+mastery_threshold: 0.8
+prerequisites: [grails-ch01]
+lessons:
+  - "01-properties"
+  - "02-named-arguments"
+  - "03-multimethods"
+  - "04-traits"
+xp: { assignment: 150, project: 250, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

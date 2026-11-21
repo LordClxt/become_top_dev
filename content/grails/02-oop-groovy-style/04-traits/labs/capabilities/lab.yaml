@@ -1,0 +1,12 @@
+id: grails-ch02-l04-lab-capabilities
+title: "Des capacités en traits, dans le bon ordre"
+kind: code
+language: groovy
+difficulty: 3
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Timestamped.groovy", "Audited.groovy", "Validated.groovy", "SoftDeletable.groovy", "Ticket.groovy"]
+concepts: [grails-trait-state-behavior, grails-trait-super-stacking, grails-trait-conflict-order, grails-trait-abstract-contract, grails-trait-runtime]
+verified: { at: 2026-11-19, solution: pass, starter: fail }

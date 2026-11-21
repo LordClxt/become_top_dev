@@ -1,0 +1,13 @@
+id: grails-ch02-boss
+title: "Boss : le moteur de devis de Helpdesk"
+kind: code
+language: groovy
+difficulty: 5
+xp: 250
+timeout_s: 60
+time_limit_min: 75
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Pricer.groovy", "Quote.groovy", "BasePricing.groovy", "VolumeDiscount.groovy", "LoyaltyDiscount.groovy", "CouponDiscount.groovy", "Cap.groovy"]
+concepts: [grails-multimethod-runtime-dispatch, grails-multimethod-most-specific, grails-multimethod-null, grails-trait-super-stacking, grails-trait-abstract-contract, grails-named-args-map, grails-params-coercion, grails-prop-readonly-derived]
+verified: { at: 2026-11-19, solution: pass, starter: fail }

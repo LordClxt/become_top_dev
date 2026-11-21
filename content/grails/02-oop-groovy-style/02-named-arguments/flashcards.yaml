@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Que devient `f(x, a: 1, b: 2)` ?"
+    back: "f([a: 1, b: 2], x) : toutes les paires dans une Map, passée en premier."
+    concept: grails-named-args-map
+  - id: fc2
+    front: "Une méthode à Map d'options reçoit une clé mal orthographiée. Que se passe-t-il ?"
+    back: "Rien : la clé est ignorée en silence. Valide les clés (opts.keySet() - KEYS) ou déclare-les avec @NamedParam."
+    concept: grails-named-args-silent-typo
+  - id: fc3
+    front: "Et `new Book(titel: 'x')`, avec une clé inconnue ?"
+    back: "MissingPropertyException : le constructeur nommé appelle un setter par clé."
+    concept: grails-named-args-silent-typo
+  - id: fc4
+    front: "À quoi sert @NamedVariant ?"
+    back: "Il génère une variante Map d'une méthode à paramètres ordinaires ; une clé inconnue y lève une AssertionError."
+    concept: grails-named-args-typed
+  - id: fc5
+    front: "Quand @NamedParam refuse-t-il une clé inconnue ?"
+    back: "À la compilation, si la classe ou la méthode est @TypeChecked ou @CompileStatic."
+    concept: grails-named-args-typed
+  - id: fc6
+    front: "Combien de méthodes génère `def f(a, b = 1, c = 2)` ?"
+    back: "Trois : f(a), f(a, b), f(a, b, c). Une par paramètre optionnel, plus la complète."
+    concept: grails-default-params-overloads
+  - id: fc7
+    front: "Quel est le type de params.max dans un contrôleur Grails ?"
+    back: "String (ou null). Convertis avec params.int('max', 10) et borne avec Math.min."
+    concept: grails-params-coercion
+  - id: fc8
+    front: "Que fait `Book.list(*:defaults, max: 50)` ?"
+    back: "Répartit la Map defaults dans les arguments nommés ; max: 50, écrit après, remplace la valeur par défaut."
+    concept: grails-spread-varargs
+  - id: fc9
+    front: "Comment déclarer un paramètre qui reçoit les arguments en trop ?"
+    back: "Un dernier paramètre Object... (ou un tableau Object[]) : il reçoit le reste sous forme de tableau."
+    concept: grails-spread-varargs

@@ -1,5 +1,5 @@
 id: grails
-title: "Groovy & Grails sous le capot"
+title: "Groovy, Spring Boot & Grails sous le capot"
 book:
   title: "Programming Grails"
   authors: ["Burt Beckwith"]
@@ -8,74 +8,87 @@ books:
   - title: "Groovy in Action, 2nd Edition"
     authors: ["Dierk Koenig", "Paul King", "Guillaume Laforge", "Hamlet D'Arcy", "Cédric Champeau", "Erik Pragt", "Jon Skeet"]
     slug: groovy-in-action
-summary: "Groovy d'abord, puis Grails : closures, MOP, conventions, GORM, Spring. Chaque mécanisme est reconstruit en petit pour comprendre ce que le framework fait à ta place."
+summary: "Groovy, Spring Boot puis Grails 7 : closures, MOP, conteneur Spring, autoconfiguration, MVC, transactions, GORM et Hibernate. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework."
 order: 3
 kind: practical
 language: groovy
-runtime: "jdk17 + groovy4"   # cible : Grails 7 (Java 17+, Groovy 4, Spring Boot 3.5, Jakarta EE 10, Gradle). Les livres décrivent Groovy 2.4 / Grails 2.2 : écarts signalés en `extra`.
+runtime: "jdk17 + groovy4 + spring-boot 3.5 + grails 7.2"   # sandbox : `groovy Test.groovy` (Groovy seul), `spock-boot` (Spring Boot 3.5.16) et `spock-grails` (Grails 7.2.4 + GORM/H2). Les livres décrivent Groovy 2.4 / Grails 2.2 : écarts et tout Spring Boot signalés en `extra`, sourcés dans la doc officielle.
 pilot: "01-closures-dsl"
 running_project:
-  id: minigrails
-  title: "Minigrails — un mini-framework en Groovy"
-  pitch: "Scanner de conventions, DSL de contraintes, conteneur d'injection, proxy transactionnel, simulateur de Session : chaque module ajoute une pièce."
+  id: helpdesk
+  title: "Helpdesk — de Minigrails à une vraie app Grails 7"
+  pitch: "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets écrite en Spring Boot, portée en Grails 7, durcie (sessions, N+1, sécurité) et déployée."
 
 tracks:
   - id: grails-foundations
-    title: "Les bases"
+    title: "Groovy, les bases"
     chapters:
       - "00-groovy-essentials"        # GiA ch2-4 + PG ch1
       - "01-closures-dsl"             # GiA ch5 + PG ch1 — pilote
       - "02-oop-groovy-style"         # GiA ch6-7 (beans, paramètres nommés, traits, multiméthodes)
       - "03-metaprogramming-mop"      # GiA ch8 + PG ch1
-      - "04-grails-conventions"       # PG ch2
-      - "05-gorm-domain"              # PG ch3 (1re moitié)
-      - "06-gorm-queries"             # PG ch3 (2e moitié)
-      - "07-spring-injection"         # PG ch4
-      - "08-transactional-services"   # PG ch4
-  - id: groovy-advanced
-    title: "Groovy avancé"
+      - "04-ast-transformations"      # GiA ch9 (+ ch10 : @CompileStatic) — ce que Grails injecte à la compilation
+      - "05-testing-spock"            # GiA ch17 + extra Spock 2.4 — l'outil de test de tout le reste du cours
+  - id: spring-boot
+    title: "Spring et Spring Boot"
     chapters:
-      - "09-ast-transformations"      # GiA ch9
-      - "10-static-groovy"            # GiA ch10
-      - "11-builders"                 # GiA ch11
-      - "12-dsl"                      # GiA ch19
-      - "13-testing-spock"            # GiA ch17
+      - "06-spring-container"         # PG ch4 + extra (doc Spring Framework 6.2) : beans, DI, scopes, cycle de vie, post-processors
+      - "07-boot-autoconfiguration"   # extra (doc Spring Boot 3.5) : @Conditional, starters, propriétés, profils
+      - "08-spring-mvc"               # PG ch4 + extra : DispatcherServlet, binding, validation, erreurs, filtres
+      - "09-data-transactions"        # PG ch4-5 + extra : JDBC, proxy @Transactional, propagation, JPA
+      - "10-boot-production"          # extra : slices de test, Actuator, configuration externalisée, observabilité
+  - id: grails-7
+    title: "Grails 7"
+    chapters:
+      - "11-grails-conventions"       # PG ch2 + extra Grails 7 : artefacts, Grails sur Spring Boot
+      - "12-controllers-views"        # PG ch2 + extra : contrôleurs, URL mappings, intercepteurs, JSON views
+      - "13-gorm-domain"              # PG ch3 (1re moitié)
+      - "14-gorm-queries"             # PG ch3 (2e moitié)
+      - "15-services-transactions"    # PG ch4
+      - "16-config-plugins"           # PG ch7-8 + extra Grails 7
+      - "17-spring-security"          # PG ch9 + extra : plugin Spring Security de Grails 7
   - id: grails-under-the-hood
-    title: "Sous le capot"
+    title: "Sous le capot et production"
     chapters:
-      - "14-hibernate-session"        # PG ch5
-      - "15-collections-performance"  # PG ch5
-      - "16-security-owasp"           # PG ch9
-      - "17-aop"                      # PG ch11
-      - "18-config-plugins"           # PG ch7-8
-  - id: groovy-toolbox
-    title: "Boîte à outils (optionnel)"
+      - "18-hibernate-session"        # PG ch5
+      - "19-performance"              # PG ch5 : N+1, collections, cache
+      - "20-aop"                      # PG ch11
+      - "21-security-owasp"           # PG ch9 + OWASP 2021
+      - "22-capstone"                 # Helpdesk complet, déployable (Docker)
+  - id: groovy-advanced
+    title: "Groovy avancé (optionnel)"
     optional: true
     chapters:
-      - "19-gdk-io-templates"         # GiA ch12
-      - "20-sql-json-xml"             # GiA ch13-14
-      - "21-integration"              # GiA ch16
-      - "22-concurrency"              # GiA ch18
+      - "23-static-groovy"            # GiA ch10
+      - "24-builders-dsl"             # GiA ch11 + ch19
+      - "25-gdk-io-templates"         # GiA ch12
+      - "26-sql-json-xml"             # GiA ch13-14
+      - "27-concurrency"              # GiA ch18
 
 planned_titles:
   "02-oop-groovy-style": "Objets à la mode Groovy"
   "03-metaprogramming-mop": "Métaprogrammation et MOP"
-  "04-grails-conventions": "Les conventions de Grails"
-  "05-gorm-domain": "Modéliser avec GORM"
-  "06-gorm-queries": "Interroger avec GORM"
-  "07-spring-injection": "Spring : injection de dépendances"
-  "08-transactional-services": "Services transactionnels"
-  "09-ast-transformations": "Transformations AST"
-  "10-static-groovy": "Groovy statique"
-  "11-builders": "Builders"
-  "12-dsl": "Écrire un DSL"
-  "13-testing-spock": "Tester avec Spock"
-  "14-hibernate-session": "La Session Hibernate"
-  "15-collections-performance": "Performance des collections"
-  "16-security-owasp": "Sécurité : l'OWASP appliqué"
-  "17-aop": "Programmation orientée aspects"
-  "18-config-plugins": "Configuration et plugins"
-  "19-gdk-io-templates": "GDK, fichiers et templates"
-  "20-sql-json-xml": "SQL, JSON et XML"
-  "21-integration": "Intégrer Groovy"
-  "22-concurrency": "Concurrence"
+  "04-ast-transformations": "Transformations AST"
+  "05-testing-spock": "Tester avec Spock"
+  "06-spring-container": "Le conteneur Spring"
+  "07-boot-autoconfiguration": "Spring Boot : l'autoconfiguration"
+  "08-spring-mvc": "Spring MVC"
+  "09-data-transactions": "Données et transactions"
+  "10-boot-production": "Spring Boot en production"
+  "11-grails-conventions": "Les conventions de Grails"
+  "12-controllers-views": "Contrôleurs, routes et vues"
+  "13-gorm-domain": "Modéliser avec GORM"
+  "14-gorm-queries": "Interroger avec GORM"
+  "15-services-transactions": "Services transactionnels"
+  "16-config-plugins": "Configuration et plugins"
+  "17-spring-security": "Spring Security dans Grails"
+  "18-hibernate-session": "La Session Hibernate"
+  "19-performance": "Performance : N+1, collections, cache"
+  "20-aop": "Programmation orientée aspects"
+  "21-security-owasp": "Sécurité : l'OWASP appliqué"
+  "22-capstone": "Capstone : Helpdesk en production"
+  "23-static-groovy": "Groovy statique"
+  "24-builders-dsl": "Builders et DSL"
+  "25-gdk-io-templates": "GDK, fichiers et templates"
+  "26-sql-json-xml": "SQL, JSON et XML"
+  "27-concurrency": "Concurrence"

@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Hors de la classe, que fait `obj.name` sur une propriété Groovy ?"
+    back: "Il appelle le getter getName() (et obj.name = x appelle setName(x))."
+    concept: grails-prop-inside-outside
+  - id: fc2
+    front: "Dans une méthode de la classe, `name` ou `this.name` : getter ou champ ?"
+    back: "Le champ, directement : c'est ce qui évite qu'un accesseur s'appelle lui-même."
+    concept: grails-prop-inside-outside
+  - id: fc3
+    front: "Dans une closure écrite à l'intérieur de la classe, un nom de propriété passe-t-il par le getter ?"
+    back: "Oui : la closure est une autre classe, elle résout le nom par son owner, via la MetaClass, qui préfère l'accesseur."
+    concept: grails-prop-closure-getter
+  - id: fc4
+    front: "Comment lire un champ depuis l'extérieur sans appeler son getter ?"
+    back: "obj.@champ (valable aussi en écriture)."
+    concept: grails-prop-direct-field
+  - id: fc5
+    front: "Qu'est-ce qu'une propriété calculée ?"
+    back: "Un getter sans champ (getFullName → obj.fullName) : recalculée à chaque lecture, et non persistée par GORM tant qu'il n'y a pas de setter."
+    concept: grails-prop-readonly-derived
+  - id: fc6
+    front: "Que lève l'affectation d'une propriété final hors de la classe ?"
+    back: "ReadOnlyPropertyException : une propriété final n'a pas de setter."
+    concept: grails-prop-readonly-derived
+  - id: fc7
+    front: "Pourquoi `map.class` vaut-il null ?"
+    back: "Sur une Map, obj.x cherche toujours la clé x. Il n'y a pas de clé « class ». Utilise getClass()."
+    concept: grails-prop-resolution-chain
+  - id: fc8
+    front: "Ordre de résolution dynamique de obj.name ?"
+    back: "Clé de Map → getProperty redéfini → MetaClass (getter, sinon champ) → get(String) → propertyMissing → MissingPropertyException."
+    concept: grails-prop-resolution-chain
+  - id: fc9
+    front: "Comment GORM détecte-t-il qu'une propriété a été modifiée ?"
+    back: "Ses setters, réécrits par la transformation AST, appellent markDirty avant d'affecter. Une écriture directe du champ échappe à la détection."
+    concept: grails-prop-dirty-checking
+  - id: fc10
+    front: "Corrige `void close() { status = 'CLOSED' }` dans un domaine GORM."
+    back: "void close() { setStatus('CLOSED') } : passer par le setter pour que la modification soit marquée."
+    concept: grails-prop-dirty-checking

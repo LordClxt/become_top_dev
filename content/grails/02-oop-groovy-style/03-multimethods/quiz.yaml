@@ -1,0 +1,95 @@
+id: grails-ch02-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      String describe(Object o) { 'objet' }
+      String describe(Number n) { 'nombre' }
+      String describe(Integer i) { 'entier' }
+      List<Object> values = [1, 2.5, 'x', 3L]
+      println values.collect { describe(it) }
+    answer: "[entier, nombre, objet, nombre]"
+    explanation: "Chaque appel est résolu sur la classe réelle : Integer → describe(Integer) ; BigDecimal et Long n'ont pas de surcharge dédiée, la plus proche est describe(Number) ; String → describe(Object)."
+    concept: grails-multimethod-most-specific
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "En Java, `Event e = new TicketClosed(); notifier.on(e);` avec des surcharges on(Event) et on(TicketClosed). Laquelle est appelée ?"
+    choices: ["on(TicketClosed)", "on(Event)", "Les deux", "Erreur de compilation : appel ambigu"]
+    answer: 1
+    explanation: "Java choisit la surcharge à la compilation, d'après le type déclaré : e est un Event. Seul Groovy dynamique regarderait la classe réelle."
+    concept: grails-multimethod-runtime-dispatch
+    difficulty: 1
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def kind(Object o) { 'Object' }
+      def kind(String s) { 'String' }
+      String name = null
+      println kind(name)
+      println kind((String) null)
+    answer: "Object\nString"
+    explanation: "Une valeur null n'a pas de classe réelle : Groovy prend ici la surcharge la plus générale, malgré le type déclaré String. Le cast explicite, lui, impose kind(String)."
+    concept: grails-multimethod-null
+    difficulty: 3
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Sku {
+          String code
+          boolean equals(Sku other) { code == other?.code }
+      }
+      def a = new Sku(code: 'X'), b = new Sku(code: 'X')
+      println([a, b].unique().size())
+      println(new HashSet([a, b]).size())
+      println([(a): 1].containsKey(b))
+    answer: "1\n2\nfalse"
+    explanation: "unique() du GDK compare avec == : il trouve equals(Sku). HashSet et HashMap appellent hashCode() puis equals(Object), jamais redéfinis : deux objets distincts."
+    concept: grails-equals-overload-trap
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Quelle correction règle le problème de la question précédente ?"
+    choices:
+      - "Remplacer equals(Sku) par equals(Object) et ajouter hashCode(), ou annoter @EqualsAndHashCode(includes = 'code')"
+      - "Remplacer HashSet par TreeSet"
+      - "Remplacer == par .is() dans le code Groovy"
+      - "Ajouter @CompileStatic à la classe Sku"
+    answer: 0
+    explanation: "Le contrat est equals(Object) + hashCode(). Changer de collection ou d'opérateur contourne le symptôme ; @CompileStatic n'y change rien, la surcharge reste une surcharge."
+    concept: grails-equals-overload-trap
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Animal {}
+      class Dog extends Animal {}
+      class Vet {
+          String treat(Animal a) { 'animal' }
+          String treat(Dog d) { 'chien' }
+      }
+      @groovy.transform.CompileStatic
+      String fromParam(Animal a) { new Vet().treat(a) }
+      String dynamic(Animal a) { new Vet().treat(a) }
+      println fromParam(new Dog())
+      println dynamic(new Dog())
+    answer: "animal\nchien"
+    explanation: "Sous @CompileStatic, a est un paramètre déclaré Animal : la surcharge est choisie à la compilation, treat(Animal). La version dynamique regarde la classe réelle, Dog."
+    concept: grails-compilestatic-dispatch
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "Tu dois envoyer un courriel différent selon le type d'événement, dans un service Grails qui sera probablement compilé statiquement. Quel design est le plus robuste ?"
+    choices:
+      - "Des surcharges on(TicketClosed), on(TicketAssigned)… et le dispatch de Groovy"
+      - "Une méthode sur chaque événement (event.notifyWith(notifier)) ou une Map explicite Class → handler"
+      - "Une chaîne de if/instanceof dans le service"
+      - "Des closures stockées dans la metaClass de chaque événement"
+    answer: 1
+    explanation: "Le polymorphisme classique (ou une table explicite) se comporte pareil en dynamique et en statique. Les surcharges basculent toutes vers on(Event) sous @CompileStatic ; la chaîne d'instanceof grossit à chaque nouveau type."
+    concept: grails-compilestatic-dispatch
+    difficulty: 3

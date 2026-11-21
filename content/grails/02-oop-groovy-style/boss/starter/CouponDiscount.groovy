@@ -1,0 +1,3 @@
+trait CouponDiscount {
+    // TODO
+}

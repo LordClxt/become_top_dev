@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.6
+    source: tests
+  - id: design
+    label: "Mécanismes Groovy bien choisis"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Listener est un vrai type SAM et les closures y sont converties sans code spécial ; subscribeAll délègue le choix de la méthode au dispatch dynamique (aucune chaîne d'instanceof) ; les options sont validées dans un seul endroit, converties, et la Map de l'appelant n'est jamais modifiée"
+      2: "Fonctionne, mais avec une chaîne d'instanceof, une conversion d'options dupliquée, ou une Map d'options modifiée"
+      0: "Les mécanismes de la leçon (Map d'options, multiméthodes, SAM) sont contournés ou mal compris"
+  - id: readability
+    label: "Lisibilité et robustesse"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Méthodes courtes et nommées par leur intention ; une exception d'un abonné est isolée sans être avalée en silence ; aucun état global"
+      2: "Lisible mais méthodes longues, ou erreurs simplement ignorées"
+      0: "Difficile à suivre"

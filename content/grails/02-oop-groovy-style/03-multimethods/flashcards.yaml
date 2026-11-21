@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'une multiméthode ?"
+    back: "Une méthode dont la surcharge exécutée est choisie selon la classe réelle de ses arguments, à l'exécution."
+    concept: grails-multimethod-runtime-dispatch
+  - id: fc2
+    front: "Java ou Groovy dynamique : qui choisit la surcharge d'après le type déclaré ?"
+    back: "Java (à la compilation). Groovy dynamique choisit d'après la classe réelle, à l'exécution."
+    concept: grails-multimethod-runtime-dispatch
+  - id: fc3
+    front: "Pas de surcharge pour Urgent, mais une pour TicketAssigned (sa mère) et une pour Event. Laquelle part ?"
+    back: "on(TicketAssigned) : la plus proche du type réel dans la hiérarchie."
+    concept: grails-multimethod-most-specific
+  - id: fc4
+    front: "Comment imposer une surcharge précise en Groovy dynamique ?"
+    back: "Un cast explicite dans l'appel : o((String) x)."
+    concept: grails-multimethod-most-specific
+  - id: fc5
+    front: "Que fait Groovy avec un argument null et plusieurs surcharges ?"
+    back: "Il en choisit une sans prévenir (souvent la plus générale). Teste null avant, ou caste."
+    concept: grails-multimethod-null
+  - id: fc6
+    front: "Pourquoi `boolean equals(Line o)` est-il un bug ?"
+    back: "C'est une surcharge, pas une redéfinition : == la trouve, mais HashSet/HashMap/contains appellent equals(Object) et hashCode(), restés ceux d'Object."
+    concept: grails-equals-overload-trap
+  - id: fc7
+    front: "La façon la plus sûre d'avoir equals et hashCode cohérents en Groovy ?"
+    back: "@EqualsAndHashCode(includes = '…') : le vrai equals(Object) et un hashCode assorti, générés."
+    concept: grails-equals-overload-trap
+  - id: fc8
+    front: "Qu'est-ce qui change dans le choix des surcharges sous @CompileStatic ?"
+    back: "Il se fait à la compilation, sur le type connu : déclaré pour un paramètre ou un élément de collection, inféré pour une variable locale initialisée."
+    concept: grails-compilestatic-dispatch
+  - id: fc9
+    front: "Comment Groovy 4 rend-il un appel dynamique rapide ?"
+    back: "invokedynamic + cache dans le site d'appel : tant que les mêmes classes d'arguments reviennent, il réutilise la méthode déjà choisie."
+    concept: grails-multimethod-runtime-dispatch

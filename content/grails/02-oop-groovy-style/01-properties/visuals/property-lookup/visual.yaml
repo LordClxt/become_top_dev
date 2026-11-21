@@ -1,0 +1,6 @@
+id: grails-ch02-property-lookup
+concept: grails-prop-resolution-chain
+format: interactive
+justification: "Croiser le type d'objet et l'endroit d'où l'on lit name, et voir quel maillon de la chaîne répond, rend prévisible une règle qui paraît arbitraire à la lecture."
+entry: PropertyLookup.tsx
+status: built

@@ -1,0 +1,12 @@
+id: grails-ch02-l01-lab-ticket-close
+title: "Le ticket qui ne se ferme jamais"
+kind: code
+language: groovy
+difficulty: 3
+xp: 60
+timeout_s: 120
+entrypoint: starter/
+test_command: "spock-grails"
+files_editable: ["Ticket.groovy"]
+concepts: [grails-prop-dirty-checking, grails-prop-inside-outside, grails-prop-closure-getter, grails-prop-readonly-derived]
+verified: { at: 2026-11-19, solution: pass, starter: fail }

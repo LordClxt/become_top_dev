@@ -1,0 +1,3 @@
+trait BasePricing {
+    // TODO
+}

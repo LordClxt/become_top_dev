@@ -1,0 +1,100 @@
+id: grails-ch02-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def link(Map attrs, String text, String css) { "<a href='${attrs.href}' class='$css'>$text</a>" }
+      println link('Accueil', href: '/', 'nav')
+    answer: "<a href='/' class='nav'>Accueil</a>"
+    explanation: "La paire href: '/' est regroupée dans une Map passée en premier ; les deux chaînes restent dans leur ordre : text = 'Accueil', css = 'nav'."
+    concept: grails-named-args-map
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def opts(Map m) { m.keySet().sort().join(',') }
+      println opts(b: 2, a: 1)
+      println opts([:])
+      println opts(*:[x: 1], y: 2)
+    answer: "a,b\n\nx,y"
+    explanation: "Les paires forment une Map ; une Map vide donne une ligne vide ; *: répartit [x: 1] dans les arguments nommés, à côté de y."
+    concept: grails-spread-varargs
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Pourquoi `new Book(titel: 'x')` lève-t-il une exception alors que `book.save(flsuh: true)` passe sans rien dire ?"
+    choices:
+      - "Parce que save est écrit en Java"
+      - "Le constructeur nommé appelle un setter par clé, et setTitel n'existe pas ; save lit seulement les clés qu'il connaît dans sa Map"
+      - "Parce que GORM désactive les vérifications en production"
+      - "Les deux lèvent une exception"
+    answer: 1
+    explanation: "Sans constructeur Map déclaré, Groovy crée l'objet puis appelle setProperty pour chaque clé : clé inconnue = MissingPropertyException. Une méthode qui reçoit une Map n'a aucune vérification automatique."
+    concept: grails-named-args-silent-typo
+    difficulty: 3
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def tags(String first, Object... rest) { "${first}:${rest.size()}" }
+      println tags('a')
+      println tags('a', 'b', 'c')
+      println tags(*['x', 'y'])
+    answer: "a:0\na:2\nx:1"
+    explanation: "Les arguments en trop vont dans le tableau varargs (vide si aucun). *['x', 'y'] répartit la liste : first = 'x', rest = ['y']."
+    concept: grails-spread-varargs
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Dans un contrôleur, quelle est la bonne façon de paginer avec ?max= fourni par l'utilisateur ?"
+    choices:
+      - "Book.list(max: params.max)"
+      - "Book.list(max: params.max as Integer)"
+      - "Book.list(max: Math.min(params.int('max', 10), 100))"
+      - "Book.list(params)"
+    answer: 2
+    explanation: "params.max est une String : la passer telle quelle fait planter 'abc' (conversion) et laisse passer 1000000. params.int donne un entier avec une valeur par défaut, Math.min le borne. Book.list(params) transmet en plus toutes les clés que l'utilisateur invente."
+    concept: grails-params-coercion
+    difficulty: 2
+  - id: q6
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Mailer {
+          String send(String to, String subject = 'Info', boolean urgent = false) { "$to/$subject/$urgent" }
+      }
+      println Mailer.declaredMethods.findAll { it.name == 'send' }*.parameterCount.sort()
+      println new Mailer().send('ana', 'Relance')
+    answer: "[1, 2, 3]\nana/Relance/false"
+    explanation: "Deux paramètres optionnels génèrent trois méthodes, de 1 à 3 paramètres. L'appel à deux arguments utilise la valeur par défaut de urgent."
+    concept: grails-default-params-overloads
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Avec `@TypeChecked`, que se passe-t-il pour `page(mx: 5)` si le paramètre est `@NamedParam(value = 'max', type = Integer) Map opts` ?"
+    choices:
+      - "La clé mx est ignorée à l'exécution"
+      - "Une AssertionError à l'exécution"
+      - "Une erreur de compilation : unexpected named arg: mx"
+      - "Une MissingPropertyException"
+    answer: 2
+    explanation: "@NamedParam est une métadonnée lue par le vérificateur de types : avec @TypeChecked ou @CompileStatic, une clé non déclarée est refusée dès la compilation. Sans vérification statique, elle passerait."
+    concept: grails-named-args-typed
+    difficulty: 3
+  - id: q8
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def withDefaults(Map opts) {
+          opts.max = opts.max ?: 10
+          opts
+      }
+      def mine = [sort: 'title']
+      withDefaults(mine)
+      println mine
+    answer: "[sort:title, max:10]"
+    explanation: "La méthode reçoit la Map de l'appelant, pas une copie : y écrire des défauts modifie mine. Copie d'abord ([:] + opts, ou [max: 10] + opts)."
+    concept: grails-named-args-map
+    difficulty: 2

@@ -1,0 +1,6 @@
+id: grails-ch02-dispatch
+concept: grails-multimethod-runtime-dispatch
+format: interactive
+justification: "Changer le mode de compilation, le type déclaré et la valeur réelle, et voir la surcharge élue basculer, montre en trois clics pourquoi @CompileStatic change le comportement."
+entry: Dispatch.tsx
+status: built

@@ -31,3 +31,6 @@ out/
 
 # Local Go build output
 runner/runner
+
+# Cache Gradle local (build des images du bac à sable)
+.gradle/

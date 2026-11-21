@@ -23,6 +23,19 @@ Absolute rule: **a lab ships only if the solution passes its tests AND the start
    ```
    If ✅, write `verified: { at: <date>, solution: pass, starter: fail }` in `lab.yaml`. Otherwise fix and rerun — never ship a failing lab.
 
+## Groovy, Spring Boot and Grails labs (`language: groovy`)
+One image (`sandbox/images/groovy`), three test commands:
+- `groovy Test.groovy` — Groovy only, `Spec.groovy` harness (modules 00-05 of `grails`).
+- `spock-boot [+security] [prefix…]` — real Spring Boot 3.5.16 (web/MVC, validation, JDBC, Data JPA + Hibernate 6.6, AOP, Actuator, test, H2). `+security` adds Spring Security: its mere presence secures every route (401), so only the security labs use it.
+- `spock-grails [prefix…]` — real Grails 7.2.4 (controllers, URL mappings, interceptors, services, GORM Hibernate 5.6, JSON views, Spring Security plugin, `grails-testing-support`, H2).
+Both `spock-*` compile every `.groovy`/`.java` (with `--parameters`), copy root `*.yml|*.properties|*.sql` onto the classpath, and run the Spock 2.4 specs; each feature = one test, a `where:` iteration = `feature/iteration`. Prefixes filter spec classes by simple name (`M1` for a project milestone). ~6-8 s per run at 1 CPU / 512 MB: set `timeout_s: 90`.
+Pitfalls found while building the image:
+- Put every class in a **package** (`package app`): a `@SpringBootApplication` in the default package scans the whole classpath and fails (`io/r2dbc/spi/ValidationDepth not found`).
+- Assert on plain values (`res.status == 200`), never on MockMvc objects: Spock prints their huge `toString()`.
+- A GORM `where { }` query inside a Spock condition (`expect:`/`then:`) is not transformed (`Cannot compare DetachedCriteria`): compute it in `when:` first.
+- Grails artefacts outside `grails-app/` need `@Artefact('Controller')` (etc.) to get the AST transforms (`allowedMethods`, actions as methods).
+- `HibernateDatastore` for a GORM spec: `new HibernateDatastore(['dataSource.dbCreate': 'create-drop', 'dataSource.url': 'jdbc:h2:mem:x;DB_CLOSE_DELAY=-1'], Book)`.
+
 ## Design exercise (`kind: diagram` or `kind: worksheet`, no code)
 For every conceptual book, and for practical courses whose lesson is a **decision** (choose a model, size a system, compare), the lab is not code. Two tools, graded deterministically by the backend (no Docker): formats in `content-format/reference/schemas.md`.
 - **`diagram`**: the learner draws an architecture or a structure (catalog components, typed arrows, zones, trees); graph rules highlight the mistakes.

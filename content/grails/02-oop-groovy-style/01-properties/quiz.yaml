@@ -1,0 +1,113 @@
+id: grails-ch02-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Temp {
+          def celsius
+          def getCelsius() { celsius.round(1) }
+          def raw() { this.celsius }
+      }
+      def t = new Temp(celsius: 21.46)
+      println t.celsius
+      println t.raw()
+      println t.@celsius
+    answer: "21.5\n21.46\n21.46"
+    explanation: "t.celsius passe par le getter (arrondi). Dans raw(), this.celsius désigne le champ, this ou pas. t.@celsius lit le champ depuis l'extérieur."
+    concept: grails-prop-inside-outside
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Le setter trace ses appels. Qu'affiche ce script ?"
+    code: |
+      class Box {
+          List log = []
+          def size
+          void setSize(s) { log << "set $s"; size = s }
+          void grow() { size = size + 1 }
+          void growAll() { [1, 2].each { size = size + it } }
+      }
+      def b = new Box(size: 1)
+      b.grow()
+      b.growAll()
+      println b.log
+      println b.size
+    answer: "[set 1, set 3, set 5]\n5"
+    explanation: "Le constructeur nommé passe par le setter (set 1). grow() écrit le champ directement : pas de trace, size vaut 2. Dans la closure de growAll, size repasse par le setter : 2+1 = 3, puis 3+2 = 5."
+    concept: grails-prop-closure-getter
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "Un domaine GORM a `void archive() { archived = true }`. Le service appelle `doc.archive()` dans une transaction, sans save(). Que contient la base après le commit ?"
+    choices:
+      - "archived = true : GORM écrit tout l'objet au commit"
+      - "archived = false : l'écriture directe du champ n'a pas marqué la propriété comme modifiée"
+      - "Une exception : il fallait appeler save()"
+      - "Ça dépend de la base de données"
+    answer: 1
+    explanation: "Dans le corps de la classe, archived = true est un accès direct au champ. GORM détecte les modifications dans les setters (markDirty) : rien n'est marqué, Hibernate n'écrit rien. Correctif : setArchived(true)."
+    concept: grails-prop-dirty-checking
+    difficulty: 3
+  - id: q4
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      def m = [class: 'VIP', name: 'Ada']
+      println m.class
+      println m.getClass().simpleName
+    answer: "VIP\nLinkedHashMap"
+    explanation: "Sur une Map, la clé gagne toujours : m.class lit la clé « class ». getClass() est un appel de méthode, pas un accès de propriété."
+    concept: grails-prop-resolution-chain
+    difficulty: 2
+  - id: q5
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Config {
+          String env = 'dev'
+          def get(String key) { "défaut:$key" }
+      }
+      def c = new Config()
+      println c.env
+      println c.port
+    answer: "dev\ndéfaut:port"
+    explanation: "get(String) n'est consulté que si aucune propriété ne porte ce nom : env existe et répond par son getter, port n'existe pas et tombe sur get."
+    concept: grails-prop-resolution-chain
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Quelles clés contient `new Member(first: 'Ada').properties` pour cette classe ? `class Member { String first; final String id = 'm1'; private String secret = 's'; String getInitial() { first[0] } }`"
+    choices: ["first", "id", "secret", "initial", "class"]
+    answer: [0, 1, 2, 3, 4]
+    explanation: "Toutes. properties liste first, id (final, getter seul), la propriété calculée initial et class… et en Groovy 4 aussi les champs, même privés : secret y est. Ne sérialise jamais obj.properties tel quel vers un client."
+    concept: grails-prop-readonly-derived
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Dans un domaine GORM, tu ajoutes `String getFullName() { \"$first $last\" }` et `void setFullName(String s) { … }`. Que se passe-t-il ?"
+    choices:
+      - "Rien de particulier : c'est une propriété calculée"
+      - "fullName devient une propriété persistante : GORM attend une colonne full_name"
+      - "La compilation échoue : un getter calculé ne peut pas avoir de setter"
+      - "GORM ignore le setter"
+    answer: 1
+    explanation: "Une paire getter + setter forme une propriété au sens JavaBean, et GORM la persiste. Ici, sans champ de stockage, Hibernate échoue même au démarrage (Could not locate field name [fullName]). Pour une valeur calculée, garde un getter seul, ou déclare-la dans static transients."
+    concept: grails-prop-readonly-derived
+    difficulty: 3
+  - id: q8
+    type: code-output
+    prompt: "Qu'affiche ce script ?"
+    code: |
+      class Spy {
+          String name = 'ada'
+          def getProperty(String n) { "espion:$n" }
+          def inside() { name }
+      }
+      def s = new Spy()
+      println s.name
+      println s.inside()
+    answer: "espion:name\nada"
+    explanation: "Depuis l'extérieur, getProperty redéfini intercepte même une propriété existante. Dans le corps de la classe, le champ déclaré là est lu directement, sans passer par getProperty."
+    concept: grails-prop-resolution-chain
+    difficulty: 3

@@ -1,0 +1,80 @@
+// Résolu une seule fois au build de l'image (le bac à sable n'a pas de réseau).
+// Deux jeux de bibliothèques, copiés à plat, car ils ne peuvent pas partager un classpath :
+//  - /opt/libs/boot   : Spring Boot 3.5 pur (Spring Data JPA → Hibernate 6.6) ;
+//  - /opt/libs/grails : Grails 7.2 (GORM → Hibernate 5.6 « jakarta »).
+// Versions : BOM Grails 7.2.4 (Spring Boot 3.5.16, Groovy 4.0.33, Spock 2.4-groovy-4.0).
+plugins { id 'java' }
+
+repositories { mavenCentral() }
+
+def runtimeAttributes = { Configuration c ->
+    c.canBeConsumed = false
+    c.canBeResolved = true
+    c.attributes {
+        attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+        attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.LIBRARY))
+        attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements, LibraryElements.JAR))
+        attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling, Bundling.EXTERNAL))
+        attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 17)
+    }
+    // Un seul binding SLF4J : Logback (celui de Spring Boot).
+    c.exclude group: 'org.slf4j', module: 'slf4j-simple'
+}
+
+configurations {
+    boot { runtimeAttributes(it) }
+    // Option `+security` : Spring Security n'est ajouté qu'à la demande, car sa seule présence
+    // sur le classpath protège toutes les routes (401) — c'est justement une leçon du cours.
+    security { runtimeAttributes(it) }
+    grails { runtimeAttributes(it) }
+}
+
+def tests = [
+    'org.spockframework:spock-core',
+    'org.spockframework:spock-spring',
+    'org.junit.platform:junit-platform-launcher',
+    'org.apache.groovy:groovy-json',
+    'org.apache.groovy:groovy-sql',
+    'org.apache.groovy:groovy-templates',
+    'org.apache.groovy:groovy-xml',
+    'com.h2database:h2',
+]
+
+dependencies {
+    boot platform('org.springframework.boot:spring-boot-dependencies:3.5.16')
+    boot platform('org.apache.groovy:groovy-bom:4.0.33')
+    // Spock 2.4 : la 2.3 ne reconnaît pas les tests Spring 6.2 (@SpringBootTest n'injecte rien).
+    boot platform('org.spockframework:spock-bom:2.4-groovy-4.0')
+    // Conteneur, web (Tomcat embarqué + MVC), validation, JDBC/JPA, AOP, Actuator, tests.
+    ['web', 'validation', 'jdbc', 'data-jpa', 'aop', 'actuator', 'test'].each {
+        boot "org.springframework.boot:spring-boot-starter-$it"
+    }
+    security platform('org.springframework.boot:spring-boot-dependencies:3.5.16')
+    security 'org.springframework.boot:spring-boot-starter-security'
+    security 'org.springframework.security:spring-security-test'
+    tests.each { boot it }
+
+    grails platform('org.apache.grails:grails-bom:7.2.4')
+    grails platform('org.springframework.boot:spring-boot-dependencies:3.5.16')
+    // Cœur, contrôleurs, URL mappings, intercepteurs, services, GORM Hibernate 5, vues JSON, sécurité.
+    ['grails-core', 'grails-web-boot', 'grails-controllers', 'grails-url-mappings', 'grails-interceptors',
+     'grails-services', 'grails-converters', 'grails-data-hibernate5', 'grails-views-gson',
+     'grails-spring-security', 'grails-testing-support-web', 'grails-testing-support-datamapping'].each {
+        grails "org.apache.grails:$it"
+    }
+    grails 'org.apache.grails.testing:grails-testing-support-core'
+    grails 'org.springframework.boot:spring-boot-starter-validation'
+    grails 'org.springframework.boot:spring-boot-starter-test'
+    tests.each { grails it }
+}
+
+tasks.register('copyLibs') {
+    doLast {
+        ['boot', 'grails'].each { set ->
+            copy { from configurations[set]; into "/opt/libs/$set" }
+        }
+        // Seulement les jars absents du jeu boot (sinon deux copies d'une même classe).
+        def inBoot = configurations.boot.files*.name as Set
+        copy { from configurations.security.files.findAll { !(it.name in inBoot) }; into '/opt/libs/extra/security' }
+    }
+}

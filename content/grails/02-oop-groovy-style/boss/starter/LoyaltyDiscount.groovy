@@ -1,0 +1,3 @@
+trait LoyaltyDiscount {
+    // TODO
+}

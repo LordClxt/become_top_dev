@@ -1,0 +1,12 @@
+id: grails-ch02-l03-lab-debug-cart
+title: "Débogage : la facture qui ne tombe pas juste"
+kind: code
+language: groovy
+difficulty: 4
+xp: 80
+timeout_s: 30
+entrypoint: starter/
+test_command: "groovy Test.groovy"
+files_editable: ["Line.groovy", "Cart.groovy", "Invoice.groovy"]
+concepts: [grails-equals-overload-trap, grails-multimethod-runtime-dispatch]
+verified: { at: 2026-11-19, solution: pass, starter: fail }

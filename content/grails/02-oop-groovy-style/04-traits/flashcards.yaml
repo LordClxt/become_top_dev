@@ -1,0 +1,41 @@
+cards:
+  - id: fc1
+    front: "Qu'apporte un trait qu'une interface Java avec méthodes default n'apporte pas ?"
+    back: "De l'état : des propriétés et des champs, propres à chaque instance."
+    concept: grails-trait-state-behavior
+  - id: fc2
+    front: "Deux traits définissent save(). Lequel s'exécute ?"
+    back: "Le dernier déclaré dans implements, sauf si la classe écrit son propre save()."
+    concept: grails-trait-conflict-order
+  - id: fc3
+    front: "Comment appeler explicitement la version d'un trait précis ?"
+    back: "NomDuTrait.super.methode(), depuis la classe."
+    concept: grails-trait-conflict-order
+  - id: fc4
+    front: "Dans un trait, qui appelle super.save() ?"
+    back: "Le trait suivant vers la gauche dans implements, puis la classe mère au bout de la chaîne."
+    concept: grails-trait-super-stacking
+  - id: fc5
+    front: "Comment un trait exige-t-il une méthode de la classe ?"
+    back: "En la déclarant abstract dans le trait : la classe doit la fournir."
+    concept: grails-trait-abstract-contract
+  - id: fc6
+    front: "Que renvoie obj.withTraits(T) ?"
+    back: "Un proxy d'une classe générée qui implémente T et transmet les appels à obj. Ce n'est plus une instance de la classe d'origine."
+    concept: grails-trait-runtime
+  - id: fc7
+    front: "Qu'est-ce qu'un type SAM, et que peut-on lui affecter en Groovy ?"
+    back: "Une interface ou un trait avec une seule méthode abstraite. On peut lui affecter directement une closure."
+    concept: grails-sam-coercion
+  - id: fc8
+    front: "Comment compter dans une propriété de trait, puisque count++ ne compile pas ?"
+    back: "count += 1."
+    concept: grails-trait-state-behavior
+  - id: fc9
+    front: "Quels traits Grails 7 ajoute-t-il à un contrôleur, une entité, un service ?"
+    back: "Controller (+ RestResponder), GormEntity<D> (+ GormValidateable, DirtyCheckable), Service."
+    concept: grails-trait-grails-artefacts
+  - id: fc10
+    front: "En quoi un trait est-il compilé ?"
+    back: "Une interface, une classe T$Trait$Helper (le code, en méthodes statiques) et T$Trait$FieldHelper (les champs), plus des champs et méthodes copiés dans chaque classe."
+    concept: grails-trait-state-behavior
