@@ -10,6 +10,9 @@ books:
   - title: "Code source Spring (spring-framework 7.0, spring-boot 4.1)"
     authors: ["Équipe Spring"]
     slug: spring-source
+  - title: "Documentation du JDK 25 (java.lang.reflect, java.lang.annotation, java.beans)"
+    authors: ["OpenJDK"]
+    slug: jdk-docs
 summary: "Le conteneur, l'autoconfiguration, MVC, les transactions, JPA, la sécurité et la production, expliqués à partir du code source de Spring puis pratiqués sur le vrai Spring Boot 4.1 : prédire le comportement au lieu de l'apprendre par cœur."
 order: 3
 kind: practical
@@ -62,7 +65,6 @@ tracks:
       - "18-spring-ai"
 
 planned_titles:
-  "00-minispring": "Minispring : reconstruire un conteneur"
   "02-aop-proxies": "AOP et proxies"
   "03-boot-startup": "Le démarrage de Spring Boot"
   "04-autoconfiguration": "L'autoconfiguration"

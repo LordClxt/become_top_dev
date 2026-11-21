@@ -1,0 +1,88 @@
+id: spring-ch00-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Dans le vrai Spring, avec un bean `@Lazy`. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          static class Pool { Pool() { System.out.println("pool créé"); } }
+
+          @Configuration
+          static class Config {
+              @Bean @Lazy Pool pool() { return new Pool(); }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {
+                  System.out.println(ctx.containsBeanDefinition("pool") + " " + ctx.getBeanFactory().containsSingleton("pool"));
+                  ctx.getBean("pool");
+                  System.out.println(ctx.getBeanFactory().containsSingleton("pool"));
+              }
+          }
+      }
+    answer: "true false\npool créé\ntrue"
+    explanation: "Les deux tables de Spring : la définition existe dès l'enregistrement, mais le cache des singletons ne contient pool qu'après sa création. Avec @Lazy, celle-ci attend le premier getBean. C'est exactement la séparation de Minispring."
+    concept: spring-ch00-definition-vs-instance
+    difficulty: 3
+  - id: q2
+    type: single
+    prompt: "Pourquoi le cache des singletons est-il indexé par le nom du bean plutôt que par sa classe ?"
+    choices:
+      - "Parce qu'une recherche par chaîne est plus rapide"
+      - "Parce que deux beans peuvent avoir la même classe (deux DataSource, deux clients HTTP) : c'est le nom qui identifie un bean"
+      - "Parce qu'une classe ne peut pas servir de clé dans une Map"
+      - "Pour économiser la mémoire"
+    answer: 1
+    explanation: "Une même classe peut fournir plusieurs beans configurés différemment. Avec la classe comme clé, ils s'écraseraient. Le nom est unique par construction (register refuse les doublons)."
+    concept: spring-ch00-singleton-cache
+    difficulty: 2
+  - id: q3
+    type: multiple
+    prompt: "Qu'est-ce qui devient possible parce que `register` ne crée aucun objet ?"
+    choices:
+      - "Refuser un nom en double avant qu'un seul constructeur ait tourné"
+      - "Modifier la portée d'un bean avant qu'il existe"
+      - "Retirer un bean dont le constructeur appellerait un service en panne"
+      - "Garantir qu'aucune dépendance n'est jamais manquante"
+    answer: [0, 1, 2]
+    explanation: "Tant qu'il n'y a que des recettes, on peut les vérifier, les modifier ou les retirer sans effet de bord : c'est le principe des BeanFactoryPostProcessor de Spring. Une dépendance manquante, elle, n'est découverte qu'en résolvant le graphe (leçon suivante)."
+    concept: spring-ch00-two-phases
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "`getBean(Cart.class)` est appelé trois fois sur un prototype. Combien d'entrées `cart` contient le cache des singletons ?"
+    choices:
+      - "0"
+      - "1"
+      - "3"
+      - "Ça dépend de l'ordre des appels"
+    answer: 0
+    explanation: "Un prototype n'est jamais rangé : le conteneur crée l'objet, le rend et l'oublie. C'est aussi pourquoi il ne pourra pas le détruire à l'arrêt (leçon 4)."
+    concept: spring-ch00-definition-vs-instance
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Un collègue remplace `get` puis `create` puis `put` par `singletons.computeIfAbsent(name, n -> create(def))`. Les tests sans dépendances passent. Que se passe-t-il quand `create` doit obtenir une dépendance ?"
+    choices:
+      - "Rien de particulier, c'est équivalent"
+      - "La dépendance est créée deux fois"
+      - "ConcurrentModificationException : la fonction de calcul modifie la même HashMap"
+      - "Un interblocage (deadlock)"
+    answer: 2
+    explanation: "Obtenir la dépendance range un autre singleton dans la map pendant que computeIfAbsent calcule : HashMap le détecte et lève ConcurrentModificationException. Avec une ConcurrentHashMap, le même code peut même bloquer ou lever IllegalStateException (« Recursive update »)."
+    concept: spring-ch00-singleton-cache
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Dans Spring, où vivent les singletons déjà créés ?"
+    choices:
+      - "Dans les BeanDefinition elles-mêmes"
+      - "Dans le champ singletonObjects de DefaultSingletonBeanRegistry"
+      - "Dans des champs static générés par CGLIB"
+      - "Dans le ClassLoader de l'application"
+    answer: 1
+    explanation: "DefaultSingletonBeanRegistry garde singletonObjects (nom → objet), et DefaultListableBeanFactory, sa sous-classe, ajoute beanDefinitionMap (nom → recette). Les définitions ne contiennent jamais l'objet."
+    concept: spring-ch00-singleton-cache
+    difficulty: 2

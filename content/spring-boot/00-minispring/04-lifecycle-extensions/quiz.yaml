@@ -1,0 +1,98 @@
+id: spring-ch00-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Deux post-processors enchaînés. Qu'affiche le programme ?"
+    code: |
+      import java.util.*;
+      import java.util.function.UnaryOperator;
+
+      public class Main {
+          public static void main(String[] args) {
+              List<UnaryOperator<String>> processors = List.of(s -> "[" + s + "]", s -> s.toUpperCase());
+              String bean = "catalog";
+              for (var p : processors) bean = p.apply(bean);
+              System.out.println(bean);
+          }
+      }
+    answer: "[CATALOG]"
+    explanation: "Chaque processeur reçoit le résultat du précédent, pas l'objet d'origine : le second voit déjà les crochets. L'ordre des post-processors compte, c'est pourquoi Spring les trie (PriorityOrdered, Ordered, puis les autres)."
+    concept: spring-ch00-post-processor-chain
+    difficulty: 2
+  - id: q2
+    type: code-output
+    prompt: "Le vrai Spring : la création de `Payment` échoue, alors que `Pool` existe déjà. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+      import jakarta.annotation.PreDestroy;
+
+      public class Main {
+          static class Pool { @PreDestroy void close() { System.out.println("pool fermé"); } }
+          static class Payment { Payment(Pool p) { throw new IllegalStateException("clé absente"); } }
+
+          @Configuration
+          static class Config {
+              @Bean Pool pool() { return new Pool(); }
+              @Bean Payment payment(Pool pool) { return new Payment(pool); }
+          }
+
+          public static void main(String[] args) {
+              try {
+                  new AnnotationConfigApplicationContext(Config.class);
+              } catch (Exception e) {
+                  System.out.println("échec du démarrage");
+              }
+          }
+      }
+    answer: "pool fermé\néchec du démarrage"
+    explanation: "Avant de laisser remonter l'erreur, refresh() détruit les singletons déjà créés : le pool est fermé, aucune connexion ne fuit. Minispring fait pareil dans le catch de start()."
+    concept: spring-ch00-failed-start
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Pourquoi l'ordre inverse de création garantit-il qu'un bean est arrêté avant ses dépendances ?"
+    choices:
+      - "Parce que Spring trie les beans par nom avant de les détruire"
+      - "Parce qu'un bean est toujours créé après ses dépendances : en dépilant, on le rencontre avant elles"
+      - "Parce que les dépendances sont des prototypes"
+      - "Ce n'est pas garanti, il faut l'annoter avec @DependsOn"
+    answer: 1
+    explanation: "Avec l'injection par constructeur, les dépendances sont créées d'abord : elles sont plus bas dans la pile. Dépiler arrête donc le journal avant son support. @DependsOn sert pour une dépendance qui n'est pas déclarée en paramètre."
+    concept: spring-ch00-reverse-destruction
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pendant `close()`, le `@PreDestroy` du pool lève une exception. Que doit faire le conteneur ?"
+    choices:
+      - "S'arrêter immédiatement et lever l'exception"
+      - "Ignorer l'exception sans rien signaler"
+      - "Continuer avec les beans suivants, puis lever la première erreur (les autres en exceptions supprimées)"
+      - "Réessayer le @PreDestroy du pool jusqu'à ce qu'il réussisse"
+    answer: 2
+    explanation: "Un échec ne doit pas empêcher les autres beans de libérer leurs ressources. Mais l'erreur ne doit pas disparaître non plus : addSuppressed garde toutes les erreurs dans une seule exception."
+    concept: spring-ch00-reverse-destruction
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Un `BeanPostProcessor` d'audit reçoit un `AuditRepository` dans son constructeur. Quel est l'effet sur `AuditRepository` ?"
+    choices:
+      - "Aucun : il est créé comme les autres"
+      - "Il est créé pendant l'enregistrement des post-processors, trop tôt, et échappe aux post-processors pas encore créés (pas de proxy @Transactional, par exemple)"
+      - "Le démarrage échoue : un post-processor ne peut pas avoir de dépendance"
+      - "Il devient un prototype"
+    answer: 1
+    explanation: "Pour créer le post-processor, il faut son dépôt : celui-ci est créé avant que la chaîne soit complète. Spring l'accepte mais le signale (« not eligible for getting processed by all BeanPostProcessors »). Si le dépôt devait être transactionnel, il ne l'est pas : un bug silencieux."
+    concept: spring-ch00-early-bean
+    difficulty: 3
+  - id: q6
+    type: multiple
+    prompt: "Quelles affirmations sur `@PostConstruct` sont vraies ?"
+    choices:
+      - "La méthode est appelée après que toutes les dépendances ont été injectées"
+      - "La méthode peut être private"
+      - "La méthode peut recevoir des dépendances en paramètres"
+      - "Elle est appelée sur l'objet d'origine, même si un post-processor l'a enveloppé dans « before »"
+    answer: [0, 1, 3]
+    explanation: "Le conteneur l'appelle par réflexion (setAccessible lève le contrôle d'accès), une fois l'objet complet, sur l'objet d'origine. Il n'a rien à lui passer : une méthode @PostConstruct avec paramètre est une erreur de configuration."
+    concept: spring-ch00-lifecycle-reflection
+    difficulty: 2

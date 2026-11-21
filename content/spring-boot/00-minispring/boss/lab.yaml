@@ -1,0 +1,13 @@
+id: spring-ch00-boss
+title: "Boss : un refresh() en deux temps"
+kind: code
+language: java
+difficulty: 5
+xp: 250
+timeout_s: 60
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Container.java"]
+concepts: [spring-ch00-definition-vs-instance, spring-ch00-two-phases, spring-ch00-post-processor-chain, spring-ch00-early-bean, spring-ch00-failed-start, spring-ch00-reverse-destruction]
+verified: { at: 2026-11-21, solution: pass, starter: fail }

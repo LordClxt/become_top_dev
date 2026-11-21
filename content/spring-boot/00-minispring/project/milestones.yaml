@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Définitions et portées"
+    goal: "register lit les annotations sans créer d'objet ; getBean par nom ou par type ; singletons en cache, prototypes recréés à chaque demande ; erreurs de configuration claires."
+    tests: "jtest M1"
+    review: false
+  - id: m2
+    title: "Le graphe"
+    goal: "Injection par constructeur (le seul, ou celui annoté @Inject), start() crée les singletons, dépendances manquantes ou ambiguës refusées, cycle détecté et décrit."
+    tests: "jtest M2"
+    review: false
+  - id: m3
+    title: "Le cycle de vie"
+    goal: "@PostConstruct après l'injection, @PreDestroy dans l'ordre inverse de création (jamais pour un prototype), et un démarrage raté détruit ce qui était déjà créé."
+    tests: "jtest M3"
+    review: true

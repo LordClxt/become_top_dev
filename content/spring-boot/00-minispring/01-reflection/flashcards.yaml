@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Trois questions qu'un conteneur pose à une classe, par réflexion ?"
+    back: "Est-ce un composant (annotation) ? Quel constructeur appeler (getDeclaredConstructors) ? De quoi a-t-il besoin (types des paramètres) ?"
+    concept: spring-ch00-reflection-read
+  - id: fc2
+    front: "Rétention par défaut d'une annotation ?"
+    back: "CLASS : écrite dans le .class mais non chargée par la JVM, donc invisible par réflexion. Il faut RUNTIME."
+    concept: spring-ch00-annotation-retention
+  - id: fc3
+    front: "Où est la vraie erreur dans une InvocationTargetException ?"
+    back: "Dans getCause() : c'est l'exception levée par le constructeur ou la méthode appelés."
+    concept: spring-ch00-reflection-read
+  - id: fc4
+    front: "Nom de bean par défaut pour URLParser ?"
+    back: "URLParser : deux majuscules en tête, le nom ne change pas (règle JavaBeans, Introspector.decapitalize)."
+    concept: spring-ch00-bean-naming
+  - id: fc5
+    front: "getParameterTypes() ou getGenericParameterTypes() pour List<Gateway> ?"
+    back: "getParameterTypes donne List (effacé) ; getGenericParameterTypes donne un ParameterizedType avec Gateway en argument."
+    concept: spring-ch00-generic-types
+  - id: fc6
+    front: "Comment Spring 7 lit-il les composants d'un paquet sans charger les classes ?"
+    back: "Il lit les métadonnées des fichiers .class : API ClassFile du JDK sur JDK 24+, ASM sinon."
+    concept: spring-ch00-reflection-read
+  - id: fc7
+    front: "Quand un conteneur utilise-t-il la réflexion ?"
+    back: "Au démarrage, pour lire et créer. Ensuite, les objets s'appellent directement."
+    concept: spring-ch00-reflection-read

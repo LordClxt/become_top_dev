@@ -1,0 +1,13 @@
+id: spring-ch00-project
+title: "Minispring : un conteneur de 200 lignes"
+pitch: "Avant d'ouvrir Spring, tu en écris un : définitions, singletons et prototypes, injection par constructeur, cycles détectés, cycle de vie complet. Ensuite, chaque module du cours compare Minispring au vrai."
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Definitions.java", "MiniContainer.java"]
+concepts: [spring-ch00-definition-vs-instance, spring-ch00-bean-naming, spring-ch00-singleton-cache, spring-ch00-constructor-resolution, spring-ch00-cycle-detection, spring-ch00-lifecycle-reflection, spring-ch00-failed-start]
+verified: { at: 2026-11-21, solution: pass, starter: fail }

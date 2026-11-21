@@ -1,0 +1,12 @@
+id: spring-ch00-l04-lab-post-processors
+title: "Le cycle de vie : post-processors, @PostConstruct, @PreDestroy"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Lifecycle.java"]
+concepts: [spring-ch00-lifecycle-reflection, spring-ch00-post-processor-chain, spring-ch00-reverse-destruction]
+verified: { at: 2026-11-21, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: spring-ch00-l01-lab-warmup-inspector
+title: "Échauffement : lire une classe comme un conteneur"
+kind: code
+language: java
+difficulty: 1
+xp: 30
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Inspector.java"]
+concepts: [spring-ch00-reflection-read, spring-ch00-annotation-retention, spring-ch00-bean-naming]
+verified: { at: 2026-11-21, solution: pass, starter: fail }

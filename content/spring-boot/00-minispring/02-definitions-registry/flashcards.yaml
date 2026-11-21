@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Les deux tables d'un conteneur ?"
+    back: "Les définitions par nom (remplies à l'enregistrement) et les singletons par nom (remplis à la demande)."
+    concept: spring-ch00-definition-vs-instance
+  - id: fc2
+    front: "Leurs noms dans Spring ?"
+    back: "beanDefinitionMap (DefaultListableBeanFactory) et singletonObjects (DefaultSingletonBeanRegistry)."
+    concept: spring-ch00-definition-vs-instance
+  - id: fc3
+    front: "À quoi sert de ne créer aucun objet à l'enregistrement ?"
+    back: "À vérifier, modifier ou retirer des recettes avant tout effet de bord."
+    concept: spring-ch00-two-phases
+  - id: fc4
+    front: "Condition pour qu'un singleton soit vraiment unique ?"
+    back: "Tous les chemins (nom, type, dépendance) passent par une seule méthode et la même clé : le nom du bean."
+    concept: spring-ch00-singleton-cache
+  - id: fc5
+    front: "Un prototype est-il rangé dans le cache ?"
+    back: "Jamais : créé, rendu, oublié."
+    concept: spring-ch00-definition-vs-instance
+  - id: fc6
+    front: "Pourquoi éviter computeIfAbsent pour créer un bean ?"
+    back: "La création range ses dépendances dans la même map pendant le calcul : ConcurrentModificationException sur une HashMap."
+    concept: spring-ch00-singleton-cache

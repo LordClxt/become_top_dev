@@ -1,0 +1,95 @@
+id: spring-ch00-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Le constructeur appelé par réflexion lève une exception. Qu'affiche le programme ?"
+    code: |
+      public class Main {
+          static class Payment {
+              Payment() { throw new IllegalStateException("clé API absente"); }
+          }
+
+          public static void main(String[] args) throws Exception {
+              try {
+                  Payment.class.getDeclaredConstructor().newInstance();
+              } catch (java.lang.reflect.InvocationTargetException e) {
+                  System.out.println(e.getMessage() + " / " + e.getCause().getMessage());
+              }
+          }
+      }
+    answer: "null / clé API absente"
+    explanation: "La réflexion enveloppe toute exception du code appelé dans une InvocationTargetException, dont le message est vide. Un conteneur qui afficherait e.getMessage() dirait « null » : il faut remonter à getCause() pour un message utile."
+    concept: spring-ch00-reflection-read
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Ton équipe crée `@interface Repository { }` sans `@Retention`, et le conteneur maison ne trouve aucun dépôt. Pourquoi ?"
+    choices:
+      - "Une annotation doit être déclarée dans le paquet java.lang.annotation"
+      - "La rétention par défaut est CLASS : l'annotation n'est pas chargée par la JVM, la réflexion ne la voit pas"
+      - "Il faut aussi annoter les classes avec @Inherited"
+      - "Les annotations ne sont lisibles que sur des classes publiques"
+    answer: 1
+    explanation: "Sans @Retention(RUNTIME), l'annotation existe dans le fichier .class mais disparaît au chargement. isAnnotationPresent renvoie false, sans erreur ni avertissement : c'est un bug silencieux."
+    concept: spring-ch00-annotation-retention
+    difficulty: 2
+  - id: q3
+    type: code-output
+    prompt: "Qu'affiche le programme ?"
+    code: |
+      import java.lang.reflect.*;
+      import java.util.*;
+      import java.util.function.Supplier;
+
+      public class Main {
+          static class Desk { Desk(Supplier<StringBuilder> carts, Map<String, Integer> stock) { } }
+
+          public static void main(String[] args) {
+              Type[] types = Desk.class.getDeclaredConstructors()[0].getGenericParameterTypes();
+              for (Type t : types) {
+                  ParameterizedType p = (ParameterizedType) t;
+                  System.out.println(((Class<?>) p.getRawType()).getSimpleName() + " "
+                          + Arrays.stream(p.getActualTypeArguments()).map(a -> ((Class<?>) a).getSimpleName()).toList());
+              }
+          }
+      }
+    answer: "Supplier [StringBuilder]\nMap [String, Integer]"
+    explanation: "Chaque paramètre générique est un ParameterizedType : le type brut d'un côté, les arguments de l'autre. Spring lit exactement ces informations pour injecter un Map<String, T> (les clés sont les noms des beans) ou un ObjectProvider<T>."
+    concept: spring-ch00-generic-types
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Quel est le nom par défaut, dans Spring, d'un `@Component class SQLRepository` ?"
+    choices:
+      - "sqlRepository"
+      - "sQLRepository"
+      - "SQLRepository"
+      - "sqlrepository"
+    answer: 2
+    explanation: "Les deux premières lettres sont des majuscules : la règle JavaBeans (Introspector.decapitalize, StringUtils.uncapitalizeAsProperty dans Spring) laisse le nom tel quel. Un @Qualifier(\"sqlRepository\") ne le trouverait pas."
+    concept: spring-ch00-bean-naming
+    difficulty: 2
+  - id: q5
+    type: multiple
+    prompt: "Pourquoi le scan des composants de Spring lit-il les fichiers `.class` au lieu de charger chaque classe ?"
+    choices:
+      - "Charger toutes les classes d'un gros classpath serait lent et remplirait la mémoire de classes inutiles"
+      - "Une classe chargée ne peut plus jamais être déchargée de la JVM"
+      - "Lire les métadonnées suffit pour savoir si la classe porte une annotation de composant"
+      - "La réflexion ne sait pas lire les annotations d'une classe chargée"
+    answer: [0, 2]
+    explanation: "Spring n'a besoin que de savoir quelles classes sont des composants : lire leurs métadonnées dans le .class (API ClassFile du JDK sur JDK 24+, ASM sinon) évite de charger des milliers de classes. Une classe peut être déchargée avec son class loader, et la réflexion lit très bien les annotations : ces deux raisons sont fausses."
+    concept: spring-ch00-reflection-read
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Pourquoi un conteneur appelle-t-il `setAccessible(true)` avant `newInstance` ?"
+    choices:
+      - "Pour rendre le constructeur public pour tout le programme"
+      - "Pour pouvoir appeler un constructeur ou une méthode non publique (package-private, private)"
+      - "Pour accélérer l'appel en sautant la vérification des arguments"
+      - "C'est obligatoire pour tout appel par réflexion"
+    answer: 1
+    explanation: "setAccessible lève le contrôle d'accès pour CET objet Constructor ou Method seulement. Il permet à un conteneur de créer une classe à constructeur package-private ou d'appeler un @PostConstruct privé. Il ne change pas la visibilité de la classe ailleurs, et n'est pas nécessaire pour un membre public accessible."
+    concept: spring-ch00-reflection-read
+    difficulty: 2

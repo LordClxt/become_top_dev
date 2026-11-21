@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Quand le conteneur appelle-t-il @PostConstruct ?"
+    back: "Après l'injection de toutes les dépendances, par réflexion (même private), sur l'objet d'origine."
+    concept: spring-ch00-lifecycle-reflection
+  - id: fc2
+    front: "Ce que renvoie un post-processor ?"
+    back: "Il remplace le bean ; le post-processor suivant reçoit ce résultat, et le dernier est rangé et injecté."
+    concept: spring-ch00-post-processor-chain
+  - id: fc3
+    front: "Pourquoi les post-processors sont-ils créés en premier ?"
+    back: "Pour exister avant les beans qu'ils doivent traiter. Leurs propres dépendances sont donc créées trop tôt."
+    concept: spring-ch00-early-bean
+  - id: fc4
+    front: "Ordre de destruction des singletons ?"
+    back: "Inverse de leur création : chaque bean est arrêté avant ce dont il dépend."
+    concept: spring-ch00-reverse-destruction
+  - id: fc5
+    front: "Une erreur dans un @PreDestroy ?"
+    back: "Continuer avec les autres beans, puis lever la première erreur avec les suivantes en addSuppressed."
+    concept: spring-ch00-reverse-destruction
+  - id: fc6
+    front: "Si le démarrage échoue au 10e bean ?"
+    back: "Détruire les singletons déjà créés (ordre inverse), puis relancer l'exception : aucune ressource ne fuit."
+    concept: spring-ch00-failed-start
+  - id: fc7
+    front: "Où Spring range-t-il ce qu'il doit détruire ?"
+    back: "Dans disposableBeans (DefaultSingletonBeanRegistry), détruits en ordre inverse d'enregistrement ; dependentBeanMap pour les dépendants."
+    concept: spring-ch00-reverse-destruction

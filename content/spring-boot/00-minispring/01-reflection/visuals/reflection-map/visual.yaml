@@ -1,0 +1,6 @@
+id: spring-ch00-reflection-map
+concept: spring-ch00-reflection-read
+format: static
+justification: "Une structure fixe suffit : l'objet Class et ce qu'il expose (annotations, constructeurs, paramètres génériques), reliés à la question que le conteneur pose à chacun."
+entry: reflection-map.svg
+status: idea

@@ -1,0 +1,7 @@
+id: spring-ch00-two-phase-refresh
+concept: spring-ch00-post-processor-chain
+format: hyperframes
+justification: "Une séquence de 14 s à regarder : les processeurs de définitions modifient les recettes, les post-processors sont créés en premier (un bean dont ils dépendent passe trop tôt et s'allume en orange), puis les autres beans traversent la chaîne ; enfin la destruction remonte la pile."
+entry: scene.html
+duration_s: 14
+status: idea

@@ -1,0 +1,7 @@
+id: spring-ch00-two-maps
+concept: spring-ch00-definition-vs-instance
+format: hyperframes
+justification: "Une séquence de 10 s à regarder : register remplit la table des définitions sans créer d'objet, puis chaque getBean passe par la définition et remplit (ou non, pour un prototype) le cache des singletons."
+entry: scene.html
+duration_s: 10
+status: idea

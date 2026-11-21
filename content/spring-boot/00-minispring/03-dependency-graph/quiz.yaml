@@ -1,0 +1,93 @@
+id: spring-ch00-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Le vrai Spring, un cycle entre deux champs `@Autowired`. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+      import org.springframework.beans.factory.annotation.Autowired;
+      import org.springframework.stereotype.Component;
+
+      public class Main {
+          @Component static class X { @Autowired Y y; }
+          @Component static class Y { @Autowired X x; }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(X.class, Y.class)) {
+                  X x = ctx.getBean(X.class);
+                  System.out.println(x.y.x == x);
+              }
+          }
+      }
+    answer: "true"
+    explanation: "Avec des champs, X peut être construit avant d'avoir Y : Spring Framework expose X comme référence anticipée et la donne à Y. Le cycle est résolu, mais Y a reçu un X pas encore initialisé. Dans une application Spring Boot, ce même code échouerait : spring.main.allow-circular-references vaut false par défaut."
+    concept: spring-ch00-cycle-detection
+    difficulty: 3
+  - id: q2
+    type: code-output
+    prompt: "Quel nom Spring donne-t-il à une classe imbriquée `Main.Orders` annotée `@Component` ?"
+    code: |
+      import org.springframework.context.annotation.*;
+      import org.springframework.stereotype.Component;
+
+      public class Main {
+          @Component static class Orders { }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Orders.class)) {
+                  System.out.println(String.join(",", ctx.getBeanNamesForType(Orders.class)));
+              }
+          }
+      }
+    answer: "main.Orders"
+    explanation: "Spring prend le nom court de la classe, qui pour une classe imbriquée inclut la classe englobante (« Main.Orders »), puis applique la règle JavaBeans : main.Orders. C'est le nom qu'affichent les messages d'erreur sur les beans imbriqués des tests."
+    concept: spring-ch00-constructor-resolution
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "`reservations(pool, catalog)`, `reports(pool)`, puis `pool` et `catalog` sans dépendance, enregistrés dans cet ordre. Dans quel ordre les objets sont-ils créés par `start()` ?"
+    choices:
+      - "reservations, reports, pool, catalog"
+      - "pool, catalog, reservations, reports"
+      - "pool, reservations, catalog, reports"
+      - "catalog, pool, reports, reservations"
+    answer: 1
+    explanation: "start() part de reservations, mais doit d'abord obtenir pool puis catalog (ordre des paramètres) : ils sont créés avant lui. reports ne trouve ensuite que pool, déjà en cache. L'ordre de création suit le graphe, en profondeur."
+    concept: spring-ch00-constructor-resolution
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Un `Desk` (singleton) reçoit un `Provider<Cart>`, et `Cart` est un prototype. Combien de paniers existent après `start()` ?"
+    choices:
+      - "0 : rien n'est résolu avant le premier get()"
+      - "1 : le fournisseur en crée un pour vérifier"
+      - "Un par appel de start()"
+      - "Ça dépend de l'ordre d'enregistrement"
+    answer: 0
+    explanation: "Le fournisseur ne fait que mémoriser comment obtenir un Cart. Chaque get() refera la résolution et créera un nouveau prototype. Le revers : une dépendance manquante n'apparaît qu'au premier get(), pas au démarrage."
+    concept: spring-ch00-provider
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Deux beans `Gateway` existent, aucun n'est primaire, et `checkout` en demande un. Que doit faire un conteneur bien conçu ?"
+    choices:
+      - "Prendre le premier enregistré"
+      - "Prendre le dernier enregistré, qui remplace l'autre"
+      - "Refuser de démarrer en nommant le bean demandeur et les deux candidats"
+      - "Injecter null"
+    answer: 2
+    explanation: "Choisir au hasard est le pire résultat : l'application démarre et débite le mauvais prestataire. Refuser, avec un message qui nomme checkout, stripe et paypal, coûte une minute au développeur."
+    concept: spring-ch00-primary
+    difficulty: 1
+  - id: q6
+    type: multiple
+    prompt: "Ton équipe a un cycle `OrderService ⇄ PaymentService` par constructeurs. Quelles corrections cassent vraiment le cycle ?"
+    choices:
+      - "Extraire la logique commune dans un troisième bean dont les deux dépendent"
+      - "Passer les deux à l'injection par champ"
+      - "Faire publier un événement par l'un, que l'autre écoute"
+      - "Mettre spring.main.allow-circular-references=true"
+    answer: [0, 2]
+    explanation: "Un troisième bean ou un événement suppriment la flèche qui fermait la boucle. Les champs et la propriété ne font que laisser Spring contourner le cycle avec des beans à moitié initialisés : le cycle est toujours là, et le message de Spring Boot lui-même le décourage."
+    concept: spring-ch00-cycle-detection
+    difficulty: 3

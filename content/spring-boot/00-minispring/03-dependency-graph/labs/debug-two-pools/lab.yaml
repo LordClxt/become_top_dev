@@ -1,0 +1,12 @@
+id: spring-ch00-l03-lab-debug-two-pools
+title: "Débogage : la base refuse une deuxième connexion"
+kind: code
+language: java
+difficulty: 4
+xp: 90
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["MiniContainer.java", "Resolver.java", "Factory.java", "Definitions.java"]
+concepts: [spring-ch00-singleton-cache, spring-ch00-constructor-resolution]
+verified: { at: 2026-11-21, solution: pass, starter: fail }

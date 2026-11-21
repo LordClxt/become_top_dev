@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Comment un conteneur crée-t-il un bean à dépendances ?"
+    back: "Il obtient d'abord chaque dépendance (récursivement, en profondeur, par type, via le cache), puis appelle le constructeur."
+    concept: spring-ch00-constructor-resolution
+  - id: fc2
+    front: "Avec quelle structure détecte-t-on un cycle ?"
+    back: "L'ensemble ordonné (LinkedHashSet) des beans en cours de création ; retomber sur l'un d'eux = boucle."
+    concept: spring-ch00-cycle-detection
+  - id: fc3
+    front: "Son nom dans Spring ?"
+    back: "singletonsCurrentlyInCreation (DefaultSingletonBeanRegistry) ; une double entrée lève BeanCurrentlyInCreationException."
+    concept: spring-ch00-cycle-detection
+  - id: fc4
+    front: "Pourquoi un cycle de constructeurs est-il insoluble ?"
+    back: "Aucun des deux objets ne peut exister avant l'autre : chaque constructeur exige l'autre objet déjà créé."
+    concept: spring-ch00-cycle-detection
+  - id: fc5
+    front: "Comment Spring Framework résout-il un cycle entre champs ?"
+    back: "Il expose l'objet construit mais pas initialisé comme référence anticipée (singletonFactories, earlySingletonObjects)."
+    concept: spring-ch00-cycle-detection
+  - id: fc6
+    front: "Spring Boot et les références circulaires ?"
+    back: "Interdites par défaut depuis 2.6 : spring.main.allow-circular-references=false. Casse le cycle plutôt."
+    concept: spring-ch00-cycle-detection
+  - id: fc7
+    front: "Plusieurs candidats pour un type ?"
+    back: "L'unique primaire l'emporte ; sinon erreur qui nomme le demandeur et les candidats."
+    concept: spring-ch00-primary
+  - id: fc8
+    front: "Ce que change un Provider<T> en paramètre ?"
+    back: "Rien n'est résolu à la création ; chaque get() refait la résolution (nouveau prototype, erreur éventuelle à ce moment)."
+    concept: spring-ch00-provider

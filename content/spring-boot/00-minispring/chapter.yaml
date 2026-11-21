@@ -1,0 +1,20 @@
+id: spring-ch00
+title: "Minispring : reconstruire un conteneur"
+subtitle: "Réflexion, définitions, cache des singletons, graphe des dépendances, cycles, cycle de vie et post-processors, en Java pur"
+source: { book: spring-docs, chapter: 1, pages: "#beans", url: "https://docs.spring.io/spring-framework/reference/core/beans/introduction.html" }
+objectives:
+  - "Lire par réflexion ce dont un conteneur a besoin (annotations RUNTIME, constructeur, types génériques des paramètres) et en déduire le nom d'un bean"
+  - "Séparer les définitions des objets et garantir qu'un singleton n'est créé qu'une fois, quel que soit le chemin"
+  - "Créer les beans dans l'ordre du graphe par injection par constructeur, détecter et décrire un cycle, et départager plusieurs candidats"
+  - "Initialiser, transformer (post-processors) et détruire des beans dans le bon ordre, y compris quand le démarrage échoue"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-reflection"
+  - "02-definitions-registry"
+  - "03-dependency-graph"
+  - "04-lifecycle-extensions"
+xp: { assignment: 150, project: 300, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

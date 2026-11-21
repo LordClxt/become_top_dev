@@ -1,0 +1,8 @@
+id: spring-ch00-depth-first
+concept: spring-ch00-cycle-detection
+format: interactive
+justification: "L'apprenant ajoute des flèches entre beans et lance la création pas à pas : il voit l'ensemble « en cours de création » grandir et rétrécir, et l'instant exact où une flèche ferme une boucle."
+entry: DepthFirst.tsx
+params:
+  - { name: beans, type: int, min: 2, max: 6, default: 4 }
+status: idea

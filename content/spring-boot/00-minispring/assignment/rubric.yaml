@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.55
+    source: tests
+  - id: resolution-design
+    label: "Conception de la résolution"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Un seul chemin « un candidat » réutilisé par le cas simple et par Provider ; Provider vraiment différé (recherche dans get()) ; types génériques lus avec ParameterizedType, sans cast aveugle ni analyse de chaînes"
+      2: "Fonctionne, mais logique de départage dupliquée, ou Provider qui résout au démarrage et garde un objet"
+      0: "Cas codés en dur par nom de classe, ou getTypeName() analysé comme une chaîne"
+  - id: errors
+    label: "Messages d'erreur"
+    weight: 0.15
+    source: ai
+    levels:
+      4: "Chaque erreur nomme le type, le bean demandeur et les candidats en cause ; les cas non pris en charge (List<? extends X>) échouent explicitement"
+      2: "Messages corrects pour les cas testés seulement"
+      0: "Exceptions génériques (ClassCastException, NullPointerException) qui remontent telles quelles"
