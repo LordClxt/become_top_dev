@@ -1,0 +1,12 @@
+id: spring-ch01-l05-lab-debug-empty-dashboard
+title: "Débogage : le tableau de bord qui reste à zéro"
+kind: code
+language: java
+difficulty: 4
+xp: 90
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/StoreConfig.java", "app/Dashboard.java", "app/ReservationService.java", "app/ReservationStore.java", "app/TixaApp.java"]
+concepts: [spring-configuration-lite, spring-configuration-full, spring-lifecycle-callbacks]
+verified: { at: 2026-11-20, solution: pass, starter: fail }

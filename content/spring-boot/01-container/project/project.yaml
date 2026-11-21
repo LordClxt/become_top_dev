@@ -1,0 +1,14 @@
+id: spring-ch01-project
+title: "Tixa, jalon 1 : le noyau câblé par le conteneur"
+pitch: "Une billetterie commence par un noyau qui ne ment jamais : le bon prix, pas une place de trop, un journal qui ne perd rien à l'arrêt. Tu poses les fondations de Tixa, entièrement assemblées par le conteneur."
+running_project: tixa
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/TixaConfig.java", "app/ReservationService.java", "app/ReservationJournal.java", "app/PromotionRegistrar.java"]
+concepts: [spring-bean-definition, spring-resolution-by-type, spring-primary-qualifier, spring-collection-injection, spring-objectprovider, spring-lifecycle-callbacks, spring-destruction-order, spring-bean-registrar, spring-fail-fast]
+verified: { at: 2026-11-21, solution: pass, starter: fail }

@@ -1,0 +1,70 @@
+// Bibliothèques Spring Boot du cours `spring`, résolues une seule fois au build de l'image
+// (le bac à sable n'a pas de réseau). Copiées à plat dans /opt/libs/spring/.
+//
+//  - base           : conteneur, web MVC (Tomcat embarqué), validation, AOP (AspectJ), cache, RestClient, tests.
+//  - extra/data     : JDBC, Data JPA (Hibernate 7) et H2. Séparé : JPA sur le classpath crée une base
+//                     et un EntityManagerFactory dans chaque test, même quand le lab n'en a pas besoin.
+//  - extra/flyway   : migrations. Séparé : sa seule présence fait passer `ddl-auto` de create-drop à none.
+//  - extra/security : Spring Security 7. Séparé : sa seule présence protège toutes les routes (401).
+//  - extra/actuator : Actuator + Micrometer.
+// Chaque extra ne contient que les jars absents de base. Deux extras peuvent partager un jar :
+// `jboot` ne garde que la première copie d'un même fichier, jamais deux copies d'une classe.
+plugins { id 'java' }
+
+repositories { mavenCentral() }
+
+def bootVersion = '4.1.3'
+def sets = ['springBase', 'data', 'flyway', 'security', 'actuator']
+
+sets.each { name ->
+    configurations.create(name) { Configuration c ->
+        c.canBeConsumed = false
+        c.canBeResolved = true
+        c.attributes {
+            attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+            attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.LIBRARY))
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements, LibraryElements.JAR))
+            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling, Bundling.EXTERNAL))
+            attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 25)
+        }
+    }
+}
+
+dependencies {
+    sets.each { add(it, platform("org.springframework.boot:spring-boot-dependencies:$bootVersion")) }
+
+    ['webmvc', 'validation', 'aspectj', 'cache', 'restclient', 'test', 'webmvc-test', 'restclient-test'].each {
+        springBase "org.springframework.boot:spring-boot-starter-$it"
+    }
+    // Lanceur JUnit utilisé par btd.RunTests (sortie au format `go test -json`).
+    springBase 'org.junit.platform:junit-platform-launcher'
+    // Annotations @API de JUnit, utilisées seulement à la compilation : sans elles, javac affiche
+    // une centaine d'avertissements « unknown enum constant Status.STABLE ».
+    springBase 'org.apiguardian:apiguardian-api:1.1.2'
+
+    ['jdbc', 'data-jpa', 'jdbc-test', 'data-jpa-test'].each { data "org.springframework.boot:spring-boot-starter-$it" }
+    data 'com.h2database:h2'
+
+    ['flyway', 'flyway-test'].each { flyway "org.springframework.boot:spring-boot-starter-$it" }
+
+    ['security', 'security-test', 'oauth2-resource-server'].each { security "org.springframework.boot:spring-boot-starter-$it" }
+
+    ['actuator', 'actuator-test'].each { actuator "org.springframework.boot:spring-boot-starter-$it" }
+    actuator 'io.micrometer:micrometer-observation-test'
+}
+
+tasks.register('copyLibs') {
+    def resolved = sets.collectEntries { [(it): configurations[it].files] }
+    doLast {
+        def root = new File('/opt/libs/spring')
+        def inBase = resolved.springBase*.name as Set
+        resolved.each { name, files ->
+            boolean base = name == 'springBase'
+            def dir = new File(root, base ? 'base' : "extra/$name")
+            dir.mkdirs()
+            files.findAll { base || !(it.name in inBase) }.each { f ->
+                java.nio.file.Files.copy(f.toPath(), new File(dir, f.name).toPath())
+            }
+        }
+    }
+}

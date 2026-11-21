@@ -1,0 +1,82 @@
+id: spring
+title: "Spring Boot sous le capot"
+# Cours construit sur la documentation officielle et le code source (aucun livre) : `chapter` = numéro de page
+# dans .cache/books/spring-docs/toc.md, `pages` = ancre, `url` = page citée (convention de schemas.md).
+book:
+  title: "Spring Framework 7 & Spring Boot 4.1 — documentation de référence"
+  authors: ["Équipe Spring"]
+  slug: spring-docs
+books:
+  - title: "Code source Spring (spring-framework 7.0, spring-boot 4.1)"
+    authors: ["Équipe Spring"]
+    slug: spring-source
+summary: "Le conteneur, l'autoconfiguration, MVC, les transactions, JPA, la sécurité et la production, expliqués à partir du code source de Spring puis pratiqués sur le vrai Spring Boot 4.1 : prédire le comportement au lieu de l'apprendre par cœur."
+order: 3
+kind: practical
+language: java
+runtime: "jdk25 + spring-boot 4.1.3 (spring-framework 7.0.11, hibernate 7.4)"   # sandbox : `jtest` (Java pur, Minispring) et `jboot [+data] [+flyway] [+security] [+actuator]` (vrai Spring Boot, JUnit Jupiter 6). Spring Boot 4.2 est sorti : montée de version prévue avant les modules suivants, si l'utilisateur la valide.
+quiz_classpath: "/opt/btd/quiz:/opt/libs/spring/base/*"   # quiz « qu'affiche ce programme ? » : Spring sur le classpath, logs coupés
+pilot: "01-container"
+running_project:
+  id: tixa
+  title: "Tixa — une API de billetterie"
+  pitch: "Catalogue d'événements, réservations sous forte concurrence sans survente, paiements idempotents, sécurité, observabilité : chaque module ajoute une pièce, jusqu'à une API déployée en production."
+requires:
+  - { course: java, through: "06-enums-annotations", reason: "Annotations, réflexion et génériques sont la matière première de Spring ; l'injection de dépendances à la main est vue au module 01." }
+
+tracks:
+  - id: spring-container
+    title: "Le conteneur sous le capot"
+    chapters:
+      - "00-minispring"          # reconstruire un mini-conteneur en Java pur (jtest)
+      - "01-container"           # pilote — Core → IoC Container
+      - "02-aop-proxies"         # Core → AOP, proxying mechanisms
+      - "03-boot-startup"        # Boot → SpringApplication, externalized configuration, executable jars
+      - "04-autoconfiguration"   # Boot → auto-configuration ; migration Boot 3.5 → 4
+  - id: spring-web
+    title: "Le web"
+    chapters:
+      - "05-spring-mvc"          # Web on Servlet Stack
+      - "06-http-clients"        # Integration → REST clients, resilience
+      - "07-concurrency-threads" # Boot → task execution, virtual threads
+  - id: spring-data
+    title: "Les données"
+    chapters:
+      - "08-jdbc-transactions"   # Data Access → transactions
+      - "09-jpa-hibernate"       # Spring Data JPA + Hibernate ORM 7
+      - "10-data-concurrency"    # verrous, idempotence, outbox, cache — `jboot +pg` (v2)
+  - id: spring-production
+    title: "La production"
+    chapters:
+      - "11-testing"
+      - "12-security"
+      - "13-observability"
+      - "14-performance-native"
+      - "15-capstone"
+  - id: spring-beyond
+    title: "Au-delà (optionnel)"
+    optional: true
+    chapters:
+      - "16-reactive-webflux"
+      - "17-messaging"
+      - "18-spring-ai"
+
+planned_titles:
+  "00-minispring": "Minispring : reconstruire un conteneur"
+  "02-aop-proxies": "AOP et proxies"
+  "03-boot-startup": "Le démarrage de Spring Boot"
+  "04-autoconfiguration": "L'autoconfiguration"
+  "05-spring-mvc": "Spring MVC"
+  "06-http-clients": "Clients HTTP et résilience"
+  "07-concurrency-threads": "Threads, threads virtuels et tâches"
+  "08-jdbc-transactions": "JDBC et transactions"
+  "09-jpa-hibernate": "JPA et Hibernate"
+  "10-data-concurrency": "Concurrence sur les données"
+  "11-testing": "Tester une application Spring"
+  "12-security": "Spring Security"
+  "13-observability": "Observabilité"
+  "14-performance-native": "Performance, AOT et natif"
+  "15-capstone": "Capstone : Tixa en production"
+  "16-reactive-webflux": "Réactif et WebFlux"
+  "17-messaging": "Messagerie"
+  "18-spring-ai": "Spring AI"

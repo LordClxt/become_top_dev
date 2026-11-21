@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Le câblage"
+    goal: "Tous les beans de Tixa déclarés dans TixaConfig ; ReservationService choisit la politique de prix par catégorie, respecte la capacité et n'utilise que l'horloge et les identifiants du conteneur."
+    tests: "jboot M1"
+    review: false
+  - id: m2
+    title: "Le journal"
+    goal: "Les réservations partent dans le support par lots de 3, et le tampon est vidé à l'arrêt, avant la fermeture du support."
+    tests: "jboot M2"
+    review: false
+  - id: m3
+    title: "Les promotions"
+    goal: "Un BeanRegistrar crée un bean Promotion par code de tixa.promotions ; une promotion mal écrite fait échouer le démarrage."
+    tests: "jboot M3"
+    review: true

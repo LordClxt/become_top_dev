@@ -1,0 +1,8 @@
+id: spring-ch01-config-cglib
+concept: spring-configuration-full
+format: interactive
+justification: "L'apprenant bascule entre @Configuration, proxyBeanMethods = false et @Component, puis voit combien d'instances de Pool chaque appel crée : la différence full / lite se comprend en la provoquant."
+entry: ConfigCglib.tsx
+params:
+  - { name: callers, type: int, min: 1, max: 4, default: 2 }
+status: idea

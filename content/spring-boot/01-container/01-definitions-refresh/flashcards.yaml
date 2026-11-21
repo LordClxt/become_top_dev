@@ -1,0 +1,29 @@
+cards:
+  - id: fc1
+    front: "Qu'est-ce qu'une BeanDefinition ?"
+    back: "La recette d'un bean : classe ou méthode @Bean, portée, lazy, dépendances, callbacks. Elle existe avant l'objet."
+    concept: spring-bean-definition
+  - id: fc2
+    front: "Les deux temps de refresh() ?"
+    back: "1. Les recettes : définitions lues et modifiées par les BeanFactoryPostProcessor. 2. Les objets : BeanPostProcessor enregistrés, puis tous les singletons non lazy créés."
+    concept: spring-refresh
+  - id: fc3
+    front: "Qui lit @Configuration, @Bean, @ComponentScan et @Import ?"
+    back: "ConfigurationClassPostProcessor, un BeanFactoryPostProcessor d'infrastructure : Spring utilise ses propres points d'extension."
+    concept: spring-refresh
+  - id: fc4
+    front: "Quand un singleton (non lazy) est-il créé ?"
+    back: "Pendant refresh(), dans finishBeanFactoryInitialization : au démarrage, pas au premier getBean."
+    concept: spring-fail-fast
+  - id: fc5
+    front: "Le prix de @Lazy ?"
+    back: "Une erreur de configuration de ce bean n'apparaît plus au démarrage, mais à sa première utilisation."
+    concept: spring-fail-fast
+  - id: fc6
+    front: "Nom par défaut d'un bean ?"
+    back: "Le nom de la méthode @Bean ; pour un composant, le nom simple de la classe en camelCase (ReservationService → reservationService)."
+    concept: spring-bean-naming
+  - id: fc7
+    front: "Que fait refresh() si un bean échoue à la création ?"
+    back: "Il détruit les beans déjà créés (destroyBeans), annule le démarrage, puis propage l'exception."
+    concept: spring-fail-fast

@@ -1,0 +1,8 @@
+id: spring-ch01-resolution-steps
+concept: spring-resolution-by-type
+format: interactive
+justification: "L'apprenant ajoute ou retire des candidats et des annotations (@Primary, @Fallback, @Qualifier, nom du paramètre) et voit à quelle étape le conteneur tranche, ou pourquoi il refuse de démarrer."
+entry: ResolutionSteps.tsx
+params:
+  - { name: candidates, type: int, min: 0, max: 4, default: 2 }
+status: idea

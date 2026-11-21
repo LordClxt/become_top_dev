@@ -1,0 +1,13 @@
+id: spring-ch01-boss
+title: "Boss : le garde-fou du démarrage"
+kind: code
+language: java
+difficulty: 5
+xp: 250
+timeout_s: 120
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/ScopeGuard.java"]
+concepts: [spring-bean-factory-post-processor, spring-bean-definition, spring-scoped-dependency-trap, spring-resolution-by-type, spring-refresh, spring-fail-fast]
+verified: { at: 2026-11-21, solution: pass, starter: fail }

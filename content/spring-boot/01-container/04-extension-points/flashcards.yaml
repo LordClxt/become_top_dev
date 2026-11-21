@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "BeanFactoryPostProcessor : quand, et sur quoi ?"
+    back: "Au temps 1 de refresh(), une fois, sur les définitions (recettes), avant la création de tout bean applicatif."
+    concept: spring-bean-factory-post-processor
+  - id: fc2
+    front: "Quelle variante peut ajouter ou retirer des définitions ?"
+    back: "BeanDefinitionRegistryPostProcessor (ConfigurationClassPostProcessor en est un)."
+    concept: spring-bean-factory-post-processor
+  - id: fc3
+    front: "BeanPostProcessor : quand, et sur quoi ?"
+    back: "Pour chaque bean créé, avant et après son initialisation (@PostConstruct…). Ce qu'il renvoie remplace le bean."
+    concept: spring-bean-post-processor
+  - id: fc4
+    front: "Comment naît le proxy de @Transactional ?"
+    back: "Un auto-proxy creator (BeanPostProcessor) renvoie un proxy dans postProcessAfterInitialization ; c'est lui qu'on injecte partout."
+    concept: spring-bpp-proxy
+  - id: fc5
+    front: "Pourquoi this.autreMethode() échappe-t-il au proxy ?"
+    back: "Le proxy enveloppe l'objet sans le modifier : un appel interne va directement au vrai objet."
+    concept: spring-bpp-proxy
+  - id: fc6
+    front: "Limite d'un proxy JDK ?"
+    back: "Il n'implémente que les interfaces : getBean ou une injection par la classe concrète échoue. CGLIB (sous-classe) contourne ça, sauf pour final."
+    concept: spring-jdk-proxy-limits
+  - id: fc7
+    front: "Pourquoi une méthode @Bean de post-processor doit-elle être static ?"
+    back: "Pour être appelée sans créer sa classe @Configuration (et ses dépendances) trop tôt, avant les BeanPostProcessor."
+    concept: spring-static-bean-method
+  - id: fc8
+    front: "Que deviennent les dépendances d'un BeanPostProcessor ?"
+    back: "Elles sont créées pendant son enregistrement, donc sans être traitées par les post-processors (pas d'AOP). Utilise ObjectProvider."
+    concept: spring-static-bean-method

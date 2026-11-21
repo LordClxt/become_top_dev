@@ -1,0 +1,12 @@
+id: spring-ch01-l01-lab-warmup-wiring
+title: "Échauffement : déclarer les beans de Tixa"
+kind: code
+language: java
+difficulty: 1
+xp: 30
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/TixaConfig.java"]
+concepts: [spring-bean-definition, spring-refresh]
+verified: { at: 2026-11-20, solution: pass, starter: fail }

@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Que devient une classe @Configuration au démarrage ?"
+    back: "Une sous-classe CGLIB ($$SpringCGLIB$$) qui intercepte les méthodes @Bean : un appel depuis ton code renvoie le bean du conteneur."
+    concept: spring-configuration-full
+  - id: fc2
+    front: "Qui fait la substitution CGLIB ?"
+    back: "ConfigurationClassPostProcessor, au temps 1, via ConfigurationClassEnhancer (BeanMethodInterceptor)."
+    concept: spring-configuration-full
+  - id: fc3
+    front: "Les trois cas du mode lite ?"
+    back: "Méthodes @Bean dans un @Component (ou une classe simple), @Configuration(proxyBeanMethods = false), et toute méthode @Bean static."
+    concept: spring-configuration-lite
+  - id: fc4
+    front: "Pourquoi Spring Boot utilise-t-il le mode lite ?"
+    back: "@AutoConfiguration = @Configuration(proxyBeanMethods = false) : pas de sous-classe, démarrage plus rapide, moins de mémoire, natif plus simple."
+    concept: spring-configuration-lite
+  - id: fc5
+    front: "La règle qui rend une configuration juste dans tous les modes ?"
+    back: "Dépendances entre beans en paramètres des méthodes @Bean, jamais par appel de méthode."
+    concept: spring-configuration-lite
+  - id: fc6
+    front: "Ce que CGLIB interdit dans une @Configuration ?"
+    back: "Une classe final, et des méthodes @Bean private ou final : le démarrage échoue."
+    concept: spring-configuration-full
+  - id: fc7
+    front: "Quand utiliser BeanRegistrar (Spring 7) ?"
+    back: "Quand le nombre ou la nature des beans dépend de la configuration : register(registry, env), un supplier par bean, importé avec @Import."
+    concept: spring-bean-registrar
+  - id: fc8
+    front: "Comment un supplier de BeanRegistrar obtient-il un autre bean ?"
+    back: "Par son contexte : ctx.bean(SmsQuota.class). Jamais de getBean dans register(), aucun bean n'existe encore."
+    concept: spring-bean-registrar

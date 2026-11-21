@@ -1,0 +1,12 @@
+id: spring-ch01-l05-lab-notifier-registrar
+title: "Des beans décidés par la configuration : BeanRegistrar"
+kind: code
+language: java
+difficulty: 4
+xp: 80
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/NotifierRegistrar.java"]
+concepts: [spring-bean-registrar, spring-bean-definition, spring-fail-fast]
+verified: { at: 2026-11-20, solution: pass, starter: fail }

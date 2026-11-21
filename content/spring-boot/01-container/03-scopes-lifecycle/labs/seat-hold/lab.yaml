@@ -1,0 +1,12 @@
+id: spring-ch01-l03-lab-seat-hold
+title: "Une réservation par client, libérée à l'arrêt"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/HoldConfig.java", "app/HoldDesk.java"]
+concepts: [spring-prototype-scope, spring-scoped-dependency-trap, spring-lifecycle-callbacks, spring-prototype-destruction]
+verified: { at: 2026-11-20, solution: pass, starter: fail }

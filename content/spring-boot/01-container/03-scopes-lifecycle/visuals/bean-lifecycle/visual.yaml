@@ -1,0 +1,7 @@
+id: spring-ch01-bean-lifecycle
+concept: spring-lifecycle-callbacks
+format: hyperframes
+justification: "Une séquence fixe de 14 s qu'il suffit de regarder : un bean traverse instanciation, injection, Aware, post-processors avant, callbacks d'initialisation, post-processors après, puis, à l'arrêt, ses callbacks de destruction (un prototype sort du cadre sans destruction)."
+entry: scene.html
+duration_s: 14
+status: idea

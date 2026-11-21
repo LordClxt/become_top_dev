@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Ordre de départage quand plusieurs beans conviennent ?"
+    back: "1. @Primary (ou l'unique non-@Fallback) ; 2. nom du paramètre ou du champ ; 3. @Priority ; sinon NoUniqueBeanDefinitionException au démarrage."
+    concept: spring-resolution-by-type
+  - id: fc2
+    front: "Quand faut-il @Autowired sur un constructeur ?"
+    back: "Seulement si la classe a plusieurs constructeurs, pour dire lequel utiliser. Avec un seul, Spring le prend."
+    concept: spring-constructor-injection
+  - id: fc3
+    front: "@Primary ou @Qualifier ?"
+    back: "@Primary : choix par défaut décidé par le fournisseur, pour tous. @Qualifier : choix exigé par un point d'injection, il filtre avant le départage."
+    concept: spring-primary-qualifier
+  - id: fc4
+    front: "À quoi sert @Fallback (Spring 6.2) ?"
+    back: "Le bean n'est choisi que s'il n'y a aucun autre candidat : une implémentation par défaut que n'importe quel autre bean remplace."
+    concept: spring-primary-qualifier
+  - id: fc5
+    front: "Pourquoi le départage par nom de paramètre est-il fragile ?"
+    back: "Il exige que le code soit compilé avec -parameters (Maven/Gradle de Boot le font, javac nu non). L'intention reste invisible."
+    concept: spring-resolution-by-type
+  - id: fc6
+    front: "List<T> et Map<String, T> en paramètre ?"
+    back: "Tous les beans du type : la List triée par @Order, la Map indexée par nom de bean. Sans candidat : collection vide."
+    concept: spring-collection-injection
+  - id: fc7
+    front: "getIfAvailable() ou getIfUnique() ?"
+    back: "getIfAvailable : null si absent, erreur si plusieurs. getIfUnique : null si absent OU si plusieurs."
+    concept: spring-objectprovider
+  - id: fc8
+    front: "Trois usages d'ObjectProvider ?"
+    back: "Dépendance optionnelle, dépendance coûteuse demandée seulement si besoin, et bean redemandé à chaque appel (prototypes)."
+    concept: spring-objectprovider

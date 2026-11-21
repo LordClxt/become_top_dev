@@ -1,0 +1,96 @@
+id: spring-ch01-l03-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Pour régler le panier partagé, un collègue met un proxy de portée sur le prototype. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+      import java.util.*;
+
+      public class Main {
+          public static class SeatHold {
+              private final List<String> seats = new ArrayList<>();
+              public void add(String seat) { seats.add(seat); }
+              public List<String> seats() { return seats; }
+          }
+          record Desk(SeatHold hold) { }
+
+          @Configuration
+          static class Config {
+              @Bean @Scope(value = "prototype", proxyMode = ScopedProxyMode.TARGET_CLASS)
+              SeatHold seatHold() { return new SeatHold(); }
+              @Bean Desk desk(SeatHold hold) { return new Desk(hold); }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {
+                  SeatHold hold = ctx.getBean(Desk.class).hold();
+                  hold.add("A12");
+                  System.out.println(hold.seats());
+              }
+          }
+      }
+    answer: "[]"
+    explanation: "Le proxy demande un prototype au conteneur à chaque appel de méthode : add et seats travaillent sur deux paniers différents. Les proxies de portée sont faits pour request ou session, où chaque appel retrouve l'instance de la requête en cours."
+    concept: spring-scoped-dependency-trap
+    difficulty: 4
+  - id: q2
+    type: single
+    prompt: "Deux classes de test créent chacune un `AnnotationConfigApplicationContext` avec la même configuration. Combien d'instances du bean singleton `eventCatalog` existent ?"
+    choices:
+      - "Une : c'est un singleton"
+      - "Deux : une par conteneur"
+      - "Une par thread de test"
+      - "Aucune avant le premier getBean"
+    answer: 1
+    explanation: "Un singleton Spring est unique dans son conteneur, pas dans la JVM. Deux contextes, deux catalogues. Spring Test met justement les contextes en cache pour éviter de les recréer (module 11)."
+    concept: spring-singleton-scope
+    difficulty: 2
+  - id: q3
+    type: multiple
+    prompt: "`SeatHold` est un prototype avec une méthode `@PostConstruct` et une méthode `@PreDestroy`. Lesquelles de ces affirmations sont vraies ?"
+    choices:
+      - "@PostConstruct est appelé pour chaque instance créée"
+      - "@PreDestroy est appelé pour chaque instance à ctx.close()"
+      - "Le conteneur ne garde aucune référence aux prototypes qu'il a créés"
+      - "Celui qui obtient un prototype est responsable de libérer ses ressources"
+    answer: [0, 2, 3]
+    explanation: "L'initialisation fait partie de la création, donc elle a lieu. Mais le conteneur oublie le prototype dès qu'il l'a rendu : il ne peut pas l'appeler à l'arrêt. La libération revient au code qui l'a demandé."
+    concept: spring-prototype-destruction
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "`ReportService` (singleton) a un champ `private String currentUser`, rempli au début de chaque requête puis lu pour signer le rapport. En charge, des rapports sont signés par le mauvais utilisateur. Pourquoi ?"
+    choices:
+      - "Il manque @PostConstruct pour initialiser le champ"
+      - "Le singleton est partagé par tous les threads : une requête écrase le champ pendant qu'une autre le lit"
+      - "Le champ devrait être static"
+      - "Le conteneur recrée le bean entre deux requêtes"
+    answer: 1
+    explanation: "Une instance par conteneur veut dire une instance pour toutes les requêtes concurrentes. Un état propre à une requête ne doit pas vivre dans un singleton : passe-le en paramètre, ou utilise une portée request."
+    concept: spring-singleton-scope
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Le journal récupère son support avec `ctx.getBean(JournalSink.class)` dans sa méthode `flush()`, au lieu de le recevoir par constructeur. Quel risque à l'arrêt ?"
+    choices:
+      - "Aucun : Spring détruit toujours les beans dans l'ordre inverse de leur déclaration"
+      - "Le support peut être fermé avant que le journal ait vidé son tampon, car le conteneur ne connaît pas la dépendance"
+      - "flush() n'est plus appelé à l'arrêt"
+      - "Le journal devient un prototype"
+    answer: 1
+    explanation: "L'ordre de destruction s'appuie sur les dépendances déclarées : sans elles, le conteneur n'a aucune raison de détruire le journal avant le support. Déclarer ses dépendances, c'est aussi donner au conteneur de quoi bien les arrêter."
+    concept: spring-destruction-order
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Un redéploiement envoie SIGTERM à l'application Spring Boot, puis la tue au bout de 30 secondes. Le pod précédent, lui, avait été tué par un dépassement de mémoire. Dans quel cas les `@PreDestroy` ont-ils été appelés ?"
+    choices:
+      - "Dans les deux cas"
+      - "Seulement pour SIGTERM, grâce au shutdown hook qui ferme le contexte"
+      - "Seulement pour le dépassement de mémoire"
+      - "Dans aucun cas : il faut appeler close() à la main"
+    answer: 1
+    explanation: "SIGTERM déclenche l'arrêt normal de la JVM, donc le shutdown hook de Spring Boot, donc ctx.close(). Une JVM tuée brutalement (kill -9, OOM killer) n'exécute rien : un @PreDestroy ne remplace pas une écriture durable."
+    concept: spring-lifecycle-callbacks
+    difficulty: 3

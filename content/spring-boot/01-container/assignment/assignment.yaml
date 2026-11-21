@@ -1,0 +1,12 @@
+id: spring-ch01-assignment
+title: "Couper une fonctionnalité sans redéployer le code"
+kind: code
+language: java
+difficulty: 4
+xp: 150
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/FeatureTogglePostProcessor.java", "app/ShopConfig.java"]
+concepts: [spring-bean-factory-post-processor, spring-bean-definition, spring-refresh, spring-objectprovider, spring-static-bean-method]
+verified: { at: 2026-11-20, solution: pass, starter: fail }

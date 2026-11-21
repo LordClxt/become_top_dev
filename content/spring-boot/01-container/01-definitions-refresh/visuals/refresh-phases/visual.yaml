@@ -1,0 +1,7 @@
+id: spring-ch01-refresh-phases
+concept: spring-refresh
+format: hyperframes
+justification: "Une séquence linéaire de 12 s : les définitions s'empilent et se transforment (temps 1), puis les singletons se créent dans l'ordre des dépendances (temps 2) ; il suffit de la regarder."
+entry: scene.html
+duration_s: 12
+status: idea

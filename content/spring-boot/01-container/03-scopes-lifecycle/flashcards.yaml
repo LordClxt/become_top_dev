@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Un singleton Spring est unique…"
+    back: "…dans son conteneur (pas dans la JVM), et partagé par tous les threads : sans état, ou état protégé."
+    concept: spring-singleton-scope
+  - id: fc2
+    front: "Quand un prototype est-il créé ?"
+    back: "À chaque demande au conteneur : chaque injection et chaque getBean."
+    concept: spring-prototype-scope
+  - id: fc3
+    front: "Pourquoi un prototype injecté dans un singleton est-il partagé ?"
+    back: "Le singleton n'est créé qu'une fois : il ne demande ses dépendances qu'une fois, et garde le même prototype."
+    concept: spring-scoped-dependency-trap
+  - id: fc4
+    front: "Trois façons d'obtenir un nouveau prototype depuis un singleton ?"
+    back: "ObjectProvider.getObject() (explicite, recommandé), @Lookup (composants scannés seulement), proxy de portée (fait pour request/session)."
+    concept: spring-scoped-dependency-trap
+  - id: fc5
+    front: "Ordre des callbacks d'initialisation ?"
+    back: "Constructeur → injection → Aware → @PostConstruct → afterPropertiesSet() → initMethod."
+    concept: spring-lifecycle-callbacks
+  - id: fc6
+    front: "Qui appelle @PostConstruct ?"
+    back: "CommonAnnotationBeanPostProcessor, dans sa méthode « avant initialisation » : c'est un BeanPostProcessor, pas le cœur du conteneur."
+    concept: spring-lifecycle-callbacks
+  - id: fc7
+    front: "Le @PreDestroy d'un prototype est appelé quand ?"
+    back: "Jamais : le conteneur oublie le prototype dès qu'il l'a rendu."
+    concept: spring-prototype-destruction
+  - id: fc8
+    front: "Ordre de destruction entre A et B si A dépend de B ?"
+    back: "A est détruit avant B, à condition que la dépendance soit déclarée (constructeur, paramètre @Bean)."
+    concept: spring-destruction-order

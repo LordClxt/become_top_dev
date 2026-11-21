@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Quiz « qu'affiche ce programme ? » (verify_quiz.py, via quiz_classpath) : aucun log, seule la sortie du programme compte. -->
+<configuration>
+  <root level="OFF"/>
+</configuration>

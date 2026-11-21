@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logs du bac à sable : niveau WARN par défaut (sans fichier de configuration, Logback affiche tout en DEBUG).
+     Un lab peut fournir son propre logback.xml ou régler un logger dans application.yml
+     (ex. logging.level.org.hibernate.SQL: debug). -->
+<configuration>
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder><pattern>%-5level %logger{30} - %msg%n</pattern></encoder>
+  </appender>
+  <root level="WARN"><appender-ref ref="console"/></root>
+</configuration>

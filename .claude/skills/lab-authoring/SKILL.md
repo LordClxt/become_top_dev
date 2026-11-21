@@ -36,6 +36,19 @@ Pitfalls found while building the image:
 - Grails artefacts outside `grails-app/` need `@Artefact('Controller')` (etc.) to get the AST transforms (`allowedMethods`, actions as methods).
 - `HibernateDatastore` for a GORM spec: `new HibernateDatastore(['dataSource.dbCreate': 'create-drop', 'dataSource.url': 'jdbc:h2:mem:x;DB_CLOSE_DELAY=-1'], Book)`.
 
+## Spring Boot labs (`course: spring`, `language: java`)
+Same image as Java (`sandbox/images/java`), two test commands:
+- `jtest [prefix…]` — plain Java, `Spec.java` harness (Java efficace, Minispring).
+- `jboot [+data] [+flyway] [+security] [+actuator] [prefix…]` — real Spring Boot 4.1.3 (Framework 7.0.11), JUnit Jupiter 6 + AssertJ + Mockito. Base set: context, web MVC, validation, AspectJ, cache, RestClient, test slices. `+data` adds JDBC, Data JPA (Hibernate 7.4) and H2; `+flyway` adds Flyway (implies `+data`); `+security` adds Spring Security 7 (its presence alone secures every route); `+actuator` adds Actuator + Micrometer.
+`jboot` compiles every `.java` with `-parameters`, copies root `*.yml|*.yaml|*.properties|*.sql|*.xml` and `META-INF/ db/ static/ templates/` onto the classpath, then runs `btd.RunTests` (output in `go test -json` format). Test name = `@DisplayName`; a parameterized invocation = `test/invocation`. Prefixes filter test classes by simple name (`M1WiringTest` → `jboot M1`). Logs are WARN by default and attached only to failing tests. A context that fails to start is reported once, with the bean in cause and the root cause, instead of the stack trace.
+Measured at 1 CPU / 512 MB: 2–3.5 s per run, ~80 MiB peak for container-only labs; ~5–7 s and ~200 MiB with `+data` (JPA). Set `timeout_s: 90` (labs) or `120` (boss, project).
+Rules and pitfalls:
+- Put every class in a **package** (`package app;`); tests in the same package.
+- Fail messages: `assertThat(x).as("description en français, qui guide").isEqualTo(…)`.
+- Quizzes: `quiz_classpath` in `course.yaml` puts Spring on the classpath of `code-output` questions, logs off. They run with `java Main.java`, **without `-parameters`**: never rely on parameter names to disambiguate beans in a quiz (use `@Qualifier`).
+- An exception thrown by a `BeanRegistrar` reaches the caller unwrapped (no `rootCause()` in assertions).
+- Spring 7 only generates the CGLIB subclass of a `@Configuration` class that has `@Bean` methods.
+
 ## Design exercise (`kind: diagram` or `kind: worksheet`, no code)
 For every conceptual book, and for practical courses whose lesson is a **decision** (choose a model, size a system, compare), the lab is not code. Two tools, graded deterministically by the backend (no Docker): formats in `content-format/reference/schemas.md`.
 - **`diagram`**: the learner draws an architecture or a structure (catalog components, typed arrows, zones, trees); graph rules highlight the mistakes.

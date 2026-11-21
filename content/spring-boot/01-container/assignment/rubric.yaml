@@ -1,0 +1,29 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.55
+    source: tests
+  - id: definitions-not-instances
+    label: "Travailler sur les définitions, pas sur les objets"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Lit @Feature dans les métadonnées des définitions (classe scannée et méthode @Bean) sans charger ni instancier quoi que ce soit ; retire les définitions dans postProcessBeanDefinitionRegistry"
+      2: "Fonctionne, mais charge les classes par réflexion (Class.forName, getBeanType) ou ne traite qu'une des deux origines proprement"
+      0: "Crée les beans puis les ignore (BeanPostProcessor, @Conditional contourné, getBean dans le processor)"
+  - id: registration
+    label: "Enregistrement et cycle de démarrage"
+    weight: 0.1
+    source: ai
+    levels:
+      4: "Méthode @Bean static (ou @Component sans dépendance), Environment obtenu par EnvironmentAware ou par le registre, aucune instanciation précoce de beans applicatifs"
+      2: "Fonctionne mais méthode @Bean non statique (Spring doit instancier ShopConfig en avance et le signale)"
+      0: "Le processor dépend de beans applicatifs injectés, créés avant tous les autres post-processors"
+  - id: readability
+    label: "Lisibilité"
+    weight: 0.1
+    source: ai
+    levels:
+      4: "Méthodes courtes et nommées (featureOf…), valeur par défaut explicite, pas de duplication entre les deux origines"
+      2: "Lisible mais une longue méthode ou une logique dupliquée"
+      0: "Difficile à suivre"

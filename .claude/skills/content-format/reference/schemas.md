@@ -17,6 +17,7 @@ summary: "Le langage, de la première…"   # required — 1-2 sentences, shown 
 order: 1                                # position in the catalog (default 100)
 kind: practical                         # required — practical | conceptual
 language: go                            # sandbox runner: go, groovy, java, typescript (absent if there are no coding labs)
+quiz_classpath: "/opt/btd/quiz:/opt/libs/spring/base/*"   # optional, java — image libraries added to `code-output` quiz runs (verify_quiz.py only)
 running_project: { id: go-relay, title: "Relay — …", pitch: "…" }   # common-thread project (optional)
 requires:                               # soft prerequisites between courses (advice, never blocking)
   - { course: go, through: "10-concurrency", reason: "Les TP utilisent goroutines et channels." }

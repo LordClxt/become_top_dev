@@ -1,0 +1,12 @@
+id: spring-ch01-l02-lab-payment-gateways
+title: "Deux prestataires de paiement, zéro ambiguïté"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/PaymentConfig.java", "app/PaymentRouter.java", "app/Refunds.java"]
+concepts: [spring-resolution-by-type, spring-primary-qualifier, spring-collection-injection, spring-objectprovider]
+verified: { at: 2026-11-20, solution: pass, starter: fail }

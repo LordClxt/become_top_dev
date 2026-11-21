@@ -1,0 +1,22 @@
+id: spring-ch01
+title: "Le conteneur sous le capot"
+subtitle: "Définitions, refresh(), résolution des dépendances, portées, cycle de vie, post-processors et @Configuration"
+source: { book: spring-docs, chapter: 1, pages: "#beans", url: "https://docs.spring.io/spring-framework/reference/core/beans/introduction.html" }
+objectives:
+  - "Expliquer ce que fait refresh() et prédire l'ordre de création des beans et le moment où une erreur de câblage apparaît"
+  - "Résoudre une dépendance ambiguë ou optionnelle avec @Primary, @Qualifier, Map/List et ObjectProvider, sans toucher aux classes métier"
+  - "Choisir une portée, éviter le piège du prototype injecté dans un singleton et prédire l'ordre des callbacks d'initialisation et de destruction"
+  - "Écrire un BeanFactoryPostProcessor qui modifie des définitions et un BeanPostProcessor qui remplace un bean par un proxy"
+  - "Prédire le comportement d'une classe @Configuration (full ou lite) et enregistrer des beans par programme avec BeanRegistrar"
+mastery_threshold: 0.8
+prerequisites: []
+lessons:
+  - "01-definitions-refresh"
+  - "02-dependency-resolution"
+  - "03-scopes-lifecycle"
+  - "04-extension-points"
+  - "05-configuration-internals"
+xp: { assignment: 150, project: 300, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

@@ -1,0 +1,132 @@
+id: spring-ch01-l05-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Deux classes `@Configuration`, dont une sans méthode `@Bean`. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          @Configuration
+          static class Empty { }
+
+          @Configuration
+          static class WithBean {
+              @Bean String name() { return "tixa"; }
+          }
+
+          static boolean proxied(Object bean) {
+              return bean.getClass().getName().contains("$$SpringCGLIB$$");
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Empty.class, WithBean.class)) {
+                  System.out.println(proxied(ctx.getBean(Empty.class)) + " " + proxied(ctx.getBean(WithBean.class)));
+              }
+          }
+      }
+    answer: "false true"
+    explanation: "Le bean de WithBean n'est pas une instance de ta classe mais d'une sous-classe CGLIB, substituée dans la définition au temps 1 pour intercepter les méthodes @Bean. Sans méthode @Bean, il n'y a rien à intercepter : ConfigurationClassPostProcessor ne génère pas de sous-classe (test hasBeanMethods dans son code)."
+    concept: spring-configuration-full
+    difficulty: 3
+  - id: q2
+    type: code-output
+    prompt: "La classe de configuration est déclarée `final`. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          static class Pool { }
+
+          @Configuration
+          static final class Config {
+              @Bean Pool pool() { return new Pool(); }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {
+                  System.out.println("démarré");
+              } catch (Exception e) {
+                  System.out.println(e.getClass().getSimpleName());
+              }
+          }
+      }
+    answer: "BeanDefinitionParsingException"
+    explanation: "Une classe final ne peut pas être sous-classée : CGLIB ne peut pas appliquer le mode full. Spring le refuse dès la lecture des configurations (« @Configuration class may not be final »). Avec proxyBeanMethods = false, la même classe démarrerait."
+    concept: spring-configuration-full
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "Toutes les autoconfigurations de Spring Boot sont en `proxyBeanMethods = false`. Quelle règle de code cela impose-t-il à leurs auteurs ?"
+    choices:
+      - "Ne jamais déclarer plus d'un bean par classe"
+      - "Passer les dépendances entre beans par les paramètres des méthodes @Bean, jamais par des appels de méthodes"
+      - "Rendre toutes les méthodes @Bean static"
+      - "Utiliser @Lazy sur chaque bean"
+    answer: 1
+    explanation: "Sans sous-classe CGLIB, appeler pool() depuis une autre méthode @Bean crée un objet de plus. Les paramètres, eux, sont résolus par le conteneur dans tous les modes. Le gain : un démarrage plus rapide, moins de mémoire et une compilation native plus simple."
+    concept: spring-configuration-lite
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Un `BeanRegistrar` crée des beans d'après une propriété. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+      import org.springframework.beans.factory.*;
+      import org.springframework.core.env.*;
+      import java.util.*;
+
+      public class Main {
+          record Notifier(String channel) { }
+
+          static class Registrar implements BeanRegistrar {
+              public void register(BeanRegistry registry, Environment env) {
+                  for (String channel : env.getProperty("tixa.notifiers", "").split(",")) {
+                      registry.registerBean(channel + "Notifier", Notifier.class,
+                              spec -> spec.supplier(ctx -> new Notifier(channel)));
+                  }
+              }
+          }
+
+          @Configuration
+          @Import(Registrar.class)
+          static class Config { }
+
+          public static void main(String[] args) {
+              var ctx = new AnnotationConfigApplicationContext();
+              ctx.getEnvironment().getPropertySources()
+                      .addFirst(new MapPropertySource("test", Map.of("tixa.notifiers", "email,sms")));
+              ctx.register(Config.class);
+              ctx.refresh();
+              System.out.println(new TreeSet<>(ctx.getBeansOfType(Notifier.class).keySet()));
+              ctx.close();
+          }
+      }
+    answer: "[emailNotifier, smsNotifier]"
+    explanation: "register() s'exécute pendant la lecture des configurations, avec l'Environment déjà prêt : la boucle décide du nombre de beans. Chaque bean est une recette (le supplier), appelée plus tard, à l'instanciation des singletons."
+    concept: spring-bean-registrar
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Dans un `BeanRegistrar`, le notifier SMS a besoin du bean `SmsQuota`. Comment l'obtenir ?"
+    choices:
+      - "ctx.getBean(SmsQuota.class) depuis register(), via un ApplicationContext injecté"
+      - "new SmsQuota(100) directement dans register()"
+      - "Dans le supplier : spec.supplier(ctx -> new Sms(ctx.bean(SmsQuota.class)))"
+      - "Avec @Autowired sur un champ du registrar"
+    answer: 2
+    explanation: "Pendant register(), aucun bean n'existe encore : il ne faut rien créer ni demander. Le supplier, lui, est appelé à la création du bean, et son contexte fournit les autres beans du conteneur. new SmsQuota créerait un second quota, non partagé."
+    concept: spring-bean-registrar
+    difficulty: 3
+  - id: q6
+    type: multiple
+    prompt: "Dans quels cas un appel `pool()` depuis une autre méthode `@Bean` crée-t-il un nouvel objet ?"
+    choices:
+      - "La classe est annotée @Component"
+      - "La classe est annotée @Configuration(proxyBeanMethods = false)"
+      - "La classe est annotée @Configuration et pool() est static"
+      - "La classe est annotée @Configuration et pool() est une méthode d'instance"
+    answer: [0, 1, 2]
+    explanation: "Les trois premiers cas sont en mode lite : rien n'intercepte l'appel (une méthode static ne se redéfinit pas, même dans une sous-classe CGLIB). Seul le dernier est en mode full : la sous-classe renvoie le singleton du conteneur."
+    concept: spring-configuration-lite
+    difficulty: 3

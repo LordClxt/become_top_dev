@@ -1,0 +1,139 @@
+id: spring-ch01-l02-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Ce programme est lancé avec `java Main.java`, donc compilé sans l'option `-parameters`. Qu'affiche-t-il ?"
+    code: |
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          interface Gateway { }
+          static class Stripe implements Gateway { }
+          static class Paypal implements Gateway { }
+          record Checkout(Gateway gateway) { }
+
+          @Configuration
+          static class Config {
+              @Bean Gateway stripe() { return new Stripe(); }
+              @Bean Gateway paypal() { return new Paypal(); }
+              @Bean Checkout checkout(Gateway paypal) { return new Checkout(paypal); }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {
+                  System.out.println("démarré");
+              } catch (Exception e) {
+                  System.out.println(e.getClass().getSimpleName());
+              }
+          }
+      }
+    answer: "UnsatisfiedDependencyException"
+    explanation: "Sans -parameters, le bytecode ne garde pas le nom « paypal » du paramètre : l'étape « même nom que le paramètre » ne peut pas trancher entre deux candidats, et le démarrage échoue. Le même code compilé par Maven ou Gradle avec Spring Boot démarrerait : c'est exactement pourquoi il ne faut pas compter sur le nom."
+    concept: spring-resolution-by-type
+    difficulty: 4
+  - id: q2
+    type: code-output
+    prompt: "La configuration de base déclare une horloge `@Fallback` ; un module de test en ajoute une autre. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+
+      public class Main {
+          record Clock(String name) { }
+          record Service(Clock clock) { }
+
+          @Configuration
+          static class Defaults {
+              @Bean @Fallback Clock systemClock() { return new Clock("système"); }
+              @Bean Service service(Clock clock) { return new Service(clock); }
+          }
+
+          @Configuration
+          static class TestClock {
+              @Bean Clock fixedClock() { return new Clock("fixe"); }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Defaults.class, TestClock.class)) {
+                  System.out.println(ctx.getBean(Service.class).clock().name());
+              }
+          }
+      }
+    answer: "fixe"
+    explanation: "Deux candidats, aucun @Primary : le conteneur prend l'unique candidat qui n'est pas @Fallback. L'horloge système s'efface dès qu'une autre existe, sans que le module de test ait besoin d'un @Primary."
+    concept: spring-primary-qualifier
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "`stripe` est `@Primary`. Un bean `refunds(@Qualifier(\"paypal\") PaymentGateway gateway)` reçoit…"
+    choices:
+      - "stripe, car @Primary l'emporte toujours"
+      - "paypal, car le qualificatif filtre les candidats avant tout départage"
+      - "une erreur : @Primary et @Qualifier se contredisent"
+      - "celui des deux qui est déclaré en premier"
+    answer: 1
+    explanation: "@Qualifier agit à l'étape 1 : il réduit la liste des candidats à paypal. Il n'y a plus rien à départager, @Primary n'entre pas en jeu. @Primary règle le cas général, @Qualifier l'exception locale."
+    concept: spring-primary-qualifier
+    difficulty: 2
+  - id: q4
+    type: code-output
+    prompt: "Deux beans `Gateway` existent. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+      import org.springframework.beans.factory.ObjectProvider;
+
+      public class Main {
+          interface Gateway { }
+
+          @Configuration
+          static class Config {
+              @Bean Gateway stripe() { return new Gateway() { }; }
+              @Bean Gateway paypal() { return new Gateway() { }; }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {
+                  ObjectProvider<Gateway> provider = ctx.getBeanProvider(Gateway.class);
+                  System.out.println(provider.getIfUnique() + " " + provider.stream().count());
+              }
+          }
+      }
+    answer: "null 2"
+    explanation: "getIfUnique renvoie null quand il n'y a pas exactement un candidat : il tolère l'ambiguïté au lieu d'échouer (getIfAvailable, lui, lèverait NoUniqueBeanDefinitionException ici). stream() donne tous les candidats."
+    concept: spring-objectprovider
+    difficulty: 3
+  - id: q5
+    type: multiple
+    prompt: "Quels avantages l'injection par constructeur a-t-elle sur l'injection par champ (`@Autowired` sur un champ) ?"
+    choices:
+      - "Les dépendances peuvent être des champs final"
+      - "La classe se teste avec un simple new, sans conteneur"
+      - "Elle permet les dépendances circulaires entre deux beans"
+      - "Un constructeur trop long signale une classe qui en fait trop"
+    answer: [0, 1, 3]
+    explanation: "Immutabilité, testabilité sans Spring et signal de conception sont les trois raisons de la préférer. Elle rend au contraire un cycle impossible à construire : le conteneur le détecte au démarrage, ce qui est une bonne chose."
+    concept: spring-constructor-injection
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Un `@Bean Pipeline pipeline(List<Check> checks)` est déclaré, mais aucun bean `Check` n'existe. Que se passe-t-il avec Spring 7 ?"
+    choices:
+      - "Le démarrage échoue : aucun candidat pour un paramètre obligatoire"
+      - "pipeline reçoit null"
+      - "pipeline reçoit une liste vide"
+      - "pipeline n'est pas créé, sans erreur"
+    answer: 2
+    explanation: "Pour une collection, l'absence de candidat n'est pas une erreur : Spring injecte une collection vide. C'est cohérent avec la Map du routeur de paiement : zéro prestataire, zéro entrée."
+    concept: spring-collection-injection
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "Ton module « notifications » fournit un `EmailSender` SMTP par défaut. Les applications qui l'utilisent doivent pouvoir le remplacer en déclarant simplement le leur, sans rien annoter. Que poses-tu sur le bean SMTP ?"
+    choices:
+      - "@Primary"
+      - "@Fallback"
+      - "@Qualifier(\"smtp\")"
+      - "@Lazy"
+    answer: 1
+    explanation: "@Fallback dit : prends-moi seulement s'il n'y a personne d'autre. Avec @Primary, le bean SMTP gagnerait au contraire contre celui de l'application. @Qualifier obligerait chaque client à le nommer, @Lazy ne change rien au choix."
+    concept: spring-primary-qualifier
+    difficulty: 3

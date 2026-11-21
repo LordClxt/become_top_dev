@@ -1,0 +1,7 @@
+id: spring-ch01-bpp-proxy
+concept: spring-bpp-proxy
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : le bean sort de l'initialisation, le post-processor le remplace par un proxy, puis un appel externe traverse le proxy alors qu'un appel interne (this.place()) le contourne."
+entry: scene.html
+duration_s: 12
+status: idea

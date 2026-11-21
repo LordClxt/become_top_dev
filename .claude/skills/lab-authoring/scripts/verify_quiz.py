@@ -8,7 +8,7 @@ Go: each snippet is wrapped in `func main()` with the imports it uses. Groovy: e
 snippet is a script run with `groovy` (image btd-runner-groovy). Java: a snippet that
 declares its own `main` is a complete source file; otherwise it is wrapped in
 `Main.main`. Common java.util / java.math imports are added; run with `java Main.java`
-(image btd-runner-java). TypeScript: the snippet is a module run with `node main.ts`
+(image btd-runner-java; `quiz_classpath` in course.yaml adds image libraries, e.g. Spring). TypeScript: the snippet is a module run with `node main.ts`
 (type stripping, image btd-runner-typescript). NestJS: the snippet is a complete module
 compiled with tsc (legacy decorators + emitDecoratorMetadata) then run with node, against the
 preinstalled packages of btd-runner-nestjs. Convex: the snippet is a module run with
@@ -71,7 +71,9 @@ def main() -> int:
     ap.add_argument("--image")
     args = ap.parse_args()
     course = args.chapter.resolve().parent / "course.yaml"
-    language = (yaml.safe_load(course.read_text()).get("language") if course.exists() else None) or "go"
+    meta = (yaml.safe_load(course.read_text()) or {}) if course.exists() else {}
+    language = meta.get("language") or "go"
+    quiz_cp = meta.get("quiz_classpath")  # Java : bibliothèques de l'image ajoutées au classpath (ex. Spring)
     if language == "groovy":
         args.image = args.image or "btd-runner-groovy"
     elif language == "java":
@@ -113,7 +115,7 @@ def main() -> int:
             else:
                 (d / "go.mod").write_text("module q\n\ngo 1.23\n")
                 (d / "main.go").write_text(wrap(q["code"]))
-        run = {"groovy": "groovy main.groovy 2>&1", "java": "java -XX:TieredStopAtLevel=1 Main.java 2>&1",
+        run = {"groovy": "groovy main.groovy 2>&1", "java": "java -XX:TieredStopAtLevel=1" + (f" -cp '{quiz_cp}'" if quiz_cp else "") + " Main.java 2>&1",
                "typescript": "node main.ts 2>&1",
                "convex": "ln -s /opt/convex/node_modules node_modules && node main.ts 2>&1",
                "nestjs": "ln -s /opt/nest/node_modules node_modules && /opt/nest/node_modules/.bin/tsc main.ts"

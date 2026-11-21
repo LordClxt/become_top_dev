@@ -1,0 +1,114 @@
+id: spring-ch01-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Un `BeanPostProcessor` affiche un message autour de l'initialisation. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+      import org.springframework.beans.factory.config.BeanPostProcessor;
+      import jakarta.annotation.PostConstruct;
+
+      public class Main {
+          static class Catalog { @PostConstruct void load() { System.out.println("@PostConstruct"); } }
+
+          static class Trace implements BeanPostProcessor {
+              public Object postProcessBeforeInitialization(Object bean, String name) {
+                  if (bean instanceof Catalog) System.out.println("avant");
+                  return bean;
+              }
+              public Object postProcessAfterInitialization(Object bean, String name) {
+                  if (bean instanceof Catalog) System.out.println("après");
+                  return bean;
+              }
+          }
+
+          @Configuration
+          static class Config {
+              @Bean static Trace trace() { return new Trace(); }
+              @Bean Catalog catalog() { return new Catalog(); }
+          }
+
+          public static void main(String[] args) {
+              new AnnotationConfigApplicationContext(Config.class).close();
+          }
+      }
+    answer: "avant\n@PostConstruct\naprès"
+    explanation: "Les deux méthodes encadrent l'initialisation. @PostConstruct est appelé par CommonAnnotationBeanPostProcessor dans sa propre méthode « avant », mais Spring range ce post-processor interne en fin de chaîne : le « avant » de Trace passe donc d'abord. Ce qui compte en pratique : un proxy créé dans « après » enveloppe un objet complètement initialisé."
+    concept: spring-bean-post-processor
+    difficulty: 3
+  - id: q2
+    type: code-output
+    prompt: "Un proxy JDK journalise les appels. `book()` appelle `this.check()`. Qu'affiche le programme ?"
+    code: |
+      import java.lang.reflect.Proxy;
+      import java.util.*;
+
+      public class Main {
+          interface Booking { void book(); void check(); }
+          static class BookingService implements Booking {
+              public void book() { this.check(); }
+              public void check() { }
+          }
+
+          public static void main(String[] args) {
+              List<String> log = new ArrayList<>();
+              Booking target = new BookingService();
+              Booking proxy = (Booking) Proxy.newProxyInstance(Main.class.getClassLoader(),
+                      new Class<?>[] { Booking.class },
+                      (p, method, a) -> { log.add(method.getName()); return method.invoke(target, a); });
+              proxy.book();
+              System.out.println(log);
+          }
+      }
+    answer: "[book]"
+    explanation: "Seul l'appel externe passe par le proxy. À l'intérieur de book(), this est le vrai objet : check() est un appel Java ordinaire, que le proxy ne voit pas. Avec @Transactional sur check(), il n'y aurait pas de transaction : c'est le piège de l'auto-invocation."
+    concept: spring-bpp-proxy
+    difficulty: 3
+  - id: q3
+    type: single
+    prompt: "Tu veux remplacer toutes les valeurs `${secret:...}` des définitions par des valeurs lues dans un coffre-fort, avant la création des beans. Quel point d'extension ?"
+    choices:
+      - "Un BeanPostProcessor, dans postProcessBeforeInitialization"
+      - "Un BeanFactoryPostProcessor"
+      - "Un @PostConstruct dans chaque bean concerné"
+      - "Un ApplicationListener<ContextRefreshedEvent>"
+    answer: 1
+    explanation: "Il s'agit de modifier des recettes avant que les objets existent : c'est le temps 1, celui des BeanFactoryPostProcessor (c'est exactement ce que fait PropertySourcesPlaceholderConfigurer pour ${...}). Un BeanPostProcessor arrive trop tard, sur des objets déjà construits avec les mauvaises valeurs."
+    concept: spring-bean-factory-post-processor
+    difficulty: 2
+  - id: q4
+    type: multiple
+    prompt: "Quelles affirmations sur les `BeanPostProcessor` sont vraies ?"
+    choices:
+      - "Ils sont appelés pour chaque bean créé, y compris ceux qui ne les concernent pas"
+      - "L'objet qu'ils renvoient remplace le bean pour getBean et toutes les injections"
+      - "Ils traitent aussi les beans créés pour satisfaire leurs propres dépendances"
+      - "@Transactional et @Async reposent sur un BeanPostProcessor qui renvoie un proxy"
+    answer: [0, 1, 3]
+    explanation: "Un post-processor voit passer tous les beans et peut les remplacer : c'est ainsi que naissent les proxies. Mais les beans dont il dépend sont créés avant lui, pendant son enregistrement : il ne peut pas les traiter, d'où l'avertissement « not eligible for getting processed by all BeanPostProcessors »."
+    concept: spring-bean-post-processor
+    difficulty: 3
+  - id: q5
+    type: single
+    prompt: "Pourquoi déclarer `@Bean static FeatureTogglePostProcessor featureToggle()` plutôt qu'une méthode d'instance ?"
+    choices:
+      - "Une méthode static est plus rapide à appeler"
+      - "Sans static, Spring doit créer la classe @Configuration (et ses dépendances) très tôt, juste pour appeler la méthode"
+      - "Les post-processors doivent être des singletons, et static le garantit"
+      - "C'est une convention de nommage sans effet"
+    answer: 1
+    explanation: "Une méthode d'instance a besoin de son objet : la configuration serait créée au temps 1, avant les BeanPostProcessor, donc sans @Autowired ni proxies, et tout ce qu'elle injecte aussi. Une méthode static s'appelle sans instance."
+    concept: spring-static-bean-method
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "`Checkout` demande `OrderService` (la classe) dans son constructeur. Un post-processor remplace `orderService` par un proxy JDK qui implémente `Orders`. Que se passe-t-il ?"
+    choices:
+      - "Checkout reçoit le vrai OrderService, sans audit"
+      - "Checkout reçoit le proxy"
+      - "Le démarrage échoue : plus aucun bean n'est de type OrderService"
+      - "Spring bascule automatiquement sur un proxy CGLIB"
+    answer: 2
+    explanation: "Le bean orderService est désormais le proxy, de type Orders : il n'existe plus de candidat de type OrderService, le démarrage échoue. Dépendre de l'interface règle le problème ; Spring Boot, lui, préfère des proxies CGLIB (spring.aop.proxy-target-class=true) pour l'AOP."
+    concept: spring-jdk-proxy-limits
+    difficulty: 3
