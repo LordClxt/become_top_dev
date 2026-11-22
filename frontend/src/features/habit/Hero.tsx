@@ -1,8 +1,9 @@
 import { Link, useNavigate } from '@tanstack/react-router'
-import { ArrowRight, BookOpen, FlaskConical, LockOpen, Map as MapIcon, Trophy } from 'lucide-react'
+import { ArrowRight, BookOpen, FlaskConical, Layers, LockOpen, Map as MapIcon, Trophy } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useEffect } from 'react'
 import { SliceMeter } from '@/components/SliceMeter'
+import { plural } from '@/features/courses/summary'
 import { Button } from '@/components/ui/button'
 import type { Course, CourseChapter, TodayContinue } from '@/lib/api'
 import { continueLink } from './queries'
@@ -15,15 +16,20 @@ function greeting(name: string | undefined) {
   return name ? `${hello}, ${name}` : hello
 }
 
-/** Le prochain pas, en grand : un seul bouton, raccourci Entrée ou C. */
+/**
+ * Le prochain pas, en grand : un seul bouton, raccourci Entrée ou C. Quand des cartes sont dues, la séance
+ * commence par un échauffement (Entrée : réviser) et « Continuer » passe au second plan (C).
+ */
 export function ContinueHero({
   item,
   courses,
   name,
+  reviewDue = 0,
 }: {
   item: TodayContinue
   courses: Course[]
   name?: string
+  reviewDue?: number
 }) {
   const navigate = useNavigate()
   const course = courses.find((c) => c.id === item.course_id)
@@ -35,20 +41,26 @@ export function ContinueHero({
   const link = continueLink(item)
   const Icon = item.type === 'lesson' ? BookOpen : item.type === 'exercise' ? (item.label.startsWith('Boss') ? Trophy : FlaskConical) : MapIcon
 
-  // Entrée ou C quand rien n'a le focus : on y va.
+  const warmup = reviewDue > 0
+  const warmupMin = Math.max(1, Math.round((reviewDue * 20) / 60))
+
+  // Quand rien n'a le focus : Entrée lance l'échauffement s'il y en a un, sinon la suite ; C va toujours à la suite.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return
       const el = document.activeElement
       if (el && el !== document.body) return
-      if (e.key === 'Enter' || e.key === 'c' || e.key === 'C') {
+      if (e.key === 'Enter' && warmup) {
+        e.preventDefault()
+        void navigate({ to: '/review' })
+      } else if (e.key === 'Enter' || e.key === 'c' || e.key === 'C') {
         e.preventDefault()
         void navigate(link)
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [navigate, link])
+  }, [navigate, link, warmup])
 
   return (
     <motion.section
@@ -91,12 +103,28 @@ export function ContinueHero({
         </dl>
       )}
 
+      {warmup && (
+        <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 rounded-xl border border-accent/40 bg-accent/5 px-4 py-3.5">
+          <Layers className="size-4 shrink-0 text-accent" aria-hidden="true" />
+          <p className="min-w-0 flex-1 text-sm">
+            <span className="font-medium text-text">Échauffement : {plural(reviewDue, 'carte', 'cartes')}</span>
+            <span className="text-muted"> · environ {warmupMin}&nbsp;min. Rappeler d'abord ce que tu sais prépare la suite.</span>
+          </p>
+          <Button asChild className="rounded-lg">
+            <Link to="/review">
+              Réviser d'abord
+              <kbd className="habit-kbd ml-1 hidden md:inline">Entrée</kbd>
+            </Link>
+          </Button>
+        </div>
+      )}
+
       <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-        <Button asChild size="lg" className="h-12 rounded-xl px-6 text-base">
+        <Button asChild size="lg" variant={warmup ? 'outline' : 'default'} className="h-12 rounded-xl px-6 text-base">
           <Link {...link}>
-            Continuer
+            {warmup ? 'Puis continuer' : 'Continuer'}
             <ArrowRight className="size-4" />
-            <kbd className="habit-kbd ml-1 hidden md:inline">Entrée</kbd>
+            <kbd className="habit-kbd ml-1 hidden md:inline">{warmup ? 'C' : 'Entrée'}</kbd>
           </Link>
         </Button>
         {after && (

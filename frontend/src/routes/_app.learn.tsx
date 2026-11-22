@@ -55,7 +55,7 @@ function Dashboard() {
           {!today ? (
             <HeroSkeleton />
           ) : today.continue ? (
-            <ContinueHero item={today.continue} courses={courses} name={name} />
+            <ContinueHero item={today.continue} courses={courses} name={name} reviewDue={today.review_due} />
           ) : (
             <AllDoneHero name={name} />
           )}
@@ -81,7 +81,8 @@ function Dashboard() {
               <SessionCard />
               <div className="hidden lg:block">{goal}</div>
               <StreakWeek today={today} />
-              <ReviewCardBlock due={today.review_due} />
+              {/* Les cartes dues sont déjà proposées en échauffement dans le bloc principal. */}
+              {!(today.continue && today.review_due > 0) && <ReviewCardBlock due={today.review_due} />}
               <LeaderboardTeaser />
             </>
           ) : (

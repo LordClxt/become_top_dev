@@ -348,6 +348,7 @@ func (s *Service) nextStep(ctx context.Context, uid int64) (*ContinueView, error
 	if err != nil {
 		return nil, err
 	}
+	// Même ordre que la page du module : une leçon, puis ses TP, puis la leçon suivante (on pratique avant de lire plus).
 	for _, lid := range ch.LessonIDs {
 		if !done[lid] {
 			label := "Leçon suivante"
@@ -360,11 +361,9 @@ func (s *Service) nextStep(ctx context.Context, uid int64) (*ContinueView, error
 			}
 			return v, nil
 		}
-	}
-	for _, lid := range ch.LessonIDs {
 		for _, lab := range s.Content.Lessons[lid].Labs {
 			if !passed[lab] {
-				return view("exercise", lab, s.Content.Exercises[lab].Title, "TP à finir"), nil
+				return view("exercise", lab, s.Content.Exercises[lab].Title, "TP de la leçon"), nil
 			}
 		}
 	}
