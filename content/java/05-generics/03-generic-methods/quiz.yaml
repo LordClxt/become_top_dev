@@ -1,0 +1,97 @@
+id: java-ch05-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Où se déclarent les paramètres de type d'une méthode générique ?"
+    choices:
+      - "Après le nom de la méthode : static Set<E> union<E>(…)"
+      - "Entre les modificateurs et le type de retour : static <E> Set<E> union(…)"
+      - "Sur la classe seulement"
+      - "Dans les paramètres : static Set<E> union(<E> Set s1)"
+    answer: 1
+    explanation: "La liste <E> précède le type de retour. Elle est propre à la méthode : une méthode static d'une classe non générique peut l'être."
+    concept: java-generic-method
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi une fabrique de singleton générique peut-elle renvoyer le même objet sous `UnaryOperator<String>` et `UnaryOperator<Number>` ?"
+    choices:
+      - "Parce que la JVM crée une copie par type"
+      - "Grâce à l'effacement : à l'exécution, ces deux types sont le même ; et l'objet, immuable et sans état, convient réellement à tout type"
+      - "Parce que String et Number ont un ancêtre commun"
+      - "Ça ne marche qu'avec des records"
+    answer: 1
+    explanation: "Les arguments de type n'existent pas à l'exécution. Le cast non vérifié est sûr parce que la fonction ne fait que renvoyer son argument : aucun type ne peut être trahi."
+    concept: java-generic-singleton-factory
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Pourquoi une fabrique de singleton générique serait-elle fausse pour une `List<T>` modifiable partagée ?"
+    choices:
+      - "Elle ne compilerait pas"
+      - "Le même objet servi en List<String> et en List<Integer> mélangerait leurs éléments : un client lirait un Integer comme un String"
+      - "Elle serait trop lente"
+      - "Elle fonctionnerait parfaitement"
+    answer: 1
+    explanation: "La technique n'est sûre que pour un objet immuable et sans état (fonction identité, ensemble vide, comparateur). Avec de l'état partagé, l'avertissement unchecked signalait un vrai problème."
+    concept: java-generic-singleton-factory
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Comment se lit `<E extends Comparable<E>>` ?"
+    choices:
+      - "E est un sous-type de Comparable sans paramètre"
+      - "Pour tout type E comparable à lui-même"
+      - "E doit être un enum"
+      - "E est comparable à n'importe quel type"
+    answer: 1
+    explanation: "C'est une borne récursive : E apparaît dans sa propre borne. Elle garantit que compareTo accepte un autre E."
+    concept: java-recursive-type-bound
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi `max(List<LocalDate>)` ne compile-t-il pas avec `<E extends Comparable<E>> max(Collection<E>)` ?"
+    choices:
+      - "Parce que LocalDate n'est pas comparable"
+      - "Parce que LocalDate implémente Comparable<ChronoLocalDate>, pas Comparable<LocalDate> : la borne est trop stricte"
+      - "Parce que LocalDate est final"
+      - "Parce que les dates ne peuvent pas être dans une liste"
+    answer: 1
+    explanation: "LocalDate hérite sa comparabilité d'une interface plus générale. La borne <T extends Comparable<? super T>>, vue à la leçon 4, l'accepte."
+    concept: java-recursive-type-bound
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Quand faut-il écrire un argument de type explicite, comme `Collections.<String>emptyList()` ?"
+    choices:
+      - "Toujours, par clarté"
+      - "Quand l'inférence ne trouve pas le bon type à partir des arguments et du type cible"
+      - "Jamais : c'est interdit"
+      - "Seulement pour les méthodes d'instance"
+    answer: 1
+    explanation: "L'inférence (arguments + type cible depuis Java 8) suffit presque toujours. Dans un contexte trop vague, comme un argument passé à une autre méthode générique ou List.of() vide, on précise le type."
+    concept: java-type-inference
+    difficulty: 2
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      import java.util.*;
+
+      public class Main {
+          static <K, V> Map<V, K> invert(Map<K, V> m) {
+              Map<V, K> out = new TreeMap<>();
+              m.forEach((k, v) -> out.put(v, k));
+              return out;
+          }
+
+          public static void main(String[] args) {
+              Map<String, Integer> codes = new TreeMap<>(Map.of("EUR", 978, "USD", 840, "CHF", 756));
+              Map<Integer, String> byCode = invert(codes);
+              System.out.println(byCode);
+          }
+      }
+    answer: "{756=CHF, 840=USD, 978=EUR}"
+    explanation: "K = String et V = Integer sont déduits de l'argument ; la méthode renvoie une Map<Integer, String>, sans cast. La TreeMap trie par code numérique."
+    concept: java-generic-method
+    difficulty: 1

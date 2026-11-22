@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "S'abonner à un type"
+    goal: "subscribe(Class<E>, handler) livre les événements de ce type, déjà typés, dans l'ordre ; fermer l'abonnement l'arrête."
+    tests: "jtest M1"
+    review: false
+  - id: m2
+    title: "Des abonnés plus généraux"
+    goal: "S'abonner au type racine reçoit tout ; un Consumer d'un super-type convient ; publishAll accepte une liste d'un sous-type."
+    tests: "jtest M2"
+    review: true
+  - id: m3
+    title: "Un historique typé, sans cast"
+    goal: "history(Class<E>) renvoie une List<E> non modifiable, dans l'ordre ; EventBus.java compile avec -Xlint:all -Werror."
+    tests: "jtest M3"
+    review: true

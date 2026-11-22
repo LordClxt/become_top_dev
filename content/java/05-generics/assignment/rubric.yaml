@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: signatures
+    label: "Des signatures PECS"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Chaque Function, Supplier et Consumer a ses jokers selon PECS (? super T en entrée, ? extends R en sortie), flatMap et sequence acceptent des Result de sous-types, et aucun joker n'apparaît dans un type de retour ; aucun cast non vérifié"
+      2: "Les tests passent, mais une signature reste trop stricte (flatMap ou sequence), ou un cast non vérifié est supprimé là où un joker suffisait"
+      0: "Types bruts ou casts non vérifiés pour contourner l'invariance"
+  - id: design
+    label: "Conception"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Immuable, null refusé, sequence renvoie une liste non modifiable, erreur propagée sans valeur fabriquée"
+      2: "Correct mais liste modifiable exposée, ou null accepté en silence"
+      0: "État modifiable ou erreurs perdues"

@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Type brut ?"
+    back: "Le nom d'un type générique sans arguments (List) : plus aucune vérification de type."
+    concept: java-raw-types
+  - id: fc2
+    front: "Où éclate l'erreur d'un ajout par type brut ?"
+    back: "À la lecture, sur le cast inséré par le compilateur, loin de l'ajout."
+    concept: java-raw-types
+  - id: fc3
+    front: "List<Object> accepte-t-il une List<String> ?"
+    back: "Non : les génériques sont invariants."
+    concept: java-unbounded-wildcard
+  - id: fc4
+    front: "List<?> ?"
+    back: "Une liste d'un type inconnu : on lit des Object, on ne peut ajouter que null."
+    concept: java-unbounded-wildcard
+  - id: fc5
+    front: "Deux usages permis de la forme brute ?"
+    back: "Littéraux de classe (List.class) et instanceof (o instanceof Set)."
+    concept: java-raw-type-exceptions
+  - id: fc6
+    front: "Règle des avertissements unchecked ?"
+    back: "Les éliminer tous ; si l'un est prouvé sûr, @SuppressWarnings sur la plus petite portée, avec un commentaire."
+    concept: java-unchecked-warnings
+  - id: fc7
+    front: "Plus petite portée pour @SuppressWarnings ?"
+    back: "La déclaration d'une variable locale (pas un return, pas la classe)."
+    concept: java-unchecked-warnings
+  - id: fc8
+    front: "Empêcher les avertissements de s'accumuler ?"
+    back: "Compiler avec -Xlint:all -Werror."
+    concept: java-unchecked-warnings
+  - id: fc9
+    front: "Effacement ?"
+    back: "Les arguments de type n'existent qu'à la compilation : List<String> et List<Integer> sont la même classe."
+    concept: java-raw-types

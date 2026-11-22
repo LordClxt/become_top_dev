@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Tableaux : covariants ou invariants ?"
+    back: "Covariants (Long[] est un Object[]) et réifiés : erreur à l'exécution (ArrayStoreException)."
+    concept: java-arrays-vs-generics
+  - id: fc2
+    front: "Génériques : covariants ou invariants ?"
+    back: "Invariants (List<Long> n'est pas une List<Object>) et effacés : erreur à la compilation."
+    concept: java-arrays-vs-generics
+  - id: fc3
+    front: "Pourquoi new List<String>[] est interdit ?"
+    back: "La covariance des tableaux permettrait d'y ranger une List<Integer> sans erreur, puis de lire un Integer comme un String."
+    concept: java-generic-array-creation
+  - id: fc4
+    front: "Deux techniques pour stocker des E dans un tableau ?"
+    back: "(E[]) new Object[n] (un cast, sur le champ) ou Object[] + cast (E) à chaque lecture. Le tableau ne sort jamais."
+    concept: java-generify-type
+  - id: fc5
+    front: "Pollution du tas ?"
+    back: "Une variable d'un type paramétré qui désigne un objet d'un autre type : ClassCastException plus loin."
+    concept: java-heap-pollution
+  - id: fc6
+    front: "Renvoyer le E[] interne d'une classe générique ?"
+    back: "Jamais : c'est un Object[] déguisé. Renvoyer une List<E>."
+    concept: java-heap-pollution
+  - id: fc7
+    front: "<E extends Delayed> ?"
+    back: "Paramètre borné : refuse les autres types, donne accès aux méthodes de Delayed. E s'efface en Delayed."
+    concept: java-bounded-type-param
+  - id: fc8
+    front: "Liste ou tableau ?"
+    back: "Liste par défaut : sûreté à la compilation. Tableau seulement si la mesure l'exige."
+    concept: java-arrays-vs-generics

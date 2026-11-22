@@ -1,0 +1,7 @@
+id: java-ch05-covariance
+concept: java-arrays-vs-generics
+format: hyperframes
+justification: "Une séquence de 12 s à regarder, en deux colonnes : à gauche, Long[] glisse sous Object[] (covariance), une chaîne entre, et le tableau la rejette à l'exécution ; à droite, List<Long> refuse de glisser sous List<Object> (invariance) et le compilateur arrête tout avant l'exécution. Fin : un E[] interne qui sort de la classe et se fait refuser chez l'appelant."
+entry: scene.html
+duration_s: 12
+status: idea

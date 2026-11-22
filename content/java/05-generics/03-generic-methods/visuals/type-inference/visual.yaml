@@ -1,0 +1,7 @@
+id: java-ch05-type-inference
+concept: java-type-inference
+format: hyperframes
+justification: "Une séquence de 10 s à regarder : un appel union(guys, stooges) ; les types des arguments et de la variable cible convergent vers le E de la signature, qui s'allume String ; puis max(List<Object>) : la borne E extends Comparable<E> refuse Object, et l'erreur apparaît à la compilation."
+entry: scene.html
+duration_s: 10
+status: idea

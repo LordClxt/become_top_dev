@@ -1,0 +1,86 @@
+id: java-ch05-l04-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Que signifie PECS ?"
+    choices:
+      - "Public Extends, Class Super"
+      - "Producer Extends, Consumer Super : un paramètre qui fournit des E s'écrit <? extends E>, un paramètre qui reçoit des E s'écrit <? super E>"
+      - "Private Extends, Concrete Super"
+      - "Parameters Extend, Collections Super"
+    answer: 1
+    explanation: "La règle mnémotechnique de Bloch. Si le paramètre fait les deux (la méthode y lit et y écrit), on garde le type exact, sans joker."
+    concept: java-pecs
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "`static <T> void copy(List<? super T> dest, List<? extends T> src)`. Lequel de ces appels compile ?"
+    choices:
+      - "copy(List<Integer> dest, List<Number> src)"
+      - "copy(List<Object> dest, List<Integer> src)"
+      - "copy(List<String> dest, List<Integer> src)"
+      - "Aucun"
+    answer: 1
+    explanation: "Avec T = Integer : la destination accepte des super-types d'Integer (Object), la source fournit des sous-types d'Integer (Integer). Le premier appel verserait des Number dans une liste d'Integer, le troisième mélange des types sans lien."
+    concept: java-pecs
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Sur une `List<? extends Number> nums`, que peut-on faire ?"
+    choices:
+      - "nums.add(1)"
+      - "Number n = nums.get(0)"
+      - "nums.add(new Object())"
+      - "Integer i = nums.get(0)"
+    answer: 1
+    explanation: "On sait que chaque élément est un Number, mais pas de quel sous-type exact est la liste : lire un Number est sûr, écrire quoi que ce soit (sauf null) ne l'est pas. On lit d'un extends."
+    concept: java-pecs
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi éviter un joker dans un type de retour, comme `Set<? extends E> union(…)` ?"
+    choices:
+      - "Parce que c'est interdit"
+      - "Parce que les clients devraient manipuler un Set<? extends E> : ils ne pourraient rien y ajouter et devraient écrire le joker eux-mêmes"
+      - "Parce que c'est plus lent"
+      - "Parce que le compilateur ne peut pas l'inférer"
+    answer: 1
+    explanation: "Les jokers servent à rendre une API souple à l'entrée. En sortie, ils contaminent le code client. Un Set<E> concret, avec E déduit du type cible, est ce que le client attend."
+    concept: java-no-wildcard-return
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quelle borne permet d'utiliser `max` avec des `ScheduledFuture`, qui héritent `Comparable<Delayed>` ?"
+    choices:
+      - "<T extends Comparable<T>>"
+      - "<T extends Comparable<? super T>>"
+      - "<T extends Comparable<? extends T>>"
+      - "<T super Comparable<T>>"
+    answer: 1
+    explanation: "Comparable consomme des T : PECS donne Comparable<? super T>. ScheduledFuture est comparable à Delayed, un super-type de lui-même : accepté."
+    concept: java-comparable-super
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Un `Comparator` passé à une méthode de tri de `List<T>` s'écrit…"
+    choices:
+      - "Comparator<T>"
+      - "Comparator<? super T>"
+      - "Comparator<? extends T>"
+      - "Comparator<?>"
+    answer: 1
+    explanation: "Le comparateur consomme les T qu'on lui donne à comparer. Un Comparator<Object> ou Comparator<Number> sait comparer des Integer : List.sort(Comparator<? super E>)."
+    concept: java-comparable-super
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Quand préférer un joker à un paramètre de type dans une signature publique ?"
+    choices:
+      - "Toujours"
+      - "Quand le paramètre de type n'apparaît qu'une fois dans la signature"
+      - "Jamais"
+      - "Quand la méthode est privée"
+    answer: 1
+    explanation: "<E> void swap(List<E> l, …) : E n'apparaît qu'une fois, un joker (List<?>) suffit et simplifie l'appel. Si le corps a besoin de nommer le type, un helper privé générique le capture."
+    concept: java-wildcard-vs-type-param
+    difficulty: 2

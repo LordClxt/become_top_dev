@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Déclarer une méthode générique ?"
+    back: "static <E> Set<E> union(Set<E> a, Set<E> b) : <E> avant le type de retour."
+    concept: java-generic-method
+  - id: fc2
+    front: "Inférence de type ?"
+    back: "Le compilateur déduit les arguments de type des arguments et du type cible (Java 8+)."
+    concept: java-type-inference
+  - id: fc3
+    front: "Imposer un argument de type ?"
+    back: "Collections.<String>emptyList(), quand l'inférence échoue."
+    concept: java-type-inference
+  - id: fc4
+    front: "Fabrique de singleton générique ?"
+    back: "Un objet immuable sans état, casté (T) sous tous les types ; avertissement prouvé sûr et supprimé au plus près."
+    concept: java-generic-singleton-factory
+  - id: fc5
+    front: "Exemples du JDK de fabrique de singleton générique ?"
+    back: "Collections.emptySet(), Collections.reverseOrder()."
+    concept: java-generic-singleton-factory
+  - id: fc6
+    front: "<E extends Comparable<E>> ?"
+    back: "Borne récursive : « tout type comparable à lui-même ». compareTo sans cast."
+    concept: java-recursive-type-bound
+  - id: fc7
+    front: "Pourquoi LocalDate échoue avec <E extends Comparable<E>> ?"
+    back: "Il implémente Comparable<ChronoLocalDate>. Il faut <T extends Comparable<? super T>>."
+    concept: java-recursive-type-bound
+  - id: fc8
+    front: "Effacement d'une borne récursive ?"
+    back: "<E extends Comparable<E>> devient Comparable dans le bytecode ; la signature générique reste dans l'attribut Signature."
+    concept: java-recursive-type-bound

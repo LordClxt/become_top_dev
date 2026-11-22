@@ -1,0 +1,13 @@
+id: java-ch05-boss
+title: "Boss : un registre de convertisseurs typé"
+kind: code
+language: java
+difficulty: 5
+xp: 300
+timeout_s: 90
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Converters.java"]
+concepts: [java-heterogeneous-container, java-type-token-limits, java-pecs, java-generic-method, java-unchecked-warnings, java-no-wildcard-return]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

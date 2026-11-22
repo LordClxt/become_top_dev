@@ -1,0 +1,12 @@
+id: java-ch05-l05-lab-typed-settings
+title: "Des réglages qui gardent leur type"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Settings.java"]
+concepts: [java-heterogeneous-container, java-type-token-limits, java-unchecked-warnings]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

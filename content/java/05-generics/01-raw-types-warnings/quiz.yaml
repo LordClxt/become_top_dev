@@ -1,0 +1,93 @@
+id: java-ch05-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi les types bruts existent-ils encore en Java ?"
+    choices:
+      - "Parce qu'ils sont plus rapides"
+      - "Pour la compatibilité avec le code écrit avant les génériques (Java 5)"
+      - "Pour les collections hétérogènes"
+      - "Parce que l'effacement les rend obligatoires partout"
+    answer: 1
+    explanation: "Quand les génériques sont arrivés, il fallait que l'immense code existant continue de compiler et de s'interfacer avec le nouveau. Les types bruts sont cette passerelle de migration ; ils n'ont pas leur place dans du code neuf."
+    concept: java-raw-types
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Où la `ClassCastException` causée par un ajout via un type brut est-elle levée ?"
+    choices:
+      - "À l'ajout"
+      - "À la lecture, sur le cast que le compilateur a inséré pour un type paramétré"
+      - "À la compilation"
+      - "Au chargement de la classe"
+    answer: 1
+    explanation: "À l'exécution, une List<String> n'est qu'une List : l'ajout passe. Le compilateur a inséré un checkcast String à chaque lecture typée : c'est lui qui échoue, parfois très loin de l'ajout fautif."
+    concept: java-raw-types
+    difficulty: 1
+  - id: q3
+    type: multiple
+    prompt: "Dans quels cas la forme brute d'un type générique est-elle permise, voire obligatoire ?"
+    choices:
+      - "Un littéral de classe : List.class"
+      - "Un test instanceof : o instanceof Set"
+      - "Un champ privé, pour simplifier"
+      - "Le type de retour d'une méthode utilitaire"
+    answer: [0, 1]
+    explanation: "À l'exécution, les arguments de type sont effacés : List<String>.class n'existe pas, et instanceof ne peut tester que la forme brute (ou Set<?>). Partout ailleurs, il faut un type paramétré."
+    concept: java-raw-type-exceptions
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "`static void f(List<?> list)`. Quelle instruction compile dans `f` ?"
+    choices:
+      - "list.add(\"x\");"
+      - "list.add(list.get(0));"
+      - "list.add(null);"
+      - "list.add(new Object());"
+    answer: 2
+    explanation: "Le type d'éléments de List<?> est inconnu : aucun objet ne peut y être ajouté avec certitude, sauf null, qui appartient à tous les types. Même remettre un élément lu dans la liste est refusé (un helper générique sait le faire, leçon 4)."
+    concept: java-unbounded-wildcard
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Que faire d'un avertissement unchecked qu'on a **prouvé** sûr ?"
+    choices:
+      - "Le laisser : il est sûr"
+      - "Le supprimer avec @SuppressWarnings(\"unchecked\") sur la plus petite portée possible, avec un commentaire qui explique pourquoi"
+      - "Annoter la classe entière"
+      - "Passer en type brut pour qu'il disparaisse"
+    answer: 1
+    explanation: "Laissé en place, il noie les prochains vrais avertissements. Supprimé sur toute la classe, il cache aussi les futurs. La bonne portée est une déclaration de variable locale, accompagnée de la preuve en commentaire."
+    concept: java-unchecked-warnings
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "`Set<Lark> exaltation = new HashSet();` produit un avertissement. Quelle est la correction ?"
+    choices:
+      - "@SuppressWarnings(\"unchecked\")"
+      - "new HashSet<>() : l'opérateur diamant déduit Lark"
+      - "Set exaltation = new HashSet();"
+      - "new HashSet<Object>()"
+    answer: 1
+    explanation: "Le diamant (Java 7) suffit : le compilateur déduit le paramètre de type. Un type brut à gauche aggraverait le problème, et HashSet<Object> ne compile même pas (invariance)."
+    concept: java-unchecked-warnings
+    difficulty: 1
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      import java.util.*;
+
+      public class Main {
+          public static void main(String[] args) {
+              List<String> a = new ArrayList<>();
+              List<Integer> b = new ArrayList<>();
+              System.out.println(a.getClass() == b.getClass());
+              Object o = a;
+              System.out.println(o instanceof List<?> l ? "liste de " + l.size() : "autre");
+          }
+      }
+    answer: "true\nliste de 0"
+    explanation: "Effacement : List<String> et List<Integer> sont la même classe à l'exécution, ArrayList. instanceof ne peut tester que la forme sans argument, ici List<?> avec un motif (Java 16) qui lie la variable l."
+    concept: java-raw-type-exceptions
+    difficulty: 2

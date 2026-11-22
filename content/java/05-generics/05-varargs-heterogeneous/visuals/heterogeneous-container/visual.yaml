@@ -1,0 +1,7 @@
+id: java-ch05-heterogeneous-container
+concept: java-heterogeneous-container
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : trois clés colorées par leur type (String, Integer, Class) déposent leurs valeurs dans une même map ; à la sortie, chaque clé repasse par type.cast et récupère une valeur de sa couleur ; un client à type brut tente de glisser une chaîne sous Integer.class et se fait arrêter à l'entrée."
+entry: scene.html
+duration_s: 12
+status: idea

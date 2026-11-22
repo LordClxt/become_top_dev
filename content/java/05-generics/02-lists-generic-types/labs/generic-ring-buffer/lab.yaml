@@ -1,0 +1,12 @@
+id: java-ch05-l02-lab-generic-ring-buffer
+title: "Un tampon générique qui ne ment pas sur ses tableaux"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["RingBuffer.java"]
+concepts: [java-generify-type, java-heap-pollution, java-arrays-vs-generics, java-unchecked-warnings]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

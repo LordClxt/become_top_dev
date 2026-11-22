@@ -1,0 +1,86 @@
+id: java-ch05-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Laquelle de ces lignes compile ?"
+    choices:
+      - "List<Object> list = new ArrayList<Long>();"
+      - "Object[] array = new Long[1];"
+      - "List<String>[] lists = new List<String>[1];"
+      - "E[] elements = new E[10];  // dans une classe générique"
+    answer: 1
+    explanation: "Les tableaux sont covariants : Long[] est un Object[]. Les génériques sont invariants (1re ligne), et la création de tableaux génériques est interdite (3e et 4e)."
+    concept: java-arrays-vs-generics
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quand l'erreur est-elle détectée dans chacun des deux cas : ranger une chaîne dans un `Object[]` qui est un `Long[]`, et dans une `List<Long>` ?"
+    choices:
+      - "Les deux à la compilation"
+      - "Tableau : à l'exécution (ArrayStoreException) ; liste : à la compilation"
+      - "Les deux à l'exécution"
+      - "Tableau : à la compilation ; liste : à l'exécution"
+    answer: 1
+    explanation: "Le tableau est réifié : il connaît son type d'éléments et refuse la chaîne, mais à l'exécution. La liste est vérifiée par le compilateur, avant toute exécution."
+    concept: java-arrays-vs-generics
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Dans `class Stack<E>`, laquelle de ces deux écritures est correcte ?"
+    choices:
+      - "La technique (E[]) new Object[n], à condition que le tableau ne sorte jamais de la classe"
+      - "new E[n]"
+      - "Un E[] reçu en paramètre du constructeur, toujours"
+      - "Un tableau de type Object[] renvoyé par une méthode publique qui déclare E[]"
+    answer: 0
+    explanation: "new E[n] ne compile pas. (E[]) new Object[n] fonctionne et est sûr tant que le tableau reste privé et ne reçoit que des E. Le renvoyer en E[] est justement la pollution du tas."
+    concept: java-generify-type
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Qu'est-ce que la pollution du tas ?"
+    choices:
+      - "Une fuite mémoire"
+      - "Une variable d'un type paramétré qui désigne un objet qui n'est pas de ce type, ce qui mène à une ClassCastException plus loin"
+      - "Un tas trop fragmenté par le ramasse-miettes"
+      - "Un tableau trop grand"
+    answer: 1
+    explanation: "Exemple : un String[] qui désigne en réalité un Object[] renvoyé par une classe générique. Aucune erreur sur le moment ; le cast inséré par le compilateur échoue plus tard."
+    concept: java-heap-pollution
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "`class Scheduler<E extends Delayed>`. Que permet la borne ?"
+    choices:
+      - "D'accepter n'importe quel type"
+      - "De refuser les types qui n'implémentent pas Delayed, et d'appeler les méthodes de Delayed sur les éléments sans cast"
+      - "De créer new E[n]"
+      - "De rendre la classe covariante"
+    answer: 1
+    explanation: "Une borne restreint les arguments de type et donne accès à l'API de la borne. Après effacement, E devient Delayed."
+    concept: java-bounded-type-param
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Dans `class Scheduler<E extends Delayed>`, que fait `(E[]) new Object[16]` à l'exécution ?"
+    choices:
+      - "Rien de spécial, comme sans borne"
+      - "Il lève une ClassCastException dès la construction : E est effacé en Delayed, et un Object[] n'est pas un Delayed[]"
+      - "Il crée un Delayed[]"
+      - "Il ne compile pas"
+    answer: 1
+    explanation: "L'effacement remplace E par sa borne. Le cast devient (Delayed[]) new Object[16], vérifié à l'exécution : il échoue. Il faudrait new Delayed[16], ou garder un Object[] et caster à la lecture."
+    concept: java-generify-type
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "Comment `ArrayList` stocke-t-elle ses éléments dans le JDK ?"
+    choices:
+      - "Dans un E[] créé avec new E[]"
+      - "Dans un Object[] (elementData), avec un cast vers E à la lecture"
+      - "Dans une liste chaînée"
+      - "Dans un tableau réifié reçu à la construction"
+    answer: 1
+    explanation: "Le JDK utilise la seconde technique : un Object[] honnête, et un cast non vérifié, prouvé sûr, dans la méthode d'accès. Le tableau n'est jamais exposé tel quel."
+    concept: java-generify-type
+    difficulty: 2

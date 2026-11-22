@@ -1,0 +1,7 @@
+id: java-ch05-pecs
+concept: java-pecs
+format: hyperframes
+justification: "Une séquence de 14 s à regarder : la hiérarchie Object > Number > Integer en colonne ; une flèche de lecture part d'une List<Integer> vers la pile de Number (extends : on remonte), une flèche d'écriture part de la pile vers une Collection<Object> (super : on monte encore) ; puis les deux flèches interdites (écrire dans un extends, lire un E d'un super) se barrent en rouge."
+entry: scene.html
+duration_s: 14
+status: idea

@@ -1,0 +1,7 @@
+id: java-ch05-cce-distance
+concept: java-raw-types
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : un Integer entre dans une List<String> par une méthode à type brut (le compilateur, grisé, ne dit rien), la liste traverse trois modules, puis le checkcast caché inséré à la lecture explose, loin de l'insertion ; seconde passe avec List<String> : l'erreur apparaît à la compilation, sur la ligne fautive."
+entry: scene.html
+duration_s: 12
+status: idea

@@ -1,0 +1,12 @@
+id: java-ch05-assignment
+title: "Un Result<T> qui accepte tout ce qui est sûr"
+kind: code
+language: java
+difficulty: 4
+xp: 150
+timeout_s: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Result.java"]
+concepts: [java-pecs, java-no-wildcard-return, java-generic-method, java-wildcard-vs-type-param]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

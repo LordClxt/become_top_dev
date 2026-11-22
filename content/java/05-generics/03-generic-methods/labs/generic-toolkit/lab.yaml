@@ -1,0 +1,12 @@
+id: java-ch05-l03-lab-generic-toolkit
+title: "Une boîte à outils générique"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Collections2.java"]
+concepts: [java-generic-method, java-generic-singleton-factory, java-recursive-type-bound, java-type-inference]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

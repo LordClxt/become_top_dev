@@ -1,0 +1,12 @@
+id: java-ch05-l01-lab-warmup-no-raw
+title: "Échauffement : un lot sans type brut"
+kind: code
+language: java
+difficulty: 1
+xp: 40
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Batch.java"]
+concepts: [java-raw-types, java-unchecked-warnings]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

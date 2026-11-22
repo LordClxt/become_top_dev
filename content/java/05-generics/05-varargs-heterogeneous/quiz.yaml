@@ -1,0 +1,86 @@
+id: java-ch05-l05-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi un paramètre `T... args` provoque-t-il un avertissement de pollution du tas ?"
+    choices:
+      - "Parce que les varargs sont lents"
+      - "Parce qu'il crée un tableau générique T[], ce que le langage interdit d'écrire soi-même, et qui n'est sûr que sous conditions"
+      - "Parce que T peut être null"
+      - "Parce que les varargs sont dépréciés"
+    answer: 1
+    explanation: "Chaque appel range les arguments dans un tableau. Pour un T générique, ce tableau a un type effacé : il peut circuler sous un type qu'il n'a pas. Java le permet pour des méthodes comme Arrays.asList, au prix d'un avertissement."
+    concept: java-generic-varargs
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "À quelles conditions une méthode à varargs génériques est-elle sûre ?"
+    choices:
+      - "Elle n'écrit rien dans le tableau varargs"
+      - "Elle ne laisse pas le tableau s'échapper (ni renvoyé, ni stocké, ni confié à du code non fiable)"
+      - "Elle est publique"
+      - "Elle a au moins deux paramètres"
+    answer: [0, 1]
+    explanation: "Ce sont les deux conditions de Bloch. Passer le tableau à une autre méthode @SafeVarargs, ou à une méthode non varargs qui ne fait que lire son contenu, reste sûr."
+    concept: java-safevarargs
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Sur quelles méthodes `@SafeVarargs` est-il permis ?"
+    choices:
+      - "Toutes les méthodes"
+      - "Les méthodes static, final, private (Java 9) et les constructeurs : celles qu'on ne peut pas redéfinir"
+      - "Seulement les méthodes abstraites"
+      - "Seulement les méthodes d'interface"
+    answer: 1
+    explanation: "Une redéfinition pourrait trahir la promesse de l'auteur : l'annotation n'est donc acceptée que là où aucune redéfinition n'est possible."
+    concept: java-safevarargs
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Quelle alternative évite complètement les varargs génériques ?"
+    choices:
+      - "Un paramètre Object[]"
+      - "Un paramètre List<? extends T>, l'appelant écrivant List.of(a, b, c)"
+      - "Un type brut"
+      - "Un tableau T[] passé explicitement"
+    answer: 1
+    explanation: "Plus de tableau générique, donc plus de pollution du tas, au prix d'un List.of chez l'appelant. List.of lui-même est sûr et déjà annoté par le JDK."
+    concept: java-safevarargs
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Dans un conteneur hétérogène typé, qu'est-ce qui est paramétré ?"
+    choices:
+      - "Le conteneur : Favorites<T>"
+      - "La clé : Class<T> ou Key<T>, qui porte le type de sa valeur"
+      - "Les valeurs, qui sont toutes du même type"
+      - "Rien : tout est Object"
+    answer: 1
+    explanation: "Une collection ordinaire a un seul paramètre de type pour tous ses éléments. Ici, chaque clé a le sien : get(String.class) renvoie un String, get(Integer.class) un Integer."
+    concept: java-heterogeneous-container
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Pourquoi appeler `type.cast(instance)` dans `put` et pas seulement dans `get` ?"
+    choices:
+      - "Pour la performance"
+      - "Pour arrêter tout de suite un client qui, par un type brut, rangerait une valeur du mauvais type : l'erreur apparaît à l'écriture, pas des mois plus tard à la lecture"
+      - "Parce que get ne peut pas caster"
+      - "Ce n'est pas nécessaire"
+    answer: 1
+    explanation: "Le compilateur protège les clients qui utilisent les génériques correctement. Un type brut contourne cette protection : la vérification dynamique à l'entrée la rétablit, comme Collections.checkedList."
+    concept: java-type-token-limits
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Peut-on utiliser `List<String>.class` comme jeton de type ?"
+    choices:
+      - "Oui"
+      - "Non : ce littéral ne compile pas ; à l'exécution, il n'existe que List.class, qui ne connaît pas le type de ses éléments"
+      - "Oui, mais seulement en Java 25"
+      - "Oui, avec @SafeVarargs"
+    answer: 1
+    explanation: "Effacement : un Class ne représente que la forme brute. Pour des clés typées par des types génériques, on définit sa propre clé, en sachant que la vérification dynamique ne portera que sur List."
+    concept: java-type-token-limits
+    difficulty: 2

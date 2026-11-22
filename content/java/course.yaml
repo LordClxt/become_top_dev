@@ -40,7 +40,6 @@ tracks:
       - "12-serialization"            # ch12, items 85-90
 
 planned_titles:
-  "05-generics": "Génériques"
   "06-enums-annotations": "Enums et annotations"
   "07-lambdas-streams": "Lambdas et streams"
   "08-method-design": "Concevoir ses méthodes"

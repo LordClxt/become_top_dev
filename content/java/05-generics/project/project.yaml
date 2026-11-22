@@ -1,0 +1,13 @@
+id: java-ch05-project
+title: "Ordo, jalon 5 : un bus d'événements typé"
+pitch: "Le moteur publie ce qui arrive aux ordres (accepté, exécuté, annulé) ; le journal, les alertes et la diffusion s'y abonnent. Tu écris le bus : chaque abonné reçoit des événements déjà typés, sans un seul cast, et le compilateur refuse les abonnements qui n'ont pas de sens."
+running_project: ordo
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["EventBus.java"]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

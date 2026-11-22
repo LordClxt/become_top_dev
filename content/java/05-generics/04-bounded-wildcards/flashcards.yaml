@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "PECS ?"
+    back: "Producer Extends, Consumer Super : on lit d'un <? extends E>, on écrit dans un <? super E>."
+    concept: java-pecs
+  - id: fc2
+    front: "Signature de pushAll ?"
+    back: "void pushAll(Iterable<? extends E> src)."
+    concept: java-pecs
+  - id: fc3
+    front: "Signature de popAll ?"
+    back: "void popAll(Collection<? super E> dst)."
+    concept: java-pecs
+  - id: fc4
+    front: "Paramètre lu et écrit ?"
+    back: "Pas de joker : le type exact."
+    concept: java-pecs
+  - id: fc5
+    front: "Joker dans un type de retour ?"
+    back: "Jamais : les clients devraient le manipuler."
+    concept: java-no-wildcard-return
+  - id: fc6
+    front: "Signature complète de max ?"
+    back: "<T extends Comparable<? super T>> T max(List<? extends T> list)."
+    concept: java-comparable-super
+  - id: fc7
+    front: "Comparator en paramètre ?"
+    back: "Comparator<? super T> : il consomme des T."
+    concept: java-comparable-super
+  - id: fc8
+    front: "Joker ou paramètre de type ?"
+    back: "Paramètre présent une seule fois : joker. Pour écrire dans le corps : helper privé générique (capture)."
+    concept: java-wildcard-vs-type-param
+  - id: fc9
+    front: "capture#1 of ? extends Number ?"
+    back: "Le nom que javac donne au type inconnu d'un joker : on peut le lire comme Number, pas y écrire."
+    concept: java-wildcard-vs-type-param

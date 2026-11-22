@@ -1,0 +1,22 @@
+id: java-ch05
+title: "Génériques"
+subtitle: "Des erreurs de type à la compilation plutôt qu'à l'exécution : types et méthodes génériques, jokers, varargs et conteneurs hétérogènes"
+source: { chapter: 5, pages: "117-155" }
+objectives:
+  - "Supprimer types bruts et avertissements unchecked, et prouver la sûreté de ceux qu'on garde"
+  - "Préférer les listes aux tableaux, et rendre une classe générique sans laisser fuir de tableau générique"
+  - "Écrire des méthodes génériques, avec inférence, fabriques de singleton et bornes récursives"
+  - "Concevoir des API souples avec les jokers bornés (PECS), sans joker dans les types de retour"
+  - "Utiliser les varargs génériques en sûreté, et ranger des valeurs de types différents dans un conteneur hétérogène typé"
+mastery_threshold: 0.8
+prerequisites: [java-ch04]
+lessons:
+  - "01-raw-types-warnings"
+  - "02-lists-generic-types"
+  - "03-generic-methods"
+  - "04-bounded-wildcards"
+  - "05-varargs-heterogeneous"
+xp: { assignment: 150, project: 300, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

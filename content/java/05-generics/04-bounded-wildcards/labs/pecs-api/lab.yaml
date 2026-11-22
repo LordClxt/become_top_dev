@@ -1,0 +1,12 @@
+id: java-ch05-l04-lab-pecs-api
+title: "Une API qui accepte tout ce qui est sûr"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Stack.java", "Pick.java"]
+concepts: [java-pecs, java-comparable-super, java-no-wildcard-return]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

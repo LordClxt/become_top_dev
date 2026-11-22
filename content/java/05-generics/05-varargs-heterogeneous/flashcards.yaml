@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Varargs générique ?"
+    back: "T... args crée un tableau générique : avertissement de pollution du tas."
+    concept: java-generic-varargs
+  - id: fc2
+    front: "Les deux conditions d'une méthode varargs générique sûre ?"
+    back: "Ne rien écrire dans le tableau ; ne pas le laisser s'échapper."
+    concept: java-safevarargs
+  - id: fc3
+    front: "pickTwo + toArray ?"
+    back: "Le tableau créé dans pickTwo est un Object[] ; renvoyé, il fait échouer le cast vers String[] chez l'appelant."
+    concept: java-generic-varargs
+  - id: fc4
+    front: "@SafeVarargs, sur quoi ?"
+    back: "Méthodes static, final, private, et constructeurs : non redéfinissables."
+    concept: java-safevarargs
+  - id: fc5
+    front: "Alternative aux varargs génériques ?"
+    back: "Un paramètre List<? extends T> (List.of chez l'appelant)."
+    concept: java-safevarargs
+  - id: fc6
+    front: "Conteneur hétérogène typé ?"
+    back: "La clé porte le type (Class<T>, Key<T>) ; valeurs vérifiées par type.cast."
+    concept: java-heterogeneous-container
+  - id: fc7
+    front: "Pourquoi type.cast à l'entrée ?"
+    back: "Pour arrêter un client à type brut dès l'écriture."
+    concept: java-type-token-limits
+  - id: fc8
+    front: "Limite du jeton Class<T> ?"
+    back: "Pas de Class<List<String>> : il ne voit que la forme brute."
+    concept: java-type-token-limits
+  - id: fc9
+    front: "Restreindre un Class<?> sans avertissement ?"
+    back: "type.asSubclass(Annotation.class)."
+    concept: java-type-token-limits
