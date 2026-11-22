@@ -76,7 +76,7 @@ func TestProgressIsPerUser(t *testing.T) {
 	login(t, admin, srv.URL)
 	ada := signup(t, srv.URL, "ada@example.com")
 
-	do(t, admin, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l01/complete", nil)
+	passLesson(t, admin, srv.URL, "java-ch01-l01")
 	do(t, admin, http.MethodPut, srv.URL+"/api/exercises/java-ch01-l01-lab-http-status/draft",
 		jsonBody(map[string]any{"files": map[string]string{"HttpStatus.java": "brouillon de l'admin"}}))
 	runner.output = `{"Action":"pass","Test":"TestChunkValues"}`
@@ -101,10 +101,7 @@ func TestProgressIsPerUser(t *testing.T) {
 		t.Errorf("Ada voit le TP de l'admin : %+v", ex)
 	}
 	// La même leçon rapporte de l'XP à chacun : l'unicité de l'XP est par compte.
-	got := decode[struct {
-		XPAwarded int `json:"xp_awarded"`
-	}](t, do(t, ada, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l01/complete", nil))
-	if got.XPAwarded == 0 {
+	if passLesson(t, ada, srv.URL, "java-ch01-l01") == 0 {
 		t.Error("Ada doit gagner l'XP d'une leçon déjà terminée par l'admin")
 	}
 }

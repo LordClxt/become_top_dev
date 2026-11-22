@@ -75,7 +75,8 @@ func New(svc *service.Service, cfg Config) http.Handler {
 		"PUT /api/profile/avatar":                     s.putAvatar,
 		"DELETE /api/profile/avatar":                  s.deleteAvatar,
 
-		"POST /api/lessons/{id}/checkpoints/{checkpoint}": s.answerCheckpoint,
+		"POST /api/lessons/{id}/checkpoints/{checkpoint}":        s.answerCheckpoint,
+		"POST /api/lessons/{id}/checkpoints/{checkpoint}/reveal": s.revealCheckpoint,
 
 		"GET /api/today":                    s.today,
 		"POST /api/today/quests/{id}/claim": s.claimQuest,

@@ -120,6 +120,72 @@ func (r *ProgressRepo) RunsSince(ctx context.Context, since time.Time) (int, err
 
 // --- Leçons ------------------------------------------------------------------
 
+// CheckpointState est le parcours d'un utilisateur sur un point de contrôle.
+type CheckpointState struct {
+	Wrong    int  // mauvaises réponses
+	Revealed bool // réponse demandée : la réussite qui suit ne rapporte pas d'XP
+	Solved   bool // réussi au moins une fois
+}
+
+const checkpointReturning = ` RETURNING wrong, revealed, solved_at IS NOT NULL`
+
+func scanCheckpoint(row pgx.Row) (CheckpointState, error) {
+	var s CheckpointState
+	err := row.Scan(&s.Wrong, &s.Revealed, &s.Solved)
+	return s, err
+}
+
+// RecordCheckpoint enregistre une réponse : une erreur de plus, ou la première réussite.
+func (r *ProgressRepo) RecordCheckpoint(ctx context.Context, lessonID, checkpointID string, correct bool) (CheckpointState, error) {
+	wrong := 1
+	if correct {
+		wrong = 0
+	}
+	return scanCheckpoint(r.db.QueryRow(ctx, `
+		INSERT INTO checkpoint_state AS s (user_id, lesson_id, checkpoint_id, wrong, solved_at)
+		VALUES ($1, $2, $3, $4, CASE WHEN $5::boolean THEN now() END)
+		ON CONFLICT (user_id, lesson_id, checkpoint_id) DO UPDATE
+		SET wrong = s.wrong + EXCLUDED.wrong, solved_at = COALESCE(s.solved_at, EXCLUDED.solved_at)`+checkpointReturning,
+		r.uid, lessonID, checkpointID, wrong, correct))
+}
+
+// RevealCheckpoint marque la réponse comme vue, seulement après au moins un essai (raté ou réussi).
+// ok est faux s'il n'y a eu aucun essai.
+func (r *ProgressRepo) RevealCheckpoint(ctx context.Context, lessonID, checkpointID string) (state CheckpointState, ok bool, err error) {
+	state, err = scanCheckpoint(r.db.QueryRow(ctx, `
+		UPDATE checkpoint_state SET revealed = true
+		WHERE user_id = $1 AND lesson_id = $2 AND checkpoint_id = $3 AND (wrong > 0 OR solved_at IS NOT NULL)`+checkpointReturning,
+		r.uid, lessonID, checkpointID))
+	if errors.Is(err, pgx.ErrNoRows) {
+		return state, false, nil
+	}
+	return state, err == nil, err
+}
+
+// CheckpointStates renvoie l'état des points de contrôle d'une leçon, par identifiant (absent : jamais tenté).
+func (r *ProgressRepo) CheckpointStates(ctx context.Context, lessonID string) (map[string]CheckpointState, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT checkpoint_id, wrong, revealed, solved_at IS NOT NULL FROM checkpoint_state
+		WHERE user_id = $1 AND lesson_id = $2`, r.uid, lessonID)
+	if err != nil {
+		return nil, err
+	}
+	type row struct {
+		id string
+		CheckpointState
+	}
+	list, err := pgx.CollectRows(rows, func(r pgx.CollectableRow) (row, error) {
+		var x row
+		err := r.Scan(&x.id, &x.Wrong, &x.Revealed, &x.Solved)
+		return x, err
+	})
+	out := make(map[string]CheckpointState, len(list))
+	for _, x := range list {
+		out[x.id] = x.CheckpointState
+	}
+	return out, err
+}
+
 // Reading est la dernière position de lecture d'une leçon.
 type Reading struct {
 	LessonID  string

@@ -276,6 +276,7 @@ type LessonView struct {
 	Checkpoints []CheckpointView           `json:"checkpoints"`
 	CardsRated  int                        `json:"cards_rated"` // cartes de la leçon déjà notées au moins une fois
 	Reading     *ReadingView               `json:"reading"`     // dernière position de lecture (null si jamais ouverte)
+	Requirement LessonRequirement          `json:"requirement"` // ce qui valide la leçon, et où on en est
 	Completed   bool                       `json:"completed"`
 	PreviousID  *string                    `json:"previous_id"`
 	NextID      *string                    `json:"next_id"`
@@ -314,6 +315,10 @@ func (s *Service) Lesson(ctx context.Context, uid int64, id string) (*LessonView
 	if err != nil {
 		return nil, err
 	}
+	view.Requirement, err = s.requirementOf(ctx, s.repos(), uid, l)
+	if err != nil {
+		return nil, err
+	}
 	reviews, err := s.repos().Progress(uid).CardReviews(ctx, "UTC")
 	if err != nil {
 		return nil, err
@@ -341,16 +346,31 @@ func (s *Service) CompleteLesson(ctx context.Context, uid int64, id string) (*XP
 	if l == nil {
 		return nil, errorf(NotFound, "leçon introuvable")
 	}
-	var xp int
-	err := s.store.InTx(ctx, func(r repository.Repos) error {
-		if err := r.Progress(uid).CompleteLesson(ctx, l.ID); err != nil {
-			return err
+	req, err := s.requirementOf(ctx, s.repos(), uid, l)
+	if err != nil {
+		return nil, err
+	}
+	if req.Done < req.Total {
+		if req.Kind == "checkpoints" {
+			return nil, errorf(Conflict, "réussis d'abord les points de contrôle (%d sur %d)", req.Done, req.Total)
 		}
+		return nil, errorf(Conflict, "réponds d'abord aux questions du quiz (%d sur %d)", req.Done, req.Total)
+	}
+	var xp int
+	err = s.store.InTx(ctx, func(r repository.Repos) error {
 		var err error
-		xp, err = r.Progress(uid).AwardXP(ctx, "lesson", l.ID, l.XP)
+		xp, err = completeLesson(ctx, r, uid, l)
 		return err
 	})
 	return &XPAwarded{xp}, err
+}
+
+// completeLesson marque la leçon terminée et donne son XP (une seule fois).
+func completeLesson(ctx context.Context, r repository.Repos, uid int64, l *content.Lesson) (int, error) {
+	if err := r.Progress(uid).CompleteLesson(ctx, l.ID); err != nil {
+		return 0, err
+	}
+	return r.Progress(uid).AwardXP(ctx, "lesson", l.ID, l.XP)
 }
 
 type QuestionView struct {
@@ -467,65 +487,6 @@ func (s *Service) Answer(ctx context.Context, uid int64, quizID, questionID stri
 		return nil, err
 	}
 	return &AnswerResult{Correct: correct, Expected: q.Answer, Explanation: q.Explanation, XPAwarded: xp, Bonus: bonus}, nil
-}
-
-// CheckpointXP est l'XP d'un point de contrôle réussi (une seule fois).
-const CheckpointXP = 3
-
-// CheckpointView est une question posée dans le corps d'une leçon, sans réponse ni explication.
-type CheckpointView struct {
-	ID       string   `json:"id"`
-	Type     string   `json:"type"`
-	Prompt   string   `json:"prompt"`
-	Code     *string  `json:"code"`
-	Choices  []string `json:"choices"`
-	Answered bool     `json:"answered"` // déjà réussi une fois
-}
-
-func checkpointRef(lessonID, checkpointID string) string { return lessonID + "/" + checkpointID }
-
-func (s *Service) checkpointViews(ctx context.Context, uid int64, l *content.Lesson) ([]CheckpointView, error) {
-	out := []CheckpointView{}
-	if len(l.Checkpoints) == 0 {
-		return out, nil
-	}
-	solved, err := s.repos().Progress(uid).XPRefs(ctx, "checkpoint", l.ID+"/")
-	if err != nil {
-		return nil, err
-	}
-	for _, c := range l.Checkpoints {
-		out = append(out, CheckpointView{
-			ID: c.ID, Type: c.Type, Prompt: c.Prompt, Code: c.Code, Choices: c.Choices,
-			Answered: solved[checkpointRef(l.ID, c.ID)],
-		})
-	}
-	return out, nil
-}
-
-// AnswerCheckpoint corrige un point de contrôle. Les essais sont libres ; la première bonne réponse rapporte
-// CheckpointXP. Rien n'est écrit dans quiz_answers : la maîtrise du module n'en dépend pas.
-func (s *Service) AnswerCheckpoint(ctx context.Context, uid int64, lessonID, checkpointID string, answer any) (*AnswerResult, error) {
-	l := s.Content.Lessons[lessonID]
-	if l == nil {
-		return nil, errorf(NotFound, "leçon introuvable")
-	}
-	i := slices.IndexFunc(l.Checkpoints, func(q content.QuizQuestion) bool { return q.ID == checkpointID })
-	if i < 0 {
-		return nil, errorf(NotFound, "point de contrôle introuvable")
-	}
-	c := l.Checkpoints[i]
-	correct, err := IsCorrect(c, answer)
-	if err != nil {
-		return nil, errorf(Invalid, "type de question non corrigé automatiquement : %s", err)
-	}
-	xp := 0
-	if correct {
-		xp, err = s.repos().Progress(uid).AwardXP(ctx, "checkpoint", checkpointRef(l.ID, c.ID), CheckpointXP)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return &AnswerResult{Correct: correct, Expected: c.Answer, Explanation: c.Explanation, XPAwarded: xp}, nil
 }
 
 func optional(s string) *string {

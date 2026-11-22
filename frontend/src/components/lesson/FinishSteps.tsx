@@ -57,17 +57,47 @@ export function FinishSteps({
   const panelRef = useRef<HTMLElement>(null)
   const [passed, setPassed] = useState(false)
 
+  const req = lesson.requirement ?? { kind: 'none' as const, done: 0, total: 0 }
+  const quizReady = !!quiz && quiz.total > 0 && quiz.answered >= quiz.total
+  const nextCheckpoint = (lesson.checkpoints ?? []).findIndex((c) => !c.answered)
+  const validated = done ? (awarded > 0 ? `Validée, +${awarded} XP` : 'Validée') : null
+  // Ce qui valide la leçon : les points de contrôle (validation automatique au dernier), sinon le quiz puis un clic.
+  const lessonStep: Step =
+    req.kind === 'checkpoints'
+      ? {
+          key: 'lesson',
+          icon: <BookOpenCheck className="size-4" />,
+          title: 'Réussir les points de contrôle',
+          detail: validated ?? `${req.done}/${req.total} réussis : la leçon se valide avec le dernier.`,
+          xp: lesson.xp,
+          done,
+          action: { kind: 'scroll', target: `checkpoint-${lesson.checkpoints?.[Math.max(0, nextCheckpoint)]?.id ?? ''}` },
+          cta: `Aller au point de contrôle ${Math.max(0, nextCheckpoint) + 1}`,
+        }
+      : req.kind === 'quiz' && !quizReady && !done
+        ? {
+            key: 'lesson',
+            icon: <BookOpenCheck className="size-4" />,
+            title: 'Terminer la leçon',
+            detail: `Réponds d’abord au quiz (${quiz?.answered ?? 0}/${quiz?.total ?? req.total}) : il valide ta lecture.`,
+            xp: lesson.xp,
+            done,
+            action: { kind: 'scroll', target: 'lesson-quiz' },
+            cta: 'Étape suivante : le quiz',
+          }
+        : {
+            key: 'lesson',
+            icon: <BookOpenCheck className="size-4" />,
+            title: 'Terminer la leçon',
+            detail: validated ?? 'Tu as tout lu ? Valide ta lecture.',
+            xp: lesson.xp,
+            done,
+            action: { kind: 'complete' },
+            cta: 'Terminer la leçon',
+          }
+
   const steps: Step[] = [
-    {
-      key: 'lesson',
-      icon: <BookOpenCheck className="size-4" />,
-      title: 'Terminer la leçon',
-      detail: done ? (awarded > 0 ? `Validée, +${awarded} XP` : 'Validée') : 'Tu as tout lu ? Valide ta lecture.',
-      xp: lesson.xp,
-      done,
-      action: { kind: 'complete' },
-      cta: 'Terminer la leçon',
-    },
+    lessonStep,
     ...lesson.labs.map<Step>((lab) => ({
       key: lab.id,
       icon: <FlaskConical className="size-4" />,
@@ -78,7 +108,7 @@ export function FinishSteps({
       action: { kind: 'lab', id: lab.id },
       cta: `Étape suivante : le TP « ${lab.title} »`,
     })),
-    ...(lesson.quiz_id
+    ...(lesson.quiz_id && req.kind !== 'quiz'
       ? [
           {
             key: 'quiz',

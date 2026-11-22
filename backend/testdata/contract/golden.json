@@ -9050,6 +9050,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch00-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 1,
     "pages": "21-28, 39-40"
@@ -9213,6 +9218,11 @@
    "previous_id": "arch-ch00-l01",
    "quiz_id": "arch-ch00-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 1,
     "pages": "28-39"
@@ -9368,6 +9378,11 @@
    "previous_id": "arch-ch00-l02",
    "quiz_id": "arch-ch00-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 2,
     "pages": "43-56"
@@ -9527,6 +9542,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch01-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 3,
     "pages": "57-64"
@@ -9668,6 +9688,11 @@
    "previous_id": "arch-ch01-l01",
    "quiz_id": "arch-ch01-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 3,
     "pages": "64-68"
@@ -9854,6 +9879,11 @@
    "previous_id": "arch-ch01-l02",
    "quiz_id": "arch-ch01-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 3,
     "pages": "68-73"
@@ -9997,6 +10027,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch02-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 4,
     "pages": "75-84"
@@ -10154,6 +10189,11 @@
    "previous_id": "arch-ch02-l01",
    "quiz_id": "arch-ch02-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 5,
     "pages": "85-89"
@@ -10301,6 +10341,11 @@
    "previous_id": "arch-ch02-l02",
    "quiz_id": "arch-ch02-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 5,
     "pages": "89-96"
@@ -10461,6 +10506,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch03-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 6,
     "pages": "97-102"
@@ -10580,6 +10630,11 @@
    "previous_id": "arch-ch03-l01",
    "quiz_id": "arch-ch03-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 6,
     "pages": "99-101"
@@ -10747,6 +10802,11 @@
    "previous_id": "arch-ch03-l02",
    "quiz_id": "arch-ch03-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 6,
     "pages": "102-110"
@@ -10870,6 +10930,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch04-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 7,
     "pages": "111-114"
@@ -10987,6 +11052,11 @@
    "previous_id": "arch-ch04-l01",
    "quiz_id": "arch-ch04-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 7,
     "pages": "112-115"
@@ -11128,6 +11198,11 @@
    "previous_id": "arch-ch04-l02",
    "quiz_id": "arch-ch04-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 7,
     "pages": "115-118"
@@ -11259,6 +11334,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch05-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 8,
     "pages": "119-127"
@@ -11402,6 +11482,11 @@
    "previous_id": "arch-ch05-l01",
    "quiz_id": "arch-ch05-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 8,
     "pages": "128-132"
@@ -11531,6 +11616,11 @@
    "previous_id": "arch-ch05-l02",
    "quiz_id": "arch-ch05-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 8,
     "pages": "132-138"
@@ -11652,6 +11742,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch06-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 9,
     "pages": "139-144"
@@ -11779,6 +11874,11 @@
    "previous_id": "arch-ch06-l01",
    "quiz_id": "arch-ch06-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 9,
     "pages": "144-147"
@@ -11929,6 +12029,11 @@
    "previous_id": "arch-ch06-l02",
    "quiz_id": "arch-ch06-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 9,
     "pages": "148-152"
@@ -12056,6 +12161,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch07-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 10,
     "pages": "153-158"
@@ -12195,6 +12305,11 @@
    "previous_id": "arch-ch07-l01",
    "quiz_id": "arch-ch07-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 10,
     "pages": "158-161"
@@ -12320,6 +12435,11 @@
    "previous_id": "arch-ch07-l02",
    "quiz_id": "arch-ch07-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 11,
     "pages": "163-168"
@@ -12459,6 +12579,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch08-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 12,
     "pages": "169-175"
@@ -12596,6 +12721,11 @@
    "previous_id": "arch-ch08-l01",
    "quiz_id": "arch-ch08-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 12,
     "pages": "175-178"
@@ -12709,6 +12839,11 @@
    "previous_id": "arch-ch08-l02",
    "quiz_id": "arch-ch08-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 12,
     "pages": "178-182"
@@ -12820,6 +12955,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch09-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 13,
     "pages": "183-187"
@@ -12967,6 +13107,11 @@
    "previous_id": "arch-ch09-l01",
    "quiz_id": "arch-ch09-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 13,
     "pages": "187-191"
@@ -13090,6 +13235,11 @@
    "previous_id": "arch-ch09-l02",
    "quiz_id": "arch-ch09-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 13,
     "pages": "192-198"
@@ -13223,6 +13373,11 @@
    "previous_id": null,
    "quiz_id": "arch-ch10-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 14,
     "pages": "199-205"
@@ -13342,6 +13497,11 @@
    "previous_id": "arch-ch10-l01",
    "quiz_id": "arch-ch10-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 14,
     "pages": "205-215"
@@ -13485,6 +13645,11 @@
    "previous_id": "arch-ch10-l02",
    "quiz_id": "arch-ch10-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 14,
     "pages": "216-222"
@@ -13624,6 +13789,11 @@
    "previous_id": "arch-ch10-l03",
    "quiz_id": "arch-ch10-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 14,
     "pages": "223-230"
@@ -13742,6 +13912,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch00-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 1,
     "pages": "25-28"
@@ -13907,6 +14082,11 @@
    "previous_id": "ddia-ch00-l01",
    "quiz_id": "ddia-ch00-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 11
+   },
    "source": {
     "chapter": 1,
     "pages": "28-32"
@@ -14044,6 +14224,11 @@
    "previous_id": "ddia-ch00-l02",
    "quiz_id": "ddia-ch00-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 1,
     "pages": "32-35"
@@ -14215,6 +14400,11 @@
    "previous_id": "ddia-ch00-l03",
    "quiz_id": "ddia-ch00-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 12
+   },
    "source": {
     "chapter": 1,
     "pages": "35-39"
@@ -14386,6 +14576,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch01-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 2,
     "pages": "27-35"
@@ -14563,6 +14758,11 @@
    "previous_id": "ddia-ch01-l01",
    "quiz_id": "ddia-ch01-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 15
+   },
    "source": {
     "chapter": 2,
     "pages": "36-42"
@@ -14702,6 +14902,11 @@
    "previous_id": "ddia-ch01-l02",
    "quiz_id": "ddia-ch01-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 2,
     "pages": "42-48"
@@ -14871,6 +15076,11 @@
    "previous_id": "ddia-ch01-l03",
    "quiz_id": "ddia-ch01-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 14
+   },
    "source": {
     "chapter": 2,
     "pages": "49-62"
@@ -15036,6 +15246,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch02-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 12
+   },
    "source": {
     "chapter": 3,
     "pages": "69-75"
@@ -15213,6 +15428,11 @@
    "previous_id": "ddia-ch02-l01",
    "quiz_id": "ddia-ch02-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 12
+   },
    "source": {
     "chapter": 3,
     "pages": "76-79"
@@ -15376,6 +15596,11 @@
    "previous_id": "ddia-ch02-l02",
    "quiz_id": "ddia-ch02-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 12
+   },
    "source": {
     "chapter": 3,
     "pages": "79-83"
@@ -15507,6 +15732,11 @@
    "previous_id": "ddia-ch02-l03",
    "quiz_id": "ddia-ch02-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 3,
     "pages": "83-85"
@@ -15680,6 +15910,11 @@
    "previous_id": "ddia-ch02-l04",
    "quiz_id": "ddia-ch02-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 12
+   },
    "source": {
     "chapter": 3,
     "pages": "85-90"
@@ -15809,6 +16044,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch03-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 3,
     "pages": "90-93"
@@ -15934,6 +16174,11 @@
    "previous_id": "ddia-ch03-l01",
    "quiz_id": "ddia-ch03-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 3,
     "pages": "93-95"
@@ -16077,6 +16322,11 @@
    "previous_id": "ddia-ch03-l02",
    "quiz_id": "ddia-ch03-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 11
+   },
    "source": {
     "chapter": 3,
     "pages": "95-99"
@@ -16198,6 +16448,11 @@
    "previous_id": "ddia-ch03-l03",
    "quiz_id": "ddia-ch03-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 11
+   },
    "source": {
     "chapter": 3,
     "pages": "99-101"
@@ -16323,6 +16578,11 @@
    "previous_id": "ddia-ch03-l04",
    "quiz_id": "ddia-ch03-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 3,
     "pages": "101-104"
@@ -16456,6 +16716,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch04-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 4,
     "pages": "111-116"
@@ -16585,6 +16850,11 @@
    "previous_id": "ddia-ch04-l01",
    "quiz_id": "ddia-ch04-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 11
+   },
    "source": {
     "chapter": 4,
     "pages": "116-121"
@@ -16722,6 +16992,11 @@
    "previous_id": "ddia-ch04-l02",
    "quiz_id": "ddia-ch04-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 12
+   },
    "source": {
     "chapter": 4,
     "pages": "122-128"
@@ -16863,6 +17138,11 @@
    "previous_id": "ddia-ch04-l03",
    "quiz_id": "ddia-ch04-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 12
+   },
    "source": {
     "chapter": 4,
     "pages": "128-136"
@@ -16992,6 +17272,11 @@
    "previous_id": "ddia-ch04-l04",
    "quiz_id": "ddia-ch04-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 11
+   },
    "source": {
     "chapter": 4,
     "pages": "136-139"
@@ -17139,6 +17424,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch05-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 5,
     "pages": "151-155"
@@ -17278,6 +17568,11 @@
    "previous_id": "ddia-ch05-l01",
    "quiz_id": "ddia-ch05-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 5,
     "pages": "155-158"
@@ -17407,6 +17702,11 @@
    "previous_id": "ddia-ch05-l02",
    "quiz_id": "ddia-ch05-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 5,
     "pages": "158-161"
@@ -17540,6 +17840,11 @@
    "previous_id": "ddia-ch05-l03",
    "quiz_id": "ddia-ch05-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 5,
     "pages": "161-164"
@@ -17661,6 +17966,11 @@
    "previous_id": "ddia-ch05-l04",
    "quiz_id": "ddia-ch05-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 5,
     "pages": "164-167"
@@ -17794,6 +18104,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch06-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 5,
     "pages": "168-171"
@@ -17927,6 +18242,11 @@
    "previous_id": "ddia-ch06-l01",
    "quiz_id": "ddia-ch06-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 5,
     "pages": "171-175"
@@ -18040,6 +18360,11 @@
    "previous_id": "ddia-ch06-l02",
    "quiz_id": "ddia-ch06-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 5,
     "pages": "175-177"
@@ -18177,6 +18502,11 @@
    "previous_id": "ddia-ch06-l03",
    "quiz_id": "ddia-ch06-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 5,
     "pages": "177-181"
@@ -18310,6 +18640,11 @@
    "previous_id": "ddia-ch06-l04",
    "quiz_id": "ddia-ch06-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 5,
     "pages": "181-184"
@@ -18425,6 +18760,11 @@
    "previous_id": "ddia-ch06-l05",
    "quiz_id": "ddia-ch06-l06-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 5,
     "pages": "184-187"
@@ -18554,6 +18894,11 @@
    "previous_id": "ddia-ch06-l06",
    "quiz_id": "ddia-ch06-l07-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 5,
     "pages": "187-192"
@@ -18687,6 +19032,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch07-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 6,
     "pages": "199-201"
@@ -18822,6 +19172,11 @@
    "previous_id": "ddia-ch07-l01",
    "quiz_id": "ddia-ch07-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 11
+   },
    "source": {
     "chapter": 6,
     "pages": "202-205"
@@ -18959,6 +19314,11 @@
    "previous_id": "ddia-ch07-l02",
    "quiz_id": "ddia-ch07-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 6,
     "pages": "206-209"
@@ -19088,6 +19448,11 @@
    "previous_id": "ddia-ch07-l03",
    "quiz_id": "ddia-ch07-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 6,
     "pages": "209-214"
@@ -19219,6 +19584,11 @@
    "previous_id": "ddia-ch07-l04",
    "quiz_id": "ddia-ch07-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 6,
     "pages": "214-217"
@@ -19370,6 +19740,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch08-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 7,
     "pages": "221-232"
@@ -19495,6 +19870,11 @@
    "previous_id": "ddia-ch08-l01",
    "quiz_id": "ddia-ch08-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 7,
     "pages": "233-237"
@@ -19628,6 +20008,11 @@
    "previous_id": "ddia-ch08-l02",
    "quiz_id": "ddia-ch08-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 7,
     "pages": "237-242"
@@ -19761,6 +20146,11 @@
    "previous_id": "ddia-ch08-l03",
    "quiz_id": "ddia-ch08-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 7,
     "pages": "242-246"
@@ -19894,6 +20284,11 @@
    "previous_id": "ddia-ch08-l04",
    "quiz_id": "ddia-ch08-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 7,
     "pages": "246-251"
@@ -19989,6 +20384,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch09-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 7,
     "pages": "251-252"
@@ -20126,6 +20526,11 @@
    "previous_id": "ddia-ch09-l01",
    "quiz_id": "ddia-ch09-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 7,
     "pages": "252-256"
@@ -20267,6 +20672,11 @@
    "previous_id": "ddia-ch09-l02",
    "quiz_id": "ddia-ch09-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 11
+   },
    "source": {
     "chapter": 7,
     "pages": "257-261"
@@ -20400,6 +20810,11 @@
    "previous_id": "ddia-ch09-l03",
    "quiz_id": "ddia-ch09-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 11
+   },
    "source": {
     "chapter": 7,
     "pages": "261-266"
@@ -20513,6 +20928,11 @@
    "previous_id": "ddia-ch09-l04",
    "quiz_id": "ddia-ch09-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 10
+   },
    "source": {
     "chapter": 7,
     "pages": "266-268"
@@ -20646,6 +21066,11 @@
    "previous_id": null,
    "quiz_id": "ddia-ch10-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 8,
     "pages": "273-281"
@@ -20785,6 +21210,11 @@
    "previous_id": "ddia-ch10-l01",
    "quiz_id": "ddia-ch10-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 8,
     "pages": "281-291"
@@ -20932,6 +21362,11 @@
    "previous_id": "ddia-ch10-l02",
    "quiz_id": "ddia-ch10-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 8,
     "pages": "291-303"
@@ -21083,6 +21518,11 @@
    "previous_id": "ddia-ch10-l03",
    "quiz_id": "ddia-ch10-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 8,
     "pages": "303-310"
@@ -21226,6 +21666,11 @@
    "previous_id": "ddia-ch10-l04",
    "quiz_id": "ddia-ch10-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 8,
     "pages": "310-312"
@@ -21343,6 +21788,11 @@
    "previous_id": null,
    "quiz_id": "grails-ch00-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 2,
@@ -21457,6 +21907,11 @@
    "previous_id": "grails-ch00-l01",
    "quiz_id": "grails-ch00-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 3,
@@ -21571,6 +22026,11 @@
    "previous_id": "grails-ch00-l02",
    "quiz_id": "grails-ch00-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 4,
@@ -21685,6 +22145,11 @@
    "previous_id": "grails-ch00-l03",
    "quiz_id": "grails-ch00-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 6,
@@ -21799,6 +22264,11 @@
    "previous_id": null,
    "quiz_id": "grails-ch01-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 5,
@@ -21903,6 +22373,11 @@
    "previous_id": "grails-ch01-l01",
    "quiz_id": "grails-ch01-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 5,
@@ -22017,6 +22492,11 @@
    "previous_id": "grails-ch01-l02",
    "quiz_id": "grails-ch01-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 5,
@@ -22121,6 +22601,11 @@
    "previous_id": "grails-ch01-l03",
    "quiz_id": "grails-ch01-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 8,
@@ -22159,6 +22644,8 @@
      "code": "class Price {\n    BigDecimal amount\n    BigDecimal getAmount() { amount.setScale(0, java.math.RoundingMode.HALF_UP) }\n    String raw() { \"brut ${amount}\" }\n}\ndef p = new Price(amount: 9.6)\nprintln p.amount\nprintln p.raw()\n",
      "id": "c1",
      "prompt": "Le getter de `Price` arrondit. Qu'affiche ce script ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22167,6 +22654,8 @@
      "code": "class Tag {\n    String name\n    int reads = 0\n    String getName() { reads++; name }\n    int twice() { [1, 2].each { name }; reads }\n}\ndef t = new Tag(name: 'groovy')\nprintln t.twice()\n",
      "id": "c2",
      "prompt": "Même classe, mais le getter compte ses appels. Qu'affiche ce script ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22180,6 +22669,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Que vaut `[name: 'Ada', age: 36].class` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -22315,6 +22806,11 @@
    "previous_id": null,
    "quiz_id": "grails-ch02-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 7,
@@ -22353,6 +22849,8 @@
      "code": "def mail(Map opts, String to) { \"${opts.subject}|${opts.cc}|$to\" }\nprintln mail('ana@x.io', subject: 'Facture', cc: 'compta@x.io')\n",
      "id": "c1",
      "prompt": "Qu'affiche ce script ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22366,6 +22864,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Un domaine invalide est sauvé avec `book.save(failOnErorr: true)` (faute de frappe). Que se passe-t-il, vérifié sur GORM 7 ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -22374,6 +22874,8 @@
      "code": "class Report {\n    def render(String title, String format = 'pdf', boolean draft = false) { \"$title.$format draft=$draft\" }\n}\nprintln Report.declaredMethods.findAll { it.name == 'render' }.size()\nprintln new Report().render('ventes', 'csv')\n",
      "id": "c3",
      "prompt": "Qu'affiche ce script ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -22495,6 +22997,11 @@
    "previous_id": "grails-ch02-l01",
    "quiz_id": "grails-ch02-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 7,
@@ -22523,6 +23030,8 @@
      "code": "class Shape {}\nclass Circle extends Shape {}\nString area(Shape s) { 'forme' }\nString area(Circle c) { 'cercle' }\nShape s = new Circle()\nprintln area(s)\nprintln area((Shape) new Circle())\n",
      "id": "c1",
      "prompt": "Qu'affiche ce script ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22531,6 +23040,8 @@
      "code": "class Line {\n    String sku\n    boolean equals(Line other) { other != null && sku == other.sku }\n}\ndef a = new Line(sku: 'A1'), b = new Line(sku: 'A1')\nprintln a == b\nprintln([a].contains(b))\nprintln new HashSet([a, b]).size()\n",
      "id": "c2",
      "prompt": "Qu'affiche ce script ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22544,6 +23055,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Un service Groovy dispatche des événements avec `notifier.on(event)` (surcharges on(Event), on(TicketClosed)…). Un collègue ajoute `@CompileStatic` à la classe pour la performance. Les tests compilent. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -22669,6 +23182,11 @@
    "previous_id": "grails-ch02-l02",
    "quiz_id": "grails-ch02-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 7,
@@ -22707,6 +23225,8 @@
      "code": "trait Persistent { String save() { 'enregistré' } }\ntrait Audited    { String save() { 'audité' } }\nclass Ticket implements Persistent, Audited {}\nclass Comment implements Audited, Persistent {}\nprintln new Ticket().save()\nprintln new Comment().save()\n",
      "id": "c1",
      "prompt": "Qu'affiche ce script ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22715,6 +23235,8 @@
      "code": "class Base { String speak() { 'salut' } }\ntrait Bracket { String speak() { '[' + super.speak() + ']' } }\ntrait Excited { String speak() { super.speak() + '!' } }\nclass A extends Base implements Bracket, Excited {}\nclass B extends Base implements Excited, Bracket {}\nprintln new A().speak()\nprintln new B().speak()\n",
      "id": "c2",
      "prompt": "Chaque trait appelle super. Qu'affiche ce script ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22728,6 +23250,8 @@
      "code": null,
      "id": "c3",
      "prompt": "`def b = new Book(title: 'x') as HasId`. Que vaut `b instanceof Book` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -22859,6 +23383,11 @@
    "previous_id": "grails-ch02-l03",
    "quiz_id": "grails-ch02-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "groovy-in-action",
     "chapter": 7,
@@ -22897,6 +23426,8 @@
      "code": "int n = next();\n\nint next() { return n + 10; }\n\nvoid main() {\n    IO.println(n + \" \" + next());\n}\n",
      "id": "c1",
      "prompt": "Le champ est initialisé en appelant une méthode de la même instance. Qu'affiche ce fichier compact ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22905,6 +23436,8 @@
      "code": "void main() {\n    var x = 7;\n    x = x / 2;\n    IO.println(x);\n}\n",
      "id": "c2",
      "prompt": "Prédis la sortie.",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -22918,6 +23451,8 @@
      "code": "void main() {\n    String body = \"\"\"{\"id\": 42}\"\"\";\n    IO.println(body);\n}\n",
      "id": "c3",
      "prompt": "Que se passe-t-il à la compilation ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -23071,6 +23606,11 @@
    "previous_id": null,
    "quiz_id": "java-ch00-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23109,6 +23649,8 @@
      "code": "record Tag(String name) { }\n\nvoid main() {\n    var a = new Tag(\"java\");\n    var b = new Tag(\"java\");\n    var set = new HashSet<>(List.of(a, new Tag(\"go\")));\n    IO.println(set.contains(b) + \" \" + (a == b));\n}\n",
      "id": "c1",
      "prompt": "Deux objets distincts, mêmes composants. Prédis la sortie.",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -23122,6 +23664,8 @@
      "code": "record Code(String value) {\n    Code { value = value.strip().toUpperCase(); }\n}\n\nvoid main() { IO.println(new Code(\"  ab12cd \").value()); }\n",
      "id": "c2",
      "prompt": "Que se passe-t-il avec ce constructeur compact ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -23135,6 +23679,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Le prestataire ajoute Refunded à permits. Un switch sur PaymentResult traite Approved, Declined, Pending et a une branche default. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -23143,6 +23689,8 @@
      "code": "class Person {\n    Person(String name) { IO.println(\"parent \" + name); }\n}\n\nclass Employee extends Person {\n    Employee(String name) {\n        var clean = name.strip();\n        IO.println(\"prologue \" + clean);\n        super(clean);\n        IO.println(\"fin\");\n    }\n}\n\nvoid main() {\n    new Employee(\"  Ana \");\n}\n",
      "id": "c4",
      "prompt": "Un prologue qui travaille avant super(...). Prédis la sortie.",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -23278,6 +23826,11 @@
    "previous_id": "java-ch00-l01",
    "quiz_id": "java-ch00-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 4
+   },
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23321,6 +23874,8 @@
      "code": null,
      "id": "c1",
      "prompt": "Une collègue écrit `if (o instanceof String s || s.isEmpty()) { ... }`. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -23329,6 +23884,8 @@
      "code": "String label(CharSequence cs) {\n    return switch (cs) {\n        case String s when s.length() > 3 -> \"long \" + s;\n        case String s -> \"court \" + s;\n        case StringBuilder sb -> \"builder \" + sb.length();\n        default -> \"autre\";\n    };\n}\n\nvoid main() {\n    IO.println(label(\"hi\") + \", \" + label(\"hello\") + \", \" + label(new StringBuilder(\"abc\")));\n}\n",
      "id": "c2",
      "prompt": "Prédis la sortie de ce programme.",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -23337,6 +23894,8 @@
      "code": "static int checks = 0;\nstatic boolean big(int i) { checks++; return i > 10; }\n\nString size(Object o) {\n    return switch (o) {\n        case Integer i when big(i) -> \"grand\";\n        case Integer i -> \"petit\";\n        default -> \"autre\";\n    };\n}\n\nvoid main() {\n    IO.println(size(5) + \" \" + size(50) + \" \" + size(\"x\") + \" \" + checks);\n}\n",
      "id": "c3",
      "prompt": "La garde appelle une méthode qui compte ses appels. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -23496,6 +24055,11 @@
    "previous_id": "java-ch00-l02",
    "quiz_id": "java-ch00-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23539,6 +24103,8 @@
      "code": null,
      "id": "c1",
      "prompt": "En revue de code : `var names = users.stream().map(User::name).toList();` puis, trois lignes plus bas, `names.sort(Comparator.naturalOrder());`. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -23547,6 +24113,8 @@
      "code": "void main() {\n    var ids = new LinkedHashSet<>(List.of(3, 1, 2));\n    ids.addFirst(2);\n    IO.println(ids + \" \" + ids.reversed().getFirst());\n}\n",
      "id": "c2",
      "prompt": "Prédis la sortie : l'élément 2 est déjà dans l'ensemble.",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -23555,6 +24123,8 @@
      "code": "static Gatherer<Integer, ?, List<Integer>> upTo(int limit) {\n    class Batch { List<Integer> items = new ArrayList<>(); int sum; }\n    return Gatherer.ofSequential(\n        Batch::new,\n        Gatherer.Integrator.ofGreedy((batch, x, downstream) -> {\n            if (!batch.items.isEmpty() && batch.sum + x > limit) {\n                downstream.push(List.copyOf(batch.items));\n                batch.items.clear();\n                batch.sum = 0;\n            }\n            batch.items.add(x);\n            batch.sum += x;\n            return true;\n        }));\n}\n\nvoid main() {\n    IO.println(Stream.of(6, 3, 2, 7).gather(upTo(8)).toList());\n}\n",
      "id": "c3",
      "prompt": "Ce gatherer est le même que plus haut, mais sans finisseur. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -23694,6 +24264,11 @@
    "previous_id": "java-ch00-l03",
    "quiz_id": "java-ch00-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23732,6 +24307,8 @@
      "code": "void main() throws Exception {\n    var builder = Thread.ofVirtual().name(\"quote-\", 0);\n    var a = builder.unstarted(() -> { });\n    var b = builder.unstarted(() -> { });\n    try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {\n        var inTask = executor.submit(() -> Thread.currentThread().isVirtual());\n        IO.println(a.getName() + \" \" + b.getName() + \" \" + inTask.get() + \" \" + Thread.currentThread().isVirtual());\n    }\n}\n",
      "id": "c1",
      "prompt": "Prédis la sortie de ce programme.",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -23745,6 +24322,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Trouve le bug : `try { permits.acquire(); return provider.quote(symbol); } finally { permits.release(); }`",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -23753,6 +24332,8 @@
      "code": "static final ScopedValue<String> ID = ScopedValue.newInstance();\nstatic Supplier<String> later;\n\nvoid main() {\n    ScopedValue.where(ID, \"req-42\").run(() -> {\n        later = () -> ID.orElse(\"aucun\");\n        IO.print(later.get() + \" \");\n    });\n    IO.println(later.get());\n}\n",
      "id": "c3",
      "prompt": "Une lambda créée pendant la liaison est appelée après. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -23886,6 +24467,11 @@
    "previous_id": "java-ch00-l04",
    "quiz_id": "java-ch00-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23939,6 +24525,8 @@
      "code": "import java.util.HashMap;\nimport java.util.Map;\n\npublic class Main {\n    static final class Color {\n        private static final Map<String, Color> CACHE = new HashMap<>();\n        final String name;\n        private Color(String name) { this.name = name; }\n        static Color of(String name) { return CACHE.computeIfAbsent(name, Color::new); }\n    }\n\n    public static void main(String[] args) {\n        Color a = Color.of(\"red\");\n        Color b = Color.of(\"red\");\n        Color c = new Color(\"red\");\n        System.out.println((a == b) + \" \" + (a == c) + \" \" + a.name.equals(c.name));\n    }\n}\n",
      "id": "c1",
      "prompt": "Color a un cache derrière sa fabrique of, mais son constructeur est resté accessible dans le fichier. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -23952,6 +24540,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Un collègue écrit `ArrayList<Integer> ids = (ArrayList<Integer>) List.of(1, 2);` pour pouvoir appeler `ensureCapacity`. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -23965,6 +24555,8 @@
      "code": null,
      "id": "c3",
      "prompt": "La classe `public final class Strings { public static boolean isBlank(String s) { ... } }` n'a écrit aucun constructeur. Un appelant écrit `new Strings()`. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -24098,6 +24690,11 @@
    "previous_id": null,
    "quiz_id": "java-ch01-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 2,
     "pages": "5-9, 19"
@@ -24140,6 +24737,8 @@
      "code": null,
      "id": "c1",
      "prompt": "La signature est `Reservation(String guest, String room, int nights, int adults)`. Un appel écrit `new Reservation(\"Ana\", \"204\", 2, 3)` pour 3 nuits et 2 adultes. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -24148,6 +24747,8 @@
      "code": "public class Main {\n    static final class Request {\n        final List<String> headers;\n        Request(Builder b) { headers = b.headers; }\n        static final class Builder {\n            final List<String> headers = new ArrayList<>();\n            Builder header(String h) { headers.add(h); return this; }\n            Request build() { return new Request(this); }\n        }\n    }\n\n    public static void main(String[] args) {\n        Request.Builder b = new Request.Builder().header(\"Accept\");\n        Request first = b.build();\n        Request second = b.header(\"Auth\").build();\n        System.out.println(first.headers.size() + \" \" + (first.headers == second.headers));\n    }\n}\n",
      "id": "c2",
      "prompt": "Ce builder est réutilisé pour deux requêtes. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -24161,6 +24762,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Un builder de `Booking` reçoit `checkIn(...)` et `checkOut(...)`, dans n'importe quel ordre. Où vérifier que checkOut est après checkIn ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -24288,6 +24891,11 @@
    "previous_id": "java-ch01-l01",
    "quiz_id": "java-ch01-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 2,
     "pages": "10-16"
@@ -24325,6 +24933,8 @@
      "code": "import java.io.*;\n\npublic class Main {\n    static class Registry implements Serializable {\n        static final Registry INSTANCE = new Registry();\n        private Registry() { }\n    }\n\n    public static void main(String[] args) throws Exception {\n        var bytes = new ByteArrayOutputStream();\n        try (var out = new ObjectOutputStream(bytes)) { out.writeObject(Registry.INSTANCE); }\n        try (var in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()))) {\n            Object copy = in.readObject();\n            System.out.println((copy == Registry.INSTANCE) + \" \" + (copy instanceof Registry));\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "Ce singleton est devenu Serializable, sans readResolve. On l'écrit puis on le relit. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -24338,6 +24948,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Pour tester `ExchangeRates` (singleton), deux classes de test appellent `ExchangeRates.INSTANCE.setSource(fake)` avec des faux différents. En local tout passe ; en CI, avec les tests en parallèle, un test échoue une fois sur dix. Pourquoi ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -24346,6 +24958,8 @@
      "code": "import java.time.*;\n\npublic class Main {\n    record TokenService(Clock clock) {\n        boolean isExpired(Instant expiresAt) { return clock.instant().isAfter(expiresAt); }\n    }\n\n    public static void main(String[] args) {\n        Instant t0 = Instant.parse(\"2026-01-01T00:00:00Z\");\n        Instant expiresAt = t0.plusSeconds(60);\n        Clock fixed = Clock.fixed(t0, ZoneOffset.UTC);\n        var before = new TokenService(fixed);\n        var after = new TokenService(Clock.offset(fixed, Duration.ofSeconds(61)));\n        System.out.println(before.isExpired(expiresAt) + \" \" + after.isExpired(expiresAt));\n    }\n}\n",
      "id": "c3",
      "prompt": "TokenService reçoit son horloge au constructeur. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -24459,6 +25073,11 @@
    "previous_id": "java-ch01-l02",
    "quiz_id": "java-ch01-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 2,
     "pages": "17-21"
@@ -24496,6 +25115,8 @@
      "code": "public class Main {\n    public static void main(String[] args) {\n        Long a = 127L, b = 127L;\n        Long c = 128L, d = 128L;\n        System.out.println((a == b) + \" \" + (c == d));\n    }\n}\n",
      "id": "c1",
      "prompt": "`Long.valueOf` (appelé par l'autoboxing) garde un cache des petites valeurs. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -24509,6 +25130,8 @@
      "code": null,
      "id": "c2",
      "prompt": "En revue de code, un collègue « optimise » ainsi : `static boolean isHex(String s) { Pattern p = Pattern.compile(\"#[0-9a-f]{6}\"); return p.matcher(s).matches(); }`. Ton avis ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -24517,6 +25140,8 @@
      "code": "public class Main {\n    public static void main(String[] args) {\n        Map<String, Integer> prices = new HashMap<>();\n        Set<String> keys = prices.keySet();\n        prices.put(\"cafe\", 2);\n        prices.put(\"the\", 3);\n        System.out.println(keys.size() + \" \" + (keys == prices.keySet()));\n    }\n}\n",
      "id": "c3",
      "prompt": "La vue est créée AVANT les insertions. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -24530,6 +25155,8 @@
      "code": null,
      "id": "c4",
      "prompt": "Un `EventBus` garde ses abonnés dans une `static List<Listener>`. Chaque écran ouvert s'y abonne, aucun ne se désabonne. Après avoir ouvert et fermé 10 000 écrans, que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -24659,6 +25286,11 @@
    "previous_id": "java-ch01-l03",
    "quiz_id": "java-ch01-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 4
+   },
    "source": {
     "chapter": 2,
     "pages": "22-28"
@@ -24696,6 +25328,8 @@
      "code": "public class Main {\n    public static void main(String[] args) {\n        java.lang.ref.Cleaner cleaner = java.lang.ref.Cleaner.create();\n        Object owner = new Object();\n        java.lang.ref.Cleaner.Cleanable cleanable =\n                cleaner.register(owner, () -> System.out.println(\"nettoie\"));\n        cleanable.clean();\n        cleanable.clean();\n        System.out.println(\"fin\");\n    }\n}\n",
      "id": "c1",
      "prompt": "On appelle `clean()` deux fois sur la même action. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -24704,6 +25338,8 @@
      "code": "public class Main {\n    record Res(String name) implements AutoCloseable {\n        @Override public void close() { System.out.println(\"ferme \" + name); }\n    }\n\n    static String load() {\n        try (Res r = new Res(\"fichier\")) {\n            System.out.println(\"lit \" + r.name());\n            return \"contenu\";\n        } finally {\n            System.out.println(\"finally\");\n        }\n    }\n\n    public static void main(String[] args) {\n        System.out.println(\"obtenu \" + load());\n    }\n}\n",
      "id": "c2",
      "prompt": "Le corps fait `return`, et il y a aussi un `finally`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -24717,6 +25353,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Ce code tourne en production : `try (ResultSet rs = conn.prepareStatement(sql).executeQuery()) { … }`. Au bout de quelques heures, la base refuse de nouveaux curseurs. Pourquoi ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -24854,6 +25492,11 @@
    "previous_id": "java-ch01-l04",
    "quiz_id": "java-ch01-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 2,
     "pages": "29-36"
@@ -24891,6 +25534,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    static final class Money {\n        final long cents; final String currency;\n        Money(long cents, String currency) { this.cents = cents; this.currency = currency; }\n    }\n\n    public static void main(String[] args) {\n        Money price = new Money(1000, \"EUR\");\n        List<Money> cart = new ArrayList<>(List.of(price));\n        System.out.println(cart.contains(new Money(1000, \"EUR\")) + \" \" + cart.contains(price));\n    }\n}\n",
      "id": "c1",
      "prompt": "Money ne redéfinit pas equals. Qu'affiche ce programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -24904,6 +25549,8 @@
      "code": null,
      "id": "c2",
      "prompt": "`cities` est une ArrayList qui contient `new CaseInsensitiveString(\"Paris\")` (l'equals cassé ci-dessus, qui accepte les String). Que renvoie `cities.contains(\"paris\")` avec le JDK actuel ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -24912,6 +25559,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    static final class Reading {\n        final double value;\n        Reading(double value) { this.value = value; }\n        @Override public boolean equals(Object o) {\n            return o instanceof Reading r && r.value == value;\n        }\n        @Override public int hashCode() { return Double.hashCode(value); }\n    }\n\n    public static void main(String[] args) {\n        Reading broken = new Reading(0.0 / 0.0);\n        List<Reading> list = new ArrayList<>();\n        list.add(broken);\n        Set<Reading> set = new HashSet<>();\n        set.add(broken);\n        System.out.println(list.contains(broken) + \" \" + set.contains(broken));\n    }\n}\n",
      "id": "c3",
      "prompt": "L'equals de Reading compare son double avec ==. Qu'affiche ce programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -25051,6 +25700,11 @@
    "previous_id": null,
    "quiz_id": "java-ch02-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 3,
     "pages": "37-49"
@@ -25093,6 +25747,8 @@
      "code": null,
      "id": "c1",
      "prompt": "`Username` compare `name` avec `equalsIgnoreCase` dans equals, mais son hashCode renvoie `name.hashCode()`. Après `set.add(new Username(\"Ana\"))` dans un HashSet, que renvoie `set.contains(new Username(\"ANA\"))` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -25101,6 +25757,8 @@
      "code": "public class Main {\n    record Seat(int row, int col) {\n        int sumHash() { return row + col; }\n        int recipeHash() { return 31 * Integer.hashCode(row) + Integer.hashCode(col); }\n    }\n\n    public static void main(String[] args) {\n        Seat a = new Seat(1, 2), b = new Seat(2, 1);\n        System.out.println((a.sumHash() == b.sumHash()) + \" \" + (a.recipeHash() == b.recipeHash()));\n    }\n}\n",
      "id": "c2",
      "prompt": "Deux façons de combiner les champs d'un siège. Qu'affiche ce programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -25114,6 +25772,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Avec le cache paresseux ci-dessus, une instance dont le calcul complet donne exactement 0. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -25255,6 +25915,11 @@
    "previous_id": "java-ch02-l01",
    "quiz_id": "java-ch02-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 3,
     "pages": "50-54"
@@ -25292,6 +25957,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    static final class PhoneNumber {\n        final int areaCode, prefix, lineNum;\n        PhoneNumber(int areaCode, int prefix, int lineNum) {\n            this.areaCode = areaCode; this.prefix = prefix; this.lineNum = lineNum;\n        }\n        @Override public String toString() {\n            return String.format(\"%03d-%03d-%04d\", areaCode, prefix, lineNum);\n        }\n    }\n\n    public static void main(String[] args) {\n        Map<String, PhoneNumber> contacts = new TreeMap<>();\n        contacts.put(\"Jenny\", new PhoneNumber(7, 86, 123));\n        System.out.println(\"contacts=\" + contacts);\n    }\n}\n",
      "id": "c1",
      "prompt": "PhoneNumber a le toString au format spécifié ci-dessus. Qu'affiche ce programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -25305,6 +25972,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Un test échoue avec « expected: <12.50> but was: <12.50> ». Money compare `amount` et `currency` dans equals. Quel est le bug le plus probable ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -25318,6 +25987,8 @@
      "code": null,
      "id": "c3",
      "prompt": "`log.debug(\"Commande \" + order)` est appelé alors que le niveau DEBUG est désactivé, et `Order.toString` interroge le stock par le réseau. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -25411,6 +26082,11 @@
    "previous_id": "java-ch02-l02",
    "quiz_id": "java-ch02-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 3,
     "pages": "55-57"
@@ -25448,6 +26124,8 @@
      "code": "public class Main {\n    static int created = 0;\n\n    static class Ticket implements Cloneable {\n        final int number;\n        Ticket() { created++; number = created; }\n        @Override public Ticket clone() {\n            try { return (Ticket) super.clone(); } catch (CloneNotSupportedException e) { throw new AssertionError(); }\n        }\n    }\n\n    public static void main(String[] args) {\n        Ticket t = new Ticket();\n        Ticket copy = t.clone();\n        System.out.println(created + \" \" + copy.number + \" \" + (t == copy));\n    }\n}\n",
      "id": "c1",
      "prompt": "Le constructeur de Ticket compte les tickets créés. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -25461,6 +26139,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Tu répares le clone d'une classe dont le champ est `final List<String> slots` : `result.slots = new ArrayList<>(slots);`. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -25469,6 +26149,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        List<StringBuilder> original = new ArrayList<>(List.of(new StringBuilder(\"lun\"), new StringBuilder(\"mar\")));\n        List<StringBuilder> copy = new ArrayList<>(original);\n        copy.get(0).append(\"-Ana\");\n        copy.add(new StringBuilder(\"mer\"));\n        System.out.println(original.size() + \" \" + original.get(0));\n    }\n}\n",
      "id": "c3",
      "prompt": "Le constructeur de conversion d'ArrayList copie la liste. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -25580,6 +26262,11 @@
    "previous_id": "java-ch02-l03",
    "quiz_id": "java-ch02-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 3,
     "pages": "58-65"
@@ -25617,6 +26304,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        List<Integer> scores = new ArrayList<>(List.of(0, 2_000_000_000, -2_000_000_000));\n        scores.sort((a, b) -> a - b);\n        System.out.println(scores);\n    }\n}\n",
      "id": "c1",
      "prompt": "Trois scores, triés avec un comparateur par soustraction. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -25625,6 +26314,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Set<String> names = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);\n        names.add(\"Ana\");\n        names.add(\"ana\");\n        System.out.println(names.size() + \" \" + names + \" \" + names.contains(\"ANA\"));\n    }\n}\n",
      "id": "c2",
      "prompt": "Un TreeSet de noms qui ignore la casse. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -25638,6 +26329,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Trouve le bug : `Comparator<Double> byPrice = (x, y) -> (int) (x - y);` sert à ranger des prix dans un TreeSet. On ajoute 0.3 puis 0.2. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -25755,6 +26448,11 @@
    "previous_id": "java-ch02-l04",
    "quiz_id": "java-ch02-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 3,
     "pages": "66-72"
@@ -25797,6 +26495,8 @@
      "code": null,
      "id": "c1",
      "prompt": "Dans `Catalog`, la classe imbriquée `static class Cache` déclare `private int hits;`. Une méthode de `Catalog` écrit `cache.hits++`. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -25805,6 +26505,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    private static final int[] PRIVATE_LIMITS = {1, 2, 3};\n    public static final List<Integer> LIMITS = List.of(1, 2, 3);\n    public static int[] limits() { return PRIVATE_LIMITS.clone(); }\n\n    public static void main(String[] args) {\n        int[] v = limits();\n        v[0] = 9;\n        int[] w = limits();\n        String verdict;\n        try { LIMITS.set(0, 9); verdict = \"modifiée\"; }\n        catch (UnsupportedOperationException e) { verdict = \"refusée\"; }\n        System.out.println(w[0] + \" \" + (v == w) + \" \" + verdict);\n    }\n}\n",
      "id": "c2",
      "prompt": "Les deux corrections du tableau constant, mises à l'épreuve. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -25818,6 +26520,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Le module `com.example.taxes` déclare seulement `exports com.example.taxes.api;`. Dans un autre module (sur le module path), du code écrit `new com.example.taxes.internal.Rates()`, où `Rates` est une classe public. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -25947,6 +26651,11 @@
    "previous_id": null,
    "quiz_id": "java-ch03-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 4,
     "pages": "73-77"
@@ -25989,6 +26698,8 @@
      "code": null,
      "id": "c1",
      "prompt": "Ton API publique expose `Point` et tu décides de stocker des coordonnées polaires (`r`, `theta`) au lieu de `x`, `y`. Quelle version de Point te le permet sans casser un seul client ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -25997,6 +26708,8 @@
      "code": "public class Main {\n    record Temp(double celsius) {\n        public double celsius() { return Math.round(celsius * 10) / 10.0; }\n    }\n\n    public static void main(String[] args) {\n        Object o = new Temp(21.456);\n        if (o instanceof Temp(var c)) {\n            System.out.println(c + \" \" + o.equals(new Temp(21.5)));\n        }\n    }\n}\n",
      "id": "c2",
      "prompt": "Ce record redéfinit son accesseur pour arrondir. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26010,6 +26723,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Trouve le bug. `record Snapshot(int[] values) { Snapshot { values = values.clone(); } }`. Un client écrit `s.values()[0] = 99;`. Que devient l'état de `s` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -26018,6 +26733,8 @@
      "code": "public class Main {\n    record Reading(double value) { }\n\n    public static void main(String[] args) {\n        Reading a = new Reading(Double.NaN);\n        Reading b = new Reading(Double.NaN);\n        System.out.println(a.equals(b) + \" \" + (a.value() == b.value()));\n    }\n}\n",
      "id": "c4",
      "prompt": "Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -26139,6 +26856,11 @@
    "previous_id": "java-ch03-l01",
    "quiz_id": "java-ch03-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 4
+   },
    "source": {
     "chapter": 4,
     "pages": "78-79"
@@ -26176,6 +26898,8 @@
      "code": "public class Main {\n    static final class Team {\n        private final List<String> names;\n        Team(List<String> names) { this.names = names; }\n        List<String> names() { return names; }\n    }\n\n    public static void main(String[] args) {\n        var source = new ArrayList<>(List.of(\"Ana\"));\n        var team = new Team(source);\n        source.add(\"Bob\");\n        team.names().add(\"Eve\");\n        System.out.println(team.names());\n    }\n}\n",
      "id": "c1",
      "prompt": "Team a un champ `private final List<String>`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26184,6 +26908,8 @@
      "code": "var d = LocalDate.of(2026, 1, 15);\nd.withDayOfMonth(1);\nvar e = d.plusDays(1);\nSystem.out.println(d + \" \" + e);\n",
      "id": "c2",
      "prompt": "LocalDate est immuable. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26197,6 +26923,8 @@
      "code": null,
      "id": "c3",
      "prompt": "`public class Money` (non finale, constructeur public) a deux champs `private final long cents; private final String currency;` et aucun mutateur. Un code non fiable te passe un `Money`. Que peut-il se passer ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -26205,6 +26933,8 @@
      "code": "Integer a = Integer.valueOf(127), b = Integer.valueOf(127);\nInteger c = Integer.valueOf(128), d = Integer.valueOf(128);\nSystem.out.println((a == b) + \" \" + (c == d) + \" \" + c.equals(d));\n",
      "id": "c4",
      "prompt": "Integer est immuable et Integer.valueOf est une fabrique statique. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -26354,6 +27084,11 @@
    "previous_id": "java-ch03-l02",
    "quiz_id": "java-ch03-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 4
+   },
    "source": {
     "chapter": 4,
     "pages": "80-85"
@@ -26391,6 +27126,8 @@
      "code": "var sb = new StringBuilder();\nboolean same = sb.append(\"a\") == sb;\nString s = \"a\";\nboolean alsoSame = s.concat(\"b\") == s;\nSystem.out.println(same + \" \" + alsoSame);\n",
      "id": "c1",
      "prompt": "Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26404,6 +27141,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Bits est immuable et stocke 1 000 mots `long`. Combien de tableaux de 1 000 mots `bits.flip(3).flip(7).flip(12)` alloue-t-il, et combien `bits.flipAll(3, 7, 12)` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -26412,6 +27151,8 @@
      "code": "var sb = new StringBuilder();\nSystem.out.print(sb.capacity());\nsb.append(\"abcdefghijklmnopq\");\nSystem.out.println(\" \" + sb.capacity());\n",
      "id": "c3",
      "prompt": "Qu'affiche le programme ? (17 caractères sont ajoutés)",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26425,6 +27166,8 @@
      "code": null,
      "id": "c4",
      "prompt": "Dans une boucle, chaque itération exécute `s = s + a + b;` (Java 9+). Combien de nouvelles String complètes chaque itération crée-t-elle ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -26534,6 +27277,11 @@
    "previous_id": "java-ch03-l03",
    "quiz_id": "java-ch03-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 4
+   },
    "source": {
     "chapter": 4,
     "pages": "83-86"
@@ -26571,6 +27319,8 @@
      "code": "import java.lang.annotation.*;\n\npublic class Main {\n    @Retention(RetentionPolicy.RUNTIME) @interface Component { }\n    @interface Service { }   // pas de @Retention : CLASS par défaut\n\n    @Component static class Catalog { }\n    @Service static class Pricing { }\n\n    public static void main(String[] args) {\n        System.out.println(Catalog.class.isAnnotationPresent(Component.class) + \" \"\n                + Pricing.class.isAnnotationPresent(Service.class));\n    }\n}\n",
      "id": "c1",
      "prompt": "Deux annotations, une seule différence : la rétention. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26579,6 +27329,8 @@
      "code": "import java.beans.Introspector;\n\npublic class Main {\n    public static void main(String[] args) {\n        for (String name : new String[] { \"PriceCalculator\", \"URLParser\", \"A\", \"IOStream\" }) {\n            System.out.print(Introspector.decapitalize(name) + \" \");\n        }\n        System.out.println();\n    }\n}\n",
      "id": "c2",
      "prompt": "Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26587,6 +27339,8 @@
      "code": "import java.util.List;\n\npublic class Main {\n    static class Router { Router(List<String> gateways) { } }\n\n    public static void main(String[] args) {\n        var ctor = Router.class.getDeclaredConstructors()[0];\n        System.out.println(ctor.getParameterTypes()[0].getSimpleName());\n        System.out.println(ctor.getGenericParameterTypes()[0].getTypeName());\n    }\n}\n",
      "id": "c3",
      "prompt": "Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -26688,6 +27442,11 @@
    "previous_id": null,
    "quiz_id": "spring-ch00-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "jdk-docs",
     "chapter": 1,
@@ -26727,6 +27486,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    static class Pool { static int opened; Pool() { opened++; } }\n    static Map<String, Object> singletons = new HashMap<>();\n\n    static Object byName(String name) {\n        return singletons.computeIfAbsent(name, n -> new Pool());\n    }\n\n    static Object byType(Class<?> type) {\n        Object cached = singletons.get(type.getName());\n        if (cached != null) return cached;\n        Object bean = new Pool();\n        singletons.put(\"pool\", bean);\n        return bean;\n    }\n\n    public static void main(String[] args) {\n        byName(\"pool\");\n        byType(Pool.class);\n        byType(Pool.class);\n        System.out.println(Pool.opened);\n    }\n}\n",
      "id": "c1",
      "prompt": "Un cache rangé par nom, mais consulté par nom de classe. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26735,6 +27496,8 @@
      "code": "import java.util.*;\n\npublic class Main {\n    static Map<String, Object> cache = new HashMap<>();\n\n    static Object get(String name) {\n        return cache.computeIfAbsent(name, n -> n.equals(\"service\") ? List.of(get(\"pool\")) : \"pool\");\n    }\n\n    public static void main(String[] args) {\n        try {\n            System.out.println(get(\"service\"));\n        } catch (Exception e) {\n            System.out.println(e.getClass().getSimpleName());\n        }\n    }\n}\n",
      "id": "c2",
      "prompt": "Pour créer `service`, il faut d'abord obtenir `pool` : la fonction de calcul rappelle `get`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -26822,6 +27585,11 @@
    "previous_id": "spring-ch00-l01",
    "quiz_id": "spring-ch00-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 3,
@@ -26861,6 +27629,8 @@
      "code": "import org.springframework.context.annotation.*;\nimport org.springframework.stereotype.Component;\n\npublic class Main {\n    @Component static class Orders { Orders(Payments p) { } }\n    @Component static class Payments { Payments(Orders o) { } }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Orders.class, Payments.class)) {\n            System.out.println(\"démarré\");\n        } catch (Exception e) {\n            Throwable root = e;\n            while (root.getCause() != null) root = root.getCause();\n            System.out.println(root.getClass().getSimpleName());\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "Le vrai Spring, deux composants qui se demandent l'un l'autre par constructeur. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -26874,6 +27644,8 @@
      "code": null,
      "id": "c2",
      "prompt": "`api` dépend de `orders`, `orders` de `payments`, `payments` de `orders`. Au moment où le cycle est détecté, que contient l'ensemble des beans en cours de création ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -26985,6 +27757,11 @@
    "previous_id": "spring-ch00-l02",
    "quiz_id": "spring-ch00-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 4,
@@ -27032,6 +27809,8 @@
      "code": "import org.springframework.context.annotation.*;\nimport jakarta.annotation.PreDestroy;\n\npublic class Main {\n    static class Clock { @PreDestroy void stop() { System.out.println(\"clock\"); } }\n    static class Sink { Sink(Clock c) { } @PreDestroy void stop() { System.out.println(\"sink\"); } }\n    static class Journal { Journal(Sink s) { } @PreDestroy void stop() { System.out.println(\"journal\"); } }\n\n    @Configuration\n    static class Config {\n        @Bean Journal journal(Sink sink) { return new Journal(sink); }\n        @Bean Sink sink(Clock clock) { return new Sink(clock); }\n        @Bean Clock clock() { return new Clock(); }\n    }\n\n    public static void main(String[] args) {\n        new AnnotationConfigApplicationContext(Config.class).close();\n    }\n}\n",
      "id": "c1",
      "prompt": "Le vrai Spring : `Journal` dépend de `Sink`, lui-même créé après `Clock`. Qu'affiche le programme à l'arrêt ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27045,6 +27824,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Un post-processor remplace `catalog` par un proxy dans `before`. Sur quel objet faut-il chercher et appeler `@PostConstruct` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -27146,6 +27927,11 @@
    "previous_id": "spring-ch00-l03",
    "quiz_id": "spring-ch00-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 11,
@@ -27185,6 +27971,8 @@
      "code": "import org.springframework.context.annotation.*;\n\npublic class Main {\n    static class Catalog { Catalog() { System.out.println(\"catalogue créé\"); } }\n    static class Service { Service(Catalog c) { System.out.println(\"service créé\"); } }\n\n    @Configuration\n    static class Config {\n        @Bean Service service(Catalog catalog) { return new Service(catalog); }\n        @Bean Catalog catalog() { return new Catalog(); }\n    }\n\n    public static void main(String[] args) {\n        var ctx = new AnnotationConfigApplicationContext(Config.class);\n        System.out.println(\"prêt\");\n        ctx.getBean(Service.class);\n        ctx.close();\n    }\n}\n",
      "id": "c1",
      "prompt": "La méthode `service` est déclarée avant `catalog`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27198,6 +27986,8 @@
      "code": null,
      "id": "c2",
      "prompt": "`ReservationService` demande un `PaymentGateway` dans son constructeur, mais personne n'en déclare. Quand l'erreur apparaît-elle ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -27206,6 +27996,8 @@
      "code": "import org.springframework.context.annotation.*;\n\npublic class Main {\n    static class Report { Report() { System.out.println(\"rapport créé\"); } }\n\n    @Configuration\n    static class Config {\n        @Bean @Lazy Report report() { return new Report(); }\n    }\n\n    public static void main(String[] args) {\n        var ctx = new AnnotationConfigApplicationContext(Config.class);\n        System.out.println(\"prêt\");\n        ctx.getBean(Report.class);\n        System.out.println(\"fin\");\n        ctx.close();\n    }\n}\n",
      "id": "c3",
      "prompt": "Même programme, mais le rapport est `@Lazy`. Qu'affiche-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -27311,6 +28103,11 @@
    "previous_id": null,
    "quiz_id": "spring-ch01-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 2,
@@ -27350,6 +28147,8 @@
      "code": "import org.springframework.context.annotation.*;\n\npublic class Main {\n    interface Gateway { }\n    static class Stripe implements Gateway { public String toString() { return \"stripe\"; } }\n    static class Paypal implements Gateway { public String toString() { return \"paypal\"; } }\n    record Checkout(Gateway gateway) { }\n\n    @Configuration\n    static class Config {\n        @Bean Gateway stripe() { return new Stripe(); }\n        @Bean @Primary Gateway paypal() { return new Paypal(); }\n        @Bean Checkout checkout(Gateway stripe) { return new Checkout(stripe); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            System.out.println(ctx.getBean(Checkout.class).gateway());\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "Le paramètre s'appelle `stripe`, mais `paypal` est `@Primary`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27358,6 +28157,8 @@
      "code": "import org.springframework.context.annotation.*;\nimport org.springframework.core.annotation.Order;\nimport java.util.*;\n\npublic class Main {\n    interface Check { }\n    @Order(2) static class Capacity implements Check { public String toString() { return \"capacité\"; } }\n    @Order(1) static class Fraud implements Check { public String toString() { return \"fraude\"; } }\n    record Pipeline(List<Check> checks, Map<String, Check> byName) { }\n\n    @Configuration\n    static class Config {\n        @Bean Check capacityCheck() { return new Capacity(); }\n        @Bean Check fraudCheck() { return new Fraud(); }\n        @Bean Pipeline pipeline(List<Check> checks, Map<String, Check> byName) { return new Pipeline(checks, byName); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            Pipeline p = ctx.getBean(Pipeline.class);\n            System.out.println(p.checks() + \" \" + p.byName().keySet());\n        }\n    }\n}\n",
      "id": "c2",
      "prompt": "Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27371,6 +28172,8 @@
      "code": null,
      "id": "c3",
      "prompt": "`Refunds` dépend d'un `FraudCheck` qui n'existe que dans certains déploiements. Quelle signature de constructeur permet de démarrer sans lui ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -27490,6 +28293,11 @@
    "previous_id": "spring-ch01-l01",
    "quiz_id": "spring-ch01-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 4,
@@ -27537,6 +28345,8 @@
      "code": "import org.springframework.context.annotation.*;\nimport org.springframework.beans.factory.config.ConfigurableBeanFactory;\n\npublic class Main {\n    static class Cart { }\n    record Desk(Cart cart) { }\n\n    @Configuration\n    static class Config {\n        @Bean @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) Cart cart() { return new Cart(); }\n        @Bean Desk desk(Cart cart) { return new Desk(cart); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            Desk desk = ctx.getBean(Desk.class);\n            boolean sameCart = desk.cart() == ctx.getBean(Desk.class).cart();\n            boolean twoCarts = ctx.getBean(Cart.class) != ctx.getBean(Cart.class);\n            System.out.println(sameCart + \" \" + twoCarts);\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "`Cart` est un prototype, `Desk` un singleton. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27545,6 +28355,8 @@
      "code": "import org.springframework.context.annotation.*;\nimport org.springframework.beans.factory.*;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport jakarta.annotation.*;\n\npublic class Main {\n    static class Repo { }\n    static class Life implements InitializingBean, DisposableBean {\n        Life() { System.out.println(\"1 constructeur\"); }\n        @Autowired void setRepo(Repo repo) { System.out.println(\"2 injection\"); }\n        @PostConstruct void post() { System.out.println(\"3 @PostConstruct\"); }\n        public void afterPropertiesSet() { System.out.println(\"4 afterPropertiesSet\"); }\n        void init() { System.out.println(\"5 initMethod\"); }\n        @PreDestroy void pre() { System.out.println(\"6 @PreDestroy\"); }\n        public void destroy() { System.out.println(\"7 destroy\"); }\n        void bye() { System.out.println(\"8 destroyMethod\"); }\n    }\n\n    @Configuration\n    static class Config {\n        @Bean Repo repo() { return new Repo(); }\n        @Bean(initMethod = \"init\", destroyMethod = \"bye\") Life life() { return new Life(); }\n    }\n\n    public static void main(String[] args) {\n        var ctx = new AnnotationConfigApplicationContext(Config.class);\n        System.out.println(\"-- prêt\");\n        ctx.close();\n    }\n}\n",
      "id": "c2",
      "prompt": "Qu'affiche le programme, du démarrage à l'arrêt ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27553,6 +28365,8 @@
      "code": "import org.springframework.context.annotation.*;\nimport org.springframework.beans.factory.config.ConfigurableBeanFactory;\nimport jakarta.annotation.PreDestroy;\n\npublic class Main {\n    static class Sink { @PreDestroy void close() { System.out.println(\"support fermé\"); } }\n    static class Journal { Journal(Sink sink) { } @PreDestroy void flush() { System.out.println(\"journal vidé\"); } }\n    static class Hold { @PreDestroy void release() { System.out.println(\"réservation libérée\"); } }\n\n    @Configuration\n    static class Config {\n        @Bean Sink sink() { return new Sink(); }\n        @Bean Journal journal(Sink sink) { return new Journal(sink); }\n        @Bean @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) Hold hold() { return new Hold(); }\n    }\n\n    public static void main(String[] args) {\n        var ctx = new AnnotationConfigApplicationContext(Config.class);\n        ctx.getBean(Hold.class);\n        ctx.close();\n    }\n}\n",
      "id": "c3",
      "prompt": "`Journal` dépend de `Sink` ; `Hold` est un prototype. Qu'affiche le programme à l'arrêt ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -27672,6 +28486,11 @@
    "previous_id": "spring-ch01-l02",
    "quiz_id": "spring-ch01-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 7,
@@ -27711,6 +28530,8 @@
      "code": "import org.springframework.context.annotation.*;\nimport org.springframework.beans.factory.config.*;\n\npublic class Main {\n    static class Clock { }\n\n    static class ToPrototype implements BeanFactoryPostProcessor {\n        public void postProcessBeanFactory(ConfigurableListableBeanFactory factory) {\n            factory.getBeanDefinition(\"clock\").setScope(BeanDefinition.SCOPE_PROTOTYPE);\n        }\n    }\n\n    @Configuration\n    static class Config {\n        @Bean static ToPrototype toPrototype() { return new ToPrototype(); }\n        @Bean Clock clock() { return new Clock(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            System.out.println(ctx.getBean(\"clock\") == ctx.getBean(\"clock\"));\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "Un `BeanFactoryPostProcessor` change la portée d'une définition. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27719,6 +28540,8 @@
      "code": "import org.springframework.context.annotation.*;\nimport org.springframework.beans.factory.annotation.Qualifier;\nimport org.springframework.beans.factory.config.BeanPostProcessor;\n\npublic class Main {\n    record Greeter(String name) { }\n\n    static class Shout implements BeanPostProcessor {\n        Shout(Greeter helper) { }\n        public Object postProcessAfterInitialization(Object bean, String beanName) {\n            if (bean instanceof Greeter g) System.out.println(\"traité : \" + g.name());\n            return bean;\n        }\n    }\n\n    @Configuration\n    static class Config {\n        @Bean static Shout shout(@Qualifier(\"helper\") Greeter helper) { return new Shout(helper); }\n        @Bean Greeter helper() { return new Greeter(\"helper\"); }\n        @Bean Greeter hello() { return new Greeter(\"hello\"); }\n    }\n\n    public static void main(String[] args) {\n        new AnnotationConfigApplicationContext(Config.class).close();\n    }\n}\n",
      "id": "c2",
      "prompt": "Un `BeanPostProcessor` affiche chaque `Greeter` qu'il voit passer. Il reçoit lui-même un `Greeter` dans son constructeur. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27732,6 +28555,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Après ton lab, `orderService` est remplacé par un proxy JDK qui implémente `Orders`. Que donne `ctx.getBean(OrderService.class)` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -27847,6 +28672,11 @@
    "previous_id": "spring-ch01-l03",
    "quiz_id": "spring-ch01-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 11,
@@ -27886,6 +28716,8 @@
      "code": "import org.springframework.context.annotation.*;\n\npublic class Main {\n    static class Pool { static int created; Pool() { created++; } }\n    record Reservations(Pool pool) { }\n    record Reports(Pool pool) { }\n\n    @Configuration\n    static class Full {\n        @Bean Pool pool() { return new Pool(); }\n        @Bean Reservations reservations() { return new Reservations(pool()); }\n        @Bean Reports reports() { return new Reports(pool()); }\n    }\n\n    @Configuration(proxyBeanMethods = false)\n    static class Lite {\n        @Bean Pool pool() { return new Pool(); }\n        @Bean Reservations reservations() { return new Reservations(pool()); }\n        @Bean Reports reports() { return new Reports(pool()); }\n    }\n\n    public static void main(String[] args) {\n        new AnnotationConfigApplicationContext(Full.class).close();\n        System.out.print(\"full \" + Pool.created);\n        Pool.created = 0;\n        new AnnotationConfigApplicationContext(Lite.class).close();\n        System.out.println(\", lite \" + Pool.created);\n    }\n}\n",
      "id": "c1",
      "prompt": "Deux beans appellent `pool()`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -27899,6 +28731,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Une classe `@Configuration` (mode full) déclare `@Bean static Pool pool()`, et `reservations()` appelle `pool()`. Combien de `Pool` sont créés ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -28014,6 +28848,11 @@
    "previous_id": "spring-ch01-l04",
    "quiz_id": "spring-ch01-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 12,
@@ -28061,6 +28900,8 @@
      "code": "import org.springframework.aop.framework.ProxyFactory;\nimport org.springframework.aop.support.AopUtils;\n\npublic class Main {\n    interface Catalog { String find(String id); }\n    static class MemoryCatalog implements Catalog { public String find(String id) { return \"événement \" + id; } }\n\n    public static void main(String[] args) {\n        Object proxy = new ProxyFactory(new MemoryCatalog()).getProxy();\n        System.out.println(AopUtils.isJdkDynamicProxy(proxy) + \" \"\n                + (proxy instanceof Catalog) + \" \" + (proxy instanceof MemoryCatalog));\n    }\n}\n",
      "id": "c1",
      "prompt": "La cible implémente une interface. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28069,6 +28910,8 @@
      "code": "import org.springframework.aop.framework.ProxyFactory;\n\npublic class Main {\n    static class Prices {\n        static int created;\n        Prices() { created++; }\n        public int total(int base, int seats) { return base * seats; }\n    }\n\n    public static void main(String[] args) {\n        Prices target = new Prices();\n        Prices proxy = (Prices) new ProxyFactory(target).getProxy();\n        System.out.println(Prices.created + \" \" + proxy.total(10, 3) + \" \" + proxy.getClass().getSimpleName());\n    }\n}\n",
      "id": "c2",
      "prompt": "La cible n'a pas d'interface : le proxy est une sous-classe. Combien de fois le constructeur est-il appelé ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28077,6 +28920,8 @@
      "code": "import org.springframework.aop.framework.ProxyFactory;\n\npublic class Main {\n    static class Locker {\n        public int failures;\n        public int failures() { return failures; }\n    }\n\n    public static void main(String[] args) {\n        Locker proxy = (Locker) new ProxyFactory(new Locker()).getProxy();\n        proxy.failures = 2;\n        System.out.println(proxy.failures + \" \" + proxy.failures());\n    }\n}\n",
      "id": "c3",
      "prompt": "On modifie un champ public… sur le proxy. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -28168,6 +29013,11 @@
    "previous_id": null,
    "quiz_id": "spring-ch02-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 20,
@@ -28207,6 +29057,8 @@
      "code": "import org.aopalliance.intercept.MethodInterceptor;\nimport org.springframework.aop.framework.ProxyFactory;\n\npublic class Main {\n    public static class Greeter { public String hello() { System.out.println(\"  cible\"); return \"bonjour\"; } }\n\n    public static void main(String[] args) {\n        ProxyFactory factory = new ProxyFactory(new Greeter());\n        factory.addAdvice((MethodInterceptor) inv -> { System.out.println(\"A avant\"); Object r = inv.proceed(); System.out.println(\"A après\"); return r; });\n        factory.addAdvice((MethodInterceptor) inv -> { System.out.println(\" B avant\"); Object r = inv.proceed(); System.out.println(\" B après\"); return r; });\n        ((Greeter) factory.getProxy()).hello();\n    }\n}\n",
      "id": "c1",
      "prompt": "Deux intercepteurs ajoutés dans cet ordre. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28220,6 +29072,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Un retry et une mesure de durée sur la même méthode, qui échoue deux fois avant de réussir. On veut UNE mesure qui couvre les trois tentatives. Lequel doit être le plus externe ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -28311,6 +29165,11 @@
    "previous_id": "spring-ch02-l01",
    "quiz_id": "spring-ch02-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 21,
@@ -28358,6 +29217,8 @@
      "code": "import org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.*;\nimport org.springframework.aop.support.AopUtils;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Catalog { public String find(String id) { return \"événement \" + id; } }\n\n    @Aspect\n    public static class Shout {\n        @Around(\"execution(* Main.Catalog.*(..))\")\n        public Object loud(ProceedingJoinPoint call) throws Throwable { return call.proceed().toString().toUpperCase(); }\n    }\n\n    @Configuration @EnableAspectJAutoProxy\n    static class Config {\n        @Bean Catalog catalog() { return new Catalog(); }\n        @Bean Shout shout() { return new Shout(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            Catalog catalog = ctx.getBean(Catalog.class);\n            System.out.println(catalog.find(\"jazz\") + \" \" + AopUtils.isAopProxy(catalog) + \" \" + AopUtils.isAopProxy(ctx.getBean(Shout.class)));\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "Un `@Aspect` déclaré en bean, et l'auto-proxy activé. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28371,6 +29232,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Ton `@Aspect` porte l'annotation `@Aspect` seulement, et la configuration fait `@ComponentScan`. Le comportement ne s'applique jamais. Pourquoi ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -28462,6 +29325,11 @@
    "previous_id": "spring-ch02-l02",
    "quiz_id": "spring-ch02-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 22,
@@ -28501,6 +29369,8 @@
      "code": "import org.springframework.cache.annotation.*;\nimport org.springframework.cache.concurrent.ConcurrentMapCacheManager;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Prices {\n        private int computed;\n        @Cacheable(\"prices\") public int price(String id) { computed++; return 4500; }\n        public int twoPrices(String id) { return price(id) + price(id); }\n        public int computed() { return computed; }\n    }\n\n    @Configuration @EnableCaching\n    static class Config {\n        @Bean ConcurrentMapCacheManager cacheManager() { return new ConcurrentMapCacheManager(); }\n        @Bean Prices prices() { return new Prices(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            Prices prices = ctx.getBean(Prices.class);\n            prices.price(\"jazz\");\n            prices.price(\"jazz\");\n            System.out.print(prices.computed() + \" \");\n            prices.twoPrices(\"rock\");\n            System.out.println(prices.computed());\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "`twoPrices` appelle deux fois `price`, qui est `@Cacheable`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28514,6 +29384,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Une méthode `@Transactional` lève `PaymentDeclinedException extends Exception`. Sans autre configuration, que devient la transaction ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -28607,6 +29479,11 @@
    "previous_id": "spring-ch02-l03",
    "quiz_id": "spring-ch02-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 20,
@@ -28646,6 +29523,8 @@
      "code": "import java.util.*;\nimport org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.*;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    static List<String> log = new ArrayList<>();\n\n    public static class Svc { public void run() { log.add(\"méthode\"); } }\n\n    @Aspect\n    public static class Trace {\n        @Around(\"execution(* Main.Svc.run())\") public Object around(ProceedingJoinPoint p) throws Throwable {\n            log.add(\"around>\"); try { return p.proceed(); } finally { log.add(\"<around\"); } }\n        @Before(\"execution(* Main.Svc.run())\") public void before() { log.add(\"before\"); }\n        @After(\"execution(* Main.Svc.run())\") public void after() { log.add(\"after\"); }\n        @AfterReturning(\"execution(* Main.Svc.run())\") public void ok() { log.add(\"afterReturning\"); }\n    }\n\n    @Configuration @EnableAspectJAutoProxy\n    static class Config {\n        @Bean Svc svc() { return new Svc(); }\n        @Bean Trace trace() { return new Trace(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            ctx.getBean(Svc.class).run();\n            System.out.println(log);\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "Quatre conseils dans le même aspect. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28654,6 +29533,8 @@
      "code": "import java.util.*;\nimport org.aspectj.lang.ProceedingJoinPoint;\nimport org.aspectj.lang.annotation.*;\nimport org.springframework.context.annotation.*;\nimport org.springframework.core.annotation.Order;\n\npublic class Main {\n    static List<String> log = new ArrayList<>();\n\n    public static class Svc { public void run() { log.add(\"méthode\"); } }\n\n    @Aspect @Order(2)\n    public static class Inner {\n        @Around(\"execution(* Main.Svc.run())\") public Object a(ProceedingJoinPoint p) throws Throwable {\n            log.add(\"inner>\"); try { return p.proceed(); } finally { log.add(\"<inner\"); } }\n    }\n\n    @Aspect @Order(1)\n    public static class Outer {\n        @Around(\"execution(* Main.Svc.run())\") public Object a(ProceedingJoinPoint p) throws Throwable {\n            log.add(\"outer>\"); try { return p.proceed(); } finally { log.add(\"<outer\"); } }\n    }\n\n    @Configuration @EnableAspectJAutoProxy\n    static class Config {\n        @Bean Svc svc() { return new Svc(); }\n        @Bean Inner inner() { return new Inner(); }\n        @Bean Outer outer() { return new Outer(); }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(Config.class)) {\n            ctx.getBean(Svc.class).run();\n            System.out.println(log);\n        }\n    }\n}\n",
      "id": "c2",
      "prompt": "Deux aspects avec `@Order`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28667,6 +29548,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Une méthode porte `@Retryable` (Spring 7) et `@Transactional`. Elle échoue deux fois puis réussit. Combien de transactions ont été ouvertes ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -28764,6 +29647,11 @@
    "previous_id": "spring-ch02-l04",
    "quiz_id": "spring-ch02-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 22,
@@ -28811,6 +29699,8 @@
      "code": "import java.util.*;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.event.*;\nimport org.springframework.context.ApplicationListener;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    static List<String> log = new ArrayList<>();\n\n    @Configuration\n    static class App {\n        @Bean ApplicationRunner warmUp() { return args -> log.add(\"runner\"); }\n    }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.addListeners((ApplicationListener<SpringApplicationEvent>) e ->\n                log.add(e.getClass().getSimpleName().replace(\"Application\", \"\").replace(\"Event\", \"\")));\n        app.run().close();\n        System.out.println(log);\n    }\n}\n",
      "id": "c1",
      "prompt": "Un écouteur donné à la SpringApplication, un runner déclaré comme bean. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28824,6 +29714,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Un `@Component` implémente `ApplicationListener<ApplicationEnvironmentPreparedEvent>` pour lire la configuration le plus tôt possible. Combien de fois est-il appelé ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -28919,6 +29811,11 @@
    "previous_id": null,
    "quiz_id": "spring-ch03-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 25,
@@ -28958,6 +29855,8 @@
      "code": "import java.util.Map;\nimport org.springframework.boot.*;\nimport org.springframework.context.annotation.Configuration;\n\npublic class Main {\n    @Configuration static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.setDefaultProperties(Map.of(\"who\", \"défauts\", \"fee\", \"100\"));\n        System.setProperty(\"who\", \"propriété système\");\n        System.setProperty(\"fee\", \"120\");\n        try (var ctx = app.run(\"--who=ligne de commande\")) {\n            var env = ctx.getEnvironment();\n            System.out.println(env.getProperty(\"who\") + \" / \" + env.getProperty(\"fee\"));\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "La même propriété dans quatre sources. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -28971,6 +29870,8 @@
      "code": null,
      "id": "c2",
      "prompt": "`application.yml` (dans le jar) fixe `tixa.fee-cents: 200` dans un document du profil `prod`. Sur le serveur, un vieux `./config/application.properties` contient `tixa.fee-cents=999`. Avec le profil `prod`, que vaut la propriété ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -29058,6 +29959,11 @@
    "previous_id": "spring-ch03-l01",
    "quiz_id": "spring-ch03-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 26,
@@ -29105,6 +30011,8 @@
      "code": "import java.time.Duration;\nimport java.util.List;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.properties.*;\nimport org.springframework.boot.context.properties.bind.DefaultValue;\nimport org.springframework.context.annotation.Configuration;\n\npublic class Main {\n    @ConfigurationProperties(\"tixa\")\n    public record TixaProps(@DefaultValue(\"150\") int feeCents, Duration holdTimeout, List<String> notifiers) { }\n\n    @Configuration @EnableConfigurationProperties(TixaProps.class)\n    static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        try (var ctx = app.run(\"--tixa.hold-timeout=90s\", \"--tixa.notifiers=email,sms\")) {\n            System.out.println(ctx.getBean(TixaProps.class));\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "Un record lié au préfixe `tixa`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -29118,6 +30026,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Un record `TixaProperties(@Valid Hold hold)` est `@Validated`, et `Hold` porte `@Max(10) int maxSeats`. Que se passe-t-il si on retire `@Valid` et qu'on démarre avec `tixa.hold.max-seats=50` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -29205,6 +30115,11 @@
    "previous_id": "spring-ch03-l02",
    "quiz_id": "spring-ch03-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 26,
@@ -29244,6 +30159,8 @@
      "code": "import org.springframework.boot.*;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    @Configuration\n    static class App {\n        @Bean @Profile(\"prod & eu\") String euProd() { return \"eu-prod\"; }\n        @Bean @Profile(\"prod & !eu\") String otherProd() { return \"other-prod\"; }\n        @Bean @Profile(\"!prod\") String dev() { return \"dev\"; }\n    }\n\n    public static void main(String[] args) {\n        for (String profiles : new String[] { \"prod,eu\", \"prod\", \"eu\" }) {\n            var app = new SpringApplication(App.class);\n            app.setBannerMode(Banner.Mode.OFF);\n            app.setWebApplicationType(WebApplicationType.NONE);\n            try (var ctx = app.run(\"--spring.profiles.active=\" + profiles)) {\n                System.out.println(profiles + \" → \" + String.join(\",\", ctx.getBeanNamesForType(String.class)));\n            }\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "Des beans réservés à des expressions de profils. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -29257,6 +30174,8 @@
      "code": null,
      "id": "c2",
      "prompt": "`application.yml` contient un groupe `staging: prod, us`. On démarre avec `--spring.profiles.active=staging`. Quels profils sont actifs ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -29344,6 +30263,11 @@
    "previous_id": "spring-ch03-l03",
    "quiz_id": "spring-ch03-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 27,
@@ -29391,6 +30315,8 @@
      "code": "import java.util.*;\nimport org.springframework.boot.*;\nimport org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;\nimport org.springframework.context.ApplicationListener;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.core.env.MapPropertySource;\n\npublic class Main {\n    @Configuration static class App { }\n\n    public static void main(String[] args) {\n        var app = new SpringApplication(App.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        app.setDefaultProperties(Map.of(\"tixa.currency\", \"XXX\"));\n        app.addListeners((ApplicationListener<ApplicationEnvironmentPreparedEvent>) e ->\n                e.getEnvironment().getPropertySources().addLast(new MapPropertySource(\"regionDefaults\", Map.of(\"tixa.currency\", \"EUR\"))));\n        try (var ctx = app.run()) {\n            List<String> names = new ArrayList<>();\n            ctx.getEnvironment().getPropertySources().forEach(ps -> names.add(ps.getName()));\n            System.out.println(names.subList(names.size() - 3, names.size()) + \" \" + ctx.getEnvironment().getProperty(\"tixa.currency\"));\n        }\n    }\n}\n",
      "id": "c1",
      "prompt": "On ajoute une source à la toute fin, puis Spring Boot termine sa préparation. Où sont les sources ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -29404,6 +30330,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Ton `EnvironmentPostProcessor` est annoté `@Component`, et non déclaré dans `spring.factories`. Quand est-il appelé ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -29491,6 +30419,11 @@
    "previous_id": "spring-ch03-l04",
    "quiz_id": "spring-ch03-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 28,
@@ -29530,6 +30463,8 @@
      "code": "import org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.autoconfigure.condition.*;\nimport org.springframework.boot.test.context.FilteredClassLoader;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public record Client(String who) { }\n\n    @Configuration(proxyBeanMethods = false)\n    @ConditionalOnClass(name = \"tools.jackson.databind.json.JsonMapper\")\n    @ConditionalOnBooleanProperty(name = \"tixa.client.enabled\", matchIfMissing = true)\n    public static class ClientAuto {\n        @Bean @ConditionalOnMissingBean Client client() { return new Client(\"auto\"); }\n    }\n\n    public static void main(String[] args) {\n        var runner = new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(ClientAuto.class));\n        runner.run(ctx -> System.out.print(ctx.getBeansOfType(Client.class).size() + \" \"));\n        runner.withPropertyValues(\"tixa.client.enabled=false\").run(ctx -> System.out.print(ctx.getBeansOfType(Client.class).size() + \" \"));\n        runner.withClassLoader(new FilteredClassLoader(\"tools.jackson\")).run(ctx -> System.out.println(ctx.getBeansOfType(Client.class).size()));\n    }\n}\n",
      "id": "c1",
      "prompt": "Une autoconfiguration testée avec `ApplicationContextRunner`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -29543,6 +30478,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Pourquoi écrit-on `@ConditionalOnClass(name = \"sdk.lydia.LydiaSdk\")` sur une classe imbriquée, plutôt qu'une méthode `@Bean` dont le type de retour est `LydiaSdk` ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -29628,6 +30565,11 @@
    "previous_id": null,
    "quiz_id": "spring-ch04-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 29,
@@ -29672,6 +30614,8 @@
      "code": null,
      "id": "c1",
      "prompt": "Pourquoi un `@ConditionalOnMissingBean` d'une autoconfiguration voit-il **toujours** le bean déclaré par l'application ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -29680,6 +30624,8 @@
      "code": "import org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public record Client(String who) { }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class ClientAuto {\n        @Bean @ConditionalOnMissingBean Client client() { return new Client(\"auto\"); }\n    }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class Team {\n        @Bean Client teamClient() { return new Client(\"équipe\"); }\n    }\n\n    public static void main(String[] args) {\n        var runner = new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(ClientAuto.class));\n        runner.withUserConfiguration(Team.class).run(ctx -> System.out.print(ctx.getBean(Client.class).who() + \" \"));\n        runner.withPropertyValues(\"spring.autoconfigure.exclude=\" + ClientAuto.class.getName())\n                .run(ctx -> System.out.println(ctx.getBeansOfType(Client.class).size()));\n    }\n}\n",
      "id": "c2",
      "prompt": "Une autoconfiguration testée avec ApplicationContextRunner : on lui oppose un bean de l'application, puis on tente de l'exclure par propriété. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -29761,6 +30707,11 @@
    "previous_id": "spring-ch04-l01",
    "quiz_id": "spring-ch04-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 29,
@@ -29800,6 +30751,8 @@
      "code": "import org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.autoconfigure.condition.ConditionalOnBean;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Client { }\n    public static class Audit { }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class PaymentAutoConfiguration { @Bean Client client() { return new Client(); } }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class AuditAutoConfiguration {\n        @Bean @ConditionalOnBean(Client.class) Audit audit() { return new Audit(); }\n    }\n\n    public static void main(String[] args) {\n        new ApplicationContextRunner()\n                .withConfiguration(AutoConfigurations.of(PaymentAutoConfiguration.class, AuditAutoConfiguration.class))\n                .run(ctx -> System.out.println(ctx.getBeansOfType(Client.class).size() + \" \" + ctx.getBeansOfType(Audit.class).size()));\n    }\n}\n",
      "id": "c1",
      "prompt": "Deux autoconfigurations, sans ordre déclaré : `Audit…` a besoin du bean de `Payment…`. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -29808,6 +30761,8 @@
      "code": "import org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.autoconfigure.condition.*;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Audit { }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class AuditAutoConfiguration {\n        @Bean @ConditionalOnBooleanProperty(\"tixa.audit.enabled\") Audit audit() { return new Audit(); }\n    }\n\n    public static void main(String[] args) {\n        new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(AuditAutoConfiguration.class)).run(ctx -> {\n            var report = ConditionEvaluationReport.get(ctx.getBeanFactory());\n            report.getConditionAndOutcomesBySource().get(AuditAutoConfiguration.class.getName() + \"#audit\")\n                    .forEach(o -> System.out.println(o.getOutcome().isMatch() + \" \" + o.getOutcome().getMessage()));\n        });\n    }\n}\n",
      "id": "c2",
      "prompt": "On lit le rapport des conditions pour le bean écarté. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     }
    ],
@@ -29885,6 +30840,11 @@
    "previous_id": "spring-ch04-l02",
    "quiz_id": "spring-ch04-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 29,
@@ -29937,6 +30897,8 @@
      "code": null,
      "id": "c1",
      "prompt": "Ton équipe publie un starter pour le client Tixa. Quel nom de module choisir ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -29950,6 +30912,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Une équipe veut ajouter un en-tête d'authentification au client du starter, sans perdre l'URL, le délai et les autres réglages. Que lui proposer ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -30027,6 +30991,11 @@
    "previous_id": "spring-ch04-l03",
    "quiz_id": "spring-ch04-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 29,
@@ -30066,6 +31035,8 @@
      "code": "import tools.jackson.databind.PropertyNamingStrategies;\nimport tools.jackson.databind.json.JsonMapper;\n\npublic class Main {\n    public record Ticket(String eventId, int seatNumber) { }\n\n    public static void main(String[] args) {\n        JsonMapper json = JsonMapper.builder().propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE).build();\n        System.out.println(json.writeValueAsString(new Ticket(\"jazz\", 12)));\n    }\n}\n",
      "id": "c1",
      "prompt": "Jackson 3, tel que Spring Boot 4 l'utilise. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -30079,6 +31050,8 @@
      "code": null,
      "id": "c2",
      "prompt": "Ton application Grails 7.2 repose sur Spring Boot 3.5 et teste avec Spock. Que dit le guide de migration de Boot 4 sur Spock ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -30156,6 +31129,11 @@
    "previous_id": "spring-ch04-l04",
    "quiz_id": "spring-ch04-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 2
+   },
    "source": {
     "book": "spring-docs",
     "chapter": 30,
@@ -30283,6 +31261,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch00-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 1,
     "pages": "1-7"
@@ -30402,6 +31385,11 @@
    "previous_id": "ts-ch00-l01",
    "quiz_id": "ts-ch00-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 8
+   },
    "source": {
     "chapter": 1,
     "pages": "8-11"
@@ -30551,6 +31539,11 @@
    "previous_id": "ts-ch00-l02",
    "quiz_id": "ts-ch00-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 9
+   },
    "source": {
     "chapter": 1,
     "pages": "11-18"
@@ -30666,6 +31659,11 @@
    "previous_id": "ts-ch00-l03",
    "quiz_id": "ts-ch00-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 1,
     "pages": "18-22"
@@ -30775,6 +31773,11 @@
    "previous_id": "ts-ch00-l04",
    "quiz_id": "ts-ch00-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 1,
     "pages": "22-26"
@@ -30894,6 +31897,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch01-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 2,
     "pages": "27-40"
@@ -30999,6 +32007,11 @@
    "previous_id": "ts-ch01-l01",
    "quiz_id": "ts-ch01-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 2,
     "pages": "40-45"
@@ -31108,6 +32121,11 @@
    "previous_id": "ts-ch01-l02",
    "quiz_id": "ts-ch01-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 2,
     "pages": "45-52"
@@ -31197,6 +32215,11 @@
    "previous_id": "ts-ch01-l03",
    "quiz_id": "ts-ch01-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 2,
     "pages": "53-56"
@@ -31276,6 +32299,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch02-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 2,
     "pages": "56-59"
@@ -31369,6 +32397,11 @@
    "previous_id": "ts-ch02-l01",
    "quiz_id": "ts-ch02-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 2,
     "pages": "60-66"
@@ -31462,6 +32495,11 @@
    "previous_id": "ts-ch02-l02",
    "quiz_id": "ts-ch02-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 2,
     "pages": "66-71"
@@ -31565,6 +32603,11 @@
    "previous_id": "ts-ch02-l03",
    "quiz_id": "ts-ch02-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 2,
     "pages": "72-80"
@@ -31658,6 +32701,11 @@
    "previous_id": "ts-ch02-l04",
    "quiz_id": "ts-ch02-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 2,
     "pages": "81-88"
@@ -31747,6 +32795,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch03-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 3,
     "pages": "90-96"
@@ -31854,6 +32907,11 @@
    "previous_id": "ts-ch03-l01",
    "quiz_id": "ts-ch03-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 3,
     "pages": "96-104"
@@ -31939,6 +32997,11 @@
    "previous_id": "ts-ch03-l02",
    "quiz_id": "ts-ch03-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 3,
     "pages": "104-106"
@@ -32042,6 +33105,11 @@
    "previous_id": "ts-ch03-l03",
    "quiz_id": "ts-ch03-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 7
+   },
    "source": {
     "chapter": 3,
     "pages": "106-115"
@@ -32131,6 +33199,11 @@
    "previous_id": "ts-ch03-l04",
    "quiz_id": "ts-ch03-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 3,
     "pages": "115-119"
@@ -32210,6 +33283,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch04-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 3,
     "pages": "119-123"
@@ -32299,6 +33377,11 @@
    "previous_id": "ts-ch04-l01",
    "quiz_id": "ts-ch04-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 3,
     "pages": "123-127"
@@ -32398,6 +33481,11 @@
    "previous_id": "ts-ch04-l02",
    "quiz_id": "ts-ch04-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 3,
     "pages": "127-132"
@@ -32481,6 +33569,11 @@
    "previous_id": "ts-ch04-l03",
    "quiz_id": "ts-ch04-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 3,
     "pages": "132-136"
@@ -32570,6 +33663,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch05-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 4,
     "pages": "137-142"
@@ -32663,6 +33761,11 @@
    "previous_id": "ts-ch05-l01",
    "quiz_id": "ts-ch05-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 4,
     "pages": "142-148"
@@ -32752,6 +33855,11 @@
    "previous_id": "ts-ch05-l02",
    "quiz_id": "ts-ch05-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 4,
     "pages": "148-154"
@@ -32831,6 +33939,11 @@
    "previous_id": "ts-ch05-l03",
    "quiz_id": "ts-ch05-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 4,
     "pages": "154-158"
@@ -32916,6 +34029,11 @@
    "previous_id": "ts-ch05-l04",
    "quiz_id": "ts-ch05-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 4,
     "pages": "158-162"
@@ -32995,6 +34113,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch06-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 4,
     "pages": "162-165"
@@ -33074,6 +34197,11 @@
    "previous_id": "ts-ch06-l01",
    "quiz_id": "ts-ch06-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 4,
     "pages": "165-168"
@@ -33153,6 +34281,11 @@
    "previous_id": "ts-ch06-l02",
    "quiz_id": "ts-ch06-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 4,
     "pages": "168-172"
@@ -33246,6 +34379,11 @@
    "previous_id": "ts-ch06-l03",
    "quiz_id": "ts-ch06-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 4,
     "pages": "172-177"
@@ -33345,6 +34483,11 @@
    "previous_id": "ts-ch06-l04",
    "quiz_id": "ts-ch06-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 4,
     "pages": "177-184"
@@ -33430,6 +34573,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch07-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 5,
     "pages": "185-190"
@@ -33509,6 +34657,11 @@
    "previous_id": "ts-ch07-l01",
    "quiz_id": "ts-ch07-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 5,
     "pages": "190-195"
@@ -33602,6 +34755,11 @@
    "previous_id": "ts-ch07-l02",
    "quiz_id": "ts-ch07-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 5,
     "pages": "195-198"
@@ -33685,6 +34843,11 @@
    "previous_id": "ts-ch07-l03",
    "quiz_id": "ts-ch07-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 5,
     "pages": "198-202"
@@ -33798,6 +34961,11 @@
    "previous_id": "ts-ch07-l04",
    "quiz_id": "ts-ch07-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 6
+   },
    "source": {
     "chapter": 5,
     "pages": "202-214"
@@ -33891,6 +35059,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch08-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 6,
     "pages": "216-221"
@@ -33980,6 +35153,11 @@
    "previous_id": "ts-ch08-l01",
    "quiz_id": "ts-ch08-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 6,
     "pages": "221-227"
@@ -34073,6 +35251,11 @@
    "previous_id": "ts-ch08-l02",
    "quiz_id": "ts-ch08-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 6,
     "pages": "227-230"
@@ -34168,6 +35351,11 @@
    "previous_id": "ts-ch08-l03",
    "quiz_id": "ts-ch08-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 6,
     "pages": "230-234"
@@ -34261,6 +35449,11 @@
    "previous_id": "ts-ch08-l04",
    "quiz_id": "ts-ch08-l05-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 6,
     "pages": "234-240"
@@ -34360,6 +35553,11 @@
    "previous_id": null,
    "quiz_id": "ts-ch09-l01-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 5
+   },
    "source": {
     "chapter": 6,
     "pages": "240-248"
@@ -34439,6 +35637,11 @@
    "previous_id": "ts-ch09-l01",
    "quiz_id": "ts-ch09-l02-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 6,
     "pages": "248-252"
@@ -34522,6 +35725,11 @@
    "previous_id": "ts-ch09-l02",
    "quiz_id": "ts-ch09-l03-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 6,
     "pages": "252-256"
@@ -34605,6 +35813,11 @@
    "previous_id": "ts-ch09-l03",
    "quiz_id": "ts-ch09-l04-quiz",
    "reading": null,
+   "requirement": {
+    "done": 0,
+    "kind": "quiz",
+    "total": 4
+   },
    "source": {
     "chapter": 6,
     "pages": "256-260"
@@ -99329,6 +100542,8 @@
      "code": null,
      "id": "c1",
      "prompt": "La signature est `Reservation(String guest, String room, int nights, int adults)`. Un appel écrit `new Reservation(\"Ana\", \"204\", 2, 3)` pour 3 nuits et 2 adultes. Que se passe-t-il ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     },
     {
@@ -99337,6 +100552,8 @@
      "code": "public class Main {\n    static final class Request {\n        final List<String> headers;\n        Request(Builder b) { headers = b.headers; }\n        static final class Builder {\n            final List<String> headers = new ArrayList<>();\n            Builder header(String h) { headers.add(h); return this; }\n            Request build() { return new Request(this); }\n        }\n    }\n\n    public static void main(String[] args) {\n        Request.Builder b = new Request.Builder().header(\"Accept\");\n        Request first = b.build();\n        Request second = b.header(\"Auth\").build();\n        System.out.println(first.headers.size() + \" \" + (first.headers == second.headers));\n    }\n}\n",
      "id": "c2",
      "prompt": "Ce builder est réutilisé pour deux requêtes. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": false,
      "type": "code-output"
     },
     {
@@ -99350,6 +100567,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Un builder de `Booking` reçoit `checkIn(...)` et `checkOut(...)`, dans n'importe quel ordre. Où vérifier que checkOut est après checkIn ?",
+     "revealed": false,
+     "tried": false,
      "type": "single"
     }
    ],
@@ -99480,6 +100699,11 @@
     "anchor": "le-concept",
     "progress": 0.4
    },
+   "requirement": {
+    "done": 0,
+    "kind": "checkpoints",
+    "total": 3
+   },
    "source": {
     "chapter": 2,
     "pages": "10-16"
@@ -99502,8 +100726,73 @@
   "status": 200
  },
  {
+  "detail": "réussis d'abord les points de contrôle (0 sur 3)",
+  "name": "lesson-complete-blocked",
+  "status": 409
+ },
+ {
+  "detail": "propose d'abord une réponse",
+  "name": "checkpoint-reveal-untried",
+  "status": 409
+ },
+ {
   "body": {
-   "xp_awarded": 30
+   "correct": false,
+   "expected": null,
+   "explanation": "",
+   "revealed": false,
+   "xp_awarded": 0
+  },
+  "name": "checkpoint-wrong",
+  "status": 200
+ },
+ {
+  "body": {
+   "expected": 2,
+   "explanation": "Le compilateur ne vérifie que les types, et deux int restent deux int quel que soit leur ordre. Un builder nomme chaque valeur (nights(3).adults(2)), ce qui rend l'inversion visible à la lecture."
+  },
+  "name": "checkpoint-reveal",
+  "status": 200
+ },
+ {
+  "body": {
+   "correct": true,
+   "expected": 2,
+   "explanation": "Le compilateur ne vérifie que les types, et deux int restent deux int quel que soit leur ordre. Un builder nomme chaque valeur (nights(3).adults(2)), ce qui rend l'inversion visible à la lecture.",
+   "revealed": true,
+   "xp_awarded": 0
+  },
+  "name": "checkpoint-after-reveal",
+  "status": 200
+ },
+ {
+  "body": {
+   "correct": true,
+   "expected": "2 true",
+   "explanation": "Les deux requêtes et le builder pointent vers la même ArrayList : ajouter Auth pour la seconde modifie aussi la première. build() doit copier la liste (List.copyOf) pour que chaque objet construit soit indépendant du builder.",
+   "revealed": false,
+   "xp_awarded": 3
+  },
+  "name": "checkpoint-c2",
+  "status": 200
+ },
+ {
+  "body": {
+   "correct": true,
+   "expected": 2,
+   "explanation": "Tant que les deux dates ne sont pas connues, aucune méthode du builder ne peut trancher, puisque l'ordre des appels est libre. On vérifie donc une fois tout reçu, sur les champs de l'objet final que plus personne ne peut modifier.",
+   "lesson_completed": {
+    "xp_awarded": 30
+   },
+   "revealed": false,
+   "xp_awarded": 3
+  },
+  "name": "checkpoint-c3-validates",
+  "status": 200
+ },
+ {
+  "body": {
+   "xp_awarded": 0
   },
   "name": "lesson-complete",
   "status": 200
@@ -99517,7 +100806,43 @@
  },
  {
   "body": {
-   "xp_awarded": 25
+   "correct": true,
+   "expected": "true false true",
+   "explanation": "La fabrique consulte son cache et rend deux fois le même objet, mais new alloue toujours un objet neuf, qui ne passe jamais par le cache. Croire que le cache protège la classe est une erreur : le contrôle d'instances ne tient que si le constructeur est fermé à tout le monde.",
+   "revealed": false,
+   "xp_awarded": 3
+  },
+  "name": "checkpoint-l01-c1",
+  "status": 200
+ },
+ {
+  "body": {
+   "correct": true,
+   "expected": 1,
+   "explanation": "Le compilateur accepte un cast d'interface vers une classe non finale, mais List.of renvoie une classe interne du JDK (ImmutableCollections.List12 ici). Le type de retour déclaré est le seul contrat : supposer une classe concrète, c'est dépendre d'un détail que la fabrique a le droit de changer.",
+   "revealed": false,
+   "xp_awarded": 3
+  },
+  "name": "checkpoint-l01-c2",
+  "status": 200
+ },
+ {
+  "body": {
+   "correct": true,
+   "expected": 2,
+   "explanation": "Sans constructeur explicite, le compilateur ajoute un constructeur public sans paramètre ; final interdit seulement l'héritage, pas l'instanciation. L'AssertionError n'existe que si tu écris toi-même le constructeur privé qui la lève.",
+   "lesson_completed": {
+    "xp_awarded": 25
+   },
+   "revealed": false,
+   "xp_awarded": 3
+  },
+  "name": "checkpoint-l01-c3-validates",
+  "status": 200
+ },
+ {
+  "body": {
+   "xp_awarded": 0
   },
   "name": "lesson-complete-l01",
   "status": 200
@@ -101334,7 +102659,7 @@
    },
    "checkpoints": [
     {
-     "answered": false,
+     "answered": true,
      "choices": [
       "Le compilateur refuse l'appel",
       "Une exception est levée à l'exécution",
@@ -101344,18 +102669,22 @@
      "code": null,
      "id": "c1",
      "prompt": "La signature est `Reservation(String guest, String room, int nights, int adults)`. Un appel écrit `new Reservation(\"Ana\", \"204\", 2, 3)` pour 3 nuits et 2 adultes. Que se passe-t-il ?",
+     "revealed": true,
+     "tried": true,
      "type": "single"
     },
     {
-     "answered": false,
+     "answered": true,
      "choices": [],
      "code": "public class Main {\n    static final class Request {\n        final List<String> headers;\n        Request(Builder b) { headers = b.headers; }\n        static final class Builder {\n            final List<String> headers = new ArrayList<>();\n            Builder header(String h) { headers.add(h); return this; }\n            Request build() { return new Request(this); }\n        }\n    }\n\n    public static void main(String[] args) {\n        Request.Builder b = new Request.Builder().header(\"Accept\");\n        Request first = b.build();\n        Request second = b.header(\"Auth\").build();\n        System.out.println(first.headers.size() + \" \" + (first.headers == second.headers));\n    }\n}\n",
      "id": "c2",
      "prompt": "Ce builder est réutilisé pour deux requêtes. Qu'affiche le programme ?",
+     "revealed": false,
+     "tried": true,
      "type": "code-output"
     },
     {
-     "answered": false,
+     "answered": true,
      "choices": [
       "Dans checkIn(), en comparant avec checkOut",
       "Dans checkOut(), en comparant avec checkIn",
@@ -101365,6 +102694,8 @@
      "code": null,
      "id": "c3",
      "prompt": "Un builder de `Booking` reçoit `checkIn(...)` et `checkOut(...)`, dans n'importe quel ordre. Où vérifier que checkOut est après checkIn ?",
+     "revealed": false,
+     "tried": true,
      "type": "single"
     }
    ],
@@ -101494,6 +102825,11 @@
    "reading": {
     "anchor": "le-concept",
     "progress": 0.4
+   },
+   "requirement": {
+    "done": 3,
+    "kind": "checkpoints",
+    "total": 3
    },
    "source": {
     "chapter": 2,
@@ -102054,7 +103390,7 @@
    "longest_streak_days": 1,
    "next_level_xp": 300,
    "streak_days": 1,
-   "xp": 104
+   "xp": 119
   },
   "name": "progress-after",
   "status": 200
@@ -102067,7 +103403,7 @@
    "level": 4,
    "runs": 4,
    "runs_passed": 2,
-   "xp": 104
+   "xp": 119
   },
   "name": "activity-today",
   "status": 200

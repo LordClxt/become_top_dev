@@ -152,6 +152,11 @@ func (s *Server) answerCheckpoint(w http.ResponseWriter, r *http.Request) {
 	respond(w, v, err)
 }
 
+func (s *Server) revealCheckpoint(w http.ResponseWriter, r *http.Request) {
+	v, err := s.svc.RevealCheckpoint(r.Context(), uid(r), r.PathValue("id"), r.PathValue("checkpoint"))
+	respond(w, v, err)
+}
+
 // --- Progression -------------------------------------------------------------
 
 // userDay lit le fuseau IANA envoyé par le navigateur : il décide à quel jour appartient une action.

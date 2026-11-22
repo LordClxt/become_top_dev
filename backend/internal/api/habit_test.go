@@ -89,8 +89,8 @@ func TestTodayQuestsAndChest(t *testing.T) {
 	}
 
 	// Une journée bien remplie valide toutes les quêtes possibles, quel que soit le tirage.
-	do(t, client, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l01/complete", nil)
-	do(t, client, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l02/complete", nil)
+	passLesson(t, client, srv.URL, "java-ch01-l01")
+	passLesson(t, client, srv.URL, "java-ch01-l02")
 	runner.output = `{"Action":"pass","Test":"TestX"}`
 	run := jsonBody(map[string]any{"files": map[string]string{"HttpStatus.java": "class X {}"}})
 	for range 5 {
@@ -223,7 +223,7 @@ func TestReviewFlow(t *testing.T) {
 	if q := get(); q.Cards == nil || len(q.Cards) != 0 || q.NewCount != 0 || q.NextDueOn != nil {
 		t.Fatalf("rien à réviser sans leçon terminée : %+v", q)
 	}
-	do(t, client, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l01/complete", nil)
+	passLesson(t, client, srv.URL, "java-ch01-l01")
 	q := get()
 	want := min(service.NewCardsPerDay, len(idx.Lessons["java-ch01-l01"].Flashcards))
 	if q.NewCount != want || len(q.Cards) != want || !q.Cards[0].IsNew || q.Cards[0].ID != "java-ch01-l01/fc1" ||
@@ -269,7 +269,7 @@ func TestLeaderboardAndGoal(t *testing.T) {
 	admin := newClient(t)
 	login(t, admin, srv.URL)
 	ada := signup(t, srv.URL, "ada@example.com")
-	do(t, ada, http.MethodPost, srv.URL+"/api/lessons/java-ch01-l01/complete", nil)
+	passLesson(t, ada, srv.URL, "java-ch01-l01")
 
 	type board struct {
 		WeekStart string `json:"week_start"`

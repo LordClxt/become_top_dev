@@ -160,7 +160,11 @@ export type Lesson = {
   checkpoints?: Checkpoint[]
   /** Dernière position de lecture : section (ancre) et avancement ; null si jamais ouverte. */
   reading?: ReadingPosition | null
+  /** Ce qui valide la leçon : ses points de contrôle, sinon son quiz, sinon un clic (« none »). */
+  requirement?: LessonRequirement
 }
+
+export type LessonRequirement = { kind: 'checkpoints' | 'quiz' | 'none'; done: number; total: number }
 
 export type ReadingPosition = { anchor: string; progress: number }
 
@@ -171,6 +175,21 @@ export type Checkpoint = {
   code: string | null
   choices: string[]
   answered: boolean
+  /** Réponse déjà demandée : la réussite ne rapporte plus d'XP. */
+  revealed?: boolean
+  /** Au moins un essai : la réponse peut être demandée. */
+  tried?: boolean
+}
+
+/** Correction d'un point de contrôle : réponse et explication seulement après réussite ou réponse demandée. */
+export type CheckpointResult = {
+  correct: boolean
+  expected: unknown
+  explanation: string
+  xp_awarded: number
+  revealed?: boolean
+  /** Présent quand cette réponse valide la leçon (dernier point de contrôle réussi). */
+  lesson_completed?: { xp_awarded: number }
 }
 
 export type PaletteItem = {
@@ -413,7 +432,9 @@ export const api = {
   saveReading: (id: string, position: ReadingPosition, keepalive = false) =>
     request<void>(`/lessons/${id}/reading`, { method: 'PUT', body: JSON.stringify(position), keepalive }),
   answerCheckpoint: (lessonId: string, checkpointId: string, answer: unknown) =>
-    post<AnswerResult>(`/lessons/${lessonId}/checkpoints/${checkpointId}`, { answer }),
+    post<CheckpointResult>(`/lessons/${lessonId}/checkpoints/${checkpointId}`, { answer }),
+  revealCheckpoint: (lessonId: string, checkpointId: string) =>
+    post<{ expected: unknown; explanation: string }>(`/lessons/${lessonId}/checkpoints/${checkpointId}/reveal`),
 
   sandbox: () => request<SandboxExercise[]>('/exercises'),
   exercise: (id: string) => request<Exercise>(`/exercises/${id}`),

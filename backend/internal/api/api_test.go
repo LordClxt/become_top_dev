@@ -117,8 +117,8 @@ func TestLessonCheckpoints(t *testing.T) {
 		v["status"] = resp.StatusCode
 		return v
 	}
-	if v := answer("c1", `{"answer": 0}`); v["correct"] != false || v["xp_awarded"] != float64(0) {
-		t.Errorf("mauvaise réponse : %v", v)
+	if v := answer("c1", `{"answer": 0}`); v["correct"] != false || v["xp_awarded"] != float64(0) || v["expected"] != nil || v["explanation"] != "" {
+		t.Errorf("mauvaise réponse (sans souffler la solution) : %v", v)
 	}
 	if v := answer("c1", `{"answer": 2}`); v["correct"] != true || v["xp_awarded"] != float64(3) || v["explanation"] == "" {
 		t.Errorf("bonne réponse : %v", v)

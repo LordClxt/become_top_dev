@@ -255,6 +255,53 @@
   "path": "/api/lessons/java-ch01-l02"
  },
  {
+  "name": "lesson-complete-blocked",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l02/complete"
+ },
+ {
+  "name": "checkpoint-reveal-untried",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l02/checkpoints/c1/reveal"
+ },
+ {
+  "name": "checkpoint-wrong",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l02/checkpoints/c1",
+  "json": {
+   "answer": 0
+  }
+ },
+ {
+  "name": "checkpoint-reveal",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l02/checkpoints/c1/reveal"
+ },
+ {
+  "name": "checkpoint-after-reveal",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l02/checkpoints/c1",
+  "json": {
+   "answer": 2
+  }
+ },
+ {
+  "name": "checkpoint-c2",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l02/checkpoints/c2",
+  "json": {
+   "answer": "2 true"
+  }
+ },
+ {
+  "name": "checkpoint-c3-validates",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l02/checkpoints/c3",
+  "json": {
+   "answer": 2
+  }
+ },
+ {
   "name": "lesson-complete",
   "method": "POST",
   "path": "/api/lessons/java-ch01-l02/complete"
@@ -263,6 +310,30 @@
   "name": "lesson-complete-again",
   "method": "POST",
   "path": "/api/lessons/java-ch01-l02/complete"
+ },
+ {
+  "name": "checkpoint-l01-c1",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l01/checkpoints/c1",
+  "json": {
+   "answer": "true false true"
+  }
+ },
+ {
+  "name": "checkpoint-l01-c2",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l01/checkpoints/c2",
+  "json": {
+   "answer": 1
+  }
+ },
+ {
+  "name": "checkpoint-l01-c3-validates",
+  "method": "POST",
+  "path": "/api/lessons/java-ch01-l01/checkpoints/c3",
+  "json": {
+   "answer": 2
+  }
  },
  {
   "name": "lesson-complete-l01",

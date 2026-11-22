@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { use, useRef, useState } from 'react'
 import { CodeBlock } from '@/components/CodeBlock'
 import { announceXp } from '@/features/xp/xp-events'
-import { type AnswerResult, api, type Lesson } from '@/lib/api'
+import { api, type CheckpointResult, type Lesson } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { Md } from '@/components/LessonBody'
 import { LessonContext } from './context'
@@ -21,8 +21,10 @@ export function CheckpointCard({ id }: { id: string }) {
   const [single, setSingle] = useState<number | null>(null)
   const [multiple, setMultiple] = useState<number[]>([])
   const [text, setText] = useState('')
-  const [result, setResult] = useState<AnswerResult | null>(null)
+  const [result, setResult] = useState<CheckpointResult | null>(null)
   const [showAnswer, setShowAnswer] = useState(false)
+  // Réponse demandée au serveur (après un essai raté) : la réussite qui suit ne rapporte plus d'XP.
+  const [answerShown, setAnswerShown] = useState<{ expected: unknown; explanation: string } | null>(null)
   const [reopened, setReopened] = useState(false)
   const cardRef = useRef<HTMLElement>(null)
 
@@ -31,13 +33,38 @@ export function CheckpointCard({ id }: { id: string }) {
     onSuccess: (r) => {
       setResult(r)
       setShowAnswer(false)
-      if (r.correct) {
-        announceXp({ amount: r.xp_awarded, reason: 'Point de contrôle', kind: 'checkpoint' })
-        qc.setQueryData<Lesson>(['lesson', lessonId], (l) =>
-          l ? { ...l, checkpoints: l.checkpoints?.map((c) => (c.id === id ? { ...c, answered: true } : c)) } : l,
-        )
+      const lesson = qc.getQueryData<Lesson>(['lesson', lessonId])
+      qc.setQueryData<Lesson>(['lesson', lessonId], (l) => {
+        if (!l) return l
+        const checkpoints = l.checkpoints?.map((c) => (c.id === id ? { ...c, tried: true, answered: c.answered || r.correct } : c))
+        const done = checkpoints?.filter((c) => c.answered).length ?? 0
+        return {
+          ...l,
+          checkpoints,
+          completed: l.completed || !!r.lesson_completed,
+          requirement: l.requirement?.kind === 'checkpoints' ? { ...l.requirement, done } : l.requirement,
+        }
+      })
+      if (!r.correct) return
+      if (r.xp_awarded > 0) announceXp({ amount: r.xp_awarded, reason: 'Point de contrôle', kind: 'checkpoint' })
+      if (r.lesson_completed) {
+        // Dernier point de contrôle réussi : la leçon est validée, sans bouton à cliquer.
+        announceXp({ amount: r.lesson_completed.xp_awarded, reason: 'Leçon validée', kind: 'lesson', title: lesson?.title })
+        qc.invalidateQueries({ predicate: (q) => q.queryKey[0] !== 'lesson' })
+      } else {
         qc.invalidateQueries({ queryKey: ['progress'] })
       }
+    },
+  })
+
+  const revealAnswer = useMutation({
+    mutationFn: () => api.revealCheckpoint(lessonId!, id),
+    onSuccess: (r) => {
+      setAnswerShown(r)
+      setShowAnswer(true)
+      qc.setQueryData<Lesson>(['lesson', lessonId], (l) =>
+        l ? { ...l, checkpoints: l.checkpoints?.map((c) => (c.id === id ? { ...c, revealed: true } : c)) } : l,
+      )
     },
   })
 
@@ -48,7 +75,7 @@ export function CheckpointCard({ id }: { id: string }) {
 
   if (cp.answered && !reopened && !result) {
     return (
-      <div className="checkpoint is-solved">
+      <div id={`checkpoint-${id}`} className="checkpoint is-solved scroll-mt-24">
         <span className="checkpoint-badge is-pass" aria-hidden="true">
           <Check className="size-4" strokeWidth={3} />
         </span>
@@ -69,8 +96,15 @@ export function CheckpointCard({ id }: { id: string }) {
   const answer = cp.type === 'single' ? single : cp.type === 'multiple' ? multiple : text
   const ready = cp.type === 'single' ? single !== null : cp.type === 'multiple' ? multiple.length > 0 : text.trim() !== ''
   const locked = !!result || submit.isPending
+  const shownExpected = result?.expected ?? answerShown?.expected ?? null
+  const explanation = result?.explanation || answerShown?.explanation || ''
   const expected: number[] =
-    result && isChoice ? (Array.isArray(result.expected) ? (result.expected as number[]) : [result.expected as number]) : []
+    result && isChoice && shownExpected !== null
+      ? Array.isArray(shownExpected)
+        ? (shownExpected as number[])
+        : [shownExpected as number]
+      : []
+  const revealed = !!cp.revealed || !!answerShown
   const reveal = !!result && (result.correct || showAnswer)
 
   const pick = (i: number) => {
@@ -93,7 +127,8 @@ export function CheckpointCard({ id }: { id: string }) {
   return (
     <section
       ref={cardRef}
-      className={cn('checkpoint', result && (result.correct ? 'is-pass' : 'is-fail'))}
+      id={`checkpoint-${id}`}
+      className={cn('checkpoint scroll-mt-24', result && (result.correct ? 'is-pass' : 'is-fail'))}
       aria-label={label}
       onKeyDown={(e) => {
         const target = e.target as HTMLElement
@@ -124,7 +159,7 @@ export function CheckpointCard({ id }: { id: string }) {
             {index + 1}/{total}
           </span>
         </p>
-        {!cp.answered && !result?.correct && (
+        {!cp.answered && !result?.correct && !revealed && (
           <span className="checkpoint-xp">
             <Sparkles className="size-3" aria-hidden="true" />
             +3 XP
@@ -218,10 +253,18 @@ export function CheckpointCard({ id }: { id: string }) {
                   <span className="font-normal text-muted">Relis le passage au-dessus et retente.</span>
                 )}
               </p>
-              {reveal && !isChoice && !result.correct && (
-                <pre className="mt-2 font-code text-sm">{String(result.expected)}</pre>
+              {result.correct && result.revealed && result.xp_awarded === 0 && (
+                <p className="mt-1 text-sm text-muted">Sans XP : la réponse avait été affichée. Le point compte quand même pour valider la leçon.</p>
               )}
-              {reveal && <p className="mt-1.5 text-muted">{result.explanation}</p>}
+              {reveal && !isChoice && !result.correct && shownExpected !== null && (
+                <pre className="mt-2 font-code text-sm">{String(shownExpected)}</pre>
+              )}
+              {reveal && explanation && <p className="mt-1.5 text-muted">{explanation}</p>}
+              {result.lesson_completed && (
+                <p className="mt-2 flex items-center gap-1.5 font-medium text-pass">
+                  <Check className="size-4" strokeWidth={3} aria-hidden="true" /> Tous les points de contrôle sont réussis : leçon validée.
+                </p>
+              )}
               {!result.correct && (
                 <div className="mt-3 flex flex-wrap gap-2">
                   <button type="button" className="checkpoint-submit" onClick={retry} autoFocus>
@@ -229,10 +272,17 @@ export function CheckpointCard({ id }: { id: string }) {
                     Réessayer
                   </button>
                   {!showAnswer && (
-                    <button type="button" className="checkpoint-ghost" onClick={() => setShowAnswer(true)}>
-                      Voir la réponse
+                    <button
+                      type="button"
+                      className="checkpoint-ghost"
+                      disabled={revealAnswer.isPending}
+                      onClick={() => (answerShown ? setShowAnswer(true) : revealAnswer.mutate())}
+                      title={revealed ? undefined : 'La réussite qui suit ne rapportera plus d’XP'}
+                    >
+                      Voir la réponse{revealed ? '' : ' (sans XP)'}
                     </button>
                   )}
+                  {revealAnswer.isError && <span className="self-center text-sm text-fail">Réponse indisponible, réessaie.</span>}
                 </div>
               )}
             </div>
