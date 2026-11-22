@@ -135,7 +135,7 @@ func (s *Service) AnswerCheckpoint(ctx context.Context, uid int64, lessonID, che
 		}
 		res.Revealed = st.Revealed
 		if !correct {
-			return nil
+			return enqueueMistake(ctx, r, uid, checkpointCardID(l.ID, c.ID)) // l'erreur reviendra en révision
 		}
 		if !st.Revealed {
 			if res.XPAwarded, err = r.Progress(uid).AwardXP(ctx, "checkpoint", l.ID+"/"+c.ID, CheckpointXP); err != nil {
@@ -170,7 +170,15 @@ func (s *Service) RevealCheckpoint(ctx context.Context, uid int64, lessonID, che
 	if err != nil {
 		return nil, err
 	}
-	_, ok, err := s.repos().Progress(uid).RevealCheckpoint(ctx, l.ID, c.ID)
+	var ok bool
+	err = s.store.InTx(ctx, func(r repository.Repos) error {
+		var err error
+		if _, ok, err = r.Progress(uid).RevealCheckpoint(ctx, l.ID, c.ID); err != nil || !ok {
+			return err
+		}
+		// Réponse lue plutôt que trouvée : la question reviendra en révision.
+		return enqueueMistake(ctx, r, uid, checkpointCardID(l.ID, c.ID))
+	})
 	if err != nil {
 		return nil, err
 	}

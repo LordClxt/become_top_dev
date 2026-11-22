@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 	"slices"
 	"strconv"
@@ -39,11 +40,22 @@ func (s *Server) review(w http.ResponseWriter, r *http.Request) {
 }
 
 // rateCard : l'id public d'une carte contient un « / » (<lessonId>/<cardId>), d'où le joker {card...}.
+// Une carte « question » (erreur de quiz ou de point de contrôle) reçoit une réponse (answer) au lieu d'une note.
 func (s *Server) rateCard(w http.ResponseWriter, r *http.Request) {
 	var body struct {
-		Rating string `json:"rating"`
+		Rating string          `json:"rating"`
+		Answer json.RawMessage `json:"answer"`
 	}
 	if !decodeJSON(w, r, &body) {
+		return
+	}
+	if len(body.Answer) > 0 && string(body.Answer) != "null" {
+		var answer any
+		_ = json.Unmarshal(body.Answer, &answer)
+		if today, _, ok := userDay(w, r); ok {
+			v, err := s.svc.AnswerReviewQuestion(r.Context(), uid(r), today, r.PathValue("card"), answer)
+			respond(w, v, err)
+		}
 		return
 	}
 	if body.Rating != "known" && body.Rating != "review" {

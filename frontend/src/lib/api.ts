@@ -390,10 +390,22 @@ export type ReviewCard = {
   course_title: string
   box: number
   is_new: boolean
+  /** « card » : carte mémo auto-évaluée ; « question » : erreur de quiz ou de point de contrôle à rejouer. */
+  kind?: 'card' | 'question'
+  question?: ReviewQuestion
+}
+export type ReviewQuestion = {
+  source: 'quiz' | 'checkpoint'
+  language: string
+  type: 'single' | 'multiple' | 'code-output'
+  prompt: string
+  code: string | null
+  choices: string[]
 }
 export type ReviewDeck = { cards: ReviewCard[]; due_count: number; new_count: number; next_due_on: string | null; tracked: number }
 export type ReviewRating = 'known' | 'review'
 export type ReviewResult = { box: number; due_on: string; xp_awarded: number }
+export type ReviewAnswer = ReviewResult & { correct: boolean; expected: unknown; explanation: string }
 export type LeaderboardEntry = {
   user_id: number
   display_name: string
@@ -470,6 +482,7 @@ export const api = {
   // Révision espacée : l'id de carte contient un « / » (leçon/carte), il fait partie du chemin.
   review: () => request<ReviewDeck>(`/review?${tzParam()}`),
   rateCard: (cardId: string, rating: ReviewRating) => post<ReviewResult>(`/review/${cardId}?${tzParam()}`, { rating }),
+  answerReviewCard: (cardId: string, answer: unknown) => post<ReviewAnswer>(`/review/${cardId}?${tzParam()}`, { answer }),
   leaderboard: () => request<Leaderboard>(`/leaderboard?${tzParam()}`),
   setGoal: (goal_xp: DailyGoal) => request<void>('/profile/goal', { method: 'PUT', body: JSON.stringify({ goal_xp }) }),
 

@@ -82,3 +82,13 @@ func (r *ProgressRepo) RecentTouches(ctx context.Context, limit int) ([]model.To
 		return t, err
 	})
 }
+
+// EnqueueMistake place une question ratée dans la révision : boîte 1, à revoir demain. Déjà suivie, elle
+// repart de la boîte 1 (une nouvelle erreur efface les progrès).
+func (r *ProgressRepo) EnqueueMistake(ctx context.Context, cardID string) error {
+	_, err := r.db.Exec(ctx, `
+		INSERT INTO card_reviews (user_id, card_id, box, due_on) VALUES ($1, $2, 1, CURRENT_DATE + 1)
+		ON CONFLICT (user_id, card_id) DO UPDATE SET box = 1, due_on = LEAST(card_reviews.due_on, CURRENT_DATE + 1)`,
+		r.uid, cardID)
+	return err
+}

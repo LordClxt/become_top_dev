@@ -7,10 +7,11 @@ import { GridZone } from '@/components/Backdrop'
 import { ErrorState, Loading } from '@/components/states'
 import { Button } from '@/components/ui/button'
 import { ContinueLink } from '@/features/review/ContinueLink'
+import { QuestionReview } from '@/features/review/QuestionReview'
 import { dueInWords, reviewQuery, todayQuery } from '@/features/review/queries'
 import { play } from '@/features/juice/sound'
 import { announceXp } from '@/features/xp/xp-events'
-import { api, type ReviewCard, type ReviewDeck, type ReviewRating } from '@/lib/api'
+import { api, type ReviewCard, type ReviewDeck, type ReviewRating, type ReviewResult } from '@/lib/api'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/_app/review')({
@@ -175,10 +176,12 @@ function Session({ deck, onRestart }: { deck: ReviewDeck; onRestart: () => void 
     setFlipped((f) => !f)
   }
 
-  const rate = (rating: ReviewRating) => {
-    if (!card || !flipped) return
+  const isQuestion = card?.kind === 'question' && !!card.question
+
+  // Passe à la carte suivante. Une carte mémo est notée ici ; une carte « question » l'a déjà été en répondant.
+  const advance = (rating: ReviewRating, answered?: ReviewResult | null) => {
+    if (!card) return
     const current = card
-    play(rating === 'known' ? 'correct' : 'flip')
     setDir(rating === 'known' ? 1 : -1)
     setFlipped(false)
     if (rating === 'review' && !requeued.has(current.id)) {
@@ -186,8 +189,8 @@ function Session({ deck, onRestart }: { deck: ReviewDeck; onRestart: () => void 
       setRequeued((s) => new Set(s).add(current.id))
     }
     setPos((p) => p + 1)
-    api
-      .rateCard(current.id, rating)
+    const pending = answered !== undefined ? (answered ? Promise.resolve(answered) : Promise.reject()) : api.rateCard(current.id, rating)
+    pending
       .then((r) => {
         const outcome = { rating, box: r.box, dueOn: r.due_on, xp: r.xp_awarded }
         setOutcomes((o) => ({ ...o, [current.id]: outcome }))
@@ -204,6 +207,12 @@ function Session({ deck, onRestart }: { deck: ReviewDeck; onRestart: () => void 
       })
   }
 
+  const rate = (rating: ReviewRating) => {
+    if (!card || !flipped || isQuestion) return
+    play(rating === 'known' ? 'correct' : 'flip')
+    advance(rating)
+  }
+
   // À la fin, le tableau de bord et le compteur de cartes doivent refléter la séance.
   useEffect(() => {
     if (!done) return
@@ -216,7 +225,7 @@ function Session({ deck, onRestart }: { deck: ReviewDeck; onRestart: () => void 
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (done || isTyping(e) || e.metaKey || e.ctrlKey || e.altKey) return
+      if (done || isQuestion || isTyping(e) || e.metaKey || e.ctrlKey || e.altKey) return
       if (e.key === ' ' || e.key === 'Enter') flip()
       else if (e.key === '1') rate('review')
       else if (e.key === '2') rate('known')
@@ -279,6 +288,9 @@ function Session({ deck, onRestart }: { deck: ReviewDeck; onRestart: () => void 
             transition={{ duration: reduceMotion ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="flip-scene relative"
           >
+            {isQuestion ? (
+              <QuestionReview card={card} onDone={(correct, r) => advance(correct ? 'known' : 'review', r)} />
+            ) : (
             <button
               type="button"
               onClick={flip}
@@ -308,12 +320,15 @@ function Session({ deck, onRestart }: { deck: ReviewDeck; onRestart: () => void 
                 </Face>
               </span>
             </button>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
 
       <div className="mt-2 flex min-h-12 items-center justify-center gap-3">
-        {flipped ? (
+        {isQuestion ? (
+          <p className="text-sm text-muted">Une erreur passée : réponds sans regarder la leçon.</p>
+        ) : flipped ? (
           <>
             <Button
               variant="outline"

@@ -460,8 +460,14 @@ func (s *Service) Answer(ctx context.Context, uid int64, quizID, questionID stri
 		err = p.AddAnswer(ctx, model.QuizAnswer{
 			QuizID: quiz.ID, QuestionID: q.ID, Answer: answer, Correct: correct, FirstAttempt: !answered,
 		})
-		if err != nil || !correct || answered {
+		if err != nil {
 			return err
+		}
+		if !correct {
+			return enqueueMistake(ctx, r, uid, quizCardID(quiz.ID, q.ID)) // l'erreur reviendra en révision
+		}
+		if answered {
+			return nil
 		}
 		if xp, err = p.AwardXP(ctx, "quiz", quiz.ID+"/"+q.ID, QuizXPPerQuestion); err != nil {
 			return err
