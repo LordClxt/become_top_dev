@@ -80,10 +80,13 @@ export function missingForMastery(m: Mastery, threshold: number): { labs: number
 
 export function missingSentence(m: Mastery, threshold: number): string {
   if (m.mastered) return 'Module maîtrisé : le suivant est ouvert.'
-  const miss = missingForMastery(m, threshold)
+  const bossMissing = !!m.boss_total && !m.boss_passed
+  const miss = missingForMastery({ ...m, mastered: false }, threshold)
   if (!miss) return 'Le seuil n’est plus atteignable avec les questions restantes : rejoue les TP pour consolider.'
   const parts: string[] = []
   if (miss.labs) parts.push(`${miss.labs} TP`)
   if (miss.quiz) parts.push(`${miss.quiz} bonne${miss.quiz > 1 ? 's' : ''} réponse${miss.quiz > 1 ? 's' : ''} au quiz`)
-  return `Il te manque ${parts.join(' et ')} pour maîtriser le module.`
+  if (parts.length === 0 && bossMissing) return 'Seuil atteint : bats le boss, sans indice, pour maîtriser le module.'
+  if (bossMissing) parts.push('le boss')
+  return `Il te manque ${parts.join(', ').replace(/, ([^,]*)$/, ' et $1')} pour maîtriser le module.`
 }

@@ -19,12 +19,15 @@ type ChapterMastery struct {
 	QuizTotal    int     `json:"quiz_total"`
 	LessonsDone  int     `json:"lessons_done"`
 	LessonsTotal int     `json:"lessons_total"`
+	BossTotal    int     `json:"boss_total"`  // 1 si le module a un boss
+	BossPassed   bool    `json:"boss_passed"` // le boss est exigé pour la maîtrise
 	Score        float64 `json:"score"`
 	Mastered     bool    `json:"mastered"`
 	Unlocked     bool    `json:"unlocked"`
 }
 
-// ChapterMastery calcule la maîtrise de chaque chapitre. Un chapitre est débloqué quand le précédent est maîtrisé.
+// ChapterMastery calcule la maîtrise de chaque chapitre. Un chapitre est débloqué quand le précédent est maîtrisé,
+// ou s'il est déjà commencé : exiger le boss (règle venue après coup) ne referme pas un module en cours.
 func (s *Service) ChapterMastery(ctx context.Context, uid int64) (map[string]*ChapterMastery, error) {
 	r := s.repos().Progress(uid)
 	exercises, err := r.AllExerciseProgress(ctx)
@@ -44,7 +47,7 @@ func (s *Service) ChapterMastery(ctx context.Context, uid int64) (map[string]*Ch
 		previousMastered := true
 		for _, id := range course.ChapterIDs {
 			m := s.mastery(s.Content.Chapters[id], exercises, first, done)
-			m.Unlocked = previousMastered || s.unlockAll
+			m.Unlocked = previousMastered || s.unlockAll || m.started()
 			previousMastered = m.Mastered
 			out[id] = m
 		}
@@ -75,6 +78,11 @@ func (s *Service) mastery(ch *content.Chapter, exercises map[string]model.Exerci
 			}
 		}
 	}
+	if ch.BossID != "" {
+		m.BossTotal = 1
+		p, ok := exercises[ch.BossID]
+		m.BossPassed = ok && p.PassedAt != nil
+	}
 	labRatio, quizRatio := 1.0, 1.0
 	if m.LabsTotal > 0 {
 		labRatio = float64(m.LabsPassed) / float64(m.LabsTotal)
@@ -83,8 +91,14 @@ func (s *Service) mastery(ch *content.Chapter, exercises map[string]model.Exerci
 		quizRatio = float64(m.QuizCorrect) / float64(m.QuizTotal)
 	}
 	m.Score = math.RoundToEven((labRatio+quizRatio)/2*1000) / 1000
-	m.Mastered = m.Score >= *ch.MasteryThreshold
+	// Le score mesure les TP et le quiz ; la maîtrise exige en plus le boss, sans indice, quand le module en a un.
+	m.Mastered = m.Score >= *ch.MasteryThreshold && (m.BossTotal == 0 || m.BossPassed)
 	return m
+}
+
+// started : au moins une leçon validée, un TP réussi ou une bonne réponse au quiz.
+func (m *ChapterMastery) started() bool {
+	return m.LessonsDone > 0 || m.LabsPassed > 0 || m.QuizCorrect > 0 || m.BossPassed
 }
 
 type ProgressSummary struct {

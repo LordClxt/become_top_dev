@@ -554,7 +554,7 @@ function MasteryRing({ score, threshold, mastered }: { score: number; threshold:
           {mastered ? 'Module maîtrisé' : 'Ta maîtrise'}
         </h2>
         <p className="mt-1 text-sm leading-relaxed text-muted">
-          Le trait marque {Math.round(threshold * 100)} % : le seuil de maîtrise, qui ouvre le module suivant.
+          Le trait marque {Math.round(threshold * 100)} % : le seuil de maîtrise. Seuil atteint et boss battu, le module suivant s’ouvre.
         </p>
       </div>
     </section>

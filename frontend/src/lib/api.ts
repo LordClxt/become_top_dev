@@ -51,6 +51,9 @@ export type Mastery = {
   quiz_total: number
   lessons_done: number
   lessons_total: number
+  /** 1 si le module a un boss : il faut le battre pour maîtriser le module. */
+  boss_total?: number
+  boss_passed?: boolean
   score: number
   mastered: boolean
   unlocked: boolean
