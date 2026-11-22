@@ -1,5 +1,5 @@
 id: grails
-title: "Groovy, Spring Boot & Grails sous le capot"
+title: "Groovy & Grails 7 sous le capot"
 book:
   title: "Programming Grails"
   authors: ["Burt Beckwith"]
@@ -8,7 +8,7 @@ books:
   - title: "Groovy in Action, 2nd Edition"
     authors: ["Dierk Koenig", "Paul King", "Guillaume Laforge", "Hamlet D'Arcy", "Cédric Champeau", "Erik Pragt", "Jon Skeet"]
     slug: groovy-in-action
-summary: "Groovy, Spring Boot puis Grails 7 : closures, MOP, conteneur Spring, autoconfiguration, MVC, transactions, GORM et Hibernate. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework."
+summary: "Groovy puis Grails 7 : closures, MOP, transformations AST, Spock, conventions de Grails, GORM et sa Session Hibernate. Spring et Spring Boot sont vus dans le cours Spring Boot ; ici, ce que Grails ajoute par-dessus. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework."
 order: 4
 kind: practical
 language: groovy
@@ -17,7 +17,7 @@ pilot: "01-closures-dsl"
 running_project:
   id: helpdesk
   title: "Helpdesk — de Minigrails à une vraie app Grails 7"
-  pitch: "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets écrite en Spring Boot, portée en Grails 7, durcie (sessions, N+1, sécurité) et déployée."
+  pitch: "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets en Grails 7, durcie (sessions, N+1, sécurité) et déployée."
 
 requires:
   - { course: spring, through: "09-jpa-hibernate", reason: "Grails 7 repose sur Spring Boot : conteneur, MVC, transactions et JPA/Hibernate sont vus en profondeur dans le cours Spring Boot." }
@@ -32,14 +32,6 @@ tracks:
       - "03-metaprogramming-mop"      # GiA ch8 + PG ch1
       - "04-ast-transformations"      # GiA ch9 (+ ch10 : @CompileStatic) — ce que Grails injecte à la compilation
       - "05-testing-spock"            # GiA ch17 + extra Spock 2.4 — l'outil de test de tout le reste du cours
-  - id: spring-boot
-    title: "Spring et Spring Boot"
-    chapters:
-      - "06-spring-container"         # PG ch4 + extra (doc Spring Framework 6.2) : beans, DI, scopes, cycle de vie, post-processors
-      - "07-boot-autoconfiguration"   # extra (doc Spring Boot 3.5) : @Conditional, starters, propriétés, profils
-      - "08-spring-mvc"               # PG ch4 + extra : DispatcherServlet, binding, validation, erreurs, filtres
-      - "09-data-transactions"        # PG ch4-5 + extra : JDBC, proxy @Transactional, propagation, JPA
-      - "10-boot-production"          # extra : slices de test, Actuator, configuration externalisée, observabilité
   - id: grails-7
     title: "Grails 7"
     chapters:
@@ -49,14 +41,12 @@ tracks:
       - "14-gorm-queries"             # PG ch3 (2e moitié)
       - "15-services-transactions"    # PG ch4
       - "16-config-plugins"           # PG ch7-8 + extra Grails 7
-      - "17-spring-security"          # PG ch9 + extra : plugin Spring Security de Grails 7
+      - "17-spring-security"          # PG ch9 + extra : plugin Spring Security de Grails 7 ; reprend l'ancien 21-security-owasp (OWASP vu sous l'angle du plugin)
   - id: grails-under-the-hood
     title: "Sous le capot et production"
     chapters:
-      - "18-hibernate-session"        # PG ch5
-      - "19-performance"              # PG ch5 : N+1, collections, cache
-      - "20-aop"                      # PG ch11
-      - "21-security-owasp"           # PG ch9 + OWASP 2021
+      - "18-hibernate-session"        # PG ch5, recentré sur GORM : Session, flush, dirty checking, ce que GORM fait de plus que JPA (spring 09 pour Hibernate lui-même)
+      - "19-performance"              # PG ch5, recentré sur GORM : N+1 des associations GORM, collections, cache de second niveau et de requêtes
       - "22-capstone"                 # Helpdesk complet, déployable (Docker)
   - id: groovy-advanced
     title: "Groovy avancé (optionnel)"
@@ -73,22 +63,15 @@ planned_titles:
   "03-metaprogramming-mop": "Métaprogrammation et MOP"
   "04-ast-transformations": "Transformations AST"
   "05-testing-spock": "Tester avec Spock"
-  "06-spring-container": "Le conteneur Spring"
-  "07-boot-autoconfiguration": "Spring Boot : l'autoconfiguration"
-  "08-spring-mvc": "Spring MVC"
-  "09-data-transactions": "Données et transactions"
-  "10-boot-production": "Spring Boot en production"
   "11-grails-conventions": "Les conventions de Grails"
   "12-controllers-views": "Contrôleurs, routes et vues"
   "13-gorm-domain": "Modéliser avec GORM"
   "14-gorm-queries": "Interroger avec GORM"
   "15-services-transactions": "Services transactionnels"
   "16-config-plugins": "Configuration et plugins"
-  "17-spring-security": "Spring Security dans Grails"
-  "18-hibernate-session": "La Session Hibernate"
-  "19-performance": "Performance : N+1, collections, cache"
-  "20-aop": "Programmation orientée aspects"
-  "21-security-owasp": "Sécurité : l'OWASP appliqué"
+  "17-spring-security": "Spring Security dans Grails, et l'OWASP"
+  "18-hibernate-session": "GORM et la Session Hibernate"
+  "19-performance": "Performance GORM : N+1, collections, cache"
   "22-capstone": "Capstone : Helpdesk en production"
   "23-static-groovy": "Groovy statique"
   "24-builders-dsl": "Builders et DSL"

@@ -549,12 +549,12 @@
     ],
     "running_project": {
      "id": "helpdesk",
-     "pitch": "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets écrite en Spring Boot, portée en Grails 7, durcie (sessions, N+1, sécurité) et déployée.",
+     "pitch": "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets en Grails 7, durcie (sessions, N+1, sécurité) et déployée.",
      "title": "Helpdesk — de Minigrails à une vraie app Grails 7"
     },
     "slug": "grails",
-    "summary": "Groovy, Spring Boot puis Grails 7 : closures, MOP, conteneur Spring, autoconfiguration, MVC, transactions, GORM et Hibernate. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework.",
-    "title": "Groovy, Spring Boot & Grails sous le capot",
+    "summary": "Groovy puis Grails 7 : closures, MOP, transformations AST, Spock, conventions de Grails, GORM et sa Session Hibernate. Spring et Spring Boot sont vus dans le cours Spring Boot ; ici, ce que Grails ajoute par-dessus. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework.",
+    "title": "Groovy & Grails 7 sous le capot",
     "tracks": [
      {
       "chapters": [
@@ -606,38 +606,6 @@
       "chapters": [
        {
         "available": false,
-        "slug": "06-spring-container",
-        "title": "Le conteneur Spring"
-       },
-       {
-        "available": false,
-        "slug": "07-boot-autoconfiguration",
-        "title": "Spring Boot : l'autoconfiguration"
-       },
-       {
-        "available": false,
-        "slug": "08-spring-mvc",
-        "title": "Spring MVC"
-       },
-       {
-        "available": false,
-        "slug": "09-data-transactions",
-        "title": "Données et transactions"
-       },
-       {
-        "available": false,
-        "slug": "10-boot-production",
-        "title": "Spring Boot en production"
-       }
-      ],
-      "id": "spring-boot",
-      "optional": false,
-      "title": "Spring et Spring Boot"
-     },
-     {
-      "chapters": [
-       {
-        "available": false,
         "slug": "11-grails-conventions",
         "title": "Les conventions de Grails"
        },
@@ -669,7 +637,7 @@
        {
         "available": false,
         "slug": "17-spring-security",
-        "title": "Spring Security dans Grails"
+        "title": "Spring Security dans Grails, et l'OWASP"
        }
       ],
       "id": "grails-7",
@@ -681,22 +649,12 @@
        {
         "available": false,
         "slug": "18-hibernate-session",
-        "title": "La Session Hibernate"
+        "title": "GORM et la Session Hibernate"
        },
        {
         "available": false,
         "slug": "19-performance",
-        "title": "Performance : N+1, collections, cache"
-       },
-       {
-        "available": false,
-        "slug": "20-aop",
-        "title": "Programmation orientée aspects"
-       },
-       {
-        "available": false,
-        "slug": "21-security-owasp",
-        "title": "Sécurité : l'OWASP appliqué"
+        "title": "Performance GORM : N+1, collections, cache"
        },
        {
         "available": false,
@@ -1586,12 +1544,12 @@
     ],
     "running_project": {
      "id": "helpdesk",
-     "pitch": "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets écrite en Spring Boot, portée en Grails 7, durcie (sessions, N+1, sécurité) et déployée.",
+     "pitch": "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets en Grails 7, durcie (sessions, N+1, sécurité) et déployée.",
      "title": "Helpdesk — de Minigrails à une vraie app Grails 7"
     },
     "slug": "grails",
-    "summary": "Groovy, Spring Boot puis Grails 7 : closures, MOP, conteneur Spring, autoconfiguration, MVC, transactions, GORM et Hibernate. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework.",
-    "title": "Groovy, Spring Boot & Grails sous le capot",
+    "summary": "Groovy puis Grails 7 : closures, MOP, transformations AST, Spock, conventions de Grails, GORM et sa Session Hibernate. Spring et Spring Boot sont vus dans le cours Spring Boot ; ici, ce que Grails ajoute par-dessus. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework.",
+    "title": "Groovy & Grails 7 sous le capot",
     "tracks": [
      {
       "chapters": [
@@ -1685,38 +1643,6 @@
       "chapters": [
        {
         "available": false,
-        "slug": "06-spring-container",
-        "title": "Le conteneur Spring"
-       },
-       {
-        "available": false,
-        "slug": "07-boot-autoconfiguration",
-        "title": "Spring Boot : l'autoconfiguration"
-       },
-       {
-        "available": false,
-        "slug": "08-spring-mvc",
-        "title": "Spring MVC"
-       },
-       {
-        "available": false,
-        "slug": "09-data-transactions",
-        "title": "Données et transactions"
-       },
-       {
-        "available": false,
-        "slug": "10-boot-production",
-        "title": "Spring Boot en production"
-       }
-      ],
-      "id": "spring-boot",
-      "optional": false,
-      "title": "Spring et Spring Boot"
-     },
-     {
-      "chapters": [
-       {
-        "available": false,
         "slug": "11-grails-conventions",
         "title": "Les conventions de Grails"
        },
@@ -1748,7 +1674,7 @@
        {
         "available": false,
         "slug": "17-spring-security",
-        "title": "Spring Security dans Grails"
+        "title": "Spring Security dans Grails, et l'OWASP"
        }
       ],
       "id": "grails-7",
@@ -1760,22 +1686,12 @@
        {
         "available": false,
         "slug": "18-hibernate-session",
-        "title": "La Session Hibernate"
+        "title": "GORM et la Session Hibernate"
        },
        {
         "available": false,
         "slug": "19-performance",
-        "title": "Performance : N+1, collections, cache"
-       },
-       {
-        "available": false,
-        "slug": "20-aop",
-        "title": "Programmation orientée aspects"
-       },
-       {
-        "available": false,
-        "slug": "21-security-owasp",
-        "title": "Sécurité : l'OWASP appliqué"
+        "title": "Performance GORM : N+1, collections, cache"
        },
        {
         "available": false,
@@ -5924,7 +5840,7 @@
    },
    "course": {
     "id": "grails",
-    "title": "Groovy, Spring Boot & Grails sous le capot"
+    "title": "Groovy & Grails 7 sous le capot"
    },
    "id": "grails-ch00",
    "lessons": [
@@ -6058,7 +5974,7 @@
    },
    "course": {
     "id": "grails",
-    "title": "Groovy, Spring Boot & Grails sous le capot"
+    "title": "Groovy & Grails 7 sous le capot"
    },
    "id": "grails-ch01",
    "lessons": [
@@ -6192,7 +6108,7 @@
    },
    "course": {
     "id": "grails",
-    "title": "Groovy, Spring Boot & Grails sous le capot"
+    "title": "Groovy & Grails 7 sous le capot"
    },
    "id": "grails-ch02",
    "lessons": [
@@ -104675,12 +104591,12 @@
     ],
     "running_project": {
      "id": "helpdesk",
-     "pitch": "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets écrite en Spring Boot, portée en Grails 7, durcie (sessions, N+1, sécurité) et déployée.",
+     "pitch": "D'abord Minigrails, un mini-framework reconstruit en Groovy pour comprendre ; puis Helpdesk, une app de tickets en Grails 7, durcie (sessions, N+1, sécurité) et déployée.",
      "title": "Helpdesk — de Minigrails à une vraie app Grails 7"
     },
     "slug": "grails",
-    "summary": "Groovy, Spring Boot puis Grails 7 : closures, MOP, conteneur Spring, autoconfiguration, MVC, transactions, GORM et Hibernate. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework.",
-    "title": "Groovy, Spring Boot & Grails sous le capot",
+    "summary": "Groovy puis Grails 7 : closures, MOP, transformations AST, Spock, conventions de Grails, GORM et sa Session Hibernate. Spring et Spring Boot sont vus dans le cours Spring Boot ; ici, ce que Grails ajoute par-dessus. Chaque mécanisme est expliqué sous le capot, puis pratiqué sur le vrai framework.",
+    "title": "Groovy & Grails 7 sous le capot",
     "tracks": [
      {
       "chapters": [
@@ -104774,38 +104690,6 @@
       "chapters": [
        {
         "available": false,
-        "slug": "06-spring-container",
-        "title": "Le conteneur Spring"
-       },
-       {
-        "available": false,
-        "slug": "07-boot-autoconfiguration",
-        "title": "Spring Boot : l'autoconfiguration"
-       },
-       {
-        "available": false,
-        "slug": "08-spring-mvc",
-        "title": "Spring MVC"
-       },
-       {
-        "available": false,
-        "slug": "09-data-transactions",
-        "title": "Données et transactions"
-       },
-       {
-        "available": false,
-        "slug": "10-boot-production",
-        "title": "Spring Boot en production"
-       }
-      ],
-      "id": "spring-boot",
-      "optional": false,
-      "title": "Spring et Spring Boot"
-     },
-     {
-      "chapters": [
-       {
-        "available": false,
         "slug": "11-grails-conventions",
         "title": "Les conventions de Grails"
        },
@@ -104837,7 +104721,7 @@
        {
         "available": false,
         "slug": "17-spring-security",
-        "title": "Spring Security dans Grails"
+        "title": "Spring Security dans Grails, et l'OWASP"
        }
       ],
       "id": "grails-7",
@@ -104849,22 +104733,12 @@
        {
         "available": false,
         "slug": "18-hibernate-session",
-        "title": "La Session Hibernate"
+        "title": "GORM et la Session Hibernate"
        },
        {
         "available": false,
         "slug": "19-performance",
-        "title": "Performance : N+1, collections, cache"
-       },
-       {
-        "available": false,
-        "slug": "20-aop",
-        "title": "Programmation orientée aspects"
-       },
-       {
-        "available": false,
-        "slug": "21-security-owasp",
-        "title": "Sécurité : l'OWASP appliqué"
+        "title": "Performance GORM : N+1, collections, cache"
        },
        {
         "available": false,
