@@ -1,0 +1,14 @@
+id: spring-ch05-project
+title: "Tixa, jalon 5 : l'API publique du catalogue"
+pitch: "Tixa ouvre son catalogue aux partenaires : une API JSON qui dit clairement ce qui ne va pas, qui sait qui l'appelle, qui ne survend pas, et qui pourra évoluer sans casser ses premiers clients."
+running_project: tixa
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/ApiController.java", "app/EventView.java", "app/Problems.java", "app/ApiErrors.java", "app/CurrentCustomerResolver.java", "app/CorrelationIdFilter.java", "app/WebConfig.java", "app/ReservationRequest.java"]
+concepts: [spring-ch05-response-body, spring-ch05-custom-resolver, spring-ch05-problem-detail, spring-ch05-bean-validation, spring-ch05-correlation-id, spring-ch05-api-versioning, spring-ch05-version-defaults]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

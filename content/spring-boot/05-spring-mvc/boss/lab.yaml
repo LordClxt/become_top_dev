@@ -1,0 +1,13 @@
+id: spring-ch05-boss
+title: "Boss : des réservations idempotentes"
+kind: code
+language: java
+difficulty: 5
+xp: 250
+timeout_s: 120
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/ReservationController.java", "app/Problems.java", "app/IdempotencyKeyResolver.java", "app/IdempotencyStore.java", "app/ApiErrors.java", "app/WebConfig.java", "app/ReservationRequest.java"]
+concepts: [spring-ch05-custom-resolver, spring-ch05-argument-resolvers, spring-ch05-bean-validation, spring-ch05-problem-detail, spring-ch05-controller-advice, spring-ch05-response-body]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

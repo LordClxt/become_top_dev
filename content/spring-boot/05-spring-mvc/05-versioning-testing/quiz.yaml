@@ -1,0 +1,86 @@
+id: spring-ch05-l05-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Routes `version = \"1\"` et `version = \"2+\"`, versions prises en charge 1, 2 et 3. Quelle route répond à `API-Version: 3` ?"
+    choices:
+      - "Aucune : il faudrait une route \"3\""
+      - "La route \"2+\" : une version de base couvre sa version et les suivantes"
+      - "La route \"1\", la plus ancienne"
+      - "Les deux, et Spring lève une ambiguïté"
+    answer: 1
+    explanation: "« 2+ » répond pour 2 et toutes les versions supérieures prises en charge, tant qu'aucune route plus précise n'existe. On ne déclare une nouvelle route que pour ce qui change."
+    concept: spring-ch05-api-versioning
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "On active le versionnement par en-tête sur une API en service, sans autre réglage. Que se passe-t-il pour les clients existants, qui n'envoient pas d'en-tête ?"
+    choices:
+      - "Rien ne change pour eux"
+      - "Toutes leurs requêtes répondent 400, même sur les routes non versionnées : une version est exigée par défaut"
+      - "Ils reçoivent la version la plus récente"
+      - "Ils reçoivent un avertissement Deprecation"
+    answer: 1
+    explanation: "Activé sans version par défaut, le versionnement exige une version sur toutes les requêtes : MissingApiVersionException, 400. C'est une panne générale au déploiement. setDefaultVersion avec la version actuelle évite ce piège."
+    concept: spring-ch05-version-defaults
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Quelle configuration protège le mieux les clients d'une API déjà en production, qui n'envoient aucune version ?"
+    choices:
+      - "setVersionRequired(false), sans version par défaut"
+      - "setDefaultVersion avec la version que ces clients utilisent aujourd'hui"
+      - "Aucun réglage"
+      - "Une seule route \"1+\" pour tout"
+    answer: 1
+    explanation: "Avec une version par défaut, un client muet reste sur le contrat qu'il connaît, même quand de nouvelles versions sortent. Sans défaut et sans exigence, il suivrait la version la plus haute et casserait à chaque nouvelle version."
+    concept: spring-ch05-version-defaults
+    difficulty: 2
+  - id: q4
+    type: multiple
+    prompt: "Quels en-têtes `StandardApiVersionDeprecationHandler` peut-il ajouter aux réponses d'une version en fin de vie ?"
+    choices:
+      - "Deprecation (date de dépréciation)"
+      - "Sunset (date d'extinction)"
+      - "Link, avec rel=\"sunset\" vers la documentation"
+      - "Retry-After"
+    answer: [0, 1, 2]
+    explanation: "Deprecation (RFC 9745), Sunset (RFC 8594) et un Link de relation sunset (ou deprecation) vers une page de migration. Retry-After concerne la limitation de débit et l'indisponibilité, pas le versionnement."
+    concept: spring-ch05-version-deprecation
+    difficulty: 1
+  - id: q5
+    type: multiple
+    prompt: "Que charge `@WebMvcTest(EventController.class)` ?"
+    choices:
+      - "Le contrôleur EventController"
+      - "Les @ControllerAdvice et les WebMvcConfigurer"
+      - "Les @Service et les @Repository de l'application"
+      - "Un serveur Tomcat sur un port libre"
+    answer: [0, 1]
+    explanation: "La tranche web contient le contrôleur ciblé, les conseils, les WebMvcConfigurer, filtres et intercepteurs, Jackson et la validation. Pas les services (à importer ou simuler), et pas de serveur : MockMvcTester parle à une DispatcherServlet en mémoire."
+    concept: spring-ch05-webmvctest
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Quel comportement un test `@WebMvcTest` ne peut-il **pas** vérifier ?"
+    choices:
+      - "Le statut 400 d'une version inconnue"
+      - "Le JSON de la version 2"
+      - "Un en-tête perdu parce que Tomcat avait déjà envoyé la réponse avant postHandle"
+      - "Le 404 d'un événement inconnu"
+    answer: 2
+    explanation: "MockMvc garde la réponse en mémoire : il ne reproduit pas l'envoi réel par Tomcat (leçon 4). Routage, conversion, validation, erreurs et versionnement se testent très bien en tranche ; le transport demande @SpringBootTest avec RANDOM_PORT."
+    concept: spring-ch05-webmvctest
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Avec le parseur de versions par défaut, laquelle est la plus récente : `1.9` ou `1.10` ?"
+    choices:
+      - "1.9, car 9 > 1 en comparant les chaînes"
+      - "1.10 : les versions sont comparées comme des versions sémantiques, numéro par numéro"
+      - "Elles sont égales"
+      - "Spring refuse les versions à deux chiffres"
+    answer: 1
+    explanation: "SemanticApiVersionParser découpe majeure, mineure et correctif, et compare des nombres : 10 > 9. Une comparaison de chaînes aurait inversé l'ordre."
+    concept: spring-ch05-api-versioning
+    difficulty: 1

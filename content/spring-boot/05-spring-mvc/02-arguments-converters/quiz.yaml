@@ -1,0 +1,86 @@
+id: spring-ch05-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Un résolveur maison répond oui pour le type `Customer`. Une méthode déclare `@RequestBody Customer c`. Qui fournit `c` ?"
+    choices:
+      - "Le résolveur maison : il a été ajouté par l'application, il est prioritaire"
+      - "Le résolveur de @RequestBody, intégré, consulté avant les résolveurs de l'application"
+      - "Les deux, et Spring lève une exception d'ambiguïté"
+      - "Aucun : Spring refuse de démarrer"
+    answer: 1
+    explanation: "L'ordre est fixe : annotations intégrées, puis résolveurs de l'application, puis attrape-tout. @RequestBody est pris par RequestResponseBodyMethodProcessor, avant que le résolveur maison soit consulté. Il n'y a pas d'ambiguïté : le premier qui répond oui gagne."
+    concept: spring-ch05-argument-resolvers
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Un paramètre `Filter filter` (un record à toi), sans annotation, sans résolveur maison. Que fait Spring ?"
+    choices:
+      - "Il lève une exception : paramètre inconnu"
+      - "Il le traite comme un @ModelAttribute : il crée un Filter et lie ses champs aux paramètres de la requête"
+      - "Il le lit dans le corps JSON"
+      - "Il passe null"
+    answer: 1
+    explanation: "Pour un type non simple sans annotation, l'attrape-tout est @ModelAttribute : construction de l'objet et liaison des paramètres de requête (?city=Lyon&from=…). Pratique pour des filtres de recherche ; surprenant quand on attendait un résolveur maison non enregistré."
+    concept: spring-ch05-argument-resolvers
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Quelle est la différence entre un 415 et un 406 ?"
+    choices:
+      - "Aucune, ce sont deux noms du même problème"
+      - "415 : Spring ne sait pas lire le corps reçu (Content-Type) ; 406 : il ne sait pas produire ce que le client demande (Accept)"
+      - "415 : JSON mal formé ; 406 : champ manquant"
+      - "415 vient de Tomcat, 406 de Spring"
+    answer: 1
+    explanation: "Lecture de @RequestBody selon Content-Type : aucun convertisseur, 415 Unsupported Media Type. Écriture de la réponse selon Accept : aucune intersection avec ce que les convertisseurs produisent, 406 Not Acceptable. Un JSON mal formé, lui, donne 400."
+    concept: spring-ch05-message-converters
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Dans Spring Boot 4, un client envoie `{\"name\": \"jazz\"}` vers `@RequestBody NewEvent e`, avec `record NewEvent(String name, int seats)`. Que se passe-t-il ?"
+    choices:
+      - "seats vaut 0 et la méthode est appelée"
+      - "400 : avec Jackson 3, un champ primitif absent fait échouer la lecture"
+      - "500 : NullPointerException dans le constructeur"
+      - "seats vaut null"
+    answer: 1
+    explanation: "Jackson 3 active FAIL_ON_NULL_FOR_PRIMITIVES par défaut : un int absent ou null rend le corps illisible, 400, sans dire quel champ. Avec Jackson 2, seats aurait valu 0 en silence. Un Integer avec @NotNull donne une erreur de validation qui nomme le champ."
+    concept: spring-ch05-message-converters
+    difficulty: 3
+  - id: q5
+    type: multiple
+    prompt: "Que faut-il pour qu'un paramètre `@CurrentCustomer Customer c` soit fourni par ton résolveur ?"
+    choices:
+      - "Une classe qui implémente HandlerMethodArgumentResolver, avec un supportsParameter étroit"
+      - "L'enregistrer avec addArgumentResolvers dans un WebMvcConfigurer"
+      - "Annoter la configuration avec @EnableWebMvc"
+      - "Annoter le résolveur @Component : Spring MVC le trouve tout seul"
+    answer: [0, 1]
+    explanation: "Les résolveurs d'arguments ne sont pas découverts par le scan : il faut les ajouter avec addArgumentResolvers. @EnableWebMvc, dans une application Spring Boot, remplacerait toute la configuration automatique de Spring MVC : à éviter."
+    concept: spring-ch05-custom-resolver
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Pourquoi éviter `@EnableWebMvc` dans une application Spring Boot ?"
+    choices:
+      - "Il est déprécié depuis Spring Framework 7"
+      - "Il désactive WebMvcAutoConfiguration : convertisseurs et réglages de Jackson de Spring Boot, ressources statiques… disparaissent sans erreur"
+      - "Il empêche les tests @WebMvcTest"
+      - "Il double les DispatcherServlet"
+    answer: 1
+    explanation: "WebMvcAutoConfiguration recule dès qu'une configuration de Spring MVC complète existe (@ConditionalOnMissingBean sur WebMvcConfigurationSupport, module 4). Pour ajouter des réglages, implements WebMvcConfigurer suffit et garde ceux de Spring Boot."
+    concept: spring-ch05-custom-resolver
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "Quel retour pour `GET /events/{id}` qui doit répondre 200 avec l'événement, ou 404 sans corps ?"
+    choices:
+      - "Event, en renvoyant null quand il n'existe pas"
+      - "ResponseEntity<Event>, avec ResponseEntity.of(catalog.findById(id))"
+      - "Optional<Event>, que Spring transforme en 404"
+      - "String, avec le JSON écrit à la main"
+    answer: 1
+    explanation: "ResponseEntity porte le statut : of(optional) donne 200 et le corps, ou 404 sans corps. Renvoyer null avec @ResponseBody produit un 200 au corps vide, ce qui trompe le client."
+    concept: spring-ch05-message-converters
+    difficulty: 1

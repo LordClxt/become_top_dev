@@ -1,0 +1,7 @@
+id: spring-ch05-version-routing
+concept: spring-ch05-version-defaults
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : des requêtes avec API-Version 1, 2, 3, 9 ou sans en-tête arrivent devant les routes « 1 » et « 2+ » ; on rejoue la scène avec trois configurations (sans défaut, défaut 1, version facultative) et on voit où chaque requête atterrit, dont l'ancien client qui bascule en silence sur la version la plus récente."
+entry: scene.html
+duration_s: 12
+status: idea

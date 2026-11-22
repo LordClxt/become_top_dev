@@ -1,0 +1,86 @@
+id: spring-ch05-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "`create(@RequestBody NewReservation r)` : le record a `@Max(8)` sur `seats`, mais une réservation de 9 places passe. Pourquoi ?"
+    choices:
+      - "Hibernate Validator n'est pas compatible avec les records"
+      - "Rien ne déclenche la validation de l'objet : il manque @Valid sur le paramètre"
+      - "@Max ne s'applique qu'aux Long"
+      - "Il faut @Validated sur la classe du record"
+    answer: 1
+    explanation: "Les contraintes d'un objet de @RequestBody ne sont vérifiées que si le paramètre porte @Valid (ou @Validated). Sans lui, l'objet est lu et passé tel quel. Les records sont parfaitement pris en charge."
+    concept: spring-ch05-bean-validation
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Quels champs définit la RFC 9457 pour un ProblemDetail ?"
+    choices:
+      - "type"
+      - "title"
+      - "status, detail et instance"
+      - "stackTrace"
+    answer: [0, 1, 2]
+    explanation: "type (la sorte de problème, une URI stable), title, status, detail (cette occurrence) et instance (la requête). Toute autre propriété est une extension libre, comme errors ou eventId. Une trace de pile n'a rien à faire dans une réponse."
+    concept: spring-ch05-problem-detail
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Un conseil ne contient qu'un gestionnaire `@ExceptionHandler(Exception.class)` qui renvoie 500. Un client envoie du `text/plain` à un `@RequestBody`. Que reçoit-il ?"
+    choices:
+      - "415 : les exceptions de Spring MVC ne passent jamais par les conseils"
+      - "500 : le gestionnaire d'Exception est le seul qui convienne à HttpMediaTypeNotSupportedException, il passe avant DefaultHandlerExceptionResolver"
+      - "400"
+      - "406"
+    answer: 1
+    explanation: "ExceptionHandlerExceptionResolver est consulté en premier. Le seul gestionnaire candidat, celui d'Exception, convient : il répond 500. Étendre ResponseEntityExceptionHandler ajoute des gestionnaires plus proches pour chaque exception de Spring MVC, qui retrouvent leur statut."
+    concept: spring-ch05-controller-advice
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "`spring.mvc.problemdetails.enabled=true`. Le contrôleur lève `EventNotFoundException extends RuntimeException`, sans `@ResponseStatus`. Que reçoit le client ?"
+    choices:
+      - "404 en ProblemDetail : Spring Boot devine le statut d'après le nom"
+      - "Un 500 générique de /error : la propriété ne couvre que les exceptions de Spring MVC"
+      - "Un 400 en ProblemDetail"
+      - "Le message de l'exception en texte brut"
+    answer: 1
+    explanation: "La propriété enregistre un ResponseEntityExceptionHandler, qui ne connaît que les exceptions de Spring MVC et les ErrorResponse. Une exception ordinaire n'est résolue par personne et finit dans /error. Solution : la faire hériter d'ErrorResponseException, ou lui écrire un @ExceptionHandler."
+    concept: spring-ch05-problem-detail
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Que doit contenir la réponse à une panne imprévue (base de données injoignable) ?"
+    choices:
+      - "Le message de l'exception, pour aider le client à comprendre"
+      - "La trace de pile complète, en mode développement comme en production"
+      - "Un 500 générique avec une référence ; le message et la trace vont dans les journaux, retrouvables grâce à la référence"
+      - "Un 200 avec un champ error, pour ne pas inquiéter le client"
+    answer: 2
+    explanation: "Le client ne peut rien faire d'un nom d'hôte ou d'un message SQL, mais un attaquant si. La référence permet au support de retrouver la trace complète dans les journaux. Et un 200 pour une erreur casse tous les clients qui lisent le statut."
+    concept: spring-ch05-error-hygiene
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Pourquoi un test ne doit-il pas vérifier l'ordre de la liste des champs fautifs ?"
+    choices:
+      - "Parce que JSON n'a pas de tableaux ordonnés"
+      - "Parce que l'ordre des violations de contraintes n'est pas garanti : il peut changer d'une exécution ou d'une version à l'autre"
+      - "Parce que Spring trie les champs par ordre alphabétique"
+      - "Parce que le premier champ est toujours omis"
+    answer: 1
+    explanation: "Bean Validation rassemble les violations dans un ensemble, sans ordre garanti. Un test qui compare la liste dans un ordre précis échouera au hasard ; on compare un ensemble (containsExactlyInAnyOrder)."
+    concept: spring-ch05-bean-validation
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Comment faire porter à une exception métier son propre ProblemDetail, sans rien ajouter au conseil ?"
+    choices:
+      - "L'annoter @ControllerAdvice"
+      - "La faire hériter d'ErrorResponseException et remplir son corps (type, title, propriétés) dans le constructeur"
+      - "Surcharger toString()"
+      - "La déclarer dans application.properties"
+    answer: 1
+    explanation: "ErrorResponseException implémente ErrorResponse : statut, en-têtes et ProblemDetail voyagent avec l'exception. ResponseEntityExceptionHandler (ou la propriété de Spring Boot) sait déjà l'écrire."
+    concept: spring-ch05-problem-detail
+    difficulty: 2

@@ -1,0 +1,7 @@
+id: spring-ch05-error-paths
+concept: spring-ch05-controller-advice
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : quatre exceptions partent du contrôleur (validation, ErrorResponseException métier, 415 de Spring MVC, IllegalStateException imprévue) ; chacune trouve son gestionnaire le plus proche dans le conseil et ressort en ProblemDetail, sauf l'imprévue qui perd son message en chemin et ressort en 500 avec une référence."
+entry: scene.html
+duration_s: 12
+status: idea

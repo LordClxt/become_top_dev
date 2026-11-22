@@ -1,0 +1,86 @@
+id: spring-ch05-l04-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Quelles requêtes un filtre de servlet voit-il, et pas un intercepteur de Spring MVC ?"
+    choices:
+      - "Une requête bloquée par Spring Security avant la DispatcherServlet"
+      - "Une requête vers un endpoint d'un autre servlet que la DispatcherServlet"
+      - "Une requête traitée par une méthode @GetMapping"
+      - "Une requête dont l'exception est traduite par un @ExceptionHandler"
+    answer: [0, 1]
+    explanation: "Le filtre est dans Tomcat, autour de toute la chaîne : il voit ce qui n'atteint jamais la DispatcherServlet (refus de sécurité, autre servlet). Une méthode @GetMapping, avec ou sans exception traduite par un @ExceptionHandler, passe par la DispatcherServlet : les deux la voient."
+    concept: spring-ch05-servlet-filter
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "Le handler lève une exception résolue par un @ExceptionHandler. Quelles méthodes de l'intercepteur sont appelées pour cette requête ?"
+    choices:
+      - "preHandle, postHandle et afterCompletion"
+      - "preHandle et afterCompletion (avec ex = null, puisque l'exception a été résolue)"
+      - "preHandle seulement"
+      - "afterCompletion seulement"
+    answer: 1
+    explanation: "postHandle n'est appelé qu'après un appel réussi du handler. afterCompletion l'est toujours ; il reçoit l'exception seulement si personne ne l'a résolue. Ici, le @ExceptionHandler l'a résolue : ex vaut null."
+    concept: spring-ch05-handler-interceptor
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Un test MockMvc vérifie qu'un en-tête ajouté dans `postHandle` est présent sur `GET /ping` (un `String`). Il passe. En production, l'en-tête manque. Pourquoi ?"
+    choices:
+      - "MockMvc n'appelle pas les intercepteurs"
+      - "MockMvc garde la réponse en mémoire et accepte un en-tête à tout moment ; Tomcat, lui, a déjà envoyé statut et en-têtes avec le corps texte avant postHandle"
+      - "La production utilise HTTP/2, qui interdit les en-têtes personnalisés"
+      - "Les en-têtes ne sont pas envoyés avec une réponse de moins de 8 Ko"
+    answer: 1
+    explanation: "C'est la réponse engagée : une fois le corps parti, Tomcat ignore les nouveaux en-têtes. MockMvc ne simule pas cet envoi. Pour ce genre de comportement, un test sur un vrai serveur (@SpringBootTest avec RANDOM_PORT) est le seul fiable."
+    concept: spring-ch05-response-commit
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Pourquoi retirer l'identifiant du MDC dans un `finally` à la fin du filtre ?"
+    choices:
+      - "Pour libérer de la mémoire"
+      - "Parce que Tomcat réutilise ses threads : sans retrait, la requête suivante sur ce thread hériterait de l'identifiant dans ses journaux"
+      - "Parce que SLF4J l'exige à la compilation"
+      - "Pour que l'en-tête de réponse soit envoyé"
+    answer: 1
+    explanation: "Le MDC est attaché au thread. Les threads de Tomcat viennent d'un pool : un identifiant oublié se retrouve dans les journaux d'une autre requête, ce qui égare le support. Le finally garantit le retrait, même en cas d'exception."
+    concept: spring-ch05-correlation-id
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi ne pas reprendre tel quel l'en-tête `X-Request-Id` envoyé par le client ?"
+    choices:
+      - "Parce qu'il est toujours faux"
+      - "Parce que la valeur finit dans les journaux et dans la réponse : sans contrôle, un client peut y glisser des caractères de contrôle ou de fausses lignes de journal"
+      - "Parce que HTTP interdit de renvoyer un en-tête reçu"
+      - "Parce qu'un UUID est plus rapide à comparer"
+    answer: 1
+    explanation: "Reprendre l'identifiant d'un client (ou d'un service amont) est utile pour suivre une requête d'un système à l'autre, à condition de le valider : alphabet restreint, longueur bornée. Sinon, on en génère un."
+    concept: spring-ch05-correlation-id
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Un intercepteur compte les requêtes servies. Une requête sur dix échoue avec une exception non gérée. Que montre le compteur ?"
+    choices:
+      - "Le bon nombre de requêtes"
+      - "Plus que le nombre réel : chaque échec repasse par la DispatcherServlet pour /error, et l'intercepteur le compte une seconde fois"
+      - "Moins : les échecs ne sont pas comptés"
+      - "Zéro pour les échecs, car preHandle n'est pas appelé"
+    answer: 1
+    explanation: "Le dispatch d'erreur vers /error traverse à nouveau la DispatcherServlet et ses intercepteurs. Un compteur doit vérifier request.getDispatcherType(), ou vivre dans un OncePerRequestFilter (ou mieux, dans les métriques d'Actuator, module 13)."
+    concept: spring-ch05-handler-interceptor
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "`preHandle` d'un garde d'accès renvoie `false`. Que reçoit le client si le garde n'a rien écrit ?"
+    choices:
+      - "Un 403 automatique"
+      - "Un 401 automatique"
+      - "Un 200 avec un corps vide : renvoyer false arrête le traitement, mais c'est au garde d'écrire la réponse (sendError(403), par exemple)"
+      - "Une exception côté serveur"
+    answer: 2
+    explanation: "false signifie « j'ai traité la requête, ne va pas plus loin ». Spring n'invente pas de statut : sans réponse écrite, le client reçoit le statut par défaut, 200, et un corps vide. D'où le response.sendError(HttpServletResponse.SC_FORBIDDEN) avant le return false."
+    concept: spring-ch05-handler-interceptor
+    difficulty: 2

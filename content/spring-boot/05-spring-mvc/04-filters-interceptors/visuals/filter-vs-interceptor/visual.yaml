@@ -1,0 +1,7 @@
+id: spring-ch05-filter-vs-interceptor
+concept: spring-ch05-servlet-filter
+format: hyperframes
+justification: "Une séquence de 14 s à regarder : trois requêtes (une réussie, une URL inconnue, une panne) traversent deux anneaux, les filtres autour de la DispatcherServlet puis les intercepteurs autour du handler ; on voit lesquelles chaque anneau capte, le second passage vers /error qui ne traverse que l'anneau intérieur, et le moment où la réponse texte part avant postHandle."
+entry: scene.html
+duration_s: 14
+status: idea

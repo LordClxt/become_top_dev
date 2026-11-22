@@ -1,0 +1,12 @@
+id: spring-ch05-l03-lab-debug-error-responses
+title: "Débogage : des erreurs qui n'aident personne"
+kind: code
+language: java
+difficulty: 3
+xp: 90
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/ApiErrors.java", "app/NewReservation.java", "app/EventNotFoundException.java", "app/ReservationController.java"]
+concepts: [spring-ch05-bean-validation, spring-ch05-problem-detail, spring-ch05-controller-advice, spring-ch05-error-hygiene]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

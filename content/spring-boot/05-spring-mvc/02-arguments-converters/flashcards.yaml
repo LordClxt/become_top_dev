@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Ordre des résolveurs d'arguments ?"
+    back: "Annotations intégrées (@PathVariable, @RequestParam, @RequestBody…), puis résolveurs de l'application, puis attrape-tout."
+    concept: spring-ch05-argument-resolvers
+  - id: fc2
+    front: "Attrape-tout pour un paramètre sans annotation ?"
+    back: "Type simple : @RequestParam implicite. Sinon : @ModelAttribute (objet lié aux paramètres de requête)."
+    concept: spring-ch05-argument-resolvers
+  - id: fc3
+    front: "Conversion d'un paramètre de chemin impossible ?"
+    back: "MethodArgumentTypeMismatchException : 400, avant l'appel de la méthode."
+    concept: spring-ch05-type-conversion
+  - id: fc4
+    front: "@RequestParam absent ?"
+    back: "Obligatoire par défaut : 400. defaultValue ou required = false le rendent facultatif."
+    concept: spring-ch05-type-conversion
+  - id: fc5
+    front: "415 ou 406 ?"
+    back: "415 : impossible de lire le corps reçu (Content-Type). 406 : impossible de produire ce que demande Accept."
+    concept: spring-ch05-message-converters
+  - id: fc6
+    front: "Jackson 3 et un int absent du JSON ?"
+    back: "Échec de lecture (FAIL_ON_NULL_FOR_PRIMITIVES activé par défaut) : 400 qui ne nomme pas le champ."
+    concept: spring-ch05-message-converters
+  - id: fc7
+    front: "Les trois pièces d'un résolveur maison ?"
+    back: "Une annotation à toi, un HandlerMethodArgumentResolver (supportsParameter étroit + resolveArgument), addArgumentResolvers dans un WebMvcConfigurer."
+    concept: spring-ch05-custom-resolver
+  - id: fc8
+    front: "implements WebMvcConfigurer ou @EnableWebMvc ?"
+    back: "WebMvcConfigurer ajoute à Spring Boot. @EnableWebMvc remplace toute sa configuration de Spring MVC."
+    concept: spring-ch05-custom-resolver
+  - id: fc9
+    front: "Statut qui dépend du résultat ?"
+    back: "ResponseEntity : of(optional) pour 200/404, created(uri).body(x) pour 201 + Location."
+    concept: spring-ch05-message-converters

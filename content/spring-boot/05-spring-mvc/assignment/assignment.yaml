@@ -1,0 +1,12 @@
+id: spring-ch05-assignment
+title: "Une recherche d'événements paginée, validée d'un bloc"
+kind: code
+language: java
+difficulty: 3
+xp: 150
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/EventSearch.java", "app/SearchController.java"]
+concepts: [spring-ch05-argument-resolvers, spring-ch05-type-conversion, spring-ch05-bean-validation, spring-ch05-problem-detail]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

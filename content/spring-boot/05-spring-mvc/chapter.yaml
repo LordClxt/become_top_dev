@@ -1,0 +1,22 @@
+id: spring-ch05
+title: "Spring MVC sous le capot"
+subtitle: "Le trajet d'une requête, les résolveurs et convertisseurs, la validation et les erreurs ProblemDetail, filtres et intercepteurs, le versionnement d'API et ses tests"
+source: { book: spring-docs, chapter: 31, pages: "#mvc-servlet", url: "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-servlet.html" }
+objectives:
+  - "Suivre une requête de Tomcat jusqu'au contrôleur et retour : filtres, DispatcherServlet, HandlerMapping, HandlerAdapter, résolveurs d'exceptions, page /error"
+  - "Expliquer comment Spring fournit les arguments d'une méthode et écrit sa réponse (résolveurs, conversion, HttpMessageConverter, négociation de contenu), et ajouter un résolveur"
+  - "Valider les entrées et renvoyer des erreurs ProblemDetail cohérentes, sans fuite d'information interne"
+  - "Choisir entre filtre, intercepteur et conseil selon ce qu'il doit voir, et poser un identifiant de corrélation sur toutes les réponses"
+  - "Versionner une API avec Spring Framework 7 et la tester avec @WebMvcTest et MockMvcTester"
+mastery_threshold: 0.8
+prerequisites: [spring-ch04]
+lessons:
+  - "01-dispatcher-servlet"
+  - "02-arguments-converters"
+  - "03-validation-problem-details"
+  - "04-filters-interceptors"
+  - "05-versioning-testing"
+xp: { assignment: 150, project: 300, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Rôle de la DispatcherServlet ?"
+    back: "Contrôleur frontal : reçoit toutes les requêtes et délègue à des stratégies du contexte (mappings, adaptateurs, résolveurs)."
+    concept: spring-ch05-front-controller
+  - id: fc2
+    front: "Que renvoie un HandlerMapping ?"
+    back: "Une HandlerExecutionChain : le handler (la méthode de contrôleur) et les intercepteurs qui s'appliquent."
+    concept: spring-ch05-handler-mapping
+  - id: fc3
+    front: "Rôle du HandlerAdapter ?"
+    back: "Appeler le handler : préparer les arguments, invoquer la méthode, traiter la valeur de retour."
+    concept: spring-ch05-handler-mapping
+  - id: fc4
+    front: "@RestController ?"
+    back: "@Controller + @ResponseBody : la valeur de retour est écrite dans le corps par un HttpMessageConverter, sans vue."
+    concept: spring-ch05-response-body
+  - id: fc5
+    front: "Les trois résolveurs d'exceptions, dans l'ordre ?"
+    back: "@ExceptionHandler, puis @ResponseStatus, puis les exceptions standard de Spring MVC (400, 405, 406…)."
+    concept: spring-ch05-exception-resolvers
+  - id: fc6
+    front: "Exception que personne ne résout, dans Spring Boot ?"
+    back: "Elle remonte à Tomcat, qui rejoue la requête vers /error : 500 générique, sans le message."
+    concept: spring-ch05-exception-resolvers
+  - id: fc7
+    front: "postHandle quand le handler lève une exception ?"
+    back: "Sauté. afterCompletion, lui, est toujours appelé pour les intercepteurs dont preHandle a réussi."
+    concept: spring-ch05-handler-mapping
+  - id: fc8
+    front: "400 sur /events/abc : la méthode a-t-elle été appelée ?"
+    back: "Non : la conversion de l'argument échoue dans l'adaptateur, avant l'appel."
+    concept: spring-ch05-exception-resolvers
+  - id: fc9
+    front: "URL inconnue dans Spring Boot : qui répond 404 ?"
+    back: "Le gestionnaire de ressources statiques (/**), consulté en dernier : « No static resource … »."
+    concept: spring-ch05-handler-mapping

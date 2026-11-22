@@ -1,0 +1,7 @@
+id: spring-ch05-resolver-chain
+concept: spring-ch05-argument-resolvers
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : chaque paramètre d'une méthode descend la file des résolveurs (annotations intégrées, résolveurs de l'application, attrape-tout) et s'arrête au premier qui répond oui ; un paramètre @RequestParam ne voit jamais le résolveur maison, un paramètre sans annotation le rencontre avant l'attrape-tout."
+entry: scene.html
+duration_s: 12
+status: idea

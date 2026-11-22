@@ -65,7 +65,6 @@ tracks:
       - "18-spring-ai"
 
 planned_titles:
-  "05-spring-mvc": "Spring MVC"
   "06-http-clients": "Clients HTTP et résilience"
   "07-concurrency-threads": "Threads, threads virtuels et tâches"
   "08-jdbc-transactions": "JDBC et transactions"

@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Déclencher la validation d'un @RequestBody ?"
+    back: "@Valid sur le paramètre. Échec : MethodArgumentNotValidException, 400."
+    concept: spring-ch05-bean-validation
+  - id: fc2
+    front: "Contrainte sur un @RequestParam, Spring 6.1+ ?"
+    back: "Validation de méthode intégrée, sans @Validated : HandlerMethodValidationException, 400."
+    concept: spring-ch05-bean-validation
+  - id: fc3
+    front: "@Validated sur un contrôleur en Spring 6.1+ ?"
+    back: "L'ancien proxy AOP reprend la main : ConstraintViolationException, 500 si personne ne la traduit."
+    concept: spring-ch05-bean-validation
+  - id: fc4
+    front: "Champs d'un ProblemDetail ?"
+    back: "type, title, status, detail, instance, plus des propriétés libres. Servi en application/problem+json."
+    concept: spring-ch05-problem-detail
+  - id: fc5
+    front: "Rôle de ResponseEntityExceptionHandler ?"
+    back: "Un @ExceptionHandler par exception de Spring MVC (et ErrorResponseException), qui écrit leur ProblemDetail."
+    concept: spring-ch05-controller-advice
+  - id: fc6
+    front: "spring.mvc.problemdetails.enabled couvre quoi ?"
+    back: "Les exceptions de Spring MVC seulement. Les tiennes vont toujours dans /error (500)."
+    concept: spring-ch05-problem-detail
+  - id: fc7
+    front: "Deux @ExceptionHandler conviennent : lequel répond ?"
+    back: "Celui dont le type est le plus proche de l'exception levée (distance d'héritage)."
+    concept: spring-ch05-controller-advice
+  - id: fc8
+    front: "Erreur métier avec son ProblemDetail ?"
+    back: "Hériter d'ErrorResponseException et remplir type, title, propriétés dans le constructeur."
+    concept: spring-ch05-problem-detail
+  - id: fc9
+    front: "Réponse à une panne imprévue ?"
+    back: "500 générique + référence. Message et trace dans les journaux, jamais dans la réponse."
+    concept: spring-ch05-error-hygiene

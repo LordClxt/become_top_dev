@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Le catalogue et ses erreurs"
+    goal: "GET /api/events et GET /api/events/{id} répondent en JSON (contrat v1) ; toutes les erreurs sortent en ProblemDetail, l'événement inconnu avec le type event-not-found."
+    tests: "jboot M1"
+    review: false
+  - id: m2
+    title: "Réserver"
+    goal: "POST /api/events/{id}/reservations : client identifié par X-Customer-Id (401 sinon), demande validée (400 qui nomme les champs), 201 avec Location, 409 sold-out sans retirer de places."
+    tests: "jboot M2"
+    review: true
+  - id: m3
+    title: "Corrélation et versions"
+    goal: "X-Request-Id sur toutes les réponses (id sûr repris, sinon généré) ; versionnement par API-Version, version 1 par défaut, version 2 avec titre, horodatage et lieu structuré."
+    tests: "jboot M3"
+    review: true

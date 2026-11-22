@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Filtre ou intercepteur : lequel voit un 404 sur une URL inconnue sans handler ?"
+    back: "Le filtre : il entoure toute la DispatcherServlet. (Dans Spring Boot, le gestionnaire de ressources statiques est un handler : l'intercepteur le voit aussi.)"
+    concept: spring-ch05-servlet-filter
+  - id: fc2
+    front: "Qui connaît la méthode de contrôleur choisie ?"
+    back: "L'intercepteur (le handler est un HandlerMethod). Le filtre l'ignore."
+    concept: spring-ch05-handler-interceptor
+  - id: fc3
+    front: "postHandle et exception ?"
+    back: "Sauté. afterCompletion est toujours appelé, avec l'exception si personne ne l'a résolue."
+    concept: spring-ch05-handler-interceptor
+  - id: fc4
+    front: "Combien de passages pour une requête en erreur ?"
+    back: "Intercepteur : deux (requête, puis /error). OncePerRequestFilter : un."
+    concept: spring-ch05-handler-interceptor
+  - id: fc5
+    front: "Réponse engagée ?"
+    back: "Statut et en-têtes déjà envoyés avec le début du corps : ils ne changent plus. Un setHeader est ignoré."
+    concept: spring-ch05-response-commit
+  - id: fc6
+    front: "Où poser un en-tête de réponse ?"
+    back: "Avant l'écriture du corps : filtre avant chain.doFilter, ou preHandle. Jamais compter sur postHandle."
+    concept: spring-ch05-response-commit
+  - id: fc7
+    front: "MockMvc et en-têtes tardifs ?"
+    back: "MockMvc accepte un en-tête à tout moment : il ne voit pas le problème. Tester sur un vrai serveur (RANDOM_PORT)."
+    concept: spring-ch05-response-commit
+  - id: fc8
+    front: "Les 4 gestes d'un filtre de corrélation ?"
+    back: "Valider l'id reçu ou en générer un, l'écrire sur la réponse avant la chaîne, MDC.put, MDC.remove dans un finally."
+    concept: spring-ch05-correlation-id
+  - id: fc9
+    front: "preHandle renvoie false sans rien écrire ?"
+    back: "Le client reçoit 200 et un corps vide : c'est au garde d'écrire la réponse (sendError)."
+    concept: spring-ch05-handler-interceptor

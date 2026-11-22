@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Déclarer une route pour la version 2 et les suivantes ?"
+    back: "@GetMapping(path = …, version = \"2+\") : une version de base."
+    concept: spring-ch05-api-versioning
+  - id: fc2
+    front: "Où lire la version ?"
+    back: "configureApiVersioning : useRequestHeader, useQueryParam, usePathSegment ou useMediaTypeParameter. Ou spring.mvc.apiversion.*."
+    concept: spring-ch05-api-versioning
+  - id: fc3
+    front: "Versionnement activé, aucun réglage, requête sans version ?"
+    back: "400 (MissingApiVersionException) sur toutes les routes, même non versionnées."
+    concept: spring-ch05-version-defaults
+  - id: fc4
+    front: "required = false sans version par défaut ?"
+    back: "Une requête sans version reçoit la version la plus haute : les anciens clients basculent en silence."
+    concept: spring-ch05-version-defaults
+  - id: fc5
+    front: "Configuration sûre pour une API en service ?"
+    back: "setDefaultVersion(version actuelle des clients)."
+    concept: spring-ch05-version-defaults
+  - id: fc6
+    front: "Version inconnue ?"
+    back: "400 (InvalidApiVersionException), en ProblemDetail avec le conseil de la leçon 3."
+    concept: spring-ch05-version-defaults
+  - id: fc7
+    front: "Annoncer la fin d'une version ?"
+    back: "StandardApiVersionDeprecationHandler : en-têtes Deprecation, Sunset et Link rel=\"sunset\"."
+    concept: spring-ch05-version-deprecation
+  - id: fc8
+    front: "@WebMvcTest charge quoi ?"
+    back: "Contrôleurs, conseils, WebMvcConfigurer, filtres, Jackson, validation. Pas les services (@Import ou @MockitoBean), pas de serveur."
+    concept: spring-ch05-webmvctest
+  - id: fc9
+    front: "Quand un vrai serveur dans les tests ?"
+    back: "Pour le transport : en-têtes tardifs, compression, comportement de Tomcat. @SpringBootTest(webEnvironment = RANDOM_PORT)."
+    concept: spring-ch05-webmvctest

@@ -1,0 +1,7 @@
+id: spring-ch05-request-journey
+concept: spring-ch05-front-controller
+format: hyperframes
+justification: "Une séquence de 14 s à regarder : une requête traverse les filtres, entre dans la DispatcherServlet, passe par le HandlerMapping (qui renvoie la méthode et ses intercepteurs), l'adaptateur (arguments, appel, écriture du corps), puis ressort ; une seconde passe montre une exception qui part vers les résolveurs, puis vers /error."
+entry: scene.html
+duration_s: 14
+status: idea

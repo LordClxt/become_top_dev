@@ -1,0 +1,86 @@
+id: spring-ch05-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quel composant choisit la méthode de contrôleur qui va traiter `GET /events/7` ?"
+    choices:
+      - "Tomcat, d'après les annotations des classes"
+      - "Un HandlerMapping (RequestMappingHandlerMapping), consulté par la DispatcherServlet"
+      - "Le HandlerAdapter, après avoir appelé chaque méthode candidate"
+      - "Un filtre de servlet"
+    answer: 1
+    explanation: "Tomcat ne connaît que la DispatcherServlet. Celle-ci demande à ses HandlerMapping, dans l'ordre, qui traite la requête ; RequestMappingHandlerMapping compare chemin, méthode HTTP et en-têtes aux @RequestMapping. L'adaptateur ne fait qu'appeler le handler choisi."
+    concept: spring-ch05-handler-mapping
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "`GET /events/abc` sur `one(@PathVariable long id)` répond 400. Un point d'arrêt sur la première ligne de `one` s'arrête-t-il ?"
+    choices:
+      - "Oui, puis Spring lève l'exception à la sortie"
+      - "Non : la conversion de « abc » en long échoue pendant la préparation des arguments, avant l'appel ; un résolveur d'exceptions répond 400"
+      - "Non, car la route ne correspond pas : c'est un 404 déguisé"
+      - "Oui, avec id = 0"
+    answer: 1
+    explanation: "La route correspond (le handler est trouvé, les intercepteurs tournent). C'est l'adaptateur qui convertit les arguments ; MethodArgumentTypeMismatchException est levée avant l'appel, et DefaultHandlerExceptionResolver la traduit en 400."
+    concept: spring-ch05-exception-resolvers
+    difficulty: 2
+  - id: q3
+    type: multiple
+    prompt: "Qu'apporte `@RestController` par rapport à `@Controller` ?"
+    choices:
+      - "@ResponseBody sur toutes les méthodes : la valeur de retour est écrite dans le corps par un HttpMessageConverter"
+      - "Une validation automatique des paramètres"
+      - "Plus de résolution de vue pour ces méthodes"
+      - "Un enregistrement dans le conteneur comme composant, comme @Controller"
+    answer: [0, 2, 3]
+    explanation: "@RestController est méta-annoté @Controller (donc un composant détecté par le scan) et @ResponseBody. La valeur de retour part vers un convertisseur, pas vers une vue. La validation n'a rien à voir : elle dépend de @Valid et des contraintes."
+    concept: spring-ch05-response-body
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Dans quel ordre la DispatcherServlet consulte-t-elle ses résolveurs d'exceptions par défaut ?"
+    choices:
+      - "DefaultHandlerExceptionResolver, puis ResponseStatusExceptionResolver, puis ExceptionHandlerExceptionResolver"
+      - "ExceptionHandlerExceptionResolver (@ExceptionHandler), puis ResponseStatusExceptionResolver (@ResponseStatus), puis DefaultHandlerExceptionResolver (exceptions de Spring MVC)"
+      - "Seul le résolveur le plus spécifique est consulté, au hasard des types"
+      - "Aucun : c'est Spring Boot qui traite toutes les exceptions dans /error"
+    answer: 1
+    explanation: "Tes @ExceptionHandler passent en premier, puis les exceptions annotées @ResponseStatus, puis la traduction standard des exceptions de Spring MVC (400, 405, 406…). /error ne voit que ce qu'aucun d'eux n'a résolu."
+    concept: spring-ch05-exception-resolvers
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Un client envoie `Accept: application/xml` à une API qui ne sait produire que du JSON. Que se passe-t-il ?"
+    choices:
+      - "Spring renvoie du JSON quand même, avec un statut 200"
+      - "406 Not Acceptable : aucun convertisseur ne peut produire le type demandé"
+      - "415 Unsupported Media Type"
+      - "500 : Jackson ne sait pas écrire du XML"
+    answer: 1
+    explanation: "À l'écriture de la réponse, Spring croise les types acceptés par le client avec ceux que ses convertisseurs savent produire. Intersection vide : HttpMediaTypeNotAcceptableException, traduite en 406. Le 415 concerne le corps de la requête (Content-Type), pas la réponse."
+    concept: spring-ch05-response-body
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Une requête vers `/boom` lève une exception que personne ne gère. Combien de fois la DispatcherServlet est-elle traversée dans une application Spring Boot ?"
+    choices:
+      - "Une fois : l'exception coupe tout"
+      - "Deux fois : la requête, puis le dispatch d'erreur vers /error"
+      - "Trois fois, à cause des tentatives automatiques"
+      - "Zéro : l'exception est traitée par Tomcat avant"
+    answer: 1
+    explanation: "L'exception sort de la DispatcherServlet. Tomcat applique la page d'erreur /error que Spring Boot a enregistrée, et rejoue la requête (dispatch ERROR) : la DispatcherServlet route alors vers BasicErrorController. Les intercepteurs voient les deux passages."
+    concept: spring-ch05-exception-resolvers
+    difficulty: 3
+  - id: q7
+    type: single
+    prompt: "Où la DispatcherServlet trouve-t-elle ses HandlerMapping, HandlerAdapter et résolveurs d'exceptions ?"
+    choices:
+      - "Elle les instancie en dur dans son constructeur"
+      - "Dans le contexte Spring, par type : Spring Boot les déclare, et l'application peut en ajouter ou en remplacer"
+      - "Dans le fichier web.xml"
+      - "Dans les annotations du contrôleur"
+    answer: 1
+    explanation: "Ce sont des beans ordinaires (les « special bean types » de la documentation). La DispatcherServlet les cherche dans son contexte à l'initialisation ; WebMvcAutoConfiguration en fournit un jeu complet, que WebMvcConfigurer permet d'ajuster."
+    concept: spring-ch05-front-controller
+    difficulty: 1

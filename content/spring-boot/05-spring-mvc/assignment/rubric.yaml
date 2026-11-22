@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: error-contract
+    label: "Un contrat d'erreur utile"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Toutes les erreurs d'entrée (conversion comprise) sortent en 400 ProblemDetail avec le champ fautif et un message clair ; la contrainte sur la période est déclarative (@AssertTrue ou contrainte de classe) et dit quoi corriger"
+      2: "Les statuts sont bons, mais des messages sont vagues ou en anglais par défaut, ou la période est vérifiée à la main dans le contrôleur avec une exception ad hoc"
+      0: "Erreurs en 500, ou contrôles silencieux (valeurs corrigées sans prévenir le client)"
+  - id: design
+    label: "Conception"
+    weight: 0.25
+    source: ai
+    levels:
+      4: "Un objet de critères lié par @ModelAttribute (implicite) et validé par @Valid ; valeurs par défaut au même endroit ; tri choisi dans une liste fermée ; filtrage, tri puis découpage dans cet ordre, total calculé avant la page"
+      2: "Fonctionne, mais six @RequestParam dans la signature, ou valeurs par défaut dispersées entre l'annotation et le code"
+      0: "Logique de recherche dupliquée ou tri accepté sur n'importe quel nom de champ"

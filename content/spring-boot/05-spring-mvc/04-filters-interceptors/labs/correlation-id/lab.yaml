@@ -1,0 +1,12 @@
+id: spring-ch05-l04-lab-correlation-id
+title: "Un identifiant de corrélation sur chaque réponse"
+kind: code
+language: java
+difficulty: 3
+xp: 80
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/CorrelationIdFilter.java", "app/TracingInterceptor.java", "app/AdminGuard.java", "app/WebConfig.java"]
+concepts: [spring-ch05-servlet-filter, spring-ch05-handler-interceptor, spring-ch05-response-commit, spring-ch05-correlation-id]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

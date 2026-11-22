@@ -1,0 +1,12 @@
+id: spring-ch05-l01-lab-warmup-json-controller
+title: "Échauffement : un contrôleur qui répond en JSON"
+kind: code
+language: java
+difficulty: 1
+xp: 40
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/EventController.java"]
+concepts: [spring-ch05-response-body, spring-ch05-handler-mapping]
+verified: { at: 2026-11-22, solution: pass, starter: fail }
