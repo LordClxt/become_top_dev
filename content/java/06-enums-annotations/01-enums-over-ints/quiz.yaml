@@ -1,0 +1,86 @@
+id: java-ch06-l01-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Quels sont les défauts du motif « int enum » (static final int) ?"
+    choices:
+      - "Aucune sûreté de type : une constante d'un groupe passe pour une d'un autre"
+      - "Les valeurs sont recopiées dans le code des clients : les changer sans recompiler les clients ne change rien chez eux"
+      - "On ne peut pas afficher un nom lisible"
+      - "Il consomme plus de mémoire qu'un enum"
+    answer: [0, 1, 2]
+    explanation: "Les trois premiers défauts sont ceux de Bloch. La mémoire n'est pas le problème : un enum coûte même un peu plus, sans que cela compte."
+    concept: java-int-enum-pattern
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi les champs d'un enum doivent-ils être `final` ?"
+    choices:
+      - "Parce que le compilateur l'exige"
+      - "Parce que chaque constante est une instance unique partagée par tout le programme : un champ modifiable serait un état global"
+      - "Pour la sérialisation"
+      - "Pour que values() fonctionne"
+    answer: 1
+    explanation: "Le compilateur accepterait des champs non finals. Mais une constante d'enum est un singleton : la modifier modifie l'état vu par tout le programme. Les enums doivent être immuables."
+    concept: java-enum-class
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi préférer une méthode abstraite redéfinie par chaque constante à un `switch (this)` dans l'enum ?"
+    choices:
+      - "Pour la performance"
+      - "Parce qu'une nouvelle constante qui n'implémente pas la méthode ne compile pas, alors qu'un switch oublié compile et échoue à l'exécution"
+      - "Parce que switch est interdit dans un enum"
+      - "Parce que les méthodes abstraites sont plus courtes"
+    answer: 1
+    explanation: "Le compilateur oblige chaque constante à fournir son implémentation. Un switch avec default (ou sans exhaustivité) laisse passer la constante oubliée."
+    concept: java-constant-specific-methods
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Plusieurs constantes partagent le même comportement (les jours de week-end d'une paie). Que propose Bloch ?"
+    choices:
+      - "Dupliquer le code dans chaque constante"
+      - "Un enum stratégie : un enum privé imbriqué passé au constructeur de chaque constante, qui lui délègue le calcul"
+      - "Un switch avec default"
+      - "Un champ boolean weekend"
+    answer: 1
+    explanation: "L'enum stratégie (PayType.WEEKDAY, PayType.WEEKEND) factorise le comportement sans switch fragile : chaque constante choisit sa stratégie à la construction."
+    concept: java-constant-specific-methods
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi un constructeur d'enum ne peut-il pas remplir une `Map` static de l'enum ?"
+    choices:
+      - "Parce que les Map sont interdites dans un enum"
+      - "Parce que les constantes sont créées avant les autres champs static : la Map vaut encore null quand les constructeurs s'exécutent"
+      - "Parce que les constructeurs d'enum sont privés"
+      - "Parce que values() n'existe pas encore"
+    answer: 1
+    explanation: "L'initialiseur statique crée d'abord les constantes, puis initialise les autres champs static dans l'ordre du texte. Le compilateur refuse l'accès direct ; un accès indirect lève une NullPointerException dans une ExceptionInInitializerError."
+    concept: java-enum-static-init
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Avec Java 21, que se passe-t-il si on ajoute une constante à un enum utilisé dans `return switch (status) { case NEW -> …; case FILLED -> …; };` (sans default) ?"
+    choices:
+      - "Rien : la nouvelle constante renvoie null"
+      - "Le switch expression ne couvre plus toutes les constantes : erreur de compilation"
+      - "Une exception à chaque appel"
+      - "Le dernier case s'applique"
+    answer: 1
+    explanation: "Un switch expression doit être exhaustif. Sans default, le compilateur vérifie la couverture de toutes les constantes : la constante oubliée devient une erreur de compilation. (Une classe compilée à part rencontrant une constante inconnue lève MatchException.)"
+    concept: java-enum-switch-exhaustive
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Quelle méthode retrouver une constante par un code saisi par l'utilisateur ?"
+    choices:
+      - "valueOf(code), qui renvoie null si le code est inconnu"
+      - "Une méthode fromCode(code) qui renvoie un Optional, à partir d'une table construite après les constantes"
+      - "Un switch sur ordinal()"
+      - "Constants.values()[code]"
+    answer: 1
+    explanation: "valueOf se base sur le nom de la constante et lève IllegalArgumentException si le nom est inconnu (jamais null). Pour une autre clé, une table et un Optional disent honnêtement qu'il peut ne rien y avoir."
+    concept: java-enum-static-init
+    difficulty: 1

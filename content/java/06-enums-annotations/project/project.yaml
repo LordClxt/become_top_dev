@@ -1,0 +1,13 @@
+id: java-ch06-project
+title: "Ordo, jalon 6 : le cycle de vie des ordres"
+pitch: "Un ordre passe de NEW à ACCEPTED ou REJECTED, puis à PARTIALLY_FILLED, FILLED ou CANCELLED. La table des transitions, indexée par ordinal, a glissé quand REJECTED est arrivé. Tu la refais sans aucune position, tu suis chaque ordre à partir du bus, et tu laisses les desks ajouter leurs propres contrôles."
+running_project: ordo
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["OrderStatus.java", "OrderTracker.java"]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

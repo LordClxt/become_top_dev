@@ -1,0 +1,7 @@
+id: java-ch06-annotation-pipeline
+concept: java-annotation-declaration
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : une annotation @Check part du source, passe par javac qui la range dans le .class (RuntimeVisibleAnnotations si RUNTIME, sinon un tiroir que la JVM n'ouvre pas), puis la réflexion la retrouve et le lanceur appelle la méthode ; une exception remonte enveloppée dans InvocationTargetException, qu'on déballe."
+entry: scene.html
+duration_s: 12
+status: idea

@@ -1,0 +1,7 @@
+id: java-ch06-enummap-array
+concept: java-nested-enummap
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : un tableau à deux dimensions indexé par ordinal ; on insère HALTED au milieu de l'enum, et toutes les colonnes glissent d'un cran, les flèches de transition pointent désormais à côté. Seconde passe avec des transitions qui portent leurs extrémités : l'EnumMap imbriquée se reconstruit, rien ne glisse."
+entry: scene.html
+duration_s: 12
+status: idea

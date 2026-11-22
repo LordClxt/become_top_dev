@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Rendre un enum extensible ?"
+    back: "Une interface que l'enum implémente ; d'autres enums l'implémentent aussi ; l'API ne parle que de l'interface."
+    concept: java-enum-implements-interface
+  - id: fc2
+    front: "Recevoir un enum entier d'opérations ?"
+    back: "<T extends Enum<T> & Operation> Class<T>, puis getEnumConstants()."
+    concept: java-enum-type-token
+  - id: fc3
+    front: "Mélanger des constantes de plusieurs enums ?"
+    back: "Collection<? extends Operation> (sans EnumSet ni EnumMap pour ce paramètre)."
+    concept: java-enum-collection-param
+  - id: fc4
+    front: "getEnumConstants() sur une classe qui n'est pas un enum ?"
+    back: "null."
+    concept: java-enum-type-token
+  - id: fc5
+    front: "Partager du code entre deux enums ?"
+    back: "Méthode par défaut (sans état), aide statique, ou petite duplication : pas d'héritage d'implémentation."
+    concept: java-enum-no-impl-inheritance
+  - id: fc6
+    front: "Exemple du JDK ?"
+    back: "LinkOption, StandardCopyOption, StandardOpenOption implémentent CopyOption / OpenOption."
+    concept: java-enum-implements-interface

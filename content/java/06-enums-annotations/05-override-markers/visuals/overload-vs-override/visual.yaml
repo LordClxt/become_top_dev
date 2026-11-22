@@ -1,0 +1,7 @@
+id: java-ch06-overload-vs-override
+concept: java-overload-vs-override
+format: hyperframes
+justification: "Une séquence de 10 s à regarder : HashSet appelle equals(Object) ; la flèche descend dans la classe Bigram, passe à côté d'equals(Bigram) (une autre méthode, à un autre étage) et remonte jusqu'à Object.equals qui compare les identités ; puis @Override s'allume sur equals(Bigram) et le compilateur la refuse."
+entry: scene.html
+duration_s: 10
+status: idea

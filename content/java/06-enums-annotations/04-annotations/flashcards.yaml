@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Défauts d'une convention de nommage ?"
+    back: "Fautes silencieuses, aucune limite d'emplacement, aucun paramètre."
+    concept: java-naming-patterns
+  - id: fc2
+    front: "Deux méta-annotations indispensables pour un outil d'exécution ?"
+    back: "@Retention(RUNTIME) et @Target(...)."
+    concept: java-annotation-declaration
+  - id: fc3
+    front: "Rétention par défaut ?"
+    back: "CLASS : dans le .class, invisible à la réflexion."
+    concept: java-annotation-declaration
+  - id: fc4
+    front: "Annotation marqueur ?"
+    back: "Une annotation sans paramètre, dont la présence suffit (@Test)."
+    concept: java-annotation-declaration
+  - id: fc5
+    front: "Exception levée par une méthode appelée par réflexion ?"
+    back: "Enveloppée dans InvocationTargetException : getCause()."
+    concept: java-annotation-processing-reflection
+  - id: fc6
+    front: "Paramètre « exception attendue » d'une annotation ?"
+    back: "Class<? extends Throwable> value() (ou un tableau pour plusieurs)."
+    concept: java-annotation-parameters
+  - id: fc7
+    front: "@Repeatable posée deux fois : comment la lire ?"
+    back: "getAnnotationsByType ; isAnnotationPresent ne voit que le conteneur."
+    concept: java-repeatable-pitfall
+  - id: fc8
+    front: "Une annotation à l'exécution, techniquement ?"
+    back: "Un proxy dynamique qui implémente l'interface de l'annotation."
+    concept: java-annotation-processing-reflection

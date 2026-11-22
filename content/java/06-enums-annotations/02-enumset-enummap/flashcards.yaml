@@ -1,0 +1,33 @@
+cards:
+  - id: fc1
+    front: "Valeur dérivée de ordinal() ?"
+    back: "Jamais : elle change si on réordonne ou insère. Un champ explicite."
+    concept: java-no-ordinal
+  - id: fc2
+    front: "Remplaçant d'un champ de bits ?"
+    back: "EnumSet : sûr, lisible, un long en interne jusqu'à 64 constantes."
+    concept: java-enumset
+  - id: fc3
+    front: "Ordre de parcours d'un EnumSet ?"
+    back: "L'ordre de déclaration de l'enum."
+    concept: java-enumset
+  - id: fc4
+    front: "Remplaçant d'un tableau indexé par ordinal ?"
+    back: "EnumMap : un tableau en interne, des clés typées, aucun index à calculer."
+    concept: java-enummap
+  - id: fc5
+    front: "groupingBy vers une EnumMap ?"
+    back: "groupingBy(f, () -> new EnumMap<>(E.class), downstream)."
+    concept: java-enummap
+  - id: fc6
+    front: "Table de transitions sur des enums ?"
+    back: "EnumMap<From, EnumMap<To, T>> construite à partir de constantes qui portent leurs extrémités."
+    concept: java-nested-enummap
+  - id: fc7
+    front: "EnumSet immuable ?"
+    back: "N'existe pas : Collections.unmodifiableSet ou Set.copyOf."
+    concept: java-enumset
+  - id: fc8
+    front: "Pourquoi EnumMap a-t-il besoin de E.class ?"
+    back: "Pour connaître la taille et les constantes de l'enum malgré l'effacement."
+    concept: java-enummap

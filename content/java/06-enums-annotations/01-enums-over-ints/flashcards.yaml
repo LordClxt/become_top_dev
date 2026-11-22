@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Défauts du motif int enum ?"
+    back: "Pas de sûreté de type, pas d'espace de noms, valeurs compilées dans les clients, pas de nom affichable."
+    concept: java-int-enum-pattern
+  - id: fc2
+    front: "Qu'est-ce qu'un enum, techniquement ?"
+    back: "Une classe finale qui étend Enum, à instances fixes (une par constante, public static final)."
+    concept: java-enum-class
+  - id: fc3
+    front: "Champs d'un enum ?"
+    back: "final : chaque constante est partagée par tout le programme."
+    concept: java-enum-class
+  - id: fc4
+    front: "Comportement propre à chaque constante ?"
+    back: "Une méthode abstraite dans l'enum, implémentée dans le corps de chaque constante."
+    concept: java-constant-specific-methods
+  - id: fc5
+    front: "Enum stratégie ?"
+    back: "Un enum privé imbriqué passé au constructeur des constantes, pour un comportement partagé par plusieurs."
+    concept: java-constant-specific-methods
+  - id: fc6
+    front: "Table fromCode dans un enum ?"
+    back: "Construite après les constantes (initialisation static), jamais depuis le constructeur."
+    concept: java-enum-static-init
+  - id: fc7
+    front: "switch expression sur un enum (Java 14+) ?"
+    back: "Exhaustif sans default : une constante oubliée ne compile pas."
+    concept: java-enum-switch-exhaustive
+  - id: fc8
+    front: "values() dans une boucle chaude ?"
+    back: "Il renvoie une copie à chaque appel : le garder dans une variable."
+    concept: java-enum-class
+  - id: fc9
+    front: "Une constante avec un corps, à l'exécution ?"
+    back: "Une sous-classe anonyme de l'enum ; getDeclaringClass() rend l'enum lui-même."
+    concept: java-constant-specific-methods

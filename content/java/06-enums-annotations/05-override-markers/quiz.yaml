@@ -1,0 +1,74 @@
+id: java-ch06-l05-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quelle différence entre surcharger et redéfinir une méthode ?"
+    choices:
+      - "Aucune, ce sont deux mots pour la même chose"
+      - "Surcharger : même nom, autres paramètres, choix à la compilation ; redéfinir : même signature qu'une méthode héritée, choix à l'exécution selon l'objet réel"
+      - "Surcharger : dans une interface ; redéfinir : dans une classe"
+      - "Redéfinir est réservé aux méthodes static"
+    answer: 1
+    explanation: "Les collections ne connaissent que equals(Object) : seule une redéfinition de cette signature est appelée."
+    concept: java-overload-vs-override
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Quelles erreurs `@Override` fait-elle détecter par le compilateur ?"
+    choices:
+      - "equals(Bigram) au lieu d'equals(Object)"
+      - "hashcode() au lieu de hashCode()"
+      - "Une super-classe qui change le type d'un paramètre, de sorte que la sous-classe ne redéfinit plus rien"
+      - "Un mauvais algorithme dans hashCode"
+    answer: [0, 1, 2]
+    explanation: "Dans les trois premiers cas, la méthode annotée ne redéfinit rien : le compilateur refuse. Un mauvais calcul, lui, reste à tester."
+    concept: java-override-annotation
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Quelle est la rétention de `@Override` ?"
+    choices:
+      - "RUNTIME"
+      - "SOURCE : elle n'existe que pour le compilateur et n'apparaît pas dans le .class"
+      - "CLASS"
+      - "Elle n'a pas de rétention"
+    answer: 1
+    explanation: "Elle sert uniquement au contrôle de compilation : aucune trace à l'exécution, aucun coût."
+    concept: java-override-annotation
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Quel avantage a une interface marqueur sur une annotation marqueur ?"
+    choices:
+      - "Elle est plus rapide"
+      - "Elle définit un type : une méthode peut l'exiger en paramètre, et l'erreur arrive à la compilation"
+      - "Elle peut marquer des champs"
+      - "Elle n'a besoin d'aucune déclaration"
+    answer: 1
+    explanation: "C'est l'argument principal de Bloch. Une annotation ne peut être vérifiée qu'à l'exécution (ou par un processeur d'annotations)."
+    concept: java-marker-interface
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Pourquoi `ObjectOutputStream.writeObject` ne profite-t-il pas de l'interface marqueur `Serializable` ?"
+    choices:
+      - "Parce que Serializable n'est pas une interface"
+      - "Parce que sa signature prend un Object : un objet non sérialisable n'est refusé qu'à l'exécution, par NotSerializableException"
+      - "Parce qu'il vérifie avec une annotation"
+      - "Il en profite pleinement"
+    answer: 1
+    explanation: "Le type existe, mais l'API ne l'utilise pas. Avec writeObject(Serializable o), l'erreur serait à la compilation."
+    concept: java-marker-interface
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Quand préférer une annotation marqueur ?"
+    choices:
+      - "Toujours"
+      - "Pour marquer autre chose qu'une classe ou une interface (méthode, champ, paramètre), ou dans un cadre déjà fondé sur les annotations"
+      - "Quand on veut une vérification à la compilation"
+      - "Jamais"
+    answer: 1
+    explanation: "Une interface ne s'applique qu'aux classes et interfaces. Si l'élément à marquer est une méthode, ou si tout le cadre (Spring, JPA) repose sur des annotations, l'annotation est le bon outil."
+    concept: java-marker-choice
+    difficulty: 1

@@ -1,0 +1,25 @@
+cards:
+  - id: fc1
+    front: "Surcharge ou redéfinition ?"
+    back: "Surcharge : autres paramètres, choix à la compilation. Redéfinition : même signature, choix à l'exécution."
+    concept: java-overload-vs-override
+  - id: fc2
+    front: "Bigram avec equals(Bigram) dans un HashSet ?"
+    back: "260 au lieu de 26 : la surcharge n'est jamais appelée, Object.equals compare les identités."
+    concept: java-overload-vs-override
+  - id: fc3
+    front: "Règle pour @Override ?"
+    back: "Sur chaque méthode qui redéfinit une méthode d'un super-type."
+    concept: java-override-annotation
+  - id: fc4
+    front: "Ce que @Override attrape ?"
+    back: "Surcharge déguisée, faute de nom, signature qui a dérivé."
+    concept: java-override-annotation
+  - id: fc5
+    front: "Avantage d'une interface marqueur ?"
+    back: "Elle définit un type : on peut l'exiger en paramètre, erreur à la compilation."
+    concept: java-marker-interface
+  - id: fc6
+    front: "Quand une annotation marqueur ?"
+    back: "Pour marquer méthodes, champs, paramètres, ou dans un cadre à base d'annotations."
+    concept: java-marker-choice

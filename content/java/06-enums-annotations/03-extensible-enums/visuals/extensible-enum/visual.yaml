@@ -1,0 +1,7 @@
+id: java-ch06-extensible-enum
+concept: java-enum-implements-interface
+format: hyperframes
+justification: "Une séquence de 10 s à regarder : l'interface OrderRule au centre, l'enum de la bibliothèque et deux enums d'équipes qui s'y branchent ; une méthode de l'API qui n'accepte que StandardRule se ferme aux autres, puis se rouvre quand sa signature passe à OrderRule ou à <T extends Enum<T> & OrderRule>."
+entry: scene.html
+duration_s: 10
+status: idea

@@ -1,0 +1,86 @@
+id: java-ch06-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "À quoi sert `Enum.ordinal()`, selon sa documentation ?"
+    choices:
+      - "À numéroter les constantes pour les clients"
+      - "Aux structures de données à base d'enums, comme EnumSet et EnumMap ; la plupart des programmeurs n'en ont pas l'usage"
+      - "À trier les constantes"
+      - "À sérialiser les enums"
+    answer: 1
+    explanation: "ordinal() est un détail que la bibliothèque utilise en interne. Une valeur associée à une constante se range dans un champ."
+    concept: java-no-ordinal
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Comment un `EnumSet` de moins de 65 constantes est-il représenté ?"
+    choices:
+      - "Par une HashSet"
+      - "Par un seul long, chaque bit représentant une constante"
+      - "Par un tableau de booléens"
+      - "Par une liste chaînée"
+    answer: 1
+    explanation: "RegularEnumSet tient dans un long : contains, add et removeAll sont des opérations bit à bit. On a la vitesse d'un champ de bits sans ses défauts."
+    concept: java-enumset
+    difficulty: 2
+  - id: q3
+    type: multiple
+    prompt: "Quels défauts d'un champ de bits (`int styles = STYLE_BOLD | STYLE_ITALIC`) un `EnumSet` corrige-t-il ?"
+    choices:
+      - "La valeur s'affiche comme un entier illisible"
+      - "Aucune sûreté de type : n'importe quel int est accepté"
+      - "On ne peut pas parcourir les éléments facilement"
+      - "Il est plus lent qu'un int"
+    answer: [0, 1, 2]
+    explanation: "EnumSet s'affiche ([BOLD, ITALIC]), n'accepte que des constantes du bon enum, et se parcourt comme un Set. Il n'est pas plus lent : il utilise lui-même des bits."
+    concept: java-enumset
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Pourquoi préférer `EnumMap<Phase, V>` à un tableau `V[]` indexé par `phase.ordinal()` ?"
+    choices:
+      - "Parce que l'EnumMap est plus rapide"
+      - "Parce qu'elle a la vitesse d'un tableau (elle en est un en interne) sans index à calculer, sans cast non vérifié et avec des clés typées"
+      - "Parce que les tableaux ne peuvent pas contenir d'objets"
+      - "Parce que l'EnumMap trie les valeurs"
+    answer: 1
+    explanation: "EnumMap fait exactement l'indexation par ordinal, mais c'est la bibliothèque qui la fait. Un tableau générique indexé par ordinal demande un cast non vérifié et accepte un mauvais index."
+    concept: java-enummap
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Dans `groupingBy(Plant::lifeCycle, toSet())`, quelle map obtient-on ?"
+    choices:
+      - "Une EnumMap, puisque les clés sont des enums"
+      - "Une HashMap : pour une EnumMap, il faut passer la fabrique () -> new EnumMap<>(LifeCycle.class)"
+      - "Une TreeMap"
+      - "Une map immuable"
+    answer: 1
+    explanation: "groupingBy ne devine pas : sans fabrique, il prend une HashMap. La version à trois arguments permet de demander une EnumMap, plus rapide et ordonnée."
+    concept: java-enummap
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "On ajoute une phase `PLASMA` à une table de transitions construite par EnumMap imbriquée à partir de `Transition(from, to)`. Que faut-il modifier ?"
+    choices:
+      - "Redimensionner un tableau dans les deux dimensions"
+      - "Ajouter la constante PLASMA, et les constantes de transition qui la concernent (IONIZE, DEIONIZE) : la table se reconstruit seule"
+      - "Recompter tous les ordinaux"
+      - "Rien, PLASMA est déduite"
+    answer: 1
+    explanation: "Chaque transition porte ses extrémités, et la table est construite à partir des constantes. Ajouter une phase n'est qu'un ajout de lignes, sans index à mettre à jour."
+    concept: java-nested-enummap
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Comment exposer un `EnumSet` depuis un objet immuable ?"
+    choices:
+      - "Directement : un EnumSet est immuable"
+      - "Enveloppé (Collections.unmodifiableSet) ou copié (Set.copyOf) : EnumSet est toujours modifiable"
+      - "Avec EnumSet.immutableOf"
+      - "En le rendant final"
+    answer: 1
+    explanation: "Il n'existe pas d'EnumSet immuable dans le JDK ; final ne protège que la référence. Une enveloppe non modifiable ou une copie protège le contenu."
+    concept: java-enumset
+    difficulty: 2

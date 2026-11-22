@@ -1,0 +1,12 @@
+id: java-ch06-l02-lab-session-transitions
+title: "Débogage : des transitions qui ont glissé d'un cran"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["PhaseChange.java"]
+concepts: [java-no-ordinal, java-nested-enummap, java-enummap, java-enumset]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

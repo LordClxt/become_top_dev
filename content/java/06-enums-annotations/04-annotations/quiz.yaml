@@ -1,0 +1,86 @@
+id: java-ch06-l04-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Quels défauts des conventions de nommage (méthodes qui commencent par `test`) les annotations corrigent-elles ?"
+    choices:
+      - "Une faute de frappe dans le nom passe en silence"
+      - "Rien n'empêche d'appliquer la convention à un élément où elle n'a pas de sens"
+      - "Impossible de passer un paramètre (l'exception attendue, par exemple)"
+      - "Les tests sont plus lents"
+    answer: [0, 1, 2]
+    explanation: "@Tset ne compile pas, @Target limite l'emplacement, et les paramètres sont typés. La vitesse n'a rien à voir."
+    concept: java-naming-patterns
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quelle est la rétention par défaut d'une annotation sans `@Retention` ?"
+    choices:
+      - "RUNTIME"
+      - "CLASS : présente dans le .class, invisible à la réflexion"
+      - "SOURCE"
+      - "Aucune : l'annotation est refusée"
+    answer: 1
+    explanation: "CLASS par défaut. Pour un outil qui lit l'annotation à l'exécution, il faut @Retention(RetentionPolicy.RUNTIME). @Override, elle, est SOURCE : utile seulement au compilateur."
+    concept: java-annotation-declaration
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Une méthode appelée par `Method.invoke` lève une `ArithmeticException`. Que reçoit l'appelant ?"
+    choices:
+      - "L'ArithmeticException directement"
+      - "Une InvocationTargetException, dont getCause() est l'ArithmeticException"
+      - "Une IllegalAccessException"
+      - "Rien, l'exception est avalée"
+    answer: 1
+    explanation: "La réflexion enveloppe toute exception levée par la méthode cible. Comparer l'enveloppe aux types attendus est l'erreur classique d'un lanceur de tests."
+    concept: java-annotation-processing-reflection
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Pourquoi déclarer le paramètre `Class<? extends Throwable> value()` plutôt que `Class<?> value()` ?"
+    choices:
+      - "Pour la performance"
+      - "Pour que le compilateur refuse @ExceptionTest(String.class), qui n'a pas de sens"
+      - "Parce que Class<?> est interdit dans une annotation"
+      - "Pour pouvoir donner une valeur par défaut"
+    answer: 1
+    explanation: "Le type du paramètre est vérifié comme partout ailleurs : un joker borné restreint les valeurs acceptées à la compilation."
+    concept: java-annotation-parameters
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Une annotation `@Repeatable` est posée deux fois sur une méthode. Que renvoie `isAnnotationPresent(L'Annotation.class)` ?"
+    choices:
+      - "true"
+      - "false : les deux occurrences sont rangées dans l'annotation conteneur"
+      - "Une exception"
+      - "2"
+    answer: 1
+    explanation: "C'est le conteneur qui est présent. getAnnotationsByType regarde aussi dans le conteneur et renvoie les deux occurrences : c'est la méthode à utiliser."
+    concept: java-repeatable-pitfall
+    difficulty: 2
+  - id: q6
+    type: multiple
+    prompt: "Quels types peut avoir un paramètre d'annotation ?"
+    choices:
+      - "Les types primitifs et String"
+      - "Class, les enums et les annotations"
+      - "Les tableaux de ces types"
+      - "Une List<String>"
+    answer: [0, 1, 2]
+    explanation: "Les valeurs d'annotation doivent être des constantes de compilation : pas de collections ni d'objets quelconques. Un tableau, comme { A.class, B.class }, est permis."
+    concept: java-annotation-parameters
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Pour traiter des annotations **à la compilation** (générer du code, vérifier des règles), Java propose…"
+    choices:
+      - "La réflexion"
+      - "Les processeurs d'annotations (javax.annotation.processing), utilisés par Lombok, MapStruct ou Dagger"
+      - "Les agents Java"
+      - "Rien : les annotations ne servent qu'à l'exécution"
+    answer: 1
+    explanation: "La réflexion lit les annotations RUNTIME à l'exécution. Un processeur d'annotations s'exécute dans javac et peut lire même les annotations SOURCE et CLASS, et générer des fichiers."
+    concept: java-annotation-processing-reflection
+    difficulty: 2

@@ -1,0 +1,13 @@
+id: java-ch06-boss
+title: "Boss : une console de commandes annotées"
+kind: code
+language: java
+difficulty: 5
+xp: 300
+timeout_s: 90
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Command.java", "Router.java"]
+concepts: [java-annotation-declaration, java-annotation-processing-reflection, java-repeatable-pitfall, java-enumset, java-enummap, java-marker-interface]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

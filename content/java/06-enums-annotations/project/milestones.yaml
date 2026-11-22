@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Des transitions qui ne glissent plus"
+    goal: "next(), canMoveTo et isTerminal reposent sur des transitions nommées et une EnumMap, sans ordinal ; les ensembles renvoyés ne se modifient pas."
+    tests: "jtest M1"
+    review: false
+  - id: m2
+    title: "Suivre les ordres depuis le bus"
+    goal: "OrderTracker s'abonne au bus, suit le statut de chaque ordre, refuse et note les transitions impossibles, et compte les ordres par statut dans une EnumMap complète."
+    tests: "jtest M2"
+    review: true
+  - id: m3
+    title: "Des contrôles extensibles"
+    goal: "requireAll(Class<T>) avec T enum et OrderCheck, require(Collection<? extends OrderCheck>) ; un ordre qui échoue passe à REJECTED avec ses raisons ; zéro avertissement."
+    tests: "jtest M3"
+    review: true

@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: no-positions
+    label: "Plus rien ne dépend des positions"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Aucun ordinal(), aucun masque de bits, aucun values()[i] : les permissions sont nommées (EnumSet.of, allOf), le format compact utilise les codes ; ajouter ou réordonner une permission ne change rien d'existant"
+      2: "Les tests passent mais un reste de position subsiste (ordinal() dans un calcul, index dans values())"
+      0: "Masques de bits ou ordinal() encore au cœur du modèle"
+  - id: design
+    label: "Conception"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "EnumSet et EnumMap partout où les clés ou éléments sont des enums, ensembles exposés non modifiables, decode qui refuse un code inconnu au lieu de l'ignorer"
+      2: "HashSet ou HashMap là où EnumSet ou EnumMap conviendraient, ou ensembles modifiables exposés"
+      0: "État partagé modifiable (permissions d'un rôle modifiables par n'importe qui)"

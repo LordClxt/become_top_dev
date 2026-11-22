@@ -1,0 +1,12 @@
+id: java-ch06-l05-lab-debug-overrides
+title: "Débogage : trois méthodes qui ne redéfinissent rien"
+kind: code
+language: java
+difficulty: 2
+xp: 50
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["SymbolKey.java"]
+concepts: [java-override-annotation, java-overload-vs-override]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

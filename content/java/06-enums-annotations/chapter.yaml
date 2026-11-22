@@ -1,0 +1,22 @@
+id: java-ch06
+title: "Enums et annotations"
+subtitle: "Des types énumérés riches, EnumSet et EnumMap, des enums extensibles, et des annotations lues par réflexion"
+source: { chapter: 6, pages: "157-192" }
+objectives:
+  - "Remplacer des constantes int par des enums porteurs de données et de comportement, sans switch fragile"
+  - "Ne jamais dépendre de ordinal() : EnumSet pour les ensembles de drapeaux, EnumMap (éventuellement imbriquée) pour les tables"
+  - "Rendre un ensemble de constantes extensible par une interface, et le recevoir avec une borne d'intersection"
+  - "Déclarer et lire des annotations par réflexion (rétention, cible, paramètres, @Repeatable) au lieu de conventions de nommage"
+  - "Annoter chaque redéfinition avec @Override, et choisir entre interface et annotation marqueur"
+mastery_threshold: 0.8
+prerequisites: [java-ch05]
+lessons:
+  - "01-enums-over-ints"
+  - "02-enumset-enummap"
+  - "03-extensible-enums"
+  - "04-annotations"
+  - "05-override-markers"
+xp: { assignment: 150, project: 300, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

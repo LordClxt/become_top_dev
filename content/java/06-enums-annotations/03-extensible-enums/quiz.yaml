@@ -1,0 +1,74 @@
+id: java-ch06-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Pourquoi ne peut-on pas écrire `enum ExtendedOperation extends BasicOperation` ?"
+    choices:
+      - "Parce que les enums sont trop petits"
+      - "Parce qu'un enum hérite déjà d'Enum et est implicitement final : il ne peut ni étendre une autre classe ni être étendu"
+      - "Parce que BasicOperation n'a pas de constructeur"
+      - "On peut, avec @Override"
+    answer: 1
+    explanation: "Les enums sont des classes finales qui étendent java.lang.Enum. Pour un ensemble extensible, on passe par une interface que plusieurs enums implémentent."
+    concept: java-enum-implements-interface
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Que garantit la borne `<T extends Enum<T> & Operation>` sur un paramètre `Class<T>` ?"
+    choices:
+      - "Que T est une interface"
+      - "Que T est à la fois un enum (constantes à parcourir, EnumSet, EnumMap) et une Operation (méthode apply)"
+      - "Que T a exactement deux constantes"
+      - "Rien, c'est décoratif"
+    answer: 1
+    explanation: "C'est une borne d'intersection : le type doit satisfaire les deux. Passer TimeUnit.class (enum mais pas Operation) ou une classe Operation qui n'est pas un enum ne compile pas."
+    concept: java-enum-type-token
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Quel est l'avantage de `Collection<? extends Operation>` sur `Class<T>` avec une borne d'intersection ?"
+    choices:
+      - "Il permet EnumSet"
+      - "Il permet de mélanger des constantes de plusieurs enums, ou un sous-ensemble ; en échange, on renonce à EnumSet et EnumMap pour ce paramètre"
+      - "Il est plus rapide"
+      - "Aucun"
+    answer: 1
+    explanation: "Chaque forme a son compromis : le jeton de type donne un enum entier, avec ses outils ; la collection donne de la souplesse."
+    concept: java-enum-collection-param
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Que renvoie `String.class.getEnumConstants()` ?"
+    choices:
+      - "Un tableau vide"
+      - "null, car String n'est pas un enum"
+      - "Les constantes de String"
+      - "Une exception"
+    answer: 1
+    explanation: "getEnumConstants renvoie null pour une classe qui n'est pas un enum. La borne Enum<T> sur le jeton de type évite d'avoir à le tester."
+    concept: java-enum-type-token
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quel exemple du JDK utilise des enums extensibles par interface ?"
+    choices:
+      - "TimeUnit"
+      - "Les options de java.nio.file : LinkOption, StandardCopyOption et StandardOpenOption implémentent CopyOption et OpenOption"
+      - "DayOfWeek"
+      - "Thread.State"
+    answer: 1
+    explanation: "Files.copy(Path, Path, CopyOption...) accepte un mélange de LinkOption et StandardCopyOption, deux enums qui implémentent la même interface. Un fournisseur de système de fichiers peut ajouter les siens."
+    concept: java-enum-implements-interface
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Deux enums qui implémentent la même interface ont un code identique (un champ symbol et son toString). Que recommande Bloch ?"
+    choices:
+      - "Une classe abstraite commune"
+      - "Selon les cas : méthode par défaut de l'interface (sans état), classe d'aide statique, ou duplication si elle est minime"
+      - "Fusionner les deux enums"
+      - "Un enum parent"
+    answer: 1
+    explanation: "L'héritage d'implémentation est impossible entre enums. Le code sans état peut monter dans l'interface ; l'état reste dans chaque enum."
+    concept: java-enum-no-impl-inheritance
+    difficulty: 2

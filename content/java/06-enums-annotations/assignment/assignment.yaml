@@ -1,0 +1,12 @@
+id: java-ch06-assignment
+title: "Des droits d'accès en EnumSet"
+kind: code
+language: java
+difficulty: 3
+xp: 150
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Role.java", "Access.java"]
+concepts: [java-no-ordinal, java-enumset, java-enummap, java-enum-class]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

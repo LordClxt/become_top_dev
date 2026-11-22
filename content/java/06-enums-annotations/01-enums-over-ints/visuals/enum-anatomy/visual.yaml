@@ -1,0 +1,7 @@
+id: java-ch06-enum-anatomy
+concept: java-enum-class
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : la déclaration enum Operation { PLUS{…}, … } se déplie en une classe finale qui étend Enum, ses champs public static final, le tableau $VALUES, et une sous-classe anonyme par constante qui a un corps ; l'initialiseur statique crée les constantes avant la table BY_SYMBOL, qui est encore null à ce moment-là."
+entry: scene.html
+duration_s: 12
+status: idea

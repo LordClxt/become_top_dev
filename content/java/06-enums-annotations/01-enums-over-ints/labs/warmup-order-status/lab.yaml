@@ -1,0 +1,12 @@
+id: java-ch06-l01-lab-warmup-order-status
+title: "Échauffement : un statut qui ne s'oublie pas"
+kind: code
+language: java
+difficulty: 2
+xp: 40
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["OrderStatus.java"]
+concepts: [java-enum-class, java-enum-static-init, java-int-enum-pattern]
+verified: { at: 2026-11-22, solution: pass, starter: fail }
