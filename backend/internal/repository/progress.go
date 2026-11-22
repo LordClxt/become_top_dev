@@ -120,6 +120,41 @@ func (r *ProgressRepo) RunsSince(ctx context.Context, since time.Time) (int, err
 
 // --- Leçons ------------------------------------------------------------------
 
+// Reading est la dernière position de lecture d'une leçon.
+type Reading struct {
+	LessonID  string
+	Anchor    string
+	Progress  float64
+	UpdatedAt time.Time
+}
+
+// SaveReading enregistre (ou remplace) la position de lecture d'une leçon.
+func (r *ProgressRepo) SaveReading(ctx context.Context, lessonID, anchor string, progress float64) error {
+	_, err := r.db.Exec(ctx, `
+		INSERT INTO lesson_reading (user_id, lesson_id, anchor, progress) VALUES ($1, $2, $3, $4)
+		ON CONFLICT (user_id, lesson_id) DO UPDATE SET anchor = EXCLUDED.anchor, progress = EXCLUDED.progress, updated_at = now()`,
+		r.uid, lessonID, anchor, progress)
+	return err
+}
+
+// Readings renvoie les positions de lecture de l'utilisateur, par leçon.
+func (r *ProgressRepo) Readings(ctx context.Context) (map[string]Reading, error) {
+	rows, err := r.db.Query(ctx, `SELECT lesson_id, anchor, progress, updated_at FROM lesson_reading WHERE user_id = $1`, r.uid)
+	if err != nil {
+		return nil, err
+	}
+	list, err := pgx.CollectRows(rows, func(row pgx.CollectableRow) (Reading, error) {
+		var x Reading
+		err := row.Scan(&x.LessonID, &x.Anchor, &x.Progress, &x.UpdatedAt)
+		return x, err
+	})
+	out := make(map[string]Reading, len(list))
+	for _, x := range list {
+		out[x.LessonID] = x
+	}
+	return out, err
+}
+
 func (r *ProgressRepo) CompleteLesson(ctx context.Context, lessonID string) error {
 	_, err := r.db.Exec(ctx, `INSERT INTO lesson_progress (user_id, lesson_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`, r.uid, lessonID)
 	return err

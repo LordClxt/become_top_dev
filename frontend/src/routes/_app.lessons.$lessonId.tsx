@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { BookOpen, Check, ChevronLeft, ChevronRight, Clock, Sparkles } from 'lucide-react'
-import { type ReactNode, useMemo, useRef, useState } from 'react'
+import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { GridZone } from '@/components/Backdrop'
 import { Flashcards } from '@/components/Flashcards'
 import { LessonBody, lessonSections } from '@/components/LessonBody'
 import { FinishSteps } from '@/components/lesson/FinishSteps'
-import { ReadingBar, Toc, useReading } from '@/components/lesson/reading'
+import { ReadingBar, ResumeBanner, scrollToSection, Toc, useReading, useSaveReading } from '@/components/lesson/reading'
 import { Quiz } from '@/components/Quiz'
 import { ErrorState, Loading } from '@/components/states'
 import { announceXp } from '@/features/xp/xp-events'
@@ -51,6 +51,25 @@ function LessonPage() {
   const sectionIds = useMemo(() => sections.map((s) => s.id), [sections])
   const articleRef = useRef<HTMLDivElement>(null)
   const reading = useReading(articleRef, sectionIds)
+  useSaveReading(lesson?.id, reading)
+  // Reprise : l'ancre du lien (#section, depuis « Continuer ») l'emporte ; sinon, bandeau « Reprendre ici ».
+  const [resumeFor, setResumeFor] = useState<string | null>(null)
+  const resumeAnchor = lesson?.reading?.anchor
+  const resumeProgress = lesson?.reading?.progress ?? 0
+  useEffect(() => {
+    if (!lesson) return
+    const hash = decodeURIComponent(window.location.hash.slice(1))
+    if (hash && sectionIds.includes(hash)) {
+      // Après le rendu du corps et la restauration de défilement du routeur.
+      const t = setTimeout(() => scrollToSection(hash), 60)
+      return () => clearTimeout(t)
+    }
+    if (resumeAnchor && sectionIds.includes(resumeAnchor) && resumeProgress >= 0.05 && resumeProgress < 0.98) {
+      setResumeFor(lesson.id)
+    }
+    // biome-ignore lint/correctness/useExhaustiveDependencies: une seule fois par leçon ouverte
+  }, [lesson?.id])
+  const showResume = resumeFor === lesson?.id && reading.progress < 0.05
   // État à l'arrivée sur la page : une leçon déjà terminée ne relance pas.
   const landed = useRef<{ id: string; done: boolean } | null>(null)
   if (lesson && landed.current?.id !== lesson.id) landed.current = { id: lesson.id, done: lesson.completed }
@@ -114,6 +133,17 @@ function LessonPage() {
         />
 
         <article className="min-w-0">
+          {showResume && resumeAnchor && (
+            <ResumeBanner
+              title={sections.find((s) => s.id === resumeAnchor)?.title ?? 'ta dernière section'}
+              minutesLeft={Math.ceil(lesson.duration_min * (1 - resumeProgress))}
+              onResume={() => {
+                setResumeFor(null)
+                scrollToSection(resumeAnchor)
+              }}
+              onDismiss={() => setResumeFor(null)}
+            />
+          )}
           <div ref={articleRef}>
             <LessonBody
               body={lesson.body}
@@ -146,6 +176,7 @@ function LessonPage() {
             <div id="lesson-cards" className="scroll-mt-20">
               <Flashcards
                 cards={lesson.flashcards}
+                storageKey={`cards:${lesson.id}`}
                 // Chaque note alimente la révision espacée (id composite leçon/carte).
                 onRate={(cardId, rating) => {
                   const key = `${lesson.id}/${cardId}`

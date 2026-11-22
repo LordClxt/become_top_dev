@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { play } from '@/features/juice/sound'
 import { announceXp } from '@/features/xp/xp-events'
 import { type AnswerResult, api, type QuizQuestion } from '@/lib/api'
+import { useSnapshot } from '@/lib/persist'
 import { cn } from '@/lib/utils'
 
 /**
@@ -28,6 +29,21 @@ export function Quiz({ quizId }: { quizId: string }) {
   const active = useInView(sectionEl)
 
   const order = round ?? data?.questions.map((q) => q.id) ?? []
+  // Reprise : la question en cours, les réponses de la série et l'écran de fin survivent au rechargement.
+  const questionIds = data?.questions.map((q) => q.id) ?? []
+  useSnapshot<QuizSnapshot>(
+    `quiz:${quizId}`,
+    { round, pos, results, best, done },
+    !!data,
+    (v): v is QuizSnapshot => isQuizSnapshot(v, questionIds),
+    (v) => {
+      setRound(v.round)
+      setPos(v.pos)
+      setResults(v.results)
+      setBest(v.best)
+      setDone(v.done)
+    },
+  )
   const byId = new Map(data?.questions.map((q) => [q.id, q]) ?? [])
   const question = byId.get(order[pos] ?? '')
 
@@ -511,4 +527,31 @@ function useInView(el: HTMLElement | null) {
     return () => io.disconnect()
   }, [el])
   return inView
+}
+
+type QuizSnapshot = {
+  round: string[] | null
+  pos: number
+  results: Record<string, AnswerResult>
+  best: number
+  done: boolean
+}
+
+/** Un instantané n'est repris que s'il correspond encore au quiz (mêmes questions). */
+function isQuizSnapshot(v: unknown, ids: string[]): v is QuizSnapshot {
+  if (!v || typeof v !== 'object') return false
+  const x = v as Partial<QuizSnapshot>
+  const known = new Set(ids)
+  const order = x.round ?? ids
+  return (
+    (x.round === null || (Array.isArray(x.round) && x.round.every((id) => known.has(id)))) &&
+    typeof x.pos === 'number' &&
+    x.pos >= 0 &&
+    x.pos < Math.max(order.length, 1) &&
+    !!x.results &&
+    typeof x.results === 'object' &&
+    Object.keys(x.results).every((id) => known.has(id)) &&
+    typeof x.best === 'number' &&
+    typeof x.done === 'boolean'
+  )
 }

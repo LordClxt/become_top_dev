@@ -158,7 +158,11 @@ export type Lesson = {
   next_id: string | null
   /** Questions intégrées au fil de la leçon (directive ::checkpoint) ; absent sur un backend ancien. */
   checkpoints?: Checkpoint[]
+  /** Dernière position de lecture : section (ancre) et avancement ; null si jamais ouverte. */
+  reading?: ReadingPosition | null
 }
+
+export type ReadingPosition = { anchor: string; progress: number }
 
 export type Checkpoint = {
   id: string
@@ -405,6 +409,9 @@ export const api = {
   chapter: (id: string) => request<Chapter>(`/chapters/${id}`),
   lesson: (id: string) => request<Lesson>(`/lessons/${id}`),
   completeLesson: (id: string) => post<{ xp_awarded: number }>(`/lessons/${id}/complete`),
+  /** keepalive : la sauvegarde part même si la page se ferme (pagehide). */
+  saveReading: (id: string, position: ReadingPosition, keepalive = false) =>
+    request<void>(`/lessons/${id}/reading`, { method: 'PUT', body: JSON.stringify(position), keepalive }),
   answerCheckpoint: (lessonId: string, checkpointId: string, answer: unknown) =>
     post<AnswerResult>(`/lessons/${lessonId}/checkpoints/${checkpointId}`, { answer }),
 
@@ -464,6 +471,8 @@ export type TodayContinue = {
   course_title: string
   chapter_id: string
   chapter_title: string
+  /** Section où reprendre une leçon commencée (le lien y pointe). */
+  anchor?: string
 }
 export type Today = {
   date: string

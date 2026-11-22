@@ -9049,6 +9049,7 @@
    "next_id": "arch-ch00-l02",
    "previous_id": null,
    "quiz_id": "arch-ch00-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "21-28, 39-40"
@@ -9211,6 +9212,7 @@
    "next_id": "arch-ch00-l03",
    "previous_id": "arch-ch00-l01",
    "quiz_id": "arch-ch00-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "28-39"
@@ -9365,6 +9367,7 @@
    "next_id": null,
    "previous_id": "arch-ch00-l02",
    "quiz_id": "arch-ch00-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "43-56"
@@ -9523,6 +9526,7 @@
    "next_id": "arch-ch01-l02",
    "previous_id": null,
    "quiz_id": "arch-ch01-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "57-64"
@@ -9663,6 +9667,7 @@
    "next_id": "arch-ch01-l03",
    "previous_id": "arch-ch01-l01",
    "quiz_id": "arch-ch01-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "64-68"
@@ -9848,6 +9853,7 @@
    "next_id": null,
    "previous_id": "arch-ch01-l02",
    "quiz_id": "arch-ch01-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "68-73"
@@ -9990,6 +9996,7 @@
    "next_id": "arch-ch02-l02",
    "previous_id": null,
    "quiz_id": "arch-ch02-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "75-84"
@@ -10146,6 +10153,7 @@
    "next_id": "arch-ch02-l03",
    "previous_id": "arch-ch02-l01",
    "quiz_id": "arch-ch02-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "85-89"
@@ -10292,6 +10300,7 @@
    "next_id": null,
    "previous_id": "arch-ch02-l02",
    "quiz_id": "arch-ch02-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "89-96"
@@ -10451,6 +10460,7 @@
    "next_id": "arch-ch03-l02",
    "previous_id": null,
    "quiz_id": "arch-ch03-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "97-102"
@@ -10569,6 +10579,7 @@
    "next_id": "arch-ch03-l03",
    "previous_id": "arch-ch03-l01",
    "quiz_id": "arch-ch03-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "99-101"
@@ -10735,6 +10746,7 @@
    "next_id": null,
    "previous_id": "arch-ch03-l02",
    "quiz_id": "arch-ch03-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "102-110"
@@ -10857,6 +10869,7 @@
    "next_id": "arch-ch04-l02",
    "previous_id": null,
    "quiz_id": "arch-ch04-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "111-114"
@@ -10973,6 +10986,7 @@
    "next_id": "arch-ch04-l03",
    "previous_id": "arch-ch04-l01",
    "quiz_id": "arch-ch04-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "112-115"
@@ -11113,6 +11127,7 @@
    "next_id": null,
    "previous_id": "arch-ch04-l02",
    "quiz_id": "arch-ch04-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "115-118"
@@ -11243,6 +11258,7 @@
    "next_id": "arch-ch05-l02",
    "previous_id": null,
    "quiz_id": "arch-ch05-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 8,
     "pages": "119-127"
@@ -11385,6 +11401,7 @@
    "next_id": "arch-ch05-l03",
    "previous_id": "arch-ch05-l01",
    "quiz_id": "arch-ch05-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 8,
     "pages": "128-132"
@@ -11513,6 +11530,7 @@
    "next_id": null,
    "previous_id": "arch-ch05-l02",
    "quiz_id": "arch-ch05-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 8,
     "pages": "132-138"
@@ -11633,6 +11651,7 @@
    "next_id": "arch-ch06-l02",
    "previous_id": null,
    "quiz_id": "arch-ch06-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 9,
     "pages": "139-144"
@@ -11759,6 +11778,7 @@
    "next_id": "arch-ch06-l03",
    "previous_id": "arch-ch06-l01",
    "quiz_id": "arch-ch06-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 9,
     "pages": "144-147"
@@ -11908,6 +11928,7 @@
    "next_id": null,
    "previous_id": "arch-ch06-l02",
    "quiz_id": "arch-ch06-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 9,
     "pages": "148-152"
@@ -12034,6 +12055,7 @@
    "next_id": "arch-ch07-l02",
    "previous_id": null,
    "quiz_id": "arch-ch07-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 10,
     "pages": "153-158"
@@ -12172,6 +12194,7 @@
    "next_id": "arch-ch07-l03",
    "previous_id": "arch-ch07-l01",
    "quiz_id": "arch-ch07-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 10,
     "pages": "158-161"
@@ -12296,6 +12319,7 @@
    "next_id": null,
    "previous_id": "arch-ch07-l02",
    "quiz_id": "arch-ch07-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 11,
     "pages": "163-168"
@@ -12434,6 +12458,7 @@
    "next_id": "arch-ch08-l02",
    "previous_id": null,
    "quiz_id": "arch-ch08-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 12,
     "pages": "169-175"
@@ -12570,6 +12595,7 @@
    "next_id": "arch-ch08-l03",
    "previous_id": "arch-ch08-l01",
    "quiz_id": "arch-ch08-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 12,
     "pages": "175-178"
@@ -12682,6 +12708,7 @@
    "next_id": null,
    "previous_id": "arch-ch08-l02",
    "quiz_id": "arch-ch08-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 12,
     "pages": "178-182"
@@ -12792,6 +12819,7 @@
    "next_id": "arch-ch09-l02",
    "previous_id": null,
    "quiz_id": "arch-ch09-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 13,
     "pages": "183-187"
@@ -12938,6 +12966,7 @@
    "next_id": "arch-ch09-l03",
    "previous_id": "arch-ch09-l01",
    "quiz_id": "arch-ch09-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 13,
     "pages": "187-191"
@@ -13060,6 +13089,7 @@
    "next_id": null,
    "previous_id": "arch-ch09-l02",
    "quiz_id": "arch-ch09-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 13,
     "pages": "192-198"
@@ -13192,6 +13222,7 @@
    "next_id": "arch-ch10-l02",
    "previous_id": null,
    "quiz_id": "arch-ch10-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 14,
     "pages": "199-205"
@@ -13310,6 +13341,7 @@
    "next_id": "arch-ch10-l03",
    "previous_id": "arch-ch10-l01",
    "quiz_id": "arch-ch10-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 14,
     "pages": "205-215"
@@ -13452,6 +13484,7 @@
    "next_id": "arch-ch10-l04",
    "previous_id": "arch-ch10-l02",
    "quiz_id": "arch-ch10-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 14,
     "pages": "216-222"
@@ -13590,6 +13623,7 @@
    "next_id": null,
    "previous_id": "arch-ch10-l03",
    "quiz_id": "arch-ch10-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 14,
     "pages": "223-230"
@@ -13707,6 +13741,7 @@
    "next_id": "ddia-ch00-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch00-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "25-28"
@@ -13871,6 +13906,7 @@
    "next_id": "ddia-ch00-l03",
    "previous_id": "ddia-ch00-l01",
    "quiz_id": "ddia-ch00-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "28-32"
@@ -14007,6 +14043,7 @@
    "next_id": "ddia-ch00-l04",
    "previous_id": "ddia-ch00-l02",
    "quiz_id": "ddia-ch00-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "32-35"
@@ -14177,6 +14214,7 @@
    "next_id": null,
    "previous_id": "ddia-ch00-l03",
    "quiz_id": "ddia-ch00-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "35-39"
@@ -14347,6 +14385,7 @@
    "next_id": "ddia-ch01-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch01-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "27-35"
@@ -14523,6 +14562,7 @@
    "next_id": "ddia-ch01-l03",
    "previous_id": "ddia-ch01-l01",
    "quiz_id": "ddia-ch01-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "36-42"
@@ -14661,6 +14701,7 @@
    "next_id": "ddia-ch01-l04",
    "previous_id": "ddia-ch01-l02",
    "quiz_id": "ddia-ch01-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "42-48"
@@ -14829,6 +14870,7 @@
    "next_id": null,
    "previous_id": "ddia-ch01-l03",
    "quiz_id": "ddia-ch01-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "49-62"
@@ -14993,6 +15035,7 @@
    "next_id": "ddia-ch02-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch02-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "69-75"
@@ -15169,6 +15212,7 @@
    "next_id": "ddia-ch02-l03",
    "previous_id": "ddia-ch02-l01",
    "quiz_id": "ddia-ch02-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "76-79"
@@ -15331,6 +15375,7 @@
    "next_id": "ddia-ch02-l04",
    "previous_id": "ddia-ch02-l02",
    "quiz_id": "ddia-ch02-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "79-83"
@@ -15461,6 +15506,7 @@
    "next_id": "ddia-ch02-l05",
    "previous_id": "ddia-ch02-l03",
    "quiz_id": "ddia-ch02-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "83-85"
@@ -15633,6 +15679,7 @@
    "next_id": null,
    "previous_id": "ddia-ch02-l04",
    "quiz_id": "ddia-ch02-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "85-90"
@@ -15761,6 +15808,7 @@
    "next_id": "ddia-ch03-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch03-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "90-93"
@@ -15885,6 +15933,7 @@
    "next_id": "ddia-ch03-l03",
    "previous_id": "ddia-ch03-l01",
    "quiz_id": "ddia-ch03-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "93-95"
@@ -16027,6 +16076,7 @@
    "next_id": "ddia-ch03-l04",
    "previous_id": "ddia-ch03-l02",
    "quiz_id": "ddia-ch03-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "95-99"
@@ -16147,6 +16197,7 @@
    "next_id": "ddia-ch03-l05",
    "previous_id": "ddia-ch03-l03",
    "quiz_id": "ddia-ch03-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "99-101"
@@ -16271,6 +16322,7 @@
    "next_id": null,
    "previous_id": "ddia-ch03-l04",
    "quiz_id": "ddia-ch03-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "101-104"
@@ -16403,6 +16455,7 @@
    "next_id": "ddia-ch04-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch04-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "111-116"
@@ -16531,6 +16584,7 @@
    "next_id": "ddia-ch04-l03",
    "previous_id": "ddia-ch04-l01",
    "quiz_id": "ddia-ch04-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "116-121"
@@ -16667,6 +16721,7 @@
    "next_id": "ddia-ch04-l04",
    "previous_id": "ddia-ch04-l02",
    "quiz_id": "ddia-ch04-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "122-128"
@@ -16807,6 +16862,7 @@
    "next_id": "ddia-ch04-l05",
    "previous_id": "ddia-ch04-l03",
    "quiz_id": "ddia-ch04-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "128-136"
@@ -16935,6 +16991,7 @@
    "next_id": null,
    "previous_id": "ddia-ch04-l04",
    "quiz_id": "ddia-ch04-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "136-139"
@@ -17081,6 +17138,7 @@
    "next_id": "ddia-ch05-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch05-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "151-155"
@@ -17219,6 +17277,7 @@
    "next_id": "ddia-ch05-l03",
    "previous_id": "ddia-ch05-l01",
    "quiz_id": "ddia-ch05-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "155-158"
@@ -17347,6 +17406,7 @@
    "next_id": "ddia-ch05-l04",
    "previous_id": "ddia-ch05-l02",
    "quiz_id": "ddia-ch05-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "158-161"
@@ -17479,6 +17539,7 @@
    "next_id": "ddia-ch05-l05",
    "previous_id": "ddia-ch05-l03",
    "quiz_id": "ddia-ch05-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "161-164"
@@ -17599,6 +17660,7 @@
    "next_id": null,
    "previous_id": "ddia-ch05-l04",
    "quiz_id": "ddia-ch05-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "164-167"
@@ -17731,6 +17793,7 @@
    "next_id": "ddia-ch06-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch06-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "168-171"
@@ -17863,6 +17926,7 @@
    "next_id": "ddia-ch06-l03",
    "previous_id": "ddia-ch06-l01",
    "quiz_id": "ddia-ch06-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "171-175"
@@ -17975,6 +18039,7 @@
    "next_id": "ddia-ch06-l04",
    "previous_id": "ddia-ch06-l02",
    "quiz_id": "ddia-ch06-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "175-177"
@@ -18111,6 +18176,7 @@
    "next_id": "ddia-ch06-l05",
    "previous_id": "ddia-ch06-l03",
    "quiz_id": "ddia-ch06-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "177-181"
@@ -18243,6 +18309,7 @@
    "next_id": "ddia-ch06-l06",
    "previous_id": "ddia-ch06-l04",
    "quiz_id": "ddia-ch06-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "181-184"
@@ -18357,6 +18424,7 @@
    "next_id": "ddia-ch06-l07",
    "previous_id": "ddia-ch06-l05",
    "quiz_id": "ddia-ch06-l06-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "184-187"
@@ -18485,6 +18553,7 @@
    "next_id": null,
    "previous_id": "ddia-ch06-l06",
    "quiz_id": "ddia-ch06-l07-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "187-192"
@@ -18617,6 +18686,7 @@
    "next_id": "ddia-ch07-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch07-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "199-201"
@@ -18751,6 +18821,7 @@
    "next_id": "ddia-ch07-l03",
    "previous_id": "ddia-ch07-l01",
    "quiz_id": "ddia-ch07-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "202-205"
@@ -18887,6 +18958,7 @@
    "next_id": "ddia-ch07-l04",
    "previous_id": "ddia-ch07-l02",
    "quiz_id": "ddia-ch07-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "206-209"
@@ -19015,6 +19087,7 @@
    "next_id": "ddia-ch07-l05",
    "previous_id": "ddia-ch07-l03",
    "quiz_id": "ddia-ch07-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "209-214"
@@ -19145,6 +19218,7 @@
    "next_id": null,
    "previous_id": "ddia-ch07-l04",
    "quiz_id": "ddia-ch07-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "214-217"
@@ -19295,6 +19369,7 @@
    "next_id": "ddia-ch08-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch08-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "221-232"
@@ -19419,6 +19494,7 @@
    "next_id": "ddia-ch08-l03",
    "previous_id": "ddia-ch08-l01",
    "quiz_id": "ddia-ch08-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "233-237"
@@ -19551,6 +19627,7 @@
    "next_id": "ddia-ch08-l04",
    "previous_id": "ddia-ch08-l02",
    "quiz_id": "ddia-ch08-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "237-242"
@@ -19683,6 +19760,7 @@
    "next_id": "ddia-ch08-l05",
    "previous_id": "ddia-ch08-l03",
    "quiz_id": "ddia-ch08-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "242-246"
@@ -19815,6 +19893,7 @@
    "next_id": null,
    "previous_id": "ddia-ch08-l04",
    "quiz_id": "ddia-ch08-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "246-251"
@@ -19909,6 +19988,7 @@
    "next_id": "ddia-ch09-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch09-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "251-252"
@@ -20045,6 +20125,7 @@
    "next_id": "ddia-ch09-l03",
    "previous_id": "ddia-ch09-l01",
    "quiz_id": "ddia-ch09-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "252-256"
@@ -20185,6 +20266,7 @@
    "next_id": "ddia-ch09-l04",
    "previous_id": "ddia-ch09-l02",
    "quiz_id": "ddia-ch09-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "257-261"
@@ -20317,6 +20399,7 @@
    "next_id": "ddia-ch09-l05",
    "previous_id": "ddia-ch09-l03",
    "quiz_id": "ddia-ch09-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "261-266"
@@ -20429,6 +20512,7 @@
    "next_id": null,
    "previous_id": "ddia-ch09-l04",
    "quiz_id": "ddia-ch09-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 7,
     "pages": "266-268"
@@ -20561,6 +20645,7 @@
    "next_id": "ddia-ch10-l02",
    "previous_id": null,
    "quiz_id": "ddia-ch10-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 8,
     "pages": "273-281"
@@ -20699,6 +20784,7 @@
    "next_id": "ddia-ch10-l03",
    "previous_id": "ddia-ch10-l01",
    "quiz_id": "ddia-ch10-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 8,
     "pages": "281-291"
@@ -20845,6 +20931,7 @@
    "next_id": "ddia-ch10-l04",
    "previous_id": "ddia-ch10-l02",
    "quiz_id": "ddia-ch10-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 8,
     "pages": "291-303"
@@ -20995,6 +21082,7 @@
    "next_id": "ddia-ch10-l05",
    "previous_id": "ddia-ch10-l03",
    "quiz_id": "ddia-ch10-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 8,
     "pages": "303-310"
@@ -21137,6 +21225,7 @@
    "next_id": null,
    "previous_id": "ddia-ch10-l04",
    "quiz_id": "ddia-ch10-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 8,
     "pages": "310-312"
@@ -21253,6 +21342,7 @@
    "next_id": "grails-ch00-l02",
    "previous_id": null,
    "quiz_id": "grails-ch00-l01-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 2,
@@ -21366,6 +21456,7 @@
    "next_id": "grails-ch00-l03",
    "previous_id": "grails-ch00-l01",
    "quiz_id": "grails-ch00-l02-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 3,
@@ -21479,6 +21570,7 @@
    "next_id": "grails-ch00-l04",
    "previous_id": "grails-ch00-l02",
    "quiz_id": "grails-ch00-l03-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 4,
@@ -21592,6 +21684,7 @@
    "next_id": null,
    "previous_id": "grails-ch00-l03",
    "quiz_id": "grails-ch00-l04-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 6,
@@ -21705,6 +21798,7 @@
    "next_id": "grails-ch01-l02",
    "previous_id": null,
    "quiz_id": "grails-ch01-l01-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 5,
@@ -21808,6 +21902,7 @@
    "next_id": "grails-ch01-l03",
    "previous_id": "grails-ch01-l01",
    "quiz_id": "grails-ch01-l02-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 5,
@@ -21921,6 +22016,7 @@
    "next_id": "grails-ch01-l04",
    "previous_id": "grails-ch01-l02",
    "quiz_id": "grails-ch01-l03-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 5,
@@ -22024,6 +22120,7 @@
    "next_id": null,
    "previous_id": "grails-ch01-l03",
    "quiz_id": "grails-ch01-l04-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 8,
@@ -22217,6 +22314,7 @@
    "next_id": "grails-ch02-l02",
    "previous_id": null,
    "quiz_id": "grails-ch02-l01-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 7,
@@ -22396,6 +22494,7 @@
    "next_id": "grails-ch02-l03",
    "previous_id": "grails-ch02-l01",
    "quiz_id": "grails-ch02-l02-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 7,
@@ -22569,6 +22668,7 @@
    "next_id": "grails-ch02-l04",
    "previous_id": "grails-ch02-l02",
    "quiz_id": "grails-ch02-l03-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 7,
@@ -22758,6 +22858,7 @@
    "next_id": null,
    "previous_id": "grails-ch02-l03",
    "quiz_id": "grails-ch02-l04-quiz",
+   "reading": null,
    "source": {
     "book": "groovy-in-action",
     "chapter": 7,
@@ -22969,6 +23070,7 @@
    "next_id": "java-ch00-l02",
    "previous_id": null,
    "quiz_id": "java-ch00-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23175,6 +23277,7 @@
    "next_id": "java-ch00-l03",
    "previous_id": "java-ch00-l01",
    "quiz_id": "java-ch00-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23392,6 +23495,7 @@
    "next_id": "java-ch00-l04",
    "previous_id": "java-ch00-l02",
    "quiz_id": "java-ch00-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23589,6 +23693,7 @@
    "next_id": "java-ch00-l05",
    "previous_id": "java-ch00-l03",
    "quiz_id": "java-ch00-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23780,6 +23885,7 @@
    "next_id": null,
    "previous_id": "java-ch00-l04",
    "quiz_id": "java-ch00-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "1-3",
@@ -23991,6 +24097,7 @@
    "next_id": "java-ch01-l02",
    "previous_id": null,
    "quiz_id": "java-ch01-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "5-9, 19"
@@ -24180,6 +24287,7 @@
    "next_id": "java-ch01-l03",
    "previous_id": "java-ch01-l01",
    "quiz_id": "java-ch01-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "10-16"
@@ -24350,6 +24458,7 @@
    "next_id": "java-ch01-l04",
    "previous_id": "java-ch01-l02",
    "quiz_id": "java-ch01-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "17-21"
@@ -24549,6 +24658,7 @@
    "next_id": "java-ch01-l05",
    "previous_id": "java-ch01-l03",
    "quiz_id": "java-ch01-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "22-28"
@@ -24743,6 +24853,7 @@
    "next_id": null,
    "previous_id": "java-ch01-l04",
    "quiz_id": "java-ch01-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "29-36"
@@ -24939,6 +25050,7 @@
    "next_id": "java-ch02-l02",
    "previous_id": null,
    "quiz_id": "java-ch02-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "37-49"
@@ -25142,6 +25254,7 @@
    "next_id": "java-ch02-l03",
    "previous_id": "java-ch02-l01",
    "quiz_id": "java-ch02-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "50-54"
@@ -25297,6 +25410,7 @@
    "next_id": "java-ch02-l04",
    "previous_id": "java-ch02-l02",
    "quiz_id": "java-ch02-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "55-57"
@@ -25465,6 +25579,7 @@
    "next_id": "java-ch02-l05",
    "previous_id": "java-ch02-l03",
    "quiz_id": "java-ch02-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "58-65"
@@ -25639,6 +25754,7 @@
    "next_id": null,
    "previous_id": "java-ch02-l04",
    "quiz_id": "java-ch02-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "66-72"
@@ -25830,6 +25946,7 @@
    "next_id": "java-ch03-l02",
    "previous_id": null,
    "quiz_id": "java-ch03-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "73-77"
@@ -26021,6 +26138,7 @@
    "next_id": "java-ch03-l03",
    "previous_id": "java-ch03-l01",
    "quiz_id": "java-ch03-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "78-79"
@@ -26235,6 +26353,7 @@
    "next_id": "java-ch03-l04",
    "previous_id": "java-ch03-l02",
    "quiz_id": "java-ch03-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "80-85"
@@ -26414,6 +26533,7 @@
    "next_id": null,
    "previous_id": "java-ch03-l03",
    "quiz_id": "java-ch03-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "83-86"
@@ -26567,6 +26687,7 @@
    "next_id": "spring-ch00-l02",
    "previous_id": null,
    "quiz_id": "spring-ch00-l01-quiz",
+   "reading": null,
    "source": {
     "book": "jdk-docs",
     "chapter": 1,
@@ -26700,6 +26821,7 @@
    "next_id": "spring-ch00-l03",
    "previous_id": "spring-ch00-l01",
    "quiz_id": "spring-ch00-l02-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 3,
@@ -26862,6 +26984,7 @@
    "next_id": "spring-ch00-l04",
    "previous_id": "spring-ch00-l02",
    "quiz_id": "spring-ch00-l03-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 4,
@@ -27022,6 +27145,7 @@
    "next_id": null,
    "previous_id": "spring-ch00-l03",
    "quiz_id": "spring-ch00-l04-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 11,
@@ -27186,6 +27310,7 @@
    "next_id": "spring-ch01-l02",
    "previous_id": null,
    "quiz_id": "spring-ch01-l01-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 2,
@@ -27364,6 +27489,7 @@
    "next_id": "spring-ch01-l03",
    "previous_id": "spring-ch01-l01",
    "quiz_id": "spring-ch01-l02-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 4,
@@ -27545,6 +27671,7 @@
    "next_id": "spring-ch01-l04",
    "previous_id": "spring-ch01-l02",
    "quiz_id": "spring-ch01-l03-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 7,
@@ -27719,6 +27846,7 @@
    "next_id": "spring-ch01-l05",
    "previous_id": "spring-ch01-l03",
    "quiz_id": "spring-ch01-l04-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 11,
@@ -27885,6 +28013,7 @@
    "next_id": null,
    "previous_id": "spring-ch01-l04",
    "quiz_id": "spring-ch01-l05-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 12,
@@ -28038,6 +28167,7 @@
    "next_id": "spring-ch02-l02",
    "previous_id": null,
    "quiz_id": "spring-ch02-l01-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 20,
@@ -28180,6 +28310,7 @@
    "next_id": "spring-ch02-l03",
    "previous_id": "spring-ch02-l01",
    "quiz_id": "spring-ch02-l02-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 21,
@@ -28330,6 +28461,7 @@
    "next_id": "spring-ch02-l04",
    "previous_id": "spring-ch02-l02",
    "quiz_id": "spring-ch02-l03-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 22,
@@ -28474,6 +28606,7 @@
    "next_id": "spring-ch02-l05",
    "previous_id": "spring-ch02-l03",
    "quiz_id": "spring-ch02-l04-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 20,
@@ -28630,6 +28763,7 @@
    "next_id": null,
    "previous_id": "spring-ch02-l04",
    "quiz_id": "spring-ch02-l05-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 22,
@@ -28784,6 +28918,7 @@
    "next_id": "spring-ch03-l02",
    "previous_id": null,
    "quiz_id": "spring-ch03-l01-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 25,
@@ -28922,6 +29057,7 @@
    "next_id": "spring-ch03-l03",
    "previous_id": "spring-ch03-l01",
    "quiz_id": "spring-ch03-l02-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 26,
@@ -29068,6 +29204,7 @@
    "next_id": "spring-ch03-l04",
    "previous_id": "spring-ch03-l02",
    "quiz_id": "spring-ch03-l03-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 26,
@@ -29206,6 +29343,7 @@
    "next_id": "spring-ch03-l05",
    "previous_id": "spring-ch03-l03",
    "quiz_id": "spring-ch03-l04-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 27,
@@ -29352,6 +29490,7 @@
    "next_id": null,
    "previous_id": "spring-ch03-l04",
    "quiz_id": "spring-ch03-l05-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 28,
@@ -29488,6 +29627,7 @@
    "next_id": "spring-ch04-l02",
    "previous_id": null,
    "quiz_id": "spring-ch04-l01-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 29,
@@ -29620,6 +29760,7 @@
    "next_id": "spring-ch04-l03",
    "previous_id": "spring-ch04-l01",
    "quiz_id": "spring-ch04-l02-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 29,
@@ -29743,6 +29884,7 @@
    "next_id": "spring-ch04-l04",
    "previous_id": "spring-ch04-l02",
    "quiz_id": "spring-ch04-l03-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 29,
@@ -29884,6 +30026,7 @@
    "next_id": "spring-ch04-l05",
    "previous_id": "spring-ch04-l03",
    "quiz_id": "spring-ch04-l04-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 29,
@@ -30012,6 +30155,7 @@
    "next_id": null,
    "previous_id": "spring-ch04-l04",
    "quiz_id": "spring-ch04-l05-quiz",
+   "reading": null,
    "source": {
     "book": "spring-docs",
     "chapter": 30,
@@ -30138,6 +30282,7 @@
    "next_id": "ts-ch00-l02",
    "previous_id": null,
    "quiz_id": "ts-ch00-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "1-7"
@@ -30256,6 +30401,7 @@
    "next_id": "ts-ch00-l03",
    "previous_id": "ts-ch00-l01",
    "quiz_id": "ts-ch00-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "8-11"
@@ -30404,6 +30550,7 @@
    "next_id": "ts-ch00-l04",
    "previous_id": "ts-ch00-l02",
    "quiz_id": "ts-ch00-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "11-18"
@@ -30518,6 +30665,7 @@
    "next_id": "ts-ch00-l05",
    "previous_id": "ts-ch00-l03",
    "quiz_id": "ts-ch00-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "18-22"
@@ -30626,6 +30774,7 @@
    "next_id": null,
    "previous_id": "ts-ch00-l04",
    "quiz_id": "ts-ch00-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 1,
     "pages": "22-26"
@@ -30744,6 +30893,7 @@
    "next_id": "ts-ch01-l02",
    "previous_id": null,
    "quiz_id": "ts-ch01-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "27-40"
@@ -30848,6 +30998,7 @@
    "next_id": "ts-ch01-l03",
    "previous_id": "ts-ch01-l01",
    "quiz_id": "ts-ch01-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "40-45"
@@ -30956,6 +31107,7 @@
    "next_id": "ts-ch01-l04",
    "previous_id": "ts-ch01-l02",
    "quiz_id": "ts-ch01-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "45-52"
@@ -31044,6 +31196,7 @@
    "next_id": null,
    "previous_id": "ts-ch01-l03",
    "quiz_id": "ts-ch01-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "53-56"
@@ -31122,6 +31275,7 @@
    "next_id": "ts-ch02-l02",
    "previous_id": null,
    "quiz_id": "ts-ch02-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "56-59"
@@ -31214,6 +31368,7 @@
    "next_id": "ts-ch02-l03",
    "previous_id": "ts-ch02-l01",
    "quiz_id": "ts-ch02-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "60-66"
@@ -31306,6 +31461,7 @@
    "next_id": "ts-ch02-l04",
    "previous_id": "ts-ch02-l02",
    "quiz_id": "ts-ch02-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "66-71"
@@ -31408,6 +31564,7 @@
    "next_id": "ts-ch02-l05",
    "previous_id": "ts-ch02-l03",
    "quiz_id": "ts-ch02-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "72-80"
@@ -31500,6 +31657,7 @@
    "next_id": null,
    "previous_id": "ts-ch02-l04",
    "quiz_id": "ts-ch02-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 2,
     "pages": "81-88"
@@ -31588,6 +31746,7 @@
    "next_id": "ts-ch03-l02",
    "previous_id": null,
    "quiz_id": "ts-ch03-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "90-96"
@@ -31694,6 +31853,7 @@
    "next_id": "ts-ch03-l03",
    "previous_id": "ts-ch03-l01",
    "quiz_id": "ts-ch03-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "96-104"
@@ -31778,6 +31938,7 @@
    "next_id": "ts-ch03-l04",
    "previous_id": "ts-ch03-l02",
    "quiz_id": "ts-ch03-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "104-106"
@@ -31880,6 +32041,7 @@
    "next_id": "ts-ch03-l05",
    "previous_id": "ts-ch03-l03",
    "quiz_id": "ts-ch03-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "106-115"
@@ -31968,6 +32130,7 @@
    "next_id": null,
    "previous_id": "ts-ch03-l04",
    "quiz_id": "ts-ch03-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "115-119"
@@ -32046,6 +32209,7 @@
    "next_id": "ts-ch04-l02",
    "previous_id": null,
    "quiz_id": "ts-ch04-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "119-123"
@@ -32134,6 +32298,7 @@
    "next_id": "ts-ch04-l03",
    "previous_id": "ts-ch04-l01",
    "quiz_id": "ts-ch04-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "123-127"
@@ -32232,6 +32397,7 @@
    "next_id": "ts-ch04-l04",
    "previous_id": "ts-ch04-l02",
    "quiz_id": "ts-ch04-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "127-132"
@@ -32314,6 +32480,7 @@
    "next_id": null,
    "previous_id": "ts-ch04-l03",
    "quiz_id": "ts-ch04-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 3,
     "pages": "132-136"
@@ -32402,6 +32569,7 @@
    "next_id": "ts-ch05-l02",
    "previous_id": null,
    "quiz_id": "ts-ch05-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "137-142"
@@ -32494,6 +32662,7 @@
    "next_id": "ts-ch05-l03",
    "previous_id": "ts-ch05-l01",
    "quiz_id": "ts-ch05-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "142-148"
@@ -32582,6 +32751,7 @@
    "next_id": "ts-ch05-l04",
    "previous_id": "ts-ch05-l02",
    "quiz_id": "ts-ch05-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "148-154"
@@ -32660,6 +32830,7 @@
    "next_id": "ts-ch05-l05",
    "previous_id": "ts-ch05-l03",
    "quiz_id": "ts-ch05-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "154-158"
@@ -32744,6 +32915,7 @@
    "next_id": null,
    "previous_id": "ts-ch05-l04",
    "quiz_id": "ts-ch05-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "158-162"
@@ -32822,6 +32994,7 @@
    "next_id": "ts-ch06-l02",
    "previous_id": null,
    "quiz_id": "ts-ch06-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "162-165"
@@ -32900,6 +33073,7 @@
    "next_id": "ts-ch06-l03",
    "previous_id": "ts-ch06-l01",
    "quiz_id": "ts-ch06-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "165-168"
@@ -32978,6 +33152,7 @@
    "next_id": "ts-ch06-l04",
    "previous_id": "ts-ch06-l02",
    "quiz_id": "ts-ch06-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "168-172"
@@ -33070,6 +33245,7 @@
    "next_id": "ts-ch06-l05",
    "previous_id": "ts-ch06-l03",
    "quiz_id": "ts-ch06-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "172-177"
@@ -33168,6 +33344,7 @@
    "next_id": null,
    "previous_id": "ts-ch06-l04",
    "quiz_id": "ts-ch06-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 4,
     "pages": "177-184"
@@ -33252,6 +33429,7 @@
    "next_id": "ts-ch07-l02",
    "previous_id": null,
    "quiz_id": "ts-ch07-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "185-190"
@@ -33330,6 +33508,7 @@
    "next_id": "ts-ch07-l03",
    "previous_id": "ts-ch07-l01",
    "quiz_id": "ts-ch07-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "190-195"
@@ -33422,6 +33601,7 @@
    "next_id": "ts-ch07-l04",
    "previous_id": "ts-ch07-l02",
    "quiz_id": "ts-ch07-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "195-198"
@@ -33504,6 +33684,7 @@
    "next_id": "ts-ch07-l05",
    "previous_id": "ts-ch07-l03",
    "quiz_id": "ts-ch07-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "198-202"
@@ -33616,6 +33797,7 @@
    "next_id": null,
    "previous_id": "ts-ch07-l04",
    "quiz_id": "ts-ch07-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 5,
     "pages": "202-214"
@@ -33708,6 +33890,7 @@
    "next_id": "ts-ch08-l02",
    "previous_id": null,
    "quiz_id": "ts-ch08-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "216-221"
@@ -33796,6 +33979,7 @@
    "next_id": "ts-ch08-l03",
    "previous_id": "ts-ch08-l01",
    "quiz_id": "ts-ch08-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "221-227"
@@ -33888,6 +34072,7 @@
    "next_id": "ts-ch08-l04",
    "previous_id": "ts-ch08-l02",
    "quiz_id": "ts-ch08-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "227-230"
@@ -33982,6 +34167,7 @@
    "next_id": "ts-ch08-l05",
    "previous_id": "ts-ch08-l03",
    "quiz_id": "ts-ch08-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "230-234"
@@ -34074,6 +34260,7 @@
    "next_id": null,
    "previous_id": "ts-ch08-l04",
    "quiz_id": "ts-ch08-l05-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "234-240"
@@ -34172,6 +34359,7 @@
    "next_id": "ts-ch09-l02",
    "previous_id": null,
    "quiz_id": "ts-ch09-l01-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "240-248"
@@ -34250,6 +34438,7 @@
    "next_id": "ts-ch09-l03",
    "previous_id": "ts-ch09-l01",
    "quiz_id": "ts-ch09-l02-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "248-252"
@@ -34332,6 +34521,7 @@
    "next_id": "ts-ch09-l04",
    "previous_id": "ts-ch09-l02",
    "quiz_id": "ts-ch09-l03-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "252-256"
@@ -34414,6 +34604,7 @@
    "next_id": null,
    "previous_id": "ts-ch09-l03",
    "quiz_id": "ts-ch09-l04-quiz",
+   "reading": null,
    "source": {
     "chapter": 6,
     "pages": "256-260"
@@ -99099,6 +99290,218 @@
   "status": 200
  },
  {
+  "name": "reading-save",
+  "status": 204
+ },
+ {
+  "detail": "anchor : identifiant de section invalide",
+  "name": "reading-invalid-anchor",
+  "status": 400
+ },
+ {
+  "detail": "progress : nombre entre 0 et 1 attendu",
+  "name": "reading-invalid-progress",
+  "status": 400
+ },
+ {
+  "detail": "leçon introuvable",
+  "name": "reading-unknown-lesson",
+  "status": 404
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nMardi, 2 h du matin, personne n'est réveillé : l'alerte disque devait sonner dans `#ops` au bout de 5 minutes, elle attend 30 minutes et part dans un canal que personne ne lit. Dans le code, `new Alert(\"disk\", CRIT, 0.95, 30, 5, \"#ops-archive\")` : deux `int` inversés, une chaîne copiée du mauvais exemple. Ça compile, la revue ne l'a pas vu.\n\nEn Go, tu aurais passé une struct d'options ou des *functional options*. Java n'a ni paramètres nommés ni valeurs par défaut. Dès qu'une classe a plus de trois ou quatre paramètres, dont beaucoup facultatifs, il te faut une stratégie. Celle que tu choisis décide si tes objets peuvent être **immuables** et si un appel se **lit** sans ouvrir la documentation.\n\nTu croiseras des builders partout : `HttpRequest.newBuilder()` du JDK, `StringBuilder`, `Stream.builder()`, Lombok `@Builder`, les clients AWS, Protobuf…\n\n## Le concept\n\nPrenons une alerte de supervision : un nom et une sévérité obligatoires, puis des options (seuil, durée, canal, runbook…).\n\n### Tentative 1 : les constructeurs télescopiques\n\n```java\npublic Alert(String name, Severity sev) { this(name, sev, 0.9); }\npublic Alert(String name, Severity sev, double threshold) { this(name, sev, threshold, 5); }\npublic Alert(String name, Severity sev, double threshold, int minutes) { this(name, sev, threshold, minutes, \"#ops\"); }\n// … et ainsi de suite\n```\n\nÇa fonctionne, mais l'appel `new Alert(\"cpu\", WARN, 0.9, 10, \"#ops\", 3, true)` est indéchiffrable. Pire : deux `int` inversés **compilent** et donnent un comportement faux à l'exécution.\n\n::checkpoint{id=\"c1\"}\n\n### Tentative 2 : le patron JavaBeans\n\n```java\nAlert a = new Alert();\na.setName(\"cpu\");\na.setThreshold(0.9);\n// oublié : setSeverity(...)\n```\n\nLisible, mais :\n- entre `new` et le dernier setter, l'objet est **incohérent**, et rien n'empêche de l'utiliser dans cet état. Le bug apparaîtra loin de sa cause ;\n- l'objet ne peut pas être **immuable**, donc il faut penser à la sécurité entre threads (module 11).\n\n### La solution : le Builder\n\nLa même alerte, écrite des trois façons :\n\n:::compare\n--- bad: Constructeur télescopique\n```java\nnew Alert(\"cpu\", WARN, 0.9, 10, \"#ops\", 3, true);\n```\nQue vaut `10` ? Et `3` ? Il faut ouvrir la classe pour le savoir.\n--- bad: Patron JavaBeans\n```java\nAlert a = new Alert();\na.setName(\"cpu\");\na.setSeverity(Severity.WARN);\na.setThreshold(0.9);\na.setMinutes(10);\n```\nLisible, mais `a` existe déjà, incomplet, pendant quatre lignes.\n--- good: Builder\n```java\nAlert cpu = new Alert.Builder(\"cpu\", Severity.WARN)   // obligatoires\n        .threshold(0.9)                               // options, dans n'importe quel ordre\n        .forMinutes(10)\n        .channel(\"#ops\")\n        .build();                                     // objet immuable\n```\nChaque valeur est nommée, et l'alerte n'existe qu'une fois complète.\n:::\n\nLa forme classique, ligne par ligne :\n\n:::steps\n```java title=\"Alert.java\"\npublic final class Alert {\n    private final String name;\n    private final Severity severity;\n    private final double threshold;\n    private final int minutes;\n\n    public static final class Builder {\n        private final String name;              // obligatoires : final\n        private final Severity severity;\n        private double threshold = 0.9;         // options : valeurs par défaut au même endroit\n        private int minutes = 5;\n\n        public Builder(String name, Severity severity) {\n            this.name = Objects.requireNonNull(name);\n            this.severity = Objects.requireNonNull(severity);\n        }\n        public Builder threshold(double t) { threshold = t; return this; }\n        public Builder forMinutes(int m) { minutes = m; return this; }\n        public Alert build() { return new Alert(this); }\n    }\n\n    private Alert(Builder b) {                  // seul chemin de construction\n        name = b.name;\n        severity = b.severity;\n        threshold = b.threshold;\n        minutes = b.minutes;\n    }\n}\n```\n--- 1-5: Tous les champs de `Alert` sont `final` : une fois construite, une alerte ne change plus jamais.\n--- 7: Le builder est une **classe imbriquée statique** (on verra pourquoi `static` au module 4). Il vit à côté de la classe qu'il construit.\n--- 8-11: Il copie les mêmes champs. Les obligatoires sont `final`, les options reçoivent leur **valeur par défaut**, toutes au même endroit.\n--- 13-16: Son constructeur exige les paramètres obligatoires et les vérifie tout de suite : impossible de commencer une alerte sans nom.\n--- 17-18: Chaque option renvoie `this`. C'est une **API fluide** : `.threshold(0.9).forMinutes(10)` se lit comme des paramètres nommés.\n--- 19,22-27: `build()` appelle le constructeur **privé** de `Alert`, seul chemin de construction : on ne peut obtenir une alerte que par `build()`, donc toujours complète.\n:::\n\n### Où valider ?\n\nLe plus tôt possible, au plus près de l'erreur :\n\n| Ce qu'on vérifie | Où |\n|---|---|\n| Un paramètre obligatoire | constructeur du builder |\n| Une option isolée (`threshold` entre 0 et 1) | sa méthode du builder |\n| Un invariant entre plusieurs paramètres (`minutes > 0` si `severity == PAGE`) | dans `build()`, **après** avoir copié les valeurs dans l'objet |\n\n:::reveal Pourquoi valider après la copie, et pas sur les champs du builder ?\nParce que le builder reste modifiable : quelqu'un peut encore appeler une de ses méthodes. Une fois les valeurs copiées dans l'objet, l'objet vérifie **ses propres champs**, que plus personne ne peut changer. Ce qui a été validé est exactement ce qui sera utilisé.\n:::\n\n> **Java 25 :** dans un builder **hiérarchique** (plus bas), le constructeur d'une sous-classe peut désormais valider et affecter ses propres champs **avant** `super(builder)` (module 0, leçon 2). Si le constructeur parent appelle une méthode redéfinie, elle verra déjà des champs valides. On retrouvera ce principe avec les copies défensives (module 8). En cas d'échec, lève une `IllegalArgumentException` dont le message dit **quel** paramètre est fautif.\n\n::checkpoint{id=\"c3\"}\n\n### Un builder est réutilisable\n\nOn peut construire plusieurs objets avec le même builder, en changeant quelques options entre deux `build()`. Un builder peut aussi remplir des champs tout seul (un numéro de série qui s'incrémente). Conséquence : `build()` doit **copier** les structures mutables (listes, maps), sinon un objet déjà construit changerait quand on continue à utiliser le builder. Tu vas écrire ce test dans le lab.\n\n::checkpoint{id=\"c2\"}\n\nÀ toi de construire une alerte : enchaîne les appels, provoque chaque erreur, puis coupe la copie défensive et continue à utiliser le builder après un `build()`.\n\n::visual{id=\"java-ch01-alert-builder\"}\n\n### Builders hiérarchiques\n\nLe Builder s'adapte aux hiérarchies de classes : une classe abstraite a un builder abstrait, chaque sous-classe concrète a son builder concret. Le problème : une méthode du builder parent renvoie le type **parent**, donc on perd les méthodes de l'enfant au milieu d'une chaîne.\n\n```java\nabstract class Message {\n    final Set<Tag> tags;\n\n    abstract static class Builder<T extends Builder<T>> {\n        private final EnumSet<Tag> tags = EnumSet.noneOf(Tag.class);\n\n        public T tag(Tag t) {\n            tags.add(Objects.requireNonNull(t));\n            return self();                       // renvoie le builder CONCRET\n        }\n        abstract Message build();\n        protected abstract T self();            // chaque sous-classe renvoie this\n    }\n\n    Message(Builder<?> b) { tags = Set.copyOf(b.tags); }\n}\n\nfinal class Email extends Message {\n    private final String to;\n\n    static final class Builder extends Message.Builder<Builder> {\n        private final String to;\n        Builder(String to) { this.to = to; }\n        @Override public Email build() { return new Email(this); }   // retour covariant\n        @Override protected Builder self() { return this; }\n    }\n\n    private Email(Builder b) { super(b); to = b.to; }\n}\n\nEmail e = new Email.Builder(\"ana@example.com\").tag(Tag.URGENT).build();   // aucun cast\n```\n\n`Builder<T extends Builder<T>>` est un **paramètre de type récursif** (module 5) ; avec `self()`, il simule le « type de soi-même » que Java n'a pas. C'est l'**idiome du self-type simulé**. Le retour **covariant** de `build()` donne directement un `Email`. Autre petit bonus : chaque option a sa propre méthode, donc un builder peut accepter plusieurs paramètres variadiques, ou accumuler plusieurs appels (`tag` deux fois) dans un seul champ.\n\n### Le prix\n\nIl faut créer un objet de plus (le builder), ce qui ne compte presque jamais. Et c'est plus verbeux : réserve-le aux classes qui ont **au moins quatre paramètres**, ou qui en auront. Ajouter un builder plus tard laisse les anciens constructeurs traîner : si la classe va grossir, commence directement par un builder.\n\n> **Au-delà du livre (Java 16+)** : pour une petite valeur à 2 ou 3 champs, tous obligatoires, un `record` avec un constructeur compact qui valide est plus simple qu'un builder. Le builder reste la bonne réponse quand les options s'accumulent.\n\n## Pièges fréquents\n\n- **Partager la collection du builder** avec l'objet construit : continuer à utiliser le builder modifie l'objet « immuable ». Copie dans le constructeur privé (`List.copyOf`, `Set.copyOf`).\n- **Valider dans `build()` sur les champs du builder**, puis copier : entre les deux, rien ne change ici, mais prends l'habitude de vérifier l'objet final.\n- **Oublier `self()`** dans une sous-classe : la compilation échoue, ce qui est voulu.\n- **Mettre des setters dans l'objet construit** « au cas où » : tu perds l'immutabilité qui justifiait le builder.\n\n## À retenir\n\n- Télescopique : sûr mais illisible. JavaBeans : lisible mais incohérent et mutable. **Builder : sûr et lisible.**\n- Obligatoires dans le constructeur du builder, options par méthodes chaînées, `build()` appelle un constructeur **privé**.\n- Valide chaque paramètre à son arrivée, et les invariants croisés dans `build()` sur les champs copiés.\n- Hiérarchies : `Builder<T extends Builder<T>>` + `self()` + `build()` covariant.\n\n> **Source :** *Effective Java*, 3e éd., item 2 (pages 10 à 16).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "java",
+    "id": "java-ch01",
+    "title": "Créer et détruire des objets"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [
+      "Le compilateur refuse l'appel",
+      "Une exception est levée à l'exécution",
+      "Tout compile et s'exécute : la réservation fait 2 nuits pour 3 adultes",
+      "Java réordonne les arguments d'après leurs noms"
+     ],
+     "code": null,
+     "id": "c1",
+     "prompt": "La signature est `Reservation(String guest, String room, int nights, int adults)`. Un appel écrit `new Reservation(\"Ana\", \"204\", 2, 3)` pour 3 nuits et 2 adultes. Que se passe-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "public class Main {\n    static final class Request {\n        final List<String> headers;\n        Request(Builder b) { headers = b.headers; }\n        static final class Builder {\n            final List<String> headers = new ArrayList<>();\n            Builder header(String h) { headers.add(h); return this; }\n            Request build() { return new Request(this); }\n        }\n    }\n\n    public static void main(String[] args) {\n        Request.Builder b = new Request.Builder().header(\"Accept\");\n        Request first = b.build();\n        Request second = b.header(\"Auth\").build();\n        System.out.println(first.headers.size() + \" \" + (first.headers == second.headers));\n    }\n}\n",
+     "id": "c2",
+     "prompt": "Ce builder est réutilisé pour deux requêtes. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Dans checkIn(), en comparant avec checkOut",
+      "Dans checkOut(), en comparant avec checkIn",
+      "Dans build() ou le constructeur privé, sur les champs copiés dans Booking",
+      "Nulle part : c'est à l'appelant de faire attention"
+     ],
+     "code": null,
+     "id": "c3",
+     "prompt": "Un builder de `Booking` reçoit `checkIn(...)` et `checkOut(...)`, dans n'importe quel ordre. Où vérifier que checkOut est après checkIn ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "java-telescoping-ctor",
+     "label": "Constructeurs télescopiques : un constructeur par nombre d'options, illisible au-delà de 3-4 paramètres"
+    },
+    {
+     "id": "java-javabeans-inconsistent",
+     "label": "Le patron JavaBeans (setters) : objet incohérent pendant sa construction et impossible à rendre immuable"
+    },
+    {
+     "id": "java-builder",
+     "label": "Le Builder : obligatoires dans le constructeur du builder, options par méthodes chaînées, build() produit un objet immuable"
+    },
+    {
+     "id": "java-builder-validation",
+     "label": "Où valider : chaque paramètre à son arrivée, les invariants multi-paramètres dans build(), sur les champs copiés"
+    },
+    {
+     "id": "java-builder-hierarchy",
+     "label": "Builders hiérarchiques : Builder<T extends Builder<T>>, méthode self() et retour covariant de build()"
+    }
+   ],
+   "duration_min": 30,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Illisibles au-delà de quelques paramètres, et deux paramètres de même type inversés compilent sans erreur.",
+     "concept": "java-telescoping-ctor",
+     "front": "Défaut principal des constructeurs télescopiques ?",
+     "id": "fc1"
+    },
+    {
+     "back": "L'objet est incohérent pendant sa construction, et il ne peut pas être immuable (donc thread-safety à gérer).",
+     "concept": "java-javabeans-inconsistent",
+     "front": "Deux défauts du patron JavaBeans (constructeur vide + setters) ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Dans le constructeur (ou la fabrique) du builder, en champs final. Les options ont des méthodes chaînées et des valeurs par défaut.",
+     "concept": "java-builder",
+     "front": "Où vont les paramètres obligatoires dans un Builder ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Pour que build() soit le seul chemin : tout objet obtenu est complet et validé.",
+     "concept": "java-builder",
+     "front": "Pourquoi le constructeur de la classe construite est-il privé ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Les copier (List.copyOf, Set.copyOf) : sinon continuer à utiliser le builder modifie les objets déjà construits.",
+     "concept": "java-builder",
+     "front": "Que doit faire build() avec les collections du builder ?",
+     "id": "fc5"
+    },
+    {
+     "back": "Dans build() ou le constructeur privé, sur les champs copiés de l'objet final ; lever IllegalArgumentException en nommant les paramètres fautifs.",
+     "concept": "java-builder-validation",
+     "front": "Où vérifier un invariant qui porte sur plusieurs paramètres ?",
+     "id": "fc6"
+    },
+    {
+     "back": "Environ quatre, surtout s'ils sont optionnels ou de même type, ou si la classe va grossir.",
+     "concept": "java-builder",
+     "front": "À partir de combien de paramètres un Builder vaut-il le coup ?",
+     "id": "fc7"
+    },
+    {
+     "back": "Builder<T extends Builder<T>> avec une méthode abstraite T self() : les méthodes du builder parent renvoient le builder concret, sans cast.",
+     "concept": "java-builder-hierarchy",
+     "front": "Qu'est-ce que l'idiome du self-type simulé ?",
+     "id": "fc8"
+    },
+    {
+     "back": "Une redéfinition qui déclare un type de retour plus précis : Email.Builder.build() renvoie Email alors que Message.Builder.build() renvoie Message.",
+     "concept": "java-builder-hierarchy",
+     "front": "Qu'est-ce qu'un type de retour covariant ?",
+     "id": "fc9"
+    },
+    {
+     "back": "Record pour une petite valeur aux champs tous obligatoires (validation dans le constructeur compact) ; builder dès que les options s'accumulent.",
+     "concept": "java-builder",
+     "front": "Builder ou record (Java 16+) ?",
+     "id": "fc10"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Série de constructeurs qui ajoutent chacun un paramètre optionnel et délèguent au suivant avec this(...).",
+     "term": "constructeur télescopique"
+    },
+    {
+     "definition": "Constructeur sans paramètre suivi d'appels à des setters. Simple à lire, mais l'objet est mutable et passe par des états incomplets.",
+     "term": "patron JavaBeans"
+    },
+    {
+     "definition": "API dont les méthodes renvoient l'objet lui-même pour enchaîner les appels : b.x(1).y(2).build().",
+     "term": "API fluide"
+    },
+    {
+     "definition": "Une méthode redéfinie peut déclarer un type de retour plus précis que la méthode parente (build() renvoie Email au lieu de Message).",
+     "term": "type retour covariant"
+    },
+    {
+     "definition": "Paramètre de type récursif T extends Builder<T> plus une méthode abstraite self() : les méthodes héritées renvoient le builder concret, sans cast.",
+     "term": "idiome du self-type simulé"
+    }
+   ],
+   "id": "java-ch01-l02",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "java-ch01-l02-lab-http-request",
+     "passed": false,
+     "role": "lab",
+     "title": "Un builder pour des requêtes HTTP immuables",
+     "xp": 60
+    }
+   ],
+   "next_id": "java-ch01-l03",
+   "previous_id": "java-ch01-l01",
+   "quiz_id": "java-ch01-l02-quiz",
+   "reading": {
+    "anchor": "le-concept",
+    "progress": 0.4
+   },
+   "source": {
+    "chapter": 2,
+    "pages": "10-16"
+   },
+   "title": "Le Builder, quand les paramètres s'accumulent",
+   "visuals": {
+    "java-ch01-alert-builder": {
+     "concept": "java-builder-validation",
+     "entry": "AlertBuilder.tsx",
+     "format": "interactive",
+     "id": "java-ch01-alert-builder",
+     "justification": "Enchaîner soi-même les appels du builder et voir en direct son état, l'objet produit par build() et l'endroit exact où chaque validation échoue (y compris la liste partagée sans copie défensive) montre un mécanisme que le code statique laisse deviner.",
+     "params": [],
+     "status": "built"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson-after-reading",
+  "status": 200
+ },
+ {
   "body": {
    "xp_awarded": 30
   },
@@ -101088,6 +101491,10 @@
    "next_id": "java-ch01-l03",
    "previous_id": "java-ch01-l01",
    "quiz_id": "java-ch01-l02-quiz",
+   "reading": {
+    "anchor": "le-concept",
+    "progress": 0.4
+   },
    "source": {
     "chapter": 2,
     "pages": "10-16"

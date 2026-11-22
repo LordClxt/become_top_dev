@@ -35,7 +35,8 @@ export function useClaimChest() {
 export function continueLink(c: TodayContinue) {
   switch (c.type) {
     case 'lesson':
-      return { to: '/lessons/$lessonId', params: { lessonId: c.id } } as const
+      // hash : la section où l'on s'était arrêté (la page de leçon y défile).
+      return { to: '/lessons/$lessonId', params: { lessonId: c.id }, hash: c.anchor } as const
     case 'exercise':
       return { to: '/exercises/$exerciseId', params: { exerciseId: c.id } } as const
     default:
@@ -44,5 +45,6 @@ export function continueLink(c: TodayContinue) {
 }
 
 export function continuePath(c: TodayContinue): string {
+  // Sans l'ancre : sert à comparer avec le chemin courant (qui n'en a jamais).
   return c.type === 'lesson' ? `/lessons/${c.id}` : c.type === 'exercise' ? `/exercises/${c.id}` : `/chapters/${c.id}`
 }

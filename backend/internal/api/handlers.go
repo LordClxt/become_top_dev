@@ -35,6 +35,18 @@ func (s *Server) completeLesson(w http.ResponseWriter, r *http.Request) {
 	respond(w, v, err)
 }
 
+// saveReading enregistre la position de lecture : {"anchor": "<section>", "progress": 0.42}.
+func (s *Server) saveReading(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Anchor   string  `json:"anchor"`
+		Progress float64 `json:"progress"`
+	}
+	if !decodeJSON(w, r, &body) {
+		return
+	}
+	noContent(w, s.svc.SaveReading(r.Context(), uid(r), r.PathValue("id"), body.Anchor, body.Progress))
+}
+
 // --- Exercices ---------------------------------------------------------------
 
 const maxFiles = 20

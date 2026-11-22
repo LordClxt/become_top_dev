@@ -49,6 +49,8 @@ type ContinueView struct {
 	CourseTitle  string `json:"course_title"`
 	ChapterID    string `json:"chapter_id"`
 	ChapterTitle string `json:"chapter_title"`
+	// Anchor : section où reprendre une leçon commencée (vide sinon) ; le lien du « Continuer » y pointe.
+	Anchor string `json:"anchor,omitempty"`
 }
 
 type TodayView struct {
@@ -342,13 +344,21 @@ func (s *Service) nextStep(ctx context.Context, uid int64) (*ContinueView, error
 		return &ContinueView{Type: typ, ID: id, Title: title, Label: label, CourseID: course.ID, CourseTitle: course.Title,
 			ChapterID: ch.ID, ChapterTitle: ch.Title}
 	}
+	readings, err := r.Readings(ctx)
+	if err != nil {
+		return nil, err
+	}
 	for _, lid := range ch.LessonIDs {
 		if !done[lid] {
 			label := "Leçon suivante"
 			if touchedLessons[lid] {
 				label = "Reprendre la leçon"
 			}
-			return view("lesson", lid, s.Content.Lessons[lid].Title, label), nil
+			v := view("lesson", lid, s.Content.Lessons[lid].Title, label)
+			if rd, ok := readings[lid]; ok && rd.Progress > 0 {
+				v.Label, v.Anchor = "Reprendre la leçon", rd.Anchor
+			}
+			return v, nil
 		}
 	}
 	for _, lid := range ch.LessonIDs {

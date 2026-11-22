@@ -275,6 +275,7 @@ type LessonView struct {
 	Flashcards  []content.Flashcard        `json:"flashcards"`
 	Checkpoints []CheckpointView           `json:"checkpoints"`
 	CardsRated  int                        `json:"cards_rated"` // cartes de la leçon déjà notées au moins une fois
+	Reading     *ReadingView               `json:"reading"`     // dernière position de lecture (null si jamais ouverte)
 	Completed   bool                       `json:"completed"`
 	PreviousID  *string                    `json:"previous_id"`
 	NextID      *string                    `json:"next_id"`
@@ -306,6 +307,10 @@ func (s *Service) Lesson(ctx context.Context, uid int64, id string) (*LessonView
 		Flashcards: l.Flashcards, Completed: done[l.ID],
 	}
 	view.Checkpoints, err = s.checkpointViews(ctx, uid, l)
+	if err != nil {
+		return nil, err
+	}
+	view.Reading, err = s.readingOf(ctx, uid, l.ID)
 	if err != nil {
 		return nil, err
 	}

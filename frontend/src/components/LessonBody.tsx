@@ -23,11 +23,14 @@ export function slugify(text: string): string {
     .replace(/^-|-$/g, '')
 }
 
-/** Sections de niveau 2 de la leçon, pour le sommaire. */
-export function lessonSections(body: string): { id: string; title: string }[] {
-  return [...body.matchAll(/^## (.+)$/gm)].map((m) => {
-    const title = (m[1] ?? '').replace(/`/g, '')
-    return { id: slugify(title), title }
+export type LessonSectionRef = { id: string; title: string; level: 2 | 3 }
+
+/** Sections de niveaux 2 et 3 de la leçon (hors blocs de code), pour le sommaire et la reprise de lecture. */
+export function lessonSections(body: string): LessonSectionRef[] {
+  const prose = body.replace(/^```[\s\S]*?^```/gm, '')
+  return [...prose.matchAll(/^(#{2,3}) (.+)$/gm)].map((m) => {
+    const title = (m[2] ?? '').replace(/`/g, '')
+    return { id: slugify(title), title, level: m[1] === '###' ? 3 : 2 }
   })
 }
 
@@ -124,6 +127,11 @@ export function Md({ children, components }: { children: string; components?: Co
               <h2 id={slugify(textOf(children))} className="scroll-mt-24">
                 {children}
               </h2>
+            ),
+            h3: ({ children }) => (
+              <h3 id={slugify(textOf(children))} className="scroll-mt-24">
+                {children}
+              </h3>
             ),
             pre: ({ children }) => <>{children}</>,
             code: ({ className, children, node }) => {

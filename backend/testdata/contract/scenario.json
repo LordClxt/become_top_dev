@@ -214,6 +214,47 @@
   "path": "/api/exercises/java-ch01-l05-lab-resources"
  },
  {
+  "name": "reading-save",
+  "method": "PUT",
+  "path": "/api/lessons/java-ch01-l02/reading",
+  "json": {
+   "anchor": "le-concept",
+   "progress": 0.4
+  }
+ },
+ {
+  "name": "reading-invalid-anchor",
+  "method": "PUT",
+  "path": "/api/lessons/java-ch01-l02/reading",
+  "json": {
+   "anchor": "<script>",
+   "progress": 0.4
+  }
+ },
+ {
+  "name": "reading-invalid-progress",
+  "method": "PUT",
+  "path": "/api/lessons/java-ch01-l02/reading",
+  "json": {
+   "anchor": "le-concept",
+   "progress": 1.5
+  }
+ },
+ {
+  "name": "reading-unknown-lesson",
+  "method": "PUT",
+  "path": "/api/lessons/nope/reading",
+  "json": {
+   "anchor": "a",
+   "progress": 0.1
+  }
+ },
+ {
+  "name": "lesson-after-reading",
+  "method": "GET",
+  "path": "/api/lessons/java-ch01-l02"
+ },
+ {
   "name": "lesson-complete",
   "method": "POST",
   "path": "/api/lessons/java-ch01-l02/complete"

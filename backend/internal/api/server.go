@@ -56,6 +56,7 @@ func New(svc *service.Service, cfg Config) http.Handler {
 		"GET /api/chapters/{id}":                      s.chapter,
 		"GET /api/lessons/{id}":                       s.lesson,
 		"POST /api/lessons/{id}/complete":             s.completeLesson,
+		"PUT /api/lessons/{id}/reading":               s.saveReading,
 		"GET /api/exercises":                          s.sandbox,
 		"GET /api/exercises/{id}":                     s.exercise,
 		"PUT /api/exercises/{id}/draft":               s.saveDraft,

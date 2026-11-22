@@ -22,4 +22,4 @@ down:
 	docker compose down
 
 reset-progress: ## Remettre à zéro la progression de tous les comptes locaux (base de dev)
-	docker exec btd-db psql -U btd -c "TRUNCATE xp_events, lesson_progress, exercise_progress, exercise_runs, quiz_answers"
+	docker exec btd-db psql -U btd -c "TRUNCATE xp_events, lesson_progress, lesson_reading, exercise_progress, exercise_runs, quiz_answers"

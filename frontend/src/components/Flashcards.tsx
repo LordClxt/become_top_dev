@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, RotateCcw, Trophy } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { type KeyboardEvent, type ReactNode, useState } from 'react'
+import { useSnapshot } from '@/lib/persist'
 import { Button } from '@/components/ui/button'
 import { play } from '@/features/juice/sound'
 import type { Lesson } from '@/lib/api'
@@ -13,7 +14,16 @@ type Rating = 'known' | 'review'
  * Paquet de flashcards : on retourne la carte, on se note honnêtement, les cartes ratées reviennent au tour suivant.
  * Sans `onRate`, les notes restent dans la session ; avec, chaque note est aussi transmise (répétition espacée).
  */
-export function Flashcards({ cards, onRate }: { cards: Card[]; onRate?: (cardId: string, rating: Rating) => void }) {
+export function Flashcards({
+  cards,
+  onRate,
+  storageKey,
+}: {
+  cards: Card[]
+  onRate?: (cardId: string, rating: Rating) => void
+  /** Si présent, le paquet en cours (ordre, carte, notes, tour) reprend après un rechargement. */
+  storageKey?: string
+}) {
   const reduceMotion = useReducedMotion()
   const [queue, setQueue] = useState(() => cards.map((c) => c.id))
   const [index, setIndex] = useState(0)
@@ -24,6 +34,18 @@ export function Flashcards({ cards, onRate }: { cards: Card[]; onRate?: (cardId:
   const [exitDir, setExitDir] = useState(1)
 
   const byId = new Map(cards.map((c) => [c.id, c]))
+  useSnapshot<DeckSnapshot>(
+    storageKey ?? null,
+    { queue, index, ratings, round },
+    true,
+    (v): v is DeckSnapshot => isDeckSnapshot(v, cards.map((c) => c.id)),
+    (v) => {
+      setQueue(v.queue)
+      setIndex(v.index)
+      setRatings(v.ratings)
+      setRound(v.round)
+    },
+  )
   const card = byId.get(queue[index] ?? '')
   const finished = queue.every((id) => ratings[id])
   const known = queue.filter((id) => ratings[id] === 'known').length
@@ -276,5 +298,26 @@ function Tally({ queue, ratings, current }: { queue: string[]; ratings: Record<s
 function Kbd({ children }: { children: string }) {
   return (
     <kbd className="ml-1 rounded border border-current/30 px-1.5 font-code text-[11px] leading-4 opacity-70">{children}</kbd>
+  )
+}
+
+type DeckSnapshot = { queue: string[]; index: number; ratings: Record<string, Rating>; round: number }
+
+/** Un paquet n'est repris que s'il ne contient que des cartes encore présentes. */
+function isDeckSnapshot(v: unknown, ids: string[]): v is DeckSnapshot {
+  if (!v || typeof v !== 'object') return false
+  const x = v as Partial<DeckSnapshot>
+  const known = new Set(ids)
+  return (
+    Array.isArray(x.queue) &&
+    x.queue.length > 0 &&
+    x.queue.every((id) => known.has(id)) &&
+    typeof x.index === 'number' &&
+    x.index >= 0 &&
+    x.index < x.queue.length &&
+    !!x.ratings &&
+    typeof x.ratings === 'object' &&
+    Object.entries(x.ratings).every(([id, r]) => known.has(id) && (r === 'known' || r === 'review')) &&
+    typeof x.round === 'number'
   )
 }
