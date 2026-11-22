@@ -218,7 +218,7 @@ Elle contient `class` (le `getClass()` de Java), les propriétés **calculées**
 
 > **Au-delà du livre** : *Groovy in Action* (Groovy 2.4) montre qu'un champ `public` n'apparaît pas dans `properties`. En Groovy 4, champs publics, protégés et privés y apparaissent tous (vérifié sur Groovy 4.0.33). Conséquence : `render(user.properties as JSON)` expose aussi le hash du mot de passe. Pour une sortie publique, construis explicitement la Map des champs autorisés. Grails l'utilise dans les deux sens : `obj.properties` pour lire, et `obj.properties = params` pour **lier** une requête HTTP à un objet (le data binding que tu as reconstruit au projet du module 00).
 
-> **Attention :** `user.properties = params` affecte **toute** propriété que la requête nomme. Si `User` a une propriété `admin`, un attaquant envoie `admin=true`. En Grails, protège ces propriétés avec la contrainte `bindable: false` ou lie seulement une liste blanche (`bindData(user, params, [include: ['email', 'name']])`). Tu le traiteras en détail au module 21.
+> **Attention :** `user.properties = params` affecte **toute** propriété que la requête nomme. Si `User` a une propriété `admin`, un attaquant envoie `admin=true`. En Grails, protège ces propriétés avec la contrainte `bindable: false` ou lie seulement une liste blanche (`bindData(user, params, [include: ['email', 'name']])`). Tu le traiteras en détail au module 17 (Spring Security et OWASP).
 
 ## Sous le capot : ce que génère `groovyc`
 

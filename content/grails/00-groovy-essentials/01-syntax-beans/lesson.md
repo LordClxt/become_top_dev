@@ -112,7 +112,7 @@ Deux conséquences importantes :
 
 ### Les transformations qui évitent le code répétitif
 
-Les annotations du paquet `groovy.transform` écrivent du code à ta place, **à la compilation** (tu verras comment au module 09) :
+Les annotations du paquet `groovy.transform` écrivent du code à ta place, **à la compilation** (tu verras comment au module 04, Transformations AST) :
 
 | Annotation | Génère |
 |---|---|

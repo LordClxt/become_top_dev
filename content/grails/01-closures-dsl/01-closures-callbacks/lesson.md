@@ -134,7 +134,7 @@ Dans une closure, `return` termine **cette exécution de la closure**, pas la m�
 
 - **Une closure déclarée n'est pas appelée.** `def x = { println 'hi' }` ne fait rien du tout ; il faut `x()`.
 - **`each` n'est pas un `for`.** Pas de `break`, et `return` ne sort que de la closure.
-- **Une closure publique dans un service Grails n'est pas transactionnelle.** Le proxy Spring ne voit que les *méthodes* ; une closure est un champ public, ignoré. (Même raison pour laquelle on préfère des méthodes aux closures pour les actions de contrôleur.) Tu retrouveras ce piège au module 8.
+- **Une closure publique dans un service Grails n'est pas transactionnelle.** Le proxy Spring ne voit que les *méthodes* ; une closure est un champ public, ignoré. (Même raison pour laquelle on préfère des méthodes aux closures pour les actions de contrôleur.) Tu retrouveras ce piège au module 15 (services transactionnels).
 - **Les types des paramètres de closure sont vérifiés à l'exécution**, pas à la compilation.
 
 ## À retenir
