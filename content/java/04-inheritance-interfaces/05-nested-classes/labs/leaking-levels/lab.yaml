@@ -1,0 +1,12 @@
+id: java-ch04-l05-lab-leaking-levels
+title: "Débogage : des niveaux qui retiennent tout le carnet"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["OrderBook.java"]
+concepts: [java-hidden-outer-reference, java-static-member-default, java-nested-kinds]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

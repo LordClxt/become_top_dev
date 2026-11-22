@@ -1,0 +1,12 @@
+id: java-ch04-l04-lab-sealed-fees
+title: "Des frais qui ne s'oublient plus"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Fee.java"]
+concepts: [java-tagged-class, java-class-hierarchy, java-sealed-adt]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

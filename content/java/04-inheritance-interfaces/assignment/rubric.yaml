@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: single-gate
+    label: "Un seul point de contrôle"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "La capacité est vérifiée en un seul endroit par lequel toutes les insertions passent (add(int, E) sur une implémentation squelette, ou équivalent), y compris les méthodes d'ajout futures ; addAll vérifie le lot entier avant d'écrire ; la raison est expliquée en commentaire"
+      2: "Chaque méthode d'ajout connue est redéfinie avec sa propre vérification : tous les tests passent, mais une méthode d'ajout ajoutée plus tard à List contournerait la limite"
+      0: "Héritage d'ArrayList avec des redéfinitions partielles"
+  - id: design
+    label: "Conception"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Composition (la liste reçue est enveloppée, pas copiée), classe finale ou fabrique statique, validation de la capacité et de la liste reçue, aucun état dupliqué"
+      2: "Composition, mais classe ouverte à l'héritage sans conception, ou validations manquantes"
+      0: "Copie de la liste reçue, ou état dupliqué (un compteur de taille à part)"

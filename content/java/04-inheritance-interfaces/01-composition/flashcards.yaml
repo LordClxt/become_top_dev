@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Pourquoi l'héritage d'implémentation viole-t-il l'encapsulation ?"
+    back: "La sous-classe dépend de détails de la super-classe (auto-utilisation, futures méthodes) qui peuvent changer sans prévenir."
+    concept: java-inheritance-breaks-encapsulation
+  - id: fc2
+    front: "InstrumentedHashSet.addAll de 3 éléments : addCount ?"
+    back: "6 : HashSet.addAll appelle add, redéfini, pour chaque élément."
+    concept: java-self-use
+  - id: fc3
+    front: "Composition et transfert ?"
+    back: "Un champ privé vers l'objet existant ; chaque méthode transmet l'appel et renvoie son résultat."
+    concept: java-composition-forwarding
+  - id: fc4
+    front: "Pourquoi deux classes, ForwardingSet et InstrumentedSet ?"
+    back: "La classe de transfert s'écrit une fois par interface et ne s'appelle jamais elle-même ; l'enveloppe ne redéfinit que ce qui change."
+    concept: java-composition-forwarding
+  - id: fc5
+    front: "Autre nom de la classe enveloppe ?"
+    back: "Patron Décorateur : elle transforme un Set en un autre Set, pour toute implémentation."
+    concept: java-decorator-wrapper
+  - id: fc6
+    front: "Problème SELF ?"
+    back: "L'objet enveloppé se passe lui-même (this) pour des rappels : les rappels contournent l'enveloppe."
+    concept: java-decorator-wrapper
+  - id: fc7
+    front: "Quand hériter ?"
+    back: "Si chaque B est vraiment un A, et que A est conçu pour l'extension ou dans ton paquetage."
+    concept: java-is-a-test
+  - id: fc8
+    front: "Deux erreurs d'héritage dans le JDK ?"
+    back: "Stack extends Vector, Properties extends Hashtable : leurs invariants peuvent être cassés par l'API héritée."
+    concept: java-is-a-test
+  - id: fc9
+    front: "ArrayList.addAll appelle-t-il add ?"
+    back: "Non, il copie le tableau. HashSet.addAll, si. Détails non documentés : ne pas en dépendre."
+    concept: java-self-use

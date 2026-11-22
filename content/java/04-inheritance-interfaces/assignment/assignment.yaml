@@ -1,0 +1,12 @@
+id: java-ch04-assignment
+title: "Une liste bornée que rien ne contourne"
+kind: code
+language: java
+difficulty: 4
+xp: 150
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["BoundedList.java"]
+concepts: [java-inheritance-breaks-encapsulation, java-composition-forwarding, java-skeletal-implementation, java-prohibit-subclassing]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

@@ -1,0 +1,12 @@
+id: java-ch04-l01-lab-counting-set
+title: "Échauffement : compter sans compter double"
+kind: code
+language: java
+difficulty: 2
+xp: 40
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["InstrumentedSet.java"]
+concepts: [java-self-use, java-composition-forwarding, java-decorator-wrapper]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

@@ -1,0 +1,86 @@
+id: java-ch04-l05-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Quelle sorte de classe imbriquée n'est jamais liée à une instance de la classe englobante ?"
+    choices:
+      - "La classe interne (membre non statique)"
+      - "La classe membre statique"
+      - "La classe anonyme"
+      - "La classe locale"
+    answer: 1
+    explanation: "Une classe membre statique est une classe ordinaire rangée dans une autre. Les classes internes, et les anonymes ou locales déclarées dans un contexte non statique, peuvent être liées à l'instance englobante."
+    concept: java-nested-kinds
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel est le bon usage d'une classe interne (non statique) ?"
+    choices:
+      - "Une entrée de table de hachage"
+      - "Une vue ou un adaptateur qui lit l'objet englobant à chaque appel, comme le keySet() d'une map"
+      - "Un builder"
+      - "Une constante partagée"
+    answer: 1
+    explanation: "Une vue doit refléter l'objet englobant : supprimer une clé du keySet la supprime de la map. Là, la référence à l'instance englobante est voulue. Entrées et builders n'en ont pas besoin : static."
+    concept: java-static-member-default
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Depuis le JDK 18, une classe interne qui ne lit aucun membre de l'instance englobante garde-t-elle une référence vers elle ?"
+    choices:
+      - "Oui, toujours"
+      - "Non : javac omet le champ caché si la classe ne s'en sert pas ; elle doit quand même être créée à partir d'une instance englobante"
+      - "Non, et elle devient automatiquement static"
+      - "Seulement si elle est publique"
+    answer: 1
+    explanation: "JDK-8271623 (JDK 18) supprime le champ inutilisé. La classe reste une classe interne : on ne peut pas la créer sans instance englobante, et dès qu'elle lit un champ, la référence revient. D'où la règle : static par défaut."
+    concept: java-hidden-outer-reference
+    difficulty: 3
+  - id: q4
+    type: single
+    prompt: "Un écouteur est enregistré sous forme de lambda `event -> this.counter++` auprès d'un bus global, et jamais désinscrit. Que se passe-t-il pour l'objet qui l'a créé ?"
+    choices:
+      - "Il est récupéré normalement : une lambda ne capture rien"
+      - "Il reste en mémoire : la lambda lit un champ, donc capture this, et le bus garde la lambda"
+      - "La lambda lève une exception quand l'objet disparaît"
+      - "Le bus copie l'objet"
+    answer: 1
+    explanation: "Une lambda capture ce qu'elle utilise ; lire un champ, c'est utiliser this. Le bus, atteignable, retient la lambda, qui retient l'objet. Même mécanisme que la classe anonyme, sous une autre forme."
+    concept: java-hidden-outer-reference
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Une classe interne lit `final String CURRENCY = \"EUR\";` déclaré dans la classe englobante. Retient-elle l'instance englobante ?"
+    choices:
+      - "Oui, comme pour tout champ"
+      - "Non : c'est une constante de compilation, recopiée telle quelle dans la classe interne"
+      - "Oui, deux fois"
+      - "Seulement si la classe est publique"
+    answer: 1
+    explanation: "Une variable final de type primitif ou String initialisée par une expression constante est une constante de compilation : javac la remplace par sa valeur. La classe interne ne lit donc aucun champ de l'instance. Un champ initialisé autrement (new String(…), calcul) serait capturé."
+    concept: java-hidden-outer-reference
+    difficulty: 3
+  - id: q6
+    type: single
+    prompt: "Pourquoi ne jamais mettre plusieurs classes de premier niveau dans un même fichier source ?"
+    choices:
+      - "Parce que le fichier devient trop long"
+      - "Parce que si deux fichiers définissent les mêmes classes, le programme dépend de l'ordre de compilation, ou ne compile pas"
+      - "Parce que javac l'interdit"
+      - "Parce que seules les classes publiques sont chargées"
+    answer: 1
+    explanation: "javac l'accepte, mais le résultat dépend des fichiers passés et de leur ordre : un programme dont le sens dépend de la ligne de commande. Une classe de premier niveau par fichier, ou des classes membres statiques."
+    concept: java-one-top-level-per-file
+    difficulty: 1
+  - id: q7
+    type: multiple
+    prompt: "Quels coûts paie une classe interne qui utilise l'instance englobante ?"
+    choices:
+      - "Une référence cachée de plus dans chaque instance"
+      - "L'impossibilité d'être créée sans instance englobante"
+      - "Le maintien en mémoire de l'objet englobant tant qu'elle est atteignable"
+      - "Une interdiction d'être générique"
+    answer: [0, 1, 2]
+    explanation: "Mémoire, contrainte de construction et risque de fuite. Une classe interne peut tout à fait être générique."
+    concept: java-hidden-outer-reference
+    difficulty: 2

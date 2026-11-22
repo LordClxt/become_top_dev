@@ -1,0 +1,86 @@
+id: java-ch04-l02-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Que doit documenter une classe conçue pour l'héritage, dans la section @implSpec d'une méthode publique ?"
+    choices:
+      - "Seulement ce que fait la méthode, pas comment"
+      - "Les méthodes redéfinissables qu'elle appelle, dans quel ordre, et l'effet de leurs résultats"
+      - "La complexité algorithmique uniquement"
+      - "La liste des sous-classes existantes"
+    answer: 1
+    explanation: "Celui qui hérite doit savoir quelles redéfinitions influencent quelles méthodes. AbstractCollection.remove dit qu'elle passe par iterator() et Iterator.remove : redéfinir iterator change remove. C'est contraire à une bonne documentation d'API, mais c'est le prix de l'héritage."
+    concept: java-implspec-self-use
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "À quoi sert `AbstractList.removeRange`, méthode protected ?"
+    choices:
+      - "À offrir aux utilisateurs une suppression par plage"
+      - "C'est un crochet : clear() l'appelle sur les sous-listes, et une sous-classe peut le redéfinir pour un clear rapide au lieu de quadratique"
+      - "À rien, c'est un reste historique"
+      - "À empêcher l'héritage"
+    answer: 1
+    explanation: "removeRange n'intéresse pas les utilisateurs d'une liste. Elle existe pour qu'une sous-classe s'insère efficacement dans le mécanisme des sous-listes. Sans ce crochet, il faudrait réécrire subList."
+    concept: java-protected-hooks
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Comment vérifier qu'une classe conçue pour l'héritage expose les bons crochets ?"
+    choices:
+      - "En relisant sa Javadoc"
+      - "En écrivant des sous-classes avant de la publier : trois en général, dont une par quelqu'un d'autre"
+      - "En rendant tout protected"
+      - "Avec -Xlint:this-escape"
+    answer: 1
+    explanation: "Un crochet manquant devient évident en écrivant une sous-classe ; un crochet que personne n'utilise devrait être privé. Une fois publiés, les crochets sont des engagements à vie."
+    concept: java-protected-hooks
+    difficulty: 1
+  - id: q4
+    type: multiple
+    prompt: "Quelles méthodes un constructeur peut-il appeler sans danger ?"
+    choices:
+      - "Une méthode private"
+      - "Une méthode final"
+      - "Une méthode static"
+      - "Une méthode protected non finale"
+    answer: [0, 1, 2]
+    explanation: "Aucune des trois premières n'est redéfinissable : c'est bien elle qui s'exécute. Une méthode protected non finale peut être redéfinie par une sous-classe pas encore initialisée."
+    concept: java-ctor-no-overridable
+    difficulty: 1
+  - id: q5
+    type: single
+    prompt: "Avec Java 25, une sous-classe écrit `Sub() { this.instant = Instant.now(); super(); }`. Qu'est-ce qui est vrai ?"
+    choices:
+      - "C'est une erreur de compilation : super() doit être la première instruction"
+      - "C'est permis (JEP 513) : on peut affecter ses propres champs avant super(), sans lire this ; une méthode redéfinie appelée par Super verra le champ initialisé"
+      - "C'est permis, mais le champ est réinitialisé à null après super()"
+      - "C'est permis seulement pour les champs static"
+    answer: 1
+    explanation: "Les corps de constructeurs flexibles, définitifs en Java 25, autorisent des instructions avant super(...) tant qu'elles ne lisent pas this ; affecter un champ de la classe est permis. C'est une protection pour la sous-classe, pas une excuse pour une super-classe mal conçue."
+    concept: java-flexible-ctor-bodies
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Quelle est la meilleure décision pour une classe publique ordinaire, ni conçue ni documentée pour l'héritage ?"
+    choices:
+      - "La laisser ouverte : quelqu'un en aura peut-être besoin"
+      - "L'interdire : final, ou constructeurs privés et fabriques statiques"
+      - "Rendre toutes ses méthodes protected"
+      - "La rendre abstraite"
+    answer: 1
+    explanation: "Une classe ouverte que des tiers étendent fige son implémentation pour toujours. Si elle n'a pas été conçue pour l'héritage, mieux vaut l'interdire. Les fabriques statiques gardent la liberté de renvoyer des variantes internes."
+    concept: java-prohibit-subclassing
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "`sealed abstract class Alert permits ThresholdAlert, KeywordAlert`. Que doit déclarer `ThresholdAlert` ?"
+    choices:
+      - "Rien de plus"
+      - "Qu'elle est final, sealed ou non-sealed"
+      - "Qu'elle implémente Sealed"
+      - "La même clause permits"
+    answer: 1
+    explanation: "Chaque sous-classe autorisée d'une classe scellée choisit explicitement : final (fin de la hiérarchie), sealed (avec sa propre liste) ou non-sealed (rouvre l'héritage à partir d'elle). Le compilateur refuse sinon."
+    concept: java-prohibit-subclassing
+    difficulty: 2

@@ -1,0 +1,7 @@
+id: java-ch04-tagged-to-sealed
+concept: java-sealed-adt
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : un objet Fee à étiquette, ses quatre champs dont deux grisés, se scinde en trois records qui ne gardent que leurs champs ; puis une quatrième sorte apparaît, et chaque switch qui l'oublie s'allume en rouge à la compilation, alors que la version à étiquette la laissait filer vers default."
+entry: scene.html
+duration_s: 12
+status: idea

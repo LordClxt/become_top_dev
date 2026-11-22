@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Les quatre sortes de classes imbriquées ?"
+    back: "Membre statique, membre non statique (interne), anonyme, locale."
+    concept: java-nested-kinds
+  - id: fc2
+    front: "Ce qu'ajoute le compilateur à une classe interne qui lit l'objet englobant ?"
+    back: "Un champ caché (this$0) et un paramètre caché au constructeur."
+    concept: java-hidden-outer-reference
+  - id: fc3
+    front: "Fuite par classe interne ?"
+    back: "Tant qu'une instance interne est atteignable, l'objet englobant entier l'est aussi."
+    concept: java-hidden-outer-reference
+  - id: fc4
+    front: "Règle de Bloch pour une classe membre ?"
+    back: "static, sauf si elle a vraiment besoin de l'instance englobante."
+    concept: java-static-member-default
+  - id: fc5
+    front: "Usage légitime d'une classe interne ?"
+    back: "Vue ou adaptateur sur l'objet englobant (keySet, itérateur)."
+    concept: java-static-member-default
+  - id: fc6
+    front: "JDK 18 et this$0 ?"
+    back: "javac l'omet si la classe interne ou anonyme ne s'en sert pas (JDK-8271623)."
+    concept: java-hidden-outer-reference
+  - id: fc7
+    front: "Lambda qui lit un champ ?"
+    back: "Elle capture this, donc l'objet entier."
+    concept: java-hidden-outer-reference
+  - id: fc8
+    front: "Plusieurs classes de premier niveau par fichier ?"
+    back: "Jamais : le programme dépend de l'ordre de compilation. Classes membres statiques à la place."
+    concept: java-one-top-level-per-file
+  - id: fc9
+    front: "Trouver qui retient un objet en production ?"
+    back: "Un heap dump (jcmd <pid> GC.heap_dump) et le chemin vers les racines du ramasse-miettes."
+    concept: java-hidden-outer-reference

@@ -1,0 +1,7 @@
+id: java-ch04-construction-order
+concept: java-ctor-no-overridable
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : new alloue un objet Sub aux champs à zéro, le constructeur de Super démarre, appelle overrideMe, la flèche part vers la version de Sub qui lit instant encore à null ; puis le corps de Sub affecte instant. Seconde passe avec JEP 513 : l'affectation glisse avant super(), et la lecture trouve la valeur."
+entry: scene.html
+duration_s: 12
+status: idea

@@ -1,0 +1,86 @@
+id: java-ch04-l03-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Pourquoi préférer une interface à une classe abstraite pour définir un type ?"
+    choices:
+      - "Une classe existante peut implémenter une interface de plus"
+      - "Une interface peut servir de mixin (Comparable, AutoCloseable)"
+      - "Une interface peut décrire des types non hiérarchiques (Singer, Songwriter, SingerSongwriter)"
+      - "Une interface peut avoir des champs d'instance"
+    answer: [0, 1, 2]
+    explanation: "Une classe n'a qu'une super-classe, mais autant d'interfaces qu'elle veut. Une interface n'a pas de champs d'instance : c'est justement ce qui la rend facile à adopter."
+    concept: java-interfaces-over-abstract
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Quel est le rôle d'une implémentation squelette comme `AbstractList` ?"
+    choices:
+      - "Remplacer l'interface List comme type public"
+      - "Implémenter toute l'interface à partir de quelques primitives, pour qui veut s'en servir ; l'interface reste le type"
+      - "Empêcher d'autres implémentations de List"
+      - "Rendre la liste immuable"
+    answer: 1
+    explanation: "On garde le meilleur des deux : l'interface List reste le type que tout le monde peut implémenter, et AbstractList écrit contains, indexOf, iterator, equals, hashCode… sur get et size. C'est le patron Méthode modèle."
+    concept: java-skeletal-implementation
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Une interface veut fournir une implémentation par défaut de `equals`. Que se passe-t-il ?"
+    choices:
+      - "Elle s'applique à toutes les implémentations"
+      - "Le compilateur refuse : une interface ne peut pas fournir de méthode par défaut pour equals, hashCode ou toString"
+      - "Elle n'est utilisée que pour les records"
+      - "Elle remplace Object.equals pour tout le programme"
+    answer: 1
+    explanation: "Une méthode de classe gagne toujours sur une méthode par défaut, et toute classe hérite d'Object.equals : une telle méthode par défaut ne servirait jamais. Le compilateur l'interdit. C'est la classe squelette qui fournit equals et hashCode."
+    concept: java-default-methods
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Une classe implémente deux interfaces **sans lien** qui fournissent toutes deux `default String id()`. Que se passe-t-il ?"
+    choices:
+      - "La première interface listée gagne"
+      - "La classe ne compile pas tant qu'elle ne redéfinit pas id() ; elle peut appeler A.super.id() ou B.super.id()"
+      - "La JVM choisit au hasard à l'exécution"
+      - "La seconde interface gagne"
+    answer: 1
+    explanation: "Aucune règle ne départage deux interfaces indépendantes : le compilateur exige une redéfinition. Interface.super.methode() permet de réutiliser l'une ou l'autre."
+    concept: java-default-methods
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi l'ajout d'une méthode par défaut à une interface publiée est-il risqué, même si tout compile ?"
+    choices:
+      - "Parce qu'il ralentit les appels"
+      - "Parce qu'elle s'exécute dans des implémentations existantes qui n'ont jamais été écrites pour elle, et peut violer leurs invariants"
+      - "Parce que les anciennes classes ne se chargent plus"
+      - "Parce qu'il faut recompiler tous les clients"
+    answer: 1
+    explanation: "Compiler ne garantit rien sur le comportement. removeIf, ajoutée à Collection, contournait le verrou d'une collection synchronisée tierce. D'où le conseil : concevoir l'interface avec soin avant de la publier."
+    concept: java-interface-posterity
+    difficulty: 2
+  - id: q6
+    type: single
+    prompt: "Avant de publier une nouvelle interface, que recommande Bloch ?"
+    choices:
+      - "Lui donner beaucoup de méthodes par défaut"
+      - "L'implémenter au moins trois fois, de façons différentes, et l'utiliser dans des clients"
+      - "La rendre scellée"
+      - "N'y mettre qu'une méthode"
+    answer: 1
+    explanation: "Comme pour une classe conçue pour l'héritage, seuls de vrais usages révèlent les défauts : trois implémentations différentes et des clients réels. Après publication, une interface ne se corrige presque plus."
+    concept: java-interface-posterity
+    difficulty: 1
+  - id: q7
+    type: single
+    prompt: "Une classe hérite déjà d'une autre classe et veut profiter d'`AbstractList`. Que faire ?"
+    choices:
+      - "C'est impossible en Java"
+      - "Implémenter List et transmettre les appels à une classe interne privée qui étend AbstractList (héritage multiple simulé)"
+      - "Copier le code source d'AbstractList"
+      - "Utiliser une méthode par défaut equals"
+    answer: 1
+    explanation: "Bloch appelle cela l'héritage multiple simulé : la composition de la leçon 1, appliquée à l'intérieur de la classe. On garde la super-classe existante et on profite du squelette."
+    concept: java-skeletal-implementation
+    difficulty: 3

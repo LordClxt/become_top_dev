@@ -1,0 +1,86 @@
+id: java-ch04-l04-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Où ranger une constante comme `AVOGADRO` ?"
+    choices:
+      - "Dans une classe utilitaire non instanciable, utilisée avec import static"
+      - "Dans la classe ou l'interface à laquelle elle est liée, si elle existe"
+      - "Dans une interface que les classes qui l'utilisent implémentent"
+      - "Dans un enum, si c'est une liste de valeurs énumérées"
+    answer: [0, 1, 3]
+    explanation: "L'interface de constantes est un antimodèle : implémentée, elle fait fuir les constantes dans l'API de la classe et de ses sous-classes. Classe utilitaire, classe liée ou enum, avec import static, rendent le même service sans fuite."
+    concept: java-constant-interface-antipattern
+    difficulty: 1
+  - id: q2
+    type: multiple
+    prompt: "Quels sont les défauts d'une classe à étiquette ?"
+    choices:
+      - "Chaque instance porte les champs de toutes les sortes"
+      - "Les champs peuvent difficilement être final et validés pour chaque sorte"
+      - "Une nouvelle sorte oubliée dans un switch passe sans erreur de compilation"
+      - "Elle ne peut pas avoir de méthodes"
+    answer: [0, 1, 2]
+    explanation: "Mémoire perdue, état incohérent possible, et des switch qu'il faut tous modifier à chaque sorte, sans aide du compilateur. Elle a des méthodes, justement remplies de switch."
+    concept: java-tagged-class
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Dans un `switch` par motifs sur une interface scellée, pourquoi éviter `default` ?"
+    choices:
+      - "Parce que default est interdit sur un type scellé"
+      - "Parce qu'il désactive la vérification d'exhaustivité : une sorte ajoutée plus tard y tombera en silence"
+      - "Parce qu'il est plus lent"
+      - "Parce qu'il lève toujours une exception"
+    answer: 1
+    explanation: "Sans default, le compilateur vérifie que chaque sorte autorisée est couverte, et signale le switch qui en oublie une. Avec default, tout est couvert d'avance, y compris ce qui n'existe pas encore."
+    concept: java-sealed-adt
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "`public sealed interface Fee` avec trois records déclarés dans le même fichier. Faut-il une clause `permits` ?"
+    choices:
+      - "Oui, toujours"
+      - "Non : quand les sous-types sont dans la même unité de compilation, le compilateur les déduit"
+      - "Non, mais alors n'importe qui peut implémenter Fee"
+      - "Oui, sinon les records ne compilent pas"
+    answer: 1
+    explanation: "permits est facultative quand toutes les sous-classes autorisées sont dans le même fichier. La hiérarchie reste fermée : aucune autre classe ne peut implémenter Fee."
+    concept: java-sealed-adt
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Pourquoi un record est-il un bon choix pour chaque sorte d'un type scellé ?"
+    choices:
+      - "Parce qu'un record peut étendre une autre classe"
+      - "Parce qu'il ne porte que ses composants, final, avec equals, hashCode et toString corrects, et se déconstruit dans un switch"
+      - "Parce qu'il est mutable"
+      - "Parce qu'il est obligatoire avec sealed"
+    answer: 1
+    explanation: "Un record est final, transparent et immuable en surface : exactement une « sorte » de données. Il se déconstruit dans un motif (case Flat(long cents)). sealed n'impose pas les records ; c'est simplement la combinaison la plus courte."
+    concept: java-class-hierarchy
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Quand garder une hiérarchie **ouverte** (non scellée) ?"
+    choices:
+      - "Jamais : il faut toujours sceller"
+      - "Quand de nouvelles sortes doivent pouvoir être ajoutées par d'autres (des plugins, des extensions clientes)"
+      - "Quand les sortes sont des records"
+      - "Quand il y a plus de trois sortes"
+    answer: 1
+    explanation: "sealed convient quand les sortes sont décidées par l'auteur (frais, états, messages d'un protocole). Si les clients doivent ajouter les leurs, la hiérarchie reste ouverte, et l'opération vit dans une méthode abstraite plutôt que dans un switch."
+    concept: java-class-hierarchy
+    difficulty: 2
+  - id: q7
+    type: single
+    prompt: "Une classe est ajoutée à la liste `permits` d'une interface scellée et recompilée à part. Un ancien `switch` exhaustif, non recompilé, la reçoit. Que se passe-t-il ?"
+    choices:
+      - "Elle passe dans le premier case"
+      - "Le switch lève MatchException au lieu de choisir une branche au hasard"
+      - "Elle est ignorée et le switch renvoie null"
+      - "La JVM refuse de charger la nouvelle classe"
+    answer: 1
+    explanation: "Le switch par motifs passe par SwitchBootstraps.typeSwitch. Face à une sorte inconnue à la compilation, il lève MatchException : l'erreur est visible, jamais silencieuse comme un default."
+    concept: java-sealed-adt
+    difficulty: 3

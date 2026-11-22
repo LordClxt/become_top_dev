@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Des prix sous forme de types"
+    goal: "Pricing, interface scellée (Market, Limit validé) ; Order.pricing() et Order.accepts(prix), écrite avec un switch exhaustif."
+    tests: "jtest M1"
+    review: false
+  - id: m2
+    title: "Un journal décoré"
+    goal: "CountingJournal enveloppe n'importe quel Journal et compte les ordres par symbole, sans double compte quel que soit le recordAll du journal enveloppé."
+    tests: "jtest M2"
+    review: true
+  - id: m3
+    title: "Des commissions vérifiées par le compilateur"
+    goal: "Commission, interface scellée (Flat, Rate) ; Trade.commission(c) dans la devise de la transaction, arrondie vers le bas."
+    tests: "jtest M3"
+    review: true

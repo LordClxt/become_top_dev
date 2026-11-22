@@ -1,0 +1,14 @@
+id: java-ch04-project
+title: "Ordo, jalon 4 : des types fermés et un journal décoré"
+pitch: "Le moteur de matching a besoin de savoir, sans doute possible, comment chaque ordre fixe son prix et ce que coûte chaque transaction. Tu remplaces les valeurs « null veut dire au marché » par des types scellés, tu comptes les ordres journalisés sans toucher au journal, et tu calcules les commissions avec un switch que le compilateur vérifie."
+running_project: ordo
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 60
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Pricing.java", "Order.java", "CountingJournal.java", "Commission.java", "Trade.java"]
+concepts: [java-sealed-adt, java-class-hierarchy, java-composition-forwarding, java-decorator-wrapper, java-self-use, java-prohibit-subclassing]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

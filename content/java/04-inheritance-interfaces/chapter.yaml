@@ -1,0 +1,22 @@
+id: java-ch04
+title: "Héritage, composition et interfaces"
+subtitle: "Composer plutôt qu'hériter, concevoir pour l'extension ou la fermer, et modéliser des types fermés avec sealed et records"
+source: { chapter: 4, pages: "87-116" }
+objectives:
+  - "Reconnaître l'héritage fragile (auto-utilisation, nouvelles méthodes) et le remplacer par la composition et le transfert"
+  - "Concevoir une classe pour l'héritage (auto-utilisation documentée, crochets, constructeurs sûrs) ou l'interdire (final, fabriques, sealed)"
+  - "Préférer les interfaces aux classes abstraites, écrire une implémentation squelette et faire évoluer une interface sans casser ses implémentations"
+  - "Remplacer une classe à étiquette par une hiérarchie, et une hiérarchie fermée par sealed + records + switch exhaustif"
+  - "Choisir la bonne sorte de classe imbriquée et éviter les fuites de la référence cachée"
+mastery_threshold: 0.8
+prerequisites: [java-ch03]
+lessons:
+  - "01-composition"
+  - "02-design-for-inheritance"
+  - "03-interfaces-skeletal"
+  - "04-type-hierarchies"
+  - "05-nested-classes"
+xp: { assignment: 150, project: 300, boss: 300 }
+assignment: assignment
+project: project
+boss: boss

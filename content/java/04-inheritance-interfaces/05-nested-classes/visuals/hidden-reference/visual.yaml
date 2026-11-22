@@ -1,0 +1,7 @@
+id: java-ch04-hidden-reference
+concept: java-hidden-outer-reference
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : un cache garde trois petits objets Level ; un fil this$0 part de chacun vers un carnet de 8 Mo ; le carnet est remplacé, le ramasse-miettes passe, et le vieux carnet reste accroché. Seconde passe avec Level statique : plus de fil, le carnet est récupéré."
+entry: scene.html
+duration_s: 12
+status: idea

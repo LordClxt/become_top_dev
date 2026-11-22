@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Interface ou classe abstraite pour un type public ?"
+    back: "Interface : adoptable par une classe existante, mixin, types non hiérarchiques."
+    concept: java-interfaces-over-abstract
+  - id: fc2
+    front: "Mixin ?"
+    back: "Type ajouté au type principal d'une classe pour déclarer un comportement optionnel (Comparable)."
+    concept: java-interfaces-over-abstract
+  - id: fc3
+    front: "Implémentation squelette ?"
+    back: "Classe abstraite Abstract* qui implémente l'interface sur quelques primitives ; l'interface reste le type."
+    concept: java-skeletal-implementation
+  - id: fc4
+    front: "Primitives d'AbstractList pour une liste modifiable de taille fixe ?"
+    back: "get, set, size. add et remove lèvent UnsupportedOperationException."
+    concept: java-skeletal-implementation
+  - id: fc5
+    front: "Héritage multiple simulé ?"
+    back: "Implémenter l'interface et transmettre à une classe interne privée qui étend le squelette."
+    concept: java-skeletal-implementation
+  - id: fc6
+    front: "Règles de résolution des méthodes par défaut ?"
+    back: "La classe gagne ; l'interface la plus spécifique gagne ; conflit entre interfaces sans lien = redéfinition obligatoire (X.super.m())."
+    concept: java-default-methods
+  - id: fc7
+    front: "Méthodes par défaut interdites ?"
+    back: "equals, hashCode, toString. Pas de champs d'instance non plus."
+    concept: java-default-methods
+  - id: fc8
+    front: "Danger d'une méthode par défaut ajoutée plus tard ?"
+    back: "Elle s'exécute dans des implémentations existantes qui ne l'attendent pas (removeIf sans verrou)."
+    concept: java-interface-posterity
+  - id: fc9
+    front: "Tester une interface avant publication ?"
+    back: "Trois implémentations différentes et de vrais clients."
+    concept: java-interface-posterity

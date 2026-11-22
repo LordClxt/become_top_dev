@@ -1,0 +1,7 @@
+id: java-ch04-self-use-trace
+concept: java-self-use
+format: hyperframes
+justification: "Une séquence de 12 s à regarder, en deux colonnes : à gauche, addAll de la sous-classe descend dans le code de HashSet, qui rappelle trois fois le add redéfini (le compteur monte à 6) ; à droite, l'enveloppe transmet addAll au Set contenu, dont les add internes ne remontent jamais vers l'enveloppe (le compteur reste à 3)."
+entry: scene.html
+duration_s: 12
+status: idea

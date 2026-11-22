@@ -1,0 +1,7 @@
+id: java-ch04-skeletal-layers
+concept: java-skeletal-implementation
+format: hyperframes
+justification: "Une séquence de 10 s à regarder : trois couches empilées, l'interface List (le type), AbstractList (vingt méthodes écrites sur get et size) et la vue concrète (trois méthodes) ; un appel à contains descend jusqu'à get, puis un set traverse jusqu'au tableau partagé par deux vues."
+entry: scene.html
+duration_s: 10
+status: idea

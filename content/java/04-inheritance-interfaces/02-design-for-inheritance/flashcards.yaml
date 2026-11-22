@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "@implSpec ?"
+    back: "Section « Implementation Requirements » : quelles méthodes redéfinissables la méthode appelle, dans quel ordre, avec quel effet."
+    concept: java-implspec-self-use
+  - id: fc2
+    front: "Crochet protected, exemple du JDK ?"
+    back: "AbstractList.removeRange : appelé par clear() des sous-listes, redéfinissable pour un clear rapide."
+    concept: java-protected-hooks
+  - id: fc3
+    front: "Tester une classe conçue pour l'héritage ?"
+    back: "Écrire au moins trois sous-classes avant de publier, dont une par quelqu'un d'autre."
+    concept: java-protected-hooks
+  - id: fc4
+    front: "Constructeur et méthode redéfinissable ?"
+    back: "Jamais : elle s'exécute sur une sous-classe à moitié construite (champs à null ou 0, même final)."
+    concept: java-ctor-no-overridable
+  - id: fc5
+    front: "Méthodes sûres dans un constructeur ?"
+    back: "private, final, static : aucune n'est redéfinissable."
+    concept: java-ctor-no-overridable
+  - id: fc6
+    front: "Option de javac qui détecte l'appel dangereux ?"
+    back: "-Xlint:this-escape (Java 21)."
+    concept: java-ctor-no-overridable
+  - id: fc7
+    front: "JEP 513 (Java 25) ?"
+    back: "Un constructeur peut affecter ses propres champs avant super(...), sans lire this."
+    concept: java-flexible-ctor-bodies
+  - id: fc8
+    front: "Interdire l'héritage ?"
+    back: "final, ou constructeurs privés + fabriques statiques. sealed pour une liste fermée de sous-classes."
+    concept: java-prohibit-subclassing
+  - id: fc9
+    front: "Supprimer l'auto-utilisation d'une classe ouverte ?"
+    back: "Déplacer le corps de chaque méthode redéfinissable dans une aide privée, que toutes les méthodes appellent."
+    concept: java-implspec-self-use

@@ -1,0 +1,97 @@
+id: java-ch04-l01-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Dans quel cas étendre une classe concrète est-il sûr, selon Bloch ?"
+    choices:
+      - "Toujours, tant qu'on ne redéfinit aucune méthode"
+      - "Dans le même paquetage, sous le contrôle de la même équipe, ou quand la classe a été conçue et documentée pour l'extension"
+      - "Quand la super-classe est dans le JDK"
+      - "Jamais : l'héritage est à proscrire"
+    answer: 1
+    explanation: "Le danger vient de classes écrites par d'autres, qui peuvent changer leur implémentation. Dans un même paquetage, ou face à une classe documentée pour l'extension (item 19), l'héritage est sûr. Même sans redéfinition, une méthode ajoutée plus tard par la super-classe peut entrer en conflit avec les tiennes."
+    concept: java-inheritance-breaks-encapsulation
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Pourquoi « corriger » `InstrumentedHashSet` en supprimant sa redéfinition d'`addAll` est-il fragile ?"
+    choices:
+      - "Parce qu'addAll devient plus lent"
+      - "Parce que le compte n'est juste que si addAll de la super-classe passe par add, un détail non documenté qui peut changer"
+      - "Parce que le compilateur l'interdit"
+      - "Parce que le compte devient toujours zéro"
+    answer: 1
+    explanation: "La classe marche aujourd'hui grâce à l'auto-utilisation de HashSet. Une autre implémentation, ou une version suivante, peut écrire addAll autrement : le compte devient faux sans que ta classe ait changé."
+    concept: java-self-use
+    difficulty: 2
+  - id: q3
+    type: multiple
+    prompt: "Qu'apporte une classe enveloppe comme `InstrumentedSet(Set<E> s)` par rapport à une sous-classe de `HashSet` ?"
+    choices:
+      - "Elle fonctionne avec n'importe quelle implémentation de Set (TreeSet, ensembles concurrents…)"
+      - "Elle peut instrumenter temporairement un ensemble déjà en service"
+      - "Elle ne dépend plus des détails d'implémentation de la classe enveloppée"
+      - "Elle est notablement plus lente à cause du transfert"
+    answer: [0, 1, 2]
+    explanation: "L'enveloppe transforme un Set en un autre Set : toute implémentation, tout constructeur, même un ensemble existant. Le coût du transfert est négligeable en pratique (le JIT l'élimine presque toujours)."
+    concept: java-decorator-wrapper
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Une sous-classe de collection valide chaque élément ajouté en redéfinissant toutes les méthodes d'ajout. Quel risque reste-t-il ?"
+    choices:
+      - "Aucun"
+      - "Une nouvelle méthode d'ajout dans une version future de la super-classe contournera la validation"
+      - "La validation sera exécutée deux fois"
+      - "La classe ne compilera plus"
+    answer: 1
+    explanation: "La sous-classe ne redéfinit que les méthodes qui existaient quand elle a été écrite. C'est ce qui a causé des failles quand Hashtable et Vector ont rejoint les collections de Java 1.2. Une enveloppe n'expose que ce qu'elle choisit."
+    concept: java-inheritance-breaks-encapsulation
+    difficulty: 2
+  - id: q5
+    type: single
+    prompt: "Quelle relation justifie l'héritage ?"
+    choices:
+      - "B réutilise beaucoup de code de A"
+      - "Chaque B est vraiment un A : B est un sous-type de A"
+      - "A et B sont dans le même projet"
+      - "B a besoin des champs protégés de A"
+    answer: 1
+    explanation: "La question à se poser : chaque B est-il vraiment un A ? Une pile n'est pas un vecteur, une Properties n'est pas une Hashtable. Réutiliser du code ne suffit pas : on peut le réutiliser en contenant un A."
+    concept: java-is-a-test
+    difficulty: 1
+  - id: q6
+    type: single
+    prompt: "Qu'est-ce que le problème SELF ?"
+    choices:
+      - "Une enveloppe qui s'appelle elle-même en boucle"
+      - "L'objet enveloppé se passe lui-même (this) à un tiers pour des rappels : ces rappels contournent l'enveloppe"
+      - "Une sous-classe qui appelle super trop tôt"
+      - "Un objet qui ne peut pas se comparer à lui-même"
+    answer: 1
+    explanation: "L'objet enveloppé ne connaît pas son enveloppe. Dans un cadre à base de rappels (écouteurs, planificateurs), il s'enregistre avec sa propre référence, et l'enveloppe ne voit jamais les appels."
+    concept: java-decorator-wrapper
+    difficulty: 2
+  - id: q7
+    type: code-output
+    prompt: "Qu'affiche ce programme ?"
+    code: |
+      import java.util.*;
+
+      public class Main {
+          static class Quiet<E> extends ArrayList<E> {
+              int added;
+              @Override public boolean add(E e) { added++; return super.add(e); }
+          }
+
+          public static void main(String[] args) {
+              var list = new Quiet<String>();
+              list.addAll(List.of("a", "b", "c"));
+              list.add("d");
+              System.out.println(list.added + " " + list.size());
+          }
+      }
+    answer: "1 4"
+    explanation: "ArrayList.addAll ne passe pas par add : il copie le tableau d'un coup. Seul l'appel direct à add est compté. HashSet fait l'inverse. Les deux comportements sont des détails d'implémentation non documentés : on ne peut pas savoir, sans lire le code, ce qu'une redéfinition va voir."
+    concept: java-self-use
+    difficulty: 3

@@ -1,0 +1,12 @@
+id: java-ch04-l02-lab-debug-alert-ctor
+title: "Débogage : une alerte qui plante à sa naissance"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 30
+entrypoint: starter/
+test_command: "jtest"
+files_editable: ["Alert.java", "ThresholdAlert.java"]
+concepts: [java-ctor-no-overridable, java-implspec-self-use, java-prohibit-subclassing]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

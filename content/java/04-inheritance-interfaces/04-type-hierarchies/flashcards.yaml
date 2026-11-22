@@ -1,0 +1,37 @@
+cards:
+  - id: fc1
+    front: "Interface de constantes ?"
+    back: "Antimodèle : les constantes fuient dans l'API. Classe utilitaire, enum ou classe liée, avec import static."
+    concept: java-constant-interface-antipattern
+  - id: fc2
+    front: "Classe à étiquette ?"
+    back: "Une classe pour plusieurs sortes, un champ kind et un switch par méthode : une hiérarchie mal imitée."
+    concept: java-tagged-class
+  - id: fc3
+    front: "Pourquoi un oubli passe-t-il dans une classe à étiquette ?"
+    back: "La branche default avale la nouvelle sorte ; le compilateur ne voit rien."
+    concept: java-tagged-class
+  - id: fc4
+    front: "Traduire une classe à étiquette ?"
+    back: "Racine abstraite ou interface, une classe par sorte avec ses seuls champs final, une méthode abstraite par opération."
+    concept: java-class-hierarchy
+  - id: fc5
+    front: "Type de données algébrique en Java ?"
+    back: "sealed interface + un record par sorte + switch par motifs exhaustif."
+    concept: java-sealed-adt
+  - id: fc6
+    front: "default dans un switch sur type scellé ?"
+    back: "À éviter : il coupe la vérification d'exhaustivité."
+    concept: java-sealed-adt
+  - id: fc7
+    front: "permits facultative quand ?"
+    back: "Quand les sous-types autorisés sont dans le même fichier."
+    concept: java-sealed-adt
+  - id: fc8
+    front: "Sorte inconnue à l'exécution dans un switch exhaustif ?"
+    back: "MatchException, jamais une branche au hasard."
+    concept: java-sealed-adt
+  - id: fc9
+    front: "Méthode dans le record ou switch dehors ?"
+    back: "Méthode si l'opération appartient au type ; switch exhaustif si elle appartient au client."
+    concept: java-class-hierarchy
