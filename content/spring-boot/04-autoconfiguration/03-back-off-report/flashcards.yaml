@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Ce que voit @ConditionalOnMissingBean ?"
+    back: "Les définitions déjà enregistrées : toujours celles de l'application, pas forcément celles d'une autre autoconfiguration."
+    concept: spring-ch04-autoconfig-order
+  - id: fc2
+    front: "Ordre de tri des autoconfigurations ?"
+    back: "Alphabétique par nom de classe, puis @AutoConfigureOrder, puis before/after."
+    concept: spring-ch04-autoconfig-order
+  - id: fc3
+    front: "Quand déclarer after ?"
+    back: "Dès qu'une condition de bean dépend d'un bean fourni par une autre autoconfiguration."
+    concept: spring-ch04-autoconfig-order
+  - id: fc4
+    front: "Lire le rapport des conditions ?"
+    back: "--debug, /actuator/conditions, ou ConditionEvaluationReport.get(beanFactory)."
+    concept: spring-ch04-condition-report
+  - id: fc5
+    front: "À quoi sert spring-autoconfigure-metadata.properties ?"
+    back: "Filtrer et trier les candidates (conditions de classe, ordres) sans charger les classes ; généré au build."
+    concept: spring-ch04-autoconfig-order

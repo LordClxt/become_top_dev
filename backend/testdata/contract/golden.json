@@ -398,8 +398,11 @@
         "title": "Le démarrage de Spring Boot"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch04",
+        "lesson_count": 5,
         "slug": "04-autoconfiguration",
+        "subtitle": "Conditions, fichier imports, import différé, ordre et rapport des conditions, starters, et la migration vers Spring Boot 4",
         "title": "L'autoconfiguration"
        }
       ],
@@ -1363,8 +1366,23 @@
         "title": "Le démarrage de Spring Boot"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch04",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "spring-ch04",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 19,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "04-autoconfiguration",
+        "subtitle": "Conditions, fichier imports, import différé, ordre et rapport des conditions, starters, et la migration vers Spring Boot 4",
         "title": "L'autoconfiguration"
        }
       ],
@@ -2138,6 +2156,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 24,
+     "score": 0,
+     "unlocked": false
+    },
+    "spring-ch04": {
+     "chapter_id": "spring-ch04",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 19,
      "score": 0,
      "unlocked": false
     },
@@ -7321,6 +7351,156 @@
    "title": "Le démarrage de Spring Boot"
   },
   "name": "chapter:spring-ch03",
+  "status": 200
+ },
+ {
+  "body": {
+   "assignment": {
+    "difficulty": 3,
+    "id": "spring-ch04-assignment",
+    "passed": false,
+    "role": "assignment",
+    "title": "Une condition maison qui s'explique : @ConditionalOnFeature",
+    "xp": 150
+   },
+   "boss": {
+    "difficulty": 5,
+    "id": "spring-ch04-boss",
+    "passed": false,
+    "role": "boss",
+    "title": "Boss : un starter de notifications complet",
+    "xp": 250
+   },
+   "course": {
+    "id": "spring",
+    "title": "Spring Boot sous le capot"
+   },
+   "id": "spring-ch04",
+   "lessons": [
+    {
+     "completed": false,
+     "duration_min": 30,
+     "id": "spring-ch04-l01",
+     "labs": [
+      {
+       "difficulty": 2,
+       "id": "spring-ch04-l01-lab-warmup-conditions",
+       "passed": false,
+       "role": "lab",
+       "title": "Échauffement : trois beans, trois conditions",
+       "xp": 40
+      }
+     ],
+     "title": "@Conditional : des recettes qui décident d'exister",
+     "xp": 25
+    },
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch04-l02",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch04-l02-lab-client-autoconfig",
+       "passed": false,
+       "role": "lab",
+       "title": "Une vraie autoconfiguration, trouvée sans scan",
+       "xp": 60
+      }
+     ],
+     "title": "Le mécanisme : de @SpringBootApplication au fichier imports",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 35,
+     "id": "spring-ch04-l03",
+     "labs": [
+      {
+       "difficulty": 4,
+       "id": "spring-ch04-l03-lab-debug-missing-metrics",
+       "passed": false,
+       "role": "lab",
+       "title": "Débogage : pas de métriques, et des billets en texte brut",
+       "xp": 90
+      }
+     ],
+     "title": "Céder sa place, dans le bon ordre, et le rapport des conditions",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 30,
+     "id": "spring-ch04-l04",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch04-l04-lab-client-starter",
+       "passed": false,
+       "role": "lab",
+       "title": "Un starter : propriétés, customizers et remplacement",
+       "xp": 70
+      }
+     ],
+     "title": "Écrire son propre starter",
+     "xp": 30
+    },
+    {
+     "completed": false,
+     "duration_min": 30,
+     "id": "spring-ch04-l05",
+     "labs": [
+      {
+       "difficulty": 3,
+       "id": "spring-ch04-l05-lab-jackson3-migration",
+       "passed": false,
+       "role": "lab",
+       "title": "Migrer vers Spring Boot 4 : Jackson 3 et son customizer",
+       "xp": 60
+      }
+     ],
+     "title": "De Spring Boot 3.5 à 4 : ce qui change, et pourquoi",
+     "xp": 25
+    }
+   ],
+   "mastery": {
+    "chapter_id": "spring-ch04",
+    "labs_passed": 0,
+    "labs_total": 5,
+    "lessons_done": 0,
+    "lessons_total": 5,
+    "mastered": false,
+    "quiz_correct": 0,
+    "quiz_total": 19,
+    "score": 0,
+    "unlocked": false
+   },
+   "mastery_threshold": 0.8,
+   "objectives": [
+    "Conditionner une recette avec @Conditional et les conditions de Spring Boot, et tester chaque combinaison avec ApplicationContextRunner",
+    "Expliquer comment Spring Boot trouve, trie et applique les autoconfigurations, et pourquoi elles passent après l'application",
+    "Diagnostiquer un bean absent ou en double avec le rapport des conditions, et fixer l'ordre entre autoconfigurations",
+    "Écrire un starter avec propriétés, customizers et remplacement possible",
+    "Migrer du code de Spring Boot 3.5 vers 4 (modules, starters, Jackson 3) à partir du guide de migration"
+   ],
+   "project": {
+    "difficulty": 4,
+    "id": "spring-ch04-project",
+    "passed": false,
+    "role": "project",
+    "title": "Tixa, jalon 4 : le client de paiement devient un starter",
+    "xp": 300
+   },
+   "source": {
+    "book": "spring-docs",
+    "chapter": 29,
+    "pages": "#page-title",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html"
+   },
+   "subtitle": "Conditions, fichier imports, import différé, ordre et rapport des conditions, starters, et la migration vers Spring Boot 4",
+   "title": "L'autoconfiguration"
+  },
+  "name": "chapter:spring-ch04",
   "status": 200
  },
  {
@@ -29197,6 +29377,666 @@
  },
  {
   "body": {
+   "body": "\n## Pourquoi c'est important\n\nAjoute `spring-boot-starter-data-jpa` à un projet, et un `DataSource`, un `EntityManagerFactory` et un gestionnaire de transactions apparaissent. Déclare ton propre `DataSource`, et celui de Spring Boot s'efface. Retire le pilote H2 du classpath, et la base en mémoire disparaît. Aucune de ces décisions n'est magique : chacune est une **condition**, évaluée sur une recette avant qu'elle devienne un bean.\n\nComprendre les conditions, c'est pouvoir répondre à la question qui revient sans cesse avec Spring Boot : « pourquoi ce bean existe-t-il, et pourquoi celui-là n'existe-t-il pas ? ».\n\n## Une condition, c'est une question posée à une recette\n\nLe module 01 l'a montré : le conteneur lit toutes les recettes avant de créer le moindre objet. `@Conditional` ajoute une question à une recette :\n\n```java\npublic interface Condition {\n    boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata);\n}\n```\n\nPosée sur une classe `@Configuration` ou une méthode `@Bean`, `@Conditional(MaCondition.class)` fait évaluer `matches` **au moment de lire la recette**. Si elle répond faux, la définition n'est jamais enregistrée : pas de bean, pas de constructeur appelé. `ConditionContext` donne accès à l'`Environment` (les propriétés, les profils), au registre des définitions et au class loader.\n\nLe module 03 en a déjà montré une : `@Profile` est un `@Conditional(ProfileCondition.class)`.\n\n::visual{id=\"spring-ch04-condition-phases\"}\n\n## La boîte à outils de Spring Boot\n\nSpring Boot fournit une famille d'annotations prêtes à l'emploi, toutes bâties sur `@Conditional` :\n\n| Annotation | Vraie si… |\n|---|---|\n| `@ConditionalOnClass` / `@ConditionalOnMissingClass` | une classe est (ou n'est pas) sur le classpath |\n| `@ConditionalOnBean` / `@ConditionalOnMissingBean` | un bean de ce type (ou de ce nom) est déjà enregistré, ou pas |\n| `@ConditionalOnProperty` | une propriété existe (et ne vaut pas `false`), ou a la valeur `havingValue` |\n| `@ConditionalOnBooleanProperty` | une propriété booléenne vaut vrai (`matchIfMissing` pour le cas absent) |\n| `@ConditionalOnWebApplication` | l'application est une application web |\n| `@ConditionalOnResource` | une ressource existe (`classpath:schema.sql`) |\n\n::checkpoint{id=\"c1\"}\n\n### Les conditions de classe\n\n`@ConditionalOnClass` est la condition des bibliothèques optionnelles : « si Jackson est là, configure Jackson ». Elle est lue dans les **métadonnées** de la classe annotée, sans charger les classes qu'elle nomme : `@ConditionalOnClass(JsonMapper.class)` est sûr sur une classe, même si `JsonMapper` manque. Mais les **méthodes** d'une configuration, elles, ont des signatures que Spring doit charger pour les analyser.\n\n::checkpoint{id=\"c2\"}\n\nD'où l'idiome de Spring Boot partout dans son code : une configuration **imbriquée** par bibliothèque optionnelle, conditionnée en entier.\n\n> **Sous le capot :** une condition déclare sa **phase**. `ConfigurationCondition.ConfigurationPhase.PARSE_CONFIGURATION` est évaluée quand la classe est lue ; `REGISTER_BEAN` quand ses beans sont enregistrés. Les conditions de beans (`OnBeanCondition`) sont en phase `REGISTER_BEAN` : elles regardent le registre au dernier moment possible. C'est ce qui rend l'ordre si important (leçon 3).\n\n## Tester une autoconfiguration\n\nDémarrer une `SpringApplication` pour chaque combinaison est lent. `ApplicationContextRunner` crée un petit contexte par cas, en quelques millisecondes :\n\n```java\nnew ApplicationContextRunner()\n        .withConfiguration(AutoConfigurations.of(PaymentAutoConfiguration.class))\n        .withPropertyValues(\"tixa.audit.enabled=true\")\n        .withUserConfiguration(TeamGateway.class)\n        .withClassLoader(new FilteredClassLoader(\"sdk.lydia\"))\n        .run(ctx -> assertThat(ctx).hasSingleBean(AuditLog.class));\n```\n\n`AutoConfigurations.of(...)` traite les classes comme de vraies autoconfigurations (même tri, même phase), `withUserConfiguration` comme la configuration de l'application, et `FilteredClassLoader` simule l'absence d'une bibliothèque. C'est ainsi que Spring Boot teste ses propres autoconfigurations, et ce qu'utilisent tous les labs du module.\n\n## Pièges fréquents\n\n- **Une méthode `@Bean` dont le type de retour est une classe optionnelle**, dans une configuration non conditionnée : erreur de chargement quand la bibliothèque manque.\n- **Deux beans du même type sans condition** dans une autoconfiguration : le démarrage échoue dès qu'on en injecte un.\n- **`@ConditionalOnProperty(\"x\")` pour un booléen** : elle est vraie pour toute valeur sauf `false`, y compris `non` ou `0`. Pour un booléen, `@ConditionalOnBooleanProperty`.\n- **Tester une autoconfiguration avec `@SpringBootTest`** seulement : lent, et une seule combinaison par contexte.\n\n## À retenir\n\n- `@Conditional` pose une question à une recette ; si la réponse est non, le bean n'existe jamais.\n- Spring Boot fournit les conditions de classe, de bean, de propriété, de type d'application, de ressource.\n- Condition de classe sur une configuration imbriquée pour chaque bibliothèque optionnelle.\n- `ApplicationContextRunner` teste chaque combinaison en quelques millisecondes.\n\n> **Source :** Spring Boot 4.1, [Creating Your Own Auto-configuration — Condition Annotations](https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.condition-annotations) et [Testing your Auto-configuration](https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html) ; Spring Framework 7.0, [`@Conditional`](https://docs.spring.io/spring-framework/reference/core/beans/java/composing-configuration-classes.html).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch04",
+    "title": "L'autoconfiguration"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.autoconfigure.condition.*;\nimport org.springframework.boot.test.context.FilteredClassLoader;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public record Client(String who) { }\n\n    @Configuration(proxyBeanMethods = false)\n    @ConditionalOnClass(name = \"tools.jackson.databind.json.JsonMapper\")\n    @ConditionalOnBooleanProperty(name = \"tixa.client.enabled\", matchIfMissing = true)\n    public static class ClientAuto {\n        @Bean @ConditionalOnMissingBean Client client() { return new Client(\"auto\"); }\n    }\n\n    public static void main(String[] args) {\n        var runner = new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(ClientAuto.class));\n        runner.run(ctx -> System.out.print(ctx.getBeansOfType(Client.class).size() + \" \"));\n        runner.withPropertyValues(\"tixa.client.enabled=false\").run(ctx -> System.out.print(ctx.getBeansOfType(Client.class).size() + \" \"));\n        runner.withClassLoader(new FilteredClassLoader(\"tools.jackson\")).run(ctx -> System.out.println(ctx.getBeansOfType(Client.class).size()));\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Une autoconfiguration testée avec `ApplicationContextRunner`. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Par convention de style uniquement",
+      "Parce que lire une classe dont une signature mentionne une classe absente peut échouer ; la condition de classe sur une configuration à part est évaluée avant de charger quoi que ce soit",
+      "Parce que @ConditionalOnClass ne fonctionne pas sur les méthodes",
+      "Parce qu'une classe imbriquée est plus rapide"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Pourquoi écrit-on `@ConditionalOnClass(name = \"sdk.lydia.LydiaSdk\")` sur une classe imbriquée, plutôt qu'une méthode `@Bean` dont le type de retour est `LydiaSdk` ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch04-conditional",
+     "label": "@Conditional(X.class) : la définition (classe de configuration ou méthode @Bean) n'est enregistrée que si la Condition X répond vrai, au temps des recettes"
+    },
+    {
+     "id": "spring-ch04-boot-conditions",
+     "label": "Les conditions de Spring Boot : OnClass/OnMissingClass (classpath), OnBean/OnMissingBean (beans déjà enregistrés), OnProperty/OnBooleanProperty, OnWebApplication, OnResource"
+    },
+    {
+     "id": "spring-ch04-context-runner",
+     "label": "ApplicationContextRunner teste une autoconfiguration en quelques millisecondes : propriétés, configuration de l'application, classpath filtré"
+    }
+   ],
+   "duration_min": 30,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Au temps des recettes : à la lecture de la configuration ou à l'enregistrement du bean, jamais après sa création.",
+     "concept": "spring-ch04-conditional",
+     "front": "Quand une Condition est-elle évaluée ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Classe (OnClass/OnMissingClass), bean (OnBean/OnMissingBean), propriété (OnProperty/OnBooleanProperty), application web, ressource.",
+     "concept": "spring-ch04-boot-conditions",
+     "front": "Les grandes familles de conditions de Spring Boot ?",
+     "id": "fc2"
+    },
+    {
+     "back": "La condition de classe est lue sans charger la classe ; les signatures des méthodes @Bean, elles, seraient chargées.",
+     "concept": "spring-ch04-boot-conditions",
+     "front": "Pourquoi une configuration imbriquée par bibliothèque optionnelle ?",
+     "id": "fc3"
+    },
+    {
+     "back": "Vraie si la propriété existe et ne vaut pas false. Pour un booléen : @ConditionalOnBooleanProperty.",
+     "concept": "spring-ch04-boot-conditions",
+     "front": "@ConditionalOnProperty sans havingValue ?",
+     "id": "fc4"
+    },
+    {
+     "back": "ApplicationContextRunner + AutoConfigurations.of(...), withPropertyValues, withUserConfiguration, FilteredClassLoader.",
+     "concept": "spring-ch04-context-runner",
+     "front": "Tester une autoconfiguration vite ?",
+     "id": "fc5"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Interface de Spring : une méthode matches(context, metadata) qui dit si une définition doit être enregistrée.",
+     "term": "Condition"
+    },
+    {
+     "definition": "Condition de Spring Boot : vraie si une classe est sur le classpath. Lue dans les métadonnées, sans charger la classe annotée.",
+     "term": "@ConditionalOnClass"
+    },
+    {
+     "definition": "Outil de test de Spring Boot qui crée un petit contexte avec la configuration, les propriétés et le classpath voulus, puis vérifie son contenu.",
+     "term": "ApplicationContextRunner"
+    },
+    {
+     "definition": "Un class loader de test qui cache des classes ou des paquets, pour simuler l'absence d'une bibliothèque.",
+     "term": "FilteredClassLoader"
+    }
+   ],
+   "id": "spring-ch04-l01",
+   "labs": [
+    {
+     "difficulty": 2,
+     "id": "spring-ch04-l01-lab-warmup-conditions",
+     "passed": false,
+     "role": "lab",
+     "title": "Échauffement : trois beans, trois conditions",
+     "xp": 40
+    }
+   ],
+   "next_id": "spring-ch04-l02",
+   "previous_id": null,
+   "quiz_id": "spring-ch04-l01-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 29,
+    "pages": "#features.developing-auto-configuration.condition-annotations",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.condition-annotations"
+   },
+   "title": "@Conditional : des recettes qui décident d'exister",
+   "visuals": {
+    "spring-ch04-condition-phases": {
+     "concept": "spring-ch04-conditional",
+     "entry": "scene.html",
+     "format": "hyperframes",
+     "id": "spring-ch04-condition-phases",
+     "justification": "Une séquence de 12 s à regarder : une classe de configuration passe la porte des conditions de classe (lecture des métadonnées, sans chargement), puis chaque méthode @Bean passe celle des conditions de beans, au moment de son enregistrement.",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 25
+  },
+  "name": "lesson:spring-ch04-l01",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nUn starter ajouté au build, et des dizaines de beans apparaissent. D'où viennent-ils ? Qui les a choisis, dans quel ordre, et comment s'assurer qu'ils cèdent leur place aux tiens ? La réponse tient en trois éléments : une annotation, un fichier, et une particularité du conteneur qu'on appelle l'import **différé**.\n\nC'est ce mécanisme que tu utilises dans le lab pour publier le client Tixa sous forme de bibliothèque, comme le fait Spring Boot pour ses propres modules.\n\n## Ce que contient @SpringBootApplication\n\n`@SpringBootApplication` rassemble trois annotations :\n- `@SpringBootConfiguration` : une `@Configuration` (celle que les tests de Spring Boot recherchent) ;\n- `@ComponentScan` : le scan du paquet de la classe et de ses sous-paquets, avec deux filtres d'exclusion (`TypeExcludeFilter`, et `AutoConfigurationExcludeFilter`, qui écarte les autoconfigurations rencontrées par hasard pendant le scan) ;\n- **`@EnableAutoConfiguration`**, qui importe `AutoConfigurationImportSelector`.\n\n## Où Spring Boot trouve les autoconfigurations\n\n`AutoConfigurationImportSelector` lit, dans **tous les jars** du classpath, le fichier :\n\n```\nMETA-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports\n```\n\nUne ligne par classe d'autoconfiguration. Le jar `spring-boot-autoconfigure` en liste quelques centaines, et chaque module de Boot 4 a le sien (leçon 5). Ta bibliothèque fait pareil.\n\nLa documentation est formelle : une autoconfiguration doit être chargée **uniquement** par ce fichier, dans un paquet à part, et ne jamais être la cible d'un scan. Elle ne doit pas non plus lancer elle-même un `@ComponentScan`.\n\nChaque candidate est ensuite filtrée (exclusions, puis conditions de classe lues dans les métadonnées), **triée** (leçon 3), puis traitée comme une configuration.\n\n> **Sous le capot :** `@AutoConfiguration` est elle-même méta-annotée `@Configuration(proxyBeanMethods = false)` (module 01, leçon 5 : mode *lite*). Pas de sous-classe CGLIB : c'est plus rapide, et les dépendances entre beans d'une autoconfiguration passent par les paramètres des méthodes `@Bean`.\n\n## L'import différé\n\nUn import ordinaire (`@Import`) est traité au moment où sa classe est lue. `AutoConfigurationImportSelector` est un **`DeferredImportSelector`** : le conteneur attend d'avoir lu **toute** la configuration de l'application (scan, `@Import`, méthodes `@Bean`) avant de le traiter.\n\n::visual{id=\"spring-ch04-deferred-import\"}\n\n::checkpoint{id=\"c1\"}\n\nC'est la propriété qui rend Spring Boot utilisable : une autoconfiguration qui demande `@ConditionalOnMissingBean` voit toujours les beans de l'application, et **cède sa place**. La documentation appelle cela *back off*.\n\n## Exclure une autoconfiguration\n\nQuand une autoconfiguration fait quelque chose de non voulu, et qu'un bean de remplacement ne suffit pas :\n- `@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)` (ou `excludeName` en texte) ;\n- la propriété `spring.autoconfigure.exclude`, modifiable sans recompiler.\n\n::checkpoint{id=\"c2\"}\n\n> **En production :** exclure est rarement la bonne réponse. Une autoconfiguration bien écrite cède sa place dès que tu déclares ton propre bean, et se règle par ses propriétés. Une liste d'exclusions qui grandit est le signe qu'on lutte contre le framework au lieu de le configurer.\n\n## Pièges fréquents\n\n- **Mettre une autoconfiguration dans un paquet scanné** et compter sur le scan pour la trouver : son ordre de traitement par rapport à la configuration de l'application n'est plus garanti.\n- **Oublier le fichier `imports`** : l'autoconfiguration n'existe pas pour Spring Boot.\n- **Un nom de classe imbriquée avec un point** dans le fichier `imports` : il faut le `$` (`tixa.notify.NotifyAutoConfiguration$Fallback`).\n- **Exclure pour remplacer** un bean : déclarer le sien suffit, si l'autoconfiguration utilise `@ConditionalOnMissingBean`.\n\n## À retenir\n\n- `@SpringBootApplication` = configuration + scan (avec exclusions) + `@EnableAutoConfiguration`.\n- Les autoconfigurations sont déclarées dans le fichier `imports` de chaque jar, jamais trouvées par le scan.\n- `AutoConfigurationImportSelector` est un `DeferredImportSelector` : il passe après toute la configuration de l'application.\n- Exclusion : `exclude` ou `spring.autoconfigure.exclude`, en dernier recours.\n\n> **Source :** Spring Boot 4.1, [Creating Your Own Auto-configuration](https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html) (localisation des candidates, fichier imports, recommandations) et [Auto-configuration](https://docs.spring.io/spring-boot/4.1/reference/using/auto-configuration.html) (exclusion) ; code de `AutoConfigurationImportSelector` (spring-boot-autoconfigure 4.1.3).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch04",
+    "title": "L'autoconfiguration"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [
+      "Parce que Spring Boot crée les beans de l'application en premier",
+      "Parce que les autoconfigurations sont importées par un DeferredImportSelector, traité après toute la configuration de l'application",
+      "Parce que les autoconfigurations sont dans un contexte parent",
+      "Il ne le voit pas toujours : c'est une question de chance"
+     ],
+     "code": null,
+     "id": "c1",
+     "prompt": "Pourquoi un `@ConditionalOnMissingBean` d'une autoconfiguration voit-il **toujours** le bean déclaré par l'application ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public record Client(String who) { }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class ClientAuto {\n        @Bean @ConditionalOnMissingBean Client client() { return new Client(\"auto\"); }\n    }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class Team {\n        @Bean Client teamClient() { return new Client(\"équipe\"); }\n    }\n\n    public static void main(String[] args) {\n        var runner = new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(ClientAuto.class));\n        runner.withUserConfiguration(Team.class).run(ctx -> System.out.print(ctx.getBean(Client.class).who() + \" \"));\n        runner.withPropertyValues(\"spring.autoconfigure.exclude=\" + ClientAuto.class.getName())\n                .run(ctx -> System.out.println(ctx.getBeansOfType(Client.class).size()));\n    }\n}\n",
+     "id": "c2",
+     "prompt": "Une autoconfiguration testée avec ApplicationContextRunner : on lui oppose un bean de l'application, puis on tente de l'exclure par propriété. Qu'affiche le programme ?",
+     "type": "code-output"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch04-imports-file",
+     "label": "Une autoconfiguration est déclarée dans META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports, jamais trouvée par le scan"
+    },
+    {
+     "id": "spring-ch04-deferred-import",
+     "label": "@EnableAutoConfiguration importe AutoConfigurationImportSelector, un DeferredImportSelector : les autoconfigurations sont traitées après toute la configuration de l'application"
+    },
+    {
+     "id": "spring-ch04-exclusion",
+     "label": "Exclure une autoconfiguration : exclude sur @SpringBootApplication, ou spring.autoconfigure.exclude"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "@SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan (avec TypeExcludeFilter et AutoConfigurationExcludeFilter).",
+     "concept": "spring-ch04-imports-file",
+     "front": "@SpringBootApplication = ?",
+     "id": "fc1"
+    },
+    {
+     "back": "META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports, une classe par ligne ($ pour une classe imbriquée).",
+     "concept": "spring-ch04-imports-file",
+     "front": "Le fichier qui déclare les autoconfigurations ?",
+     "id": "fc2"
+    },
+    {
+     "back": "AutoConfigurationImportSelector est un DeferredImportSelector, traité après toute la configuration de l'application.",
+     "concept": "spring-ch04-deferred-import",
+     "front": "Pourquoi les autoconfigurations passent-elles après l'application ?",
+     "id": "fc3"
+    },
+    {
+     "back": "exclude/excludeName sur @SpringBootApplication, ou spring.autoconfigure.exclude ; en dernier recours.",
+     "concept": "spring-ch04-exclusion",
+     "front": "Exclure une autoconfiguration ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Lite : @Configuration(proxyBeanMethods = false), dépendances par paramètres des méthodes @Bean.",
+     "concept": "spring-ch04-imports-file",
+     "front": "@AutoConfiguration est quel mode de @Configuration ?",
+     "id": "fc5"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Raccourci pour @SpringBootConfiguration (une @Configuration), @EnableAutoConfiguration et @ComponentScan avec deux filtres d'exclusion.",
+     "term": "@SpringBootApplication"
+    },
+    {
+     "definition": "Un sélecteur d'imports de Spring traité après toutes les autres classes de configuration. C'est ce qui place les autoconfigurations en dernier.",
+     "term": "DeferredImportSelector"
+    },
+    {
+     "definition": "META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports : une classe d'autoconfiguration par ligne, dans chaque jar qui en fournit.",
+     "term": "fichier imports"
+    }
+   ],
+   "id": "spring-ch04-l02",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch04-l02-lab-client-autoconfig",
+     "passed": false,
+     "role": "lab",
+     "title": "Une vraie autoconfiguration, trouvée sans scan",
+     "xp": 60
+    }
+   ],
+   "next_id": "spring-ch04-l03",
+   "previous_id": "spring-ch04-l01",
+   "quiz_id": "spring-ch04-l02-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 29,
+    "pages": "#features.developing-auto-configuration.locating-auto-configuration-candidates",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.locating-auto-configuration-candidates"
+   },
+   "title": "Le mécanisme : de @SpringBootApplication au fichier imports",
+   "visuals": {
+    "spring-ch04-deferred-import": {
+     "concept": "spring-ch04-deferred-import",
+     "entry": "scene.html",
+     "format": "hyperframes",
+     "id": "spring-ch04-deferred-import",
+     "justification": "Une séquence de 12 s à regarder : la configuration de l'application est lue entièrement, puis seulement l'import différé ouvre les fichiers imports de tous les jars, trie et évalue les autoconfigurations, qui voient déjà les beans de l'application.",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch04-l02",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\n« J'ai ajouté le starter de métriques, mais aucune métrique n'apparaît. » « J'ai déclaré mon propre client, et pourtant celui de la bibliothèque est utilisé. » Ces deux phrases reviennent dans toutes les équipes qui utilisent Spring Boot. Elles ont presque toujours la même cause : une condition de bean évaluée **trop tôt**, ou dans un ordre que personne n'a fixé.\n\nEt elles ont le même outil de diagnostic : le **rapport des conditions**, que Spring Boot remplit pour chaque décision.\n\n## Céder sa place\n\n`@ConditionalOnMissingBean` sur une méthode `@Bean` d'autoconfiguration : le bean n'est créé que si aucun bean de ce type (par défaut, le type de retour de la méthode) n'est **déjà enregistré**. Grâce à l'import différé (leçon 2), les définitions de l'application sont toujours là avant : l'autoconfiguration cède sa place à celles-ci.\n\nLe mot important est **déjà**. La documentation de Spring Boot le dit : ces conditions sont évaluées *en fonction de ce qui a été traité jusque-là*, et c'est pourquoi elle recommande de ne les utiliser que dans des autoconfigurations, qui passent après les définitions de l'application. Entre autoconfigurations, en revanche, rien n'est garanti sans ordre explicite.\n\n> **Astuce :** donne le type de retour le plus précis possible à une méthode `@Bean` d'autoconfiguration. `@ConditionalOnMissingBean` regarde ce type **avant** de créer le bean : une méthode qui renvoie `Object` ou une interface trop générale ne protège pas ce qu'on croit.\n\n## L'ordre des autoconfigurations\n\nSpring Boot trie les candidates en trois passes (`AutoConfigurationSorter`) :\n1. **par nom de classe**, ordre alphabétique ;\n2. par **`@AutoConfigureOrder`** (une valeur numérique, rarement utile) ;\n3. par les contraintes **`before` / `after`** de `@AutoConfiguration` (ou `@AutoConfigureBefore` / `@AutoConfigureAfter`).\n\n::visual{id=\"spring-ch04-autoconfig-order\"}\n\n::checkpoint{id=\"c1\"}\n\nLa première passe est un piège : sans contrainte, l'ordre dépend du **nom** des classes. Renommer `MetricsAutoConfiguration` en `ClientMetricsAutoConfiguration` peut casser une application. La règle : dès qu'une autoconfiguration utilise `@ConditionalOnBean` (ou `OnMissingBean`) sur un bean fourni par **une autre**, elle déclare `after` cette autre.\n\n> **Sous le capot :** le tri s'appuie sur les métadonnées, pas sur les classes chargées. Spring Boot génère au build un fichier `META-INF/spring-autoconfigure-metadata.properties` avec les conditions de classe et les ordres de chaque autoconfiguration, pour filtrer et trier des centaines de candidates sans les charger. Sans ce fichier (comme dans le bac à sable), il lit les annotations, plus lentement.\n\n## Le rapport des conditions\n\nChaque condition de Spring Boot enregistre son issue dans le `ConditionEvaluationReport` du contexte : *positive matches*, *negative matches*, avec un message qui dit pourquoi.\n\nTrois façons de le lire :\n- `--debug` (ou `debug=true`) au démarrage : Spring Boot imprime le rapport complet ;\n- `/actuator/conditions`, sur une application qui tourne (module 13) ;\n- dans un test, `ConditionEvaluationReport.get(ctx.getBeanFactory())`.\n\n::checkpoint{id=\"c2\"}\n\nLe rapport aussi accompagne les échecs : quand le démarrage échoue, Spring Boot rappelle qu'on peut relancer avec `debug` pour voir le rapport.\n\n## Pièges fréquents\n\n- **`@ConditionalOnBean` sur un bean d'une autre autoconfiguration, sans `after`** : tout dépend de l'ordre alphabétique des noms.\n- **`@ConditionalOnMissingBean` dans une configuration de l'application** : le résultat dépend de l'ordre de lecture des classes ; c'est une condition d'autoconfiguration.\n- **Un type de retour trop général** : la condition ne voit pas le bean qu'elle devrait protéger.\n- **Chercher l'erreur dans le code** au lieu de lire le rapport : il dit, ligne par ligne, quelle condition a échoué.\n\n## À retenir\n\n- `@ConditionalOnMissingBean` cède la place à ce qui est **déjà** enregistré : toujours vrai pour l'application, pas entre autoconfigurations.\n- Tri : nom de classe, puis `@AutoConfigureOrder`, puis `before`/`after`. Déclare `after` dès qu'un bean d'une autre autoconfiguration compte.\n- Le rapport des conditions explique chaque décision : `--debug`, `/actuator/conditions`, `ConditionEvaluationReport`.\n\n> **Source :** Spring Boot 4.1, [Creating Your Own Auto-configuration — Bean Conditions](https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.condition-annotations.bean-conditions) ; code de [`AutoConfigurationSorter`](https://github.com/spring-projects/spring-boot/blob/v4.1.3/core/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/AutoConfigurationSorter.java) (v4.1.3).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch04",
+    "title": "L'autoconfiguration"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.autoconfigure.condition.ConditionalOnBean;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Client { }\n    public static class Audit { }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class PaymentAutoConfiguration { @Bean Client client() { return new Client(); } }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class AuditAutoConfiguration {\n        @Bean @ConditionalOnBean(Client.class) Audit audit() { return new Audit(); }\n    }\n\n    public static void main(String[] args) {\n        new ApplicationContextRunner()\n                .withConfiguration(AutoConfigurations.of(PaymentAutoConfiguration.class, AuditAutoConfiguration.class))\n                .run(ctx -> System.out.println(ctx.getBeansOfType(Client.class).size() + \" \" + ctx.getBeansOfType(Audit.class).size()));\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Deux autoconfigurations, sans ordre déclaré : `Audit…` a besoin du bean de `Payment…`. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.autoconfigure.condition.*;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.*;\n\npublic class Main {\n    public static class Audit { }\n\n    @Configuration(proxyBeanMethods = false)\n    public static class AuditAutoConfiguration {\n        @Bean @ConditionalOnBooleanProperty(\"tixa.audit.enabled\") Audit audit() { return new Audit(); }\n    }\n\n    public static void main(String[] args) {\n        new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(AuditAutoConfiguration.class)).run(ctx -> {\n            var report = ConditionEvaluationReport.get(ctx.getBeanFactory());\n            report.getConditionAndOutcomesBySource().get(AuditAutoConfiguration.class.getName() + \"#audit\")\n                    .forEach(o -> System.out.println(o.getOutcome().isMatch() + \" \" + o.getOutcome().getMessage()));\n        });\n    }\n}\n",
+     "id": "c2",
+     "prompt": "On lit le rapport des conditions pour le bean écarté. Qu'affiche le programme ?",
+     "type": "code-output"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch04-autoconfig-order",
+     "label": "Les autoconfigurations sont triées par nom de classe, puis par @AutoConfigureOrder, puis par before/after ; @ConditionalOnBean ne voit que ce qui est déjà enregistré"
+    },
+    {
+     "id": "spring-ch04-condition-report",
+     "label": "Le rapport des conditions (--debug, ConditionEvaluationReport, /actuator/conditions) dit pour chaque autoconfiguration et chaque bean pourquoi il a été retenu ou écarté"
+    }
+   ],
+   "duration_min": 35,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "Les définitions déjà enregistrées : toujours celles de l'application, pas forcément celles d'une autre autoconfiguration.",
+     "concept": "spring-ch04-autoconfig-order",
+     "front": "Ce que voit @ConditionalOnMissingBean ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Alphabétique par nom de classe, puis @AutoConfigureOrder, puis before/after.",
+     "concept": "spring-ch04-autoconfig-order",
+     "front": "Ordre de tri des autoconfigurations ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Dès qu'une condition de bean dépend d'un bean fourni par une autre autoconfiguration.",
+     "concept": "spring-ch04-autoconfig-order",
+     "front": "Quand déclarer after ?",
+     "id": "fc3"
+    },
+    {
+     "back": "--debug, /actuator/conditions, ou ConditionEvaluationReport.get(beanFactory).",
+     "concept": "spring-ch04-condition-report",
+     "front": "Lire le rapport des conditions ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Filtrer et trier les candidates (conditions de classe, ordres) sans charger les classes ; généré au build.",
+     "concept": "spring-ch04-autoconfig-order",
+     "front": "À quoi sert spring-autoconfigure-metadata.properties ?",
+     "id": "fc5"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Le comportement d'une autoconfiguration qui renonce à son bean parce que l'application en fournit un (@ConditionalOnMissingBean).",
+     "term": "back-off"
+    },
+    {
+     "definition": "Déclare qu'une autoconfiguration doit être évaluée après une autre ; before fait l'inverse.",
+     "term": "@AutoConfiguration(after = …)"
+    },
+    {
+     "definition": "Le ConditionEvaluationReport : la liste des correspondances positives et négatives de chaque condition, avec leur message.",
+     "term": "rapport des conditions"
+    }
+   ],
+   "id": "spring-ch04-l03",
+   "labs": [
+    {
+     "difficulty": 4,
+     "id": "spring-ch04-l03-lab-debug-missing-metrics",
+     "passed": false,
+     "role": "lab",
+     "title": "Débogage : pas de métriques, et des billets en texte brut",
+     "xp": 90
+    }
+   ],
+   "next_id": "spring-ch04-l04",
+   "previous_id": "spring-ch04-l02",
+   "quiz_id": "spring-ch04-l03-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 29,
+    "pages": "#features.developing-auto-configuration.condition-annotations.bean-conditions",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.condition-annotations.bean-conditions"
+   },
+   "title": "Céder sa place, dans le bon ordre, et le rapport des conditions",
+   "visuals": {
+    "spring-ch04-autoconfig-order": {
+     "concept": "spring-ch04-autoconfig-order",
+     "entry": "AutoconfigOrder.tsx",
+     "format": "interactive",
+     "id": "spring-ch04-autoconfig-order",
+     "justification": "L'apprenant renomme deux autoconfigurations et ajoute ou retire un after : il voit la liste triée changer, et à quel moment @ConditionalOnBean voit (ou non) le bean de l'autre.",
+     "params": [
+      {
+       "default": 2,
+       "max": 4,
+       "min": 2,
+       "name": "configurations",
+       "type": "int"
+      }
+     ],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch04-l03",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nTrois équipes copient le même code de configuration du client de paiement, chacune avec ses variantes et ses bugs. Le jour où l'URL change, il faut trois correctifs. Un starter règle cela : une seule dépendance à ajouter, une configuration standard, et des points d'ajustement prévus. C'est exactement ce que fait Spring Boot pour chaque technologie qu'il prend en charge ; ton starter suit les mêmes règles.\n\n## Deux modules\n\nLa documentation recommande de séparer :\n- **le module autoconfigure** (`tixa-spring-boot-autoconfigure`) : les classes d'autoconfiguration, les `@ConfigurationProperties`, les conditions, le fichier `imports`. Les bibliothèques optionnelles y sont des dépendances **optionnelles** : c'est l'application qui choisit de les ajouter, et les conditions de classe réagissent ;\n- **le module starter** (`tixa-spring-boot-starter`) : presque vide, il ne fait que **dépendre** de l'autoconfigure et des bibliothèques habituelles. C'est lui que les applications ajoutent.\n\nPour un petit starter, un seul module suffit.\n\n::visual{id=\"spring-ch04-starter-layout\"}\n\n**Le nom** : jamais `spring-boot-…`, réservé aux modules officiels.\n\n::checkpoint{id=\"c1\"}\n\n## Les propriétés du starter\n\nUn starter expose ses réglages avec un `@ConfigurationProperties` sous **son propre préfixe** (`tixa.client`), activé par `@EnableConfigurationProperties` sur l'autoconfiguration (il ne peut pas compter sur le scan de l'application).\n\n> **En production :** ajoute le processeur d'annotations `spring-boot-configuration-processor` au module autoconfigure : il génère `META-INF/spring-configuration-metadata.json`, que l'IDE utilise pour l'autocomplétion et la documentation des propriétés dans `application.yml`. Sans lui, personne ne devine qu'il existe un `tixa.client.timeout`.\n\n## Trois niveaux de contrôle pour l'application\n\nUn bon starter offre, du plus léger au plus lourd :\n1. **les propriétés** : changer l'URL, le délai ;\n2. **les customizers** : ajouter un comportement sans perdre le reste ;\n3. **le remplacement complet** : déclarer son propre bean, grâce à `@ConditionalOnMissingBean`.\n\n```java\n@Bean\n@ConditionalOnMissingBean\nTixaClient tixaClient(TixaClientProperties props, ObjectProvider<TixaClientCustomizer> customizers) {\n    TixaClient.Builder builder = TixaClient.builder().baseUrl(props.baseUrl()).timeout(props.timeout());\n    customizers.orderedStream().forEach(c -> c.customize(builder));\n    return builder.build();\n}\n```\n\n::checkpoint{id=\"c2\"}\n\n`ObjectProvider.orderedStream()` (module 01) donne tous les customizers, triés par `@Order`, et aucun s'il n'y en a pas.\n\n## Pièges fréquents\n\n- **Un nom de module en `spring-boot-…`** : réservé, et trompeur pour qui lit le build.\n- **Un `@ComponentScan` dans l'autoconfiguration** pour trouver ses propres classes : la documentation l'interdit ; déclare les beans explicitement.\n- **Pas de point d'ajustement** : les équipes remplacent tout le bean, et perdent la configuration du starter.\n- **Des dépendances optionnelles déclarées obligatoires** dans le module autoconfigure : l'application les reçoit toutes, et les conditions de classe ne servent plus à rien.\n\n## À retenir\n\n- Un starter = un module autoconfigure + un module starter (dépendances) ; jamais de nom en `spring-boot-`.\n- Propriétés sous un préfixe propre, activées par `@EnableConfigurationProperties`, documentées par le processeur de métadonnées.\n- Trois niveaux de contrôle : propriétés, customizers (`orderedStream()`), remplacement (`@ConditionalOnMissingBean`).\n\n> **Source :** Spring Boot 4.1, [Creating Your Own Starter](https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.custom-starter) et [Configuration Metadata](https://docs.spring.io/spring-boot/4.1/specification/configuration-metadata/index.html).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch04",
+    "title": "L'autoconfiguration"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [
+      "spring-boot-starter-tixa",
+      "tixa-spring-boot-starter",
+      "spring-boot-tixa-autoconfigure",
+      "Peu importe"
+     ],
+     "code": null,
+     "id": "c1",
+     "prompt": "Ton équipe publie un starter pour le client Tixa. Quel nom de module choisir ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Déclarer son propre TixaClient complet",
+      "Déclarer un bean TixaClientCustomizer, que l'autoconfiguration applique au builder",
+      "Exclure l'autoconfiguration",
+      "Modifier le code du starter"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Une équipe veut ajouter un en-tête d'authentification au client du starter, sans perdre l'URL, le délai et les autres réglages. Que lui proposer ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch04-starter-structure",
+     "label": "Un starter = un module autoconfigure (code, conditions, propriétés, fichier imports) + un module starter (des dépendances) ; il ne commence jamais par spring-boot"
+    },
+    {
+     "id": "spring-ch04-customizer-pattern",
+     "label": "Un customizer permet d'ajuster un objet configuré par le starter sans le remplacer ; l'autoconfiguration applique tous les customizers dans l'ordre de leur @Order"
+    }
+   ],
+   "duration_min": 30,
+   "extra": false,
+   "flashcards": [
+    {
+     "back": "xxx-spring-boot-autoconfigure (code, conditions, propriétés, imports) et xxx-spring-boot-starter (dépendances).",
+     "concept": "spring-ch04-starter-structure",
+     "front": "Les deux modules d'un starter ?",
+     "id": "fc1"
+    },
+    {
+     "back": "Jamais spring-boot-… : préfixe de ta bibliothèque, tixa-spring-boot-starter.",
+     "concept": "spring-ch04-starter-structure",
+     "front": "Règle de nommage d'un starter ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Propriétés, customizers, remplacement complet (@ConditionalOnMissingBean).",
+     "concept": "spring-ch04-customizer-pattern",
+     "front": "Les trois niveaux de contrôle d'un bon starter ?",
+     "id": "fc3"
+    },
+    {
+     "back": "ObjectProvider<Customizer>.orderedStream(), trié par @Order.",
+     "concept": "spring-ch04-customizer-pattern",
+     "front": "Appliquer les customizers dans l'ordre ?",
+     "id": "fc4"
+    },
+    {
+     "back": "spring-boot-configuration-processor génère META-INF/spring-configuration-metadata.json.",
+     "concept": "spring-ch04-starter-structure",
+     "front": "Documenter les propriétés d'un starter pour l'IDE ?",
+     "id": "fc5"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "Une dépendance « tout-en-un » qui apporte une bibliothèque, son autoconfiguration et leurs dépendances habituelles.",
+     "term": "starter"
+    },
+    {
+     "definition": "Un bean de l'application que l'autoconfiguration appelle pour ajuster un objet avant de le publier (RestClientCustomizer, JsonMapperBuilderCustomizer…).",
+     "term": "customizer"
+    },
+    {
+     "definition": "Le fichier META-INF/spring-configuration-metadata.json, généré par un processeur d'annotations, qui décrit les propriétés d'un starter pour l'autocomplétion de l'IDE.",
+     "term": "métadonnées de configuration"
+    }
+   ],
+   "id": "spring-ch04-l04",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch04-l04-lab-client-starter",
+     "passed": false,
+     "role": "lab",
+     "title": "Un starter : propriétés, customizers et remplacement",
+     "xp": 70
+    }
+   ],
+   "next_id": "spring-ch04-l05",
+   "previous_id": "spring-ch04-l03",
+   "quiz_id": "spring-ch04-l04-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 29,
+    "pages": "#features.developing-auto-configuration.custom-starter",
+    "url": "https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.custom-starter"
+   },
+   "title": "Écrire son propre starter",
+   "visuals": {
+    "spring-ch04-starter-layout": {
+     "concept": "spring-ch04-starter-structure",
+     "entry": "starter-layout.svg",
+     "format": "static",
+     "id": "spring-ch04-starter-layout",
+     "justification": "Une structure fixe suffit : les deux modules (autoconfigure, starter), ce que contient chacun (classes, fichier imports, métadonnées, dépendances optionnelles) et la flèche de dépendance de l'application vers le starter.",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 30
+  },
+  "name": "lesson:spring-ch04-l04",
+  "status": 200
+ },
+ {
+  "body": {
+   "body": "\n## Pourquoi c'est important\n\nLe cours Grails s'appuie sur Spring Boot 3.5 ; celui-ci sur Spring Boot 4.1. Tôt ou tard, tu migreras une vraie application de l'un à l'autre, et Grails lui-même suivra. Une montée de version majeure ne se fait pas en changeant un numéro : elle se prépare en sachant **ce qui change** et **pourquoi**, avec la même source que les équipes de Spring : le guide de migration, sur le wiki GitHub du projet.\n\nCette leçon n'est pas une liste exhaustive : ce sont les changements qui touchent ce que tu as vu dans les modules 01 à 04, et que le guide détaille.\n\n## Une autoconfiguration découpée en modules\n\nBoot 3 livrait presque toute son autoconfiguration dans un gros jar, `spring-boot-autoconfigure`. Boot 4 la découpe en **modules ciblés** : `spring-boot-jackson`, `spring-boot-webmvc`, `spring-boot-jdbc`, `spring-boot-restclient`… Chacun a :\n- ses paquets, sous `org.springframework.boot.<module>` (par exemple `org.springframework.boot.jackson.autoconfigure.JacksonAutoConfiguration`) ;\n- son propre fichier `AutoConfiguration.imports` (leçon 2) ;\n- son starter, et souvent un starter de test (`spring-boot-starter-webmvc-test`).\n\n::visual{id=\"spring-ch04-boot4-modules\"}\n\nConséquences pour une migration :\n- des **imports Java** changent (un customizer, une classe d'autoconfiguration à exclure) ;\n- certains **starters sont renommés** : `spring-boot-starter-web` devient `spring-boot-starter-webmvc`, `spring-boot-starter-aop` devient `spring-boot-starter-aspectj` (le guide demande de vérifier si on en a vraiment besoin) ;\n- une fonctionnalité qui ne dépendait que d'une bibliothèque tierce peut maintenant demander **un starter de plus**.\n\nPour migrer vite puis nettoyer, Boot 4 propose des *classic starters* qui apportent tous les modules, comme avant.\n\n## Jackson 3\n\nSpring Boot 4 utilise Jackson 3 par défaut. Ses classes passent de `com.fasterxml.jackson` à **`tools.jackson`**, sauf les annotations (`@JsonProperty`…), qui restent dans `com.fasterxml.jackson.annotation`. Le mapper JSON est un `JsonMapper` immuable, construit par un builder, et `JacksonException` est une exception **non vérifiée**.\n\n::checkpoint{id=\"c1\"}\n\nCôté Spring Boot, le customizer du mapper devient `JsonMapperBuilderCustomizer`, dans le module `spring-boot-jackson`. Le lab de cette leçon fait exactement cette migration, et le lab de débogage de la leçon 3 montre son piège le plus sournois : une `@ConditionalOnClass(name = \"com.fasterxml.jackson…\")` qui ne casse rien, mais ne s'active plus jamais.\n\n## La plateforme\n\n- **Java 17 minimum** (Java 25 recommandé, celui de ce cours), **Jakarta EE 11**, **Servlet 6.1**.\n- **Undertow n'est plus pris en charge** (pas encore compatible Servlet 6.1) : Tomcat ou Jetty.\n- **Spring Framework 7** : `BeanRegistrar` (module 01), résilience intégrée (`@Retryable`, module 02), annotations de nullité JSpecify.\n\n## Les tests\n\n- `@MockBean` et `@SpyBean` de Spring Boot sont **supprimés**, au profit de `@MockitoBean` et `@MockitoSpyBean` de Spring Framework (module 11).\n- **L'intégration Spock de Spring Boot est retirée**, Spock ne prenant pas encore en charge Groovy 5.\n\n::checkpoint{id=\"c2\"}\n\n> **En production :** migre par étapes. D'abord la dernière version 3.5 sans aucun avertissement de dépréciation (les API retirées en 4 sont dépréciées en 3.x), puis Boot 4 avec les *classic starters*, puis le découpage en starters ciblés. À chaque étape, la suite de tests doit rester verte ; c'est elle qui rend la migration possible.\n\n## Pièges fréquents\n\n- **Remplacer les imports Jackson à l'aveugle** : les annotations, elles, ne changent pas de paquet.\n- **Une condition de classe en texte** qui vise une classe de Jackson 2 : rien ne casse, la fonctionnalité disparaît.\n- **Migrer sans lire le guide** : chaque version majeure a ses retraits, et le guide est la seule liste fiable.\n- **Sauter l'étape « 3.5 sans dépréciations »** : les erreurs de compilation de Boot 4 sont alors mêlées à de vrais changements de comportement.\n\n## À retenir\n\n- Boot 4 : autoconfiguration en modules (`org.springframework.boot.<module>`), starters renommés ou découpés.\n- Jackson 3 : `tools.jackson`, `JsonMapper`, exceptions non vérifiées ; annotations inchangées.\n- Java 17+, Jakarta EE 11, Servlet 6.1, plus d'Undertow ; `@MockitoBean` remplace `@MockBean` ; plus d'intégration Spock.\n- Migrer par étapes, guide de migration en main.\n\n> **Source :** wiki GitHub de Spring Boot, [Spring Boot 4.0 Migration Guide](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide) (modules, starters, Jackson 3, retraits) ; Spring Boot 4.1, [System Requirements](https://docs.spring.io/spring-boot/4.1/system-requirements.html).\n",
+   "cards_rated": 0,
+   "chapter": {
+    "course_id": "spring",
+    "id": "spring-ch04",
+    "title": "L'autoconfiguration"
+   },
+   "checkpoints": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import tools.jackson.databind.PropertyNamingStrategies;\nimport tools.jackson.databind.json.JsonMapper;\n\npublic class Main {\n    public record Ticket(String eventId, int seatNumber) { }\n\n    public static void main(String[] args) {\n        JsonMapper json = JsonMapper.builder().propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE).build();\n        System.out.println(json.writeValueAsString(new Ticket(\"jazz\", 12)));\n    }\n}\n",
+     "id": "c1",
+     "prompt": "Jackson 3, tel que Spring Boot 4 l'utilise. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Rien ne change",
+      "L'intégration Spock de Spring Boot est retirée, car Spock ne prend pas encore en charge Groovy 5",
+      "Spock devient obligatoire",
+      "Spock est remplacé par JUnit 4"
+     ],
+     "code": null,
+     "id": "c2",
+     "prompt": "Ton application Grails 7.2 repose sur Spring Boot 3.5 et teste avec Spock. Que dit le guide de migration de Boot 4 sur Spock ?",
+     "type": "single"
+    }
+   ],
+   "completed": false,
+   "concepts": [
+    {
+     "id": "spring-ch04-boot4-modules",
+     "label": "Boot 4 découpe son autoconfiguration en modules ciblés (spring-boot-jackson, spring-boot-webmvc…), chacun avec ses paquets org.springframework.boot.<module> et son fichier imports ; les starters suivent"
+    },
+    {
+     "id": "spring-ch04-boot4-jackson3",
+     "label": "Boot 4 utilise Jackson 3 (paquet tools.jackson, JsonMapper, exceptions non vérifiées) ; seules les annotations restent dans com.fasterxml.jackson.annotation"
+    }
+   ],
+   "duration_min": 30,
+   "extra": true,
+   "flashcards": [
+    {
+     "back": "Module spring-boot-jackson, paquet org.springframework.boot.jackson.autoconfigure.",
+     "concept": "spring-ch04-boot4-modules",
+     "front": "Boot 4 : où est l'autoconfiguration de Jackson ?",
+     "id": "fc1"
+    },
+    {
+     "back": "spring-boot-starter-web → webmvc ; spring-boot-starter-aop → aspectj.",
+     "concept": "spring-ch04-boot4-modules",
+     "front": "Starters renommés en Boot 4 (deux exemples) ?",
+     "id": "fc2"
+    },
+    {
+     "back": "Paquet tools.jackson ; JsonMapper par builder ; JacksonException non vérifiée (annotations inchangées).",
+     "concept": "spring-ch04-boot4-jackson3",
+     "front": "Jackson 3 en trois points ?",
+     "id": "fc3"
+    },
+    {
+     "back": "JsonMapperBuilderCustomizer (org.springframework.boot.jackson.autoconfigure).",
+     "concept": "spring-ch04-boot4-jackson3",
+     "front": "Customizer Jackson de Boot 4 ?",
+     "id": "fc4"
+    },
+    {
+     "back": "Plus d'intégration Spock, plus d'Undertow, @MockBean remplacé par @MockitoBean.",
+     "concept": "spring-ch04-boot4-modules",
+     "front": "Retraits de Boot 4 utiles pour un projet Grails ?",
+     "id": "fc5"
+    }
+   ],
+   "glossary": [
+    {
+     "definition": "La page du wiki GitHub de Spring Boot qui liste, version par version, ce qui change et comment adapter son code.",
+     "term": "guide de migration"
+    },
+    {
+     "definition": "Des starters de transition de Boot 4 qui apportent tous les modules d'autoconfiguration, pour migrer d'abord et découper ensuite.",
+     "term": "classic starters"
+    },
+    {
+     "definition": "La plateforme d'API d'entreprise (Servlet 6.1, Persistence 3.2…) sur laquelle repose Spring Boot 4.",
+     "term": "Jakarta EE 11"
+    }
+   ],
+   "id": "spring-ch04-l05",
+   "labs": [
+    {
+     "difficulty": 3,
+     "id": "spring-ch04-l05-lab-jackson3-migration",
+     "passed": false,
+     "role": "lab",
+     "title": "Migrer vers Spring Boot 4 : Jackson 3 et son customizer",
+     "xp": 60
+    }
+   ],
+   "next_id": null,
+   "previous_id": "spring-ch04-l04",
+   "quiz_id": "spring-ch04-l05-quiz",
+   "source": {
+    "book": "spring-docs",
+    "chapter": 30,
+    "pages": "#module-dependencies",
+    "url": "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide"
+   },
+   "title": "De Spring Boot 3.5 à 4 : ce qui change, et pourquoi",
+   "visuals": {
+    "spring-ch04-boot4-modules": {
+     "concept": "spring-ch04-boot4-modules",
+     "entry": "boot4-modules.svg",
+     "format": "static",
+     "id": "spring-ch04-boot4-modules",
+     "justification": "Une comparaison fixe suffit : à gauche le gros jar spring-boot-autoconfigure de Boot 3, à droite les modules de Boot 4 (spring-boot-jackson, spring-boot-webmvc…), chacun avec son paquet et son fichier imports.",
+     "params": [],
+     "status": "idea"
+    }
+   },
+   "xp": 25
+  },
+  "name": "lesson:spring-ch04-l05",
+  "status": 200
+ },
+ {
+  "body": {
    "body": "\n## Pourquoi c'est important\n\nOn répète que « TypeScript est un surensemble typé de JavaScript ». La phrase est juste, mais elle cache trois idées qui changent la façon de travailler : ce que TypeScript **ajoute** (un vérificateur), ce qu'il **ne change pas** (le programme qui s'exécute) et ce qu'il **ne promet pas** (l'absence d'erreur à l'exécution). Si tu viens de Java, de Go ou de Python, ce modèle mental est la première chose à poser.\n\n## Le concept\n\n### Un surensemble, au sens de la syntaxe\n\nRenomme `main.js` en `main.ts` : tu n'as pas changé de langage, ton code était déjà du TypeScript. C'est ce qui rend la migration d'une base JavaScript progressive (module 13) : on n'écrit pas tout dans un autre langage.\n\nL'inverse est faux. Ce fichier est du TypeScript valide mais pas du JavaScript :\n\n```ts\nfunction greet(who: string) {\n  console.log('Bonjour', who);\n}\n```\n\nDonné à un interpréteur JavaScript pur, il échoue sur `: string` (`SyntaxError`). Dès que tu écris une annotation de type, tu as quitté JavaScript.\n\n### Un vérificateur qui travaille sans exécuter\n\nMême **sans aucune annotation**, TypeScript déduit des types (c'est l'inférence, module 03) et repère des fautes :\n\n```ts\nlet city = 'new york city';\nconsole.log(city.toUppercase());\n// Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?\n```\n\nÀ l'exécution, JavaScript lèverait `TypeError: city.toUppercase is not a function`. Le vérificateur te le dit avant, dans l'éditeur. On parle de typage **statique** : l'analyse porte sur le texte du programme, pas sur son exécution.\n\nIl va même plus loin que les exceptions. Ce code tourne sans erreur et affiche trois fois `undefined` :\n\n```ts\nconst states = [\n  { name: 'Alabama', capital: 'Montgomery' },\n  { name: 'Alaska', capital: 'Juneau' },\n];\nfor (const state of states) {\n  console.log(state.capitol);   // faute de frappe : « capitol » (le bâtiment) au lieu de « capital »\n}\n```\n\nTypeScript la signale quand même : `Property 'capitol' does not exist … Did you mean 'capital'?`.\n\n### Les annotations disent ton intention\n\nQue se passe-t-il si la faute est dans les données plutôt que dans le code ?\n\n```ts\nconst states = [\n  { name: 'Alabama', capitol: 'Montgomery' },\n  { name: 'Alaska', capitol: 'Juneau' },\n];\nfor (const state of states) {\n  console.log(state.capital);   // Did you mean 'capitol' ?\n}\n```\n\nL'erreur est la même, mais **la suggestion est fausse** : TypeScript ne peut pas deviner quelle orthographe est la bonne. Dis-le-lui :\n\n```ts\ninterface State {\n  name: string;\n  capital: string;\n}\nconst states: State[] = [\n  { name: 'Alabama', capitol: 'Montgomery' },\n  //                 ~~~~~~~ Object literal may only specify known properties… Did you mean 'capital'?\n];\n```\n\nMaintenant l'erreur est **sur la ligne fautive** et la suggestion est la bonne. Et si une seule entrée sur cent avait contenu la faute ? Sans annotation, TypeScript l'aurait acceptée (il aurait simplement déduit une union de deux formes) ; avec l'annotation, il la trouve. Retiens la règle : **plus tu donnes d'information au vérificateur, plus il trouve de problèmes**.\n\n### Il modélise JavaScript, avec du jugement\n\nLe principe directeur est de refléter le comportement réel de JavaScript. Donc ceci passe, parce que JavaScript le permet :\n\n```ts\nconst x = 2 + '3';   // string : \"23\"\nconst y = '2' + 3;   // string : \"23\"\n```\n\nMais TypeScript refuse des constructions légales qu'il juge presque toujours fautives :\n\n```ts\nconst a = null + 7;               // vaut 7 en JS, refusé\nconst b = [] + 12;                // vaut '12' en JS, refusé\nalert('Hello', 'TypeScript');     // l'argument en trop est ignoré en JS, refusé\n```\n\nOù placer la limite est une question de goût, que tu délègues à l'équipe de TypeScript en l'adoptant.\n\n### Un programme qui passe peut quand même planter\n\n```ts\nconst names = ['Alice', 'Bob'];\nconsole.log(names[2].toUpperCase());   // TypeScript : OK. Exécution : TypeError.\n```\n\nTypeScript suppose que l'indice est dans le tableau. Son type statique (`string`) et la vraie valeur (`undefined`) ont divergé. Un système de types qui garantit cette cohérence est dit **sound** ; celui de TypeScript **ne l'est pas, par choix** : il vaut mieux rester utilisable avec du JavaScript existant que tout prouver. Le module 07 détaille les trous. D'autres langages (Reason, PureScript, Dart) offrent plus de garanties, mais au prix d'une migration bien plus lourde.\n\nLes trois ensembles de programmes à garder en tête :\n\n- les programmes JavaScript (tous valides en TypeScript) ;\n- les programmes TypeScript (JavaScript + annotations) ;\n- ceux qui **passent le vérificateur** : le sous-ensemble dans lequel tu vis au quotidien.\n\n## Pièges fréquents\n\n- **Croire que « ça passe » veut dire « ça marche ».** Le vérificateur réduit les erreurs possibles, il ne les élimine pas.\n- **Traiter une suggestion de correction comme une vérité.** Elle dépend de ce que TypeScript a déduit ; sans annotation, elle peut viser la mauvaise orthographe.\n- **Annoter pour « faire taire » l'erreur** (`: any`, `as`) au lieu de comprendre ce qu'elle dit.\n\n## À retenir\n\n- TypeScript est un surensemble de JavaScript : tout JavaScript valide est du TypeScript valide, pas l'inverse.\n- Il ajoute un système de types statique qui modélise le comportement de JavaScript et cherche les erreurs avant l'exécution.\n- Il refuse certaines constructions légales mais douteuses (`null + 7`, arguments en trop).\n- Un programme qui passe le vérificateur peut lever une exception : le système de types n'est pas sound.\n- Les annotations expriment ton intention ; elles améliorent le nombre et la justesse des erreurs trouvées.\n\n> **Au-delà du livre :** dans ce cours, les exécutions se font avec Node.js, qui retire lui-même les annotations (« type stripping ») : `node main.ts` fonctionne sans étape de compilation, et la vérification des types est confiée à `tsc` à part. Tu verras ce découplage en détail à la leçon 3.\n",
    "cards_rated": 0,
    "chapter": {
@@ -50243,6 +51083,317 @@
    ]
   },
   "name": "quiz:spring-ch03-l05-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch04-l01-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch04-l01",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import org.springframework.context.annotation.*;\nimport org.springframework.core.type.AnnotatedTypeMetadata;\n\npublic class Main {\n    public static class InEurope implements Condition {\n        public boolean matches(ConditionContext ctx, AnnotatedTypeMetadata md) {\n            return \"eu\".equals(ctx.getEnvironment().getProperty(\"tixa.region\"));\n        }\n    }\n    public static class Vat { Vat() { System.out.println(\"TVA créée\"); } }\n\n    @Configuration\n    static class App {\n        @Bean @Conditional(InEurope.class) Vat vat() { return new Vat(); }\n    }\n\n    public static void main(String[] args) {\n        System.setProperty(\"tixa.region\", \"us\");\n        try (var ctx = new AnnotationConfigApplicationContext(App.class)) {\n            System.out.println(ctx.containsBeanDefinition(\"vat\"));\n        }\n    }\n}\n",
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "Une condition maison. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Non : « non » veut dire faux",
+      "Oui : sans havingValue, la condition est vraie pour toute valeur différente de false",
+      "Le démarrage échoue : valeur invalide",
+      "Seulement si matchIfMissing vaut true"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q2",
+     "prompt": "`@ConditionalOnProperty(\"tixa.audit.enabled\")` est posée sur un bean. On configure `tixa.audit.enabled=non`. Le bean existe-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Ajouter des propriétés à un contexte de test",
+      "Simuler l'absence d'une bibliothèque avec un FilteredClassLoader",
+      "Ajouter une configuration « de l'application », évaluée avant les autoconfigurations",
+      "Démarrer le serveur web embarqué sur un port"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Que permet `ApplicationContextRunner` ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il est traité à part par SpringApplication",
+      "Il est méta-annoté @Conditional(ProfileCondition.class)",
+      "Il crée un contexte enfant par profil",
+      "Il est lu par un BeanPostProcessor après la création du bean"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Qu'est-ce qui fait de `@Profile` une condition ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch04-l01-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch04-l02-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch04-l02",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [
+      "@SpringBootConfiguration",
+      "@EnableAutoConfiguration",
+      "@ComponentScan, avec des filtres d'exclusion",
+      "@EnableAspectJAutoProxy"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q1",
+     "prompt": "Que contient `@SpringBootApplication` ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Dans META-INF/spring.factories, clé EnableAutoConfiguration",
+      "Dans META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports",
+      "En scannant le paquet org.springframework.boot",
+      "Dans application.properties"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Où Spring Boot 4 cherche-t-il la liste des autoconfigurations d'une bibliothèque ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Il est exécuté dans un thread séparé",
+      "Il est traité après toutes les autres classes de configuration",
+      "Il ne peut importer qu'une seule classe",
+      "Il est réservé aux tests"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Qu'est-ce qui distingue un `DeferredImportSelector` d'un import ordinaire ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que le scan est lent",
+      "Parce qu'une autoconfiguration scannée est traitée comme la configuration de l'application, sans l'import différé : ses conditions de beans ne voient plus de façon garantie les beans de l'application",
+      "Parce que le scan ignore @AutoConfiguration",
+      "Pour des raisons de licence"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Pourquoi la documentation demande-t-elle qu'une autoconfiguration ne soit jamais la cible d'un scan ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch04-l02-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch04-l03-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch04-l03",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [
+      "Rien : un nom de classe ne change pas le comportement",
+      "Les métriques disparaissent : sans after, l'ordre est alphabétique, et « ClientMetrics… » passe maintenant avant « TixaClient… »",
+      "Le démarrage échoue avec un cycle",
+      "Les deux beans sont créés deux fois"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q1",
+     "prompt": "`MetricsAutoConfiguration` crée des métriques `@ConditionalOnBean(TixaClient.class)`, et le client vient de `TixaClientAutoConfiguration`. Les métriques existent. Un collègue renomme la première en `ClientMetricsAutoConfiguration`. Que se passe-t-il ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Démarrer avec --debug (ou debug=true)",
+      "Interroger /actuator/conditions d'une application qui tourne",
+      "ConditionEvaluationReport.get(beanFactory) dans un test",
+      "Lire le fichier META-INF/spring.factories"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Comment lire le rapport des conditions ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que l'annotation est dans le paquet autoconfigure",
+      "Parce que la condition ne voit que les définitions déjà traitées, et que seules les autoconfigurations sont garanties de passer après celles de l'application",
+      "Parce qu'elle ne fonctionne pas avec @Configuration",
+      "Pour des raisons de performance"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Pourquoi la documentation recommande-t-elle de n'utiliser `@ConditionalOnMissingBean` que dans des autoconfigurations ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Parce que Object n'est pas un bean",
+      "Parce que la condition regarde le type de retour de la méthode : elle cherche un bean de type Object, et le trouvera toujours, ou pas, sans rapport avec TixaClient",
+      "Parce qu'il faut @Primary",
+      "Parce que la méthode doit être static"
+     ],
+     "code": null,
+     "difficulty": 3,
+     "id": "q4",
+     "prompt": "Une méthode `@Bean @ConditionalOnMissingBean Object tixaClient()` est censée céder sa place à un `TixaClient` de l'application. Elle ne le fait pas. Pourquoi ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch04-l03-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch04-l04-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch04-l04",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [],
+     "code": "import java.util.*;\nimport org.springframework.beans.factory.ObjectProvider;\nimport org.springframework.context.annotation.*;\nimport org.springframework.core.annotation.Order;\n\npublic class Main {\n    public interface HeaderCustomizer { void customize(List<String> headers); }\n    public record Client(List<String> headers) { }\n\n    @Configuration\n    static class App {\n        @Bean @Order(2) HeaderCustomizer trace() { return h -> h.add(\"trace\"); }\n        @Bean @Order(1) HeaderCustomizer auth() { return h -> h.add(\"auth\"); }\n        @Bean Client client(ObjectProvider<HeaderCustomizer> customizers) {\n            List<String> headers = new ArrayList<>();\n            customizers.orderedStream().forEach(c -> c.customize(headers));\n            return new Client(headers);\n        }\n    }\n\n    public static void main(String[] args) {\n        try (var ctx = new AnnotationConfigApplicationContext(App.class)) {\n            System.out.println(ctx.getBean(Client.class).headers());\n        }\n    }\n}\n",
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "Deux customizers ordonnés. Qu'affiche le programme ?",
+     "type": "code-output"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Les classes @AutoConfiguration et leurs conditions",
+      "Le fichier META-INF/spring/...AutoConfiguration.imports",
+      "Les @ConfigurationProperties du starter",
+      "La classe @SpringBootApplication de l'application"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q2",
+     "prompt": "Que contient le module autoconfigure d'un starter ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "En dépendance normale, pour qu'elle soit toujours là",
+      "En dépendance optionnelle : l'application l'ajoute si elle veut Lydia, et la condition de classe réagit",
+      "Elle ne doit pas apparaître du tout",
+      "En dépendance de test"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q3",
+     "prompt": "Dans le module autoconfigure, comment déclarer la dépendance au SDK Lydia, que seules certaines applications utilisent ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch04-l04-quiz",
+  "status": 200
+ },
+ {
+  "body": {
+   "id": "spring-ch04-l05-quiz",
+   "language": "java",
+   "lesson_id": "spring-ch04-l05",
+   "questions": [
+    {
+     "answered": false,
+     "choices": [
+      "org.springframework.boot.autoconfigure.jackson, dans spring-boot-autoconfigure",
+      "org.springframework.boot.jackson.autoconfigure, dans le module spring-boot-jackson",
+      "tools.jackson.spring",
+      "Elle n'existe plus"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q1",
+     "prompt": "Dans Spring Boot 4, où se trouve `JacksonAutoConfiguration` ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Le paquet com.fasterxml.jackson.databind devient tools.jackson.databind",
+      "JacksonException devient une exception non vérifiée",
+      "Les annotations @JsonProperty changent de paquet",
+      "Le mapper se construit par un builder immuable (JsonMapper.builder())"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q2",
+     "prompt": "Qu'est-ce qui change en passant de Jackson 2 à Jackson 3 ?",
+     "type": "multiple"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "spring-boot-starter-web, inchangé",
+      "spring-boot-starter-webmvc",
+      "spring-boot-starter-servlet",
+      "spring-boot-starter-tomcat"
+     ],
+     "code": null,
+     "difficulty": 1,
+     "id": "q3",
+     "prompt": "Ton build Boot 3 utilise `spring-boot-starter-web`. Quel est son équivalent dans Spring Boot 4 ?",
+     "type": "single"
+    },
+    {
+     "answered": false,
+     "choices": [
+      "Passer directement à Boot 4 avec les starters ciblés",
+      "Dernière 3.5 sans dépréciations, puis Boot 4 avec les classic starters, puis les starters ciblés",
+      "Boot 4 d'abord, puis corriger les dépréciations",
+      "Réécrire l'application"
+     ],
+     "code": null,
+     "difficulty": 2,
+     "id": "q4",
+     "prompt": "Quel ordre de migration le cours recommande-t-il ?",
+     "type": "single"
+    }
+   ]
+  },
+  "name": "quiz:spring-ch04-l05-quiz",
   "status": 200
  },
  {
@@ -93649,6 +94800,415 @@
  },
  {
   "body": {
+   "chapter_id": "spring-ch04",
+   "checks": [],
+   "concepts": [
+    "spring-ch04-conditional",
+    "spring-ch04-condition-report",
+    "spring-ch04-context-runner"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch04-assignment",
+   "instructions": "## Contexte\n\nTixa active certaines fonctionnalités client par client : `tixa.features=loyalty, gift-cards`. L'équipe veut écrire `@ConditionalOnFeature(\"loyalty\")` sur un bean, comme on écrit `@ConditionalOnProperty`. Et surtout, quand une fonctionnalité manque, la personne qui lit `--debug` doit comprendre **pourquoi** sans ouvrir le code.\n\nL'annotation `@ConditionalOnFeature` est fournie ; elle pointe vers `OnFeatureCondition`, que tu écris.\n\n## Ta tâche\n\n1. `OnFeatureCondition` lit la valeur de l'annotation (le nom de la fonctionnalité) et la propriété `tixa.features`, une liste séparée par des virgules, espaces tolérés. La condition est vraie si la fonctionnalité y figure **exactement** (`gift-cards-v2` n'active pas `gift-cards`).\n2. Sans `tixa.features`, aucune fonctionnalité n'est active.\n3. L'issue (vraie ou fausse) apparaît dans le **rapport des conditions** de Spring Boot, avec un message qui nomme la fonctionnalité et la liste des fonctionnalités actives.\n\n## Ce qui sera relu\n\nLa revue juge le message du rapport du point de vue de la personne de garde, et la façon de lire l'annotation.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "assignment",
+   "rubric": [
+    {
+     "id": "correctness",
+     "label": "Correction (tests)",
+     "source": "tests",
+     "weight": 0.5
+    },
+    {
+     "id": "report-message",
+     "label": "Un rapport utile",
+     "levels": {
+      "0": "Condition simple (Condition) sans issue dans le rapport",
+      "2": "Message présent mais vague (« condition non remplie »), ou seulement en cas d'échec",
+      "4": "Message construit avec ConditionMessage : il nomme la fonctionnalité, la propriété lue et la liste active, en cas de succès comme d'échec ; lisible dans --debug sans ouvrir le code"
+     },
+     "source": "ai",
+     "weight": 0.3
+    },
+    {
+     "id": "design",
+     "label": "Conception",
+     "levels": {
+      "0": "Codé en dur pour une fonctionnalité",
+      "2": "Fonctionne mais compare par contains() sur la chaîne brute, ou lit l'annotation par réflexion",
+      "4": "Lit l'attribut de l'annotation par les métadonnées (sans charger de classe), découpe et nettoie la liste une fois, comparaison exacte des noms"
+     },
+     "source": "ai",
+     "weight": 0.2
+    }
+   ],
+   "source": null,
+   "title": "Une condition maison qui s'explique : @ConditionalOnFeature",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "tixa/features/OnFeatureCondition.java": "package tixa.features;\n\n/** La condition derrière @ConditionalOnFeature. */\npublic class OnFeatureCondition {\n    // TODO\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "tests/app/FeatureConditionTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;\nimport org.springframework.boot.autoconfigure.condition.SpringBootCondition;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.ConfigurableApplicationContext;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\n\nimport tixa.features.ConditionalOnFeature;\nimport tixa.features.OnFeatureCondition;\n\nclass FeatureConditionTest {\n\n    public static class LoyaltyProgram { }\n    public static class GiftCards { }\n\n    @Configuration(proxyBeanMethods = false)\n    static class Features {\n        @Bean @ConditionalOnFeature(\"loyalty\") LoyaltyProgram loyaltyProgram() { return new LoyaltyProgram(); }\n        @Bean @ConditionalOnFeature(\"gift-cards\") GiftCards giftCards() { return new GiftCards(); }\n    }\n\n    final ApplicationContextRunner runner = new ApplicationContextRunner().withUserConfiguration(Features.class);\n\n    static List<String> reportMessages(ConfigurableApplicationContext ctx) {\n        List<String> messages = new ArrayList<>();\n        ConditionEvaluationReport.get(ctx.getBeanFactory()).getConditionAndOutcomesBySource().values()\n                .forEach(outcomes -> outcomes.forEach(o -> messages.add(o.getOutcome().getMessage())));\n        return messages;\n    }\n\n    @Test\n    @DisplayName(\"sans tixa.features : aucune fonctionnalité\")\n    void none() {\n        runner.run(ctx -> {\n            assertThat(ctx).as(\"contexte\").doesNotHaveBean(LoyaltyProgram.class).doesNotHaveBean(GiftCards.class);\n        });\n    }\n\n    @Test\n    @DisplayName(\"seules les fonctionnalités listées existent, espaces tolérés\")\n    void listed() {\n        runner.withPropertyValues(\"tixa.features=loyalty , search\").run(ctx -> {\n            assertThat(ctx).as(\"contexte\").hasSingleBean(LoyaltyProgram.class).doesNotHaveBean(GiftCards.class);\n        });\n    }\n\n    @Test\n    @DisplayName(\"une fonctionnalité dont le nom en contient une autre n'est pas confondue\")\n    void exactMatch() {\n        runner.withPropertyValues(\"tixa.features=gift-cards-v2\").run(ctx ->\n                assertThat(ctx).as(\"contexte avec gift-cards-v2\").doesNotHaveBean(GiftCards.class));\n    }\n\n    @Test\n    @DisplayName(\"la condition est une SpringBootCondition : son issue est dans le rapport\")\n    void reported() {\n        assertThat(SpringBootCondition.class.isAssignableFrom(OnFeatureCondition.class)).as(\"OnFeatureCondition étend SpringBootCondition\").isTrue();\n        runner.withPropertyValues(\"tixa.features=loyalty\").run(ctx -> {\n            List<String> messages = reportMessages(ctx);\n            assertThat(messages).as(\"messages du rapport des conditions\").anyMatch(m -> m.contains(\"gift-cards\") && m.contains(\"loyalty\"));\n        });\n    }\n}\n",
+     "tixa/features/ConditionalOnFeature.java": "package tixa.features;\n\nimport java.lang.annotation.Documented;\nimport java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\nimport org.springframework.context.annotation.Conditional;\n\n/**\n * Le bean (ou la configuration) n'existe que si la fonctionnalité est listée dans tixa.features,\n * une liste séparée par des virgules (« loyalty, gift-cards »). Fourni : ne pas modifier.\n */\n@Target({ ElementType.TYPE, ElementType.METHOD })\n@Retention(RetentionPolicy.RUNTIME)\n@Documented\n@Conditional(OnFeatureCondition.class)\npublic @interface ConditionalOnFeature {\n    String value();\n}\n"
+    }
+   },
+   "xp": 150
+  },
+  "name": "exercise:spring-ch04-assignment",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch04",
+   "checks": [],
+   "concepts": [
+    "spring-ch04-boot-conditions",
+    "spring-ch04-imports-file",
+    "spring-ch04-autoconfig-order",
+    "spring-ch04-deferred-import",
+    "spring-ch04-starter-structure",
+    "spring-ch04-context-runner"
+   ],
+   "debrief": "",
+   "difficulty": 5,
+   "id": "spring-ch04-boss",
+   "instructions": "## Contexte\n\nLa plateforme Tixa veut un starter de notifications : une application l'ajoute, et reçoit un `NotificationService` qui envoie sur **tous** les canaux disponibles. Chaque canal dépend d'un SDK optionnel ; l'application peut ajouter ses propres canaux ; et il doit toujours y avoir au moins un canal.\n\nFournis : `Notifier`, `NotificationService` (qui reçoit la liste des canaux), et deux SDK fictifs, `sdk.mail.MailSdk` et `sdk.sms.SmsSdk` (les tests les cachent pour simuler leur absence). Tu écris l'autoconfiguration (autant de classes que tu veux, dans `tixa.notify`) et le fichier `imports`. Les tests chargent **les classes listées dans ton fichier `imports`**.\n\nPas d'indices pour ce combat : tout ce qu'il faut est dans les cinq leçons du module.\n\n## Les règles\n\n- Canal **e-mail** (`emailNotifier`) : si `MailSdk` est sur le classpath. Envoi : `MailSdk.send(to, text)`.\n- Canal **SMS** (`smsNotifier`) : si `SmsSdk` est sur le classpath **et** que `tixa.notify.sms.sender` est défini. Envoi : `new SmsSdk(sender).send(to, text)`.\n- Canal de **repli** (`log:<to>:<text>`) : seulement s'il n'existe **aucun autre** `Notifier`, ni du starter, ni de l'application.\n- Le `NotificationService` reçoit tous les canaux, e-mail avant SMS. L'application peut le remplacer.\n- `tixa.notify.enabled=false` : le starter ne configure **rien**.\n- Sans les SDK, le contexte doit démarrer : aucune classe absente ne doit être chargée.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [],
+   "palette": [],
+   "role": "boss",
+   "rubric": [],
+   "source": null,
+   "title": "Boss : un starter de notifications complet",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports": "",
+     "tixa/notify/NotifyAutoConfiguration.java": "package tixa.notify;\n\npublic class NotifyAutoConfiguration {\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 0,
+    "passed": false,
+    "readonly": {
+     "sdk/mail/MailSdk.java": "package sdk.mail;\n\n/** SDK (fictif) d'envoi d'e-mails : optionnel. Fourni. */\npublic class MailSdk {\n    public String send(String to, String text) { return \"mail:\" + to + \":\" + text; }\n}\n",
+     "sdk/sms/SmsSdk.java": "package sdk.sms;\n\n/** SDK (fictif) d'envoi de SMS : optionnel. Fourni. */\npublic class SmsSdk {\n    private final String sender;\n    public SmsSdk(String sender) { this.sender = sender; }\n    public String send(String to, String text) { return \"sms(\" + sender + \"):\" + to + \":\" + text; }\n}\n",
+     "tests/app/NotifyStarterTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.test.context.FilteredClassLoader;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\n\nimport tixa.notify.NotificationService;\nimport tixa.notify.Notifier;\n\nclass NotifyStarterTest {\n\n    /** Les autoconfigurations déclarées par le starter, lues comme le fait Spring Boot. */\n    static Class<?>[] declared() throws Exception {\n        var url = NotifyStarterTest.class.getClassLoader()\n                .getResource(\"META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports\");\n        assertThat(url).as(\"fichier imports du starter\").isNotNull();\n        List<String> names;\n        try (var in = url.openStream()) {\n            names = new String(in.readAllBytes()).lines().map(String::trim).filter(l -> !l.isEmpty() && !l.startsWith(\"#\")).toList();\n        }\n        Class<?>[] classes = new Class<?>[names.size()];\n        for (int i = 0; i < classes.length; i++) classes[i] = Class.forName(names.get(i));\n        return classes;\n    }\n\n    static ApplicationContextRunner runner() throws Exception {\n        return new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(declared()));\n    }\n\n    @Configuration(proxyBeanMethods = false)\n    static class TeamNotifier {\n        @Bean Notifier slackNotifier() { return (to, text) -> \"slack:\" + to + \":\" + text; }\n    }\n\n    @Test\n    @DisplayName(\"e-mail seul (pas d'expéditeur SMS) : le service envoie par e-mail\")\n    void mailOnly() throws Exception {\n        runner().run(ctx -> assertThat(ctx.getBean(NotificationService.class).broadcast(\"ana\", \"ok\"))\n                .as(\"envois\").containsExactly(\"mail:ana:ok\"));\n    }\n\n    @Test\n    @DisplayName(\"e-mail et SMS configuré : les deux, e-mail d'abord\")\n    void mailAndSms() throws Exception {\n        runner().withPropertyValues(\"tixa.notify.sms.sender=TIXA\").run(ctx ->\n                assertThat(ctx.getBean(NotificationService.class).broadcast(\"ana\", \"ok\"))\n                        .as(\"envois\").containsExactly(\"mail:ana:ok\", \"sms(TIXA):ana:ok\"));\n    }\n\n    @Test\n    @DisplayName(\"aucun SDK : le canal de journal sert de repli\")\n    void fallback() throws Exception {\n        runner().withClassLoader(new FilteredClassLoader(\"sdk.\")).run(ctx ->\n                assertThat(ctx.getBean(NotificationService.class).broadcast(\"ana\", \"ok\")).as(\"envois\").containsExactly(\"log:ana:ok\"));\n    }\n\n    @Test\n    @DisplayName(\"SDK SMS présent mais pas d'expéditeur : pas de SMS\")\n    void smsNeedsSender() throws Exception {\n        runner().withClassLoader(new FilteredClassLoader(\"sdk.mail\")).run(ctx ->\n                assertThat(ctx.getBean(NotificationService.class).broadcast(\"ana\", \"ok\")).as(\"envois\").containsExactly(\"log:ana:ok\"));\n    }\n\n    @Test\n    @DisplayName(\"un canal de l'application, sans SDK : pas de repli, seulement le sien\")\n    void userNotifierReplacesFallback() throws Exception {\n        runner().withClassLoader(new FilteredClassLoader(\"sdk.\")).withUserConfiguration(TeamNotifier.class).run(ctx ->\n                assertThat(ctx.getBean(NotificationService.class).broadcast(\"ana\", \"ok\")).as(\"envois\").containsExactly(\"slack:ana:ok\"));\n    }\n\n    @Test\n    @DisplayName(\"tixa.notify.enabled=false : rien n'est configuré\")\n    void disabled() throws Exception {\n        runner().withPropertyValues(\"tixa.notify.enabled=false\").run(ctx -> {\n            assertThat(ctx).as(\"contexte désactivé\").doesNotHaveBean(NotificationService.class);\n            assertThat(ctx).as(\"contexte désactivé\").doesNotHaveBean(Notifier.class);\n        });\n    }\n\n    @Test\n    @DisplayName(\"sans les SDK sur le classpath, le contexte démarre (aucune classe absente n'est chargée)\")\n    void startsWithoutSdks() throws Exception {\n        runner().withClassLoader(new FilteredClassLoader(\"sdk.\")).run(ctx -> assertThat(ctx).as(\"contexte\").hasNotFailed());\n    }\n}\n",
+     "tixa/notify/NotificationService.java": "package tixa.notify;\n\nimport java.util.List;\n\n/** Envoie une notification sur tous les canaux disponibles. Fourni : ne pas modifier. */\npublic class NotificationService {\n    private final List<Notifier> notifiers;\n\n    public NotificationService(List<Notifier> notifiers) { this.notifiers = List.copyOf(notifiers); }\n\n    public List<String> broadcast(String to, String text) {\n        return notifiers.stream().map(n -> n.notify(to, text)).toList();\n    }\n}\n",
+     "tixa/notify/Notifier.java": "package tixa.notify;\n\n/** Un canal de notification. Fourni : ne pas modifier. */\npublic interface Notifier {\n    String notify(String to, String text);\n}\n"
+    }
+   },
+   "xp": 250
+  },
+  "name": "exercise:spring-ch04-boss",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch04",
+   "checks": [],
+   "concepts": [
+    "spring-ch04-conditional",
+    "spring-ch04-boot-conditions",
+    "spring-ch04-context-runner"
+   ],
+   "debrief": "",
+   "difficulty": 2,
+   "id": "spring-ch04-l01-lab-warmup-conditions",
+   "instructions": "## Contexte\n\n`PaymentAutoConfiguration` déclare trois beans sans condition : deux passerelles de paiement en même temps (le démarrage échoue dès qu'on en injecte une) et un journal d'audit toujours actif. Une autoconfiguration doit **s'adapter** : à ce qui est sur le classpath, à ce que l'application déclare déjà, à la configuration.\n\nFournis : `PaymentGateway`, `AuditLog`, et `sdk.lydia.LydiaSdk`, qui joue le SDK d'un prestataire (les tests le cachent pour simuler son absence). Tu modifies seulement `PaymentAutoConfiguration.java`. Les tests utilisent `ApplicationContextRunner`, l'outil de Spring Boot pour tester une autoconfiguration.\n\n## Ta tâche\n\n| situation | passerelle |\n|---|---|\n| le SDK Lydia (`sdk.lydia.LydiaSdk`) est sur le classpath | `lydia` |\n| pas de SDK, pas d'autre passerelle | `factice` |\n| l'application déclare sa propre passerelle | la sienne |\n\nLe journal d'audit n'existe que si `tixa.audit.enabled=true`.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch04-l01",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Échauffement : trois beans, trois conditions",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/PaymentAutoConfiguration.java": "package app;\n\nimport org.springframework.boot.autoconfigure.AutoConfiguration;\nimport org.springframework.context.annotation.Bean;\n\n@AutoConfiguration\npublic class PaymentAutoConfiguration {\n\n    @Bean\n    PaymentGateway lydiaGateway() {\n        return () -> \"lydia\";\n    }\n\n    @Bean\n    PaymentGateway fakeGateway() {\n        return () -> \"factice\";\n    }\n\n    @Bean\n    AuditLog auditLog() {\n        return new AuditLog();\n    }\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/AuditLog.java": "package app;\n\n/** Fourni : ne pas modifier. */\npublic class AuditLog { }\n",
+     "app/PaymentGateway.java": "package app;\n\n/** Fourni : ne pas modifier. */\npublic interface PaymentGateway {\n    String name();\n}\n",
+     "sdk/lydia/LydiaSdk.java": "package sdk.lydia;\n\n/** Le SDK (fictif) du prestataire Lydia : présent seulement si la dépendance est ajoutée. Fourni. */\npublic class LydiaSdk {\n    public String pay(int cents) { return \"lydia-\" + cents; }\n}\n",
+     "tests/app/ConditionsTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.test.context.FilteredClassLoader;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\n\nclass ConditionsTest {\n\n    final ApplicationContextRunner runner = new ApplicationContextRunner()\n            .withConfiguration(AutoConfigurations.of(PaymentAutoConfiguration.class));\n\n    @Configuration(proxyBeanMethods = false)\n    static class TeamGateway {\n        @Bean PaymentGateway teamGateway() { return () -> \"équipe\"; }\n    }\n\n    @Test\n    @DisplayName(\"avec le SDK Lydia : la passerelle Lydia, et pas de factice\")\n    void lydiaWhenSdkPresent() {\n        runner.run(ctx -> assertThat(ctx.getBean(PaymentGateway.class).name()).as(\"passerelle avec le SDK\").isEqualTo(\"lydia\"));\n    }\n\n    @Test\n    @DisplayName(\"sans le SDK Lydia : la passerelle factice\")\n    void fakeWhenSdkMissing() {\n        runner.withClassLoader(new FilteredClassLoader(\"sdk.lydia\")).run(ctx ->\n                assertThat(ctx.getBean(PaymentGateway.class).name()).as(\"passerelle sans le SDK\").isEqualTo(\"factice\"));\n    }\n\n    @Test\n    @DisplayName(\"une passerelle de l'application remplace la factice\")\n    void userGatewayWins() {\n        runner.withClassLoader(new FilteredClassLoader(\"sdk.lydia\")).withUserConfiguration(TeamGateway.class).run(ctx ->\n                assertThat(ctx.getBean(PaymentGateway.class).name()).as(\"passerelle avec celle de l'équipe\").isEqualTo(\"équipe\"));\n    }\n\n    @Test\n    @DisplayName(\"l'audit n'existe que si tixa.audit.enabled=true\")\n    void auditOnlyWhenEnabled() {\n        runner.run(ctx -> assertThat(ctx).as(\"contexte sans propriété\").doesNotHaveBean(AuditLog.class));\n        runner.withPropertyValues(\"tixa.audit.enabled=false\").run(ctx -> assertThat(ctx).as(\"contexte avec false\").doesNotHaveBean(AuditLog.class));\n        runner.withPropertyValues(\"tixa.audit.enabled=true\").run(ctx -> assertThat(ctx).as(\"contexte avec true\").hasSingleBean(AuditLog.class));\n    }\n}\n"
+    }
+   },
+   "xp": 40
+  },
+  "name": "exercise:spring-ch04-l01-lab-warmup-conditions",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch04",
+   "checks": [],
+   "concepts": [
+    "spring-ch04-imports-file",
+    "spring-ch04-deferred-import",
+    "spring-ch04-exclusion"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch04-l02-lab-client-autoconfig",
+   "instructions": "## Contexte\n\nL'équipe plateforme publie le client de l'API Tixa (`tixa.client.TixaClient`) sous forme de bibliothèque. Les applications qui l'ajoutent doivent recevoir un `TixaClient` prêt à l'emploi **sans rien déclarer**, comme on reçoit un `DataSource` en ajoutant un pilote JDBC. Elles doivent aussi pouvoir le remplacer, le configurer, ou le désactiver.\n\nFournis : `app.TixaApp` (une application qui n'importe rien du client) et `TixaClient`. Le paquet `tixa.client` n'est **pas** scanné par l'application. Tu écris `TixaClientAutoConfiguration.java` et le fichier `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`.\n\n## Ta tâche\n\n1. `TixaClientAutoConfiguration` est une autoconfiguration qui fournit un `TixaClient` :\n   - URL de base : `tixa.client.base-url`, par défaut `https://api.tixa.example` ;\n   - aucun client si l'application en déclare déjà un.\n2. Spring Boot doit la trouver tout seul : déclare-la dans le fichier `imports`.\n\nElle peut alors être exclue comme n'importe quelle autoconfiguration de Spring Boot (`spring.autoconfigure.exclude`).\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch04-l02",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Une vraie autoconfiguration, trouvée sans scan",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports": "",
+     "tixa/client/TixaClientAutoConfiguration.java": "package tixa.client;\n\n/** Fournit un TixaClient aux applications qui ont la bibliothèque, sauf si elles en déclarent un. */\npublic class TixaClientAutoConfiguration {\n    // TODO\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n/** L'application : elle ne connaît pas le client Tixa, elle a seulement la dépendance. Fourni. */\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "tests/app/ClientAutoConfigTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.boot.autoconfigure.AutoConfiguration;\nimport org.springframework.context.ConfigurableApplicationContext;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\n\nimport tixa.client.TixaClient;\nimport tixa.client.TixaClientAutoConfiguration;\n\nclass ClientAutoConfigTest {\n\n    @Configuration(proxyBeanMethods = false)\n    static class TeamClient {\n        @Bean TixaClient teamClient() { return new TixaClient(\"https://team.example\"); }\n    }\n\n    static ConfigurableApplicationContext start(Class<?>[] sources, String... args) {\n        var app = new SpringApplication(sources);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        return app.run(args);\n    }\n\n    @Test\n    @DisplayName(\"l'application reçoit un TixaClient sans rien déclarer\")\n    void autoConfigured() {\n        try (var ctx = start(new Class<?>[] { TixaApp.class })) {\n            assertThat(ctx.getBean(TixaClient.class).baseUrl()).as(\"URL par défaut\").isEqualTo(\"https://api.tixa.example\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"tixa.client.base-url change l'URL\")\n    void configurable() {\n        try (var ctx = start(new Class<?>[] { TixaApp.class }, \"--tixa.client.base-url=https://staging.tixa.example\")) {\n            assertThat(ctx.getBean(TixaClient.class).baseUrl()).as(\"URL configurée\").isEqualTo(\"https://staging.tixa.example\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"un client déclaré par l'application remplace celui de l'autoconfiguration\")\n    void backsOff() {\n        try (var ctx = start(new Class<?>[] { TixaApp.class, TeamClient.class })) {\n            assertThat(ctx.getBeansOfType(TixaClient.class).keySet()).as(\"beans TixaClient\").containsExactly(\"teamClient\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"l'autoconfiguration peut être exclue par configuration\")\n    void excludable() {\n        try (var ctx = start(new Class<?>[] { TixaApp.class }, \"--spring.autoconfigure.exclude=tixa.client.TixaClientAutoConfiguration\")) {\n            assertThat(ctx.getBeansOfType(TixaClient.class)).as(\"beans TixaClient après exclusion\").isEmpty();\n        }\n    }\n\n    @Test\n    @DisplayName(\"c'est une vraie @AutoConfiguration, déclarée dans le fichier imports\")\n    void declaredAsAutoConfiguration() throws Exception {\n        assertThat(TixaClientAutoConfiguration.class.isAnnotationPresent(AutoConfiguration.class)).as(\"@AutoConfiguration\").isTrue();\n        var imports = getClass().getClassLoader().getResource(\"META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports\");\n        assertThat(imports).as(\"fichier imports sur le classpath\").isNotNull();\n        try (var in = imports.openStream()) {\n            assertThat(new String(in.readAllBytes())).as(\"contenu du fichier imports\").contains(\"tixa.client.TixaClientAutoConfiguration\");\n        }\n    }\n}\n",
+     "tixa/client/TixaClient.java": "package tixa.client;\n\n/** Le client de l'API Tixa, livré dans une bibliothèque. Fourni : ne pas modifier. */\npublic class TixaClient {\n    private final String baseUrl;\n\n    public TixaClient(String baseUrl) { this.baseUrl = baseUrl; }\n\n    public String baseUrl() { return baseUrl; }\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:spring-ch04-l02-lab-client-autoconfig",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch04",
+   "checks": [],
+   "concepts": [
+    "spring-ch04-autoconfig-order",
+    "spring-ch04-condition-report",
+    "spring-ch04-boot4-jackson3"
+   ],
+   "debrief": "",
+   "difficulty": 4,
+   "id": "spring-ch04-l03-lab-debug-missing-metrics",
+   "instructions": "## Contexte\n\nMessage de l'équipe produit, après la montée de la bibliothèque cliente en Spring Boot 4 :\n\n> Le tableau de bord n'affiche plus aucune métrique d'appels au client Tixa, alors que le client fonctionne. Et le service partenaire se plaint : depuis la mise à jour, nos billets lui arrivent en texte (`jazz x2`) au lieu de JSON. Jackson est bien dans les dépendances, on l'a vérifié.\n\nLa bibliothèque contient trois autoconfigurations, dans `tixa.client` : `TixaClientAutoConfiguration` (le client et un codec texte de secours), `ClientMetricsAutoConfiguration` (les métriques, quand un client existe) et `JsonCodecAutoConfiguration` (un codec JSON, quand Jackson est là). Les tests rejouent le contexte d'une application qui utilise la bibliothèque.\n\n## Ta mission\n\n1. Trouve **pourquoi** les métriques manquent et pourquoi les billets ne sont pas en JSON. Il y a plus d'une cause.\n2. Corrige-les.\n3. Fais en sorte que la condition sur Jackson ne puisse plus viser une classe qui n'existe pas : une faute de nom doit casser la **compilation**, pas l'application en silence.\n\nNe modifie pas les tests.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch04-l03",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Débogage : pas de métriques, et des billets en texte brut",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "tixa/client/ClientMetricsAutoConfiguration.java": "package tixa.client;\n\nimport org.springframework.boot.autoconfigure.AutoConfiguration;\nimport org.springframework.boot.autoconfigure.condition.ConditionalOnBean;\nimport org.springframework.context.annotation.Bean;\n\n/** Ajoute les métriques quand un client existe. */\n@AutoConfiguration\npublic class ClientMetricsAutoConfiguration {\n\n    @Bean\n    @ConditionalOnBean(TixaClient.class)\n    ClientMetrics clientMetrics(TixaClient client) { return new ClientMetrics(client); }\n}\n",
+     "tixa/client/JsonCodecAutoConfiguration.java": "package tixa.client;\n\nimport org.springframework.boot.autoconfigure.AutoConfiguration;\nimport org.springframework.boot.autoconfigure.condition.ConditionalOnClass;\nimport org.springframework.context.annotation.Bean;\n\nimport tools.jackson.databind.json.JsonMapper;\n\n/** Encode les billets en JSON quand Jackson est présent. */\n@AutoConfiguration(before = TixaClientAutoConfiguration.class)\n@ConditionalOnClass(name = \"com.fasterxml.jackson.databind.ObjectMapper\")\npublic class JsonCodecAutoConfiguration {\n\n    @Bean\n    TicketCodec jsonCodec() {\n        JsonMapper json = JsonMapper.builder().build();\n        return (eventId, seats) -> json.writeValueAsString(java.util.Map.of(\"event\", eventId, \"seats\", seats));\n    }\n}\n",
+     "tixa/client/TixaClientAutoConfiguration.java": "package tixa.client;\n\nimport org.springframework.boot.autoconfigure.AutoConfiguration;\nimport org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;\nimport org.springframework.context.annotation.Bean;\n\n@AutoConfiguration\npublic class TixaClientAutoConfiguration {\n\n    @Bean\n    @ConditionalOnMissingBean\n    TixaClient tixaClient() { return new TixaClient(); }\n\n    // Format de secours : texte brut, si aucun codec JSON n'est disponible.\n    @Bean\n    @ConditionalOnMissingBean\n    TicketCodec plainTextCodec() { return (eventId, seats) -> eventId + \" x\" + seats; }\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "tests/app/MissingMetricsTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.test.context.FilteredClassLoader;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\n\nimport tixa.client.ClientMetrics;\nimport tixa.client.ClientMetricsAutoConfiguration;\nimport tixa.client.JsonCodecAutoConfiguration;\nimport tixa.client.TicketCodec;\nimport tixa.client.TixaClientAutoConfiguration;\n\n/** Le contexte d'une application qui a la bibliothèque, avec les trois autoconfigurations. */\nclass MissingMetricsTest {\n\n    final ApplicationContextRunner runner = new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(\n            TixaClientAutoConfiguration.class, ClientMetricsAutoConfiguration.class, JsonCodecAutoConfiguration.class));\n\n    @Test\n    @DisplayName(\"le tableau de bord a ses métriques de client\")\n    void metricsPresent() {\n        runner.run(ctx -> {\n            assertThat(ctx).as(\"contexte de l'application\").hasSingleBean(ClientMetrics.class);\n            assertThat(ctx.getBean(ClientMetrics.class).describe()).as(\"métriques\").isEqualTo(\"métriques de TixaClient\");\n        });\n    }\n\n    @Test\n    @DisplayName(\"les billets partent en JSON\")\n    void ticketsInJson() {\n        runner.run(ctx -> assertThat(ctx.getBean(TicketCodec.class).encode(\"jazz\", 2))\n                .as(\"billet encodé\").contains(\"\\\"event\\\":\\\"jazz\\\"\").contains(\"\\\"seats\\\":2\"));\n    }\n\n    @Test\n    @DisplayName(\"sans Jackson, le texte brut reste le repli\")\n    void plainTextFallback() {\n        runner.withClassLoader(new FilteredClassLoader(\"tools.jackson\")).run(ctx ->\n                assertThat(ctx.getBean(TicketCodec.class).encode(\"jazz\", 2)).as(\"billet sans Jackson\").isEqualTo(\"jazz x2\"));\n    }\n}\n",
+     "tixa/client/ClientMetrics.java": "package tixa.client;\n\n/** Les métriques d'appels du client, affichées sur le tableau de bord. */\npublic class ClientMetrics {\n    private final TixaClient client;\n\n    public ClientMetrics(TixaClient client) { this.client = client; }\n\n    public String describe() { return \"métriques de \" + client.getClass().getSimpleName(); }\n}\n",
+     "tixa/client/TicketCodec.java": "package tixa.client;\n\n/** Encode un billet avant envoi. */\npublic interface TicketCodec {\n    String encode(String eventId, int seats);\n}\n",
+     "tixa/client/TixaClient.java": "package tixa.client;\n\npublic class TixaClient {\n    public String send(String payload) { return \"envoyé : \" + payload; }\n}\n"
+    }
+   },
+   "xp": 90
+  },
+  "name": "exercise:spring-ch04-l03-lab-debug-missing-metrics",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch04",
+   "checks": [],
+   "concepts": [
+    "spring-ch04-starter-structure",
+    "spring-ch04-customizer-pattern",
+    "spring-ch04-context-runner"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch04-l04-lab-client-starter",
+   "instructions": "## Contexte\n\nLa première version de la bibliothèque cliente ne laissait que deux choix : prendre le client tel quel, ou tout réécrire. Les équipes veulent un juste milieu : changer l'URL par configuration, et **ajouter** un en-tête d'authentification ou de traçage sans perdre le reste. C'est le patron qu'utilise Spring Boot partout (`RestClientCustomizer`, `JsonMapperBuilderCustomizer`…) : des *customizers*.\n\n`TixaClient` (avec son builder) et l'interface `TixaClientCustomizer` sont fournis. Tu écris `TixaClientProperties.java` et `TixaClientAutoConfiguration.java`.\n\n## Ta tâche\n\n1. `TixaClientProperties` (préfixe `tixa.client`) : `base-url` (défaut `https://api.tixa.example`) et `timeout` (défaut `5s`).\n2. L'autoconfiguration construit le `TixaClient` :\n   - à partir des propriétés ;\n   - puis en appliquant **tous** les `TixaClientCustomizer` de l'application, dans l'ordre de leur `@Order` ;\n   - sauf si l'application déclare son propre `TixaClient` : alors, rien n'est construit, customizers compris.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch04-l04",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Un starter : propriétés, customizers et remplacement",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "tixa/client/TixaClientAutoConfiguration.java": "package tixa.client;\n\n/** L'autoconfiguration du starter. */\npublic class TixaClientAutoConfiguration {\n    // TODO\n}\n",
+     "tixa/client/TixaClientProperties.java": "package tixa.client;\n\nimport java.time.Duration;\n\n/** Les propriétés du starter (préfixe tixa.client). */\npublic record TixaClientProperties(String baseUrl, Duration timeout) { }\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "tests/app/StarterTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport java.time.Duration;\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.core.annotation.Order;\n\nimport tixa.client.TixaClient;\nimport tixa.client.TixaClientAutoConfiguration;\nimport tixa.client.TixaClientCustomizer;\n\nclass StarterTest {\n\n    final ApplicationContextRunner runner = new ApplicationContextRunner()\n            .withConfiguration(AutoConfigurations.of(TixaClientAutoConfiguration.class));\n\n    @Configuration(proxyBeanMethods = false)\n    static class Customizers {\n        @Bean @Order(2) TixaClientCustomizer tracing() { return b -> b.header(\"X-Trace: on\"); }\n        @Bean @Order(1) TixaClientCustomizer auth() { return b -> b.header(\"Authorization: Bearer x\"); }\n    }\n\n    @Configuration(proxyBeanMethods = false)\n    static class FullReplacement {\n        @Bean TixaClient myClient() { return TixaClient.builder().baseUrl(\"https://mine.example\").build(); }\n        @Bean TixaClientCustomizer ignored() { return b -> b.header(\"jamais\"); }\n    }\n\n    @Test\n    @DisplayName(\"valeurs par défaut\")\n    void defaults() {\n        runner.run(ctx -> {\n            TixaClient c = ctx.getBean(TixaClient.class);\n            assertThat(c.baseUrl()).as(\"URL par défaut\").isEqualTo(\"https://api.tixa.example\");\n            assertThat(c.timeout()).as(\"délai par défaut\").isEqualTo(Duration.ofSeconds(5));\n        });\n    }\n\n    @Test\n    @DisplayName(\"propriétés tixa.client.*\")\n    void properties() {\n        runner.withPropertyValues(\"tixa.client.base-url=https://staging.example\", \"tixa.client.timeout=750ms\").run(ctx -> {\n            TixaClient c = ctx.getBean(TixaClient.class);\n            assertThat(c.baseUrl()).as(\"URL configurée\").isEqualTo(\"https://staging.example\");\n            assertThat(c.timeout()).as(\"délai configuré\").isEqualTo(Duration.ofMillis(750));\n        });\n    }\n\n    @Test\n    @DisplayName(\"les customizers de l'application sont appliqués, dans leur ordre\")\n    void customizersInOrder() {\n        runner.withUserConfiguration(Customizers.class).run(ctx ->\n                assertThat(ctx.getBean(TixaClient.class).headers()).as(\"en-têtes\")\n                        .isEqualTo(List.of(\"Authorization: Bearer x\", \"X-Trace: on\")));\n    }\n\n    @Test\n    @DisplayName(\"un client de l'application remplace tout, customizers compris\")\n    void fullReplacement() {\n        runner.withUserConfiguration(FullReplacement.class).run(ctx -> {\n            assertThat(ctx.getBeansOfType(TixaClient.class).keySet()).as(\"beans TixaClient\").containsExactly(\"myClient\");\n            assertThat(ctx.getBean(TixaClient.class).headers()).as(\"en-têtes du client de l'application\").isEmpty();\n        });\n    }\n}\n",
+     "tixa/client/TixaClient.java": "package tixa.client;\n\nimport java.time.Duration;\nimport java.util.ArrayList;\nimport java.util.List;\n\n/** Le client, construit par un builder. Fourni : ne pas modifier. */\npublic final class TixaClient {\n    private final String baseUrl;\n    private final Duration timeout;\n    private final List<String> headers;\n\n    private TixaClient(Builder b) {\n        this.baseUrl = b.baseUrl;\n        this.timeout = b.timeout;\n        this.headers = List.copyOf(b.headers);\n    }\n\n    public String baseUrl() { return baseUrl; }\n    public Duration timeout() { return timeout; }\n    public List<String> headers() { return headers; }\n\n    public static Builder builder() { return new Builder(); }\n\n    public static final class Builder {\n        private String baseUrl;\n        private Duration timeout;\n        private final List<String> headers = new ArrayList<>();\n\n        public Builder baseUrl(String url) { this.baseUrl = url; return this; }\n        public Builder timeout(Duration t) { this.timeout = t; return this; }\n        public Builder header(String h) { headers.add(h); return this; }\n        public TixaClient build() { return new TixaClient(this); }\n    }\n}\n",
+     "tixa/client/TixaClientCustomizer.java": "package tixa.client;\n\n/** Permet à une application d'ajuster le client sans le remplacer. Fourni : ne pas modifier. */\n@FunctionalInterface\npublic interface TixaClientCustomizer {\n    void customize(TixaClient.Builder builder);\n}\n"
+    }
+   },
+   "xp": 70
+  },
+  "name": "exercise:spring-ch04-l04-lab-client-starter",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch04",
+   "checks": [],
+   "concepts": [
+    "spring-ch04-boot4-jackson3",
+    "spring-ch04-boot4-modules",
+    "spring-ch04-customizer-pattern"
+   ],
+   "debrief": "",
+   "difficulty": 3,
+   "id": "spring-ch04-l05-lab-jackson3-migration",
+   "instructions": "## Contexte\n\nTixa monte de Spring Boot 3.5 à Spring Boot 4.1. Le code d'export des billets vers un partenaire ne **compile plus** : il a été écrit pour Jackson 2 et pour l'autoconfiguration Jackson de Boot 3. Lance les tests pour lire les erreurs de compilation : c'est le premier contact de toute migration.\n\nLe partenaire exige des noms de champs en `snake_case` (`event_id`, `seat_number`…). `Ticket` et `TixaApp` sont fournis. Tu migres `JsonConfig.java` et `TicketExporter.java`.\n\n## Ta tâche\n\n1. Passe à **Jackson 3**, que Spring Boot 4 utilise par défaut.\n2. Remplace le customizer de Boot 3 par celui de Boot 4, pour que la stratégie `snake_case` s'applique au mapper **du conteneur**.\n3. `TicketExporter` utilise le mapper configuré par Spring Boot (pas un mapper créé à la main), et n'a plus de `try/catch` inutile.\n\n## À savoir\n\nJackson 3 change de paquet (`com.fasterxml.jackson` devient `tools.jackson`), sauf les annotations (`com.fasterxml.jackson.annotation`, inchangé). Le guide de migration de Spring Boot 4 (wiki GitHub) liste les autres changements.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": "spring-ch04-l05",
+   "milestones": [],
+   "palette": [],
+   "role": "lab",
+   "rubric": [],
+   "source": null,
+   "title": "Migrer vers Spring Boot 4 : Jackson 3 et son customizer",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "app/JsonConfig.java": "package app;\n\nimport com.fasterxml.jackson.databind.PropertyNamingStrategies;\nimport org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\n\n/** Le partenaire exige des noms en snake_case. Écrit pour Spring Boot 3. */\n@Configuration\npublic class JsonConfig {\n\n    @Bean\n    Jackson2ObjectMapperBuilderCustomizer snakeCase() {\n        return builder -> builder.propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);\n    }\n}\n",
+     "app/TicketExporter.java": "package app;\n\nimport com.fasterxml.jackson.core.JsonProcessingException;\nimport com.fasterxml.jackson.databind.ObjectMapper;\nimport org.springframework.stereotype.Service;\n\n/** Exporte un billet vers le partenaire. Écrit pour Spring Boot 3. */\n@Service\npublic class TicketExporter {\n    private final ObjectMapper mapper;\n\n    public TicketExporter(ObjectMapper mapper) { this.mapper = mapper; }\n\n    public String export(Ticket ticket) {\n        try {\n            return mapper.writeValueAsString(ticket);\n        } catch (JsonProcessingException e) {\n            throw new IllegalStateException(\"export impossible\", e);\n        }\n    }\n}\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/Ticket.java": "package app;\n\n/** Fourni : ne pas modifier. */\npublic record Ticket(String eventId, int seatNumber, int priceCents) { }\n",
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "tests/app/MigrationTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.context.ConfigurableApplicationContext;\n\nimport tools.jackson.databind.json.JsonMapper;\n\nclass MigrationTest {\n\n    static ConfigurableApplicationContext start() {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        return app.run();\n    }\n\n    @Test\n    @DisplayName(\"l'export utilise le JsonMapper de Spring Boot, en snake_case\")\n    void exportsSnakeCase() {\n        try (var ctx = start()) {\n            String json = ctx.getBean(TicketExporter.class).export(new Ticket(\"jazz-0612\", 12, 4500));\n            assertThat(json).as(\"billet exporté\").contains(\"\\\"event_id\\\":\\\"jazz-0612\\\"\").contains(\"\\\"seat_number\\\":12\").contains(\"\\\"price_cents\\\":4500\");\n        }\n    }\n\n    @Test\n    @DisplayName(\"le customizer s'applique au JsonMapper du conteneur, pas à une copie\")\n    void customizerOnContainerMapper() {\n        try (var ctx = start()) {\n            String json = ctx.getBean(JsonMapper.class).writeValueAsString(new Ticket(\"rock\", 1, 100));\n            assertThat(json).as(\"JsonMapper du conteneur\").contains(\"\\\"seat_number\\\":1\");\n        }\n    }\n}\n"
+    }
+   },
+   "xp": 60
+  },
+  "name": "exercise:spring-ch04-l05-lab-jackson3-migration",
+  "status": 200
+ },
+ {
+  "body": {
+   "chapter_id": "spring-ch04",
+   "checks": [],
+   "concepts": [
+    "spring-ch04-imports-file",
+    "spring-ch04-boot-conditions",
+    "spring-ch04-customizer-pattern",
+    "spring-ch04-autoconfig-order",
+    "spring-ch04-starter-structure"
+   ],
+   "debrief": "",
+   "difficulty": 4,
+   "id": "spring-ch04-project",
+   "instructions": "## Contexte\n\nLe client du prestataire de paiement de Tixa est réclamé par trois autres équipes. Le copier-coller est exclu : tu en fais un **starter**. Une application qui l'ajoute à ses dépendances doit recevoir un client configuré sans rien importer, pouvoir l'ajuster, le remplacer, et profiter des métriques si elle utilise aussi la bibliothèque de métriques maison (`tixa.metrics`, optionnelle).\n\nFournis : `PaymentClient`, `PaymentClientCustomizer`, `PaymentMetrics`, `tixa.metrics.MeterSink`, et `app.TixaApp`. Le paquet `tixa` n'est pas scanné par l'application. Tests par jalon : `jboot M1`, `M2`, `M3`.\n\n## M1 — Le client autoconfiguré\n\n- `PaymentProperties` (préfixe `tixa.payment`) : `endpoint` (défaut `https://pay.tixa.example`) et `api-key`.\n- `PaymentAutoConfiguration` fournit un `PaymentClient` **seulement si `tixa.payment.api-key` est défini**, et jamais si l'application déclare le sien.\n- Spring Boot la trouve tout seul (fichier `imports`).\n\n## M2 — Les customizers\n\nLe client reçoit les en-têtes ajoutés par tous les `PaymentClientCustomizer` de l'application, dans l'ordre de leur `@Order`.\n\n## M3 — Les métriques, si possible\n\n`PaymentMetricsAutoConfiguration` :\n- ne s'applique que si `tixa.metrics.MeterSink` est sur le classpath ;\n- fournit un `MeterSink` si l'application n'en a pas ;\n- enregistre un `PaymentMetrics` **seulement si un `PaymentClient` existe** ; elle doit donc être évaluée **après** `PaymentAutoConfiguration`, quel que soit leur nom.\n\nSans la bibliothèque de métriques, l'application démarre normalement.\n",
+   "kind": "code",
+   "language": "java",
+   "lesson_id": null,
+   "milestones": [
+    {
+     "goal": "PaymentAutoConfiguration fournit un PaymentClient quand tixa.payment.api-key est défini, cède la place au client de l'application, et est trouvée par Spring Boot via le fichier imports.",
+     "id": "m1",
+     "review": false,
+     "tests": "jboot M1",
+     "title": "Le client autoconfiguré"
+    },
+    {
+     "goal": "Les PaymentClientCustomizer de l'application ajoutent leurs en-têtes, dans l'ordre de leur @Order.",
+     "id": "m2",
+     "review": false,
+     "tests": "jboot M2",
+     "title": "Les customizers"
+    },
+    {
+     "goal": "PaymentMetricsAutoConfiguration, ordonnée après le client, enregistre un compteur quand la bibliothèque de métriques est présente et qu'un client existe ; sans la bibliothèque, l'application démarre.",
+     "id": "m3",
+     "review": true,
+     "tests": "jboot M3",
+     "title": "Les métriques, si possible"
+    }
+   ],
+   "palette": [],
+   "role": "project",
+   "rubric": [],
+   "source": null,
+   "title": "Tixa, jalon 4 : le client de paiement devient un starter",
+   "worksheet": null,
+   "workspace": {
+    "attempts": 0,
+    "editable": {
+     "META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports": "",
+     "tixa/payment/PaymentAutoConfiguration.java": "package tixa.payment;\n\n/** M1, M2 — fournit le PaymentClient. */\npublic class PaymentAutoConfiguration {\n    // TODO\n}\n",
+     "tixa/payment/PaymentMetricsAutoConfiguration.java": "package tixa.payment;\n\n/** M3 — enregistre les métriques du client, si la bibliothèque de métriques est présente. */\npublic class PaymentMetricsAutoConfiguration {\n    // TODO\n}\n",
+     "tixa/payment/PaymentProperties.java": "package tixa.payment;\n\n/** M1 — les propriétés tixa.payment.*. */\npublic record PaymentProperties(String endpoint, String apiKey) { }\n"
+    },
+    "hints_revealed": [],
+    "hints_total": 3,
+    "passed": false,
+    "readonly": {
+     "app/TixaApp.java": "package app;\n\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n/** L'application Tixa : elle n'importe rien du starter. Fourni. */\n@SpringBootApplication\npublic class TixaApp { }\n",
+     "tests/app/M1ClientTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.Banner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.WebApplicationType;\nimport org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\n\nimport tixa.payment.PaymentAutoConfiguration;\nimport tixa.payment.PaymentClient;\n\nclass M1ClientTest {\n\n    final ApplicationContextRunner runner = new ApplicationContextRunner()\n            .withConfiguration(AutoConfigurations.of(PaymentAutoConfiguration.class));\n\n    @Configuration(proxyBeanMethods = false)\n    static class OwnClient {\n        @Bean PaymentClient ownClient() { return new PaymentClient(\"https://own.example\", \"k\", List.of()); }\n    }\n\n    @Test\n    @DisplayName(\"M1 — avec une clé : un client, endpoint par défaut\")\n    void withKey() {\n        runner.withPropertyValues(\"tixa.payment.api-key=sk_test\").run(ctx -> {\n            PaymentClient c = ctx.getBean(PaymentClient.class);\n            assertThat(c.endpoint()).as(\"endpoint par défaut\").isEqualTo(\"https://pay.tixa.example\");\n            assertThat(c.apiKey()).as(\"clé\").isEqualTo(\"sk_test\");\n        });\n    }\n\n    @Test\n    @DisplayName(\"M1 — sans clé : aucun client\")\n    void withoutKey() {\n        runner.run(ctx -> assertThat(ctx).as(\"contexte sans clé\").doesNotHaveBean(PaymentClient.class));\n    }\n\n    @Test\n    @DisplayName(\"M1 — le client de l'application l'emporte\")\n    void backsOff() {\n        runner.withPropertyValues(\"tixa.payment.api-key=sk\").withUserConfiguration(OwnClient.class).run(ctx ->\n                assertThat(ctx.getBeansOfType(PaymentClient.class).keySet()).as(\"beans PaymentClient\").containsExactly(\"ownClient\"));\n    }\n\n    @Test\n    @DisplayName(\"M1 — une application Spring Boot reçoit le client sans rien importer\")\n    void discoveredByBoot() {\n        var app = new SpringApplication(TixaApp.class);\n        app.setBannerMode(Banner.Mode.OFF);\n        app.setWebApplicationType(WebApplicationType.NONE);\n        try (var ctx = app.run(\"--tixa.payment.api-key=sk\", \"--tixa.payment.endpoint=https://staging.example\")) {\n            assertThat(ctx.getBean(PaymentClient.class).charge(100)).as(\"charge(100)\").isEqualTo(\"débit 100 via https://staging.example\");\n        }\n    }\n}\n",
+     "tests/app/M2CustomizersTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport java.util.List;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.core.annotation.Order;\n\nimport tixa.payment.PaymentAutoConfiguration;\nimport tixa.payment.PaymentClient;\nimport tixa.payment.PaymentClientCustomizer;\n\nclass M2CustomizersTest {\n\n    @Configuration(proxyBeanMethods = false)\n    static class Customizers {\n        @Bean @Order(20) PaymentClientCustomizer trace() { return h -> h.add(\"X-Trace\"); }\n        @Bean @Order(10) PaymentClientCustomizer idempotency() { return h -> h.add(\"Idempotency-Key\"); }\n    }\n\n    @Test\n    @DisplayName(\"M2 — les customizers ajoutent leurs en-têtes, dans l'ordre\")\n    void customizers() {\n        new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(PaymentAutoConfiguration.class))\n                .withPropertyValues(\"tixa.payment.api-key=sk\").withUserConfiguration(Customizers.class)\n                .run(ctx -> assertThat(ctx.getBean(PaymentClient.class).headers()).as(\"en-têtes\").isEqualTo(List.of(\"Idempotency-Key\", \"X-Trace\")));\n    }\n}\n",
+     "tests/app/M3MetricsTest.java": "package app;\n\nimport static org.assertj.core.api.Assertions.assertThat;\n\nimport org.junit.jupiter.api.DisplayName;\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.autoconfigure.AutoConfigurations;\nimport org.springframework.boot.test.context.FilteredClassLoader;\nimport org.springframework.boot.test.context.runner.ApplicationContextRunner;\n\nimport tixa.metrics.MeterSink;\nimport tixa.payment.PaymentAutoConfiguration;\nimport tixa.payment.PaymentMetrics;\nimport tixa.payment.PaymentMetricsAutoConfiguration;\n\nclass M3MetricsTest {\n\n    // L'ordre de la liste ne compte pas : AutoConfigurations trie comme Spring Boot.\n    final ApplicationContextRunner runner = new ApplicationContextRunner().withConfiguration(\n            AutoConfigurations.of(PaymentMetricsAutoConfiguration.class, PaymentAutoConfiguration.class));\n\n    @Test\n    @DisplayName(\"M3 — un client et la bibliothèque de métriques : le compteur est enregistré\")\n    void metricsRegistered() {\n        runner.withPropertyValues(\"tixa.payment.api-key=sk\").run(ctx -> {\n            assertThat(ctx).as(\"contexte\").hasSingleBean(PaymentMetrics.class);\n            assertThat(ctx.getBean(MeterSink.class).meters()).as(\"compteurs\").containsExactly(\"tixa.payment.calls[https://pay.tixa.example]\");\n        });\n    }\n\n    @Test\n    @DisplayName(\"M3 — sans client, pas de métriques de paiement\")\n    void noClientNoMetrics() {\n        runner.run(ctx -> assertThat(ctx).as(\"contexte sans clé\").doesNotHaveBean(PaymentMetrics.class));\n    }\n\n    @Test\n    @DisplayName(\"M3 — sans la bibliothèque de métriques, l'application démarre quand même\")\n    void withoutMetricsLibrary() {\n        runner.withPropertyValues(\"tixa.payment.api-key=sk\").withClassLoader(new FilteredClassLoader(\"tixa.metrics\")).run(ctx -> {\n            assertThat(ctx).as(\"contexte\").hasNotFailed();\n            assertThat(ctx).as(\"contexte\").doesNotHaveBean(PaymentMetrics.class);\n        });\n    }\n}\n",
+     "tixa/metrics/MeterSink.java": "package tixa.metrics;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\n/** La bibliothèque de métriques (optionnelle) : présente seulement si l'application l'ajoute. Fourni. */\npublic class MeterSink {\n    private final List<String> meters = new ArrayList<>();\n\n    public void register(String name) { meters.add(name); }\n\n    public List<String> meters() { return List.copyOf(meters); }\n}\n",
+     "tixa/payment/PaymentClient.java": "package tixa.payment;\n\nimport java.util.List;\n\n/** Le client du prestataire de paiement. Fourni : ne pas modifier. */\npublic record PaymentClient(String endpoint, String apiKey, List<String> headers) {\n    public String charge(int cents) { return \"débit \" + cents + \" via \" + endpoint; }\n}\n",
+     "tixa/payment/PaymentClientCustomizer.java": "package tixa.payment;\n\nimport java.util.List;\n\n/** Ajoute des en-têtes au client. Fourni : ne pas modifier. */\n@FunctionalInterface\npublic interface PaymentClientCustomizer {\n    void customize(List<String> headers);\n}\n",
+     "tixa/payment/PaymentMetrics.java": "package tixa.payment;\n\nimport tixa.metrics.MeterSink;\n\n/** Enregistre les compteurs du client dans le MeterSink. Fourni : ne pas modifier. */\npublic class PaymentMetrics {\n    public PaymentMetrics(PaymentClient client, MeterSink sink) {\n        sink.register(\"tixa.payment.calls[\" + client.endpoint() + \"]\");\n    }\n}\n"
+    }
+   },
+   "xp": 300
+  },
+  "name": "exercise:spring-ch04-project",
+  "status": 200
+ },
+ {
+  "body": {
    "chapter_id": "ts-ch00",
    "checks": [],
    "concepts": [
@@ -98803,8 +100363,23 @@
         "title": "Le démarrage de Spring Boot"
        },
        {
-        "available": false,
+        "available": true,
+        "id": "spring-ch04",
+        "lesson_count": 5,
+        "mastery": {
+         "chapter_id": "spring-ch04",
+         "labs_passed": 0,
+         "labs_total": 5,
+         "lessons_done": 0,
+         "lessons_total": 5,
+         "mastered": false,
+         "quiz_correct": 0,
+         "quiz_total": 19,
+         "score": 0,
+         "unlocked": false
+        },
         "slug": "04-autoconfiguration",
+        "subtitle": "Conditions, fichier imports, import différé, ordre et rapport des conditions, starters, et la migration vers Spring Boot 4",
         "title": "L'autoconfiguration"
        }
       ],
@@ -99931,6 +101506,18 @@
      "mastered": false,
      "quiz_correct": 0,
      "quiz_total": 24,
+     "score": 0,
+     "unlocked": false
+    },
+    "spring-ch04": {
+     "chapter_id": "spring-ch04",
+     "labs_passed": 0,
+     "labs_total": 5,
+     "lessons_done": 0,
+     "lessons_total": 5,
+     "mastered": false,
+     "quiz_correct": 0,
+     "quiz_total": 19,
      "score": 0,
      "unlocked": false
     },

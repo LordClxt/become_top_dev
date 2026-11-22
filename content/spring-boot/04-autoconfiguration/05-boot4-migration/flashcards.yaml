@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Boot 4 : où est l'autoconfiguration de Jackson ?"
+    back: "Module spring-boot-jackson, paquet org.springframework.boot.jackson.autoconfigure."
+    concept: spring-ch04-boot4-modules
+  - id: fc2
+    front: "Starters renommés en Boot 4 (deux exemples) ?"
+    back: "spring-boot-starter-web → webmvc ; spring-boot-starter-aop → aspectj."
+    concept: spring-ch04-boot4-modules
+  - id: fc3
+    front: "Jackson 3 en trois points ?"
+    back: "Paquet tools.jackson ; JsonMapper par builder ; JacksonException non vérifiée (annotations inchangées)."
+    concept: spring-ch04-boot4-jackson3
+  - id: fc4
+    front: "Customizer Jackson de Boot 4 ?"
+    back: "JsonMapperBuilderCustomizer (org.springframework.boot.jackson.autoconfigure)."
+    concept: spring-ch04-boot4-jackson3
+  - id: fc5
+    front: "Retraits de Boot 4 utiles pour un projet Grails ?"
+    back: "Plus d'intégration Spock, plus d'Undertow, @MockBean remplacé par @MockitoBean."
+    concept: spring-ch04-boot4-modules

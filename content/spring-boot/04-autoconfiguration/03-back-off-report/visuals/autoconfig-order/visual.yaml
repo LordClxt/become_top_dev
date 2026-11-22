@@ -1,0 +1,8 @@
+id: spring-ch04-autoconfig-order
+concept: spring-ch04-autoconfig-order
+format: interactive
+justification: "L'apprenant renomme deux autoconfigurations et ajoute ou retire un after : il voit la liste triée changer, et à quel moment @ConditionalOnBean voit (ou non) le bean de l'autre."
+entry: AutoconfigOrder.tsx
+params:
+  - { name: configurations, type: int, min: 2, max: 4, default: 2 }
+status: idea

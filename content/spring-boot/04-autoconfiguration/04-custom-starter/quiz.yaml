@@ -1,0 +1,60 @@
+id: spring-ch04-l04-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Deux customizers ordonnés. Qu'affiche le programme ?"
+    code: |
+      import java.util.*;
+      import org.springframework.beans.factory.ObjectProvider;
+      import org.springframework.context.annotation.*;
+      import org.springframework.core.annotation.Order;
+
+      public class Main {
+          public interface HeaderCustomizer { void customize(List<String> headers); }
+          public record Client(List<String> headers) { }
+
+          @Configuration
+          static class App {
+              @Bean @Order(2) HeaderCustomizer trace() { return h -> h.add("trace"); }
+              @Bean @Order(1) HeaderCustomizer auth() { return h -> h.add("auth"); }
+              @Bean Client client(ObjectProvider<HeaderCustomizer> customizers) {
+                  List<String> headers = new ArrayList<>();
+                  customizers.orderedStream().forEach(c -> c.customize(headers));
+                  return new Client(headers);
+              }
+          }
+
+          public static void main(String[] args) {
+              try (var ctx = new AnnotationConfigApplicationContext(App.class)) {
+                  System.out.println(ctx.getBean(Client.class).headers());
+              }
+          }
+      }
+    answer: "[auth, trace]"
+    explanation: "orderedStream() trie les beans par @Order (le plus petit d'abord), quel que soit leur ordre de déclaration. C'est ce qui permet à plusieurs équipes, ou plusieurs bibliothèques, d'ajuster le même objet de façon prévisible."
+    concept: spring-ch04-customizer-pattern
+    difficulty: 2
+  - id: q2
+    type: multiple
+    prompt: "Que contient le module autoconfigure d'un starter ?"
+    choices:
+      - "Les classes @AutoConfiguration et leurs conditions"
+      - "Le fichier META-INF/spring/...AutoConfiguration.imports"
+      - "Les @ConfigurationProperties du starter"
+      - "La classe @SpringBootApplication de l'application"
+    answer: [0, 1, 2]
+    explanation: "L'autoconfigure contient tout ce qui configure la bibliothèque ; le starter ne fait que dépendre de lui. La classe d'application appartient à l'application, jamais à une bibliothèque."
+    concept: spring-ch04-starter-structure
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Dans le module autoconfigure, comment déclarer la dépendance au SDK Lydia, que seules certaines applications utilisent ?"
+    choices:
+      - "En dépendance normale, pour qu'elle soit toujours là"
+      - "En dépendance optionnelle : l'application l'ajoute si elle veut Lydia, et la condition de classe réagit"
+      - "Elle ne doit pas apparaître du tout"
+      - "En dépendance de test"
+    answer: 1
+    explanation: "Une dépendance optionnelle permet de compiler l'autoconfiguration sans l'imposer aux applications. Sur leur classpath, @ConditionalOnClass décide. Une dépendance obligatoire rendrait la condition toujours vraie."
+    concept: spring-ch04-starter-structure
+    difficulty: 2

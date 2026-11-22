@@ -1,0 +1,21 @@
+criteria:
+  - id: correctness
+    label: "Correction (tests)"
+    weight: 0.5
+    source: tests
+  - id: report-message
+    label: "Un rapport utile"
+    weight: 0.3
+    source: ai
+    levels:
+      4: "Message construit avec ConditionMessage : il nomme la fonctionnalité, la propriété lue et la liste active, en cas de succès comme d'échec ; lisible dans --debug sans ouvrir le code"
+      2: "Message présent mais vague (« condition non remplie »), ou seulement en cas d'échec"
+      0: "Condition simple (Condition) sans issue dans le rapport"
+  - id: design
+    label: "Conception"
+    weight: 0.2
+    source: ai
+    levels:
+      4: "Lit l'attribut de l'annotation par les métadonnées (sans charger de classe), découpe et nettoie la liste une fois, comparaison exacte des noms"
+      2: "Fonctionne mais compare par contains() sur la chaîne brute, ou lit l'annotation par réflexion"
+      0: "Codé en dur pour une fonctionnalité"

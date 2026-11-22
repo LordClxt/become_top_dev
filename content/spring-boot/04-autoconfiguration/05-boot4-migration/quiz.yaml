@@ -1,0 +1,50 @@
+id: spring-ch04-l05-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "Dans Spring Boot 4, où se trouve `JacksonAutoConfiguration` ?"
+    choices:
+      - "org.springframework.boot.autoconfigure.jackson, dans spring-boot-autoconfigure"
+      - "org.springframework.boot.jackson.autoconfigure, dans le module spring-boot-jackson"
+      - "tools.jackson.spring"
+      - "Elle n'existe plus"
+    answer: 1
+    explanation: "La modularisation de Boot 4 range chaque technologie dans son module, sous org.springframework.boot.<module>. Une exclusion ou un import écrit pour Boot 3 doit être mis à jour."
+    concept: spring-ch04-boot4-modules
+    difficulty: 2
+  - id: q2
+    type: multiple
+    prompt: "Qu'est-ce qui change en passant de Jackson 2 à Jackson 3 ?"
+    choices:
+      - "Le paquet com.fasterxml.jackson.databind devient tools.jackson.databind"
+      - "JacksonException devient une exception non vérifiée"
+      - "Les annotations @JsonProperty changent de paquet"
+      - "Le mapper se construit par un builder immuable (JsonMapper.builder())"
+    answer: [0, 1, 3]
+    explanation: "Les annotations restent dans com.fasterxml.jackson.annotation : on peut les garder telles quelles. Tout le reste (paquets, exceptions, construction du mapper) change."
+    concept: spring-ch04-boot4-jackson3
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Ton build Boot 3 utilise `spring-boot-starter-web`. Quel est son équivalent dans Spring Boot 4 ?"
+    choices:
+      - "spring-boot-starter-web, inchangé"
+      - "spring-boot-starter-webmvc"
+      - "spring-boot-starter-servlet"
+      - "spring-boot-starter-tomcat"
+    answer: 1
+    explanation: "Le guide de migration liste les starters renommés : web devient webmvc (et aop devient aspectj). Le nom dit maintenant précisément quelle technologie on ajoute."
+    concept: spring-ch04-boot4-modules
+    difficulty: 1
+  - id: q4
+    type: single
+    prompt: "Quel ordre de migration le cours recommande-t-il ?"
+    choices:
+      - "Passer directement à Boot 4 avec les starters ciblés"
+      - "Dernière 3.5 sans dépréciations, puis Boot 4 avec les classic starters, puis les starters ciblés"
+      - "Boot 4 d'abord, puis corriger les dépréciations"
+      - "Réécrire l'application"
+    answer: 1
+    explanation: "Les API retirées en 4 sont dépréciées en 3.x : les éliminer d'abord sépare les deux types de problèmes. Les classic starters évitent ensuite de mélanger migration et découpage des dépendances."
+    concept: spring-ch04-boot4-modules
+    difficulty: 2

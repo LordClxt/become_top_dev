@@ -1,0 +1,50 @@
+id: spring-ch04-l03-quiz
+questions:
+  - id: q1
+    type: single
+    prompt: "`MetricsAutoConfiguration` crée des métriques `@ConditionalOnBean(TixaClient.class)`, et le client vient de `TixaClientAutoConfiguration`. Les métriques existent. Un collègue renomme la première en `ClientMetricsAutoConfiguration`. Que se passe-t-il ?"
+    choices:
+      - "Rien : un nom de classe ne change pas le comportement"
+      - "Les métriques disparaissent : sans after, l'ordre est alphabétique, et « ClientMetrics… » passe maintenant avant « TixaClient… »"
+      - "Le démarrage échoue avec un cycle"
+      - "Les deux beans sont créés deux fois"
+    answer: 1
+    explanation: "Sans contrainte before/after, le tri commence par l'ordre alphabétique des noms de classe. Un renommage inoffensif en apparence inverse l'ordre, et @ConditionalOnBean ne voit plus le client. @AutoConfiguration(after = …) rend l'ordre indépendant des noms."
+    concept: spring-ch04-autoconfig-order
+    difficulty: 3
+  - id: q2
+    type: multiple
+    prompt: "Comment lire le rapport des conditions ?"
+    choices:
+      - "Démarrer avec --debug (ou debug=true)"
+      - "Interroger /actuator/conditions d'une application qui tourne"
+      - "ConditionEvaluationReport.get(beanFactory) dans un test"
+      - "Lire le fichier META-INF/spring.factories"
+    answer: [0, 1, 2]
+    explanation: "Le rapport vit dans la fabrique de beans du contexte. --debug l'imprime au démarrage, Actuator l'expose, un test peut le lire directement. spring.factories ne contient que des déclarations."
+    concept: spring-ch04-condition-report
+    difficulty: 1
+  - id: q3
+    type: single
+    prompt: "Pourquoi la documentation recommande-t-elle de n'utiliser `@ConditionalOnMissingBean` que dans des autoconfigurations ?"
+    choices:
+      - "Parce que l'annotation est dans le paquet autoconfigure"
+      - "Parce que la condition ne voit que les définitions déjà traitées, et que seules les autoconfigurations sont garanties de passer après celles de l'application"
+      - "Parce qu'elle ne fonctionne pas avec @Configuration"
+      - "Pour des raisons de performance"
+    answer: 1
+    explanation: "Dans la configuration de l'application, l'ordre de lecture des classes n'est pas un contrat : une condition de bean peut s'y évaluer avant la définition qu'elle devrait voir. Les autoconfigurations, importées en différé, passent toujours après."
+    concept: spring-ch04-autoconfig-order
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Une méthode `@Bean @ConditionalOnMissingBean Object tixaClient()` est censée céder sa place à un `TixaClient` de l'application. Elle ne le fait pas. Pourquoi ?"
+    choices:
+      - "Parce que Object n'est pas un bean"
+      - "Parce que la condition regarde le type de retour de la méthode : elle cherche un bean de type Object, et le trouvera toujours, ou pas, sans rapport avec TixaClient"
+      - "Parce qu'il faut @Primary"
+      - "Parce que la méthode doit être static"
+    answer: 1
+    explanation: "La condition est évaluée avant la création, à partir du type de retour déclaré. La documentation conseille de donner l'information de type la plus précise possible ; sinon, préciser le type dans l'annotation (@ConditionalOnMissingBean(TixaClient.class))."
+    concept: spring-ch04-autoconfig-order
+    difficulty: 3

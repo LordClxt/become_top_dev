@@ -1,0 +1,6 @@
+id: spring-ch04-boot4-modules
+concept: spring-ch04-boot4-modules
+format: static
+justification: "Une comparaison fixe suffit : à gauche le gros jar spring-boot-autoconfigure de Boot 3, à droite les modules de Boot 4 (spring-boot-jackson, spring-boot-webmvc…), chacun avec son paquet et son fichier imports."
+entry: boot4-modules.svg
+status: idea

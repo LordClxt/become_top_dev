@@ -1,0 +1,22 @@
+id: spring-ch04
+title: "L'autoconfiguration"
+subtitle: "Conditions, fichier imports, import différé, ordre et rapport des conditions, starters, et la migration vers Spring Boot 4"
+source: { book: spring-docs, chapter: 29, pages: "#page-title", url: "https://docs.spring.io/spring-boot/4.1/reference/features/developing-auto-configuration.html" }
+objectives:
+  - "Conditionner une recette avec @Conditional et les conditions de Spring Boot, et tester chaque combinaison avec ApplicationContextRunner"
+  - "Expliquer comment Spring Boot trouve, trie et applique les autoconfigurations, et pourquoi elles passent après l'application"
+  - "Diagnostiquer un bean absent ou en double avec le rapport des conditions, et fixer l'ordre entre autoconfigurations"
+  - "Écrire un starter avec propriétés, customizers et remplacement possible"
+  - "Migrer du code de Spring Boot 3.5 vers 4 (modules, starters, Jackson 3) à partir du guide de migration"
+mastery_threshold: 0.8
+prerequisites: [spring-ch03]
+lessons:
+  - "01-conditions"
+  - "02-autoconfiguration-mechanism"
+  - "03-back-off-report"
+  - "04-custom-starter"
+  - "05-boot4-migration"
+xp: { assignment: 150, project: 300, boss: 250 }
+assignment: assignment
+project: project
+boss: boss

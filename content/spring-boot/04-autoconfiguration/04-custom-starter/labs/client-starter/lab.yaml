@@ -1,0 +1,12 @@
+id: spring-ch04-l04-lab-client-starter
+title: "Un starter : propriétés, customizers et remplacement"
+kind: code
+language: java
+difficulty: 3
+xp: 70
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["tixa/client/TixaClientProperties.java", "tixa/client/TixaClientAutoConfiguration.java"]
+concepts: [spring-ch04-starter-structure, spring-ch04-customizer-pattern, spring-ch04-context-runner]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

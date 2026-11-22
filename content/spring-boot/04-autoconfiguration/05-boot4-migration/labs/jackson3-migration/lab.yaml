@@ -1,0 +1,12 @@
+id: spring-ch04-l05-lab-jackson3-migration
+title: "Migrer vers Spring Boot 4 : Jackson 3 et son customizer"
+kind: code
+language: java
+difficulty: 3
+xp: 60
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["app/JsonConfig.java", "app/TicketExporter.java"]
+concepts: [spring-ch04-boot4-jackson3, spring-ch04-boot4-modules, spring-ch04-customizer-pattern]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

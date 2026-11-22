@@ -1,0 +1,50 @@
+id: spring-ch04-l02-quiz
+questions:
+  - id: q1
+    type: multiple
+    prompt: "Que contient `@SpringBootApplication` ?"
+    choices:
+      - "@SpringBootConfiguration"
+      - "@EnableAutoConfiguration"
+      - "@ComponentScan, avec des filtres d'exclusion"
+      - "@EnableAspectJAutoProxy"
+    answer: [0, 1, 2]
+    explanation: "C'est un raccourci pour trois annotations. L'auto-proxy AspectJ, lui, est appliqué par une autoconfiguration (AopAutoConfiguration), parmi toutes celles qu'importe @EnableAutoConfiguration."
+    concept: spring-ch04-imports-file
+    difficulty: 1
+  - id: q2
+    type: single
+    prompt: "Où Spring Boot 4 cherche-t-il la liste des autoconfigurations d'une bibliothèque ?"
+    choices:
+      - "Dans META-INF/spring.factories, clé EnableAutoConfiguration"
+      - "Dans META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports"
+      - "En scannant le paquet org.springframework.boot"
+      - "Dans application.properties"
+    answer: 1
+    explanation: "Depuis Spring Boot 2.7, et seulement ainsi depuis 3.0, les autoconfigurations sont listées dans ce fichier dédié, une classe par ligne. spring.factories sert encore aux composants de démarrage (EnvironmentPostProcessor, FailureAnalyzer…), plus aux autoconfigurations."
+    concept: spring-ch04-imports-file
+    difficulty: 2
+  - id: q3
+    type: single
+    prompt: "Qu'est-ce qui distingue un `DeferredImportSelector` d'un import ordinaire ?"
+    choices:
+      - "Il est exécuté dans un thread séparé"
+      - "Il est traité après toutes les autres classes de configuration"
+      - "Il ne peut importer qu'une seule classe"
+      - "Il est réservé aux tests"
+    answer: 1
+    explanation: "Le conteneur met de côté les sélecteurs différés et les traite une fois toute la configuration lue. C'est ce qui garantit que les autoconfigurations voient les définitions de l'application."
+    concept: spring-ch04-deferred-import
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Pourquoi la documentation demande-t-elle qu'une autoconfiguration ne soit jamais la cible d'un scan ?"
+    choices:
+      - "Parce que le scan est lent"
+      - "Parce qu'une autoconfiguration scannée est traitée comme la configuration de l'application, sans l'import différé : ses conditions de beans ne voient plus de façon garantie les beans de l'application"
+      - "Parce que le scan ignore @AutoConfiguration"
+      - "Pour des raisons de licence"
+    answer: 1
+    explanation: "Le contrat d'une autoconfiguration (passer après l'application, céder sa place) ne tient que si elle est chargée par l'import différé. Scannée, elle devient une configuration comme une autre, dans un ordre qui dépend de détails du scan."
+    concept: spring-ch04-deferred-import
+    difficulty: 3

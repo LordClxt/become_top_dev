@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Les deux modules d'un starter ?"
+    back: "xxx-spring-boot-autoconfigure (code, conditions, propriétés, imports) et xxx-spring-boot-starter (dépendances)."
+    concept: spring-ch04-starter-structure
+  - id: fc2
+    front: "Règle de nommage d'un starter ?"
+    back: "Jamais spring-boot-… : préfixe de ta bibliothèque, tixa-spring-boot-starter."
+    concept: spring-ch04-starter-structure
+  - id: fc3
+    front: "Les trois niveaux de contrôle d'un bon starter ?"
+    back: "Propriétés, customizers, remplacement complet (@ConditionalOnMissingBean)."
+    concept: spring-ch04-customizer-pattern
+  - id: fc4
+    front: "Appliquer les customizers dans l'ordre ?"
+    back: "ObjectProvider<Customizer>.orderedStream(), trié par @Order."
+    concept: spring-ch04-customizer-pattern
+  - id: fc5
+    front: "Documenter les propriétés d'un starter pour l'IDE ?"
+    back: "spring-boot-configuration-processor génère META-INF/spring-configuration-metadata.json."
+    concept: spring-ch04-starter-structure

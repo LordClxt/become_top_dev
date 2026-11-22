@@ -1,0 +1,69 @@
+id: spring-ch04-l01-quiz
+questions:
+  - id: q1
+    type: code-output
+    prompt: "Une condition maison. Qu'affiche le programme ?"
+    code: |
+      import org.springframework.context.annotation.*;
+      import org.springframework.core.type.AnnotatedTypeMetadata;
+
+      public class Main {
+          public static class InEurope implements Condition {
+              public boolean matches(ConditionContext ctx, AnnotatedTypeMetadata md) {
+                  return "eu".equals(ctx.getEnvironment().getProperty("tixa.region"));
+              }
+          }
+          public static class Vat { Vat() { System.out.println("TVA créée"); } }
+
+          @Configuration
+          static class App {
+              @Bean @Conditional(InEurope.class) Vat vat() { return new Vat(); }
+          }
+
+          public static void main(String[] args) {
+              System.setProperty("tixa.region", "us");
+              try (var ctx = new AnnotationConfigApplicationContext(App.class)) {
+                  System.out.println(ctx.containsBeanDefinition("vat"));
+              }
+          }
+      }
+    answer: "false"
+    explanation: "La condition répond faux : la définition vat n'est jamais enregistrée, et le constructeur de Vat ne tourne pas (« TVA créée » n'est pas affiché). Une condition agit sur la recette, pas sur l'objet."
+    concept: spring-ch04-conditional
+    difficulty: 2
+  - id: q2
+    type: single
+    prompt: "`@ConditionalOnProperty(\"tixa.audit.enabled\")` est posée sur un bean. On configure `tixa.audit.enabled=non`. Le bean existe-t-il ?"
+    choices:
+      - "Non : « non » veut dire faux"
+      - "Oui : sans havingValue, la condition est vraie pour toute valeur différente de false"
+      - "Le démarrage échoue : valeur invalide"
+      - "Seulement si matchIfMissing vaut true"
+    answer: 1
+    explanation: "Sans havingValue, @ConditionalOnProperty teste la présence de la propriété et l'absence de la valeur false. Pour un vrai booléen, @ConditionalOnBooleanProperty est plus clair, et refuse une valeur qui n'est pas un booléen."
+    concept: spring-ch04-boot-conditions
+    difficulty: 3
+  - id: q3
+    type: multiple
+    prompt: "Que permet `ApplicationContextRunner` ?"
+    choices:
+      - "Ajouter des propriétés à un contexte de test"
+      - "Simuler l'absence d'une bibliothèque avec un FilteredClassLoader"
+      - "Ajouter une configuration « de l'application », évaluée avant les autoconfigurations"
+      - "Démarrer le serveur web embarqué sur un port"
+    answer: [0, 1, 2]
+    explanation: "Il crée de petits contextes sans SpringApplication ni serveur : withPropertyValues, withClassLoader, withUserConfiguration et withConfiguration(AutoConfigurations.of(...)). Pour une application web complète, il existe WebApplicationContextRunner, ou @SpringBootTest."
+    concept: spring-ch04-context-runner
+    difficulty: 2
+  - id: q4
+    type: single
+    prompt: "Qu'est-ce qui fait de `@Profile` une condition ?"
+    choices:
+      - "Il est traité à part par SpringApplication"
+      - "Il est méta-annoté @Conditional(ProfileCondition.class)"
+      - "Il crée un contexte enfant par profil"
+      - "Il est lu par un BeanPostProcessor après la création du bean"
+    answer: 1
+    explanation: "@Profile, @ConditionalOnClass, @ConditionalOnProperty : toutes ces annotations reposent sur @Conditional et une classe Condition. Le mécanisme est celui du conteneur de Spring Framework ; Spring Boot n'ajoute que des conditions."
+    concept: spring-ch04-conditional
+    difficulty: 2

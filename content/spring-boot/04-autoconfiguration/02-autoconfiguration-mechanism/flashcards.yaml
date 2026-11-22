@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "@SpringBootApplication = ?"
+    back: "@SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan (avec TypeExcludeFilter et AutoConfigurationExcludeFilter)."
+    concept: spring-ch04-imports-file
+  - id: fc2
+    front: "Le fichier qui déclare les autoconfigurations ?"
+    back: "META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports, une classe par ligne ($ pour une classe imbriquée)."
+    concept: spring-ch04-imports-file
+  - id: fc3
+    front: "Pourquoi les autoconfigurations passent-elles après l'application ?"
+    back: "AutoConfigurationImportSelector est un DeferredImportSelector, traité après toute la configuration de l'application."
+    concept: spring-ch04-deferred-import
+  - id: fc4
+    front: "Exclure une autoconfiguration ?"
+    back: "exclude/excludeName sur @SpringBootApplication, ou spring.autoconfigure.exclude ; en dernier recours."
+    concept: spring-ch04-exclusion
+  - id: fc5
+    front: "@AutoConfiguration est quel mode de @Configuration ?"
+    back: "Lite : @Configuration(proxyBeanMethods = false), dépendances par paramètres des méthodes @Bean."
+    concept: spring-ch04-imports-file

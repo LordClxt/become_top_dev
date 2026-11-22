@@ -1,0 +1,7 @@
+id: spring-ch04-deferred-import
+concept: spring-ch04-deferred-import
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : la configuration de l'application est lue entièrement, puis seulement l'import différé ouvre les fichiers imports de tous les jars, trie et évalue les autoconfigurations, qui voient déjà les beans de l'application."
+entry: scene.html
+duration_s: 12
+status: idea

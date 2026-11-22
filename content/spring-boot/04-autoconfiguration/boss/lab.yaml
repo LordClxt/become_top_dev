@@ -1,0 +1,13 @@
+id: spring-ch04-boss
+title: "Boss : un starter de notifications complet"
+kind: code
+language: java
+difficulty: 5
+xp: 250
+timeout_s: 120
+time_limit_min: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["tixa/notify/NotifyAutoConfiguration.java", "META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports"]
+concepts: [spring-ch04-boot-conditions, spring-ch04-imports-file, spring-ch04-autoconfig-order, spring-ch04-deferred-import, spring-ch04-starter-structure, spring-ch04-context-runner]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

@@ -1,0 +1,16 @@
+milestones:
+  - id: m1
+    title: "Le client autoconfiguré"
+    goal: "PaymentAutoConfiguration fournit un PaymentClient quand tixa.payment.api-key est défini, cède la place au client de l'application, et est trouvée par Spring Boot via le fichier imports."
+    tests: "jboot M1"
+    review: false
+  - id: m2
+    title: "Les customizers"
+    goal: "Les PaymentClientCustomizer de l'application ajoutent leurs en-têtes, dans l'ordre de leur @Order."
+    tests: "jboot M2"
+    review: false
+  - id: m3
+    title: "Les métriques, si possible"
+    goal: "PaymentMetricsAutoConfiguration, ordonnée après le client, enregistre un compteur quand la bibliothèque de métriques est présente et qu'un client existe ; sans la bibliothèque, l'application démarre."
+    tests: "jboot M3"
+    review: true

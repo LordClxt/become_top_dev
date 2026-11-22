@@ -1,0 +1,21 @@
+cards:
+  - id: fc1
+    front: "Quand une Condition est-elle évaluée ?"
+    back: "Au temps des recettes : à la lecture de la configuration ou à l'enregistrement du bean, jamais après sa création."
+    concept: spring-ch04-conditional
+  - id: fc2
+    front: "Les grandes familles de conditions de Spring Boot ?"
+    back: "Classe (OnClass/OnMissingClass), bean (OnBean/OnMissingBean), propriété (OnProperty/OnBooleanProperty), application web, ressource."
+    concept: spring-ch04-boot-conditions
+  - id: fc3
+    front: "Pourquoi une configuration imbriquée par bibliothèque optionnelle ?"
+    back: "La condition de classe est lue sans charger la classe ; les signatures des méthodes @Bean, elles, seraient chargées."
+    concept: spring-ch04-boot-conditions
+  - id: fc4
+    front: "@ConditionalOnProperty sans havingValue ?"
+    back: "Vraie si la propriété existe et ne vaut pas false. Pour un booléen : @ConditionalOnBooleanProperty."
+    concept: spring-ch04-boot-conditions
+  - id: fc5
+    front: "Tester une autoconfiguration vite ?"
+    back: "ApplicationContextRunner + AutoConfigurations.of(...), withPropertyValues, withUserConfiguration, FilteredClassLoader."
+    concept: spring-ch04-context-runner

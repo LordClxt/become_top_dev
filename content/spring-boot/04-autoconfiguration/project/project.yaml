@@ -1,0 +1,14 @@
+id: spring-ch04-project
+title: "Tixa, jalon 4 : le client de paiement devient un starter"
+pitch: "Trois équipes veulent le client de paiement de Tixa dans leurs applications. Tu en fais un starter : il s'installe tout seul, se configure, se laisse ajuster ou remplacer, et branche ses métriques seulement si la bibliothèque est là."
+running_project: tixa
+kind: code
+language: java
+difficulty: 4
+xp: 300
+timeout_s: 120
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["tixa/payment/PaymentProperties.java", "tixa/payment/PaymentAutoConfiguration.java", "tixa/payment/PaymentMetricsAutoConfiguration.java", "META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports"]
+concepts: [spring-ch04-imports-file, spring-ch04-boot-conditions, spring-ch04-customizer-pattern, spring-ch04-autoconfig-order, spring-ch04-starter-structure]
+verified: { at: 2026-11-22, solution: pass, starter: fail }

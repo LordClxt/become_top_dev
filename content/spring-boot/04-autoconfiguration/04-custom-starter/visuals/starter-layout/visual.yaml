@@ -1,0 +1,6 @@
+id: spring-ch04-starter-layout
+concept: spring-ch04-starter-structure
+format: static
+justification: "Une structure fixe suffit : les deux modules (autoconfigure, starter), ce que contient chacun (classes, fichier imports, métadonnées, dépendances optionnelles) et la flèche de dépendance de l'application vers le starter."
+entry: starter-layout.svg
+status: idea

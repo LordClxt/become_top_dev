@@ -1,0 +1,7 @@
+id: spring-ch04-condition-phases
+concept: spring-ch04-conditional
+format: hyperframes
+justification: "Une séquence de 12 s à regarder : une classe de configuration passe la porte des conditions de classe (lecture des métadonnées, sans chargement), puis chaque méthode @Bean passe celle des conditions de beans, au moment de son enregistrement."
+entry: scene.html
+duration_s: 12
+status: idea

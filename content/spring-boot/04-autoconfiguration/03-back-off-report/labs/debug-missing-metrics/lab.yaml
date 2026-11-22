@@ -1,0 +1,12 @@
+id: spring-ch04-l03-lab-debug-missing-metrics
+title: "Débogage : pas de métriques, et des billets en texte brut"
+kind: code
+language: java
+difficulty: 4
+xp: 90
+timeout_s: 90
+entrypoint: starter/
+test_command: "jboot"
+files_editable: ["tixa/client/ClientMetricsAutoConfiguration.java", "tixa/client/JsonCodecAutoConfiguration.java", "tixa/client/TixaClientAutoConfiguration.java"]
+concepts: [spring-ch04-autoconfig-order, spring-ch04-condition-report, spring-ch04-boot4-jackson3]
+verified: { at: 2026-11-22, solution: pass, starter: fail }
