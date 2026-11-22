@@ -374,7 +374,7 @@ function QuestionCard({
           <p className="flex flex-wrap items-center gap-2 font-medium">
             {result.correct ? <Check className="size-4 text-pass" /> : <X className="size-4 text-fail" />}
             {result.correct ? 'Bonne réponse' : 'Pas tout à fait'}
-            {result.xp_awarded > 0 && <span className="font-code text-sm text-accent">+{result.xp_awarded} XP</span>}
+            {result.xp_awarded > 0 && <span className="xp-hint font-code text-sm text-accent">+{result.xp_awarded} XP</span>}
           </p>
           {!result.correct && q.type === 'code-output' && (
             <pre className="mt-3 font-code text-sm">{String(result.expected)}</pre>

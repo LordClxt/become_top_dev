@@ -8,10 +8,12 @@ export type Settings = {
   sound: boolean
   /** Moments de célébration (confettis, annonces plein écran) après une réussite. */
   celebrations: boolean
+  /** Mode concentration activé d'office dans les leçons et les TP (la touche F le bascule à tout moment). */
+  focusDefault: boolean
 }
 
 const KEY = 'btd-settings'
-const DEFAULTS: Settings = { autocomplete: true, sound: true, celebrations: true }
+const DEFAULTS: Settings = { autocomplete: true, sound: true, celebrations: true, focusDefault: false }
 
 let current: Settings = DEFAULTS
 let loaded = false

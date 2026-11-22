@@ -220,7 +220,7 @@ export function FinishSteps({
                 {s.xp !== undefined && (
                   <span
                     className={cn(
-                      'mt-1 shrink-0 self-start rounded-full px-2 py-0.5 font-code text-xs',
+                      'xp-hint mt-1 shrink-0 self-start rounded-full px-2 py-0.5 font-code text-xs',
                       s.done ? 'text-pass' : 'border border-line text-muted',
                     )}
                   >
@@ -307,7 +307,7 @@ function StepAction({
     <>
       <span className="truncate">{step.cta}</span>
       {step.xp !== undefined && !step.done && (
-        <span className={cn('inline-flex items-center gap-1 font-code text-sm', primary ? 'opacity-80' : 'text-accent')}>
+        <span className={cn('xp-hint inline-flex items-center gap-1 font-code text-sm', primary ? 'opacity-80' : 'text-accent')}>
           <Sparkles className="size-3.5" aria-hidden="true" />+{step.xp}
         </span>
       )}

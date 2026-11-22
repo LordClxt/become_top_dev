@@ -18,6 +18,7 @@ import {
   trackPointer,
 } from '@/features/juice/celebrate'
 import { useJuiceEnabled } from '@/features/juice/motion'
+import { useFocusActive } from '@/features/session/focus'
 import { installSoundUnlock, play } from '@/features/juice/sound'
 import { rankFor } from '@/features/xp/ranks'
 import { announceXp, useXpGains, type XpGain } from '@/features/xp/xp-events'
@@ -28,7 +29,8 @@ import { cn } from '@/lib/utils'
  * Couche de célébration, montée une fois (via XpToaster) :
  * - petits gains : la pastille « +N XP » vole vers la tuile de niveau de l'en-tête ;
  * - leçon, TP, devoir, projet, boss, niveau, série, module : un moment centré, bref, congédiable ;
- * - mouvement réduit ou célébrations coupées : une simple notification statique.
+ * - mouvement réduit ou célébrations coupées : une simple notification statique ;
+ * - mode concentration : rien pendant le travail ; à la sortie, un seul bilan des XP gagnés, puis les moments retenus.
  * Rien ici ne capte le focus ni n'empêche une touche d'atteindre l'éditeur.
  */
 export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackToast) => void }) {
@@ -40,6 +42,10 @@ export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackTo
   // Instant du dernier « grand » gain : seul un grand gain autorise un moment centré pour la série ou le niveau.
   const lastBigAt = useRef(0)
   const [corner, setCorner] = useState<(CornerMoment & { key: number })[]>([])
+  const focus = useFocusActive()
+  const focusRef = useRef(focus)
+  focusRef.current = focus
+  const held = useRef<{ xp: number; moments: Parameters<typeof celebrate>[0][] }>({ xp: 0, moments: [] })
 
   useEffect(() => {
     installSoundUnlock()
@@ -51,6 +57,10 @@ export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackTo
   // Gains annoncés par les actions.
   const onGain = useCallback(
     (gain: XpGain) => {
+      if (focusRef.current) {
+        held.current.xp += Math.max(0, gain.amount)
+        return
+      }
       if (isBigGain(gain)) {
         lastBigAt.current = Date.now()
         if (juice) celebrate({ type: 'gain', gain })
@@ -86,6 +96,10 @@ export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackTo
     }
     if (progress.streak_days > prev.streak_days) moments.push({ type: 'streak', days: progress.streak_days })
     if (progress.level > prev.level) moments.push({ type: 'level', level: progress.level })
+    if (focusRef.current) {
+      held.current.moments.push(...moments)
+      return
+    }
     const afterBig = Date.now() - lastBigAt.current < 8000
     for (const m of moments) {
       if (juice && afterBig) celebrate(m)
@@ -111,6 +125,26 @@ export function CelebrationLayer({ onFallback }: { onFallback: (text: FallbackTo
       }
     }
   }, [progress, juice, onFallback])
+
+  // Sortie du mode concentration : le bilan de ce qui a été retenu.
+  useEffect(() => {
+    if (focus) return
+    const { xp, moments } = held.current
+    held.current = { xp: 0, moments: [] }
+    if (xp > 0) {
+      play('complete')
+      hitHeader(xp)
+      onFallback({ tone: 'strong', amount: xp, text: 'pendant la concentration' })
+    }
+    for (const m of moments) {
+      if (juice) celebrate(m)
+      else
+        onFallback({
+          tone: 'strong',
+          text: m.type === 'level' ? `Niveau ${m.level} atteint` : m.type === 'streak' ? `Série : ${m.days} jour${m.days > 1 ? 's' : ''}` : 'Module maîtrisé',
+        })
+    }
+  }, [focus, juice, onFallback])
 
   const moment = useSyncExternalStore(subscribeMoments, currentMoment, () => null)
 

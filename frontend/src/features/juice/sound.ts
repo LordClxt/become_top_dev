@@ -5,7 +5,13 @@ import { getSettings } from '@/lib/settings'
  * L'AudioContext n'est créé qu'au premier geste de l'utilisateur ; aucune fonction ne lève d'exception.
  */
 
-export type SoundName = 'correct' | 'wrong' | 'xp' | 'complete' | 'levelup' | 'flip' | 'combo'
+export type SoundName = 'correct' | 'wrong' | 'xp' | 'complete' | 'levelup' | 'flip' | 'combo' | 'bell'
+
+/** Mode concentration : seuls les sons du minuteur de séance (`bell`) passent. */
+let quiet = false
+export function setQuiet(on: boolean) {
+  quiet = on
+}
 
 type Ctx = { ctx: AudioContext; out: GainNode }
 let audio: Ctx | null = null
@@ -101,7 +107,7 @@ function whoosh(a: Ctx) {
  */
 export function play(name: SoundName, opts: { combo?: number } = {}) {
   try {
-    if (!getSettings().sound) return
+    if (!getSettings().sound || (quiet && name !== 'bell')) return
     const a = ensure()
     if (!a) return
     if (a.ctx.state === 'suspended') a.ctx.resume().catch(() => {})
@@ -136,6 +142,10 @@ export function play(name: SoundName, opts: { combo?: number } = {}) {
         break
       case 'flip':
         whoosh(a)
+        break
+      case 'bell': // fin de phase du minuteur : deux notes longues et douces
+        note(a, midi(69), 0, 1.6, 0.32)
+        note(a, midi(76), 0.28, 1.9, 0.26)
         break
     }
   } catch {

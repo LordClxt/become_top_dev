@@ -1,11 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useLocation, useNavigate } from '@tanstack/react-router'
-import { ArrowRight, FlaskConical, GraduationCap, Layers, LogOut, Moon, Search, Settings, Sun, UserRound } from 'lucide-react'
+import { ArrowRight, Eye, FlaskConical, GraduationCap, Layers, LogOut, Moon, Search, Settings, Sun, UserRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { HeaderXpCluster } from '@/components/celebrate/HeaderXpCluster'
 import { progressQuery } from '@/features/courses/queries'
 import { Ring } from '@/features/habit/GoalRing'
 import { continueLink, continuePath, todayQuery } from '@/features/habit/queries'
+import { isWorkPath, setFocus, useFocusActive } from '@/features/session/focus'
+import { SessionPill } from '@/features/session/SessionUI'
 import { api } from '@/lib/api'
 import { toggleTheme } from '@/lib/theme'
 import { cn } from '@/lib/utils'
@@ -18,6 +20,39 @@ const NAV = [
 ] as const
 
 export function AppHeader() {
+  const focus = useFocusActive()
+  return focus ? <FocusHeader /> : <FullHeader />
+}
+
+/**
+ * En-tête du mode concentration : même hauteur que l'en-tête complet (les pages de TP en dépendent),
+ * sans XP, série, objectif, « Continuer » ni recherche. Il reste la marque, le minuteur et la sortie.
+ */
+function FocusHeader() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-line/60 bg-ink/90 backdrop-blur-md">
+      <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between gap-3 px-4 md:px-6">
+        <Link to="/learn" className="flex items-center gap-2.5 text-sm text-muted hover:text-text" aria-label="Quitter vers Aujourd'hui">
+          <BrandMark />
+          <span className="font-code text-[11px] font-semibold tracking-[0.14em] uppercase">Concentration</span>
+        </Link>
+        <div className="flex items-center gap-2">
+          <SessionPill />
+          <button
+            type="button"
+            onClick={() => setFocus(false)}
+            className="flex items-center gap-2 rounded-md px-2.5 py-1.5 text-sm text-muted transition-colors duration-(--dur-fast) hover:bg-surface-2 hover:text-text"
+            title="Quitter le mode concentration (F)"
+          >
+            Quitter <kbd className="habit-kbd hidden md:inline">F</kbd>
+          </button>
+        </div>
+      </div>
+    </header>
+  )
+}
+
+function FullHeader() {
   const { data: progress } = useQuery(progressQuery)
   const { data: today } = useQuery(todayQuery)
   const pathname = useLocation({ select: (l) => l.pathname })
@@ -66,6 +101,19 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-1 text-sm md:gap-2">
+          <SessionPill />
+          {isWorkPath(pathname) && (
+            <button
+              type="button"
+              onClick={() => setFocus(true)}
+              className="flex items-center gap-1.5 rounded-md p-2 text-muted transition-colors duration-(--dur-fast) hover:bg-surface-2 hover:text-text"
+              aria-label="Mode concentration"
+              title="Mode concentration (F) : masque XP, série et annonces"
+            >
+              <Eye className="size-4" />
+              <kbd className="hidden rounded border border-line px-1.5 font-code text-[10px] leading-4 xl:inline">F</kbd>
+            </button>
+          )}
           {showContinue && (
             <Link
               {...continueLink(next)}

@@ -192,8 +192,8 @@ function Workspace({ exercise: ex }: { exercise: Exercise }) {
           </div>
         )}
         <p className={cn('mt-5 text-sm', ex.role === 'boss' ? 'text-fail' : 'text-muted')}>
-          {inSandbox ? (isDiagram ? 'Kata de diagramme' : isSheet ? 'Fiche' : 'Atelier') : ROLE_LABEL[ex.role]}, difficulté {ex.difficulty}/5,{' '}
-          {ex.xp} XP
+          {inSandbox ? (isDiagram ? 'Kata de diagramme' : isSheet ? 'Fiche' : 'Atelier') : ROLE_LABEL[ex.role]}, difficulté {ex.difficulty}/5
+          <span className="xp-hint">, {ex.xp} XP</span>
           {passed && <span className="text-pass">, réussi</span>}
         </p>
         <h1 className="mt-2 font-read text-3xl leading-tight font-semibold tracking-tight">{ex.title}</h1>

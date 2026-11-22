@@ -14,6 +14,7 @@ import { leaderboardQuery, todayQuery } from '@/features/habit/queries'
 import { Quests } from '@/features/habit/Quests'
 import { LeaderboardTeaser, ReviewCardBlock, SideSkeleton } from '@/features/habit/SideCards'
 import { StreakWeek } from '@/features/habit/StreakWeek'
+import { SessionCard } from '@/features/session/SessionUI'
 import type { Course, CourseChapter } from '@/lib/api'
 import { iconFor } from '@/lib/course-icons'
 import { cn } from '@/lib/utils'
@@ -77,6 +78,7 @@ function Dashboard() {
         <aside className="grid min-w-0 content-start gap-6 lg:sticky lg:top-20 lg:self-start">
           {today ? (
             <>
+              <SessionCard />
               <div className="hidden lg:block">{goal}</div>
               <StreakWeek today={today} />
               <ReviewCardBlock due={today.review_due} />

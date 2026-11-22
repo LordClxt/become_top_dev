@@ -105,7 +105,9 @@ function LessonPage() {
         </h1>
         <div className="mt-5 flex flex-wrap gap-2 text-sm">
           <Chip icon={<Clock className="size-3.5" />}>{lesson.duration_min} min de lecture</Chip>
-          <Chip icon={<Sparkles className="size-3.5 text-accent" />}>{lesson.xp} XP</Chip>
+          <Chip icon={<Sparkles className="size-3.5 text-accent" />} className="xp-hint">
+            {lesson.xp} XP
+          </Chip>
           {lesson.source.url ? (
             <a href={lesson.source.url} target="_blank" rel="noreferrer">
               <Chip icon={<BookOpen className="size-3.5" />}>Doc : {docLabel(lesson.source)}</Chip>
@@ -120,7 +122,11 @@ function LessonPage() {
             </Chip>
           )}
         </div>
-        {lessons.length > 0 && <ChapterSteps lessons={lessons} currentId={lesson.id} />}
+        {lessons.length > 0 && (
+          <div className="focus-hide">
+            <ChapterSteps lessons={lessons} currentId={lesson.id} />
+          </div>
+        )}
       </header>
 
       <div className="mx-auto grid max-w-[1400px] gap-10 px-6 pb-24 xl:grid-cols-[200px_minmax(0,1fr)_280px] xl:gap-12">
@@ -220,7 +226,7 @@ function LessonPage() {
           </nav>
         </article>
 
-        <aside className="grid content-start gap-4 text-sm xl:sticky xl:top-20 xl:max-h-[calc(100vh-6rem)] xl:self-start xl:overflow-y-auto">
+        <aside className="focus-hide grid content-start gap-4 text-sm xl:sticky xl:top-20 xl:max-h-[calc(100vh-6rem)] xl:self-start xl:overflow-y-auto">
           <Panel title="Ce que tu vas maîtriser" count={lesson.concepts.length}>
             <ol className="grid gap-3">
               {lesson.concepts.map((c, i) => {

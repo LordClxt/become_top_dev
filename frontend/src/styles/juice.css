@@ -158,3 +158,16 @@
   90% { opacity: 1; transform: none; }
   100% { opacity: 0; transform: translateY(6px); }
 }
+
+/* Minuteur de séance : carte de changement de phase, plus longue que les cartes de célébration. */
+.session-notice {
+  animation: juice-corner 7000ms var(--ease-out) both;
+}
+
+/* Mode concentration : les mentions d'XP attendent la sortie du mode, les panneaux annexes s'effacent. */
+html[data-focus='on'] .xp-hint,
+html[data-focus='on'] .checkpoint-xp,
+html[data-focus='on'] .checkpoint-gain,
+html[data-focus='on'] .focus-hide {
+  display: none;
+}

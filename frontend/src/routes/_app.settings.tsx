@@ -4,6 +4,7 @@ import { MembersPanel } from '@/features/admin/InvitesPanel'
 import { AccountPanel } from '@/features/auth/AccountPanel'
 import { GoalPicker } from '@/features/profile/GoalPicker'
 import { meQuery } from '@/features/auth/queries'
+import { resetFocusChoice } from '@/features/session/focus'
 import { type Settings, updateSettings, useSettings } from '@/lib/settings'
 import { cn } from '@/lib/utils'
 
@@ -74,6 +75,22 @@ function SettingsPage() {
         </div>
       </section>
 
+      <section className="mt-12" aria-labelledby="focus-title">
+        <h2 id="focus-title" className="font-read text-2xl font-semibold">
+          Concentration
+        </h2>
+        <p className="mt-1 text-sm text-muted">Enregistré dans ce navigateur. Dans une leçon ou un TP, la touche F bascule le mode à tout moment.</p>
+        <div className="mt-4 divide-y divide-line rounded-2xl border border-line bg-surface">
+          <Toggle
+            settings={settings}
+            name="focusDefault"
+            label="Concentration par défaut"
+            description="Les leçons et les TP s’ouvrent sans XP, série, objectif ni annonces ; seul le minuteur de séance reste. Les XP gagnés s’affichent en un seul bilan à la sortie du mode."
+            onToggle={resetFocusChoice}
+          />
+        </div>
+      </section>
+
       {me?.user?.is_admin && (
         <section className="mt-12" aria-labelledby="members-title">
           <h2 id="members-title" className="font-read text-2xl font-semibold">
@@ -93,11 +110,13 @@ function Toggle({
   name,
   label,
   description,
+  onToggle,
 }: {
   settings: Settings
   name: keyof Settings
   label: string
   description: string
+  onToggle?: () => void
 }) {
   const on = settings[name]
   const id = `setting-${name}`
@@ -114,7 +133,10 @@ function Toggle({
         type="button"
         role="switch"
         aria-checked={on}
-        onClick={() => updateSettings({ [name]: !on })}
+        onClick={() => {
+          updateSettings({ [name]: !on })
+          onToggle?.()
+        }}
         className={cn(
           'relative mt-0.5 inline-flex h-6 w-11 shrink-0 items-center rounded-full border border-line transition-colors duration-(--dur-fast)',
           on ? 'bg-accent' : 'bg-surface-2',
